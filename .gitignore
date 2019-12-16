@@ -1,0 +1,13 @@
+target/
+build/
+.gradle/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.iml
+.settings/
+.classpath
+.project
+gradle.properties
