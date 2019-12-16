@@ -1,0 +1,61 @@
+package com.squareup.square;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
+public enum Environment {
+    PRODUCTION,
+
+    SANDBOX;
+
+
+    private static TreeMap<String, Environment> valueMap = new TreeMap<String, Environment>();
+    private String value;
+
+    static {
+        PRODUCTION.value = "production";
+        SANDBOX.value = "sandbox";
+
+        valueMap.put("production", PRODUCTION);
+        valueMap.put("sandbox", SANDBOX);
+    }
+
+    /**
+     * Returns the enum member associated with the given string value
+     * @return The enum member against the given string value */
+    @com.fasterxml.jackson.annotation.JsonCreator
+    public static Environment fromString(String toConvert) {
+        return valueMap.get(toConvert);
+    }
+
+    /**
+     * Returns the string value associated with the enum member
+     * @return The string value against enum member */
+    @com.fasterxml.jackson.annotation.JsonValue
+    public String value() {
+        return value;
+    }
+        
+    /**
+     * Get string representation of this enum
+     */
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
+    /**
+     * Convert list of Environment values to list of string values
+     * @param toConvert The list of Environment values to convert
+     * @return List of representative string values */
+    public static List<String> toValue(List<Environment> toConvert) {
+        if(toConvert == null)
+            return null;
+        List<String> convertedValues = new ArrayList<String>();
+        for (Environment enumValue : toConvert) {
+            convertedValues.add(enumValue.value);
+        }
+        return convertedValues;
+    }
+}
