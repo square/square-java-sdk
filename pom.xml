@@ -9,6 +9,28 @@
   <name>square</name>
   <url>https://github.com/square/square-java-sdk/</url>
   <description>Java client library for the Square API</description>
+  <scm>
+    <connection>scm:git:https://github.com/square/square-java-sdk.git</connection>
+    <developerConnection>scm:git:git@github.com:square/square-java-sdk.git</developerConnection>
+    <url>https://github.com/square/square-java-sdk/</url>
+  </scm>
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Square Inc.</name>
+      <email>developers@squareup.com</email>
+      <organization>Square Inc. Developers</organization>
+      <organizationUrl>https://squareup.com/developers</organizationUrl>
+    </developer>
+  </developers>
+
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -19,6 +41,7 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -107,8 +130,8 @@
                     <version>1.6.8</version>
                     <extensions>true</extensions>
                     <configuration>
-                        <serverid>ossrh</serverid>
-                        <nexusurl>https://oss.sonatype.org/</nexusurl>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                         <autoreleaseafterclose>true</autoreleaseafterclose>
                     </configuration>
                 </plugin>
