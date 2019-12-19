@@ -9,7 +9,16 @@
   <name>square</name>
   <url>https://github.com/square/square-java-sdk/</url>
   <description>Java client library for the Square API</description>
-
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
   <build>
     <pluginManagement>
       <plugins>
@@ -81,6 +90,76 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <profiles>
+    <profile>
+        <id>release</id>
+        <activation>
+            <property>
+                <name>release</name>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <!-- To release to Maven central -->
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverid>ossrh</serverid>
+                        <nexusurl>https://oss.sonatype.org/</nexusurl>
+                        <autoreleaseafterclose>true</autoreleaseafterclose>
+                    </configuration>
+                </plugin>
+                <!-- To generate javadoc -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.4</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- To sign the artifacts -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+  </profiles>
+  
   <dependencies>
     <dependency>
         <groupId>com.squareup.okhttp3</groupId>
