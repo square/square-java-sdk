@@ -1,0 +1,14 @@
+language: java
+jdk:
+  - openjdk8
+script:
+  - mvn test -B
+before_install:
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+env:
+  global:
+    - secure: W8iAxgQPbEd1Kc8QBYAW9b5pRtlr759VRrO4qxHKfjH9knqnRfsOgoyv72BhGWOQ2YNYik6m/vF81tRwhLusQ1H2pNNKKLknmv74eGGJnylFQrmS46IYvUx8UmWqv+Tt9Q36JnfA3/p+uZcLqaTHry72F1D3tdmYSjlwdUGCpLCTpg/ATIj+kPzUWNoP5dUw4ccQ+1Uu2cBwsSF8Mqs1Yd5UmLSyNwD/zYPwO2c3d9PFn4c+hTTojJFa74a7U+G/qmbPlgtSal/95LY7Qdx2ABNvAXd9nCcf89I7vyUt9vjNW5fUKLgGfxcKOufkfuvxNh4FBrhR2gqgY6aNs6EgcyZEyZMH+ZLoO2UpTlJdDDHkJiDdRytDgY9OqT07KS8ftsVAQt5Fa0xXBIS5YXqroZgEC1m2LzpcoODN976KCC0VgfGSN1dj3Y0Xg+022Gm+1pEU3krBGRR4VGKPLj/mB6mIAQcKuVJdhNis5NSqWRDHJsYW+MO+Z0SiwPUsshrDA9QrLwbWhfgkBny0FgqroohrmhkOPmCrKzHONoAF5nJXQEFofkvPgigPLdztFaB7riaxt7zOCMoa6OeSBLZY7QvTgRu6rPPHKsjE5Ctnxl7UBZ7q5wFfBvwCAaHJON6w1CSNxWztgKC2FplyIEwevR4U8li9daFDgI0n+zYizs0=
+    - secure: q5regKtflZbKY4fCq02v5hANqBmFSpyyjVsTRFSZ4WEigvZ007rCzBAI8XzN2Y7lZsGsGhkoWDWHbzonCpeUOWRiTHMYUivdeQkVNFGnP6BewpnAFT5QuNXxKM6on7T7iXTwqBSVrA2fwvKYa7Sf3jc9JyEptut7/cdwd5r+b/dqtN/NhjKKqWcsq/BTgyZ/7E7+Y3w42nGm+h96rvkLtHgFkYM5o2YBZzjn7BycVimE7MBLFLhNtABt9WtnVih0MBbZKPu5Yw7f/8Exs54IOL0Hke/T1S+Fuc2vnRVS7Az6VxDgdA1Y+q/gmiUoODXBcQddwOrlh71rSg346a0e8PbBA/BOtS2/sltAYA/weeqszhDGFAueKtWtRWv+zTCK9jWbP8Wpjs11cUPjyauifyntcYSm/uQSxno4WEk7bxo1FM8zRPlhqKVN5st5SI8SSuBGLzz+LsyRbgm9cwCtZempz07INKyGDmkYtRVR/wnv1Zv4pNkvm21y/jY8QkONFv1lfdlJhdjNlKuvapT4SAH8CbvdMpiDUg+zHDsbAxWtN+YFfQlINd74OOhoaT0UFP3PtMMer7/ashbLTLJ3aYHcmmoNxwUdp11cltZ5xlS65ZWbspJphghD00OatQT05dTF614eX5OWN9qyqa5Ft7fpXufU6X0sjszNpBTU2Ws=
+after_success:
+  - "./maven/deploy.sh"
