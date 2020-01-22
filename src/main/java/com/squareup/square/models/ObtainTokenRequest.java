@@ -5,8 +5,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ObtainTokenRequest type.
+ */
 public class ObtainTokenRequest {
 
+    /**
+     * Initialization constructor.
+     * @param clientId
+     * @param clientSecret
+     * @param grantType
+     * @param code
+     * @param redirectUri
+     * @param refreshToken
+     * @param migrationToken
+     */
     @JsonCreator
     public ObtainTokenRequest(
             @JsonProperty("client_id") String clientId,
@@ -32,36 +46,13 @@ public class ObtainTokenRequest {
     private final String grantType;
     private final String refreshToken;
     private final String migrationToken;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(clientId, clientSecret, grantType, code, redirectUri, refreshToken, migrationToken);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ObtainTokenRequest)) {
-            return false;
-        }
-        ObtainTokenRequest obtainTokenRequest = (ObtainTokenRequest) o;
-        return Objects.equals(clientId, obtainTokenRequest.clientId) &&
-            Objects.equals(clientSecret, obtainTokenRequest.clientSecret) &&
-            Objects.equals(grantType, obtainTokenRequest.grantType) &&
-            Objects.equals(code, obtainTokenRequest.code) &&
-            Objects.equals(redirectUri, obtainTokenRequest.redirectUri) &&
-            Objects.equals(refreshToken, obtainTokenRequest.refreshToken) &&
-            Objects.equals(migrationToken, obtainTokenRequest.migrationToken);
-    }
-
     /**
      * Getter for ClientId.
      * The Square-issued ID of your application, available from the
      * [application dashboard](https://connect.squareup.com/apps).
      */
     @JsonGetter("client_id")
-    public String getClientId() { 
+    public String getClientId() {
         return this.clientId;
     }
 
@@ -71,7 +62,7 @@ public class ObtainTokenRequest {
      * from the [application dashboard](https://connect.squareup.com/apps).
      */
     @JsonGetter("client_secret")
-    public String getClientSecret() { 
+    public String getClientSecret() {
         return this.clientSecret;
     }
 
@@ -82,7 +73,7 @@ public class ObtainTokenRequest {
      * the application wants to exchange an authorization code for an OAuth access token.
      */
     @JsonGetter("code")
-    public String getCode() { 
+    public String getCode() {
         return this.code;
     }
 
@@ -91,7 +82,7 @@ public class ObtainTokenRequest {
      * The redirect URL assigned in the [application dashboard](https://connect.squareup.com/apps).
      */
     @JsonGetter("redirect_uri")
-    public String getRedirectUri() { 
+    public String getRedirectUri() {
         return this.redirectUri;
     }
 
@@ -101,7 +92,7 @@ public class ObtainTokenRequest {
      * Valid values are: `authorization_code`, `refresh_token`, and `migration_token`
      */
     @JsonGetter("grant_type")
-    public String getGrantType() { 
+    public String getGrantType() {
         return this.grantType;
     }
 
@@ -112,7 +103,7 @@ public class ObtainTokenRequest {
      * to indicate the application wants a replacement for an expired OAuth access token.
      */
     @JsonGetter("refresh_token")
-    public String getRefreshToken() { 
+    public String getRefreshToken() {
         return this.refreshToken;
     }
 
@@ -125,11 +116,40 @@ public class ObtainTokenRequest {
      * For more information, see [Migrate to Using Refresh Tokens](https://developer.squareup.com/docs/authz/oauth/migration).
      */
     @JsonGetter("migration_token")
-    public String getMigrationToken() { 
+    public String getMigrationToken() {
         return this.migrationToken;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientId, clientSecret, code, redirectUri, grantType, refreshToken,
+            migrationToken);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ObtainTokenRequest)) {
+            return false;
+        }
+        ObtainTokenRequest obtainTokenRequest = (ObtainTokenRequest) obj;
+        return Objects.equals(clientId, obtainTokenRequest.clientId) &&
+            Objects.equals(clientSecret, obtainTokenRequest.clientSecret) &&
+            Objects.equals(code, obtainTokenRequest.code) &&
+            Objects.equals(redirectUri, obtainTokenRequest.redirectUri) &&
+            Objects.equals(grantType, obtainTokenRequest.grantType) &&
+            Objects.equals(refreshToken, obtainTokenRequest.refreshToken) &&
+            Objects.equals(migrationToken, obtainTokenRequest.migrationToken);
+    }
+
+    /**
+     * Builds a new {@link ObtainTokenRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ObtainTokenRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(clientId,
             clientSecret,
@@ -141,6 +161,9 @@ public class ObtainTokenRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ObtainTokenRequest}
+     */
     public static class Builder {
         private String clientId;
         private String clientSecret;
@@ -150,6 +173,9 @@ public class ObtainTokenRequest {
         private String refreshToken;
         private String migrationToken;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String clientId,
                 String clientSecret,
                 String grantType) {
@@ -158,35 +184,74 @@ public class ObtainTokenRequest {
             this.grantType = grantType;
         }
 
-        public Builder clientId(String value) {
-            clientId = value;
+        /**
+         * Setter for clientId
+         * @param clientId
+         * @return Builder
+         */
+        public Builder clientId(String clientId) {
+            this.clientId = clientId;
             return this;
         }
-        public Builder clientSecret(String value) {
-            clientSecret = value;
+        /**
+         * Setter for clientSecret
+         * @param clientSecret
+         * @return Builder
+         */
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = clientSecret;
             return this;
         }
-        public Builder grantType(String value) {
-            grantType = value;
+        /**
+         * Setter for grantType
+         * @param grantType
+         * @return Builder
+         */
+        public Builder grantType(String grantType) {
+            this.grantType = grantType;
             return this;
         }
-        public Builder code(String value) {
-            code = value;
+        /**
+         * Setter for code
+         * @param code
+         * @return Builder
+         */
+        public Builder code(String code) {
+            this.code = code;
             return this;
         }
-        public Builder redirectUri(String value) {
-            redirectUri = value;
+        /**
+         * Setter for redirectUri
+         * @param redirectUri
+         * @return Builder
+         */
+        public Builder redirectUri(String redirectUri) {
+            this.redirectUri = redirectUri;
             return this;
         }
-        public Builder refreshToken(String value) {
-            refreshToken = value;
+        /**
+         * Setter for refreshToken
+         * @param refreshToken
+         * @return Builder
+         */
+        public Builder refreshToken(String refreshToken) {
+            this.refreshToken = refreshToken;
             return this;
         }
-        public Builder migrationToken(String value) {
-            migrationToken = value;
+        /**
+         * Setter for migrationToken
+         * @param migrationToken
+         * @return Builder
+         */
+        public Builder migrationToken(String migrationToken) {
+            this.migrationToken = migrationToken;
             return this;
         }
 
+        /**
+         * Builds a new {@link ObtainTokenRequest} object using the set fields.
+         * @return {@link ObtainTokenRequest}
+         */
         public ObtainTokenRequest build() {
             return new ObtainTokenRequest(clientId,
                 clientSecret,

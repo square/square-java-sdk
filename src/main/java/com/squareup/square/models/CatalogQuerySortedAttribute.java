@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogQuerySortedAttribute type.
+ */
 public class CatalogQuerySortedAttribute {
 
+    /**
+     * Initialization constructor.
+     * @param attributeName
+     * @param initialAttributeValue
+     * @param sortOrder
+     */
     @JsonCreator
     public CatalogQuerySortedAttribute(
             @JsonProperty("attribute_name") String attributeName,
@@ -20,31 +30,12 @@ public class CatalogQuerySortedAttribute {
     private final String attributeName;
     private final String initialAttributeValue;
     private final String sortOrder;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(attributeName, initialAttributeValue, sortOrder);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogQuerySortedAttribute)) {
-            return false;
-        }
-        CatalogQuerySortedAttribute catalogQuerySortedAttribute = (CatalogQuerySortedAttribute) o;
-        return Objects.equals(attributeName, catalogQuerySortedAttribute.attributeName) &&
-            Objects.equals(initialAttributeValue, catalogQuerySortedAttribute.initialAttributeValue) &&
-            Objects.equals(sortOrder, catalogQuerySortedAttribute.sortOrder);
-    }
-
     /**
      * Getter for AttributeName.
      * The attribute whose value should be used as the sort key.
      */
     @JsonGetter("attribute_name")
-    public String getAttributeName() { 
+    public String getAttributeName() {
         return this.attributeName;
     }
 
@@ -55,7 +46,7 @@ public class CatalogQuerySortedAttribute {
      * or less. If unset, start at the beginning (for ascending sorts) or end (for descending sorts).
      */
     @JsonGetter("initial_attribute_value")
-    public String getInitialAttributeValue() { 
+    public String getInitialAttributeValue() {
         return this.initialAttributeValue;
     }
 
@@ -64,11 +55,35 @@ public class CatalogQuerySortedAttribute {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("sort_order")
-    public String getSortOrder() { 
+    public String getSortOrder() {
         return this.sortOrder;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(attributeName, initialAttributeValue, sortOrder);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogQuerySortedAttribute)) {
+            return false;
+        }
+        CatalogQuerySortedAttribute catalogQuerySortedAttribute = (CatalogQuerySortedAttribute) obj;
+        return Objects.equals(attributeName, catalogQuerySortedAttribute.attributeName) &&
+            Objects.equals(initialAttributeValue, catalogQuerySortedAttribute.initialAttributeValue) &&
+            Objects.equals(sortOrder, catalogQuerySortedAttribute.sortOrder);
+    }
+
+    /**
+     * Builds a new {@link CatalogQuerySortedAttribute.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogQuerySortedAttribute.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(attributeName)
             .initialAttributeValue(getInitialAttributeValue())
@@ -76,28 +91,53 @@ public class CatalogQuerySortedAttribute {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogQuerySortedAttribute}
+     */
     public static class Builder {
         private String attributeName;
         private String initialAttributeValue;
         private String sortOrder;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String attributeName) {
             this.attributeName = attributeName;
         }
 
-        public Builder attributeName(String value) {
-            attributeName = value;
+        /**
+         * Setter for attributeName
+         * @param attributeName
+         * @return Builder
+         */
+        public Builder attributeName(String attributeName) {
+            this.attributeName = attributeName;
             return this;
         }
-        public Builder initialAttributeValue(String value) {
-            initialAttributeValue = value;
+        /**
+         * Setter for initialAttributeValue
+         * @param initialAttributeValue
+         * @return Builder
+         */
+        public Builder initialAttributeValue(String initialAttributeValue) {
+            this.initialAttributeValue = initialAttributeValue;
             return this;
         }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
             return this;
         }
 
+        /**
+         * Builds a new {@link CatalogQuerySortedAttribute} object using the set fields.
+         * @return {@link CatalogQuerySortedAttribute}
+         */
         public CatalogQuerySortedAttribute build() {
             return new CatalogQuerySortedAttribute(attributeName,
                 initialAttributeValue,

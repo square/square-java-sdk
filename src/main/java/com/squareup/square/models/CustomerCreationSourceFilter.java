@@ -1,13 +1,22 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CustomerCreationSourceFilter type.
+ */
 public class CustomerCreationSourceFilter {
 
+    /**
+     * Initialization constructor.
+     * @param values
+     * @param rule
+     */
     @JsonCreator
     public CustomerCreationSourceFilter(
             @JsonProperty("values") List<String> values,
@@ -18,31 +27,13 @@ public class CustomerCreationSourceFilter {
 
     private final List<String> values;
     private final String rule;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(values, rule);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CustomerCreationSourceFilter)) {
-            return false;
-        }
-        CustomerCreationSourceFilter customerCreationSourceFilter = (CustomerCreationSourceFilter) o;
-        return Objects.equals(values, customerCreationSourceFilter.values) &&
-            Objects.equals(rule, customerCreationSourceFilter.rule);
-    }
-
     /**
      * Getter for Values.
      * The list of creation sources used as filtering criteria.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values
      */
     @JsonGetter("values")
-    public List<String> getValues() { 
+    public List<String> getValues() {
         return this.values;
     }
 
@@ -52,11 +43,34 @@ public class CustomerCreationSourceFilter {
      * the result set when they match the filtering criteria.
      */
     @JsonGetter("rule")
-    public String getRule() { 
+    public String getRule() {
         return this.rule;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(values, rule);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CustomerCreationSourceFilter)) {
+            return false;
+        }
+        CustomerCreationSourceFilter customerCreationSourceFilter = (CustomerCreationSourceFilter) obj;
+        return Objects.equals(values, customerCreationSourceFilter.values) &&
+            Objects.equals(rule, customerCreationSourceFilter.rule);
+    }
+
+    /**
+     * Builds a new {@link CustomerCreationSourceFilter.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CustomerCreationSourceFilter.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .values(getValues())
@@ -64,21 +78,43 @@ public class CustomerCreationSourceFilter {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CustomerCreationSourceFilter}
+     */
     public static class Builder {
         private List<String> values;
         private String rule;
 
-        public Builder() { }
-
-        public Builder values(List<String> value) {
-            values = value;
-            return this;
-        }
-        public Builder rule(String value) {
-            rule = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for values
+         * @param values
+         * @return Builder
+         */
+        public Builder values(List<String> values) {
+            this.values = values;
+            return this;
+        }
+        /**
+         * Setter for rule
+         * @param rule
+         * @return Builder
+         */
+        public Builder rule(String rule) {
+            this.rule = rule;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CustomerCreationSourceFilter} object using the set fields.
+         * @return {@link CustomerCreationSourceFilter}
+         */
         public CustomerCreationSourceFilter build() {
             return new CustomerCreationSourceFilter(values,
                 rule);

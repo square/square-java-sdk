@@ -2,14 +2,22 @@ package com.squareup.square;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InvalidObjectException;
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
-
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +31,9 @@ import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.request.MultipartFileWrapper;
 import com.squareup.square.http.request.MultipartWrapper;
 
+/**
+ * This is a Helper class with commonly used utilities for the SDK.
+ */
 public class ApiHelper {
     // Deserialization of Json data
     public static ObjectMapper mapper = new ObjectMapper() {
@@ -65,7 +76,7 @@ public class ApiHelper {
     /**
      * JSON Deserialization of the given json string.
      * @param   jParser The json parser for reading json to deserialize
-     * @param   <T[]> The class of the array of objects to deserialize into
+     * @param   classArray The class of the array of objects to deserialize into
      * @return  The deserialized list of objects
      */
     public static <T extends Object> List<T> deserializeArray(String json, Class<T[]> classArray)
@@ -80,7 +91,7 @@ public class ApiHelper {
     /**
      * Populates an object of an ApiException subclass with the required properties.
      * @param   json The Json string to deserialize
-     * @param   <ApiException> The object to populate.
+     * @param   obj The object to populate.
      */
     public static void populate(String json, ApiException obj)
             throws IOException {
@@ -260,15 +271,11 @@ public class ApiHelper {
      * @param   value Value for the form fields
      * @return  Dictionary of form fields created from array elements
      */
-    public static List<SimpleEntry<String, Object>> prepareFormFields(Object value) {
-        List<SimpleEntry<String, Object>> formFields = new ArrayList<SimpleEntry<String, Object>>();
+    public static List<SimpleEntry<String, Object>> prepareFormFields(Map <?, ?> value) {
+        List<SimpleEntry<String, Object>> formFields = new ArrayList<>();
         if(value != null) {
-            try {
-                objectToList("", value, formFields, new HashSet<Integer>());
-            } catch (Exception ex) {
-            }
+            objectToList("", value, formFields, new HashSet<Integer>());
         }
-
         return formFields;
     }
 
@@ -279,37 +286,34 @@ public class ApiHelper {
      * @param objBuilder String of elements
      */
     private static void encodeObjectAsQueryString(String name, Object obj, StringBuilder objBuilder) {
-        try {
-            if (obj == null) {
-                return;
+        if (obj == null) {
+            return;
+        }
+
+        List<SimpleEntry<String, Object>> objectList = new ArrayList<>();
+        objectToList(name, obj, objectList, new HashSet<Integer>());
+        boolean hasParam = false;
+
+
+        for (SimpleEntry<String, Object> pair : objectList) {
+            String paramKeyValPair;
+            String accessor = pair.getKey();
+            // Ignore null
+            Object value = pair.getValue();
+            if(value == null) {
+                continue;
             }
-
-            List<SimpleEntry<String, Object>> objectList = new ArrayList<SimpleEntry<String, Object>>();
-            objectToList(name, obj, objectList, new HashSet<Integer>());
-            boolean hasParam = false;
-
-
-            for (SimpleEntry<String, Object> pair : objectList) {
-                String paramKeyValPair;
-                String accessor = pair.getKey();
-                // Ignore null
-                Object value = pair.getValue();
-                if(value == null) {
-                    continue;
-                }
                 
-                hasParam = true;
-                // Load element value as string
-                paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString()));
-                objBuilder.append(paramKeyValPair);
+            hasParam = true;
+            // Load element value as string
+            paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString()));
+            objBuilder.append(paramKeyValPair);
 
             }
 
-            // Removing the last &
-            if(hasParam) {
-                objBuilder.setLength(objBuilder.length() - 1);
-            }
-        } catch (Exception ex) {
+        // Removing the last &
+        if(hasParam) {
+            objBuilder.setLength(objBuilder.length() - 1);
         }
     }
 
@@ -353,8 +357,38 @@ public class ApiHelper {
     private static String tryUrlEncode(String value) {
         try {
             return URLEncoder.encode(value, "UTF-8");
-        } catch (Exception ex) {
+        } catch (UnsupportedEncodingException ex) {
             return value;
+        }
+    }
+
+    private static void objectToList(String objName, Collection<?> obj,  
+            List<SimpleEntry<String,Object>> objectList, 
+            HashSet<Integer> processed) {
+      
+        Collection<?> array = (Collection<?>) obj;
+        // Append all elements of the array into a string
+        int index = 0;
+        for (Object element : array) {
+            //load key value pair
+                      String key = String.format("%s[%d]", objName, index++);
+            loadKeyValuePairForEncoding(key, element, objectList, processed);
+        }
+      
+    }
+
+    private static void objectToList(String objName, Map<?, ?> obj, 
+            List<SimpleEntry<String,Object>> objectList, 
+            HashSet<Integer> processed) {
+        // Process map
+        Map<?, ?> map = (Map<?, ?>) obj;
+        // Append all elements of the array into a string
+        for (Map.Entry<?, ?> pair : map.entrySet()) {
+            String attribName = pair.getKey().toString();
+            if ((objName != null) && (!objName.isEmpty())) {
+                attribName = String.format("%s[%s]", objName, attribName);
+            }
+            loadKeyValuePairForEncoding(attribName, pair.getValue(), objectList, processed);
         }
     }
 
@@ -364,11 +398,9 @@ public class ApiHelper {
      * @param obj The object to convert into a map
      * @param objectList The object list to populate
      * @param processed List of object hashCodes that are already parsed
-     * @throws InvalidObjectException
      */
     private static void objectToList(
-            String objName, Object obj, List<SimpleEntry<String,Object>> objectList, HashSet<Integer> processed)
-    throws InvalidObjectException {
+            String objName, Object obj, List<SimpleEntry<String,Object>> objectList, HashSet<Integer> processed) {
         // Null values need not to be processed
         if(obj == null) {
             return;
@@ -385,24 +417,9 @@ public class ApiHelper {
 
         // Process arrays
         if (obj instanceof Collection<?>) {
-            // Process array
-            if ((objName == null) || (objName.isEmpty())) {
-                throw new InvalidObjectException("Object name cannot be empty");
-            }
-            
-            Collection<?> array = (Collection<?>) obj;
-            // Append all elements of the array into a string
-            int index = 0;
-            for (Object element : array) {
-                //load key value pair
-                String key = String.format("%s[%d]", objName, index++);
-                loadKeyValuePairForEncoding(key, element, objectList, processed);
-            }
+            objectToList(objName, (Collection<?>) obj, objectList,  processed);
         } else if (obj.getClass().isArray()) {
             // Process array
-            if ((objName == null) ||(objName.isEmpty())) {
-                throw new InvalidObjectException("Object name cannot be empty");
-            }
 
             Object[] array = (Object[]) obj;
             // Append all elements in the array into a string
@@ -412,22 +429,8 @@ public class ApiHelper {
                 String key = String.format("%s[%d]", objName, index++);
                 loadKeyValuePairForEncoding(key, element, objectList, processed);
             }
-         } else if (obj instanceof Map) {
-             // Process map
-            Map<?, ?> map = (Map<?, ?>) obj;
-            // Append all elements of the array into a string
-            for (Map.Entry<?, ?> pair : map.entrySet()) {
-                String attribName = pair.getKey().toString();
-                if ((objName != null) && (!objName.isEmpty())) {
-                    attribName = String.format("%s[%s]", objName, attribName);
-                }
-                loadKeyValuePairForEncoding(attribName, pair.getValue(), objectList, processed);
-            }
-        } else if (obj instanceof UUID) {
-            String key = objName;
-            String value = obj.toString();
-            // UUIDs can be converted to string
-            loadKeyValuePairForEncoding(key, value, objectList, processed);
+        } else if (obj instanceof Map) {
+            objectToList(objName, (Map<?, ?>) obj, objectList,  processed);
         } else {
             // Process objects
             // Invoke getter methods
@@ -454,23 +457,12 @@ public class ApiHelper {
                     // Load key value pair
                     Object value = method.invoke(obj);
                         loadKeyValuePairForEncoding(attribName, value, objectList, processed);
-                } catch (Exception ex) {
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    // This block only calls getter methods.
+                    // These getters do not throw any exception ruling out invocationTargetException.
+                    // The getters are public so there is no chance of an IllegalAccessException
+                    // Steps we've followed ensure that the object has the specified method.
                 }
-            }
-            // Load fields
-            Field[] fields = obj.getClass().getFields();
-            for (Field field : fields) {
-                // Load key name
-                String attribName = field.getName();
-                if ((objName != null) && (!objName.isEmpty())) {
-                    attribName = String.format("%s[%s]", objName, attribName);
-                }
-
-                try {
-                    // Load key value pair
-                    Object value = field.get(obj);
-                    loadKeyValuePairForEncoding(attribName, value, objectList, processed);
-                } catch (Exception ex) { }
             }
         }
     }
@@ -481,18 +473,18 @@ public class ApiHelper {
      * @param value The value to process against the given key
      * @param objectList The object list to process with key value pair
      * @param processed List of processed objects hashCodes
-     * @throws InvalidObjectException
      */
     private static void loadKeyValuePairForEncoding(
-            String key, Object value, List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed)
-    throws InvalidObjectException {
+            String key, Object value, List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
         if (value == null) {
             return;
         }
         if (isWrapperType(value)) {
-            objectList.add( new SimpleEntry<String, Object>(key, value));
-        }
-        else {
+            objectList.add(new SimpleEntry<String, Object>(key, value));
+        } else if (value instanceof UUID) {
+            // UUIDs can be converted to string
+            objectList.add( new SimpleEntry<String, Object>(key, value.toString()));
+        } else {
             objectToList(key, value, objectList, processed);
         }
     }

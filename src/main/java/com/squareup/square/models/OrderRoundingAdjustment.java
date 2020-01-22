@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderRoundingAdjustment type.
+ */
 public class OrderRoundingAdjustment {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param name
+     * @param amountMoney
+     */
     @JsonCreator
     public OrderRoundingAdjustment(
             @JsonProperty("uid") String uid,
@@ -20,31 +30,12 @@ public class OrderRoundingAdjustment {
     private final String uid;
     private final String name;
     private final Money amountMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, name, amountMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderRoundingAdjustment)) {
-            return false;
-        }
-        OrderRoundingAdjustment orderRoundingAdjustment = (OrderRoundingAdjustment) o;
-        return Objects.equals(uid, orderRoundingAdjustment.uid) &&
-            Objects.equals(name, orderRoundingAdjustment.name) &&
-            Objects.equals(amountMoney, orderRoundingAdjustment.amountMoney);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the rounding adjustment only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -53,7 +44,7 @@ public class OrderRoundingAdjustment {
      * The name of the rounding adjustment from the original sale Order.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -67,11 +58,35 @@ public class OrderRoundingAdjustment {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, name, amountMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderRoundingAdjustment)) {
+            return false;
+        }
+        OrderRoundingAdjustment orderRoundingAdjustment = (OrderRoundingAdjustment) obj;
+        return Objects.equals(uid, orderRoundingAdjustment.uid) &&
+            Objects.equals(name, orderRoundingAdjustment.name) &&
+            Objects.equals(amountMoney, orderRoundingAdjustment.amountMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderRoundingAdjustment.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderRoundingAdjustment.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -80,26 +95,53 @@ public class OrderRoundingAdjustment {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderRoundingAdjustment}
+     */
     public static class Builder {
         private String uid;
         private String name;
         private Money amountMoney;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderRoundingAdjustment} object using the set fields.
+         * @return {@link OrderRoundingAdjustment}
+         */
         public OrderRoundingAdjustment build() {
             return new OrderRoundingAdjustment(uid,
                 name,

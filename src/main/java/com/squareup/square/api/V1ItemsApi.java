@@ -1,11 +1,15 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +17,41 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.V1AdjustInventoryRequest;
+import com.squareup.square.models.V1Category;
+import com.squareup.square.models.V1Discount;
+import com.squareup.square.models.V1Fee;
+import com.squareup.square.models.V1InventoryEntry;
+import com.squareup.square.models.V1Item;
+import com.squareup.square.models.V1ModifierList;
+import com.squareup.square.models.V1ModifierOption;
+import com.squareup.square.models.V1Page;
+import com.squareup.square.models.V1PageCell;
+import com.squareup.square.models.V1UpdateModifierListRequest;
+import com.squareup.square.models.V1Variation;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class V1ItemsApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public V1ItemsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public V1ItemsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -38,15 +70,14 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public List<V1Category> listCategories(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListCategoriesRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildListCategoriesRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListCategoriesResponse(_context);
+        return handleListCategoriesResponse(context);
     }
 
     /**
@@ -63,72 +94,70 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public CompletableFuture<List<V1Category>> listCategoriesAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildListCategoriesRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListCategoriesResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildListCategoriesRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListCategoriesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listCategories
      */
-    private HttpRequest _buildListCategoriesRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildListCategoriesRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/categories");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/categories");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listCategories
      * @return An object of type List<V1Category>
      */
-    private List<V1Category> _handleListCategoriesResponse(HttpContext _context)
+    private List<V1Category> handleListCategoriesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Category> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Category> result = ApiHelper.deserializeArray(responseBody,
                 V1Category[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -147,15 +176,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Category createCategory(
             final String locationId,
-            final V1Category body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateCategoryRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Category body) throws ApiException, IOException {
+        HttpRequest request = buildCreateCategoryRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateCategoryResponse(_context);
+        return handleCreateCategoryResponse(context);
     }
 
     /**
@@ -174,77 +202,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Category> createCategoryAsync(
             final String locationId,
-            final V1Category body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateCategoryRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateCategoryResponse(_context));
+            final V1Category body) {
+        return makeHttpCallAsync(() -> buildCreateCategoryRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateCategoryResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createCategory
      */
-    private HttpRequest _buildCreateCategoryRequest(
+    private HttpRequest buildCreateCategoryRequest(
             final String locationId,
-            final V1Category body
-    ) throws JsonProcessingException {
+            final V1Category body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/categories");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/categories");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createCategory
      * @return An object of type V1Category
      */
-    private V1Category _handleCreateCategoryResponse(HttpContext _context)
+    private V1Category handleCreateCategoryResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Category _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Category result = ApiHelper.deserialize(responseBody,
                 V1Category.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -266,15 +292,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Category deleteCategory(
             final String locationId,
-            final String categoryId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteCategoryRequest(locationId, categoryId);
-        authManagers.get("default").apply(_request);
+            final String categoryId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteCategoryRequest(locationId, categoryId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteCategoryResponse(_context);
+        return handleDeleteCategoryResponse(context);
     }
 
     /**
@@ -296,76 +321,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Category> deleteCategoryAsync(
             final String locationId,
-            final String categoryId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteCategoryRequest(locationId, categoryId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteCategoryResponse(_context));
+            final String categoryId) {
+        return makeHttpCallAsync(() -> buildDeleteCategoryRequest(locationId, categoryId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteCategoryResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteCategory
      */
-    private HttpRequest _buildDeleteCategoryRequest(
+    private HttpRequest buildDeleteCategoryRequest(
             final String locationId,
-            final String categoryId
-    ) {
+            final String categoryId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/categories/{category_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/categories/{category_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("category_id", categoryId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("category_id", categoryId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteCategory
      * @return An object of type V1Category
      */
-    private V1Category _handleDeleteCategoryResponse(HttpContext _context)
+    private V1Category handleDeleteCategoryResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Category _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Category result = ApiHelper.deserialize(responseBody,
                 V1Category.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -386,15 +409,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Category updateCategory(
             final String locationId,
             final String categoryId,
-            final V1Category body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateCategoryRequest(locationId, categoryId, body);
-        authManagers.get("default").apply(_request);
+            final V1Category body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateCategoryRequest(locationId, categoryId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateCategoryResponse(_context);
+        return handleUpdateCategoryResponse(context);
     }
 
     /**
@@ -415,79 +437,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Category> updateCategoryAsync(
             final String locationId,
             final String categoryId,
-            final V1Category body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateCategoryRequest(locationId, categoryId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateCategoryResponse(_context));
+            final V1Category body) {
+        return makeHttpCallAsync(() -> buildUpdateCategoryRequest(locationId, categoryId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateCategoryResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateCategory
      */
-    private HttpRequest _buildUpdateCategoryRequest(
+    private HttpRequest buildUpdateCategoryRequest(
             final String locationId,
             final String categoryId,
-            final V1Category body
-    ) throws JsonProcessingException {
+            final V1Category body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/categories/{category_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/categories/{category_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("category_id", categoryId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("category_id", categoryId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateCategory
      * @return An object of type V1Category
      */
-    private V1Category _handleUpdateCategoryResponse(HttpContext _context)
+    private V1Category handleUpdateCategoryResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Category _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Category result = ApiHelper.deserialize(responseBody,
                 V1Category.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -504,15 +524,14 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public List<V1Discount> listDiscounts(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListDiscountsRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildListDiscountsRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListDiscountsResponse(_context);
+        return handleListDiscountsResponse(context);
     }
 
     /**
@@ -529,72 +548,70 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public CompletableFuture<List<V1Discount>> listDiscountsAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildListDiscountsRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListDiscountsResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildListDiscountsRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListDiscountsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listDiscounts
      */
-    private HttpRequest _buildListDiscountsRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildListDiscountsRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/discounts");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/discounts");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listDiscounts
      * @return An object of type List<V1Discount>
      */
-    private List<V1Discount> _handleListDiscountsResponse(HttpContext _context)
+    private List<V1Discount> handleListDiscountsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Discount> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Discount> result = ApiHelper.deserializeArray(responseBody,
                 V1Discount[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -613,15 +630,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Discount createDiscount(
             final String locationId,
-            final V1Discount body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateDiscountRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Discount body) throws ApiException, IOException {
+        HttpRequest request = buildCreateDiscountRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateDiscountResponse(_context);
+        return handleCreateDiscountResponse(context);
     }
 
     /**
@@ -640,77 +656,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Discount> createDiscountAsync(
             final String locationId,
-            final V1Discount body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateDiscountRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateDiscountResponse(_context));
+            final V1Discount body) {
+        return makeHttpCallAsync(() -> buildCreateDiscountRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateDiscountResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createDiscount
      */
-    private HttpRequest _buildCreateDiscountRequest(
+    private HttpRequest buildCreateDiscountRequest(
             final String locationId,
-            final V1Discount body
-    ) throws JsonProcessingException {
+            final V1Discount body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/discounts");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/discounts");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createDiscount
      * @return An object of type V1Discount
      */
-    private V1Discount _handleCreateDiscountResponse(HttpContext _context)
+    private V1Discount handleCreateDiscountResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Discount _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Discount result = ApiHelper.deserialize(responseBody,
                 V1Discount.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -732,15 +746,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Discount deleteDiscount(
             final String locationId,
-            final String discountId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteDiscountRequest(locationId, discountId);
-        authManagers.get("default").apply(_request);
+            final String discountId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteDiscountRequest(locationId, discountId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteDiscountResponse(_context);
+        return handleDeleteDiscountResponse(context);
     }
 
     /**
@@ -762,76 +775,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Discount> deleteDiscountAsync(
             final String locationId,
-            final String discountId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteDiscountRequest(locationId, discountId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteDiscountResponse(_context));
+            final String discountId) {
+        return makeHttpCallAsync(() -> buildDeleteDiscountRequest(locationId, discountId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteDiscountResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteDiscount
      */
-    private HttpRequest _buildDeleteDiscountRequest(
+    private HttpRequest buildDeleteDiscountRequest(
             final String locationId,
-            final String discountId
-    ) {
+            final String discountId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/discounts/{discount_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/discounts/{discount_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("discount_id", discountId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("discount_id", discountId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteDiscount
      * @return An object of type V1Discount
      */
-    private V1Discount _handleDeleteDiscountResponse(HttpContext _context)
+    private V1Discount handleDeleteDiscountResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Discount _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Discount result = ApiHelper.deserialize(responseBody,
                 V1Discount.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -852,15 +863,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Discount updateDiscount(
             final String locationId,
             final String discountId,
-            final V1Discount body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateDiscountRequest(locationId, discountId, body);
-        authManagers.get("default").apply(_request);
+            final V1Discount body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateDiscountRequest(locationId, discountId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateDiscountResponse(_context);
+        return handleUpdateDiscountResponse(context);
     }
 
     /**
@@ -881,79 +891,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Discount> updateDiscountAsync(
             final String locationId,
             final String discountId,
-            final V1Discount body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateDiscountRequest(locationId, discountId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateDiscountResponse(_context));
+            final V1Discount body) {
+        return makeHttpCallAsync(() -> buildUpdateDiscountRequest(locationId, discountId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateDiscountResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateDiscount
      */
-    private HttpRequest _buildUpdateDiscountRequest(
+    private HttpRequest buildUpdateDiscountRequest(
             final String locationId,
             final String discountId,
-            final V1Discount body
-    ) throws JsonProcessingException {
+            final V1Discount body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/discounts/{discount_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/discounts/{discount_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("discount_id", discountId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("discount_id", discountId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateDiscount
      * @return An object of type V1Discount
      */
-    private V1Discount _handleUpdateDiscountResponse(HttpContext _context)
+    private V1Discount handleUpdateDiscountResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Discount _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Discount result = ApiHelper.deserialize(responseBody,
                 V1Discount.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -970,15 +978,14 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public List<V1Fee> listFees(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListFeesRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildListFeesRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListFeesResponse(_context);
+        return handleListFeesResponse(context);
     }
 
     /**
@@ -995,72 +1002,70 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public CompletableFuture<List<V1Fee>> listFeesAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildListFeesRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListFeesResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildListFeesRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListFeesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listFees
      */
-    private HttpRequest _buildListFeesRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildListFeesRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/fees");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/fees");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listFees
      * @return An object of type List<V1Fee>
      */
-    private List<V1Fee> _handleListFeesResponse(HttpContext _context)
+    private List<V1Fee> handleListFeesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Fee> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Fee> result = ApiHelper.deserializeArray(responseBody,
                 V1Fee[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1079,15 +1084,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Fee createFee(
             final String locationId,
-            final V1Fee body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateFeeRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Fee body) throws ApiException, IOException {
+        HttpRequest request = buildCreateFeeRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateFeeResponse(_context);
+        return handleCreateFeeResponse(context);
     }
 
     /**
@@ -1106,77 +1110,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Fee> createFeeAsync(
             final String locationId,
-            final V1Fee body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateFeeRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateFeeResponse(_context));
+            final V1Fee body) {
+        return makeHttpCallAsync(() -> buildCreateFeeRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateFeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createFee
      */
-    private HttpRequest _buildCreateFeeRequest(
+    private HttpRequest buildCreateFeeRequest(
             final String locationId,
-            final V1Fee body
-    ) throws JsonProcessingException {
+            final V1Fee body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/fees");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/fees");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createFee
      * @return An object of type V1Fee
      */
-    private V1Fee _handleCreateFeeResponse(HttpContext _context)
+    private V1Fee handleCreateFeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Fee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Fee result = ApiHelper.deserialize(responseBody,
                 V1Fee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1198,15 +1200,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Fee deleteFee(
             final String locationId,
-            final String feeId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteFeeRequest(locationId, feeId);
-        authManagers.get("default").apply(_request);
+            final String feeId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteFeeRequest(locationId, feeId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteFeeResponse(_context);
+        return handleDeleteFeeResponse(context);
     }
 
     /**
@@ -1228,76 +1229,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Fee> deleteFeeAsync(
             final String locationId,
-            final String feeId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteFeeRequest(locationId, feeId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteFeeResponse(_context));
+            final String feeId) {
+        return makeHttpCallAsync(() -> buildDeleteFeeRequest(locationId, feeId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteFeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteFee
      */
-    private HttpRequest _buildDeleteFeeRequest(
+    private HttpRequest buildDeleteFeeRequest(
             final String locationId,
-            final String feeId
-    ) {
+            final String feeId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/fees/{fee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/fees/{fee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("fee_id", feeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("fee_id", feeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteFee
      * @return An object of type V1Fee
      */
-    private V1Fee _handleDeleteFeeResponse(HttpContext _context)
+    private V1Fee handleDeleteFeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Fee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Fee result = ApiHelper.deserialize(responseBody,
                 V1Fee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1318,15 +1317,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Fee updateFee(
             final String locationId,
             final String feeId,
-            final V1Fee body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateFeeRequest(locationId, feeId, body);
-        authManagers.get("default").apply(_request);
+            final V1Fee body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateFeeRequest(locationId, feeId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateFeeResponse(_context);
+        return handleUpdateFeeResponse(context);
     }
 
     /**
@@ -1347,79 +1345,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Fee> updateFeeAsync(
             final String locationId,
             final String feeId,
-            final V1Fee body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateFeeRequest(locationId, feeId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateFeeResponse(_context));
+            final V1Fee body) {
+        return makeHttpCallAsync(() -> buildUpdateFeeRequest(locationId, feeId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateFeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateFee
      */
-    private HttpRequest _buildUpdateFeeRequest(
+    private HttpRequest buildUpdateFeeRequest(
             final String locationId,
             final String feeId,
-            final V1Fee body
-    ) throws JsonProcessingException {
+            final V1Fee body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/fees/{fee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/fees/{fee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("fee_id", feeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("fee_id", feeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateFee
      * @return An object of type V1Fee
      */
-    private V1Fee _handleUpdateFeeResponse(HttpContext _context)
+    private V1Fee handleUpdateFeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Fee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Fee result = ApiHelper.deserialize(responseBody,
                 V1Fee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1441,15 +1437,14 @@ public final class V1ItemsApi extends BaseApi {
     public List<V1InventoryEntry> listInventory(
             final String locationId,
             final Integer limit,
-            final String batchToken
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListInventoryRequest(locationId, limit, batchToken);
-        authManagers.get("default").apply(_request);
+            final String batchToken) throws ApiException, IOException {
+        HttpRequest request = buildListInventoryRequest(locationId, limit, batchToken);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListInventoryResponse(_context);
+        return handleListInventoryResponse(context);
     }
 
     /**
@@ -1471,80 +1466,78 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<List<V1InventoryEntry>> listInventoryAsync(
             final String locationId,
             final Integer limit,
-            final String batchToken
-    ) {
-        return makeHttpCallAsync(() -> _buildListInventoryRequest(locationId, limit, batchToken),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListInventoryResponse(_context));
+            final String batchToken) {
+        return makeHttpCallAsync(() -> buildListInventoryRequest(locationId, limit, batchToken),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListInventoryResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listInventory
      */
-    private HttpRequest _buildListInventoryRequest(
+    private HttpRequest buildListInventoryRequest(
             final String locationId,
             final Integer limit,
-            final String batchToken
-    ) {
+            final String batchToken) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/inventory");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/inventory");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("limit", limit);
-        _queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("limit", limit);
+        queryParameters.put("batch_token", batchToken);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listInventory
      * @return An object of type List<V1InventoryEntry>
      */
-    private List<V1InventoryEntry> _handleListInventoryResponse(HttpContext _context)
+    private List<V1InventoryEntry> handleListInventoryResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1InventoryEntry> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1InventoryEntry> result = ApiHelper.deserializeArray(responseBody,
                 V1InventoryEntry[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1565,15 +1558,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1InventoryEntry adjustInventory(
             final String locationId,
             final String variationId,
-            final V1AdjustInventoryRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildAdjustInventoryRequest(locationId, variationId, body);
-        authManagers.get("default").apply(_request);
+            final V1AdjustInventoryRequest body) throws ApiException, IOException {
+        HttpRequest request = buildAdjustInventoryRequest(locationId, variationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleAdjustInventoryResponse(_context);
+        return handleAdjustInventoryResponse(context);
     }
 
     /**
@@ -1594,79 +1586,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1InventoryEntry> adjustInventoryAsync(
             final String locationId,
             final String variationId,
-            final V1AdjustInventoryRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildAdjustInventoryRequest(locationId, variationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleAdjustInventoryResponse(_context));
+            final V1AdjustInventoryRequest body) {
+        return makeHttpCallAsync(() -> buildAdjustInventoryRequest(locationId, variationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleAdjustInventoryResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for adjustInventory
      */
-    private HttpRequest _buildAdjustInventoryRequest(
+    private HttpRequest buildAdjustInventoryRequest(
             final String locationId,
             final String variationId,
-            final V1AdjustInventoryRequest body
-    ) throws JsonProcessingException {
+            final V1AdjustInventoryRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/inventory/{variation_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/inventory/{variation_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("variation_id", variationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("variation_id", variationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for adjustInventory
      * @return An object of type V1InventoryEntry
      */
-    private V1InventoryEntry _handleAdjustInventoryResponse(HttpContext _context)
+    private V1InventoryEntry handleAdjustInventoryResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1InventoryEntry _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1InventoryEntry result = ApiHelper.deserialize(responseBody,
                 V1InventoryEntry.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1685,15 +1675,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public List<V1Item> listItems(
             final String locationId,
-            final String batchToken
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListItemsRequest(locationId, batchToken);
-        authManagers.get("default").apply(_request);
+            final String batchToken) throws ApiException, IOException {
+        HttpRequest request = buildListItemsRequest(locationId, batchToken);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListItemsResponse(_context);
+        return handleListItemsResponse(context);
     }
 
     /**
@@ -1712,78 +1701,76 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<List<V1Item>> listItemsAsync(
             final String locationId,
-            final String batchToken
-    ) {
-        return makeHttpCallAsync(() -> _buildListItemsRequest(locationId, batchToken),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListItemsResponse(_context));
+            final String batchToken) {
+        return makeHttpCallAsync(() -> buildListItemsRequest(locationId, batchToken),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListItemsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listItems
      */
-    private HttpRequest _buildListItemsRequest(
+    private HttpRequest buildListItemsRequest(
             final String locationId,
-            final String batchToken
-    ) {
+            final String batchToken) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("batch_token", batchToken);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listItems
      * @return An object of type List<V1Item>
      */
-    private List<V1Item> _handleListItemsResponse(HttpContext _context)
+    private List<V1Item> handleListItemsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Item> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Item> result = ApiHelper.deserializeArray(responseBody,
                 V1Item[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1810,15 +1797,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Item createItem(
             final String locationId,
-            final V1Item body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateItemRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Item body) throws ApiException, IOException {
+        HttpRequest request = buildCreateItemRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateItemResponse(_context);
+        return handleCreateItemResponse(context);
     }
 
     /**
@@ -1845,77 +1831,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Item> createItemAsync(
             final String locationId,
-            final V1Item body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateItemRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateItemResponse(_context));
+            final V1Item body) {
+        return makeHttpCallAsync(() -> buildCreateItemRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateItemResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createItem
      */
-    private HttpRequest _buildCreateItemRequest(
+    private HttpRequest buildCreateItemRequest(
             final String locationId,
-            final V1Item body
-    ) throws JsonProcessingException {
+            final V1Item body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createItem
      * @return An object of type V1Item
      */
-    private V1Item _handleCreateItemResponse(HttpContext _context)
+    private V1Item handleCreateItemResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1937,15 +1921,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Item deleteItem(
             final String locationId,
-            final String itemId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteItemRequest(locationId, itemId);
-        authManagers.get("default").apply(_request);
+            final String itemId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteItemRequest(locationId, itemId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteItemResponse(_context);
+        return handleDeleteItemResponse(context);
     }
 
     /**
@@ -1967,76 +1950,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Item> deleteItemAsync(
             final String locationId,
-            final String itemId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteItemRequest(locationId, itemId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteItemResponse(_context));
+            final String itemId) {
+        return makeHttpCallAsync(() -> buildDeleteItemRequest(locationId, itemId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteItemResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteItem
      */
-    private HttpRequest _buildDeleteItemRequest(
+    private HttpRequest buildDeleteItemRequest(
             final String locationId,
-            final String itemId
-    ) {
+            final String itemId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteItem
      * @return An object of type V1Item
      */
-    private V1Item _handleDeleteItemResponse(HttpContext _context)
+    private V1Item handleDeleteItemResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2056,15 +2037,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Item retrieveItem(
             final String locationId,
-            final String itemId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveItemRequest(locationId, itemId);
-        authManagers.get("default").apply(_request);
+            final String itemId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveItemRequest(locationId, itemId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveItemResponse(_context);
+        return handleRetrieveItemResponse(context);
     }
 
     /**
@@ -2084,76 +2064,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Item> retrieveItemAsync(
             final String locationId,
-            final String itemId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveItemRequest(locationId, itemId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveItemResponse(_context));
+            final String itemId) {
+        return makeHttpCallAsync(() -> buildRetrieveItemRequest(locationId, itemId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveItemResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveItem
      */
-    private HttpRequest _buildRetrieveItemRequest(
+    private HttpRequest buildRetrieveItemRequest(
             final String locationId,
-            final String itemId
-    ) {
+            final String itemId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveItem
      * @return An object of type V1Item
      */
-    private V1Item _handleRetrieveItemResponse(HttpContext _context)
+    private V1Item handleRetrieveItemResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2174,15 +2152,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Item updateItem(
             final String locationId,
             final String itemId,
-            final V1Item body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateItemRequest(locationId, itemId, body);
-        authManagers.get("default").apply(_request);
+            final V1Item body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateItemRequest(locationId, itemId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateItemResponse(_context);
+        return handleUpdateItemResponse(context);
     }
 
     /**
@@ -2203,79 +2180,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Item> updateItemAsync(
             final String locationId,
             final String itemId,
-            final V1Item body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateItemRequest(locationId, itemId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateItemResponse(_context));
+            final V1Item body) {
+        return makeHttpCallAsync(() -> buildUpdateItemRequest(locationId, itemId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateItemResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateItem
      */
-    private HttpRequest _buildUpdateItemRequest(
+    private HttpRequest buildUpdateItemRequest(
             final String locationId,
             final String itemId,
-            final V1Item body
-    ) throws JsonProcessingException {
+            final V1Item body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateItem
      * @return An object of type V1Item
      */
-    private V1Item _handleUpdateItemResponse(HttpContext _context)
+    private V1Item handleUpdateItemResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2297,15 +2272,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Item removeFee(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRemoveFeeRequest(locationId, itemId, feeId);
-        authManagers.get("default").apply(_request);
+            final String feeId) throws ApiException, IOException {
+        HttpRequest request = buildRemoveFeeRequest(locationId, itemId, feeId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRemoveFeeResponse(_context);
+        return handleRemoveFeeResponse(context);
     }
 
     /**
@@ -2327,78 +2301,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Item> removeFeeAsync(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) {
-        return makeHttpCallAsync(() -> _buildRemoveFeeRequest(locationId, itemId, feeId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRemoveFeeResponse(_context));
+            final String feeId) {
+        return makeHttpCallAsync(() -> buildRemoveFeeRequest(locationId, itemId, feeId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRemoveFeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for removeFee
      */
-    private HttpRequest _buildRemoveFeeRequest(
+    private HttpRequest buildRemoveFeeRequest(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) {
+            final String feeId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/fees/{fee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/fees/{fee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        _templateParameters.put("fee_id", feeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        templateParameters.put("fee_id", feeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for removeFee
      * @return An object of type V1Item
      */
-    private V1Item _handleRemoveFeeResponse(HttpContext _context)
+    private V1Item handleRemoveFeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2420,15 +2392,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Item applyFee(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildApplyFeeRequest(locationId, itemId, feeId);
-        authManagers.get("default").apply(_request);
+            final String feeId) throws ApiException, IOException {
+        HttpRequest request = buildApplyFeeRequest(locationId, itemId, feeId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleApplyFeeResponse(_context);
+        return handleApplyFeeResponse(context);
     }
 
     /**
@@ -2450,78 +2421,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Item> applyFeeAsync(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) {
-        return makeHttpCallAsync(() -> _buildApplyFeeRequest(locationId, itemId, feeId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleApplyFeeResponse(_context));
+            final String feeId) {
+        return makeHttpCallAsync(() -> buildApplyFeeRequest(locationId, itemId, feeId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleApplyFeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for applyFee
      */
-    private HttpRequest _buildApplyFeeRequest(
+    private HttpRequest buildApplyFeeRequest(
             final String locationId,
             final String itemId,
-            final String feeId
-    ) {
+            final String feeId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/fees/{fee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/fees/{fee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        _templateParameters.put("fee_id", feeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        templateParameters.put("fee_id", feeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().put(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().put(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for applyFee
      * @return An object of type V1Item
      */
-    private V1Item _handleApplyFeeResponse(HttpContext _context)
+    private V1Item handleApplyFeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2543,15 +2512,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Item removeModifierList(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRemoveModifierListRequest(locationId, modifierListId, itemId);
-        authManagers.get("default").apply(_request);
+            final String itemId) throws ApiException, IOException {
+        HttpRequest request = buildRemoveModifierListRequest(locationId, modifierListId, itemId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRemoveModifierListResponse(_context);
+        return handleRemoveModifierListResponse(context);
     }
 
     /**
@@ -2573,78 +2541,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Item> removeModifierListAsync(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) {
-        return makeHttpCallAsync(() -> _buildRemoveModifierListRequest(locationId, modifierListId, itemId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRemoveModifierListResponse(_context));
+            final String itemId) {
+        return makeHttpCallAsync(() -> buildRemoveModifierListRequest(locationId, modifierListId, itemId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRemoveModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for removeModifierList
      */
-    private HttpRequest _buildRemoveModifierListRequest(
+    private HttpRequest buildRemoveModifierListRequest(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) {
+            final String itemId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/modifier-lists/{modifier_list_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/modifier-lists/{modifier_list_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for removeModifierList
      * @return An object of type V1Item
      */
-    private V1Item _handleRemoveModifierListResponse(HttpContext _context)
+    private V1Item handleRemoveModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2666,15 +2632,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Item applyModifierList(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildApplyModifierListRequest(locationId, modifierListId, itemId);
-        authManagers.get("default").apply(_request);
+            final String itemId) throws ApiException, IOException {
+        HttpRequest request = buildApplyModifierListRequest(locationId, modifierListId, itemId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleApplyModifierListResponse(_context);
+        return handleApplyModifierListResponse(context);
     }
 
     /**
@@ -2696,78 +2661,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Item> applyModifierListAsync(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) {
-        return makeHttpCallAsync(() -> _buildApplyModifierListRequest(locationId, modifierListId, itemId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleApplyModifierListResponse(_context));
+            final String itemId) {
+        return makeHttpCallAsync(() -> buildApplyModifierListRequest(locationId, modifierListId, itemId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleApplyModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for applyModifierList
      */
-    private HttpRequest _buildApplyModifierListRequest(
+    private HttpRequest buildApplyModifierListRequest(
             final String locationId,
             final String modifierListId,
-            final String itemId
-    ) {
+            final String itemId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/modifier-lists/{modifier_list_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/modifier-lists/{modifier_list_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().put(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().put(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for applyModifierList
      * @return An object of type V1Item
      */
-    private V1Item _handleApplyModifierListResponse(HttpContext _context)
+    private V1Item handleApplyModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Item _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Item result = ApiHelper.deserialize(responseBody,
                 V1Item.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2788,15 +2751,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Variation createVariation(
             final String locationId,
             final String itemId,
-            final V1Variation body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateVariationRequest(locationId, itemId, body);
-        authManagers.get("default").apply(_request);
+            final V1Variation body) throws ApiException, IOException {
+        HttpRequest request = buildCreateVariationRequest(locationId, itemId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateVariationResponse(_context);
+        return handleCreateVariationResponse(context);
     }
 
     /**
@@ -2817,79 +2779,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Variation> createVariationAsync(
             final String locationId,
             final String itemId,
-            final V1Variation body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateVariationRequest(locationId, itemId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateVariationResponse(_context));
+            final V1Variation body) {
+        return makeHttpCallAsync(() -> buildCreateVariationRequest(locationId, itemId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateVariationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createVariation
      */
-    private HttpRequest _buildCreateVariationRequest(
+    private HttpRequest buildCreateVariationRequest(
             final String locationId,
             final String itemId,
-            final V1Variation body
-    ) throws JsonProcessingException {
+            final V1Variation body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/variations");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/variations");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createVariation
      * @return An object of type V1Variation
      */
-    private V1Variation _handleCreateVariationResponse(HttpContext _context)
+    private V1Variation handleCreateVariationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Variation _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Variation result = ApiHelper.deserialize(responseBody,
                 V1Variation.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -2913,15 +2873,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Variation deleteVariation(
             final String locationId,
             final String itemId,
-            final String variationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteVariationRequest(locationId, itemId, variationId);
-        authManagers.get("default").apply(_request);
+            final String variationId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteVariationRequest(locationId, itemId, variationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteVariationResponse(_context);
+        return handleDeleteVariationResponse(context);
     }
 
     /**
@@ -2945,78 +2904,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Variation> deleteVariationAsync(
             final String locationId,
             final String itemId,
-            final String variationId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteVariationRequest(locationId, itemId, variationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteVariationResponse(_context));
+            final String variationId) {
+        return makeHttpCallAsync(() -> buildDeleteVariationRequest(locationId, itemId, variationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteVariationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteVariation
      */
-    private HttpRequest _buildDeleteVariationRequest(
+    private HttpRequest buildDeleteVariationRequest(
             final String locationId,
             final String itemId,
-            final String variationId
-    ) {
+            final String variationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/variations/{variation_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/variations/{variation_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        _templateParameters.put("variation_id", variationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        templateParameters.put("variation_id", variationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteVariation
      * @return An object of type V1Variation
      */
-    private V1Variation _handleDeleteVariationResponse(HttpContext _context)
+    private V1Variation handleDeleteVariationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Variation _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Variation result = ApiHelper.deserialize(responseBody,
                 V1Variation.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3039,15 +2996,14 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String itemId,
             final String variationId,
-            final V1Variation body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateVariationRequest(locationId, itemId, variationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Variation body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateVariationRequest(locationId, itemId, variationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateVariationResponse(_context);
+        return handleUpdateVariationResponse(context);
     }
 
     /**
@@ -3070,81 +3026,79 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String itemId,
             final String variationId,
-            final V1Variation body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateVariationRequest(locationId, itemId, variationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateVariationResponse(_context));
+            final V1Variation body) {
+        return makeHttpCallAsync(() -> buildUpdateVariationRequest(locationId, itemId, variationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateVariationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateVariation
      */
-    private HttpRequest _buildUpdateVariationRequest(
+    private HttpRequest buildUpdateVariationRequest(
             final String locationId,
             final String itemId,
             final String variationId,
-            final V1Variation body
-    ) throws JsonProcessingException {
+            final V1Variation body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/items/{item_id}/variations/{variation_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/items/{item_id}/variations/{variation_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("item_id", itemId);
-        _templateParameters.put("variation_id", variationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("item_id", itemId);
+        templateParameters.put("variation_id", variationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateVariation
      * @return An object of type V1Variation
      */
-    private V1Variation _handleUpdateVariationResponse(HttpContext _context)
+    private V1Variation handleUpdateVariationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Variation _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Variation result = ApiHelper.deserialize(responseBody,
                 V1Variation.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3161,15 +3115,14 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public List<V1ModifierList> listModifierLists(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListModifierListsRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildListModifierListsRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListModifierListsResponse(_context);
+        return handleListModifierListsResponse(context);
     }
 
     /**
@@ -3186,72 +3139,70 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public CompletableFuture<List<V1ModifierList>> listModifierListsAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildListModifierListsRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListModifierListsResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildListModifierListsRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListModifierListsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listModifierLists
      */
-    private HttpRequest _buildListModifierListsRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildListModifierListsRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listModifierLists
      * @return An object of type List<V1ModifierList>
      */
-    private List<V1ModifierList> _handleListModifierListsResponse(HttpContext _context)
+    private List<V1ModifierList> handleListModifierListsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1ModifierList> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1ModifierList> result = ApiHelper.deserializeArray(responseBody,
                 V1ModifierList[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -3270,15 +3221,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1ModifierList createModifierList(
             final String locationId,
-            final V1ModifierList body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateModifierListRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1ModifierList body) throws ApiException, IOException {
+        HttpRequest request = buildCreateModifierListRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateModifierListResponse(_context);
+        return handleCreateModifierListResponse(context);
     }
 
     /**
@@ -3297,77 +3247,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1ModifierList> createModifierListAsync(
             final String locationId,
-            final V1ModifierList body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateModifierListRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateModifierListResponse(_context));
+            final V1ModifierList body) {
+        return makeHttpCallAsync(() -> buildCreateModifierListRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createModifierList
      */
-    private HttpRequest _buildCreateModifierListRequest(
+    private HttpRequest buildCreateModifierListRequest(
             final String locationId,
-            final V1ModifierList body
-    ) throws JsonProcessingException {
+            final V1ModifierList body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createModifierList
      * @return An object of type V1ModifierList
      */
-    private V1ModifierList _handleCreateModifierListResponse(HttpContext _context)
+    private V1ModifierList handleCreateModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierList _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierList result = ApiHelper.deserialize(responseBody,
                 V1ModifierList.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3390,15 +3338,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1ModifierList deleteModifierList(
             final String locationId,
-            final String modifierListId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteModifierListRequest(locationId, modifierListId);
-        authManagers.get("default").apply(_request);
+            final String modifierListId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteModifierListRequest(locationId, modifierListId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteModifierListResponse(_context);
+        return handleDeleteModifierListResponse(context);
     }
 
     /**
@@ -3421,76 +3368,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1ModifierList> deleteModifierListAsync(
             final String locationId,
-            final String modifierListId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteModifierListRequest(locationId, modifierListId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteModifierListResponse(_context));
+            final String modifierListId) {
+        return makeHttpCallAsync(() -> buildDeleteModifierListRequest(locationId, modifierListId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteModifierList
      */
-    private HttpRequest _buildDeleteModifierListRequest(
+    private HttpRequest buildDeleteModifierListRequest(
             final String locationId,
-            final String modifierListId
-    ) {
+            final String modifierListId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteModifierList
      * @return An object of type V1ModifierList
      */
-    private V1ModifierList _handleDeleteModifierListResponse(HttpContext _context)
+    private V1ModifierList handleDeleteModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierList _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierList result = ApiHelper.deserialize(responseBody,
                 V1ModifierList.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3509,15 +3454,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1ModifierList retrieveModifierList(
             final String locationId,
-            final String modifierListId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveModifierListRequest(locationId, modifierListId);
-        authManagers.get("default").apply(_request);
+            final String modifierListId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveModifierListRequest(locationId, modifierListId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveModifierListResponse(_context);
+        return handleRetrieveModifierListResponse(context);
     }
 
     /**
@@ -3536,76 +3480,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1ModifierList> retrieveModifierListAsync(
             final String locationId,
-            final String modifierListId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveModifierListRequest(locationId, modifierListId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveModifierListResponse(_context));
+            final String modifierListId) {
+        return makeHttpCallAsync(() -> buildRetrieveModifierListRequest(locationId, modifierListId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveModifierList
      */
-    private HttpRequest _buildRetrieveModifierListRequest(
+    private HttpRequest buildRetrieveModifierListRequest(
             final String locationId,
-            final String modifierListId
-    ) {
+            final String modifierListId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveModifierList
      * @return An object of type V1ModifierList
      */
-    private V1ModifierList _handleRetrieveModifierListResponse(HttpContext _context)
+    private V1ModifierList handleRetrieveModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierList _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierList result = ApiHelper.deserialize(responseBody,
                 V1ModifierList.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3626,15 +3568,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1ModifierList updateModifierList(
             final String locationId,
             final String modifierListId,
-            final V1UpdateModifierListRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateModifierListRequest(locationId, modifierListId, body);
-        authManagers.get("default").apply(_request);
+            final V1UpdateModifierListRequest body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateModifierListRequest(locationId, modifierListId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateModifierListResponse(_context);
+        return handleUpdateModifierListResponse(context);
     }
 
     /**
@@ -3655,79 +3596,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1ModifierList> updateModifierListAsync(
             final String locationId,
             final String modifierListId,
-            final V1UpdateModifierListRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateModifierListRequest(locationId, modifierListId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateModifierListResponse(_context));
+            final V1UpdateModifierListRequest body) {
+        return makeHttpCallAsync(() -> buildUpdateModifierListRequest(locationId, modifierListId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateModifierListResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateModifierList
      */
-    private HttpRequest _buildUpdateModifierListRequest(
+    private HttpRequest buildUpdateModifierListRequest(
             final String locationId,
             final String modifierListId,
-            final V1UpdateModifierListRequest body
-    ) throws JsonProcessingException {
+            final V1UpdateModifierListRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateModifierList
      * @return An object of type V1ModifierList
      */
-    private V1ModifierList _handleUpdateModifierListResponse(HttpContext _context)
+    private V1ModifierList handleUpdateModifierListResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierList _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierList result = ApiHelper.deserialize(responseBody,
                 V1ModifierList.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3748,15 +3687,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1ModifierOption createModifierOption(
             final String locationId,
             final String modifierListId,
-            final V1ModifierOption body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateModifierOptionRequest(locationId, modifierListId, body);
-        authManagers.get("default").apply(_request);
+            final V1ModifierOption body) throws ApiException, IOException {
+        HttpRequest request = buildCreateModifierOptionRequest(locationId, modifierListId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateModifierOptionResponse(_context);
+        return handleCreateModifierOptionResponse(context);
     }
 
     /**
@@ -3777,79 +3715,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1ModifierOption> createModifierOptionAsync(
             final String locationId,
             final String modifierListId,
-            final V1ModifierOption body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateModifierOptionRequest(locationId, modifierListId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateModifierOptionResponse(_context));
+            final V1ModifierOption body) {
+        return makeHttpCallAsync(() -> buildCreateModifierOptionRequest(locationId, modifierListId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateModifierOptionResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createModifierOption
      */
-    private HttpRequest _buildCreateModifierOptionRequest(
+    private HttpRequest buildCreateModifierOptionRequest(
             final String locationId,
             final String modifierListId,
-            final V1ModifierOption body
-    ) throws JsonProcessingException {
+            final V1ModifierOption body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createModifierOption
      * @return An object of type V1ModifierOption
      */
-    private V1ModifierOption _handleCreateModifierOptionResponse(HttpContext _context)
+    private V1ModifierOption handleCreateModifierOptionResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierOption _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierOption result = ApiHelper.deserialize(responseBody,
                 V1ModifierOption.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3873,15 +3809,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1ModifierOption deleteModifierOption(
             final String locationId,
             final String modifierListId,
-            final String modifierOptionId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteModifierOptionRequest(locationId, modifierListId, modifierOptionId);
-        authManagers.get("default").apply(_request);
+            final String modifierOptionId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteModifierOptionRequest(locationId, modifierListId, modifierOptionId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteModifierOptionResponse(_context);
+        return handleDeleteModifierOptionResponse(context);
     }
 
     /**
@@ -3905,78 +3840,76 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1ModifierOption> deleteModifierOptionAsync(
             final String locationId,
             final String modifierListId,
-            final String modifierOptionId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteModifierOptionRequest(locationId, modifierListId, modifierOptionId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteModifierOptionResponse(_context));
+            final String modifierOptionId) {
+        return makeHttpCallAsync(() -> buildDeleteModifierOptionRequest(locationId, modifierListId, modifierOptionId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteModifierOptionResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteModifierOption
      */
-    private HttpRequest _buildDeleteModifierOptionRequest(
+    private HttpRequest buildDeleteModifierOptionRequest(
             final String locationId,
             final String modifierListId,
-            final String modifierOptionId
-    ) {
+            final String modifierOptionId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options/{modifier_option_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options/{modifier_option_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        _templateParameters.put("modifier_option_id", modifierOptionId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        templateParameters.put("modifier_option_id", modifierOptionId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteModifierOption
      * @return An object of type V1ModifierOption
      */
-    private V1ModifierOption _handleDeleteModifierOptionResponse(HttpContext _context)
+    private V1ModifierOption handleDeleteModifierOptionResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierOption _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierOption result = ApiHelper.deserialize(responseBody,
                 V1ModifierOption.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -3999,15 +3932,14 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String modifierListId,
             final String modifierOptionId,
-            final V1ModifierOption body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateModifierOptionRequest(locationId, modifierListId, modifierOptionId, body);
-        authManagers.get("default").apply(_request);
+            final V1ModifierOption body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateModifierOptionRequest(locationId, modifierListId, modifierOptionId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateModifierOptionResponse(_context);
+        return handleUpdateModifierOptionResponse(context);
     }
 
     /**
@@ -4030,81 +3962,79 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String modifierListId,
             final String modifierOptionId,
-            final V1ModifierOption body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateModifierOptionRequest(locationId, modifierListId, modifierOptionId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateModifierOptionResponse(_context));
+            final V1ModifierOption body) {
+        return makeHttpCallAsync(() -> buildUpdateModifierOptionRequest(locationId, modifierListId, modifierOptionId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateModifierOptionResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateModifierOption
      */
-    private HttpRequest _buildUpdateModifierOptionRequest(
+    private HttpRequest buildUpdateModifierOptionRequest(
             final String locationId,
             final String modifierListId,
             final String modifierOptionId,
-            final V1ModifierOption body
-    ) throws JsonProcessingException {
+            final V1ModifierOption body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options/{modifier_option_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/modifier-lists/{modifier_list_id}/modifier-options/{modifier_option_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("modifier_list_id", modifierListId);
-        _templateParameters.put("modifier_option_id", modifierOptionId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("modifier_list_id", modifierListId);
+        templateParameters.put("modifier_option_id", modifierOptionId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateModifierOption
      * @return An object of type V1ModifierOption
      */
-    private V1ModifierOption _handleUpdateModifierOptionResponse(HttpContext _context)
+    private V1ModifierOption handleUpdateModifierOptionResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1ModifierOption _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1ModifierOption result = ApiHelper.deserialize(responseBody,
                 V1ModifierOption.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -4122,15 +4052,14 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public List<V1Page> listPages(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListPagesRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildListPagesRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListPagesResponse(_context);
+        return handleListPagesResponse(context);
     }
 
     /**
@@ -4148,72 +4077,70 @@ public final class V1ItemsApi extends BaseApi {
      */
     @Deprecated
     public CompletableFuture<List<V1Page>> listPagesAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildListPagesRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListPagesResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildListPagesRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListPagesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listPages
      */
-    private HttpRequest _buildListPagesRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildListPagesRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listPages
      * @return An object of type List<V1Page>
      */
-    private List<V1Page> _handleListPagesResponse(HttpContext _context)
+    private List<V1Page> handleListPagesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Page> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Page> result = ApiHelper.deserializeArray(responseBody,
                 V1Page[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -4232,15 +4159,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Page createPage(
             final String locationId,
-            final V1Page body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreatePageRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final V1Page body) throws ApiException, IOException {
+        HttpRequest request = buildCreatePageRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreatePageResponse(_context);
+        return handleCreatePageResponse(context);
     }
 
     /**
@@ -4259,77 +4185,75 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Page> createPageAsync(
             final String locationId,
-            final V1Page body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreatePageRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreatePageResponse(_context));
+            final V1Page body) {
+        return makeHttpCallAsync(() -> buildCreatePageRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreatePageResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createPage
      */
-    private HttpRequest _buildCreatePageRequest(
+    private HttpRequest buildCreatePageRequest(
             final String locationId,
-            final V1Page body
-    ) throws JsonProcessingException {
+            final V1Page body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createPage
      * @return An object of type V1Page
      */
-    private V1Page _handleCreatePageResponse(HttpContext _context)
+    private V1Page handleCreatePageResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Page _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Page result = ApiHelper.deserialize(responseBody,
                 V1Page.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -4350,15 +4274,14 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public V1Page deletePage(
             final String locationId,
-            final String pageId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeletePageRequest(locationId, pageId);
-        authManagers.get("default").apply(_request);
+            final String pageId) throws ApiException, IOException {
+        HttpRequest request = buildDeletePageRequest(locationId, pageId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeletePageResponse(_context);
+        return handleDeletePageResponse(context);
     }
 
     /**
@@ -4379,76 +4302,74 @@ public final class V1ItemsApi extends BaseApi {
     @Deprecated
     public CompletableFuture<V1Page> deletePageAsync(
             final String locationId,
-            final String pageId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeletePageRequest(locationId, pageId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeletePageResponse(_context));
+            final String pageId) {
+        return makeHttpCallAsync(() -> buildDeletePageRequest(locationId, pageId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeletePageResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deletePage
      */
-    private HttpRequest _buildDeletePageRequest(
+    private HttpRequest buildDeletePageRequest(
             final String locationId,
-            final String pageId
-    ) {
+            final String pageId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages/{page_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages/{page_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("page_id", pageId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("page_id", pageId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deletePage
      * @return An object of type V1Page
      */
-    private V1Page _handleDeletePageResponse(HttpContext _context)
+    private V1Page handleDeletePageResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Page _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Page result = ApiHelper.deserialize(responseBody,
                 V1Page.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -4469,15 +4390,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Page updatePage(
             final String locationId,
             final String pageId,
-            final V1Page body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdatePageRequest(locationId, pageId, body);
-        authManagers.get("default").apply(_request);
+            final V1Page body) throws ApiException, IOException {
+        HttpRequest request = buildUpdatePageRequest(locationId, pageId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdatePageResponse(_context);
+        return handleUpdatePageResponse(context);
     }
 
     /**
@@ -4498,79 +4418,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Page> updatePageAsync(
             final String locationId,
             final String pageId,
-            final V1Page body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdatePageRequest(locationId, pageId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdatePageResponse(_context));
+            final V1Page body) {
+        return makeHttpCallAsync(() -> buildUpdatePageRequest(locationId, pageId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdatePageResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updatePage
      */
-    private HttpRequest _buildUpdatePageRequest(
+    private HttpRequest buildUpdatePageRequest(
             final String locationId,
             final String pageId,
-            final V1Page body
-    ) throws JsonProcessingException {
+            final V1Page body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages/{page_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages/{page_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("page_id", pageId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("page_id", pageId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updatePage
      * @return An object of type V1Page
      */
-    private V1Page _handleUpdatePageResponse(HttpContext _context)
+    private V1Page handleUpdatePageResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Page _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Page result = ApiHelper.deserialize(responseBody,
                 V1Page.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -4596,15 +4514,14 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String pageId,
             final String row,
-            final String column
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeletePageCellRequest(locationId, pageId, row, column);
-        authManagers.get("default").apply(_request);
+            final String column) throws ApiException, IOException {
+        HttpRequest request = buildDeletePageCellRequest(locationId, pageId, row, column);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeletePageCellResponse(_context);
+        return handleDeletePageCellResponse(context);
     }
 
     /**
@@ -4630,84 +4547,82 @@ public final class V1ItemsApi extends BaseApi {
             final String locationId,
             final String pageId,
             final String row,
-            final String column
-    ) {
-        return makeHttpCallAsync(() -> _buildDeletePageCellRequest(locationId, pageId, row, column),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeletePageCellResponse(_context));
+            final String column) {
+        return makeHttpCallAsync(() -> buildDeletePageCellRequest(locationId, pageId, row, column),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeletePageCellResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deletePageCell
      */
-    private HttpRequest _buildDeletePageCellRequest(
+    private HttpRequest buildDeletePageCellRequest(
             final String locationId,
             final String pageId,
             final String row,
-            final String column
-    ) {
+            final String column) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages/{page_id}/cells");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages/{page_id}/cells");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("page_id", pageId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("page_id", pageId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("row", row);
-        _queryParameters.put("column", column);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("row", row);
+        queryParameters.put("column", column);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deletePageCell
      * @return An object of type V1Page
      */
-    private V1Page _handleDeletePageCellResponse(HttpContext _context)
+    private V1Page handleDeletePageCellResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Page _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Page result = ApiHelper.deserialize(responseBody,
                 V1Page.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -4728,15 +4643,14 @@ public final class V1ItemsApi extends BaseApi {
     public V1Page updatePageCell(
             final String locationId,
             final String pageId,
-            final V1PageCell body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdatePageCellRequest(locationId, pageId, body);
-        authManagers.get("default").apply(_request);
+            final V1PageCell body) throws ApiException, IOException {
+        HttpRequest request = buildUpdatePageCellRequest(locationId, pageId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdatePageCellResponse(_context);
+        return handleUpdatePageCellResponse(context);
     }
 
     /**
@@ -4757,79 +4671,77 @@ public final class V1ItemsApi extends BaseApi {
     public CompletableFuture<V1Page> updatePageCellAsync(
             final String locationId,
             final String pageId,
-            final V1PageCell body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdatePageCellRequest(locationId, pageId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdatePageCellResponse(_context));
+            final V1PageCell body) {
+        return makeHttpCallAsync(() -> buildUpdatePageCellRequest(locationId, pageId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdatePageCellResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updatePageCell
      */
-    private HttpRequest _buildUpdatePageCellRequest(
+    private HttpRequest buildUpdatePageCellRequest(
             final String locationId,
             final String pageId,
-            final V1PageCell body
-    ) throws JsonProcessingException {
+            final V1PageCell body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/pages/{page_id}/cells");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/pages/{page_id}/cells");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("page_id", pageId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("page_id", pageId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updatePageCell
      * @return An object of type V1Page
      */
-    private V1Page _handleUpdatePageCellResponse(HttpContext _context)
+    private V1Page handleUpdatePageCellResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Page _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Page result = ApiHelper.deserialize(responseBody,
                 V1Page.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,37 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.CancelPaymentByIdempotencyKeyRequest;
+import com.squareup.square.models.CancelPaymentByIdempotencyKeyResponse;
+import com.squareup.square.models.CancelPaymentResponse;
+import com.squareup.square.models.CompletePaymentResponse;
+import com.squareup.square.models.CreatePaymentRequest;
+import com.squareup.square.models.CreatePaymentResponse;
+import com.squareup.square.models.GetPaymentResponse;
+import com.squareup.square.models.ListPaymentsResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class PaymentsApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public PaymentsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public PaymentsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -45,15 +72,14 @@ public final class PaymentsApi extends BaseApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand);
-        authManagers.get("default").apply(_request);
+            final String cardBrand) throws ApiException, IOException {
+        HttpRequest request = buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListPaymentsResponse(_context);
+        return handleListPaymentsResponse(context);
     }
 
     /**
@@ -77,18 +103,17 @@ public final class PaymentsApi extends BaseApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand
-    ) {
-        return makeHttpCallAsync(() -> _buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListPaymentsResponse(_context));
+            final String cardBrand) {
+        return makeHttpCallAsync(() -> buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListPaymentsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listPayments
      */
-    private HttpRequest _buildListPaymentsRequest(
+    private HttpRequest buildListPaymentsRequest(
             final String beginTime,
             final String endTime,
             final String sortOrder,
@@ -96,69 +121,68 @@ public final class PaymentsApi extends BaseApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand
-    ) {
+            final String cardBrand) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("begin_time", beginTime);
-        _queryParameters.put("end_time", endTime);
-        _queryParameters.put("sort_order", sortOrder);
-        _queryParameters.put("cursor", cursor);
-        _queryParameters.put("location_id", locationId);
-        _queryParameters.put("total", total);
-        _queryParameters.put("last_4", last4);
-        _queryParameters.put("card_brand", cardBrand);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("begin_time", beginTime);
+        queryParameters.put("end_time", endTime);
+        queryParameters.put("sort_order", sortOrder);
+        queryParameters.put("cursor", cursor);
+        queryParameters.put("location_id", locationId);
+        queryParameters.put("total", total);
+        queryParameters.put("last_4", last4);
+        queryParameters.put("card_brand", cardBrand);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listPayments
      * @return An object of type ListPaymentsResponse
      */
-    private ListPaymentsResponse _handleListPaymentsResponse(HttpContext _context)
+    private ListPaymentsResponse handleListPaymentsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListPaymentsResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListPaymentsResponse result = ApiHelper.deserialize(responseBody,
                 ListPaymentsResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -177,15 +201,14 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CreatePaymentResponse response from the API call
      */
     public CreatePaymentResponse createPayment(
-            final CreatePaymentRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreatePaymentRequest(body);
-        authManagers.get("default").apply(_request);
+            final CreatePaymentRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreatePaymentRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreatePaymentResponse(_context);
+        return handleCreatePaymentResponse(context);
     }
 
     /**
@@ -204,71 +227,69 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CreatePaymentResponse response from the API call 
      */
     public CompletableFuture<CreatePaymentResponse> createPaymentAsync(
-            final CreatePaymentRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreatePaymentRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreatePaymentResponse(_context));
+            final CreatePaymentRequest body) {
+        return makeHttpCallAsync(() -> buildCreatePaymentRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreatePaymentResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createPayment
      */
-    private HttpRequest _buildCreatePaymentRequest(
-            final CreatePaymentRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreatePaymentRequest(
+            final CreatePaymentRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createPayment
      * @return An object of type CreatePaymentResponse
      */
-    private CreatePaymentResponse _handleCreatePaymentResponse(HttpContext _context)
+    private CreatePaymentResponse handleCreatePaymentResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CreatePaymentResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CreatePaymentResponse result = ApiHelper.deserialize(responseBody,
                 CreatePaymentResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -285,15 +306,14 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CancelPaymentByIdempotencyKeyResponse response from the API call
      */
     public CancelPaymentByIdempotencyKeyResponse cancelPaymentByIdempotencyKey(
-            final CancelPaymentByIdempotencyKeyRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCancelPaymentByIdempotencyKeyRequest(body);
-        authManagers.get("default").apply(_request);
+            final CancelPaymentByIdempotencyKeyRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCancelPaymentByIdempotencyKeyRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCancelPaymentByIdempotencyKeyResponse(_context);
+        return handleCancelPaymentByIdempotencyKeyResponse(context);
     }
 
     /**
@@ -310,71 +330,69 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CancelPaymentByIdempotencyKeyResponse response from the API call 
      */
     public CompletableFuture<CancelPaymentByIdempotencyKeyResponse> cancelPaymentByIdempotencyKeyAsync(
-            final CancelPaymentByIdempotencyKeyRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCancelPaymentByIdempotencyKeyRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCancelPaymentByIdempotencyKeyResponse(_context));
+            final CancelPaymentByIdempotencyKeyRequest body) {
+        return makeHttpCallAsync(() -> buildCancelPaymentByIdempotencyKeyRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCancelPaymentByIdempotencyKeyResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for cancelPaymentByIdempotencyKey
      */
-    private HttpRequest _buildCancelPaymentByIdempotencyKeyRequest(
-            final CancelPaymentByIdempotencyKeyRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCancelPaymentByIdempotencyKeyRequest(
+            final CancelPaymentByIdempotencyKeyRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments/cancel");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments/cancel");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for cancelPaymentByIdempotencyKey
      * @return An object of type CancelPaymentByIdempotencyKeyResponse
      */
-    private CancelPaymentByIdempotencyKeyResponse _handleCancelPaymentByIdempotencyKeyResponse(HttpContext _context)
+    private CancelPaymentByIdempotencyKeyResponse handleCancelPaymentByIdempotencyKeyResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CancelPaymentByIdempotencyKeyResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CancelPaymentByIdempotencyKeyResponse result = ApiHelper.deserialize(responseBody,
                 CancelPaymentByIdempotencyKeyResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -383,15 +401,14 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the GetPaymentResponse response from the API call
      */
     public GetPaymentResponse getPayment(
-            final String paymentId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildGetPaymentRequest(paymentId);
-        authManagers.get("default").apply(_request);
+            final String paymentId) throws ApiException, IOException {
+        HttpRequest request = buildGetPaymentRequest(paymentId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleGetPaymentResponse(_context);
+        return handleGetPaymentResponse(context);
     }
 
     /**
@@ -400,74 +417,72 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the GetPaymentResponse response from the API call 
      */
     public CompletableFuture<GetPaymentResponse> getPaymentAsync(
-            final String paymentId
-    ) {
-        return makeHttpCallAsync(() -> _buildGetPaymentRequest(paymentId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleGetPaymentResponse(_context));
+            final String paymentId) {
+        return makeHttpCallAsync(() -> buildGetPaymentRequest(paymentId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleGetPaymentResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for getPayment
      */
-    private HttpRequest _buildGetPaymentRequest(
-            final String paymentId
-    ) {
+    private HttpRequest buildGetPaymentRequest(
+            final String paymentId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments/{payment_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments/{payment_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("payment_id", paymentId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("payment_id", paymentId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for getPayment
      * @return An object of type GetPaymentResponse
      */
-    private GetPaymentResponse _handleGetPaymentResponse(HttpContext _context)
+    private GetPaymentResponse handleGetPaymentResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        GetPaymentResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        GetPaymentResponse result = ApiHelper.deserialize(responseBody,
                 GetPaymentResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -478,15 +493,14 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CancelPaymentResponse response from the API call
      */
     public CancelPaymentResponse cancelPayment(
-            final String paymentId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCancelPaymentRequest(paymentId);
-        authManagers.get("default").apply(_request);
+            final String paymentId) throws ApiException, IOException {
+        HttpRequest request = buildCancelPaymentRequest(paymentId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCancelPaymentResponse(_context);
+        return handleCancelPaymentResponse(context);
     }
 
     /**
@@ -497,74 +511,72 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CancelPaymentResponse response from the API call 
      */
     public CompletableFuture<CancelPaymentResponse> cancelPaymentAsync(
-            final String paymentId
-    ) {
-        return makeHttpCallAsync(() -> _buildCancelPaymentRequest(paymentId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCancelPaymentResponse(_context));
+            final String paymentId) {
+        return makeHttpCallAsync(() -> buildCancelPaymentRequest(paymentId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCancelPaymentResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for cancelPayment
      */
-    private HttpRequest _buildCancelPaymentRequest(
-            final String paymentId
-    ) {
+    private HttpRequest buildCancelPaymentRequest(
+            final String paymentId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments/{payment_id}/cancel");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments/{payment_id}/cancel");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("payment_id", paymentId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("payment_id", paymentId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().post(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for cancelPayment
      * @return An object of type CancelPaymentResponse
      */
-    private CancelPaymentResponse _handleCancelPaymentResponse(HttpContext _context)
+    private CancelPaymentResponse handleCancelPaymentResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CancelPaymentResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CancelPaymentResponse result = ApiHelper.deserialize(responseBody,
                 CancelPaymentResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -577,15 +589,14 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     public CompletePaymentResponse completePayment(
-            final String paymentId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCompletePaymentRequest(paymentId);
-        authManagers.get("default").apply(_request);
+            final String paymentId) throws ApiException, IOException {
+        HttpRequest request = buildCompletePaymentRequest(paymentId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCompletePaymentResponse(_context);
+        return handleCompletePaymentResponse(context);
     }
 
     /**
@@ -598,74 +609,72 @@ public final class PaymentsApi extends BaseApi {
      * @return    Returns the CompletePaymentResponse response from the API call 
      */
     public CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId
-    ) {
-        return makeHttpCallAsync(() -> _buildCompletePaymentRequest(paymentId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCompletePaymentResponse(_context));
+            final String paymentId) {
+        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCompletePaymentResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for completePayment
      */
-    private HttpRequest _buildCompletePaymentRequest(
-            final String paymentId
-    ) {
+    private HttpRequest buildCompletePaymentRequest(
+            final String paymentId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/payments/{payment_id}/complete");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/payments/{payment_id}/complete");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("payment_id", paymentId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("payment_id", paymentId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().post(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for completePayment
      * @return An object of type CompletePaymentResponse
      */
-    private CompletePaymentResponse _handleCompletePaymentResponse(HttpContext _context)
+    private CompletePaymentResponse handleCompletePaymentResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CompletePaymentResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CompletePaymentResponse result = ApiHelper.deserialize(responseBody,
                 CompletePaymentResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

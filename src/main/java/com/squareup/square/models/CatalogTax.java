@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogTax type.
+ */
 public class CatalogTax {
 
+    /**
+     * Initialization constructor.
+     * @param name
+     * @param calculationPhase
+     * @param inclusionType
+     * @param percentage
+     * @param appliesToCustomAmounts
+     * @param enabled
+     */
     @JsonCreator
     public CatalogTax(
             @JsonProperty("name") String name,
@@ -29,34 +42,12 @@ public class CatalogTax {
     private final String percentage;
     private final Boolean appliesToCustomAmounts;
     private final Boolean enabled;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, calculationPhase, inclusionType, percentage, appliesToCustomAmounts, enabled);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogTax)) {
-            return false;
-        }
-        CatalogTax catalogTax = (CatalogTax) o;
-        return Objects.equals(name, catalogTax.name) &&
-            Objects.equals(calculationPhase, catalogTax.calculationPhase) &&
-            Objects.equals(inclusionType, catalogTax.inclusionType) &&
-            Objects.equals(percentage, catalogTax.percentage) &&
-            Objects.equals(appliesToCustomAmounts, catalogTax.appliesToCustomAmounts) &&
-            Objects.equals(enabled, catalogTax.enabled);
-    }
-
     /**
      * Getter for Name.
      * The tax's name. Searchable. This field has max length of 255 Unicode code points.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -65,7 +56,7 @@ public class CatalogTax {
      * When to calculate the taxes due on a cart.
      */
     @JsonGetter("calculation_phase")
-    public String getCalculationPhase() { 
+    public String getCalculationPhase() {
         return this.calculationPhase;
     }
 
@@ -74,7 +65,7 @@ public class CatalogTax {
      * Whether to the tax amount should be additional to or included in the CatalogItem price.
      */
     @JsonGetter("inclusion_type")
-    public String getInclusionType() { 
+    public String getInclusionType() {
         return this.inclusionType;
     }
 
@@ -84,7 +75,7 @@ public class CatalogTax {
      * A value of `7.5` corresponds to 7.5%.
      */
     @JsonGetter("percentage")
-    public String getPercentage() { 
+    public String getPercentage() {
         return this.percentage;
     }
 
@@ -94,7 +85,7 @@ public class CatalogTax {
      * app that are not associated with a particular `CatalogItem`.
      */
     @JsonGetter("applies_to_custom_amounts")
-    public Boolean getAppliesToCustomAmounts() { 
+    public Boolean getAppliesToCustomAmounts() {
         return this.appliesToCustomAmounts;
     }
 
@@ -103,11 +94,39 @@ public class CatalogTax {
      * If `true`, the tax will be shown as enabled in the Square Point of Sale app.
      */
     @JsonGetter("enabled")
-    public Boolean getEnabled() { 
+    public Boolean getEnabled() {
         return this.enabled;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, calculationPhase, inclusionType, percentage,
+            appliesToCustomAmounts, enabled);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogTax)) {
+            return false;
+        }
+        CatalogTax catalogTax = (CatalogTax) obj;
+        return Objects.equals(name, catalogTax.name) &&
+            Objects.equals(calculationPhase, catalogTax.calculationPhase) &&
+            Objects.equals(inclusionType, catalogTax.inclusionType) &&
+            Objects.equals(percentage, catalogTax.percentage) &&
+            Objects.equals(appliesToCustomAmounts, catalogTax.appliesToCustomAmounts) &&
+            Objects.equals(enabled, catalogTax.enabled);
+    }
+
+    /**
+     * Builds a new {@link CatalogTax.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogTax.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
@@ -119,6 +138,9 @@ public class CatalogTax {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogTax}
+     */
     public static class Builder {
         private String name;
         private String calculationPhase;
@@ -127,33 +149,72 @@ public class CatalogTax {
         private Boolean appliesToCustomAmounts;
         private Boolean enabled;
 
-        public Builder() { }
-
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder calculationPhase(String value) {
-            calculationPhase = value;
-            return this;
-        }
-        public Builder inclusionType(String value) {
-            inclusionType = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder appliesToCustomAmounts(Boolean value) {
-            appliesToCustomAmounts = value;
-            return this;
-        }
-        public Builder enabled(Boolean value) {
-            enabled = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for calculationPhase
+         * @param calculationPhase
+         * @return Builder
+         */
+        public Builder calculationPhase(String calculationPhase) {
+            this.calculationPhase = calculationPhase;
+            return this;
+        }
+        /**
+         * Setter for inclusionType
+         * @param inclusionType
+         * @return Builder
+         */
+        public Builder inclusionType(String inclusionType) {
+            this.inclusionType = inclusionType;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for appliesToCustomAmounts
+         * @param appliesToCustomAmounts
+         * @return Builder
+         */
+        public Builder appliesToCustomAmounts(Boolean appliesToCustomAmounts) {
+            this.appliesToCustomAmounts = appliesToCustomAmounts;
+            return this;
+        }
+        /**
+         * Setter for enabled
+         * @param enabled
+         * @return Builder
+         */
+        public Builder enabled(Boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogTax} object using the set fields.
+         * @return {@link CatalogTax}
+         */
         public CatalogTax build() {
             return new CatalogTax(name,
                 calculationPhase,

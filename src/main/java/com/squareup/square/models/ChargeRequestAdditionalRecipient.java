@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ChargeRequestAdditionalRecipient type.
+ */
 public class ChargeRequestAdditionalRecipient {
 
+    /**
+     * Initialization constructor.
+     * @param locationId
+     * @param description
+     * @param amountMoney
+     */
     @JsonCreator
     public ChargeRequestAdditionalRecipient(
             @JsonProperty("location_id") String locationId,
@@ -20,31 +30,12 @@ public class ChargeRequestAdditionalRecipient {
     private final String locationId;
     private final String description;
     private final Money amountMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(locationId, description, amountMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ChargeRequestAdditionalRecipient)) {
-            return false;
-        }
-        ChargeRequestAdditionalRecipient chargeRequestAdditionalRecipient = (ChargeRequestAdditionalRecipient) o;
-        return Objects.equals(locationId, chargeRequestAdditionalRecipient.locationId) &&
-            Objects.equals(description, chargeRequestAdditionalRecipient.description) &&
-            Objects.equals(amountMoney, chargeRequestAdditionalRecipient.amountMoney);
-    }
-
     /**
      * Getter for LocationId.
      * The location ID for a recipient (other than the merchant) receiving a portion of the tender.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -53,7 +44,7 @@ public class ChargeRequestAdditionalRecipient {
      * The description of the additional recipient.
      */
     @JsonGetter("description")
-    public String getDescription() { 
+    public String getDescription() {
         return this.description;
     }
 
@@ -67,11 +58,35 @@ public class ChargeRequestAdditionalRecipient {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationId, description, amountMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ChargeRequestAdditionalRecipient)) {
+            return false;
+        }
+        ChargeRequestAdditionalRecipient chargeRequestAdditionalRecipient = (ChargeRequestAdditionalRecipient) obj;
+        return Objects.equals(locationId, chargeRequestAdditionalRecipient.locationId) &&
+            Objects.equals(description, chargeRequestAdditionalRecipient.description) &&
+            Objects.equals(amountMoney, chargeRequestAdditionalRecipient.amountMoney);
+    }
+
+    /**
+     * Builds a new {@link ChargeRequestAdditionalRecipient.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ChargeRequestAdditionalRecipient.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId,
             description,
@@ -79,11 +94,17 @@ public class ChargeRequestAdditionalRecipient {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ChargeRequestAdditionalRecipient}
+     */
     public static class Builder {
         private String locationId;
         private String description;
         private Money amountMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String locationId,
                 String description,
                 Money amountMoney) {
@@ -92,19 +113,38 @@ public class ChargeRequestAdditionalRecipient {
             this.amountMoney = amountMoney;
         }
 
-        public Builder locationId(String value) {
-            locationId = value;
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
-        public Builder description(String value) {
-            description = value;
+        /**
+         * Setter for description
+         * @param description
+         * @return Builder
+         */
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link ChargeRequestAdditionalRecipient} object using the set fields.
+         * @return {@link ChargeRequestAdditionalRecipient}
+         */
         public ChargeRequestAdditionalRecipient build() {
             return new ChargeRequestAdditionalRecipient(locationId,
                 description,

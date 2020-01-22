@@ -1,7 +1,11 @@
 package com.squareup.square;
 
 import com.squareup.square.http.Headers;
+import com.squareup.square.http.client.ReadonlyHttpClientConfiguration;
 
+/**
+ * Configuration Interface for the library.
+ */
 public interface Configuration {
 
     /**
@@ -21,6 +25,12 @@ public interface Configuration {
      * @return a copy of timeout
      */
     long getTimeout();
+
+    /**
+     * Http Client Configuration instance.
+     * @return a copy of httpClientConfig
+     */
+    ReadonlyHttpClientConfiguration getHttpClientConfig();
 
     /**
      * Additional headers to add to each API request

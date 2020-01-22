@@ -1,14 +1,39 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Refund type.
+ */
 public class V1Refund {
 
+    /**
+     * Initialization constructor.
+     * @param type
+     * @param reason
+     * @param refundedMoney
+     * @param refundedProcessingFeeMoney
+     * @param refundedTaxMoney
+     * @param refundedAdditiveTaxMoney
+     * @param refundedAdditiveTax
+     * @param refundedInclusiveTaxMoney
+     * @param refundedInclusiveTax
+     * @param refundedTipMoney
+     * @param refundedDiscountMoney
+     * @param refundedSurchargeMoney
+     * @param refundedSurcharges
+     * @param createdAt
+     * @param processedAt
+     * @param paymentId
+     * @param merchantId
+     * @param isExchange
+     */
     @JsonCreator
     public V1Refund(
             @JsonProperty("type") String type,
@@ -69,19 +94,181 @@ public class V1Refund {
     private final String merchantId;
     private final Boolean isExchange;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Type.
+     */
+    @JsonGetter("type")
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Getter for Reason.
+     * The merchant-specified reason for the refund.
+     */
+    @JsonGetter("reason")
+    public String getReason() {
+        return this.reason;
+    }
+
+    /**
+     * Getter for RefundedMoney.
+     */
+    @JsonGetter("refunded_money")
+    public V1Money getRefundedMoney() {
+        return this.refundedMoney;
+    }
+
+    /**
+     * Getter for RefundedProcessingFeeMoney.
+     */
+    @JsonGetter("refunded_processing_fee_money")
+    public V1Money getRefundedProcessingFeeMoney() {
+        return this.refundedProcessingFeeMoney;
+    }
+
+    /**
+     * Getter for RefundedTaxMoney.
+     */
+    @JsonGetter("refunded_tax_money")
+    public V1Money getRefundedTaxMoney() {
+        return this.refundedTaxMoney;
+    }
+
+    /**
+     * Getter for RefundedAdditiveTaxMoney.
+     */
+    @JsonGetter("refunded_additive_tax_money")
+    public V1Money getRefundedAdditiveTaxMoney() {
+        return this.refundedAdditiveTaxMoney;
+    }
+
+    /**
+     * Getter for RefundedAdditiveTax.
+     * All of the additive taxes associated with the refund.
+     */
+    @JsonGetter("refunded_additive_tax")
+    public List<V1PaymentTax> getRefundedAdditiveTax() {
+        return this.refundedAdditiveTax;
+    }
+
+    /**
+     * Getter for RefundedInclusiveTaxMoney.
+     */
+    @JsonGetter("refunded_inclusive_tax_money")
+    public V1Money getRefundedInclusiveTaxMoney() {
+        return this.refundedInclusiveTaxMoney;
+    }
+
+    /**
+     * Getter for RefundedInclusiveTax.
+     * All of the inclusive taxes associated with the refund.
+     */
+    @JsonGetter("refunded_inclusive_tax")
+    public List<V1PaymentTax> getRefundedInclusiveTax() {
+        return this.refundedInclusiveTax;
+    }
+
+    /**
+     * Getter for RefundedTipMoney.
+     */
+    @JsonGetter("refunded_tip_money")
+    public V1Money getRefundedTipMoney() {
+        return this.refundedTipMoney;
+    }
+
+    /**
+     * Getter for RefundedDiscountMoney.
+     */
+    @JsonGetter("refunded_discount_money")
+    public V1Money getRefundedDiscountMoney() {
+        return this.refundedDiscountMoney;
+    }
+
+    /**
+     * Getter for RefundedSurchargeMoney.
+     */
+    @JsonGetter("refunded_surcharge_money")
+    public V1Money getRefundedSurchargeMoney() {
+        return this.refundedSurchargeMoney;
+    }
+
+    /**
+     * Getter for RefundedSurcharges.
+     * A list of all surcharges associated with the refund.
+     */
+    @JsonGetter("refunded_surcharges")
+    public List<V1PaymentSurcharge> getRefundedSurcharges() {
+        return this.refundedSurcharges;
+    }
+
+    /**
+     * Getter for CreatedAt.
+     * The time when the merchant initiated the refund for Square to process, in ISO 8601 format.
+     */
+    @JsonGetter("created_at")
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Getter for ProcessedAt.
+     * The time when Square processed the refund on behalf of the merchant, in ISO 8601 format.
+     */
+    @JsonGetter("processed_at")
+    public String getProcessedAt() {
+        return this.processedAt;
+    }
+
+    /**
+     * Getter for PaymentId.
+     * A Square-issued ID associated with the refund. For single-tender refunds, payment_id is the ID of the original payment ID. For split-tender refunds, payment_id is the ID of the original tender. For exchange-based refunds (is_exchange == true), payment_id is the ID of the original payment ID even if the payment includes other tenders.
+     */
+    @JsonGetter("payment_id")
+    public String getPaymentId() {
+        return this.paymentId;
+    }
+
+    /**
+     * Getter for MerchantId.
+     */
+    @JsonGetter("merchant_id")
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    /**
+     * Getter for IsExchange.
+     * Indicates whether or not the refund is associated with an exchange. If is_exchange is true, the refund reflects the value of goods returned in the exchange not the total money refunded.
+     */
+    @JsonGetter("is_exchange")
+    public Boolean getIsExchange() {
+        return this.isExchange;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(type, reason, refundedMoney, refundedProcessingFeeMoney, refundedTaxMoney, refundedAdditiveTaxMoney, refundedAdditiveTax, refundedInclusiveTaxMoney, refundedInclusiveTax, refundedTipMoney, refundedDiscountMoney, refundedSurchargeMoney, refundedSurcharges, createdAt, processedAt, paymentId, merchantId, isExchange);
+        return Objects.hash(type, reason, refundedMoney, refundedProcessingFeeMoney,
+            refundedTaxMoney, refundedAdditiveTaxMoney, refundedAdditiveTax,
+            refundedInclusiveTaxMoney, refundedInclusiveTax, refundedTipMoney, refundedDiscountMoney,
+            refundedSurchargeMoney, refundedSurcharges, createdAt, processedAt, paymentId,
+            merchantId, isExchange);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1Refund)) {
+        }
+        if(!(obj instanceof V1Refund)) {
             return false;
         }
-        V1Refund v1Refund = (V1Refund) o;
+        V1Refund v1Refund = (V1Refund) obj;
         return Objects.equals(type, v1Refund.type) &&
             Objects.equals(reason, v1Refund.reason) &&
             Objects.equals(refundedMoney, v1Refund.refundedMoney) &&
@@ -102,164 +289,11 @@ public class V1Refund {
             Objects.equals(isExchange, v1Refund.isExchange);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Type.
+     * Builds a new {@link V1Refund.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Refund.Builder} object
      */
-    @JsonGetter("type")
-    public String getType() { 
-        return this.type;
-    }
-
-    /**
-     * Getter for Reason.
-     * The merchant-specified reason for the refund.
-     */
-    @JsonGetter("reason")
-    public String getReason() { 
-        return this.reason;
-    }
-
-    /**
-     * Getter for RefundedMoney.
-     */
-    @JsonGetter("refunded_money")
-    public V1Money getRefundedMoney() { 
-        return this.refundedMoney;
-    }
-
-    /**
-     * Getter for RefundedProcessingFeeMoney.
-     */
-    @JsonGetter("refunded_processing_fee_money")
-    public V1Money getRefundedProcessingFeeMoney() { 
-        return this.refundedProcessingFeeMoney;
-    }
-
-    /**
-     * Getter for RefundedTaxMoney.
-     */
-    @JsonGetter("refunded_tax_money")
-    public V1Money getRefundedTaxMoney() { 
-        return this.refundedTaxMoney;
-    }
-
-    /**
-     * Getter for RefundedAdditiveTaxMoney.
-     */
-    @JsonGetter("refunded_additive_tax_money")
-    public V1Money getRefundedAdditiveTaxMoney() { 
-        return this.refundedAdditiveTaxMoney;
-    }
-
-    /**
-     * Getter for RefundedAdditiveTax.
-     * All of the additive taxes associated with the refund.
-     */
-    @JsonGetter("refunded_additive_tax")
-    public List<V1PaymentTax> getRefundedAdditiveTax() { 
-        return this.refundedAdditiveTax;
-    }
-
-    /**
-     * Getter for RefundedInclusiveTaxMoney.
-     */
-    @JsonGetter("refunded_inclusive_tax_money")
-    public V1Money getRefundedInclusiveTaxMoney() { 
-        return this.refundedInclusiveTaxMoney;
-    }
-
-    /**
-     * Getter for RefundedInclusiveTax.
-     * All of the inclusive taxes associated with the refund.
-     */
-    @JsonGetter("refunded_inclusive_tax")
-    public List<V1PaymentTax> getRefundedInclusiveTax() { 
-        return this.refundedInclusiveTax;
-    }
-
-    /**
-     * Getter for RefundedTipMoney.
-     */
-    @JsonGetter("refunded_tip_money")
-    public V1Money getRefundedTipMoney() { 
-        return this.refundedTipMoney;
-    }
-
-    /**
-     * Getter for RefundedDiscountMoney.
-     */
-    @JsonGetter("refunded_discount_money")
-    public V1Money getRefundedDiscountMoney() { 
-        return this.refundedDiscountMoney;
-    }
-
-    /**
-     * Getter for RefundedSurchargeMoney.
-     */
-    @JsonGetter("refunded_surcharge_money")
-    public V1Money getRefundedSurchargeMoney() { 
-        return this.refundedSurchargeMoney;
-    }
-
-    /**
-     * Getter for RefundedSurcharges.
-     * A list of all surcharges associated with the refund.
-     */
-    @JsonGetter("refunded_surcharges")
-    public List<V1PaymentSurcharge> getRefundedSurcharges() { 
-        return this.refundedSurcharges;
-    }
-
-    /**
-     * Getter for CreatedAt.
-     * The time when the merchant initiated the refund for Square to process, in ISO 8601 format.
-     */
-    @JsonGetter("created_at")
-    public String getCreatedAt() { 
-        return this.createdAt;
-    }
-
-    /**
-     * Getter for ProcessedAt.
-     * The time when Square processed the refund on behalf of the merchant, in ISO 8601 format.
-     */
-    @JsonGetter("processed_at")
-    public String getProcessedAt() { 
-        return this.processedAt;
-    }
-
-    /**
-     * Getter for PaymentId.
-     * A Square-issued ID associated with the refund. For single-tender refunds, payment_id is the ID of the original payment ID. For split-tender refunds, payment_id is the ID of the original tender. For exchange-based refunds (is_exchange == true), payment_id is the ID of the original payment ID even if the payment includes other tenders.
-     */
-    @JsonGetter("payment_id")
-    public String getPaymentId() { 
-        return this.paymentId;
-    }
-
-    /**
-     * Getter for MerchantId.
-     */
-    @JsonGetter("merchant_id")
-    public String getMerchantId() { 
-        return this.merchantId;
-    }
-
-    /**
-     * Getter for IsExchange.
-     * Indicates whether or not the refund is associated with an exchange. If is_exchange is true, the refund reflects the value of goods returned in the exchange not the total money refunded.
-     */
-    @JsonGetter("is_exchange")
-    public Boolean getIsExchange() { 
-        return this.isExchange;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .type(getType())
@@ -283,6 +317,9 @@ public class V1Refund {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Refund}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String type;
@@ -304,85 +341,189 @@ public class V1Refund {
         private String merchantId;
         private Boolean isExchange;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder type(String value) {
-            type = value;
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
-        public Builder reason(String value) {
-            reason = value;
+        /**
+         * Setter for reason
+         * @param reason
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
             return this;
         }
-        public Builder refundedMoney(V1Money value) {
-            refundedMoney = value;
+        /**
+         * Setter for refundedMoney
+         * @param refundedMoney
+         * @return Builder
+         */
+        public Builder refundedMoney(V1Money refundedMoney) {
+            this.refundedMoney = refundedMoney;
             return this;
         }
-        public Builder refundedProcessingFeeMoney(V1Money value) {
-            refundedProcessingFeeMoney = value;
+        /**
+         * Setter for refundedProcessingFeeMoney
+         * @param refundedProcessingFeeMoney
+         * @return Builder
+         */
+        public Builder refundedProcessingFeeMoney(V1Money refundedProcessingFeeMoney) {
+            this.refundedProcessingFeeMoney = refundedProcessingFeeMoney;
             return this;
         }
-        public Builder refundedTaxMoney(V1Money value) {
-            refundedTaxMoney = value;
+        /**
+         * Setter for refundedTaxMoney
+         * @param refundedTaxMoney
+         * @return Builder
+         */
+        public Builder refundedTaxMoney(V1Money refundedTaxMoney) {
+            this.refundedTaxMoney = refundedTaxMoney;
             return this;
         }
-        public Builder refundedAdditiveTaxMoney(V1Money value) {
-            refundedAdditiveTaxMoney = value;
+        /**
+         * Setter for refundedAdditiveTaxMoney
+         * @param refundedAdditiveTaxMoney
+         * @return Builder
+         */
+        public Builder refundedAdditiveTaxMoney(V1Money refundedAdditiveTaxMoney) {
+            this.refundedAdditiveTaxMoney = refundedAdditiveTaxMoney;
             return this;
         }
-        public Builder refundedAdditiveTax(List<V1PaymentTax> value) {
-            refundedAdditiveTax = value;
+        /**
+         * Setter for refundedAdditiveTax
+         * @param refundedAdditiveTax
+         * @return Builder
+         */
+        public Builder refundedAdditiveTax(List<V1PaymentTax> refundedAdditiveTax) {
+            this.refundedAdditiveTax = refundedAdditiveTax;
             return this;
         }
-        public Builder refundedInclusiveTaxMoney(V1Money value) {
-            refundedInclusiveTaxMoney = value;
+        /**
+         * Setter for refundedInclusiveTaxMoney
+         * @param refundedInclusiveTaxMoney
+         * @return Builder
+         */
+        public Builder refundedInclusiveTaxMoney(V1Money refundedInclusiveTaxMoney) {
+            this.refundedInclusiveTaxMoney = refundedInclusiveTaxMoney;
             return this;
         }
-        public Builder refundedInclusiveTax(List<V1PaymentTax> value) {
-            refundedInclusiveTax = value;
+        /**
+         * Setter for refundedInclusiveTax
+         * @param refundedInclusiveTax
+         * @return Builder
+         */
+        public Builder refundedInclusiveTax(List<V1PaymentTax> refundedInclusiveTax) {
+            this.refundedInclusiveTax = refundedInclusiveTax;
             return this;
         }
-        public Builder refundedTipMoney(V1Money value) {
-            refundedTipMoney = value;
+        /**
+         * Setter for refundedTipMoney
+         * @param refundedTipMoney
+         * @return Builder
+         */
+        public Builder refundedTipMoney(V1Money refundedTipMoney) {
+            this.refundedTipMoney = refundedTipMoney;
             return this;
         }
-        public Builder refundedDiscountMoney(V1Money value) {
-            refundedDiscountMoney = value;
+        /**
+         * Setter for refundedDiscountMoney
+         * @param refundedDiscountMoney
+         * @return Builder
+         */
+        public Builder refundedDiscountMoney(V1Money refundedDiscountMoney) {
+            this.refundedDiscountMoney = refundedDiscountMoney;
             return this;
         }
-        public Builder refundedSurchargeMoney(V1Money value) {
-            refundedSurchargeMoney = value;
+        /**
+         * Setter for refundedSurchargeMoney
+         * @param refundedSurchargeMoney
+         * @return Builder
+         */
+        public Builder refundedSurchargeMoney(V1Money refundedSurchargeMoney) {
+            this.refundedSurchargeMoney = refundedSurchargeMoney;
             return this;
         }
-        public Builder refundedSurcharges(List<V1PaymentSurcharge> value) {
-            refundedSurcharges = value;
+        /**
+         * Setter for refundedSurcharges
+         * @param refundedSurcharges
+         * @return Builder
+         */
+        public Builder refundedSurcharges(List<V1PaymentSurcharge> refundedSurcharges) {
+            this.refundedSurcharges = refundedSurcharges;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder processedAt(String value) {
-            processedAt = value;
+        /**
+         * Setter for processedAt
+         * @param processedAt
+         * @return Builder
+         */
+        public Builder processedAt(String processedAt) {
+            this.processedAt = processedAt;
             return this;
         }
-        public Builder paymentId(String value) {
-            paymentId = value;
+        /**
+         * Setter for paymentId
+         * @param paymentId
+         * @return Builder
+         */
+        public Builder paymentId(String paymentId) {
+            this.paymentId = paymentId;
             return this;
         }
-        public Builder merchantId(String value) {
-            merchantId = value;
+        /**
+         * Setter for merchantId
+         * @param merchantId
+         * @return Builder
+         */
+        public Builder merchantId(String merchantId) {
+            this.merchantId = merchantId;
             return this;
         }
-        public Builder isExchange(Boolean value) {
-            isExchange = value;
+        /**
+         * Setter for isExchange
+         * @param isExchange
+         * @return Builder
+         */
+        public Builder isExchange(Boolean isExchange) {
+            this.isExchange = isExchange;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Refund} object using the set fields.
+         * @return {@link V1Refund}
+         */
         public V1Refund build() {
             V1Refund model = new V1Refund(type,
                 reason,

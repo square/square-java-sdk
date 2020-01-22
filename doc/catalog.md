@@ -38,8 +38,7 @@ actually deleted.
 
 ```java
 CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDeleteCatalogObjectsAsync(
-    final BatchDeleteCatalogObjectsRequest body
-)
+    final BatchDeleteCatalogObjectsRequest body)
 ```
 
 ### Parameters
@@ -81,8 +80,7 @@ any [CatalogTax](#type-catalogtax) objects that apply to it.
 
 ```java
 CompletableFuture<BatchRetrieveCatalogObjectsResponse> batchRetrieveCatalogObjectsAsync(
-    final BatchRetrieveCatalogObjectsRequest body
-)
+    final BatchRetrieveCatalogObjectsRequest body)
 ```
 
 ### Parameters
@@ -128,8 +126,7 @@ than 10,000.
 
 ```java
 CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsertCatalogObjectsAsync(
-    final BatchUpsertCatalogObjectsRequest body
-)
+    final BatchUpsertCatalogObjectsRequest body)
 ```
 
 ### Parameters
@@ -315,8 +312,7 @@ Additional information and an example cURL request can be found in the [Create a
 ```java
 CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
     final CreateCatalogImageRequest request,
-    final File imageFile
-)
+    final File imageFile)
 ```
 
 ### Parameters
@@ -394,8 +390,7 @@ to `true`.
 ```java
 CompletableFuture<ListCatalogResponse> listCatalogAsync(
     final String cursor,
-    final String types
-)
+    final String types)
 ```
 
 ### Parameters
@@ -426,8 +421,7 @@ Creates or updates the target [CatalogObject](#type-catalogobject).
 
 ```java
 CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
-    final UpsertCatalogObjectRequest body
-)
+    final UpsertCatalogObjectRequest body)
 ```
 
 ### Parameters
@@ -477,8 +471,7 @@ will also delete all of its
 
 ```java
 CompletableFuture<DeleteCatalogObjectResponse> deleteCatalogObjectAsync(
-    final String objectId
-)
+    final String objectId)
 ```
 
 ### Parameters
@@ -517,8 +510,7 @@ any [CatalogTax](#type-catalogtax) objects that apply to it.
 ```java
 CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
     final String objectId,
-    final Boolean includeRelatedObjects
-)
+    final Boolean includeRelatedObjects)
 ```
 
 ### Parameters
@@ -564,8 +556,7 @@ Future end of the above comment:
 
 ```java
 CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
-    final SearchCatalogObjectsRequest body
-)
+    final SearchCatalogObjectsRequest body)
 ```
 
 ### Parameters
@@ -612,8 +603,7 @@ to perform an upsert on the entire item.
 
 ```java
 CompletableFuture<UpdateItemModifierListsResponse> updateItemModifierListsAsync(
-    final UpdateItemModifierListsRequest body
-)
+    final UpdateItemModifierListsRequest body)
 ```
 
 ### Parameters
@@ -659,8 +649,7 @@ upsert on the entire item.
 
 ```java
 CompletableFuture<UpdateItemTaxesResponse> updateItemTaxesAsync(
-    final UpdateItemTaxesRequest body
-)
+    final UpdateItemTaxesRequest body)
 ```
 
 ### Parameters

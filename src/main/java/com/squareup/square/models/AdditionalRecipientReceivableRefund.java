@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for AdditionalRecipientReceivableRefund type.
+ */
 public class AdditionalRecipientReceivableRefund {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param receivableId
+     * @param refundId
+     * @param transactionLocationId
+     * @param amountMoney
+     * @param createdAt
+     */
     @JsonCreator
     public AdditionalRecipientReceivableRefund(
             @JsonProperty("id") String id,
@@ -29,34 +42,12 @@ public class AdditionalRecipientReceivableRefund {
     private final String transactionLocationId;
     private final Money amountMoney;
     private final String createdAt;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, receivableId, refundId, transactionLocationId, amountMoney, createdAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof AdditionalRecipientReceivableRefund)) {
-            return false;
-        }
-        AdditionalRecipientReceivableRefund additionalRecipientReceivableRefund = (AdditionalRecipientReceivableRefund) o;
-        return Objects.equals(id, additionalRecipientReceivableRefund.id) &&
-            Objects.equals(receivableId, additionalRecipientReceivableRefund.receivableId) &&
-            Objects.equals(refundId, additionalRecipientReceivableRefund.refundId) &&
-            Objects.equals(transactionLocationId, additionalRecipientReceivableRefund.transactionLocationId) &&
-            Objects.equals(amountMoney, additionalRecipientReceivableRefund.amountMoney) &&
-            Objects.equals(createdAt, additionalRecipientReceivableRefund.createdAt);
-    }
-
     /**
      * Getter for Id.
      * The receivable refund's unique ID, issued by Square payments servers.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -65,7 +56,7 @@ public class AdditionalRecipientReceivableRefund {
      * The ID of the receivable that the refund was applied to.
      */
     @JsonGetter("receivable_id")
-    public String getReceivableId() { 
+    public String getReceivableId() {
         return this.receivableId;
     }
 
@@ -74,7 +65,7 @@ public class AdditionalRecipientReceivableRefund {
      * The ID of the refund that is associated to this receivable refund.
      */
     @JsonGetter("refund_id")
-    public String getRefundId() { 
+    public String getRefundId() {
         return this.refundId;
     }
 
@@ -83,7 +74,7 @@ public class AdditionalRecipientReceivableRefund {
      * The ID of the location that created the receivable. This is the location ID on the associated transaction.
      */
     @JsonGetter("transaction_location_id")
-    public String getTransactionLocationId() { 
+    public String getTransactionLocationId() {
         return this.transactionLocationId;
     }
 
@@ -97,7 +88,7 @@ public class AdditionalRecipientReceivableRefund {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -106,11 +97,39 @@ public class AdditionalRecipientReceivableRefund {
      * The time when the refund was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, receivableId, refundId, transactionLocationId, amountMoney,
+            createdAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof AdditionalRecipientReceivableRefund)) {
+            return false;
+        }
+        AdditionalRecipientReceivableRefund additionalRecipientReceivableRefund = (AdditionalRecipientReceivableRefund) obj;
+        return Objects.equals(id, additionalRecipientReceivableRefund.id) &&
+            Objects.equals(receivableId, additionalRecipientReceivableRefund.receivableId) &&
+            Objects.equals(refundId, additionalRecipientReceivableRefund.refundId) &&
+            Objects.equals(transactionLocationId, additionalRecipientReceivableRefund.transactionLocationId) &&
+            Objects.equals(amountMoney, additionalRecipientReceivableRefund.amountMoney) &&
+            Objects.equals(createdAt, additionalRecipientReceivableRefund.createdAt);
+    }
+
+    /**
+     * Builds a new {@link AdditionalRecipientReceivableRefund.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link AdditionalRecipientReceivableRefund.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             receivableId,
@@ -121,6 +140,9 @@ public class AdditionalRecipientReceivableRefund {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link AdditionalRecipientReceivableRefund}
+     */
     public static class Builder {
         private String id;
         private String receivableId;
@@ -129,6 +151,9 @@ public class AdditionalRecipientReceivableRefund {
         private Money amountMoney;
         private String createdAt;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String id,
                 String receivableId,
                 String refundId,
@@ -141,31 +166,65 @@ public class AdditionalRecipientReceivableRefund {
             this.amountMoney = amountMoney;
         }
 
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder receivableId(String value) {
-            receivableId = value;
+        /**
+         * Setter for receivableId
+         * @param receivableId
+         * @return Builder
+         */
+        public Builder receivableId(String receivableId) {
+            this.receivableId = receivableId;
             return this;
         }
-        public Builder refundId(String value) {
-            refundId = value;
+        /**
+         * Setter for refundId
+         * @param refundId
+         * @return Builder
+         */
+        public Builder refundId(String refundId) {
+            this.refundId = refundId;
             return this;
         }
-        public Builder transactionLocationId(String value) {
-            transactionLocationId = value;
+        /**
+         * Setter for transactionLocationId
+         * @param transactionLocationId
+         * @return Builder
+         */
+        public Builder transactionLocationId(String transactionLocationId) {
+            this.transactionLocationId = transactionLocationId;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link AdditionalRecipientReceivableRefund} object using the set fields.
+         * @return {@link AdditionalRecipientReceivableRefund}
+         */
         public AdditionalRecipientReceivableRefund build() {
             return new AdditionalRecipientReceivableRefund(id,
                 receivableId,

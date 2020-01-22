@@ -1,13 +1,30 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Transaction type.
+ */
 public class Transaction {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param locationId
+     * @param createdAt
+     * @param tenders
+     * @param refunds
+     * @param referenceId
+     * @param product
+     * @param clientId
+     * @param shippingAddress
+     * @param orderId
+     */
     @JsonCreator
     public Transaction(
             @JsonProperty("id") String id,
@@ -42,38 +59,12 @@ public class Transaction {
     private final String clientId;
     private final Address shippingAddress;
     private final String orderId;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, locationId, createdAt, tenders, refunds, referenceId, product, clientId, shippingAddress, orderId);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Transaction)) {
-            return false;
-        }
-        Transaction transaction = (Transaction) o;
-        return Objects.equals(id, transaction.id) &&
-            Objects.equals(locationId, transaction.locationId) &&
-            Objects.equals(createdAt, transaction.createdAt) &&
-            Objects.equals(tenders, transaction.tenders) &&
-            Objects.equals(refunds, transaction.refunds) &&
-            Objects.equals(referenceId, transaction.referenceId) &&
-            Objects.equals(product, transaction.product) &&
-            Objects.equals(clientId, transaction.clientId) &&
-            Objects.equals(shippingAddress, transaction.shippingAddress) &&
-            Objects.equals(orderId, transaction.orderId);
-    }
-
     /**
      * Getter for Id.
      * The transaction's unique ID, issued by Square payments servers.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -82,7 +73,7 @@ public class Transaction {
      * The ID of the transaction's associated location.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -91,7 +82,7 @@ public class Transaction {
      * The time when the transaction was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -100,7 +91,7 @@ public class Transaction {
      * The tenders used to pay in the transaction.
      */
     @JsonGetter("tenders")
-    public List<Tender> getTenders() { 
+    public List<Tender> getTenders() {
         return this.tenders;
     }
 
@@ -109,7 +100,7 @@ public class Transaction {
      * Refunds that have been applied to any tender in the transaction.
      */
     @JsonGetter("refunds")
-    public List<Refund> getRefunds() { 
+    public List<Refund> getRefunds() {
         return this.refunds;
     }
 
@@ -120,7 +111,7 @@ public class Transaction {
      * parameter in the request to that endpoint. Otherwise, it is not set.
      */
     @JsonGetter("reference_id")
-    public String getReferenceId() { 
+    public String getReferenceId() {
         return this.referenceId;
     }
 
@@ -129,7 +120,7 @@ public class Transaction {
      * Indicates the Square product used to process a transaction.
      */
     @JsonGetter("product")
-    public String getProduct() { 
+    public String getProduct() {
         return this.product;
     }
 
@@ -145,7 +136,7 @@ public class Transaction {
      * lookup by this value.
      */
     @JsonGetter("client_id")
-    public String getClientId() { 
+    public String getClientId() {
         return this.clientId;
     }
 
@@ -154,7 +145,7 @@ public class Transaction {
      * Represents a physical address.
      */
     @JsonGetter("shipping_address")
-    public Address getShippingAddress() { 
+    public Address getShippingAddress() {
         return this.shippingAddress;
     }
 
@@ -163,11 +154,43 @@ public class Transaction {
      * The order_id is an identifier for the order associated with this transaction, if any.
      */
     @JsonGetter("order_id")
-    public String getOrderId() { 
+    public String getOrderId() {
         return this.orderId;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, locationId, createdAt, tenders, refunds, referenceId, product,
+            clientId, shippingAddress, orderId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Transaction)) {
+            return false;
+        }
+        Transaction transaction = (Transaction) obj;
+        return Objects.equals(id, transaction.id) &&
+            Objects.equals(locationId, transaction.locationId) &&
+            Objects.equals(createdAt, transaction.createdAt) &&
+            Objects.equals(tenders, transaction.tenders) &&
+            Objects.equals(refunds, transaction.refunds) &&
+            Objects.equals(referenceId, transaction.referenceId) &&
+            Objects.equals(product, transaction.product) &&
+            Objects.equals(clientId, transaction.clientId) &&
+            Objects.equals(shippingAddress, transaction.shippingAddress) &&
+            Objects.equals(orderId, transaction.orderId);
+    }
+
+    /**
+     * Builds a new {@link Transaction.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Transaction.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -183,6 +206,9 @@ public class Transaction {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Transaction}
+     */
     public static class Builder {
         private String id;
         private String locationId;
@@ -195,49 +221,108 @@ public class Transaction {
         private Address shippingAddress;
         private String orderId;
 
-        public Builder() { }
-
-        public Builder id(String value) {
-            id = value;
-            return this;
-        }
-        public Builder locationId(String value) {
-            locationId = value;
-            return this;
-        }
-        public Builder createdAt(String value) {
-            createdAt = value;
-            return this;
-        }
-        public Builder tenders(List<Tender> value) {
-            tenders = value;
-            return this;
-        }
-        public Builder refunds(List<Refund> value) {
-            refunds = value;
-            return this;
-        }
-        public Builder referenceId(String value) {
-            referenceId = value;
-            return this;
-        }
-        public Builder product(String value) {
-            product = value;
-            return this;
-        }
-        public Builder clientId(String value) {
-            clientId = value;
-            return this;
-        }
-        public Builder shippingAddress(Address value) {
-            shippingAddress = value;
-            return this;
-        }
-        public Builder orderId(String value) {
-            orderId = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+        /**
+         * Setter for tenders
+         * @param tenders
+         * @return Builder
+         */
+        public Builder tenders(List<Tender> tenders) {
+            this.tenders = tenders;
+            return this;
+        }
+        /**
+         * Setter for refunds
+         * @param refunds
+         * @return Builder
+         */
+        public Builder refunds(List<Refund> refunds) {
+            this.refunds = refunds;
+            return this;
+        }
+        /**
+         * Setter for referenceId
+         * @param referenceId
+         * @return Builder
+         */
+        public Builder referenceId(String referenceId) {
+            this.referenceId = referenceId;
+            return this;
+        }
+        /**
+         * Setter for product
+         * @param product
+         * @return Builder
+         */
+        public Builder product(String product) {
+            this.product = product;
+            return this;
+        }
+        /**
+         * Setter for clientId
+         * @param clientId
+         * @return Builder
+         */
+        public Builder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+        /**
+         * Setter for shippingAddress
+         * @param shippingAddress
+         * @return Builder
+         */
+        public Builder shippingAddress(Address shippingAddress) {
+            this.shippingAddress = shippingAddress;
+            return this;
+        }
+        /**
+         * Setter for orderId
+         * @param orderId
+         * @return Builder
+         */
+        public Builder orderId(String orderId) {
+            this.orderId = orderId;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link Transaction} object using the set fields.
+         * @return {@link Transaction}
+         */
         public Transaction build() {
             return new Transaction(id,
                 locationId,

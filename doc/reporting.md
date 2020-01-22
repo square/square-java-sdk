@@ -26,8 +26,7 @@ CompletableFuture<ListAdditionalRecipientReceivableRefundsResponse> listAddition
     final String beginTime,
     final String endTime,
     final String sortOrder,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -70,8 +69,7 @@ CompletableFuture<ListAdditionalRecipientReceivablesResponse> listAdditionalReci
     final String beginTime,
     final String endTime,
     final String sortOrder,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters

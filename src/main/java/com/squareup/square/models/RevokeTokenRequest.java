@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for RevokeTokenRequest type.
+ */
 public class RevokeTokenRequest {
 
+    /**
+     * Initialization constructor.
+     * @param clientId
+     * @param accessToken
+     * @param merchantId
+     */
     @JsonCreator
     public RevokeTokenRequest(
             @JsonProperty("client_id") String clientId,
@@ -20,32 +30,13 @@ public class RevokeTokenRequest {
     private final String clientId;
     private final String accessToken;
     private final String merchantId;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(clientId, accessToken, merchantId);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RevokeTokenRequest)) {
-            return false;
-        }
-        RevokeTokenRequest revokeTokenRequest = (RevokeTokenRequest) o;
-        return Objects.equals(clientId, revokeTokenRequest.clientId) &&
-            Objects.equals(accessToken, revokeTokenRequest.accessToken) &&
-            Objects.equals(merchantId, revokeTokenRequest.merchantId);
-    }
-
     /**
      * Getter for ClientId.
      * The Square issued ID for your application, available from the
      * [application dashboard](https://connect.squareup.com/apps).
      */
     @JsonGetter("client_id")
-    public String getClientId() { 
+    public String getClientId() {
         return this.clientId;
     }
 
@@ -55,7 +46,7 @@ public class RevokeTokenRequest {
      * Do not provide a value for merchant_id if you provide this parameter.
      */
     @JsonGetter("access_token")
-    public String getAccessToken() { 
+    public String getAccessToken() {
         return this.accessToken;
     }
 
@@ -65,11 +56,35 @@ public class RevokeTokenRequest {
      * Do not provide a value for access_token if you provide this parameter.
      */
     @JsonGetter("merchant_id")
-    public String getMerchantId() { 
+    public String getMerchantId() {
         return this.merchantId;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientId, accessToken, merchantId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof RevokeTokenRequest)) {
+            return false;
+        }
+        RevokeTokenRequest revokeTokenRequest = (RevokeTokenRequest) obj;
+        return Objects.equals(clientId, revokeTokenRequest.clientId) &&
+            Objects.equals(accessToken, revokeTokenRequest.accessToken) &&
+            Objects.equals(merchantId, revokeTokenRequest.merchantId);
+    }
+
+    /**
+     * Builds a new {@link RevokeTokenRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link RevokeTokenRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .clientId(getClientId())
@@ -78,26 +93,53 @@ public class RevokeTokenRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link RevokeTokenRequest}
+     */
     public static class Builder {
         private String clientId;
         private String accessToken;
         private String merchantId;
 
-        public Builder() { }
-
-        public Builder clientId(String value) {
-            clientId = value;
-            return this;
-        }
-        public Builder accessToken(String value) {
-            accessToken = value;
-            return this;
-        }
-        public Builder merchantId(String value) {
-            merchantId = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for clientId
+         * @param clientId
+         * @return Builder
+         */
+        public Builder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+        /**
+         * Setter for accessToken
+         * @param accessToken
+         * @return Builder
+         */
+        public Builder accessToken(String accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+        /**
+         * Setter for merchantId
+         * @param merchantId
+         * @return Builder
+         */
+        public Builder merchantId(String merchantId) {
+            this.merchantId = merchantId;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link RevokeTokenRequest} object using the set fields.
+         * @return {@link RevokeTokenRequest}
+         */
         public RevokeTokenRequest build() {
             return new RevokeTokenRequest(clientId,
                 accessToken,

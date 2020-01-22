@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for SearchShiftsResponse type.
+ */
 public class SearchShiftsResponse {
 
+    /**
+     * Initialization constructor.
+     * @param shifts
+     * @param cursor
+     * @param errors
+     */
     @JsonCreator
     public SearchShiftsResponse(
             @JsonProperty("shifts") List<Shift> shifts,
@@ -24,25 +34,6 @@ public class SearchShiftsResponse {
     private final String cursor;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(shifts, cursor, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof SearchShiftsResponse)) {
-            return false;
-        }
-        SearchShiftsResponse searchShiftsResponse = (SearchShiftsResponse) o;
-        return Objects.equals(shifts, searchShiftsResponse.shifts) &&
-            Objects.equals(cursor, searchShiftsResponse.cursor) &&
-            Objects.equals(errors, searchShiftsResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class SearchShiftsResponse {
      * Shifts
      */
     @JsonGetter("shifts")
-    public List<Shift> getShifts() { 
+    public List<Shift> getShifts() {
         return this.shifts;
     }
 
@@ -61,7 +52,7 @@ public class SearchShiftsResponse {
      * Opaque cursor for fetching the next page.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -70,11 +61,35 @@ public class SearchShiftsResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(shifts, cursor, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SearchShiftsResponse)) {
+            return false;
+        }
+        SearchShiftsResponse searchShiftsResponse = (SearchShiftsResponse) obj;
+        return Objects.equals(shifts, searchShiftsResponse.shifts) &&
+            Objects.equals(cursor, searchShiftsResponse.cursor) &&
+            Objects.equals(errors, searchShiftsResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link SearchShiftsResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link SearchShiftsResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .shifts(getShifts())
@@ -83,31 +98,63 @@ public class SearchShiftsResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link SearchShiftsResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Shift> shifts;
         private String cursor;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder shifts(List<Shift> value) {
-            shifts = value;
+        /**
+         * Setter for shifts
+         * @param shifts
+         * @return Builder
+         */
+        public Builder shifts(List<Shift> shifts) {
+            this.shifts = shifts;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link SearchShiftsResponse} object using the set fields.
+         * @return {@link SearchShiftsResponse}
+         */
         public SearchShiftsResponse build() {
             SearchShiftsResponse model = new SearchShiftsResponse(shifts,
                 cursor,

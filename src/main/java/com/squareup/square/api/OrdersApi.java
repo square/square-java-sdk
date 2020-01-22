@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,39 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.BatchRetrieveOrdersRequest;
+import com.squareup.square.models.BatchRetrieveOrdersResponse;
+import com.squareup.square.models.CreateOrderRequest;
+import com.squareup.square.models.CreateOrderResponse;
+import com.squareup.square.models.PayOrderRequest;
+import com.squareup.square.models.PayOrderResponse;
+import com.squareup.square.models.SearchOrdersRequest;
+import com.squareup.square.models.SearchOrdersResponse;
+import com.squareup.square.models.UpdateOrderRequest;
+import com.squareup.square.models.UpdateOrderResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class OrdersApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public OrdersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public OrdersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -38,15 +67,14 @@ public final class OrdersApi extends BaseApi {
      */
     public CreateOrderResponse createOrder(
             final String locationId,
-            final CreateOrderRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateOrderRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final CreateOrderRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreateOrderRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateOrderResponse(_context);
+        return handleCreateOrderResponse(context);
     }
 
     /**
@@ -63,77 +91,75 @@ public final class OrdersApi extends BaseApi {
      */
     public CompletableFuture<CreateOrderResponse> createOrderAsync(
             final String locationId,
-            final CreateOrderRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateOrderRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateOrderResponse(_context));
+            final CreateOrderRequest body) {
+        return makeHttpCallAsync(() -> buildCreateOrderRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateOrderResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createOrder
      */
-    private HttpRequest _buildCreateOrderRequest(
+    private HttpRequest buildCreateOrderRequest(
             final String locationId,
-            final CreateOrderRequest body
-    ) throws JsonProcessingException {
+            final CreateOrderRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}/orders");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createOrder
      * @return An object of type CreateOrderResponse
      */
-    private CreateOrderResponse _handleCreateOrderResponse(HttpContext _context)
+    private CreateOrderResponse handleCreateOrderResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CreateOrderResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CreateOrderResponse result = ApiHelper.deserialize(responseBody,
                 CreateOrderResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -145,15 +171,14 @@ public final class OrdersApi extends BaseApi {
      */
     public BatchRetrieveOrdersResponse batchRetrieveOrders(
             final String locationId,
-            final BatchRetrieveOrdersRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildBatchRetrieveOrdersRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final BatchRetrieveOrdersRequest body) throws ApiException, IOException {
+        HttpRequest request = buildBatchRetrieveOrdersRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleBatchRetrieveOrdersResponse(_context);
+        return handleBatchRetrieveOrdersResponse(context);
     }
 
     /**
@@ -165,77 +190,75 @@ public final class OrdersApi extends BaseApi {
      */
     public CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
             final String locationId,
-            final BatchRetrieveOrdersRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildBatchRetrieveOrdersRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleBatchRetrieveOrdersResponse(_context));
+            final BatchRetrieveOrdersRequest body) {
+        return makeHttpCallAsync(() -> buildBatchRetrieveOrdersRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleBatchRetrieveOrdersResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for batchRetrieveOrders
      */
-    private HttpRequest _buildBatchRetrieveOrdersRequest(
+    private HttpRequest buildBatchRetrieveOrdersRequest(
             final String locationId,
-            final BatchRetrieveOrdersRequest body
-    ) throws JsonProcessingException {
+            final BatchRetrieveOrdersRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}/orders/batch-retrieve");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders/batch-retrieve");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for batchRetrieveOrders
      * @return An object of type BatchRetrieveOrdersResponse
      */
-    private BatchRetrieveOrdersResponse _handleBatchRetrieveOrdersResponse(HttpContext _context)
+    private BatchRetrieveOrdersResponse handleBatchRetrieveOrdersResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        BatchRetrieveOrdersResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        BatchRetrieveOrdersResponse result = ApiHelper.deserialize(responseBody,
                 BatchRetrieveOrdersResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -260,15 +283,14 @@ public final class OrdersApi extends BaseApi {
     public UpdateOrderResponse updateOrder(
             final String locationId,
             final String orderId,
-            final UpdateOrderRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateOrderRequest(locationId, orderId, body);
-        authManagers.get("default").apply(_request);
+            final UpdateOrderRequest body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateOrderRequest(locationId, orderId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateOrderResponse(_context);
+        return handleUpdateOrderResponse(context);
     }
 
     /**
@@ -293,79 +315,77 @@ public final class OrdersApi extends BaseApi {
     public CompletableFuture<UpdateOrderResponse> updateOrderAsync(
             final String locationId,
             final String orderId,
-            final UpdateOrderRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateOrderRequest(locationId, orderId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateOrderResponse(_context));
+            final UpdateOrderRequest body) {
+        return makeHttpCallAsync(() -> buildUpdateOrderRequest(locationId, orderId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateOrderResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateOrder
      */
-    private HttpRequest _buildUpdateOrderRequest(
+    private HttpRequest buildUpdateOrderRequest(
             final String locationId,
             final String orderId,
-            final UpdateOrderRequest body
-    ) throws JsonProcessingException {
+            final UpdateOrderRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}/orders/{order_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders/{order_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("order_id", orderId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("order_id", orderId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateOrder
      * @return An object of type UpdateOrderResponse
      */
-    private UpdateOrderResponse _handleUpdateOrderResponse(HttpContext _context)
+    private UpdateOrderResponse handleUpdateOrderResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        UpdateOrderResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        UpdateOrderResponse result = ApiHelper.deserialize(responseBody,
                 UpdateOrderResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -387,15 +407,14 @@ public final class OrdersApi extends BaseApi {
      * @return    Returns the SearchOrdersResponse response from the API call
      */
     public SearchOrdersResponse searchOrders(
-            final SearchOrdersRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildSearchOrdersRequest(body);
-        authManagers.get("default").apply(_request);
+            final SearchOrdersRequest body) throws ApiException, IOException {
+        HttpRequest request = buildSearchOrdersRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleSearchOrdersResponse(_context);
+        return handleSearchOrdersResponse(context);
     }
 
     /**
@@ -417,71 +436,69 @@ public final class OrdersApi extends BaseApi {
      * @return    Returns the SearchOrdersResponse response from the API call 
      */
     public CompletableFuture<SearchOrdersResponse> searchOrdersAsync(
-            final SearchOrdersRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildSearchOrdersRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleSearchOrdersResponse(_context));
+            final SearchOrdersRequest body) {
+        return makeHttpCallAsync(() -> buildSearchOrdersRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleSearchOrdersResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for searchOrders
      */
-    private HttpRequest _buildSearchOrdersRequest(
-            final SearchOrdersRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildSearchOrdersRequest(
+            final SearchOrdersRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/orders/search");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/orders/search");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for searchOrders
      * @return An object of type SearchOrdersResponse
      */
-    private SearchOrdersResponse _handleSearchOrdersResponse(HttpContext _context)
+    private SearchOrdersResponse handleSearchOrdersResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        SearchOrdersResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        SearchOrdersResponse result = ApiHelper.deserialize(responseBody,
                 SearchOrdersResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -503,15 +520,14 @@ public final class OrdersApi extends BaseApi {
      */
     public PayOrderResponse payOrder(
             final String orderId,
-            final PayOrderRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildPayOrderRequest(orderId, body);
-        authManagers.get("default").apply(_request);
+            final PayOrderRequest body) throws ApiException, IOException {
+        HttpRequest request = buildPayOrderRequest(orderId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handlePayOrderResponse(_context);
+        return handlePayOrderResponse(context);
     }
 
     /**
@@ -533,77 +549,75 @@ public final class OrdersApi extends BaseApi {
      */
     public CompletableFuture<PayOrderResponse> payOrderAsync(
             final String orderId,
-            final PayOrderRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildPayOrderRequest(orderId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handlePayOrderResponse(_context));
+            final PayOrderRequest body) {
+        return makeHttpCallAsync(() -> buildPayOrderRequest(orderId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handlePayOrderResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for payOrder
      */
-    private HttpRequest _buildPayOrderRequest(
+    private HttpRequest buildPayOrderRequest(
             final String orderId,
-            final PayOrderRequest body
-    ) throws JsonProcessingException {
+            final PayOrderRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/orders/{order_id}/pay");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/orders/{order_id}/pay");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("order_id", orderId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("order_id", orderId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for payOrder
      * @return An object of type PayOrderResponse
      */
-    private PayOrderResponse _handlePayOrderResponse(HttpContext _context)
+    private PayOrderResponse handlePayOrderResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        PayOrderResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        PayOrderResponse result = ApiHelper.deserialize(responseBody,
                 PayOrderResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

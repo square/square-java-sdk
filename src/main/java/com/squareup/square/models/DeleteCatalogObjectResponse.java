@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for DeleteCatalogObjectResponse type.
+ */
 public class DeleteCatalogObjectResponse {
 
+    /**
+     * Initialization constructor.
+     * @param errors
+     * @param deletedObjectIds
+     * @param deletedAt
+     */
     @JsonCreator
     public DeleteCatalogObjectResponse(
             @JsonProperty("errors") List<Error> errors,
@@ -24,25 +34,6 @@ public class DeleteCatalogObjectResponse {
     private final List<String> deletedObjectIds;
     private final String deletedAt;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(errors, deletedObjectIds, deletedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof DeleteCatalogObjectResponse)) {
-            return false;
-        }
-        DeleteCatalogObjectResponse deleteCatalogObjectResponse = (DeleteCatalogObjectResponse) o;
-        return Objects.equals(errors, deleteCatalogObjectResponse.errors) &&
-            Objects.equals(deletedObjectIds, deleteCatalogObjectResponse.deletedObjectIds) &&
-            Objects.equals(deletedAt, deleteCatalogObjectResponse.deletedAt);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class DeleteCatalogObjectResponse {
      * Information on any errors encountered.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
@@ -64,7 +55,7 @@ public class DeleteCatalogObjectResponse {
      * when its parent catalog item is deleted.
      */
     @JsonGetter("deleted_object_ids")
-    public List<String> getDeletedObjectIds() { 
+    public List<String> getDeletedObjectIds() {
         return this.deletedObjectIds;
     }
 
@@ -74,11 +65,35 @@ public class DeleteCatalogObjectResponse {
      * of this deletion in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
      */
     @JsonGetter("deleted_at")
-    public String getDeletedAt() { 
+    public String getDeletedAt() {
         return this.deletedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors, deletedObjectIds, deletedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof DeleteCatalogObjectResponse)) {
+            return false;
+        }
+        DeleteCatalogObjectResponse deleteCatalogObjectResponse = (DeleteCatalogObjectResponse) obj;
+        return Objects.equals(errors, deleteCatalogObjectResponse.errors) &&
+            Objects.equals(deletedObjectIds, deleteCatalogObjectResponse.deletedObjectIds) &&
+            Objects.equals(deletedAt, deleteCatalogObjectResponse.deletedAt);
+    }
+
+    /**
+     * Builds a new {@link DeleteCatalogObjectResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link DeleteCatalogObjectResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .errors(getErrors())
@@ -87,31 +102,63 @@ public class DeleteCatalogObjectResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link DeleteCatalogObjectResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private List<String> deletedObjectIds;
         private String deletedAt;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
-        public Builder deletedObjectIds(List<String> value) {
-            deletedObjectIds = value;
+        /**
+         * Setter for deletedObjectIds
+         * @param deletedObjectIds
+         * @return Builder
+         */
+        public Builder deletedObjectIds(List<String> deletedObjectIds) {
+            this.deletedObjectIds = deletedObjectIds;
             return this;
         }
-        public Builder deletedAt(String value) {
-            deletedAt = value;
+        /**
+         * Setter for deletedAt
+         * @param deletedAt
+         * @return Builder
+         */
+        public Builder deletedAt(String deletedAt) {
+            this.deletedAt = deletedAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link DeleteCatalogObjectResponse} object using the set fields.
+         * @return {@link DeleteCatalogObjectResponse}
+         */
         public DeleteCatalogObjectResponse build() {
             DeleteCatalogObjectResponse model = new DeleteCatalogObjectResponse(errors,
                 deletedObjectIds,

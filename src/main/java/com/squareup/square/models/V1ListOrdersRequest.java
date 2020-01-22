@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1ListOrdersRequest type.
+ */
 public class V1ListOrdersRequest {
 
+    /**
+     * Initialization constructor.
+     * @param order
+     * @param limit
+     * @param batchToken
+     */
     @JsonCreator
     public V1ListOrdersRequest(
             @JsonProperty("order") String order,
@@ -20,31 +30,12 @@ public class V1ListOrdersRequest {
     private final String order;
     private final Integer limit;
     private final String batchToken;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(order, limit, batchToken);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1ListOrdersRequest)) {
-            return false;
-        }
-        V1ListOrdersRequest v1ListOrdersRequest = (V1ListOrdersRequest) o;
-        return Objects.equals(order, v1ListOrdersRequest.order) &&
-            Objects.equals(limit, v1ListOrdersRequest.limit) &&
-            Objects.equals(batchToken, v1ListOrdersRequest.batchToken);
-    }
-
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("order")
-    public String getOrder() { 
+    public String getOrder() {
         return this.order;
     }
 
@@ -53,7 +44,7 @@ public class V1ListOrdersRequest {
      * The maximum number of payments to return in a single response. This value cannot exceed 200.
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
@@ -63,11 +54,35 @@ public class V1ListOrdersRequest {
      * original query to the endpoint.
      */
     @JsonGetter("batch_token")
-    public String getBatchToken() { 
+    public String getBatchToken() {
         return this.batchToken;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, limit, batchToken);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1ListOrdersRequest)) {
+            return false;
+        }
+        V1ListOrdersRequest v1ListOrdersRequest = (V1ListOrdersRequest) obj;
+        return Objects.equals(order, v1ListOrdersRequest.order) &&
+            Objects.equals(limit, v1ListOrdersRequest.limit) &&
+            Objects.equals(batchToken, v1ListOrdersRequest.batchToken);
+    }
+
+    /**
+     * Builds a new {@link V1ListOrdersRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1ListOrdersRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
@@ -76,26 +91,53 @@ public class V1ListOrdersRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1ListOrdersRequest}
+     */
     public static class Builder {
         private String order;
         private Integer limit;
         private String batchToken;
 
-        public Builder() { }
-
-        public Builder order(String value) {
-            order = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
-        }
-        public Builder batchToken(String value) {
-            batchToken = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(String order) {
+            this.order = order;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+        /**
+         * Setter for batchToken
+         * @param batchToken
+         * @return Builder
+         */
+        public Builder batchToken(String batchToken) {
+            this.batchToken = batchToken;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link V1ListOrdersRequest} object using the set fields.
+         * @return {@link V1ListOrdersRequest}
+         */
         public V1ListOrdersRequest build() {
             return new V1ListOrdersRequest(order,
                 limit,

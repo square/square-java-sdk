@@ -1,13 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for UpdateOrderRequest type.
+ */
 public class UpdateOrderRequest {
 
+    /**
+     * Initialization constructor.
+     * @param order
+     * @param fieldsToClear
+     * @param idempotencyKey
+     */
     @JsonCreator
     public UpdateOrderRequest(
             @JsonProperty("order") Order order,
@@ -21,25 +31,6 @@ public class UpdateOrderRequest {
     private final Order order;
     private final List<String> fieldsToClear;
     private final String idempotencyKey;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(order, fieldsToClear, idempotencyKey);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof UpdateOrderRequest)) {
-            return false;
-        }
-        UpdateOrderRequest updateOrderRequest = (UpdateOrderRequest) o;
-        return Objects.equals(order, updateOrderRequest.order) &&
-            Objects.equals(fieldsToClear, updateOrderRequest.fieldsToClear) &&
-            Objects.equals(idempotencyKey, updateOrderRequest.idempotencyKey);
-    }
-
     /**
      * Getter for Order.
      * Contains all information related to a single order to process with Square,
@@ -49,7 +40,7 @@ public class UpdateOrderRequest {
      * itemization data.
      */
     @JsonGetter("order")
-    public Order getOrder() { 
+    public Order getOrder() {
         return this.order;
     }
 
@@ -60,7 +51,7 @@ public class UpdateOrderRequest {
      * [Read more about Deleting fields](https://developer.squareup.com/docs/orders-api/manage-orders#delete-fields).
      */
     @JsonGetter("fields_to_clear")
-    public List<String> getFieldsToClear() { 
+    public List<String> getFieldsToClear() {
         return this.fieldsToClear;
     }
 
@@ -74,11 +65,35 @@ public class UpdateOrderRequest {
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, fieldsToClear, idempotencyKey);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof UpdateOrderRequest)) {
+            return false;
+        }
+        UpdateOrderRequest updateOrderRequest = (UpdateOrderRequest) obj;
+        return Objects.equals(order, updateOrderRequest.order) &&
+            Objects.equals(fieldsToClear, updateOrderRequest.fieldsToClear) &&
+            Objects.equals(idempotencyKey, updateOrderRequest.idempotencyKey);
+    }
+
+    /**
+     * Builds a new {@link UpdateOrderRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link UpdateOrderRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
@@ -87,26 +102,53 @@ public class UpdateOrderRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link UpdateOrderRequest}
+     */
     public static class Builder {
         private Order order;
         private List<String> fieldsToClear;
         private String idempotencyKey;
 
-        public Builder() { }
-
-        public Builder order(Order value) {
-            order = value;
-            return this;
-        }
-        public Builder fieldsToClear(List<String> value) {
-            fieldsToClear = value;
-            return this;
-        }
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(Order order) {
+            this.order = order;
+            return this;
+        }
+        /**
+         * Setter for fieldsToClear
+         * @param fieldsToClear
+         * @return Builder
+         */
+        public Builder fieldsToClear(List<String> fieldsToClear) {
+            this.fieldsToClear = fieldsToClear;
+            return this;
+        }
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link UpdateOrderRequest} object using the set fields.
+         * @return {@link UpdateOrderRequest}
+         */
         public UpdateOrderRequest build() {
             return new UpdateOrderRequest(order,
                 fieldsToClear,

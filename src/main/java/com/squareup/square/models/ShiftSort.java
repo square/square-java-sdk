@@ -5,8 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ShiftSort type.
+ */
 public class ShiftSort {
 
+    /**
+     * Initialization constructor.
+     * @param field
+     * @param order
+     */
     @JsonCreator
     public ShiftSort(
             @JsonProperty("field") String field,
@@ -17,30 +26,12 @@ public class ShiftSort {
 
     private final String field;
     private final String order;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(field, order);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ShiftSort)) {
-            return false;
-        }
-        ShiftSort shiftSort = (ShiftSort) o;
-        return Objects.equals(field, shiftSort.field) &&
-            Objects.equals(order, shiftSort.order);
-    }
-
     /**
      * Getter for Field.
      * Enumerates the `Shift` fields to sort on.
      */
     @JsonGetter("field")
-    public String getField() { 
+    public String getField() {
         return this.field;
     }
 
@@ -49,11 +40,34 @@ public class ShiftSort {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("order")
-    public String getOrder() { 
+    public String getOrder() {
         return this.order;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(field, order);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ShiftSort)) {
+            return false;
+        }
+        ShiftSort shiftSort = (ShiftSort) obj;
+        return Objects.equals(field, shiftSort.field) &&
+            Objects.equals(order, shiftSort.order);
+    }
+
+    /**
+     * Builds a new {@link ShiftSort.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ShiftSort.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .field(getField())
@@ -61,21 +75,43 @@ public class ShiftSort {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ShiftSort}
+     */
     public static class Builder {
         private String field;
         private String order;
 
-        public Builder() { }
-
-        public Builder field(String value) {
-            field = value;
-            return this;
-        }
-        public Builder order(String value) {
-            order = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for field
+         * @param field
+         * @return Builder
+         */
+        public Builder field(String field) {
+            this.field = field;
+            return this;
+        }
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(String order) {
+            this.order = order;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ShiftSort} object using the set fields.
+         * @return {@link ShiftSort}
+         */
         public ShiftSort build() {
             return new ShiftSort(field,
                 order);

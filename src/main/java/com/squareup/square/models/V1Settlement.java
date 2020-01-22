@@ -1,14 +1,27 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Settlement type.
+ */
 public class V1Settlement {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param status
+     * @param totalMoney
+     * @param initiatedAt
+     * @param bankAccountId
+     * @param entries
+     */
     @JsonCreator
     public V1Settlement(
             @JsonProperty("id") String id,
@@ -33,28 +46,6 @@ public class V1Settlement {
     private final String bankAccountId;
     private final List<V1SettlementEntry> entries;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, status, totalMoney, initiatedAt, bankAccountId, entries);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1Settlement)) {
-            return false;
-        }
-        V1Settlement v1Settlement = (V1Settlement) o;
-        return Objects.equals(id, v1Settlement.id) &&
-            Objects.equals(status, v1Settlement.status) &&
-            Objects.equals(totalMoney, v1Settlement.totalMoney) &&
-            Objects.equals(initiatedAt, v1Settlement.initiatedAt) &&
-            Objects.equals(bankAccountId, v1Settlement.bankAccountId) &&
-            Objects.equals(entries, v1Settlement.entries);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -64,7 +55,7 @@ public class V1Settlement {
      * The settlement's unique identifier.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -72,7 +63,7 @@ public class V1Settlement {
      * Getter for Status.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
@@ -80,7 +71,7 @@ public class V1Settlement {
      * Getter for TotalMoney.
      */
     @JsonGetter("total_money")
-    public V1Money getTotalMoney() { 
+    public V1Money getTotalMoney() {
         return this.totalMoney;
     }
 
@@ -89,7 +80,7 @@ public class V1Settlement {
      * The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format.
      */
     @JsonGetter("initiated_at")
-    public String getInitiatedAt() { 
+    public String getInitiatedAt() {
         return this.initiatedAt;
     }
 
@@ -98,7 +89,7 @@ public class V1Settlement {
      * The Square-issued unique identifier for the bank account associated with the settlement.
      */
     @JsonGetter("bank_account_id")
-    public String getBankAccountId() { 
+    public String getBankAccountId() {
         return this.bankAccountId;
     }
 
@@ -107,11 +98,38 @@ public class V1Settlement {
      * The entries included in this settlement.
      */
     @JsonGetter("entries")
-    public List<V1SettlementEntry> getEntries() { 
+    public List<V1SettlementEntry> getEntries() {
         return this.entries;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, status, totalMoney, initiatedAt, bankAccountId, entries);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1Settlement)) {
+            return false;
+        }
+        V1Settlement v1Settlement = (V1Settlement) obj;
+        return Objects.equals(id, v1Settlement.id) &&
+            Objects.equals(status, v1Settlement.status) &&
+            Objects.equals(totalMoney, v1Settlement.totalMoney) &&
+            Objects.equals(initiatedAt, v1Settlement.initiatedAt) &&
+            Objects.equals(bankAccountId, v1Settlement.bankAccountId) &&
+            Objects.equals(entries, v1Settlement.entries);
+    }
+
+    /**
+     * Builds a new {@link V1Settlement.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Settlement.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -123,6 +141,9 @@ public class V1Settlement {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Settlement}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -132,37 +153,81 @@ public class V1Settlement {
         private String bankAccountId;
         private List<V1SettlementEntry> entries;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder status(String value) {
-            status = value;
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
             return this;
         }
-        public Builder totalMoney(V1Money value) {
-            totalMoney = value;
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(V1Money totalMoney) {
+            this.totalMoney = totalMoney;
             return this;
         }
-        public Builder initiatedAt(String value) {
-            initiatedAt = value;
+        /**
+         * Setter for initiatedAt
+         * @param initiatedAt
+         * @return Builder
+         */
+        public Builder initiatedAt(String initiatedAt) {
+            this.initiatedAt = initiatedAt;
             return this;
         }
-        public Builder bankAccountId(String value) {
-            bankAccountId = value;
+        /**
+         * Setter for bankAccountId
+         * @param bankAccountId
+         * @return Builder
+         */
+        public Builder bankAccountId(String bankAccountId) {
+            this.bankAccountId = bankAccountId;
             return this;
         }
-        public Builder entries(List<V1SettlementEntry> value) {
-            entries = value;
+        /**
+         * Setter for entries
+         * @param entries
+         * @return Builder
+         */
+        public Builder entries(List<V1SettlementEntry> entries) {
+            this.entries = entries;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Settlement} object using the set fields.
+         * @return {@link V1Settlement}
+         */
         public V1Settlement build() {
             V1Settlement model = new V1Settlement(id,
                 status,

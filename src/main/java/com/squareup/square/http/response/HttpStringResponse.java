@@ -4,6 +4,9 @@ import java.io.InputStream;
 
 import com.squareup.square.http.Headers;
 
+/**
+ * Class to hold response body as string.
+ */
 public class HttpStringResponse extends HttpResponse {
 
     /**
@@ -19,13 +22,12 @@ public class HttpStringResponse extends HttpResponse {
     }
 
     /**
-     * @param _code    The HTTP status code
-     * @param _headers The HTTP headers read from response
-     * @param _rawBody The raw data returned by the HTTP request
-     * @return Http response initialized with the given code, headers and rawBody
+     * @param code    The HTTP status code
+     * @param headers The HTTP headers read from response
+     * @param rawBody The raw data returned by the HTTP request
      */
-    public HttpStringResponse(int _code, Headers _headers, InputStream _rawBody, String body) {
-        super(_code, _headers, _rawBody);
+    public HttpStringResponse(int code, Headers headers, InputStream rawBody, String body) {
+        super(code, headers, rawBody);
         this.body = body;
     }
 }

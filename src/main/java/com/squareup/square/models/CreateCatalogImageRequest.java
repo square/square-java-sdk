@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateCatalogImageRequest type.
+ */
 public class CreateCatalogImageRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param objectId
+     * @param image
+     */
     @JsonCreator
     public CreateCatalogImageRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -20,25 +30,6 @@ public class CreateCatalogImageRequest {
     private final String idempotencyKey;
     private final String objectId;
     private final CatalogObject image;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, objectId, image);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateCatalogImageRequest)) {
-            return false;
-        }
-        CreateCatalogImageRequest createCatalogImageRequest = (CreateCatalogImageRequest) o;
-        return Objects.equals(idempotencyKey, createCatalogImageRequest.idempotencyKey) &&
-            Objects.equals(objectId, createCatalogImageRequest.objectId) &&
-            Objects.equals(image, createCatalogImageRequest.image);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies this CreateCatalogImage request.
@@ -46,7 +37,7 @@ public class CreateCatalogImageRequest {
      * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -57,7 +48,7 @@ public class CreateCatalogImageRequest {
      * where these images can be attached to catalog items at a later time.
      */
     @JsonGetter("object_id")
-    public String getObjectId() { 
+    public String getObjectId() {
         return this.objectId;
     }
 
@@ -65,11 +56,35 @@ public class CreateCatalogImageRequest {
      * Getter for Image.
      */
     @JsonGetter("image")
-    public CatalogObject getImage() { 
+    public CatalogObject getImage() {
         return this.image;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, objectId, image);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateCatalogImageRequest)) {
+            return false;
+        }
+        CreateCatalogImageRequest createCatalogImageRequest = (CreateCatalogImageRequest) obj;
+        return Objects.equals(idempotencyKey, createCatalogImageRequest.idempotencyKey) &&
+            Objects.equals(objectId, createCatalogImageRequest.objectId) &&
+            Objects.equals(image, createCatalogImageRequest.image);
+    }
+
+    /**
+     * Builds a new {@link CreateCatalogImageRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateCatalogImageRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
             .objectId(getObjectId())
@@ -77,28 +92,53 @@ public class CreateCatalogImageRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateCatalogImageRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private String objectId;
         private CatalogObject image;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder objectId(String value) {
-            objectId = value;
+        /**
+         * Setter for objectId
+         * @param objectId
+         * @return Builder
+         */
+        public Builder objectId(String objectId) {
+            this.objectId = objectId;
             return this;
         }
-        public Builder image(CatalogObject value) {
-            image = value;
+        /**
+         * Setter for image
+         * @param image
+         * @return Builder
+         */
+        public Builder image(CatalogObject image) {
+            this.image = image;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateCatalogImageRequest} object using the set fields.
+         * @return {@link CreateCatalogImageRequest}
+         */
         public CreateCatalogImageRequest build() {
             return new CreateCatalogImageRequest(idempotencyKey,
                 objectId,

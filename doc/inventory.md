@@ -25,8 +25,7 @@ with the provided `adjustment_id`.
 
 ```java
 CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustmentAsync(
-    final String adjustmentId
-)
+    final String adjustmentId)
 ```
 
 ### Parameters
@@ -62,8 +61,7 @@ On failure: returns a list of related errors.
 
 ```java
 CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
-    final BatchChangeInventoryRequest body
-)
+    final BatchChangeInventoryRequest body)
 ```
 
 ### Parameters
@@ -123,8 +121,7 @@ that cannot be handled by other, simpler endpoints.
 
 ```java
 CompletableFuture<BatchRetrieveInventoryChangesResponse> batchRetrieveInventoryChangesAsync(
-    final BatchRetrieveInventoryChangesRequest body
-)
+    final BatchRetrieveInventoryChangesRequest body)
 ```
 
 ### Parameters
@@ -181,8 +178,7 @@ in response to receiving a Webhook notification.
 
 ```java
 CompletableFuture<BatchRetrieveInventoryCountsResponse> batchRetrieveInventoryCountsAsync(
-    final BatchRetrieveInventoryCountsRequest body
-)
+    final BatchRetrieveInventoryCountsRequest body)
 ```
 
 ### Parameters
@@ -223,8 +219,7 @@ object with the provided `physical_count_id`.
 
 ```java
 CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysicalCountAsync(
-    final String physicalCountId
-)
+    final String physicalCountId)
 ```
 
 ### Parameters
@@ -261,8 +256,7 @@ For more sophisticated queries, use a batch endpoint.
 CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
     final String catalogObjectId,
     final String locationIds,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -307,8 +301,7 @@ sophisticated queries, use a batch endpoint.
 CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsync(
     final String catalogObjectId,
     final String locationIds,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters

@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1ListEmployeeRolesRequest type.
+ */
 public class V1ListEmployeeRolesRequest {
 
+    /**
+     * Initialization constructor.
+     * @param order
+     * @param limit
+     * @param batchToken
+     */
     @JsonCreator
     public V1ListEmployeeRolesRequest(
             @JsonProperty("order") String order,
@@ -20,31 +30,12 @@ public class V1ListEmployeeRolesRequest {
     private final String order;
     private final Integer limit;
     private final String batchToken;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(order, limit, batchToken);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1ListEmployeeRolesRequest)) {
-            return false;
-        }
-        V1ListEmployeeRolesRequest v1ListEmployeeRolesRequest = (V1ListEmployeeRolesRequest) o;
-        return Objects.equals(order, v1ListEmployeeRolesRequest.order) &&
-            Objects.equals(limit, v1ListEmployeeRolesRequest.limit) &&
-            Objects.equals(batchToken, v1ListEmployeeRolesRequest.batchToken);
-    }
-
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("order")
-    public String getOrder() { 
+    public String getOrder() {
         return this.order;
     }
 
@@ -53,7 +44,7 @@ public class V1ListEmployeeRolesRequest {
      * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
@@ -63,11 +54,35 @@ public class V1ListEmployeeRolesRequest {
      * original query to the endpoint.
      */
     @JsonGetter("batch_token")
-    public String getBatchToken() { 
+    public String getBatchToken() {
         return this.batchToken;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, limit, batchToken);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1ListEmployeeRolesRequest)) {
+            return false;
+        }
+        V1ListEmployeeRolesRequest v1ListEmployeeRolesRequest = (V1ListEmployeeRolesRequest) obj;
+        return Objects.equals(order, v1ListEmployeeRolesRequest.order) &&
+            Objects.equals(limit, v1ListEmployeeRolesRequest.limit) &&
+            Objects.equals(batchToken, v1ListEmployeeRolesRequest.batchToken);
+    }
+
+    /**
+     * Builds a new {@link V1ListEmployeeRolesRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1ListEmployeeRolesRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
@@ -76,26 +91,53 @@ public class V1ListEmployeeRolesRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1ListEmployeeRolesRequest}
+     */
     public static class Builder {
         private String order;
         private Integer limit;
         private String batchToken;
 
-        public Builder() { }
-
-        public Builder order(String value) {
-            order = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
-        }
-        public Builder batchToken(String value) {
-            batchToken = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(String order) {
+            this.order = order;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+        /**
+         * Setter for batchToken
+         * @param batchToken
+         * @return Builder
+         */
+        public Builder batchToken(String batchToken) {
+            this.batchToken = batchToken;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link V1ListEmployeeRolesRequest} object using the set fields.
+         * @return {@link V1ListEmployeeRolesRequest}
+         */
         public V1ListEmployeeRolesRequest build() {
             return new V1ListEmployeeRolesRequest(order,
                 limit,

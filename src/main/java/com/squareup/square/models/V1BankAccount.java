@@ -6,8 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1BankAccount type.
+ */
 public class V1BankAccount {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param merchantId
+     * @param bankName
+     * @param name
+     * @param routingNumber
+     * @param accountNumberSuffix
+     * @param currencyCode
+     * @param type
+     */
     @JsonCreator
     public V1BankAccount(
             @JsonProperty("id") String id,
@@ -38,19 +53,97 @@ public class V1BankAccount {
     private final String currencyCode;
     private final String type;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The bank account's Square-issued ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for MerchantId.
+     * The Square-issued ID of the merchant associated with the bank account.
+     */
+    @JsonGetter("merchant_id")
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    /**
+     * Getter for BankName.
+     * The name of the bank that manages the account.
+     */
+    @JsonGetter("bank_name")
+    public String getBankName() {
+        return this.bankName;
+    }
+
+    /**
+     * Getter for Name.
+     * The name associated with the bank account.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for RoutingNumber.
+     * The bank account's routing number.
+     */
+    @JsonGetter("routing_number")
+    public String getRoutingNumber() {
+        return this.routingNumber;
+    }
+
+    /**
+     * Getter for AccountNumberSuffix.
+     * The last few digits of the bank account number.
+     */
+    @JsonGetter("account_number_suffix")
+    public String getAccountNumberSuffix() {
+        return this.accountNumberSuffix;
+    }
+
+    /**
+     * Getter for CurrencyCode.
+     * The currency code of the currency associated with the bank account, in ISO 4217 format. For example, the currency code for US dollars is USD.
+     */
+    @JsonGetter("currency_code")
+    public String getCurrencyCode() {
+        return this.currencyCode;
+    }
+
+    /**
+     * Getter for Type.
+     */
+    @JsonGetter("type")
+    public String getType() {
+        return this.type;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, merchantId, bankName, name, routingNumber, accountNumberSuffix, currencyCode, type);
+        return Objects.hash(id, merchantId, bankName, name, routingNumber, accountNumberSuffix,
+            currencyCode, type);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1BankAccount)) {
+        }
+        if(!(obj instanceof V1BankAccount)) {
             return false;
         }
-        V1BankAccount v1BankAccount = (V1BankAccount) o;
+        V1BankAccount v1BankAccount = (V1BankAccount) obj;
         return Objects.equals(id, v1BankAccount.id) &&
             Objects.equals(merchantId, v1BankAccount.merchantId) &&
             Objects.equals(bankName, v1BankAccount.bankName) &&
@@ -61,83 +154,11 @@ public class V1BankAccount {
             Objects.equals(type, v1BankAccount.type);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The bank account's Square-issued ID.
+     * Builds a new {@link V1BankAccount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1BankAccount.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for MerchantId.
-     * The Square-issued ID of the merchant associated with the bank account.
-     */
-    @JsonGetter("merchant_id")
-    public String getMerchantId() { 
-        return this.merchantId;
-    }
-
-    /**
-     * Getter for BankName.
-     * The name of the bank that manages the account.
-     */
-    @JsonGetter("bank_name")
-    public String getBankName() { 
-        return this.bankName;
-    }
-
-    /**
-     * Getter for Name.
-     * The name associated with the bank account.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for RoutingNumber.
-     * The bank account's routing number.
-     */
-    @JsonGetter("routing_number")
-    public String getRoutingNumber() { 
-        return this.routingNumber;
-    }
-
-    /**
-     * Getter for AccountNumberSuffix.
-     * The last few digits of the bank account number.
-     */
-    @JsonGetter("account_number_suffix")
-    public String getAccountNumberSuffix() { 
-        return this.accountNumberSuffix;
-    }
-
-    /**
-     * Getter for CurrencyCode.
-     * The currency code of the currency associated with the bank account, in ISO 4217 format. For example, the currency code for US dollars is USD.
-     */
-    @JsonGetter("currency_code")
-    public String getCurrencyCode() { 
-        return this.currencyCode;
-    }
-
-    /**
-     * Getter for Type.
-     */
-    @JsonGetter("type")
-    public String getType() { 
-        return this.type;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -151,6 +172,9 @@ public class V1BankAccount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1BankAccount}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -162,45 +186,99 @@ public class V1BankAccount {
         private String currencyCode;
         private String type;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder merchantId(String value) {
-            merchantId = value;
+        /**
+         * Setter for merchantId
+         * @param merchantId
+         * @return Builder
+         */
+        public Builder merchantId(String merchantId) {
+            this.merchantId = merchantId;
             return this;
         }
-        public Builder bankName(String value) {
-            bankName = value;
+        /**
+         * Setter for bankName
+         * @param bankName
+         * @return Builder
+         */
+        public Builder bankName(String bankName) {
+            this.bankName = bankName;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder routingNumber(String value) {
-            routingNumber = value;
+        /**
+         * Setter for routingNumber
+         * @param routingNumber
+         * @return Builder
+         */
+        public Builder routingNumber(String routingNumber) {
+            this.routingNumber = routingNumber;
             return this;
         }
-        public Builder accountNumberSuffix(String value) {
-            accountNumberSuffix = value;
+        /**
+         * Setter for accountNumberSuffix
+         * @param accountNumberSuffix
+         * @return Builder
+         */
+        public Builder accountNumberSuffix(String accountNumberSuffix) {
+            this.accountNumberSuffix = accountNumberSuffix;
             return this;
         }
-        public Builder currencyCode(String value) {
-            currencyCode = value;
+        /**
+         * Setter for currencyCode
+         * @param currencyCode
+         * @return Builder
+         */
+        public Builder currencyCode(String currencyCode) {
+            this.currencyCode = currencyCode;
             return this;
         }
-        public Builder type(String value) {
-            type = value;
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1BankAccount} object using the set fields.
+         * @return {@link V1BankAccount}
+         */
         public V1BankAccount build() {
             V1BankAccount model = new V1BankAccount(id,
                 merchantId,

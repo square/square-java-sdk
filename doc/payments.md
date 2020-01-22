@@ -32,8 +32,7 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
     final String locationId,
     final Long total,
     final String last4,
-    final String cardBrand
-)
+    final String cardBrand)
 ```
 
 ### Parameters
@@ -82,8 +81,7 @@ to enable application fees.
 
 ```java
 CompletableFuture<CreatePaymentResponse> createPaymentAsync(
-    final CreatePaymentRequest body
-)
+    final CreatePaymentRequest body)
 ```
 
 ### Parameters
@@ -142,8 +140,7 @@ point returns successfully.
 
 ```java
 CompletableFuture<CancelPaymentByIdempotencyKeyResponse> cancelPaymentByIdempotencyKeyAsync(
-    final CancelPaymentByIdempotencyKeyRequest body
-)
+    final CancelPaymentByIdempotencyKeyRequest body)
 ```
 
 ### Parameters
@@ -177,8 +174,7 @@ Retrieves details for a specific Payment.
 
 ```java
 CompletableFuture<GetPaymentResponse> getPaymentAsync(
-    final String paymentId
-)
+    final String paymentId)
 ```
 
 ### Parameters
@@ -212,8 +208,7 @@ you can cancel the payment using this endpoint. For more information, see
 
 ```java
 CompletableFuture<CancelPaymentResponse> cancelPaymentAsync(
-    final String paymentId
-)
+    final String paymentId)
 ```
 
 ### Parameters
@@ -250,8 +245,7 @@ the payment using this endpoint. For more information, see
 
 ```java
 CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-    final String paymentId
-)
+    final String paymentId)
 ```
 
 ### Parameters

@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ListAdditionalRecipientReceivablesRequest type.
+ */
 public class ListAdditionalRecipientReceivablesRequest {
 
+    /**
+     * Initialization constructor.
+     * @param beginTime
+     * @param endTime
+     * @param sortOrder
+     * @param cursor
+     */
     @JsonCreator
     public ListAdditionalRecipientReceivablesRequest(
             @JsonProperty("begin_time") String beginTime,
@@ -23,26 +34,6 @@ public class ListAdditionalRecipientReceivablesRequest {
     private final String endTime;
     private final String sortOrder;
     private final String cursor;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(beginTime, endTime, sortOrder, cursor);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListAdditionalRecipientReceivablesRequest)) {
-            return false;
-        }
-        ListAdditionalRecipientReceivablesRequest listAdditionalRecipientReceivablesRequest = (ListAdditionalRecipientReceivablesRequest) o;
-        return Objects.equals(beginTime, listAdditionalRecipientReceivablesRequest.beginTime) &&
-            Objects.equals(endTime, listAdditionalRecipientReceivablesRequest.endTime) &&
-            Objects.equals(sortOrder, listAdditionalRecipientReceivablesRequest.sortOrder) &&
-            Objects.equals(cursor, listAdditionalRecipientReceivablesRequest.cursor);
-    }
-
     /**
      * Getter for BeginTime.
      * The beginning of the requested reporting period, in RFC 3339 format.
@@ -50,7 +41,7 @@ public class ListAdditionalRecipientReceivablesRequest {
      * Default value: The current time minus one year.
      */
     @JsonGetter("begin_time")
-    public String getBeginTime() { 
+    public String getBeginTime() {
         return this.beginTime;
     }
 
@@ -61,7 +52,7 @@ public class ListAdditionalRecipientReceivablesRequest {
      * Default value: The current time.
      */
     @JsonGetter("end_time")
-    public String getEndTime() { 
+    public String getEndTime() {
         return this.endTime;
     }
 
@@ -70,7 +61,7 @@ public class ListAdditionalRecipientReceivablesRequest {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("sort_order")
-    public String getSortOrder() { 
+    public String getSortOrder() {
         return this.sortOrder;
     }
 
@@ -81,11 +72,36 @@ public class ListAdditionalRecipientReceivablesRequest {
      * See [Paginating results](#paginatingresults) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(beginTime, endTime, sortOrder, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListAdditionalRecipientReceivablesRequest)) {
+            return false;
+        }
+        ListAdditionalRecipientReceivablesRequest listAdditionalRecipientReceivablesRequest = (ListAdditionalRecipientReceivablesRequest) obj;
+        return Objects.equals(beginTime, listAdditionalRecipientReceivablesRequest.beginTime) &&
+            Objects.equals(endTime, listAdditionalRecipientReceivablesRequest.endTime) &&
+            Objects.equals(sortOrder, listAdditionalRecipientReceivablesRequest.sortOrder) &&
+            Objects.equals(cursor, listAdditionalRecipientReceivablesRequest.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListAdditionalRecipientReceivablesRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListAdditionalRecipientReceivablesRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .beginTime(getBeginTime())
@@ -95,31 +111,63 @@ public class ListAdditionalRecipientReceivablesRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListAdditionalRecipientReceivablesRequest}
+     */
     public static class Builder {
         private String beginTime;
         private String endTime;
         private String sortOrder;
         private String cursor;
 
-        public Builder() { }
-
-        public Builder beginTime(String value) {
-            beginTime = value;
-            return this;
-        }
-        public Builder endTime(String value) {
-            endTime = value;
-            return this;
-        }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
-            return this;
-        }
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for beginTime
+         * @param beginTime
+         * @return Builder
+         */
+        public Builder beginTime(String beginTime) {
+            this.beginTime = beginTime;
+            return this;
+        }
+        /**
+         * Setter for endTime
+         * @param endTime
+         * @return Builder
+         */
+        public Builder endTime(String endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ListAdditionalRecipientReceivablesRequest} object using the set fields.
+         * @return {@link ListAdditionalRecipientReceivablesRequest}
+         */
         public ListAdditionalRecipientReceivablesRequest build() {
             return new ListAdditionalRecipientReceivablesRequest(beginTime,
                 endTime,

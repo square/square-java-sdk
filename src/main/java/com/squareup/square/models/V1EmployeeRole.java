@@ -1,14 +1,27 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1EmployeeRole type.
+ */
 public class V1EmployeeRole {
 
+    /**
+     * Initialization constructor.
+     * @param name
+     * @param permissions
+     * @param id
+     * @param isOwner
+     * @param createdAt
+     * @param updatedAt
+     */
     @JsonCreator
     public V1EmployeeRole(
             @JsonProperty("name") String name,
@@ -33,28 +46,6 @@ public class V1EmployeeRole {
     private final String createdAt;
     private final String updatedAt;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, permissions, id, isOwner, createdAt, updatedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1EmployeeRole)) {
-            return false;
-        }
-        V1EmployeeRole v1EmployeeRole = (V1EmployeeRole) o;
-        return Objects.equals(name, v1EmployeeRole.name) &&
-            Objects.equals(permissions, v1EmployeeRole.permissions) &&
-            Objects.equals(id, v1EmployeeRole.id) &&
-            Objects.equals(isOwner, v1EmployeeRole.isOwner) &&
-            Objects.equals(createdAt, v1EmployeeRole.createdAt) &&
-            Objects.equals(updatedAt, v1EmployeeRole.updatedAt);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -64,7 +55,7 @@ public class V1EmployeeRole {
      * The role's unique ID, Can only be set by Square.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -73,7 +64,7 @@ public class V1EmployeeRole {
      * The role's merchant-defined name.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -83,7 +74,7 @@ public class V1EmployeeRole {
      * See [V1EmployeeRolePermissions](#type-v1employeerolepermissions) for possible values
      */
     @JsonGetter("permissions")
-    public List<String> getPermissions() { 
+    public List<String> getPermissions() {
         return this.permissions;
     }
 
@@ -92,7 +83,7 @@ public class V1EmployeeRole {
      * If true, employees with this role have all permissions, regardless of the values indicated in permissions.
      */
     @JsonGetter("is_owner")
-    public Boolean getIsOwner() { 
+    public Boolean getIsOwner() {
         return this.isOwner;
     }
 
@@ -101,7 +92,7 @@ public class V1EmployeeRole {
      * The time when the employee entity was created, in ISO 8601 format. Is set by Square when the Role is created.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -110,11 +101,38 @@ public class V1EmployeeRole {
      * The time when the employee entity was most recently updated, in ISO 8601 format. Is set by Square when the Role updated.
      */
     @JsonGetter("updated_at")
-    public String getUpdatedAt() { 
+    public String getUpdatedAt() {
         return this.updatedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, permissions, isOwner, createdAt, updatedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1EmployeeRole)) {
+            return false;
+        }
+        V1EmployeeRole v1EmployeeRole = (V1EmployeeRole) obj;
+        return Objects.equals(id, v1EmployeeRole.id) &&
+            Objects.equals(name, v1EmployeeRole.name) &&
+            Objects.equals(permissions, v1EmployeeRole.permissions) &&
+            Objects.equals(isOwner, v1EmployeeRole.isOwner) &&
+            Objects.equals(createdAt, v1EmployeeRole.createdAt) &&
+            Objects.equals(updatedAt, v1EmployeeRole.updatedAt);
+    }
+
+    /**
+     * Builds a new {@link V1EmployeeRole.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1EmployeeRole.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(name,
             permissions)
@@ -125,6 +143,9 @@ public class V1EmployeeRole {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1EmployeeRole}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String name;
@@ -134,41 +155,83 @@ public class V1EmployeeRole {
         private String createdAt;
         private String updatedAt;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String name,
                 List<String> permissions) {
             this.name = name;
             this.permissions = permissions;
         }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder permissions(List<String> value) {
-            permissions = value;
+        /**
+         * Setter for permissions
+         * @param permissions
+         * @return Builder
+         */
+        public Builder permissions(List<String> permissions) {
+            this.permissions = permissions;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder isOwner(Boolean value) {
-            isOwner = value;
+        /**
+         * Setter for isOwner
+         * @param isOwner
+         * @return Builder
+         */
+        public Builder isOwner(Boolean isOwner) {
+            this.isOwner = isOwner;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder updatedAt(String value) {
-            updatedAt = value;
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1EmployeeRole} object using the set fields.
+         * @return {@link V1EmployeeRole}
+         */
         public V1EmployeeRole build() {
             V1EmployeeRole model = new V1EmployeeRole(name,
                 permissions,

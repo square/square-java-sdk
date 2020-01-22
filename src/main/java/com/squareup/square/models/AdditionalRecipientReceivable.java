@@ -1,13 +1,26 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for AdditionalRecipientReceivable type.
+ */
 public class AdditionalRecipientReceivable {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param transactionId
+     * @param transactionLocationId
+     * @param amountMoney
+     * @param createdAt
+     * @param refunds
+     */
     @JsonCreator
     public AdditionalRecipientReceivable(
             @JsonProperty("id") String id,
@@ -30,34 +43,12 @@ public class AdditionalRecipientReceivable {
     private final Money amountMoney;
     private final String createdAt;
     private final List<AdditionalRecipientReceivableRefund> refunds;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, transactionId, transactionLocationId, amountMoney, createdAt, refunds);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof AdditionalRecipientReceivable)) {
-            return false;
-        }
-        AdditionalRecipientReceivable additionalRecipientReceivable = (AdditionalRecipientReceivable) o;
-        return Objects.equals(id, additionalRecipientReceivable.id) &&
-            Objects.equals(transactionId, additionalRecipientReceivable.transactionId) &&
-            Objects.equals(transactionLocationId, additionalRecipientReceivable.transactionLocationId) &&
-            Objects.equals(amountMoney, additionalRecipientReceivable.amountMoney) &&
-            Objects.equals(createdAt, additionalRecipientReceivable.createdAt) &&
-            Objects.equals(refunds, additionalRecipientReceivable.refunds);
-    }
-
     /**
      * Getter for Id.
      * The additional recipient receivable's unique ID, issued by Square payments servers.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -66,7 +57,7 @@ public class AdditionalRecipientReceivable {
      * The ID of the transaction that the additional recipient receivable was applied to.
      */
     @JsonGetter("transaction_id")
-    public String getTransactionId() { 
+    public String getTransactionId() {
         return this.transactionId;
     }
 
@@ -75,7 +66,7 @@ public class AdditionalRecipientReceivable {
      * The ID of the location that created the receivable. This is the location ID on the associated transaction.
      */
     @JsonGetter("transaction_location_id")
-    public String getTransactionLocationId() { 
+    public String getTransactionLocationId() {
         return this.transactionLocationId;
     }
 
@@ -89,7 +80,7 @@ public class AdditionalRecipientReceivable {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -98,7 +89,7 @@ public class AdditionalRecipientReceivable {
      * The time when the additional recipient receivable was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -107,11 +98,39 @@ public class AdditionalRecipientReceivable {
      * Any refunds of the receivable that have been applied.
      */
     @JsonGetter("refunds")
-    public List<AdditionalRecipientReceivableRefund> getRefunds() { 
+    public List<AdditionalRecipientReceivableRefund> getRefunds() {
         return this.refunds;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, transactionId, transactionLocationId, amountMoney, createdAt,
+            refunds);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof AdditionalRecipientReceivable)) {
+            return false;
+        }
+        AdditionalRecipientReceivable additionalRecipientReceivable = (AdditionalRecipientReceivable) obj;
+        return Objects.equals(id, additionalRecipientReceivable.id) &&
+            Objects.equals(transactionId, additionalRecipientReceivable.transactionId) &&
+            Objects.equals(transactionLocationId, additionalRecipientReceivable.transactionLocationId) &&
+            Objects.equals(amountMoney, additionalRecipientReceivable.amountMoney) &&
+            Objects.equals(createdAt, additionalRecipientReceivable.createdAt) &&
+            Objects.equals(refunds, additionalRecipientReceivable.refunds);
+    }
+
+    /**
+     * Builds a new {@link AdditionalRecipientReceivable.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link AdditionalRecipientReceivable.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             transactionId,
@@ -122,6 +141,9 @@ public class AdditionalRecipientReceivable {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link AdditionalRecipientReceivable}
+     */
     public static class Builder {
         private String id;
         private String transactionId;
@@ -130,6 +152,9 @@ public class AdditionalRecipientReceivable {
         private String createdAt;
         private List<AdditionalRecipientReceivableRefund> refunds;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String id,
                 String transactionId,
                 String transactionLocationId,
@@ -140,31 +165,65 @@ public class AdditionalRecipientReceivable {
             this.amountMoney = amountMoney;
         }
 
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder transactionId(String value) {
-            transactionId = value;
+        /**
+         * Setter for transactionId
+         * @param transactionId
+         * @return Builder
+         */
+        public Builder transactionId(String transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
-        public Builder transactionLocationId(String value) {
-            transactionLocationId = value;
+        /**
+         * Setter for transactionLocationId
+         * @param transactionLocationId
+         * @return Builder
+         */
+        public Builder transactionLocationId(String transactionLocationId) {
+            this.transactionLocationId = transactionLocationId;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder refunds(List<AdditionalRecipientReceivableRefund> value) {
-            refunds = value;
+        /**
+         * Setter for refunds
+         * @param refunds
+         * @return Builder
+         */
+        public Builder refunds(List<AdditionalRecipientReceivableRefund> refunds) {
+            this.refunds = refunds;
             return this;
         }
 
+        /**
+         * Builds a new {@link AdditionalRecipientReceivable} object using the set fields.
+         * @return {@link AdditionalRecipientReceivable}
+         */
         public AdditionalRecipientReceivable build() {
             return new AdditionalRecipientReceivable(id,
                 transactionId,

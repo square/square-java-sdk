@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Error type.
+ */
 public class Error {
 
+    /**
+     * Initialization constructor.
+     * @param category
+     * @param code
+     * @param detail
+     * @param field
+     */
     @JsonCreator
     public Error(
             @JsonProperty("category") String category,
@@ -23,33 +34,13 @@ public class Error {
     private final String code;
     private final String detail;
     private final String field;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(category, code, detail, field);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Error)) {
-            return false;
-        }
-        Error error = (Error) o;
-        return Objects.equals(category, error.category) &&
-            Objects.equals(code, error.code) &&
-            Objects.equals(detail, error.detail) &&
-            Objects.equals(field, error.field);
-    }
-
     /**
      * Getter for Category.
      * Indicates which high-level category of error has occurred during a
      * request to the Connect API.
      */
     @JsonGetter("category")
-    public String getCategory() { 
+    public String getCategory() {
         return this.category;
     }
 
@@ -59,7 +50,7 @@ public class Error {
      * Square API.
      */
     @JsonGetter("code")
-    public String getCode() { 
+    public String getCode() {
         return this.code;
     }
 
@@ -68,7 +59,7 @@ public class Error {
      * A human-readable description of the error for debugging purposes.
      */
     @JsonGetter("detail")
-    public String getDetail() { 
+    public String getDetail() {
         return this.detail;
     }
 
@@ -78,11 +69,36 @@ public class Error {
      * the error pertains to.
      */
     @JsonGetter("field")
-    public String getField() { 
+    public String getField() {
         return this.field;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, code, detail, field);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Error)) {
+            return false;
+        }
+        Error error = (Error) obj;
+        return Objects.equals(category, error.category) &&
+            Objects.equals(code, error.code) &&
+            Objects.equals(detail, error.detail) &&
+            Objects.equals(field, error.field);
+    }
+
+    /**
+     * Builds a new {@link Error.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Error.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(category,
             code)
@@ -91,35 +107,65 @@ public class Error {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Error}
+     */
     public static class Builder {
         private String category;
         private String code;
         private String detail;
         private String field;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String category,
                 String code) {
             this.category = category;
             this.code = code;
         }
 
-        public Builder category(String value) {
-            category = value;
+        /**
+         * Setter for category
+         * @param category
+         * @return Builder
+         */
+        public Builder category(String category) {
+            this.category = category;
             return this;
         }
-        public Builder code(String value) {
-            code = value;
+        /**
+         * Setter for code
+         * @param code
+         * @return Builder
+         */
+        public Builder code(String code) {
+            this.code = code;
             return this;
         }
-        public Builder detail(String value) {
-            detail = value;
+        /**
+         * Setter for detail
+         * @param detail
+         * @return Builder
+         */
+        public Builder detail(String detail) {
+            this.detail = detail;
             return this;
         }
-        public Builder field(String value) {
-            field = value;
+        /**
+         * Setter for field
+         * @param field
+         * @return Builder
+         */
+        public Builder field(String field) {
+            this.field = field;
             return this;
         }
 
+        /**
+         * Builds a new {@link Error} object using the set fields.
+         * @return {@link Error}
+         */
         public Error build() {
             return new Error(category,
                 code,

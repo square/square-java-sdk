@@ -27,8 +27,7 @@ Lists a business's customers.
 CompletableFuture<ListCustomersResponse> listCustomersAsync(
     final String cursor,
     final String sortField,
-    final String sortOrder
-)
+    final String sortOrder)
 ```
 
 ### Parameters
@@ -69,8 +68,7 @@ endpoint:
 
 ```java
 CompletableFuture<CreateCustomerResponse> createCustomerAsync(
-    final CreateCustomerRequest body
-)
+    final CreateCustomerRequest body)
 ```
 
 ### Parameters
@@ -121,8 +119,7 @@ customer profiles ordered alphabetically based on `given_name` and
 
 ```java
 CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
-    final SearchCustomersRequest body
-)
+    final SearchCustomersRequest body)
 ```
 
 ### Parameters
@@ -181,8 +178,7 @@ new `customer_id` to delete merged profiles.
 
 ```java
 CompletableFuture<DeleteCustomerResponse> deleteCustomerAsync(
-    final String customerId
-)
+    final String customerId)
 ```
 
 ### Parameters
@@ -214,8 +210,7 @@ Returns details for a single customer.
 
 ```java
 CompletableFuture<RetrieveCustomerResponse> retrieveCustomerAsync(
-    final String customerId
-)
+    final String customerId)
 ```
 
 ### Parameters
@@ -255,8 +250,7 @@ to a card on file, you must delete the existing card on file with the
 ```java
 CompletableFuture<UpdateCustomerResponse> updateCustomerAsync(
     final String customerId,
-    final UpdateCustomerRequest body
-)
+    final UpdateCustomerRequest body)
 ```
 
 ### Parameters
@@ -299,8 +293,7 @@ with the provided nonce during the _first_ call.
 ```java
 CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
     final String customerId,
-    final CreateCustomerCardRequest body
-)
+    final CreateCustomerCardRequest body)
 ```
 
 ### Parameters
@@ -347,8 +340,7 @@ Removes a card on file from a customer.
 ```java
 CompletableFuture<DeleteCustomerCardResponse> deleteCustomerCardAsync(
     final String customerId,
-    final String cardId
-)
+    final String cardId)
 ```
 
 ### Parameters

@@ -5,14 +5,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for RefundPaymentRequest type.
+ */
 public class RefundPaymentRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param amountMoney
+     * @param paymentId
+     * @param appFeeMoney
+     * @param reason
+     */
     @JsonCreator
     public RefundPaymentRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("amount_money") Money amountMoney,
-            @JsonProperty("app_fee_money") Money appFeeMoney,
             @JsonProperty("payment_id") String paymentId,
+            @JsonProperty("app_fee_money") Money appFeeMoney,
             @JsonProperty("reason") String reason) {
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
@@ -26,27 +38,6 @@ public class RefundPaymentRequest {
     private final Money appFeeMoney;
     private final String paymentId;
     private final String reason;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, amountMoney, appFeeMoney, paymentId, reason);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RefundPaymentRequest)) {
-            return false;
-        }
-        RefundPaymentRequest refundPaymentRequest = (RefundPaymentRequest) o;
-        return Objects.equals(idempotencyKey, refundPaymentRequest.idempotencyKey) &&
-            Objects.equals(amountMoney, refundPaymentRequest.amountMoney) &&
-            Objects.equals(appFeeMoney, refundPaymentRequest.appFeeMoney) &&
-            Objects.equals(paymentId, refundPaymentRequest.paymentId) &&
-            Objects.equals(reason, refundPaymentRequest.reason);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies this RefundPayment request. Key can be any valid string but
@@ -54,7 +45,7 @@ public class RefundPaymentRequest {
      * For more information, see [Idempotency keys](https://developer.squareup.com/docs/working-with-apis/idempotency).
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -68,7 +59,7 @@ public class RefundPaymentRequest {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -82,7 +73,7 @@ public class RefundPaymentRequest {
      * for more information.
      */
     @JsonGetter("app_fee_money")
-    public Money getAppFeeMoney() { 
+    public Money getAppFeeMoney() {
         return this.appFeeMoney;
     }
 
@@ -91,7 +82,7 @@ public class RefundPaymentRequest {
      * Unique ID of the payment being refunded.
      */
     @JsonGetter("payment_id")
-    public String getPaymentId() { 
+    public String getPaymentId() {
         return this.paymentId;
     }
 
@@ -100,59 +91,122 @@ public class RefundPaymentRequest {
      * A description of the reason for the refund.
      */
     @JsonGetter("reason")
-    public String getReason() { 
+    public String getReason() {
         return this.reason;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, amountMoney, appFeeMoney, paymentId, reason);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof RefundPaymentRequest)) {
+            return false;
+        }
+        RefundPaymentRequest refundPaymentRequest = (RefundPaymentRequest) obj;
+        return Objects.equals(idempotencyKey, refundPaymentRequest.idempotencyKey) &&
+            Objects.equals(amountMoney, refundPaymentRequest.amountMoney) &&
+            Objects.equals(appFeeMoney, refundPaymentRequest.appFeeMoney) &&
+            Objects.equals(paymentId, refundPaymentRequest.paymentId) &&
+            Objects.equals(reason, refundPaymentRequest.reason);
+    }
+
+    /**
+     * Builds a new {@link RefundPaymentRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link RefundPaymentRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
-            amountMoney)
+            amountMoney,
+            paymentId)
             .appFeeMoney(getAppFeeMoney())
-            .paymentId(getPaymentId())
             .reason(getReason());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link RefundPaymentRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private Money amountMoney;
-        private Money appFeeMoney;
         private String paymentId;
+        private Money appFeeMoney;
         private String reason;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey,
-                Money amountMoney) {
+                Money amountMoney,
+                String paymentId) {
             this.idempotencyKey = idempotencyKey;
             this.amountMoney = amountMoney;
+            this.paymentId = paymentId;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder appFeeMoney(Money value) {
-            appFeeMoney = value;
+        /**
+         * Setter for paymentId
+         * @param paymentId
+         * @return Builder
+         */
+        public Builder paymentId(String paymentId) {
+            this.paymentId = paymentId;
             return this;
         }
-        public Builder paymentId(String value) {
-            paymentId = value;
+        /**
+         * Setter for appFeeMoney
+         * @param appFeeMoney
+         * @return Builder
+         */
+        public Builder appFeeMoney(Money appFeeMoney) {
+            this.appFeeMoney = appFeeMoney;
             return this;
         }
-        public Builder reason(String value) {
-            reason = value;
+        /**
+         * Setter for reason
+         * @param reason
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
             return this;
         }
 
+        /**
+         * Builds a new {@link RefundPaymentRequest} object using the set fields.
+         * @return {@link RefundPaymentRequest}
+         */
         public RefundPaymentRequest build() {
             return new RefundPaymentRequest(idempotencyKey,
                 amountMoney,
-                appFeeMoney,
                 paymentId,
+                appFeeMoney,
                 reason);
         }
     }

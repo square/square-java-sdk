@@ -1,13 +1,22 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for BatchUpsertCatalogObjectsRequest type.
+ */
 public class BatchUpsertCatalogObjectsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param batches
+     */
     @JsonCreator
     public BatchUpsertCatalogObjectsRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -18,24 +27,6 @@ public class BatchUpsertCatalogObjectsRequest {
 
     private final String idempotencyKey;
     private final List<CatalogObjectBatch> batches;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, batches);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof BatchUpsertCatalogObjectsRequest)) {
-            return false;
-        }
-        BatchUpsertCatalogObjectsRequest batchUpsertCatalogObjectsRequest = (BatchUpsertCatalogObjectsRequest) o;
-        return Objects.equals(idempotencyKey, batchUpsertCatalogObjectsRequest.idempotencyKey) &&
-            Objects.equals(batches, batchUpsertCatalogObjectsRequest.batches);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A value you specify that uniquely identifies this
@@ -48,7 +39,7 @@ public class BatchUpsertCatalogObjectsRequest {
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -72,34 +63,77 @@ public class BatchUpsertCatalogObjectsRequest {
      * be inserted or updated.
      */
     @JsonGetter("batches")
-    public List<CatalogObjectBatch> getBatches() { 
+    public List<CatalogObjectBatch> getBatches() {
         return this.batches;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, batches);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof BatchUpsertCatalogObjectsRequest)) {
+            return false;
+        }
+        BatchUpsertCatalogObjectsRequest batchUpsertCatalogObjectsRequest = (BatchUpsertCatalogObjectsRequest) obj;
+        return Objects.equals(idempotencyKey, batchUpsertCatalogObjectsRequest.idempotencyKey) &&
+            Objects.equals(batches, batchUpsertCatalogObjectsRequest.batches);
+    }
+
+    /**
+     * Builds a new {@link BatchUpsertCatalogObjectsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link BatchUpsertCatalogObjectsRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
             .batches(getBatches());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link BatchUpsertCatalogObjectsRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private List<CatalogObjectBatch> batches;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder batches(List<CatalogObjectBatch> value) {
-            batches = value;
+        /**
+         * Setter for batches
+         * @param batches
+         * @return Builder
+         */
+        public Builder batches(List<CatalogObjectBatch> batches) {
+            this.batches = batches;
             return this;
         }
 
+        /**
+         * Builds a new {@link BatchUpsertCatalogObjectsRequest} object using the set fields.
+         * @return {@link BatchUpsertCatalogObjectsRequest}
+         */
         public BatchUpsertCatalogObjectsRequest build() {
             return new BatchUpsertCatalogObjectsRequest(idempotencyKey,
                 batches);

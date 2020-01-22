@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateRefundRequest type.
+ */
 public class CreateRefundRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param tenderId
+     * @param amountMoney
+     * @param reason
+     */
     @JsonCreator
     public CreateRefundRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -22,26 +33,6 @@ public class CreateRefundRequest {
     private final String idempotencyKey;
     private final String tenderId;
     private final String reason;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, tenderId, amountMoney, reason);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateRefundRequest)) {
-            return false;
-        }
-        CreateRefundRequest createRefundRequest = (CreateRefundRequest) o;
-        return Objects.equals(idempotencyKey, createRefundRequest.idempotencyKey) &&
-            Objects.equals(tenderId, createRefundRequest.tenderId) &&
-            Objects.equals(amountMoney, createRefundRequest.amountMoney) &&
-            Objects.equals(reason, createRefundRequest.reason);
-    }
-
     private final Money amountMoney;
     /**
      * Getter for IdempotencyKey.
@@ -53,7 +44,7 @@ public class CreateRefundRequest {
      * See [Idempotency keys](#idempotencykeys) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -65,7 +56,7 @@ public class CreateRefundRequest {
      * the Connect API.
      */
     @JsonGetter("tender_id")
-    public String getTenderId() { 
+    public String getTenderId() {
         return this.tenderId;
     }
 
@@ -75,7 +66,7 @@ public class CreateRefundRequest {
      * Default value: `Refund via API`
      */
     @JsonGetter("reason")
-    public String getReason() { 
+    public String getReason() {
         return this.reason;
     }
 
@@ -89,11 +80,36 @@ public class CreateRefundRequest {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, tenderId, reason, amountMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateRefundRequest)) {
+            return false;
+        }
+        CreateRefundRequest createRefundRequest = (CreateRefundRequest) obj;
+        return Objects.equals(idempotencyKey, createRefundRequest.idempotencyKey) &&
+            Objects.equals(tenderId, createRefundRequest.tenderId) &&
+            Objects.equals(reason, createRefundRequest.reason) &&
+            Objects.equals(amountMoney, createRefundRequest.amountMoney);
+    }
+
+    /**
+     * Builds a new {@link CreateRefundRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateRefundRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             tenderId,
@@ -102,12 +118,18 @@ public class CreateRefundRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateRefundRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private String tenderId;
         private Money amountMoney;
         private String reason;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey,
                 String tenderId,
                 Money amountMoney) {
@@ -116,23 +138,47 @@ public class CreateRefundRequest {
             this.amountMoney = amountMoney;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder tenderId(String value) {
-            tenderId = value;
+        /**
+         * Setter for tenderId
+         * @param tenderId
+         * @return Builder
+         */
+        public Builder tenderId(String tenderId) {
+            this.tenderId = tenderId;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder reason(String value) {
-            reason = value;
+        /**
+         * Setter for reason
+         * @param reason
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateRefundRequest} object using the set fields.
+         * @return {@link CreateRefundRequest}
+         */
         public CreateRefundRequest build() {
             return new CreateRefundRequest(idempotencyKey,
                 tenderId,

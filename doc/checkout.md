@@ -17,8 +17,7 @@ payment processing workflow hosted on connect.squareup.com.
 ```java
 CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
     final String locationId,
-    final CreateCheckoutRequest body
-)
+    final CreateCheckoutRequest body)
 ```
 
 ### Parameters

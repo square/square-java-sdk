@@ -1,14 +1,31 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Employee type.
+ */
 public class V1Employee {
 
+    /**
+     * Initialization constructor.
+     * @param firstName
+     * @param lastName
+     * @param id
+     * @param roleIds
+     * @param authorizedLocationIds
+     * @param email
+     * @param status
+     * @param externalId
+     * @param createdAt
+     * @param updatedAt
+     */
     @JsonCreator
     public V1Employee(
             @JsonProperty("first_name") String firstName,
@@ -45,32 +62,6 @@ public class V1Employee {
     private final String createdAt;
     private final String updatedAt;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, id, roleIds, authorizedLocationIds, email, status, externalId, createdAt, updatedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1Employee)) {
-            return false;
-        }
-        V1Employee v1Employee = (V1Employee) o;
-        return Objects.equals(firstName, v1Employee.firstName) &&
-            Objects.equals(lastName, v1Employee.lastName) &&
-            Objects.equals(id, v1Employee.id) &&
-            Objects.equals(roleIds, v1Employee.roleIds) &&
-            Objects.equals(authorizedLocationIds, v1Employee.authorizedLocationIds) &&
-            Objects.equals(email, v1Employee.email) &&
-            Objects.equals(status, v1Employee.status) &&
-            Objects.equals(externalId, v1Employee.externalId) &&
-            Objects.equals(createdAt, v1Employee.createdAt) &&
-            Objects.equals(updatedAt, v1Employee.updatedAt);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -80,7 +71,7 @@ public class V1Employee {
      * The employee's unique ID.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -89,7 +80,7 @@ public class V1Employee {
      * The employee's first name.
      */
     @JsonGetter("first_name")
-    public String getFirstName() { 
+    public String getFirstName() {
         return this.firstName;
     }
 
@@ -98,7 +89,7 @@ public class V1Employee {
      * The employee's last name.
      */
     @JsonGetter("last_name")
-    public String getLastName() { 
+    public String getLastName() {
         return this.lastName;
     }
 
@@ -107,7 +98,7 @@ public class V1Employee {
      * The ids of the employee's associated roles. Currently, you can specify only one or zero roles per employee.
      */
     @JsonGetter("role_ids")
-    public List<String> getRoleIds() { 
+    public List<String> getRoleIds() {
         return this.roleIds;
     }
 
@@ -116,7 +107,7 @@ public class V1Employee {
      * The IDs of the locations the employee is allowed to clock in at.
      */
     @JsonGetter("authorized_location_ids")
-    public List<String> getAuthorizedLocationIds() { 
+    public List<String> getAuthorizedLocationIds() {
         return this.authorizedLocationIds;
     }
 
@@ -125,7 +116,7 @@ public class V1Employee {
      * The employee's email address.
      */
     @JsonGetter("email")
-    public String getEmail() { 
+    public String getEmail() {
         return this.email;
     }
 
@@ -133,7 +124,7 @@ public class V1Employee {
      * Getter for Status.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
@@ -142,7 +133,7 @@ public class V1Employee {
      * An ID the merchant can set to associate the employee with an entity in another system.
      */
     @JsonGetter("external_id")
-    public String getExternalId() { 
+    public String getExternalId() {
         return this.externalId;
     }
 
@@ -151,7 +142,7 @@ public class V1Employee {
      * The time when the employee entity was created, in ISO 8601 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -160,11 +151,43 @@ public class V1Employee {
      * The time when the employee entity was most recently updated, in ISO 8601 format.
      */
     @JsonGetter("updated_at")
-    public String getUpdatedAt() { 
+    public String getUpdatedAt() {
         return this.updatedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, roleIds, authorizedLocationIds, email, status,
+            externalId, createdAt, updatedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1Employee)) {
+            return false;
+        }
+        V1Employee v1Employee = (V1Employee) obj;
+        return Objects.equals(id, v1Employee.id) &&
+            Objects.equals(firstName, v1Employee.firstName) &&
+            Objects.equals(lastName, v1Employee.lastName) &&
+            Objects.equals(roleIds, v1Employee.roleIds) &&
+            Objects.equals(authorizedLocationIds, v1Employee.authorizedLocationIds) &&
+            Objects.equals(email, v1Employee.email) &&
+            Objects.equals(status, v1Employee.status) &&
+            Objects.equals(externalId, v1Employee.externalId) &&
+            Objects.equals(createdAt, v1Employee.createdAt) &&
+            Objects.equals(updatedAt, v1Employee.updatedAt);
+    }
+
+    /**
+     * Builds a new {@link V1Employee.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Employee.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(firstName,
             lastName)
@@ -179,6 +202,9 @@ public class V1Employee {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Employee}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String firstName;
@@ -192,57 +218,119 @@ public class V1Employee {
         private String createdAt;
         private String updatedAt;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String firstName,
                 String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder firstName(String value) {
-            firstName = value;
+        /**
+         * Setter for firstName
+         * @param firstName
+         * @return Builder
+         */
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
-        public Builder lastName(String value) {
-            lastName = value;
+        /**
+         * Setter for lastName
+         * @param lastName
+         * @return Builder
+         */
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder roleIds(List<String> value) {
-            roleIds = value;
+        /**
+         * Setter for roleIds
+         * @param roleIds
+         * @return Builder
+         */
+        public Builder roleIds(List<String> roleIds) {
+            this.roleIds = roleIds;
             return this;
         }
-        public Builder authorizedLocationIds(List<String> value) {
-            authorizedLocationIds = value;
+        /**
+         * Setter for authorizedLocationIds
+         * @param authorizedLocationIds
+         * @return Builder
+         */
+        public Builder authorizedLocationIds(List<String> authorizedLocationIds) {
+            this.authorizedLocationIds = authorizedLocationIds;
             return this;
         }
-        public Builder email(String value) {
-            email = value;
+        /**
+         * Setter for email
+         * @param email
+         * @return Builder
+         */
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
-        public Builder status(String value) {
-            status = value;
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
             return this;
         }
-        public Builder externalId(String value) {
-            externalId = value;
+        /**
+         * Setter for externalId
+         * @param externalId
+         * @return Builder
+         */
+        public Builder externalId(String externalId) {
+            this.externalId = externalId;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder updatedAt(String value) {
-            updatedAt = value;
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Employee} object using the set fields.
+         * @return {@link V1Employee}
+         */
         public V1Employee build() {
             V1Employee model = new V1Employee(firstName,
                 lastName,

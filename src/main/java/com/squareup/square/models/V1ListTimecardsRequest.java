@@ -5,8 +5,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1ListTimecardsRequest type.
+ */
 public class V1ListTimecardsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param order
+     * @param employeeId
+     * @param beginClockinTime
+     * @param endClockinTime
+     * @param beginClockoutTime
+     * @param endClockoutTime
+     * @param beginUpdatedAt
+     * @param endUpdatedAt
+     * @param deleted
+     * @param limit
+     * @param batchToken
+     */
     @JsonCreator
     public V1ListTimecardsRequest(
             @JsonProperty("order") String order,
@@ -44,20 +62,122 @@ public class V1ListTimecardsRequest {
     private final Boolean deleted;
     private final Integer limit;
     private final String batchToken;
+    /**
+     * Getter for Order.
+     * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     */
+    @JsonGetter("order")
+    public String getOrder() {
+        return this.order;
+    }
 
+    /**
+     * Getter for EmployeeId.
+     * If provided, the endpoint returns only timecards for the employee with the specified ID.
+     */
+    @JsonGetter("employee_id")
+    public String getEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
+     * Getter for BeginClockinTime.
+     * If filtering results by their clockin_time field, the beginning of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("begin_clockin_time")
+    public String getBeginClockinTime() {
+        return this.beginClockinTime;
+    }
+
+    /**
+     * Getter for EndClockinTime.
+     * If filtering results by their clockin_time field, the end of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("end_clockin_time")
+    public String getEndClockinTime() {
+        return this.endClockinTime;
+    }
+
+    /**
+     * Getter for BeginClockoutTime.
+     * If filtering results by their clockout_time field, the beginning of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("begin_clockout_time")
+    public String getBeginClockoutTime() {
+        return this.beginClockoutTime;
+    }
+
+    /**
+     * Getter for EndClockoutTime.
+     * If filtering results by their clockout_time field, the end of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("end_clockout_time")
+    public String getEndClockoutTime() {
+        return this.endClockoutTime;
+    }
+
+    /**
+     * Getter for BeginUpdatedAt.
+     * If filtering results by their updated_at field, the beginning of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("begin_updated_at")
+    public String getBeginUpdatedAt() {
+        return this.beginUpdatedAt;
+    }
+
+    /**
+     * Getter for EndUpdatedAt.
+     * If filtering results by their updated_at field, the end of the requested reporting period, in ISO 8601 format.
+     */
+    @JsonGetter("end_updated_at")
+    public String getEndUpdatedAt() {
+        return this.endUpdatedAt;
+    }
+
+    /**
+     * Getter for Deleted.
+     * If true, only deleted timecards are returned. If false, only valid timecards are returned.If you don't provide this parameter, both valid and deleted timecards are returned.
+     */
+    @JsonGetter("deleted")
+    public Boolean getDeleted() {
+        return this.deleted;
+    }
+
+    /**
+     * Getter for Limit.
+     * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
+     */
+    @JsonGetter("limit")
+    public Integer getLimit() {
+        return this.limit;
+    }
+
+    /**
+     * Getter for BatchToken.
+     * A pagination cursor to retrieve the next set of results for your
+     * original query to the endpoint.
+     */
+    @JsonGetter("batch_token")
+    public String getBatchToken() {
+        return this.batchToken;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
+        return Objects.hash(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime,
+            endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1ListTimecardsRequest)) {
+        }
+        if(!(obj instanceof V1ListTimecardsRequest)) {
             return false;
         }
-        V1ListTimecardsRequest v1ListTimecardsRequest = (V1ListTimecardsRequest) o;
+        V1ListTimecardsRequest v1ListTimecardsRequest = (V1ListTimecardsRequest) obj;
         return Objects.equals(order, v1ListTimecardsRequest.order) &&
             Objects.equals(employeeId, v1ListTimecardsRequest.employeeId) &&
             Objects.equals(beginClockinTime, v1ListTimecardsRequest.beginClockinTime) &&
@@ -72,106 +192,10 @@ public class V1ListTimecardsRequest {
     }
 
     /**
-     * Getter for Order.
-     * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * Builds a new {@link V1ListTimecardsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1ListTimecardsRequest.Builder} object
      */
-    @JsonGetter("order")
-    public String getOrder() { 
-        return this.order;
-    }
-
-    /**
-     * Getter for EmployeeId.
-     * If provided, the endpoint returns only timecards for the employee with the specified ID.
-     */
-    @JsonGetter("employee_id")
-    public String getEmployeeId() { 
-        return this.employeeId;
-    }
-
-    /**
-     * Getter for BeginClockinTime.
-     * If filtering results by their clockin_time field, the beginning of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("begin_clockin_time")
-    public String getBeginClockinTime() { 
-        return this.beginClockinTime;
-    }
-
-    /**
-     * Getter for EndClockinTime.
-     * If filtering results by their clockin_time field, the end of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("end_clockin_time")
-    public String getEndClockinTime() { 
-        return this.endClockinTime;
-    }
-
-    /**
-     * Getter for BeginClockoutTime.
-     * If filtering results by their clockout_time field, the beginning of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("begin_clockout_time")
-    public String getBeginClockoutTime() { 
-        return this.beginClockoutTime;
-    }
-
-    /**
-     * Getter for EndClockoutTime.
-     * If filtering results by their clockout_time field, the end of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("end_clockout_time")
-    public String getEndClockoutTime() { 
-        return this.endClockoutTime;
-    }
-
-    /**
-     * Getter for BeginUpdatedAt.
-     * If filtering results by their updated_at field, the beginning of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("begin_updated_at")
-    public String getBeginUpdatedAt() { 
-        return this.beginUpdatedAt;
-    }
-
-    /**
-     * Getter for EndUpdatedAt.
-     * If filtering results by their updated_at field, the end of the requested reporting period, in ISO 8601 format.
-     */
-    @JsonGetter("end_updated_at")
-    public String getEndUpdatedAt() { 
-        return this.endUpdatedAt;
-    }
-
-    /**
-     * Getter for Deleted.
-     * If true, only deleted timecards are returned. If false, only valid timecards are returned.If you don't provide this parameter, both valid and deleted timecards are returned.
-     */
-    @JsonGetter("deleted")
-    public Boolean getDeleted() { 
-        return this.deleted;
-    }
-
-    /**
-     * Getter for Limit.
-     * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
-     */
-    @JsonGetter("limit")
-    public Integer getLimit() { 
-        return this.limit;
-    }
-
-    /**
-     * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
-     */
-    @JsonGetter("batch_token")
-    public String getBatchToken() { 
-        return this.batchToken;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
@@ -188,6 +212,9 @@ public class V1ListTimecardsRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1ListTimecardsRequest}
+     */
     public static class Builder {
         private String order;
         private String employeeId;
@@ -201,53 +228,117 @@ public class V1ListTimecardsRequest {
         private Integer limit;
         private String batchToken;
 
-        public Builder() { }
-
-        public Builder order(String value) {
-            order = value;
-            return this;
-        }
-        public Builder employeeId(String value) {
-            employeeId = value;
-            return this;
-        }
-        public Builder beginClockinTime(String value) {
-            beginClockinTime = value;
-            return this;
-        }
-        public Builder endClockinTime(String value) {
-            endClockinTime = value;
-            return this;
-        }
-        public Builder beginClockoutTime(String value) {
-            beginClockoutTime = value;
-            return this;
-        }
-        public Builder endClockoutTime(String value) {
-            endClockoutTime = value;
-            return this;
-        }
-        public Builder beginUpdatedAt(String value) {
-            beginUpdatedAt = value;
-            return this;
-        }
-        public Builder endUpdatedAt(String value) {
-            endUpdatedAt = value;
-            return this;
-        }
-        public Builder deleted(Boolean value) {
-            deleted = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
-        }
-        public Builder batchToken(String value) {
-            batchToken = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(String order) {
+            this.order = order;
+            return this;
+        }
+        /**
+         * Setter for employeeId
+         * @param employeeId
+         * @return Builder
+         */
+        public Builder employeeId(String employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+        /**
+         * Setter for beginClockinTime
+         * @param beginClockinTime
+         * @return Builder
+         */
+        public Builder beginClockinTime(String beginClockinTime) {
+            this.beginClockinTime = beginClockinTime;
+            return this;
+        }
+        /**
+         * Setter for endClockinTime
+         * @param endClockinTime
+         * @return Builder
+         */
+        public Builder endClockinTime(String endClockinTime) {
+            this.endClockinTime = endClockinTime;
+            return this;
+        }
+        /**
+         * Setter for beginClockoutTime
+         * @param beginClockoutTime
+         * @return Builder
+         */
+        public Builder beginClockoutTime(String beginClockoutTime) {
+            this.beginClockoutTime = beginClockoutTime;
+            return this;
+        }
+        /**
+         * Setter for endClockoutTime
+         * @param endClockoutTime
+         * @return Builder
+         */
+        public Builder endClockoutTime(String endClockoutTime) {
+            this.endClockoutTime = endClockoutTime;
+            return this;
+        }
+        /**
+         * Setter for beginUpdatedAt
+         * @param beginUpdatedAt
+         * @return Builder
+         */
+        public Builder beginUpdatedAt(String beginUpdatedAt) {
+            this.beginUpdatedAt = beginUpdatedAt;
+            return this;
+        }
+        /**
+         * Setter for endUpdatedAt
+         * @param endUpdatedAt
+         * @return Builder
+         */
+        public Builder endUpdatedAt(String endUpdatedAt) {
+            this.endUpdatedAt = endUpdatedAt;
+            return this;
+        }
+        /**
+         * Setter for deleted
+         * @param deleted
+         * @return Builder
+         */
+        public Builder deleted(Boolean deleted) {
+            this.deleted = deleted;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+        /**
+         * Setter for batchToken
+         * @param batchToken
+         * @return Builder
+         */
+        public Builder batchToken(String batchToken) {
+            this.batchToken = batchToken;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link V1ListTimecardsRequest} object using the set fields.
+         * @return {@link V1ListTimecardsRequest}
+         */
         public V1ListTimecardsRequest build() {
             return new V1ListTimecardsRequest(order,
                 employeeId,

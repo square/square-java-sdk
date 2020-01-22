@@ -7,20 +7,23 @@ import java.util.concurrent.CompletionException;
 
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 
+/**
+ * Base class for all Apis.
+ */
 public abstract class BaseApi {
 
     /**
      * Protected variables to hold an instance of Configuration
      */
     protected final Configuration config;
-    protected static final String userAgent = "Square-Java-SDK/4.0.0.20191217";
+    protected static final String userAgent = "Square-Java-SDK/4.1.0.20200122";
 
     /**
      * Protected variable to hold an instance of HttpCallback if the user provides it
@@ -119,9 +122,9 @@ public abstract class BaseApi {
      */
     public <T> CompletableFuture<T> makeHttpCallAsync(RequestSupplier requestSupplier,
             RequestExecutor requestExecutor, ResponseHandler<T> responseHandler) {
-        final HttpRequest _request;
+        final HttpRequest request;
         try {
-            _request = requestSupplier.supply();
+            request = requestSupplier.supply();
         } catch (Exception e) {
             CompletableFuture<T> futureResponse = new CompletableFuture<>();
             futureResponse.completeExceptionally(e);
@@ -129,10 +132,10 @@ public abstract class BaseApi {
         }
 
         // Invoke request and get response
-        return requestExecutor.execute(_request).thenApplyAsync(_response -> {
-            HttpContext _context = new HttpContext(_request, _response);
+        return requestExecutor.execute(request).thenApplyAsync(response -> {
+            HttpContext context = new HttpContext(request, response);
             try {
-                return responseHandler.handle(_context);
+                return responseHandler.handle(context);
             } catch (Exception e) {
                 throw new CompletionException(e);
             }

@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1PaymentItemDetail type.
+ */
 public class V1PaymentItemDetail {
 
+    /**
+     * Initialization constructor.
+     * @param categoryName
+     * @param sku
+     * @param itemId
+     * @param itemVariationId
+     */
     @JsonCreator
     public V1PaymentItemDetail(
             @JsonProperty("category_name") String categoryName,
@@ -23,32 +34,12 @@ public class V1PaymentItemDetail {
     private final String sku;
     private final String itemId;
     private final String itemVariationId;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(categoryName, sku, itemId, itemVariationId);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1PaymentItemDetail)) {
-            return false;
-        }
-        V1PaymentItemDetail v1PaymentItemDetail = (V1PaymentItemDetail) o;
-        return Objects.equals(categoryName, v1PaymentItemDetail.categoryName) &&
-            Objects.equals(sku, v1PaymentItemDetail.sku) &&
-            Objects.equals(itemId, v1PaymentItemDetail.itemId) &&
-            Objects.equals(itemVariationId, v1PaymentItemDetail.itemVariationId);
-    }
-
     /**
      * Getter for CategoryName.
      * The name of the item's merchant-defined category, if any.
      */
     @JsonGetter("category_name")
-    public String getCategoryName() { 
+    public String getCategoryName() {
         return this.categoryName;
     }
 
@@ -57,7 +48,7 @@ public class V1PaymentItemDetail {
      * The item's merchant-defined SKU, if any.
      */
     @JsonGetter("sku")
-    public String getSku() { 
+    public String getSku() {
         return this.sku;
     }
 
@@ -66,7 +57,7 @@ public class V1PaymentItemDetail {
      * The unique ID of the item purchased, if any.
      */
     @JsonGetter("item_id")
-    public String getItemId() { 
+    public String getItemId() {
         return this.itemId;
     }
 
@@ -75,11 +66,36 @@ public class V1PaymentItemDetail {
      * The unique ID of the item variation purchased, if any.
      */
     @JsonGetter("item_variation_id")
-    public String getItemVariationId() { 
+    public String getItemVariationId() {
         return this.itemVariationId;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryName, sku, itemId, itemVariationId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1PaymentItemDetail)) {
+            return false;
+        }
+        V1PaymentItemDetail v1PaymentItemDetail = (V1PaymentItemDetail) obj;
+        return Objects.equals(categoryName, v1PaymentItemDetail.categoryName) &&
+            Objects.equals(sku, v1PaymentItemDetail.sku) &&
+            Objects.equals(itemId, v1PaymentItemDetail.itemId) &&
+            Objects.equals(itemVariationId, v1PaymentItemDetail.itemVariationId);
+    }
+
+    /**
+     * Builds a new {@link V1PaymentItemDetail.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1PaymentItemDetail.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .categoryName(getCategoryName())
@@ -89,31 +105,63 @@ public class V1PaymentItemDetail {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1PaymentItemDetail}
+     */
     public static class Builder {
         private String categoryName;
         private String sku;
         private String itemId;
         private String itemVariationId;
 
-        public Builder() { }
-
-        public Builder categoryName(String value) {
-            categoryName = value;
-            return this;
-        }
-        public Builder sku(String value) {
-            sku = value;
-            return this;
-        }
-        public Builder itemId(String value) {
-            itemId = value;
-            return this;
-        }
-        public Builder itemVariationId(String value) {
-            itemVariationId = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for categoryName
+         * @param categoryName
+         * @return Builder
+         */
+        public Builder categoryName(String categoryName) {
+            this.categoryName = categoryName;
+            return this;
+        }
+        /**
+         * Setter for sku
+         * @param sku
+         * @return Builder
+         */
+        public Builder sku(String sku) {
+            this.sku = sku;
+            return this;
+        }
+        /**
+         * Setter for itemId
+         * @param itemId
+         * @return Builder
+         */
+        public Builder itemId(String itemId) {
+            this.itemId = itemId;
+            return this;
+        }
+        /**
+         * Setter for itemVariationId
+         * @param itemVariationId
+         * @return Builder
+         */
+        public Builder itemVariationId(String itemVariationId) {
+            this.itemVariationId = itemVariationId;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link V1PaymentItemDetail} object using the set fields.
+         * @return {@link V1PaymentItemDetail}
+         */
         public V1PaymentItemDetail build() {
             return new V1PaymentItemDetail(categoryName,
                 sku,

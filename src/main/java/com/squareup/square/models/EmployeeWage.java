@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for EmployeeWage type.
+ */
 public class EmployeeWage {
 
+    /**
+     * Initialization constructor.
+     * @param employeeId
+     * @param id
+     * @param title
+     * @param hourlyRate
+     */
     @JsonCreator
     public EmployeeWage(
             @JsonProperty("employee_id") String employeeId,
@@ -23,32 +34,12 @@ public class EmployeeWage {
     private final String employeeId;
     private final String title;
     private final Money hourlyRate;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(employeeId, id, title, hourlyRate);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof EmployeeWage)) {
-            return false;
-        }
-        EmployeeWage employeeWage = (EmployeeWage) o;
-        return Objects.equals(employeeId, employeeWage.employeeId) &&
-            Objects.equals(id, employeeWage.id) &&
-            Objects.equals(title, employeeWage.title) &&
-            Objects.equals(hourlyRate, employeeWage.hourlyRate);
-    }
-
     /**
      * Getter for Id.
      * UUID for this object.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -57,7 +48,7 @@ public class EmployeeWage {
      * The `Employee` that this wage is assigned to.
      */
     @JsonGetter("employee_id")
-    public String getEmployeeId() { 
+    public String getEmployeeId() {
         return this.employeeId;
     }
 
@@ -66,7 +57,7 @@ public class EmployeeWage {
      * The job title that this wage relates to.
      */
     @JsonGetter("title")
-    public String getTitle() { 
+    public String getTitle() {
         return this.title;
     }
 
@@ -80,11 +71,36 @@ public class EmployeeWage {
      * for more information.
      */
     @JsonGetter("hourly_rate")
-    public Money getHourlyRate() { 
+    public Money getHourlyRate() {
         return this.hourlyRate;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, employeeId, title, hourlyRate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof EmployeeWage)) {
+            return false;
+        }
+        EmployeeWage employeeWage = (EmployeeWage) obj;
+        return Objects.equals(id, employeeWage.id) &&
+            Objects.equals(employeeId, employeeWage.employeeId) &&
+            Objects.equals(title, employeeWage.title) &&
+            Objects.equals(hourlyRate, employeeWage.hourlyRate);
+    }
+
+    /**
+     * Builds a new {@link EmployeeWage.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link EmployeeWage.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(employeeId)
             .id(getId())
@@ -93,33 +109,63 @@ public class EmployeeWage {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link EmployeeWage}
+     */
     public static class Builder {
         private String employeeId;
         private String id;
         private String title;
         private Money hourlyRate;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String employeeId) {
             this.employeeId = employeeId;
         }
 
-        public Builder employeeId(String value) {
-            employeeId = value;
+        /**
+         * Setter for employeeId
+         * @param employeeId
+         * @return Builder
+         */
+        public Builder employeeId(String employeeId) {
+            this.employeeId = employeeId;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder title(String value) {
-            title = value;
+        /**
+         * Setter for title
+         * @param title
+         * @return Builder
+         */
+        public Builder title(String title) {
+            this.title = title;
             return this;
         }
-        public Builder hourlyRate(Money value) {
-            hourlyRate = value;
+        /**
+         * Setter for hourlyRate
+         * @param hourlyRate
+         * @return Builder
+         */
+        public Builder hourlyRate(Money hourlyRate) {
+            this.hourlyRate = hourlyRate;
             return this;
         }
 
+        /**
+         * Builds a new {@link EmployeeWage} object using the set fields.
+         * @return {@link EmployeeWage}
+         */
         public EmployeeWage build() {
             return new EmployeeWage(employeeId,
                 id,

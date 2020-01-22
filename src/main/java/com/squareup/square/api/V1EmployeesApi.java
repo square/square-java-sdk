@@ -1,11 +1,15 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +17,34 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.V1CashDrawerShift;
+import com.squareup.square.models.V1Employee;
+import com.squareup.square.models.V1EmployeeRole;
+import com.squareup.square.models.V1Timecard;
+import com.squareup.square.models.V1TimecardEvent;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class V1EmployeesApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public V1EmployeesApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public V1EmployeesApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -46,15 +71,14 @@ public final class V1EmployeesApi extends BaseApi {
             final String status,
             final String externalId,
             final Integer limit,
-            final String batchToken
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListEmployeesRequest(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken);
-        authManagers.get("default").apply(_request);
+            final String batchToken) throws ApiException, IOException {
+        HttpRequest request = buildListEmployeesRequest(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListEmployeesResponse(_context);
+        return handleListEmployeesResponse(context);
     }
 
     /**
@@ -79,18 +103,17 @@ public final class V1EmployeesApi extends BaseApi {
             final String status,
             final String externalId,
             final Integer limit,
-            final String batchToken
-    ) {
-        return makeHttpCallAsync(() -> _buildListEmployeesRequest(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListEmployeesResponse(_context));
+            final String batchToken) {
+        return makeHttpCallAsync(() -> buildListEmployeesRequest(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListEmployeesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listEmployees
      */
-    private HttpRequest _buildListEmployeesRequest(
+    private HttpRequest buildListEmployeesRequest(
             final String order,
             final String beginUpdatedAt,
             final String endUpdatedAt,
@@ -99,68 +122,67 @@ public final class V1EmployeesApi extends BaseApi {
             final String status,
             final String externalId,
             final Integer limit,
-            final String batchToken
-    ) {
+            final String batchToken) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/employees");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/employees");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("order", order);
-        _queryParameters.put("begin_updated_at", beginUpdatedAt);
-        _queryParameters.put("end_updated_at", endUpdatedAt);
-        _queryParameters.put("begin_created_at", beginCreatedAt);
-        _queryParameters.put("end_created_at", endCreatedAt);
-        _queryParameters.put("status", status);
-        _queryParameters.put("external_id", externalId);
-        _queryParameters.put("limit", limit);
-        _queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("order", order);
+        queryParameters.put("begin_updated_at", beginUpdatedAt);
+        queryParameters.put("end_updated_at", endUpdatedAt);
+        queryParameters.put("begin_created_at", beginCreatedAt);
+        queryParameters.put("end_created_at", endCreatedAt);
+        queryParameters.put("status", status);
+        queryParameters.put("external_id", externalId);
+        queryParameters.put("limit", limit);
+        queryParameters.put("batch_token", batchToken);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listEmployees
      * @return An object of type List<V1Employee>
      */
-    private List<V1Employee> _handleListEmployeesResponse(HttpContext _context)
+    private List<V1Employee> handleListEmployeesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Employee> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Employee> result = ApiHelper.deserializeArray(responseBody,
                 V1Employee[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -177,15 +199,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Employee response from the API call
      */
     public V1Employee createEmployee(
-            final V1Employee body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateEmployeeRequest(body);
-        authManagers.get("default").apply(_request);
+            final V1Employee body) throws ApiException, IOException {
+        HttpRequest request = buildCreateEmployeeRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateEmployeeResponse(_context);
+        return handleCreateEmployeeResponse(context);
     }
 
     /**
@@ -202,71 +223,69 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Employee response from the API call 
      */
     public CompletableFuture<V1Employee> createEmployeeAsync(
-            final V1Employee body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateEmployeeRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateEmployeeResponse(_context));
+            final V1Employee body) {
+        return makeHttpCallAsync(() -> buildCreateEmployeeRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateEmployeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createEmployee
      */
-    private HttpRequest _buildCreateEmployeeRequest(
-            final V1Employee body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreateEmployeeRequest(
+            final V1Employee body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/employees");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/employees");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createEmployee
      * @return An object of type V1Employee
      */
-    private V1Employee _handleCreateEmployeeResponse(HttpContext _context)
+    private V1Employee handleCreateEmployeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Employee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Employee result = ApiHelper.deserialize(responseBody,
                 V1Employee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -275,15 +294,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Employee response from the API call
      */
     public V1Employee retrieveEmployee(
-            final String employeeId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveEmployeeRequest(employeeId);
-        authManagers.get("default").apply(_request);
+            final String employeeId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveEmployeeRequest(employeeId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveEmployeeResponse(_context);
+        return handleRetrieveEmployeeResponse(context);
     }
 
     /**
@@ -292,74 +310,72 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Employee response from the API call 
      */
     public CompletableFuture<V1Employee> retrieveEmployeeAsync(
-            final String employeeId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveEmployeeRequest(employeeId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveEmployeeResponse(_context));
+            final String employeeId) {
+        return makeHttpCallAsync(() -> buildRetrieveEmployeeRequest(employeeId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveEmployeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveEmployee
      */
-    private HttpRequest _buildRetrieveEmployeeRequest(
-            final String employeeId
-    ) {
+    private HttpRequest buildRetrieveEmployeeRequest(
+            final String employeeId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/employees/{employee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/employees/{employee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("employee_id", employeeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("employee_id", employeeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveEmployee
      * @return An object of type V1Employee
      */
-    private V1Employee _handleRetrieveEmployeeResponse(HttpContext _context)
+    private V1Employee handleRetrieveEmployeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Employee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Employee result = ApiHelper.deserialize(responseBody,
                 V1Employee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -370,15 +386,14 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public V1Employee updateEmployee(
             final String employeeId,
-            final V1Employee body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateEmployeeRequest(employeeId, body);
-        authManagers.get("default").apply(_request);
+            final V1Employee body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateEmployeeRequest(employeeId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateEmployeeResponse(_context);
+        return handleUpdateEmployeeResponse(context);
     }
 
     /**
@@ -389,77 +404,75 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public CompletableFuture<V1Employee> updateEmployeeAsync(
             final String employeeId,
-            final V1Employee body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateEmployeeRequest(employeeId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateEmployeeResponse(_context));
+            final V1Employee body) {
+        return makeHttpCallAsync(() -> buildUpdateEmployeeRequest(employeeId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateEmployeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateEmployee
      */
-    private HttpRequest _buildUpdateEmployeeRequest(
+    private HttpRequest buildUpdateEmployeeRequest(
             final String employeeId,
-            final V1Employee body
-    ) throws JsonProcessingException {
+            final V1Employee body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/employees/{employee_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/employees/{employee_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("employee_id", employeeId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("employee_id", employeeId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateEmployee
      * @return An object of type V1Employee
      */
-    private V1Employee _handleUpdateEmployeeResponse(HttpContext _context)
+    private V1Employee handleUpdateEmployeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Employee _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Employee result = ApiHelper.deserialize(responseBody,
                 V1Employee.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -472,15 +485,14 @@ public final class V1EmployeesApi extends BaseApi {
     public List<V1EmployeeRole> listEmployeeRoles(
             final String order,
             final Integer limit,
-            final String batchToken
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListEmployeeRolesRequest(order, limit, batchToken);
-        authManagers.get("default").apply(_request);
+            final String batchToken) throws ApiException, IOException {
+        HttpRequest request = buildListEmployeeRolesRequest(order, limit, batchToken);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListEmployeeRolesResponse(_context);
+        return handleListEmployeeRolesResponse(context);
     }
 
     /**
@@ -493,76 +505,74 @@ public final class V1EmployeesApi extends BaseApi {
     public CompletableFuture<List<V1EmployeeRole>> listEmployeeRolesAsync(
             final String order,
             final Integer limit,
-            final String batchToken
-    ) {
-        return makeHttpCallAsync(() -> _buildListEmployeeRolesRequest(order, limit, batchToken),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListEmployeeRolesResponse(_context));
+            final String batchToken) {
+        return makeHttpCallAsync(() -> buildListEmployeeRolesRequest(order, limit, batchToken),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListEmployeeRolesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listEmployeeRoles
      */
-    private HttpRequest _buildListEmployeeRolesRequest(
+    private HttpRequest buildListEmployeeRolesRequest(
             final String order,
             final Integer limit,
-            final String batchToken
-    ) {
+            final String batchToken) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/roles");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/roles");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("order", order);
-        _queryParameters.put("limit", limit);
-        _queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("order", order);
+        queryParameters.put("limit", limit);
+        queryParameters.put("batch_token", batchToken);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listEmployeeRoles
      * @return An object of type List<V1EmployeeRole>
      */
-    private List<V1EmployeeRole> _handleListEmployeeRolesResponse(HttpContext _context)
+    private List<V1EmployeeRole> handleListEmployeeRolesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1EmployeeRole> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1EmployeeRole> result = ApiHelper.deserializeArray(responseBody,
                 V1EmployeeRole[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -580,15 +590,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1EmployeeRole response from the API call
      */
     public V1EmployeeRole createEmployeeRole(
-            final V1EmployeeRole body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateEmployeeRoleRequest(body);
-        authManagers.get("default").apply(_request);
+            final V1EmployeeRole body) throws ApiException, IOException {
+        HttpRequest request = buildCreateEmployeeRoleRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateEmployeeRoleResponse(_context);
+        return handleCreateEmployeeRoleResponse(context);
     }
 
     /**
@@ -606,71 +615,69 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1EmployeeRole response from the API call 
      */
     public CompletableFuture<V1EmployeeRole> createEmployeeRoleAsync(
-            final V1EmployeeRole body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateEmployeeRoleRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateEmployeeRoleResponse(_context));
+            final V1EmployeeRole body) {
+        return makeHttpCallAsync(() -> buildCreateEmployeeRoleRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateEmployeeRoleResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createEmployeeRole
      */
-    private HttpRequest _buildCreateEmployeeRoleRequest(
-            final V1EmployeeRole body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreateEmployeeRoleRequest(
+            final V1EmployeeRole body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/roles");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/roles");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createEmployeeRole
      * @return An object of type V1EmployeeRole
      */
-    private V1EmployeeRole _handleCreateEmployeeRoleResponse(HttpContext _context)
+    private V1EmployeeRole handleCreateEmployeeRoleResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1EmployeeRole _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1EmployeeRole result = ApiHelper.deserialize(responseBody,
                 V1EmployeeRole.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -679,15 +686,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1EmployeeRole response from the API call
      */
     public V1EmployeeRole retrieveEmployeeRole(
-            final String roleId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveEmployeeRoleRequest(roleId);
-        authManagers.get("default").apply(_request);
+            final String roleId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveEmployeeRoleRequest(roleId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveEmployeeRoleResponse(_context);
+        return handleRetrieveEmployeeRoleResponse(context);
     }
 
     /**
@@ -696,74 +702,72 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1EmployeeRole response from the API call 
      */
     public CompletableFuture<V1EmployeeRole> retrieveEmployeeRoleAsync(
-            final String roleId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveEmployeeRoleRequest(roleId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveEmployeeRoleResponse(_context));
+            final String roleId) {
+        return makeHttpCallAsync(() -> buildRetrieveEmployeeRoleRequest(roleId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveEmployeeRoleResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveEmployeeRole
      */
-    private HttpRequest _buildRetrieveEmployeeRoleRequest(
-            final String roleId
-    ) {
+    private HttpRequest buildRetrieveEmployeeRoleRequest(
+            final String roleId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/roles/{role_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/roles/{role_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("role_id", roleId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("role_id", roleId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveEmployeeRole
      * @return An object of type V1EmployeeRole
      */
-    private V1EmployeeRole _handleRetrieveEmployeeRoleResponse(HttpContext _context)
+    private V1EmployeeRole handleRetrieveEmployeeRoleResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1EmployeeRole _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1EmployeeRole result = ApiHelper.deserialize(responseBody,
                 V1EmployeeRole.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -774,15 +778,14 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public V1EmployeeRole updateEmployeeRole(
             final String roleId,
-            final V1EmployeeRole body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateEmployeeRoleRequest(roleId, body);
-        authManagers.get("default").apply(_request);
+            final V1EmployeeRole body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateEmployeeRoleRequest(roleId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateEmployeeRoleResponse(_context);
+        return handleUpdateEmployeeRoleResponse(context);
     }
 
     /**
@@ -793,77 +796,75 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public CompletableFuture<V1EmployeeRole> updateEmployeeRoleAsync(
             final String roleId,
-            final V1EmployeeRole body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateEmployeeRoleRequest(roleId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateEmployeeRoleResponse(_context));
+            final V1EmployeeRole body) {
+        return makeHttpCallAsync(() -> buildUpdateEmployeeRoleRequest(roleId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateEmployeeRoleResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateEmployeeRole
      */
-    private HttpRequest _buildUpdateEmployeeRoleRequest(
+    private HttpRequest buildUpdateEmployeeRoleRequest(
             final String roleId,
-            final V1EmployeeRole body
-    ) throws JsonProcessingException {
+            final V1EmployeeRole body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/roles/{role_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/roles/{role_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("role_id", roleId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("role_id", roleId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateEmployeeRole
      * @return An object of type V1EmployeeRole
      */
-    private V1EmployeeRole _handleUpdateEmployeeRoleResponse(HttpContext _context)
+    private V1EmployeeRole handleUpdateEmployeeRoleResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1EmployeeRole _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1EmployeeRole result = ApiHelper.deserialize(responseBody,
                 V1EmployeeRole.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -892,15 +893,14 @@ public final class V1EmployeesApi extends BaseApi {
             final String endUpdatedAt,
             final Boolean deleted,
             final Integer limit,
-            final String batchToken
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListTimecardsRequest(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
-        authManagers.get("default").apply(_request);
+            final String batchToken) throws ApiException, IOException {
+        HttpRequest request = buildListTimecardsRequest(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListTimecardsResponse(_context);
+        return handleListTimecardsResponse(context);
     }
 
     /**
@@ -929,18 +929,17 @@ public final class V1EmployeesApi extends BaseApi {
             final String endUpdatedAt,
             final Boolean deleted,
             final Integer limit,
-            final String batchToken
-    ) {
-        return makeHttpCallAsync(() -> _buildListTimecardsRequest(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListTimecardsResponse(_context));
+            final String batchToken) {
+        return makeHttpCallAsync(() -> buildListTimecardsRequest(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListTimecardsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listTimecards
      */
-    private HttpRequest _buildListTimecardsRequest(
+    private HttpRequest buildListTimecardsRequest(
             final String order,
             final String employeeId,
             final String beginClockinTime,
@@ -951,70 +950,69 @@ public final class V1EmployeesApi extends BaseApi {
             final String endUpdatedAt,
             final Boolean deleted,
             final Integer limit,
-            final String batchToken
-    ) {
+            final String batchToken) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("order", order);
-        _queryParameters.put("employee_id", employeeId);
-        _queryParameters.put("begin_clockin_time", beginClockinTime);
-        _queryParameters.put("end_clockin_time", endClockinTime);
-        _queryParameters.put("begin_clockout_time", beginClockoutTime);
-        _queryParameters.put("end_clockout_time", endClockoutTime);
-        _queryParameters.put("begin_updated_at", beginUpdatedAt);
-        _queryParameters.put("end_updated_at", endUpdatedAt);
-        _queryParameters.put("deleted", deleted);
-        _queryParameters.put("limit", limit);
-        _queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("order", order);
+        queryParameters.put("employee_id", employeeId);
+        queryParameters.put("begin_clockin_time", beginClockinTime);
+        queryParameters.put("end_clockin_time", endClockinTime);
+        queryParameters.put("begin_clockout_time", beginClockoutTime);
+        queryParameters.put("end_clockout_time", endClockoutTime);
+        queryParameters.put("begin_updated_at", beginUpdatedAt);
+        queryParameters.put("end_updated_at", endUpdatedAt);
+        queryParameters.put("deleted", deleted);
+        queryParameters.put("limit", limit);
+        queryParameters.put("batch_token", batchToken);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listTimecards
      * @return An object of type List<V1Timecard>
      */
-    private List<V1Timecard> _handleListTimecardsResponse(HttpContext _context)
+    private List<V1Timecard> handleListTimecardsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1Timecard> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1Timecard> result = ApiHelper.deserializeArray(responseBody,
                 V1Timecard[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1032,15 +1030,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Timecard response from the API call
      */
     public V1Timecard createTimecard(
-            final V1Timecard body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateTimecardRequest(body);
-        authManagers.get("default").apply(_request);
+            final V1Timecard body) throws ApiException, IOException {
+        HttpRequest request = buildCreateTimecardRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateTimecardResponse(_context);
+        return handleCreateTimecardResponse(context);
     }
 
     /**
@@ -1058,71 +1055,69 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Timecard response from the API call 
      */
     public CompletableFuture<V1Timecard> createTimecardAsync(
-            final V1Timecard body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateTimecardRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateTimecardResponse(_context));
+            final V1Timecard body) {
+        return makeHttpCallAsync(() -> buildCreateTimecardRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateTimecardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createTimecard
      */
-    private HttpRequest _buildCreateTimecardRequest(
-            final V1Timecard body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreateTimecardRequest(
+            final V1Timecard body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createTimecard
      * @return An object of type V1Timecard
      */
-    private V1Timecard _handleCreateTimecardResponse(HttpContext _context)
+    private V1Timecard handleCreateTimecardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Timecard _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Timecard result = ApiHelper.deserialize(responseBody,
                 V1Timecard.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1143,15 +1138,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the Object response from the API call
      */
     public Object deleteTimecard(
-            final String timecardId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteTimecardRequest(timecardId);
-        authManagers.get("default").apply(_request);
+            final String timecardId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteTimecardRequest(timecardId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteTimecardResponse(_context);
+        return handleDeleteTimecardResponse(context);
     }
 
     /**
@@ -1172,71 +1166,69 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the Object response from the API call 
      */
     public CompletableFuture<Object> deleteTimecardAsync(
-            final String timecardId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteTimecardRequest(timecardId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteTimecardResponse(_context));
+            final String timecardId) {
+        return makeHttpCallAsync(() -> buildDeleteTimecardRequest(timecardId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteTimecardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteTimecard
      */
-    private HttpRequest _buildDeleteTimecardRequest(
-            final String timecardId
-    ) {
+    private HttpRequest buildDeleteTimecardRequest(
+            final String timecardId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards/{timecard_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards/{timecard_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("timecard_id", timecardId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("timecard_id", timecardId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteTimecard
      * @return An object of type Object
      */
-    private Object _handleDeleteTimecardResponse(HttpContext _context)
+    private Object handleDeleteTimecardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        Object _result = _responseBody;
+        String responseBody = ((HttpStringResponse)response).getBody();
+        Object result = responseBody;
 
-        return _result;
+        return result;
     }
 
     /**
@@ -1250,15 +1242,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Timecard response from the API call
      */
     public V1Timecard retrieveTimecard(
-            final String timecardId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveTimecardRequest(timecardId);
-        authManagers.get("default").apply(_request);
+            final String timecardId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveTimecardRequest(timecardId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveTimecardResponse(_context);
+        return handleRetrieveTimecardResponse(context);
     }
 
     /**
@@ -1272,74 +1263,72 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the V1Timecard response from the API call 
      */
     public CompletableFuture<V1Timecard> retrieveTimecardAsync(
-            final String timecardId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveTimecardRequest(timecardId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveTimecardResponse(_context));
+            final String timecardId) {
+        return makeHttpCallAsync(() -> buildRetrieveTimecardRequest(timecardId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveTimecardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveTimecard
      */
-    private HttpRequest _buildRetrieveTimecardRequest(
-            final String timecardId
-    ) {
+    private HttpRequest buildRetrieveTimecardRequest(
+            final String timecardId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards/{timecard_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards/{timecard_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("timecard_id", timecardId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("timecard_id", timecardId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveTimecard
      * @return An object of type V1Timecard
      */
-    private V1Timecard _handleRetrieveTimecardResponse(HttpContext _context)
+    private V1Timecard handleRetrieveTimecardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Timecard _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Timecard result = ApiHelper.deserialize(responseBody,
                 V1Timecard.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1352,15 +1341,14 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public V1Timecard updateTimecard(
             final String timecardId,
-            final V1Timecard body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateTimecardRequest(timecardId, body);
-        authManagers.get("default").apply(_request);
+            final V1Timecard body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateTimecardRequest(timecardId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateTimecardResponse(_context);
+        return handleUpdateTimecardResponse(context);
     }
 
     /**
@@ -1373,77 +1361,75 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public CompletableFuture<V1Timecard> updateTimecardAsync(
             final String timecardId,
-            final V1Timecard body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateTimecardRequest(timecardId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateTimecardResponse(_context));
+            final V1Timecard body) {
+        return makeHttpCallAsync(() -> buildUpdateTimecardRequest(timecardId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateTimecardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateTimecard
      */
-    private HttpRequest _buildUpdateTimecardRequest(
+    private HttpRequest buildUpdateTimecardRequest(
             final String timecardId,
-            final V1Timecard body
-    ) throws JsonProcessingException {
+            final V1Timecard body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards/{timecard_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards/{timecard_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("timecard_id", timecardId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("timecard_id", timecardId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateTimecard
      * @return An object of type V1Timecard
      */
-    private V1Timecard _handleUpdateTimecardResponse(HttpContext _context)
+    private V1Timecard handleUpdateTimecardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1Timecard _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1Timecard result = ApiHelper.deserialize(responseBody,
                 V1Timecard.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -1458,15 +1444,14 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the List<V1TimecardEvent> response from the API call
      */
     public List<V1TimecardEvent> listTimecardEvents(
-            final String timecardId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListTimecardEventsRequest(timecardId);
-        authManagers.get("default").apply(_request);
+            final String timecardId) throws ApiException, IOException {
+        HttpRequest request = buildListTimecardEventsRequest(timecardId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListTimecardEventsResponse(_context);
+        return handleListTimecardEventsResponse(context);
     }
 
     /**
@@ -1481,72 +1466,70 @@ public final class V1EmployeesApi extends BaseApi {
      * @return    Returns the List<V1TimecardEvent> response from the API call 
      */
     public CompletableFuture<List<V1TimecardEvent>> listTimecardEventsAsync(
-            final String timecardId
-    ) {
-        return makeHttpCallAsync(() -> _buildListTimecardEventsRequest(timecardId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListTimecardEventsResponse(_context));
+            final String timecardId) {
+        return makeHttpCallAsync(() -> buildListTimecardEventsRequest(timecardId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListTimecardEventsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listTimecardEvents
      */
-    private HttpRequest _buildListTimecardEventsRequest(
-            final String timecardId
-    ) {
+    private HttpRequest buildListTimecardEventsRequest(
+            final String timecardId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/me/timecards/{timecard_id}/events");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/me/timecards/{timecard_id}/events");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("timecard_id", timecardId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("timecard_id", timecardId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listTimecardEvents
      * @return An object of type List<V1TimecardEvent>
      */
-    private List<V1TimecardEvent> _handleListTimecardEventsResponse(HttpContext _context)
+    private List<V1TimecardEvent> handleListTimecardEventsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1TimecardEvent> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1TimecardEvent> result = ApiHelper.deserializeArray(responseBody,
                 V1TimecardEvent[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1561,15 +1544,14 @@ public final class V1EmployeesApi extends BaseApi {
             final String locationId,
             final String order,
             final String beginTime,
-            final String endTime
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListCashDrawerShiftsRequest(locationId, order, beginTime, endTime);
-        authManagers.get("default").apply(_request);
+            final String endTime) throws ApiException, IOException {
+        HttpRequest request = buildListCashDrawerShiftsRequest(locationId, order, beginTime, endTime);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListCashDrawerShiftsResponse(_context);
+        return handleListCashDrawerShiftsResponse(context);
     }
 
     /**
@@ -1584,82 +1566,80 @@ public final class V1EmployeesApi extends BaseApi {
             final String locationId,
             final String order,
             final String beginTime,
-            final String endTime
-    ) {
-        return makeHttpCallAsync(() -> _buildListCashDrawerShiftsRequest(locationId, order, beginTime, endTime),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListCashDrawerShiftsResponse(_context));
+            final String endTime) {
+        return makeHttpCallAsync(() -> buildListCashDrawerShiftsRequest(locationId, order, beginTime, endTime),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListCashDrawerShiftsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listCashDrawerShifts
      */
-    private HttpRequest _buildListCashDrawerShiftsRequest(
+    private HttpRequest buildListCashDrawerShiftsRequest(
             final String locationId,
             final String order,
             final String beginTime,
-            final String endTime
-    ) {
+            final String endTime) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/cash-drawer-shifts");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/cash-drawer-shifts");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("order", order);
-        _queryParameters.put("begin_time", beginTime);
-        _queryParameters.put("end_time", endTime);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("order", order);
+        queryParameters.put("begin_time", beginTime);
+        queryParameters.put("end_time", endTime);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listCashDrawerShifts
      * @return An object of type List<V1CashDrawerShift>
      */
-    private List<V1CashDrawerShift> _handleListCashDrawerShiftsResponse(HttpContext _context)
+    private List<V1CashDrawerShift> handleListCashDrawerShiftsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        List<V1CashDrawerShift> _result = ApiHelper.deserializeArray(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        List<V1CashDrawerShift> result = ApiHelper.deserializeArray(responseBody,
                 V1CashDrawerShift[].class);
-        return _result;
+        return result;
     }
 
     /**
@@ -1670,15 +1650,14 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public V1CashDrawerShift retrieveCashDrawerShift(
             final String locationId,
-            final String shiftId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveCashDrawerShiftRequest(locationId, shiftId);
-        authManagers.get("default").apply(_request);
+            final String shiftId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveCashDrawerShiftRequest(locationId, shiftId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveCashDrawerShiftResponse(_context);
+        return handleRetrieveCashDrawerShiftResponse(context);
     }
 
     /**
@@ -1689,76 +1668,74 @@ public final class V1EmployeesApi extends BaseApi {
      */
     public CompletableFuture<V1CashDrawerShift> retrieveCashDrawerShiftAsync(
             final String locationId,
-            final String shiftId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveCashDrawerShiftRequest(locationId, shiftId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveCashDrawerShiftResponse(_context));
+            final String shiftId) {
+        return makeHttpCallAsync(() -> buildRetrieveCashDrawerShiftRequest(locationId, shiftId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveCashDrawerShiftResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveCashDrawerShift
      */
-    private HttpRequest _buildRetrieveCashDrawerShiftRequest(
+    private HttpRequest buildRetrieveCashDrawerShiftRequest(
             final String locationId,
-            final String shiftId
-    ) {
+            final String shiftId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v1/{location_id}/cash-drawer-shifts/{shift_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/cash-drawer-shifts/{shift_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        _templateParameters.put("shift_id", shiftId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        templateParameters.put("shift_id", shiftId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveCashDrawerShift
      * @return An object of type V1CashDrawerShift
      */
-    private V1CashDrawerShift _handleRetrieveCashDrawerShiftResponse(HttpContext _context)
+    private V1CashDrawerShift handleRetrieveCashDrawerShiftResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        V1CashDrawerShift _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        V1CashDrawerShift result = ApiHelper.deserialize(responseBody,
                 V1CashDrawerShift.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

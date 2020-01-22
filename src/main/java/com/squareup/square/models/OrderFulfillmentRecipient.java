@@ -5,8 +5,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderFulfillmentRecipient type.
+ */
 public class OrderFulfillmentRecipient {
 
+    /**
+     * Initialization constructor.
+     * @param customerId
+     * @param displayName
+     * @param emailAddress
+     * @param phoneNumber
+     * @param address
+     */
     @JsonCreator
     public OrderFulfillmentRecipient(
             @JsonProperty("customer_id") String customerId,
@@ -26,27 +38,6 @@ public class OrderFulfillmentRecipient {
     private final String emailAddress;
     private final String phoneNumber;
     private final Address address;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customerId, displayName, emailAddress, phoneNumber, address);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderFulfillmentRecipient)) {
-            return false;
-        }
-        OrderFulfillmentRecipient orderFulfillmentRecipient = (OrderFulfillmentRecipient) o;
-        return Objects.equals(customerId, orderFulfillmentRecipient.customerId) &&
-            Objects.equals(displayName, orderFulfillmentRecipient.displayName) &&
-            Objects.equals(emailAddress, orderFulfillmentRecipient.emailAddress) &&
-            Objects.equals(phoneNumber, orderFulfillmentRecipient.phoneNumber) &&
-            Objects.equals(address, orderFulfillmentRecipient.address);
-    }
-
     /**
      * Getter for CustomerId.
      * The Customer ID of the customer associated with the fulfillment.
@@ -58,7 +49,7 @@ public class OrderFulfillmentRecipient {
      * these fields are left unset, the request will result in an error.
      */
     @JsonGetter("customer_id")
-    public String getCustomerId() { 
+    public String getCustomerId() {
         return this.customerId;
     }
 
@@ -68,7 +59,7 @@ public class OrderFulfillmentRecipient {
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
     @JsonGetter("display_name")
-    public String getDisplayName() { 
+    public String getDisplayName() {
         return this.displayName;
     }
 
@@ -78,7 +69,7 @@ public class OrderFulfillmentRecipient {
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
     @JsonGetter("email_address")
-    public String getEmailAddress() { 
+    public String getEmailAddress() {
         return this.emailAddress;
     }
 
@@ -88,7 +79,7 @@ public class OrderFulfillmentRecipient {
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
     @JsonGetter("phone_number")
-    public String getPhoneNumber() { 
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -97,11 +88,37 @@ public class OrderFulfillmentRecipient {
      * Represents a physical address.
      */
     @JsonGetter("address")
-    public Address getAddress() { 
+    public Address getAddress() {
         return this.address;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerId, displayName, emailAddress, phoneNumber, address);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderFulfillmentRecipient)) {
+            return false;
+        }
+        OrderFulfillmentRecipient orderFulfillmentRecipient = (OrderFulfillmentRecipient) obj;
+        return Objects.equals(customerId, orderFulfillmentRecipient.customerId) &&
+            Objects.equals(displayName, orderFulfillmentRecipient.displayName) &&
+            Objects.equals(emailAddress, orderFulfillmentRecipient.emailAddress) &&
+            Objects.equals(phoneNumber, orderFulfillmentRecipient.phoneNumber) &&
+            Objects.equals(address, orderFulfillmentRecipient.address);
+    }
+
+    /**
+     * Builds a new {@link OrderFulfillmentRecipient.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderFulfillmentRecipient.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .customerId(getCustomerId())
@@ -112,6 +129,9 @@ public class OrderFulfillmentRecipient {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderFulfillmentRecipient}
+     */
     public static class Builder {
         private String customerId;
         private String displayName;
@@ -119,29 +139,63 @@ public class OrderFulfillmentRecipient {
         private String phoneNumber;
         private Address address;
 
-        public Builder() { }
-
-        public Builder customerId(String value) {
-            customerId = value;
-            return this;
-        }
-        public Builder displayName(String value) {
-            displayName = value;
-            return this;
-        }
-        public Builder emailAddress(String value) {
-            emailAddress = value;
-            return this;
-        }
-        public Builder phoneNumber(String value) {
-            phoneNumber = value;
-            return this;
-        }
-        public Builder address(Address value) {
-            address = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for customerId
+         * @param customerId
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+        /**
+         * Setter for displayName
+         * @param displayName
+         * @return Builder
+         */
+        public Builder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+        /**
+         * Setter for emailAddress
+         * @param emailAddress
+         * @return Builder
+         */
+        public Builder emailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+        /**
+         * Setter for phoneNumber
+         * @param phoneNumber
+         * @return Builder
+         */
+        public Builder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+        /**
+         * Setter for address
+         * @param address
+         * @return Builder
+         */
+        public Builder address(Address address) {
+            this.address = address;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderFulfillmentRecipient} object using the set fields.
+         * @return {@link OrderFulfillmentRecipient}
+         */
         public OrderFulfillmentRecipient build() {
             return new OrderFulfillmentRecipient(customerId,
                 displayName,

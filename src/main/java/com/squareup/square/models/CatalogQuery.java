@@ -5,8 +5,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogQuery type.
+ */
 public class CatalogQuery {
 
+    /**
+     * Initialization constructor.
+     * @param sortedAttributeQuery
+     * @param exactQuery
+     * @param prefixQuery
+     * @param rangeQuery
+     * @param textQuery
+     * @param itemsForTaxQuery
+     * @param itemsForModifierListQuery
+     * @param itemsForItemOptionsQuery
+     * @param itemVariationsForItemOptionValuesQuery
+     */
     @JsonCreator
     public CatalogQuery(
             @JsonProperty("sorted_attribute_query") CatalogQuerySortedAttribute sortedAttributeQuery,
@@ -38,20 +54,95 @@ public class CatalogQuery {
     private final CatalogQueryItemsForModifierList itemsForModifierListQuery;
     private final CatalogQueryItemsForItemOptions itemsForItemOptionsQuery;
     private final CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery;
+    /**
+     * Getter for SortedAttributeQuery.
+     */
+    @JsonGetter("sorted_attribute_query")
+    public CatalogQuerySortedAttribute getSortedAttributeQuery() {
+        return this.sortedAttributeQuery;
+    }
 
+    /**
+     * Getter for ExactQuery.
+     */
+    @JsonGetter("exact_query")
+    public CatalogQueryExact getExactQuery() {
+        return this.exactQuery;
+    }
+
+    /**
+     * Getter for PrefixQuery.
+     */
+    @JsonGetter("prefix_query")
+    public CatalogQueryPrefix getPrefixQuery() {
+        return this.prefixQuery;
+    }
+
+    /**
+     * Getter for RangeQuery.
+     */
+    @JsonGetter("range_query")
+    public CatalogQueryRange getRangeQuery() {
+        return this.rangeQuery;
+    }
+
+    /**
+     * Getter for TextQuery.
+     */
+    @JsonGetter("text_query")
+    public CatalogQueryText getTextQuery() {
+        return this.textQuery;
+    }
+
+    /**
+     * Getter for ItemsForTaxQuery.
+     */
+    @JsonGetter("items_for_tax_query")
+    public CatalogQueryItemsForTax getItemsForTaxQuery() {
+        return this.itemsForTaxQuery;
+    }
+
+    /**
+     * Getter for ItemsForModifierListQuery.
+     */
+    @JsonGetter("items_for_modifier_list_query")
+    public CatalogQueryItemsForModifierList getItemsForModifierListQuery() {
+        return this.itemsForModifierListQuery;
+    }
+
+    /**
+     * Getter for ItemsForItemOptionsQuery.
+     */
+    @JsonGetter("items_for_item_options_query")
+    public CatalogQueryItemsForItemOptions getItemsForItemOptionsQuery() {
+        return this.itemsForItemOptionsQuery;
+    }
+
+    /**
+     * Getter for ItemVariationsForItemOptionValuesQuery.
+     */
+    @JsonGetter("item_variations_for_item_option_values_query")
+    public CatalogQueryItemVariationsForItemOptionValues getItemVariationsForItemOptionValuesQuery() {
+        return this.itemVariationsForItemOptionValuesQuery;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(sortedAttributeQuery, exactQuery, prefixQuery, rangeQuery, textQuery, itemsForTaxQuery, itemsForModifierListQuery, itemsForItemOptionsQuery, itemVariationsForItemOptionValuesQuery);
+        return Objects.hash(sortedAttributeQuery, exactQuery, prefixQuery, rangeQuery, textQuery,
+            itemsForTaxQuery, itemsForModifierListQuery, itemsForItemOptionsQuery,
+            itemVariationsForItemOptionValuesQuery);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof CatalogQuery)) {
+        }
+        if(!(obj instanceof CatalogQuery)) {
             return false;
         }
-        CatalogQuery catalogQuery = (CatalogQuery) o;
+        CatalogQuery catalogQuery = (CatalogQuery) obj;
         return Objects.equals(sortedAttributeQuery, catalogQuery.sortedAttributeQuery) &&
             Objects.equals(exactQuery, catalogQuery.exactQuery) &&
             Objects.equals(prefixQuery, catalogQuery.prefixQuery) &&
@@ -64,78 +155,10 @@ public class CatalogQuery {
     }
 
     /**
-     * Getter for SortedAttributeQuery.
+     * Builds a new {@link CatalogQuery.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogQuery.Builder} object
      */
-    @JsonGetter("sorted_attribute_query")
-    public CatalogQuerySortedAttribute getSortedAttributeQuery() { 
-        return this.sortedAttributeQuery;
-    }
-
-    /**
-     * Getter for ExactQuery.
-     */
-    @JsonGetter("exact_query")
-    public CatalogQueryExact getExactQuery() { 
-        return this.exactQuery;
-    }
-
-    /**
-     * Getter for PrefixQuery.
-     */
-    @JsonGetter("prefix_query")
-    public CatalogQueryPrefix getPrefixQuery() { 
-        return this.prefixQuery;
-    }
-
-    /**
-     * Getter for RangeQuery.
-     */
-    @JsonGetter("range_query")
-    public CatalogQueryRange getRangeQuery() { 
-        return this.rangeQuery;
-    }
-
-    /**
-     * Getter for TextQuery.
-     */
-    @JsonGetter("text_query")
-    public CatalogQueryText getTextQuery() { 
-        return this.textQuery;
-    }
-
-    /**
-     * Getter for ItemsForTaxQuery.
-     */
-    @JsonGetter("items_for_tax_query")
-    public CatalogQueryItemsForTax getItemsForTaxQuery() { 
-        return this.itemsForTaxQuery;
-    }
-
-    /**
-     * Getter for ItemsForModifierListQuery.
-     */
-    @JsonGetter("items_for_modifier_list_query")
-    public CatalogQueryItemsForModifierList getItemsForModifierListQuery() { 
-        return this.itemsForModifierListQuery;
-    }
-
-    /**
-     * Getter for ItemsForItemOptionsQuery.
-     */
-    @JsonGetter("items_for_item_options_query")
-    public CatalogQueryItemsForItemOptions getItemsForItemOptionsQuery() { 
-        return this.itemsForItemOptionsQuery;
-    }
-
-    /**
-     * Getter for ItemVariationsForItemOptionValuesQuery.
-     */
-    @JsonGetter("item_variations_for_item_option_values_query")
-    public CatalogQueryItemVariationsForItemOptionValues getItemVariationsForItemOptionValuesQuery() { 
-        return this.itemVariationsForItemOptionValuesQuery;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .sortedAttributeQuery(getSortedAttributeQuery())
@@ -150,6 +173,9 @@ public class CatalogQuery {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogQuery}
+     */
     public static class Builder {
         private CatalogQuerySortedAttribute sortedAttributeQuery;
         private CatalogQueryExact exactQuery;
@@ -161,45 +187,99 @@ public class CatalogQuery {
         private CatalogQueryItemsForItemOptions itemsForItemOptionsQuery;
         private CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery;
 
-        public Builder() { }
-
-        public Builder sortedAttributeQuery(CatalogQuerySortedAttribute value) {
-            sortedAttributeQuery = value;
-            return this;
-        }
-        public Builder exactQuery(CatalogQueryExact value) {
-            exactQuery = value;
-            return this;
-        }
-        public Builder prefixQuery(CatalogQueryPrefix value) {
-            prefixQuery = value;
-            return this;
-        }
-        public Builder rangeQuery(CatalogQueryRange value) {
-            rangeQuery = value;
-            return this;
-        }
-        public Builder textQuery(CatalogQueryText value) {
-            textQuery = value;
-            return this;
-        }
-        public Builder itemsForTaxQuery(CatalogQueryItemsForTax value) {
-            itemsForTaxQuery = value;
-            return this;
-        }
-        public Builder itemsForModifierListQuery(CatalogQueryItemsForModifierList value) {
-            itemsForModifierListQuery = value;
-            return this;
-        }
-        public Builder itemsForItemOptionsQuery(CatalogQueryItemsForItemOptions value) {
-            itemsForItemOptionsQuery = value;
-            return this;
-        }
-        public Builder itemVariationsForItemOptionValuesQuery(CatalogQueryItemVariationsForItemOptionValues value) {
-            itemVariationsForItemOptionValuesQuery = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for sortedAttributeQuery
+         * @param sortedAttributeQuery
+         * @return Builder
+         */
+        public Builder sortedAttributeQuery(CatalogQuerySortedAttribute sortedAttributeQuery) {
+            this.sortedAttributeQuery = sortedAttributeQuery;
+            return this;
+        }
+        /**
+         * Setter for exactQuery
+         * @param exactQuery
+         * @return Builder
+         */
+        public Builder exactQuery(CatalogQueryExact exactQuery) {
+            this.exactQuery = exactQuery;
+            return this;
+        }
+        /**
+         * Setter for prefixQuery
+         * @param prefixQuery
+         * @return Builder
+         */
+        public Builder prefixQuery(CatalogQueryPrefix prefixQuery) {
+            this.prefixQuery = prefixQuery;
+            return this;
+        }
+        /**
+         * Setter for rangeQuery
+         * @param rangeQuery
+         * @return Builder
+         */
+        public Builder rangeQuery(CatalogQueryRange rangeQuery) {
+            this.rangeQuery = rangeQuery;
+            return this;
+        }
+        /**
+         * Setter for textQuery
+         * @param textQuery
+         * @return Builder
+         */
+        public Builder textQuery(CatalogQueryText textQuery) {
+            this.textQuery = textQuery;
+            return this;
+        }
+        /**
+         * Setter for itemsForTaxQuery
+         * @param itemsForTaxQuery
+         * @return Builder
+         */
+        public Builder itemsForTaxQuery(CatalogQueryItemsForTax itemsForTaxQuery) {
+            this.itemsForTaxQuery = itemsForTaxQuery;
+            return this;
+        }
+        /**
+         * Setter for itemsForModifierListQuery
+         * @param itemsForModifierListQuery
+         * @return Builder
+         */
+        public Builder itemsForModifierListQuery(CatalogQueryItemsForModifierList itemsForModifierListQuery) {
+            this.itemsForModifierListQuery = itemsForModifierListQuery;
+            return this;
+        }
+        /**
+         * Setter for itemsForItemOptionsQuery
+         * @param itemsForItemOptionsQuery
+         * @return Builder
+         */
+        public Builder itemsForItemOptionsQuery(CatalogQueryItemsForItemOptions itemsForItemOptionsQuery) {
+            this.itemsForItemOptionsQuery = itemsForItemOptionsQuery;
+            return this;
+        }
+        /**
+         * Setter for itemVariationsForItemOptionValuesQuery
+         * @param itemVariationsForItemOptionValuesQuery
+         * @return Builder
+         */
+        public Builder itemVariationsForItemOptionValuesQuery(CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery) {
+            this.itemVariationsForItemOptionValuesQuery = itemVariationsForItemOptionValuesQuery;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogQuery} object using the set fields.
+         * @return {@link CatalogQuery}
+         */
         public CatalogQuery build() {
             return new CatalogQuery(sortedAttributeQuery,
                 exactQuery,

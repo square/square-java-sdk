@@ -4,6 +4,9 @@ import java.io.InputStream;
 
 import com.squareup.square.http.Headers;
 
+/**
+ * Class to hold HTTP Response
+ */
 public class HttpResponse {
 
     /**
@@ -16,7 +19,9 @@ public class HttpResponse {
     /**
      * HTTP Status code of the http response
      */
-    public int getStatusCode() { return statusCode; }
+    public int getStatusCode() {
+        return statusCode;
+    }
 
     /**
      * Headers of the http response
@@ -33,14 +38,13 @@ public class HttpResponse {
     }
 
     /**
-     * @param _code    The HTTP status code
-     * @param _headers The HTTP headers read from response
-     * @param _rawBody The raw data returned by the HTTP request
-     * @return Http response initialized with the given code, headers and rawBody
+     * @param code    The HTTP status code
+     * @param headers The HTTP headers read from response
+     * @param rawBody The raw data returned by the HTTP request
      */
-    public HttpResponse(int _code, Headers _headers, InputStream _rawBody) {
-        this.statusCode = _code;
-        this.headers = _headers;
-        this.rawBody = _rawBody;
+    public HttpResponse(int code, Headers headers, InputStream rawBody) {
+        this.statusCode = code;
+        this.headers = headers;
+        this.rawBody = rawBody;
     }
 }

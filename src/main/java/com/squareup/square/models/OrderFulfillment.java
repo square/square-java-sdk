@@ -1,13 +1,26 @@
 package com.squareup.square.models;
 
+import java.util.Map;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderFulfillment type.
+ */
 public class OrderFulfillment {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param type
+     * @param state
+     * @param metadata
+     * @param pickupDetails
+     * @param shipmentDetails
+     */
     @JsonCreator
     public OrderFulfillment(
             @JsonProperty("uid") String uid,
@@ -30,34 +43,12 @@ public class OrderFulfillment {
     private final Map<String, String> metadata;
     private final OrderFulfillmentPickupDetails pickupDetails;
     private final OrderFulfillmentShipmentDetails shipmentDetails;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, type, state, metadata, pickupDetails, shipmentDetails);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderFulfillment)) {
-            return false;
-        }
-        OrderFulfillment orderFulfillment = (OrderFulfillment) o;
-        return Objects.equals(uid, orderFulfillment.uid) &&
-            Objects.equals(type, orderFulfillment.type) &&
-            Objects.equals(state, orderFulfillment.state) &&
-            Objects.equals(metadata, orderFulfillment.metadata) &&
-            Objects.equals(pickupDetails, orderFulfillment.pickupDetails) &&
-            Objects.equals(shipmentDetails, orderFulfillment.shipmentDetails);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the fulfillment only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -66,7 +57,7 @@ public class OrderFulfillment {
      * The type of fulfillment.
      */
     @JsonGetter("type")
-    public String getType() { 
+    public String getType() {
         return this.type;
     }
 
@@ -75,7 +66,7 @@ public class OrderFulfillment {
      * The current state of this fulfillment.
      */
     @JsonGetter("state")
-    public String getState() { 
+    public String getState() {
         return this.state;
     }
 
@@ -96,7 +87,7 @@ public class OrderFulfillment {
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
     @JsonGetter("metadata")
-    public Map<String, String> getMetadata() { 
+    public Map<String, String> getMetadata() {
         return this.metadata;
     }
 
@@ -105,7 +96,7 @@ public class OrderFulfillment {
      * Contains details necessary to fulfill a pickup order.
      */
     @JsonGetter("pickup_details")
-    public OrderFulfillmentPickupDetails getPickupDetails() { 
+    public OrderFulfillmentPickupDetails getPickupDetails() {
         return this.pickupDetails;
     }
 
@@ -114,11 +105,38 @@ public class OrderFulfillment {
      * Contains details necessary to fulfill a shipment order.
      */
     @JsonGetter("shipment_details")
-    public OrderFulfillmentShipmentDetails getShipmentDetails() { 
+    public OrderFulfillmentShipmentDetails getShipmentDetails() {
         return this.shipmentDetails;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, type, state, metadata, pickupDetails, shipmentDetails);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderFulfillment)) {
+            return false;
+        }
+        OrderFulfillment orderFulfillment = (OrderFulfillment) obj;
+        return Objects.equals(uid, orderFulfillment.uid) &&
+            Objects.equals(type, orderFulfillment.type) &&
+            Objects.equals(state, orderFulfillment.state) &&
+            Objects.equals(metadata, orderFulfillment.metadata) &&
+            Objects.equals(pickupDetails, orderFulfillment.pickupDetails) &&
+            Objects.equals(shipmentDetails, orderFulfillment.shipmentDetails);
+    }
+
+    /**
+     * Builds a new {@link OrderFulfillment.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderFulfillment.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -130,6 +148,9 @@ public class OrderFulfillment {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderFulfillment}
+     */
     public static class Builder {
         private String uid;
         private String type;
@@ -138,33 +159,72 @@ public class OrderFulfillment {
         private OrderFulfillmentPickupDetails pickupDetails;
         private OrderFulfillmentShipmentDetails shipmentDetails;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder type(String value) {
-            type = value;
-            return this;
-        }
-        public Builder state(String value) {
-            state = value;
-            return this;
-        }
-        public Builder metadata(Map<String, String> value) {
-            metadata = value;
-            return this;
-        }
-        public Builder pickupDetails(OrderFulfillmentPickupDetails value) {
-            pickupDetails = value;
-            return this;
-        }
-        public Builder shipmentDetails(OrderFulfillmentShipmentDetails value) {
-            shipmentDetails = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+        /**
+         * Setter for state
+         * @param state
+         * @return Builder
+         */
+        public Builder state(String state) {
+            this.state = state;
+            return this;
+        }
+        /**
+         * Setter for metadata
+         * @param metadata
+         * @return Builder
+         */
+        public Builder metadata(Map<String, String> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+        /**
+         * Setter for pickupDetails
+         * @param pickupDetails
+         * @return Builder
+         */
+        public Builder pickupDetails(OrderFulfillmentPickupDetails pickupDetails) {
+            this.pickupDetails = pickupDetails;
+            return this;
+        }
+        /**
+         * Setter for shipmentDetails
+         * @param shipmentDetails
+         * @return Builder
+         */
+        public Builder shipmentDetails(OrderFulfillmentShipmentDetails shipmentDetails) {
+            this.shipmentDetails = shipmentDetails;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderFulfillment} object using the set fields.
+         * @return {@link OrderFulfillment}
+         */
         public OrderFulfillment build() {
             return new OrderFulfillment(uid,
                 type,

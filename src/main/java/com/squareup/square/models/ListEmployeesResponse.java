@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ListEmployeesResponse type.
+ */
 public class ListEmployeesResponse {
 
+    /**
+     * Initialization constructor.
+     * @param employees
+     * @param cursor
+     * @param errors
+     */
     @JsonCreator
     public ListEmployeesResponse(
             @JsonProperty("employees") List<Employee> employees,
@@ -24,25 +34,6 @@ public class ListEmployeesResponse {
     private final String cursor;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(employees, cursor, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListEmployeesResponse)) {
-            return false;
-        }
-        ListEmployeesResponse listEmployeesResponse = (ListEmployeesResponse) o;
-        return Objects.equals(employees, listEmployeesResponse.employees) &&
-            Objects.equals(cursor, listEmployeesResponse.cursor) &&
-            Objects.equals(errors, listEmployeesResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class ListEmployeesResponse {
      * List of employees returned from the request.
      */
     @JsonGetter("employees")
-    public List<Employee> getEmployees() { 
+    public List<Employee> getEmployees() {
         return this.employees;
     }
 
@@ -61,7 +52,7 @@ public class ListEmployeesResponse {
      * The token to be used to retrieve the next page of results.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -70,11 +61,35 @@ public class ListEmployeesResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(employees, cursor, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListEmployeesResponse)) {
+            return false;
+        }
+        ListEmployeesResponse listEmployeesResponse = (ListEmployeesResponse) obj;
+        return Objects.equals(employees, listEmployeesResponse.employees) &&
+            Objects.equals(cursor, listEmployeesResponse.cursor) &&
+            Objects.equals(errors, listEmployeesResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link ListEmployeesResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListEmployeesResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .employees(getEmployees())
@@ -83,31 +98,63 @@ public class ListEmployeesResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListEmployeesResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Employee> employees;
         private String cursor;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder employees(List<Employee> value) {
-            employees = value;
+        /**
+         * Setter for employees
+         * @param employees
+         * @return Builder
+         */
+        public Builder employees(List<Employee> employees) {
+            this.employees = employees;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListEmployeesResponse} object using the set fields.
+         * @return {@link ListEmployeesResponse}
+         */
         public ListEmployeesResponse build() {
             ListEmployeesResponse model = new ListEmployeesResponse(employees,
                 cursor,

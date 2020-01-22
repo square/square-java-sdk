@@ -1,14 +1,40 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1CashDrawerShift type.
+ */
 public class V1CashDrawerShift {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param eventType
+     * @param openedAt
+     * @param endedAt
+     * @param closedAt
+     * @param employeeIds
+     * @param openingEmployeeId
+     * @param endingEmployeeId
+     * @param closingEmployeeId
+     * @param description
+     * @param startingCashMoney
+     * @param cashPaymentMoney
+     * @param cashRefundsMoney
+     * @param cashPaidInMoney
+     * @param cashPaidOutMoney
+     * @param expectedCashMoney
+     * @param closedCashMoney
+     * @param device
+     * @param events
+     */
     @JsonCreator
     public V1CashDrawerShift(
             @JsonProperty("id") String id,
@@ -72,19 +98,190 @@ public class V1CashDrawerShift {
     private final Device device;
     private final List<V1CashDrawerEvent> events;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The shift's unique ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for EventType.
+     */
+    @JsonGetter("event_type")
+    public String getEventType() {
+        return this.eventType;
+    }
+
+    /**
+     * Getter for OpenedAt.
+     * The time when the shift began, in ISO 8601 format.
+     */
+    @JsonGetter("opened_at")
+    public String getOpenedAt() {
+        return this.openedAt;
+    }
+
+    /**
+     * Getter for EndedAt.
+     * The time when the shift ended, in ISO 8601 format.
+     */
+    @JsonGetter("ended_at")
+    public String getEndedAt() {
+        return this.endedAt;
+    }
+
+    /**
+     * Getter for ClosedAt.
+     * The time when the shift was closed, in ISO 8601 format.
+     */
+    @JsonGetter("closed_at")
+    public String getClosedAt() {
+        return this.closedAt;
+    }
+
+    /**
+     * Getter for EmployeeIds.
+     * The IDs of all employees that were logged into Square Register at some point during the cash drawer shift.
+     */
+    @JsonGetter("employee_ids")
+    public List<String> getEmployeeIds() {
+        return this.employeeIds;
+    }
+
+    /**
+     * Getter for OpeningEmployeeId.
+     * The ID of the employee that started the cash drawer shift.
+     */
+    @JsonGetter("opening_employee_id")
+    public String getOpeningEmployeeId() {
+        return this.openingEmployeeId;
+    }
+
+    /**
+     * Getter for EndingEmployeeId.
+     * The ID of the employee that ended the cash drawer shift.
+     */
+    @JsonGetter("ending_employee_id")
+    public String getEndingEmployeeId() {
+        return this.endingEmployeeId;
+    }
+
+    /**
+     * Getter for ClosingEmployeeId.
+     * The ID of the employee that closed the cash drawer shift by auditing the cash drawer's contents.
+     */
+    @JsonGetter("closing_employee_id")
+    public String getClosingEmployeeId() {
+        return this.closingEmployeeId;
+    }
+
+    /**
+     * Getter for Description.
+     * A description of the cash drawer shift.
+     */
+    @JsonGetter("description")
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Getter for StartingCashMoney.
+     */
+    @JsonGetter("starting_cash_money")
+    public V1Money getStartingCashMoney() {
+        return this.startingCashMoney;
+    }
+
+    /**
+     * Getter for CashPaymentMoney.
+     */
+    @JsonGetter("cash_payment_money")
+    public V1Money getCashPaymentMoney() {
+        return this.cashPaymentMoney;
+    }
+
+    /**
+     * Getter for CashRefundsMoney.
+     */
+    @JsonGetter("cash_refunds_money")
+    public V1Money getCashRefundsMoney() {
+        return this.cashRefundsMoney;
+    }
+
+    /**
+     * Getter for CashPaidInMoney.
+     */
+    @JsonGetter("cash_paid_in_money")
+    public V1Money getCashPaidInMoney() {
+        return this.cashPaidInMoney;
+    }
+
+    /**
+     * Getter for CashPaidOutMoney.
+     */
+    @JsonGetter("cash_paid_out_money")
+    public V1Money getCashPaidOutMoney() {
+        return this.cashPaidOutMoney;
+    }
+
+    /**
+     * Getter for ExpectedCashMoney.
+     */
+    @JsonGetter("expected_cash_money")
+    public V1Money getExpectedCashMoney() {
+        return this.expectedCashMoney;
+    }
+
+    /**
+     * Getter for ClosedCashMoney.
+     */
+    @JsonGetter("closed_cash_money")
+    public V1Money getClosedCashMoney() {
+        return this.closedCashMoney;
+    }
+
+    /**
+     * Getter for Device.
+     */
+    @JsonGetter("device")
+    public Device getDevice() {
+        return this.device;
+    }
+
+    /**
+     * Getter for Events.
+     * All of the events (payments, refunds, and so on) that involved the cash drawer during the shift.
+     */
+    @JsonGetter("events")
+    public List<V1CashDrawerEvent> getEvents() {
+        return this.events;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, eventType, openedAt, endedAt, closedAt, employeeIds, openingEmployeeId, endingEmployeeId, closingEmployeeId, description, startingCashMoney, cashPaymentMoney, cashRefundsMoney, cashPaidInMoney, cashPaidOutMoney, expectedCashMoney, closedCashMoney, device, events);
+        return Objects.hash(id, eventType, openedAt, endedAt, closedAt, employeeIds,
+            openingEmployeeId, endingEmployeeId, closingEmployeeId, description, startingCashMoney,
+            cashPaymentMoney, cashRefundsMoney, cashPaidInMoney, cashPaidOutMoney, expectedCashMoney,
+            closedCashMoney, device, events);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1CashDrawerShift)) {
+        }
+        if(!(obj instanceof V1CashDrawerShift)) {
             return false;
         }
-        V1CashDrawerShift v1CashDrawerShift = (V1CashDrawerShift) o;
+        V1CashDrawerShift v1CashDrawerShift = (V1CashDrawerShift) obj;
         return Objects.equals(id, v1CashDrawerShift.id) &&
             Objects.equals(eventType, v1CashDrawerShift.eventType) &&
             Objects.equals(openedAt, v1CashDrawerShift.openedAt) &&
@@ -106,174 +303,11 @@ public class V1CashDrawerShift {
             Objects.equals(events, v1CashDrawerShift.events);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The shift's unique ID.
+     * Builds a new {@link V1CashDrawerShift.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1CashDrawerShift.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for EventType.
-     */
-    @JsonGetter("event_type")
-    public String getEventType() { 
-        return this.eventType;
-    }
-
-    /**
-     * Getter for OpenedAt.
-     * The time when the shift began, in ISO 8601 format.
-     */
-    @JsonGetter("opened_at")
-    public String getOpenedAt() { 
-        return this.openedAt;
-    }
-
-    /**
-     * Getter for EndedAt.
-     * The time when the shift ended, in ISO 8601 format.
-     */
-    @JsonGetter("ended_at")
-    public String getEndedAt() { 
-        return this.endedAt;
-    }
-
-    /**
-     * Getter for ClosedAt.
-     * The time when the shift was closed, in ISO 8601 format.
-     */
-    @JsonGetter("closed_at")
-    public String getClosedAt() { 
-        return this.closedAt;
-    }
-
-    /**
-     * Getter for EmployeeIds.
-     * The IDs of all employees that were logged into Square Register at some point during the cash drawer shift.
-     */
-    @JsonGetter("employee_ids")
-    public List<String> getEmployeeIds() { 
-        return this.employeeIds;
-    }
-
-    /**
-     * Getter for OpeningEmployeeId.
-     * The ID of the employee that started the cash drawer shift.
-     */
-    @JsonGetter("opening_employee_id")
-    public String getOpeningEmployeeId() { 
-        return this.openingEmployeeId;
-    }
-
-    /**
-     * Getter for EndingEmployeeId.
-     * The ID of the employee that ended the cash drawer shift.
-     */
-    @JsonGetter("ending_employee_id")
-    public String getEndingEmployeeId() { 
-        return this.endingEmployeeId;
-    }
-
-    /**
-     * Getter for ClosingEmployeeId.
-     * The ID of the employee that closed the cash drawer shift by auditing the cash drawer's contents.
-     */
-    @JsonGetter("closing_employee_id")
-    public String getClosingEmployeeId() { 
-        return this.closingEmployeeId;
-    }
-
-    /**
-     * Getter for Description.
-     * A description of the cash drawer shift.
-     */
-    @JsonGetter("description")
-    public String getDescription() { 
-        return this.description;
-    }
-
-    /**
-     * Getter for StartingCashMoney.
-     */
-    @JsonGetter("starting_cash_money")
-    public V1Money getStartingCashMoney() { 
-        return this.startingCashMoney;
-    }
-
-    /**
-     * Getter for CashPaymentMoney.
-     */
-    @JsonGetter("cash_payment_money")
-    public V1Money getCashPaymentMoney() { 
-        return this.cashPaymentMoney;
-    }
-
-    /**
-     * Getter for CashRefundsMoney.
-     */
-    @JsonGetter("cash_refunds_money")
-    public V1Money getCashRefundsMoney() { 
-        return this.cashRefundsMoney;
-    }
-
-    /**
-     * Getter for CashPaidInMoney.
-     */
-    @JsonGetter("cash_paid_in_money")
-    public V1Money getCashPaidInMoney() { 
-        return this.cashPaidInMoney;
-    }
-
-    /**
-     * Getter for CashPaidOutMoney.
-     */
-    @JsonGetter("cash_paid_out_money")
-    public V1Money getCashPaidOutMoney() { 
-        return this.cashPaidOutMoney;
-    }
-
-    /**
-     * Getter for ExpectedCashMoney.
-     */
-    @JsonGetter("expected_cash_money")
-    public V1Money getExpectedCashMoney() { 
-        return this.expectedCashMoney;
-    }
-
-    /**
-     * Getter for ClosedCashMoney.
-     */
-    @JsonGetter("closed_cash_money")
-    public V1Money getClosedCashMoney() { 
-        return this.closedCashMoney;
-    }
-
-    /**
-     * Getter for Device.
-     */
-    @JsonGetter("device")
-    public Device getDevice() { 
-        return this.device;
-    }
-
-    /**
-     * Getter for Events.
-     * All of the events (payments, refunds, and so on) that involved the cash drawer during the shift.
-     */
-    @JsonGetter("events")
-    public List<V1CashDrawerEvent> getEvents() { 
-        return this.events;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -298,6 +332,9 @@ public class V1CashDrawerShift {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1CashDrawerShift}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -320,89 +357,198 @@ public class V1CashDrawerShift {
         private Device device;
         private List<V1CashDrawerEvent> events;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder eventType(String value) {
-            eventType = value;
+        /**
+         * Setter for eventType
+         * @param eventType
+         * @return Builder
+         */
+        public Builder eventType(String eventType) {
+            this.eventType = eventType;
             return this;
         }
-        public Builder openedAt(String value) {
-            openedAt = value;
+        /**
+         * Setter for openedAt
+         * @param openedAt
+         * @return Builder
+         */
+        public Builder openedAt(String openedAt) {
+            this.openedAt = openedAt;
             return this;
         }
-        public Builder endedAt(String value) {
-            endedAt = value;
+        /**
+         * Setter for endedAt
+         * @param endedAt
+         * @return Builder
+         */
+        public Builder endedAt(String endedAt) {
+            this.endedAt = endedAt;
             return this;
         }
-        public Builder closedAt(String value) {
-            closedAt = value;
+        /**
+         * Setter for closedAt
+         * @param closedAt
+         * @return Builder
+         */
+        public Builder closedAt(String closedAt) {
+            this.closedAt = closedAt;
             return this;
         }
-        public Builder employeeIds(List<String> value) {
-            employeeIds = value;
+        /**
+         * Setter for employeeIds
+         * @param employeeIds
+         * @return Builder
+         */
+        public Builder employeeIds(List<String> employeeIds) {
+            this.employeeIds = employeeIds;
             return this;
         }
-        public Builder openingEmployeeId(String value) {
-            openingEmployeeId = value;
+        /**
+         * Setter for openingEmployeeId
+         * @param openingEmployeeId
+         * @return Builder
+         */
+        public Builder openingEmployeeId(String openingEmployeeId) {
+            this.openingEmployeeId = openingEmployeeId;
             return this;
         }
-        public Builder endingEmployeeId(String value) {
-            endingEmployeeId = value;
+        /**
+         * Setter for endingEmployeeId
+         * @param endingEmployeeId
+         * @return Builder
+         */
+        public Builder endingEmployeeId(String endingEmployeeId) {
+            this.endingEmployeeId = endingEmployeeId;
             return this;
         }
-        public Builder closingEmployeeId(String value) {
-            closingEmployeeId = value;
+        /**
+         * Setter for closingEmployeeId
+         * @param closingEmployeeId
+         * @return Builder
+         */
+        public Builder closingEmployeeId(String closingEmployeeId) {
+            this.closingEmployeeId = closingEmployeeId;
             return this;
         }
-        public Builder description(String value) {
-            description = value;
+        /**
+         * Setter for description
+         * @param description
+         * @return Builder
+         */
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
-        public Builder startingCashMoney(V1Money value) {
-            startingCashMoney = value;
+        /**
+         * Setter for startingCashMoney
+         * @param startingCashMoney
+         * @return Builder
+         */
+        public Builder startingCashMoney(V1Money startingCashMoney) {
+            this.startingCashMoney = startingCashMoney;
             return this;
         }
-        public Builder cashPaymentMoney(V1Money value) {
-            cashPaymentMoney = value;
+        /**
+         * Setter for cashPaymentMoney
+         * @param cashPaymentMoney
+         * @return Builder
+         */
+        public Builder cashPaymentMoney(V1Money cashPaymentMoney) {
+            this.cashPaymentMoney = cashPaymentMoney;
             return this;
         }
-        public Builder cashRefundsMoney(V1Money value) {
-            cashRefundsMoney = value;
+        /**
+         * Setter for cashRefundsMoney
+         * @param cashRefundsMoney
+         * @return Builder
+         */
+        public Builder cashRefundsMoney(V1Money cashRefundsMoney) {
+            this.cashRefundsMoney = cashRefundsMoney;
             return this;
         }
-        public Builder cashPaidInMoney(V1Money value) {
-            cashPaidInMoney = value;
+        /**
+         * Setter for cashPaidInMoney
+         * @param cashPaidInMoney
+         * @return Builder
+         */
+        public Builder cashPaidInMoney(V1Money cashPaidInMoney) {
+            this.cashPaidInMoney = cashPaidInMoney;
             return this;
         }
-        public Builder cashPaidOutMoney(V1Money value) {
-            cashPaidOutMoney = value;
+        /**
+         * Setter for cashPaidOutMoney
+         * @param cashPaidOutMoney
+         * @return Builder
+         */
+        public Builder cashPaidOutMoney(V1Money cashPaidOutMoney) {
+            this.cashPaidOutMoney = cashPaidOutMoney;
             return this;
         }
-        public Builder expectedCashMoney(V1Money value) {
-            expectedCashMoney = value;
+        /**
+         * Setter for expectedCashMoney
+         * @param expectedCashMoney
+         * @return Builder
+         */
+        public Builder expectedCashMoney(V1Money expectedCashMoney) {
+            this.expectedCashMoney = expectedCashMoney;
             return this;
         }
-        public Builder closedCashMoney(V1Money value) {
-            closedCashMoney = value;
+        /**
+         * Setter for closedCashMoney
+         * @param closedCashMoney
+         * @return Builder
+         */
+        public Builder closedCashMoney(V1Money closedCashMoney) {
+            this.closedCashMoney = closedCashMoney;
             return this;
         }
-        public Builder device(Device value) {
-            device = value;
+        /**
+         * Setter for device
+         * @param device
+         * @return Builder
+         */
+        public Builder device(Device device) {
+            this.device = device;
             return this;
         }
-        public Builder events(List<V1CashDrawerEvent> value) {
-            events = value;
+        /**
+         * Setter for events
+         * @param events
+         * @return Builder
+         */
+        public Builder events(List<V1CashDrawerEvent> events) {
+            this.events = events;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1CashDrawerShift} object using the set fields.
+         * @return {@link V1CashDrawerShift}
+         */
         public V1CashDrawerShift build() {
             V1CashDrawerShift model = new V1CashDrawerShift(id,
                 eventType,

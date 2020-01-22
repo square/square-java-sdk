@@ -1,13 +1,28 @@
 package com.squareup.square.models;
 
+import java.util.Map;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderLineItemTax type.
+ */
 public class OrderLineItemTax {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param catalogObjectId
+     * @param name
+     * @param type
+     * @param percentage
+     * @param metadata
+     * @param appliedMoney
+     * @param scope
+     */
     @JsonCreator
     public OrderLineItemTax(
             @JsonProperty("uid") String uid,
@@ -36,36 +51,12 @@ public class OrderLineItemTax {
     private final Map<String, String> metadata;
     private final Money appliedMoney;
     private final String scope;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, catalogObjectId, name, type, percentage, metadata, appliedMoney, scope);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderLineItemTax)) {
-            return false;
-        }
-        OrderLineItemTax orderLineItemTax = (OrderLineItemTax) o;
-        return Objects.equals(uid, orderLineItemTax.uid) &&
-            Objects.equals(catalogObjectId, orderLineItemTax.catalogObjectId) &&
-            Objects.equals(name, orderLineItemTax.name) &&
-            Objects.equals(type, orderLineItemTax.type) &&
-            Objects.equals(percentage, orderLineItemTax.percentage) &&
-            Objects.equals(metadata, orderLineItemTax.metadata) &&
-            Objects.equals(appliedMoney, orderLineItemTax.appliedMoney) &&
-            Objects.equals(scope, orderLineItemTax.scope);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the tax only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -74,7 +65,7 @@ public class OrderLineItemTax {
      * The catalog object id referencing [CatalogTax](#type-catalogtax).
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -83,7 +74,7 @@ public class OrderLineItemTax {
      * The tax's name.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -92,7 +83,7 @@ public class OrderLineItemTax {
      * Indicates how the tax is applied to the associated line item or order.
      */
     @JsonGetter("type")
-    public String getType() { 
+    public String getType() {
         return this.type;
     }
 
@@ -103,7 +94,7 @@ public class OrderLineItemTax {
      * 7.25%.
      */
     @JsonGetter("percentage")
-    public String getPercentage() { 
+    public String getPercentage() {
         return this.percentage;
     }
 
@@ -124,7 +115,7 @@ public class OrderLineItemTax {
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
     @JsonGetter("metadata")
-    public Map<String, String> getMetadata() { 
+    public Map<String, String> getMetadata() {
         return this.metadata;
     }
 
@@ -138,7 +129,7 @@ public class OrderLineItemTax {
      * for more information.
      */
     @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
+    public Money getAppliedMoney() {
         return this.appliedMoney;
     }
 
@@ -147,11 +138,41 @@ public class OrderLineItemTax {
      * Indicates whether this is a line item or order level tax.
      */
     @JsonGetter("scope")
-    public String getScope() { 
+    public String getScope() {
         return this.scope;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, catalogObjectId, name, type, percentage, metadata, appliedMoney,
+            scope);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderLineItemTax)) {
+            return false;
+        }
+        OrderLineItemTax orderLineItemTax = (OrderLineItemTax) obj;
+        return Objects.equals(uid, orderLineItemTax.uid) &&
+            Objects.equals(catalogObjectId, orderLineItemTax.catalogObjectId) &&
+            Objects.equals(name, orderLineItemTax.name) &&
+            Objects.equals(type, orderLineItemTax.type) &&
+            Objects.equals(percentage, orderLineItemTax.percentage) &&
+            Objects.equals(metadata, orderLineItemTax.metadata) &&
+            Objects.equals(appliedMoney, orderLineItemTax.appliedMoney) &&
+            Objects.equals(scope, orderLineItemTax.scope);
+    }
+
+    /**
+     * Builds a new {@link OrderLineItemTax.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderLineItemTax.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -165,6 +186,9 @@ public class OrderLineItemTax {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderLineItemTax}
+     */
     public static class Builder {
         private String uid;
         private String catalogObjectId;
@@ -175,41 +199,90 @@ public class OrderLineItemTax {
         private Money appliedMoney;
         private String scope;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder type(String value) {
-            type = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder metadata(Map<String, String> value) {
-            metadata = value;
-            return this;
-        }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
-            return this;
-        }
-        public Builder scope(String value) {
-            scope = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for metadata
+         * @param metadata
+         * @return Builder
+         */
+        public Builder metadata(Map<String, String> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
+            return this;
+        }
+        /**
+         * Setter for scope
+         * @param scope
+         * @return Builder
+         */
+        public Builder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderLineItemTax} object using the set fields.
+         * @return {@link OrderLineItemTax}
+         */
         public OrderLineItemTax build() {
             return new OrderLineItemTax(uid,
                 catalogObjectId,

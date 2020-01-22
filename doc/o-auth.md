@@ -43,8 +43,7 @@ page in the [application dashboard](https://connect.squareup.com/apps).
 CompletableFuture<RenewTokenResponse> renewTokenAsync(
     final String clientId,
     final RenewTokenRequest body,
-    final String authorization
-)
+    final String authorization)
 ```
 
 ### Parameters
@@ -100,8 +99,7 @@ page in the [application dashboard](https://connect.squareup.com/apps).
 ```java
 CompletableFuture<RevokeTokenResponse> revokeTokenAsync(
     final RevokeTokenRequest body,
-    final String authorization
-)
+    final String authorization)
 ```
 
 ### Parameters
@@ -152,8 +150,7 @@ should never interact directly with OAuth tokens__.
 
 ```java
 CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
-    final ObtainTokenRequest body
-)
+    final ObtainTokenRequest body)
 ```
 
 ### Parameters
@@ -170,9 +167,10 @@ CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
 
 ```java
 ObtainTokenRequest body = new ObtainTokenRequest.Builder(
-        "client_id8",
-        "client_secret4",
-        "grant_type8")
+        "APPLICATION_ID",
+        "APPLICATION_SECRET",
+        "authorization_code")
+    .code("CODE_FROM_AUTHORIZE")
     .build();
 
 oAuthApi.obtainTokenAsync(body).thenAccept(result -> {

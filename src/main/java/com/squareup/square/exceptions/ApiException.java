@@ -8,6 +8,9 @@ import com.squareup.square.ApiHelper;
 import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.models.Error;
 
+/**
+ * This is the base class for all exceptions that represent an error response from the server.
+ */
 public class ApiException extends Exception {
     //UID for serialization
     private static final long serialVersionUID = 6424174253911720338L;
@@ -61,6 +64,7 @@ public class ApiException extends Exception {
         }
 
         try {
+            // Can throw IOException if input has invalid content type.
             JsonNode jsonNode = ApiHelper.mapper.readTree(context.getResponse().getRawBody());
             if (jsonNode.hasNonNull("errors")) {
                 errors = Arrays.asList(ApiHelper.mapper.convertValue(jsonNode.get("errors"), Error[].class));
@@ -73,8 +77,12 @@ public class ApiException extends Exception {
                 errors.add(v1ErrorBuilder.build());
             }
             if (!getClass().equals(ApiException.class)) {
-            	ApiHelper.mapper.readerForUpdating(this).readValue(jsonNode);
+                // Can throw IOException if source format, in this case JsonNode, cannot be detected.
+                ApiHelper.mapper.readerForUpdating(this).readValue(jsonNode);
             }
-        } catch (IOException ioException) { }
+        } catch (IOException ioException) { 
+            // Can throw exception while object mapper tries to deserialize the content as JSON tree.
+            // Can throw exception while object mapper tries to convert results from JSON tree into given value type.
+        }
     }
 }

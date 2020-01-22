@@ -1,13 +1,30 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Refund type.
+ */
 public class Refund {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param locationId
+     * @param transactionId
+     * @param tenderId
+     * @param reason
+     * @param amountMoney
+     * @param status
+     * @param createdAt
+     * @param processingFeeMoney
+     * @param additionalRecipients
+     */
     @JsonCreator
     public Refund(
             @JsonProperty("id") String id,
@@ -42,38 +59,12 @@ public class Refund {
     private final String status;
     private final Money processingFeeMoney;
     private final List<AdditionalRecipient> additionalRecipients;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, locationId, transactionId, tenderId, reason, amountMoney, status, createdAt, processingFeeMoney, additionalRecipients);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Refund)) {
-            return false;
-        }
-        Refund refund = (Refund) o;
-        return Objects.equals(id, refund.id) &&
-            Objects.equals(locationId, refund.locationId) &&
-            Objects.equals(transactionId, refund.transactionId) &&
-            Objects.equals(tenderId, refund.tenderId) &&
-            Objects.equals(reason, refund.reason) &&
-            Objects.equals(amountMoney, refund.amountMoney) &&
-            Objects.equals(status, refund.status) &&
-            Objects.equals(createdAt, refund.createdAt) &&
-            Objects.equals(processingFeeMoney, refund.processingFeeMoney) &&
-            Objects.equals(additionalRecipients, refund.additionalRecipients);
-    }
-
     /**
      * Getter for Id.
      * The refund's unique ID.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -82,7 +73,7 @@ public class Refund {
      * The ID of the refund's associated location.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -91,7 +82,7 @@ public class Refund {
      * The ID of the transaction that the refunded tender is part of.
      */
     @JsonGetter("transaction_id")
-    public String getTransactionId() { 
+    public String getTransactionId() {
         return this.transactionId;
     }
 
@@ -100,7 +91,7 @@ public class Refund {
      * The ID of the refunded tender.
      */
     @JsonGetter("tender_id")
-    public String getTenderId() { 
+    public String getTenderId() {
         return this.tenderId;
     }
 
@@ -109,7 +100,7 @@ public class Refund {
      * The time when the refund was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -118,7 +109,7 @@ public class Refund {
      * The reason for the refund being issued.
      */
     @JsonGetter("reason")
-    public String getReason() { 
+    public String getReason() {
         return this.reason;
     }
 
@@ -132,7 +123,7 @@ public class Refund {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -141,7 +132,7 @@ public class Refund {
      * Indicates a refund's current status.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
@@ -155,7 +146,7 @@ public class Refund {
      * for more information.
      */
     @JsonGetter("processing_fee_money")
-    public Money getProcessingFeeMoney() { 
+    public Money getProcessingFeeMoney() {
         return this.processingFeeMoney;
     }
 
@@ -165,11 +156,43 @@ public class Refund {
      * For example, fees assessed on a refund of a purchase by a third party integration.
      */
     @JsonGetter("additional_recipients")
-    public List<AdditionalRecipient> getAdditionalRecipients() { 
+    public List<AdditionalRecipient> getAdditionalRecipients() {
         return this.additionalRecipients;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, locationId, transactionId, tenderId, createdAt, reason, amountMoney,
+            status, processingFeeMoney, additionalRecipients);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Refund)) {
+            return false;
+        }
+        Refund refund = (Refund) obj;
+        return Objects.equals(id, refund.id) &&
+            Objects.equals(locationId, refund.locationId) &&
+            Objects.equals(transactionId, refund.transactionId) &&
+            Objects.equals(tenderId, refund.tenderId) &&
+            Objects.equals(createdAt, refund.createdAt) &&
+            Objects.equals(reason, refund.reason) &&
+            Objects.equals(amountMoney, refund.amountMoney) &&
+            Objects.equals(status, refund.status) &&
+            Objects.equals(processingFeeMoney, refund.processingFeeMoney) &&
+            Objects.equals(additionalRecipients, refund.additionalRecipients);
+    }
+
+    /**
+     * Builds a new {@link Refund.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Refund.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             locationId,
@@ -184,6 +207,9 @@ public class Refund {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Refund}
+     */
     public static class Builder {
         private String id;
         private String locationId;
@@ -196,6 +222,9 @@ public class Refund {
         private Money processingFeeMoney;
         private List<AdditionalRecipient> additionalRecipients;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String id,
                 String locationId,
                 String transactionId,
@@ -212,47 +241,101 @@ public class Refund {
             this.status = status;
         }
 
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder locationId(String value) {
-            locationId = value;
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
-        public Builder transactionId(String value) {
-            transactionId = value;
+        /**
+         * Setter for transactionId
+         * @param transactionId
+         * @return Builder
+         */
+        public Builder transactionId(String transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
-        public Builder tenderId(String value) {
-            tenderId = value;
+        /**
+         * Setter for tenderId
+         * @param tenderId
+         * @return Builder
+         */
+        public Builder tenderId(String tenderId) {
+            this.tenderId = tenderId;
             return this;
         }
-        public Builder reason(String value) {
-            reason = value;
+        /**
+         * Setter for reason
+         * @param reason
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder status(String value) {
-            status = value;
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder processingFeeMoney(Money value) {
-            processingFeeMoney = value;
+        /**
+         * Setter for processingFeeMoney
+         * @param processingFeeMoney
+         * @return Builder
+         */
+        public Builder processingFeeMoney(Money processingFeeMoney) {
+            this.processingFeeMoney = processingFeeMoney;
             return this;
         }
-        public Builder additionalRecipients(List<AdditionalRecipient> value) {
-            additionalRecipients = value;
+        /**
+         * Setter for additionalRecipients
+         * @param additionalRecipients
+         * @return Builder
+         */
+        public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
+            this.additionalRecipients = additionalRecipients;
             return this;
         }
 
+        /**
+         * Builds a new {@link Refund} object using the set fields.
+         * @return {@link Refund}
+         */
         public Refund build() {
             return new Refund(id,
                 locationId,

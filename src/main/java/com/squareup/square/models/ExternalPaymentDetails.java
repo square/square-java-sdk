@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ExternalPaymentDetails type.
+ */
 public class ExternalPaymentDetails {
 
+    /**
+     * Initialization constructor.
+     * @param type
+     * @param source
+     * @param sourceId
+     * @param sourceFeeMoney
+     */
     @JsonCreator
     public ExternalPaymentDetails(
             @JsonProperty("type") String type,
@@ -23,26 +34,6 @@ public class ExternalPaymentDetails {
     private final String source;
     private final String sourceId;
     private final Money sourceFeeMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, source, sourceId, sourceFeeMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ExternalPaymentDetails)) {
-            return false;
-        }
-        ExternalPaymentDetails externalPaymentDetails = (ExternalPaymentDetails) o;
-        return Objects.equals(type, externalPaymentDetails.type) &&
-            Objects.equals(source, externalPaymentDetails.source) &&
-            Objects.equals(sourceId, externalPaymentDetails.sourceId) &&
-            Objects.equals(sourceFeeMoney, externalPaymentDetails.sourceFeeMoney);
-    }
-
     /**
      * Getter for Type.
      * The type of External payment which can be one of:
@@ -58,7 +49,7 @@ public class ExternalPaymentDetails {
      * OTHER - A type not listed here
      */
     @JsonGetter("type")
-    public String getType() { 
+    public String getType() {
         return this.type;
     }
 
@@ -68,7 +59,7 @@ public class ExternalPaymentDetails {
      * Limit 255 characters
      */
     @JsonGetter("source")
-    public String getSource() { 
+    public String getSource() {
         return this.source;
     }
 
@@ -78,7 +69,7 @@ public class ExternalPaymentDetails {
      * Limit 255 characters.
      */
     @JsonGetter("source_id")
-    public String getSourceId() { 
+    public String getSourceId() {
         return this.sourceId;
     }
 
@@ -92,11 +83,36 @@ public class ExternalPaymentDetails {
      * for more information.
      */
     @JsonGetter("source_fee_money")
-    public Money getSourceFeeMoney() { 
+    public Money getSourceFeeMoney() {
         return this.sourceFeeMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, source, sourceId, sourceFeeMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ExternalPaymentDetails)) {
+            return false;
+        }
+        ExternalPaymentDetails externalPaymentDetails = (ExternalPaymentDetails) obj;
+        return Objects.equals(type, externalPaymentDetails.type) &&
+            Objects.equals(source, externalPaymentDetails.source) &&
+            Objects.equals(sourceId, externalPaymentDetails.sourceId) &&
+            Objects.equals(sourceFeeMoney, externalPaymentDetails.sourceFeeMoney);
+    }
+
+    /**
+     * Builds a new {@link ExternalPaymentDetails.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ExternalPaymentDetails.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(type,
             source)
@@ -105,35 +121,65 @@ public class ExternalPaymentDetails {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ExternalPaymentDetails}
+     */
     public static class Builder {
         private String type;
         private String source;
         private String sourceId;
         private Money sourceFeeMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String type,
                 String source) {
             this.type = type;
             this.source = source;
         }
 
-        public Builder type(String value) {
-            type = value;
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
-        public Builder source(String value) {
-            source = value;
+        /**
+         * Setter for source
+         * @param source
+         * @return Builder
+         */
+        public Builder source(String source) {
+            this.source = source;
             return this;
         }
-        public Builder sourceId(String value) {
-            sourceId = value;
+        /**
+         * Setter for sourceId
+         * @param sourceId
+         * @return Builder
+         */
+        public Builder sourceId(String sourceId) {
+            this.sourceId = sourceId;
             return this;
         }
-        public Builder sourceFeeMoney(Money value) {
-            sourceFeeMoney = value;
+        /**
+         * Setter for sourceFeeMoney
+         * @param sourceFeeMoney
+         * @return Builder
+         */
+        public Builder sourceFeeMoney(Money sourceFeeMoney) {
+            this.sourceFeeMoney = sourceFeeMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link ExternalPaymentDetails} object using the set fields.
+         * @return {@link ExternalPaymentDetails}
+         */
         public ExternalPaymentDetails build() {
             return new ExternalPaymentDetails(type,
                 source,

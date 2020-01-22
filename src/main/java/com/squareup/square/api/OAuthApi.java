@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,35 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.ObtainTokenRequest;
+import com.squareup.square.models.ObtainTokenResponse;
+import com.squareup.square.models.RenewTokenRequest;
+import com.squareup.square.models.RenewTokenResponse;
+import com.squareup.square.models.RevokeTokenRequest;
+import com.squareup.square.models.RevokeTokenResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class OAuthApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public OAuthApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public OAuthApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -50,13 +75,12 @@ public final class OAuthApi extends BaseApi {
     public RenewTokenResponse renewToken(
             final String clientId,
             final RenewTokenRequest body,
-            final String authorization
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRenewTokenRequest(clientId, body, authorization);
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+            final String authorization) throws ApiException, IOException {
+        HttpRequest request = buildRenewTokenRequest(clientId, body, authorization);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRenewTokenResponse(_context);
+        return handleRenewTokenResponse(context);
     }
 
     /**
@@ -85,78 +109,76 @@ public final class OAuthApi extends BaseApi {
     public CompletableFuture<RenewTokenResponse> renewTokenAsync(
             final String clientId,
             final RenewTokenRequest body,
-            final String authorization
-    ) {
-        return makeHttpCallAsync(() -> _buildRenewTokenRequest(clientId, body, authorization),
-                _request -> getClientInstance().executeAsStringAsync(_request),
-                _context -> _handleRenewTokenResponse(_context));
+            final String authorization) {
+        return makeHttpCallAsync(() -> buildRenewTokenRequest(clientId, body, authorization),
+                request -> getClientInstance().executeAsStringAsync(request),
+                context -> handleRenewTokenResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for renewToken
      */
-    private HttpRequest _buildRenewTokenRequest(
+    private HttpRequest buildRenewTokenRequest(
             final String clientId,
             final RenewTokenRequest body,
-            final String authorization
-    ) throws JsonProcessingException {
+            final String authorization) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/oauth2/clients/{client_id}/access-token/renew");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/oauth2/clients/{client_id}/access-token/renew");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("client_id", clientId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("client_id", clientId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("Authorization", authorization);
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("Authorization", authorization);
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for renewToken
      * @return An object of type RenewTokenResponse
      */
-    private RenewTokenResponse _handleRenewTokenResponse(HttpContext _context)
+    private RenewTokenResponse handleRenewTokenResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RenewTokenResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RenewTokenResponse result = ApiHelper.deserialize(responseBody,
                 RenewTokenResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -178,13 +200,12 @@ public final class OAuthApi extends BaseApi {
      */
     public RevokeTokenResponse revokeToken(
             final RevokeTokenRequest body,
-            final String authorization
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRevokeTokenRequest(body, authorization);
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+            final String authorization) throws ApiException, IOException {
+        HttpRequest request = buildRevokeTokenRequest(body, authorization);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRevokeTokenResponse(_context);
+        return handleRevokeTokenResponse(context);
     }
 
     /**
@@ -206,72 +227,70 @@ public final class OAuthApi extends BaseApi {
      */
     public CompletableFuture<RevokeTokenResponse> revokeTokenAsync(
             final RevokeTokenRequest body,
-            final String authorization
-    ) {
-        return makeHttpCallAsync(() -> _buildRevokeTokenRequest(body, authorization),
-                _request -> getClientInstance().executeAsStringAsync(_request),
-                _context -> _handleRevokeTokenResponse(_context));
+            final String authorization) {
+        return makeHttpCallAsync(() -> buildRevokeTokenRequest(body, authorization),
+                request -> getClientInstance().executeAsStringAsync(request),
+                context -> handleRevokeTokenResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for revokeToken
      */
-    private HttpRequest _buildRevokeTokenRequest(
+    private HttpRequest buildRevokeTokenRequest(
             final RevokeTokenRequest body,
-            final String authorization
-    ) throws JsonProcessingException {
+            final String authorization) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/oauth2/revoke");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/oauth2/revoke");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("Authorization", authorization);
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("Authorization", authorization);
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for revokeToken
      * @return An object of type RevokeTokenResponse
      */
-    private RevokeTokenResponse _handleRevokeTokenResponse(HttpContext _context)
+    private RevokeTokenResponse handleRevokeTokenResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RevokeTokenResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RevokeTokenResponse result = ApiHelper.deserialize(responseBody,
                 RevokeTokenResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -289,13 +308,12 @@ public final class OAuthApi extends BaseApi {
      * @return    Returns the ObtainTokenResponse response from the API call
      */
     public ObtainTokenResponse obtainToken(
-            final ObtainTokenRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildObtainTokenRequest(body);
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+            final ObtainTokenRequest body) throws ApiException, IOException {
+        HttpRequest request = buildObtainTokenRequest(body);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleObtainTokenResponse(_context);
+        return handleObtainTokenResponse(context);
     }
 
     /**
@@ -313,70 +331,68 @@ public final class OAuthApi extends BaseApi {
      * @return    Returns the ObtainTokenResponse response from the API call 
      */
     public CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
-            final ObtainTokenRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildObtainTokenRequest(body),
-                _request -> getClientInstance().executeAsStringAsync(_request),
-                _context -> _handleObtainTokenResponse(_context));
+            final ObtainTokenRequest body) {
+        return makeHttpCallAsync(() -> buildObtainTokenRequest(body),
+                request -> getClientInstance().executeAsStringAsync(request),
+                context -> handleObtainTokenResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for obtainToken
      */
-    private HttpRequest _buildObtainTokenRequest(
-            final ObtainTokenRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildObtainTokenRequest(
+            final ObtainTokenRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/oauth2/token");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/oauth2/token");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for obtainToken
      * @return An object of type ObtainTokenResponse
      */
-    private ObtainTokenResponse _handleObtainTokenResponse(HttpContext _context)
+    private ObtainTokenResponse handleObtainTokenResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ObtainTokenResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ObtainTokenResponse result = ApiHelper.deserialize(responseBody,
                 ObtainTokenResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

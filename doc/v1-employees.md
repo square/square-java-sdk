@@ -41,8 +41,7 @@ CompletableFuture<List<V1Employee>> listEmployeesAsync(
     final String status,
     final String externalId,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -89,8 +88,7 @@ set the employee's status to <code>INACTIVE</code>
 
 ```java
 CompletableFuture<V1Employee> createEmployeeAsync(
-    final V1Employee body
-)
+    final V1Employee body)
 ```
 
 ### Parameters
@@ -125,8 +123,7 @@ Provides the details for a single employee.
 
 ```java
 CompletableFuture<V1Employee> retrieveEmployeeAsync(
-    final String employeeId
-)
+    final String employeeId)
 ```
 
 ### Parameters
@@ -159,8 +156,7 @@ UpdateEmployee
 ```java
 CompletableFuture<V1Employee> updateEmployeeAsync(
     final String employeeId,
-    final V1Employee body
-)
+    final V1Employee body)
 ```
 
 ### Parameters
@@ -199,8 +195,7 @@ Provides summary information for all of a business's employee roles.
 CompletableFuture<List<V1EmployeeRole>> listEmployeeRolesAsync(
     final String order,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -244,8 +239,7 @@ with roles. All employees can accept payments with Square Point of Sale.
 
 ```java
 CompletableFuture<V1EmployeeRole> createEmployeeRoleAsync(
-    final V1EmployeeRole body
-)
+    final V1EmployeeRole body)
 ```
 
 ### Parameters
@@ -284,8 +278,7 @@ Provides the details for a single employee role.
 
 ```java
 CompletableFuture<V1EmployeeRole> retrieveEmployeeRoleAsync(
-    final String roleId
-)
+    final String roleId)
 ```
 
 ### Parameters
@@ -318,8 +311,7 @@ Modifies the details of an employee role.
 ```java
 CompletableFuture<V1EmployeeRole> updateEmployeeRoleAsync(
     final String roleId,
-    final V1EmployeeRole body
-)
+    final V1EmployeeRole body)
 ```
 
 ### Parameters
@@ -370,8 +362,7 @@ CompletableFuture<List<V1Timecard>> listTimecardsAsync(
     final String endUpdatedAt,
     final Boolean deleted,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -421,8 +412,7 @@ be clocked in a second time.
 
 ```java
 CompletableFuture<V1Timecard> createTimecardAsync(
-    final V1Timecard body
-)
+    final V1Timecard body)
 ```
 
 ### Parameters
@@ -470,8 +460,7 @@ API.
 
 ```java
 CompletableFuture<Object> deleteTimecardAsync(
-    final String timecardId
-)
+    final String timecardId)
 ```
 
 ### Parameters
@@ -508,8 +497,7 @@ API.
 
 ```java
 CompletableFuture<V1Timecard> retrieveTimecardAsync(
-    final String timecardId
-)
+    final String timecardId)
 ```
 
 ### Parameters
@@ -544,8 +532,7 @@ clocks the employee out.
 ```java
 CompletableFuture<V1Timecard> updateTimecardAsync(
     final String timecardId,
-    final V1Timecard body
-)
+    final V1Timecard body)
 ```
 
 ### Parameters
@@ -588,8 +575,7 @@ API.
 
 ```java
 CompletableFuture<List<V1TimecardEvent>> listTimecardEventsAsync(
-    final String timecardId
-)
+    final String timecardId)
 ```
 
 ### Parameters
@@ -624,8 +610,7 @@ CompletableFuture<List<V1CashDrawerShift>> listCashDrawerShiftsAsync(
     final String locationId,
     final String order,
     final String beginTime,
-    final String endTime
-)
+    final String endTime)
 ```
 
 ### Parameters
@@ -661,8 +646,7 @@ Provides the details for a single cash drawer shift, including all events that o
 ```java
 CompletableFuture<V1CashDrawerShift> retrieveCashDrawerShiftAsync(
     final String locationId,
-    final String shiftId
-)
+    final String shiftId)
 ```
 
 ### Parameters

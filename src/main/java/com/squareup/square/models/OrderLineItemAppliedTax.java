@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderLineItemAppliedTax type.
+ */
 public class OrderLineItemAppliedTax {
 
+    /**
+     * Initialization constructor.
+     * @param taxUid
+     * @param uid
+     * @param appliedMoney
+     */
     @JsonCreator
     public OrderLineItemAppliedTax(
             @JsonProperty("tax_uid") String taxUid,
@@ -20,31 +30,12 @@ public class OrderLineItemAppliedTax {
     private final String uid;
     private final String taxUid;
     private final Money appliedMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(taxUid, uid, appliedMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderLineItemAppliedTax)) {
-            return false;
-        }
-        OrderLineItemAppliedTax orderLineItemAppliedTax = (OrderLineItemAppliedTax) o;
-        return Objects.equals(taxUid, orderLineItemAppliedTax.taxUid) &&
-            Objects.equals(uid, orderLineItemAppliedTax.uid) &&
-            Objects.equals(appliedMoney, orderLineItemAppliedTax.appliedMoney);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the applied tax only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -56,7 +47,7 @@ public class OrderLineItemAppliedTax {
      * `OrderLineItemAppliedTax`s.
      */
     @JsonGetter("tax_uid")
-    public String getTaxUid() { 
+    public String getTaxUid() {
         return this.taxUid;
     }
 
@@ -70,11 +61,35 @@ public class OrderLineItemAppliedTax {
      * for more information.
      */
     @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
+    public Money getAppliedMoney() {
         return this.appliedMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, taxUid, appliedMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderLineItemAppliedTax)) {
+            return false;
+        }
+        OrderLineItemAppliedTax orderLineItemAppliedTax = (OrderLineItemAppliedTax) obj;
+        return Objects.equals(uid, orderLineItemAppliedTax.uid) &&
+            Objects.equals(taxUid, orderLineItemAppliedTax.taxUid) &&
+            Objects.equals(appliedMoney, orderLineItemAppliedTax.appliedMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderLineItemAppliedTax.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderLineItemAppliedTax.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(taxUid)
             .uid(getUid())
@@ -82,28 +97,53 @@ public class OrderLineItemAppliedTax {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderLineItemAppliedTax}
+     */
     public static class Builder {
         private String taxUid;
         private String uid;
         private Money appliedMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String taxUid) {
             this.taxUid = taxUid;
         }
 
-        public Builder taxUid(String value) {
-            taxUid = value;
+        /**
+         * Setter for taxUid
+         * @param taxUid
+         * @return Builder
+         */
+        public Builder taxUid(String taxUid) {
+            this.taxUid = taxUid;
             return this;
         }
-        public Builder uid(String value) {
-            uid = value;
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
             return this;
         }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link OrderLineItemAppliedTax} object using the set fields.
+         * @return {@link OrderLineItemAppliedTax}
+         */
         public OrderLineItemAppliedTax build() {
             return new OrderLineItemAppliedTax(taxUid,
                 uid,

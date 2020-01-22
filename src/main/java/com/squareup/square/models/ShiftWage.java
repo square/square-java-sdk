@@ -5,8 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ShiftWage type.
+ */
 public class ShiftWage {
 
+    /**
+     * Initialization constructor.
+     * @param title
+     * @param hourlyRate
+     */
     @JsonCreator
     public ShiftWage(
             @JsonProperty("title") String title,
@@ -17,31 +26,13 @@ public class ShiftWage {
 
     private final String title;
     private final Money hourlyRate;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, hourlyRate);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ShiftWage)) {
-            return false;
-        }
-        ShiftWage shiftWage = (ShiftWage) o;
-        return Objects.equals(title, shiftWage.title) &&
-            Objects.equals(hourlyRate, shiftWage.hourlyRate);
-    }
-
     /**
      * Getter for Title.
      * The name of the job performed during this shift. Square
      * labor-reporting UIs may group shifts together by title.
      */
     @JsonGetter("title")
-    public String getTitle() { 
+    public String getTitle() {
         return this.title;
     }
 
@@ -55,11 +46,34 @@ public class ShiftWage {
      * for more information.
      */
     @JsonGetter("hourly_rate")
-    public Money getHourlyRate() { 
+    public Money getHourlyRate() {
         return this.hourlyRate;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, hourlyRate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ShiftWage)) {
+            return false;
+        }
+        ShiftWage shiftWage = (ShiftWage) obj;
+        return Objects.equals(title, shiftWage.title) &&
+            Objects.equals(hourlyRate, shiftWage.hourlyRate);
+    }
+
+    /**
+     * Builds a new {@link ShiftWage.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ShiftWage.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .title(getTitle())
@@ -67,21 +81,43 @@ public class ShiftWage {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ShiftWage}
+     */
     public static class Builder {
         private String title;
         private Money hourlyRate;
 
-        public Builder() { }
-
-        public Builder title(String value) {
-            title = value;
-            return this;
-        }
-        public Builder hourlyRate(Money value) {
-            hourlyRate = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for title
+         * @param title
+         * @return Builder
+         */
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+        /**
+         * Setter for hourlyRate
+         * @param hourlyRate
+         * @return Builder
+         */
+        public Builder hourlyRate(Money hourlyRate) {
+            this.hourlyRate = hourlyRate;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ShiftWage} object using the set fields.
+         * @return {@link ShiftWage}
+         */
         public ShiftWage build() {
             return new ShiftWage(title,
                 hourlyRate);

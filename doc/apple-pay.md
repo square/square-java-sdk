@@ -22,8 +22,7 @@ To learn more about Apple Pay on Web see the Apple Pay section in the
 
 ```java
 CompletableFuture<RegisterDomainResponse> registerDomainAsync(
-    final RegisterDomainRequest body
-)
+    final RegisterDomainRequest body)
 ```
 
 ### Parameters

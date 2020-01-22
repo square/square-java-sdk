@@ -5,8 +5,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderMoneyAmounts type.
+ */
 public class OrderMoneyAmounts {
 
+    /**
+     * Initialization constructor.
+     * @param totalMoney
+     * @param taxMoney
+     * @param discountMoney
+     * @param tipMoney
+     * @param serviceChargeMoney
+     */
     @JsonCreator
     public OrderMoneyAmounts(
             @JsonProperty("total_money") Money totalMoney,
@@ -26,27 +38,6 @@ public class OrderMoneyAmounts {
     private final Money discountMoney;
     private final Money tipMoney;
     private final Money serviceChargeMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(totalMoney, taxMoney, discountMoney, tipMoney, serviceChargeMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderMoneyAmounts)) {
-            return false;
-        }
-        OrderMoneyAmounts orderMoneyAmounts = (OrderMoneyAmounts) o;
-        return Objects.equals(totalMoney, orderMoneyAmounts.totalMoney) &&
-            Objects.equals(taxMoney, orderMoneyAmounts.taxMoney) &&
-            Objects.equals(discountMoney, orderMoneyAmounts.discountMoney) &&
-            Objects.equals(tipMoney, orderMoneyAmounts.tipMoney) &&
-            Objects.equals(serviceChargeMoney, orderMoneyAmounts.serviceChargeMoney);
-    }
-
     /**
      * Getter for TotalMoney.
      * Represents an amount of money. `Money` fields can be signed or unsigned.
@@ -57,7 +48,7 @@ public class OrderMoneyAmounts {
      * for more information.
      */
     @JsonGetter("total_money")
-    public Money getTotalMoney() { 
+    public Money getTotalMoney() {
         return this.totalMoney;
     }
 
@@ -71,7 +62,7 @@ public class OrderMoneyAmounts {
      * for more information.
      */
     @JsonGetter("tax_money")
-    public Money getTaxMoney() { 
+    public Money getTaxMoney() {
         return this.taxMoney;
     }
 
@@ -85,7 +76,7 @@ public class OrderMoneyAmounts {
      * for more information.
      */
     @JsonGetter("discount_money")
-    public Money getDiscountMoney() { 
+    public Money getDiscountMoney() {
         return this.discountMoney;
     }
 
@@ -99,7 +90,7 @@ public class OrderMoneyAmounts {
      * for more information.
      */
     @JsonGetter("tip_money")
-    public Money getTipMoney() { 
+    public Money getTipMoney() {
         return this.tipMoney;
     }
 
@@ -113,11 +104,37 @@ public class OrderMoneyAmounts {
      * for more information.
      */
     @JsonGetter("service_charge_money")
-    public Money getServiceChargeMoney() { 
+    public Money getServiceChargeMoney() {
         return this.serviceChargeMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalMoney, taxMoney, discountMoney, tipMoney, serviceChargeMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderMoneyAmounts)) {
+            return false;
+        }
+        OrderMoneyAmounts orderMoneyAmounts = (OrderMoneyAmounts) obj;
+        return Objects.equals(totalMoney, orderMoneyAmounts.totalMoney) &&
+            Objects.equals(taxMoney, orderMoneyAmounts.taxMoney) &&
+            Objects.equals(discountMoney, orderMoneyAmounts.discountMoney) &&
+            Objects.equals(tipMoney, orderMoneyAmounts.tipMoney) &&
+            Objects.equals(serviceChargeMoney, orderMoneyAmounts.serviceChargeMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderMoneyAmounts.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderMoneyAmounts.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .totalMoney(getTotalMoney())
@@ -128,6 +145,9 @@ public class OrderMoneyAmounts {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderMoneyAmounts}
+     */
     public static class Builder {
         private Money totalMoney;
         private Money taxMoney;
@@ -135,29 +155,63 @@ public class OrderMoneyAmounts {
         private Money tipMoney;
         private Money serviceChargeMoney;
 
-        public Builder() { }
-
-        public Builder totalMoney(Money value) {
-            totalMoney = value;
-            return this;
-        }
-        public Builder taxMoney(Money value) {
-            taxMoney = value;
-            return this;
-        }
-        public Builder discountMoney(Money value) {
-            discountMoney = value;
-            return this;
-        }
-        public Builder tipMoney(Money value) {
-            tipMoney = value;
-            return this;
-        }
-        public Builder serviceChargeMoney(Money value) {
-            serviceChargeMoney = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(Money totalMoney) {
+            this.totalMoney = totalMoney;
+            return this;
+        }
+        /**
+         * Setter for taxMoney
+         * @param taxMoney
+         * @return Builder
+         */
+        public Builder taxMoney(Money taxMoney) {
+            this.taxMoney = taxMoney;
+            return this;
+        }
+        /**
+         * Setter for discountMoney
+         * @param discountMoney
+         * @return Builder
+         */
+        public Builder discountMoney(Money discountMoney) {
+            this.discountMoney = discountMoney;
+            return this;
+        }
+        /**
+         * Setter for tipMoney
+         * @param tipMoney
+         * @return Builder
+         */
+        public Builder tipMoney(Money tipMoney) {
+            this.tipMoney = tipMoney;
+            return this;
+        }
+        /**
+         * Setter for serviceChargeMoney
+         * @param serviceChargeMoney
+         * @return Builder
+         */
+        public Builder serviceChargeMoney(Money serviceChargeMoney) {
+            this.serviceChargeMoney = serviceChargeMoney;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderMoneyAmounts} object using the set fields.
+         * @return {@link OrderMoneyAmounts}
+         */
         public OrderMoneyAmounts build() {
             return new OrderMoneyAmounts(totalMoney,
                 taxMoney,

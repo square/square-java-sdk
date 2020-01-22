@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogImage type.
+ */
 public class CatalogImage {
 
+    /**
+     * Initialization constructor.
+     * @param name
+     * @param url
+     * @param caption
+     */
     @JsonCreator
     public CatalogImage(
             @JsonProperty("name") String name,
@@ -20,32 +30,13 @@ public class CatalogImage {
     private final String name;
     private final String url;
     private final String caption;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, url, caption);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogImage)) {
-            return false;
-        }
-        CatalogImage catalogImage = (CatalogImage) o;
-        return Objects.equals(name, catalogImage.name) &&
-            Objects.equals(url, catalogImage.url) &&
-            Objects.equals(caption, catalogImage.caption);
-    }
-
     /**
      * Getter for Name.
      * The internal name of this image. Identifies this image in calls to the
      * Connect APIs.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -55,7 +46,7 @@ public class CatalogImage {
      * to the CreateCatalogImage endpoint.
      */
     @JsonGetter("url")
-    public String getUrl() { 
+    public String getUrl() {
         return this.url;
     }
 
@@ -65,11 +56,35 @@ public class CatalogImage {
      * Square Online Store.
      */
     @JsonGetter("caption")
-    public String getCaption() { 
+    public String getCaption() {
         return this.caption;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, url, caption);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogImage)) {
+            return false;
+        }
+        CatalogImage catalogImage = (CatalogImage) obj;
+        return Objects.equals(name, catalogImage.name) &&
+            Objects.equals(url, catalogImage.url) &&
+            Objects.equals(caption, catalogImage.caption);
+    }
+
+    /**
+     * Builds a new {@link CatalogImage.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogImage.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
@@ -78,26 +93,53 @@ public class CatalogImage {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogImage}
+     */
     public static class Builder {
         private String name;
         private String url;
         private String caption;
 
-        public Builder() { }
-
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder url(String value) {
-            url = value;
-            return this;
-        }
-        public Builder caption(String value) {
-            caption = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for url
+         * @param url
+         * @return Builder
+         */
+        public Builder url(String url) {
+            this.url = url;
+            return this;
+        }
+        /**
+         * Setter for caption
+         * @param caption
+         * @return Builder
+         */
+        public Builder caption(String caption) {
+            this.caption = caption;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogImage} object using the set fields.
+         * @return {@link CatalogImage}
+         */
         public CatalogImage build() {
             return new CatalogImage(name,
                 url,

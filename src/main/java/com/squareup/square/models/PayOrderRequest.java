@@ -1,13 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for PayOrderRequest type.
+ */
 public class PayOrderRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param orderVersion
+     * @param paymentIds
+     */
     @JsonCreator
     public PayOrderRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -21,25 +31,6 @@ public class PayOrderRequest {
     private final String idempotencyKey;
     private final Integer orderVersion;
     private final List<String> paymentIds;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, orderVersion, paymentIds);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof PayOrderRequest)) {
-            return false;
-        }
-        PayOrderRequest payOrderRequest = (PayOrderRequest) o;
-        return Objects.equals(idempotencyKey, payOrderRequest.idempotencyKey) &&
-            Objects.equals(orderVersion, payOrderRequest.orderVersion) &&
-            Objects.equals(paymentIds, payOrderRequest.paymentIds);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A value you specify that uniquely identifies this request among requests you've sent. If
@@ -48,7 +39,7 @@ public class PayOrderRequest {
      * See [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -57,7 +48,7 @@ public class PayOrderRequest {
      * The version of the order being paid. If not supplied, the latest version will be paid.
      */
     @JsonGetter("order_version")
-    public Integer getOrderVersion() { 
+    public Integer getOrderVersion() {
         return this.orderVersion;
     }
 
@@ -65,11 +56,35 @@ public class PayOrderRequest {
      * Getter for PaymentIds.
      */
     @JsonGetter("payment_ids")
-    public List<String> getPaymentIds() { 
+    public List<String> getPaymentIds() {
         return this.paymentIds;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, orderVersion, paymentIds);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof PayOrderRequest)) {
+            return false;
+        }
+        PayOrderRequest payOrderRequest = (PayOrderRequest) obj;
+        return Objects.equals(idempotencyKey, payOrderRequest.idempotencyKey) &&
+            Objects.equals(orderVersion, payOrderRequest.orderVersion) &&
+            Objects.equals(paymentIds, payOrderRequest.paymentIds);
+    }
+
+    /**
+     * Builds a new {@link PayOrderRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link PayOrderRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
             .orderVersion(getOrderVersion())
@@ -77,28 +92,53 @@ public class PayOrderRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link PayOrderRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private Integer orderVersion;
         private List<String> paymentIds;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder orderVersion(Integer value) {
-            orderVersion = value;
+        /**
+         * Setter for orderVersion
+         * @param orderVersion
+         * @return Builder
+         */
+        public Builder orderVersion(Integer orderVersion) {
+            this.orderVersion = orderVersion;
             return this;
         }
-        public Builder paymentIds(List<String> value) {
-            paymentIds = value;
+        /**
+         * Setter for paymentIds
+         * @param paymentIds
+         * @return Builder
+         */
+        public Builder paymentIds(List<String> paymentIds) {
+            this.paymentIds = paymentIds;
             return this;
         }
 
+        /**
+         * Builds a new {@link PayOrderRequest} object using the set fields.
+         * @return {@link PayOrderRequest}
+         */
         public PayOrderRequest build() {
             return new PayOrderRequest(idempotencyKey,
                 orderVersion,

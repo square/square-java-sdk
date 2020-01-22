@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for CreateBreakTypeResponse type.
+ */
 public class CreateBreakTypeResponse {
 
+    /**
+     * Initialization constructor.
+     * @param breakType
+     * @param errors
+     */
     @JsonCreator
     public CreateBreakTypeResponse(
             @JsonProperty("break_type") BreakType breakType,
@@ -21,24 +30,6 @@ public class CreateBreakTypeResponse {
     private final BreakType breakType;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(breakType, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateBreakTypeResponse)) {
-            return false;
-        }
-        CreateBreakTypeResponse createBreakTypeResponse = (CreateBreakTypeResponse) o;
-        return Objects.equals(breakType, createBreakTypeResponse.breakType) &&
-            Objects.equals(errors, createBreakTypeResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -49,7 +40,7 @@ public class CreateBreakTypeResponse {
      * instances on a `Shift`.
      */
     @JsonGetter("break_type")
-    public BreakType getBreakType() { 
+    public BreakType getBreakType() {
         return this.breakType;
     }
 
@@ -58,11 +49,34 @@ public class CreateBreakTypeResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(breakType, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateBreakTypeResponse)) {
+            return false;
+        }
+        CreateBreakTypeResponse createBreakTypeResponse = (CreateBreakTypeResponse) obj;
+        return Objects.equals(breakType, createBreakTypeResponse.breakType) &&
+            Objects.equals(errors, createBreakTypeResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link CreateBreakTypeResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateBreakTypeResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .breakType(getBreakType())
@@ -70,26 +84,53 @@ public class CreateBreakTypeResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateBreakTypeResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private BreakType breakType;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder breakType(BreakType value) {
-            breakType = value;
+        /**
+         * Setter for breakType
+         * @param breakType
+         * @return Builder
+         */
+        public Builder breakType(BreakType breakType) {
+            this.breakType = breakType;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateBreakTypeResponse} object using the set fields.
+         * @return {@link CreateBreakTypeResponse}
+         */
         public CreateBreakTypeResponse build() {
             CreateBreakTypeResponse model = new CreateBreakTypeResponse(breakType,
                 errors);

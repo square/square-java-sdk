@@ -2,6 +2,9 @@ package com.squareup.square.http.request;
 
 import com.squareup.square.http.Headers;
 
+/**
+ * HTTP Request with an explicit body
+ */
 public class HttpBodyRequest extends HttpRequest {
 
     /**
@@ -19,14 +22,13 @@ public class HttpBodyRequest extends HttpRequest {
     /**
      * Create a request with explicit body
      *
-     * @param _method   The HTTP method to use. Can be PUT, POST, DELETE and PATCH
-     * @param _queryUrl The http url to create the HTTP Request. Expect a fully qualified absolute Url
-     * @param _headers  The key-value map of all http headers to be sent
-     * @param _body     The object to be sent as body after serialization
-     * @return Http request initialized with the given method, url, headers and request body
+     * @param method   The HTTP method to use. Can be PUT, POST, DELETE and PATCH
+     * @param queryUrl The http url to create the HTTP Request. Expect a fully qualified absolute Url
+     * @param headers  The key-value map of all http headers to be sent
+     * @param body     The object to be sent as body after serialization
      */
-    public HttpBodyRequest(HttpMethod _method, String _queryUrl, Headers _headers, String _body) {
-        super(_method, _queryUrl, _headers, null);
-        this.body = _body!=null ? _body : "";
+    public HttpBodyRequest(HttpMethod method, String queryUrl, Headers headers, String body) {
+        super(method, queryUrl, headers, null);
+        this.body = body!=null ? body : "";
     }
 }

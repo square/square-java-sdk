@@ -28,8 +28,7 @@ CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
     final String cursor,
     final String locationId,
     final String status,
-    final String sourceType
-)
+    final String sourceType)
 ```
 
 ### Parameters
@@ -67,8 +66,7 @@ portion of it. For more information, see
 
 ```java
 CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
-    final RefundPaymentRequest body
-)
+    final RefundPaymentRequest body)
 ```
 
 ### Parameters
@@ -90,8 +88,8 @@ Money bodyAmountMoney = new Money.Builder()
     .build();
 RefundPaymentRequest body = new RefundPaymentRequest.Builder(
         "a7e36d40-d24b-11e8-b568-0800200c9a66",
-        bodyAmountMoney)
-    .paymentId("UNOE3kv2BZwqHlJ830RCt5YCuaB")
+        bodyAmountMoney,
+        "UNOE3kv2BZwqHlJ830RCt5YCuaB")
     .build();
 
 refundsApi.refundPaymentAsync(body).thenAccept(result -> {
@@ -108,8 +106,7 @@ Retrieves a specific `Refund` using the `refund_id`.
 
 ```java
 CompletableFuture<GetPaymentRefundResponse> getPaymentRefundAsync(
-    final String refundId
-)
+    final String refundId)
 ```
 
 ### Parameters

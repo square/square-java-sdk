@@ -32,8 +32,7 @@ To learn more about the Orders API, see the
 ```java
 CompletableFuture<CreateOrderResponse> createOrderAsync(
     final String locationId,
-    final CreateOrderRequest body
-)
+    final CreateOrderRequest body)
 ```
 
 ### Parameters
@@ -71,8 +70,7 @@ If a given Order ID does not exist, the ID is ignored instead of generating an e
 ```java
 CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
     final String locationId,
-    final BatchRetrieveOrdersRequest body
-)
+    final BatchRetrieveOrdersRequest body)
 ```
 
 ### Parameters
@@ -129,8 +127,7 @@ To learn more about the Orders API, see the
 CompletableFuture<UpdateOrderResponse> updateOrderAsync(
     final String locationId,
     final String orderId,
-    final UpdateOrderRequest body
-)
+    final UpdateOrderRequest body)
 ```
 
 ### Parameters
@@ -183,8 +180,7 @@ not the time it was subsequently transmitted to Square.
 
 ```java
 CompletableFuture<SearchOrdersResponse> searchOrdersAsync(
-    final SearchOrdersRequest body
-)
+    final SearchOrdersRequest body)
 ```
 
 ### Parameters
@@ -264,8 +260,7 @@ Learn how to [pay for orders with a single payment using the Payments API](https
 ```java
 CompletableFuture<PayOrderResponse> payOrderAsync(
     final String orderId,
-    final PayOrderRequest body
-)
+    final PayOrderRequest body)
 ```
 
 ### Parameters

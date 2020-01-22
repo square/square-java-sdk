@@ -5,8 +5,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderFulfillmentShipmentDetails type.
+ */
 public class OrderFulfillmentShipmentDetails {
 
+    /**
+     * Initialization constructor.
+     * @param recipient
+     * @param carrier
+     * @param shippingNote
+     * @param shippingType
+     * @param trackingNumber
+     * @param trackingUrl
+     * @param placedAt
+     * @param inProgressAt
+     * @param packagedAt
+     * @param expectedShippedAt
+     * @param shippedAt
+     * @param canceledAt
+     * @param cancelReason
+     * @param failedAt
+     * @param failureReason
+     */
     @JsonCreator
     public OrderFulfillmentShipmentDetails(
             @JsonProperty("recipient") OrderFulfillmentRecipient recipient,
@@ -56,20 +78,172 @@ public class OrderFulfillmentShipmentDetails {
     private final String cancelReason;
     private final String failedAt;
     private final String failureReason;
+    /**
+     * Getter for Recipient.
+     * Contains information on the recipient of a fulfillment.
+     */
+    @JsonGetter("recipient")
+    public OrderFulfillmentRecipient getRecipient() {
+        return this.recipient;
+    }
 
+    /**
+     * Getter for Carrier.
+     * The shipping carrier being used to ship this fulfillment
+     * e.g. UPS, FedEx, USPS, etc.
+     */
+    @JsonGetter("carrier")
+    public String getCarrier() {
+        return this.carrier;
+    }
+
+    /**
+     * Getter for ShippingNote.
+     * A note with additional information for the shipping carrier.
+     */
+    @JsonGetter("shipping_note")
+    public String getShippingNote() {
+        return this.shippingNote;
+    }
+
+    /**
+     * Getter for ShippingType.
+     * A description of the type of shipping product purchased from the carrier.
+     * e.g. First Class, Priority, Express
+     */
+    @JsonGetter("shipping_type")
+    public String getShippingType() {
+        return this.shippingType;
+    }
+
+    /**
+     * Getter for TrackingNumber.
+     * The reference number provided by the carrier to track the shipment's progress.
+     */
+    @JsonGetter("tracking_number")
+    public String getTrackingNumber() {
+        return this.trackingNumber;
+    }
+
+    /**
+     * Getter for TrackingUrl.
+     * A link to the tracking webpage on the carrier's website.
+     */
+    @JsonGetter("tracking_url")
+    public String getTrackingUrl() {
+        return this.trackingUrl;
+    }
+
+    /**
+     * Getter for PlacedAt.
+     * The [timestamp](#workingwithdates) indicating when the shipment was
+     * requested. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("placed_at")
+    public String getPlacedAt() {
+        return this.placedAt;
+    }
+
+    /**
+     * Getter for InProgressAt.
+     * The [timestamp](#workingwithdates) indicating when this fulfillment was
+     * moved to the `RESERVED` state. Indicates that preparation of this shipment has begun.
+     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("in_progress_at")
+    public String getInProgressAt() {
+        return this.inProgressAt;
+    }
+
+    /**
+     * Getter for PackagedAt.
+     * The [timestamp](#workingwithdates) indicating when this fulfillment
+     * was moved to the `PREPARED` state. Indicates that the fulfillment is packaged.
+     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("packaged_at")
+    public String getPackagedAt() {
+        return this.packagedAt;
+    }
+
+    /**
+     * Getter for ExpectedShippedAt.
+     * The [timestamp](#workingwithdates) indicating when the shipment is
+     * expected to be delivered to the shipping carrier. Must be in RFC3339 timestamp
+     * format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("expected_shipped_at")
+    public String getExpectedShippedAt() {
+        return this.expectedShippedAt;
+    }
+
+    /**
+     * Getter for ShippedAt.
+     * The [timestamp](#workingwithdates) indicating when this fulfillment
+     * was moved to the `COMPLETED`state. Indicates that the fulfillment has been given
+     * to the shipping carrier. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("shipped_at")
+    public String getShippedAt() {
+        return this.shippedAt;
+    }
+
+    /**
+     * Getter for CanceledAt.
+     * The [timestamp](#workingwithdates) indicating the shipment was canceled.
+     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("canceled_at")
+    public String getCanceledAt() {
+        return this.canceledAt;
+    }
+
+    /**
+     * Getter for CancelReason.
+     * A description of why the shipment was canceled.
+     */
+    @JsonGetter("cancel_reason")
+    public String getCancelReason() {
+        return this.cancelReason;
+    }
+
+    /**
+     * Getter for FailedAt.
+     * The [timestamp](#workingwithdates) indicating when the shipment
+     * failed to be completed. Must be in RFC3339 timestamp format, e.g.,
+     * "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("failed_at")
+    public String getFailedAt() {
+        return this.failedAt;
+    }
+
+    /**
+     * Getter for FailureReason.
+     * A description of why the shipment failed to be completed.
+     */
+    @JsonGetter("failure_reason")
+    public String getFailureReason() {
+        return this.failureReason;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(recipient, carrier, shippingNote, shippingType, trackingNumber, trackingUrl, placedAt, inProgressAt, packagedAt, expectedShippedAt, shippedAt, canceledAt, cancelReason, failedAt, failureReason);
+        return Objects.hash(recipient, carrier, shippingNote, shippingType, trackingNumber,
+            trackingUrl, placedAt, inProgressAt, packagedAt, expectedShippedAt, shippedAt,
+            canceledAt, cancelReason, failedAt, failureReason);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof OrderFulfillmentShipmentDetails)) {
+        }
+        if(!(obj instanceof OrderFulfillmentShipmentDetails)) {
             return false;
         }
-        OrderFulfillmentShipmentDetails orderFulfillmentShipmentDetails = (OrderFulfillmentShipmentDetails) o;
+        OrderFulfillmentShipmentDetails orderFulfillmentShipmentDetails = (OrderFulfillmentShipmentDetails) obj;
         return Objects.equals(recipient, orderFulfillmentShipmentDetails.recipient) &&
             Objects.equals(carrier, orderFulfillmentShipmentDetails.carrier) &&
             Objects.equals(shippingNote, orderFulfillmentShipmentDetails.shippingNote) &&
@@ -88,155 +262,10 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
-     * Getter for Recipient.
-     * Contains information on the recipient of a fulfillment.
+     * Builds a new {@link OrderFulfillmentShipmentDetails.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderFulfillmentShipmentDetails.Builder} object
      */
-    @JsonGetter("recipient")
-    public OrderFulfillmentRecipient getRecipient() { 
-        return this.recipient;
-    }
-
-    /**
-     * Getter for Carrier.
-     * The shipping carrier being used to ship this fulfillment
-     * e.g. UPS, FedEx, USPS, etc.
-     */
-    @JsonGetter("carrier")
-    public String getCarrier() { 
-        return this.carrier;
-    }
-
-    /**
-     * Getter for ShippingNote.
-     * A note with additional information for the shipping carrier.
-     */
-    @JsonGetter("shipping_note")
-    public String getShippingNote() { 
-        return this.shippingNote;
-    }
-
-    /**
-     * Getter for ShippingType.
-     * A description of the type of shipping product purchased from the carrier.
-     * e.g. First Class, Priority, Express
-     */
-    @JsonGetter("shipping_type")
-    public String getShippingType() { 
-        return this.shippingType;
-    }
-
-    /**
-     * Getter for TrackingNumber.
-     * The reference number provided by the carrier to track the shipment's progress.
-     */
-    @JsonGetter("tracking_number")
-    public String getTrackingNumber() { 
-        return this.trackingNumber;
-    }
-
-    /**
-     * Getter for TrackingUrl.
-     * A link to the tracking webpage on the carrier's website.
-     */
-    @JsonGetter("tracking_url")
-    public String getTrackingUrl() { 
-        return this.trackingUrl;
-    }
-
-    /**
-     * Getter for PlacedAt.
-     * The [timestamp](#workingwithdates) indicating when the shipment was
-     * requested. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("placed_at")
-    public String getPlacedAt() { 
-        return this.placedAt;
-    }
-
-    /**
-     * Getter for InProgressAt.
-     * The [timestamp](#workingwithdates) indicating when this fulfillment was
-     * moved to the `RESERVED` state. Indicates that preparation of this shipment has begun.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("in_progress_at")
-    public String getInProgressAt() { 
-        return this.inProgressAt;
-    }
-
-    /**
-     * Getter for PackagedAt.
-     * The [timestamp](#workingwithdates) indicating when this fulfillment
-     * was moved to the `PREPARED` state. Indicates that the fulfillment is packaged.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("packaged_at")
-    public String getPackagedAt() { 
-        return this.packagedAt;
-    }
-
-    /**
-     * Getter for ExpectedShippedAt.
-     * The [timestamp](#workingwithdates) indicating when the shipment is
-     * expected to be delivered to the shipping carrier. Must be in RFC3339 timestamp
-     * format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("expected_shipped_at")
-    public String getExpectedShippedAt() { 
-        return this.expectedShippedAt;
-    }
-
-    /**
-     * Getter for ShippedAt.
-     * The [timestamp](#workingwithdates) indicating when this fulfillment
-     * was moved to the `COMPLETED`state. Indicates that the fulfillment has been given
-     * to the shipping carrier. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("shipped_at")
-    public String getShippedAt() { 
-        return this.shippedAt;
-    }
-
-    /**
-     * Getter for CanceledAt.
-     * The [timestamp](#workingwithdates) indicating the shipment was canceled.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("canceled_at")
-    public String getCanceledAt() { 
-        return this.canceledAt;
-    }
-
-    /**
-     * Getter for CancelReason.
-     * A description of why the shipment was canceled.
-     */
-    @JsonGetter("cancel_reason")
-    public String getCancelReason() { 
-        return this.cancelReason;
-    }
-
-    /**
-     * Getter for FailedAt.
-     * The [timestamp](#workingwithdates) indicating when the shipment
-     * failed to be completed. Must be in RFC3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("failed_at")
-    public String getFailedAt() { 
-        return this.failedAt;
-    }
-
-    /**
-     * Getter for FailureReason.
-     * A description of why the shipment failed to be completed.
-     */
-    @JsonGetter("failure_reason")
-    public String getFailureReason() { 
-        return this.failureReason;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .recipient(getRecipient())
@@ -257,6 +286,9 @@ public class OrderFulfillmentShipmentDetails {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderFulfillmentShipmentDetails}
+     */
     public static class Builder {
         private OrderFulfillmentRecipient recipient;
         private String carrier;
@@ -274,69 +306,153 @@ public class OrderFulfillmentShipmentDetails {
         private String failedAt;
         private String failureReason;
 
-        public Builder() { }
-
-        public Builder recipient(OrderFulfillmentRecipient value) {
-            recipient = value;
-            return this;
-        }
-        public Builder carrier(String value) {
-            carrier = value;
-            return this;
-        }
-        public Builder shippingNote(String value) {
-            shippingNote = value;
-            return this;
-        }
-        public Builder shippingType(String value) {
-            shippingType = value;
-            return this;
-        }
-        public Builder trackingNumber(String value) {
-            trackingNumber = value;
-            return this;
-        }
-        public Builder trackingUrl(String value) {
-            trackingUrl = value;
-            return this;
-        }
-        public Builder placedAt(String value) {
-            placedAt = value;
-            return this;
-        }
-        public Builder inProgressAt(String value) {
-            inProgressAt = value;
-            return this;
-        }
-        public Builder packagedAt(String value) {
-            packagedAt = value;
-            return this;
-        }
-        public Builder expectedShippedAt(String value) {
-            expectedShippedAt = value;
-            return this;
-        }
-        public Builder shippedAt(String value) {
-            shippedAt = value;
-            return this;
-        }
-        public Builder canceledAt(String value) {
-            canceledAt = value;
-            return this;
-        }
-        public Builder cancelReason(String value) {
-            cancelReason = value;
-            return this;
-        }
-        public Builder failedAt(String value) {
-            failedAt = value;
-            return this;
-        }
-        public Builder failureReason(String value) {
-            failureReason = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for recipient
+         * @param recipient
+         * @return Builder
+         */
+        public Builder recipient(OrderFulfillmentRecipient recipient) {
+            this.recipient = recipient;
+            return this;
+        }
+        /**
+         * Setter for carrier
+         * @param carrier
+         * @return Builder
+         */
+        public Builder carrier(String carrier) {
+            this.carrier = carrier;
+            return this;
+        }
+        /**
+         * Setter for shippingNote
+         * @param shippingNote
+         * @return Builder
+         */
+        public Builder shippingNote(String shippingNote) {
+            this.shippingNote = shippingNote;
+            return this;
+        }
+        /**
+         * Setter for shippingType
+         * @param shippingType
+         * @return Builder
+         */
+        public Builder shippingType(String shippingType) {
+            this.shippingType = shippingType;
+            return this;
+        }
+        /**
+         * Setter for trackingNumber
+         * @param trackingNumber
+         * @return Builder
+         */
+        public Builder trackingNumber(String trackingNumber) {
+            this.trackingNumber = trackingNumber;
+            return this;
+        }
+        /**
+         * Setter for trackingUrl
+         * @param trackingUrl
+         * @return Builder
+         */
+        public Builder trackingUrl(String trackingUrl) {
+            this.trackingUrl = trackingUrl;
+            return this;
+        }
+        /**
+         * Setter for placedAt
+         * @param placedAt
+         * @return Builder
+         */
+        public Builder placedAt(String placedAt) {
+            this.placedAt = placedAt;
+            return this;
+        }
+        /**
+         * Setter for inProgressAt
+         * @param inProgressAt
+         * @return Builder
+         */
+        public Builder inProgressAt(String inProgressAt) {
+            this.inProgressAt = inProgressAt;
+            return this;
+        }
+        /**
+         * Setter for packagedAt
+         * @param packagedAt
+         * @return Builder
+         */
+        public Builder packagedAt(String packagedAt) {
+            this.packagedAt = packagedAt;
+            return this;
+        }
+        /**
+         * Setter for expectedShippedAt
+         * @param expectedShippedAt
+         * @return Builder
+         */
+        public Builder expectedShippedAt(String expectedShippedAt) {
+            this.expectedShippedAt = expectedShippedAt;
+            return this;
+        }
+        /**
+         * Setter for shippedAt
+         * @param shippedAt
+         * @return Builder
+         */
+        public Builder shippedAt(String shippedAt) {
+            this.shippedAt = shippedAt;
+            return this;
+        }
+        /**
+         * Setter for canceledAt
+         * @param canceledAt
+         * @return Builder
+         */
+        public Builder canceledAt(String canceledAt) {
+            this.canceledAt = canceledAt;
+            return this;
+        }
+        /**
+         * Setter for cancelReason
+         * @param cancelReason
+         * @return Builder
+         */
+        public Builder cancelReason(String cancelReason) {
+            this.cancelReason = cancelReason;
+            return this;
+        }
+        /**
+         * Setter for failedAt
+         * @param failedAt
+         * @return Builder
+         */
+        public Builder failedAt(String failedAt) {
+            this.failedAt = failedAt;
+            return this;
+        }
+        /**
+         * Setter for failureReason
+         * @param failureReason
+         * @return Builder
+         */
+        public Builder failureReason(String failureReason) {
+            this.failureReason = failureReason;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderFulfillmentShipmentDetails} object using the set fields.
+         * @return {@link OrderFulfillmentShipmentDetails}
+         */
         public OrderFulfillmentShipmentDetails build() {
             return new OrderFulfillmentShipmentDetails(recipient,
                 carrier,

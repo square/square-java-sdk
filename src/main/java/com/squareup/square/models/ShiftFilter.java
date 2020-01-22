@@ -1,13 +1,26 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ShiftFilter type.
+ */
 public class ShiftFilter {
 
+    /**
+     * Initialization constructor.
+     * @param locationIds
+     * @param employeeIds
+     * @param status
+     * @param start
+     * @param end
+     * @param workday
+     */
     @JsonCreator
     public ShiftFilter(
             @JsonProperty("location_ids") List<String> locationIds,
@@ -30,34 +43,12 @@ public class ShiftFilter {
     private final TimeRange start;
     private final TimeRange end;
     private final ShiftWorkday workday;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(locationIds, employeeIds, status, start, end, workday);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ShiftFilter)) {
-            return false;
-        }
-        ShiftFilter shiftFilter = (ShiftFilter) o;
-        return Objects.equals(locationIds, shiftFilter.locationIds) &&
-            Objects.equals(employeeIds, shiftFilter.employeeIds) &&
-            Objects.equals(status, shiftFilter.status) &&
-            Objects.equals(start, shiftFilter.start) &&
-            Objects.equals(end, shiftFilter.end) &&
-            Objects.equals(workday, shiftFilter.workday);
-    }
-
     /**
      * Getter for LocationIds.
      * Fetch shifts for the specified location.
      */
     @JsonGetter("location_ids")
-    public List<String> getLocationIds() { 
+    public List<String> getLocationIds() {
         return this.locationIds;
     }
 
@@ -66,7 +57,7 @@ public class ShiftFilter {
      * Fetch shifts for the specified employee.
      */
     @JsonGetter("employee_ids")
-    public List<String> getEmployeeIds() { 
+    public List<String> getEmployeeIds() {
         return this.employeeIds;
     }
 
@@ -75,7 +66,7 @@ public class ShiftFilter {
      * Specifies the `status` of `Shift` records to be returned.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
@@ -88,7 +79,7 @@ public class ShiftFilter {
      * how time ranges are handled.
      */
     @JsonGetter("start")
-    public TimeRange getStart() { 
+    public TimeRange getStart() {
         return this.start;
     }
 
@@ -101,7 +92,7 @@ public class ShiftFilter {
      * how time ranges are handled.
      */
     @JsonGetter("end")
-    public TimeRange getEnd() { 
+    public TimeRange getEnd() {
         return this.end;
     }
 
@@ -111,11 +102,38 @@ public class ShiftFilter {
      * a `Shift` must start or end in before passing the filter condition.
      */
     @JsonGetter("workday")
-    public ShiftWorkday getWorkday() { 
+    public ShiftWorkday getWorkday() {
         return this.workday;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationIds, employeeIds, status, start, end, workday);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ShiftFilter)) {
+            return false;
+        }
+        ShiftFilter shiftFilter = (ShiftFilter) obj;
+        return Objects.equals(locationIds, shiftFilter.locationIds) &&
+            Objects.equals(employeeIds, shiftFilter.employeeIds) &&
+            Objects.equals(status, shiftFilter.status) &&
+            Objects.equals(start, shiftFilter.start) &&
+            Objects.equals(end, shiftFilter.end) &&
+            Objects.equals(workday, shiftFilter.workday);
+    }
+
+    /**
+     * Builds a new {@link ShiftFilter.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ShiftFilter.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .locationIds(getLocationIds())
@@ -127,6 +145,9 @@ public class ShiftFilter {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ShiftFilter}
+     */
     public static class Builder {
         private List<String> locationIds;
         private List<String> employeeIds;
@@ -135,33 +156,72 @@ public class ShiftFilter {
         private TimeRange end;
         private ShiftWorkday workday;
 
-        public Builder() { }
-
-        public Builder locationIds(List<String> value) {
-            locationIds = value;
-            return this;
-        }
-        public Builder employeeIds(List<String> value) {
-            employeeIds = value;
-            return this;
-        }
-        public Builder status(String value) {
-            status = value;
-            return this;
-        }
-        public Builder start(TimeRange value) {
-            start = value;
-            return this;
-        }
-        public Builder end(TimeRange value) {
-            end = value;
-            return this;
-        }
-        public Builder workday(ShiftWorkday value) {
-            workday = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for locationIds
+         * @param locationIds
+         * @return Builder
+         */
+        public Builder locationIds(List<String> locationIds) {
+            this.locationIds = locationIds;
+            return this;
+        }
+        /**
+         * Setter for employeeIds
+         * @param employeeIds
+         * @return Builder
+         */
+        public Builder employeeIds(List<String> employeeIds) {
+            this.employeeIds = employeeIds;
+            return this;
+        }
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+        /**
+         * Setter for start
+         * @param start
+         * @return Builder
+         */
+        public Builder start(TimeRange start) {
+            this.start = start;
+            return this;
+        }
+        /**
+         * Setter for end
+         * @param end
+         * @return Builder
+         */
+        public Builder end(TimeRange end) {
+            this.end = end;
+            return this;
+        }
+        /**
+         * Setter for workday
+         * @param workday
+         * @return Builder
+         */
+        public Builder workday(ShiftWorkday workday) {
+            this.workday = workday;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ShiftFilter} object using the set fields.
+         * @return {@link ShiftFilter}
+         */
         public ShiftFilter build() {
             return new ShiftFilter(locationIds,
                 employeeIds,

@@ -33,8 +33,7 @@ Returns a paginated list of `BreakType` instances for a business.
 CompletableFuture<ListBreakTypesResponse> listBreakTypesAsync(
     final String locationId,
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -79,8 +78,7 @@ is returned.
 
 ```java
 CompletableFuture<CreateBreakTypeResponse> createBreakTypeAsync(
-    final CreateBreakTypeRequest body
-)
+    final CreateBreakTypeRequest body)
 ```
 
 ### Parameters
@@ -123,8 +121,7 @@ A `BreakType` can be deleted even if it is referenced from a `Shift`.
 
 ```java
 CompletableFuture<DeleteBreakTypeResponse> deleteBreakTypeAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters
@@ -156,8 +153,7 @@ Returns a single `BreakType` specified by id.
 
 ```java
 CompletableFuture<GetBreakTypeResponse> getBreakTypeAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters
@@ -190,8 +186,7 @@ Updates an existing `BreakType`.
 ```java
 CompletableFuture<UpdateBreakTypeResponse> updateBreakTypeAsync(
     final String id,
-    final UpdateBreakTypeRequest body
-)
+    final UpdateBreakTypeRequest body)
 ```
 
 ### Parameters
@@ -236,8 +231,7 @@ Returns a paginated list of `EmployeeWage` instances for a business.
 CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
     final String employeeId,
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -269,8 +263,7 @@ Returns a single `EmployeeWage` specified by id.
 
 ```java
 CompletableFuture<GetEmployeeWageResponse> getEmployeeWageAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters
@@ -319,8 +312,7 @@ the `Shift.end_at`
 
 ```java
 CompletableFuture<CreateShiftResponse> createShiftAsync(
-    final CreateShiftRequest body
-)
+    final CreateShiftRequest body)
 ```
 
 ### Parameters
@@ -396,8 +388,7 @@ The list can be sorted by:
 
 ```java
 CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
-    final SearchShiftsRequest body
-)
+    final SearchShiftsRequest body)
 ```
 
 ### Parameters
@@ -447,8 +438,7 @@ Deletes a `Shift`.
 
 ```java
 CompletableFuture<DeleteShiftResponse> deleteShiftAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters
@@ -480,8 +470,7 @@ Returns a single `Shift` specified by id.
 
 ```java
 CompletableFuture<GetShiftResponse> getShiftAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters
@@ -520,8 +509,7 @@ set on each `Break`.
 ```java
 CompletableFuture<UpdateShiftResponse> updateShiftAsync(
     final String id,
-    final UpdateShiftRequest body
-)
+    final UpdateShiftRequest body)
 ```
 
 ### Parameters
@@ -588,8 +576,7 @@ Returns a list of `WorkweekConfig` instances for a business.
 ```java
 CompletableFuture<ListWorkweekConfigsResponse> listWorkweekConfigsAsync(
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -621,8 +608,7 @@ Updates a `WorkweekConfig`.
 ```java
 CompletableFuture<UpdateWorkweekConfigResponse> updateWorkweekConfigAsync(
     final String id,
-    final UpdateWorkweekConfigRequest body
-)
+    final UpdateWorkweekConfigRequest body)
 ```
 
 ### Parameters

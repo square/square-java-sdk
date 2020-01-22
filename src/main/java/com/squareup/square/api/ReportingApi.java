@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,31 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.ListAdditionalRecipientReceivableRefundsResponse;
+import com.squareup.square.models.ListAdditionalRecipientReceivablesResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class ReportingApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public ReportingApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public ReportingApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -43,15 +64,14 @@ public final class ReportingApi extends BaseApi {
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListAdditionalRecipientReceivableRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor);
-        authManagers.get("default").apply(_request);
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListAdditionalRecipientReceivableRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListAdditionalRecipientReceivableRefundsResponse(_context);
+        return handleListAdditionalRecipientReceivableRefundsResponse(context);
     }
 
     /**
@@ -73,86 +93,84 @@ public final class ReportingApi extends BaseApi {
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) {
-        return makeHttpCallAsync(() -> _buildListAdditionalRecipientReceivableRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListAdditionalRecipientReceivableRefundsResponse(_context));
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListAdditionalRecipientReceivableRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListAdditionalRecipientReceivableRefundsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listAdditionalRecipientReceivableRefunds
      */
-    private HttpRequest _buildListAdditionalRecipientReceivableRefundsRequest(
+    private HttpRequest buildListAdditionalRecipientReceivableRefundsRequest(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) {
+            final String cursor) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}/additional-recipient-receivable-refunds");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/additional-recipient-receivable-refunds");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("begin_time", beginTime);
-        _queryParameters.put("end_time", endTime);
-        _queryParameters.put("sort_order", sortOrder);
-        _queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("begin_time", beginTime);
+        queryParameters.put("end_time", endTime);
+        queryParameters.put("sort_order", sortOrder);
+        queryParameters.put("cursor", cursor);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listAdditionalRecipientReceivableRefunds
      * @return An object of type ListAdditionalRecipientReceivableRefundsResponse
      */
-    private ListAdditionalRecipientReceivableRefundsResponse _handleListAdditionalRecipientReceivableRefundsResponse(HttpContext _context)
+    private ListAdditionalRecipientReceivableRefundsResponse handleListAdditionalRecipientReceivableRefundsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListAdditionalRecipientReceivableRefundsResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListAdditionalRecipientReceivableRefundsResponse result = ApiHelper.deserialize(responseBody,
                 ListAdditionalRecipientReceivableRefundsResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -174,15 +192,14 @@ public final class ReportingApi extends BaseApi {
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListAdditionalRecipientReceivablesRequest(locationId, beginTime, endTime, sortOrder, cursor);
-        authManagers.get("default").apply(_request);
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListAdditionalRecipientReceivablesRequest(locationId, beginTime, endTime, sortOrder, cursor);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListAdditionalRecipientReceivablesResponse(_context);
+        return handleListAdditionalRecipientReceivablesResponse(context);
     }
 
     /**
@@ -204,86 +221,84 @@ public final class ReportingApi extends BaseApi {
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) {
-        return makeHttpCallAsync(() -> _buildListAdditionalRecipientReceivablesRequest(locationId, beginTime, endTime, sortOrder, cursor),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListAdditionalRecipientReceivablesResponse(_context));
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListAdditionalRecipientReceivablesRequest(locationId, beginTime, endTime, sortOrder, cursor),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListAdditionalRecipientReceivablesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listAdditionalRecipientReceivables
      */
-    private HttpRequest _buildListAdditionalRecipientReceivablesRequest(
+    private HttpRequest buildListAdditionalRecipientReceivablesRequest(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor
-    ) {
+            final String cursor) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}/additional-recipient-receivables");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/additional-recipient-receivables");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("begin_time", beginTime);
-        _queryParameters.put("end_time", endTime);
-        _queryParameters.put("sort_order", sortOrder);
-        _queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("begin_time", beginTime);
+        queryParameters.put("end_time", endTime);
+        queryParameters.put("sort_order", sortOrder);
+        queryParameters.put("cursor", cursor);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listAdditionalRecipientReceivables
      * @return An object of type ListAdditionalRecipientReceivablesResponse
      */
-    private ListAdditionalRecipientReceivablesResponse _handleListAdditionalRecipientReceivablesResponse(HttpContext _context)
+    private ListAdditionalRecipientReceivablesResponse handleListAdditionalRecipientReceivablesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListAdditionalRecipientReceivablesResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListAdditionalRecipientReceivablesResponse result = ApiHelper.deserialize(responseBody,
                 ListAdditionalRecipientReceivablesResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }
