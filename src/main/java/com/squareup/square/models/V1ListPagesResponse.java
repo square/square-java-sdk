@@ -1,13 +1,21 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1ListPagesResponse type.
+ */
 public class V1ListPagesResponse {
 
+    /**
+     * Initialization constructor.
+     * @param items
+     */
     @JsonCreator
     public V1ListPagesResponse(
             @JsonProperty("items") List<V1Page> items) {
@@ -15,48 +23,70 @@ public class V1ListPagesResponse {
     }
 
     private final List<V1Page> items;
+    /**
+     * Getter for Items.
+     */
+    @JsonGetter("items")
+    public List<V1Page> getItems() {
+        return this.items;
+    }
 
+ 
     @Override
     public int hashCode() {
         return Objects.hash(items);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1ListPagesResponse)) {
+        }
+        if(!(obj instanceof V1ListPagesResponse)) {
             return false;
         }
-        V1ListPagesResponse v1ListPagesResponse = (V1ListPagesResponse) o;
+        V1ListPagesResponse v1ListPagesResponse = (V1ListPagesResponse) obj;
         return Objects.equals(items, v1ListPagesResponse.items);
     }
 
     /**
-     * Getter for Items.
+     * Builds a new {@link V1ListPagesResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1ListPagesResponse.Builder} object
      */
-    @JsonGetter("items")
-    public List<V1Page> getItems() { 
-        return this.items;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .items(getItems());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1ListPagesResponse}
+     */
     public static class Builder {
         private List<V1Page> items;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
-        public Builder items(List<V1Page> value) {
-            items = value;
+        /**
+         * Setter for items
+         * @param items
+         * @return Builder
+         */
+        public Builder items(List<V1Page> items) {
+            this.items = items;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1ListPagesResponse} object using the set fields.
+         * @return {@link V1ListPagesResponse}
+         */
         public V1ListPagesResponse build() {
             return new V1ListPagesResponse(items);
         }

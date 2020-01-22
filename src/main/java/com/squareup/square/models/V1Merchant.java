@@ -1,14 +1,36 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Merchant type.
+ */
 public class V1Merchant {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param name
+     * @param email
+     * @param accountType
+     * @param accountCapabilities
+     * @param countryCode
+     * @param languageCode
+     * @param currencyCode
+     * @param businessName
+     * @param businessAddress
+     * @param businessPhone
+     * @param businessType
+     * @param shippingAddress
+     * @param locationDetails
+     * @param marketUrl
+     */
     @JsonCreator
     public V1Merchant(
             @JsonProperty("id") String id,
@@ -60,19 +82,160 @@ public class V1Merchant {
     private final V1MerchantLocationDetails locationDetails;
     private final String marketUrl;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The merchant account's unique identifier.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Name.
+     * The name associated with the merchant account.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for Email.
+     * The email address associated with the merchant account.
+     */
+    @JsonGetter("email")
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Getter for AccountType.
+     */
+    @JsonGetter("account_type")
+    public String getAccountType() {
+        return this.accountType;
+    }
+
+    /**
+     * Getter for AccountCapabilities.
+     * Capabilities that are enabled for the merchant's Square account. Capabilities that are not listed in this array are not enabled for the account.
+     */
+    @JsonGetter("account_capabilities")
+    public List<String> getAccountCapabilities() {
+        return this.accountCapabilities;
+    }
+
+    /**
+     * Getter for CountryCode.
+     * The country associated with the merchant account, in ISO 3166-1-alpha-2 format.
+     */
+    @JsonGetter("country_code")
+    public String getCountryCode() {
+        return this.countryCode;
+    }
+
+    /**
+     * Getter for LanguageCode.
+     * The language associated with the merchant account, in BCP 47 format.
+     */
+    @JsonGetter("language_code")
+    public String getLanguageCode() {
+        return this.languageCode;
+    }
+
+    /**
+     * Getter for CurrencyCode.
+     * The currency associated with the merchant account, in ISO 4217 format. For example, the currency code for US dollars is USD.
+     */
+    @JsonGetter("currency_code")
+    public String getCurrencyCode() {
+        return this.currencyCode;
+    }
+
+    /**
+     * Getter for BusinessName.
+     * The name of the merchant's business.
+     */
+    @JsonGetter("business_name")
+    public String getBusinessName() {
+        return this.businessName;
+    }
+
+    /**
+     * Getter for BusinessAddress.
+     * Represents a physical address.
+     */
+    @JsonGetter("business_address")
+    public Address getBusinessAddress() {
+        return this.businessAddress;
+    }
+
+    /**
+     * Getter for BusinessPhone.
+     * Represents a phone number.
+     */
+    @JsonGetter("business_phone")
+    public V1PhoneNumber getBusinessPhone() {
+        return this.businessPhone;
+    }
+
+    /**
+     * Getter for BusinessType.
+     */
+    @JsonGetter("business_type")
+    public String getBusinessType() {
+        return this.businessType;
+    }
+
+    /**
+     * Getter for ShippingAddress.
+     * Represents a physical address.
+     */
+    @JsonGetter("shipping_address")
+    public Address getShippingAddress() {
+        return this.shippingAddress;
+    }
+
+    /**
+     * Getter for LocationDetails.
+     * Additional information for a single-location account specified by its associated business account, if it has one.
+     */
+    @JsonGetter("location_details")
+    public V1MerchantLocationDetails getLocationDetails() {
+        return this.locationDetails;
+    }
+
+    /**
+     * Getter for MarketUrl.
+     * The URL of the merchant's online store.
+     */
+    @JsonGetter("market_url")
+    public String getMarketUrl() {
+        return this.marketUrl;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, accountType, accountCapabilities, countryCode, languageCode, currencyCode, businessName, businessAddress, businessPhone, businessType, shippingAddress, locationDetails, marketUrl);
+        return Objects.hash(id, name, email, accountType, accountCapabilities, countryCode,
+            languageCode, currencyCode, businessName, businessAddress, businessPhone, businessType,
+            shippingAddress, locationDetails, marketUrl);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1Merchant)) {
+        }
+        if(!(obj instanceof V1Merchant)) {
             return false;
         }
-        V1Merchant v1Merchant = (V1Merchant) o;
+        V1Merchant v1Merchant = (V1Merchant) obj;
         return Objects.equals(id, v1Merchant.id) &&
             Objects.equals(name, v1Merchant.name) &&
             Objects.equals(email, v1Merchant.email) &&
@@ -90,145 +253,11 @@ public class V1Merchant {
             Objects.equals(marketUrl, v1Merchant.marketUrl);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The merchant account's unique identifier.
+     * Builds a new {@link V1Merchant.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Merchant.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for Name.
-     * The name associated with the merchant account.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for Email.
-     * The email address associated with the merchant account.
-     */
-    @JsonGetter("email")
-    public String getEmail() { 
-        return this.email;
-    }
-
-    /**
-     * Getter for AccountType.
-     */
-    @JsonGetter("account_type")
-    public String getAccountType() { 
-        return this.accountType;
-    }
-
-    /**
-     * Getter for AccountCapabilities.
-     * Capabilities that are enabled for the merchant's Square account. Capabilities that are not listed in this array are not enabled for the account.
-     */
-    @JsonGetter("account_capabilities")
-    public List<String> getAccountCapabilities() { 
-        return this.accountCapabilities;
-    }
-
-    /**
-     * Getter for CountryCode.
-     * The country associated with the merchant account, in ISO 3166-1-alpha-2 format.
-     */
-    @JsonGetter("country_code")
-    public String getCountryCode() { 
-        return this.countryCode;
-    }
-
-    /**
-     * Getter for LanguageCode.
-     * The language associated with the merchant account, in BCP 47 format.
-     */
-    @JsonGetter("language_code")
-    public String getLanguageCode() { 
-        return this.languageCode;
-    }
-
-    /**
-     * Getter for CurrencyCode.
-     * The currency associated with the merchant account, in ISO 4217 format. For example, the currency code for US dollars is USD.
-     */
-    @JsonGetter("currency_code")
-    public String getCurrencyCode() { 
-        return this.currencyCode;
-    }
-
-    /**
-     * Getter for BusinessName.
-     * The name of the merchant's business.
-     */
-    @JsonGetter("business_name")
-    public String getBusinessName() { 
-        return this.businessName;
-    }
-
-    /**
-     * Getter for BusinessAddress.
-     * Represents a physical address.
-     */
-    @JsonGetter("business_address")
-    public Address getBusinessAddress() { 
-        return this.businessAddress;
-    }
-
-    /**
-     * Getter for BusinessPhone.
-     * Represents a phone number.
-     */
-    @JsonGetter("business_phone")
-    public V1PhoneNumber getBusinessPhone() { 
-        return this.businessPhone;
-    }
-
-    /**
-     * Getter for BusinessType.
-     */
-    @JsonGetter("business_type")
-    public String getBusinessType() { 
-        return this.businessType;
-    }
-
-    /**
-     * Getter for ShippingAddress.
-     * Represents a physical address.
-     */
-    @JsonGetter("shipping_address")
-    public Address getShippingAddress() { 
-        return this.shippingAddress;
-    }
-
-    /**
-     * Getter for LocationDetails.
-     * Additional information for a single-location account specified by its associated business account, if it has one.
-     */
-    @JsonGetter("location_details")
-    public V1MerchantLocationDetails getLocationDetails() { 
-        return this.locationDetails;
-    }
-
-    /**
-     * Getter for MarketUrl.
-     * The URL of the merchant's online store.
-     */
-    @JsonGetter("market_url")
-    public String getMarketUrl() { 
-        return this.marketUrl;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -249,6 +278,9 @@ public class V1Merchant {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Merchant}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -267,73 +299,162 @@ public class V1Merchant {
         private V1MerchantLocationDetails locationDetails;
         private String marketUrl;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder email(String value) {
-            email = value;
+        /**
+         * Setter for email
+         * @param email
+         * @return Builder
+         */
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
-        public Builder accountType(String value) {
-            accountType = value;
+        /**
+         * Setter for accountType
+         * @param accountType
+         * @return Builder
+         */
+        public Builder accountType(String accountType) {
+            this.accountType = accountType;
             return this;
         }
-        public Builder accountCapabilities(List<String> value) {
-            accountCapabilities = value;
+        /**
+         * Setter for accountCapabilities
+         * @param accountCapabilities
+         * @return Builder
+         */
+        public Builder accountCapabilities(List<String> accountCapabilities) {
+            this.accountCapabilities = accountCapabilities;
             return this;
         }
-        public Builder countryCode(String value) {
-            countryCode = value;
+        /**
+         * Setter for countryCode
+         * @param countryCode
+         * @return Builder
+         */
+        public Builder countryCode(String countryCode) {
+            this.countryCode = countryCode;
             return this;
         }
-        public Builder languageCode(String value) {
-            languageCode = value;
+        /**
+         * Setter for languageCode
+         * @param languageCode
+         * @return Builder
+         */
+        public Builder languageCode(String languageCode) {
+            this.languageCode = languageCode;
             return this;
         }
-        public Builder currencyCode(String value) {
-            currencyCode = value;
+        /**
+         * Setter for currencyCode
+         * @param currencyCode
+         * @return Builder
+         */
+        public Builder currencyCode(String currencyCode) {
+            this.currencyCode = currencyCode;
             return this;
         }
-        public Builder businessName(String value) {
-            businessName = value;
+        /**
+         * Setter for businessName
+         * @param businessName
+         * @return Builder
+         */
+        public Builder businessName(String businessName) {
+            this.businessName = businessName;
             return this;
         }
-        public Builder businessAddress(Address value) {
-            businessAddress = value;
+        /**
+         * Setter for businessAddress
+         * @param businessAddress
+         * @return Builder
+         */
+        public Builder businessAddress(Address businessAddress) {
+            this.businessAddress = businessAddress;
             return this;
         }
-        public Builder businessPhone(V1PhoneNumber value) {
-            businessPhone = value;
+        /**
+         * Setter for businessPhone
+         * @param businessPhone
+         * @return Builder
+         */
+        public Builder businessPhone(V1PhoneNumber businessPhone) {
+            this.businessPhone = businessPhone;
             return this;
         }
-        public Builder businessType(String value) {
-            businessType = value;
+        /**
+         * Setter for businessType
+         * @param businessType
+         * @return Builder
+         */
+        public Builder businessType(String businessType) {
+            this.businessType = businessType;
             return this;
         }
-        public Builder shippingAddress(Address value) {
-            shippingAddress = value;
+        /**
+         * Setter for shippingAddress
+         * @param shippingAddress
+         * @return Builder
+         */
+        public Builder shippingAddress(Address shippingAddress) {
+            this.shippingAddress = shippingAddress;
             return this;
         }
-        public Builder locationDetails(V1MerchantLocationDetails value) {
-            locationDetails = value;
+        /**
+         * Setter for locationDetails
+         * @param locationDetails
+         * @return Builder
+         */
+        public Builder locationDetails(V1MerchantLocationDetails locationDetails) {
+            this.locationDetails = locationDetails;
             return this;
         }
-        public Builder marketUrl(String value) {
-            marketUrl = value;
+        /**
+         * Setter for marketUrl
+         * @param marketUrl
+         * @return Builder
+         */
+        public Builder marketUrl(String marketUrl) {
+            this.marketUrl = marketUrl;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Merchant} object using the set fields.
+         * @return {@link V1Merchant}
+         */
         public V1Merchant build() {
             V1Merchant model = new V1Merchant(id,
                 name,

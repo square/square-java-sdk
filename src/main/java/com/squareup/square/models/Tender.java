@@ -1,13 +1,34 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Tender type.
+ */
 public class Tender {
 
+    /**
+     * Initialization constructor.
+     * @param type
+     * @param id
+     * @param locationId
+     * @param transactionId
+     * @param createdAt
+     * @param note
+     * @param amountMoney
+     * @param tipMoney
+     * @param processingFeeMoney
+     * @param customerId
+     * @param cardDetails
+     * @param cashDetails
+     * @param additionalRecipients
+     * @param paymentId
+     */
     @JsonCreator
     public Tender(
             @JsonProperty("type") String type,
@@ -54,42 +75,12 @@ public class Tender {
     private final TenderCashDetails cashDetails;
     private final List<AdditionalRecipient> additionalRecipients;
     private final String paymentId;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, id, locationId, transactionId, createdAt, note, amountMoney, tipMoney, processingFeeMoney, customerId, cardDetails, cashDetails, additionalRecipients, paymentId);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Tender)) {
-            return false;
-        }
-        Tender tender = (Tender) o;
-        return Objects.equals(type, tender.type) &&
-            Objects.equals(id, tender.id) &&
-            Objects.equals(locationId, tender.locationId) &&
-            Objects.equals(transactionId, tender.transactionId) &&
-            Objects.equals(createdAt, tender.createdAt) &&
-            Objects.equals(note, tender.note) &&
-            Objects.equals(amountMoney, tender.amountMoney) &&
-            Objects.equals(tipMoney, tender.tipMoney) &&
-            Objects.equals(processingFeeMoney, tender.processingFeeMoney) &&
-            Objects.equals(customerId, tender.customerId) &&
-            Objects.equals(cardDetails, tender.cardDetails) &&
-            Objects.equals(cashDetails, tender.cashDetails) &&
-            Objects.equals(additionalRecipients, tender.additionalRecipients) &&
-            Objects.equals(paymentId, tender.paymentId);
-    }
-
     /**
      * Getter for Id.
      * The tender's unique ID.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -98,7 +89,7 @@ public class Tender {
      * The ID of the transaction's associated location.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -107,7 +98,7 @@ public class Tender {
      * The ID of the tender's associated transaction.
      */
     @JsonGetter("transaction_id")
-    public String getTransactionId() { 
+    public String getTransactionId() {
         return this.transactionId;
     }
 
@@ -116,7 +107,7 @@ public class Tender {
      * The time when the tender was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() { 
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -125,7 +116,7 @@ public class Tender {
      * An optional note associated with the tender at the time of payment.
      */
     @JsonGetter("note")
-    public String getNote() { 
+    public String getNote() {
         return this.note;
     }
 
@@ -139,7 +130,7 @@ public class Tender {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -153,7 +144,7 @@ public class Tender {
      * for more information.
      */
     @JsonGetter("tip_money")
-    public Money getTipMoney() { 
+    public Money getTipMoney() {
         return this.tipMoney;
     }
 
@@ -167,7 +158,7 @@ public class Tender {
      * for more information.
      */
     @JsonGetter("processing_fee_money")
-    public Money getProcessingFeeMoney() { 
+    public Money getProcessingFeeMoney() {
         return this.processingFeeMoney;
     }
 
@@ -177,7 +168,7 @@ public class Tender {
      * this is the ID of the associated customer.
      */
     @JsonGetter("customer_id")
-    public String getCustomerId() { 
+    public String getCustomerId() {
         return this.customerId;
     }
 
@@ -186,7 +177,7 @@ public class Tender {
      * Indicates a tender's type.
      */
     @JsonGetter("type")
-    public String getType() { 
+    public String getType() {
         return this.type;
     }
 
@@ -195,7 +186,7 @@ public class Tender {
      * Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD`
      */
     @JsonGetter("card_details")
-    public TenderCardDetails getCardDetails() { 
+    public TenderCardDetails getCardDetails() {
         return this.cardDetails;
     }
 
@@ -204,7 +195,7 @@ public class Tender {
      * Represents the details of a tender with `type` `CASH`.
      */
     @JsonGetter("cash_details")
-    public TenderCashDetails getCashDetails() { 
+    public TenderCashDetails getCashDetails() {
         return this.cashDetails;
     }
 
@@ -214,7 +205,7 @@ public class Tender {
      * For example, fees assessed on the purchase by a third party integration.
      */
     @JsonGetter("additional_recipients")
-    public List<AdditionalRecipient> getAdditionalRecipients() { 
+    public List<AdditionalRecipient> getAdditionalRecipients() {
         return this.additionalRecipients;
     }
 
@@ -224,11 +215,48 @@ public class Tender {
      * This value is only present for payments created with the v2 Payments API.
      */
     @JsonGetter("payment_id")
-    public String getPaymentId() { 
+    public String getPaymentId() {
         return this.paymentId;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, locationId, transactionId, createdAt, note, amountMoney, tipMoney,
+            processingFeeMoney, customerId, type, cardDetails, cashDetails, additionalRecipients,
+            paymentId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Tender)) {
+            return false;
+        }
+        Tender tender = (Tender) obj;
+        return Objects.equals(id, tender.id) &&
+            Objects.equals(locationId, tender.locationId) &&
+            Objects.equals(transactionId, tender.transactionId) &&
+            Objects.equals(createdAt, tender.createdAt) &&
+            Objects.equals(note, tender.note) &&
+            Objects.equals(amountMoney, tender.amountMoney) &&
+            Objects.equals(tipMoney, tender.tipMoney) &&
+            Objects.equals(processingFeeMoney, tender.processingFeeMoney) &&
+            Objects.equals(customerId, tender.customerId) &&
+            Objects.equals(type, tender.type) &&
+            Objects.equals(cardDetails, tender.cardDetails) &&
+            Objects.equals(cashDetails, tender.cashDetails) &&
+            Objects.equals(additionalRecipients, tender.additionalRecipients) &&
+            Objects.equals(paymentId, tender.paymentId);
+    }
+
+    /**
+     * Builds a new {@link Tender.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Tender.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(type)
             .id(getId())
@@ -247,6 +275,9 @@ public class Tender {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Tender}
+     */
     public static class Builder {
         private String type;
         private String id;
@@ -263,67 +294,144 @@ public class Tender {
         private List<AdditionalRecipient> additionalRecipients;
         private String paymentId;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String type) {
             this.type = type;
         }
 
-        public Builder type(String value) {
-            type = value;
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder locationId(String value) {
-            locationId = value;
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
-        public Builder transactionId(String value) {
-            transactionId = value;
+        /**
+         * Setter for transactionId
+         * @param transactionId
+         * @return Builder
+         */
+        public Builder transactionId(String transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder note(String value) {
-            note = value;
+        /**
+         * Setter for note
+         * @param note
+         * @return Builder
+         */
+        public Builder note(String note) {
+            this.note = note;
             return this;
         }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder tipMoney(Money value) {
-            tipMoney = value;
+        /**
+         * Setter for tipMoney
+         * @param tipMoney
+         * @return Builder
+         */
+        public Builder tipMoney(Money tipMoney) {
+            this.tipMoney = tipMoney;
             return this;
         }
-        public Builder processingFeeMoney(Money value) {
-            processingFeeMoney = value;
+        /**
+         * Setter for processingFeeMoney
+         * @param processingFeeMoney
+         * @return Builder
+         */
+        public Builder processingFeeMoney(Money processingFeeMoney) {
+            this.processingFeeMoney = processingFeeMoney;
             return this;
         }
-        public Builder customerId(String value) {
-            customerId = value;
+        /**
+         * Setter for customerId
+         * @param customerId
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = customerId;
             return this;
         }
-        public Builder cardDetails(TenderCardDetails value) {
-            cardDetails = value;
+        /**
+         * Setter for cardDetails
+         * @param cardDetails
+         * @return Builder
+         */
+        public Builder cardDetails(TenderCardDetails cardDetails) {
+            this.cardDetails = cardDetails;
             return this;
         }
-        public Builder cashDetails(TenderCashDetails value) {
-            cashDetails = value;
+        /**
+         * Setter for cashDetails
+         * @param cashDetails
+         * @return Builder
+         */
+        public Builder cashDetails(TenderCashDetails cashDetails) {
+            this.cashDetails = cashDetails;
             return this;
         }
-        public Builder additionalRecipients(List<AdditionalRecipient> value) {
-            additionalRecipients = value;
+        /**
+         * Setter for additionalRecipients
+         * @param additionalRecipients
+         * @return Builder
+         */
+        public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
+            this.additionalRecipients = additionalRecipients;
             return this;
         }
-        public Builder paymentId(String value) {
-            paymentId = value;
+        /**
+         * Setter for paymentId
+         * @param paymentId
+         * @return Builder
+         */
+        public Builder paymentId(String paymentId) {
+            this.paymentId = paymentId;
             return this;
         }
 
+        /**
+         * Builds a new {@link Tender} object using the set fields.
+         * @return {@link Tender}
+         */
         public Tender build() {
             return new Tender(type,
                 id,

@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for InventoryCount type.
+ */
 public class InventoryCount {
 
+    /**
+     * Initialization constructor.
+     * @param catalogObjectId
+     * @param catalogObjectType
+     * @param state
+     * @param locationId
+     * @param quantity
+     * @param calculatedAt
+     */
     @JsonCreator
     public InventoryCount(
             @JsonProperty("catalog_object_id") String catalogObjectId,
@@ -29,35 +42,13 @@ public class InventoryCount {
     private final String locationId;
     private final String quantity;
     private final String calculatedAt;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(catalogObjectId, catalogObjectType, state, locationId, quantity, calculatedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof InventoryCount)) {
-            return false;
-        }
-        InventoryCount inventoryCount = (InventoryCount) o;
-        return Objects.equals(catalogObjectId, inventoryCount.catalogObjectId) &&
-            Objects.equals(catalogObjectType, inventoryCount.catalogObjectType) &&
-            Objects.equals(state, inventoryCount.state) &&
-            Objects.equals(locationId, inventoryCount.locationId) &&
-            Objects.equals(quantity, inventoryCount.quantity) &&
-            Objects.equals(calculatedAt, inventoryCount.calculatedAt);
-    }
-
     /**
      * Getter for CatalogObjectId.
      * The Square generated ID of the
      * `CatalogObject` being tracked.
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -68,7 +59,7 @@ public class InventoryCount {
      * supported for the `ITEM_VARIATION` type.
      */
     @JsonGetter("catalog_object_type")
-    public String getCatalogObjectType() { 
+    public String getCatalogObjectType() {
         return this.catalogObjectType;
     }
 
@@ -77,7 +68,7 @@ public class InventoryCount {
      * Indicates the state of a tracked item quantity in the lifecycle of goods.
      */
     @JsonGetter("state")
-    public String getState() { 
+    public String getState() {
         return this.state;
     }
 
@@ -87,7 +78,7 @@ public class InventoryCount {
      * quantity of items are being tracked.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -103,7 +94,7 @@ public class InventoryCount {
      * Read [Decimal Quantities (BETA)](https://developer.squareup.com/docs/docs/inventory-api/what-it-does#decimal-quantities-beta) for more information.
      */
     @JsonGetter("quantity")
-    public String getQuantity() { 
+    public String getQuantity() {
         return this.quantity;
     }
 
@@ -114,11 +105,39 @@ public class InventoryCount {
      * on the estimated count.
      */
     @JsonGetter("calculated_at")
-    public String getCalculatedAt() { 
+    public String getCalculatedAt() {
         return this.calculatedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(catalogObjectId, catalogObjectType, state, locationId, quantity,
+            calculatedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof InventoryCount)) {
+            return false;
+        }
+        InventoryCount inventoryCount = (InventoryCount) obj;
+        return Objects.equals(catalogObjectId, inventoryCount.catalogObjectId) &&
+            Objects.equals(catalogObjectType, inventoryCount.catalogObjectType) &&
+            Objects.equals(state, inventoryCount.state) &&
+            Objects.equals(locationId, inventoryCount.locationId) &&
+            Objects.equals(quantity, inventoryCount.quantity) &&
+            Objects.equals(calculatedAt, inventoryCount.calculatedAt);
+    }
+
+    /**
+     * Builds a new {@link InventoryCount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link InventoryCount.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .catalogObjectId(getCatalogObjectId())
@@ -130,6 +149,9 @@ public class InventoryCount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link InventoryCount}
+     */
     public static class Builder {
         private String catalogObjectId;
         private String catalogObjectType;
@@ -138,33 +160,72 @@ public class InventoryCount {
         private String quantity;
         private String calculatedAt;
 
-        public Builder() { }
-
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder catalogObjectType(String value) {
-            catalogObjectType = value;
-            return this;
-        }
-        public Builder state(String value) {
-            state = value;
-            return this;
-        }
-        public Builder locationId(String value) {
-            locationId = value;
-            return this;
-        }
-        public Builder quantity(String value) {
-            quantity = value;
-            return this;
-        }
-        public Builder calculatedAt(String value) {
-            calculatedAt = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectType
+         * @param catalogObjectType
+         * @return Builder
+         */
+        public Builder catalogObjectType(String catalogObjectType) {
+            this.catalogObjectType = catalogObjectType;
+            return this;
+        }
+        /**
+         * Setter for state
+         * @param state
+         * @return Builder
+         */
+        public Builder state(String state) {
+            this.state = state;
+            return this;
+        }
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+        /**
+         * Setter for quantity
+         * @param quantity
+         * @return Builder
+         */
+        public Builder quantity(String quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+        /**
+         * Setter for calculatedAt
+         * @param calculatedAt
+         * @return Builder
+         */
+        public Builder calculatedAt(String calculatedAt) {
+            this.calculatedAt = calculatedAt;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link InventoryCount} object using the set fields.
+         * @return {@link InventoryCount}
+         */
         public InventoryCount build() {
             return new InventoryCount(catalogObjectId,
                 catalogObjectType,

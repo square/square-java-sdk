@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,35 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.CreateLocationRequest;
+import com.squareup.square.models.CreateLocationResponse;
+import com.squareup.square.models.ListLocationsResponse;
+import com.squareup.square.models.RetrieveLocationResponse;
+import com.squareup.square.models.UpdateLocationRequest;
+import com.squareup.square.models.UpdateLocationResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class LocationsApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public LocationsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public LocationsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -32,13 +57,13 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the ListLocationsResponse response from the API call
      */
     public ListLocationsResponse listLocations() throws ApiException, IOException {
-        HttpRequest _request = _buildListLocationsRequest();
-        authManagers.get("default").apply(_request);
+        HttpRequest request = buildListLocationsRequest();
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListLocationsResponse(_context);
+        return handleListLocationsResponse(context);
     }
 
     /**
@@ -49,65 +74,65 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the ListLocationsResponse response from the API call 
      */
     public CompletableFuture<ListLocationsResponse> listLocationsAsync() {
-        return makeHttpCallAsync(() -> _buildListLocationsRequest(),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListLocationsResponse(_context));
+        return makeHttpCallAsync(() -> buildListLocationsRequest(),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListLocationsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listLocations
      */
-    private HttpRequest _buildListLocationsRequest() {
+    private HttpRequest buildListLocationsRequest() {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listLocations
      * @return An object of type ListLocationsResponse
      */
-    private ListLocationsResponse _handleListLocationsResponse(HttpContext _context)
+    private ListLocationsResponse handleListLocationsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListLocationsResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListLocationsResponse result = ApiHelper.deserialize(responseBody,
                 ListLocationsResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -117,15 +142,14 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the CreateLocationResponse response from the API call
      */
     public CreateLocationResponse createLocation(
-            final CreateLocationRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateLocationRequest(body);
-        authManagers.get("default").apply(_request);
+            final CreateLocationRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreateLocationRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateLocationResponse(_context);
+        return handleCreateLocationResponse(context);
     }
 
     /**
@@ -135,71 +159,69 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the CreateLocationResponse response from the API call 
      */
     public CompletableFuture<CreateLocationResponse> createLocationAsync(
-            final CreateLocationRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateLocationRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateLocationResponse(_context));
+            final CreateLocationRequest body) {
+        return makeHttpCallAsync(() -> buildCreateLocationRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateLocationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createLocation
      */
-    private HttpRequest _buildCreateLocationRequest(
-            final CreateLocationRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreateLocationRequest(
+            final CreateLocationRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createLocation
      * @return An object of type CreateLocationResponse
      */
-    private CreateLocationResponse _handleCreateLocationResponse(HttpContext _context)
+    private CreateLocationResponse handleCreateLocationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CreateLocationResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CreateLocationResponse result = ApiHelper.deserialize(responseBody,
                 CreateLocationResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -208,15 +230,14 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the RetrieveLocationResponse response from the API call
      */
     public RetrieveLocationResponse retrieveLocation(
-            final String locationId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveLocationRequest(locationId);
-        authManagers.get("default").apply(_request);
+            final String locationId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveLocationRequest(locationId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveLocationResponse(_context);
+        return handleRetrieveLocationResponse(context);
     }
 
     /**
@@ -225,74 +246,72 @@ public final class LocationsApi extends BaseApi {
      * @return    Returns the RetrieveLocationResponse response from the API call 
      */
     public CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
-            final String locationId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveLocationRequest(locationId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveLocationResponse(_context));
+            final String locationId) {
+        return makeHttpCallAsync(() -> buildRetrieveLocationRequest(locationId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveLocationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveLocation
      */
-    private HttpRequest _buildRetrieveLocationRequest(
-            final String locationId
-    ) {
+    private HttpRequest buildRetrieveLocationRequest(
+            final String locationId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveLocation
      * @return An object of type RetrieveLocationResponse
      */
-    private RetrieveLocationResponse _handleRetrieveLocationResponse(HttpContext _context)
+    private RetrieveLocationResponse handleRetrieveLocationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RetrieveLocationResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RetrieveLocationResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveLocationResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -303,15 +322,14 @@ public final class LocationsApi extends BaseApi {
      */
     public UpdateLocationResponse updateLocation(
             final String locationId,
-            final UpdateLocationRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateLocationRequest(locationId, body);
-        authManagers.get("default").apply(_request);
+            final UpdateLocationRequest body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateLocationRequest(locationId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateLocationResponse(_context);
+        return handleUpdateLocationResponse(context);
     }
 
     /**
@@ -322,77 +340,75 @@ public final class LocationsApi extends BaseApi {
      */
     public CompletableFuture<UpdateLocationResponse> updateLocationAsync(
             final String locationId,
-            final UpdateLocationRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateLocationRequest(locationId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateLocationResponse(_context));
+            final UpdateLocationRequest body) {
+        return makeHttpCallAsync(() -> buildUpdateLocationRequest(locationId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateLocationResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateLocation
      */
-    private HttpRequest _buildUpdateLocationRequest(
+    private HttpRequest buildUpdateLocationRequest(
             final String locationId,
-            final UpdateLocationRequest body
-    ) throws JsonProcessingException {
+            final UpdateLocationRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/locations/{location_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("location_id", locationId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateLocation
      * @return An object of type UpdateLocationResponse
      */
-    private UpdateLocationResponse _handleUpdateLocationResponse(HttpContext _context)
+    private UpdateLocationResponse handleUpdateLocationResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        UpdateLocationResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        UpdateLocationResponse result = ApiHelper.deserialize(responseBody,
                 UpdateLocationResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

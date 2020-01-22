@@ -6,8 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ObtainTokenResponse type.
+ */
 public class ObtainTokenResponse {
 
+    /**
+     * Initialization constructor.
+     * @param accessToken
+     * @param tokenType
+     * @param expiresAt
+     * @param merchantId
+     * @param subscriptionId
+     * @param planId
+     * @param idToken
+     * @param refreshToken
+     */
     @JsonCreator
     public ObtainTokenResponse(
             @JsonProperty("access_token") String accessToken,
@@ -38,30 +53,6 @@ public class ObtainTokenResponse {
     private final String idToken;
     private final String refreshToken;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId, idToken, refreshToken);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ObtainTokenResponse)) {
-            return false;
-        }
-        ObtainTokenResponse obtainTokenResponse = (ObtainTokenResponse) o;
-        return Objects.equals(accessToken, obtainTokenResponse.accessToken) &&
-            Objects.equals(tokenType, obtainTokenResponse.tokenType) &&
-            Objects.equals(expiresAt, obtainTokenResponse.expiresAt) &&
-            Objects.equals(merchantId, obtainTokenResponse.merchantId) &&
-            Objects.equals(subscriptionId, obtainTokenResponse.subscriptionId) &&
-            Objects.equals(planId, obtainTokenResponse.planId) &&
-            Objects.equals(idToken, obtainTokenResponse.idToken) &&
-            Objects.equals(refreshToken, obtainTokenResponse.refreshToken);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -74,7 +65,7 @@ public class ObtainTokenResponse {
      * for more information.
      */
     @JsonGetter("access_token")
-    public String getAccessToken() { 
+    public String getAccessToken() {
         return this.accessToken;
     }
 
@@ -83,7 +74,7 @@ public class ObtainTokenResponse {
      * This value is always _bearer_.
      */
     @JsonGetter("token_type")
-    public String getTokenType() { 
+    public String getTokenType() {
         return this.tokenType;
     }
 
@@ -92,7 +83,7 @@ public class ObtainTokenResponse {
      * The date when access_token expires, in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      */
     @JsonGetter("expires_at")
-    public String getExpiresAt() { 
+    public String getExpiresAt() {
         return this.expiresAt;
     }
 
@@ -101,7 +92,7 @@ public class ObtainTokenResponse {
      * The ID of the authorizing merchant's business.
      */
     @JsonGetter("merchant_id")
-    public String getMerchantId() { 
+    public String getMerchantId() {
         return this.merchantId;
     }
 
@@ -111,7 +102,7 @@ public class ObtainTokenResponse {
      * for. Only present if the merchant signed up for a subscription during authorization.
      */
     @JsonGetter("subscription_id")
-    public String getSubscriptionId() { 
+    public String getSubscriptionId() {
         return this.subscriptionId;
     }
 
@@ -122,7 +113,7 @@ public class ObtainTokenResponse {
      * authorization.
      */
     @JsonGetter("plan_id")
-    public String getPlanId() { 
+    public String getPlanId() {
         return this.planId;
     }
 
@@ -132,7 +123,7 @@ public class ObtainTokenResponse {
      * OPENID scope is included in the authorize request.
      */
     @JsonGetter("id_token")
-    public String getIdToken() { 
+    public String getIdToken() {
         return this.idToken;
     }
 
@@ -142,11 +133,41 @@ public class ObtainTokenResponse {
      * For more information, see [OAuth access token management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
      */
     @JsonGetter("refresh_token")
-    public String getRefreshToken() { 
+    public String getRefreshToken() {
         return this.refreshToken;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId,
+            idToken, refreshToken);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ObtainTokenResponse)) {
+            return false;
+        }
+        ObtainTokenResponse obtainTokenResponse = (ObtainTokenResponse) obj;
+        return Objects.equals(accessToken, obtainTokenResponse.accessToken) &&
+            Objects.equals(tokenType, obtainTokenResponse.tokenType) &&
+            Objects.equals(expiresAt, obtainTokenResponse.expiresAt) &&
+            Objects.equals(merchantId, obtainTokenResponse.merchantId) &&
+            Objects.equals(subscriptionId, obtainTokenResponse.subscriptionId) &&
+            Objects.equals(planId, obtainTokenResponse.planId) &&
+            Objects.equals(idToken, obtainTokenResponse.idToken) &&
+            Objects.equals(refreshToken, obtainTokenResponse.refreshToken);
+    }
+
+    /**
+     * Builds a new {@link ObtainTokenResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ObtainTokenResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .accessToken(getAccessToken())
@@ -160,6 +181,9 @@ public class ObtainTokenResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ObtainTokenResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String accessToken;
@@ -171,45 +195,99 @@ public class ObtainTokenResponse {
         private String idToken;
         private String refreshToken;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder accessToken(String value) {
-            accessToken = value;
+        /**
+         * Setter for accessToken
+         * @param accessToken
+         * @return Builder
+         */
+        public Builder accessToken(String accessToken) {
+            this.accessToken = accessToken;
             return this;
         }
-        public Builder tokenType(String value) {
-            tokenType = value;
+        /**
+         * Setter for tokenType
+         * @param tokenType
+         * @return Builder
+         */
+        public Builder tokenType(String tokenType) {
+            this.tokenType = tokenType;
             return this;
         }
-        public Builder expiresAt(String value) {
-            expiresAt = value;
+        /**
+         * Setter for expiresAt
+         * @param expiresAt
+         * @return Builder
+         */
+        public Builder expiresAt(String expiresAt) {
+            this.expiresAt = expiresAt;
             return this;
         }
-        public Builder merchantId(String value) {
-            merchantId = value;
+        /**
+         * Setter for merchantId
+         * @param merchantId
+         * @return Builder
+         */
+        public Builder merchantId(String merchantId) {
+            this.merchantId = merchantId;
             return this;
         }
-        public Builder subscriptionId(String value) {
-            subscriptionId = value;
+        /**
+         * Setter for subscriptionId
+         * @param subscriptionId
+         * @return Builder
+         */
+        public Builder subscriptionId(String subscriptionId) {
+            this.subscriptionId = subscriptionId;
             return this;
         }
-        public Builder planId(String value) {
-            planId = value;
+        /**
+         * Setter for planId
+         * @param planId
+         * @return Builder
+         */
+        public Builder planId(String planId) {
+            this.planId = planId;
             return this;
         }
-        public Builder idToken(String value) {
-            idToken = value;
+        /**
+         * Setter for idToken
+         * @param idToken
+         * @return Builder
+         */
+        public Builder idToken(String idToken) {
+            this.idToken = idToken;
             return this;
         }
-        public Builder refreshToken(String value) {
-            refreshToken = value;
+        /**
+         * Setter for refreshToken
+         * @param refreshToken
+         * @return Builder
+         */
+        public Builder refreshToken(String refreshToken) {
+            this.refreshToken = refreshToken;
             return this;
         }
 
+        /**
+         * Builds a new {@link ObtainTokenResponse} object using the set fields.
+         * @return {@link ObtainTokenResponse}
+         */
         public ObtainTokenResponse build() {
             ObtainTokenResponse model = new ObtainTokenResponse(accessToken,
                 tokenType,

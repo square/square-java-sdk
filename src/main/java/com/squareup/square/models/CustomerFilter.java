@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CustomerFilter type.
+ */
 public class CustomerFilter {
 
+    /**
+     * Initialization constructor.
+     * @param creationSource
+     * @param createdAt
+     * @param updatedAt
+     */
     @JsonCreator
     public CustomerFilter(
             @JsonProperty("creation_source") CustomerCreationSourceFilter creationSource,
@@ -20,25 +30,6 @@ public class CustomerFilter {
     private final CustomerCreationSourceFilter creationSource;
     private final TimeRange createdAt;
     private final TimeRange updatedAt;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(creationSource, createdAt, updatedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CustomerFilter)) {
-            return false;
-        }
-        CustomerFilter customerFilter = (CustomerFilter) o;
-        return Objects.equals(creationSource, customerFilter.creationSource) &&
-            Objects.equals(createdAt, customerFilter.createdAt) &&
-            Objects.equals(updatedAt, customerFilter.updatedAt);
-    }
-
     /**
      * Getter for CreationSource.
      * Creation source filter.
@@ -47,7 +38,7 @@ public class CustomerFilter {
      * criteria.
      */
     @JsonGetter("creation_source")
-    public CustomerCreationSourceFilter getCreationSource() { 
+    public CustomerCreationSourceFilter getCreationSource() {
         return this.creationSource;
     }
 
@@ -60,7 +51,7 @@ public class CustomerFilter {
      * how time ranges are handled.
      */
     @JsonGetter("created_at")
-    public TimeRange getCreatedAt() { 
+    public TimeRange getCreatedAt() {
         return this.createdAt;
     }
 
@@ -73,11 +64,35 @@ public class CustomerFilter {
      * how time ranges are handled.
      */
     @JsonGetter("updated_at")
-    public TimeRange getUpdatedAt() { 
+    public TimeRange getUpdatedAt() {
         return this.updatedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(creationSource, createdAt, updatedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CustomerFilter)) {
+            return false;
+        }
+        CustomerFilter customerFilter = (CustomerFilter) obj;
+        return Objects.equals(creationSource, customerFilter.creationSource) &&
+            Objects.equals(createdAt, customerFilter.createdAt) &&
+            Objects.equals(updatedAt, customerFilter.updatedAt);
+    }
+
+    /**
+     * Builds a new {@link CustomerFilter.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CustomerFilter.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .creationSource(getCreationSource())
@@ -86,26 +101,53 @@ public class CustomerFilter {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CustomerFilter}
+     */
     public static class Builder {
         private CustomerCreationSourceFilter creationSource;
         private TimeRange createdAt;
         private TimeRange updatedAt;
 
-        public Builder() { }
-
-        public Builder creationSource(CustomerCreationSourceFilter value) {
-            creationSource = value;
-            return this;
-        }
-        public Builder createdAt(TimeRange value) {
-            createdAt = value;
-            return this;
-        }
-        public Builder updatedAt(TimeRange value) {
-            updatedAt = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for creationSource
+         * @param creationSource
+         * @return Builder
+         */
+        public Builder creationSource(CustomerCreationSourceFilter creationSource) {
+            this.creationSource = creationSource;
+            return this;
+        }
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(TimeRange createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(TimeRange updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CustomerFilter} object using the set fields.
+         * @return {@link CustomerFilter}
+         */
         public CustomerFilter build() {
             return new CustomerFilter(creationSource,
                 createdAt,

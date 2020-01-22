@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ListAdditionalRecipientReceivableRefundsResponse type.
+ */
 public class ListAdditionalRecipientReceivableRefundsResponse {
 
+    /**
+     * Initialization constructor.
+     * @param errors
+     * @param receivableRefunds
+     * @param cursor
+     */
     @JsonCreator
     public ListAdditionalRecipientReceivableRefundsResponse(
             @JsonProperty("errors") List<Error> errors,
@@ -24,25 +34,6 @@ public class ListAdditionalRecipientReceivableRefundsResponse {
     private final List<AdditionalRecipientReceivableRefund> receivableRefunds;
     private final String cursor;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(errors, receivableRefunds, cursor);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListAdditionalRecipientReceivableRefundsResponse)) {
-            return false;
-        }
-        ListAdditionalRecipientReceivableRefundsResponse listAdditionalRecipientReceivableRefundsResponse = (ListAdditionalRecipientReceivableRefundsResponse) o;
-        return Objects.equals(errors, listAdditionalRecipientReceivableRefundsResponse.errors) &&
-            Objects.equals(receivableRefunds, listAdditionalRecipientReceivableRefundsResponse.receivableRefunds) &&
-            Objects.equals(cursor, listAdditionalRecipientReceivableRefundsResponse.cursor);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class ListAdditionalRecipientReceivableRefundsResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
@@ -61,7 +52,7 @@ public class ListAdditionalRecipientReceivableRefundsResponse {
      * An array of AdditionalRecipientReceivableRefunds that match your query.
      */
     @JsonGetter("receivable_refunds")
-    public List<AdditionalRecipientReceivableRefund> getReceivableRefunds() { 
+    public List<AdditionalRecipientReceivableRefund> getReceivableRefunds() {
         return this.receivableRefunds;
     }
 
@@ -73,11 +64,35 @@ public class ListAdditionalRecipientReceivableRefundsResponse {
      * See [Paginating results](#paginatingresults) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors, receivableRefunds, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListAdditionalRecipientReceivableRefundsResponse)) {
+            return false;
+        }
+        ListAdditionalRecipientReceivableRefundsResponse listAdditionalRecipientReceivableRefundsResponse = (ListAdditionalRecipientReceivableRefundsResponse) obj;
+        return Objects.equals(errors, listAdditionalRecipientReceivableRefundsResponse.errors) &&
+            Objects.equals(receivableRefunds, listAdditionalRecipientReceivableRefundsResponse.receivableRefunds) &&
+            Objects.equals(cursor, listAdditionalRecipientReceivableRefundsResponse.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListAdditionalRecipientReceivableRefundsResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListAdditionalRecipientReceivableRefundsResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .errors(getErrors())
@@ -86,31 +101,63 @@ public class ListAdditionalRecipientReceivableRefundsResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListAdditionalRecipientReceivableRefundsResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private List<AdditionalRecipientReceivableRefund> receivableRefunds;
         private String cursor;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
-        public Builder receivableRefunds(List<AdditionalRecipientReceivableRefund> value) {
-            receivableRefunds = value;
+        /**
+         * Setter for receivableRefunds
+         * @param receivableRefunds
+         * @return Builder
+         */
+        public Builder receivableRefunds(List<AdditionalRecipientReceivableRefund> receivableRefunds) {
+            this.receivableRefunds = receivableRefunds;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListAdditionalRecipientReceivableRefundsResponse} object using the set fields.
+         * @return {@link ListAdditionalRecipientReceivableRefundsResponse}
+         */
         public ListAdditionalRecipientReceivableRefundsResponse build() {
             ListAdditionalRecipientReceivableRefundsResponse model = new ListAdditionalRecipientReceivableRefundsResponse(errors,
                 receivableRefunds,

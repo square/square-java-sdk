@@ -25,8 +25,7 @@ Replace `ACCESS_TOKEN` with a
 
 ```java
 CompletableFuture<CreateMobileAuthorizationCodeResponse> createMobileAuthorizationCodeAsync(
-    final CreateMobileAuthorizationCodeRequest body
-)
+    final CreateMobileAuthorizationCodeRequest body)
 ```
 
 ### Parameters

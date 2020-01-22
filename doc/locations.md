@@ -49,8 +49,7 @@ For more information about locations, see [Locations API Overview](https://devel
 
 ```java
 CompletableFuture<CreateLocationResponse> createLocationAsync(
-    final CreateLocationRequest body
-)
+    final CreateLocationRequest body)
 ```
 
 ### Parameters
@@ -95,8 +94,7 @@ Retrieves details of a location.
 
 ```java
 CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -129,8 +127,7 @@ Updates a location.
 ```java
 CompletableFuture<UpdateLocationResponse> updateLocationAsync(
     final String locationId,
-    final UpdateLocationRequest body
-)
+    final UpdateLocationRequest body)
 ```
 
 ### Parameters

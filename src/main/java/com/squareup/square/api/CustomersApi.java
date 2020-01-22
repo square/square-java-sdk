@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,41 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.CreateCustomerCardRequest;
+import com.squareup.square.models.CreateCustomerCardResponse;
+import com.squareup.square.models.CreateCustomerRequest;
+import com.squareup.square.models.CreateCustomerResponse;
+import com.squareup.square.models.DeleteCustomerCardResponse;
+import com.squareup.square.models.DeleteCustomerResponse;
+import com.squareup.square.models.ListCustomersResponse;
+import com.squareup.square.models.RetrieveCustomerResponse;
+import com.squareup.square.models.SearchCustomersRequest;
+import com.squareup.square.models.SearchCustomersResponse;
+import com.squareup.square.models.UpdateCustomerRequest;
+import com.squareup.square.models.UpdateCustomerResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class CustomersApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public CustomersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public CustomersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -34,15 +65,14 @@ public final class CustomersApi extends BaseApi {
     public ListCustomersResponse listCustomers(
             final String cursor,
             final String sortField,
-            final String sortOrder
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListCustomersRequest(cursor, sortField, sortOrder);
-        authManagers.get("default").apply(_request);
+            final String sortOrder) throws ApiException, IOException {
+        HttpRequest request = buildListCustomersRequest(cursor, sortField, sortOrder);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListCustomersResponse(_context);
+        return handleListCustomersResponse(context);
     }
 
     /**
@@ -55,78 +85,76 @@ public final class CustomersApi extends BaseApi {
     public CompletableFuture<ListCustomersResponse> listCustomersAsync(
             final String cursor,
             final String sortField,
-            final String sortOrder
-    ) {
-        return makeHttpCallAsync(() -> _buildListCustomersRequest(cursor, sortField, sortOrder),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListCustomersResponse(_context));
+            final String sortOrder) {
+        return makeHttpCallAsync(() -> buildListCustomersRequest(cursor, sortField, sortOrder),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListCustomersResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listCustomers
      */
-    private HttpRequest _buildListCustomersRequest(
+    private HttpRequest buildListCustomersRequest(
             final String cursor,
             final String sortField,
-            final String sortOrder
-    ) {
+            final String sortOrder) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("cursor", cursor);
-        _queryParameters.put("sort_field", sortField);
-        _queryParameters.put("sort_order", sortOrder);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("cursor", cursor);
+        queryParameters.put("sort_field", sortField);
+        queryParameters.put("sort_order", sortOrder);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listCustomers
      * @return An object of type ListCustomersResponse
      */
-    private ListCustomersResponse _handleListCustomersResponse(HttpContext _context)
+    private ListCustomersResponse handleListCustomersResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListCustomersResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListCustomersResponse result = ApiHelper.deserialize(responseBody,
                 ListCustomersResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -142,15 +170,14 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the CreateCustomerResponse response from the API call
      */
     public CreateCustomerResponse createCustomer(
-            final CreateCustomerRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateCustomerRequest(body);
-        authManagers.get("default").apply(_request);
+            final CreateCustomerRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreateCustomerRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateCustomerResponse(_context);
+        return handleCreateCustomerResponse(context);
     }
 
     /**
@@ -166,71 +193,69 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the CreateCustomerResponse response from the API call 
      */
     public CompletableFuture<CreateCustomerResponse> createCustomerAsync(
-            final CreateCustomerRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateCustomerRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateCustomerResponse(_context));
+            final CreateCustomerRequest body) {
+        return makeHttpCallAsync(() -> buildCreateCustomerRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateCustomerResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createCustomer
      */
-    private HttpRequest _buildCreateCustomerRequest(
-            final CreateCustomerRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildCreateCustomerRequest(
+            final CreateCustomerRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createCustomer
      * @return An object of type CreateCustomerResponse
      */
-    private CreateCustomerResponse _handleCreateCustomerResponse(HttpContext _context)
+    private CreateCustomerResponse handleCreateCustomerResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CreateCustomerResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CreateCustomerResponse result = ApiHelper.deserialize(responseBody,
                 CreateCustomerResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -242,15 +267,14 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the SearchCustomersResponse response from the API call
      */
     public SearchCustomersResponse searchCustomers(
-            final SearchCustomersRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildSearchCustomersRequest(body);
-        authManagers.get("default").apply(_request);
+            final SearchCustomersRequest body) throws ApiException, IOException {
+        HttpRequest request = buildSearchCustomersRequest(body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleSearchCustomersResponse(_context);
+        return handleSearchCustomersResponse(context);
     }
 
     /**
@@ -262,71 +286,69 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the SearchCustomersResponse response from the API call 
      */
     public CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
-            final SearchCustomersRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildSearchCustomersRequest(body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleSearchCustomersResponse(_context));
+            final SearchCustomersRequest body) {
+        return makeHttpCallAsync(() -> buildSearchCustomersRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleSearchCustomersResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for searchCustomers
      */
-    private HttpRequest _buildSearchCustomersRequest(
-            final SearchCustomersRequest body
-    ) throws JsonProcessingException {
+    private HttpRequest buildSearchCustomersRequest(
+            final SearchCustomersRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/search");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/search");
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for searchCustomers
      * @return An object of type SearchCustomersResponse
      */
-    private SearchCustomersResponse _handleSearchCustomersResponse(HttpContext _context)
+    private SearchCustomersResponse handleSearchCustomersResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        SearchCustomersResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        SearchCustomersResponse result = ApiHelper.deserialize(responseBody,
                 SearchCustomersResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -337,15 +359,14 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the DeleteCustomerResponse response from the API call
      */
     public DeleteCustomerResponse deleteCustomer(
-            final String customerId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteCustomerRequest(customerId);
-        authManagers.get("default").apply(_request);
+            final String customerId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteCustomerRequest(customerId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteCustomerResponse(_context);
+        return handleDeleteCustomerResponse(context);
     }
 
     /**
@@ -356,74 +377,72 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the DeleteCustomerResponse response from the API call 
      */
     public CompletableFuture<DeleteCustomerResponse> deleteCustomerAsync(
-            final String customerId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteCustomerRequest(customerId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteCustomerResponse(_context));
+            final String customerId) {
+        return makeHttpCallAsync(() -> buildDeleteCustomerRequest(customerId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteCustomerResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteCustomer
      */
-    private HttpRequest _buildDeleteCustomerRequest(
-            final String customerId
-    ) {
+    private HttpRequest buildDeleteCustomerRequest(
+            final String customerId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/{customer_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("customer_id", customerId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteCustomer
      * @return An object of type DeleteCustomerResponse
      */
-    private DeleteCustomerResponse _handleDeleteCustomerResponse(HttpContext _context)
+    private DeleteCustomerResponse handleDeleteCustomerResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        DeleteCustomerResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        DeleteCustomerResponse result = ApiHelper.deserialize(responseBody,
                 DeleteCustomerResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -432,15 +451,14 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the RetrieveCustomerResponse response from the API call
      */
     public RetrieveCustomerResponse retrieveCustomer(
-            final String customerId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveCustomerRequest(customerId);
-        authManagers.get("default").apply(_request);
+            final String customerId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveCustomerRequest(customerId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveCustomerResponse(_context);
+        return handleRetrieveCustomerResponse(context);
     }
 
     /**
@@ -449,74 +467,72 @@ public final class CustomersApi extends BaseApi {
      * @return    Returns the RetrieveCustomerResponse response from the API call 
      */
     public CompletableFuture<RetrieveCustomerResponse> retrieveCustomerAsync(
-            final String customerId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveCustomerRequest(customerId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveCustomerResponse(_context));
+            final String customerId) {
+        return makeHttpCallAsync(() -> buildRetrieveCustomerRequest(customerId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveCustomerResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveCustomer
      */
-    private HttpRequest _buildRetrieveCustomerRequest(
-            final String customerId
-    ) {
+    private HttpRequest buildRetrieveCustomerRequest(
+            final String customerId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/{customer_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("customer_id", customerId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveCustomer
      * @return An object of type RetrieveCustomerResponse
      */
-    private RetrieveCustomerResponse _handleRetrieveCustomerResponse(HttpContext _context)
+    private RetrieveCustomerResponse handleRetrieveCustomerResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RetrieveCustomerResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RetrieveCustomerResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveCustomerResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -533,15 +549,14 @@ public final class CustomersApi extends BaseApi {
      */
     public UpdateCustomerResponse updateCustomer(
             final String customerId,
-            final UpdateCustomerRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildUpdateCustomerRequest(customerId, body);
-        authManagers.get("default").apply(_request);
+            final UpdateCustomerRequest body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateCustomerRequest(customerId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleUpdateCustomerResponse(_context);
+        return handleUpdateCustomerResponse(context);
     }
 
     /**
@@ -558,77 +573,75 @@ public final class CustomersApi extends BaseApi {
      */
     public CompletableFuture<UpdateCustomerResponse> updateCustomerAsync(
             final String customerId,
-            final UpdateCustomerRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildUpdateCustomerRequest(customerId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleUpdateCustomerResponse(_context));
+            final UpdateCustomerRequest body) {
+        return makeHttpCallAsync(() -> buildUpdateCustomerRequest(customerId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateCustomerResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for updateCustomer
      */
-    private HttpRequest _buildUpdateCustomerRequest(
+    private HttpRequest buildUpdateCustomerRequest(
             final String customerId,
-            final UpdateCustomerRequest body
-    ) throws JsonProcessingException {
+            final UpdateCustomerRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/{customer_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("customer_id", customerId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for updateCustomer
      * @return An object of type UpdateCustomerResponse
      */
-    private UpdateCustomerResponse _handleUpdateCustomerResponse(HttpContext _context)
+    private UpdateCustomerResponse handleUpdateCustomerResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        UpdateCustomerResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        UpdateCustomerResponse result = ApiHelper.deserialize(responseBody,
                 UpdateCustomerResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -642,15 +655,14 @@ public final class CustomersApi extends BaseApi {
      */
     public CreateCustomerCardResponse createCustomerCard(
             final String customerId,
-            final CreateCustomerCardRequest body
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildCreateCustomerCardRequest(customerId, body);
-        authManagers.get("default").apply(_request);
+            final CreateCustomerCardRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreateCustomerCardRequest(customerId, body);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleCreateCustomerCardResponse(_context);
+        return handleCreateCustomerCardResponse(context);
     }
 
     /**
@@ -664,77 +676,75 @@ public final class CustomersApi extends BaseApi {
      */
     public CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
             final String customerId,
-            final CreateCustomerCardRequest body
-    ) {
-        return makeHttpCallAsync(() -> _buildCreateCustomerCardRequest(customerId, body),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleCreateCustomerCardResponse(_context));
+            final CreateCustomerCardRequest body) {
+        return makeHttpCallAsync(() -> buildCreateCustomerCardRequest(customerId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleCreateCustomerCardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for createCustomerCard
      */
-    private HttpRequest _buildCreateCustomerCardRequest(
+    private HttpRequest buildCreateCustomerCardRequest(
             final String customerId,
-            final CreateCustomerCardRequest body
-    ) throws JsonProcessingException {
+            final CreateCustomerCardRequest body) throws JsonProcessingException {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/{customer_id}/cards");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}/cards");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("customer_id", customerId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("content-type", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String _bodyJson = ApiHelper.serialize(body);
-        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, _bodyJson);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for createCustomerCard
      * @return An object of type CreateCustomerCardResponse
      */
-    private CreateCustomerCardResponse _handleCreateCustomerCardResponse(HttpContext _context)
+    private CreateCustomerCardResponse handleCreateCustomerCardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        CreateCustomerCardResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        CreateCustomerCardResponse result = ApiHelper.deserialize(responseBody,
                 CreateCustomerCardResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -745,15 +755,14 @@ public final class CustomersApi extends BaseApi {
      */
     public DeleteCustomerCardResponse deleteCustomerCard(
             final String customerId,
-            final String cardId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildDeleteCustomerCardRequest(customerId, cardId);
-        authManagers.get("default").apply(_request);
+            final String cardId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteCustomerCardRequest(customerId, cardId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleDeleteCustomerCardResponse(_context);
+        return handleDeleteCustomerCardResponse(context);
     }
 
     /**
@@ -764,76 +773,74 @@ public final class CustomersApi extends BaseApi {
      */
     public CompletableFuture<DeleteCustomerCardResponse> deleteCustomerCardAsync(
             final String customerId,
-            final String cardId
-    ) {
-        return makeHttpCallAsync(() -> _buildDeleteCustomerCardRequest(customerId, cardId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleDeleteCustomerCardResponse(_context));
+            final String cardId) {
+        return makeHttpCallAsync(() -> buildDeleteCustomerCardRequest(customerId, cardId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleDeleteCustomerCardResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for deleteCustomerCard
      */
-    private HttpRequest _buildDeleteCustomerCardRequest(
+    private HttpRequest buildDeleteCustomerCardRequest(
             final String customerId,
-            final String cardId
-    ) {
+            final String cardId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/customers/{customer_id}/cards/{card_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}/cards/{card_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("customer_id", customerId);
-        _templateParameters.put("card_id", cardId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        templateParameters.put("card_id", cardId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().delete(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for deleteCustomerCard
      * @return An object of type DeleteCustomerCardResponse
      */
-    private DeleteCustomerCardResponse _handleDeleteCustomerCardResponse(HttpContext _context)
+    private DeleteCustomerCardResponse handleDeleteCustomerCardResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        DeleteCustomerCardResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        DeleteCustomerCardResponse result = ApiHelper.deserialize(responseBody,
                 DeleteCustomerCardResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

@@ -26,8 +26,7 @@ CompletableFuture<ListCashDrawerShiftsResponse> listCashDrawerShiftsAsync(
     final String beginTime,
     final String endTime,
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -66,8 +65,7 @@ RetrieveCashDrawerShiftEvents for a list of cash drawer shift events.
 ```java
 CompletableFuture<RetrieveCashDrawerShiftResponse> retrieveCashDrawerShiftAsync(
     final String locationId,
-    final String shiftId
-)
+    final String shiftId)
 ```
 
 ### Parameters
@@ -104,8 +102,7 @@ CompletableFuture<ListCashDrawerShiftEventsResponse> listCashDrawerShiftEventsAs
     final String locationId,
     final String shiftId,
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters

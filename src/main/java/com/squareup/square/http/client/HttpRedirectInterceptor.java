@@ -15,10 +15,17 @@ public class HttpRedirectInterceptor implements Interceptor {
     private static final int MAX_FOLLOW_UPS = 20;
     private boolean followSslRedirects;
 
+    /**
+     * Initialization constructor
+     * @param followSslRedirects
+     */
     public HttpRedirectInterceptor(boolean followSslRedirects) {
         this.followSslRedirects = followSslRedirects;
     }
 
+    /**
+     * @see okhttp3.Interceptor#intercept(okhttp3.Interceptor.Chain)
+     */
     @Override
     public Response intercept(Chain it) throws IOException {
         Request request = it.request();

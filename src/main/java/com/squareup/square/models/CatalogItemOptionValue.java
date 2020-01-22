@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogItemOptionValue type.
+ */
 public class CatalogItemOptionValue {
 
+    /**
+     * Initialization constructor.
+     * @param itemOptionId
+     * @param name
+     * @param description
+     * @param color
+     * @param ordinal
+     * @param itemVariationCount
+     */
     @JsonCreator
     public CatalogItemOptionValue(
             @JsonProperty("item_option_id") String itemOptionId,
@@ -29,34 +42,12 @@ public class CatalogItemOptionValue {
     private final String color;
     private final Integer ordinal;
     private final Long itemVariationCount;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemOptionId, name, description, color, ordinal, itemVariationCount);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogItemOptionValue)) {
-            return false;
-        }
-        CatalogItemOptionValue catalogItemOptionValue = (CatalogItemOptionValue) o;
-        return Objects.equals(itemOptionId, catalogItemOptionValue.itemOptionId) &&
-            Objects.equals(name, catalogItemOptionValue.name) &&
-            Objects.equals(description, catalogItemOptionValue.description) &&
-            Objects.equals(color, catalogItemOptionValue.color) &&
-            Objects.equals(ordinal, catalogItemOptionValue.ordinal) &&
-            Objects.equals(itemVariationCount, catalogItemOptionValue.itemVariationCount);
-    }
-
     /**
      * Getter for ItemOptionId.
      * Unique ID of the associated item option.
      */
     @JsonGetter("item_option_id")
-    public String getItemOptionId() { 
+    public String getItemOptionId() {
         return this.itemOptionId;
     }
 
@@ -65,7 +56,7 @@ public class CatalogItemOptionValue {
      * Name of this item option value. Searchable.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -74,7 +65,7 @@ public class CatalogItemOptionValue {
      * A human-readable description for the option value.
      */
     @JsonGetter("description")
-    public String getDescription() { 
+    public String getDescription() {
         return this.description;
     }
 
@@ -86,7 +77,7 @@ public class CatalogItemOptionValue {
      * enabled on the parent `ItemOption`.
      */
     @JsonGetter("color")
-    public String getColor() { 
+    public String getColor() {
         return this.color;
     }
 
@@ -95,7 +86,7 @@ public class CatalogItemOptionValue {
      * Determines where this option value appears in a list of option values.
      */
     @JsonGetter("ordinal")
-    public Integer getOrdinal() { 
+    public Integer getOrdinal() {
         return this.ordinal;
     }
 
@@ -108,11 +99,38 @@ public class CatalogItemOptionValue {
      * Maximum: 100 counts.
      */
     @JsonGetter("item_variation_count")
-    public Long getItemVariationCount() { 
+    public Long getItemVariationCount() {
         return this.itemVariationCount;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemOptionId, name, description, color, ordinal, itemVariationCount);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogItemOptionValue)) {
+            return false;
+        }
+        CatalogItemOptionValue catalogItemOptionValue = (CatalogItemOptionValue) obj;
+        return Objects.equals(itemOptionId, catalogItemOptionValue.itemOptionId) &&
+            Objects.equals(name, catalogItemOptionValue.name) &&
+            Objects.equals(description, catalogItemOptionValue.description) &&
+            Objects.equals(color, catalogItemOptionValue.color) &&
+            Objects.equals(ordinal, catalogItemOptionValue.ordinal) &&
+            Objects.equals(itemVariationCount, catalogItemOptionValue.itemVariationCount);
+    }
+
+    /**
+     * Builds a new {@link CatalogItemOptionValue.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogItemOptionValue.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .itemOptionId(getItemOptionId())
@@ -124,6 +142,9 @@ public class CatalogItemOptionValue {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogItemOptionValue}
+     */
     public static class Builder {
         private String itemOptionId;
         private String name;
@@ -132,33 +153,72 @@ public class CatalogItemOptionValue {
         private Integer ordinal;
         private Long itemVariationCount;
 
-        public Builder() { }
-
-        public Builder itemOptionId(String value) {
-            itemOptionId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder description(String value) {
-            description = value;
-            return this;
-        }
-        public Builder color(String value) {
-            color = value;
-            return this;
-        }
-        public Builder ordinal(Integer value) {
-            ordinal = value;
-            return this;
-        }
-        public Builder itemVariationCount(Long value) {
-            itemVariationCount = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for itemOptionId
+         * @param itemOptionId
+         * @return Builder
+         */
+        public Builder itemOptionId(String itemOptionId) {
+            this.itemOptionId = itemOptionId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for description
+         * @param description
+         * @return Builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+        /**
+         * Setter for color
+         * @param color
+         * @return Builder
+         */
+        public Builder color(String color) {
+            this.color = color;
+            return this;
+        }
+        /**
+         * Setter for ordinal
+         * @param ordinal
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = ordinal;
+            return this;
+        }
+        /**
+         * Setter for itemVariationCount
+         * @param itemVariationCount
+         * @return Builder
+         */
+        public Builder itemVariationCount(Long itemVariationCount) {
+            this.itemVariationCount = itemVariationCount;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogItemOptionValue} object using the set fields.
+         * @return {@link CatalogItemOptionValue}
+         */
         public CatalogItemOptionValue build() {
             return new CatalogItemOptionValue(itemOptionId,
                 name,

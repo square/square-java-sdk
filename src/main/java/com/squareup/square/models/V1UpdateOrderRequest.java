@@ -5,8 +5,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for V1UpdateOrderRequest type.
+ */
 public class V1UpdateOrderRequest {
 
+    /**
+     * Initialization constructor.
+     * @param action
+     * @param shippedTrackingNumber
+     * @param completedNote
+     * @param refundedNote
+     * @param canceledNote
+     */
     @JsonCreator
     public V1UpdateOrderRequest(
             @JsonProperty("action") String action,
@@ -26,32 +38,11 @@ public class V1UpdateOrderRequest {
     private final String completedNote;
     private final String refundedNote;
     private final String canceledNote;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(action, shippedTrackingNumber, completedNote, refundedNote, canceledNote);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof V1UpdateOrderRequest)) {
-            return false;
-        }
-        V1UpdateOrderRequest v1UpdateOrderRequest = (V1UpdateOrderRequest) o;
-        return Objects.equals(action, v1UpdateOrderRequest.action) &&
-            Objects.equals(shippedTrackingNumber, v1UpdateOrderRequest.shippedTrackingNumber) &&
-            Objects.equals(completedNote, v1UpdateOrderRequest.completedNote) &&
-            Objects.equals(refundedNote, v1UpdateOrderRequest.refundedNote) &&
-            Objects.equals(canceledNote, v1UpdateOrderRequest.canceledNote);
-    }
-
     /**
      * Getter for Action.
      */
     @JsonGetter("action")
-    public String getAction() { 
+    public String getAction() {
         return this.action;
     }
 
@@ -60,7 +51,7 @@ public class V1UpdateOrderRequest {
      * The tracking number of the shipment associated with the order. Only valid if action is COMPLETE.
      */
     @JsonGetter("shipped_tracking_number")
-    public String getShippedTrackingNumber() { 
+    public String getShippedTrackingNumber() {
         return this.shippedTrackingNumber;
     }
 
@@ -69,7 +60,7 @@ public class V1UpdateOrderRequest {
      * A merchant-specified note about the completion of the order. Only valid if action is COMPLETE.
      */
     @JsonGetter("completed_note")
-    public String getCompletedNote() { 
+    public String getCompletedNote() {
         return this.completedNote;
     }
 
@@ -78,7 +69,7 @@ public class V1UpdateOrderRequest {
      * A merchant-specified note about the refunding of the order. Only valid if action is REFUND.
      */
     @JsonGetter("refunded_note")
-    public String getRefundedNote() { 
+    public String getRefundedNote() {
         return this.refundedNote;
     }
 
@@ -87,11 +78,37 @@ public class V1UpdateOrderRequest {
      * A merchant-specified note about the canceling of the order. Only valid if action is CANCEL.
      */
     @JsonGetter("canceled_note")
-    public String getCanceledNote() { 
+    public String getCanceledNote() {
         return this.canceledNote;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(action, shippedTrackingNumber, completedNote, refundedNote, canceledNote);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof V1UpdateOrderRequest)) {
+            return false;
+        }
+        V1UpdateOrderRequest v1UpdateOrderRequest = (V1UpdateOrderRequest) obj;
+        return Objects.equals(action, v1UpdateOrderRequest.action) &&
+            Objects.equals(shippedTrackingNumber, v1UpdateOrderRequest.shippedTrackingNumber) &&
+            Objects.equals(completedNote, v1UpdateOrderRequest.completedNote) &&
+            Objects.equals(refundedNote, v1UpdateOrderRequest.refundedNote) &&
+            Objects.equals(canceledNote, v1UpdateOrderRequest.canceledNote);
+    }
+
+    /**
+     * Builds a new {@link V1UpdateOrderRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1UpdateOrderRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(action)
             .shippedTrackingNumber(getShippedTrackingNumber())
@@ -101,6 +118,9 @@ public class V1UpdateOrderRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1UpdateOrderRequest}
+     */
     public static class Builder {
         private String action;
         private String shippedTrackingNumber;
@@ -108,31 +128,63 @@ public class V1UpdateOrderRequest {
         private String refundedNote;
         private String canceledNote;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String action) {
             this.action = action;
         }
 
-        public Builder action(String value) {
-            action = value;
+        /**
+         * Setter for action
+         * @param action
+         * @return Builder
+         */
+        public Builder action(String action) {
+            this.action = action;
             return this;
         }
-        public Builder shippedTrackingNumber(String value) {
-            shippedTrackingNumber = value;
+        /**
+         * Setter for shippedTrackingNumber
+         * @param shippedTrackingNumber
+         * @return Builder
+         */
+        public Builder shippedTrackingNumber(String shippedTrackingNumber) {
+            this.shippedTrackingNumber = shippedTrackingNumber;
             return this;
         }
-        public Builder completedNote(String value) {
-            completedNote = value;
+        /**
+         * Setter for completedNote
+         * @param completedNote
+         * @return Builder
+         */
+        public Builder completedNote(String completedNote) {
+            this.completedNote = completedNote;
             return this;
         }
-        public Builder refundedNote(String value) {
-            refundedNote = value;
+        /**
+         * Setter for refundedNote
+         * @param refundedNote
+         * @return Builder
+         */
+        public Builder refundedNote(String refundedNote) {
+            this.refundedNote = refundedNote;
             return this;
         }
-        public Builder canceledNote(String value) {
-            canceledNote = value;
+        /**
+         * Setter for canceledNote
+         * @param canceledNote
+         * @return Builder
+         */
+        public Builder canceledNote(String canceledNote) {
+            this.canceledNote = canceledNote;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1UpdateOrderRequest} object using the set fields.
+         * @return {@link V1UpdateOrderRequest}
+         */
         public V1UpdateOrderRequest build() {
             return new V1UpdateOrderRequest(action,
                 shippedTrackingNumber,

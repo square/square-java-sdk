@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Merchant type.
+ */
 public class Merchant {
 
+    /**
+     * Initialization constructor.
+     * @param country
+     * @param id
+     * @param businessName
+     * @param languageCode
+     * @param currency
+     * @param status
+     */
     @JsonCreator
     public Merchant(
             @JsonProperty("country") String country,
@@ -29,34 +42,12 @@ public class Merchant {
     private final String languageCode;
     private final String currency;
     private final String status;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(country, id, businessName, languageCode, currency, status);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Merchant)) {
-            return false;
-        }
-        Merchant merchant = (Merchant) o;
-        return Objects.equals(country, merchant.country) &&
-            Objects.equals(id, merchant.id) &&
-            Objects.equals(businessName, merchant.businessName) &&
-            Objects.equals(languageCode, merchant.languageCode) &&
-            Objects.equals(currency, merchant.currency) &&
-            Objects.equals(status, merchant.status);
-    }
-
     /**
      * Getter for Id.
      * The Square-issued ID of the merchant.
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -65,7 +56,7 @@ public class Merchant {
      * The business name of the merchant.
      */
     @JsonGetter("business_name")
-    public String getBusinessName() { 
+    public String getBusinessName() {
         return this.businessName;
     }
 
@@ -75,7 +66,7 @@ public class Merchant {
      * Values are in [ISO 3166-1-alpha-2 format](http://www.iso.org/iso/home/standards/country_codes.htm).
      */
     @JsonGetter("country")
-    public String getCountry() { 
+    public String getCountry() {
         return this.country;
     }
 
@@ -84,7 +75,7 @@ public class Merchant {
      * The language code associated with the merchant account, in BCP 47 format.
      */
     @JsonGetter("language_code")
-    public String getLanguageCode() { 
+    public String getLanguageCode() {
         return this.languageCode;
     }
 
@@ -94,7 +85,7 @@ public class Merchant {
      * to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).
      */
     @JsonGetter("currency")
-    public String getCurrency() { 
+    public String getCurrency() {
         return this.currency;
     }
 
@@ -102,11 +93,38 @@ public class Merchant {
      * Getter for Status.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, businessName, country, languageCode, currency, status);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Merchant)) {
+            return false;
+        }
+        Merchant merchant = (Merchant) obj;
+        return Objects.equals(id, merchant.id) &&
+            Objects.equals(businessName, merchant.businessName) &&
+            Objects.equals(country, merchant.country) &&
+            Objects.equals(languageCode, merchant.languageCode) &&
+            Objects.equals(currency, merchant.currency) &&
+            Objects.equals(status, merchant.status);
+    }
+
+    /**
+     * Builds a new {@link Merchant.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Merchant.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(country)
             .id(getId())
@@ -117,6 +135,9 @@ public class Merchant {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Merchant}
+     */
     public static class Builder {
         private String country;
         private String id;
@@ -125,35 +146,72 @@ public class Merchant {
         private String currency;
         private String status;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String country) {
             this.country = country;
         }
 
-        public Builder country(String value) {
-            country = value;
+        /**
+         * Setter for country
+         * @param country
+         * @return Builder
+         */
+        public Builder country(String country) {
+            this.country = country;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder businessName(String value) {
-            businessName = value;
+        /**
+         * Setter for businessName
+         * @param businessName
+         * @return Builder
+         */
+        public Builder businessName(String businessName) {
+            this.businessName = businessName;
             return this;
         }
-        public Builder languageCode(String value) {
-            languageCode = value;
+        /**
+         * Setter for languageCode
+         * @param languageCode
+         * @return Builder
+         */
+        public Builder languageCode(String languageCode) {
+            this.languageCode = languageCode;
             return this;
         }
-        public Builder currency(String value) {
-            currency = value;
+        /**
+         * Setter for currency
+         * @param currency
+         * @return Builder
+         */
+        public Builder currency(String currency) {
+            this.currency = currency;
             return this;
         }
-        public Builder status(String value) {
-            status = value;
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
             return this;
         }
 
+        /**
+         * Builds a new {@link Merchant} object using the set fields.
+         * @return {@link Merchant}
+         */
         public Merchant build() {
             return new Merchant(country,
                 id,

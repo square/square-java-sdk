@@ -1,13 +1,33 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderReturnServiceCharge type.
+ */
 public class OrderReturnServiceCharge {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param sourceServiceChargeUid
+     * @param name
+     * @param catalogObjectId
+     * @param percentage
+     * @param amountMoney
+     * @param appliedMoney
+     * @param totalMoney
+     * @param totalTaxMoney
+     * @param calculationPhase
+     * @param taxable
+     * @param returnTaxes
+     * @param appliedTaxes
+     */
     @JsonCreator
     public OrderReturnServiceCharge(
             @JsonProperty("uid") String uid,
@@ -51,20 +71,176 @@ public class OrderReturnServiceCharge {
     private final Boolean taxable;
     private final List<OrderReturnTax> returnTaxes;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
+    /**
+     * Getter for Uid.
+     * Unique ID that identifies the return service charge only within this order.
+     */
+    @JsonGetter("uid")
+    public String getUid() {
+        return this.uid;
+    }
 
+    /**
+     * Getter for SourceServiceChargeUid.
+     * `uid` of the Service Charge from the Order containing the original
+     * charge of the service charge. `source_service_charge_uid` is `null` for
+     * unlinked returns.
+     */
+    @JsonGetter("source_service_charge_uid")
+    public String getSourceServiceChargeUid() {
+        return this.sourceServiceChargeUid;
+    }
+
+    /**
+     * Getter for Name.
+     * The name of the service charge.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for CatalogObjectId.
+     * The catalog object ID of the associated [CatalogServiceCharge](#type-catalogservicecharge).
+     */
+    @JsonGetter("catalog_object_id")
+    public String getCatalogObjectId() {
+        return this.catalogObjectId;
+    }
+
+    /**
+     * Getter for Percentage.
+     * The percentage of the service charge, as a string representation of
+     * a decimal number. For example, a value of `"7.25"` corresponds to a
+     * percentage of 7.25%.
+     * Exactly one of `percentage` or `amount_money` should be set.
+     */
+    @JsonGetter("percentage")
+    public String getPercentage() {
+        return this.percentage;
+    }
+
+    /**
+     * Getter for AmountMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("amount_money")
+    public Money getAmountMoney() {
+        return this.amountMoney;
+    }
+
+    /**
+     * Getter for AppliedMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("applied_money")
+    public Money getAppliedMoney() {
+        return this.appliedMoney;
+    }
+
+    /**
+     * Getter for TotalMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_money")
+    public Money getTotalMoney() {
+        return this.totalMoney;
+    }
+
+    /**
+     * Getter for TotalTaxMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_tax_money")
+    public Money getTotalTaxMoney() {
+        return this.totalTaxMoney;
+    }
+
+    /**
+     * Getter for CalculationPhase.
+     * Represents a phase in the process of calculating order totals.
+     * Service charges are applied __after__ the indicated phase.
+     * [Read more about how order totals are calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
+     */
+    @JsonGetter("calculation_phase")
+    public String getCalculationPhase() {
+        return this.calculationPhase;
+    }
+
+    /**
+     * Getter for Taxable.
+     * Indicates whether the surcharge can be taxed. Service charges
+     * calculated in the `TOTAL_PHASE` cannot be marked as taxable.
+     */
+    @JsonGetter("taxable")
+    public Boolean getTaxable() {
+        return this.taxable;
+    }
+
+    /**
+     * Getter for ReturnTaxes.
+     * Taxes applied to the `OrderReturnServiceCharge`. By default, return-level taxes apply to
+     * `OrderReturnServiceCharge`s calculated in the `SUBTOTAL_PHASE` if `taxable` is set to `true`.  On
+     * read or retrieve, this list includes both item-level taxes and any return-level taxes
+     * apportioned to this item.
+     * This field has been deprecated in favour of `applied_taxes`.
+     */
+    @JsonGetter("return_taxes")
+    public List<OrderReturnTax> getReturnTaxes() {
+        return this.returnTaxes;
+    }
+
+    /**
+     * Getter for AppliedTaxes.
+     * The list of references to `OrderReturnTax` entities applied to the
+     * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid`
+     * that references the `uid` of a top-level `OrderReturnTax` that is being
+     * applied to the `OrderReturnServiceCharge`. On reads, the amount applied is
+     * populated.
+     */
+    @JsonGetter("applied_taxes")
+    public List<OrderLineItemAppliedTax> getAppliedTaxes() {
+        return this.appliedTaxes;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, percentage, amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable, returnTaxes, appliedTaxes);
+        return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, percentage,
+            amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
+            returnTaxes, appliedTaxes);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof OrderReturnServiceCharge)) {
+        }
+        if(!(obj instanceof OrderReturnServiceCharge)) {
             return false;
         }
-        OrderReturnServiceCharge orderReturnServiceCharge = (OrderReturnServiceCharge) o;
+        OrderReturnServiceCharge orderReturnServiceCharge = (OrderReturnServiceCharge) obj;
         return Objects.equals(uid, orderReturnServiceCharge.uid) &&
             Objects.equals(sourceServiceChargeUid, orderReturnServiceCharge.sourceServiceChargeUid) &&
             Objects.equals(name, orderReturnServiceCharge.name) &&
@@ -81,159 +257,10 @@ public class OrderReturnServiceCharge {
     }
 
     /**
-     * Getter for Uid.
-     * Unique ID that identifies the return service charge only within this order.
+     * Builds a new {@link OrderReturnServiceCharge.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderReturnServiceCharge.Builder} object
      */
-    @JsonGetter("uid")
-    public String getUid() { 
-        return this.uid;
-    }
-
-    /**
-     * Getter for SourceServiceChargeUid.
-     * `uid` of the Service Charge from the Order containing the original
-     * charge of the service charge. `source_service_charge_uid` is `null` for
-     * unlinked returns.
-     */
-    @JsonGetter("source_service_charge_uid")
-    public String getSourceServiceChargeUid() { 
-        return this.sourceServiceChargeUid;
-    }
-
-    /**
-     * Getter for Name.
-     * The name of the service charge.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for CatalogObjectId.
-     * The catalog object ID of the associated [CatalogServiceCharge](#type-catalogservicecharge).
-     */
-    @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
-        return this.catalogObjectId;
-    }
-
-    /**
-     * Getter for Percentage.
-     * The percentage of the service charge, as a string representation of
-     * a decimal number. For example, a value of `"7.25"` corresponds to a
-     * percentage of 7.25%.
-     * Exactly one of `percentage` or `amount_money` should be set.
-     */
-    @JsonGetter("percentage")
-    public String getPercentage() { 
-        return this.percentage;
-    }
-
-    /**
-     * Getter for AmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
-        return this.amountMoney;
-    }
-
-    /**
-     * Getter for AppliedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
-        return this.appliedMoney;
-    }
-
-    /**
-     * Getter for TotalMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_money")
-    public Money getTotalMoney() { 
-        return this.totalMoney;
-    }
-
-    /**
-     * Getter for TotalTaxMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_tax_money")
-    public Money getTotalTaxMoney() { 
-        return this.totalTaxMoney;
-    }
-
-    /**
-     * Getter for CalculationPhase.
-     * Represents a phase in the process of calculating order totals.
-     * Service charges are applied __after__ the indicated phase.
-     * [Read more about how order totals are calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
-     */
-    @JsonGetter("calculation_phase")
-    public String getCalculationPhase() { 
-        return this.calculationPhase;
-    }
-
-    /**
-     * Getter for Taxable.
-     * Indicates whether the surcharge can be taxed. Service charges
-     * calculated in the `TOTAL_PHASE` cannot be marked as taxable.
-     */
-    @JsonGetter("taxable")
-    public Boolean getTaxable() { 
-        return this.taxable;
-    }
-
-    /**
-     * Getter for ReturnTaxes.
-     * Taxes applied to the `OrderReturnServiceCharge`. By default, return-level taxes apply to
-     * `OrderReturnServiceCharge`s calculated in the `SUBTOTAL_PHASE` if `taxable` is set to `true`.  On
-     * read or retrieve, this list includes both item-level taxes and any return-level taxes
-     * apportioned to this item.
-     * This field has been deprecated in favour of `applied_taxes`.
-     */
-    @JsonGetter("return_taxes")
-    public List<OrderReturnTax> getReturnTaxes() { 
-        return this.returnTaxes;
-    }
-
-    /**
-     * Getter for AppliedTaxes.
-     * The list of references to `OrderReturnTax` entities applied to the
-     * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid`
-     * that references the `uid` of a top-level `OrderReturnTax` that is being
-     * applied to the `OrderReturnServiceCharge`. On reads, the amount applied is
-     * populated.
-     */
-    @JsonGetter("applied_taxes")
-    public List<OrderLineItemAppliedTax> getAppliedTaxes() { 
-        return this.appliedTaxes;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -252,6 +279,9 @@ public class OrderReturnServiceCharge {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderReturnServiceCharge}
+     */
     public static class Builder {
         private String uid;
         private String sourceServiceChargeUid;
@@ -267,61 +297,135 @@ public class OrderReturnServiceCharge {
         private List<OrderReturnTax> returnTaxes;
         private List<OrderLineItemAppliedTax> appliedTaxes;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder sourceServiceChargeUid(String value) {
-            sourceServiceChargeUid = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
-            return this;
-        }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
-            return this;
-        }
-        public Builder totalMoney(Money value) {
-            totalMoney = value;
-            return this;
-        }
-        public Builder totalTaxMoney(Money value) {
-            totalTaxMoney = value;
-            return this;
-        }
-        public Builder calculationPhase(String value) {
-            calculationPhase = value;
-            return this;
-        }
-        public Builder taxable(Boolean value) {
-            taxable = value;
-            return this;
-        }
-        public Builder returnTaxes(List<OrderReturnTax> value) {
-            returnTaxes = value;
-            return this;
-        }
-        public Builder appliedTaxes(List<OrderLineItemAppliedTax> value) {
-            appliedTaxes = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for sourceServiceChargeUid
+         * @param sourceServiceChargeUid
+         * @return Builder
+         */
+        public Builder sourceServiceChargeUid(String sourceServiceChargeUid) {
+            this.sourceServiceChargeUid = sourceServiceChargeUid;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
+            return this;
+        }
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
+            return this;
+        }
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(Money totalMoney) {
+            this.totalMoney = totalMoney;
+            return this;
+        }
+        /**
+         * Setter for totalTaxMoney
+         * @param totalTaxMoney
+         * @return Builder
+         */
+        public Builder totalTaxMoney(Money totalTaxMoney) {
+            this.totalTaxMoney = totalTaxMoney;
+            return this;
+        }
+        /**
+         * Setter for calculationPhase
+         * @param calculationPhase
+         * @return Builder
+         */
+        public Builder calculationPhase(String calculationPhase) {
+            this.calculationPhase = calculationPhase;
+            return this;
+        }
+        /**
+         * Setter for taxable
+         * @param taxable
+         * @return Builder
+         */
+        public Builder taxable(Boolean taxable) {
+            this.taxable = taxable;
+            return this;
+        }
+        /**
+         * Setter for returnTaxes
+         * @param returnTaxes
+         * @return Builder
+         */
+        public Builder returnTaxes(List<OrderReturnTax> returnTaxes) {
+            this.returnTaxes = returnTaxes;
+            return this;
+        }
+        /**
+         * Setter for appliedTaxes
+         * @param appliedTaxes
+         * @return Builder
+         */
+        public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
+            this.appliedTaxes = appliedTaxes;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderReturnServiceCharge} object using the set fields.
+         * @return {@link OrderReturnServiceCharge}
+         */
         public OrderReturnServiceCharge build() {
             return new OrderReturnServiceCharge(uid,
                 sourceServiceChargeUid,

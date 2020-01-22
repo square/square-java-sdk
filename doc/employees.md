@@ -22,8 +22,7 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
     final String locationId,
     final String status,
     final Integer limit,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -56,8 +55,7 @@ RetrieveEmployee
 
 ```java
 CompletableFuture<RetrieveEmployeeResponse> retrieveEmployeeAsync(
-    final String id
-)
+    final String id)
 ```
 
 ### Parameters

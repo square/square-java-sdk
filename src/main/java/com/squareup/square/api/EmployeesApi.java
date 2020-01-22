@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,31 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.ListEmployeesResponse;
+import com.squareup.square.models.RetrieveEmployeeResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class EmployeesApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public EmployeesApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public EmployeesApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -36,15 +57,14 @@ public final class EmployeesApi extends BaseApi {
             final String locationId,
             final String status,
             final Integer limit,
-            final String cursor
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListEmployeesRequest(locationId, status, limit, cursor);
-        authManagers.get("default").apply(_request);
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListEmployeesRequest(locationId, status, limit, cursor);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListEmployeesResponse(_context);
+        return handleListEmployeesResponse(context);
     }
 
     /**
@@ -59,80 +79,78 @@ public final class EmployeesApi extends BaseApi {
             final String locationId,
             final String status,
             final Integer limit,
-            final String cursor
-    ) {
-        return makeHttpCallAsync(() -> _buildListEmployeesRequest(locationId, status, limit, cursor),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListEmployeesResponse(_context));
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListEmployeesRequest(locationId, status, limit, cursor),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListEmployeesResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listEmployees
      */
-    private HttpRequest _buildListEmployeesRequest(
+    private HttpRequest buildListEmployeesRequest(
             final String locationId,
             final String status,
             final Integer limit,
-            final String cursor
-    ) {
+            final String cursor) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/employees");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/employees");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("location_id", locationId);
-        _queryParameters.put("status", status);
-        _queryParameters.put("limit", limit);
-        _queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("location_id", locationId);
+        queryParameters.put("status", status);
+        queryParameters.put("limit", limit);
+        queryParameters.put("cursor", cursor);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listEmployees
      * @return An object of type ListEmployeesResponse
      */
-    private ListEmployeesResponse _handleListEmployeesResponse(HttpContext _context)
+    private ListEmployeesResponse handleListEmployeesResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListEmployeesResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListEmployeesResponse result = ApiHelper.deserialize(responseBody,
                 ListEmployeesResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -141,15 +159,14 @@ public final class EmployeesApi extends BaseApi {
      * @return    Returns the RetrieveEmployeeResponse response from the API call
      */
     public RetrieveEmployeeResponse retrieveEmployee(
-            final String id
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveEmployeeRequest(id);
-        authManagers.get("default").apply(_request);
+            final String id) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveEmployeeRequest(id);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveEmployeeResponse(_context);
+        return handleRetrieveEmployeeResponse(context);
     }
 
     /**
@@ -158,74 +175,72 @@ public final class EmployeesApi extends BaseApi {
      * @return    Returns the RetrieveEmployeeResponse response from the API call 
      */
     public CompletableFuture<RetrieveEmployeeResponse> retrieveEmployeeAsync(
-            final String id
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveEmployeeRequest(id),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveEmployeeResponse(_context));
+            final String id) {
+        return makeHttpCallAsync(() -> buildRetrieveEmployeeRequest(id),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveEmployeeResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveEmployee
      */
-    private HttpRequest _buildRetrieveEmployeeRequest(
-            final String id
-    ) {
+    private HttpRequest buildRetrieveEmployeeRequest(
+            final String id) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/employees/{id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/employees/{id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("id", id);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("id", id);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveEmployee
      * @return An object of type RetrieveEmployeeResponse
      */
-    private RetrieveEmployeeResponse _handleRetrieveEmployeeResponse(HttpContext _context)
+    private RetrieveEmployeeResponse handleRetrieveEmployeeResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RetrieveEmployeeResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RetrieveEmployeeResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveEmployeeResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

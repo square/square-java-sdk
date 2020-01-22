@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ListEmployeeWagesRequest type.
+ */
 public class ListEmployeeWagesRequest {
 
+    /**
+     * Initialization constructor.
+     * @param employeeId
+     * @param limit
+     * @param cursor
+     */
     @JsonCreator
     public ListEmployeeWagesRequest(
             @JsonProperty("employee_id") String employeeId,
@@ -20,32 +30,13 @@ public class ListEmployeeWagesRequest {
     private final String employeeId;
     private final Integer limit;
     private final String cursor;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(employeeId, limit, cursor);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListEmployeeWagesRequest)) {
-            return false;
-        }
-        ListEmployeeWagesRequest listEmployeeWagesRequest = (ListEmployeeWagesRequest) o;
-        return Objects.equals(employeeId, listEmployeeWagesRequest.employeeId) &&
-            Objects.equals(limit, listEmployeeWagesRequest.limit) &&
-            Objects.equals(cursor, listEmployeeWagesRequest.cursor);
-    }
-
     /**
      * Getter for EmployeeId.
      * Filter wages returned to only those that are associated with the
      * specified employee.
      */
     @JsonGetter("employee_id")
-    public String getEmployeeId() { 
+    public String getEmployeeId() {
         return this.employeeId;
     }
 
@@ -55,7 +46,7 @@ public class ListEmployeeWagesRequest {
      * 1 and 200. The default is the maximum at 200.
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
@@ -64,11 +55,35 @@ public class ListEmployeeWagesRequest {
      * Pointer to the next page of Employee Wage results to fetch.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, limit, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListEmployeeWagesRequest)) {
+            return false;
+        }
+        ListEmployeeWagesRequest listEmployeeWagesRequest = (ListEmployeeWagesRequest) obj;
+        return Objects.equals(employeeId, listEmployeeWagesRequest.employeeId) &&
+            Objects.equals(limit, listEmployeeWagesRequest.limit) &&
+            Objects.equals(cursor, listEmployeeWagesRequest.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListEmployeeWagesRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListEmployeeWagesRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .employeeId(getEmployeeId())
@@ -77,26 +92,53 @@ public class ListEmployeeWagesRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListEmployeeWagesRequest}
+     */
     public static class Builder {
         private String employeeId;
         private Integer limit;
         private String cursor;
 
-        public Builder() { }
-
-        public Builder employeeId(String value) {
-            employeeId = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
-        }
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for employeeId
+         * @param employeeId
+         * @return Builder
+         */
+        public Builder employeeId(String employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ListEmployeeWagesRequest} object using the set fields.
+         * @return {@link ListEmployeeWagesRequest}
+         */
         public ListEmployeeWagesRequest build() {
             return new ListEmployeeWagesRequest(employeeId,
                 limit,

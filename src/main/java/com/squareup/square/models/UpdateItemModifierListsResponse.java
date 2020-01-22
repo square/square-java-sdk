@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for UpdateItemModifierListsResponse type.
+ */
 public class UpdateItemModifierListsResponse {
 
+    /**
+     * Initialization constructor.
+     * @param errors
+     * @param updatedAt
+     */
     @JsonCreator
     public UpdateItemModifierListsResponse(
             @JsonProperty("errors") List<Error> errors,
@@ -21,24 +30,6 @@ public class UpdateItemModifierListsResponse {
     private final List<Error> errors;
     private final String updatedAt;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(errors, updatedAt);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof UpdateItemModifierListsResponse)) {
-            return false;
-        }
-        UpdateItemModifierListsResponse updateItemModifierListsResponse = (UpdateItemModifierListsResponse) o;
-        return Objects.equals(errors, updateItemModifierListsResponse.errors) &&
-            Objects.equals(updatedAt, updateItemModifierListsResponse.updatedAt);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -48,7 +39,7 @@ public class UpdateItemModifierListsResponse {
      * Information on any errors encountered.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
@@ -56,11 +47,34 @@ public class UpdateItemModifierListsResponse {
      * Getter for UpdatedAt.
      */
     @JsonGetter("updated_at")
-    public String getUpdatedAt() { 
+    public String getUpdatedAt() {
         return this.updatedAt;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors, updatedAt);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof UpdateItemModifierListsResponse)) {
+            return false;
+        }
+        UpdateItemModifierListsResponse updateItemModifierListsResponse = (UpdateItemModifierListsResponse) obj;
+        return Objects.equals(errors, updateItemModifierListsResponse.errors) &&
+            Objects.equals(updatedAt, updateItemModifierListsResponse.updatedAt);
+    }
+
+    /**
+     * Builds a new {@link UpdateItemModifierListsResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link UpdateItemModifierListsResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .errors(getErrors())
@@ -68,26 +82,53 @@ public class UpdateItemModifierListsResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link UpdateItemModifierListsResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private String updatedAt;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
-        public Builder updatedAt(String value) {
-            updatedAt = value;
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link UpdateItemModifierListsResponse} object using the set fields.
+         * @return {@link UpdateItemModifierListsResponse}
+         */
         public UpdateItemModifierListsResponse build() {
             UpdateItemModifierListsResponse model = new UpdateItemModifierListsResponse(errors,
                 updatedAt);

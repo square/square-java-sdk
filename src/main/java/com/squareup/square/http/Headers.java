@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Class for creating and managing HTTP Headers.
+ */
 public class Headers {
     private Map<String, List<String>> headers;
     
@@ -13,7 +16,7 @@ public class Headers {
      * Default constructor
      */
     public Headers() {
-        this.headers = new TreeMap<String, List<String>>(String.CASE_INSENSITIVE_ORDER);
+        this.headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     /**
@@ -21,7 +24,7 @@ public class Headers {
      * @param headers The Map to use for creating an instance of this class
      */
     public Headers(Map<String, List<String>> headers) {
-        this.headers = new TreeMap<String, List<String>>(String.CASE_INSENSITIVE_ORDER);
+        this.headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Map.Entry<String, List<String>> kv : headers.entrySet()) {
             this.headers.put(kv.getKey(), kv.getValue());
         }
@@ -82,7 +85,7 @@ public class Headers {
      * @return A Map of header names and values
      */
     public Map<String, String> asSimpleMap() {
-        Map<String, String> copy = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+        Map<String, String> copy = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Map.Entry<String, List<String>> kv : this.headers.entrySet()) {
             if (kv.getValue() != null) {
                 copy.put(kv.getKey(), kv.getValue().get(0));
@@ -106,7 +109,7 @@ public class Headers {
      * @return A Map of header names and values
      */
     private static Map<String, List<String>> cloneHeaderMap(Map<String, List<String>> headerMap) {
-        Map<String, List<String>> copy = new TreeMap<String, List<String>>(String.CASE_INSENSITIVE_ORDER);
+        Map<String, List<String>> copy = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Map.Entry<String, List<String>> kv : headerMap.entrySet()) {
             if (kv.getValue() != null) {
                 copy.put(kv.getKey(), kv.getValue());
@@ -123,16 +126,16 @@ public class Headers {
      * @param headerName The header name to add the value against
      * @param value The value to add
      */
-    public void add(String headerName, String value) {
+    public void add(String headerName, Object value) {
         if (headerName == null || value == null) {
             return;
         }
         
         if (this.headers.containsKey(headerName)) {
-            this.headers.get(headerName).add(value);
+            this.headers.get(headerName).add(String.valueOf(value));
         } else {
             List<String> values = new ArrayList<String>();
-            values.add(value);
+            values.add(String.valueOf(value));
             this.headers.put(headerName, values);
         }
     }
@@ -144,22 +147,22 @@ public class Headers {
      * @param headerName The header name to add the values against
      * @param values The List of values to add
      */
-    public void add(String headerName, List<String> values) {
+    public void add(String headerName, List<Object> values) {
         if (headerName == null || values == null) {
             return;
         }
         
         if (this.headers.containsKey(headerName)) {
-            for (String value : values) {
+            for (Object value : values) {
                 if (value != null) {
-                    this.headers.get(headerName).add(value);
+                    this.headers.get(headerName).add(String.valueOf(value));
                 }
             }
         } else {
             List<String> copyOfValues = new ArrayList<String>();
-            for (String value : values) {
+            for (Object value : values) {
                 if (value != null) {
-                    copyOfValues.add(value);
+                    copyOfValues.add(String.valueOf(value));
                 }
             }
             

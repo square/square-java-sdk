@@ -5,8 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CustomerSort type.
+ */
 public class CustomerSort {
 
+    /**
+     * Initialization constructor.
+     * @param field
+     * @param order
+     */
     @JsonCreator
     public CustomerSort(
             @JsonProperty("field") String field,
@@ -17,30 +26,12 @@ public class CustomerSort {
 
     private final String field;
     private final String order;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(field, order);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CustomerSort)) {
-            return false;
-        }
-        CustomerSort customerSort = (CustomerSort) o;
-        return Objects.equals(field, customerSort.field) &&
-            Objects.equals(order, customerSort.order);
-    }
-
     /**
      * Getter for Field.
      * Indicates the sort criteria for a list of Customers.
      */
     @JsonGetter("field")
-    public String getField() { 
+    public String getField() {
         return this.field;
     }
 
@@ -49,11 +40,34 @@ public class CustomerSort {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("order")
-    public String getOrder() { 
+    public String getOrder() {
         return this.order;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(field, order);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CustomerSort)) {
+            return false;
+        }
+        CustomerSort customerSort = (CustomerSort) obj;
+        return Objects.equals(field, customerSort.field) &&
+            Objects.equals(order, customerSort.order);
+    }
+
+    /**
+     * Builds a new {@link CustomerSort.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CustomerSort.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .field(getField())
@@ -61,21 +75,43 @@ public class CustomerSort {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CustomerSort}
+     */
     public static class Builder {
         private String field;
         private String order;
 
-        public Builder() { }
-
-        public Builder field(String value) {
-            field = value;
-            return this;
-        }
-        public Builder order(String value) {
-            order = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for field
+         * @param field
+         * @return Builder
+         */
+        public Builder field(String field) {
+            this.field = field;
+            return this;
+        }
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(String order) {
+            this.order = order;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CustomerSort} object using the set fields.
+         * @return {@link CustomerSort}
+         */
         public CustomerSort build() {
             return new CustomerSort(field,
                 order);

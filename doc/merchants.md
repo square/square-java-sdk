@@ -26,8 +26,7 @@ endpoint to get the merchant information.
 
 ```java
 CompletableFuture<ListMerchantsResponse> listMerchantsAsync(
-    final Integer cursor
-)
+    final Integer cursor)
 ```
 
 ### Parameters
@@ -57,8 +56,7 @@ Retrieve a `Merchant` object for the given `merchant_id`.
 
 ```java
 CompletableFuture<RetrieveMerchantResponse> retrieveMerchantAsync(
-    final String merchantId
-)
+    final String merchantId)
 ```
 
 ### Parameters

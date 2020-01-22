@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for GetEmployeeWageResponse type.
+ */
 public class GetEmployeeWageResponse {
 
+    /**
+     * Initialization constructor.
+     * @param employeeWage
+     * @param errors
+     */
     @JsonCreator
     public GetEmployeeWageResponse(
             @JsonProperty("employee_wage") EmployeeWage employeeWage,
@@ -21,24 +30,6 @@ public class GetEmployeeWageResponse {
     private final EmployeeWage employeeWage;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(employeeWage, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof GetEmployeeWageResponse)) {
-            return false;
-        }
-        GetEmployeeWageResponse getEmployeeWageResponse = (GetEmployeeWageResponse) o;
-        return Objects.equals(employeeWage, getEmployeeWageResponse.employeeWage) &&
-            Objects.equals(errors, getEmployeeWageResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -49,7 +40,7 @@ public class GetEmployeeWageResponse {
      * specified by the `title` property of this object.
      */
     @JsonGetter("employee_wage")
-    public EmployeeWage getEmployeeWage() { 
+    public EmployeeWage getEmployeeWage() {
         return this.employeeWage;
     }
 
@@ -58,11 +49,34 @@ public class GetEmployeeWageResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeWage, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof GetEmployeeWageResponse)) {
+            return false;
+        }
+        GetEmployeeWageResponse getEmployeeWageResponse = (GetEmployeeWageResponse) obj;
+        return Objects.equals(employeeWage, getEmployeeWageResponse.employeeWage) &&
+            Objects.equals(errors, getEmployeeWageResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link GetEmployeeWageResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link GetEmployeeWageResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .employeeWage(getEmployeeWage())
@@ -70,26 +84,53 @@ public class GetEmployeeWageResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link GetEmployeeWageResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private EmployeeWage employeeWage;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder employeeWage(EmployeeWage value) {
-            employeeWage = value;
+        /**
+         * Setter for employeeWage
+         * @param employeeWage
+         * @return Builder
+         */
+        public Builder employeeWage(EmployeeWage employeeWage) {
+            this.employeeWage = employeeWage;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link GetEmployeeWageResponse} object using the set fields.
+         * @return {@link GetEmployeeWageResponse}
+         */
         public GetEmployeeWageResponse build() {
             GetEmployeeWageResponse model = new GetEmployeeWageResponse(employeeWage,
                 errors);

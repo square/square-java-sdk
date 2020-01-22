@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateOrderRequestModifier type.
+ */
 public class CreateOrderRequestModifier {
 
+    /**
+     * Initialization constructor.
+     * @param catalogObjectId
+     * @param name
+     * @param basePriceMoney
+     */
     @JsonCreator
     public CreateOrderRequestModifier(
             @JsonProperty("catalog_object_id") String catalogObjectId,
@@ -20,31 +30,12 @@ public class CreateOrderRequestModifier {
     private final String catalogObjectId;
     private final String name;
     private final Money basePriceMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(catalogObjectId, name, basePriceMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateOrderRequestModifier)) {
-            return false;
-        }
-        CreateOrderRequestModifier createOrderRequestModifier = (CreateOrderRequestModifier) o;
-        return Objects.equals(catalogObjectId, createOrderRequestModifier.catalogObjectId) &&
-            Objects.equals(name, createOrderRequestModifier.name) &&
-            Objects.equals(basePriceMoney, createOrderRequestModifier.basePriceMoney);
-    }
-
     /**
      * Getter for CatalogObjectId.
      * The catalog object ID of a [CatalogModifier](#type-catalogmodifier).
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -54,7 +45,7 @@ public class CreateOrderRequestModifier {
      * Do not provide a value for `name` if you provide a value for `catalog_object_id`.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -68,11 +59,35 @@ public class CreateOrderRequestModifier {
      * for more information.
      */
     @JsonGetter("base_price_money")
-    public Money getBasePriceMoney() { 
+    public Money getBasePriceMoney() {
         return this.basePriceMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(catalogObjectId, name, basePriceMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateOrderRequestModifier)) {
+            return false;
+        }
+        CreateOrderRequestModifier createOrderRequestModifier = (CreateOrderRequestModifier) obj;
+        return Objects.equals(catalogObjectId, createOrderRequestModifier.catalogObjectId) &&
+            Objects.equals(name, createOrderRequestModifier.name) &&
+            Objects.equals(basePriceMoney, createOrderRequestModifier.basePriceMoney);
+    }
+
+    /**
+     * Builds a new {@link CreateOrderRequestModifier.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateOrderRequestModifier.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .catalogObjectId(getCatalogObjectId())
@@ -81,26 +96,53 @@ public class CreateOrderRequestModifier {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateOrderRequestModifier}
+     */
     public static class Builder {
         private String catalogObjectId;
         private String name;
         private Money basePriceMoney;
 
-        public Builder() { }
-
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder basePriceMoney(Money value) {
-            basePriceMoney = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for basePriceMoney
+         * @param basePriceMoney
+         * @return Builder
+         */
+        public Builder basePriceMoney(Money basePriceMoney) {
+            this.basePriceMoney = basePriceMoney;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CreateOrderRequestModifier} object using the set fields.
+         * @return {@link CreateOrderRequestModifier}
+         */
         public CreateOrderRequestModifier build() {
             return new CreateOrderRequestModifier(catalogObjectId,
                 name,

@@ -1,13 +1,35 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogItemVariation type.
+ */
 public class CatalogItemVariation {
 
+    /**
+     * Initialization constructor.
+     * @param itemId
+     * @param name
+     * @param sku
+     * @param upc
+     * @param ordinal
+     * @param pricingType
+     * @param priceMoney
+     * @param locationOverrides
+     * @param trackInventory
+     * @param inventoryAlertType
+     * @param inventoryAlertThreshold
+     * @param userData
+     * @param serviceDuration
+     * @param itemOptionValues
+     * @param measurementUnitId
+     */
     @JsonCreator
     public CatalogItemVariation(
             @JsonProperty("item_id") String itemId,
@@ -57,20 +79,175 @@ public class CatalogItemVariation {
     private final Long serviceDuration;
     private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
     private final String measurementUnitId;
+    /**
+     * Getter for ItemId.
+     * The ID of the `CatalogItem` associated with this item variation. Searchable.
+     */
+    @JsonGetter("item_id")
+    public String getItemId() {
+        return this.itemId;
+    }
 
+    /**
+     * Getter for Name.
+     * The item variation's name. Searchable. This field has max length of 255 Unicode code points.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for Sku.
+     * The item variation's SKU, if any. Searchable.
+     */
+    @JsonGetter("sku")
+    public String getSku() {
+        return this.sku;
+    }
+
+    /**
+     * Getter for Upc.
+     * The item variation's UPC, if any. Searchable in the Connect API.
+     * This field is only exposed in the Connect API. It is not exposed in Square's Dashboard,
+     * Square Point of Sale app or Retail Point of Sale app.
+     */
+    @JsonGetter("upc")
+    public String getUpc() {
+        return this.upc;
+    }
+
+    /**
+     * Getter for Ordinal.
+     * The order in which this item variation should be displayed. This value is read-only. On writes, the ordinal
+     * for each item variation within a parent `CatalogItem` is set according to the item variations's
+     * position. On reads, the value is not guaranteed to be sequential or unique.
+     */
+    @JsonGetter("ordinal")
+    public Integer getOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
+     * Getter for PricingType.
+     * Indicates whether the price of a CatalogItemVariation should be entered manually at the time of sale.
+     */
+    @JsonGetter("pricing_type")
+    public String getPricingType() {
+        return this.pricingType;
+    }
+
+    /**
+     * Getter for PriceMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("price_money")
+    public Money getPriceMoney() {
+        return this.priceMoney;
+    }
+
+    /**
+     * Getter for LocationOverrides.
+     * Per-location price and inventory overrides.
+     */
+    @JsonGetter("location_overrides")
+    public List<ItemVariationLocationOverrides> getLocationOverrides() {
+        return this.locationOverrides;
+    }
+
+    /**
+     * Getter for TrackInventory.
+     * If `true`, inventory tracking is active for the variation.
+     */
+    @JsonGetter("track_inventory")
+    public Boolean getTrackInventory() {
+        return this.trackInventory;
+    }
+
+    /**
+     * Getter for InventoryAlertType.
+     * Indicates whether Square should alert the merchant when the inventory quantity of a CatalogItemVariation is low.
+     */
+    @JsonGetter("inventory_alert_type")
+    public String getInventoryAlertType() {
+        return this.inventoryAlertType;
+    }
+
+    /**
+     * Getter for InventoryAlertThreshold.
+     * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type`
+     * is `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard.
+     * This value is always an integer.
+     */
+    @JsonGetter("inventory_alert_threshold")
+    public Long getInventoryAlertThreshold() {
+        return this.inventoryAlertThreshold;
+    }
+
+    /**
+     * Getter for UserData.
+     * Arbitrary user metadata to associate with the item variation. Searchable. This field has max length of 255 Unicode code points.
+     */
+    @JsonGetter("user_data")
+    public String getUserData() {
+        return this.userData;
+    }
+
+    /**
+     * Getter for ServiceDuration.
+     * If the `CatalogItem` that owns this item variation is of type
+     * `APPOINTMENTS_SERVICE`, then this is the duration of the service in milliseconds. For
+     * example, a 30 minute appointment would have the value `1800000`, which is equal to
+     * 30 (minutes) * 60 (seconds per minute) * 1000 (milliseconds per second).
+     */
+    @JsonGetter("service_duration")
+    public Long getServiceDuration() {
+        return this.serviceDuration;
+    }
+
+    /**
+     * Getter for ItemOptionValues.
+     * List of item option values associated with this item variation. Listed
+     * in the same order as the item options of the parent item.
+     */
+    @JsonGetter("item_option_values")
+    public List<CatalogItemOptionValueForItemVariation> getItemOptionValues() {
+        return this.itemOptionValues;
+    }
+
+    /**
+     * Getter for MeasurementUnitId.
+     * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity
+     * sold of this item variation. If left unset, the item will be sold in
+     * whole quantities.
+     */
+    @JsonGetter("measurement_unit_id")
+    public String getMeasurementUnitId() {
+        return this.measurementUnitId;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney, locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold, userData, serviceDuration, itemOptionValues, measurementUnitId);
+        return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
+            locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold, userData,
+            serviceDuration, itemOptionValues, measurementUnitId);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof CatalogItemVariation)) {
+        }
+        if(!(obj instanceof CatalogItemVariation)) {
             return false;
         }
-        CatalogItemVariation catalogItemVariation = (CatalogItemVariation) o;
+        CatalogItemVariation catalogItemVariation = (CatalogItemVariation) obj;
         return Objects.equals(itemId, catalogItemVariation.itemId) &&
             Objects.equals(name, catalogItemVariation.name) &&
             Objects.equals(sku, catalogItemVariation.sku) &&
@@ -89,158 +266,10 @@ public class CatalogItemVariation {
     }
 
     /**
-     * Getter for ItemId.
-     * The ID of the `CatalogItem` associated with this item variation. Searchable.
+     * Builds a new {@link CatalogItemVariation.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogItemVariation.Builder} object
      */
-    @JsonGetter("item_id")
-    public String getItemId() { 
-        return this.itemId;
-    }
-
-    /**
-     * Getter for Name.
-     * The item variation's name. Searchable. This field has max length of 255 Unicode code points.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for Sku.
-     * The item variation's SKU, if any. Searchable.
-     */
-    @JsonGetter("sku")
-    public String getSku() { 
-        return this.sku;
-    }
-
-    /**
-     * Getter for Upc.
-     * The item variation's UPC, if any. Searchable in the Connect API.
-     * This field is only exposed in the Connect API. It is not exposed in Square's Dashboard,
-     * Square Point of Sale app or Retail Point of Sale app.
-     */
-    @JsonGetter("upc")
-    public String getUpc() { 
-        return this.upc;
-    }
-
-    /**
-     * Getter for Ordinal.
-     * The order in which this item variation should be displayed. This value is read-only. On writes, the ordinal
-     * for each item variation within a parent `CatalogItem` is set according to the item variations's
-     * position. On reads, the value is not guaranteed to be sequential or unique.
-     */
-    @JsonGetter("ordinal")
-    public Integer getOrdinal() { 
-        return this.ordinal;
-    }
-
-    /**
-     * Getter for PricingType.
-     * Indicates whether the price of a CatalogItemVariation should be entered manually at the time of sale.
-     */
-    @JsonGetter("pricing_type")
-    public String getPricingType() { 
-        return this.pricingType;
-    }
-
-    /**
-     * Getter for PriceMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("price_money")
-    public Money getPriceMoney() { 
-        return this.priceMoney;
-    }
-
-    /**
-     * Getter for LocationOverrides.
-     * Per-location price and inventory overrides.
-     */
-    @JsonGetter("location_overrides")
-    public List<ItemVariationLocationOverrides> getLocationOverrides() { 
-        return this.locationOverrides;
-    }
-
-    /**
-     * Getter for TrackInventory.
-     * If `true`, inventory tracking is active for the variation.
-     */
-    @JsonGetter("track_inventory")
-    public Boolean getTrackInventory() { 
-        return this.trackInventory;
-    }
-
-    /**
-     * Getter for InventoryAlertType.
-     * Indicates whether Square should alert the merchant when the inventory quantity of a CatalogItemVariation is low.
-     */
-    @JsonGetter("inventory_alert_type")
-    public String getInventoryAlertType() { 
-        return this.inventoryAlertType;
-    }
-
-    /**
-     * Getter for InventoryAlertThreshold.
-     * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type`
-     * is `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard.
-     * This value is always an integer.
-     */
-    @JsonGetter("inventory_alert_threshold")
-    public Long getInventoryAlertThreshold() { 
-        return this.inventoryAlertThreshold;
-    }
-
-    /**
-     * Getter for UserData.
-     * Arbitrary user metadata to associate with the item variation. Searchable. This field has max length of 255 Unicode code points.
-     */
-    @JsonGetter("user_data")
-    public String getUserData() { 
-        return this.userData;
-    }
-
-    /**
-     * Getter for ServiceDuration.
-     * If the `CatalogItem` that owns this item variation is of type
-     * `APPOINTMENTS_SERVICE`, then this is the duration of the service in milliseconds. For
-     * example, a 30 minute appointment would have the value `1800000`, which is equal to
-     * 30 (minutes) * 60 (seconds per minute) * 1000 (milliseconds per second).
-     */
-    @JsonGetter("service_duration")
-    public Long getServiceDuration() { 
-        return this.serviceDuration;
-    }
-
-    /**
-     * Getter for ItemOptionValues.
-     * List of item option values associated with this item variation. Listed
-     * in the same order as the item options of the parent item.
-     */
-    @JsonGetter("item_option_values")
-    public List<CatalogItemOptionValueForItemVariation> getItemOptionValues() { 
-        return this.itemOptionValues;
-    }
-
-    /**
-     * Getter for MeasurementUnitId.
-     * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity
-     * sold of this item variation. If left unset, the item will be sold in
-     * whole quantities.
-     */
-    @JsonGetter("measurement_unit_id")
-    public String getMeasurementUnitId() { 
-        return this.measurementUnitId;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .itemId(getItemId())
@@ -261,6 +290,9 @@ public class CatalogItemVariation {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogItemVariation}
+     */
     public static class Builder {
         private String itemId;
         private String name;
@@ -278,69 +310,153 @@ public class CatalogItemVariation {
         private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
         private String measurementUnitId;
 
-        public Builder() { }
-
-        public Builder itemId(String value) {
-            itemId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder sku(String value) {
-            sku = value;
-            return this;
-        }
-        public Builder upc(String value) {
-            upc = value;
-            return this;
-        }
-        public Builder ordinal(Integer value) {
-            ordinal = value;
-            return this;
-        }
-        public Builder pricingType(String value) {
-            pricingType = value;
-            return this;
-        }
-        public Builder priceMoney(Money value) {
-            priceMoney = value;
-            return this;
-        }
-        public Builder locationOverrides(List<ItemVariationLocationOverrides> value) {
-            locationOverrides = value;
-            return this;
-        }
-        public Builder trackInventory(Boolean value) {
-            trackInventory = value;
-            return this;
-        }
-        public Builder inventoryAlertType(String value) {
-            inventoryAlertType = value;
-            return this;
-        }
-        public Builder inventoryAlertThreshold(Long value) {
-            inventoryAlertThreshold = value;
-            return this;
-        }
-        public Builder userData(String value) {
-            userData = value;
-            return this;
-        }
-        public Builder serviceDuration(Long value) {
-            serviceDuration = value;
-            return this;
-        }
-        public Builder itemOptionValues(List<CatalogItemOptionValueForItemVariation> value) {
-            itemOptionValues = value;
-            return this;
-        }
-        public Builder measurementUnitId(String value) {
-            measurementUnitId = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for itemId
+         * @param itemId
+         * @return Builder
+         */
+        public Builder itemId(String itemId) {
+            this.itemId = itemId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for sku
+         * @param sku
+         * @return Builder
+         */
+        public Builder sku(String sku) {
+            this.sku = sku;
+            return this;
+        }
+        /**
+         * Setter for upc
+         * @param upc
+         * @return Builder
+         */
+        public Builder upc(String upc) {
+            this.upc = upc;
+            return this;
+        }
+        /**
+         * Setter for ordinal
+         * @param ordinal
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = ordinal;
+            return this;
+        }
+        /**
+         * Setter for pricingType
+         * @param pricingType
+         * @return Builder
+         */
+        public Builder pricingType(String pricingType) {
+            this.pricingType = pricingType;
+            return this;
+        }
+        /**
+         * Setter for priceMoney
+         * @param priceMoney
+         * @return Builder
+         */
+        public Builder priceMoney(Money priceMoney) {
+            this.priceMoney = priceMoney;
+            return this;
+        }
+        /**
+         * Setter for locationOverrides
+         * @param locationOverrides
+         * @return Builder
+         */
+        public Builder locationOverrides(List<ItemVariationLocationOverrides> locationOverrides) {
+            this.locationOverrides = locationOverrides;
+            return this;
+        }
+        /**
+         * Setter for trackInventory
+         * @param trackInventory
+         * @return Builder
+         */
+        public Builder trackInventory(Boolean trackInventory) {
+            this.trackInventory = trackInventory;
+            return this;
+        }
+        /**
+         * Setter for inventoryAlertType
+         * @param inventoryAlertType
+         * @return Builder
+         */
+        public Builder inventoryAlertType(String inventoryAlertType) {
+            this.inventoryAlertType = inventoryAlertType;
+            return this;
+        }
+        /**
+         * Setter for inventoryAlertThreshold
+         * @param inventoryAlertThreshold
+         * @return Builder
+         */
+        public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {
+            this.inventoryAlertThreshold = inventoryAlertThreshold;
+            return this;
+        }
+        /**
+         * Setter for userData
+         * @param userData
+         * @return Builder
+         */
+        public Builder userData(String userData) {
+            this.userData = userData;
+            return this;
+        }
+        /**
+         * Setter for serviceDuration
+         * @param serviceDuration
+         * @return Builder
+         */
+        public Builder serviceDuration(Long serviceDuration) {
+            this.serviceDuration = serviceDuration;
+            return this;
+        }
+        /**
+         * Setter for itemOptionValues
+         * @param itemOptionValues
+         * @return Builder
+         */
+        public Builder itemOptionValues(List<CatalogItemOptionValueForItemVariation> itemOptionValues) {
+            this.itemOptionValues = itemOptionValues;
+            return this;
+        }
+        /**
+         * Setter for measurementUnitId
+         * @param measurementUnitId
+         * @return Builder
+         */
+        public Builder measurementUnitId(String measurementUnitId) {
+            this.measurementUnitId = measurementUnitId;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogItemVariation} object using the set fields.
+         * @return {@link CatalogItemVariation}
+         */
         public CatalogItemVariation build() {
             return new CatalogItemVariation(itemId,
                 name,

@@ -65,8 +65,7 @@ Lists all the item categories for a given location.
 
 ```java
 CompletableFuture<List<V1Category>> listCategoriesAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -107,8 +106,7 @@ Creates an item category.
 ```java
 CompletableFuture<V1Category> createCategoryAsync(
     final String locationId,
-    final V1Category body
-)
+    final V1Category body)
 ```
 
 ### Parameters
@@ -156,8 +154,7 @@ as documented below.
 ```java
 CompletableFuture<V1Category> deleteCategoryAsync(
     final String locationId,
-    final String categoryId
-)
+    final String categoryId)
 ```
 
 ### Parameters
@@ -201,8 +198,7 @@ Modifies the details of an existing item category.
 CompletableFuture<V1Category> updateCategoryAsync(
     final String locationId,
     final String categoryId,
-    final V1Category body
-)
+    final V1Category body)
 ```
 
 ### Parameters
@@ -247,8 +243,7 @@ Lists all the discounts for a given location.
 
 ```java
 CompletableFuture<List<V1Discount>> listDiscountsAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -289,8 +284,7 @@ Creates a discount.
 ```java
 CompletableFuture<V1Discount> createDiscountAsync(
     final String locationId,
-    final V1Discount body
-)
+    final V1Discount body)
 ```
 
 ### Parameters
@@ -338,8 +332,7 @@ as documented below.
 ```java
 CompletableFuture<V1Discount> deleteDiscountAsync(
     final String locationId,
-    final String discountId
-)
+    final String discountId)
 ```
 
 ### Parameters
@@ -383,8 +376,7 @@ Modifies the details of an existing discount.
 CompletableFuture<V1Discount> updateDiscountAsync(
     final String locationId,
     final String discountId,
-    final V1Discount body
-)
+    final V1Discount body)
 ```
 
 ### Parameters
@@ -429,8 +421,7 @@ Lists all the fees (taxes) for a given location.
 
 ```java
 CompletableFuture<List<V1Fee>> listFeesAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -471,8 +462,7 @@ Creates a fee (tax).
 ```java
 CompletableFuture<V1Fee> createFeeAsync(
     final String locationId,
-    final V1Fee body
-)
+    final V1Fee body)
 ```
 
 ### Parameters
@@ -520,8 +510,7 @@ as documented below.
 ```java
 CompletableFuture<V1Fee> deleteFeeAsync(
     final String locationId,
-    final String feeId
-)
+    final String feeId)
 ```
 
 ### Parameters
@@ -565,8 +554,7 @@ Modifies the details of an existing fee (tax).
 CompletableFuture<V1Fee> updateFeeAsync(
     final String locationId,
     final String feeId,
-    final V1Fee body
-)
+    final V1Fee body)
 ```
 
 ### Parameters
@@ -614,8 +602,7 @@ variations.
 CompletableFuture<List<V1InventoryEntry>> listInventoryAsync(
     final String locationId,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -659,8 +646,7 @@ Adjusts the current available inventory of an item variation.
 CompletableFuture<V1InventoryEntry> adjustInventoryAsync(
     final String locationId,
     final String variationId,
-    final V1AdjustInventoryRequest body
-)
+    final V1AdjustInventoryRequest body)
 ```
 
 ### Parameters
@@ -706,8 +692,7 @@ Provides summary information of all items for a given location.
 ```java
 CompletableFuture<List<V1Item>> listItemsAsync(
     final String locationId,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -761,8 +746,7 @@ metadata with the variation. The string cannot exceed 255 characters.
 ```java
 CompletableFuture<V1Item> createItemAsync(
     final String locationId,
-    final V1Item body
-)
+    final V1Item body)
 ```
 
 ### Parameters
@@ -810,8 +794,7 @@ as documented below.
 ```java
 CompletableFuture<V1Item> deleteItemAsync(
     final String locationId,
-    final String itemId
-)
+    final String itemId)
 ```
 
 ### Parameters
@@ -855,8 +838,7 @@ lists and fees.
 ```java
 CompletableFuture<V1Item> retrieveItemAsync(
     final String locationId,
-    final String itemId
-)
+    final String itemId)
 ```
 
 ### Parameters
@@ -900,8 +882,7 @@ Modifies the core details of an existing item.
 CompletableFuture<V1Item> updateItemAsync(
     final String locationId,
     final String itemId,
-    final V1Item body
-)
+    final V1Item body)
 ```
 
 ### Parameters
@@ -949,8 +930,7 @@ automatically applied to the item in Square Point of Sale.
 CompletableFuture<V1Item> removeFeeAsync(
     final String locationId,
     final String itemId,
-    final String feeId
-)
+    final String feeId)
 ```
 
 ### Parameters
@@ -997,8 +977,7 @@ the item in Square Point of Sale.
 CompletableFuture<V1Item> applyFeeAsync(
     final String locationId,
     final String itemId,
-    final String feeId
-)
+    final String feeId)
 ```
 
 ### Parameters
@@ -1045,8 +1024,7 @@ options from the list can no longer be applied to the item.
 CompletableFuture<V1Item> removeModifierListAsync(
     final String locationId,
     final String modifierListId,
-    final String itemId
-)
+    final String itemId)
 ```
 
 ### Parameters
@@ -1093,8 +1071,7 @@ options can be applied to the item.
 CompletableFuture<V1Item> applyModifierListAsync(
     final String locationId,
     final String modifierListId,
-    final String itemId
-)
+    final String itemId)
 ```
 
 ### Parameters
@@ -1140,8 +1117,7 @@ Creates an item variation for an existing item.
 CompletableFuture<V1Variation> createVariationAsync(
     final String locationId,
     final String itemId,
-    final V1Variation body
-)
+    final V1Variation body)
 ```
 
 ### Parameters
@@ -1192,8 +1168,7 @@ as documented below.
 CompletableFuture<V1Variation> deleteVariationAsync(
     final String locationId,
     final String itemId,
-    final String variationId
-)
+    final String variationId)
 ```
 
 ### Parameters
@@ -1240,8 +1215,7 @@ CompletableFuture<V1Variation> updateVariationAsync(
     final String locationId,
     final String itemId,
     final String variationId,
-    final V1Variation body
-)
+    final V1Variation body)
 ```
 
 ### Parameters
@@ -1288,8 +1262,7 @@ Lists all the modifier lists for a given location.
 
 ```java
 CompletableFuture<List<V1ModifierList>> listModifierListsAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -1330,8 +1303,7 @@ Creates an item modifier list and at least 1 modifier option for it.
 ```java
 CompletableFuture<V1ModifierList> createModifierListAsync(
     final String locationId,
-    final V1ModifierList body
-)
+    final V1ModifierList body)
 ```
 
 ### Parameters
@@ -1380,8 +1352,7 @@ as documented below.
 ```java
 CompletableFuture<V1ModifierList> deleteModifierListAsync(
     final String locationId,
-    final String modifierListId
-)
+    final String modifierListId)
 ```
 
 ### Parameters
@@ -1424,8 +1395,7 @@ Provides the details for a single modifier list.
 ```java
 CompletableFuture<V1ModifierList> retrieveModifierListAsync(
     final String locationId,
-    final String modifierListId
-)
+    final String modifierListId)
 ```
 
 ### Parameters
@@ -1469,8 +1439,7 @@ Modifies the details of an existing item modifier list.
 CompletableFuture<V1ModifierList> updateModifierListAsync(
     final String locationId,
     final String modifierListId,
-    final V1UpdateModifierListRequest body
-)
+    final V1UpdateModifierListRequest body)
 ```
 
 ### Parameters
@@ -1517,8 +1486,7 @@ Creates an item modifier option and adds it to a modifier list.
 CompletableFuture<V1ModifierOption> createModifierOptionAsync(
     final String locationId,
     final String modifierListId,
-    final V1ModifierOption body
-)
+    final V1ModifierOption body)
 ```
 
 ### Parameters
@@ -1569,8 +1537,7 @@ object.
 CompletableFuture<V1ModifierOption> deleteModifierOptionAsync(
     final String locationId,
     final String modifierListId,
-    final String modifierOptionId
-)
+    final String modifierOptionId)
 ```
 
 ### Parameters
@@ -1617,8 +1584,7 @@ CompletableFuture<V1ModifierOption> updateModifierOptionAsync(
     final String locationId,
     final String modifierListId,
     final String modifierOptionId,
-    final V1ModifierOption body
-)
+    final V1ModifierOption body)
 ```
 
 ### Parameters
@@ -1666,8 +1632,7 @@ location.
 
 ```java
 CompletableFuture<List<V1Page>> listPagesAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -1708,8 +1673,7 @@ Creates a Favorites page in Square Point of Sale.
 ```java
 CompletableFuture<V1Page> createPageAsync(
     final String locationId,
-    final V1Page body
-)
+    final V1Page body)
 ```
 
 ### Parameters
@@ -1756,8 +1720,7 @@ map the empty response to an empty `V1DeletePageRequest` object.
 ```java
 CompletableFuture<V1Page> deletePageAsync(
     final String locationId,
-    final String pageId
-)
+    final String pageId)
 ```
 
 ### Parameters
@@ -1801,8 +1764,7 @@ Modifies the details of a Favorites page in Square Point of Sale.
 CompletableFuture<V1Page> updatePageAsync(
     final String locationId,
     final String pageId,
-    final V1Page body
-)
+    final V1Page body)
 ```
 
 ### Parameters
@@ -1854,8 +1816,7 @@ CompletableFuture<V1Page> deletePageCellAsync(
     final String locationId,
     final String pageId,
     final String row,
-    final String column
-)
+    final String column)
 ```
 
 ### Parameters
@@ -1901,8 +1862,7 @@ Modifies a cell of a Favorites page in Square Point of Sale.
 CompletableFuture<V1Page> updatePageCellAsync(
     final String locationId,
     final String pageId,
-    final V1PageCell body
-)
+    final V1PageCell body)
 ```
 
 ### Parameters

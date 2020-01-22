@@ -1,11 +1,14 @@
 package com.squareup.square.api;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.squareup.square.*;
-import com.squareup.square.exceptions.*;
+import com.squareup.square.ApiHelper;
+import com.squareup.square.AuthManager;
+import com.squareup.square.Configuration;
+import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
@@ -13,13 +16,31 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.*;
+import com.squareup.square.models.ListMerchantsResponse;
+import com.squareup.square.models.RetrieveMerchantResponse;
 
+/**
+ * This class lists all the endpoints of the groups.
+ */
 public final class MerchantsApi extends BaseApi {
+
+    /**
+     * Initializes the controller.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     */
     public MerchantsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
+    /**
+     * Initializes the controller with HTTPCallback.
+     * @param config
+     * @param httpClient
+     * @param authManagers
+     * @param httpCallback
+     */
     public MerchantsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
@@ -35,15 +56,14 @@ public final class MerchantsApi extends BaseApi {
      * @return    Returns the ListMerchantsResponse response from the API call
      */
     public ListMerchantsResponse listMerchants(
-            final Integer cursor
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildListMerchantsRequest(cursor);
-        authManagers.get("default").apply(_request);
+            final Integer cursor) throws ApiException, IOException {
+        HttpRequest request = buildListMerchantsRequest(cursor);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleListMerchantsResponse(_context);
+        return handleListMerchantsResponse(context);
     }
 
     /**
@@ -57,74 +77,72 @@ public final class MerchantsApi extends BaseApi {
      * @return    Returns the ListMerchantsResponse response from the API call 
      */
     public CompletableFuture<ListMerchantsResponse> listMerchantsAsync(
-            final Integer cursor
-    ) {
-        return makeHttpCallAsync(() -> _buildListMerchantsRequest(cursor),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleListMerchantsResponse(_context));
+            final Integer cursor) {
+        return makeHttpCallAsync(() -> buildListMerchantsRequest(cursor),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListMerchantsResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for listMerchants
      */
-    private HttpRequest _buildListMerchantsRequest(
-            final Integer cursor
-    ) {
+    private HttpRequest buildListMerchantsRequest(
+            final Integer cursor) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/merchants");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/merchants");
 
         //process query parameters
-        Map<String, Object> _queryParameters = new HashMap<String, Object>();
-        _queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("cursor", cursor);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for listMerchants
      * @return An object of type ListMerchantsResponse
      */
-    private ListMerchantsResponse _handleListMerchantsResponse(HttpContext _context)
+    private ListMerchantsResponse handleListMerchantsResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        ListMerchantsResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListMerchantsResponse result = ApiHelper.deserialize(responseBody,
                 ListMerchantsResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -133,15 +151,14 @@ public final class MerchantsApi extends BaseApi {
      * @return    Returns the RetrieveMerchantResponse response from the API call
      */
     public RetrieveMerchantResponse retrieveMerchant(
-            final String merchantId
-    ) throws ApiException, IOException {
-        HttpRequest _request = _buildRetrieveMerchantRequest(merchantId);
-        authManagers.get("default").apply(_request);
+            final String merchantId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveMerchantRequest(merchantId);
+        authManagers.get("default").apply(request);
 
-        HttpResponse _response = getClientInstance().executeAsString(_request);
-        HttpContext _context = new HttpContext(_request, _response);
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
 
-        return _handleRetrieveMerchantResponse(_context);
+        return handleRetrieveMerchantResponse(context);
     }
 
     /**
@@ -150,74 +167,72 @@ public final class MerchantsApi extends BaseApi {
      * @return    Returns the RetrieveMerchantResponse response from the API call 
      */
     public CompletableFuture<RetrieveMerchantResponse> retrieveMerchantAsync(
-            final String merchantId
-    ) {
-        return makeHttpCallAsync(() -> _buildRetrieveMerchantRequest(merchantId),
-                _req -> authManagers.get("default").applyAsync(_req)
-                    .thenCompose(_request -> getClientInstance().executeAsStringAsync(_request)),
-                _context -> _handleRetrieveMerchantResponse(_context));
+            final String merchantId) {
+        return makeHttpCallAsync(() -> buildRetrieveMerchantRequest(merchantId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRetrieveMerchantResponse(context));
     }
 
     /**
      * Builds the HttpRequest object for retrieveMerchant
      */
-    private HttpRequest _buildRetrieveMerchantRequest(
-            final String merchantId
-    ) {
+    private HttpRequest buildRetrieveMerchantRequest(
+            final String merchantId) {
         //the base uri for api requests
-        String _baseUri = config.getBaseUri();
+        String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/merchants/{merchant_id}");
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/merchants/{merchant_id}");
 
         //process template parameters
-        Map<String, Object> _templateParameters = new HashMap<String, Object>();
-        _templateParameters.put("merchant_id", merchantId);
-        ApiHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters, true);
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("merchant_id", merchantId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
         //validate and preprocess url
-        String _queryUrl = ApiHelper.cleanUrl(_queryBuilder);
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
-        Headers _headers = new Headers();
-        _headers.add("user-agent", BaseApi.userAgent);
-        _headers.add("accept", "application/json");
-        _headers.add("Square-Version", "2019-12-17");
-        _headers.addAll(config.getAdditionalHeaders());
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-01-22");
+        headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(_request);
+            getHttpCallback().onBeforeRequest(request);
         }
 
-        return _request;
+        return request;
     }
 
     /**
      * Processes the response for retrieveMerchant
      * @return An object of type RetrieveMerchantResponse
      */
-    private RetrieveMerchantResponse _handleRetrieveMerchantResponse(HttpContext _context)
+    private RetrieveMerchantResponse handleRetrieveMerchantResponse(HttpContext context)
             throws ApiException, IOException {
-        HttpResponse _response = _context.getResponse();
+        HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
         if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(_context);
+            getHttpCallback().onAfterResponse(context);
         }
 
         //handle errors defined at the API level
-        validateResponse(_response, _context);
+        validateResponse(response, context);
 
         //extract result from the http response
-        String _responseBody = ((HttpStringResponse)_response).getBody();
-        RetrieveMerchantResponse _result = ApiHelper.deserialize(_responseBody,
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RetrieveMerchantResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveMerchantResponse.class);
 
-        _result = _result.toBuilder().httpContext(_context).build();
-        return _result;
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
 }

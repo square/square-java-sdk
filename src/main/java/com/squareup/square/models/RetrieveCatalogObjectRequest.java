@@ -5,8 +5,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for RetrieveCatalogObjectRequest type.
+ */
 public class RetrieveCatalogObjectRequest {
 
+    /**
+     * Initialization constructor.
+     * @param includeRelatedObjects
+     */
     @JsonCreator
     public RetrieveCatalogObjectRequest(
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects) {
@@ -14,23 +22,6 @@ public class RetrieveCatalogObjectRequest {
     }
 
     private final Boolean includeRelatedObjects;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(includeRelatedObjects);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RetrieveCatalogObjectRequest)) {
-            return false;
-        }
-        RetrieveCatalogObjectRequest retrieveCatalogObjectRequest = (RetrieveCatalogObjectRequest) o;
-        return Objects.equals(includeRelatedObjects, retrieveCatalogObjectRequest.includeRelatedObjects);
-    }
-
     /**
      * Getter for IncludeRelatedObjects.
      * If `true`, the response will include additional objects that are related to the
@@ -45,27 +36,66 @@ public class RetrieveCatalogObjectRequest {
      * Default value: `false`
      */
     @JsonGetter("include_related_objects")
-    public Boolean getIncludeRelatedObjects() { 
+    public Boolean getIncludeRelatedObjects() {
         return this.includeRelatedObjects;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(includeRelatedObjects);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof RetrieveCatalogObjectRequest)) {
+            return false;
+        }
+        RetrieveCatalogObjectRequest retrieveCatalogObjectRequest = (RetrieveCatalogObjectRequest) obj;
+        return Objects.equals(includeRelatedObjects, retrieveCatalogObjectRequest.includeRelatedObjects);
+    }
+
+    /**
+     * Builds a new {@link RetrieveCatalogObjectRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link RetrieveCatalogObjectRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .includeRelatedObjects(getIncludeRelatedObjects());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link RetrieveCatalogObjectRequest}
+     */
     public static class Builder {
         private Boolean includeRelatedObjects;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
-        public Builder includeRelatedObjects(Boolean value) {
-            includeRelatedObjects = value;
+        /**
+         * Setter for includeRelatedObjects
+         * @param includeRelatedObjects
+         * @return Builder
+         */
+        public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
+            this.includeRelatedObjects = includeRelatedObjects;
             return this;
         }
 
+        /**
+         * Builds a new {@link RetrieveCatalogObjectRequest} object using the set fields.
+         * @return {@link RetrieveCatalogObjectRequest}
+         */
         public RetrieveCatalogObjectRequest build() {
             return new RetrieveCatalogObjectRequest(includeRelatedObjects);
         }

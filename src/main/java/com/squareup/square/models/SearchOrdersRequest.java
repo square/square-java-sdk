@@ -1,13 +1,25 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for SearchOrdersRequest type.
+ */
 public class SearchOrdersRequest {
 
+    /**
+     * Initialization constructor.
+     * @param locationIds
+     * @param cursor
+     * @param query
+     * @param limit
+     * @param returnEntries
+     */
     @JsonCreator
     public SearchOrdersRequest(
             @JsonProperty("location_ids") List<String> locationIds,
@@ -27,27 +39,6 @@ public class SearchOrdersRequest {
     private final SearchOrdersQuery query;
     private final Integer limit;
     private final Boolean returnEntries;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(locationIds, cursor, query, limit, returnEntries);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof SearchOrdersRequest)) {
-            return false;
-        }
-        SearchOrdersRequest searchOrdersRequest = (SearchOrdersRequest) o;
-        return Objects.equals(locationIds, searchOrdersRequest.locationIds) &&
-            Objects.equals(cursor, searchOrdersRequest.cursor) &&
-            Objects.equals(query, searchOrdersRequest.query) &&
-            Objects.equals(limit, searchOrdersRequest.limit) &&
-            Objects.equals(returnEntries, searchOrdersRequest.returnEntries);
-    }
-
     /**
      * Getter for LocationIds.
      * The location IDs for the orders to query. All locations must belong to
@@ -56,7 +47,7 @@ public class SearchOrdersRequest {
      * Max: 10 location IDs.
      */
     @JsonGetter("location_ids")
-    public List<String> getLocationIds() { 
+    public List<String> getLocationIds() {
         return this.locationIds;
     }
 
@@ -67,7 +58,7 @@ public class SearchOrdersRequest {
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -76,7 +67,7 @@ public class SearchOrdersRequest {
      * Contains query criteria for the search.
      */
     @JsonGetter("query")
-    public SearchOrdersQuery getQuery() { 
+    public SearchOrdersQuery getQuery() {
         return this.query;
     }
 
@@ -87,7 +78,7 @@ public class SearchOrdersRequest {
      * Default: `500`
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
@@ -99,11 +90,37 @@ public class SearchOrdersRequest {
      * Default: `false`.
      */
     @JsonGetter("return_entries")
-    public Boolean getReturnEntries() { 
+    public Boolean getReturnEntries() {
         return this.returnEntries;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationIds, cursor, query, limit, returnEntries);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SearchOrdersRequest)) {
+            return false;
+        }
+        SearchOrdersRequest searchOrdersRequest = (SearchOrdersRequest) obj;
+        return Objects.equals(locationIds, searchOrdersRequest.locationIds) &&
+            Objects.equals(cursor, searchOrdersRequest.cursor) &&
+            Objects.equals(query, searchOrdersRequest.query) &&
+            Objects.equals(limit, searchOrdersRequest.limit) &&
+            Objects.equals(returnEntries, searchOrdersRequest.returnEntries);
+    }
+
+    /**
+     * Builds a new {@link SearchOrdersRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link SearchOrdersRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .locationIds(getLocationIds())
@@ -114,6 +131,9 @@ public class SearchOrdersRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link SearchOrdersRequest}
+     */
     public static class Builder {
         private List<String> locationIds;
         private String cursor;
@@ -121,29 +141,63 @@ public class SearchOrdersRequest {
         private Integer limit;
         private Boolean returnEntries;
 
-        public Builder() { }
-
-        public Builder locationIds(List<String> value) {
-            locationIds = value;
-            return this;
-        }
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
-        }
-        public Builder query(SearchOrdersQuery value) {
-            query = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
-        }
-        public Builder returnEntries(Boolean value) {
-            returnEntries = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for locationIds
+         * @param locationIds
+         * @return Builder
+         */
+        public Builder locationIds(List<String> locationIds) {
+            this.locationIds = locationIds;
+            return this;
+        }
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+        /**
+         * Setter for query
+         * @param query
+         * @return Builder
+         */
+        public Builder query(SearchOrdersQuery query) {
+            this.query = query;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+        /**
+         * Setter for returnEntries
+         * @param returnEntries
+         * @return Builder
+         */
+        public Builder returnEntries(Boolean returnEntries) {
+            this.returnEntries = returnEntries;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link SearchOrdersRequest} object using the set fields.
+         * @return {@link SearchOrdersRequest}
+         */
         public SearchOrdersRequest build() {
             return new SearchOrdersRequest(locationIds,
                 cursor,

@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for RetrieveCashDrawerShiftResponse type.
+ */
 public class RetrieveCashDrawerShiftResponse {
 
+    /**
+     * Initialization constructor.
+     * @param cashDrawerShift
+     * @param errors
+     */
     @JsonCreator
     public RetrieveCashDrawerShiftResponse(
             @JsonProperty("cash_drawer_shift") CashDrawerShift cashDrawerShift,
@@ -20,24 +29,6 @@ public class RetrieveCashDrawerShiftResponse {
     private HttpContext httpContext;
     private final CashDrawerShift cashDrawerShift;
     private final List<Error> errors;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cashDrawerShift, errors);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RetrieveCashDrawerShiftResponse)) {
-            return false;
-        }
-        RetrieveCashDrawerShiftResponse retrieveCashDrawerShiftResponse = (RetrieveCashDrawerShiftResponse) o;
-        return Objects.equals(cashDrawerShift, retrieveCashDrawerShiftResponse.cashDrawerShift) &&
-            Objects.equals(errors, retrieveCashDrawerShiftResponse.errors);
-    }
-    
 
     public HttpContext getContext() {
         return httpContext;
@@ -51,7 +42,7 @@ public class RetrieveCashDrawerShiftResponse {
      * event types.
      */
     @JsonGetter("cash_drawer_shift")
-    public CashDrawerShift getCashDrawerShift() { 
+    public CashDrawerShift getCashDrawerShift() {
         return this.cashDrawerShift;
     }
 
@@ -60,11 +51,34 @@ public class RetrieveCashDrawerShiftResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(cashDrawerShift, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof RetrieveCashDrawerShiftResponse)) {
+            return false;
+        }
+        RetrieveCashDrawerShiftResponse retrieveCashDrawerShiftResponse = (RetrieveCashDrawerShiftResponse) obj;
+        return Objects.equals(cashDrawerShift, retrieveCashDrawerShiftResponse.cashDrawerShift) &&
+            Objects.equals(errors, retrieveCashDrawerShiftResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link RetrieveCashDrawerShiftResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link RetrieveCashDrawerShiftResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .cashDrawerShift(getCashDrawerShift())
@@ -72,26 +86,53 @@ public class RetrieveCashDrawerShiftResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link RetrieveCashDrawerShiftResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private CashDrawerShift cashDrawerShift;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder cashDrawerShift(CashDrawerShift value) {
-            cashDrawerShift = value;
+        /**
+         * Setter for cashDrawerShift
+         * @param cashDrawerShift
+         * @return Builder
+         */
+        public Builder cashDrawerShift(CashDrawerShift cashDrawerShift) {
+            this.cashDrawerShift = cashDrawerShift;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link RetrieveCashDrawerShiftResponse} object using the set fields.
+         * @return {@link RetrieveCashDrawerShiftResponse}
+         */
         public RetrieveCashDrawerShiftResponse build() {
             RetrieveCashDrawerShiftResponse model = new RetrieveCashDrawerShiftResponse(cashDrawerShift,
                 errors);

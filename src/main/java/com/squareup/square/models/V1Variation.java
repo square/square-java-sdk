@@ -6,8 +6,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Variation type.
+ */
 public class V1Variation {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param name
+     * @param itemId
+     * @param ordinal
+     * @param pricingType
+     * @param priceMoney
+     * @param sku
+     * @param trackInventory
+     * @param inventoryAlertType
+     * @param inventoryAlertThreshold
+     * @param userData
+     * @param v2Id
+     */
     @JsonCreator
     public V1Variation(
             @JsonProperty("id") String id,
@@ -50,19 +69,131 @@ public class V1Variation {
     private final String userData;
     private final String v2Id;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The item variation's unique ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Name.
+     * The item variation's name.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for ItemId.
+     * The ID of the variation's associated item.
+     */
+    @JsonGetter("item_id")
+    public String getItemId() {
+        return this.itemId;
+    }
+
+    /**
+     * Getter for Ordinal.
+     * Indicates the variation's list position when displayed in Square Point of Sale and the merchant dashboard. If more than one variation for the same item has the same ordinal value, those variations are displayed in alphabetical order
+     */
+    @JsonGetter("ordinal")
+    public Integer getOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
+     * Getter for PricingType.
+     */
+    @JsonGetter("pricing_type")
+    public String getPricingType() {
+        return this.pricingType;
+    }
+
+    /**
+     * Getter for PriceMoney.
+     */
+    @JsonGetter("price_money")
+    public V1Money getPriceMoney() {
+        return this.priceMoney;
+    }
+
+    /**
+     * Getter for Sku.
+     * The item variation's SKU, if any.
+     */
+    @JsonGetter("sku")
+    public String getSku() {
+        return this.sku;
+    }
+
+    /**
+     * Getter for TrackInventory.
+     * If true, inventory tracking is active for the variation.
+     */
+    @JsonGetter("track_inventory")
+    public Boolean getTrackInventory() {
+        return this.trackInventory;
+    }
+
+    /**
+     * Getter for InventoryAlertType.
+     */
+    @JsonGetter("inventory_alert_type")
+    public String getInventoryAlertType() {
+        return this.inventoryAlertType;
+    }
+
+    /**
+     * Getter for InventoryAlertThreshold.
+     * If the inventory quantity for the variation is less than or equal to this value and inventory_alert_type is LOW_QUANTITY, the variation displays an alert in the merchant dashboard.
+     */
+    @JsonGetter("inventory_alert_threshold")
+    public Integer getInventoryAlertThreshold() {
+        return this.inventoryAlertThreshold;
+    }
+
+    /**
+     * Getter for UserData.
+     * Arbitrary metadata associated with the variation. Cannot exceed 255 characters.
+     */
+    @JsonGetter("user_data")
+    public String getUserData() {
+        return this.userData;
+    }
+
+    /**
+     * Getter for V2Id.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     */
+    @JsonGetter("v2_id")
+    public String getV2Id() {
+        return this.v2Id;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, itemId, ordinal, pricingType, priceMoney, sku, trackInventory, inventoryAlertType, inventoryAlertThreshold, userData, v2Id);
+        return Objects.hash(id, name, itemId, ordinal, pricingType, priceMoney, sku, trackInventory,
+            inventoryAlertType, inventoryAlertThreshold, userData, v2Id);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1Variation)) {
+        }
+        if(!(obj instanceof V1Variation)) {
             return false;
         }
-        V1Variation v1Variation = (V1Variation) o;
+        V1Variation v1Variation = (V1Variation) obj;
         return Objects.equals(id, v1Variation.id) &&
             Objects.equals(name, v1Variation.name) &&
             Objects.equals(itemId, v1Variation.itemId) &&
@@ -77,117 +208,11 @@ public class V1Variation {
             Objects.equals(v2Id, v1Variation.v2Id);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The item variation's unique ID.
+     * Builds a new {@link V1Variation.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Variation.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for Name.
-     * The item variation's name.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for ItemId.
-     * The ID of the variation's associated item.
-     */
-    @JsonGetter("item_id")
-    public String getItemId() { 
-        return this.itemId;
-    }
-
-    /**
-     * Getter for Ordinal.
-     * Indicates the variation's list position when displayed in Square Point of Sale and the merchant dashboard. If more than one variation for the same item has the same ordinal value, those variations are displayed in alphabetical order
-     */
-    @JsonGetter("ordinal")
-    public Integer getOrdinal() { 
-        return this.ordinal;
-    }
-
-    /**
-     * Getter for PricingType.
-     */
-    @JsonGetter("pricing_type")
-    public String getPricingType() { 
-        return this.pricingType;
-    }
-
-    /**
-     * Getter for PriceMoney.
-     */
-    @JsonGetter("price_money")
-    public V1Money getPriceMoney() { 
-        return this.priceMoney;
-    }
-
-    /**
-     * Getter for Sku.
-     * The item variation's SKU, if any.
-     */
-    @JsonGetter("sku")
-    public String getSku() { 
-        return this.sku;
-    }
-
-    /**
-     * Getter for TrackInventory.
-     * If true, inventory tracking is active for the variation.
-     */
-    @JsonGetter("track_inventory")
-    public Boolean getTrackInventory() { 
-        return this.trackInventory;
-    }
-
-    /**
-     * Getter for InventoryAlertType.
-     */
-    @JsonGetter("inventory_alert_type")
-    public String getInventoryAlertType() { 
-        return this.inventoryAlertType;
-    }
-
-    /**
-     * Getter for InventoryAlertThreshold.
-     * If the inventory quantity for the variation is less than or equal to this value and inventory_alert_type is LOW_QUANTITY, the variation displays an alert in the merchant dashboard.
-     */
-    @JsonGetter("inventory_alert_threshold")
-    public Integer getInventoryAlertThreshold() { 
-        return this.inventoryAlertThreshold;
-    }
-
-    /**
-     * Getter for UserData.
-     * Arbitrary metadata associated with the variation. Cannot exceed 255 characters.
-     */
-    @JsonGetter("user_data")
-    public String getUserData() { 
-        return this.userData;
-    }
-
-    /**
-     * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
-     */
-    @JsonGetter("v2_id")
-    public String getV2Id() { 
-        return this.v2Id;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -205,6 +230,9 @@ public class V1Variation {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Variation}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -220,61 +248,135 @@ public class V1Variation {
         private String userData;
         private String v2Id;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder itemId(String value) {
-            itemId = value;
+        /**
+         * Setter for itemId
+         * @param itemId
+         * @return Builder
+         */
+        public Builder itemId(String itemId) {
+            this.itemId = itemId;
             return this;
         }
-        public Builder ordinal(Integer value) {
-            ordinal = value;
+        /**
+         * Setter for ordinal
+         * @param ordinal
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = ordinal;
             return this;
         }
-        public Builder pricingType(String value) {
-            pricingType = value;
+        /**
+         * Setter for pricingType
+         * @param pricingType
+         * @return Builder
+         */
+        public Builder pricingType(String pricingType) {
+            this.pricingType = pricingType;
             return this;
         }
-        public Builder priceMoney(V1Money value) {
-            priceMoney = value;
+        /**
+         * Setter for priceMoney
+         * @param priceMoney
+         * @return Builder
+         */
+        public Builder priceMoney(V1Money priceMoney) {
+            this.priceMoney = priceMoney;
             return this;
         }
-        public Builder sku(String value) {
-            sku = value;
+        /**
+         * Setter for sku
+         * @param sku
+         * @return Builder
+         */
+        public Builder sku(String sku) {
+            this.sku = sku;
             return this;
         }
-        public Builder trackInventory(Boolean value) {
-            trackInventory = value;
+        /**
+         * Setter for trackInventory
+         * @param trackInventory
+         * @return Builder
+         */
+        public Builder trackInventory(Boolean trackInventory) {
+            this.trackInventory = trackInventory;
             return this;
         }
-        public Builder inventoryAlertType(String value) {
-            inventoryAlertType = value;
+        /**
+         * Setter for inventoryAlertType
+         * @param inventoryAlertType
+         * @return Builder
+         */
+        public Builder inventoryAlertType(String inventoryAlertType) {
+            this.inventoryAlertType = inventoryAlertType;
             return this;
         }
-        public Builder inventoryAlertThreshold(Integer value) {
-            inventoryAlertThreshold = value;
+        /**
+         * Setter for inventoryAlertThreshold
+         * @param inventoryAlertThreshold
+         * @return Builder
+         */
+        public Builder inventoryAlertThreshold(Integer inventoryAlertThreshold) {
+            this.inventoryAlertThreshold = inventoryAlertThreshold;
             return this;
         }
-        public Builder userData(String value) {
-            userData = value;
+        /**
+         * Setter for userData
+         * @param userData
+         * @return Builder
+         */
+        public Builder userData(String userData) {
+            this.userData = userData;
             return this;
         }
-        public Builder v2Id(String value) {
-            v2Id = value;
+        /**
+         * Setter for v2Id
+         * @param v2Id
+         * @return Builder
+         */
+        public Builder v2Id(String v2Id) {
+            this.v2Id = v2Id;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Variation} object using the set fields.
+         * @return {@link V1Variation}
+         */
         public V1Variation build() {
             V1Variation model = new V1Variation(id,
                 name,

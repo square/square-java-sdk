@@ -5,8 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateBreakTypeRequest type.
+ */
 public class CreateBreakTypeRequest {
 
+    /**
+     * Initialization constructor.
+     * @param breakType
+     * @param idempotencyKey
+     */
     @JsonCreator
     public CreateBreakTypeRequest(
             @JsonProperty("break_type") BreakType breakType,
@@ -16,31 +25,13 @@ public class CreateBreakTypeRequest {
     }
 
     private final String idempotencyKey;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(breakType, idempotencyKey);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateBreakTypeRequest)) {
-            return false;
-        }
-        CreateBreakTypeRequest createBreakTypeRequest = (CreateBreakTypeRequest) o;
-        return Objects.equals(breakType, createBreakTypeRequest.breakType) &&
-            Objects.equals(idempotencyKey, createBreakTypeRequest.idempotencyKey);
-    }
-
     private final BreakType breakType;
     /**
      * Getter for IdempotencyKey.
      * Unique string value to insure idempotency of the operation
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -50,34 +41,77 @@ public class CreateBreakTypeRequest {
      * instances on a `Shift`.
      */
     @JsonGetter("break_type")
-    public BreakType getBreakType() { 
+    public BreakType getBreakType() {
         return this.breakType;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, breakType);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateBreakTypeRequest)) {
+            return false;
+        }
+        CreateBreakTypeRequest createBreakTypeRequest = (CreateBreakTypeRequest) obj;
+        return Objects.equals(idempotencyKey, createBreakTypeRequest.idempotencyKey) &&
+            Objects.equals(breakType, createBreakTypeRequest.breakType);
+    }
+
+    /**
+     * Builds a new {@link CreateBreakTypeRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateBreakTypeRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(breakType)
             .idempotencyKey(getIdempotencyKey());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateBreakTypeRequest}
+     */
     public static class Builder {
         private BreakType breakType;
         private String idempotencyKey;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(BreakType breakType) {
             this.breakType = breakType;
         }
 
-        public Builder breakType(BreakType value) {
-            breakType = value;
+        /**
+         * Setter for breakType
+         * @param breakType
+         * @return Builder
+         */
+        public Builder breakType(BreakType breakType) {
+            this.breakType = breakType;
             return this;
         }
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateBreakTypeRequest} object using the set fields.
+         * @return {@link CreateBreakTypeRequest}
+         */
         public CreateBreakTypeRequest build() {
             return new CreateBreakTypeRequest(breakType,
                 idempotencyKey);

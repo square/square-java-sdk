@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateCustomerCardRequest type.
+ */
 public class CreateCustomerCardRequest {
 
+    /**
+     * Initialization constructor.
+     * @param cardNonce
+     * @param billingAddress
+     * @param cardholderName
+     * @param verificationToken
+     */
     @JsonCreator
     public CreateCustomerCardRequest(
             @JsonProperty("card_nonce") String cardNonce,
@@ -23,26 +34,6 @@ public class CreateCustomerCardRequest {
     private final Address billingAddress;
     private final String cardholderName;
     private final String verificationToken;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cardNonce, billingAddress, cardholderName, verificationToken);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateCustomerCardRequest)) {
-            return false;
-        }
-        CreateCustomerCardRequest createCustomerCardRequest = (CreateCustomerCardRequest) o;
-        return Objects.equals(cardNonce, createCustomerCardRequest.cardNonce) &&
-            Objects.equals(billingAddress, createCustomerCardRequest.billingAddress) &&
-            Objects.equals(cardholderName, createCustomerCardRequest.cardholderName) &&
-            Objects.equals(verificationToken, createCustomerCardRequest.verificationToken);
-    }
-
     /**
      * Getter for CardNonce.
      * A card nonce representing the credit card to link to the customer.
@@ -54,7 +45,7 @@ public class CreateCustomerCardRequest {
      * cannot be used to create a customer card.
      */
     @JsonGetter("card_nonce")
-    public String getCardNonce() { 
+    public String getCardNonce() {
         return this.cardNonce;
     }
 
@@ -63,7 +54,7 @@ public class CreateCustomerCardRequest {
      * Represents a physical address.
      */
     @JsonGetter("billing_address")
-    public Address getBillingAddress() { 
+    public Address getBillingAddress() {
         return this.billingAddress;
     }
 
@@ -72,7 +63,7 @@ public class CreateCustomerCardRequest {
      * The full name printed on the credit card.
      */
     @JsonGetter("cardholder_name")
-    public String getCardholderName() { 
+    public String getCardholderName() {
         return this.cardholderName;
     }
 
@@ -83,11 +74,36 @@ public class CreateCustomerCardRequest {
      * challenge results to indicate that Square has verified the buyer identity.
      */
     @JsonGetter("verification_token")
-    public String getVerificationToken() { 
+    public String getVerificationToken() {
         return this.verificationToken;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardNonce, billingAddress, cardholderName, verificationToken);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateCustomerCardRequest)) {
+            return false;
+        }
+        CreateCustomerCardRequest createCustomerCardRequest = (CreateCustomerCardRequest) obj;
+        return Objects.equals(cardNonce, createCustomerCardRequest.cardNonce) &&
+            Objects.equals(billingAddress, createCustomerCardRequest.billingAddress) &&
+            Objects.equals(cardholderName, createCustomerCardRequest.cardholderName) &&
+            Objects.equals(verificationToken, createCustomerCardRequest.verificationToken);
+    }
+
+    /**
+     * Builds a new {@link CreateCustomerCardRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateCustomerCardRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(cardNonce)
             .billingAddress(getBillingAddress())
@@ -96,33 +112,63 @@ public class CreateCustomerCardRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateCustomerCardRequest}
+     */
     public static class Builder {
         private String cardNonce;
         private Address billingAddress;
         private String cardholderName;
         private String verificationToken;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String cardNonce) {
             this.cardNonce = cardNonce;
         }
 
-        public Builder cardNonce(String value) {
-            cardNonce = value;
+        /**
+         * Setter for cardNonce
+         * @param cardNonce
+         * @return Builder
+         */
+        public Builder cardNonce(String cardNonce) {
+            this.cardNonce = cardNonce;
             return this;
         }
-        public Builder billingAddress(Address value) {
-            billingAddress = value;
+        /**
+         * Setter for billingAddress
+         * @param billingAddress
+         * @return Builder
+         */
+        public Builder billingAddress(Address billingAddress) {
+            this.billingAddress = billingAddress;
             return this;
         }
-        public Builder cardholderName(String value) {
-            cardholderName = value;
+        /**
+         * Setter for cardholderName
+         * @param cardholderName
+         * @return Builder
+         */
+        public Builder cardholderName(String cardholderName) {
+            this.cardholderName = cardholderName;
             return this;
         }
-        public Builder verificationToken(String value) {
-            verificationToken = value;
+        /**
+         * Setter for verificationToken
+         * @param verificationToken
+         * @return Builder
+         */
+        public Builder verificationToken(String verificationToken) {
+            this.verificationToken = verificationToken;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateCustomerCardRequest} object using the set fields.
+         * @return {@link CreateCustomerCardRequest}
+         */
         public CreateCustomerCardRequest build() {
             return new CreateCustomerCardRequest(cardNonce,
                 billingAddress,

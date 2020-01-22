@@ -11,6 +11,9 @@ import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 
 
+/**
+ * HTTP Client to send HTTP Requests and read the responses.
+ */
 public interface HttpClient {
 
     /**
@@ -43,60 +46,60 @@ public interface HttpClient {
     /**
      * Create a simple HTTP GET request
      */
-    public HttpRequest get(String _queryUrl,
-                    Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    public HttpRequest get(String queryUrl,
+                    Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
     * Create a simple HTTP HEAD request
     */
-    public HttpRequest head(String _queryUrl,
-            Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    public HttpRequest head(String queryUrl,
+            Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
      * Create an HTTP POST request with parameters
      */
-    public HttpRequest post(String _queryUrl,
-                     Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    public HttpRequest post(String queryUrl,
+                     Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
      * Create an HTTP POST request with body
      */
-    public HttpBodyRequest postBody(String _queryUrl,
-                             Headers _headers, String _body);
+    public HttpBodyRequest postBody(String queryUrl,
+                             Headers headers, String body);
 
     /**
      * Create an HTTP PUT request with parameters
      */
-    public HttpRequest put(String _queryUrl,
-                    Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    public HttpRequest put(String queryUrl,
+                    Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
      * Create an HTTP PUT request with body
      */
-    HttpBodyRequest putBody(String _queryUrl,
-                            Headers _headers, String _body);
+    HttpBodyRequest putBody(String queryUrl,
+                            Headers headers, String body);
 
     /**
      * Create an HTTP PATCH request with parameters
      */
-    public HttpRequest patch(String _queryUrl,
-                      Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    public HttpRequest patch(String queryUrl,
+                      Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
      * Create an HTTP PATCH request with body
      */
-    public HttpBodyRequest patchBody(String _queryUrl,
-                              Headers _headers, String _body);
+    public HttpBodyRequest patchBody(String queryUrl,
+                              Headers headers, String body);
 
     /**
      * Create an HTTP DELETE request with parameters
      */
-    HttpRequest delete(String _queryUrl,
-                       Headers _headers, List<SimpleEntry<String, Object>> _parameters);
+    HttpRequest delete(String queryUrl,
+                       Headers headers, List<SimpleEntry<String, Object>> parameters);
 
     /**
      * Create an HTTP DELETE request with body
      */
-    public HttpBodyRequest deleteBody(String _queryUrl,
-                               Headers _headers, String _body);
+    public HttpBodyRequest deleteBody(String queryUrl,
+                               Headers headers, String body);
 }

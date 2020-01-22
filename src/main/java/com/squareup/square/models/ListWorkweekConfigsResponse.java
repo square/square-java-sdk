@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ListWorkweekConfigsResponse type.
+ */
 public class ListWorkweekConfigsResponse {
 
+    /**
+     * Initialization constructor.
+     * @param workweekConfigs
+     * @param cursor
+     * @param errors
+     */
     @JsonCreator
     public ListWorkweekConfigsResponse(
             @JsonProperty("workweek_configs") List<WorkweekConfig> workweekConfigs,
@@ -24,25 +34,6 @@ public class ListWorkweekConfigsResponse {
     private final String cursor;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(workweekConfigs, cursor, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListWorkweekConfigsResponse)) {
-            return false;
-        }
-        ListWorkweekConfigsResponse listWorkweekConfigsResponse = (ListWorkweekConfigsResponse) o;
-        return Objects.equals(workweekConfigs, listWorkweekConfigsResponse.workweekConfigs) &&
-            Objects.equals(cursor, listWorkweekConfigsResponse.cursor) &&
-            Objects.equals(errors, listWorkweekConfigsResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class ListWorkweekConfigsResponse {
      * A page of Employee Wage results.
      */
     @JsonGetter("workweek_configs")
-    public List<WorkweekConfig> getWorkweekConfigs() { 
+    public List<WorkweekConfig> getWorkweekConfigs() {
         return this.workweekConfigs;
     }
 
@@ -62,7 +53,7 @@ public class ListWorkweekConfigsResponse {
      * Employee Wage results.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -71,11 +62,35 @@ public class ListWorkweekConfigsResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(workweekConfigs, cursor, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListWorkweekConfigsResponse)) {
+            return false;
+        }
+        ListWorkweekConfigsResponse listWorkweekConfigsResponse = (ListWorkweekConfigsResponse) obj;
+        return Objects.equals(workweekConfigs, listWorkweekConfigsResponse.workweekConfigs) &&
+            Objects.equals(cursor, listWorkweekConfigsResponse.cursor) &&
+            Objects.equals(errors, listWorkweekConfigsResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link ListWorkweekConfigsResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListWorkweekConfigsResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .workweekConfigs(getWorkweekConfigs())
@@ -84,31 +99,63 @@ public class ListWorkweekConfigsResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListWorkweekConfigsResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<WorkweekConfig> workweekConfigs;
         private String cursor;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder workweekConfigs(List<WorkweekConfig> value) {
-            workweekConfigs = value;
+        /**
+         * Setter for workweekConfigs
+         * @param workweekConfigs
+         * @return Builder
+         */
+        public Builder workweekConfigs(List<WorkweekConfig> workweekConfigs) {
+            this.workweekConfigs = workweekConfigs;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListWorkweekConfigsResponse} object using the set fields.
+         * @return {@link ListWorkweekConfigsResponse}
+         */
         public ListWorkweekConfigsResponse build() {
             ListWorkweekConfigsResponse model = new ListWorkweekConfigsResponse(workweekConfigs,
                 cursor,

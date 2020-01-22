@@ -5,8 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for UpsertCatalogObjectRequest type.
+ */
 public class UpsertCatalogObjectRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param object
+     */
     @JsonCreator
     public UpsertCatalogObjectRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -17,24 +26,6 @@ public class UpsertCatalogObjectRequest {
 
     private final String idempotencyKey;
     private final CatalogObject object;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, object);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof UpsertCatalogObjectRequest)) {
-            return false;
-        }
-        UpsertCatalogObjectRequest upsertCatalogObjectRequest = (UpsertCatalogObjectRequest) o;
-        return Objects.equals(idempotencyKey, upsertCatalogObjectRequest.idempotencyKey) &&
-            Objects.equals(object, upsertCatalogObjectRequest.object);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A value you specify that uniquely identifies this
@@ -47,7 +38,7 @@ public class UpsertCatalogObjectRequest {
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -55,36 +46,79 @@ public class UpsertCatalogObjectRequest {
      * Getter for Object.
      */
     @JsonGetter("object")
-    public CatalogObject getObject() { 
+    public CatalogObject getObject() {
         return this.object;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, object);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof UpsertCatalogObjectRequest)) {
+            return false;
+        }
+        UpsertCatalogObjectRequest upsertCatalogObjectRequest = (UpsertCatalogObjectRequest) obj;
+        return Objects.equals(idempotencyKey, upsertCatalogObjectRequest.idempotencyKey) &&
+            Objects.equals(object, upsertCatalogObjectRequest.object);
+    }
+
+    /**
+     * Builds a new {@link UpsertCatalogObjectRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link UpsertCatalogObjectRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             object);
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link UpsertCatalogObjectRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private CatalogObject object;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey,
                 CatalogObject object) {
             this.idempotencyKey = idempotencyKey;
             this.object = object;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder object(CatalogObject value) {
-            object = value;
+        /**
+         * Setter for object
+         * @param object
+         * @return Builder
+         */
+        public Builder object(CatalogObject object) {
+            this.object = object;
             return this;
         }
 
+        /**
+         * Builds a new {@link UpsertCatalogObjectRequest} object using the set fields.
+         * @return {@link UpsertCatalogObjectRequest}
+         */
         public UpsertCatalogObjectRequest build() {
             return new UpsertCatalogObjectRequest(idempotencyKey,
                 object);

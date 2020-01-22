@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for CreateCheckoutResponse type.
+ */
 public class CreateCheckoutResponse {
 
+    /**
+     * Initialization constructor.
+     * @param checkout
+     * @param errors
+     */
     @JsonCreator
     public CreateCheckoutResponse(
             @JsonProperty("checkout") Checkout checkout,
@@ -21,24 +30,6 @@ public class CreateCheckoutResponse {
     private final Checkout checkout;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(checkout, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateCheckoutResponse)) {
-            return false;
-        }
-        CreateCheckoutResponse createCheckoutResponse = (CreateCheckoutResponse) o;
-        return Objects.equals(checkout, createCheckoutResponse.checkout) &&
-            Objects.equals(errors, createCheckoutResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -49,7 +40,7 @@ public class CreateCheckoutResponse {
      * payment types using a checkout workflow hosted on squareup.com.
      */
     @JsonGetter("checkout")
-    public Checkout getCheckout() { 
+    public Checkout getCheckout() {
         return this.checkout;
     }
 
@@ -58,11 +49,34 @@ public class CreateCheckoutResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(checkout, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateCheckoutResponse)) {
+            return false;
+        }
+        CreateCheckoutResponse createCheckoutResponse = (CreateCheckoutResponse) obj;
+        return Objects.equals(checkout, createCheckoutResponse.checkout) &&
+            Objects.equals(errors, createCheckoutResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link CreateCheckoutResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateCheckoutResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .checkout(getCheckout())
@@ -70,26 +84,53 @@ public class CreateCheckoutResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateCheckoutResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private Checkout checkout;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder checkout(Checkout value) {
-            checkout = value;
+        /**
+         * Setter for checkout
+         * @param checkout
+         * @return Builder
+         */
+        public Builder checkout(Checkout checkout) {
+            this.checkout = checkout;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateCheckoutResponse} object using the set fields.
+         * @return {@link CreateCheckoutResponse}
+         */
         public CreateCheckoutResponse build() {
             CreateCheckoutResponse model = new CreateCheckoutResponse(checkout,
                 errors);

@@ -5,8 +5,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderReturnDiscount type.
+ */
 public class OrderReturnDiscount {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param sourceDiscountUid
+     * @param catalogObjectId
+     * @param name
+     * @param type
+     * @param percentage
+     * @param amountMoney
+     * @param appliedMoney
+     * @param scope
+     */
     @JsonCreator
     public OrderReturnDiscount(
             @JsonProperty("uid") String uid,
@@ -38,37 +54,12 @@ public class OrderReturnDiscount {
     private final Money amountMoney;
     private final Money appliedMoney;
     private final String scope;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, sourceDiscountUid, catalogObjectId, name, type, percentage, amountMoney, appliedMoney, scope);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderReturnDiscount)) {
-            return false;
-        }
-        OrderReturnDiscount orderReturnDiscount = (OrderReturnDiscount) o;
-        return Objects.equals(uid, orderReturnDiscount.uid) &&
-            Objects.equals(sourceDiscountUid, orderReturnDiscount.sourceDiscountUid) &&
-            Objects.equals(catalogObjectId, orderReturnDiscount.catalogObjectId) &&
-            Objects.equals(name, orderReturnDiscount.name) &&
-            Objects.equals(type, orderReturnDiscount.type) &&
-            Objects.equals(percentage, orderReturnDiscount.percentage) &&
-            Objects.equals(amountMoney, orderReturnDiscount.amountMoney) &&
-            Objects.equals(appliedMoney, orderReturnDiscount.appliedMoney) &&
-            Objects.equals(scope, orderReturnDiscount.scope);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the return discount only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -77,7 +68,7 @@ public class OrderReturnDiscount {
      * `uid` of the Discount from the Order which contains the original application of this discount.
      */
     @JsonGetter("source_discount_uid")
-    public String getSourceDiscountUid() { 
+    public String getSourceDiscountUid() {
         return this.sourceDiscountUid;
     }
 
@@ -86,7 +77,7 @@ public class OrderReturnDiscount {
      * The catalog object id referencing [CatalogDiscount](#type-catalogdiscount).
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -95,7 +86,7 @@ public class OrderReturnDiscount {
      * The discount's name.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -104,7 +95,7 @@ public class OrderReturnDiscount {
      * Indicates how the discount is applied to the associated line item or order.
      */
     @JsonGetter("type")
-    public String getType() { 
+    public String getType() {
         return this.type;
     }
 
@@ -115,7 +106,7 @@ public class OrderReturnDiscount {
      * `percentage` is not set for amount-based discounts.
      */
     @JsonGetter("percentage")
-    public String getPercentage() { 
+    public String getPercentage() {
         return this.percentage;
     }
 
@@ -129,7 +120,7 @@ public class OrderReturnDiscount {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -143,7 +134,7 @@ public class OrderReturnDiscount {
      * for more information.
      */
     @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
+    public Money getAppliedMoney() {
         return this.appliedMoney;
     }
 
@@ -152,11 +143,42 @@ public class OrderReturnDiscount {
      * Indicates whether this is a line item or order level discount.
      */
     @JsonGetter("scope")
-    public String getScope() { 
+    public String getScope() {
         return this.scope;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, sourceDiscountUid, catalogObjectId, name, type, percentage,
+            amountMoney, appliedMoney, scope);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderReturnDiscount)) {
+            return false;
+        }
+        OrderReturnDiscount orderReturnDiscount = (OrderReturnDiscount) obj;
+        return Objects.equals(uid, orderReturnDiscount.uid) &&
+            Objects.equals(sourceDiscountUid, orderReturnDiscount.sourceDiscountUid) &&
+            Objects.equals(catalogObjectId, orderReturnDiscount.catalogObjectId) &&
+            Objects.equals(name, orderReturnDiscount.name) &&
+            Objects.equals(type, orderReturnDiscount.type) &&
+            Objects.equals(percentage, orderReturnDiscount.percentage) &&
+            Objects.equals(amountMoney, orderReturnDiscount.amountMoney) &&
+            Objects.equals(appliedMoney, orderReturnDiscount.appliedMoney) &&
+            Objects.equals(scope, orderReturnDiscount.scope);
+    }
+
+    /**
+     * Builds a new {@link OrderReturnDiscount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderReturnDiscount.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -171,6 +193,9 @@ public class OrderReturnDiscount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderReturnDiscount}
+     */
     public static class Builder {
         private String uid;
         private String sourceDiscountUid;
@@ -182,45 +207,99 @@ public class OrderReturnDiscount {
         private Money appliedMoney;
         private String scope;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder sourceDiscountUid(String value) {
-            sourceDiscountUid = value;
-            return this;
-        }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder type(String value) {
-            type = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
-            return this;
-        }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
-            return this;
-        }
-        public Builder scope(String value) {
-            scope = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for sourceDiscountUid
+         * @param sourceDiscountUid
+         * @return Builder
+         */
+        public Builder sourceDiscountUid(String sourceDiscountUid) {
+            this.sourceDiscountUid = sourceDiscountUid;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
+            return this;
+        }
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
+            return this;
+        }
+        /**
+         * Setter for scope
+         * @param scope
+         * @return Builder
+         */
+        public Builder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderReturnDiscount} object using the set fields.
+         * @return {@link OrderReturnDiscount}
+         */
         public OrderReturnDiscount build() {
             return new OrderReturnDiscount(uid,
                 sourceDiscountUid,

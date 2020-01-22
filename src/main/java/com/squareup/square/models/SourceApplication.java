@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for SourceApplication type.
+ */
 public class SourceApplication {
 
+    /**
+     * Initialization constructor.
+     * @param product
+     * @param applicationId
+     * @param name
+     */
     @JsonCreator
     public SourceApplication(
             @JsonProperty("product") String product,
@@ -20,31 +30,12 @@ public class SourceApplication {
     private final String product;
     private final String applicationId;
     private final String name;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(product, applicationId, name);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof SourceApplication)) {
-            return false;
-        }
-        SourceApplication sourceApplication = (SourceApplication) o;
-        return Objects.equals(product, sourceApplication.product) &&
-            Objects.equals(applicationId, sourceApplication.applicationId) &&
-            Objects.equals(name, sourceApplication.name);
-    }
-
     /**
      * Getter for Product.
      * Indicates the Square product used to generate an inventory change.
      */
     @JsonGetter("product")
-    public String getProduct() { 
+    public String getProduct() {
         return this.product;
     }
 
@@ -54,7 +45,7 @@ public class SourceApplication {
      * [Product](#type-product) type `EXTERNAL_API`.
      */
     @JsonGetter("application_id")
-    public String getApplicationId() { 
+    public String getApplicationId() {
         return this.applicationId;
     }
 
@@ -64,11 +55,35 @@ public class SourceApplication {
      * (e.g. `"Custom Application"`, `"Square POS 4.74 for Android"`).
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, applicationId, name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SourceApplication)) {
+            return false;
+        }
+        SourceApplication sourceApplication = (SourceApplication) obj;
+        return Objects.equals(product, sourceApplication.product) &&
+            Objects.equals(applicationId, sourceApplication.applicationId) &&
+            Objects.equals(name, sourceApplication.name);
+    }
+
+    /**
+     * Builds a new {@link SourceApplication.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link SourceApplication.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .product(getProduct())
@@ -77,26 +92,53 @@ public class SourceApplication {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link SourceApplication}
+     */
     public static class Builder {
         private String product;
         private String applicationId;
         private String name;
 
-        public Builder() { }
-
-        public Builder product(String value) {
-            product = value;
-            return this;
-        }
-        public Builder applicationId(String value) {
-            applicationId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for product
+         * @param product
+         * @return Builder
+         */
+        public Builder product(String product) {
+            this.product = product;
+            return this;
+        }
+        /**
+         * Setter for applicationId
+         * @param applicationId
+         * @return Builder
+         */
+        public Builder applicationId(String applicationId) {
+            this.applicationId = applicationId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link SourceApplication} object using the set fields.
+         * @return {@link SourceApplication}
+         */
         public SourceApplication build() {
             return new SourceApplication(product,
                 applicationId,

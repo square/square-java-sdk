@@ -5,8 +5,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Break type.
+ */
 public class Break {
 
+    /**
+     * Initialization constructor.
+     * @param startAt
+     * @param breakTypeId
+     * @param name
+     * @param expectedDuration
+     * @param isPaid
+     * @param id
+     * @param endAt
+     */
     @JsonCreator
     public Break(
             @JsonProperty("start_at") String startAt,
@@ -27,40 +41,17 @@ public class Break {
 
     private final String id;
     private final String startAt;
-    private final String endAt;    
+    private final String endAt;
     private final String breakTypeId;
     private final String name;
     private final String expectedDuration;
     private final boolean isPaid;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(startAt, breakTypeId, name, expectedDuration, isPaid, id, endAt);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Break)) {
-            return false;
-        }
-        Break breakObj = (Break) o;
-        return Objects.equals(startAt, breakObj.startAt) &&
-            Objects.equals(breakTypeId, breakObj.breakTypeId) &&
-            Objects.equals(name, breakObj.name) &&
-            Objects.equals(expectedDuration, breakObj.expectedDuration) &&
-            Objects.equals(isPaid, breakObj.isPaid) &&
-            Objects.equals(id, breakObj.id) &&
-            Objects.equals(endAt, breakObj.endAt);
-    }
-
     /**
      * Getter for Id.
      * UUID for this object
      */
     @JsonGetter("id")
-    public String getId() { 
+    public String getId() {
         return this.id;
     }
 
@@ -70,7 +61,7 @@ public class Break {
      * the minute is respected; seconds are truncated.
      */
     @JsonGetter("start_at")
-    public String getStartAt() { 
+    public String getStartAt() {
         return this.startAt;
     }
 
@@ -82,7 +73,7 @@ public class Break {
      * to `00:11`  is considered a 10 minute break (midnight to 10 minutes after midnight).
      */
     @JsonGetter("end_at")
-    public String getEndAt() { 
+    public String getEndAt() {
         return this.endAt;
     }
 
@@ -91,7 +82,7 @@ public class Break {
      * The `BreakType` this `Break` was templated on.
      */
     @JsonGetter("break_type_id")
-    public String getBreakTypeId() { 
+    public String getBreakTypeId() {
         return this.breakTypeId;
     }
 
@@ -100,7 +91,7 @@ public class Break {
      * A human-readable name.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -110,7 +101,7 @@ public class Break {
      * the break.
      */
     @JsonGetter("expected_duration")
-    public String getExpectedDuration() { 
+    public String getExpectedDuration() {
         return this.expectedDuration;
     }
 
@@ -120,11 +111,39 @@ public class Break {
      * purposes.
      */
     @JsonGetter("is_paid")
-    public boolean getIsPaid() { 
+    public boolean getIsPaid() {
         return this.isPaid;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, startAt, endAt, breakTypeId, name, expectedDuration, isPaid);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Break)) {
+            return false;
+        }
+        Break mBreak = (Break) obj;
+        return Objects.equals(id, mBreak.id) &&
+            Objects.equals(startAt, mBreak.startAt) &&
+            Objects.equals(endAt, mBreak.endAt) &&
+            Objects.equals(breakTypeId, mBreak.breakTypeId) &&
+            Objects.equals(name, mBreak.name) &&
+            Objects.equals(expectedDuration, mBreak.expectedDuration) &&
+            Objects.equals(isPaid, mBreak.isPaid);
+    }
+
+    /**
+     * Builds a new {@link Break.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Break.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(startAt,
             breakTypeId,
@@ -136,6 +155,9 @@ public class Break {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Break}
+     */
     public static class Builder {
         private String startAt;
         private String breakTypeId;
@@ -145,6 +167,9 @@ public class Break {
         private String id;
         private String endAt;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String startAt,
                 String breakTypeId,
                 String name,
@@ -157,35 +182,74 @@ public class Break {
             this.isPaid = isPaid;
         }
 
-        public Builder startAt(String value) {
-            startAt = value;
+        /**
+         * Setter for startAt
+         * @param startAt
+         * @return Builder
+         */
+        public Builder startAt(String startAt) {
+            this.startAt = startAt;
             return this;
         }
-        public Builder breakTypeId(String value) {
-            breakTypeId = value;
+        /**
+         * Setter for breakTypeId
+         * @param breakTypeId
+         * @return Builder
+         */
+        public Builder breakTypeId(String breakTypeId) {
+            this.breakTypeId = breakTypeId;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder expectedDuration(String value) {
-            expectedDuration = value;
+        /**
+         * Setter for expectedDuration
+         * @param expectedDuration
+         * @return Builder
+         */
+        public Builder expectedDuration(String expectedDuration) {
+            this.expectedDuration = expectedDuration;
             return this;
         }
-        public Builder isPaid(boolean value) {
-            isPaid = value;
+        /**
+         * Setter for isPaid
+         * @param isPaid
+         * @return Builder
+         */
+        public Builder isPaid(boolean isPaid) {
+            this.isPaid = isPaid;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder endAt(String value) {
-            endAt = value;
+        /**
+         * Setter for endAt
+         * @param endAt
+         * @return Builder
+         */
+        public Builder endAt(String endAt) {
+            this.endAt = endAt;
             return this;
         }
 
+        /**
+         * Builds a new {@link Break} object using the set fields.
+         * @return {@link Break}
+         */
         public Break build() {
             return new Break(startAt,
                 breakTypeId,

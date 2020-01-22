@@ -1,13 +1,47 @@
 package com.squareup.square.models;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Order type.
+ */
 public class Order {
 
+    /**
+     * Initialization constructor.
+     * @param locationId
+     * @param id
+     * @param referenceId
+     * @param source
+     * @param customerId
+     * @param lineItems
+     * @param taxes
+     * @param discounts
+     * @param serviceCharges
+     * @param fulfillments
+     * @param returns
+     * @param returnAmounts
+     * @param netAmounts
+     * @param roundingAdjustment
+     * @param tenders
+     * @param refunds
+     * @param metadata
+     * @param createdAt
+     * @param updatedAt
+     * @param closedAt
+     * @param state
+     * @param version
+     * @param totalMoney
+     * @param totalTaxMoney
+     * @param totalDiscountMoney
+     * @param totalServiceChargeMoney
+     */
     @JsonCreator
     public Order(
             @JsonProperty("location_id") String locationId,
@@ -90,22 +124,315 @@ public class Order {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalServiceChargeMoney;
+    /**
+     * Getter for Id.
+     * The order's unique ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
 
+    /**
+     * Getter for LocationId.
+     * The ID of the merchant location this order is associated with.
+     */
+    @JsonGetter("location_id")
+    public String getLocationId() {
+        return this.locationId;
+    }
+
+    /**
+     * Getter for ReferenceId.
+     * A client specified identifier to associate an entity in another system
+     * with this order.
+     */
+    @JsonGetter("reference_id")
+    public String getReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
+     * Getter for Source.
+     * Represents the origination details of an order.
+     */
+    @JsonGetter("source")
+    public OrderSource getSource() {
+        return this.source;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * The [Customer](#type-customer) ID of the customer associated with the order.
+     */
+    @JsonGetter("customer_id")
+    public String getCustomerId() {
+        return this.customerId;
+    }
+
+    /**
+     * Getter for LineItems.
+     * The line items included in the order.
+     */
+    @JsonGetter("line_items")
+    public List<OrderLineItem> getLineItems() {
+        return this.lineItems;
+    }
+
+    /**
+     * Getter for Taxes.
+     * The list of all taxes associated with the order.
+     * Taxes can be scoped to either `ORDER` or `LINE_ITEM`. For taxes with `LINE_ITEM` scope, an
+     * `OrderLineItemAppliedTax` must be added to each line item that the tax applies to. For taxes
+     * with `ORDER` scope, the server will generate an `OrderLineItemAppliedTax` for every line item.
+     * On reads, each tax in the list will include the total amount of that tax applied to the order.
+     * __IMPORTANT__: If `LINE_ITEM` scope is set on any taxes in this field, usage of the deprecated
+     * `line_items.taxes` field will result in an error. Please use `line_items.applied_taxes`
+     * instead.
+     */
+    @JsonGetter("taxes")
+    public List<OrderLineItemTax> getTaxes() {
+        return this.taxes;
+    }
+
+    /**
+     * Getter for Discounts.
+     * The list of all discounts associated with the order.
+     * Discounts can be scoped to either `ORDER` or `LINE_ITEM`. For discounts scoped to `LINE_ITEM`,
+     * an `OrderLineItemAppliedDiscount` must be added to each line item that the discount applies to.
+     * For discounts with `ORDER` scope, the server will generate an `OrderLineItemAppliedDiscount`
+     * for every line item.
+     * __IMPORTANT__: If `LINE_ITEM` scope is set on any discounts in this field, usage of the deprecated
+     * `line_items.discounts` field will result in an error. Please use `line_items.applied_discounts`
+     * instead.
+     */
+    @JsonGetter("discounts")
+    public List<OrderLineItemDiscount> getDiscounts() {
+        return this.discounts;
+    }
+
+    /**
+     * Getter for ServiceCharges.
+     * A list of service charges applied to the order.
+     */
+    @JsonGetter("service_charges")
+    public List<OrderServiceCharge> getServiceCharges() {
+        return this.serviceCharges;
+    }
+
+    /**
+     * Getter for Fulfillments.
+     * Details on order fulfillment.
+     * Orders can only be created with at most one fulfillment. However, orders returned
+     * by the API may contain multiple fulfillments.
+     */
+    @JsonGetter("fulfillments")
+    public List<OrderFulfillment> getFulfillments() {
+        return this.fulfillments;
+    }
+
+    /**
+     * Getter for Returns.
+     * Collection of items from sale Orders being returned in this one. Normally part of an
+     * Itemized Return or Exchange.  There will be exactly one `Return` object per sale Order being
+     * referenced.
+     */
+    @JsonGetter("returns")
+    public List<OrderReturn> getReturns() {
+        return this.returns;
+    }
+
+    /**
+     * Getter for ReturnAmounts.
+     * A collection of various money amounts.
+     */
+    @JsonGetter("return_amounts")
+    public OrderMoneyAmounts getReturnAmounts() {
+        return this.returnAmounts;
+    }
+
+    /**
+     * Getter for NetAmounts.
+     * A collection of various money amounts.
+     */
+    @JsonGetter("net_amounts")
+    public OrderMoneyAmounts getNetAmounts() {
+        return this.netAmounts;
+    }
+
+    /**
+     * Getter for RoundingAdjustment.
+     * A rounding adjustment of the money being returned. Commonly used to apply Cash Rounding
+     * when the minimum unit of account is smaller than the lowest physical denomination of currency.
+     */
+    @JsonGetter("rounding_adjustment")
+    public OrderRoundingAdjustment getRoundingAdjustment() {
+        return this.roundingAdjustment;
+    }
+
+    /**
+     * Getter for Tenders.
+     * The Tenders which were used to pay for the Order.
+     */
+    @JsonGetter("tenders")
+    public List<Tender> getTenders() {
+        return this.tenders;
+    }
+
+    /**
+     * Getter for Refunds.
+     * The Refunds that are part of this Order.
+     */
+    @JsonGetter("refunds")
+    public List<Refund> getRefunds() {
+        return this.refunds;
+    }
+
+    /**
+     * Getter for Metadata.
+     * Application-defined data attached to this order. Metadata fields are intended
+     * to store descriptive references or associations with an entity in another system or store brief
+     * information about the object. Square does not process this field; it only stores and returns it
+     * in relevant API calls. Do not use metadata to store any sensitive information (personally
+     * identifiable information, card details, etc.).
+     * Keys written by applications must be 60 characters or less and must be in the character set
+     * `[a-zA-Z0-9_-]`. Entries may also include metadata generated by Square. These keys are prefixed
+     * with a namespace, separated from the key with a ':' character.
+     * Values have a max length of 255 characters.
+     * An application may have up to 10 entries per metadata field.
+     * Entries written by applications are private and can only be read or modified by the same
+     * application.
+     * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
+     */
+    @JsonGetter("metadata")
+    public Map<String, String> getMetadata() {
+        return this.metadata;
+    }
+
+    /**
+     * Getter for CreatedAt.
+     * Timestamp for when the order was created. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("created_at")
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * Timestamp for when the order was last updated. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("updated_at")
+    public String getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Getter for ClosedAt.
+     * Timestamp for when the order was closed. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     */
+    @JsonGetter("closed_at")
+    public String getClosedAt() {
+        return this.closedAt;
+    }
+
+    /**
+     * Getter for State.
+     * The state of the order.
+     */
+    @JsonGetter("state")
+    public String getState() {
+        return this.state;
+    }
+
+    /**
+     * Getter for Version.
+     * Version number which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API will not include a version and
+     * thus cannot be updated.
+     * [Read more about working with versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
+     */
+    @JsonGetter("version")
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    /**
+     * Getter for TotalMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_money")
+    public Money getTotalMoney() {
+        return this.totalMoney;
+    }
+
+    /**
+     * Getter for TotalTaxMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_tax_money")
+    public Money getTotalTaxMoney() {
+        return this.totalTaxMoney;
+    }
+
+    /**
+     * Getter for TotalDiscountMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_discount_money")
+    public Money getTotalDiscountMoney() {
+        return this.totalDiscountMoney;
+    }
+
+    /**
+     * Getter for TotalServiceChargeMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_service_charge_money")
+    public Money getTotalServiceChargeMoney() {
+        return this.totalServiceChargeMoney;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(locationId, id, referenceId, source, customerId, lineItems, taxes, discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts, roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt, state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney);
+        return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
+            discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
+            roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt, state,
+            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof Order)) {
+        }
+        if(!(obj instanceof Order)) {
             return false;
         }
-        Order order = (Order) o;
-        return Objects.equals(locationId, order.locationId) &&
-            Objects.equals(id, order.id) &&
+        Order order = (Order) obj;
+        return Objects.equals(id, order.id) &&
+            Objects.equals(locationId, order.locationId) &&
             Objects.equals(referenceId, order.referenceId) &&
             Objects.equals(source, order.source) &&
             Objects.equals(customerId, order.customerId) &&
@@ -133,295 +460,10 @@ public class Order {
     }
 
     /**
-     * Getter for Id.
-     * The order's unique ID.
+     * Builds a new {@link Order.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Order.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for LocationId.
-     * The ID of the merchant location this order is associated with.
-     */
-    @JsonGetter("location_id")
-    public String getLocationId() { 
-        return this.locationId;
-    }
-
-    /**
-     * Getter for ReferenceId.
-     * A client specified identifier to associate an entity in another system
-     * with this order.
-     */
-    @JsonGetter("reference_id")
-    public String getReferenceId() { 
-        return this.referenceId;
-    }
-
-    /**
-     * Getter for Source.
-     * Represents the origination details of an order.
-     */
-    @JsonGetter("source")
-    public OrderSource getSource() { 
-        return this.source;
-    }
-
-    /**
-     * Getter for CustomerId.
-     * The [Customer](#type-customer) ID of the customer associated with the order.
-     */
-    @JsonGetter("customer_id")
-    public String getCustomerId() { 
-        return this.customerId;
-    }
-
-    /**
-     * Getter for LineItems.
-     * The line items included in the order.
-     */
-    @JsonGetter("line_items")
-    public List<OrderLineItem> getLineItems() { 
-        return this.lineItems;
-    }
-
-    /**
-     * Getter for Taxes.
-     * The list of all taxes associated with the order.
-     * Taxes can be scoped to either `ORDER` or `LINE_ITEM`. For taxes with `LINE_ITEM` scope, an
-     * `OrderLineItemAppliedTax` must be added to each line item that the tax applies to. For taxes
-     * with `ORDER` scope, the server will generate an `OrderLineItemAppliedTax` for every line item.
-     * On reads, each tax in the list will include the total amount of that tax applied to the order.
-     * __IMPORTANT__: If `LINE_ITEM` scope is set on any taxes in this field, usage of the deprecated
-     * `line_items.taxes` field will result in an error. Please use `line_items.applied_taxes`
-     * instead.
-     */
-    @JsonGetter("taxes")
-    public List<OrderLineItemTax> getTaxes() { 
-        return this.taxes;
-    }
-
-    /**
-     * Getter for Discounts.
-     * The list of all discounts associated with the order.
-     * Discounts can be scoped to either `ORDER` or `LINE_ITEM`. For discounts scoped to `LINE_ITEM`,
-     * an `OrderLineItemAppliedDiscount` must be added to each line item that the discount applies to.
-     * For discounts with `ORDER` scope, the server will generate an `OrderLineItemAppliedDiscount`
-     * for every line item.
-     * __IMPORTANT__: If `LINE_ITEM` scope is set on any discounts in this field, usage of the deprecated
-     * `line_items.discounts` field will result in an error. Please use `line_items.applied_discounts`
-     * instead.
-     */
-    @JsonGetter("discounts")
-    public List<OrderLineItemDiscount> getDiscounts() { 
-        return this.discounts;
-    }
-
-    /**
-     * Getter for ServiceCharges.
-     * A list of service charges applied to the order.
-     */
-    @JsonGetter("service_charges")
-    public List<OrderServiceCharge> getServiceCharges() { 
-        return this.serviceCharges;
-    }
-
-    /**
-     * Getter for Fulfillments.
-     * Details on order fulfillment.
-     * Orders can only be created with at most one fulfillment. However, orders returned
-     * by the API may contain multiple fulfillments.
-     */
-    @JsonGetter("fulfillments")
-    public List<OrderFulfillment> getFulfillments() { 
-        return this.fulfillments;
-    }
-
-    /**
-     * Getter for Returns.
-     * Collection of items from sale Orders being returned in this one. Normally part of an
-     * Itemized Return or Exchange.  There will be exactly one `Return` object per sale Order being
-     * referenced.
-     */
-    @JsonGetter("returns")
-    public List<OrderReturn> getReturns() { 
-        return this.returns;
-    }
-
-    /**
-     * Getter for ReturnAmounts.
-     * A collection of various money amounts.
-     */
-    @JsonGetter("return_amounts")
-    public OrderMoneyAmounts getReturnAmounts() { 
-        return this.returnAmounts;
-    }
-
-    /**
-     * Getter for NetAmounts.
-     * A collection of various money amounts.
-     */
-    @JsonGetter("net_amounts")
-    public OrderMoneyAmounts getNetAmounts() { 
-        return this.netAmounts;
-    }
-
-    /**
-     * Getter for RoundingAdjustment.
-     * A rounding adjustment of the money being returned. Commonly used to apply Cash Rounding
-     * when the minimum unit of account is smaller than the lowest physical denomination of currency.
-     */
-    @JsonGetter("rounding_adjustment")
-    public OrderRoundingAdjustment getRoundingAdjustment() { 
-        return this.roundingAdjustment;
-    }
-
-    /**
-     * Getter for Tenders.
-     * The Tenders which were used to pay for the Order.
-     */
-    @JsonGetter("tenders")
-    public List<Tender> getTenders() { 
-        return this.tenders;
-    }
-
-    /**
-     * Getter for Refunds.
-     * The Refunds that are part of this Order.
-     */
-    @JsonGetter("refunds")
-    public List<Refund> getRefunds() { 
-        return this.refunds;
-    }
-
-    /**
-     * Getter for Metadata.
-     * Application-defined data attached to this order. Metadata fields are intended
-     * to store descriptive references or associations with an entity in another system or store brief
-     * information about the object. Square does not process this field; it only stores and returns it
-     * in relevant API calls. Do not use metadata to store any sensitive information (personally
-     * identifiable information, card details, etc.).
-     * Keys written by applications must be 60 characters or less and must be in the character set
-     * `[a-zA-Z0-9_-]`. Entries may also include metadata generated by Square. These keys are prefixed
-     * with a namespace, separated from the key with a ':' character.
-     * Values have a max length of 255 characters.
-     * An application may have up to 10 entries per metadata field.
-     * Entries written by applications are private and can only be read or modified by the same
-     * application.
-     * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
-     */
-    @JsonGetter("metadata")
-    public Map<String, String> getMetadata() { 
-        return this.metadata;
-    }
-
-    /**
-     * Getter for CreatedAt.
-     * Timestamp for when the order was created. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("created_at")
-    public String getCreatedAt() { 
-        return this.createdAt;
-    }
-
-    /**
-     * Getter for UpdatedAt.
-     * Timestamp for when the order was last updated. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("updated_at")
-    public String getUpdatedAt() { 
-        return this.updatedAt;
-    }
-
-    /**
-     * Getter for ClosedAt.
-     * Timestamp for when the order was closed. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
-     */
-    @JsonGetter("closed_at")
-    public String getClosedAt() { 
-        return this.closedAt;
-    }
-
-    /**
-     * Getter for State.
-     * The state of the order.
-     */
-    @JsonGetter("state")
-    public String getState() { 
-        return this.state;
-    }
-
-    /**
-     * Getter for Version.
-     * Version number which is incremented each time an update is committed to the order.
-     * Orders that were not created through the API will not include a version and
-     * thus cannot be updated.
-     * [Read more about working with versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
-     */
-    @JsonGetter("version")
-    public Integer getVersion() { 
-        return this.version;
-    }
-
-    /**
-     * Getter for TotalMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_money")
-    public Money getTotalMoney() { 
-        return this.totalMoney;
-    }
-
-    /**
-     * Getter for TotalTaxMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_tax_money")
-    public Money getTotalTaxMoney() { 
-        return this.totalTaxMoney;
-    }
-
-    /**
-     * Getter for TotalDiscountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_discount_money")
-    public Money getTotalDiscountMoney() { 
-        return this.totalDiscountMoney;
-    }
-
-    /**
-     * Getter for TotalServiceChargeMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
-     */
-    @JsonGetter("total_service_charge_money")
-    public Money getTotalServiceChargeMoney() { 
-        return this.totalServiceChargeMoney;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
             .id(getId())
@@ -452,6 +494,9 @@ public class Order {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Order}
+     */
     public static class Builder {
         private String locationId;
         private String id;
@@ -480,115 +525,252 @@ public class Order {
         private Money totalDiscountMoney;
         private Money totalServiceChargeMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String locationId) {
             this.locationId = locationId;
         }
 
-        public Builder locationId(String value) {
-            locationId = value;
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder referenceId(String value) {
-            referenceId = value;
+        /**
+         * Setter for referenceId
+         * @param referenceId
+         * @return Builder
+         */
+        public Builder referenceId(String referenceId) {
+            this.referenceId = referenceId;
             return this;
         }
-        public Builder source(OrderSource value) {
-            source = value;
+        /**
+         * Setter for source
+         * @param source
+         * @return Builder
+         */
+        public Builder source(OrderSource source) {
+            this.source = source;
             return this;
         }
-        public Builder customerId(String value) {
-            customerId = value;
+        /**
+         * Setter for customerId
+         * @param customerId
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = customerId;
             return this;
         }
-        public Builder lineItems(List<OrderLineItem> value) {
-            lineItems = value;
+        /**
+         * Setter for lineItems
+         * @param lineItems
+         * @return Builder
+         */
+        public Builder lineItems(List<OrderLineItem> lineItems) {
+            this.lineItems = lineItems;
             return this;
         }
-        public Builder taxes(List<OrderLineItemTax> value) {
-            taxes = value;
+        /**
+         * Setter for taxes
+         * @param taxes
+         * @return Builder
+         */
+        public Builder taxes(List<OrderLineItemTax> taxes) {
+            this.taxes = taxes;
             return this;
         }
-        public Builder discounts(List<OrderLineItemDiscount> value) {
-            discounts = value;
+        /**
+         * Setter for discounts
+         * @param discounts
+         * @return Builder
+         */
+        public Builder discounts(List<OrderLineItemDiscount> discounts) {
+            this.discounts = discounts;
             return this;
         }
-        public Builder serviceCharges(List<OrderServiceCharge> value) {
-            serviceCharges = value;
+        /**
+         * Setter for serviceCharges
+         * @param serviceCharges
+         * @return Builder
+         */
+        public Builder serviceCharges(List<OrderServiceCharge> serviceCharges) {
+            this.serviceCharges = serviceCharges;
             return this;
         }
-        public Builder fulfillments(List<OrderFulfillment> value) {
-            fulfillments = value;
+        /**
+         * Setter for fulfillments
+         * @param fulfillments
+         * @return Builder
+         */
+        public Builder fulfillments(List<OrderFulfillment> fulfillments) {
+            this.fulfillments = fulfillments;
             return this;
         }
-        public Builder returns(List<OrderReturn> value) {
-            returns = value;
+        /**
+         * Setter for returns
+         * @param returns
+         * @return Builder
+         */
+        public Builder returns(List<OrderReturn> returns) {
+            this.returns = returns;
             return this;
         }
-        public Builder returnAmounts(OrderMoneyAmounts value) {
-            returnAmounts = value;
+        /**
+         * Setter for returnAmounts
+         * @param returnAmounts
+         * @return Builder
+         */
+        public Builder returnAmounts(OrderMoneyAmounts returnAmounts) {
+            this.returnAmounts = returnAmounts;
             return this;
         }
-        public Builder netAmounts(OrderMoneyAmounts value) {
-            netAmounts = value;
+        /**
+         * Setter for netAmounts
+         * @param netAmounts
+         * @return Builder
+         */
+        public Builder netAmounts(OrderMoneyAmounts netAmounts) {
+            this.netAmounts = netAmounts;
             return this;
         }
-        public Builder roundingAdjustment(OrderRoundingAdjustment value) {
-            roundingAdjustment = value;
+        /**
+         * Setter for roundingAdjustment
+         * @param roundingAdjustment
+         * @return Builder
+         */
+        public Builder roundingAdjustment(OrderRoundingAdjustment roundingAdjustment) {
+            this.roundingAdjustment = roundingAdjustment;
             return this;
         }
-        public Builder tenders(List<Tender> value) {
-            tenders = value;
+        /**
+         * Setter for tenders
+         * @param tenders
+         * @return Builder
+         */
+        public Builder tenders(List<Tender> tenders) {
+            this.tenders = tenders;
             return this;
         }
-        public Builder refunds(List<Refund> value) {
-            refunds = value;
+        /**
+         * Setter for refunds
+         * @param refunds
+         * @return Builder
+         */
+        public Builder refunds(List<Refund> refunds) {
+            this.refunds = refunds;
             return this;
         }
-        public Builder metadata(Map<String, String> value) {
-            metadata = value;
+        /**
+         * Setter for metadata
+         * @param metadata
+         * @return Builder
+         */
+        public Builder metadata(Map<String, String> metadata) {
+            this.metadata = metadata;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder updatedAt(String value) {
-            updatedAt = value;
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
-        public Builder closedAt(String value) {
-            closedAt = value;
+        /**
+         * Setter for closedAt
+         * @param closedAt
+         * @return Builder
+         */
+        public Builder closedAt(String closedAt) {
+            this.closedAt = closedAt;
             return this;
         }
-        public Builder state(String value) {
-            state = value;
+        /**
+         * Setter for state
+         * @param state
+         * @return Builder
+         */
+        public Builder state(String state) {
+            this.state = state;
             return this;
         }
-        public Builder version(Integer value) {
-            version = value;
+        /**
+         * Setter for version
+         * @param version
+         * @return Builder
+         */
+        public Builder version(Integer version) {
+            this.version = version;
             return this;
         }
-        public Builder totalMoney(Money value) {
-            totalMoney = value;
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(Money totalMoney) {
+            this.totalMoney = totalMoney;
             return this;
         }
-        public Builder totalTaxMoney(Money value) {
-            totalTaxMoney = value;
+        /**
+         * Setter for totalTaxMoney
+         * @param totalTaxMoney
+         * @return Builder
+         */
+        public Builder totalTaxMoney(Money totalTaxMoney) {
+            this.totalTaxMoney = totalTaxMoney;
             return this;
         }
-        public Builder totalDiscountMoney(Money value) {
-            totalDiscountMoney = value;
+        /**
+         * Setter for totalDiscountMoney
+         * @param totalDiscountMoney
+         * @return Builder
+         */
+        public Builder totalDiscountMoney(Money totalDiscountMoney) {
+            this.totalDiscountMoney = totalDiscountMoney;
             return this;
         }
-        public Builder totalServiceChargeMoney(Money value) {
-            totalServiceChargeMoney = value;
+        /**
+         * Setter for totalServiceChargeMoney
+         * @param totalServiceChargeMoney
+         * @return Builder
+         */
+        public Builder totalServiceChargeMoney(Money totalServiceChargeMoney) {
+            this.totalServiceChargeMoney = totalServiceChargeMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link Order} object using the set fields.
+         * @return {@link Order}
+         */
         public Order build() {
             return new Order(locationId,
                 id,

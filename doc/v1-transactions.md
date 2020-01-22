@@ -28,8 +28,7 @@ Provides non-confidential details for all of a location's associated bank accoun
 
 ```java
 CompletableFuture<List<V1BankAccount>> listBankAccountsAsync(
-    final String locationId
-)
+    final String locationId)
 ```
 
 ### Parameters
@@ -62,8 +61,7 @@ Provides non-confidential details for a merchant's associated bank account. This
 ```java
 CompletableFuture<V1BankAccount> retrieveBankAccountAsync(
     final String locationId,
-    final String bankAccountId
-)
+    final String bankAccountId)
 ```
 
 ### Parameters
@@ -100,8 +98,7 @@ CompletableFuture<List<V1Order>> listOrdersAsync(
     final String locationId,
     final String order,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -137,8 +134,7 @@ Provides comprehensive information for a single online store order, including th
 ```java
 CompletableFuture<V1Order> retrieveOrderAsync(
     final String locationId,
-    final String orderId
-)
+    final String orderId)
 ```
 
 ### Parameters
@@ -174,8 +170,7 @@ Updates the details of an online store order. Every update you perform on an ord
 CompletableFuture<V1Order> updateOrderAsync(
     final String locationId,
     final String orderId,
-    final V1UpdateOrderRequest body
-)
+    final V1UpdateOrderRequest body)
 ```
 
 ### Parameters
@@ -229,8 +224,7 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
     final String endTime,
     final Integer limit,
     final String batchToken,
-    final Boolean includePartial
-)
+    final Boolean includePartial)
 ```
 
 ### Parameters
@@ -269,8 +263,7 @@ Provides comprehensive information for a single payment.
 ```java
 CompletableFuture<V1Payment> retrievePaymentAsync(
     final String locationId,
-    final String paymentId
-)
+    final String paymentId)
 ```
 
 ### Parameters
@@ -309,8 +302,7 @@ CompletableFuture<List<V1Refund>> listRefundsAsync(
     final String beginTime,
     final String endTime,
     final Integer limit,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
@@ -359,8 +351,7 @@ refund them.
 ```java
 CompletableFuture<V1Refund> createRefundAsync(
     final String locationId,
-    final V1CreateRefundRequest body
-)
+    final V1CreateRefundRequest body)
 ```
 
 ### Parameters
@@ -409,19 +400,18 @@ CompletableFuture<List<V1Settlement>> listSettlementsAsync(
     final String endTime,
     final Integer limit,
     final String status,
-    final String batchToken
-)
+    final String batchToken)
 ```
 
 ### Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the location to list settlements for. |
-| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | TThe order in which payments are listed in the response. |
+| `locationId` | `String` | Template, Required | The ID of the location to list settlements for. If you specify me, this endpoint returns settlements aggregated from all of the business's locations. |
+| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which settlements are listed in the response. |
 | `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time. |
-| `limit` | `Integer` | Query, Optional | The maximum number of payments to return in a single response. This value cannot exceed 200. |
+| `limit` | `Integer` | Query, Optional | The maximum number of settlements to return in a single response. This value cannot exceed 200. |
 | `status` | [`String`](/doc/models/v1-list-settlements-request-status.md) | Query, Optional | Provide this parameter to retrieve only settlements with a particular status (SENT or FAILED). |
 | `batchToken` | `String` | Query, Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. |
 
@@ -465,8 +455,7 @@ take longer.
 ```java
 CompletableFuture<V1Settlement> retrieveSettlementAsync(
     final String locationId,
-    final String settlementId
-)
+    final String settlementId)
 ```
 
 ### Parameters

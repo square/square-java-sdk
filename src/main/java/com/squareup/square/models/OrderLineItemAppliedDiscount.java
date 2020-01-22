@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderLineItemAppliedDiscount type.
+ */
 public class OrderLineItemAppliedDiscount {
 
+    /**
+     * Initialization constructor.
+     * @param discountUid
+     * @param uid
+     * @param appliedMoney
+     */
     @JsonCreator
     public OrderLineItemAppliedDiscount(
             @JsonProperty("discount_uid") String discountUid,
@@ -20,31 +30,12 @@ public class OrderLineItemAppliedDiscount {
     private final String uid;
     private final String discountUid;
     private final Money appliedMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(discountUid, uid, appliedMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderLineItemAppliedDiscount)) {
-            return false;
-        }
-        OrderLineItemAppliedDiscount orderLineItemAppliedDiscount = (OrderLineItemAppliedDiscount) o;
-        return Objects.equals(discountUid, orderLineItemAppliedDiscount.discountUid) &&
-            Objects.equals(uid, orderLineItemAppliedDiscount.uid) &&
-            Objects.equals(appliedMoney, orderLineItemAppliedDiscount.appliedMoney);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the applied discount only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -56,7 +47,7 @@ public class OrderLineItemAppliedDiscount {
      * you must delete the discount and re-add it as a new `OrderLineItemAppliedDiscount`.
      */
     @JsonGetter("discount_uid")
-    public String getDiscountUid() { 
+    public String getDiscountUid() {
         return this.discountUid;
     }
 
@@ -70,11 +61,35 @@ public class OrderLineItemAppliedDiscount {
      * for more information.
      */
     @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
+    public Money getAppliedMoney() {
         return this.appliedMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, discountUid, appliedMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderLineItemAppliedDiscount)) {
+            return false;
+        }
+        OrderLineItemAppliedDiscount orderLineItemAppliedDiscount = (OrderLineItemAppliedDiscount) obj;
+        return Objects.equals(uid, orderLineItemAppliedDiscount.uid) &&
+            Objects.equals(discountUid, orderLineItemAppliedDiscount.discountUid) &&
+            Objects.equals(appliedMoney, orderLineItemAppliedDiscount.appliedMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderLineItemAppliedDiscount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderLineItemAppliedDiscount.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(discountUid)
             .uid(getUid())
@@ -82,28 +97,53 @@ public class OrderLineItemAppliedDiscount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderLineItemAppliedDiscount}
+     */
     public static class Builder {
         private String discountUid;
         private String uid;
         private Money appliedMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String discountUid) {
             this.discountUid = discountUid;
         }
 
-        public Builder discountUid(String value) {
-            discountUid = value;
+        /**
+         * Setter for discountUid
+         * @param discountUid
+         * @return Builder
+         */
+        public Builder discountUid(String discountUid) {
+            this.discountUid = discountUid;
             return this;
         }
-        public Builder uid(String value) {
-            uid = value;
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
             return this;
         }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link OrderLineItemAppliedDiscount} object using the set fields.
+         * @return {@link OrderLineItemAppliedDiscount}
+         */
         public OrderLineItemAppliedDiscount build() {
             return new OrderLineItemAppliedDiscount(discountUid,
                 uid,

@@ -5,8 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ListTransactionsRequest type.
+ */
 public class ListTransactionsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param beginTime
+     * @param endTime
+     * @param sortOrder
+     * @param cursor
+     */
     @JsonCreator
     public ListTransactionsRequest(
             @JsonProperty("begin_time") String beginTime,
@@ -23,26 +34,6 @@ public class ListTransactionsRequest {
     private final String endTime;
     private final String sortOrder;
     private final String cursor;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(beginTime, endTime, sortOrder, cursor);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListTransactionsRequest)) {
-            return false;
-        }
-        ListTransactionsRequest listTransactionsRequest = (ListTransactionsRequest) o;
-        return Objects.equals(beginTime, listTransactionsRequest.beginTime) &&
-            Objects.equals(endTime, listTransactionsRequest.endTime) &&
-            Objects.equals(sortOrder, listTransactionsRequest.sortOrder) &&
-            Objects.equals(cursor, listTransactionsRequest.cursor);
-    }
-
     /**
      * Getter for BeginTime.
      * The beginning of the requested reporting period, in RFC 3339 format.
@@ -50,7 +41,7 @@ public class ListTransactionsRequest {
      * Default value: The current time minus one year.
      */
     @JsonGetter("begin_time")
-    public String getBeginTime() { 
+    public String getBeginTime() {
         return this.beginTime;
     }
 
@@ -61,7 +52,7 @@ public class ListTransactionsRequest {
      * Default value: The current time.
      */
     @JsonGetter("end_time")
-    public String getEndTime() { 
+    public String getEndTime() {
         return this.endTime;
     }
 
@@ -70,7 +61,7 @@ public class ListTransactionsRequest {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("sort_order")
-    public String getSortOrder() { 
+    public String getSortOrder() {
         return this.sortOrder;
     }
 
@@ -81,11 +72,36 @@ public class ListTransactionsRequest {
      * See [Paginating results](#paginatingresults) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(beginTime, endTime, sortOrder, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListTransactionsRequest)) {
+            return false;
+        }
+        ListTransactionsRequest listTransactionsRequest = (ListTransactionsRequest) obj;
+        return Objects.equals(beginTime, listTransactionsRequest.beginTime) &&
+            Objects.equals(endTime, listTransactionsRequest.endTime) &&
+            Objects.equals(sortOrder, listTransactionsRequest.sortOrder) &&
+            Objects.equals(cursor, listTransactionsRequest.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListTransactionsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListTransactionsRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .beginTime(getBeginTime())
@@ -95,31 +111,63 @@ public class ListTransactionsRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListTransactionsRequest}
+     */
     public static class Builder {
         private String beginTime;
         private String endTime;
         private String sortOrder;
         private String cursor;
 
-        public Builder() { }
-
-        public Builder beginTime(String value) {
-            beginTime = value;
-            return this;
-        }
-        public Builder endTime(String value) {
-            endTime = value;
-            return this;
-        }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
-            return this;
-        }
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for beginTime
+         * @param beginTime
+         * @return Builder
+         */
+        public Builder beginTime(String beginTime) {
+            this.beginTime = beginTime;
+            return this;
+        }
+        /**
+         * Setter for endTime
+         * @param endTime
+         * @return Builder
+         */
+        public Builder endTime(String endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ListTransactionsRequest} object using the set fields.
+         * @return {@link ListTransactionsRequest}
+         */
         public ListTransactionsRequest build() {
             return new ListTransactionsRequest(beginTime,
                 endTime,

@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ListRefundsResponse type.
+ */
 public class ListRefundsResponse {
 
+    /**
+     * Initialization constructor.
+     * @param errors
+     * @param refunds
+     * @param cursor
+     */
     @JsonCreator
     public ListRefundsResponse(
             @JsonProperty("errors") List<Error> errors,
@@ -24,25 +34,6 @@ public class ListRefundsResponse {
     private final List<Refund> refunds;
     private final String cursor;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(errors, refunds, cursor);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListRefundsResponse)) {
-            return false;
-        }
-        ListRefundsResponse listRefundsResponse = (ListRefundsResponse) o;
-        return Objects.equals(errors, listRefundsResponse.errors) &&
-            Objects.equals(refunds, listRefundsResponse.refunds) &&
-            Objects.equals(cursor, listRefundsResponse.cursor);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class ListRefundsResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
@@ -61,7 +52,7 @@ public class ListRefundsResponse {
      * An array of refunds that match your query.
      */
     @JsonGetter("refunds")
-    public List<Refund> getRefunds() { 
+    public List<Refund> getRefunds() {
         return this.refunds;
     }
 
@@ -73,11 +64,35 @@ public class ListRefundsResponse {
      * See [Paginating results](#paginatingresults) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors, refunds, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListRefundsResponse)) {
+            return false;
+        }
+        ListRefundsResponse listRefundsResponse = (ListRefundsResponse) obj;
+        return Objects.equals(errors, listRefundsResponse.errors) &&
+            Objects.equals(refunds, listRefundsResponse.refunds) &&
+            Objects.equals(cursor, listRefundsResponse.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListRefundsResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListRefundsResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .errors(getErrors())
@@ -86,31 +101,63 @@ public class ListRefundsResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListRefundsResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private List<Refund> refunds;
         private String cursor;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
-        public Builder refunds(List<Refund> value) {
-            refunds = value;
+        /**
+         * Setter for refunds
+         * @param refunds
+         * @return Builder
+         */
+        public Builder refunds(List<Refund> refunds) {
+            this.refunds = refunds;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListRefundsResponse} object using the set fields.
+         * @return {@link ListRefundsResponse}
+         */
         public ListRefundsResponse build() {
             ListRefundsResponse model = new ListRefundsResponse(errors,
                 refunds,

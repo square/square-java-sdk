@@ -1,13 +1,29 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateOrderRequestLineItem type.
+ */
 public class CreateOrderRequestLineItem {
 
+    /**
+     * Initialization constructor.
+     * @param quantity
+     * @param name
+     * @param basePriceMoney
+     * @param variationName
+     * @param note
+     * @param catalogObjectId
+     * @param modifiers
+     * @param taxes
+     * @param discounts
+     */
     @JsonCreator
     public CreateOrderRequestLineItem(
             @JsonProperty("quantity") String quantity,
@@ -39,38 +55,13 @@ public class CreateOrderRequestLineItem {
     private final List<CreateOrderRequestModifier> modifiers;
     private final List<CreateOrderRequestTax> taxes;
     private final List<CreateOrderRequestDiscount> discounts;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(quantity, name, basePriceMoney, variationName, note, catalogObjectId, modifiers, taxes, discounts);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateOrderRequestLineItem)) {
-            return false;
-        }
-        CreateOrderRequestLineItem createOrderRequestLineItem = (CreateOrderRequestLineItem) o;
-        return Objects.equals(quantity, createOrderRequestLineItem.quantity) &&
-            Objects.equals(name, createOrderRequestLineItem.name) &&
-            Objects.equals(basePriceMoney, createOrderRequestLineItem.basePriceMoney) &&
-            Objects.equals(variationName, createOrderRequestLineItem.variationName) &&
-            Objects.equals(note, createOrderRequestLineItem.note) &&
-            Objects.equals(catalogObjectId, createOrderRequestLineItem.catalogObjectId) &&
-            Objects.equals(modifiers, createOrderRequestLineItem.modifiers) &&
-            Objects.equals(taxes, createOrderRequestLineItem.taxes) &&
-            Objects.equals(discounts, createOrderRequestLineItem.discounts);
-    }
-
     /**
      * Getter for Name.
      * Only used for ad hoc line items. The name of the line item. This value cannot exceed 500 characters.
      * Do not provide a value for this field if you provide a value for `catalog_object_id`.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -80,7 +71,7 @@ public class CreateOrderRequestLineItem {
      * This string must have a positive integer value.
      */
     @JsonGetter("quantity")
-    public String getQuantity() { 
+    public String getQuantity() {
         return this.quantity;
     }
 
@@ -94,7 +85,7 @@ public class CreateOrderRequestLineItem {
      * for more information.
      */
     @JsonGetter("base_price_money")
-    public Money getBasePriceMoney() { 
+    public Money getBasePriceMoney() {
         return this.basePriceMoney;
     }
 
@@ -105,7 +96,7 @@ public class CreateOrderRequestLineItem {
      * Do not provide a value for this field if you provide a value for the `catalog_object_id`.
      */
     @JsonGetter("variation_name")
-    public String getVariationName() { 
+    public String getVariationName() {
         return this.variationName;
     }
 
@@ -114,7 +105,7 @@ public class CreateOrderRequestLineItem {
      * The note of the line item. This value cannot exceed 500 characters.
      */
     @JsonGetter("note")
-    public String getNote() { 
+    public String getNote() {
         return this.note;
     }
 
@@ -125,7 +116,7 @@ public class CreateOrderRequestLineItem {
      * Do not provide a value for this field if you provide a value for `name` and `base_price_money`.
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -134,7 +125,7 @@ public class CreateOrderRequestLineItem {
      * Only used for Catalog line items. The modifiers to include on the line item.
      */
     @JsonGetter("modifiers")
-    public List<CreateOrderRequestModifier> getModifiers() { 
+    public List<CreateOrderRequestModifier> getModifiers() {
         return this.modifiers;
     }
 
@@ -143,7 +134,7 @@ public class CreateOrderRequestLineItem {
      * The taxes to include on the line item.
      */
     @JsonGetter("taxes")
-    public List<CreateOrderRequestTax> getTaxes() { 
+    public List<CreateOrderRequestTax> getTaxes() {
         return this.taxes;
     }
 
@@ -152,11 +143,42 @@ public class CreateOrderRequestLineItem {
      * The discounts to include on the line item.
      */
     @JsonGetter("discounts")
-    public List<CreateOrderRequestDiscount> getDiscounts() { 
+    public List<CreateOrderRequestDiscount> getDiscounts() {
         return this.discounts;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, quantity, basePriceMoney, variationName, note, catalogObjectId,
+            modifiers, taxes, discounts);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateOrderRequestLineItem)) {
+            return false;
+        }
+        CreateOrderRequestLineItem createOrderRequestLineItem = (CreateOrderRequestLineItem) obj;
+        return Objects.equals(name, createOrderRequestLineItem.name) &&
+            Objects.equals(quantity, createOrderRequestLineItem.quantity) &&
+            Objects.equals(basePriceMoney, createOrderRequestLineItem.basePriceMoney) &&
+            Objects.equals(variationName, createOrderRequestLineItem.variationName) &&
+            Objects.equals(note, createOrderRequestLineItem.note) &&
+            Objects.equals(catalogObjectId, createOrderRequestLineItem.catalogObjectId) &&
+            Objects.equals(modifiers, createOrderRequestLineItem.modifiers) &&
+            Objects.equals(taxes, createOrderRequestLineItem.taxes) &&
+            Objects.equals(discounts, createOrderRequestLineItem.discounts);
+    }
+
+    /**
+     * Builds a new {@link CreateOrderRequestLineItem.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateOrderRequestLineItem.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(quantity)
             .name(getName())
@@ -170,6 +192,9 @@ public class CreateOrderRequestLineItem {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateOrderRequestLineItem}
+     */
     public static class Builder {
         private String quantity;
         private String name;
@@ -181,47 +206,99 @@ public class CreateOrderRequestLineItem {
         private List<CreateOrderRequestTax> taxes;
         private List<CreateOrderRequestDiscount> discounts;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String quantity) {
             this.quantity = quantity;
         }
 
-        public Builder quantity(String value) {
-            quantity = value;
+        /**
+         * Setter for quantity
+         * @param quantity
+         * @return Builder
+         */
+        public Builder quantity(String quantity) {
+            this.quantity = quantity;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder basePriceMoney(Money value) {
-            basePriceMoney = value;
+        /**
+         * Setter for basePriceMoney
+         * @param basePriceMoney
+         * @return Builder
+         */
+        public Builder basePriceMoney(Money basePriceMoney) {
+            this.basePriceMoney = basePriceMoney;
             return this;
         }
-        public Builder variationName(String value) {
-            variationName = value;
+        /**
+         * Setter for variationName
+         * @param variationName
+         * @return Builder
+         */
+        public Builder variationName(String variationName) {
+            this.variationName = variationName;
             return this;
         }
-        public Builder note(String value) {
-            note = value;
+        /**
+         * Setter for note
+         * @param note
+         * @return Builder
+         */
+        public Builder note(String note) {
+            this.note = note;
             return this;
         }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
             return this;
         }
-        public Builder modifiers(List<CreateOrderRequestModifier> value) {
-            modifiers = value;
+        /**
+         * Setter for modifiers
+         * @param modifiers
+         * @return Builder
+         */
+        public Builder modifiers(List<CreateOrderRequestModifier> modifiers) {
+            this.modifiers = modifiers;
             return this;
         }
-        public Builder taxes(List<CreateOrderRequestTax> value) {
-            taxes = value;
+        /**
+         * Setter for taxes
+         * @param taxes
+         * @return Builder
+         */
+        public Builder taxes(List<CreateOrderRequestTax> taxes) {
+            this.taxes = taxes;
             return this;
         }
-        public Builder discounts(List<CreateOrderRequestDiscount> value) {
-            discounts = value;
+        /**
+         * Setter for discounts
+         * @param discounts
+         * @return Builder
+         */
+        public Builder discounts(List<CreateOrderRequestDiscount> discounts) {
+            this.discounts = discounts;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateOrderRequestLineItem} object using the set fields.
+         * @return {@link CreateOrderRequestLineItem}
+         */
         public CreateOrderRequestLineItem build() {
             return new CreateOrderRequestLineItem(quantity,
                 name,

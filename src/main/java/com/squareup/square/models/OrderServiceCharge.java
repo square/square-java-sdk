@@ -1,13 +1,34 @@
 package com.squareup.square.models;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderServiceCharge type.
+ */
 public class OrderServiceCharge {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param name
+     * @param catalogObjectId
+     * @param percentage
+     * @param amountMoney
+     * @param appliedMoney
+     * @param totalMoney
+     * @param totalTaxMoney
+     * @param calculationPhase
+     * @param taxable
+     * @param taxes
+     * @param appliedTaxes
+     * @param metadata
+     */
     @JsonCreator
     public OrderServiceCharge(
             @JsonProperty("uid") String uid,
@@ -51,41 +72,12 @@ public class OrderServiceCharge {
     private final List<OrderLineItemTax> taxes;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     private final Map<String, String> metadata;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, name, catalogObjectId, percentage, amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable, taxes, appliedTaxes, metadata);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderServiceCharge)) {
-            return false;
-        }
-        OrderServiceCharge orderServiceCharge = (OrderServiceCharge) o;
-        return Objects.equals(uid, orderServiceCharge.uid) &&
-            Objects.equals(name, orderServiceCharge.name) &&
-            Objects.equals(catalogObjectId, orderServiceCharge.catalogObjectId) &&
-            Objects.equals(percentage, orderServiceCharge.percentage) &&
-            Objects.equals(amountMoney, orderServiceCharge.amountMoney) &&
-            Objects.equals(appliedMoney, orderServiceCharge.appliedMoney) &&
-            Objects.equals(totalMoney, orderServiceCharge.totalMoney) &&
-            Objects.equals(totalTaxMoney, orderServiceCharge.totalTaxMoney) &&
-            Objects.equals(calculationPhase, orderServiceCharge.calculationPhase) &&
-            Objects.equals(taxable, orderServiceCharge.taxable) &&
-            Objects.equals(taxes, orderServiceCharge.taxes) &&
-            Objects.equals(appliedTaxes, orderServiceCharge.appliedTaxes) &&
-            Objects.equals(metadata, orderServiceCharge.metadata);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the service charge only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -94,7 +86,7 @@ public class OrderServiceCharge {
      * The name of the service charge.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -103,7 +95,7 @@ public class OrderServiceCharge {
      * The catalog object ID referencing the service charge [CatalogObject](#type-catalogobject).
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -114,7 +106,7 @@ public class OrderServiceCharge {
      * Exactly 1 of `percentage` or `amount_money` should be set.
      */
     @JsonGetter("percentage")
-    public String getPercentage() { 
+    public String getPercentage() {
         return this.percentage;
     }
 
@@ -128,7 +120,7 @@ public class OrderServiceCharge {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -142,7 +134,7 @@ public class OrderServiceCharge {
      * for more information.
      */
     @JsonGetter("applied_money")
-    public Money getAppliedMoney() { 
+    public Money getAppliedMoney() {
         return this.appliedMoney;
     }
 
@@ -156,7 +148,7 @@ public class OrderServiceCharge {
      * for more information.
      */
     @JsonGetter("total_money")
-    public Money getTotalMoney() { 
+    public Money getTotalMoney() {
         return this.totalMoney;
     }
 
@@ -170,7 +162,7 @@ public class OrderServiceCharge {
      * for more information.
      */
     @JsonGetter("total_tax_money")
-    public Money getTotalTaxMoney() { 
+    public Money getTotalTaxMoney() {
         return this.totalTaxMoney;
     }
 
@@ -181,7 +173,7 @@ public class OrderServiceCharge {
      * [Read more about how order totals are calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
      */
     @JsonGetter("calculation_phase")
-    public String getCalculationPhase() { 
+    public String getCalculationPhase() {
         return this.calculationPhase;
     }
 
@@ -192,7 +184,7 @@ public class OrderServiceCharge {
      * service charges calculated in the `TOTAL_PHASE` cannot be marked as taxable.
      */
     @JsonGetter("taxable")
-    public Boolean getTaxable() { 
+    public Boolean getTaxable() {
         return this.taxable;
     }
 
@@ -208,7 +200,7 @@ public class OrderServiceCharge {
      * sending requests to the UpdateOrder endpoint will result in an error.
      */
     @JsonGetter("taxes")
-    public List<OrderLineItemTax> getTaxes() { 
+    public List<OrderLineItemTax> getTaxes() {
         return this.taxes;
     }
 
@@ -226,7 +218,7 @@ public class OrderServiceCharge {
      * To change the amount of a tax, modify the referenced top-level tax.
      */
     @JsonGetter("applied_taxes")
-    public List<OrderLineItemAppliedTax> getAppliedTaxes() { 
+    public List<OrderLineItemAppliedTax> getAppliedTaxes() {
         return this.appliedTaxes;
     }
 
@@ -247,11 +239,46 @@ public class OrderServiceCharge {
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
     @JsonGetter("metadata")
-    public Map<String, String> getMetadata() { 
+    public Map<String, String> getMetadata() {
         return this.metadata;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, name, catalogObjectId, percentage, amountMoney, appliedMoney,
+            totalMoney, totalTaxMoney, calculationPhase, taxable, taxes, appliedTaxes, metadata);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderServiceCharge)) {
+            return false;
+        }
+        OrderServiceCharge orderServiceCharge = (OrderServiceCharge) obj;
+        return Objects.equals(uid, orderServiceCharge.uid) &&
+            Objects.equals(name, orderServiceCharge.name) &&
+            Objects.equals(catalogObjectId, orderServiceCharge.catalogObjectId) &&
+            Objects.equals(percentage, orderServiceCharge.percentage) &&
+            Objects.equals(amountMoney, orderServiceCharge.amountMoney) &&
+            Objects.equals(appliedMoney, orderServiceCharge.appliedMoney) &&
+            Objects.equals(totalMoney, orderServiceCharge.totalMoney) &&
+            Objects.equals(totalTaxMoney, orderServiceCharge.totalTaxMoney) &&
+            Objects.equals(calculationPhase, orderServiceCharge.calculationPhase) &&
+            Objects.equals(taxable, orderServiceCharge.taxable) &&
+            Objects.equals(taxes, orderServiceCharge.taxes) &&
+            Objects.equals(appliedTaxes, orderServiceCharge.appliedTaxes) &&
+            Objects.equals(metadata, orderServiceCharge.metadata);
+    }
+
+    /**
+     * Builds a new {@link OrderServiceCharge.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderServiceCharge.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -270,6 +297,9 @@ public class OrderServiceCharge {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderServiceCharge}
+     */
     public static class Builder {
         private String uid;
         private String name;
@@ -285,61 +315,135 @@ public class OrderServiceCharge {
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private Map<String, String> metadata;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
-            return this;
-        }
-        public Builder appliedMoney(Money value) {
-            appliedMoney = value;
-            return this;
-        }
-        public Builder totalMoney(Money value) {
-            totalMoney = value;
-            return this;
-        }
-        public Builder totalTaxMoney(Money value) {
-            totalTaxMoney = value;
-            return this;
-        }
-        public Builder calculationPhase(String value) {
-            calculationPhase = value;
-            return this;
-        }
-        public Builder taxable(Boolean value) {
-            taxable = value;
-            return this;
-        }
-        public Builder taxes(List<OrderLineItemTax> value) {
-            taxes = value;
-            return this;
-        }
-        public Builder appliedTaxes(List<OrderLineItemAppliedTax> value) {
-            appliedTaxes = value;
-            return this;
-        }
-        public Builder metadata(Map<String, String> value) {
-            metadata = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
+            return this;
+        }
+        /**
+         * Setter for appliedMoney
+         * @param appliedMoney
+         * @return Builder
+         */
+        public Builder appliedMoney(Money appliedMoney) {
+            this.appliedMoney = appliedMoney;
+            return this;
+        }
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(Money totalMoney) {
+            this.totalMoney = totalMoney;
+            return this;
+        }
+        /**
+         * Setter for totalTaxMoney
+         * @param totalTaxMoney
+         * @return Builder
+         */
+        public Builder totalTaxMoney(Money totalTaxMoney) {
+            this.totalTaxMoney = totalTaxMoney;
+            return this;
+        }
+        /**
+         * Setter for calculationPhase
+         * @param calculationPhase
+         * @return Builder
+         */
+        public Builder calculationPhase(String calculationPhase) {
+            this.calculationPhase = calculationPhase;
+            return this;
+        }
+        /**
+         * Setter for taxable
+         * @param taxable
+         * @return Builder
+         */
+        public Builder taxable(Boolean taxable) {
+            this.taxable = taxable;
+            return this;
+        }
+        /**
+         * Setter for taxes
+         * @param taxes
+         * @return Builder
+         */
+        public Builder taxes(List<OrderLineItemTax> taxes) {
+            this.taxes = taxes;
+            return this;
+        }
+        /**
+         * Setter for appliedTaxes
+         * @param appliedTaxes
+         * @return Builder
+         */
+        public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
+            this.appliedTaxes = appliedTaxes;
+            return this;
+        }
+        /**
+         * Setter for metadata
+         * @param metadata
+         * @return Builder
+         */
+        public Builder metadata(Map<String, String> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderServiceCharge} object using the set fields.
+         * @return {@link OrderServiceCharge}
+         */
         public OrderServiceCharge build() {
             return new OrderServiceCharge(uid,
                 name,

@@ -1,14 +1,24 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for ListBreakTypesResponse type.
+ */
 public class ListBreakTypesResponse {
 
+    /**
+     * Initialization constructor.
+     * @param breakTypes
+     * @param cursor
+     * @param errors
+     */
     @JsonCreator
     public ListBreakTypesResponse(
             @JsonProperty("break_types") List<BreakType> breakTypes,
@@ -24,25 +34,6 @@ public class ListBreakTypesResponse {
     private final String cursor;
     private final List<Error> errors;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(breakTypes, cursor, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListBreakTypesResponse)) {
-            return false;
-        }
-        ListBreakTypesResponse listBreakTypesResponse = (ListBreakTypesResponse) o;
-        return Objects.equals(breakTypes, listBreakTypesResponse.breakTypes) &&
-            Objects.equals(cursor, listBreakTypesResponse.cursor) &&
-            Objects.equals(errors, listBreakTypesResponse.errors);
-    }
-
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -52,7 +43,7 @@ public class ListBreakTypesResponse {
      * A page of `BreakType` results.
      */
     @JsonGetter("break_types")
-    public List<BreakType> getBreakTypes() { 
+    public List<BreakType> getBreakTypes() {
         return this.breakTypes;
     }
 
@@ -62,7 +53,7 @@ public class ListBreakTypesResponse {
      * of Break Type results.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -71,11 +62,35 @@ public class ListBreakTypesResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(breakTypes, cursor, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListBreakTypesResponse)) {
+            return false;
+        }
+        ListBreakTypesResponse listBreakTypesResponse = (ListBreakTypesResponse) obj;
+        return Objects.equals(breakTypes, listBreakTypesResponse.breakTypes) &&
+            Objects.equals(cursor, listBreakTypesResponse.cursor) &&
+            Objects.equals(errors, listBreakTypesResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link ListBreakTypesResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListBreakTypesResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .breakTypes(getBreakTypes())
@@ -84,31 +99,63 @@ public class ListBreakTypesResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListBreakTypesResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private List<BreakType> breakTypes;
         private String cursor;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder breakTypes(List<BreakType> value) {
-            breakTypes = value;
+        /**
+         * Setter for breakTypes
+         * @param breakTypes
+         * @return Builder
+         */
+        public Builder breakTypes(List<BreakType> breakTypes) {
+            this.breakTypes = breakTypes;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListBreakTypesResponse} object using the set fields.
+         * @return {@link ListBreakTypesResponse}
+         */
         public ListBreakTypesResponse build() {
             ListBreakTypesResponse model = new ListBreakTypesResponse(breakTypes,
                 cursor,

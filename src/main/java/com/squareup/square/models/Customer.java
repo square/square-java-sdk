@@ -1,13 +1,37 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for Customer type.
+ */
 public class Customer {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param createdAt
+     * @param updatedAt
+     * @param cards
+     * @param givenName
+     * @param familyName
+     * @param nickname
+     * @param companyName
+     * @param emailAddress
+     * @param address
+     * @param phoneNumber
+     * @param birthday
+     * @param referenceId
+     * @param note
+     * @param preferences
+     * @param groups
+     * @param creationSource
+     */
     @JsonCreator
     public Customer(
             @JsonProperty("id") String id,
@@ -63,20 +87,180 @@ public class Customer {
     private final CustomerPreferences preferences;
     private final List<CustomerGroupInfo> groups;
     private final String creationSource;
+    /**
+     * Getter for Id.
+     * A unique, Square-assigned object ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
 
+    /**
+     * Getter for CreatedAt.
+     * The time when the customer profile was created, in RFC 3339 format.
+     */
+    @JsonGetter("created_at")
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * The time when the customer profile was last updated, in RFC 3339 format.
+     */
+    @JsonGetter("updated_at")
+    public String getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Getter for Cards.
+     * Payment details of cards stored on file for the customer profile.
+     */
+    @JsonGetter("cards")
+    public List<Card> getCards() {
+        return this.cards;
+    }
+
+    /**
+     * Getter for GivenName.
+     * The given (i.e., first) name associated with the customer profile.
+     */
+    @JsonGetter("given_name")
+    public String getGivenName() {
+        return this.givenName;
+    }
+
+    /**
+     * Getter for FamilyName.
+     * The family (i.e., last) name associated with the customer profile.
+     */
+    @JsonGetter("family_name")
+    public String getFamilyName() {
+        return this.familyName;
+    }
+
+    /**
+     * Getter for Nickname.
+     * A nickname for the customer profile.
+     */
+    @JsonGetter("nickname")
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    /**
+     * Getter for CompanyName.
+     * A business name associated with the customer profile.
+     */
+    @JsonGetter("company_name")
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    /**
+     * Getter for EmailAddress.
+     * The email address associated with the customer profile.
+     */
+    @JsonGetter("email_address")
+    public String getEmailAddress() {
+        return this.emailAddress;
+    }
+
+    /**
+     * Getter for Address.
+     * Represents a physical address.
+     */
+    @JsonGetter("address")
+    public Address getAddress() {
+        return this.address;
+    }
+
+    /**
+     * Getter for PhoneNumber.
+     * The 11-digit phone number associated with the customer profile.
+     */
+    @JsonGetter("phone_number")
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
+     * Getter for Birthday.
+     * The birthday associated with the customer profile, in RFC-3339 format.
+     * Year is optional, timezone and times are not allowed.
+     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
+     * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
+     */
+    @JsonGetter("birthday")
+    public String getBirthday() {
+        return this.birthday;
+    }
+
+    /**
+     * Getter for ReferenceId.
+     * An optional, second ID used to associate the customer profile with an
+     * entity in another system.
+     */
+    @JsonGetter("reference_id")
+    public String getReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
+     * Getter for Note.
+     * A custom note associated with the customer profile.
+     */
+    @JsonGetter("note")
+    public String getNote() {
+        return this.note;
+    }
+
+    /**
+     * Getter for Preferences.
+     * Represents communication preferences for the customer profile.
+     */
+    @JsonGetter("preferences")
+    public CustomerPreferences getPreferences() {
+        return this.preferences;
+    }
+
+    /**
+     * Getter for Groups.
+     * The groups the customer belongs to.
+     */
+    @JsonGetter("groups")
+    public List<CustomerGroupInfo> getGroups() {
+        return this.groups;
+    }
+
+    /**
+     * Getter for CreationSource.
+     * Indicates the method used to create the customer profile.
+     */
+    @JsonGetter("creation_source")
+    public String getCreationSource() {
+        return this.creationSource;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname, companyName, emailAddress, address, phoneNumber, birthday, referenceId, note, preferences, groups, creationSource);
+        return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
+            companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
+            preferences, groups, creationSource);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof Customer)) {
+        }
+        if(!(obj instanceof Customer)) {
             return false;
         }
-        Customer customer = (Customer) o;
+        Customer customer = (Customer) obj;
         return Objects.equals(id, customer.id) &&
             Objects.equals(createdAt, customer.createdAt) &&
             Objects.equals(updatedAt, customer.updatedAt) &&
@@ -97,163 +281,10 @@ public class Customer {
     }
 
     /**
-     * Getter for Id.
-     * A unique, Square-assigned object ID.
+     * Builds a new {@link Customer.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link Customer.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for CreatedAt.
-     * The time when the customer profile was created, in RFC 3339 format.
-     */
-    @JsonGetter("created_at")
-    public String getCreatedAt() { 
-        return this.createdAt;
-    }
-
-    /**
-     * Getter for UpdatedAt.
-     * The time when the customer profile was last updated, in RFC 3339 format.
-     */
-    @JsonGetter("updated_at")
-    public String getUpdatedAt() { 
-        return this.updatedAt;
-    }
-
-    /**
-     * Getter for Cards.
-     * Payment details of cards stored on file for the customer profile.
-     */
-    @JsonGetter("cards")
-    public List<Card> getCards() { 
-        return this.cards;
-    }
-
-    /**
-     * Getter for GivenName.
-     * The given (i.e., first) name associated with the customer profile.
-     */
-    @JsonGetter("given_name")
-    public String getGivenName() { 
-        return this.givenName;
-    }
-
-    /**
-     * Getter for FamilyName.
-     * The family (i.e., last) name associated with the customer profile.
-     */
-    @JsonGetter("family_name")
-    public String getFamilyName() { 
-        return this.familyName;
-    }
-
-    /**
-     * Getter for Nickname.
-     * A nickname for the customer profile.
-     */
-    @JsonGetter("nickname")
-    public String getNickname() { 
-        return this.nickname;
-    }
-
-    /**
-     * Getter for CompanyName.
-     * A business name associated with the customer profile.
-     */
-    @JsonGetter("company_name")
-    public String getCompanyName() { 
-        return this.companyName;
-    }
-
-    /**
-     * Getter for EmailAddress.
-     * The email address associated with the customer profile.
-     */
-    @JsonGetter("email_address")
-    public String getEmailAddress() { 
-        return this.emailAddress;
-    }
-
-    /**
-     * Getter for Address.
-     * Represents a physical address.
-     */
-    @JsonGetter("address")
-    public Address getAddress() { 
-        return this.address;
-    }
-
-    /**
-     * Getter for PhoneNumber.
-     * The 11-digit phone number associated with the customer profile.
-     */
-    @JsonGetter("phone_number")
-    public String getPhoneNumber() { 
-        return this.phoneNumber;
-    }
-
-    /**
-     * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC-3339 format.
-     * Year is optional, timezone and times are not allowed.
-     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
-     * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
-     */
-    @JsonGetter("birthday")
-    public String getBirthday() { 
-        return this.birthday;
-    }
-
-    /**
-     * Getter for ReferenceId.
-     * An optional, second ID used to associate the customer profile with an
-     * entity in another system.
-     */
-    @JsonGetter("reference_id")
-    public String getReferenceId() { 
-        return this.referenceId;
-    }
-
-    /**
-     * Getter for Note.
-     * A custom note associated with the customer profile.
-     */
-    @JsonGetter("note")
-    public String getNote() { 
-        return this.note;
-    }
-
-    /**
-     * Getter for Preferences.
-     * Represents communication preferences for the customer profile.
-     */
-    @JsonGetter("preferences")
-    public CustomerPreferences getPreferences() { 
-        return this.preferences;
-    }
-
-    /**
-     * Getter for Groups.
-     * The groups the customer belongs to.
-     */
-    @JsonGetter("groups")
-    public List<CustomerGroupInfo> getGroups() { 
-        return this.groups;
-    }
-
-    /**
-     * Getter for CreationSource.
-     * Indicates the method used to create the customer profile.
-     */
-    @JsonGetter("creation_source")
-    public String getCreationSource() { 
-        return this.creationSource;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             createdAt,
@@ -275,6 +306,9 @@ public class Customer {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link Customer}
+     */
     public static class Builder {
         private String id;
         private String createdAt;
@@ -294,6 +328,9 @@ public class Customer {
         private List<CustomerGroupInfo> groups;
         private String creationSource;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String id,
                 String createdAt,
                 String updatedAt) {
@@ -302,75 +339,164 @@ public class Customer {
             this.updatedAt = updatedAt;
         }
 
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder createdAt(String value) {
-            createdAt = value;
+        /**
+         * Setter for createdAt
+         * @param createdAt
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
-        public Builder updatedAt(String value) {
-            updatedAt = value;
+        /**
+         * Setter for updatedAt
+         * @param updatedAt
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
-        public Builder cards(List<Card> value) {
-            cards = value;
+        /**
+         * Setter for cards
+         * @param cards
+         * @return Builder
+         */
+        public Builder cards(List<Card> cards) {
+            this.cards = cards;
             return this;
         }
-        public Builder givenName(String value) {
-            givenName = value;
+        /**
+         * Setter for givenName
+         * @param givenName
+         * @return Builder
+         */
+        public Builder givenName(String givenName) {
+            this.givenName = givenName;
             return this;
         }
-        public Builder familyName(String value) {
-            familyName = value;
+        /**
+         * Setter for familyName
+         * @param familyName
+         * @return Builder
+         */
+        public Builder familyName(String familyName) {
+            this.familyName = familyName;
             return this;
         }
-        public Builder nickname(String value) {
-            nickname = value;
+        /**
+         * Setter for nickname
+         * @param nickname
+         * @return Builder
+         */
+        public Builder nickname(String nickname) {
+            this.nickname = nickname;
             return this;
         }
-        public Builder companyName(String value) {
-            companyName = value;
+        /**
+         * Setter for companyName
+         * @param companyName
+         * @return Builder
+         */
+        public Builder companyName(String companyName) {
+            this.companyName = companyName;
             return this;
         }
-        public Builder emailAddress(String value) {
-            emailAddress = value;
+        /**
+         * Setter for emailAddress
+         * @param emailAddress
+         * @return Builder
+         */
+        public Builder emailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
             return this;
         }
-        public Builder address(Address value) {
-            address = value;
+        /**
+         * Setter for address
+         * @param address
+         * @return Builder
+         */
+        public Builder address(Address address) {
+            this.address = address;
             return this;
         }
-        public Builder phoneNumber(String value) {
-            phoneNumber = value;
+        /**
+         * Setter for phoneNumber
+         * @param phoneNumber
+         * @return Builder
+         */
+        public Builder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
             return this;
         }
-        public Builder birthday(String value) {
-            birthday = value;
+        /**
+         * Setter for birthday
+         * @param birthday
+         * @return Builder
+         */
+        public Builder birthday(String birthday) {
+            this.birthday = birthday;
             return this;
         }
-        public Builder referenceId(String value) {
-            referenceId = value;
+        /**
+         * Setter for referenceId
+         * @param referenceId
+         * @return Builder
+         */
+        public Builder referenceId(String referenceId) {
+            this.referenceId = referenceId;
             return this;
         }
-        public Builder note(String value) {
-            note = value;
+        /**
+         * Setter for note
+         * @param note
+         * @return Builder
+         */
+        public Builder note(String note) {
+            this.note = note;
             return this;
         }
-        public Builder preferences(CustomerPreferences value) {
-            preferences = value;
+        /**
+         * Setter for preferences
+         * @param preferences
+         * @return Builder
+         */
+        public Builder preferences(CustomerPreferences preferences) {
+            this.preferences = preferences;
             return this;
         }
-        public Builder groups(List<CustomerGroupInfo> value) {
-            groups = value;
+        /**
+         * Setter for groups
+         * @param groups
+         * @return Builder
+         */
+        public Builder groups(List<CustomerGroupInfo> groups) {
+            this.groups = groups;
             return this;
         }
-        public Builder creationSource(String value) {
-            creationSource = value;
+        /**
+         * Setter for creationSource
+         * @param creationSource
+         * @return Builder
+         */
+        public Builder creationSource(String creationSource) {
+            this.creationSource = creationSource;
             return this;
         }
 
+        /**
+         * Builds a new {@link Customer} object using the set fields.
+         * @return {@link Customer}
+         */
         public Customer build() {
             return new Customer(id,
                 createdAt,

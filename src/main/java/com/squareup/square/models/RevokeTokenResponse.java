@@ -6,8 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for RevokeTokenResponse type.
+ */
 public class RevokeTokenResponse {
 
+    /**
+     * Initialization constructor.
+     * @param success
+     */
     @JsonCreator
     public RevokeTokenResponse(
             @JsonProperty("success") Boolean success) {
@@ -16,23 +24,6 @@ public class RevokeTokenResponse {
 
     private HttpContext httpContext;
     private final Boolean success;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(success);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RevokeTokenResponse)) {
-            return false;
-        }
-        RevokeTokenResponse revokeTokenResponse = (RevokeTokenResponse) o;
-        return Objects.equals(success, revokeTokenResponse.success);
-    }
-
 
     public HttpContext getContext() {
         return httpContext;
@@ -43,32 +34,76 @@ public class RevokeTokenResponse {
      * If the request is successful, this is true.
      */
     @JsonGetter("success")
-    public Boolean getSuccess() { 
+    public Boolean getSuccess() {
         return this.success;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(success);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof RevokeTokenResponse)) {
+            return false;
+        }
+        RevokeTokenResponse revokeTokenResponse = (RevokeTokenResponse) obj;
+        return Objects.equals(success, revokeTokenResponse.success);
+    }
+
+    /**
+     * Builds a new {@link RevokeTokenResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link RevokeTokenResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .success(getSuccess());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link RevokeTokenResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private Boolean success;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder success(Boolean value) {
-            success = value;
+        /**
+         * Setter for success
+         * @param success
+         * @return Builder
+         */
+        public Builder success(Boolean success) {
+            this.success = success;
             return this;
         }
 
+        /**
+         * Builds a new {@link RevokeTokenResponse} object using the set fields.
+         * @return {@link RevokeTokenResponse}
+         */
         public RevokeTokenResponse build() {
             RevokeTokenResponse model = new RevokeTokenResponse(success);
             model.httpContext = httpContext;

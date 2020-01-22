@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ListCashDrawerShiftsRequest type.
+ */
 public class ListCashDrawerShiftsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param locationId
+     * @param sortOrder
+     * @param beginTime
+     * @param endTime
+     * @param limit
+     * @param cursor
+     */
     @JsonCreator
     public ListCashDrawerShiftsRequest(
             @JsonProperty("location_id") String locationId,
@@ -29,34 +42,12 @@ public class ListCashDrawerShiftsRequest {
     private final String endTime;
     private final Integer limit;
     private final String cursor;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(locationId, sortOrder, beginTime, endTime, limit, cursor);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListCashDrawerShiftsRequest)) {
-            return false;
-        }
-        ListCashDrawerShiftsRequest listCashDrawerShiftsRequest = (ListCashDrawerShiftsRequest) o;
-        return Objects.equals(locationId, listCashDrawerShiftsRequest.locationId) &&
-            Objects.equals(sortOrder, listCashDrawerShiftsRequest.sortOrder) &&
-            Objects.equals(beginTime, listCashDrawerShiftsRequest.beginTime) &&
-            Objects.equals(endTime, listCashDrawerShiftsRequest.endTime) &&
-            Objects.equals(limit, listCashDrawerShiftsRequest.limit) &&
-            Objects.equals(cursor, listCashDrawerShiftsRequest.cursor);
-    }
-    
     /**
      * Getter for LocationId.
      * The ID of the location to query for a list of cash drawer shifts.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -65,7 +56,7 @@ public class ListCashDrawerShiftsRequest {
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      */
     @JsonGetter("sort_order")
-    public String getSortOrder() { 
+    public String getSortOrder() {
         return this.sortOrder;
     }
 
@@ -74,7 +65,7 @@ public class ListCashDrawerShiftsRequest {
      * The inclusive start time of the query on opened_at, in ISO 8601 format.
      */
     @JsonGetter("begin_time")
-    public String getBeginTime() { 
+    public String getBeginTime() {
         return this.beginTime;
     }
 
@@ -83,7 +74,7 @@ public class ListCashDrawerShiftsRequest {
      * The exclusive end date of the query on opened_at, in ISO 8601 format.
      */
     @JsonGetter("end_time")
-    public String getEndTime() { 
+    public String getEndTime() {
         return this.endTime;
     }
 
@@ -93,7 +84,7 @@ public class ListCashDrawerShiftsRequest {
      * default, 1000 max).
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
@@ -102,11 +93,38 @@ public class ListCashDrawerShiftsRequest {
      * Opaque cursor for fetching the next page of results.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationId, sortOrder, beginTime, endTime, limit, cursor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListCashDrawerShiftsRequest)) {
+            return false;
+        }
+        ListCashDrawerShiftsRequest listCashDrawerShiftsRequest = (ListCashDrawerShiftsRequest) obj;
+        return Objects.equals(locationId, listCashDrawerShiftsRequest.locationId) &&
+            Objects.equals(sortOrder, listCashDrawerShiftsRequest.sortOrder) &&
+            Objects.equals(beginTime, listCashDrawerShiftsRequest.beginTime) &&
+            Objects.equals(endTime, listCashDrawerShiftsRequest.endTime) &&
+            Objects.equals(limit, listCashDrawerShiftsRequest.limit) &&
+            Objects.equals(cursor, listCashDrawerShiftsRequest.cursor);
+    }
+
+    /**
+     * Builds a new {@link ListCashDrawerShiftsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListCashDrawerShiftsRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
             .sortOrder(getSortOrder())
@@ -117,6 +135,9 @@ public class ListCashDrawerShiftsRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListCashDrawerShiftsRequest}
+     */
     public static class Builder {
         private String locationId;
         private String sortOrder;
@@ -125,35 +146,72 @@ public class ListCashDrawerShiftsRequest {
         private Integer limit;
         private String cursor;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String locationId) {
             this.locationId = locationId;
         }
 
-        public Builder locationId(String value) {
-            locationId = value;
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
             return this;
         }
-        public Builder beginTime(String value) {
-            beginTime = value;
+        /**
+         * Setter for beginTime
+         * @param beginTime
+         * @return Builder
+         */
+        public Builder beginTime(String beginTime) {
+            this.beginTime = beginTime;
             return this;
         }
-        public Builder endTime(String value) {
-            endTime = value;
+        /**
+         * Setter for endTime
+         * @param endTime
+         * @return Builder
+         */
+        public Builder endTime(String endTime) {
+            this.endTime = endTime;
             return this;
         }
-        public Builder limit(Integer value) {
-            limit = value;
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
             return this;
         }
-        public Builder cursor(String value) {
-            cursor = value;
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
 
+        /**
+         * Builds a new {@link ListCashDrawerShiftsRequest} object using the set fields.
+         * @return {@link ListCashDrawerShiftsRequest}
+         */
         public ListCashDrawerShiftsRequest build() {
             return new ListCashDrawerShiftsRequest(locationId,
                 sortOrder,

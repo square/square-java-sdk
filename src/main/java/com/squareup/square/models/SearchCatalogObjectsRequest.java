@@ -1,13 +1,27 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for SearchCatalogObjectsRequest type.
+ */
 public class SearchCatalogObjectsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param cursor
+     * @param objectTypes
+     * @param includeDeletedObjects
+     * @param includeRelatedObjects
+     * @param beginTime
+     * @param query
+     * @param limit
+     */
     @JsonCreator
     public SearchCatalogObjectsRequest(
             @JsonProperty("cursor") String cursor,
@@ -33,36 +47,13 @@ public class SearchCatalogObjectsRequest {
     private final String beginTime;
     private final CatalogQuery query;
     private final Integer limit;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cursor, objectTypes, includeDeletedObjects, includeRelatedObjects, beginTime, query, limit);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof SearchCatalogObjectsRequest)) {
-            return false;
-        }
-        SearchCatalogObjectsRequest searchCatalogObjectsRequest = (SearchCatalogObjectsRequest) o;
-        return Objects.equals(cursor, searchCatalogObjectsRequest.cursor) &&
-            Objects.equals(objectTypes, searchCatalogObjectsRequest.objectTypes) &&
-            Objects.equals(includeDeletedObjects, searchCatalogObjectsRequest.includeDeletedObjects) &&
-            Objects.equals(includeRelatedObjects, searchCatalogObjectsRequest.includeRelatedObjects) &&
-            Objects.equals(beginTime, searchCatalogObjectsRequest.beginTime) &&
-            Objects.equals(query, searchCatalogObjectsRequest.query) &&
-            Objects.equals(limit, searchCatalogObjectsRequest.limit);
-    }
-
     /**
      * Getter for Cursor.
      * The pagination cursor returned in the previous response. Leave unset for an initial request.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -74,7 +65,7 @@ public class SearchCatalogObjectsRequest {
      * See [CatalogObjectType](#type-catalogobjecttype) for possible values
      */
     @JsonGetter("object_types")
-    public List<String> getObjectTypes() { 
+    public List<String> getObjectTypes() {
         return this.objectTypes;
     }
 
@@ -84,7 +75,7 @@ public class SearchCatalogObjectsRequest {
      * `is_deleted` field set to `true`.
      */
     @JsonGetter("include_deleted_objects")
-    public Boolean getIncludeDeletedObjects() { 
+    public Boolean getIncludeDeletedObjects() {
         return this.includeDeletedObjects;
     }
 
@@ -101,7 +92,7 @@ public class SearchCatalogObjectsRequest {
      * the response.
      */
     @JsonGetter("include_related_objects")
-    public Boolean getIncludeRelatedObjects() { 
+    public Boolean getIncludeRelatedObjects() {
         return this.includeRelatedObjects;
     }
 
@@ -112,7 +103,7 @@ public class SearchCatalogObjectsRequest {
      * timestamp equal to `begin_time` will not be included in the response.
      */
     @JsonGetter("begin_time")
-    public String getBeginTime() { 
+    public String getBeginTime() {
         return this.beginTime;
     }
 
@@ -129,7 +120,7 @@ public class SearchCatalogObjectsRequest {
      * `"name"`, `"description"`, and `"abbreviation"`.
      */
     @JsonGetter("query")
-    public CatalogQuery getQuery() { 
+    public CatalogQuery getQuery() {
         return this.query;
     }
 
@@ -140,11 +131,40 @@ public class SearchCatalogObjectsRequest {
      * is higher than the maximum limit of 1,000, it will be ignored.
      */
     @JsonGetter("limit")
-    public Integer getLimit() { 
+    public Integer getLimit() {
         return this.limit;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(cursor, objectTypes, includeDeletedObjects, includeRelatedObjects,
+            beginTime, query, limit);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SearchCatalogObjectsRequest)) {
+            return false;
+        }
+        SearchCatalogObjectsRequest searchCatalogObjectsRequest = (SearchCatalogObjectsRequest) obj;
+        return Objects.equals(cursor, searchCatalogObjectsRequest.cursor) &&
+            Objects.equals(objectTypes, searchCatalogObjectsRequest.objectTypes) &&
+            Objects.equals(includeDeletedObjects, searchCatalogObjectsRequest.includeDeletedObjects) &&
+            Objects.equals(includeRelatedObjects, searchCatalogObjectsRequest.includeRelatedObjects) &&
+            Objects.equals(beginTime, searchCatalogObjectsRequest.beginTime) &&
+            Objects.equals(query, searchCatalogObjectsRequest.query) &&
+            Objects.equals(limit, searchCatalogObjectsRequest.limit);
+    }
+
+    /**
+     * Builds a new {@link SearchCatalogObjectsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link SearchCatalogObjectsRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .cursor(getCursor())
@@ -157,6 +177,9 @@ public class SearchCatalogObjectsRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link SearchCatalogObjectsRequest}
+     */
     public static class Builder {
         private String cursor;
         private List<String> objectTypes;
@@ -166,37 +189,81 @@ public class SearchCatalogObjectsRequest {
         private CatalogQuery query;
         private Integer limit;
 
-        public Builder() { }
-
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
-        }
-        public Builder objectTypes(List<String> value) {
-            objectTypes = value;
-            return this;
-        }
-        public Builder includeDeletedObjects(Boolean value) {
-            includeDeletedObjects = value;
-            return this;
-        }
-        public Builder includeRelatedObjects(Boolean value) {
-            includeRelatedObjects = value;
-            return this;
-        }
-        public Builder beginTime(String value) {
-            beginTime = value;
-            return this;
-        }
-        public Builder query(CatalogQuery value) {
-            query = value;
-            return this;
-        }
-        public Builder limit(Integer value) {
-            limit = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+        /**
+         * Setter for objectTypes
+         * @param objectTypes
+         * @return Builder
+         */
+        public Builder objectTypes(List<String> objectTypes) {
+            this.objectTypes = objectTypes;
+            return this;
+        }
+        /**
+         * Setter for includeDeletedObjects
+         * @param includeDeletedObjects
+         * @return Builder
+         */
+        public Builder includeDeletedObjects(Boolean includeDeletedObjects) {
+            this.includeDeletedObjects = includeDeletedObjects;
+            return this;
+        }
+        /**
+         * Setter for includeRelatedObjects
+         * @param includeRelatedObjects
+         * @return Builder
+         */
+        public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
+            this.includeRelatedObjects = includeRelatedObjects;
+            return this;
+        }
+        /**
+         * Setter for beginTime
+         * @param beginTime
+         * @return Builder
+         */
+        public Builder beginTime(String beginTime) {
+            this.beginTime = beginTime;
+            return this;
+        }
+        /**
+         * Setter for query
+         * @param query
+         * @return Builder
+         */
+        public Builder query(CatalogQuery query) {
+            this.query = query;
+            return this;
+        }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link SearchCatalogObjectsRequest} object using the set fields.
+         * @return {@link SearchCatalogObjectsRequest}
+         */
         public SearchCatalogObjectsRequest build() {
             return new SearchCatalogObjectsRequest(cursor,
                 objectTypes,

@@ -1,13 +1,30 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogQueryFilteredItems type.
+ */
 public class CatalogQueryFilteredItems {
 
+    /**
+     * Initialization constructor.
+     * @param textFilter
+     * @param searchVendorCode
+     * @param categoryIds
+     * @param stockLevels
+     * @param enabledLocationIds
+     * @param vendorIds
+     * @param productTypes
+     * @param customAttributeFilters
+     * @param doesNotExist
+     * @param sortOrder
+     */
     @JsonCreator
     public CatalogQueryFilteredItems(
             @JsonProperty("text_filter") String textFilter,
@@ -42,20 +59,107 @@ public class CatalogQueryFilteredItems {
     private final List<CatalogQueryFilteredItemsCustomAttributeFilter> customAttributeFilters;
     private final List<String> doesNotExist;
     private final String sortOrder;
+    /**
+     * Getter for TextFilter.
+     */
+    @JsonGetter("text_filter")
+    public String getTextFilter() {
+        return this.textFilter;
+    }
 
+    /**
+     * Getter for SearchVendorCode.
+     */
+    @JsonGetter("search_vendor_code")
+    public Boolean getSearchVendorCode() {
+        return this.searchVendorCode;
+    }
+
+    /**
+     * Getter for CategoryIds.
+     */
+    @JsonGetter("category_ids")
+    public List<String> getCategoryIds() {
+        return this.categoryIds;
+    }
+
+    /**
+     * Getter for StockLevels.
+     * See [CatalogQueryFilteredItemsStockLevel](#type-catalogqueryfiltereditemsstocklevel) for possible values
+     */
+    @JsonGetter("stock_levels")
+    public List<String> getStockLevels() {
+        return this.stockLevels;
+    }
+
+    /**
+     * Getter for EnabledLocationIds.
+     */
+    @JsonGetter("enabled_location_ids")
+    public List<String> getEnabledLocationIds() {
+        return this.enabledLocationIds;
+    }
+
+    /**
+     * Getter for VendorIds.
+     */
+    @JsonGetter("vendor_ids")
+    public List<String> getVendorIds() {
+        return this.vendorIds;
+    }
+
+    /**
+     * Getter for ProductTypes.
+     * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
+     */
+    @JsonGetter("product_types")
+    public List<String> getProductTypes() {
+        return this.productTypes;
+    }
+
+    /**
+     * Getter for CustomAttributeFilters.
+     */
+    @JsonGetter("custom_attribute_filters")
+    public List<CatalogQueryFilteredItemsCustomAttributeFilter> getCustomAttributeFilters() {
+        return this.customAttributeFilters;
+    }
+
+    /**
+     * Getter for DoesNotExist.
+     * See [CatalogQueryFilteredItemsNullableAttribute](#type-catalogqueryfiltereditemsnullableattribute) for possible values
+     */
+    @JsonGetter("does_not_exist")
+    public List<String> getDoesNotExist() {
+        return this.doesNotExist;
+    }
+
+    /**
+     * Getter for SortOrder.
+     * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     */
+    @JsonGetter("sort_order")
+    public String getSortOrder() {
+        return this.sortOrder;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(textFilter, searchVendorCode, categoryIds, stockLevels, enabledLocationIds, vendorIds, productTypes, customAttributeFilters, doesNotExist, sortOrder);
+        return Objects.hash(textFilter, searchVendorCode, categoryIds, stockLevels,
+            enabledLocationIds, vendorIds, productTypes, customAttributeFilters, doesNotExist,
+            sortOrder);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof CatalogQueryFilteredItems)) {
+        }
+        if(!(obj instanceof CatalogQueryFilteredItems)) {
             return false;
         }
-        CatalogQueryFilteredItems catalogQueryFilteredItems = (CatalogQueryFilteredItems) o;
+        CatalogQueryFilteredItems catalogQueryFilteredItems = (CatalogQueryFilteredItems) obj;
         return Objects.equals(textFilter, catalogQueryFilteredItems.textFilter) &&
             Objects.equals(searchVendorCode, catalogQueryFilteredItems.searchVendorCode) &&
             Objects.equals(categoryIds, catalogQueryFilteredItems.categoryIds) &&
@@ -69,90 +173,10 @@ public class CatalogQueryFilteredItems {
     }
 
     /**
-     * Getter for TextFilter.
+     * Builds a new {@link CatalogQueryFilteredItems.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogQueryFilteredItems.Builder} object
      */
-    @JsonGetter("text_filter")
-    public String getTextFilter() { 
-        return this.textFilter;
-    }
-
-    /**
-     * Getter for SearchVendorCode.
-     */
-    @JsonGetter("search_vendor_code")
-    public Boolean getSearchVendorCode() { 
-        return this.searchVendorCode;
-    }
-
-    /**
-     * Getter for CategoryIds.
-     */
-    @JsonGetter("category_ids")
-    public List<String> getCategoryIds() { 
-        return this.categoryIds;
-    }
-
-    /**
-     * Getter for StockLevels.
-     * See [CatalogQueryFilteredItemsStockLevel](#type-catalogqueryfiltereditemsstocklevel) for possible values
-     */
-    @JsonGetter("stock_levels")
-    public List<String> getStockLevels() { 
-        return this.stockLevels;
-    }
-
-    /**
-     * Getter for EnabledLocationIds.
-     */
-    @JsonGetter("enabled_location_ids")
-    public List<String> getEnabledLocationIds() { 
-        return this.enabledLocationIds;
-    }
-
-    /**
-     * Getter for VendorIds.
-     */
-    @JsonGetter("vendor_ids")
-    public List<String> getVendorIds() { 
-        return this.vendorIds;
-    }
-
-    /**
-     * Getter for ProductTypes.
-     * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
-     */
-    @JsonGetter("product_types")
-    public List<String> getProductTypes() { 
-        return this.productTypes;
-    }
-
-    /**
-     * Getter for CustomAttributeFilters.
-     */
-    @JsonGetter("custom_attribute_filters")
-    public List<CatalogQueryFilteredItemsCustomAttributeFilter> getCustomAttributeFilters() { 
-        return this.customAttributeFilters;
-    }
-
-    /**
-     * Getter for DoesNotExist.
-     * See [CatalogQueryFilteredItemsNullableAttribute](#type-catalogqueryfiltereditemsnullableattribute) for possible values
-     */
-    @JsonGetter("does_not_exist")
-    public List<String> getDoesNotExist() { 
-        return this.doesNotExist;
-    }
-
-    /**
-     * Getter for SortOrder.
-     * The order (e.g., chronological or alphabetical) in which results from a request are returned.
-     */
-    @JsonGetter("sort_order")
-    public String getSortOrder() { 
-        return this.sortOrder;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .textFilter(getTextFilter())
@@ -168,6 +192,9 @@ public class CatalogQueryFilteredItems {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogQueryFilteredItems}
+     */
     public static class Builder {
         private String textFilter;
         private Boolean searchVendorCode;
@@ -180,49 +207,108 @@ public class CatalogQueryFilteredItems {
         private List<String> doesNotExist;
         private String sortOrder;
 
-        public Builder() { }
-
-        public Builder textFilter(String value) {
-            textFilter = value;
-            return this;
-        }
-        public Builder searchVendorCode(Boolean value) {
-            searchVendorCode = value;
-            return this;
-        }
-        public Builder categoryIds(List<String> value) {
-            categoryIds = value;
-            return this;
-        }
-        public Builder stockLevels(List<String> value) {
-            stockLevels = value;
-            return this;
-        }
-        public Builder enabledLocationIds(List<String> value) {
-            enabledLocationIds = value;
-            return this;
-        }
-        public Builder vendorIds(List<String> value) {
-            vendorIds = value;
-            return this;
-        }
-        public Builder productTypes(List<String> value) {
-            productTypes = value;
-            return this;
-        }
-        public Builder customAttributeFilters(List<CatalogQueryFilteredItemsCustomAttributeFilter> value) {
-            customAttributeFilters = value;
-            return this;
-        }
-        public Builder doesNotExist(List<String> value) {
-            doesNotExist = value;
-            return this;
-        }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for textFilter
+         * @param textFilter
+         * @return Builder
+         */
+        public Builder textFilter(String textFilter) {
+            this.textFilter = textFilter;
+            return this;
+        }
+        /**
+         * Setter for searchVendorCode
+         * @param searchVendorCode
+         * @return Builder
+         */
+        public Builder searchVendorCode(Boolean searchVendorCode) {
+            this.searchVendorCode = searchVendorCode;
+            return this;
+        }
+        /**
+         * Setter for categoryIds
+         * @param categoryIds
+         * @return Builder
+         */
+        public Builder categoryIds(List<String> categoryIds) {
+            this.categoryIds = categoryIds;
+            return this;
+        }
+        /**
+         * Setter for stockLevels
+         * @param stockLevels
+         * @return Builder
+         */
+        public Builder stockLevels(List<String> stockLevels) {
+            this.stockLevels = stockLevels;
+            return this;
+        }
+        /**
+         * Setter for enabledLocationIds
+         * @param enabledLocationIds
+         * @return Builder
+         */
+        public Builder enabledLocationIds(List<String> enabledLocationIds) {
+            this.enabledLocationIds = enabledLocationIds;
+            return this;
+        }
+        /**
+         * Setter for vendorIds
+         * @param vendorIds
+         * @return Builder
+         */
+        public Builder vendorIds(List<String> vendorIds) {
+            this.vendorIds = vendorIds;
+            return this;
+        }
+        /**
+         * Setter for productTypes
+         * @param productTypes
+         * @return Builder
+         */
+        public Builder productTypes(List<String> productTypes) {
+            this.productTypes = productTypes;
+            return this;
+        }
+        /**
+         * Setter for customAttributeFilters
+         * @param customAttributeFilters
+         * @return Builder
+         */
+        public Builder customAttributeFilters(List<CatalogQueryFilteredItemsCustomAttributeFilter> customAttributeFilters) {
+            this.customAttributeFilters = customAttributeFilters;
+            return this;
+        }
+        /**
+         * Setter for doesNotExist
+         * @param doesNotExist
+         * @return Builder
+         */
+        public Builder doesNotExist(List<String> doesNotExist) {
+            this.doesNotExist = doesNotExist;
+            return this;
+        }
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogQueryFilteredItems} object using the set fields.
+         * @return {@link CatalogQueryFilteredItems}
+         */
         public CatalogQueryFilteredItems build() {
             return new CatalogQueryFilteredItems(textFilter,
                 searchVendorCode,

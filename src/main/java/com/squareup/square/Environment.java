@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * Environment to be used.
+ */
 public enum Environment {
     PRODUCTION,
 
     SANDBOX;
 
 
-    private static TreeMap<String, Environment> valueMap = new TreeMap<String, Environment>();
+    private static TreeMap<String, Environment> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -52,7 +55,7 @@ public enum Environment {
     public static List<String> toValue(List<Environment> toConvert) {
         if(toConvert == null)
             return null;
-        List<String> convertedValues = new ArrayList<String>();
+        List<String> convertedValues = new ArrayList<>();
         for (Environment enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }

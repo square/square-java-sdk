@@ -6,8 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Fee type.
+ */
 public class V1Fee {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param name
+     * @param rate
+     * @param calculationPhase
+     * @param adjustmentType
+     * @param appliesToCustomAmounts
+     * @param enabled
+     * @param inclusionType
+     * @param type
+     * @param v2Id
+     */
     @JsonCreator
     public V1Fee(
             @JsonProperty("id") String id,
@@ -44,19 +61,112 @@ public class V1Fee {
     private final String type;
     private final String v2Id;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The fee's unique ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Name.
+     * The fee's name.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for Rate.
+     * The rate of the fee, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%.
+     */
+    @JsonGetter("rate")
+    public String getRate() {
+        return this.rate;
+    }
+
+    /**
+     * Getter for CalculationPhase.
+     */
+    @JsonGetter("calculation_phase")
+    public String getCalculationPhase() {
+        return this.calculationPhase;
+    }
+
+    /**
+     * Getter for AdjustmentType.
+     */
+    @JsonGetter("adjustment_type")
+    public String getAdjustmentType() {
+        return this.adjustmentType;
+    }
+
+    /**
+     * Getter for AppliesToCustomAmounts.
+     * If true, the fee applies to custom amounts entered into Square Point of Sale that are not associated with a particular item.
+     */
+    @JsonGetter("applies_to_custom_amounts")
+    public Boolean getAppliesToCustomAmounts() {
+        return this.appliesToCustomAmounts;
+    }
+
+    /**
+     * Getter for Enabled.
+     * If true, the fee is applied to all appropriate items. If false, the fee is not applied at all.
+     */
+    @JsonGetter("enabled")
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * Getter for InclusionType.
+     */
+    @JsonGetter("inclusion_type")
+    public String getInclusionType() {
+        return this.inclusionType;
+    }
+
+    /**
+     * Getter for Type.
+     */
+    @JsonGetter("type")
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Getter for V2Id.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     */
+    @JsonGetter("v2_id")
+    public String getV2Id() {
+        return this.v2Id;
+    }
+
+ 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, rate, calculationPhase, adjustmentType, appliesToCustomAmounts, enabled, inclusionType, type, v2Id);
+        return Objects.hash(id, name, rate, calculationPhase, adjustmentType, appliesToCustomAmounts,
+            enabled, inclusionType, type, v2Id);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1Fee)) {
+        }
+        if(!(obj instanceof V1Fee)) {
             return false;
         }
-        V1Fee v1Fee = (V1Fee) o;
+        V1Fee v1Fee = (V1Fee) obj;
         return Objects.equals(id, v1Fee.id) &&
             Objects.equals(name, v1Fee.name) &&
             Objects.equals(rate, v1Fee.rate) &&
@@ -69,98 +179,11 @@ public class V1Fee {
             Objects.equals(v2Id, v1Fee.v2Id);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The fee's unique ID.
+     * Builds a new {@link V1Fee.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Fee.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for Name.
-     * The fee's name.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for Rate.
-     * The rate of the fee, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%.
-     */
-    @JsonGetter("rate")
-    public String getRate() { 
-        return this.rate;
-    }
-
-    /**
-     * Getter for CalculationPhase.
-     */
-    @JsonGetter("calculation_phase")
-    public String getCalculationPhase() { 
-        return this.calculationPhase;
-    }
-
-    /**
-     * Getter for AdjustmentType.
-     */
-    @JsonGetter("adjustment_type")
-    public String getAdjustmentType() { 
-        return this.adjustmentType;
-    }
-
-    /**
-     * Getter for AppliesToCustomAmounts.
-     * If true, the fee applies to custom amounts entered into Square Point of Sale that are not associated with a particular item.
-     */
-    @JsonGetter("applies_to_custom_amounts")
-    public Boolean getAppliesToCustomAmounts() { 
-        return this.appliesToCustomAmounts;
-    }
-
-    /**
-     * Getter for Enabled.
-     * If true, the fee is applied to all appropriate items. If false, the fee is not applied at all.
-     */
-    @JsonGetter("enabled")
-    public Boolean getEnabled() { 
-        return this.enabled;
-    }
-
-    /**
-     * Getter for InclusionType.
-     */
-    @JsonGetter("inclusion_type")
-    public String getInclusionType() { 
-        return this.inclusionType;
-    }
-
-    /**
-     * Getter for Type.
-     */
-    @JsonGetter("type")
-    public String getType() { 
-        return this.type;
-    }
-
-    /**
-     * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
-     */
-    @JsonGetter("v2_id")
-    public String getV2Id() { 
-        return this.v2Id;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -176,6 +199,9 @@ public class V1Fee {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Fee}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -189,53 +215,117 @@ public class V1Fee {
         private String type;
         private String v2Id;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder rate(String value) {
-            rate = value;
+        /**
+         * Setter for rate
+         * @param rate
+         * @return Builder
+         */
+        public Builder rate(String rate) {
+            this.rate = rate;
             return this;
         }
-        public Builder calculationPhase(String value) {
-            calculationPhase = value;
+        /**
+         * Setter for calculationPhase
+         * @param calculationPhase
+         * @return Builder
+         */
+        public Builder calculationPhase(String calculationPhase) {
+            this.calculationPhase = calculationPhase;
             return this;
         }
-        public Builder adjustmentType(String value) {
-            adjustmentType = value;
+        /**
+         * Setter for adjustmentType
+         * @param adjustmentType
+         * @return Builder
+         */
+        public Builder adjustmentType(String adjustmentType) {
+            this.adjustmentType = adjustmentType;
             return this;
         }
-        public Builder appliesToCustomAmounts(Boolean value) {
-            appliesToCustomAmounts = value;
+        /**
+         * Setter for appliesToCustomAmounts
+         * @param appliesToCustomAmounts
+         * @return Builder
+         */
+        public Builder appliesToCustomAmounts(Boolean appliesToCustomAmounts) {
+            this.appliesToCustomAmounts = appliesToCustomAmounts;
             return this;
         }
-        public Builder enabled(Boolean value) {
-            enabled = value;
+        /**
+         * Setter for enabled
+         * @param enabled
+         * @return Builder
+         */
+        public Builder enabled(Boolean enabled) {
+            this.enabled = enabled;
             return this;
         }
-        public Builder inclusionType(String value) {
-            inclusionType = value;
+        /**
+         * Setter for inclusionType
+         * @param inclusionType
+         * @return Builder
+         */
+        public Builder inclusionType(String inclusionType) {
+            this.inclusionType = inclusionType;
             return this;
         }
-        public Builder type(String value) {
-            type = value;
+        /**
+         * Setter for type
+         * @param type
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
-        public Builder v2Id(String value) {
-            v2Id = value;
+        /**
+         * Setter for v2Id
+         * @param v2Id
+         * @return Builder
+         */
+        public Builder v2Id(String v2Id) {
+            this.v2Id = v2Id;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Fee} object using the set fields.
+         * @return {@link V1Fee}
+         */
         public V1Fee build() {
             V1Fee model = new V1Fee(id,
                 name,

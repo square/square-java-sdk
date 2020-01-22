@@ -1,13 +1,27 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogProductSet type.
+ */
 public class CatalogProductSet {
 
+    /**
+     * Initialization constructor.
+     * @param name
+     * @param productIdsAny
+     * @param productIdsAll
+     * @param quantityExact
+     * @param quantityMin
+     * @param quantityMax
+     * @param allProducts
+     */
     @JsonCreator
     public CatalogProductSet(
             @JsonProperty("name") String name,
@@ -33,36 +47,13 @@ public class CatalogProductSet {
     private final Long quantityMin;
     private final Long quantityMax;
     private final Boolean allProducts;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, productIdsAny, productIdsAll, quantityExact, quantityMin, quantityMax, allProducts);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogProductSet)) {
-            return false;
-        }
-        CatalogProductSet catalogProductSet = (CatalogProductSet) o;
-        return Objects.equals(name, catalogProductSet.name) &&
-            Objects.equals(productIdsAny, catalogProductSet.productIdsAny) &&
-            Objects.equals(productIdsAll, catalogProductSet.productIdsAll) &&
-            Objects.equals(quantityExact, catalogProductSet.quantityExact) &&
-            Objects.equals(quantityMin, catalogProductSet.quantityMin) &&
-            Objects.equals(quantityMax, catalogProductSet.quantityMax) &&
-            Objects.equals(allProducts, catalogProductSet.allProducts);
-    }
-
     /**
      * Getter for Name.
      * User-defined name for the product set. For example, "Clearance Items"
      * or "Winter Sale Items".
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -77,7 +68,7 @@ public class CatalogProductSet {
      * Max: 500 catalog object IDs.
      */
     @JsonGetter("product_ids_any")
-    public List<String> getProductIdsAny() { 
+    public List<String> getProductIdsAny() {
         return this.productIdsAny;
     }
 
@@ -89,7 +80,7 @@ public class CatalogProductSet {
      * Max: 500 catalog object IDs.
      */
     @JsonGetter("product_ids_all")
-    public List<String> getProductIdsAll() { 
+    public List<String> getProductIdsAll() {
         return this.productIdsAll;
     }
 
@@ -100,7 +91,7 @@ public class CatalogProductSet {
      * Cannot be combined with either `quantity_min` or `quantity_max`.
      */
     @JsonGetter("quantity_exact")
-    public Long getQuantityExact() { 
+    public Long getQuantityExact() {
         return this.quantityExact;
     }
 
@@ -111,7 +102,7 @@ public class CatalogProductSet {
      * `quantity_exact`, `quantity_min` and `quantity_max` are all unspecified.
      */
     @JsonGetter("quantity_min")
-    public Long getQuantityMin() { 
+    public Long getQuantityMin() {
         return this.quantityMin;
     }
 
@@ -121,7 +112,7 @@ public class CatalogProductSet {
      * `products_any` or `products_all`.
      */
     @JsonGetter("quantity_max")
-    public Long getQuantityMax() { 
+    public Long getQuantityMax() {
         return this.quantityMax;
     }
 
@@ -131,11 +122,40 @@ public class CatalogProductSet {
      * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
      */
     @JsonGetter("all_products")
-    public Boolean getAllProducts() { 
+    public Boolean getAllProducts() {
         return this.allProducts;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, productIdsAny, productIdsAll, quantityExact, quantityMin,
+            quantityMax, allProducts);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogProductSet)) {
+            return false;
+        }
+        CatalogProductSet catalogProductSet = (CatalogProductSet) obj;
+        return Objects.equals(name, catalogProductSet.name) &&
+            Objects.equals(productIdsAny, catalogProductSet.productIdsAny) &&
+            Objects.equals(productIdsAll, catalogProductSet.productIdsAll) &&
+            Objects.equals(quantityExact, catalogProductSet.quantityExact) &&
+            Objects.equals(quantityMin, catalogProductSet.quantityMin) &&
+            Objects.equals(quantityMax, catalogProductSet.quantityMax) &&
+            Objects.equals(allProducts, catalogProductSet.allProducts);
+    }
+
+    /**
+     * Builds a new {@link CatalogProductSet.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogProductSet.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
@@ -148,6 +168,9 @@ public class CatalogProductSet {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogProductSet}
+     */
     public static class Builder {
         private String name;
         private List<String> productIdsAny;
@@ -157,37 +180,81 @@ public class CatalogProductSet {
         private Long quantityMax;
         private Boolean allProducts;
 
-        public Builder() { }
-
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder productIdsAny(List<String> value) {
-            productIdsAny = value;
-            return this;
-        }
-        public Builder productIdsAll(List<String> value) {
-            productIdsAll = value;
-            return this;
-        }
-        public Builder quantityExact(Long value) {
-            quantityExact = value;
-            return this;
-        }
-        public Builder quantityMin(Long value) {
-            quantityMin = value;
-            return this;
-        }
-        public Builder quantityMax(Long value) {
-            quantityMax = value;
-            return this;
-        }
-        public Builder allProducts(Boolean value) {
-            allProducts = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for productIdsAny
+         * @param productIdsAny
+         * @return Builder
+         */
+        public Builder productIdsAny(List<String> productIdsAny) {
+            this.productIdsAny = productIdsAny;
+            return this;
+        }
+        /**
+         * Setter for productIdsAll
+         * @param productIdsAll
+         * @return Builder
+         */
+        public Builder productIdsAll(List<String> productIdsAll) {
+            this.productIdsAll = productIdsAll;
+            return this;
+        }
+        /**
+         * Setter for quantityExact
+         * @param quantityExact
+         * @return Builder
+         */
+        public Builder quantityExact(Long quantityExact) {
+            this.quantityExact = quantityExact;
+            return this;
+        }
+        /**
+         * Setter for quantityMin
+         * @param quantityMin
+         * @return Builder
+         */
+        public Builder quantityMin(Long quantityMin) {
+            this.quantityMin = quantityMin;
+            return this;
+        }
+        /**
+         * Setter for quantityMax
+         * @param quantityMax
+         * @return Builder
+         */
+        public Builder quantityMax(Long quantityMax) {
+            this.quantityMax = quantityMax;
+            return this;
+        }
+        /**
+         * Setter for allProducts
+         * @param allProducts
+         * @return Builder
+         */
+        public Builder allProducts(Boolean allProducts) {
+            this.allProducts = allProducts;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogProductSet} object using the set fields.
+         * @return {@link CatalogProductSet}
+         */
         public CatalogProductSet build() {
             return new CatalogProductSet(name,
                 productIdsAny,

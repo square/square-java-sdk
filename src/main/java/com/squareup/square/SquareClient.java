@@ -3,12 +3,39 @@ package com.squareup.square;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.squareup.square.api.*;
+import com.squareup.square.api.ApplePayApi;
+import com.squareup.square.api.CashDrawersApi;
+import com.squareup.square.api.CatalogApi;
+import com.squareup.square.api.CheckoutApi;
+import com.squareup.square.api.CustomersApi;
+import com.squareup.square.api.EmployeesApi;
+import com.squareup.square.api.InventoryApi;
+import com.squareup.square.api.LaborApi;
+import com.squareup.square.api.LocationsApi;
+import com.squareup.square.api.MerchantsApi;
+import com.squareup.square.api.MobileAuthorizationApi;
+import com.squareup.square.api.OAuthApi;
+import com.squareup.square.api.OrdersApi;
+import com.squareup.square.api.PaymentsApi;
+import com.squareup.square.api.RefundsApi;
+import com.squareup.square.api.ReportingApi;
+import com.squareup.square.api.TransactionsApi;
+import com.squareup.square.api.V1EmployeesApi;
+import com.squareup.square.api.V1ItemsApi;
+import com.squareup.square.api.V1LocationsApi;
+import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
+import com.squareup.square.http.client.HttpClientConfiguration;
 import com.squareup.square.http.client.OkClient;
+import com.squareup.square.http.client.ReadonlyHttpClientConfiguration;
 import com.squareup.square.http.Headers;
 
+/**
+ * Gateway class for the library.
+ * This class acts as a factory for Apis.
+ * It holds the state of the SDK.
+ */
 public final class SquareClient implements Configuration {
     private MobileAuthorizationApi mobileAuthorization;
     private OAuthApi oAuth;
@@ -32,100 +59,189 @@ public final class SquareClient implements Configuration {
     private PaymentsApi payments;
     private RefundsApi refunds;
 
+    /**
+     * Get the instance of MobileAuthorizationApi
+     * @return mobileAuthorization
+     */
     public MobileAuthorizationApi getMobileAuthorizationApi() {
         return mobileAuthorization;
     }
 
+    /**
+     * Get the instance of OAuthApi
+     * @return oAuth
+     */
     public OAuthApi getOAuthApi() {
         return oAuth;
     }
 
+    /**
+     * Get the instance of V1LocationsApi
+     * @return v1Locations
+     */
     public V1LocationsApi getV1LocationsApi() {
         return v1Locations;
     }
 
+    /**
+     * Get the instance of V1EmployeesApi
+     * @return v1Employees
+     */
     public V1EmployeesApi getV1EmployeesApi() {
         return v1Employees;
     }
 
+    /**
+     * Get the instance of V1TransactionsApi
+     * @return v1Transactions
+     */
     public V1TransactionsApi getV1TransactionsApi() {
         return v1Transactions;
     }
 
+    /**
+     * Get the instance of V1ItemsApi
+     * @return v1Items
+     */
     public V1ItemsApi getV1ItemsApi() {
         return v1Items;
     }
 
+    /**
+     * Get the instance of ApplePayApi
+     * @return applePay
+     */
     public ApplePayApi getApplePayApi() {
         return applePay;
     }
 
+    /**
+     * Get the instance of CashDrawersApi
+     * @return cashDrawers
+     */
     public CashDrawersApi getCashDrawersApi() {
         return cashDrawers;
     }
 
+    /**
+     * Get the instance of CatalogApi
+     * @return catalog
+     */
     public CatalogApi getCatalogApi() {
         return catalog;
     }
 
+    /**
+     * Get the instance of CustomersApi
+     * @return customers
+     */
     public CustomersApi getCustomersApi() {
         return customers;
     }
 
+    /**
+     * Get the instance of EmployeesApi
+     * @return employees
+     */
     public EmployeesApi getEmployeesApi() {
         return employees;
     }
 
+    /**
+     * Get the instance of InventoryApi
+     * @return inventory
+     */
     public InventoryApi getInventoryApi() {
         return inventory;
     }
 
+    /**
+     * Get the instance of LaborApi
+     * @return labor
+     */
     public LaborApi getLaborApi() {
         return labor;
     }
 
+    /**
+     * Get the instance of LocationsApi
+     * @return locations
+     */
     public LocationsApi getLocationsApi() {
         return locations;
     }
 
+    /**
+     * Get the instance of ReportingApi
+     * @return reporting
+     */
     public ReportingApi getReportingApi() {
         return reporting;
     }
 
+    /**
+     * Get the instance of CheckoutApi
+     * @return checkout
+     */
     public CheckoutApi getCheckoutApi() {
         return checkout;
     }
 
+    /**
+     * Get the instance of OrdersApi
+     * @return orders
+     */
     public OrdersApi getOrdersApi() {
         return orders;
     }
 
+    /**
+     * Get the instance of TransactionsApi
+     * @return transactions
+     */
     public TransactionsApi getTransactionsApi() {
         return transactions;
     }
 
+    /**
+     * Get the instance of MerchantsApi
+     * @return merchants
+     */
     public MerchantsApi getMerchantsApi() {
         return merchants;
     }
 
+    /**
+     * Get the instance of PaymentsApi
+     * @return payments
+     */
     public PaymentsApi getPaymentsApi() {
         return payments;
     }
 
+    /**
+     * Get the instance of RefundsApi
+     * @return refunds
+     */
     public RefundsApi getRefundsApi() {
         return refunds;
     }
 
+    /**
+     * Shutdown the underlying HttpClient instance
+     */
     public static void shutdown() {
         OkClient.shutdown();
     }
 
     private SquareClient(Environment environment, String accessToken, HttpClient httpClient, long timeout,
-            Headers additionalHeaders, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+            ReadonlyHttpClientConfiguration httpClientConfig, Headers additionalHeaders,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         this.environment = environment;
         this.accessToken = accessToken;
         this.httpClient = httpClient;
         this.timeout = timeout;
+        this.httpClientConfig = httpClientConfig;
         this.additionalHeaders = additionalHeaders;
         this.httpCallback = httpCallback;
 
@@ -135,6 +251,7 @@ public final class SquareClient implements Configuration {
             AuthManager accessTokenManager = new AccessTokenManager(accessToken);
             this.authManagers.put("default", accessTokenManager);
         }
+
 
         mobileAuthorization = new MobileAuthorizationApi(this, this.httpClient, this.authManagers, this.httpCallback);
         oAuth = new OAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
@@ -178,6 +295,11 @@ public final class SquareClient implements Configuration {
      * The timeout to use for making HTTP requests.
      */
     private final long timeout;
+
+    /**
+     * Http Client Configuration instance.
+     */
+    private final ReadonlyHttpClientConfiguration httpClientConfig;
 
     /**
      * Additional headers to add to each API request
@@ -227,6 +349,14 @@ public final class SquareClient implements Configuration {
     }
 
     /**
+     * Http Client Configuration instance.
+     * @return httpClientConfig
+     */
+    public ReadonlyHttpClientConfiguration getHttpClientConfig() {
+        return httpClientConfig;
+    }
+
+    /**
      * Additional headers to add to each API request
      * @return a copy of additionalHeaders
      */
@@ -239,7 +369,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "4.0.0.20191217";
+        return "4.1.0.20200122";
     }
 
     /**
@@ -247,7 +377,7 @@ public final class SquareClient implements Configuration {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2019-12-17";
+        return "2020-01-22";
     }
 
     /**
@@ -257,7 +387,7 @@ public final class SquareClient implements Configuration {
      */
     public String getBaseUri(Server server) {
         StringBuilder baseUrl = new StringBuilder(environmentMapper(environment, server));
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         ApiHelper.appendUrlWithTemplateParameters(baseUrl, parameters, false);
         return baseUrl.toString();
     }
@@ -291,6 +421,11 @@ public final class SquareClient implements Configuration {
     }
 
     
+    /**
+     * Builds a new {@link SquareClient.Builder} object.
+     * Creates the instance with the state of the current client.
+     * @return a new {@link SquareClient.Builder} object
+     */
     public Builder newBuilder() {
         Builder builder = new Builder();
         builder.environment = getEnvironment();
@@ -300,9 +435,13 @@ public final class SquareClient implements Configuration {
         builder.additionalHeaders = getAdditionalHeaders();
         builder.authManagers = authManagers;
         builder.httpCallback = httpCallback;
+        builder.setHttpClientConfig(httpClientConfig);
         return builder;
     }
 
+    /**
+     * Class to build instances of {@link SquareClient}
+     */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
         private String accessToken = "TODO: Replace";
@@ -311,6 +450,8 @@ public final class SquareClient implements Configuration {
         private Headers additionalHeaders = new Headers();
         private Map<String, AuthManager> authManagers = null;
         private HttpCallback httpCallback = null;
+
+        private HttpClientConfiguration httpClientConfig;
 
         /**
          * Current API environment
@@ -326,7 +467,7 @@ public final class SquareClient implements Configuration {
          */
         public Builder accessToken(String accessToken) {
             if (accessToken == null) {
-                throw new NullPointerException();
+                throw new NullPointerException("accessToken cannot be null");
             }
             this.accessToken = accessToken;
             return this;
@@ -347,7 +488,7 @@ public final class SquareClient implements Configuration {
          */
         public Builder additionalHeaders(Headers additionalHeaders) {
             if (additionalHeaders == null) {
-                throw new NullPointerException();
+                throw new NullPointerException("additionalHeaders cannot be null");
             }
             this.additionalHeaders = additionalHeaders;
             return this;
@@ -361,16 +502,22 @@ public final class SquareClient implements Configuration {
             return this;
         }
 
+
+        private void setHttpClientConfig(ReadonlyHttpClientConfiguration httpClientConfig) {
+            this.timeout = httpClientConfig.getTimeout();
+        }
+
         /**
          * Builds a new SquareClient object using the set fields.
          * @return SquareClient
          */
         public SquareClient build() {
-            httpClient = new OkClient(timeout);
+            httpClientConfig = new HttpClientConfiguration();
+            httpClientConfig.setTimeout(timeout);
+            httpClient = new OkClient(httpClientConfig);
 
-            return new SquareClient(environment, accessToken, httpClient, timeout, additionalHeaders, authManagers,
-                    httpCallback);
+            return new SquareClient(environment, accessToken, httpClient, timeout, httpClientConfig, additionalHeaders,
+                    authManagers, httpCallback);
         }
-
     }
 }

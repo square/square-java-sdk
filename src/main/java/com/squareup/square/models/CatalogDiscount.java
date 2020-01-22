@@ -5,8 +5,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogDiscount type.
+ */
 public class CatalogDiscount {
 
+    /**
+     * Initialization constructor.
+     * @param name
+     * @param discountType
+     * @param percentage
+     * @param amountMoney
+     * @param pinRequired
+     * @param labelColor
+     * @param modifyTaxBasis
+     */
     @JsonCreator
     public CatalogDiscount(
             @JsonProperty("name") String name,
@@ -32,35 +46,12 @@ public class CatalogDiscount {
     private final Boolean pinRequired;
     private final String labelColor;
     private final String modifyTaxBasis;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, discountType, percentage, amountMoney, pinRequired, labelColor, modifyTaxBasis);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogDiscount)) {
-            return false;
-        }
-        CatalogDiscount catalogDiscount = (CatalogDiscount) o;
-        return Objects.equals(name, catalogDiscount.name) &&
-            Objects.equals(discountType, catalogDiscount.discountType) &&
-            Objects.equals(percentage, catalogDiscount.percentage) &&
-            Objects.equals(amountMoney, catalogDiscount.amountMoney) &&
-            Objects.equals(pinRequired, catalogDiscount.pinRequired) &&
-            Objects.equals(labelColor, catalogDiscount.labelColor) &&
-            Objects.equals(modifyTaxBasis, catalogDiscount.modifyTaxBasis);
-    }
-
     /**
      * Getter for Name.
      * The discount name. Searchable. This field has max length of 255 Unicode code points.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -69,7 +60,7 @@ public class CatalogDiscount {
      * How to apply a CatalogDiscount to a CatalogItem.
      */
     @JsonGetter("discount_type")
-    public String getDiscountType() { 
+    public String getDiscountType() {
         return this.discountType;
     }
 
@@ -81,7 +72,7 @@ public class CatalogDiscount {
      * Do not include this field for amount-based or variable discounts.
      */
     @JsonGetter("percentage")
-    public String getPercentage() { 
+    public String getPercentage() {
         return this.percentage;
     }
 
@@ -95,7 +86,7 @@ public class CatalogDiscount {
      * for more information.
      */
     @JsonGetter("amount_money")
-    public Money getAmountMoney() { 
+    public Money getAmountMoney() {
         return this.amountMoney;
     }
 
@@ -105,7 +96,7 @@ public class CatalogDiscount {
      * discount to a payment in the Square Point of Sale app.
      */
     @JsonGetter("pin_required")
-    public Boolean getPinRequired() { 
+    public Boolean getPinRequired() {
         return this.pinRequired;
     }
 
@@ -114,7 +105,7 @@ public class CatalogDiscount {
      * The color of the discount display label in the Square Point of Sale app. This must be a valid hex color code.
      */
     @JsonGetter("label_color")
-    public String getLabelColor() { 
+    public String getLabelColor() {
         return this.labelColor;
     }
 
@@ -122,11 +113,40 @@ public class CatalogDiscount {
      * Getter for ModifyTaxBasis.
      */
     @JsonGetter("modify_tax_basis")
-    public String getModifyTaxBasis() { 
+    public String getModifyTaxBasis() {
         return this.modifyTaxBasis;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, discountType, percentage, amountMoney, pinRequired, labelColor,
+            modifyTaxBasis);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogDiscount)) {
+            return false;
+        }
+        CatalogDiscount catalogDiscount = (CatalogDiscount) obj;
+        return Objects.equals(name, catalogDiscount.name) &&
+            Objects.equals(discountType, catalogDiscount.discountType) &&
+            Objects.equals(percentage, catalogDiscount.percentage) &&
+            Objects.equals(amountMoney, catalogDiscount.amountMoney) &&
+            Objects.equals(pinRequired, catalogDiscount.pinRequired) &&
+            Objects.equals(labelColor, catalogDiscount.labelColor) &&
+            Objects.equals(modifyTaxBasis, catalogDiscount.modifyTaxBasis);
+    }
+
+    /**
+     * Builds a new {@link CatalogDiscount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogDiscount.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
@@ -139,6 +159,9 @@ public class CatalogDiscount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogDiscount}
+     */
     public static class Builder {
         private String name;
         private String discountType;
@@ -148,37 +171,81 @@ public class CatalogDiscount {
         private String labelColor;
         private String modifyTaxBasis;
 
-        public Builder() { }
-
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder discountType(String value) {
-            discountType = value;
-            return this;
-        }
-        public Builder percentage(String value) {
-            percentage = value;
-            return this;
-        }
-        public Builder amountMoney(Money value) {
-            amountMoney = value;
-            return this;
-        }
-        public Builder pinRequired(Boolean value) {
-            pinRequired = value;
-            return this;
-        }
-        public Builder labelColor(String value) {
-            labelColor = value;
-            return this;
-        }
-        public Builder modifyTaxBasis(String value) {
-            modifyTaxBasis = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for discountType
+         * @param discountType
+         * @return Builder
+         */
+        public Builder discountType(String discountType) {
+            this.discountType = discountType;
+            return this;
+        }
+        /**
+         * Setter for percentage
+         * @param percentage
+         * @return Builder
+         */
+        public Builder percentage(String percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(Money amountMoney) {
+            this.amountMoney = amountMoney;
+            return this;
+        }
+        /**
+         * Setter for pinRequired
+         * @param pinRequired
+         * @return Builder
+         */
+        public Builder pinRequired(Boolean pinRequired) {
+            this.pinRequired = pinRequired;
+            return this;
+        }
+        /**
+         * Setter for labelColor
+         * @param labelColor
+         * @return Builder
+         */
+        public Builder labelColor(String labelColor) {
+            this.labelColor = labelColor;
+            return this;
+        }
+        /**
+         * Setter for modifyTaxBasis
+         * @param modifyTaxBasis
+         * @return Builder
+         */
+        public Builder modifyTaxBasis(String modifyTaxBasis) {
+            this.modifyTaxBasis = modifyTaxBasis;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link CatalogDiscount} object using the set fields.
+         * @return {@link CatalogDiscount}
+         */
         public CatalogDiscount build() {
             return new CatalogDiscount(name,
                 discountType,

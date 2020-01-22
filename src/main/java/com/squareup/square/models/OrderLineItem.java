@@ -1,13 +1,40 @@
 package com.squareup.square.models;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderLineItem type.
+ */
 public class OrderLineItem {
 
+    /**
+     * Initialization constructor.
+     * @param quantity
+     * @param uid
+     * @param name
+     * @param quantityUnit
+     * @param note
+     * @param catalogObjectId
+     * @param variationName
+     * @param metadata
+     * @param modifiers
+     * @param taxes
+     * @param discounts
+     * @param appliedTaxes
+     * @param appliedDiscounts
+     * @param basePriceMoney
+     * @param variationTotalPriceMoney
+     * @param grossSalesMoney
+     * @param totalTaxMoney
+     * @param totalDiscountMoney
+     * @param totalMoney
+     */
     @JsonCreator
     public OrderLineItem(
             @JsonProperty("quantity") String quantity,
@@ -69,47 +96,12 @@ public class OrderLineItem {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(quantity, uid, name, quantityUnit, note, catalogObjectId, variationName, metadata, modifiers, taxes, discounts, appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderLineItem)) {
-            return false;
-        }
-        OrderLineItem orderLineItem = (OrderLineItem) o;
-        return Objects.equals(quantity, orderLineItem.quantity) &&
-            Objects.equals(uid, orderLineItem.uid) &&
-            Objects.equals(name, orderLineItem.name) &&
-            Objects.equals(quantityUnit, orderLineItem.quantityUnit) &&
-            Objects.equals(note, orderLineItem.note) &&
-            Objects.equals(catalogObjectId, orderLineItem.catalogObjectId) &&
-            Objects.equals(variationName, orderLineItem.variationName) &&
-            Objects.equals(metadata, orderLineItem.metadata) &&
-            Objects.equals(modifiers, orderLineItem.modifiers) &&
-            Objects.equals(taxes, orderLineItem.taxes) &&
-            Objects.equals(discounts, orderLineItem.discounts) &&
-            Objects.equals(appliedTaxes, orderLineItem.appliedTaxes) &&
-            Objects.equals(appliedDiscounts, orderLineItem.appliedDiscounts) &&
-            Objects.equals(basePriceMoney, orderLineItem.basePriceMoney) &&
-            Objects.equals(variationTotalPriceMoney, orderLineItem.variationTotalPriceMoney) &&
-            Objects.equals(grossSalesMoney, orderLineItem.grossSalesMoney) &&
-            Objects.equals(totalTaxMoney, orderLineItem.totalTaxMoney) &&
-            Objects.equals(totalDiscountMoney, orderLineItem.totalDiscountMoney) &&
-            Objects.equals(totalMoney, orderLineItem.totalMoney);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the line item only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -118,7 +110,7 @@ public class OrderLineItem {
      * The name of the line item.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -130,7 +122,7 @@ public class OrderLineItem {
      * For example: `"1.70000"`.
      */
     @JsonGetter("quantity")
-    public String getQuantity() { 
+    public String getQuantity() {
         return this.quantity;
     }
 
@@ -140,7 +132,7 @@ public class OrderLineItem {
      * specifies the number of digits after the decimal point for decimal quantities.
      */
     @JsonGetter("quantity_unit")
-    public OrderQuantityUnit getQuantityUnit() { 
+    public OrderQuantityUnit getQuantityUnit() {
         return this.quantityUnit;
     }
 
@@ -149,7 +141,7 @@ public class OrderLineItem {
      * The note of the line item.
      */
     @JsonGetter("note")
-    public String getNote() { 
+    public String getNote() {
         return this.note;
     }
 
@@ -158,7 +150,7 @@ public class OrderLineItem {
      * The [CatalogItemVariation](#type-catalogitemvariation) id applied to this line item.
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -167,7 +159,7 @@ public class OrderLineItem {
      * The name of the variation applied to this line item.
      */
     @JsonGetter("variation_name")
-    public String getVariationName() { 
+    public String getVariationName() {
         return this.variationName;
     }
 
@@ -188,7 +180,7 @@ public class OrderLineItem {
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
     @JsonGetter("metadata")
-    public Map<String, String> getMetadata() { 
+    public Map<String, String> getMetadata() {
         return this.metadata;
     }
 
@@ -197,7 +189,7 @@ public class OrderLineItem {
      * The [CatalogModifier](#type-catalogmodifier)s applied to this line item.
      */
     @JsonGetter("modifiers")
-    public List<OrderLineItemModifier> getModifiers() { 
+    public List<OrderLineItemModifier> getModifiers() {
         return this.modifiers;
     }
 
@@ -211,7 +203,7 @@ public class OrderLineItem {
      * sending requests to the UpdateOrder endpoint will result in an error.
      */
     @JsonGetter("taxes")
-    public List<OrderLineItemTax> getTaxes() { 
+    public List<OrderLineItemTax> getTaxes() {
         return this.taxes;
     }
 
@@ -225,7 +217,7 @@ public class OrderLineItem {
      * sending requests to the UpdateOrder endpoint will result in an error.
      */
     @JsonGetter("discounts")
-    public List<OrderLineItemDiscount> getDiscounts() { 
+    public List<OrderLineItemDiscount> getDiscounts() {
         return this.discounts;
     }
 
@@ -242,7 +234,7 @@ public class OrderLineItem {
      * To change the amount of a tax, modify the referenced top-level tax.
      */
     @JsonGetter("applied_taxes")
-    public List<OrderLineItemAppliedTax> getAppliedTaxes() { 
+    public List<OrderLineItemAppliedTax> getAppliedTaxes() {
         return this.appliedTaxes;
     }
 
@@ -259,7 +251,7 @@ public class OrderLineItem {
      * To change the amount of a discount, modify the referenced top-level discount.
      */
     @JsonGetter("applied_discounts")
-    public List<OrderLineItemAppliedDiscount> getAppliedDiscounts() { 
+    public List<OrderLineItemAppliedDiscount> getAppliedDiscounts() {
         return this.appliedDiscounts;
     }
 
@@ -273,7 +265,7 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("base_price_money")
-    public Money getBasePriceMoney() { 
+    public Money getBasePriceMoney() {
         return this.basePriceMoney;
     }
 
@@ -287,7 +279,7 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("variation_total_price_money")
-    public Money getVariationTotalPriceMoney() { 
+    public Money getVariationTotalPriceMoney() {
         return this.variationTotalPriceMoney;
     }
 
@@ -301,7 +293,7 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("gross_sales_money")
-    public Money getGrossSalesMoney() { 
+    public Money getGrossSalesMoney() {
         return this.grossSalesMoney;
     }
 
@@ -315,7 +307,7 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("total_tax_money")
-    public Money getTotalTaxMoney() { 
+    public Money getTotalTaxMoney() {
         return this.totalTaxMoney;
     }
 
@@ -329,7 +321,7 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("total_discount_money")
-    public Money getTotalDiscountMoney() { 
+    public Money getTotalDiscountMoney() {
         return this.totalDiscountMoney;
     }
 
@@ -343,11 +335,53 @@ public class OrderLineItem {
      * for more information.
      */
     @JsonGetter("total_money")
-    public Money getTotalMoney() { 
+    public Money getTotalMoney() {
         return this.totalMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
+            metadata, modifiers, taxes, discounts, appliedTaxes, appliedDiscounts, basePriceMoney,
+            variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderLineItem)) {
+            return false;
+        }
+        OrderLineItem orderLineItem = (OrderLineItem) obj;
+        return Objects.equals(uid, orderLineItem.uid) &&
+            Objects.equals(name, orderLineItem.name) &&
+            Objects.equals(quantity, orderLineItem.quantity) &&
+            Objects.equals(quantityUnit, orderLineItem.quantityUnit) &&
+            Objects.equals(note, orderLineItem.note) &&
+            Objects.equals(catalogObjectId, orderLineItem.catalogObjectId) &&
+            Objects.equals(variationName, orderLineItem.variationName) &&
+            Objects.equals(metadata, orderLineItem.metadata) &&
+            Objects.equals(modifiers, orderLineItem.modifiers) &&
+            Objects.equals(taxes, orderLineItem.taxes) &&
+            Objects.equals(discounts, orderLineItem.discounts) &&
+            Objects.equals(appliedTaxes, orderLineItem.appliedTaxes) &&
+            Objects.equals(appliedDiscounts, orderLineItem.appliedDiscounts) &&
+            Objects.equals(basePriceMoney, orderLineItem.basePriceMoney) &&
+            Objects.equals(variationTotalPriceMoney, orderLineItem.variationTotalPriceMoney) &&
+            Objects.equals(grossSalesMoney, orderLineItem.grossSalesMoney) &&
+            Objects.equals(totalTaxMoney, orderLineItem.totalTaxMoney) &&
+            Objects.equals(totalDiscountMoney, orderLineItem.totalDiscountMoney) &&
+            Objects.equals(totalMoney, orderLineItem.totalMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderLineItem.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderLineItem.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(quantity)
             .uid(getUid())
@@ -371,6 +405,9 @@ public class OrderLineItem {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderLineItem}
+     */
     public static class Builder {
         private String quantity;
         private String uid;
@@ -392,87 +429,189 @@ public class OrderLineItem {
         private Money totalDiscountMoney;
         private Money totalMoney;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String quantity) {
             this.quantity = quantity;
         }
 
-        public Builder quantity(String value) {
-            quantity = value;
+        /**
+         * Setter for quantity
+         * @param quantity
+         * @return Builder
+         */
+        public Builder quantity(String quantity) {
+            this.quantity = quantity;
             return this;
         }
-        public Builder uid(String value) {
-            uid = value;
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder quantityUnit(OrderQuantityUnit value) {
-            quantityUnit = value;
+        /**
+         * Setter for quantityUnit
+         * @param quantityUnit
+         * @return Builder
+         */
+        public Builder quantityUnit(OrderQuantityUnit quantityUnit) {
+            this.quantityUnit = quantityUnit;
             return this;
         }
-        public Builder note(String value) {
-            note = value;
+        /**
+         * Setter for note
+         * @param note
+         * @return Builder
+         */
+        public Builder note(String note) {
+            this.note = note;
             return this;
         }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
             return this;
         }
-        public Builder variationName(String value) {
-            variationName = value;
+        /**
+         * Setter for variationName
+         * @param variationName
+         * @return Builder
+         */
+        public Builder variationName(String variationName) {
+            this.variationName = variationName;
             return this;
         }
-        public Builder metadata(Map<String, String> value) {
-            metadata = value;
+        /**
+         * Setter for metadata
+         * @param metadata
+         * @return Builder
+         */
+        public Builder metadata(Map<String, String> metadata) {
+            this.metadata = metadata;
             return this;
         }
-        public Builder modifiers(List<OrderLineItemModifier> value) {
-            modifiers = value;
+        /**
+         * Setter for modifiers
+         * @param modifiers
+         * @return Builder
+         */
+        public Builder modifiers(List<OrderLineItemModifier> modifiers) {
+            this.modifiers = modifiers;
             return this;
         }
-        public Builder taxes(List<OrderLineItemTax> value) {
-            taxes = value;
+        /**
+         * Setter for taxes
+         * @param taxes
+         * @return Builder
+         */
+        public Builder taxes(List<OrderLineItemTax> taxes) {
+            this.taxes = taxes;
             return this;
         }
-        public Builder discounts(List<OrderLineItemDiscount> value) {
-            discounts = value;
+        /**
+         * Setter for discounts
+         * @param discounts
+         * @return Builder
+         */
+        public Builder discounts(List<OrderLineItemDiscount> discounts) {
+            this.discounts = discounts;
             return this;
         }
-        public Builder appliedTaxes(List<OrderLineItemAppliedTax> value) {
-            appliedTaxes = value;
+        /**
+         * Setter for appliedTaxes
+         * @param appliedTaxes
+         * @return Builder
+         */
+        public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
+            this.appliedTaxes = appliedTaxes;
             return this;
         }
-        public Builder appliedDiscounts(List<OrderLineItemAppliedDiscount> value) {
-            appliedDiscounts = value;
+        /**
+         * Setter for appliedDiscounts
+         * @param appliedDiscounts
+         * @return Builder
+         */
+        public Builder appliedDiscounts(List<OrderLineItemAppliedDiscount> appliedDiscounts) {
+            this.appliedDiscounts = appliedDiscounts;
             return this;
         }
-        public Builder basePriceMoney(Money value) {
-            basePriceMoney = value;
+        /**
+         * Setter for basePriceMoney
+         * @param basePriceMoney
+         * @return Builder
+         */
+        public Builder basePriceMoney(Money basePriceMoney) {
+            this.basePriceMoney = basePriceMoney;
             return this;
         }
-        public Builder variationTotalPriceMoney(Money value) {
-            variationTotalPriceMoney = value;
+        /**
+         * Setter for variationTotalPriceMoney
+         * @param variationTotalPriceMoney
+         * @return Builder
+         */
+        public Builder variationTotalPriceMoney(Money variationTotalPriceMoney) {
+            this.variationTotalPriceMoney = variationTotalPriceMoney;
             return this;
         }
-        public Builder grossSalesMoney(Money value) {
-            grossSalesMoney = value;
+        /**
+         * Setter for grossSalesMoney
+         * @param grossSalesMoney
+         * @return Builder
+         */
+        public Builder grossSalesMoney(Money grossSalesMoney) {
+            this.grossSalesMoney = grossSalesMoney;
             return this;
         }
-        public Builder totalTaxMoney(Money value) {
-            totalTaxMoney = value;
+        /**
+         * Setter for totalTaxMoney
+         * @param totalTaxMoney
+         * @return Builder
+         */
+        public Builder totalTaxMoney(Money totalTaxMoney) {
+            this.totalTaxMoney = totalTaxMoney;
             return this;
         }
-        public Builder totalDiscountMoney(Money value) {
-            totalDiscountMoney = value;
+        /**
+         * Setter for totalDiscountMoney
+         * @param totalDiscountMoney
+         * @return Builder
+         */
+        public Builder totalDiscountMoney(Money totalDiscountMoney) {
+            this.totalDiscountMoney = totalDiscountMoney;
             return this;
         }
-        public Builder totalMoney(Money value) {
-            totalMoney = value;
+        /**
+         * Setter for totalMoney
+         * @param totalMoney
+         * @return Builder
+         */
+        public Builder totalMoney(Money totalMoney) {
+            this.totalMoney = totalMoney;
             return this;
         }
 
+        /**
+         * Builds a new {@link OrderLineItem} object using the set fields.
+         * @return {@link OrderLineItem}
+         */
         public OrderLineItem build() {
             return new OrderLineItem(quantity,
                 uid,

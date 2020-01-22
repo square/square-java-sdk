@@ -5,8 +5,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CatalogTimePeriod type.
+ */
 public class CatalogTimePeriod {
 
+    /**
+     * Initialization constructor.
+     * @param event
+     */
     @JsonCreator
     public CatalogTimePeriod(
             @JsonProperty("event") String event) {
@@ -14,23 +22,6 @@ public class CatalogTimePeriod {
     }
 
     private final String event;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(event);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CatalogTimePeriod)) {
-            return false;
-        }
-        CatalogTimePeriod catalogTimePeriod = (CatalogTimePeriod) o;
-        return Objects.equals(event, catalogTimePeriod.event);
-    }
-
     /**
      * Getter for Event.
      * An iCalendar (RFC5545) [event](https://tools.ietf.org/html/rfc5545#section-3.6.1), which
@@ -47,27 +38,66 @@ public class CatalogTimePeriod {
      * include them.
      */
     @JsonGetter("event")
-    public String getEvent() { 
+    public String getEvent() {
         return this.event;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(event);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CatalogTimePeriod)) {
+            return false;
+        }
+        CatalogTimePeriod catalogTimePeriod = (CatalogTimePeriod) obj;
+        return Objects.equals(event, catalogTimePeriod.event);
+    }
+
+    /**
+     * Builds a new {@link CatalogTimePeriod.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CatalogTimePeriod.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .event(getEvent());
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CatalogTimePeriod}
+     */
     public static class Builder {
         private String event;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
-        public Builder event(String value) {
-            event = value;
+        /**
+         * Setter for event
+         * @param event
+         * @return Builder
+         */
+        public Builder event(String event) {
+            this.event = event;
             return this;
         }
 
+        /**
+         * Builds a new {@link CatalogTimePeriod} object using the set fields.
+         * @return {@link CatalogTimePeriod}
+         */
         public CatalogTimePeriod build() {
             return new CatalogTimePeriod(event);
         }

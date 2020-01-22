@@ -1,14 +1,23 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for UpdateOrderResponse type.
+ */
 public class UpdateOrderResponse {
 
+    /**
+     * Initialization constructor.
+     * @param order
+     * @param errors
+     */
     @JsonCreator
     public UpdateOrderResponse(
             @JsonProperty("order") Order order,
@@ -20,24 +29,6 @@ public class UpdateOrderResponse {
     private HttpContext httpContext;
     private final Order order;
     private final List<Error> errors;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(order, errors);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof UpdateOrderResponse)) {
-            return false;
-        }
-        UpdateOrderResponse updateOrderResponse = (UpdateOrderResponse) o;
-        return Objects.equals(order, updateOrderResponse.order) &&
-            Objects.equals(errors, updateOrderResponse.errors);
-    }
-
 
     public HttpContext getContext() {
         return httpContext;
@@ -52,7 +43,7 @@ public class UpdateOrderResponse {
      * itemization data.
      */
     @JsonGetter("order")
-    public Order getOrder() { 
+    public Order getOrder() {
         return this.order;
     }
 
@@ -61,11 +52,34 @@ public class UpdateOrderResponse {
      * Any errors that occurred during the request.
      */
     @JsonGetter("errors")
-    public List<Error> getErrors() { 
+    public List<Error> getErrors() {
         return this.errors;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, errors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof UpdateOrderResponse)) {
+            return false;
+        }
+        UpdateOrderResponse updateOrderResponse = (UpdateOrderResponse) obj;
+        return Objects.equals(order, updateOrderResponse.order) &&
+            Objects.equals(errors, updateOrderResponse.errors);
+    }
+
+    /**
+     * Builds a new {@link UpdateOrderResponse.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link UpdateOrderResponse.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
@@ -73,26 +87,53 @@ public class UpdateOrderResponse {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link UpdateOrderResponse}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private Order order;
         private List<Error> errors;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder order(Order value) {
-            order = value;
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
-        public Builder errors(List<Error> value) {
-            errors = value;
+        /**
+         * Setter for errors
+         * @param errors
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
+        /**
+         * Builds a new {@link UpdateOrderResponse} object using the set fields.
+         * @return {@link UpdateOrderResponse}
+         */
         public UpdateOrderResponse build() {
             UpdateOrderResponse model = new UpdateOrderResponse(order,
                 errors);

@@ -5,8 +5,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for ListPaymentRefundsRequest type.
+ */
 public class ListPaymentRefundsRequest {
 
+    /**
+     * Initialization constructor.
+     * @param beginTime
+     * @param endTime
+     * @param sortOrder
+     * @param cursor
+     * @param locationId
+     * @param status
+     * @param sourceType
+     */
     @JsonCreator
     public ListPaymentRefundsRequest(
             @JsonProperty("begin_time") String beginTime,
@@ -32,36 +46,13 @@ public class ListPaymentRefundsRequest {
     private final String locationId;
     private final String status;
     private final String sourceType;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof ListPaymentRefundsRequest)) {
-            return false;
-        }
-        ListPaymentRefundsRequest listPaymentRefundsRequest = (ListPaymentRefundsRequest) o;
-        return Objects.equals(beginTime, listPaymentRefundsRequest.beginTime) &&
-            Objects.equals(endTime, listPaymentRefundsRequest.endTime) &&
-            Objects.equals(sortOrder, listPaymentRefundsRequest.sortOrder) &&
-            Objects.equals(cursor, listPaymentRefundsRequest.cursor) &&
-            Objects.equals(locationId, listPaymentRefundsRequest.locationId) &&
-            Objects.equals(status, listPaymentRefundsRequest.status) &&
-            Objects.equals(sourceType, listPaymentRefundsRequest.sourceType);
-    }
-
     /**
      * Getter for BeginTime.
      * Timestamp for the beginning of the requested reporting period, in RFC 3339 format.
      * Default: The current time minus one year.
      */
     @JsonGetter("begin_time")
-    public String getBeginTime() { 
+    public String getBeginTime() {
         return this.beginTime;
     }
 
@@ -71,7 +62,7 @@ public class ListPaymentRefundsRequest {
      * Default: The current time.
      */
     @JsonGetter("end_time")
-    public String getEndTime() { 
+    public String getEndTime() {
         return this.endTime;
     }
 
@@ -82,7 +73,7 @@ public class ListPaymentRefundsRequest {
      * - `DESC` - newest to oldest (default).
      */
     @JsonGetter("sort_order")
-    public String getSortOrder() { 
+    public String getSortOrder() {
         return this.sortOrder;
     }
 
@@ -93,7 +84,7 @@ public class ListPaymentRefundsRequest {
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
     @JsonGetter("cursor")
-    public String getCursor() { 
+    public String getCursor() {
         return this.cursor;
     }
 
@@ -102,7 +93,7 @@ public class ListPaymentRefundsRequest {
      * ID of location associated with payment.
      */
     @JsonGetter("location_id")
-    public String getLocationId() { 
+    public String getLocationId() {
         return this.locationId;
     }
 
@@ -113,7 +104,7 @@ public class ListPaymentRefundsRequest {
      * Default: If omitted refunds are returned regardless of status.
      */
     @JsonGetter("status")
-    public String getStatus() { 
+    public String getStatus() {
         return this.status;
     }
 
@@ -125,11 +116,39 @@ public class ListPaymentRefundsRequest {
      * Default: If omitted refunds are returned regardless of source type.
      */
     @JsonGetter("source_type")
-    public String getSourceType() { 
+    public String getSourceType() {
         return this.sourceType;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof ListPaymentRefundsRequest)) {
+            return false;
+        }
+        ListPaymentRefundsRequest listPaymentRefundsRequest = (ListPaymentRefundsRequest) obj;
+        return Objects.equals(beginTime, listPaymentRefundsRequest.beginTime) &&
+            Objects.equals(endTime, listPaymentRefundsRequest.endTime) &&
+            Objects.equals(sortOrder, listPaymentRefundsRequest.sortOrder) &&
+            Objects.equals(cursor, listPaymentRefundsRequest.cursor) &&
+            Objects.equals(locationId, listPaymentRefundsRequest.locationId) &&
+            Objects.equals(status, listPaymentRefundsRequest.status) &&
+            Objects.equals(sourceType, listPaymentRefundsRequest.sourceType);
+    }
+
+    /**
+     * Builds a new {@link ListPaymentRefundsRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link ListPaymentRefundsRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .beginTime(getBeginTime())
@@ -142,6 +161,9 @@ public class ListPaymentRefundsRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link ListPaymentRefundsRequest}
+     */
     public static class Builder {
         private String beginTime;
         private String endTime;
@@ -151,37 +173,81 @@ public class ListPaymentRefundsRequest {
         private String status;
         private String sourceType;
 
-        public Builder() { }
-
-        public Builder beginTime(String value) {
-            beginTime = value;
-            return this;
-        }
-        public Builder endTime(String value) {
-            endTime = value;
-            return this;
-        }
-        public Builder sortOrder(String value) {
-            sortOrder = value;
-            return this;
-        }
-        public Builder cursor(String value) {
-            cursor = value;
-            return this;
-        }
-        public Builder locationId(String value) {
-            locationId = value;
-            return this;
-        }
-        public Builder status(String value) {
-            status = value;
-            return this;
-        }
-        public Builder sourceType(String value) {
-            sourceType = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for beginTime
+         * @param beginTime
+         * @return Builder
+         */
+        public Builder beginTime(String beginTime) {
+            this.beginTime = beginTime;
+            return this;
+        }
+        /**
+         * Setter for endTime
+         * @param endTime
+         * @return Builder
+         */
+        public Builder endTime(String endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+        /**
+         * Setter for sortOrder
+         * @param sortOrder
+         * @return Builder
+         */
+        public Builder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+        /**
+         * Setter for cursor
+         * @param cursor
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+        /**
+         * Setter for status
+         * @param status
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+        /**
+         * Setter for sourceType
+         * @param sourceType
+         * @return Builder
+         */
+        public Builder sourceType(String sourceType) {
+            this.sourceType = sourceType;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link ListPaymentRefundsRequest} object using the set fields.
+         * @return {@link ListPaymentRefundsRequest}
+         */
         public ListPaymentRefundsRequest build() {
             return new ListPaymentRefundsRequest(beginTime,
                 endTime,

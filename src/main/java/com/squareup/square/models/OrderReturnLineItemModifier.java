@@ -5,8 +5,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for OrderReturnLineItemModifier type.
+ */
 public class OrderReturnLineItemModifier {
 
+    /**
+     * Initialization constructor.
+     * @param uid
+     * @param sourceModifierUid
+     * @param catalogObjectId
+     * @param name
+     * @param basePriceMoney
+     * @param totalPriceMoney
+     */
     @JsonCreator
     public OrderReturnLineItemModifier(
             @JsonProperty("uid") String uid,
@@ -29,34 +42,12 @@ public class OrderReturnLineItemModifier {
     private final String name;
     private final Money basePriceMoney;
     private final Money totalPriceMoney;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, sourceModifierUid, catalogObjectId, name, basePriceMoney, totalPriceMoney);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof OrderReturnLineItemModifier)) {
-            return false;
-        }
-        OrderReturnLineItemModifier orderReturnLineItemModifier = (OrderReturnLineItemModifier) o;
-        return Objects.equals(uid, orderReturnLineItemModifier.uid) &&
-            Objects.equals(sourceModifierUid, orderReturnLineItemModifier.sourceModifierUid) &&
-            Objects.equals(catalogObjectId, orderReturnLineItemModifier.catalogObjectId) &&
-            Objects.equals(name, orderReturnLineItemModifier.name) &&
-            Objects.equals(basePriceMoney, orderReturnLineItemModifier.basePriceMoney) &&
-            Objects.equals(totalPriceMoney, orderReturnLineItemModifier.totalPriceMoney);
-    }
-
     /**
      * Getter for Uid.
      * Unique ID that identifies the return modifier only within this order.
      */
     @JsonGetter("uid")
-    public String getUid() { 
+    public String getUid() {
         return this.uid;
     }
 
@@ -66,7 +57,7 @@ public class OrderReturnLineItemModifier {
      * original sale of this line item modifier.
      */
     @JsonGetter("source_modifier_uid")
-    public String getSourceModifierUid() { 
+    public String getSourceModifierUid() {
         return this.sourceModifierUid;
     }
 
@@ -75,7 +66,7 @@ public class OrderReturnLineItemModifier {
      * The catalog object id referencing [CatalogModifier](#type-catalogmodifier).
      */
     @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() { 
+    public String getCatalogObjectId() {
         return this.catalogObjectId;
     }
 
@@ -84,7 +75,7 @@ public class OrderReturnLineItemModifier {
      * The name of the item modifier.
      */
     @JsonGetter("name")
-    public String getName() { 
+    public String getName() {
         return this.name;
     }
 
@@ -98,7 +89,7 @@ public class OrderReturnLineItemModifier {
      * for more information.
      */
     @JsonGetter("base_price_money")
-    public Money getBasePriceMoney() { 
+    public Money getBasePriceMoney() {
         return this.basePriceMoney;
     }
 
@@ -112,11 +103,39 @@ public class OrderReturnLineItemModifier {
      * for more information.
      */
     @JsonGetter("total_price_money")
-    public Money getTotalPriceMoney() { 
+    public Money getTotalPriceMoney() {
         return this.totalPriceMoney;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, sourceModifierUid, catalogObjectId, name, basePriceMoney,
+            totalPriceMoney);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof OrderReturnLineItemModifier)) {
+            return false;
+        }
+        OrderReturnLineItemModifier orderReturnLineItemModifier = (OrderReturnLineItemModifier) obj;
+        return Objects.equals(uid, orderReturnLineItemModifier.uid) &&
+            Objects.equals(sourceModifierUid, orderReturnLineItemModifier.sourceModifierUid) &&
+            Objects.equals(catalogObjectId, orderReturnLineItemModifier.catalogObjectId) &&
+            Objects.equals(name, orderReturnLineItemModifier.name) &&
+            Objects.equals(basePriceMoney, orderReturnLineItemModifier.basePriceMoney) &&
+            Objects.equals(totalPriceMoney, orderReturnLineItemModifier.totalPriceMoney);
+    }
+
+    /**
+     * Builds a new {@link OrderReturnLineItemModifier.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link OrderReturnLineItemModifier.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .uid(getUid())
@@ -128,6 +147,9 @@ public class OrderReturnLineItemModifier {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link OrderReturnLineItemModifier}
+     */
     public static class Builder {
         private String uid;
         private String sourceModifierUid;
@@ -136,33 +158,72 @@ public class OrderReturnLineItemModifier {
         private Money basePriceMoney;
         private Money totalPriceMoney;
 
-        public Builder() { }
-
-        public Builder uid(String value) {
-            uid = value;
-            return this;
-        }
-        public Builder sourceModifierUid(String value) {
-            sourceModifierUid = value;
-            return this;
-        }
-        public Builder catalogObjectId(String value) {
-            catalogObjectId = value;
-            return this;
-        }
-        public Builder name(String value) {
-            name = value;
-            return this;
-        }
-        public Builder basePriceMoney(Money value) {
-            basePriceMoney = value;
-            return this;
-        }
-        public Builder totalPriceMoney(Money value) {
-            totalPriceMoney = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for uid
+         * @param uid
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+        /**
+         * Setter for sourceModifierUid
+         * @param sourceModifierUid
+         * @return Builder
+         */
+        public Builder sourceModifierUid(String sourceModifierUid) {
+            this.sourceModifierUid = sourceModifierUid;
+            return this;
+        }
+        /**
+         * Setter for catalogObjectId
+         * @param catalogObjectId
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        /**
+         * Setter for basePriceMoney
+         * @param basePriceMoney
+         * @return Builder
+         */
+        public Builder basePriceMoney(Money basePriceMoney) {
+            this.basePriceMoney = basePriceMoney;
+            return this;
+        }
+        /**
+         * Setter for totalPriceMoney
+         * @param totalPriceMoney
+         * @return Builder
+         */
+        public Builder totalPriceMoney(Money totalPriceMoney) {
+            this.totalPriceMoney = totalPriceMoney;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link OrderReturnLineItemModifier} object using the set fields.
+         * @return {@link OrderReturnLineItemModifier}
+         */
         public OrderReturnLineItemModifier build() {
             return new OrderReturnLineItemModifier(uid,
                 sourceModifierUid,

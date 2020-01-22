@@ -6,8 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.squareup.square.http.client.HttpContext;
 
+
+/**
+ * This is a model class for V1Discount type.
+ */
 public class V1Discount {
 
+    /**
+     * Initialization constructor.
+     * @param id
+     * @param name
+     * @param rate
+     * @param amountMoney
+     * @param discountType
+     * @param pinRequired
+     * @param color
+     * @param v2Id
+     */
     @JsonCreator
     public V1Discount(
             @JsonProperty("id") String id,
@@ -38,19 +53,94 @@ public class V1Discount {
     private final String color;
     private final String v2Id;
 
+    public HttpContext getContext() {
+        return httpContext;
+    }
+
+    /**
+     * Getter for Id.
+     * The discount's unique ID.
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Name.
+     * The discount's name.
+     */
+    @JsonGetter("name")
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter for Rate.
+     * The rate of the discount, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%. This rate is 0 if discount_type is VARIABLE_PERCENTAGE.
+     */
+    @JsonGetter("rate")
+    public String getRate() {
+        return this.rate;
+    }
+
+    /**
+     * Getter for AmountMoney.
+     */
+    @JsonGetter("amount_money")
+    public V1Money getAmountMoney() {
+        return this.amountMoney;
+    }
+
+    /**
+     * Getter for DiscountType.
+     */
+    @JsonGetter("discount_type")
+    public String getDiscountType() {
+        return this.discountType;
+    }
+
+    /**
+     * Getter for PinRequired.
+     * Indicates whether a mobile staff member needs to enter their PIN to apply the discount to a payment.
+     */
+    @JsonGetter("pin_required")
+    public Boolean getPinRequired() {
+        return this.pinRequired;
+    }
+
+    /**
+     * Getter for Color.
+     */
+    @JsonGetter("color")
+    public String getColor() {
+        return this.color;
+    }
+
+    /**
+     * Getter for V2Id.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     */
+    @JsonGetter("v2_id")
+    public String getV2Id() {
+        return this.v2Id;
+    }
+
+ 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, rate, amountMoney, discountType, pinRequired, color, v2Id);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if(obj == this) {
             return true;
-        if (!(o instanceof V1Discount)) {
+        }
+        if(!(obj instanceof V1Discount)) {
             return false;
         }
-        V1Discount v1Discount = (V1Discount) o;
+        V1Discount v1Discount = (V1Discount) obj;
         return Objects.equals(id, v1Discount.id) &&
             Objects.equals(name, v1Discount.name) &&
             Objects.equals(rate, v1Discount.rate) &&
@@ -61,81 +151,11 @@ public class V1Discount {
             Objects.equals(v2Id, v1Discount.v2Id);
     }
 
-
-    public HttpContext getContext() {
-        return httpContext;
-    }
-
     /**
-     * Getter for Id.
-     * The discount's unique ID.
+     * Builds a new {@link V1Discount.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link V1Discount.Builder} object
      */
-    @JsonGetter("id")
-    public String getId() { 
-        return this.id;
-    }
-
-    /**
-     * Getter for Name.
-     * The discount's name.
-     */
-    @JsonGetter("name")
-    public String getName() { 
-        return this.name;
-    }
-
-    /**
-     * Getter for Rate.
-     * The rate of the discount, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%. This rate is 0 if discount_type is VARIABLE_PERCENTAGE.
-     */
-    @JsonGetter("rate")
-    public String getRate() { 
-        return this.rate;
-    }
-
-    /**
-     * Getter for AmountMoney.
-     */
-    @JsonGetter("amount_money")
-    public V1Money getAmountMoney() { 
-        return this.amountMoney;
-    }
-
-    /**
-     * Getter for DiscountType.
-     */
-    @JsonGetter("discount_type")
-    public String getDiscountType() { 
-        return this.discountType;
-    }
-
-    /**
-     * Getter for PinRequired.
-     * Indicates whether a mobile staff member needs to enter their PIN to apply the discount to a payment.
-     */
-    @JsonGetter("pin_required")
-    public Boolean getPinRequired() { 
-        return this.pinRequired;
-    }
-
-    /**
-     * Getter for Color.
-     */
-    @JsonGetter("color")
-    public String getColor() { 
-        return this.color;
-    }
-
-    /**
-     * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
-     */
-    @JsonGetter("v2_id")
-    public String getV2Id() { 
-        return this.v2Id;
-    }
-
- 
     public Builder toBuilder() {
         Builder builder = new Builder()
             .id(getId())
@@ -149,6 +169,9 @@ public class V1Discount {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link V1Discount}
+     */
     public static class Builder {
         private HttpContext httpContext;
         private String id;
@@ -160,45 +183,99 @@ public class V1Discount {
         private String color;
         private String v2Id;
 
-        public Builder() { }
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
+        }
 
+        /**
+         * Setter for httpContext
+         * @param httpContext
+         * @return Builder
+         */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
-        public Builder id(String value) {
-            id = value;
+        /**
+         * Setter for id
+         * @param id
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
-        public Builder name(String value) {
-            name = value;
+        /**
+         * Setter for name
+         * @param name
+         * @return Builder
+         */
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
-        public Builder rate(String value) {
-            rate = value;
+        /**
+         * Setter for rate
+         * @param rate
+         * @return Builder
+         */
+        public Builder rate(String rate) {
+            this.rate = rate;
             return this;
         }
-        public Builder amountMoney(V1Money value) {
-            amountMoney = value;
+        /**
+         * Setter for amountMoney
+         * @param amountMoney
+         * @return Builder
+         */
+        public Builder amountMoney(V1Money amountMoney) {
+            this.amountMoney = amountMoney;
             return this;
         }
-        public Builder discountType(String value) {
-            discountType = value;
+        /**
+         * Setter for discountType
+         * @param discountType
+         * @return Builder
+         */
+        public Builder discountType(String discountType) {
+            this.discountType = discountType;
             return this;
         }
-        public Builder pinRequired(Boolean value) {
-            pinRequired = value;
+        /**
+         * Setter for pinRequired
+         * @param pinRequired
+         * @return Builder
+         */
+        public Builder pinRequired(Boolean pinRequired) {
+            this.pinRequired = pinRequired;
             return this;
         }
-        public Builder color(String value) {
-            color = value;
+        /**
+         * Setter for color
+         * @param color
+         * @return Builder
+         */
+        public Builder color(String color) {
+            this.color = color;
             return this;
         }
-        public Builder v2Id(String value) {
-            v2Id = value;
+        /**
+         * Setter for v2Id
+         * @param v2Id
+         * @return Builder
+         */
+        public Builder v2Id(String v2Id) {
+            this.v2Id = v2Id;
             return this;
         }
 
+        /**
+         * Builds a new {@link V1Discount} object using the set fields.
+         * @return {@link V1Discount}
+         */
         public V1Discount build() {
             V1Discount model = new V1Discount(id,
                 name,

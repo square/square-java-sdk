@@ -1,13 +1,29 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for CreateCheckoutRequest type.
+ */
 public class CreateCheckoutRequest {
 
+    /**
+     * Initialization constructor.
+     * @param idempotencyKey
+     * @param order
+     * @param askForShippingAddress
+     * @param merchantSupportEmail
+     * @param prePopulateBuyerEmail
+     * @param prePopulateShippingAddress
+     * @param redirectUrl
+     * @param additionalRecipients
+     * @param note
+     */
     @JsonCreator
     public CreateCheckoutRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
@@ -39,31 +55,6 @@ public class CreateCheckoutRequest {
     private final String redirectUrl;
     private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
     private final String note;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idempotencyKey, order, askForShippingAddress, merchantSupportEmail, prePopulateBuyerEmail, prePopulateShippingAddress, redirectUrl, additionalRecipients, note);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof CreateCheckoutRequest)) {
-            return false;
-        }
-        CreateCheckoutRequest createCheckoutRequest = (CreateCheckoutRequest) o;
-        return Objects.equals(idempotencyKey, createCheckoutRequest.idempotencyKey) &&
-            Objects.equals(order, createCheckoutRequest.order) &&
-            Objects.equals(askForShippingAddress, createCheckoutRequest.askForShippingAddress) &&
-            Objects.equals(merchantSupportEmail, createCheckoutRequest.merchantSupportEmail) &&
-            Objects.equals(prePopulateBuyerEmail, createCheckoutRequest.prePopulateBuyerEmail) &&
-            Objects.equals(prePopulateShippingAddress, createCheckoutRequest.prePopulateShippingAddress) &&
-            Objects.equals(redirectUrl, createCheckoutRequest.redirectUrl) &&
-            Objects.equals(additionalRecipients, createCheckoutRequest.additionalRecipients) &&
-            Objects.equals(note, createCheckoutRequest.note);
-    }
-
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies this checkout among others
@@ -78,7 +69,7 @@ public class CreateCheckoutRequest {
      * See [Idempotency keys](#idempotencykeys) for more information.
      */
     @JsonGetter("idempotency_key")
-    public String getIdempotencyKey() { 
+    public String getIdempotencyKey() {
         return this.idempotencyKey;
     }
 
@@ -86,7 +77,7 @@ public class CreateCheckoutRequest {
      * Getter for Order.
      */
     @JsonGetter("order")
-    public CreateOrderRequest getOrder() { 
+    public CreateOrderRequest getOrder() {
         return this.order;
     }
 
@@ -98,7 +89,7 @@ public class CreateCheckoutRequest {
      * Default: `false`.
      */
     @JsonGetter("ask_for_shipping_address")
-    public Boolean getAskForShippingAddress() { 
+    public Boolean getAskForShippingAddress() {
         return this.askForShippingAddress;
     }
 
@@ -111,7 +102,7 @@ public class CreateCheckoutRequest {
      * Default: none; only exists if explicitly set.
      */
     @JsonGetter("merchant_support_email")
-    public String getMerchantSupportEmail() { 
+    public String getMerchantSupportEmail() {
         return this.merchantSupportEmail;
     }
 
@@ -122,7 +113,7 @@ public class CreateCheckoutRequest {
      * Default: none; only exists if explicitly set.
      */
     @JsonGetter("pre_populate_buyer_email")
-    public String getPrePopulateBuyerEmail() { 
+    public String getPrePopulateBuyerEmail() {
         return this.prePopulateBuyerEmail;
     }
 
@@ -131,7 +122,7 @@ public class CreateCheckoutRequest {
      * Represents a physical address.
      */
     @JsonGetter("pre_populate_shipping_address")
-    public Address getPrePopulateShippingAddress() { 
+    public Address getPrePopulateShippingAddress() {
         return this.prePopulateShippingAddress;
     }
 
@@ -150,7 +141,7 @@ public class CreateCheckoutRequest {
      * Default: none; only exists if explicitly set.
      */
     @JsonGetter("redirect_url")
-    public String getRedirectUrl() { 
+    public String getRedirectUrl() {
         return this.redirectUrl;
     }
 
@@ -165,7 +156,7 @@ public class CreateCheckoutRequest {
      * This field is currently not supported in sandbox.
      */
     @JsonGetter("additional_recipients")
-    public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() { 
+    public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
         return this.additionalRecipients;
     }
 
@@ -175,11 +166,43 @@ public class CreateCheckoutRequest {
      * This value cannot exceed 60 characters.
      */
     @JsonGetter("note")
-    public String getNote() { 
+    public String getNote() {
         return this.note;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(idempotencyKey, order, askForShippingAddress, merchantSupportEmail,
+            prePopulateBuyerEmail, prePopulateShippingAddress, redirectUrl, additionalRecipients,
+            note);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof CreateCheckoutRequest)) {
+            return false;
+        }
+        CreateCheckoutRequest createCheckoutRequest = (CreateCheckoutRequest) obj;
+        return Objects.equals(idempotencyKey, createCheckoutRequest.idempotencyKey) &&
+            Objects.equals(order, createCheckoutRequest.order) &&
+            Objects.equals(askForShippingAddress, createCheckoutRequest.askForShippingAddress) &&
+            Objects.equals(merchantSupportEmail, createCheckoutRequest.merchantSupportEmail) &&
+            Objects.equals(prePopulateBuyerEmail, createCheckoutRequest.prePopulateBuyerEmail) &&
+            Objects.equals(prePopulateShippingAddress, createCheckoutRequest.prePopulateShippingAddress) &&
+            Objects.equals(redirectUrl, createCheckoutRequest.redirectUrl) &&
+            Objects.equals(additionalRecipients, createCheckoutRequest.additionalRecipients) &&
+            Objects.equals(note, createCheckoutRequest.note);
+    }
+
+    /**
+     * Builds a new {@link CreateCheckoutRequest.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link CreateCheckoutRequest.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             order)
@@ -193,6 +216,9 @@ public class CreateCheckoutRequest {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link CreateCheckoutRequest}
+     */
     public static class Builder {
         private String idempotencyKey;
         private CreateOrderRequest order;
@@ -204,49 +230,101 @@ public class CreateCheckoutRequest {
         private List<ChargeRequestAdditionalRecipient> additionalRecipients;
         private String note;
 
+        /**
+         * Initialization constructor
+         */
         public Builder(String idempotencyKey,
                 CreateOrderRequest order) {
             this.idempotencyKey = idempotencyKey;
             this.order = order;
         }
 
-        public Builder idempotencyKey(String value) {
-            idempotencyKey = value;
+        /**
+         * Setter for idempotencyKey
+         * @param idempotencyKey
+         * @return Builder
+         */
+        public Builder idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
             return this;
         }
-        public Builder order(CreateOrderRequest value) {
-            order = value;
+        /**
+         * Setter for order
+         * @param order
+         * @return Builder
+         */
+        public Builder order(CreateOrderRequest order) {
+            this.order = order;
             return this;
         }
-        public Builder askForShippingAddress(Boolean value) {
-            askForShippingAddress = value;
+        /**
+         * Setter for askForShippingAddress
+         * @param askForShippingAddress
+         * @return Builder
+         */
+        public Builder askForShippingAddress(Boolean askForShippingAddress) {
+            this.askForShippingAddress = askForShippingAddress;
             return this;
         }
-        public Builder merchantSupportEmail(String value) {
-            merchantSupportEmail = value;
+        /**
+         * Setter for merchantSupportEmail
+         * @param merchantSupportEmail
+         * @return Builder
+         */
+        public Builder merchantSupportEmail(String merchantSupportEmail) {
+            this.merchantSupportEmail = merchantSupportEmail;
             return this;
         }
-        public Builder prePopulateBuyerEmail(String value) {
-            prePopulateBuyerEmail = value;
+        /**
+         * Setter for prePopulateBuyerEmail
+         * @param prePopulateBuyerEmail
+         * @return Builder
+         */
+        public Builder prePopulateBuyerEmail(String prePopulateBuyerEmail) {
+            this.prePopulateBuyerEmail = prePopulateBuyerEmail;
             return this;
         }
-        public Builder prePopulateShippingAddress(Address value) {
-            prePopulateShippingAddress = value;
+        /**
+         * Setter for prePopulateShippingAddress
+         * @param prePopulateShippingAddress
+         * @return Builder
+         */
+        public Builder prePopulateShippingAddress(Address prePopulateShippingAddress) {
+            this.prePopulateShippingAddress = prePopulateShippingAddress;
             return this;
         }
-        public Builder redirectUrl(String value) {
-            redirectUrl = value;
+        /**
+         * Setter for redirectUrl
+         * @param redirectUrl
+         * @return Builder
+         */
+        public Builder redirectUrl(String redirectUrl) {
+            this.redirectUrl = redirectUrl;
             return this;
         }
-        public Builder additionalRecipients(List<ChargeRequestAdditionalRecipient> value) {
-            additionalRecipients = value;
+        /**
+         * Setter for additionalRecipients
+         * @param additionalRecipients
+         * @return Builder
+         */
+        public Builder additionalRecipients(List<ChargeRequestAdditionalRecipient> additionalRecipients) {
+            this.additionalRecipients = additionalRecipients;
             return this;
         }
-        public Builder note(String value) {
-            note = value;
+        /**
+         * Setter for note
+         * @param note
+         * @return Builder
+         */
+        public Builder note(String note) {
+            this.note = note;
             return this;
         }
 
+        /**
+         * Builds a new {@link CreateCheckoutRequest} object using the set fields.
+         * @return {@link CreateCheckoutRequest}
+         */
         public CreateCheckoutRequest build() {
             return new CreateCheckoutRequest(idempotencyKey,
                 order,

@@ -5,8 +5,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
+
+/**
+ * This is a model class for SearchOrdersFilter type.
+ */
 public class SearchOrdersFilter {
 
+    /**
+     * Initialization constructor.
+     * @param stateFilter
+     * @param dateTimeFilter
+     * @param fulfillmentFilter
+     * @param sourceFilter
+     * @param customerFilter
+     */
     @JsonCreator
     public SearchOrdersFilter(
             @JsonProperty("state_filter") SearchOrdersStateFilter stateFilter,
@@ -26,33 +38,12 @@ public class SearchOrdersFilter {
     private final SearchOrdersFulfillmentFilter fulfillmentFilter;
     private final SearchOrdersSourceFilter sourceFilter;
     private final SearchOrdersCustomerFilter customerFilter;
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(stateFilter, dateTimeFilter, fulfillmentFilter, sourceFilter, customerFilter);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof SearchOrdersFilter)) {
-            return false;
-        }
-        SearchOrdersFilter searchOrdersFilter = (SearchOrdersFilter) o;
-        return Objects.equals(stateFilter, searchOrdersFilter.stateFilter) &&
-            Objects.equals(dateTimeFilter, searchOrdersFilter.dateTimeFilter) &&
-            Objects.equals(fulfillmentFilter, searchOrdersFilter.fulfillmentFilter) &&
-            Objects.equals(sourceFilter, searchOrdersFilter.sourceFilter) &&
-            Objects.equals(customerFilter, searchOrdersFilter.customerFilter);
-    }
-
     /**
      * Getter for StateFilter.
      * Filter by current Order `state`.
      */
     @JsonGetter("state_filter")
-    public SearchOrdersStateFilter getStateFilter() { 
+    public SearchOrdersStateFilter getStateFilter() {
         return this.stateFilter;
     }
 
@@ -72,7 +63,7 @@ public class SearchOrdersFilter {
      * [Learn more about filtering orders by time range](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range).
      */
     @JsonGetter("date_time_filter")
-    public SearchOrdersDateTimeFilter getDateTimeFilter() { 
+    public SearchOrdersDateTimeFilter getDateTimeFilter() {
         return this.dateTimeFilter;
     }
 
@@ -81,7 +72,7 @@ public class SearchOrdersFilter {
      * Filter based on [Order Fulfillment](#type-orderfulfillment) information.
      */
     @JsonGetter("fulfillment_filter")
-    public SearchOrdersFulfillmentFilter getFulfillmentFilter() { 
+    public SearchOrdersFulfillmentFilter getFulfillmentFilter() {
         return this.fulfillmentFilter;
     }
 
@@ -90,7 +81,7 @@ public class SearchOrdersFilter {
      * Filter based on order `source` information.
      */
     @JsonGetter("source_filter")
-    public SearchOrdersSourceFilter getSourceFilter() { 
+    public SearchOrdersSourceFilter getSourceFilter() {
         return this.sourceFilter;
     }
 
@@ -101,11 +92,38 @@ public class SearchOrdersFilter {
      * [FulfillmentRecipient](#type-orderfulfillmentrecipient) `customer_id`.
      */
     @JsonGetter("customer_filter")
-    public SearchOrdersCustomerFilter getCustomerFilter() { 
+    public SearchOrdersCustomerFilter getCustomerFilter() {
         return this.customerFilter;
     }
 
  
+    @Override
+    public int hashCode() {
+        return Objects.hash(stateFilter, dateTimeFilter, fulfillmentFilter, sourceFilter,
+            customerFilter);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof SearchOrdersFilter)) {
+            return false;
+        }
+        SearchOrdersFilter searchOrdersFilter = (SearchOrdersFilter) obj;
+        return Objects.equals(stateFilter, searchOrdersFilter.stateFilter) &&
+            Objects.equals(dateTimeFilter, searchOrdersFilter.dateTimeFilter) &&
+            Objects.equals(fulfillmentFilter, searchOrdersFilter.fulfillmentFilter) &&
+            Objects.equals(sourceFilter, searchOrdersFilter.sourceFilter) &&
+            Objects.equals(customerFilter, searchOrdersFilter.customerFilter);
+    }
+
+    /**
+     * Builds a new {@link SearchOrdersFilter.Builder} object.
+     * Creates the instance with the state of the current model.
+     * @return a new {@link SearchOrdersFilter.Builder} object
+     */
     public Builder toBuilder() {
         Builder builder = new Builder()
             .stateFilter(getStateFilter())
@@ -116,6 +134,9 @@ public class SearchOrdersFilter {
             return builder;
     }
 
+    /**
+     * Class to build instances of {@link SearchOrdersFilter}
+     */
     public static class Builder {
         private SearchOrdersStateFilter stateFilter;
         private SearchOrdersDateTimeFilter dateTimeFilter;
@@ -123,29 +144,63 @@ public class SearchOrdersFilter {
         private SearchOrdersSourceFilter sourceFilter;
         private SearchOrdersCustomerFilter customerFilter;
 
-        public Builder() { }
-
-        public Builder stateFilter(SearchOrdersStateFilter value) {
-            stateFilter = value;
-            return this;
-        }
-        public Builder dateTimeFilter(SearchOrdersDateTimeFilter value) {
-            dateTimeFilter = value;
-            return this;
-        }
-        public Builder fulfillmentFilter(SearchOrdersFulfillmentFilter value) {
-            fulfillmentFilter = value;
-            return this;
-        }
-        public Builder sourceFilter(SearchOrdersSourceFilter value) {
-            sourceFilter = value;
-            return this;
-        }
-        public Builder customerFilter(SearchOrdersCustomerFilter value) {
-            customerFilter = value;
-            return this;
+        /**
+         * Initialization constructor
+         */
+        public Builder() {
+           
         }
 
+        /**
+         * Setter for stateFilter
+         * @param stateFilter
+         * @return Builder
+         */
+        public Builder stateFilter(SearchOrdersStateFilter stateFilter) {
+            this.stateFilter = stateFilter;
+            return this;
+        }
+        /**
+         * Setter for dateTimeFilter
+         * @param dateTimeFilter
+         * @return Builder
+         */
+        public Builder dateTimeFilter(SearchOrdersDateTimeFilter dateTimeFilter) {
+            this.dateTimeFilter = dateTimeFilter;
+            return this;
+        }
+        /**
+         * Setter for fulfillmentFilter
+         * @param fulfillmentFilter
+         * @return Builder
+         */
+        public Builder fulfillmentFilter(SearchOrdersFulfillmentFilter fulfillmentFilter) {
+            this.fulfillmentFilter = fulfillmentFilter;
+            return this;
+        }
+        /**
+         * Setter for sourceFilter
+         * @param sourceFilter
+         * @return Builder
+         */
+        public Builder sourceFilter(SearchOrdersSourceFilter sourceFilter) {
+            this.sourceFilter = sourceFilter;
+            return this;
+        }
+        /**
+         * Setter for customerFilter
+         * @param customerFilter
+         * @return Builder
+         */
+        public Builder customerFilter(SearchOrdersCustomerFilter customerFilter) {
+            this.customerFilter = customerFilter;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link SearchOrdersFilter} object using the set fields.
+         * @return {@link SearchOrdersFilter}
+         */
         public SearchOrdersFilter build() {
             return new SearchOrdersFilter(stateFilter,
                 dateTimeFilter,

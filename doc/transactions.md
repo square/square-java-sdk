@@ -39,8 +39,7 @@ CompletableFuture<ListRefundsResponse> listRefundsAsync(
     final String beginTime,
     final String endTime,
     final String sortOrder,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -87,8 +86,7 @@ CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
     final String beginTime,
     final String endTime,
     final String sortOrder,
-    final String cursor
-)
+    final String cursor)
 ```
 
 ### Parameters
@@ -146,8 +144,7 @@ field of each [Tender included](#type-tender) in the transaction.
 ```java
 CompletableFuture<ChargeResponse> chargeAsync(
     final String locationId,
-    final ChargeRequest body
-)
+    final ChargeRequest body)
 ```
 
 ### Parameters
@@ -226,8 +223,7 @@ Deprecated - recommend using [BatchRetrieveOrders](#endpoint-batchretrieveorders
 ```java
 CompletableFuture<RetrieveTransactionResponse> retrieveTransactionAsync(
     final String locationId,
-    final String transactionId
-)
+    final String transactionId)
 ```
 
 ### Parameters
@@ -266,8 +262,7 @@ for more information.
 ```java
 CompletableFuture<CaptureTransactionResponse> captureTransactionAsync(
     final String locationId,
-    final String transactionId
-)
+    final String transactionId)
 ```
 
 ### Parameters
@@ -313,8 +308,7 @@ in-person (e.g., dipping the card using POS app).
 CompletableFuture<CreateRefundResponse> createRefundAsync(
     final String locationId,
     final String transactionId,
-    final CreateRefundRequest body
-)
+    final CreateRefundRequest body)
 ```
 
 ### Parameters
@@ -364,8 +358,7 @@ for more information.
 ```java
 CompletableFuture<VoidTransactionResponse> voidTransactionAsync(
     final String locationId,
-    final String transactionId
-)
+    final String transactionId)
 ```
 
 ### Parameters
