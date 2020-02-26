@@ -148,7 +148,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -248,7 +248,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -339,7 +339,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -435,7 +435,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -538,7 +538,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -640,7 +640,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -731,7 +731,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -827,7 +827,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -869,6 +869,13 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides summary information for all of a business's employee timecards.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * @deprecated
+     * 
      * @param    order    Optional parameter: The order in which timecards are listed in the response, based on their created_at field.
      * @param    employeeId    Optional parameter: If provided, the endpoint returns only timecards for the employee with the specified ID.
      * @param    beginClockinTime    Optional parameter: If filtering results by their clockin_time field, the beginning of the requested reporting period, in ISO 8601 format.
@@ -882,6 +889,7 @@ public final class V1EmployeesApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Timecard> response from the API call
      */
+    @Deprecated
     public List<V1Timecard> listTimecards(
             final String order,
             final String employeeId,
@@ -905,6 +913,13 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides summary information for all of a business's employee timecards.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * @deprecated
+     * 
      * @param    order    Optional parameter: The order in which timecards are listed in the response, based on their created_at field.
      * @param    employeeId    Optional parameter: If provided, the endpoint returns only timecards for the employee with the specified ID.
      * @param    beginClockinTime    Optional parameter: If filtering results by their clockin_time field, the beginning of the requested reporting period, in ISO 8601 format.
@@ -918,6 +933,7 @@ public final class V1EmployeesApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Timecard> response from the API call 
      */
+    @Deprecated
     public CompletableFuture<List<V1Timecard>> listTimecardsAsync(
             final String order,
             final String employeeId,
@@ -978,7 +994,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1018,7 +1034,13 @@ public final class V1EmployeesApi extends BaseApi {
     /**
      * Creates a timecard for an employee and clocks them in with an
      * `API_CREATE` event and a `clockin_time` set to the current time unless
-     * the request provides a different value. To import timecards from another
+     * the request provides a different value.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * To import timecards from another
      * system (rather than clocking someone in). Specify the `clockin_time`
      * and* `clockout_time` in the request.
      * Timecards correspond to exactly one shift for a given employee, bounded
@@ -1026,9 +1048,12 @@ public final class V1EmployeesApi extends BaseApi {
      * considered clocked in if they have a timecard that doesn't have a
      * `clockout_time` set. An employee that is currently clocked in cannot
      * be clocked in a second time.
+     * @deprecated
+     * 
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Timecard response from the API call
      */
+    @Deprecated
     public V1Timecard createTimecard(
             final V1Timecard body) throws ApiException, IOException {
         HttpRequest request = buildCreateTimecardRequest(body);
@@ -1043,7 +1068,13 @@ public final class V1EmployeesApi extends BaseApi {
     /**
      * Creates a timecard for an employee and clocks them in with an
      * `API_CREATE` event and a `clockin_time` set to the current time unless
-     * the request provides a different value. To import timecards from another
+     * the request provides a different value.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * To import timecards from another
      * system (rather than clocking someone in). Specify the `clockin_time`
      * and* `clockout_time` in the request.
      * Timecards correspond to exactly one shift for a given employee, bounded
@@ -1051,9 +1082,12 @@ public final class V1EmployeesApi extends BaseApi {
      * considered clocked in if they have a timecard that doesn't have a
      * `clockout_time` set. An employee that is currently clocked in cannot
      * be clocked in a second time.
+     * @deprecated
+     * 
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Timecard response from the API call 
      */
+    @Deprecated
     public CompletableFuture<V1Timecard> createTimecardAsync(
             final V1Timecard body) {
         return makeHttpCallAsync(() -> buildCreateTimecardRequest(body),
@@ -1080,7 +1114,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1125,6 +1159,11 @@ public final class V1EmployeesApi extends BaseApi {
      * Square Dashboard. Deleted timecards are still accessible through
      * Connect API endpoints, but cannot be modified. The `deleted` field of
      * the `Timecard` object indicates whether the timecard has been deleted.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * *Note**: By default, deleted timecards appear alongside valid timecards in
      * results returned by the [ListTimecards](#endpoint-v1employees-listtimecards)
      * endpoint. To filter deleted timecards, include the `deleted` query
@@ -1134,9 +1173,12 @@ public final class V1EmployeesApi extends BaseApi {
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The ID of the timecard to delete.
      * @return    Returns the Object response from the API call
      */
+    @Deprecated
     public Object deleteTimecard(
             final String timecardId) throws ApiException, IOException {
         HttpRequest request = buildDeleteTimecardRequest(timecardId);
@@ -1153,6 +1195,11 @@ public final class V1EmployeesApi extends BaseApi {
      * Square Dashboard. Deleted timecards are still accessible through
      * Connect API endpoints, but cannot be modified. The `deleted` field of
      * the `Timecard` object indicates whether the timecard has been deleted.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * *Note**: By default, deleted timecards appear alongside valid timecards in
      * results returned by the [ListTimecards](#endpoint-v1employees-listtimecards)
      * endpoint. To filter deleted timecards, include the `deleted` query
@@ -1162,9 +1209,12 @@ public final class V1EmployeesApi extends BaseApi {
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The ID of the timecard to delete.
      * @return    Returns the Object response from the API call 
      */
+    @Deprecated
     public CompletableFuture<Object> deleteTimecardAsync(
             final String timecardId) {
         return makeHttpCallAsync(() -> buildDeleteTimecardRequest(timecardId),
@@ -1194,7 +1244,7 @@ public final class V1EmployeesApi extends BaseApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1233,14 +1283,22 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for a single timecard.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * <aside>
      * Only approved accounts can manage their employees with Square.
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The timecard's ID.
      * @return    Returns the V1Timecard response from the API call
      */
+    @Deprecated
     public V1Timecard retrieveTimecard(
             final String timecardId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveTimecardRequest(timecardId);
@@ -1254,14 +1312,22 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for a single timecard.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * <aside>
      * Only approved accounts can manage their employees with Square.
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The timecard's ID.
      * @return    Returns the V1Timecard response from the API call 
      */
+    @Deprecated
     public CompletableFuture<V1Timecard> retrieveTimecardAsync(
             final String timecardId) {
         return makeHttpCallAsync(() -> buildRetrieveTimecardRequest(timecardId),
@@ -1292,7 +1358,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1335,10 +1401,18 @@ public final class V1EmployeesApi extends BaseApi {
      * Modifies the details of a timecard with an `API_EDIT` event for
      * the timecard. Updating an active timecard with a `clockout_time`
      * clocks the employee out.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: TThe ID of the timecard to modify.
      * @param    body    Required parameter: An object containing the fields to POST for the request. See the corresponding object definition for field details.
      * @return    Returns the V1Timecard response from the API call
      */
+    @Deprecated
     public V1Timecard updateTimecard(
             final String timecardId,
             final V1Timecard body) throws ApiException, IOException {
@@ -1355,10 +1429,18 @@ public final class V1EmployeesApi extends BaseApi {
      * Modifies the details of a timecard with an `API_EDIT` event for
      * the timecard. Updating an active timecard with a `clockout_time`
      * clocks the employee out.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: TThe ID of the timecard to modify.
      * @param    body    Required parameter: An object containing the fields to POST for the request. See the corresponding object definition for field details.
      * @return    Returns the V1Timecard response from the API call 
      */
+    @Deprecated
     public CompletableFuture<V1Timecard> updateTimecardAsync(
             final String timecardId,
             final V1Timecard body) {
@@ -1392,7 +1474,7 @@ public final class V1EmployeesApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1435,14 +1517,22 @@ public final class V1EmployeesApi extends BaseApi {
     /**
      * Provides summary information for all events associated with a
      * particular timecard.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * <aside>
      * Only approved accounts can manage their employees with Square.
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The ID of the timecard to list events for.
      * @return    Returns the List<V1TimecardEvent> response from the API call
      */
+    @Deprecated
     public List<V1TimecardEvent> listTimecardEvents(
             final String timecardId) throws ApiException, IOException {
         HttpRequest request = buildListTimecardEventsRequest(timecardId);
@@ -1457,14 +1547,22 @@ public final class V1EmployeesApi extends BaseApi {
     /**
      * Provides summary information for all events associated with a
      * particular timecard.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
+     * ---
      * <aside>
      * Only approved accounts can manage their employees with Square.
      * Unapproved accounts cannot use employee management features with the
      * API.
      * </aside>
+     * @deprecated
+     * 
      * @param    timecardId    Required parameter: The ID of the timecard to list events for.
      * @return    Returns the List<V1TimecardEvent> response from the API call 
      */
+    @Deprecated
     public CompletableFuture<List<V1TimecardEvent>> listTimecardEventsAsync(
             final String timecardId) {
         return makeHttpCallAsync(() -> buildListTimecardEventsRequest(timecardId),
@@ -1495,7 +1593,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1534,12 +1632,20 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for all of a location's cash drawer shifts during a date range. The date range you specify cannot exceed 90 days.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
+     * ---
+     * @deprecated
+     * 
      * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
      * @param    order    Optional parameter: The order in which cash drawer shifts are listed in the response, based on their created_at field. Default value: ASC
      * @param    beginTime    Optional parameter: The beginning of the requested reporting period, in ISO 8601 format. Default value: The current time minus 90 days.
      * @param    endTime    Optional parameter: The beginning of the requested reporting period, in ISO 8601 format. Default value: The current time.
      * @return    Returns the List<V1CashDrawerShift> response from the API call
      */
+    @Deprecated
     public List<V1CashDrawerShift> listCashDrawerShifts(
             final String locationId,
             final String order,
@@ -1556,12 +1662,20 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for all of a location's cash drawer shifts during a date range. The date range you specify cannot exceed 90 days.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
+     * ---
+     * @deprecated
+     * 
      * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
      * @param    order    Optional parameter: The order in which cash drawer shifts are listed in the response, based on their created_at field. Default value: ASC
      * @param    beginTime    Optional parameter: The beginning of the requested reporting period, in ISO 8601 format. Default value: The current time minus 90 days.
      * @param    endTime    Optional parameter: The beginning of the requested reporting period, in ISO 8601 format. Default value: The current time.
      * @return    Returns the List<V1CashDrawerShift> response from the API call 
      */
+    @Deprecated
     public CompletableFuture<List<V1CashDrawerShift>> listCashDrawerShiftsAsync(
             final String locationId,
             final String order,
@@ -1605,7 +1719,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1644,10 +1758,18 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for a single cash drawer shift, including all events that occurred during the shift.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
+     * ---
+     * @deprecated
+     * 
      * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
      * @param    shiftId    Required parameter: The shift's ID.
      * @return    Returns the V1CashDrawerShift response from the API call
      */
+    @Deprecated
     public V1CashDrawerShift retrieveCashDrawerShift(
             final String locationId,
             final String shiftId) throws ApiException, IOException {
@@ -1662,10 +1784,18 @@ public final class V1EmployeesApi extends BaseApi {
 
     /**
      * Provides the details for a single cash drawer shift, including all events that occurred during the shift.
+     * ---
+     * - __Deprecation date__: 2020-02-26
+     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
+     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
+     * ---
+     * @deprecated
+     * 
      * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
      * @param    shiftId    Required parameter: The shift's ID.
      * @return    Returns the V1CashDrawerShift response from the API call 
      */
+    @Deprecated
     public CompletableFuture<V1CashDrawerShift> retrieveCashDrawerShiftAsync(
             final String locationId,
             final String shiftId) {
@@ -1699,7 +1829,7 @@ public final class V1EmployeesApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

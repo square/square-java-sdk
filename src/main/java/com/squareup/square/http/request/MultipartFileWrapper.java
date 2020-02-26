@@ -1,7 +1,6 @@
 package com.squareup.square.http.request;
 
-import java.io.File;
-
+import com.squareup.square.utilities.FileWrapper;
 import com.squareup.square.http.Headers;
 
 /**
@@ -9,24 +8,24 @@ import com.squareup.square.http.Headers;
  */
 public class MultipartFileWrapper {
 
-    private File file;
+    private FileWrapper fileWrapper;
     private Headers headers;
 
     /**
      * Initialization constructor
-     * @param file
+     * @param fileWrapper
      * @param headers
      */
-    public MultipartFileWrapper(File file, Headers headers) {
-        this.file = file;
+    public MultipartFileWrapper(FileWrapper fileWrapper, Headers headers) {
+        this.fileWrapper = fileWrapper;
         this.headers = headers;
     }
 
     /**
-     * @return File instance
+     * @return FileWrapper instance
      */
-    public File getFile() {
-        return file;
+    public FileWrapper getFileWrapper() {
+        return fileWrapper;
     }
 
     /**

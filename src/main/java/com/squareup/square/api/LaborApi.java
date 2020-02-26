@@ -126,7 +126,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -232,7 +232,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -325,7 +325,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -415,7 +415,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -511,7 +511,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -614,7 +614,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -704,7 +704,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -818,7 +818,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -929,7 +929,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1020,7 +1020,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1110,7 +1110,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1214,7 +1214,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1311,7 +1311,7 @@ public final class LaborApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1407,7 +1407,7 @@ public final class LaborApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

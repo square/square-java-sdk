@@ -43,8 +43,10 @@ import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.Error;
+import com.squareup.square.utilities.FileWrapper;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,10 +92,6 @@ public class SanityTest {
             .environment(Environment.SANDBOX)
             .accessToken(System.getenv().get("SQUARE_ACCESS_TOKEN"))
             .build();
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test
@@ -158,7 +156,7 @@ public class SanityTest {
         String imgPath = Paths.get(System.getProperty("user.dir").toString(), "src/test/resources/square.png").toString();
         File imageFile = new File(imgPath);
 
-        CreateCatalogImageResponse result = api.createCatalogImage(request, imageFile);
+        CreateCatalogImageResponse result = api.createCatalogImage(request, new FileWrapper(imageFile,"image/jpeg"));
 
         assertNotNull(result.getImage().getImageData().getUrl());
 
@@ -178,11 +176,6 @@ public class SanityTest {
         CustomersApi api = client.getCustomersApi();
         ListCustomersResponse listCustomersRes = api.listCustomers(null, null, null);
 
-        int orignalCustomersCount = 0;
-        if(listCustomersRes.getCustomers() != null){
-            orignalCustomersCount = listCustomersRes.getCustomers().size();
-        }
-
         // Create Customer
         CreateCustomerResponse createCustomerRes = api.createCustomer(TEST_CREATE_CUSTOMER_REQUEST);
         Customer createdCustomer = createCustomerRes.getCustomer();
@@ -200,10 +193,6 @@ public class SanityTest {
         assertEquals(retrieveCustomer.getGivenName(), TEST_GIVEN_NAME);
         assertEquals(retrieveCustomer.getFamilyName(), TEST_FAMILY_NAME);
 
-        // List Customer
-        listCustomersRes = api.listCustomers(null, null, null);
-        assertEquals(orignalCustomersCount + 1, listCustomersRes.getCustomers().size());
-
         // Update Customer
         UpdateCustomerResponse updateCustomerRes = api.updateCustomer(createdCustomerId, TEST_UPDATE_CUSTOMER_REQUEST);
         Customer updatedCustomer = updateCustomerRes.getCustomer();
@@ -215,14 +204,5 @@ public class SanityTest {
         // Delete Customer
         DeleteCustomerResponse deleteCustomerRes = api.deleteCustomer(createdCustomerId);
         assertEquals(deleteCustomerRes.getErrors(), null);
-
-        listCustomersRes = api.listCustomers(null, null, null);
-
-        int finalCustomersCount = 0;
-        if(listCustomersRes.getCustomers() != null){
-            finalCustomersCount = listCustomersRes.getCustomers().size();
-        }
-
-        assertEquals(orignalCustomersCount, finalCustomersCount);
     }
 }

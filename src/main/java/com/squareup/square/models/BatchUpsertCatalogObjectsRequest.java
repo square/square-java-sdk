@@ -92,8 +92,8 @@ public class BatchUpsertCatalogObjectsRequest {
      * @return a new {@link BatchUpsertCatalogObjectsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey)
-            .batches(getBatches());
+        Builder builder = new Builder(idempotencyKey,
+            batches);
             return builder;
     }
 
@@ -107,8 +107,10 @@ public class BatchUpsertCatalogObjectsRequest {
         /**
          * Initialization constructor
          */
-        public Builder(String idempotencyKey) {
+        public Builder(String idempotencyKey,
+                List<CatalogObjectBatch> batches) {
             this.idempotencyKey = idempotencyKey;
+            this.batches = batches;
         }
 
         /**

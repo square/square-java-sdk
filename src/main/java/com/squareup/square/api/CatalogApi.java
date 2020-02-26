@@ -1,6 +1,5 @@
 package com.squareup.square.api;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.HashMap;
@@ -39,6 +38,7 @@ import com.squareup.square.models.UpdateItemTaxesRequest;
 import com.squareup.square.models.UpdateItemTaxesResponse;
 import com.squareup.square.models.UpsertCatalogObjectRequest;
 import com.squareup.square.models.UpsertCatalogObjectResponse;
+import com.squareup.square.utilities.FileWrapper;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -129,7 +129,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -226,7 +226,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -329,7 +329,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -408,7 +408,7 @@ public final class CatalogApi extends BaseApi {
      */
     public CreateCatalogImageResponse createCatalogImage(
             final CreateCatalogImageRequest request,
-            final File imageFile) throws ApiException, IOException {
+            final FileWrapper imageFile) throws ApiException, IOException {
         HttpRequest internalRequest = buildCreateCatalogImageRequest(request, imageFile);
         authManagers.get("default").apply(internalRequest);
 
@@ -457,7 +457,7 @@ public final class CatalogApi extends BaseApi {
      */
     public CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
             final CreateCatalogImageRequest request,
-            final File imageFile) {
+            final FileWrapper imageFile) {
         return makeHttpCallAsync(() -> buildCreateCatalogImageRequest(request, imageFile),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(internalRequest -> getClientInstance().executeAsStringAsync(internalRequest)),
@@ -469,7 +469,7 @@ public final class CatalogApi extends BaseApi {
      */
     private HttpRequest buildCreateCatalogImageRequest(
             final CreateCatalogImageRequest request,
-            final File imageFile) throws JsonProcessingException {
+            final FileWrapper imageFile) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -482,7 +482,7 @@ public final class CatalogApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
@@ -579,7 +579,7 @@ public final class CatalogApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -689,7 +689,7 @@ public final class CatalogApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -775,7 +775,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -876,7 +876,7 @@ public final class CatalogApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -988,7 +988,7 @@ public final class CatalogApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1100,7 +1100,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1191,7 +1191,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1282,7 +1282,7 @@ public final class CatalogApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

@@ -25,7 +25,6 @@ public class OrderServiceCharge {
      * @param totalTaxMoney
      * @param calculationPhase
      * @param taxable
-     * @param taxes
      * @param appliedTaxes
      * @param metadata
      */
@@ -41,7 +40,6 @@ public class OrderServiceCharge {
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("calculation_phase") String calculationPhase,
             @JsonProperty("taxable") Boolean taxable,
-            @JsonProperty("taxes") List<OrderLineItemTax> taxes,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("metadata") Map<String, String> metadata) {
         this.uid = uid;
@@ -54,7 +52,6 @@ public class OrderServiceCharge {
         this.totalTaxMoney = totalTaxMoney;
         this.calculationPhase = calculationPhase;
         this.taxable = taxable;
-        this.taxes = taxes;
         this.appliedTaxes = appliedTaxes;
         this.metadata = metadata;
     }
@@ -69,7 +66,6 @@ public class OrderServiceCharge {
     private final Money totalTaxMoney;
     private final String calculationPhase;
     private final Boolean taxable;
-    private final List<OrderLineItemTax> taxes;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     private final Map<String, String> metadata;
     /**
@@ -189,22 +185,6 @@ public class OrderServiceCharge {
     }
 
     /**
-     * Getter for Taxes.
-     * A list of taxes applied to this service charge. On read or retrieve, this list includes
-     * both item-level taxes and any order-level taxes apportioned to this service charge.
-     * When creating an Order, set your service charge-level taxes in this list. By default,
-     * order-level taxes apply to service charges calculated in the `SUBTOTAL_PHASE` if `taxable` is
-     * set to `true`.
-     * This field has been deprecated in favour of `applied_taxes`. Usage of both this field and
-     * `applied_taxes` when creating an order will result in an error. Usage of this field when
-     * sending requests to the UpdateOrder endpoint will result in an error.
-     */
-    @JsonGetter("taxes")
-    public List<OrderLineItemTax> getTaxes() {
-        return this.taxes;
-    }
-
-    /**
      * Getter for AppliedTaxes.
      * The list of references to taxes applied to this service charge. Each
      * `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level
@@ -247,7 +227,7 @@ public class OrderServiceCharge {
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, catalogObjectId, percentage, amountMoney, appliedMoney,
-            totalMoney, totalTaxMoney, calculationPhase, taxable, taxes, appliedTaxes, metadata);
+            totalMoney, totalTaxMoney, calculationPhase, taxable, appliedTaxes, metadata);
     }
 
     @Override
@@ -269,7 +249,6 @@ public class OrderServiceCharge {
             Objects.equals(totalTaxMoney, orderServiceCharge.totalTaxMoney) &&
             Objects.equals(calculationPhase, orderServiceCharge.calculationPhase) &&
             Objects.equals(taxable, orderServiceCharge.taxable) &&
-            Objects.equals(taxes, orderServiceCharge.taxes) &&
             Objects.equals(appliedTaxes, orderServiceCharge.appliedTaxes) &&
             Objects.equals(metadata, orderServiceCharge.metadata);
     }
@@ -291,7 +270,6 @@ public class OrderServiceCharge {
             .totalTaxMoney(getTotalTaxMoney())
             .calculationPhase(getCalculationPhase())
             .taxable(getTaxable())
-            .taxes(getTaxes())
             .appliedTaxes(getAppliedTaxes())
             .metadata(getMetadata());
             return builder;
@@ -311,7 +289,6 @@ public class OrderServiceCharge {
         private Money totalTaxMoney;
         private String calculationPhase;
         private Boolean taxable;
-        private List<OrderLineItemTax> taxes;
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private Map<String, String> metadata;
 
@@ -413,15 +390,6 @@ public class OrderServiceCharge {
             return this;
         }
         /**
-         * Setter for taxes
-         * @param taxes
-         * @return Builder
-         */
-        public Builder taxes(List<OrderLineItemTax> taxes) {
-            this.taxes = taxes;
-            return this;
-        }
-        /**
          * Setter for appliedTaxes
          * @param appliedTaxes
          * @return Builder
@@ -455,7 +423,6 @@ public class OrderServiceCharge {
                 totalTaxMoney,
                 calculationPhase,
                 taxable,
-                taxes,
                 appliedTaxes,
                 metadata);
         }

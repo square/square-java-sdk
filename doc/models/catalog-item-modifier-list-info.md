@@ -15,7 +15,7 @@ this `CatalogItem`.
 | `ModifierOverrides` | [`List<CatalogModifierOverride>`](/doc/models/catalog-modifier-override.md) | Optional | A set of `CatalogModifierOverride` objects that override whether a given `CatalogModifier` is enabled by default. |
 | `MinSelectedModifiers` | `Integer` | Optional | If 0 or larger, the smallest number of `CatalogModifier`s that must be selected from this `CatalogModifierList`. |
 | `MaxSelectedModifiers` | `Integer` | Optional | If 0 or larger, the largest number of `CatalogModifier`s that can be selected from this `CatalogModifierList`. |
-| `Enabled` | `Boolean` | Optional | If `true`, enable this `CatalogModifierList`. |
+| `Enabled` | `Boolean` | Optional | If `true`, enable this `CatalogModifierList`. The default value is `true`. |
 
 ### Example (as JSON)
 

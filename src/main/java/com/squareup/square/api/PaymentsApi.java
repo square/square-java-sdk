@@ -58,7 +58,7 @@ public final class PaymentsApi extends BaseApi {
      * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
      * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: ID of location associated with payment
+     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      * @param    total    Optional parameter: The exact amount in the total_money for a `Payment`.
      * @param    last4    Optional parameter: The last 4 digits of `Payment` card.
      * @param    cardBrand    Optional parameter: The brand of `Payment` card. For example, `VISA`
@@ -89,7 +89,7 @@ public final class PaymentsApi extends BaseApi {
      * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
      * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: ID of location associated with payment
+     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      * @param    total    Optional parameter: The exact amount in the total_money for a `Payment`.
      * @param    last4    Optional parameter: The last 4 digits of `Payment` card.
      * @param    cardBrand    Optional parameter: The brand of `Payment` card. For example, `VISA`
@@ -146,7 +146,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -252,7 +252,7 @@ public final class PaymentsApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -293,14 +293,14 @@ public final class PaymentsApi extends BaseApi {
     }
 
     /**
-     * Cancels (voids) a payment identified by the idempotency key that is specified in the request. 
-     * Use this method when status of a CreatePayment request is unknown. 
-     * For example, after you send a CreatePayment 
-     * request a network error occurs and you don't get a response. In this case, you can direct 
-     * Square to cancel the payment using this endpoint. In the request, you provide the same idempotency 
-     * key that you provided in your CreatePayment request you want  to cancel. After cancelling the 
-     * payment, you can submit your CreatePayment request again. 
-     * Note that if no payment with the specified idempotency key is found, no action is taken, the end 
+     * Cancels (voids) a payment identified by the idempotency key that is specified in the
+     * request.
+     * Use this method when status of a CreatePayment request is unknown. For example, after you send a
+     * CreatePayment request a network error occurs and you don't get a response. In this case, you can
+     * direct Square to cancel the payment using this endpoint. In the request, you provide the same
+     * idempotency key that you provided in your CreatePayment request you want  to cancel. After
+     * cancelling the payment, you can submit your CreatePayment request again.
+     * Note that if no payment with the specified idempotency key is found, no action is taken, the end
      * point returns successfully.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CancelPaymentByIdempotencyKeyResponse response from the API call
@@ -317,14 +317,14 @@ public final class PaymentsApi extends BaseApi {
     }
 
     /**
-     * Cancels (voids) a payment identified by the idempotency key that is specified in the request. 
-     * Use this method when status of a CreatePayment request is unknown. 
-     * For example, after you send a CreatePayment 
-     * request a network error occurs and you don't get a response. In this case, you can direct 
-     * Square to cancel the payment using this endpoint. In the request, you provide the same idempotency 
-     * key that you provided in your CreatePayment request you want  to cancel. After cancelling the 
-     * payment, you can submit your CreatePayment request again. 
-     * Note that if no payment with the specified idempotency key is found, no action is taken, the end 
+     * Cancels (voids) a payment identified by the idempotency key that is specified in the
+     * request.
+     * Use this method when status of a CreatePayment request is unknown. For example, after you send a
+     * CreatePayment request a network error occurs and you don't get a response. In this case, you can
+     * direct Square to cancel the payment using this endpoint. In the request, you provide the same
+     * idempotency key that you provided in your CreatePayment request you want  to cancel. After
+     * cancelling the payment, you can submit your CreatePayment request again.
+     * Note that if no payment with the specified idempotency key is found, no action is taken, the end
      * point returns successfully.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CancelPaymentByIdempotencyKeyResponse response from the API call 
@@ -355,7 +355,7 @@ public final class PaymentsApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -446,7 +446,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -540,7 +540,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -638,7 +638,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-01-22");
+        headers.add("Square-Version", "2020-02-26");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

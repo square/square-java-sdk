@@ -56,8 +56,7 @@ public class CatalogObjectBatch {
      * @return a new {@link CatalogObjectBatch.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-            .objects(getObjects());
+        Builder builder = new Builder(objects);
             return builder;
     }
 
@@ -70,8 +69,8 @@ public class CatalogObjectBatch {
         /**
          * Initialization constructor
          */
-        public Builder() {
-           
+        public Builder(List<CatalogObject> objects) {
+            this.objects = objects;
         }
 
         /**

@@ -4,10 +4,10 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>4.1.0.20200122</version>
+  <version>5.0.0.20200226</version>
   <packaging>jar</packaging>
 
-  <name>square</name>
+  <name>Square</name>
   <url>https://github.com/square/square-java-sdk/</url>
   <description>Java client library for the Square API</description>
   <scm>
@@ -112,6 +112,7 @@
     <jackson.version>2.9.10</jackson.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <profiles>

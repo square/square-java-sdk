@@ -23,8 +23,6 @@ public class OrderReturnLineItem {
      * @param catalogObjectId
      * @param variationName
      * @param returnModifiers
-     * @param returnTaxes
-     * @param returnDiscounts
      * @param appliedTaxes
      * @param appliedDiscounts
      * @param basePriceMoney
@@ -45,8 +43,6 @@ public class OrderReturnLineItem {
             @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("variation_name") String variationName,
             @JsonProperty("return_modifiers") List<OrderReturnLineItemModifier> returnModifiers,
-            @JsonProperty("return_taxes") List<OrderReturnTax> returnTaxes,
-            @JsonProperty("return_discounts") List<OrderReturnDiscount> returnDiscounts,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("applied_discounts") List<OrderLineItemAppliedDiscount> appliedDiscounts,
             @JsonProperty("base_price_money") Money basePriceMoney,
@@ -64,8 +60,6 @@ public class OrderReturnLineItem {
         this.catalogObjectId = catalogObjectId;
         this.variationName = variationName;
         this.returnModifiers = returnModifiers;
-        this.returnTaxes = returnTaxes;
-        this.returnDiscounts = returnDiscounts;
         this.appliedTaxes = appliedTaxes;
         this.appliedDiscounts = appliedDiscounts;
         this.basePriceMoney = basePriceMoney;
@@ -85,8 +79,6 @@ public class OrderReturnLineItem {
     private final String catalogObjectId;
     private final String variationName;
     private final List<OrderReturnLineItemModifier> returnModifiers;
-    private final List<OrderReturnTax> returnTaxes;
-    private final List<OrderReturnDiscount> returnDiscounts;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     private final List<OrderLineItemAppliedDiscount> appliedDiscounts;
     private final Money basePriceMoney;
@@ -178,28 +170,6 @@ public class OrderReturnLineItem {
     @JsonGetter("return_modifiers")
     public List<OrderReturnLineItemModifier> getReturnModifiers() {
         return this.returnModifiers;
-    }
-
-    /**
-     * Getter for ReturnTaxes.
-     * A list of taxes applied to this line item. On read or retrieve, this list includes both
-     * item-level taxes and any return-level taxes apportioned to this item.
-     * This field has been deprecated in favour of `applied_taxes`.
-     */
-    @JsonGetter("return_taxes")
-    public List<OrderReturnTax> getReturnTaxes() {
-        return this.returnTaxes;
-    }
-
-    /**
-     * Getter for ReturnDiscounts.
-     * A list of discounts applied to this line item. On read or retrieve, this list includes
-     * both item-level discounts and any return-level discounts apportioned to this item.
-     * This field has been deprecated in favour of `applied_discounts`.
-     */
-    @JsonGetter("return_discounts")
-    public List<OrderReturnDiscount> getReturnDiscounts() {
-        return this.returnDiscounts;
     }
 
     /**
@@ -314,9 +284,9 @@ public class OrderReturnLineItem {
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceLineItemUid, name, quantity, quantityUnit, note,
-            catalogObjectId, variationName, returnModifiers, returnTaxes, returnDiscounts,
-            appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney,
-            grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
+            catalogObjectId, variationName, returnModifiers, appliedTaxes, appliedDiscounts,
+            basePriceMoney, variationTotalPriceMoney, grossReturnMoney, totalTaxMoney,
+            totalDiscountMoney, totalMoney);
     }
 
     @Override
@@ -337,8 +307,6 @@ public class OrderReturnLineItem {
             Objects.equals(catalogObjectId, orderReturnLineItem.catalogObjectId) &&
             Objects.equals(variationName, orderReturnLineItem.variationName) &&
             Objects.equals(returnModifiers, orderReturnLineItem.returnModifiers) &&
-            Objects.equals(returnTaxes, orderReturnLineItem.returnTaxes) &&
-            Objects.equals(returnDiscounts, orderReturnLineItem.returnDiscounts) &&
             Objects.equals(appliedTaxes, orderReturnLineItem.appliedTaxes) &&
             Objects.equals(appliedDiscounts, orderReturnLineItem.appliedDiscounts) &&
             Objects.equals(basePriceMoney, orderReturnLineItem.basePriceMoney) &&
@@ -364,8 +332,6 @@ public class OrderReturnLineItem {
             .catalogObjectId(getCatalogObjectId())
             .variationName(getVariationName())
             .returnModifiers(getReturnModifiers())
-            .returnTaxes(getReturnTaxes())
-            .returnDiscounts(getReturnDiscounts())
             .appliedTaxes(getAppliedTaxes())
             .appliedDiscounts(getAppliedDiscounts())
             .basePriceMoney(getBasePriceMoney())
@@ -390,8 +356,6 @@ public class OrderReturnLineItem {
         private String catalogObjectId;
         private String variationName;
         private List<OrderReturnLineItemModifier> returnModifiers;
-        private List<OrderReturnTax> returnTaxes;
-        private List<OrderReturnDiscount> returnDiscounts;
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private List<OrderLineItemAppliedDiscount> appliedDiscounts;
         private Money basePriceMoney;
@@ -490,24 +454,6 @@ public class OrderReturnLineItem {
             return this;
         }
         /**
-         * Setter for returnTaxes
-         * @param returnTaxes
-         * @return Builder
-         */
-        public Builder returnTaxes(List<OrderReturnTax> returnTaxes) {
-            this.returnTaxes = returnTaxes;
-            return this;
-        }
-        /**
-         * Setter for returnDiscounts
-         * @param returnDiscounts
-         * @return Builder
-         */
-        public Builder returnDiscounts(List<OrderReturnDiscount> returnDiscounts) {
-            this.returnDiscounts = returnDiscounts;
-            return this;
-        }
-        /**
          * Setter for appliedTaxes
          * @param appliedTaxes
          * @return Builder
@@ -594,8 +540,6 @@ public class OrderReturnLineItem {
                 catalogObjectId,
                 variationName,
                 returnModifiers,
-                returnTaxes,
-                returnDiscounts,
                 appliedTaxes,
                 appliedDiscounts,
                 basePriceMoney,

@@ -250,14 +250,14 @@ CatalogObject bodyBatches0Objects3 = new CatalogObject.Builder(
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects3);
 
-CatalogObjectBatch bodyBatches0 = new CatalogObjectBatch.Builder()
-    .objects(bodyBatches0Objects)
+CatalogObjectBatch bodyBatches0 = new CatalogObjectBatch.Builder(
+        bodyBatches0Objects)
     .build();
 bodyBatches.add(bodyBatches0);
 
 BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Builder(
-        "789ff020-f723-43a9-b4b5-43b5dc1fa3dc")
-    .batches(bodyBatches)
+        "789ff020-f723-43a9-b4b5-43b5dc1fa3dc",
+        bodyBatches)
     .build();
 
 catalogApi.batchUpsertCatalogObjectsAsync(body).thenAccept(result -> {
@@ -312,7 +312,7 @@ Additional information and an example cURL request can be found in the [Create a
 ```java
 CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
     final CreateCatalogImageRequest request,
-    final File imageFile)
+    final FileWrapper imageFile)
 ```
 
 ### Parameters
@@ -320,7 +320,7 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `request` | [`CreateCatalogImageRequest`](/doc/models/create-catalog-image-request.md) | Form, Optional | - |
-| `imageFile` | `File` | Form, Optional | - |
+| `imageFile` | `FileWrapper` | Form, Optional | - |
 
 ### Response Type
 
