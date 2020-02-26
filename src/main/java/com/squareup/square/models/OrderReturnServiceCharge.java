@@ -25,7 +25,6 @@ public class OrderReturnServiceCharge {
      * @param totalTaxMoney
      * @param calculationPhase
      * @param taxable
-     * @param returnTaxes
      * @param appliedTaxes
      */
     @JsonCreator
@@ -41,7 +40,6 @@ public class OrderReturnServiceCharge {
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("calculation_phase") String calculationPhase,
             @JsonProperty("taxable") Boolean taxable,
-            @JsonProperty("return_taxes") List<OrderReturnTax> returnTaxes,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes) {
         this.uid = uid;
         this.sourceServiceChargeUid = sourceServiceChargeUid;
@@ -54,7 +52,6 @@ public class OrderReturnServiceCharge {
         this.totalTaxMoney = totalTaxMoney;
         this.calculationPhase = calculationPhase;
         this.taxable = taxable;
-        this.returnTaxes = returnTaxes;
         this.appliedTaxes = appliedTaxes;
     }
 
@@ -69,7 +66,6 @@ public class OrderReturnServiceCharge {
     private final Money totalTaxMoney;
     private final String calculationPhase;
     private final Boolean taxable;
-    private final List<OrderReturnTax> returnTaxes;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     /**
      * Getter for Uid.
@@ -199,19 +195,6 @@ public class OrderReturnServiceCharge {
     }
 
     /**
-     * Getter for ReturnTaxes.
-     * Taxes applied to the `OrderReturnServiceCharge`. By default, return-level taxes apply to
-     * `OrderReturnServiceCharge`s calculated in the `SUBTOTAL_PHASE` if `taxable` is set to `true`.  On
-     * read or retrieve, this list includes both item-level taxes and any return-level taxes
-     * apportioned to this item.
-     * This field has been deprecated in favour of `applied_taxes`.
-     */
-    @JsonGetter("return_taxes")
-    public List<OrderReturnTax> getReturnTaxes() {
-        return this.returnTaxes;
-    }
-
-    /**
      * Getter for AppliedTaxes.
      * The list of references to `OrderReturnTax` entities applied to the
      * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid`
@@ -229,7 +212,7 @@ public class OrderReturnServiceCharge {
     public int hashCode() {
         return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, percentage,
             amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
-            returnTaxes, appliedTaxes);
+            appliedTaxes);
     }
 
     @Override
@@ -252,7 +235,6 @@ public class OrderReturnServiceCharge {
             Objects.equals(totalTaxMoney, orderReturnServiceCharge.totalTaxMoney) &&
             Objects.equals(calculationPhase, orderReturnServiceCharge.calculationPhase) &&
             Objects.equals(taxable, orderReturnServiceCharge.taxable) &&
-            Objects.equals(returnTaxes, orderReturnServiceCharge.returnTaxes) &&
             Objects.equals(appliedTaxes, orderReturnServiceCharge.appliedTaxes);
     }
 
@@ -274,7 +256,6 @@ public class OrderReturnServiceCharge {
             .totalTaxMoney(getTotalTaxMoney())
             .calculationPhase(getCalculationPhase())
             .taxable(getTaxable())
-            .returnTaxes(getReturnTaxes())
             .appliedTaxes(getAppliedTaxes());
             return builder;
     }
@@ -294,7 +275,6 @@ public class OrderReturnServiceCharge {
         private Money totalTaxMoney;
         private String calculationPhase;
         private Boolean taxable;
-        private List<OrderReturnTax> returnTaxes;
         private List<OrderLineItemAppliedTax> appliedTaxes;
 
         /**
@@ -404,15 +384,6 @@ public class OrderReturnServiceCharge {
             return this;
         }
         /**
-         * Setter for returnTaxes
-         * @param returnTaxes
-         * @return Builder
-         */
-        public Builder returnTaxes(List<OrderReturnTax> returnTaxes) {
-            this.returnTaxes = returnTaxes;
-            return this;
-        }
-        /**
          * Setter for appliedTaxes
          * @param appliedTaxes
          * @return Builder
@@ -438,7 +409,6 @@ public class OrderReturnServiceCharge {
                 totalTaxMoney,
                 calculationPhase,
                 taxable,
-                returnTaxes,
                 appliedTaxes);
         }
     }

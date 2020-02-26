@@ -98,8 +98,8 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this CreatePayment request. Keys can be any valid string but
-     * must be unique for every CreatePayment request. 
+     * A unique string that identifies this CreatePayment request. Keys can be any valid string
+     * but must be unique for every CreatePayment request.
      * Max: 45 characters
      * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
@@ -154,7 +154,7 @@ public class CreatePaymentRequest {
      * Getter for Autocomplete.
      * If set to `true`, this payment will be completed when possible. If
      * set to `false`, this payment will be held in an approved state until either
-     * explicitly completed (captured) or canceled (voided). For more information, see 
+     * explicitly completed (captured) or canceled (voided). For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * Default: true
      */
@@ -185,7 +185,8 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for LocationId.
-     * The location ID to associate with the payment. If not specified, the default location is used.
+     * The location ID to associate with the payment. If not specified, the default location is
+     * used.
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -223,7 +224,7 @@ public class CreatePaymentRequest {
      * a Square Gift Card with balance of $5 wil result in an APPROVED payment of $5.  You may choose
      * to prompt the buyer for an additional payment to cover the remainder, or cancel the gift card
      * payment.  Cannot be `true` when `autocomplete = true`.
-     * For more information, see 
+     * For more information, see
      * [Partial amount with Square gift cards](https://developer.squareup.com/docs/payments-api/take-payments#partial-payment-gift-card).
      * Default: false
      */

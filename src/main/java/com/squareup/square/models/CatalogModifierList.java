@@ -15,20 +15,24 @@ public class CatalogModifierList {
     /**
      * Initialization constructor.
      * @param name
+     * @param ordinal
      * @param selectionType
      * @param modifiers
      */
     @JsonCreator
     public CatalogModifierList(
             @JsonProperty("name") String name,
+            @JsonProperty("ordinal") Integer ordinal,
             @JsonProperty("selection_type") String selectionType,
             @JsonProperty("modifiers") List<CatalogObject> modifiers) {
         this.name = name;
+        this.ordinal = ordinal;
         this.selectionType = selectionType;
         this.modifiers = modifiers;
     }
 
     private final String name;
+    private final Integer ordinal;
     private final String selectionType;
     private final List<CatalogObject> modifiers;
     /**
@@ -38,6 +42,15 @@ public class CatalogModifierList {
     @JsonGetter("name")
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Getter for Ordinal.
+     * Determines where this `CatalogModifierList` appears in a list of `CatalogModifierList` values.
+     */
+    @JsonGetter("ordinal")
+    public Integer getOrdinal() {
+        return this.ordinal;
     }
 
     /**
@@ -64,7 +77,7 @@ public class CatalogModifierList {
  
     @Override
     public int hashCode() {
-        return Objects.hash(name, selectionType, modifiers);
+        return Objects.hash(name, ordinal, selectionType, modifiers);
     }
 
     @Override
@@ -77,6 +90,7 @@ public class CatalogModifierList {
         }
         CatalogModifierList catalogModifierList = (CatalogModifierList) obj;
         return Objects.equals(name, catalogModifierList.name) &&
+            Objects.equals(ordinal, catalogModifierList.ordinal) &&
             Objects.equals(selectionType, catalogModifierList.selectionType) &&
             Objects.equals(modifiers, catalogModifierList.modifiers);
     }
@@ -89,6 +103,7 @@ public class CatalogModifierList {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
+            .ordinal(getOrdinal())
             .selectionType(getSelectionType())
             .modifiers(getModifiers());
             return builder;
@@ -99,6 +114,7 @@ public class CatalogModifierList {
      */
     public static class Builder {
         private String name;
+        private Integer ordinal;
         private String selectionType;
         private List<CatalogObject> modifiers;
 
@@ -116,6 +132,15 @@ public class CatalogModifierList {
          */
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+        /**
+         * Setter for ordinal
+         * @param ordinal
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = ordinal;
             return this;
         }
         /**
@@ -143,6 +168,7 @@ public class CatalogModifierList {
          */
         public CatalogModifierList build() {
             return new CatalogModifierList(name,
+                ordinal,
                 selectionType,
                 modifiers);
         }

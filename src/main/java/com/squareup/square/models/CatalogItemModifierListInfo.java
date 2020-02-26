@@ -77,7 +77,7 @@ public class CatalogItemModifierListInfo {
 
     /**
      * Getter for Enabled.
-     * If `true`, enable this `CatalogModifierList`.
+     * If `true`, enable this `CatalogModifierList`. The default value is `true`.
      */
     @JsonGetter("enabled")
     public Boolean getEnabled() {

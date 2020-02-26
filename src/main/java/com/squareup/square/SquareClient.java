@@ -4,10 +4,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.squareup.square.api.ApplePayApi;
+import com.squareup.square.api.BankAccountsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
 import com.squareup.square.api.CustomersApi;
+import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
 import com.squareup.square.api.InventoryApi;
 import com.squareup.square.api.LaborApi;
@@ -44,9 +46,11 @@ public final class SquareClient implements Configuration {
     private V1TransactionsApi v1Transactions;
     private V1ItemsApi v1Items;
     private ApplePayApi applePay;
+    private BankAccountsApi bankAccounts;
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
     private CustomersApi customers;
+    private DisputesApi disputes;
     private EmployeesApi employees;
     private InventoryApi inventory;
     private LaborApi labor;
@@ -116,6 +120,14 @@ public final class SquareClient implements Configuration {
     }
 
     /**
+     * Get the instance of BankAccountsApi
+     * @return bankAccounts
+     */
+    public BankAccountsApi getBankAccountsApi() {
+        return bankAccounts;
+    }
+
+    /**
      * Get the instance of CashDrawersApi
      * @return cashDrawers
      */
@@ -137,6 +149,14 @@ public final class SquareClient implements Configuration {
      */
     public CustomersApi getCustomersApi() {
         return customers;
+    }
+
+    /**
+     * Get the instance of DisputesApi
+     * @return disputes
+     */
+    public DisputesApi getDisputesApi() {
+        return disputes;
     }
 
     /**
@@ -260,9 +280,11 @@ public final class SquareClient implements Configuration {
         v1Transactions = new V1TransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         v1Items = new V1ItemsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         applePay = new ApplePayApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        bankAccounts = new BankAccountsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         cashDrawers = new CashDrawersApi(this, this.httpClient, this.authManagers, this.httpCallback);
         catalog = new CatalogApi(this, this.httpClient, this.authManagers, this.httpCallback);
         customers = new CustomersApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        disputes = new DisputesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         employees = new EmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         inventory = new InventoryApi(this, this.httpClient, this.authManagers, this.httpCallback);
         labor = new LaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
@@ -369,7 +391,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "4.1.0.20200122";
+        return "5.0.0.20200226";
     }
 
     /**
@@ -377,7 +399,7 @@ public final class SquareClient implements Configuration {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2020-01-22";
+        return "2020-02-26";
     }
 
     /**

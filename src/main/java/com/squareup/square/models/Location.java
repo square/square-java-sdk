@@ -294,7 +294,7 @@ public class Location {
 
     /**
      * Getter for TwitterUsername.
-     * The Twitter username of the location without the '&#64;' symbol.
+     * The Twitter username of the location without the '@' symbol.
      */
     @JsonGetter("twitter_username")
     public String getTwitterUsername() {
@@ -303,7 +303,7 @@ public class Location {
 
     /**
      * Getter for InstagramUsername.
-     * The Instagram username of the location without the '&#64;' symbol.
+     * The Instagram username of the location without the '@' symbol.
      */
     @JsonGetter("instagram_username")
     public String getInstagramUsername() {

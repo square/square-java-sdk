@@ -24,8 +24,6 @@ public class OrderLineItem {
      * @param variationName
      * @param metadata
      * @param modifiers
-     * @param taxes
-     * @param discounts
      * @param appliedTaxes
      * @param appliedDiscounts
      * @param basePriceMoney
@@ -46,8 +44,6 @@ public class OrderLineItem {
             @JsonProperty("variation_name") String variationName,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("modifiers") List<OrderLineItemModifier> modifiers,
-            @JsonProperty("taxes") List<OrderLineItemTax> taxes,
-            @JsonProperty("discounts") List<OrderLineItemDiscount> discounts,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("applied_discounts") List<OrderLineItemAppliedDiscount> appliedDiscounts,
             @JsonProperty("base_price_money") Money basePriceMoney,
@@ -65,8 +61,6 @@ public class OrderLineItem {
         this.variationName = variationName;
         this.metadata = metadata;
         this.modifiers = modifiers;
-        this.taxes = taxes;
-        this.discounts = discounts;
         this.appliedTaxes = appliedTaxes;
         this.appliedDiscounts = appliedDiscounts;
         this.basePriceMoney = basePriceMoney;
@@ -86,8 +80,6 @@ public class OrderLineItem {
     private final String variationName;
     private final Map<String, String> metadata;
     private final List<OrderLineItemModifier> modifiers;
-    private final List<OrderLineItemTax> taxes;
-    private final List<OrderLineItemDiscount> discounts;
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     private final List<OrderLineItemAppliedDiscount> appliedDiscounts;
     private final Money basePriceMoney;
@@ -191,34 +183,6 @@ public class OrderLineItem {
     @JsonGetter("modifiers")
     public List<OrderLineItemModifier> getModifiers() {
         return this.modifiers;
-    }
-
-    /**
-     * Getter for Taxes.
-     * A list of taxes applied to this line item. On read or retrieve, this list includes both
-     * item-level taxes and any order-level taxes apportioned to this item. When creating an Order,
-     * set your item-level taxes in this list.
-     * This field has been deprecated in favour of `applied_taxes`. Usage of both this field and
-     * `applied_taxes` when creating an order will result in an error. Usage of this field when
-     * sending requests to the UpdateOrder endpoint will result in an error.
-     */
-    @JsonGetter("taxes")
-    public List<OrderLineItemTax> getTaxes() {
-        return this.taxes;
-    }
-
-    /**
-     * Getter for Discounts.
-     * A list of discounts applied to this line item. On read or retrieve, this list includes
-     * both item-level discounts and any order-level discounts apportioned to this item. When
-     * creating an Order, set your item-level discounts in this list.
-     * This field has been deprecated in favour of `applied_discounts`. Usage of both this field and
-     * `applied_discounts` when creating an order will result in an error. Usage of this field when
-     * sending requests to the UpdateOrder endpoint will result in an error.
-     */
-    @JsonGetter("discounts")
-    public List<OrderLineItemDiscount> getDiscounts() {
-        return this.discounts;
     }
 
     /**
@@ -343,7 +307,7 @@ public class OrderLineItem {
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
-            metadata, modifiers, taxes, discounts, appliedTaxes, appliedDiscounts, basePriceMoney,
+            metadata, modifiers, appliedTaxes, appliedDiscounts, basePriceMoney,
             variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
     }
 
@@ -365,8 +329,6 @@ public class OrderLineItem {
             Objects.equals(variationName, orderLineItem.variationName) &&
             Objects.equals(metadata, orderLineItem.metadata) &&
             Objects.equals(modifiers, orderLineItem.modifiers) &&
-            Objects.equals(taxes, orderLineItem.taxes) &&
-            Objects.equals(discounts, orderLineItem.discounts) &&
             Objects.equals(appliedTaxes, orderLineItem.appliedTaxes) &&
             Objects.equals(appliedDiscounts, orderLineItem.appliedDiscounts) &&
             Objects.equals(basePriceMoney, orderLineItem.basePriceMoney) &&
@@ -392,8 +354,6 @@ public class OrderLineItem {
             .variationName(getVariationName())
             .metadata(getMetadata())
             .modifiers(getModifiers())
-            .taxes(getTaxes())
-            .discounts(getDiscounts())
             .appliedTaxes(getAppliedTaxes())
             .appliedDiscounts(getAppliedDiscounts())
             .basePriceMoney(getBasePriceMoney())
@@ -418,8 +378,6 @@ public class OrderLineItem {
         private String variationName;
         private Map<String, String> metadata;
         private List<OrderLineItemModifier> modifiers;
-        private List<OrderLineItemTax> taxes;
-        private List<OrderLineItemDiscount> discounts;
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private List<OrderLineItemAppliedDiscount> appliedDiscounts;
         private Money basePriceMoney;
@@ -518,24 +476,6 @@ public class OrderLineItem {
             return this;
         }
         /**
-         * Setter for taxes
-         * @param taxes
-         * @return Builder
-         */
-        public Builder taxes(List<OrderLineItemTax> taxes) {
-            this.taxes = taxes;
-            return this;
-        }
-        /**
-         * Setter for discounts
-         * @param discounts
-         * @return Builder
-         */
-        public Builder discounts(List<OrderLineItemDiscount> discounts) {
-            this.discounts = discounts;
-            return this;
-        }
-        /**
          * Setter for appliedTaxes
          * @param appliedTaxes
          * @return Builder
@@ -622,8 +562,6 @@ public class OrderLineItem {
                 variationName,
                 metadata,
                 modifiers,
-                taxes,
-                discounts,
                 appliedTaxes,
                 appliedDiscounts,
                 basePriceMoney,

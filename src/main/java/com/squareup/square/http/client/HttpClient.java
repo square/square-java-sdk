@@ -65,7 +65,7 @@ public interface HttpClient {
      * Create an HTTP POST request with body
      */
     public HttpBodyRequest postBody(String queryUrl,
-                             Headers headers, String body);
+                             Headers headers, Object body);
 
     /**
      * Create an HTTP PUT request with parameters
@@ -77,7 +77,7 @@ public interface HttpClient {
      * Create an HTTP PUT request with body
      */
     HttpBodyRequest putBody(String queryUrl,
-                            Headers headers, String body);
+                            Headers headers, Object body);
 
     /**
      * Create an HTTP PATCH request with parameters
@@ -89,7 +89,7 @@ public interface HttpClient {
      * Create an HTTP PATCH request with body
      */
     public HttpBodyRequest patchBody(String queryUrl,
-                              Headers headers, String body);
+                              Headers headers, Object body);
 
     /**
      * Create an HTTP DELETE request with parameters
@@ -101,5 +101,5 @@ public interface HttpClient {
      * Create an HTTP DELETE request with body
      */
     public HttpBodyRequest deleteBody(String queryUrl,
-                               Headers headers, String body);
+                               Headers headers, Object body);
 }

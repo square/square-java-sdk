@@ -35,113 +35,92 @@ CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
 
 ```java
 String locationId = "location_id4";
-List<CreateOrderRequestLineItem> bodyOrderLineItems = new LinkedList<>();
+List<OrderLineItem> bodyOrderOrderLineItems = new LinkedList<>();
 
-Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
+List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
+
+OrderLineItemAppliedTax bodyOrderOrderLineItems0AppliedTaxes0 = new OrderLineItemAppliedTax.Builder(
+        "38ze1696-z1e3-5628-af6d-f1e04d947fg3")
+    .build();
+bodyOrderOrderLineItems0AppliedTaxes.add(bodyOrderOrderLineItems0AppliedTaxes0);
+
+List<OrderLineItemAppliedDiscount> bodyOrderOrderLineItems0AppliedDiscounts = new LinkedList<>();
+
+OrderLineItemAppliedDiscount bodyOrderOrderLineItems0AppliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
+        "56ae1696-z1e3-9328-af6d-f1e04d947gd4")
+    .build();
+bodyOrderOrderLineItems0AppliedDiscounts.add(bodyOrderOrderLineItems0AppliedDiscounts0);
+
+Money bodyOrderOrderLineItems0BasePriceMoney = new Money.Builder()
     .amount(1500L)
     .currency("USD")
     .build();
-List<CreateOrderRequestDiscount> bodyOrderLineItems0Discounts = new LinkedList<>();
-
-CreateOrderRequestDiscount bodyOrderLineItems0Discounts0 = new CreateOrderRequestDiscount.Builder()
-    .name("7% off previous season item")
-    .percentage("7")
-    .build();
-bodyOrderLineItems0Discounts.add(bodyOrderLineItems0Discounts0);
-
-Money bodyOrderLineItems0Discounts1AmountMoney = new Money.Builder()
-    .amount(300L)
-    .currency("USD")
-    .build();
-CreateOrderRequestDiscount bodyOrderLineItems0Discounts1 = new CreateOrderRequestDiscount.Builder()
-    .name("$3 off Customer Discount")
-    .amountMoney(bodyOrderLineItems0Discounts1AmountMoney)
-    .build();
-bodyOrderLineItems0Discounts.add(bodyOrderLineItems0Discounts1);
-
-CreateOrderRequestLineItem bodyOrderLineItems0 = new CreateOrderRequestLineItem.Builder(
+OrderLineItem bodyOrderOrderLineItems0 = new OrderLineItem.Builder(
         "2")
     .name("Printed T Shirt")
-    .basePriceMoney(bodyOrderLineItems0BasePriceMoney)
-    .discounts(bodyOrderLineItems0Discounts)
+    .appliedTaxes(bodyOrderOrderLineItems0AppliedTaxes)
+    .appliedDiscounts(bodyOrderOrderLineItems0AppliedDiscounts)
+    .basePriceMoney(bodyOrderOrderLineItems0BasePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems0);
+bodyOrderOrderLineItems.add(bodyOrderOrderLineItems0);
 
-Money bodyOrderLineItems1BasePriceMoney = new Money.Builder()
+Money bodyOrderOrderLineItems1BasePriceMoney = new Money.Builder()
     .amount(2500L)
     .currency("USD")
     .build();
-CreateOrderRequestLineItem bodyOrderLineItems1 = new CreateOrderRequestLineItem.Builder(
+OrderLineItem bodyOrderOrderLineItems1 = new OrderLineItem.Builder(
         "1")
     .name("Slim Jeans")
-    .basePriceMoney(bodyOrderLineItems1BasePriceMoney)
+    .basePriceMoney(bodyOrderOrderLineItems1BasePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems1);
+bodyOrderOrderLineItems.add(bodyOrderOrderLineItems1);
 
-Money bodyOrderLineItems2BasePriceMoney = new Money.Builder()
+Money bodyOrderOrderLineItems2BasePriceMoney = new Money.Builder()
     .amount(3500L)
     .currency("USD")
     .build();
-List<CreateOrderRequestTax> bodyOrderLineItems2Taxes = new LinkedList<>();
-
-CreateOrderRequestTax bodyOrderLineItems2Taxes0 = new CreateOrderRequestTax.Builder()
-    .name("Fair Trade Tax")
-    .percentage("5")
-    .build();
-bodyOrderLineItems2Taxes.add(bodyOrderLineItems2Taxes0);
-
-List<CreateOrderRequestDiscount> bodyOrderLineItems2Discounts = new LinkedList<>();
-
-Money bodyOrderLineItems2Discounts0AmountMoney = new Money.Builder()
-    .amount(1100L)
-    .currency("USD")
-    .build();
-CreateOrderRequestDiscount bodyOrderLineItems2Discounts0 = new CreateOrderRequestDiscount.Builder()
-    .name("$11 off Customer Discount")
-    .amountMoney(bodyOrderLineItems2Discounts0AmountMoney)
-    .build();
-bodyOrderLineItems2Discounts.add(bodyOrderLineItems2Discounts0);
-
-CreateOrderRequestLineItem bodyOrderLineItems2 = new CreateOrderRequestLineItem.Builder(
+OrderLineItem bodyOrderOrderLineItems2 = new OrderLineItem.Builder(
         "3")
     .name("Woven Sweater")
-    .basePriceMoney(bodyOrderLineItems2BasePriceMoney)
-    .taxes(bodyOrderLineItems2Taxes)
-    .discounts(bodyOrderLineItems2Discounts)
+    .basePriceMoney(bodyOrderOrderLineItems2BasePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems2);
+bodyOrderOrderLineItems.add(bodyOrderOrderLineItems2);
 
-List<CreateOrderRequestTax> bodyOrderTaxes = new LinkedList<>();
+List<OrderLineItemTax> bodyOrderOrderTaxes = new LinkedList<>();
 
-CreateOrderRequestTax bodyOrderTaxes0 = new CreateOrderRequestTax.Builder()
-    .name("Sales Tax")
-    .percentage("8.5")
+OrderLineItemTax bodyOrderOrderTaxes0 = new OrderLineItemTax.Builder()
+    .uid("38ze1696-z1e3-5628-af6d-f1e04d947fg3")
+    .type("INCLUSIVE")
+    .percentage("7.75")
+    .scope("LINE_ITEM")
     .build();
-bodyOrderTaxes.add(bodyOrderTaxes0);
+bodyOrderOrderTaxes.add(bodyOrderOrderTaxes0);
 
-List<CreateOrderRequestDiscount> bodyOrderDiscounts = new LinkedList<>();
+List<OrderLineItemDiscount> bodyOrderOrderDiscounts = new LinkedList<>();
 
-CreateOrderRequestDiscount bodyOrderDiscounts0 = new CreateOrderRequestDiscount.Builder()
-    .name("Father's day 12% OFF")
-    .percentage("12")
-    .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts0);
-
-Money bodyOrderDiscounts1AmountMoney = new Money.Builder()
-    .amount(5500L)
+Money bodyOrderOrderDiscounts0AmountMoney = new Money.Builder()
+    .amount(100L)
     .currency("USD")
     .build();
-CreateOrderRequestDiscount bodyOrderDiscounts1 = new CreateOrderRequestDiscount.Builder()
-    .name("Global Sales $55 OFF")
-    .amountMoney(bodyOrderDiscounts1AmountMoney)
+OrderLineItemDiscount bodyOrderOrderDiscounts0 = new OrderLineItemDiscount.Builder()
+    .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
+    .type("FIXED_AMOUNT")
+    .amountMoney(bodyOrderOrderDiscounts0AmountMoney)
+    .scope("LINE_ITEM")
     .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts1);
+bodyOrderOrderDiscounts.add(bodyOrderOrderDiscounts0);
 
-CreateOrderRequest bodyOrder = new CreateOrderRequest.Builder()
+Order bodyOrderOrder = new Order.Builder(
+        "location_id")
     .referenceId("reference_id")
-    .lineItems(bodyOrderLineItems)
-    .taxes(bodyOrderTaxes)
-    .discounts(bodyOrderDiscounts)
+    .customerId("customer_id")
+    .lineItems(bodyOrderOrderLineItems)
+    .taxes(bodyOrderOrderTaxes)
+    .discounts(bodyOrderOrderDiscounts)
+    .build();
+CreateOrderRequest bodyOrder = new CreateOrderRequest.Builder()
+    .order(bodyOrderOrder)
+    .idempotencyKey("12ae1696-z1e3-4328-af6d-f1e04d947gd4")
     .build();
 Address bodyPrePopulateShippingAddress = new Address.Builder()
     .addressLine1("1455 Market St.")

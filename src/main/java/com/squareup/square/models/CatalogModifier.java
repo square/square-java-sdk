@@ -15,17 +15,25 @@ public class CatalogModifier {
      * Initialization constructor.
      * @param name
      * @param priceMoney
+     * @param ordinal
+     * @param modifierListId
      */
     @JsonCreator
     public CatalogModifier(
             @JsonProperty("name") String name,
-            @JsonProperty("price_money") Money priceMoney) {
+            @JsonProperty("price_money") Money priceMoney,
+            @JsonProperty("ordinal") Integer ordinal,
+            @JsonProperty("modifier_list_id") String modifierListId) {
         this.name = name;
         this.priceMoney = priceMoney;
+        this.ordinal = ordinal;
+        this.modifierListId = modifierListId;
     }
 
     private final String name;
     private final Money priceMoney;
+    private final Integer ordinal;
+    private final String modifierListId;
     /**
      * Getter for Name.
      * The modifier name. Searchable. This field has max length of 255 Unicode code points.
@@ -49,10 +57,28 @@ public class CatalogModifier {
         return this.priceMoney;
     }
 
+    /**
+     * Getter for Ordinal.
+     * Determines where this `CatalogModifier` appears in the `CatalogModifierList`.
+     */
+    @JsonGetter("ordinal")
+    public Integer getOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
+     * Getter for ModifierListId.
+     * The ID of the `CatalogModifierList` associated with this modifier. Searchable.
+     */
+    @JsonGetter("modifier_list_id")
+    public String getModifierListId() {
+        return this.modifierListId;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(name, priceMoney);
+        return Objects.hash(name, priceMoney, ordinal, modifierListId);
     }
 
     @Override
@@ -65,7 +91,9 @@ public class CatalogModifier {
         }
         CatalogModifier catalogModifier = (CatalogModifier) obj;
         return Objects.equals(name, catalogModifier.name) &&
-            Objects.equals(priceMoney, catalogModifier.priceMoney);
+            Objects.equals(priceMoney, catalogModifier.priceMoney) &&
+            Objects.equals(ordinal, catalogModifier.ordinal) &&
+            Objects.equals(modifierListId, catalogModifier.modifierListId);
     }
 
     /**
@@ -76,7 +104,9 @@ public class CatalogModifier {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName())
-            .priceMoney(getPriceMoney());
+            .priceMoney(getPriceMoney())
+            .ordinal(getOrdinal())
+            .modifierListId(getModifierListId());
             return builder;
     }
 
@@ -86,6 +116,8 @@ public class CatalogModifier {
     public static class Builder {
         private String name;
         private Money priceMoney;
+        private Integer ordinal;
+        private String modifierListId;
 
         /**
          * Initialization constructor
@@ -112,6 +144,24 @@ public class CatalogModifier {
             this.priceMoney = priceMoney;
             return this;
         }
+        /**
+         * Setter for ordinal
+         * @param ordinal
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = ordinal;
+            return this;
+        }
+        /**
+         * Setter for modifierListId
+         * @param modifierListId
+         * @return Builder
+         */
+        public Builder modifierListId(String modifierListId) {
+            this.modifierListId = modifierListId;
+            return this;
+        }
 
         /**
          * Builds a new {@link CatalogModifier} object using the set fields.
@@ -119,7 +169,9 @@ public class CatalogModifier {
          */
         public CatalogModifier build() {
             return new CatalogModifier(name,
-                priceMoney);
+                priceMoney,
+                ordinal,
+                modifierListId);
         }
     }
 }

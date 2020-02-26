@@ -21,6 +21,8 @@ public class Card {
      * @param cardholderName
      * @param billingAddress
      * @param fingerprint
+     * @param cardType
+     * @param prepaidType
      * @param bin
      */
     @JsonCreator
@@ -33,6 +35,8 @@ public class Card {
             @JsonProperty("cardholder_name") String cardholderName,
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("fingerprint") String fingerprint,
+            @JsonProperty("card_type") String cardType,
+            @JsonProperty("prepaid_type") String prepaidType,
             @JsonProperty("bin") String bin) {
         this.id = id;
         this.cardBrand = cardBrand;
@@ -42,6 +46,8 @@ public class Card {
         this.cardholderName = cardholderName;
         this.billingAddress = billingAddress;
         this.fingerprint = fingerprint;
+        this.cardType = cardType;
+        this.prepaidType = prepaidType;
         this.bin = bin;
     }
 
@@ -53,6 +59,8 @@ public class Card {
     private final String cardholderName;
     private final Address billingAddress;
     private final String fingerprint;
+    private final String cardType;
+    private final String prepaidType;
     private final String bin;
     /**
      * Getter for Id.
@@ -129,6 +137,24 @@ public class Card {
     }
 
     /**
+     * Getter for CardType.
+     * Indicates a card's type, such as `CREDIT` or `DEBIT`.
+     */
+    @JsonGetter("card_type")
+    public String getCardType() {
+        return this.cardType;
+    }
+
+    /**
+     * Getter for PrepaidType.
+     * Indicates a card's prepaid type, such as `NOT_PREPAID` or `PREPAID`.
+     */
+    @JsonGetter("prepaid_type")
+    public String getPrepaidType() {
+        return this.prepaidType;
+    }
+
+    /**
      * Getter for Bin.
      * The first six digits of the card number, known as the Bank Identification Number (BIN). Only the Payments API
      * returns this field.
@@ -142,7 +168,7 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
-            fingerprint, bin);
+            fingerprint, cardType, prepaidType, bin);
     }
 
     @Override
@@ -162,6 +188,8 @@ public class Card {
             Objects.equals(cardholderName, card.cardholderName) &&
             Objects.equals(billingAddress, card.billingAddress) &&
             Objects.equals(fingerprint, card.fingerprint) &&
+            Objects.equals(cardType, card.cardType) &&
+            Objects.equals(prepaidType, card.prepaidType) &&
             Objects.equals(bin, card.bin);
     }
 
@@ -180,6 +208,8 @@ public class Card {
             .cardholderName(getCardholderName())
             .billingAddress(getBillingAddress())
             .fingerprint(getFingerprint())
+            .cardType(getCardType())
+            .prepaidType(getPrepaidType())
             .bin(getBin());
             return builder;
     }
@@ -196,6 +226,8 @@ public class Card {
         private String cardholderName;
         private Address billingAddress;
         private String fingerprint;
+        private String cardType;
+        private String prepaidType;
         private String bin;
 
         /**
@@ -278,6 +310,24 @@ public class Card {
             return this;
         }
         /**
+         * Setter for cardType
+         * @param cardType
+         * @return Builder
+         */
+        public Builder cardType(String cardType) {
+            this.cardType = cardType;
+            return this;
+        }
+        /**
+         * Setter for prepaidType
+         * @param prepaidType
+         * @return Builder
+         */
+        public Builder prepaidType(String prepaidType) {
+            this.prepaidType = prepaidType;
+            return this;
+        }
+        /**
          * Setter for bin
          * @param bin
          * @return Builder
@@ -300,6 +350,8 @@ public class Card {
                 cardholderName,
                 billingAddress,
                 fingerprint,
+                cardType,
+                prepaidType,
                 bin);
         }
     }

@@ -94,7 +94,8 @@ public class ListPaymentsRequest {
 
     /**
      * Getter for LocationId.
-     * ID of location associated with payment
+     * Limit results to the location supplied. By default, results are returned
+     * for all locations associated with the merchant.
      */
     @JsonGetter("location_id")
     public String getLocationId() {

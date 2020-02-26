@@ -10,14 +10,7 @@ public class HttpBodyRequest extends HttpRequest {
     /**
      * Private store for properties
      */
-    private String body;
-
-    /**
-     * Body for the http request
-     */
-    public String getBody() {
-        return body;
-    }
+    private Object body;
 
     /**
      * Create a request with explicit body
@@ -27,8 +20,15 @@ public class HttpBodyRequest extends HttpRequest {
      * @param headers  The key-value map of all http headers to be sent
      * @param body     The object to be sent as body after serialization
      */
-    public HttpBodyRequest(HttpMethod method, String queryUrl, Headers headers, String body) {
+    public HttpBodyRequest(HttpMethod method, String queryUrl, Headers headers, Object body) {
         super(method, queryUrl, headers, null);
         this.body = body!=null ? body : "";
+    }
+
+    /**
+     * Body for the http request
+     */
+    public Object getBody() {
+        return body;
     }
 }
