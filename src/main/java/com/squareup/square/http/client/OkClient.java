@@ -50,7 +50,7 @@ public class OkClient implements HttpClient {
                 if (defaultOkHttpClient == null) {
                     defaultOkHttpClient = new okhttp3.OkHttpClient.Builder()
                             .addInterceptor(new HttpRedirectInterceptor(true))
-                            .retryOnConnectionFailure(false)
+                            .retryOnConnectionFailure(true)
                             .callTimeout(60, TimeUnit.SECONDS)
                             .build();
                 }
