@@ -23,7 +23,7 @@ public abstract class BaseApi {
      * Protected variables to hold an instance of Configuration
      */
     protected final Configuration config;
-    protected static final String userAgent = "Square-Java-SDK/5.0.0.20200226";
+    protected static final String userAgent = "Square-Java-SDK/5.1.0.20200325";
 
     /**
      * Protected variable to hold an instance of HttpCallback if the user provides it

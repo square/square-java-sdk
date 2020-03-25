@@ -50,7 +50,7 @@ public class OkClient implements HttpClient {
                 if (defaultOkHttpClient == null) {
                     defaultOkHttpClient = new okhttp3.OkHttpClient.Builder()
                             .addInterceptor(new HttpRedirectInterceptor(true))
-                            .retryOnConnectionFailure(false)
+                            .retryOnConnectionFailure(true)
                             .callTimeout(60, TimeUnit.SECONDS)
                             .build();
                 }
@@ -71,7 +71,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Execute a given HttpRequest to get string response back
-     * @param   request     The given HttpRequest to execute
+     * @param   httpRequest     The given HttpRequest to execute
      * @return   CompletableFuture<HttpResponse> after execution
      */
     public CompletableFuture<HttpResponse> executeAsStringAsync(final HttpRequest httpRequest) {
@@ -103,7 +103,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Execute a given HttpRequest to get binary response back
-     * @param   request     The given HttpRequest to execute
+     * @param   httpRequest     The given HttpRequest to execute
      * @return   CompletableFuture<HttpResponse> after execution
      */
     public CompletableFuture<HttpResponse> executeAsBinaryAsync(final HttpRequest httpRequest) {
@@ -133,7 +133,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Execute a given HttpRequest to get string response back
-     * @param   request     The given HttpRequest to execute     
+     * @param   httpRequest     The given HttpRequest to execute     
      */
     public HttpResponse executeAsString(HttpRequest httpRequest) throws IOException {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -143,7 +143,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Execute a given HttpRequest to get binary response back
-     * @param   request     The given HttpRequest to execute     
+     * @param   httpRequest     The given HttpRequest to execute     
      */
     public HttpResponse executeAsBinary(HttpRequest httpRequest) throws IOException {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -210,7 +210,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Converts a given internal http request into an okhttp request model
-     * @param   request     The given http request in internal format
+     * @param   httpRequest     The given http request in internal format
      * @return              The converted okhttp request
      */
     private static okhttp3.Request convertRequest(HttpRequest httpRequest) {
@@ -337,13 +337,13 @@ public class OkClient implements HttpClient {
     }
 
     private static okhttp3.Headers.Builder createRequestHeaders(Headers headers) {
-    	okhttp3.Headers.Builder requestHeaders = new okhttp3.Headers.Builder();
-    	for (Entry<String, List<String>> kv : headers.asMultimap().entrySet()) {
+        okhttp3.Headers.Builder requestHeaders = new okhttp3.Headers.Builder();
+        for (Entry<String, List<String>> kv : headers.asMultimap().entrySet()) {
             for (String value : kv.getValue()) {
                 requestHeaders.add(kv.getKey(), value);
             }
         }
-    	return requestHeaders;
+        return requestHeaders;
     }
 
     private static String appendQuotedStringAndEncodeEscapeCharacters(String key) {
@@ -352,17 +352,17 @@ public class OkClient implements HttpClient {
             char ch = key.charAt(i);
             switch (ch) {
                 case '\n':
-                	target += "%0A";
-                	break;
+                    target += "%0A";
+                    break;
                 case '\r':
-                	target += "%0D";
-                	break;
+                    target += "%0D";
+                    break;
                 case '"':
-                	target += "%22";
-                	break;
+                    target += "%22";
+                    break;
                 default:
-                	target += ch;
-                	break;
+                    target += ch;
+                    break;
             }
         }
         target += '"';

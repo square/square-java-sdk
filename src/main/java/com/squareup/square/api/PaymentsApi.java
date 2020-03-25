@@ -146,7 +146,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -252,7 +252,7 @@ public final class PaymentsApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -355,7 +355,7 @@ public final class PaymentsApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -446,7 +446,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -540,7 +540,7 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -586,11 +586,13 @@ public final class PaymentsApi extends BaseApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     public CompletePaymentResponse completePayment(
-            final String paymentId) throws ApiException, IOException {
-        HttpRequest request = buildCompletePaymentRequest(paymentId);
+            final String paymentId,
+            final Object body) throws ApiException, IOException {
+        HttpRequest request = buildCompletePaymentRequest(paymentId, body);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -606,11 +608,13 @@ public final class PaymentsApi extends BaseApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call 
      */
     public CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId) {
-        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId),
+            final String paymentId,
+            final Object body) {
+        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId, body),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleCompletePaymentResponse(context));
@@ -620,7 +624,8 @@ public final class PaymentsApi extends BaseApi {
      * Builds the HttpRequest object for completePayment
      */
     private HttpRequest buildCompletePaymentRequest(
-            final String paymentId) {
+            final String paymentId,
+            final Object body) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -638,11 +643,13 @@ public final class PaymentsApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-02-26");
+        headers.add("content-type", "application/json");
+        headers.add("Square-Version", "2020-03-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {

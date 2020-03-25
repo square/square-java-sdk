@@ -18,6 +18,7 @@ public class CreatePaymentRequest {
      * @param amountMoney
      * @param tipMoney
      * @param appFeeMoney
+     * @param delayDuration
      * @param autocomplete
      * @param orderId
      * @param customerId
@@ -38,6 +39,7 @@ public class CreatePaymentRequest {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("tip_money") Money tipMoney,
             @JsonProperty("app_fee_money") Money appFeeMoney,
+            @JsonProperty("delay_duration") String delayDuration,
             @JsonProperty("autocomplete") Boolean autocomplete,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("customer_id") String customerId,
@@ -55,6 +57,7 @@ public class CreatePaymentRequest {
         this.amountMoney = amountMoney;
         this.tipMoney = tipMoney;
         this.appFeeMoney = appFeeMoney;
+        this.delayDuration = delayDuration;
         this.autocomplete = autocomplete;
         this.orderId = orderId;
         this.customerId = customerId;
@@ -74,6 +77,7 @@ public class CreatePaymentRequest {
     private final Money amountMoney;
     private final Money tipMoney;
     private final Money appFeeMoney;
+    private final String delayDuration;
     private final Boolean autocomplete;
     private final String orderId;
     private final String customerId;
@@ -148,6 +152,25 @@ public class CreatePaymentRequest {
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
         return this.appFeeMoney;
+    }
+
+    /**
+     * Getter for DelayDuration.
+     * The duration of time after the payment's creation when Square automatically cancels the
+     * payment. This automatic cancellation applies only to payments that don't reach a terminal state
+     * (COMPLETED, CANCELED, or FAILED) before the `delay_duration` time period.
+     * This parameter should be specified as a time duration, in RFC 3339 format, with a minimum value
+     * of 1 minute.
+     * Notes:
+     * This feature is only supported for card payments. This parameter can only be set for a delayed
+     * capture payment (`autocomplete=false`).
+     * Default:
+     * - Card Present payments: "PT36H" (36 hours) from the creation time.
+     * - Card Not Present payments: "P7D" (7 days) from the creation time.
+     */
+    @JsonGetter("delay_duration")
+    public String getDelayDuration() {
+        return this.delayDuration;
     }
 
     /**
@@ -289,9 +312,9 @@ public class CreatePaymentRequest {
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
-            autocomplete, orderId, customerId, locationId, referenceId, verificationToken,
-            acceptPartialAuthorization, buyerEmailAddress, billingAddress, shippingAddress, note,
-            statementDescriptionIdentifier);
+            delayDuration, autocomplete, orderId, customerId, locationId, referenceId,
+            verificationToken, acceptPartialAuthorization, buyerEmailAddress, billingAddress,
+            shippingAddress, note, statementDescriptionIdentifier);
     }
 
     @Override
@@ -308,6 +331,7 @@ public class CreatePaymentRequest {
             Objects.equals(amountMoney, createPaymentRequest.amountMoney) &&
             Objects.equals(tipMoney, createPaymentRequest.tipMoney) &&
             Objects.equals(appFeeMoney, createPaymentRequest.appFeeMoney) &&
+            Objects.equals(delayDuration, createPaymentRequest.delayDuration) &&
             Objects.equals(autocomplete, createPaymentRequest.autocomplete) &&
             Objects.equals(orderId, createPaymentRequest.orderId) &&
             Objects.equals(customerId, createPaymentRequest.customerId) &&
@@ -333,6 +357,7 @@ public class CreatePaymentRequest {
             amountMoney)
             .tipMoney(getTipMoney())
             .appFeeMoney(getAppFeeMoney())
+            .delayDuration(getDelayDuration())
             .autocomplete(getAutocomplete())
             .orderId(getOrderId())
             .customerId(getCustomerId())
@@ -357,6 +382,7 @@ public class CreatePaymentRequest {
         private Money amountMoney;
         private Money tipMoney;
         private Money appFeeMoney;
+        private String delayDuration;
         private Boolean autocomplete;
         private String orderId;
         private String customerId;
@@ -424,6 +450,15 @@ public class CreatePaymentRequest {
          */
         public Builder appFeeMoney(Money appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
+            return this;
+        }
+        /**
+         * Setter for delayDuration
+         * @param delayDuration
+         * @return Builder
+         */
+        public Builder delayDuration(String delayDuration) {
+            this.delayDuration = delayDuration;
             return this;
         }
         /**
@@ -545,6 +580,7 @@ public class CreatePaymentRequest {
                 amountMoney,
                 tipMoney,
                 appFeeMoney,
+                delayDuration,
                 autocomplete,
                 orderId,
                 customerId,

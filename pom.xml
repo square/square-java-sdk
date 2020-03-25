@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>5.0.0.20200226</version>
+  <version>5.1.0.20200325</version>
   <packaging>jar</packaging>
 
   <name>Square</name>
@@ -110,6 +110,7 @@
 
   <properties>
     <jackson.version>2.9.10</jackson.version>
+    <jackson.databind.version>2.9.10.3</jackson.databind.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -194,7 +195,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
+      <version>${jackson.databind.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

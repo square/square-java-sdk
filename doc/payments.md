@@ -246,7 +246,8 @@ the payment using this endpoint. For more information, see
 
 ```java
 CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-    final String paymentId)
+    final String paymentId,
+    final Object body)
 ```
 
 ### Parameters
@@ -254,6 +255,7 @@ CompletableFuture<CompletePaymentResponse> completePaymentAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `paymentId` | `String` | Template, Required | Unique ID identifying the payment to be completed. |
+| `body` | `Object` | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ### Response Type
 
@@ -263,8 +265,9 @@ CompletableFuture<CompletePaymentResponse> completePaymentAsync(
 
 ```java
 String paymentId = "payment_id0";
+Object body = com.squareup.square.ApiHelper.deserialize("{\"key1\":\"val1\",\"key2\":\"val2\"}");
 
-paymentsApi.completePaymentAsync(paymentId).thenAccept(result -> {
+paymentsApi.completePaymentAsync(paymentId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

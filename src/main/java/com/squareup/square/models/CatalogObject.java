@@ -1,6 +1,7 @@
 package com.squareup.square.models;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,6 +20,7 @@ public class CatalogObject {
      * @param updatedAt
      * @param version
      * @param isDeleted
+     * @param customAttributeValues
      * @param catalogV1Ids
      * @param presentAtAllLocations
      * @param presentAtLocationIds
@@ -38,6 +40,7 @@ public class CatalogObject {
      * @param measurementUnitData
      * @param itemOptionData
      * @param itemOptionValueData
+     * @param customAttributeDefinitionData
      */
     @JsonCreator
     public CatalogObject(
@@ -46,6 +49,7 @@ public class CatalogObject {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("version") Long version,
             @JsonProperty("is_deleted") Boolean isDeleted,
+            @JsonProperty("custom_attribute_values") Map<String, CatalogCustomAttributeValue> customAttributeValues,
             @JsonProperty("catalog_v1_ids") List<CatalogV1Id> catalogV1Ids,
             @JsonProperty("present_at_all_locations") Boolean presentAtAllLocations,
             @JsonProperty("present_at_location_ids") List<String> presentAtLocationIds,
@@ -64,12 +68,14 @@ public class CatalogObject {
             @JsonProperty("image_data") CatalogImage imageData,
             @JsonProperty("measurement_unit_data") CatalogMeasurementUnit measurementUnitData,
             @JsonProperty("item_option_data") CatalogItemOption itemOptionData,
-            @JsonProperty("item_option_value_data") CatalogItemOptionValue itemOptionValueData) {
+            @JsonProperty("item_option_value_data") CatalogItemOptionValue itemOptionValueData,
+            @JsonProperty("custom_attribute_definition_data") CatalogCustomAttributeDefinition customAttributeDefinitionData) {
         this.type = type;
         this.id = id;
         this.updatedAt = updatedAt;
         this.version = version;
         this.isDeleted = isDeleted;
+        this.customAttributeValues = customAttributeValues;
         this.catalogV1Ids = catalogV1Ids;
         this.presentAtAllLocations = presentAtAllLocations;
         this.presentAtLocationIds = presentAtLocationIds;
@@ -89,6 +95,7 @@ public class CatalogObject {
         this.measurementUnitData = measurementUnitData;
         this.itemOptionData = itemOptionData;
         this.itemOptionValueData = itemOptionValueData;
+        this.customAttributeDefinitionData = customAttributeDefinitionData;
     }
 
     private final String type;
@@ -96,6 +103,7 @@ public class CatalogObject {
     private final String updatedAt;
     private final Long version;
     private final Boolean isDeleted;
+    private final Map<String, CatalogCustomAttributeValue> customAttributeValues;
     private final List<CatalogV1Id> catalogV1Ids;
     private final Boolean presentAtAllLocations;
     private final List<String> presentAtLocationIds;
@@ -115,6 +123,7 @@ public class CatalogObject {
     private final CatalogMeasurementUnit measurementUnitData;
     private final CatalogItemOption itemOptionData;
     private final CatalogItemOptionValue itemOptionValueData;
+    private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
     /**
      * Getter for Type.
      * Possible types of CatalogObjects returned from the Catalog, each
@@ -167,6 +176,22 @@ public class CatalogObject {
     @JsonGetter("is_deleted")
     public Boolean getIsDeleted() {
         return this.isDeleted;
+    }
+
+    /**
+     * Getter for CustomAttributeValues.
+     * Application-defined key/value attributes that are set at a global (location-independent) level.
+     * Values from the `*_data` fields may not be duplicated. Custom Attribute fields are intended to store additional
+     * information about a Catalog Object or associations with an entity in another system. Do not use custom attributes
+     * to store any sensitive information (personally identifiable information, card details, etc.).
+     * For CustomAttributesDefinitions defined by the app making the request, the map key is the key defined in
+     * CustomAttributeDefinition (eg. “reference_id”). For CustomAttributesDefinitions by other apps, the map key is
+     * the key defined in CustomAttributeDefinition prefixed with the application ID and a colon
+     * (eg. “abcd1234:reference_id”).
+     */
+    @JsonGetter("custom_attribute_values")
+    public Map<String, CatalogCustomAttributeValue> getCustomAttributeValues() {
+        return this.customAttributeValues;
     }
 
     /**
@@ -360,14 +385,27 @@ public class CatalogObject {
         return this.itemOptionValueData;
     }
 
+    /**
+     * Getter for CustomAttributeDefinitionData.
+     * Contains information defining a custom attribute. Custom attributes are
+     * intended to store additional information about a catalog object or to associate a
+     * catalog object with an entity in another system. Do not use custom attributes
+     * to store any sensitive information (personally identifiable information, card details, etc.).
+     * [Read more about custom attributes](https://developer.squareup.com/docs/catalog-api/add-custom-attributes)
+     */
+    @JsonGetter("custom_attribute_definition_data")
+    public CatalogCustomAttributeDefinition getCustomAttributeDefinitionData() {
+        return this.customAttributeDefinitionData;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(type, id, updatedAt, version, isDeleted, catalogV1Ids,
-            presentAtAllLocations, presentAtLocationIds, absentAtLocationIds, imageId, itemData,
-            categoryData, itemVariationData, taxData, discountData, modifierListData, modifierData,
-            timePeriodData, productSetData, pricingRuleData, imageData, measurementUnitData,
-            itemOptionData, itemOptionValueData);
+        return Objects.hash(type, id, updatedAt, version, isDeleted, customAttributeValues,
+            catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds, imageId,
+            itemData, categoryData, itemVariationData, taxData, discountData, modifierListData,
+            modifierData, timePeriodData, productSetData, pricingRuleData, imageData,
+            measurementUnitData, itemOptionData, itemOptionValueData, customAttributeDefinitionData);
     }
 
     @Override
@@ -384,6 +422,7 @@ public class CatalogObject {
             Objects.equals(updatedAt, catalogObject.updatedAt) &&
             Objects.equals(version, catalogObject.version) &&
             Objects.equals(isDeleted, catalogObject.isDeleted) &&
+            Objects.equals(customAttributeValues, catalogObject.customAttributeValues) &&
             Objects.equals(catalogV1Ids, catalogObject.catalogV1Ids) &&
             Objects.equals(presentAtAllLocations, catalogObject.presentAtAllLocations) &&
             Objects.equals(presentAtLocationIds, catalogObject.presentAtLocationIds) &&
@@ -402,7 +441,8 @@ public class CatalogObject {
             Objects.equals(imageData, catalogObject.imageData) &&
             Objects.equals(measurementUnitData, catalogObject.measurementUnitData) &&
             Objects.equals(itemOptionData, catalogObject.itemOptionData) &&
-            Objects.equals(itemOptionValueData, catalogObject.itemOptionValueData);
+            Objects.equals(itemOptionValueData, catalogObject.itemOptionValueData) &&
+            Objects.equals(customAttributeDefinitionData, catalogObject.customAttributeDefinitionData);
     }
 
     /**
@@ -416,6 +456,7 @@ public class CatalogObject {
             .updatedAt(getUpdatedAt())
             .version(getVersion())
             .isDeleted(getIsDeleted())
+            .customAttributeValues(getCustomAttributeValues())
             .catalogV1Ids(getCatalogV1Ids())
             .presentAtAllLocations(getPresentAtAllLocations())
             .presentAtLocationIds(getPresentAtLocationIds())
@@ -434,7 +475,8 @@ public class CatalogObject {
             .imageData(getImageData())
             .measurementUnitData(getMeasurementUnitData())
             .itemOptionData(getItemOptionData())
-            .itemOptionValueData(getItemOptionValueData());
+            .itemOptionValueData(getItemOptionValueData())
+            .customAttributeDefinitionData(getCustomAttributeDefinitionData());
             return builder;
     }
 
@@ -447,6 +489,7 @@ public class CatalogObject {
         private String updatedAt;
         private Long version;
         private Boolean isDeleted;
+        private Map<String, CatalogCustomAttributeValue> customAttributeValues;
         private List<CatalogV1Id> catalogV1Ids;
         private Boolean presentAtAllLocations;
         private List<String> presentAtLocationIds;
@@ -466,6 +509,7 @@ public class CatalogObject {
         private CatalogMeasurementUnit measurementUnitData;
         private CatalogItemOption itemOptionData;
         private CatalogItemOptionValue itemOptionValueData;
+        private CatalogCustomAttributeDefinition customAttributeDefinitionData;
 
         /**
          * Initialization constructor
@@ -519,6 +563,15 @@ public class CatalogObject {
          */
         public Builder isDeleted(Boolean isDeleted) {
             this.isDeleted = isDeleted;
+            return this;
+        }
+        /**
+         * Setter for customAttributeValues
+         * @param customAttributeValues
+         * @return Builder
+         */
+        public Builder customAttributeValues(Map<String, CatalogCustomAttributeValue> customAttributeValues) {
+            this.customAttributeValues = customAttributeValues;
             return this;
         }
         /**
@@ -692,6 +745,15 @@ public class CatalogObject {
             this.itemOptionValueData = itemOptionValueData;
             return this;
         }
+        /**
+         * Setter for customAttributeDefinitionData
+         * @param customAttributeDefinitionData
+         * @return Builder
+         */
+        public Builder customAttributeDefinitionData(CatalogCustomAttributeDefinition customAttributeDefinitionData) {
+            this.customAttributeDefinitionData = customAttributeDefinitionData;
+            return this;
+        }
 
         /**
          * Builds a new {@link CatalogObject} object using the set fields.
@@ -703,6 +765,7 @@ public class CatalogObject {
                 updatedAt,
                 version,
                 isDeleted,
+                customAttributeValues,
                 catalogV1Ids,
                 presentAtAllLocations,
                 presentAtLocationIds,
@@ -721,7 +784,8 @@ public class CatalogObject {
                 imageData,
                 measurementUnitData,
                 itemOptionData,
-                itemOptionValueData);
+                itemOptionValueData,
+                customAttributeDefinitionData);
         }
     }
 }
