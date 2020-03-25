@@ -61,8 +61,8 @@ public class ApiHelper {
 
     /**
      * Json deserialization of the given Json string.
-     * @param   jParser The Json parser for reading Json to deserialize
-     * @param   <T> The type of the object to deserialize into
+     * @param   json The Json string to deserialize
+     * @param   clazz The type of the object to deserialize into
      * @return  The deserialized object
      */
     public static <T extends Object> T deserialize(String json, Class<T> clazz)
@@ -75,7 +75,7 @@ public class ApiHelper {
 
     /**
      * JSON Deserialization of the given json string.
-     * @param   jParser The json parser for reading json to deserialize
+     * @param   json The Json string to deserialize
      * @param   classArray The class of the array of objects to deserialize into
      * @return  The deserialized list of objects
      */

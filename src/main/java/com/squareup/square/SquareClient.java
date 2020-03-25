@@ -391,7 +391,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "5.0.0.20200226";
+        return "5.1.0.20200325";
     }
 
     /**
@@ -399,7 +399,7 @@ public final class SquareClient implements Configuration {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2020-02-26";
+        return "2020-03-25";
     }
 
     /**
