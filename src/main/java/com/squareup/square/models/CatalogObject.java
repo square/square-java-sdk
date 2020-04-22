@@ -41,6 +41,7 @@ public class CatalogObject {
      * @param itemOptionData
      * @param itemOptionValueData
      * @param customAttributeDefinitionData
+     * @param quickAmountsSettingsData
      */
     @JsonCreator
     public CatalogObject(
@@ -69,7 +70,8 @@ public class CatalogObject {
             @JsonProperty("measurement_unit_data") CatalogMeasurementUnit measurementUnitData,
             @JsonProperty("item_option_data") CatalogItemOption itemOptionData,
             @JsonProperty("item_option_value_data") CatalogItemOptionValue itemOptionValueData,
-            @JsonProperty("custom_attribute_definition_data") CatalogCustomAttributeDefinition customAttributeDefinitionData) {
+            @JsonProperty("custom_attribute_definition_data") CatalogCustomAttributeDefinition customAttributeDefinitionData,
+            @JsonProperty("quick_amounts_settings_data") CatalogQuickAmountsSettings quickAmountsSettingsData) {
         this.type = type;
         this.id = id;
         this.updatedAt = updatedAt;
@@ -96,6 +98,7 @@ public class CatalogObject {
         this.itemOptionData = itemOptionData;
         this.itemOptionValueData = itemOptionValueData;
         this.customAttributeDefinitionData = customAttributeDefinitionData;
+        this.quickAmountsSettingsData = quickAmountsSettingsData;
     }
 
     private final String type;
@@ -124,6 +127,7 @@ public class CatalogObject {
     private final CatalogItemOption itemOptionData;
     private final CatalogItemOptionValue itemOptionValueData;
     private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
+    private final CatalogQuickAmountsSettings quickAmountsSettingsData;
     /**
      * Getter for Type.
      * Possible types of CatalogObjects returned from the Catalog, each
@@ -181,12 +185,12 @@ public class CatalogObject {
     /**
      * Getter for CustomAttributeValues.
      * Application-defined key/value attributes that are set at a global (location-independent) level.
-     * Values from the `*_data` fields may not be duplicated. Custom Attribute fields are intended to store additional
-     * information about a Catalog Object or associations with an entity in another system. Do not use custom attributes
+     * Custom Attribute Values are intended to store additional information about a Catalog Object
+     * or associations with an entity in another system. Do not use custom attributes
      * to store any sensitive information (personally identifiable information, card details, etc.).
-     * For CustomAttributesDefinitions defined by the app making the request, the map key is the key defined in
-     * CustomAttributeDefinition (eg. “reference_id”). For CustomAttributesDefinitions by other apps, the map key is
-     * the key defined in CustomAttributeDefinition prefixed with the application ID and a colon
+     * For CustomAttributesDefinitions defined by the app making the request, the map key is the key defined in the
+     * `CatalogCustomAttributeDefinition` (e.g. “reference_id”). For custom attributes created by other apps, the map key is
+     * the key defined in `CatalogCustomAttributeDefinition` prefixed with the application ID and a colon
      * (eg. “abcd1234:reference_id”).
      */
     @JsonGetter("custom_attribute_values")
@@ -398,6 +402,15 @@ public class CatalogObject {
         return this.customAttributeDefinitionData;
     }
 
+    /**
+     * Getter for QuickAmountsSettingsData.
+     * A parent Catalog Object model represents a set of Quick Amounts and the settings control the amounts.
+     */
+    @JsonGetter("quick_amounts_settings_data")
+    public CatalogQuickAmountsSettings getQuickAmountsSettingsData() {
+        return this.quickAmountsSettingsData;
+    }
+
  
     @Override
     public int hashCode() {
@@ -405,7 +418,8 @@ public class CatalogObject {
             catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds, imageId,
             itemData, categoryData, itemVariationData, taxData, discountData, modifierListData,
             modifierData, timePeriodData, productSetData, pricingRuleData, imageData,
-            measurementUnitData, itemOptionData, itemOptionValueData, customAttributeDefinitionData);
+            measurementUnitData, itemOptionData, itemOptionValueData, customAttributeDefinitionData,
+            quickAmountsSettingsData);
     }
 
     @Override
@@ -442,7 +456,8 @@ public class CatalogObject {
             Objects.equals(measurementUnitData, catalogObject.measurementUnitData) &&
             Objects.equals(itemOptionData, catalogObject.itemOptionData) &&
             Objects.equals(itemOptionValueData, catalogObject.itemOptionValueData) &&
-            Objects.equals(customAttributeDefinitionData, catalogObject.customAttributeDefinitionData);
+            Objects.equals(customAttributeDefinitionData, catalogObject.customAttributeDefinitionData) &&
+            Objects.equals(quickAmountsSettingsData, catalogObject.quickAmountsSettingsData);
     }
 
     /**
@@ -476,7 +491,8 @@ public class CatalogObject {
             .measurementUnitData(getMeasurementUnitData())
             .itemOptionData(getItemOptionData())
             .itemOptionValueData(getItemOptionValueData())
-            .customAttributeDefinitionData(getCustomAttributeDefinitionData());
+            .customAttributeDefinitionData(getCustomAttributeDefinitionData())
+            .quickAmountsSettingsData(getQuickAmountsSettingsData());
             return builder;
     }
 
@@ -510,6 +526,7 @@ public class CatalogObject {
         private CatalogItemOption itemOptionData;
         private CatalogItemOptionValue itemOptionValueData;
         private CatalogCustomAttributeDefinition customAttributeDefinitionData;
+        private CatalogQuickAmountsSettings quickAmountsSettingsData;
 
         /**
          * Initialization constructor
@@ -754,6 +771,15 @@ public class CatalogObject {
             this.customAttributeDefinitionData = customAttributeDefinitionData;
             return this;
         }
+        /**
+         * Setter for quickAmountsSettingsData
+         * @param quickAmountsSettingsData
+         * @return Builder
+         */
+        public Builder quickAmountsSettingsData(CatalogQuickAmountsSettings quickAmountsSettingsData) {
+            this.quickAmountsSettingsData = quickAmountsSettingsData;
+            return this;
+        }
 
         /**
          * Builds a new {@link CatalogObject} object using the set fields.
@@ -785,7 +811,8 @@ public class CatalogObject {
                 measurementUnitData,
                 itemOptionData,
                 itemOptionValueData,
-                customAttributeDefinitionData);
+                customAttributeDefinitionData,
+                quickAmountsSettingsData);
         }
     }
 }

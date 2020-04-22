@@ -14,12 +14,12 @@ added to `ITEM` and `ITEM_VARIATION` type catalog objects.
 |  --- | --- | --- | --- |
 | `Name` | `String` | Optional | The name of the custom attribute. |
 | `StringValue` | `String` | Optional | The string value of the custom attribute.  Populated if `type` = `STRING`. |
-| `CustomAttributeDefinitionId` | `String` | Optional | __Read-only.__ The custom attribute definition this value belongs to. |
+| `CustomAttributeDefinitionId` | `String` | Optional | __Read-only.__ The id of the [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) this value belongs to. |
 | `Type` | [`String`](/doc/models/catalog-custom-attribute-definition-type.md) | Optional | Defines the possible types for a custom attribute. |
 | `NumberValue` | `String` | Optional | Populated if `type` = `NUMBER`. Contains a string<br>representation of a decimal number, using a `.` as the decimal separator. |
 | `BooleanValue` | `Boolean` | Optional | A `true` or `false` value. Populated if `type` = `BOOLEAN`. |
 | `SelectionUidValues` | `List<String>` | Optional | One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`. |
-| `Key` | `String` | Optional | __Read-only.__ A copy of key from the associated custom attribute definition. |
+| `Key` | `String` | Optional | __Read-only.__ A copy of key from the associated `CatalogCustomAttributeDefinition`. |
 
 ### Example (as JSON)
 

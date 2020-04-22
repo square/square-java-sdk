@@ -18,6 +18,8 @@ CustomersApi customersApi = client.getCustomersApi();
 * [Update Customer](/doc/customers.md#update-customer)
 * [Create Customer Card](/doc/customers.md#create-customer-card)
 * [Delete Customer Card](/doc/customers.md#delete-customer-card)
+* [Remove Group From Customer](/doc/customers.md#remove-group-from-customer)
+* [Add Group to Customer](/doc/customers.md#add-group-to-customer)
 
 ## List Customers
 
@@ -361,6 +363,82 @@ String customerId = "customer_id8";
 String cardId = "card_id4";
 
 customersApi.deleteCustomerCardAsync(customerId, cardId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## Remove Group From Customer
+
+Removes a customer membership from a customer group. 
+
+The customer is identified by the `customer_id` value 
+and the customer group is identified by the `group_id` value.
+
+```java
+CompletableFuture<RemoveGroupFromCustomerResponse> removeGroupFromCustomerAsync(
+    final String customerId,
+    final String groupId)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `customerId` | `String` | Template, Required | The ID of the customer to remove from the group. |
+| `groupId` | `String` | Template, Required | The ID of the customer group to remove the customer from. |
+
+### Response Type
+
+[`RemoveGroupFromCustomerResponse`](/doc/models/remove-group-from-customer-response.md)
+
+### Example Usage
+
+```java
+String customerId = "customer_id8";
+String groupId = "group_id0";
+
+customersApi.removeGroupFromCustomerAsync(customerId, groupId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## Add Group to Customer
+
+Adds a customer membership to a customer group. 
+
+The customer is identified by the `customer_id` value 
+and the customer group is identified by the `group_id` value.
+
+```java
+CompletableFuture<AddGroupToCustomerResponse> addGroupToCustomerAsync(
+    final String customerId,
+    final String groupId)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `customerId` | `String` | Template, Required | The ID of the customer to add to a group. |
+| `groupId` | `String` | Template, Required | The ID of the customer group to add the customer to. |
+
+### Response Type
+
+[`AddGroupToCustomerResponse`](/doc/models/add-group-to-customer-response.md)
+
+### Example Usage
+
+```java
+String customerId = "customer_id8";
+String groupId = "group_id0";
+
+customersApi.addGroupToCustomerAsync(customerId, groupId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

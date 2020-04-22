@@ -29,6 +29,8 @@ public class OrderFulfillmentPickupDetails {
      * @param pickedUpAt
      * @param canceledAt
      * @param cancelReason
+     * @param isCurbsidePickup
+     * @param curbsidePickupDetails
      */
     @JsonCreator
     public OrderFulfillmentPickupDetails(
@@ -47,7 +49,9 @@ public class OrderFulfillmentPickupDetails {
             @JsonProperty("expired_at") String expiredAt,
             @JsonProperty("picked_up_at") String pickedUpAt,
             @JsonProperty("canceled_at") String canceledAt,
-            @JsonProperty("cancel_reason") String cancelReason) {
+            @JsonProperty("cancel_reason") String cancelReason,
+            @JsonProperty("is_curbside_pickup") Boolean isCurbsidePickup,
+            @JsonProperty("curbside_pickup_details") OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
         this.recipient = recipient;
         this.expiresAt = expiresAt;
         this.autoCompleteDuration = autoCompleteDuration;
@@ -64,6 +68,8 @@ public class OrderFulfillmentPickupDetails {
         this.pickedUpAt = pickedUpAt;
         this.canceledAt = canceledAt;
         this.cancelReason = cancelReason;
+        this.isCurbsidePickup = isCurbsidePickup;
+        this.curbsidePickupDetails = curbsidePickupDetails;
     }
 
     private final OrderFulfillmentRecipient recipient;
@@ -82,6 +88,8 @@ public class OrderFulfillmentPickupDetails {
     private final String pickedUpAt;
     private final String canceledAt;
     private final String cancelReason;
+    private final Boolean isCurbsidePickup;
+    private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
     /**
      * Getter for Recipient.
      * Contains information on the recipient of a fulfillment.
@@ -249,12 +257,30 @@ public class OrderFulfillmentPickupDetails {
         return this.cancelReason;
     }
 
+    /**
+     * Getter for IsCurbsidePickup.
+     * If true, indicates this pickup order is for curbside pickup, not in-store pickup.
+     */
+    @JsonGetter("is_curbside_pickup")
+    public Boolean getIsCurbsidePickup() {
+        return this.isCurbsidePickup;
+    }
+
+    /**
+     * Getter for CurbsidePickupDetails.
+     * Specific details for curbside pickup.
+     */
+    @JsonGetter("curbside_pickup_details")
+    public OrderFulfillmentPickupDetailsCurbsidePickupDetails getCurbsidePickupDetails() {
+        return this.curbsidePickupDetails;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(recipient, expiresAt, autoCompleteDuration, scheduleType, pickupAt,
             pickupWindowDuration, prepTimeDuration, note, placedAt, acceptedAt, rejectedAt, readyAt,
-            expiredAt, pickedUpAt, canceledAt, cancelReason);
+            expiredAt, pickedUpAt, canceledAt, cancelReason, isCurbsidePickup, curbsidePickupDetails);
     }
 
     @Override
@@ -281,7 +307,9 @@ public class OrderFulfillmentPickupDetails {
             Objects.equals(expiredAt, orderFulfillmentPickupDetails.expiredAt) &&
             Objects.equals(pickedUpAt, orderFulfillmentPickupDetails.pickedUpAt) &&
             Objects.equals(canceledAt, orderFulfillmentPickupDetails.canceledAt) &&
-            Objects.equals(cancelReason, orderFulfillmentPickupDetails.cancelReason);
+            Objects.equals(cancelReason, orderFulfillmentPickupDetails.cancelReason) &&
+            Objects.equals(isCurbsidePickup, orderFulfillmentPickupDetails.isCurbsidePickup) &&
+            Objects.equals(curbsidePickupDetails, orderFulfillmentPickupDetails.curbsidePickupDetails);
     }
 
     /**
@@ -306,7 +334,9 @@ public class OrderFulfillmentPickupDetails {
             .expiredAt(getExpiredAt())
             .pickedUpAt(getPickedUpAt())
             .canceledAt(getCanceledAt())
-            .cancelReason(getCancelReason());
+            .cancelReason(getCancelReason())
+            .isCurbsidePickup(getIsCurbsidePickup())
+            .curbsidePickupDetails(getCurbsidePickupDetails());
             return builder;
     }
 
@@ -330,6 +360,8 @@ public class OrderFulfillmentPickupDetails {
         private String pickedUpAt;
         private String canceledAt;
         private String cancelReason;
+        private Boolean isCurbsidePickup;
+        private OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
         /**
          * Initialization constructor
@@ -482,6 +514,24 @@ public class OrderFulfillmentPickupDetails {
             this.cancelReason = cancelReason;
             return this;
         }
+        /**
+         * Setter for isCurbsidePickup
+         * @param isCurbsidePickup
+         * @return Builder
+         */
+        public Builder isCurbsidePickup(Boolean isCurbsidePickup) {
+            this.isCurbsidePickup = isCurbsidePickup;
+            return this;
+        }
+        /**
+         * Setter for curbsidePickupDetails
+         * @param curbsidePickupDetails
+         * @return Builder
+         */
+        public Builder curbsidePickupDetails(OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
+            this.curbsidePickupDetails = curbsidePickupDetails;
+            return this;
+        }
 
         /**
          * Builds a new {@link OrderFulfillmentPickupDetails} object using the set fields.
@@ -503,7 +553,9 @@ public class OrderFulfillmentPickupDetails {
                 expiredAt,
                 pickedUpAt,
                 canceledAt,
-                cancelReason);
+                cancelReason,
+                isCurbsidePickup,
+                curbsidePickupDetails);
         }
     }
 }

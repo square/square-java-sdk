@@ -28,7 +28,7 @@ public class CustomerGroupInfo {
     private final String name;
     /**
      * Getter for Id.
-     * The ID of the customer group.
+     * The ID of the Customer Group.
      */
     @JsonGetter("id")
     public String getId() {
@@ -37,7 +37,7 @@ public class CustomerGroupInfo {
 
     /**
      * Getter for Name.
-     * The name of the customer group.
+     * The name of the Customer Group.
      */
     @JsonGetter("name")
     public String getName() {

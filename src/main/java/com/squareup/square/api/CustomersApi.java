@@ -16,6 +16,7 @@ import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.models.AddGroupToCustomerResponse;
 import com.squareup.square.models.CreateCustomerCardRequest;
 import com.squareup.square.models.CreateCustomerCardResponse;
 import com.squareup.square.models.CreateCustomerRequest;
@@ -23,6 +24,7 @@ import com.squareup.square.models.CreateCustomerResponse;
 import com.squareup.square.models.DeleteCustomerCardResponse;
 import com.squareup.square.models.DeleteCustomerResponse;
 import com.squareup.square.models.ListCustomersResponse;
+import com.squareup.square.models.RemoveGroupFromCustomerResponse;
 import com.squareup.square.models.RetrieveCustomerResponse;
 import com.squareup.square.models.SearchCustomersRequest;
 import com.squareup.square.models.SearchCustomersResponse;
@@ -118,7 +120,7 @@ public final class CustomersApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -218,7 +220,7 @@ public final class CustomersApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -311,7 +313,7 @@ public final class CustomersApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -406,7 +408,7 @@ public final class CustomersApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -496,7 +498,7 @@ public final class CustomersApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -604,7 +606,7 @@ public final class CustomersApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -707,7 +709,7 @@ public final class CustomersApi extends BaseApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -804,7 +806,7 @@ public final class CustomersApi extends BaseApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-03-25");
+        headers.add("Square-Version", "2020-04-22");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -838,6 +840,206 @@ public final class CustomersApi extends BaseApi {
         String responseBody = ((HttpStringResponse)response).getBody();
         DeleteCustomerCardResponse result = ApiHelper.deserialize(responseBody,
                 DeleteCustomerCardResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Removes a customer membership from a customer group. 
+     * The customer is identified by the `customer_id` value 
+     * and the customer group is identified by the `group_id` value.
+     * @param    customerId    Required parameter: The ID of the customer to remove from the group.
+     * @param    groupId    Required parameter: The ID of the customer group to remove the customer from.
+     * @return    Returns the RemoveGroupFromCustomerResponse response from the API call
+     */
+    public RemoveGroupFromCustomerResponse removeGroupFromCustomer(
+            final String customerId,
+            final String groupId) throws ApiException, IOException {
+        HttpRequest request = buildRemoveGroupFromCustomerRequest(customerId, groupId);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleRemoveGroupFromCustomerResponse(context);
+    }
+
+    /**
+     * Removes a customer membership from a customer group. 
+     * The customer is identified by the `customer_id` value 
+     * and the customer group is identified by the `group_id` value.
+     * @param    customerId    Required parameter: The ID of the customer to remove from the group.
+     * @param    groupId    Required parameter: The ID of the customer group to remove the customer from.
+     * @return    Returns the RemoveGroupFromCustomerResponse response from the API call 
+     */
+    public CompletableFuture<RemoveGroupFromCustomerResponse> removeGroupFromCustomerAsync(
+            final String customerId,
+            final String groupId) {
+        return makeHttpCallAsync(() -> buildRemoveGroupFromCustomerRequest(customerId, groupId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleRemoveGroupFromCustomerResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for removeGroupFromCustomer
+     */
+    private HttpRequest buildRemoveGroupFromCustomerRequest(
+            final String customerId,
+            final String groupId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}/groups/{group_id}");
+
+        //process template parameters
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        templateParameters.put("group_id", groupId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-04-22");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().delete(queryUrl, headers, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for removeGroupFromCustomer
+     * @return An object of type RemoveGroupFromCustomerResponse
+     */
+    private RemoveGroupFromCustomerResponse handleRemoveGroupFromCustomerResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        RemoveGroupFromCustomerResponse result = ApiHelper.deserialize(responseBody,
+                RemoveGroupFromCustomerResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Adds a customer membership to a customer group. 
+     * The customer is identified by the `customer_id` value 
+     * and the customer group is identified by the `group_id` value.
+     * @param    customerId    Required parameter: The ID of the customer to add to a group.
+     * @param    groupId    Required parameter: The ID of the customer group to add the customer to.
+     * @return    Returns the AddGroupToCustomerResponse response from the API call
+     */
+    public AddGroupToCustomerResponse addGroupToCustomer(
+            final String customerId,
+            final String groupId) throws ApiException, IOException {
+        HttpRequest request = buildAddGroupToCustomerRequest(customerId, groupId);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleAddGroupToCustomerResponse(context);
+    }
+
+    /**
+     * Adds a customer membership to a customer group. 
+     * The customer is identified by the `customer_id` value 
+     * and the customer group is identified by the `group_id` value.
+     * @param    customerId    Required parameter: The ID of the customer to add to a group.
+     * @param    groupId    Required parameter: The ID of the customer group to add the customer to.
+     * @return    Returns the AddGroupToCustomerResponse response from the API call 
+     */
+    public CompletableFuture<AddGroupToCustomerResponse> addGroupToCustomerAsync(
+            final String customerId,
+            final String groupId) {
+        return makeHttpCallAsync(() -> buildAddGroupToCustomerRequest(customerId, groupId),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleAddGroupToCustomerResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for addGroupToCustomer
+     */
+    private HttpRequest buildAddGroupToCustomerRequest(
+            final String customerId,
+            final String groupId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/{customer_id}/groups/{group_id}");
+
+        //process template parameters
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("customer_id", customerId);
+        templateParameters.put("group_id", groupId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("Square-Version", "2020-04-22");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().put(queryUrl, headers, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for addGroupToCustomer
+     * @return An object of type AddGroupToCustomerResponse
+     */
+    private AddGroupToCustomerResponse handleAddGroupToCustomerResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        AddGroupToCustomerResponse result = ApiHelper.deserialize(responseBody,
+                AddGroupToCustomerResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

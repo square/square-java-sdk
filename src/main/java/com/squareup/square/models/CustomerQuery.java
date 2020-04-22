@@ -29,7 +29,7 @@ public class CustomerQuery {
     /**
      * Getter for Filter.
      * Represents a set of `CustomerQuery` filters used to limit the set of
-     * `Customers` returned by SearchCustomers.
+     * `Customers` returned by `SearchCustomers`.
      */
     @JsonGetter("filter")
     public CustomerFilter getFilter() {

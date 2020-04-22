@@ -31,6 +31,8 @@ public class Customer {
      * @param preferences
      * @param groups
      * @param creationSource
+     * @param groupIds
+     * @param segmentIds
      */
     @JsonCreator
     public Customer(
@@ -50,7 +52,9 @@ public class Customer {
             @JsonProperty("note") String note,
             @JsonProperty("preferences") CustomerPreferences preferences,
             @JsonProperty("groups") List<CustomerGroupInfo> groups,
-            @JsonProperty("creation_source") String creationSource) {
+            @JsonProperty("creation_source") String creationSource,
+            @JsonProperty("group_ids") List<String> groupIds,
+            @JsonProperty("segment_ids") List<String> segmentIds) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -68,6 +72,8 @@ public class Customer {
         this.preferences = preferences;
         this.groups = groups;
         this.creationSource = creationSource;
+        this.groupIds = groupIds;
+        this.segmentIds = segmentIds;
     }
 
     private final String id;
@@ -87,9 +93,11 @@ public class Customer {
     private final CustomerPreferences preferences;
     private final List<CustomerGroupInfo> groups;
     private final String creationSource;
+    private final List<String> groupIds;
+    private final List<String> segmentIds;
     /**
      * Getter for Id.
-     * A unique, Square-assigned object ID.
+     * A unique Square-assigned ID for the customer profile.
      */
     @JsonGetter("id")
     public String getId() {
@@ -98,7 +106,7 @@ public class Customer {
 
     /**
      * Getter for CreatedAt.
-     * The time when the customer profile was created, in RFC 3339 format.
+     * The timestamp when the customer profile was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -107,7 +115,7 @@ public class Customer {
 
     /**
      * Getter for UpdatedAt.
-     * The time when the customer profile was last updated, in RFC 3339 format.
+     * The timestamp when the customer profile was last updated, in RFC 3339 format.
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -228,7 +236,7 @@ public class Customer {
 
     /**
      * Getter for Groups.
-     * The groups the customer belongs to.
+     * The customer groups and segments the customer belongs to. This deprecated field is replaced with dedicated `group_ids` for customer groups and `segment_ids` for customer segments.
      */
     @JsonGetter("groups")
     public List<CustomerGroupInfo> getGroups() {
@@ -244,12 +252,30 @@ public class Customer {
         return this.creationSource;
     }
 
+    /**
+     * Getter for GroupIds.
+     * The IDs of customer groups the customer belongs to.
+     */
+    @JsonGetter("group_ids")
+    public List<String> getGroupIds() {
+        return this.groupIds;
+    }
+
+    /**
+     * Getter for SegmentIds.
+     * The IDs of segments the customer belongs to.
+     */
+    @JsonGetter("segment_ids")
+    public List<String> getSegmentIds() {
+        return this.segmentIds;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
             companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
-            preferences, groups, creationSource);
+            preferences, groups, creationSource, groupIds, segmentIds);
     }
 
     @Override
@@ -277,7 +303,9 @@ public class Customer {
             Objects.equals(note, customer.note) &&
             Objects.equals(preferences, customer.preferences) &&
             Objects.equals(groups, customer.groups) &&
-            Objects.equals(creationSource, customer.creationSource);
+            Objects.equals(creationSource, customer.creationSource) &&
+            Objects.equals(groupIds, customer.groupIds) &&
+            Objects.equals(segmentIds, customer.segmentIds);
     }
 
     /**
@@ -302,7 +330,9 @@ public class Customer {
             .note(getNote())
             .preferences(getPreferences())
             .groups(getGroups())
-            .creationSource(getCreationSource());
+            .creationSource(getCreationSource())
+            .groupIds(getGroupIds())
+            .segmentIds(getSegmentIds());
             return builder;
     }
 
@@ -327,6 +357,8 @@ public class Customer {
         private CustomerPreferences preferences;
         private List<CustomerGroupInfo> groups;
         private String creationSource;
+        private List<String> groupIds;
+        private List<String> segmentIds;
 
         /**
          * Initialization constructor
@@ -492,6 +524,24 @@ public class Customer {
             this.creationSource = creationSource;
             return this;
         }
+        /**
+         * Setter for groupIds
+         * @param groupIds
+         * @return Builder
+         */
+        public Builder groupIds(List<String> groupIds) {
+            this.groupIds = groupIds;
+            return this;
+        }
+        /**
+         * Setter for segmentIds
+         * @param segmentIds
+         * @return Builder
+         */
+        public Builder segmentIds(List<String> segmentIds) {
+            this.segmentIds = segmentIds;
+            return this;
+        }
 
         /**
          * Builds a new {@link Customer} object using the set fields.
@@ -514,7 +564,9 @@ public class Customer {
                 note,
                 preferences,
                 groups,
-                creationSource);
+                creationSource,
+                groupIds,
+                segmentIds);
         }
     }
 }
