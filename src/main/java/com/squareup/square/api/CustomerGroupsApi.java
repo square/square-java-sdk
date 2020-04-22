@@ -142,7 +142,7 @@ public final class CustomerGroupsApi extends BaseApi {
 
     /**
      * Creates a new customer group for a business. 
-     * The request must include at least the `name` value of the group.
+     * The request must include the `name` value of the group.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerGroupResponse response from the API call
      */
@@ -159,7 +159,7 @@ public final class CustomerGroupsApi extends BaseApi {
 
     /**
      * Creates a new customer group for a business. 
-     * The request must include at least the `name` value of the group.
+     * The request must include the `name` value of the group.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerGroupResponse response from the API call 
      */

@@ -147,9 +147,15 @@ TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
     .startAt("2018-01-01T00:00:00-00:00")
     .endAt("2018-02-01T00:00:00-00:00")
     .build();
+List<String> bodyQueryFilterGroupIdsAll = new LinkedList<>();
+bodyQueryFilterGroupIdsAll.add("545AXB44B4XXWMVQ4W8SBT3HHF");
+FilterValue bodyQueryFilterGroupIds = new FilterValue.Builder()
+    .all(bodyQueryFilterGroupIdsAll)
+    .build();
 CustomerFilter bodyQueryFilter = new CustomerFilter.Builder()
     .creationSource(bodyQueryFilterCreationSource)
     .createdAt(bodyQueryFilterCreatedAt)
+    .groupIds(bodyQueryFilterGroupIds)
     .build();
 CustomerSort bodyQuerySort = new CustomerSort.Builder()
     .field("CREATED_AT")
@@ -372,7 +378,7 @@ customersApi.deleteCustomerCardAsync(customerId, cardId).thenAccept(result -> {
 
 ## Remove Group From Customer
 
-Removes a customer membership from a customer group. 
+Removes a group membership from a customer. 
 
 The customer is identified by the `customer_id` value 
 and the customer group is identified by the `group_id` value.
@@ -410,7 +416,7 @@ customersApi.removeGroupFromCustomerAsync(customerId, groupId).thenAccept(result
 
 ## Add Group to Customer
 
-Adds a customer membership to a customer group. 
+Adds a group membership to a customer. 
 
 The customer is identified by the `customer_id` value 
 and the customer group is identified by the `group_id` value.
