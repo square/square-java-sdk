@@ -1,5 +1,6 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +21,7 @@ public class ObtainTokenRequest {
      * @param redirectUri
      * @param refreshToken
      * @param migrationToken
+     * @param scopes
      */
     @JsonCreator
     public ObtainTokenRequest(
@@ -29,7 +31,8 @@ public class ObtainTokenRequest {
             @JsonProperty("code") String code,
             @JsonProperty("redirect_uri") String redirectUri,
             @JsonProperty("refresh_token") String refreshToken,
-            @JsonProperty("migration_token") String migrationToken) {
+            @JsonProperty("migration_token") String migrationToken,
+            @JsonProperty("scopes") List<String> scopes) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.code = code;
@@ -37,6 +40,7 @@ public class ObtainTokenRequest {
         this.grantType = grantType;
         this.refreshToken = refreshToken;
         this.migrationToken = migrationToken;
+        this.scopes = scopes;
     }
 
     private final String clientId;
@@ -46,6 +50,7 @@ public class ObtainTokenRequest {
     private final String grantType;
     private final String refreshToken;
     private final String migrationToken;
+    private final List<String> scopes;
     /**
      * Getter for ClientId.
      * The Square-issued ID of your application, available from the
@@ -120,11 +125,25 @@ public class ObtainTokenRequest {
         return this.migrationToken;
     }
 
+    /**
+     * Getter for Scopes.
+     * __OPTIONAL__
+     * A JSON list of strings that are the permissions the application is requesting.
+     * For example: "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`"
+     * The access token returned in the response will be granted the permissions
+     * that comprise the intersection between the given list of permissions, and those
+     * that belong to the provided refresh token.
+     */
+    @JsonGetter("scopes")
+    public List<String> getScopes() {
+        return this.scopes;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(clientId, clientSecret, code, redirectUri, grantType, refreshToken,
-            migrationToken);
+            migrationToken, scopes);
     }
 
     @Override
@@ -142,7 +161,8 @@ public class ObtainTokenRequest {
             Objects.equals(redirectUri, obtainTokenRequest.redirectUri) &&
             Objects.equals(grantType, obtainTokenRequest.grantType) &&
             Objects.equals(refreshToken, obtainTokenRequest.refreshToken) &&
-            Objects.equals(migrationToken, obtainTokenRequest.migrationToken);
+            Objects.equals(migrationToken, obtainTokenRequest.migrationToken) &&
+            Objects.equals(scopes, obtainTokenRequest.scopes);
     }
 
     /**
@@ -157,7 +177,8 @@ public class ObtainTokenRequest {
             .code(getCode())
             .redirectUri(getRedirectUri())
             .refreshToken(getRefreshToken())
-            .migrationToken(getMigrationToken());
+            .migrationToken(getMigrationToken())
+            .scopes(getScopes());
             return builder;
     }
 
@@ -172,6 +193,7 @@ public class ObtainTokenRequest {
         private String redirectUri;
         private String refreshToken;
         private String migrationToken;
+        private List<String> scopes;
 
         /**
          * Initialization constructor
@@ -247,6 +269,15 @@ public class ObtainTokenRequest {
             this.migrationToken = migrationToken;
             return this;
         }
+        /**
+         * Setter for scopes
+         * @param scopes
+         * @return Builder
+         */
+        public Builder scopes(List<String> scopes) {
+            this.scopes = scopes;
+            return this;
+        }
 
         /**
          * Builds a new {@link ObtainTokenRequest} object using the set fields.
@@ -259,7 +290,8 @@ public class ObtainTokenRequest {
                 code,
                 redirectUri,
                 refreshToken,
-                migrationToken);
+                migrationToken,
+                scopes);
         }
     }
 }

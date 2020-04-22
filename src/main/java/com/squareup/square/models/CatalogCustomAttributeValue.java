@@ -71,7 +71,7 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for CustomAttributeDefinitionId.
-     * __Read-only.__ The custom attribute definition this value belongs to.
+     * __Read-only.__ The id of the [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) this value belongs to.
      */
     @JsonGetter("custom_attribute_definition_id")
     public String getCustomAttributeDefinitionId() {
@@ -117,7 +117,7 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for Key.
-     * __Read-only.__ A copy of key from the associated custom attribute definition.
+     * __Read-only.__ A copy of key from the associated `CatalogCustomAttributeDefinition`.
      */
     @JsonGetter("key")
     public String getKey() {

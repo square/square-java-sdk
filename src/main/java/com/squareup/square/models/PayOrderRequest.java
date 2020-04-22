@@ -54,6 +54,8 @@ public class PayOrderRequest {
 
     /**
      * Getter for PaymentIds.
+     * The IDs of the [payments](#type-payment) to collect.
+     * The payment total must match the order total.
      */
     @JsonGetter("payment_ids")
     public List<String> getPaymentIds() {

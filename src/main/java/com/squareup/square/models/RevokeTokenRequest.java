@@ -16,20 +16,24 @@ public class RevokeTokenRequest {
      * @param clientId
      * @param accessToken
      * @param merchantId
+     * @param revokeOnlyAccessToken
      */
     @JsonCreator
     public RevokeTokenRequest(
             @JsonProperty("client_id") String clientId,
             @JsonProperty("access_token") String accessToken,
-            @JsonProperty("merchant_id") String merchantId) {
+            @JsonProperty("merchant_id") String merchantId,
+            @JsonProperty("revoke_only_access_token") Boolean revokeOnlyAccessToken) {
         this.clientId = clientId;
         this.accessToken = accessToken;
         this.merchantId = merchantId;
+        this.revokeOnlyAccessToken = revokeOnlyAccessToken;
     }
 
     private final String clientId;
     private final String accessToken;
     private final String merchantId;
+    private final Boolean revokeOnlyAccessToken;
     /**
      * Getter for ClientId.
      * The Square issued ID for your application, available from the
@@ -60,10 +64,21 @@ public class RevokeTokenRequest {
         return this.merchantId;
     }
 
+    /**
+     * Getter for RevokeOnlyAccessToken.
+     * If `true`, terminate the given single access token, but do not
+     * terminate the entire authorization.
+     * Default: `false`
+     */
+    @JsonGetter("revoke_only_access_token")
+    public Boolean getRevokeOnlyAccessToken() {
+        return this.revokeOnlyAccessToken;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(clientId, accessToken, merchantId);
+        return Objects.hash(clientId, accessToken, merchantId, revokeOnlyAccessToken);
     }
 
     @Override
@@ -77,7 +92,8 @@ public class RevokeTokenRequest {
         RevokeTokenRequest revokeTokenRequest = (RevokeTokenRequest) obj;
         return Objects.equals(clientId, revokeTokenRequest.clientId) &&
             Objects.equals(accessToken, revokeTokenRequest.accessToken) &&
-            Objects.equals(merchantId, revokeTokenRequest.merchantId);
+            Objects.equals(merchantId, revokeTokenRequest.merchantId) &&
+            Objects.equals(revokeOnlyAccessToken, revokeTokenRequest.revokeOnlyAccessToken);
     }
 
     /**
@@ -89,7 +105,8 @@ public class RevokeTokenRequest {
         Builder builder = new Builder()
             .clientId(getClientId())
             .accessToken(getAccessToken())
-            .merchantId(getMerchantId());
+            .merchantId(getMerchantId())
+            .revokeOnlyAccessToken(getRevokeOnlyAccessToken());
             return builder;
     }
 
@@ -100,6 +117,7 @@ public class RevokeTokenRequest {
         private String clientId;
         private String accessToken;
         private String merchantId;
+        private Boolean revokeOnlyAccessToken;
 
         /**
          * Initialization constructor
@@ -135,6 +153,15 @@ public class RevokeTokenRequest {
             this.merchantId = merchantId;
             return this;
         }
+        /**
+         * Setter for revokeOnlyAccessToken
+         * @param revokeOnlyAccessToken
+         * @return Builder
+         */
+        public Builder revokeOnlyAccessToken(Boolean revokeOnlyAccessToken) {
+            this.revokeOnlyAccessToken = revokeOnlyAccessToken;
+            return this;
+        }
 
         /**
          * Builds a new {@link RevokeTokenRequest} object using the set fields.
@@ -143,7 +170,8 @@ public class RevokeTokenRequest {
         public RevokeTokenRequest build() {
             return new RevokeTokenRequest(clientId,
                 accessToken,
-                merchantId);
+                merchantId,
+                revokeOnlyAccessToken);
         }
     }
 }

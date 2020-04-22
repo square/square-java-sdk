@@ -8,7 +8,10 @@ import com.squareup.square.api.BankAccountsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
+import com.squareup.square.api.CustomerGroupsApi;
 import com.squareup.square.api.CustomersApi;
+import com.squareup.square.api.CustomerSegmentsApi;
+import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
 import com.squareup.square.api.InventoryApi;
@@ -21,6 +24,7 @@ import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
 import com.squareup.square.api.ReportingApi;
+import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
 import com.squareup.square.api.V1ItemsApi;
@@ -50,6 +54,9 @@ public final class SquareClient implements Configuration {
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
     private CustomersApi customers;
+    private CustomerGroupsApi customerGroups;
+    private CustomerSegmentsApi customerSegments;
+    private DevicesApi devices;
     private DisputesApi disputes;
     private EmployeesApi employees;
     private InventoryApi inventory;
@@ -62,6 +69,7 @@ public final class SquareClient implements Configuration {
     private MerchantsApi merchants;
     private PaymentsApi payments;
     private RefundsApi refunds;
+    private TerminalApi terminal;
 
     /**
      * Get the instance of MobileAuthorizationApi
@@ -149,6 +157,30 @@ public final class SquareClient implements Configuration {
      */
     public CustomersApi getCustomersApi() {
         return customers;
+    }
+
+    /**
+     * Get the instance of CustomerGroupsApi
+     * @return customerGroups
+     */
+    public CustomerGroupsApi getCustomerGroupsApi() {
+        return customerGroups;
+    }
+
+    /**
+     * Get the instance of CustomerSegmentsApi
+     * @return customerSegments
+     */
+    public CustomerSegmentsApi getCustomerSegmentsApi() {
+        return customerSegments;
+    }
+
+    /**
+     * Get the instance of DevicesApi
+     * @return devices
+     */
+    public DevicesApi getDevicesApi() {
+        return devices;
     }
 
     /**
@@ -248,6 +280,14 @@ public final class SquareClient implements Configuration {
     }
 
     /**
+     * Get the instance of TerminalApi
+     * @return terminal
+     */
+    public TerminalApi getTerminalApi() {
+        return terminal;
+    }
+
+    /**
      * Shutdown the underlying HttpClient instance
      */
     public static void shutdown() {
@@ -284,6 +324,9 @@ public final class SquareClient implements Configuration {
         cashDrawers = new CashDrawersApi(this, this.httpClient, this.authManagers, this.httpCallback);
         catalog = new CatalogApi(this, this.httpClient, this.authManagers, this.httpCallback);
         customers = new CustomersApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        customerGroups = new CustomerGroupsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        customerSegments = new CustomerSegmentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        devices = new DevicesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         disputes = new DisputesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         employees = new EmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         inventory = new InventoryApi(this, this.httpClient, this.authManagers, this.httpCallback);
@@ -296,6 +339,7 @@ public final class SquareClient implements Configuration {
         merchants = new MerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         payments = new PaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         refunds = new RefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        terminal = new TerminalApi(this, this.httpClient, this.authManagers, this.httpCallback);
     }
 
     /**
@@ -391,7 +435,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "5.1.0.20200325";
+        return "5.2.0.20200422";
     }
 
     /**
@@ -399,7 +443,7 @@ public final class SquareClient implements Configuration {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2020-03-25";
+        return "2020-04-22";
     }
 
     /**

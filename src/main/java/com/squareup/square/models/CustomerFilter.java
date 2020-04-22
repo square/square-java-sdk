@@ -16,20 +16,24 @@ public class CustomerFilter {
      * @param creationSource
      * @param createdAt
      * @param updatedAt
+     * @param groupIds
      */
     @JsonCreator
     public CustomerFilter(
             @JsonProperty("creation_source") CustomerCreationSourceFilter creationSource,
             @JsonProperty("created_at") TimeRange createdAt,
-            @JsonProperty("updated_at") TimeRange updatedAt) {
+            @JsonProperty("updated_at") TimeRange updatedAt,
+            @JsonProperty("group_ids") FilterValue groupIds) {
         this.creationSource = creationSource;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.groupIds = groupIds;
     }
 
     private final CustomerCreationSourceFilter creationSource;
     private final TimeRange createdAt;
     private final TimeRange updatedAt;
+    private final FilterValue groupIds;
     /**
      * Getter for CreationSource.
      * Creation source filter.
@@ -68,10 +72,22 @@ public class CustomerFilter {
         return this.updatedAt;
     }
 
+    /**
+     * Getter for GroupIds.
+     * A filter to select resources based on an exact field value. For any given
+     * value, the value can only be in one property. Depending on the field, either
+     * all properties can be set or only a subset will be available.
+     * Refer to the documentation of the field.
+     */
+    @JsonGetter("group_ids")
+    public FilterValue getGroupIds() {
+        return this.groupIds;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(creationSource, createdAt, updatedAt);
+        return Objects.hash(creationSource, createdAt, updatedAt, groupIds);
     }
 
     @Override
@@ -85,7 +101,8 @@ public class CustomerFilter {
         CustomerFilter customerFilter = (CustomerFilter) obj;
         return Objects.equals(creationSource, customerFilter.creationSource) &&
             Objects.equals(createdAt, customerFilter.createdAt) &&
-            Objects.equals(updatedAt, customerFilter.updatedAt);
+            Objects.equals(updatedAt, customerFilter.updatedAt) &&
+            Objects.equals(groupIds, customerFilter.groupIds);
     }
 
     /**
@@ -97,7 +114,8 @@ public class CustomerFilter {
         Builder builder = new Builder()
             .creationSource(getCreationSource())
             .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+            .updatedAt(getUpdatedAt())
+            .groupIds(getGroupIds());
             return builder;
     }
 
@@ -108,6 +126,7 @@ public class CustomerFilter {
         private CustomerCreationSourceFilter creationSource;
         private TimeRange createdAt;
         private TimeRange updatedAt;
+        private FilterValue groupIds;
 
         /**
          * Initialization constructor
@@ -143,6 +162,15 @@ public class CustomerFilter {
             this.updatedAt = updatedAt;
             return this;
         }
+        /**
+         * Setter for groupIds
+         * @param groupIds
+         * @return Builder
+         */
+        public Builder groupIds(FilterValue groupIds) {
+            this.groupIds = groupIds;
+            return this;
+        }
 
         /**
          * Builds a new {@link CustomerFilter} object using the set fields.
@@ -151,7 +179,8 @@ public class CustomerFilter {
         public CustomerFilter build() {
             return new CustomerFilter(creationSource,
                 createdAt,
-                updatedAt);
+                updatedAt,
+                groupIds);
         }
     }
 }
