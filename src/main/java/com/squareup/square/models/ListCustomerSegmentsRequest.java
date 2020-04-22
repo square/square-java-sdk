@@ -14,18 +14,14 @@ public class ListCustomerSegmentsRequest {
     /**
      * Initialization constructor.
      * @param cursor
-     * @param limit
      */
     @JsonCreator
     public ListCustomerSegmentsRequest(
-            @JsonProperty("cursor") String cursor,
-            @JsonProperty("limit") Long limit) {
+            @JsonProperty("cursor") String cursor) {
         this.cursor = cursor;
-        this.limit = limit;
     }
 
     private final String cursor;
-    private final Long limit;
     /**
      * Getter for Cursor.
      * A pagination cursor returned by previous calls to __ListCustomerSegments__.
@@ -37,22 +33,10 @@ public class ListCustomerSegmentsRequest {
         return this.cursor;
     }
 
-    /**
-     * Getter for Limit.
-     * Sets the maximum number of results to be returned in a single page.
-     * Limit values outside the supported range are ignored.
-     * Minimum value: `1`
-     * Maximum value: `1,000`
-     */
-    @JsonGetter("limit")
-    public Long getLimit() {
-        return this.limit;
-    }
-
  
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, limit);
+        return Objects.hash(cursor);
     }
 
     @Override
@@ -64,8 +48,7 @@ public class ListCustomerSegmentsRequest {
             return false;
         }
         ListCustomerSegmentsRequest listCustomerSegmentsRequest = (ListCustomerSegmentsRequest) obj;
-        return Objects.equals(cursor, listCustomerSegmentsRequest.cursor) &&
-            Objects.equals(limit, listCustomerSegmentsRequest.limit);
+        return Objects.equals(cursor, listCustomerSegmentsRequest.cursor);
     }
 
     /**
@@ -75,8 +58,7 @@ public class ListCustomerSegmentsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .limit(getLimit());
+            .cursor(getCursor());
             return builder;
     }
 
@@ -85,7 +67,6 @@ public class ListCustomerSegmentsRequest {
      */
     public static class Builder {
         private String cursor;
-        private Long limit;
 
         /**
          * Initialization constructor
@@ -103,23 +84,13 @@ public class ListCustomerSegmentsRequest {
             this.cursor = cursor;
             return this;
         }
-        /**
-         * Setter for limit
-         * @param limit
-         * @return Builder
-         */
-        public Builder limit(Long limit) {
-            this.limit = limit;
-            return this;
-        }
 
         /**
          * Builds a new {@link ListCustomerSegmentsRequest} object using the set fields.
          * @return {@link ListCustomerSegmentsRequest}
          */
         public ListCustomerSegmentsRequest build() {
-            return new ListCustomerSegmentsRequest(cursor,
-                limit);
+            return new ListCustomerSegmentsRequest(cursor);
         }
     }
 }

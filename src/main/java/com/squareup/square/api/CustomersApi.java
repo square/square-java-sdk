@@ -846,7 +846,7 @@ public final class CustomersApi extends BaseApi {
     }
 
     /**
-     * Removes a customer membership from a customer group. 
+     * Removes a group membership from a customer. 
      * The customer is identified by the `customer_id` value 
      * and the customer group is identified by the `group_id` value.
      * @param    customerId    Required parameter: The ID of the customer to remove from the group.
@@ -866,7 +866,7 @@ public final class CustomersApi extends BaseApi {
     }
 
     /**
-     * Removes a customer membership from a customer group. 
+     * Removes a group membership from a customer. 
      * The customer is identified by the `customer_id` value 
      * and the customer group is identified by the `group_id` value.
      * @param    customerId    Required parameter: The ID of the customer to remove from the group.
@@ -946,7 +946,7 @@ public final class CustomersApi extends BaseApi {
     }
 
     /**
-     * Adds a customer membership to a customer group. 
+     * Adds a group membership to a customer. 
      * The customer is identified by the `customer_id` value 
      * and the customer group is identified by the `group_id` value.
      * @param    customerId    Required parameter: The ID of the customer to add to a group.
@@ -966,7 +966,7 @@ public final class CustomersApi extends BaseApi {
     }
 
     /**
-     * Adds a customer membership to a customer group. 
+     * Adds a group membership to a customer. 
      * The customer is identified by the `customer_id` value 
      * and the customer group is identified by the `group_id` value.
      * @param    customerId    Required parameter: The ID of the customer to add to a group.

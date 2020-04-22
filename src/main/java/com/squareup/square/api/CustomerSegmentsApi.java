@@ -48,13 +48,11 @@ public final class CustomerSegmentsApi extends BaseApi {
     /**
      * Retrieves the list of customer segments of a business.
      * @param    cursor    Optional parameter: A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.  See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
-     * @param    limit    Optional parameter: Sets the maximum number of results to be returned in a single page. Limit values outside the supported range are ignored.  Minimum value: `1` Maximum value: `1,000`
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     public ListCustomerSegmentsResponse listCustomerSegments(
-            final String cursor,
-            final Long limit) throws ApiException, IOException {
-        HttpRequest request = buildListCustomerSegmentsRequest(cursor, limit);
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListCustomerSegmentsRequest(cursor);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -66,13 +64,11 @@ public final class CustomerSegmentsApi extends BaseApi {
     /**
      * Retrieves the list of customer segments of a business.
      * @param    cursor    Optional parameter: A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.  See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
-     * @param    limit    Optional parameter: Sets the maximum number of results to be returned in a single page. Limit values outside the supported range are ignored.  Minimum value: `1` Maximum value: `1,000`
      * @return    Returns the ListCustomerSegmentsResponse response from the API call 
      */
     public CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
-            final String cursor,
-            final Long limit) {
-        return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor, limit),
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleListCustomerSegmentsResponse(context));
@@ -82,8 +78,7 @@ public final class CustomerSegmentsApi extends BaseApi {
      * Builds the HttpRequest object for listCustomerSegments
      */
     private HttpRequest buildListCustomerSegmentsRequest(
-            final String cursor,
-            final Long limit) {
+            final String cursor) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -93,7 +88,6 @@ public final class CustomerSegmentsApi extends BaseApi {
         //process query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
         ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
