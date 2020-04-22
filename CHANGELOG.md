@@ -1,5 +1,12 @@
 # Change Log
 
+## Version 5.2.1.20200422 (2020-04-22)
+## API releases
+* **Customer Segments API (beta).** `limit` field removed from **ListCustomerSegments** endpoint.
+
+
+**Note:** This release fixes a bug introduced on the [April 22, 2020](changelog/connect-logs/2020-04-22) release of the Square API.
+
 ## Version 5.1.0.20200325 (2020-03-25)
 ## Existing API updates
 * **[Payments API](${SQUARE_TECH_REF}/payments-api).** In support of the existing [Delayed capture](payments-api/take-payments) for payments, the following fields are added to the [Payment](${SQUARE_TECH_REF}/objects/Payment) type:
