@@ -435,7 +435,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "5.2.1.20200422";
+        return "5.2.2.20200422";
     }
 
     /**
