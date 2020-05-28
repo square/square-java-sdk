@@ -38,7 +38,7 @@ public class CustomerQuery {
 
     /**
      * Getter for Sort.
-     * Indicates the field to use for sorting customer profiles.
+     * Specifies how searched customers profiles are sorted, including the sort key and sort order.
      */
     @JsonGetter("sort")
     public CustomerSort getSort() {

@@ -236,7 +236,7 @@ public class Customer {
 
     /**
      * Getter for Groups.
-     * The customer groups and segments the customer belongs to. This deprecated field is replaced with dedicated `group_ids` for customer groups and `segment_ids` for customer segments.
+     * The customer groups and segments the customer belongs to. This deprecated field has been replaced with  the dedicated `group_ids` for customer groups and the dedicated `segment_ids` field for customer segments. You can retrieve information about a given customer group and segment respectively using the Customer Groups API and Customer Segments API.
      */
     @JsonGetter("groups")
     public List<CustomerGroupInfo> getGroups() {
@@ -314,9 +314,10 @@ public class Customer {
      * @return a new {@link Customer.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            createdAt,
-            updatedAt)
+        Builder builder = new Builder()
+            .id(getId())
+            .createdAt(getCreatedAt())
+            .updatedAt(getUpdatedAt())
             .cards(getCards())
             .givenName(getGivenName())
             .familyName(getFamilyName())
@@ -363,12 +364,8 @@ public class Customer {
         /**
          * Initialization constructor
          */
-        public Builder(String id,
-                String createdAt,
-                String updatedAt) {
-            this.id = id;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
+        public Builder() {
+           
         }
 
         /**

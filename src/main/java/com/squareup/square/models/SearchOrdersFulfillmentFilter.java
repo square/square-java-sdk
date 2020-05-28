@@ -76,7 +76,8 @@ public class SearchOrdersFulfillmentFilter {
      * @return a new {@link SearchOrdersFulfillmentFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(fulfillmentTypes)
+        Builder builder = new Builder()
+            .fulfillmentTypes(getFulfillmentTypes())
             .fulfillmentStates(getFulfillmentStates());
             return builder;
     }
@@ -91,8 +92,8 @@ public class SearchOrdersFulfillmentFilter {
         /**
          * Initialization constructor
          */
-        public Builder(List<String> fulfillmentTypes) {
-            this.fulfillmentTypes = fulfillmentTypes;
+        public Builder() {
+           
         }
 
         /**

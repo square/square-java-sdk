@@ -41,6 +41,7 @@ public class Order {
      * @param totalTaxMoney
      * @param totalDiscountMoney
      * @param totalServiceChargeMoney
+     * @param rewards
      */
     @JsonCreator
     public Order(
@@ -69,7 +70,8 @@ public class Order {
             @JsonProperty("total_money") Money totalMoney,
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
-            @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney) {
+            @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney,
+            @JsonProperty("rewards") List<OrderReward> rewards) {
         this.id = id;
         this.locationId = locationId;
         this.referenceId = referenceId;
@@ -96,6 +98,7 @@ public class Order {
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalServiceChargeMoney = totalServiceChargeMoney;
+        this.rewards = rewards;
     }
 
     private final String id;
@@ -124,6 +127,7 @@ public class Order {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalServiceChargeMoney;
+    private final List<OrderReward> rewards;
     /**
      * Getter for Id.
      * The order's unique ID.
@@ -413,13 +417,22 @@ public class Order {
         return this.totalServiceChargeMoney;
     }
 
+    /**
+     * Getter for Rewards.
+     * A set-like list of rewards that have been added to the order.
+     */
+    @JsonGetter("rewards")
+    public List<OrderReward> getRewards() {
+        return this.rewards;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
             discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
             roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt, state,
-            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney);
+            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney, rewards);
     }
 
     @Override
@@ -456,7 +469,8 @@ public class Order {
             Objects.equals(totalMoney, order.totalMoney) &&
             Objects.equals(totalTaxMoney, order.totalTaxMoney) &&
             Objects.equals(totalDiscountMoney, order.totalDiscountMoney) &&
-            Objects.equals(totalServiceChargeMoney, order.totalServiceChargeMoney);
+            Objects.equals(totalServiceChargeMoney, order.totalServiceChargeMoney) &&
+            Objects.equals(rewards, order.rewards);
     }
 
     /**
@@ -490,7 +504,8 @@ public class Order {
             .totalMoney(getTotalMoney())
             .totalTaxMoney(getTotalTaxMoney())
             .totalDiscountMoney(getTotalDiscountMoney())
-            .totalServiceChargeMoney(getTotalServiceChargeMoney());
+            .totalServiceChargeMoney(getTotalServiceChargeMoney())
+            .rewards(getRewards());
             return builder;
     }
 
@@ -524,6 +539,7 @@ public class Order {
         private Money totalTaxMoney;
         private Money totalDiscountMoney;
         private Money totalServiceChargeMoney;
+        private List<OrderReward> rewards;
 
         /**
          * Initialization constructor
@@ -766,6 +782,15 @@ public class Order {
             this.totalServiceChargeMoney = totalServiceChargeMoney;
             return this;
         }
+        /**
+         * Setter for rewards
+         * @param rewards
+         * @return Builder
+         */
+        public Builder rewards(List<OrderReward> rewards) {
+            this.rewards = rewards;
+            return this;
+        }
 
         /**
          * Builds a new {@link Order} object using the set fields.
@@ -797,7 +822,8 @@ public class Order {
                 totalMoney,
                 totalTaxMoney,
                 totalDiscountMoney,
-                totalServiceChargeMoney);
+                totalServiceChargeMoney,
+                rewards);
         }
     }
 }

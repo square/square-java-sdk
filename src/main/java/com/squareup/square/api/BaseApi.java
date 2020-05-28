@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
@@ -23,7 +24,7 @@ public abstract class BaseApi {
      * Protected variables to hold an instance of Configuration
      */
     protected final Configuration config;
-    protected static final String userAgent = "Square-Java-SDK/5.2.2.20200422";
+    protected static final String userAgent = "Square-Java-SDK/5.3.0.20200528";
 
     /**
      * Protected variable to hold an instance of HttpCallback if the user provides it

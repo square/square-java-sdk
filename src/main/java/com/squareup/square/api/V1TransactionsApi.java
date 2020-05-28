@@ -2,21 +2,8 @@ package com.squareup.square.api;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
-import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.V1BankAccount;
 import com.squareup.square.models.V1CreateRefundRequest;
 import com.squareup.square.models.V1Order;
@@ -26,31 +13,10 @@ import com.squareup.square.models.V1Settlement;
 import com.squareup.square.models.V1UpdateOrderRequest;
 
 /**
- * This class lists all the endpoints of the groups.
+ * This interface lists all the endpoints of the group.
+ * This can be overridden for the mock calls.
  */
-public final class V1TransactionsApi extends BaseApi {
-
-    /**
-     * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     */
-    public V1TransactionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
-     */
-    public V1TransactionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
-    }
-
+public interface V1TransactionsApi {
     /**
      * Provides non-confidential details for all of a location's associated bank accounts. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
      * ---
@@ -63,17 +29,8 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    locationId    Required parameter: The ID of the location to list bank accounts for.
      * @return    Returns the List<V1BankAccount> response from the API call
      */
-    @Deprecated
-    public List<V1BankAccount> listBankAccounts(
-            final String locationId) throws ApiException, IOException {
-        HttpRequest request = buildListBankAccountsRequest(locationId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListBankAccountsResponse(context);
-    }
+    @Deprecated    List<V1BankAccount> listBankAccounts(
+            final String locationId) throws ApiException, IOException;
 
     /**
      * Provides non-confidential details for all of a location's associated bank accounts. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
@@ -88,72 +45,8 @@ public final class V1TransactionsApi extends BaseApi {
      * @return    Returns the List<V1BankAccount> response from the API call 
      */
     @Deprecated
-    public CompletableFuture<List<V1BankAccount>> listBankAccountsAsync(
-            final String locationId) {
-        return makeHttpCallAsync(() -> buildListBankAccountsRequest(locationId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListBankAccountsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listBankAccounts
-     */
-    private HttpRequest buildListBankAccountsRequest(
-            final String locationId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/bank-accounts");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listBankAccounts
-     * @return An object of type List<V1BankAccount>
-     */
-    private List<V1BankAccount> handleListBankAccountsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        List<V1BankAccount> result = ApiHelper.deserializeArray(responseBody,
-                V1BankAccount[].class);
-        return result;
-    }
+    CompletableFuture<List<V1BankAccount>> listBankAccountsAsync(
+            final String locationId);
 
     /**
      * Provides non-confidential details for a merchant's associated bank account. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
@@ -168,18 +61,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    bankAccountId    Required parameter: The bank account's Square-issued ID. You obtain this value from Settlement objects returned.
      * @return    Returns the V1BankAccount response from the API call
      */
-    @Deprecated
-    public V1BankAccount retrieveBankAccount(
+    @Deprecated    V1BankAccount retrieveBankAccount(
             final String locationId,
-            final String bankAccountId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveBankAccountRequest(locationId, bankAccountId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveBankAccountResponse(context);
-    }
+            final String bankAccountId) throws ApiException, IOException;
 
     /**
      * Provides non-confidential details for a merchant's associated bank account. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
@@ -195,77 +79,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @return    Returns the V1BankAccount response from the API call 
      */
     @Deprecated
-    public CompletableFuture<V1BankAccount> retrieveBankAccountAsync(
+    CompletableFuture<V1BankAccount> retrieveBankAccountAsync(
             final String locationId,
-            final String bankAccountId) {
-        return makeHttpCallAsync(() -> buildRetrieveBankAccountRequest(locationId, bankAccountId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveBankAccountResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveBankAccount
-     */
-    private HttpRequest buildRetrieveBankAccountRequest(
-            final String locationId,
-            final String bankAccountId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/bank-accounts/{bank_account_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("bank_account_id", bankAccountId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveBankAccount
-     * @return An object of type V1BankAccount
-     */
-    private V1BankAccount handleRetrieveBankAccountResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1BankAccount result = ApiHelper.deserialize(responseBody,
-                V1BankAccount.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String bankAccountId);
 
     /**
      * Provides summary information for a merchant's online store orders.
@@ -275,19 +91,11 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Order> response from the API call
      */
-    public List<V1Order> listOrders(
+    List<V1Order> listOrders(
             final String locationId,
             final String order,
             final Integer limit,
-            final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListOrdersRequest(locationId, order, limit, batchToken);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListOrdersResponse(context);
-    }
+            final String batchToken) throws ApiException, IOException;
 
     /**
      * Provides summary information for a merchant's online store orders.
@@ -297,85 +105,11 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Order> response from the API call 
      */
-    public CompletableFuture<List<V1Order>> listOrdersAsync(
+    CompletableFuture<List<V1Order>> listOrdersAsync(
             final String locationId,
             final String order,
             final Integer limit,
-            final String batchToken) {
-        return makeHttpCallAsync(() -> buildListOrdersRequest(locationId, order, limit, batchToken),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListOrdersResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listOrders
-     */
-    private HttpRequest buildListOrdersRequest(
-            final String locationId,
-            final String order,
-            final Integer limit,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/orders");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listOrders
-     * @return An object of type List<V1Order>
-     */
-    private List<V1Order> handleListOrdersResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        List<V1Order> result = ApiHelper.deserializeArray(responseBody,
-                V1Order[].class);
-        return result;
-    }
+            final String batchToken);
 
     /**
      * Provides comprehensive information for a single online store order, including the order's history.
@@ -383,17 +117,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    orderId    Required parameter: The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint
      * @return    Returns the V1Order response from the API call
      */
-    public V1Order retrieveOrder(
+    V1Order retrieveOrder(
             final String locationId,
-            final String orderId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveOrderRequest(locationId, orderId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveOrderResponse(context);
-    }
+            final String orderId) throws ApiException, IOException;
 
     /**
      * Provides comprehensive information for a single online store order, including the order's history.
@@ -401,77 +127,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    orderId    Required parameter: The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint
      * @return    Returns the V1Order response from the API call 
      */
-    public CompletableFuture<V1Order> retrieveOrderAsync(
+    CompletableFuture<V1Order> retrieveOrderAsync(
             final String locationId,
-            final String orderId) {
-        return makeHttpCallAsync(() -> buildRetrieveOrderRequest(locationId, orderId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveOrderResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveOrder
-     */
-    private HttpRequest buildRetrieveOrderRequest(
-            final String locationId,
-            final String orderId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/orders/{order_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("order_id", orderId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveOrder
-     * @return An object of type V1Order
-     */
-    private V1Order handleRetrieveOrderResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1Order result = ApiHelper.deserialize(responseBody,
-                V1Order.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String orderId);
 
     /**
      * Updates the details of an online store order. Every update you perform on an order corresponds to one of three actions:
@@ -480,18 +138,10 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Order response from the API call
      */
-    public V1Order updateOrder(
+    V1Order updateOrder(
             final String locationId,
             final String orderId,
-            final V1UpdateOrderRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateOrderRequest(locationId, orderId, body);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateOrderResponse(context);
-    }
+            final V1UpdateOrderRequest body) throws ApiException, IOException;
 
     /**
      * Updates the details of an online store order. Every update you perform on an order corresponds to one of three actions:
@@ -500,81 +150,10 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Order response from the API call 
      */
-    public CompletableFuture<V1Order> updateOrderAsync(
+    CompletableFuture<V1Order> updateOrderAsync(
             final String locationId,
             final String orderId,
-            final V1UpdateOrderRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateOrderRequest(locationId, orderId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleUpdateOrderResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for updateOrder
-     */
-    private HttpRequest buildUpdateOrderRequest(
-            final String locationId,
-            final String orderId,
-            final V1UpdateOrderRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/orders/{order_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("order_id", orderId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateOrder
-     * @return An object of type V1Order
-     */
-    private V1Order handleUpdateOrderResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1Order result = ApiHelper.deserialize(responseBody,
-                V1Order.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final V1UpdateOrderRequest body);
 
     /**
      * Provides summary information for all payments taken for a given
@@ -596,22 +175,14 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    includePartial    Optional parameter: Indicates whether or not to include partial payments in the response. Partial payments will have the tenders collected so far, but the itemizations will be empty until the payment is completed.
      * @return    Returns the List<V1Payment> response from the API call
      */
-    public List<V1Payment> listPayments(
+    List<V1Payment> listPayments(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String batchToken,
-            final Boolean includePartial) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentsRequest(locationId, order, beginTime, endTime, limit, batchToken, includePartial);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListPaymentsResponse(context);
-    }
+            final Boolean includePartial) throws ApiException, IOException;
 
     /**
      * Provides summary information for all payments taken for a given
@@ -633,94 +204,14 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    includePartial    Optional parameter: Indicates whether or not to include partial payments in the response. Partial payments will have the tenders collected so far, but the itemizations will be empty until the payment is completed.
      * @return    Returns the List<V1Payment> response from the API call 
      */
-    public CompletableFuture<List<V1Payment>> listPaymentsAsync(
+    CompletableFuture<List<V1Payment>> listPaymentsAsync(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String batchToken,
-            final Boolean includePartial) {
-        return makeHttpCallAsync(() -> buildListPaymentsRequest(locationId, order, beginTime, endTime, limit, batchToken, includePartial),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListPaymentsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listPayments
-     */
-    private HttpRequest buildListPaymentsRequest(
-            final String locationId,
-            final String order,
-            final String beginTime,
-            final String endTime,
-            final Integer limit,
-            final String batchToken,
-            final Boolean includePartial) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/payments");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-        queryParameters.put("include_partial", includePartial);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listPayments
-     * @return An object of type List<V1Payment>
-     */
-    private List<V1Payment> handleListPaymentsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        List<V1Payment> result = ApiHelper.deserializeArray(responseBody,
-                V1Payment[].class);
-        return result;
-    }
+            final Boolean includePartial);
 
     /**
      * Provides comprehensive information for a single payment.
@@ -728,17 +219,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    paymentId    Required parameter: The Square-issued payment ID. payment_id comes from Payment objects returned by the List Payments endpoint, Settlement objects returned by the List Settlements endpoint, or Refund objects returned by the List Refunds endpoint.
      * @return    Returns the V1Payment response from the API call
      */
-    public V1Payment retrievePayment(
+    V1Payment retrievePayment(
             final String locationId,
-            final String paymentId) throws ApiException, IOException {
-        HttpRequest request = buildRetrievePaymentRequest(locationId, paymentId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrievePaymentResponse(context);
-    }
+            final String paymentId) throws ApiException, IOException;
 
     /**
      * Provides comprehensive information for a single payment.
@@ -746,77 +229,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    paymentId    Required parameter: The Square-issued payment ID. payment_id comes from Payment objects returned by the List Payments endpoint, Settlement objects returned by the List Settlements endpoint, or Refund objects returned by the List Refunds endpoint.
      * @return    Returns the V1Payment response from the API call 
      */
-    public CompletableFuture<V1Payment> retrievePaymentAsync(
+    CompletableFuture<V1Payment> retrievePaymentAsync(
             final String locationId,
-            final String paymentId) {
-        return makeHttpCallAsync(() -> buildRetrievePaymentRequest(locationId, paymentId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrievePaymentResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrievePayment
-     */
-    private HttpRequest buildRetrievePaymentRequest(
-            final String locationId,
-            final String paymentId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/payments/{payment_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("payment_id", paymentId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrievePayment
-     * @return An object of type V1Payment
-     */
-    private V1Payment handleRetrievePaymentResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1Payment result = ApiHelper.deserialize(responseBody,
-                V1Payment.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String paymentId);
 
     /**
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile staff during a date range. Date ranges cannot exceed one year in length.
@@ -828,21 +243,13 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Refund> response from the API call
      */
-    public List<V1Refund> listRefunds(
+    List<V1Refund> listRefunds(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
-            final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListRefundsRequest(locationId, order, beginTime, endTime, limit, batchToken);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListRefundsResponse(context);
-    }
+            final String batchToken) throws ApiException, IOException;
 
     /**
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile staff during a date range. Date ranges cannot exceed one year in length.
@@ -854,91 +261,13 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Refund> response from the API call 
      */
-    public CompletableFuture<List<V1Refund>> listRefundsAsync(
+    CompletableFuture<List<V1Refund>> listRefundsAsync(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
-            final String batchToken) {
-        return makeHttpCallAsync(() -> buildListRefundsRequest(locationId, order, beginTime, endTime, limit, batchToken),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListRefundsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listRefunds
-     */
-    private HttpRequest buildListRefundsRequest(
-            final String locationId,
-            final String order,
-            final String beginTime,
-            final String endTime,
-            final Integer limit,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/refunds");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listRefunds
-     * @return An object of type List<V1Refund>
-     */
-    private List<V1Refund> handleListRefundsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        List<V1Refund> result = ApiHelper.deserializeArray(responseBody,
-                V1Refund[].class);
-        return result;
-    }
+            final String batchToken);
 
     /**
      * Issues a refund for a previously processed payment. You must issue
@@ -955,17 +284,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Refund response from the API call
      */
-    public V1Refund createRefund(
+    V1Refund createRefund(
             final String locationId,
-            final V1CreateRefundRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateRefundRequest(locationId, body);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateRefundResponse(context);
-    }
+            final V1CreateRefundRequest body) throws ApiException, IOException;
 
     /**
      * Issues a refund for a previously processed payment. You must issue
@@ -982,78 +303,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the V1Refund response from the API call 
      */
-    public CompletableFuture<V1Refund> createRefundAsync(
+    CompletableFuture<V1Refund> createRefundAsync(
             final String locationId,
-            final V1CreateRefundRequest body) {
-        return makeHttpCallAsync(() -> buildCreateRefundRequest(locationId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleCreateRefundResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for createRefund
-     */
-    private HttpRequest buildCreateRefundRequest(
-            final String locationId,
-            final V1CreateRefundRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/refunds");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createRefund
-     * @return An object of type V1Refund
-     */
-    private V1Refund handleCreateRefundResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1Refund result = ApiHelper.deserialize(responseBody,
-                V1Refund.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final V1CreateRefundRequest body);
 
     /**
      * Provides summary information for all deposits and withdrawals
@@ -1070,22 +322,14 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Settlement> response from the API call
      */
-    public List<V1Settlement> listSettlements(
+    List<V1Settlement> listSettlements(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String status,
-            final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListSettlementsRequest(locationId, order, beginTime, endTime, limit, status, batchToken);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListSettlementsResponse(context);
-    }
+            final String batchToken) throws ApiException, IOException;
 
     /**
      * Provides summary information for all deposits and withdrawals
@@ -1102,94 +346,14 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * @return    Returns the List<V1Settlement> response from the API call 
      */
-    public CompletableFuture<List<V1Settlement>> listSettlementsAsync(
+    CompletableFuture<List<V1Settlement>> listSettlementsAsync(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String status,
-            final String batchToken) {
-        return makeHttpCallAsync(() -> buildListSettlementsRequest(locationId, order, beginTime, endTime, limit, status, batchToken),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListSettlementsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listSettlements
-     */
-    private HttpRequest buildListSettlementsRequest(
-            final String locationId,
-            final String order,
-            final String beginTime,
-            final String endTime,
-            final Integer limit,
-            final String status,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/settlements");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("status", status);
-        queryParameters.put("batch_token", batchToken);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listSettlements
-     * @return An object of type List<V1Settlement>
-     */
-    private List<V1Settlement> handleListSettlementsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        List<V1Settlement> result = ApiHelper.deserializeArray(responseBody,
-                V1Settlement[].class);
-        return result;
-    }
+            final String batchToken);
 
     /**
      * Provides comprehensive information for a single settlement.
@@ -1210,17 +374,9 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    settlementId    Required parameter: The settlement's Square-issued ID. You obtain this value from Settlement objects returned by the List Settlements endpoint.
      * @return    Returns the V1Settlement response from the API call
      */
-    public V1Settlement retrieveSettlement(
+    V1Settlement retrieveSettlement(
             final String locationId,
-            final String settlementId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveSettlementRequest(locationId, settlementId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveSettlementResponse(context);
-    }
+            final String settlementId) throws ApiException, IOException;
 
     /**
      * Provides comprehensive information for a single settlement.
@@ -1241,76 +397,8 @@ public final class V1TransactionsApi extends BaseApi {
      * @param    settlementId    Required parameter: The settlement's Square-issued ID. You obtain this value from Settlement objects returned by the List Settlements endpoint.
      * @return    Returns the V1Settlement response from the API call 
      */
-    public CompletableFuture<V1Settlement> retrieveSettlementAsync(
+    CompletableFuture<V1Settlement> retrieveSettlementAsync(
             final String locationId,
-            final String settlementId) {
-        return makeHttpCallAsync(() -> buildRetrieveSettlementRequest(locationId, settlementId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveSettlementResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveSettlement
-     */
-    private HttpRequest buildRetrieveSettlementRequest(
-            final String locationId,
-            final String settlementId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v1/{location_id}/settlements/{settlement_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("settlement_id", settlementId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveSettlement
-     * @return An object of type V1Settlement
-     */
-    private V1Settlement handleRetrieveSettlementResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        V1Settlement result = ApiHelper.deserialize(responseBody,
-                V1Settlement.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String settlementId);
 
 }

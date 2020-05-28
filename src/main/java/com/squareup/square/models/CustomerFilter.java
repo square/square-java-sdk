@@ -16,6 +16,9 @@ public class CustomerFilter {
      * @param creationSource
      * @param createdAt
      * @param updatedAt
+     * @param emailAddress
+     * @param phoneNumber
+     * @param referenceId
      * @param groupIds
      */
     @JsonCreator
@@ -23,16 +26,25 @@ public class CustomerFilter {
             @JsonProperty("creation_source") CustomerCreationSourceFilter creationSource,
             @JsonProperty("created_at") TimeRange createdAt,
             @JsonProperty("updated_at") TimeRange updatedAt,
+            @JsonProperty("email_address") CustomerTextFilter emailAddress,
+            @JsonProperty("phone_number") CustomerTextFilter phoneNumber,
+            @JsonProperty("reference_id") CustomerTextFilter referenceId,
             @JsonProperty("group_ids") FilterValue groupIds) {
         this.creationSource = creationSource;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.referenceId = referenceId;
         this.groupIds = groupIds;
     }
 
     private final CustomerCreationSourceFilter creationSource;
     private final TimeRange createdAt;
     private final TimeRange updatedAt;
+    private final CustomerTextFilter emailAddress;
+    private final CustomerTextFilter phoneNumber;
+    private final CustomerTextFilter referenceId;
     private final FilterValue groupIds;
     /**
      * Getter for CreationSource.
@@ -73,6 +85,39 @@ public class CustomerFilter {
     }
 
     /**
+     * Getter for EmailAddress.
+     * A filter to select customers based on exact or fuzzy matching of
+     * customer attributes against a specified query. Depending on customer attributes, 
+     * the filter can be case sensitive. This filter can be either exact or fuzzy. It cannot be both.
+     */
+    @JsonGetter("email_address")
+    public CustomerTextFilter getEmailAddress() {
+        return this.emailAddress;
+    }
+
+    /**
+     * Getter for PhoneNumber.
+     * A filter to select customers based on exact or fuzzy matching of
+     * customer attributes against a specified query. Depending on customer attributes, 
+     * the filter can be case sensitive. This filter can be either exact or fuzzy. It cannot be both.
+     */
+    @JsonGetter("phone_number")
+    public CustomerTextFilter getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
+     * Getter for ReferenceId.
+     * A filter to select customers based on exact or fuzzy matching of
+     * customer attributes against a specified query. Depending on customer attributes, 
+     * the filter can be case sensitive. This filter can be either exact or fuzzy. It cannot be both.
+     */
+    @JsonGetter("reference_id")
+    public CustomerTextFilter getReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for GroupIds.
      * A filter to select resources based on an exact field value. For any given
      * value, the value can only be in one property. Depending on the field, either
@@ -87,7 +132,8 @@ public class CustomerFilter {
  
     @Override
     public int hashCode() {
-        return Objects.hash(creationSource, createdAt, updatedAt, groupIds);
+        return Objects.hash(creationSource, createdAt, updatedAt, emailAddress, phoneNumber,
+            referenceId, groupIds);
     }
 
     @Override
@@ -102,6 +148,9 @@ public class CustomerFilter {
         return Objects.equals(creationSource, customerFilter.creationSource) &&
             Objects.equals(createdAt, customerFilter.createdAt) &&
             Objects.equals(updatedAt, customerFilter.updatedAt) &&
+            Objects.equals(emailAddress, customerFilter.emailAddress) &&
+            Objects.equals(phoneNumber, customerFilter.phoneNumber) &&
+            Objects.equals(referenceId, customerFilter.referenceId) &&
             Objects.equals(groupIds, customerFilter.groupIds);
     }
 
@@ -115,6 +164,9 @@ public class CustomerFilter {
             .creationSource(getCreationSource())
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt())
+            .emailAddress(getEmailAddress())
+            .phoneNumber(getPhoneNumber())
+            .referenceId(getReferenceId())
             .groupIds(getGroupIds());
             return builder;
     }
@@ -126,6 +178,9 @@ public class CustomerFilter {
         private CustomerCreationSourceFilter creationSource;
         private TimeRange createdAt;
         private TimeRange updatedAt;
+        private CustomerTextFilter emailAddress;
+        private CustomerTextFilter phoneNumber;
+        private CustomerTextFilter referenceId;
         private FilterValue groupIds;
 
         /**
@@ -163,6 +218,33 @@ public class CustomerFilter {
             return this;
         }
         /**
+         * Setter for emailAddress
+         * @param emailAddress
+         * @return Builder
+         */
+        public Builder emailAddress(CustomerTextFilter emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+        /**
+         * Setter for phoneNumber
+         * @param phoneNumber
+         * @return Builder
+         */
+        public Builder phoneNumber(CustomerTextFilter phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+        /**
+         * Setter for referenceId
+         * @param referenceId
+         * @return Builder
+         */
+        public Builder referenceId(CustomerTextFilter referenceId) {
+            this.referenceId = referenceId;
+            return this;
+        }
+        /**
          * Setter for groupIds
          * @param groupIds
          * @return Builder
@@ -180,6 +262,9 @@ public class CustomerFilter {
             return new CustomerFilter(creationSource,
                 createdAt,
                 updatedAt,
+                emailAddress,
+                phoneNumber,
+                referenceId,
                 groupIds);
         }
     }

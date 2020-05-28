@@ -13,6 +13,7 @@ OrdersApi ordersApi = client.getOrdersApi();
 * [Create Order](/doc/orders.md#create-order)
 * [Batch Retrieve Orders](/doc/orders.md#batch-retrieve-orders)
 * [Update Order](/doc/orders.md#update-order)
+* [Calculate Order](/doc/orders.md#calculate-order)
 * [Search Orders](/doc/orders.md#search-orders)
 * [Pay Order](/doc/orders.md#pay-order)
 
@@ -151,6 +152,78 @@ UpdateOrderRequest body = new UpdateOrderRequest.Builder()
     .build();
 
 ordersApi.updateOrderAsync(locationId, orderId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## Calculate Order
+
+Calculates an [Order](#type-order).
+
+```java
+CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
+    final CalculateOrderRequest body)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CalculateOrderRequest`](/doc/models/calculate-order-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+### Response Type
+
+[`CalculateOrderResponse`](/doc/models/calculate-order-response.md)
+
+### Example Usage
+
+```java
+List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
+
+Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
+    .amount(500L)
+    .currency("USD")
+    .build();
+OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
+        "1")
+    .name("Item 1")
+    .basePriceMoney(bodyOrderLineItems0BasePriceMoney)
+    .build();
+bodyOrderLineItems.add(bodyOrderLineItems0);
+
+Money bodyOrderLineItems1BasePriceMoney = new Money.Builder()
+    .amount(300L)
+    .currency("USD")
+    .build();
+OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(
+        "2")
+    .name("Item 2")
+    .basePriceMoney(bodyOrderLineItems1BasePriceMoney)
+    .build();
+bodyOrderLineItems.add(bodyOrderLineItems1);
+
+List<OrderLineItemDiscount> bodyOrderDiscounts = new LinkedList<>();
+
+OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
+    .name("50% Off")
+    .percentage("50")
+    .scope("ORDER")
+    .build();
+bodyOrderDiscounts.add(bodyOrderDiscounts0);
+
+Order bodyOrder = new Order.Builder(
+        "D7AVYMEAPJ3A3")
+    .lineItems(bodyOrderLineItems)
+    .discounts(bodyOrderDiscounts)
+    .build();
+CalculateOrderRequest body = new CalculateOrderRequest.Builder(
+        bodyOrder)
+    .build();
+
+ordersApi.calculateOrderAsync(body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

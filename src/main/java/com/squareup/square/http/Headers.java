@@ -126,16 +126,16 @@ public class Headers {
      * @param headerName The header name to add the value against
      * @param value The value to add
      */
-    public void add(String headerName, Object value) {
+    public void add(String headerName, String value) {
         if (headerName == null || value == null) {
             return;
         }
         
         if (this.headers.containsKey(headerName)) {
-            this.headers.get(headerName).add(String.valueOf(value));
+            this.headers.get(headerName).add(value);
         } else {
             List<String> values = new ArrayList<String>();
-            values.add(String.valueOf(value));
+            values.add(value);
             this.headers.put(headerName, values);
         }
     }
@@ -147,22 +147,22 @@ public class Headers {
      * @param headerName The header name to add the values against
      * @param values The List of values to add
      */
-    public void add(String headerName, List<Object> values) {
+    public void add(String headerName, List<String> values) {
         if (headerName == null || values == null) {
             return;
         }
         
         if (this.headers.containsKey(headerName)) {
-            for (Object value : values) {
+            for (String value : values) {
                 if (value != null) {
-                    this.headers.get(headerName).add(String.valueOf(value));
+                    this.headers.get(headerName).add(value);
                 }
             }
         } else {
             List<String> copyOfValues = new ArrayList<String>();
-            for (Object value : values) {
+            for (String value : values) {
                 if (value != null) {
-                    copyOfValues.add(String.valueOf(value));
+                    copyOfValues.add(value);
                 }
             }
             

@@ -16,12 +16,13 @@ public class CatalogCustomAttributeDefinition {
      * Initialization constructor.
      * @param type
      * @param name
+     * @param allowedObjectTypes
      * @param description
      * @param sourceApplication
-     * @param allowedObjectTypes
      * @param sellerVisibility
      * @param appVisibility
      * @param stringConfig
+     * @param numberConfig
      * @param selectionConfig
      * @param customAttributeUsageCount
      * @param key
@@ -30,12 +31,13 @@ public class CatalogCustomAttributeDefinition {
     public CatalogCustomAttributeDefinition(
             @JsonProperty("type") String type,
             @JsonProperty("name") String name,
+            @JsonProperty("allowed_object_types") List<String> allowedObjectTypes,
             @JsonProperty("description") String description,
             @JsonProperty("source_application") SourceApplication sourceApplication,
-            @JsonProperty("allowed_object_types") List<String> allowedObjectTypes,
             @JsonProperty("seller_visibility") String sellerVisibility,
             @JsonProperty("app_visibility") String appVisibility,
             @JsonProperty("string_config") CatalogCustomAttributeDefinitionStringConfig stringConfig,
+            @JsonProperty("number_config") CatalogCustomAttributeDefinitionNumberConfig numberConfig,
             @JsonProperty("selection_config") CatalogCustomAttributeDefinitionSelectionConfig selectionConfig,
             @JsonProperty("custom_attribute_usage_count") Integer customAttributeUsageCount,
             @JsonProperty("key") String key) {
@@ -47,6 +49,7 @@ public class CatalogCustomAttributeDefinition {
         this.sellerVisibility = sellerVisibility;
         this.appVisibility = appVisibility;
         this.stringConfig = stringConfig;
+        this.numberConfig = numberConfig;
         this.selectionConfig = selectionConfig;
         this.customAttributeUsageCount = customAttributeUsageCount;
         this.key = key;
@@ -60,6 +63,7 @@ public class CatalogCustomAttributeDefinition {
     private final String sellerVisibility;
     private final String appVisibility;
     private final CatalogCustomAttributeDefinitionStringConfig stringConfig;
+    private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
     private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
     private final Integer customAttributeUsageCount;
     private final String key;
@@ -145,6 +149,14 @@ public class CatalogCustomAttributeDefinition {
     }
 
     /**
+     * Getter for NumberConfig.
+     */
+    @JsonGetter("number_config")
+    public CatalogCustomAttributeDefinitionNumberConfig getNumberConfig() {
+        return this.numberConfig;
+    }
+
+    /**
      * Getter for SelectionConfig.
      * Configuration associated with `SELECTION`-type custom attribute definitions.
      */
@@ -181,7 +193,7 @@ public class CatalogCustomAttributeDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(type, name, description, sourceApplication, allowedObjectTypes,
-            sellerVisibility, appVisibility, stringConfig, selectionConfig,
+            sellerVisibility, appVisibility, stringConfig, numberConfig, selectionConfig,
             customAttributeUsageCount, key);
     }
 
@@ -202,6 +214,7 @@ public class CatalogCustomAttributeDefinition {
             Objects.equals(sellerVisibility, catalogCustomAttributeDefinition.sellerVisibility) &&
             Objects.equals(appVisibility, catalogCustomAttributeDefinition.appVisibility) &&
             Objects.equals(stringConfig, catalogCustomAttributeDefinition.stringConfig) &&
+            Objects.equals(numberConfig, catalogCustomAttributeDefinition.numberConfig) &&
             Objects.equals(selectionConfig, catalogCustomAttributeDefinition.selectionConfig) &&
             Objects.equals(customAttributeUsageCount, catalogCustomAttributeDefinition.customAttributeUsageCount) &&
             Objects.equals(key, catalogCustomAttributeDefinition.key);
@@ -214,13 +227,14 @@ public class CatalogCustomAttributeDefinition {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(type,
-            name)
+            name,
+            allowedObjectTypes)
             .description(getDescription())
             .sourceApplication(getSourceApplication())
-            .allowedObjectTypes(getAllowedObjectTypes())
             .sellerVisibility(getSellerVisibility())
             .appVisibility(getAppVisibility())
             .stringConfig(getStringConfig())
+            .numberConfig(getNumberConfig())
             .selectionConfig(getSelectionConfig())
             .customAttributeUsageCount(getCustomAttributeUsageCount())
             .key(getKey());
@@ -233,12 +247,13 @@ public class CatalogCustomAttributeDefinition {
     public static class Builder {
         private String type;
         private String name;
+        private List<String> allowedObjectTypes;
         private String description;
         private SourceApplication sourceApplication;
-        private List<String> allowedObjectTypes;
         private String sellerVisibility;
         private String appVisibility;
         private CatalogCustomAttributeDefinitionStringConfig stringConfig;
+        private CatalogCustomAttributeDefinitionNumberConfig numberConfig;
         private CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
         private Integer customAttributeUsageCount;
         private String key;
@@ -247,9 +262,11 @@ public class CatalogCustomAttributeDefinition {
          * Initialization constructor
          */
         public Builder(String type,
-                String name) {
+                String name,
+                List<String> allowedObjectTypes) {
             this.type = type;
             this.name = name;
+            this.allowedObjectTypes = allowedObjectTypes;
         }
 
         /**
@@ -271,6 +288,15 @@ public class CatalogCustomAttributeDefinition {
             return this;
         }
         /**
+         * Setter for allowedObjectTypes
+         * @param allowedObjectTypes
+         * @return Builder
+         */
+        public Builder allowedObjectTypes(List<String> allowedObjectTypes) {
+            this.allowedObjectTypes = allowedObjectTypes;
+            return this;
+        }
+        /**
          * Setter for description
          * @param description
          * @return Builder
@@ -286,15 +312,6 @@ public class CatalogCustomAttributeDefinition {
          */
         public Builder sourceApplication(SourceApplication sourceApplication) {
             this.sourceApplication = sourceApplication;
-            return this;
-        }
-        /**
-         * Setter for allowedObjectTypes
-         * @param allowedObjectTypes
-         * @return Builder
-         */
-        public Builder allowedObjectTypes(List<String> allowedObjectTypes) {
-            this.allowedObjectTypes = allowedObjectTypes;
             return this;
         }
         /**
@@ -322,6 +339,15 @@ public class CatalogCustomAttributeDefinition {
          */
         public Builder stringConfig(CatalogCustomAttributeDefinitionStringConfig stringConfig) {
             this.stringConfig = stringConfig;
+            return this;
+        }
+        /**
+         * Setter for numberConfig
+         * @param numberConfig
+         * @return Builder
+         */
+        public Builder numberConfig(CatalogCustomAttributeDefinitionNumberConfig numberConfig) {
+            this.numberConfig = numberConfig;
             return this;
         }
         /**
@@ -359,12 +385,13 @@ public class CatalogCustomAttributeDefinition {
         public CatalogCustomAttributeDefinition build() {
             return new CatalogCustomAttributeDefinition(type,
                 name,
+                allowedObjectTypes,
                 description,
                 sourceApplication,
-                allowedObjectTypes,
                 sellerVisibility,
                 appVisibility,
                 stringConfig,
+                numberConfig,
                 selectionConfig,
                 customAttributeUsageCount,
                 key);
