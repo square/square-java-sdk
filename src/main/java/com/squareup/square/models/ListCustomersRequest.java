@@ -43,7 +43,7 @@ public class ListCustomersRequest {
 
     /**
      * Getter for SortField.
-     * Indicates the sort criteria for a list of Customers.
+     * Specifies customer attributes as the sort key to customer profiles returned from a search.
      */
     @JsonGetter("sort_field")
     public String getSortField() {

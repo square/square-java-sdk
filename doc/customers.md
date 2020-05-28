@@ -23,7 +23,11 @@ CustomersApi customersApi = client.getCustomersApi();
 
 ## List Customers
 
-Lists a business's customers.
+Lists customer profiles associated with a Square account.
+
+Under normal operating conditions, newly created or updated customer profiles become available 
+for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated 
+profiles can take closer to one minute or longer, espeically during network incidents and outages.
 
 ```java
 CompletableFuture<ListCustomersResponse> listCustomersAsync(
@@ -114,10 +118,16 @@ customersApi.createCustomerAsync(body).thenAccept(result -> {
 
 ## Search Customers
 
-Searches the customer profiles associated with a Square account.
-Calling SearchCustomers without an explicit query parameter returns all
+Searches the customer profiles associated with a Square account using 
+one or more supported query filters. 
+
+Calling `SearchCustomers` without any explicit query filter returns all
 customer profiles ordered alphabetically based on `given_name` and
 `family_name`.
+
+Under normal operating conditions, newly created or updated customer profiles become available 
+for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated 
+profiles can take closer to one minute or longer, espeically during network incidents and outages.
 
 ```java
 CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
@@ -147,6 +157,9 @@ TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
     .startAt("2018-01-01T00:00:00-00:00")
     .endAt("2018-02-01T00:00:00-00:00")
     .build();
+CustomerTextFilter bodyQueryFilterEmailAddress = new CustomerTextFilter.Builder()
+    .fuzzy("example.com")
+    .build();
 List<String> bodyQueryFilterGroupIdsAll = new LinkedList<>();
 bodyQueryFilterGroupIdsAll.add("545AXB44B4XXWMVQ4W8SBT3HHF");
 FilterValue bodyQueryFilterGroupIds = new FilterValue.Builder()
@@ -155,6 +168,7 @@ FilterValue bodyQueryFilterGroupIds = new FilterValue.Builder()
 CustomerFilter bodyQueryFilter = new CustomerFilter.Builder()
     .creationSource(bodyQueryFilterCreationSource)
     .createdAt(bodyQueryFilterCreatedAt)
+    .emailAddress(bodyQueryFilterEmailAddress)
     .groupIds(bodyQueryFilterGroupIds)
     .build();
 CustomerSort bodyQuerySort = new CustomerSort.Builder()

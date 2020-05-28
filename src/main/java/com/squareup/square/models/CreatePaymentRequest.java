@@ -197,9 +197,8 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for CustomerId.
-     * The ID of the customer associated with the payment.
-     * Required if the `source_id` refers to a card on file created using the
-     * Customers API.
+     * The [Customer](#type-customer) ID of the customer associated with the payment.
+     * Required if the `source_id` refers to a card on file created using the Customers API.
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
@@ -298,8 +297,7 @@ public class CreatePaymentRequest {
      * Optional additional payment information to include on the customer's card statement
      * as part of statement description. This can be, for example, an invoice number, ticket number,
      * or short description that uniquely identifies the purchase.
-     * Limit 20 characters.
-     * Note that the statement_description_identifier may get truncated on the statement description
+     * Note that the `statement_description_identifier` may get truncated on the statement description
      * to fit the required information including the Square identifier (SQ *) and name of the
      * merchant taking the payment.
      */

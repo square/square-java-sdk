@@ -11,12 +11,41 @@ import com.squareup.square.api.CheckoutApi;
 import com.squareup.square.api.CustomerGroupsApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.CustomerSegmentsApi;
+import com.squareup.square.api.DefaultApplePayApi;
+import com.squareup.square.api.DefaultBankAccountsApi;
+import com.squareup.square.api.DefaultCashDrawersApi;
+import com.squareup.square.api.DefaultCatalogApi;
+import com.squareup.square.api.DefaultCheckoutApi;
+import com.squareup.square.api.DefaultCustomerGroupsApi;
+import com.squareup.square.api.DefaultCustomersApi;
+import com.squareup.square.api.DefaultCustomerSegmentsApi;
+import com.squareup.square.api.DefaultDevicesApi;
+import com.squareup.square.api.DefaultDisputesApi;
+import com.squareup.square.api.DefaultEmployeesApi;
+import com.squareup.square.api.DefaultInventoryApi;
+import com.squareup.square.api.DefaultLaborApi;
+import com.squareup.square.api.DefaultLocationsApi;
+import com.squareup.square.api.DefaultLoyaltyApi;
+import com.squareup.square.api.DefaultMerchantsApi;
+import com.squareup.square.api.DefaultMobileAuthorizationApi;
+import com.squareup.square.api.DefaultOAuthApi;
+import com.squareup.square.api.DefaultOrdersApi;
+import com.squareup.square.api.DefaultPaymentsApi;
+import com.squareup.square.api.DefaultRefundsApi;
+import com.squareup.square.api.DefaultReportingApi;
+import com.squareup.square.api.DefaultTerminalApi;
+import com.squareup.square.api.DefaultTransactionsApi;
+import com.squareup.square.api.DefaultV1EmployeesApi;
+import com.squareup.square.api.DefaultV1ItemsApi;
+import com.squareup.square.api.DefaultV1LocationsApi;
+import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
 import com.squareup.square.api.InventoryApi;
 import com.squareup.square.api.LaborApi;
 import com.squareup.square.api.LocationsApi;
+import com.squareup.square.api.LoyaltyApi;
 import com.squareup.square.api.MerchantsApi;
 import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
@@ -42,7 +71,7 @@ import com.squareup.square.http.Headers;
  * This class acts as a factory for Apis.
  * It holds the state of the SDK.
  */
-public final class SquareClient implements Configuration {
+public final class SquareClient implements SquareClientInterface {
     private MobileAuthorizationApi mobileAuthorization;
     private OAuthApi oAuth;
     private V1LocationsApi v1Locations;
@@ -66,6 +95,7 @@ public final class SquareClient implements Configuration {
     private CheckoutApi checkout;
     private OrdersApi orders;
     private TransactionsApi transactions;
+    private LoyaltyApi loyalty;
     private MerchantsApi merchants;
     private PaymentsApi payments;
     private RefundsApi refunds;
@@ -256,6 +286,14 @@ public final class SquareClient implements Configuration {
     }
 
     /**
+     * Get the instance of LoyaltyApi
+     * @return loyalty
+     */
+    public LoyaltyApi getLoyaltyApi() {
+        return loyalty;
+    }
+
+    /**
      * Get the instance of MerchantsApi
      * @return merchants
      */
@@ -313,33 +351,34 @@ public final class SquareClient implements Configuration {
         }
 
 
-        mobileAuthorization = new MobileAuthorizationApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        oAuth = new OAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Locations = new V1LocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Employees = new V1EmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Transactions = new V1TransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Items = new V1ItemsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        applePay = new ApplePayApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        bankAccounts = new BankAccountsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        cashDrawers = new CashDrawersApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        catalog = new CatalogApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        customers = new CustomersApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        customerGroups = new CustomerGroupsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        customerSegments = new CustomerSegmentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        devices = new DevicesApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        disputes = new DisputesApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        employees = new EmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        inventory = new InventoryApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        labor = new LaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        locations = new LocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        reporting = new ReportingApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        checkout = new CheckoutApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        orders = new OrdersApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        transactions = new TransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        merchants = new MerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        payments = new PaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        refunds = new RefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        terminal = new TerminalApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        mobileAuthorization = new DefaultMobileAuthorizationApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        oAuth = new DefaultOAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        v1Locations = new DefaultV1LocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        v1Employees = new DefaultV1EmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        v1Transactions = new DefaultV1TransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        v1Items = new DefaultV1ItemsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        applePay = new DefaultApplePayApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        bankAccounts = new DefaultBankAccountsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        cashDrawers = new DefaultCashDrawersApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        catalog = new DefaultCatalogApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        customers = new DefaultCustomersApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        customerGroups = new DefaultCustomerGroupsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        customerSegments = new DefaultCustomerSegmentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        devices = new DefaultDevicesApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        disputes = new DefaultDisputesApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        employees = new DefaultEmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        inventory = new DefaultInventoryApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        labor = new DefaultLaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        locations = new DefaultLocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        reporting = new DefaultReportingApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        checkout = new DefaultCheckoutApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        orders = new DefaultOrdersApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        transactions = new DefaultTransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        loyalty = new DefaultLoyaltyApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        merchants = new DefaultMerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        terminal = new DefaultTerminalApi(this, this.httpClient, this.authManagers, this.httpCallback);
     }
 
     /**
@@ -435,7 +474,7 @@ public final class SquareClient implements Configuration {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "5.2.2.20200422";
+        return "5.3.0.20200528";
     }
 
     /**
@@ -443,7 +482,7 @@ public final class SquareClient implements Configuration {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2020-04-22";
+        return "2020-05-28";
     }
 
     /**

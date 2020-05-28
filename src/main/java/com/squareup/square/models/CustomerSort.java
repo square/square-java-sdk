@@ -28,7 +28,7 @@ public class CustomerSort {
     private final String order;
     /**
      * Getter for Field.
-     * Indicates the sort criteria for a list of Customers.
+     * Specifies customer attributes as the sort key to customer profiles returned from a search.
      */
     @JsonGetter("field")
     public String getField() {

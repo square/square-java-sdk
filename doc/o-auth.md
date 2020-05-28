@@ -65,7 +65,7 @@ String clientId = "client_id8";
 RenewTokenRequest body = new RenewTokenRequest.Builder()
     .accessToken("ACCESS_TOKEN")
     .build();
-String authorization = "Authorization8";
+String authorization = "Client CLIENT_SECRET";
 
 oAuthApi.renewTokenAsync(clientId, body, authorization).thenAccept(result -> {
     // TODO success callback handler
@@ -120,7 +120,7 @@ RevokeTokenRequest body = new RevokeTokenRequest.Builder()
     .clientId("CLIENT_ID")
     .accessToken("ACCESS_TOKEN")
     .build();
-String authorization = "Authorization8";
+String authorization = "Client CLIENT_SECRET";
 
 oAuthApi.revokeTokenAsync(body, authorization).thenAccept(result -> {
     // TODO success callback handler

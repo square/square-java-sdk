@@ -1,5 +1,6 @@
 package com.squareup.square.models;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -23,6 +24,7 @@ public class OrderLineItemDiscount {
      * @param appliedMoney
      * @param metadata
      * @param scope
+     * @param rewardIds
      */
     @JsonCreator
     public OrderLineItemDiscount(
@@ -34,7 +36,8 @@ public class OrderLineItemDiscount {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("applied_money") Money appliedMoney,
             @JsonProperty("metadata") Map<String, String> metadata,
-            @JsonProperty("scope") String scope) {
+            @JsonProperty("scope") String scope,
+            @JsonProperty("reward_ids") List<String> rewardIds) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
         this.name = name;
@@ -44,6 +47,7 @@ public class OrderLineItemDiscount {
         this.appliedMoney = appliedMoney;
         this.metadata = metadata;
         this.scope = scope;
+        this.rewardIds = rewardIds;
     }
 
     private final String uid;
@@ -55,6 +59,7 @@ public class OrderLineItemDiscount {
     private final Money appliedMoney;
     private final Map<String, String> metadata;
     private final String scope;
+    private final List<String> rewardIds;
     /**
      * Getter for Uid.
      * Unique ID that identifies the discount only within this order.
@@ -160,11 +165,24 @@ public class OrderLineItemDiscount {
         return this.scope;
     }
 
+    /**
+     * Getter for RewardIds.
+     * The reward identifiers corresponding to this discount. The application and
+     * specification of discounts that have `reward_ids` are completely controlled by the backing
+     * criteria corresponding to the reward tiers of the rewards that are added to the order
+     * through the Loyalty API. To manually unapply discounts that are the result of added rewards,
+     * the rewards must be removed from the order through the Loyalty API.
+     */
+    @JsonGetter("reward_ids")
+    public List<String> getRewardIds() {
+        return this.rewardIds;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, type, percentage, amountMoney, appliedMoney,
-            metadata, scope);
+            metadata, scope, rewardIds);
     }
 
     @Override
@@ -184,7 +202,8 @@ public class OrderLineItemDiscount {
             Objects.equals(amountMoney, orderLineItemDiscount.amountMoney) &&
             Objects.equals(appliedMoney, orderLineItemDiscount.appliedMoney) &&
             Objects.equals(metadata, orderLineItemDiscount.metadata) &&
-            Objects.equals(scope, orderLineItemDiscount.scope);
+            Objects.equals(scope, orderLineItemDiscount.scope) &&
+            Objects.equals(rewardIds, orderLineItemDiscount.rewardIds);
     }
 
     /**
@@ -202,7 +221,8 @@ public class OrderLineItemDiscount {
             .amountMoney(getAmountMoney())
             .appliedMoney(getAppliedMoney())
             .metadata(getMetadata())
-            .scope(getScope());
+            .scope(getScope())
+            .rewardIds(getRewardIds());
             return builder;
     }
 
@@ -219,6 +239,7 @@ public class OrderLineItemDiscount {
         private Money appliedMoney;
         private Map<String, String> metadata;
         private String scope;
+        private List<String> rewardIds;
 
         /**
          * Initialization constructor
@@ -308,6 +329,15 @@ public class OrderLineItemDiscount {
             this.scope = scope;
             return this;
         }
+        /**
+         * Setter for rewardIds
+         * @param rewardIds
+         * @return Builder
+         */
+        public Builder rewardIds(List<String> rewardIds) {
+            this.rewardIds = rewardIds;
+            return this;
+        }
 
         /**
          * Builds a new {@link OrderLineItemDiscount} object using the set fields.
@@ -322,7 +352,8 @@ public class OrderLineItemDiscount {
                 amountMoney,
                 appliedMoney,
                 metadata,
-                scope);
+                scope,
+                rewardIds);
         }
     }
 }

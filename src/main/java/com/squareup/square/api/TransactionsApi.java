@@ -2,20 +2,7 @@ package com.squareup.square.api;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
-import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.CaptureTransactionResponse;
 import com.squareup.square.models.ChargeRequest;
 import com.squareup.square.models.ChargeResponse;
@@ -27,31 +14,10 @@ import com.squareup.square.models.RetrieveTransactionResponse;
 import com.squareup.square.models.VoidTransactionResponse;
 
 /**
- * This class lists all the endpoints of the groups.
+ * This interface lists all the endpoints of the group.
+ * This can be overridden for the mock calls.
  */
-public final class TransactionsApi extends BaseApi {
-
-    /**
-     * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     */
-    public TransactionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
-     */
-    public TransactionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
-    }
-
+public interface TransactionsApi {
     /**
      * Lists refunds for one of a business's locations.
      * Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
@@ -75,21 +41,12 @@ public final class TransactionsApi extends BaseApi {
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for your original query.  See [Paginating results](#paginatingresults) for more information.
      * @return    Returns the ListRefundsResponse response from the API call
      */
-    @Deprecated
-    public ListRefundsResponse listRefunds(
+    @Deprecated    ListRefundsResponse listRefunds(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListRefundsResponse(context);
-    }
+            final String cursor) throws ApiException, IOException;
 
     /**
      * Lists refunds for one of a business's locations.
@@ -115,90 +72,12 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the ListRefundsResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<ListRefundsResponse> listRefundsAsync(
+    CompletableFuture<ListRefundsResponse> listRefundsAsync(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor) {
-        return makeHttpCallAsync(() -> buildListRefundsRequest(locationId, beginTime, endTime, sortOrder, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListRefundsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listRefunds
-     */
-    private HttpRequest buildListRefundsRequest(
-            final String locationId,
-            final String beginTime,
-            final String endTime,
-            final String sortOrder,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/refunds");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listRefunds
-     * @return An object of type ListRefundsResponse
-     */
-    private ListRefundsResponse handleListRefundsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        ListRefundsResponse result = ApiHelper.deserialize(responseBody,
-                ListRefundsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String cursor);
 
     /**
      * Lists transactions for a particular location.
@@ -220,21 +99,12 @@ public final class TransactionsApi extends BaseApi {
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for your original query.  See [Paginating results](#paginatingresults) for more information.
      * @return    Returns the ListTransactionsResponse response from the API call
      */
-    @Deprecated
-    public ListTransactionsResponse listTransactions(
+    @Deprecated    ListTransactionsResponse listTransactions(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListTransactionsRequest(locationId, beginTime, endTime, sortOrder, cursor);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListTransactionsResponse(context);
-    }
+            final String cursor) throws ApiException, IOException;
 
     /**
      * Lists transactions for a particular location.
@@ -257,90 +127,12 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the ListTransactionsResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
+    CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
             final String locationId,
             final String beginTime,
             final String endTime,
             final String sortOrder,
-            final String cursor) {
-        return makeHttpCallAsync(() -> buildListTransactionsRequest(locationId, beginTime, endTime, sortOrder, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListTransactionsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listTransactions
-     */
-    private HttpRequest buildListTransactionsRequest(
-            final String locationId,
-            final String beginTime,
-            final String endTime,
-            final String sortOrder,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-
-        //process query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listTransactions
-     * @return An object of type ListTransactionsResponse
-     */
-    private ListTransactionsResponse handleListTransactionsResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        ListTransactionsResponse result = ApiHelper.deserialize(responseBody,
-                ListTransactionsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String cursor);
 
     /**
      * Charges a card represented by a card nonce or a customer's card on file.
@@ -370,18 +162,9 @@ public final class TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the ChargeResponse response from the API call
      */
-    @Deprecated
-    public ChargeResponse charge(
+    @Deprecated    ChargeResponse charge(
             final String locationId,
-            final ChargeRequest body) throws ApiException, IOException {
-        HttpRequest request = buildChargeRequest(locationId, body);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleChargeResponse(context);
-    }
+            final ChargeRequest body) throws ApiException, IOException;
 
     /**
      * Charges a card represented by a card nonce or a customer's card on file.
@@ -412,78 +195,9 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the ChargeResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<ChargeResponse> chargeAsync(
+    CompletableFuture<ChargeResponse> chargeAsync(
             final String locationId,
-            final ChargeRequest body) {
-        return makeHttpCallAsync(() -> buildChargeRequest(locationId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleChargeResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for charge
-     */
-    private HttpRequest buildChargeRequest(
-            final String locationId,
-            final ChargeRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for charge
-     * @return An object of type ChargeResponse
-     */
-    private ChargeResponse handleChargeResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        ChargeResponse result = ApiHelper.deserialize(responseBody,
-                ChargeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final ChargeRequest body);
 
     /**
      * Retrieves details for a single transaction.
@@ -499,18 +213,9 @@ public final class TransactionsApi extends BaseApi {
      * @param    transactionId    Required parameter: The ID of the transaction to retrieve.
      * @return    Returns the RetrieveTransactionResponse response from the API call
      */
-    @Deprecated
-    public RetrieveTransactionResponse retrieveTransaction(
+    @Deprecated    RetrieveTransactionResponse retrieveTransaction(
             final String locationId,
-            final String transactionId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveTransactionRequest(locationId, transactionId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveTransactionResponse(context);
-    }
+            final String transactionId) throws ApiException, IOException;
 
     /**
      * Retrieves details for a single transaction.
@@ -527,77 +232,9 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the RetrieveTransactionResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<RetrieveTransactionResponse> retrieveTransactionAsync(
+    CompletableFuture<RetrieveTransactionResponse> retrieveTransactionAsync(
             final String locationId,
-            final String transactionId) {
-        return makeHttpCallAsync(() -> buildRetrieveTransactionRequest(locationId, transactionId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveTransactionResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveTransaction
-     */
-    private HttpRequest buildRetrieveTransactionRequest(
-            final String locationId,
-            final String transactionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions/{transaction_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("transaction_id", transactionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveTransaction
-     * @return An object of type RetrieveTransactionResponse
-     */
-    private RetrieveTransactionResponse handleRetrieveTransactionResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        RetrieveTransactionResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveTransactionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String transactionId);
 
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-charge)
@@ -615,18 +252,9 @@ public final class TransactionsApi extends BaseApi {
      * @param    transactionId    Required parameter: Example: 
      * @return    Returns the CaptureTransactionResponse response from the API call
      */
-    @Deprecated
-    public CaptureTransactionResponse captureTransaction(
+    @Deprecated    CaptureTransactionResponse captureTransaction(
             final String locationId,
-            final String transactionId) throws ApiException, IOException {
-        HttpRequest request = buildCaptureTransactionRequest(locationId, transactionId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCaptureTransactionResponse(context);
-    }
+            final String transactionId) throws ApiException, IOException;
 
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-charge)
@@ -645,77 +273,9 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the CaptureTransactionResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<CaptureTransactionResponse> captureTransactionAsync(
+    CompletableFuture<CaptureTransactionResponse> captureTransactionAsync(
             final String locationId,
-            final String transactionId) {
-        return makeHttpCallAsync(() -> buildCaptureTransactionRequest(locationId, transactionId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleCaptureTransactionResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for captureTransaction
-     */
-    private HttpRequest buildCaptureTransactionRequest(
-            final String locationId,
-            final String transactionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions/{transaction_id}/capture");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("transaction_id", transactionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for captureTransaction
-     * @return An object of type CaptureTransactionResponse
-     */
-    private CaptureTransactionResponse handleCaptureTransactionResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        CaptureTransactionResponse result = ApiHelper.deserialize(responseBody,
-                CaptureTransactionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String transactionId);
 
     /**
      * Initiates a refund for a previously charged tender.
@@ -738,19 +298,10 @@ public final class TransactionsApi extends BaseApi {
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateRefundResponse response from the API call
      */
-    @Deprecated
-    public CreateRefundResponse createRefund(
+    @Deprecated    CreateRefundResponse createRefund(
             final String locationId,
             final String transactionId,
-            final CreateRefundRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateRefundRequest(locationId, transactionId, body);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateRefundResponse(context);
-    }
+            final CreateRefundRequest body) throws ApiException, IOException;
 
     /**
      * Initiates a refund for a previously charged tender.
@@ -774,81 +325,10 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the CreateRefundResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<CreateRefundResponse> createRefundAsync(
+    CompletableFuture<CreateRefundResponse> createRefundAsync(
             final String locationId,
             final String transactionId,
-            final CreateRefundRequest body) {
-        return makeHttpCallAsync(() -> buildCreateRefundRequest(locationId, transactionId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleCreateRefundResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for createRefund
-     */
-    private HttpRequest buildCreateRefundRequest(
-            final String locationId,
-            final String transactionId,
-            final CreateRefundRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions/{transaction_id}/refund");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("transaction_id", transactionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createRefund
-     * @return An object of type CreateRefundResponse
-     */
-    private CreateRefundResponse handleCreateRefundResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        CreateRefundResponse result = ApiHelper.deserialize(responseBody,
-                CreateRefundResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final CreateRefundRequest body);
 
     /**
      * Cancels a transaction that was created with the [Charge](#endpoint-charge)
@@ -866,18 +346,9 @@ public final class TransactionsApi extends BaseApi {
      * @param    transactionId    Required parameter: Example: 
      * @return    Returns the VoidTransactionResponse response from the API call
      */
-    @Deprecated
-    public VoidTransactionResponse voidTransaction(
+    @Deprecated    VoidTransactionResponse voidTransaction(
             final String locationId,
-            final String transactionId) throws ApiException, IOException {
-        HttpRequest request = buildVoidTransactionRequest(locationId, transactionId);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleVoidTransactionResponse(context);
-    }
+            final String transactionId) throws ApiException, IOException;
 
     /**
      * Cancels a transaction that was created with the [Charge](#endpoint-charge)
@@ -896,76 +367,8 @@ public final class TransactionsApi extends BaseApi {
      * @return    Returns the VoidTransactionResponse response from the API call 
      */
     @Deprecated
-    public CompletableFuture<VoidTransactionResponse> voidTransactionAsync(
+    CompletableFuture<VoidTransactionResponse> voidTransactionAsync(
             final String locationId,
-            final String transactionId) {
-        return makeHttpCallAsync(() -> buildVoidTransactionRequest(locationId, transactionId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleVoidTransactionResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for voidTransaction
-     */
-    private HttpRequest buildVoidTransactionRequest(
-            final String locationId,
-            final String transactionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/transactions/{transaction_id}/void");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("transaction_id", transactionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-04-22");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for voidTransaction
-     * @return An object of type VoidTransactionResponse
-     */
-    private VoidTransactionResponse handleVoidTransactionResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        VoidTransactionResponse result = ApiHelper.deserialize(responseBody,
-                VoidTransactionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
+            final String transactionId);
 
 }

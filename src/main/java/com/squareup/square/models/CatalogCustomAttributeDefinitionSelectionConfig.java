@@ -30,9 +30,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
     /**
      * Getter for MaxAllowedSelections.
      * The maximum number of selections that can be set. The maximum value for this
-     * attribute is 100. May be modified, but changing the value will not
+     * attribute is 100. The default value is 1. The value can be modified, but changing the value will not
      * affect existing custom attribute values on objects. Clients need to
-     * handle Custom Attributes with more selected values than allowed by this limit.
+     * handle custom attributes with more selected values than allowed by this limit.
      */
     @JsonGetter("max_allowed_selections")
     public Integer getMaxAllowedSelections() {
