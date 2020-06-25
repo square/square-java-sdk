@@ -311,3 +311,4 @@ You can also use the Square API to create applications or services that work wit
 [V1 Employees]: doc/v1-employees.md
 [V1 Transactions]: doc/v1-transactions.md
 [V1 Items]: doc/v1-items.md
+[Transactions]: doc/transactions.md
