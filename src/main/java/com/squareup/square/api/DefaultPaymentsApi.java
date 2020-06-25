@@ -146,7 +146,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -252,7 +252,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -355,7 +355,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -446,7 +446,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -540,7 +540,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -586,13 +586,11 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     public CompletePaymentResponse completePayment(
-            final String paymentId,
-            final Object body) throws ApiException, IOException {
-        HttpRequest request = buildCompletePaymentRequest(paymentId, body);
+            final String paymentId) throws ApiException, IOException {
+        HttpRequest request = buildCompletePaymentRequest(paymentId);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -608,13 +606,11 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call 
      */
     public CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId,
-            final Object body) {
-        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId, body),
+            final String paymentId) {
+        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleCompletePaymentResponse(context));
@@ -624,8 +620,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Builds the HttpRequest object for completePayment
      */
     private HttpRequest buildCompletePaymentRequest(
-            final String paymentId,
-            final Object body) throws JsonProcessingException {
+            final String paymentId) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -643,13 +638,11 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {

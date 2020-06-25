@@ -174,12 +174,10 @@ public interface PaymentsApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     CompletePaymentResponse completePayment(
-            final String paymentId,
-            final Object body) throws ApiException, IOException;
+            final String paymentId) throws ApiException, IOException;
 
     /**
      * Completes (captures) a payment.
@@ -188,11 +186,9 @@ public interface PaymentsApi {
      * the payment using this endpoint. For more information, see
      * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call 
      */
     CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId,
-            final Object body);
+            final String paymentId);
 
 }

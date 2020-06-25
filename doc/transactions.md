@@ -22,17 +22,6 @@ TransactionsApi transactionsApi = client.getTransactionsApi();
 
 Lists refunds for one of a business's locations.
 
-Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
-
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
-
-
 In addition to full or partial tender refunds processed through Square APIs,
 refunds may result from itemized returns or exchanges through Square's
 Point of Sale applications.
@@ -82,16 +71,6 @@ transactionsApi.listRefundsAsync(locationId, null, null, null, null).thenAccept(
 
 Lists transactions for a particular location.
 
-Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
-
-
 Transactions include payment information from sales and exchanges and refund
 information from returns and exchanges.
 
@@ -136,16 +115,6 @@ transactionsApi.listTransactionsAsync(locationId, null, null, null, null).thenAc
 ## Charge
 
 Charges a card represented by a card nonce or a customer's card on file.
-
-Deprecated - recommend using [CreatePayment](#endpoint-payments-createpayment)
-
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
 
 Your request to this endpoint must include _either_:
 
@@ -243,15 +212,6 @@ transactionsApi.chargeAsync(locationId, body).thenAccept(result -> {
 
 Retrieves details for a single transaction.
 
-Deprecated - recommend using [BatchRetrieveOrders](#endpoint-batchretrieveorders)
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
-
 ```java
 CompletableFuture<RetrieveTransactionResponse> retrieveTransactionAsync(
     final String locationId,
@@ -288,13 +248,6 @@ transactionsApi.retrieveTransactionAsync(locationId, transactionId).thenAccept(r
 Captures a transaction that was created with the [Charge](#endpoint-charge)
 endpoint with a `delay_capture` value of `true`.
 
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
 for more information.
@@ -333,17 +286,6 @@ transactionsApi.captureTransactionAsync(locationId, transactionId).thenAccept(re
 ## Create Refund
 
 Initiates a refund for a previously charged tender.
-
-Deprecated - recommend using [RefundPayment](#endpoint-refunds-refundpayment)
-
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
-
 
 You must issue a refund within 120 days of the associated payment. See
 [this article](https://squareup.com/help/us/en/article/5060) for more information
@@ -401,13 +343,6 @@ transactionsApi.createRefundAsync(locationId, transactionId, body).thenAccept(re
 Cancels a transaction that was created with the [Charge](#endpoint-charge)
 endpoint with a `delay_capture` value of `true`.
 
----
-
-- __Deprecation date__: 2019-08-15
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-- [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-
----
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
 for more information.

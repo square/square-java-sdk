@@ -53,11 +53,6 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides non-confidential details for all of a location's associated bank accounts. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
-     * ---
-     * - __Deprecation date__: 2020-02-26
-     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-bankaccounts)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list bank accounts for.
@@ -77,11 +72,6 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides non-confidential details for all of a location's associated bank accounts. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
-     * ---
-     * - __Deprecation date__: 2020-02-26
-     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-bankaccounts)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list bank accounts for.
@@ -118,7 +108,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -157,11 +147,6 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides non-confidential details for a merchant's associated bank account. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
-     * ---
-     * - __Deprecation date__: 2020-02-26
-     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-bankaccounts)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the bank account's associated location.
@@ -183,11 +168,6 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides non-confidential details for a merchant's associated bank account. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
-     * ---
-     * - __Deprecation date__: 2020-02-26
-     * - [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-     * - [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-bankaccounts)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the bank account's associated location.
@@ -228,7 +208,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -340,7 +320,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -434,7 +414,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -536,7 +516,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -676,7 +656,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         queryParameters.put("end_time", endTime);
         queryParameters.put("limit", limit);
         queryParameters.put("batch_token", batchToken);
-        queryParameters.put("include_partial", includePartial);
+        queryParameters.put("include_partial", (includePartial != null) ? includePartial : false);
         ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
@@ -685,7 +665,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -779,7 +759,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -903,7 +883,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1015,7 +995,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1154,7 +1134,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1274,7 +1254,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

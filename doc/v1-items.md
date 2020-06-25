@@ -55,14 +55,6 @@ V1ItemsApi v1ItemsApi = client.getV1ItemsApi();
 
 Lists all the item categories for a given location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1Category>> listCategoriesAsync(
     final String locationId)
@@ -94,14 +86,6 @@ v1ItemsApi.listCategoriesAsync(locationId).thenAccept(result -> {
 ## Create Category
 
 Creates an item category.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Category> createCategoryAsync(
@@ -139,13 +123,6 @@ v1ItemsApi.createCategoryAsync(locationId, body).thenAccept(result -> {
 
 Deletes an existing item category.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteCategory__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteCategoryRequest` object
@@ -186,14 +163,6 @@ v1ItemsApi.deleteCategoryAsync(locationId, categoryId).thenAccept(result -> {
 
 Modifies the details of an existing item category.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Category> updateCategoryAsync(
     final String locationId,
@@ -233,14 +202,6 @@ v1ItemsApi.updateCategoryAsync(locationId, categoryId, body).thenAccept(result -
 
 Lists all the discounts for a given location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1Discount>> listDiscountsAsync(
     final String locationId)
@@ -272,14 +233,6 @@ v1ItemsApi.listDiscountsAsync(locationId).thenAccept(result -> {
 ## Create Discount
 
 Creates a discount.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Discount> createDiscountAsync(
@@ -317,13 +270,6 @@ v1ItemsApi.createDiscountAsync(locationId, body).thenAccept(result -> {
 
 Deletes an existing discount.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteDiscount__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteDiscountRequest` object
@@ -364,14 +310,6 @@ v1ItemsApi.deleteDiscountAsync(locationId, discountId).thenAccept(result -> {
 
 Modifies the details of an existing discount.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Discount> updateDiscountAsync(
     final String locationId,
@@ -411,14 +349,6 @@ v1ItemsApi.updateDiscountAsync(locationId, discountId, body).thenAccept(result -
 
 Lists all the fees (taxes) for a given location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1Fee>> listFeesAsync(
     final String locationId)
@@ -450,14 +380,6 @@ v1ItemsApi.listFeesAsync(locationId).thenAccept(result -> {
 ## Create Fee
 
 Creates a fee (tax).
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Fee> createFeeAsync(
@@ -495,13 +417,6 @@ v1ItemsApi.createFeeAsync(locationId, body).thenAccept(result -> {
 
 Deletes an existing fee (tax).
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteFee__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteFeeRequest` object
@@ -541,14 +456,6 @@ v1ItemsApi.deleteFeeAsync(locationId, feeId).thenAccept(result -> {
 ## Update Fee
 
 Modifies the details of an existing fee (tax).
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Fee> updateFeeAsync(
@@ -590,14 +497,6 @@ v1ItemsApi.updateFeeAsync(locationId, feeId, body).thenAccept(result -> {
 Provides inventory information for all inventory-enabled item
 variations.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1InventoryEntry>> listInventoryAsync(
     final String locationId,
@@ -633,14 +532,6 @@ v1ItemsApi.listInventoryAsync(locationId, null, null).thenAccept(result -> {
 ## Adjust Inventory
 
 Adjusts the current available inventory of an item variation.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1InventoryEntry> adjustInventoryAsync(
@@ -681,14 +572,6 @@ v1ItemsApi.adjustInventoryAsync(locationId, variationId, body).thenAccept(result
 
 Provides summary information of all items for a given location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1Item>> listItemsAsync(
     final String locationId,
@@ -723,13 +606,6 @@ v1ItemsApi.listItemsAsync(locationId, null).thenAccept(result -> {
 
 Creates an item and at least one variation for it.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 
 Item-related entities include fields you can use to associate them with
@@ -779,13 +655,6 @@ v1ItemsApi.createItemAsync(locationId, body).thenAccept(result -> {
 
 Deletes an existing item and all item variations associated with it.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteItem__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteItemRequest` object
@@ -827,14 +696,6 @@ v1ItemsApi.deleteItemAsync(locationId, itemId).thenAccept(result -> {
 Provides the details for a single item, including associated modifier
 lists and fees.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Item> retrieveItemAsync(
     final String locationId,
@@ -869,14 +730,6 @@ v1ItemsApi.retrieveItemAsync(locationId, itemId).thenAccept(result -> {
 ## Update Item
 
 Modifies the core details of an existing item.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Item> updateItemAsync(
@@ -918,14 +771,6 @@ v1ItemsApi.updateItemAsync(locationId, itemId, body).thenAccept(result -> {
 Removes a fee assocation from an item so the fee is no longer
 automatically applied to the item in Square Point of Sale.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Item> removeFeeAsync(
     final String locationId,
@@ -964,14 +809,6 @@ v1ItemsApi.removeFeeAsync(locationId, itemId, feeId).thenAccept(result -> {
 
 Associates a fee with an item so the fee is automatically applied to
 the item in Square Point of Sale.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Item> applyFeeAsync(
@@ -1012,14 +849,6 @@ v1ItemsApi.applyFeeAsync(locationId, itemId, feeId).thenAccept(result -> {
 Removes a modifier list association from an item so the modifier
 options from the list can no longer be applied to the item.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Item> removeModifierListAsync(
     final String locationId,
@@ -1059,14 +888,6 @@ v1ItemsApi.removeModifierListAsync(locationId, modifierListId, itemId).thenAccep
 Associates a modifier list with an item so the associated modifier
 options can be applied to the item.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Item> applyModifierListAsync(
     final String locationId,
@@ -1104,14 +925,6 @@ v1ItemsApi.applyModifierListAsync(locationId, modifierListId, itemId).thenAccept
 ## Create Variation
 
 Creates an item variation for an existing item.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Variation> createVariationAsync(
@@ -1152,13 +965,6 @@ v1ItemsApi.createVariationAsync(locationId, itemId, body).thenAccept(result -> {
 
 Deletes an existing item variation from an item.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteVariation__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteVariationRequest` object
@@ -1202,14 +1008,6 @@ v1ItemsApi.deleteVariationAsync(locationId, itemId, variationId).thenAccept(resu
 
 Modifies the details of an existing item variation.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1Variation> updateVariationAsync(
     final String locationId,
@@ -1252,14 +1050,6 @@ v1ItemsApi.updateVariationAsync(locationId, itemId, variationId, body).thenAccep
 
 Lists all the modifier lists for a given location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1ModifierList>> listModifierListsAsync(
     final String locationId)
@@ -1291,14 +1081,6 @@ v1ItemsApi.listModifierListsAsync(locationId).thenAccept(result -> {
 ## Create Modifier List
 
 Creates an item modifier list and at least 1 modifier option for it.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1ModifierList> createModifierListAsync(
@@ -1337,13 +1119,6 @@ v1ItemsApi.createModifierListAsync(locationId, body).thenAccept(result -> {
 Deletes an existing item modifier list and all modifier options
 associated with it.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteModifierList__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeleteModifierListRequest` object
@@ -1384,14 +1159,6 @@ v1ItemsApi.deleteModifierListAsync(locationId, modifierListId).thenAccept(result
 
 Provides the details for a single modifier list.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1ModifierList> retrieveModifierListAsync(
     final String locationId,
@@ -1426,14 +1193,6 @@ v1ItemsApi.retrieveModifierListAsync(locationId, modifierListId).thenAccept(resu
 ## Update Modifier List
 
 Modifies the details of an existing item modifier list.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1ModifierList> updateModifierListAsync(
@@ -1474,14 +1233,6 @@ v1ItemsApi.updateModifierListAsync(locationId, modifierListId, body).thenAccept(
 
 Creates an item modifier option and adds it to a modifier list.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<V1ModifierOption> createModifierOptionAsync(
     final String locationId,
@@ -1521,13 +1272,6 @@ v1ItemsApi.createModifierOptionAsync(locationId, modifierListId, body).thenAccep
 
 Deletes an existing item modifier option from a modifier list.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeleteModifierOption__ returns nothing on success but Connect
 SDKs map the empty response to an empty `V1DeleteModifierOptionRequest`
@@ -1570,14 +1314,6 @@ v1ItemsApi.deleteModifierOptionAsync(locationId, modifierListId, modifierOptionI
 ## Update Modifier Option
 
 Modifies the details of an existing item modifier option.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1ModifierOption> updateModifierOptionAsync(
@@ -1622,14 +1358,6 @@ v1ItemsApi.updateModifierOptionAsync(locationId, modifierListId, modifierOptionI
 Lists all Favorites pages (in Square Point of Sale) for a given
 location.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
-
 ```java
 CompletableFuture<List<V1Page>> listPagesAsync(
     final String locationId)
@@ -1661,14 +1389,6 @@ v1ItemsApi.listPagesAsync(locationId).thenAccept(result -> {
 ## Create Page
 
 Creates a Favorites page in Square Point of Sale.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Page> createPageAsync(
@@ -1706,13 +1426,6 @@ v1ItemsApi.createPageAsync(locationId, body).thenAccept(result -> {
 
 Deletes an existing Favorites page and all of its cells.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeletePage__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeletePageRequest` object.
@@ -1751,14 +1464,6 @@ v1ItemsApi.deletePageAsync(locationId, pageId).thenAccept(result -> {
 ## Update Page
 
 Modifies the details of a Favorites page in Square Point of Sale.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Page> updatePageAsync(
@@ -1799,13 +1504,6 @@ v1ItemsApi.updatePageAsync(locationId, pageId, body).thenAccept(result -> {
 
 Deletes a cell from a Favorites page in Square Point of Sale.
 
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 __DeletePageCell__ returns nothing on success but Connect SDKs
 map the empty response to an empty `V1DeletePageCellRequest` object
@@ -1849,14 +1547,6 @@ v1ItemsApi.deletePageCellAsync(locationId, pageId, null, null).thenAccept(result
 ## Update Page Cell
 
 Modifies a cell of a Favorites page in Square Point of Sale.
-
----
-
-- __Deprecation date__: 2019-11-20
-- [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-- [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-
----
 
 ```java
 CompletableFuture<V1Page> updatePageCellAsync(

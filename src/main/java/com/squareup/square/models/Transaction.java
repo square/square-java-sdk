@@ -79,7 +79,7 @@ public class Transaction {
 
     /**
      * Getter for CreatedAt.
-     * The time when the transaction was created, in RFC 3339 format.
+     * The timestamp for when the transaction was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {

@@ -20,12 +20,6 @@ import com.squareup.square.models.VoidTransactionResponse;
 public interface TransactionsApi {
     /**
      * Lists refunds for one of a business's locations.
-     * Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * In addition to full or partial tender refunds processed through Square APIs,
      * refunds may result from itemized returns or exchanges through Square's
      * Point of Sale applications.
@@ -50,12 +44,6 @@ public interface TransactionsApi {
 
     /**
      * Lists refunds for one of a business's locations.
-     * Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * In addition to full or partial tender refunds processed through Square APIs,
      * refunds may result from itemized returns or exchanges through Square's
      * Point of Sale applications.
@@ -81,12 +69,6 @@ public interface TransactionsApi {
 
     /**
      * Lists transactions for a particular location.
-     * Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * Transactions include payment information from sales and exchanges and refund
      * information from returns and exchanges.
      * Max results per [page](#paginatingresults): 50
@@ -108,12 +90,6 @@ public interface TransactionsApi {
 
     /**
      * Lists transactions for a particular location.
-     * Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * Transactions include payment information from sales and exchanges and refund
      * information from returns and exchanges.
      * Max results per [page](#paginatingresults): 50
@@ -136,12 +112,6 @@ public interface TransactionsApi {
 
     /**
      * Charges a card represented by a card nonce or a customer's card on file.
-     * Deprecated - recommend using [CreatePayment](#endpoint-payments-createpayment)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * Your request to this endpoint must include _either_:
      * - A value for the `card_nonce` parameter (to charge a card nonce generated
      * with the `SqPaymentForm`)
@@ -168,12 +138,6 @@ public interface TransactionsApi {
 
     /**
      * Charges a card represented by a card nonce or a customer's card on file.
-     * Deprecated - recommend using [CreatePayment](#endpoint-payments-createpayment)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * Your request to this endpoint must include _either_:
      * - A value for the `card_nonce` parameter (to charge a card nonce generated
      * with the `SqPaymentForm`)
@@ -201,12 +165,6 @@ public interface TransactionsApi {
 
     /**
      * Retrieves details for a single transaction.
-     * Deprecated - recommend using [BatchRetrieveOrders](#endpoint-batchretrieveorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the transaction's associated location.
@@ -219,12 +177,6 @@ public interface TransactionsApi {
 
     /**
      * Retrieves details for a single transaction.
-     * Deprecated - recommend using [BatchRetrieveOrders](#endpoint-batchretrieveorders)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the transaction's associated location.
@@ -239,11 +191,6 @@ public interface TransactionsApi {
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-charge)
      * endpoint with a `delay_capture` value of `true`.
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -259,11 +206,6 @@ public interface TransactionsApi {
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-charge)
      * endpoint with a `delay_capture` value of `true`.
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -279,12 +221,6 @@ public interface TransactionsApi {
 
     /**
      * Initiates a refund for a previously charged tender.
-     * Deprecated - recommend using [RefundPayment](#endpoint-refunds-refundpayment)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * You must issue a refund within 120 days of the associated payment. See
      * [this article](https://squareup.com/help/us/en/article/5060) for more information
      * on refund behavior.
@@ -305,12 +241,6 @@ public interface TransactionsApi {
 
     /**
      * Initiates a refund for a previously charged tender.
-     * Deprecated - recommend using [RefundPayment](#endpoint-refunds-refundpayment)
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * You must issue a refund within 120 days of the associated payment. See
      * [this article](https://squareup.com/help/us/en/article/5060) for more information
      * on refund behavior.
@@ -333,11 +263,6 @@ public interface TransactionsApi {
     /**
      * Cancels a transaction that was created with the [Charge](#endpoint-charge)
      * endpoint with a `delay_capture` value of `true`.
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -353,11 +278,6 @@ public interface TransactionsApi {
     /**
      * Cancels a transaction that was created with the [Charge](#endpoint-charge)
      * endpoint with a `delay_capture` value of `true`.
-     * ---
-     * - __Deprecation date__: 2019-08-15
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2021-09-01
-     * - [Migration guide](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api)
-     * ---
      * See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated

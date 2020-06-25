@@ -46,11 +46,6 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
 
     /**
      * Get the general information for a business.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the V1Merchant response from the API call
@@ -68,11 +63,6 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
 
     /**
      * Get the general information for a business.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the V1Merchant response from the API call 
@@ -101,7 +91,7 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -143,11 +133,6 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
     /**
      * Provides details for all business locations associated with a Square
      * account, including the Square-assigned object ID for the location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the List<V1Merchant> response from the API call
@@ -166,11 +151,6 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
     /**
      * Provides details for all business locations associated with a Square
      * account, including the Square-assigned object ID for the location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the List<V1Merchant> response from the API call 
@@ -199,7 +179,7 @@ public final class DefaultV1LocationsApi extends BaseApi implements V1LocationsA
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

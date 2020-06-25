@@ -24,11 +24,6 @@ import com.squareup.square.models.V1Variation;
 public interface V1ItemsApi {
     /**
      * Lists all the item categories for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list categories for.
@@ -39,11 +34,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the item categories for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list categories for.
@@ -55,11 +45,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -72,11 +57,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -90,11 +70,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteCategory__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteCategoryRequest` object
      * as documented below.
@@ -110,11 +85,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteCategory__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteCategoryRequest` object
      * as documented below.
@@ -131,11 +101,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the category's associated location.
@@ -150,11 +115,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item category.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the category's associated location.
@@ -170,11 +130,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the discounts for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list categories for.
@@ -185,11 +140,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the discounts for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list categories for.
@@ -201,11 +151,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -218,11 +163,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -236,11 +176,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteDiscount__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteDiscountRequest` object
      * as documented below.
@@ -256,11 +191,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteDiscount__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteDiscountRequest` object
      * as documented below.
@@ -277,11 +207,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the category's associated location.
@@ -296,11 +221,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing discount.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the category's associated location.
@@ -316,11 +236,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the fees (taxes) for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list fees for.
@@ -331,11 +246,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the fees (taxes) for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list fees for.
@@ -347,11 +257,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create a fee for.
@@ -364,11 +269,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create a fee for.
@@ -382,11 +282,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteFee__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteFeeRequest` object
      * as documented below.
@@ -402,11 +297,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteFee__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteFeeRequest` object
      * as documented below.
@@ -423,11 +313,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -442,11 +327,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing fee (tax).
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -463,11 +343,6 @@ public interface V1ItemsApi {
     /**
      * Provides inventory information for all inventory-enabled item
      * variations.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -483,11 +358,6 @@ public interface V1ItemsApi {
     /**
      * Provides inventory information for all inventory-enabled item
      * variations.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -503,11 +373,6 @@ public interface V1ItemsApi {
 
     /**
      * Adjusts the current available inventory of an item variation.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -522,11 +387,6 @@ public interface V1ItemsApi {
 
     /**
      * Adjusts the current available inventory of an item variation.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -542,11 +402,6 @@ public interface V1ItemsApi {
 
     /**
      * Provides summary information of all items for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list items for.
@@ -559,11 +414,6 @@ public interface V1ItemsApi {
 
     /**
      * Provides summary information of all items for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list items for.
@@ -577,11 +427,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item and at least one variation for it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * Item-related entities include fields you can use to associate them with
      * entities in a non-Square system.
      * When you create an item-related entity, you can optionally specify `id`.
@@ -602,11 +447,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item and at least one variation for it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * Item-related entities include fields you can use to associate them with
      * entities in a non-Square system.
      * When you create an item-related entity, you can optionally specify `id`.
@@ -628,11 +468,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item and all item variations associated with it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteItem__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteItemRequest` object
      * as documented below.
@@ -648,11 +483,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item and all item variations associated with it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteItem__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteItemRequest` object
      * as documented below.
@@ -670,11 +500,6 @@ public interface V1ItemsApi {
     /**
      * Provides the details for a single item, including associated modifier
      * lists and fees.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -688,11 +513,6 @@ public interface V1ItemsApi {
     /**
      * Provides the details for a single item, including associated modifier
      * lists and fees.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -706,11 +526,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the core details of an existing item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -725,11 +540,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the core details of an existing item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -746,11 +556,6 @@ public interface V1ItemsApi {
     /**
      * Removes a fee assocation from an item so the fee is no longer
      * automatically applied to the item in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -766,11 +571,6 @@ public interface V1ItemsApi {
     /**
      * Removes a fee assocation from an item so the fee is no longer
      * automatically applied to the item in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -787,11 +587,6 @@ public interface V1ItemsApi {
     /**
      * Associates a fee with an item so the fee is automatically applied to
      * the item in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -807,11 +602,6 @@ public interface V1ItemsApi {
     /**
      * Associates a fee with an item so the fee is automatically applied to
      * the item in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the fee's associated location.
@@ -828,11 +618,6 @@ public interface V1ItemsApi {
     /**
      * Removes a modifier list association from an item so the modifier
      * options from the list can no longer be applied to the item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -848,11 +633,6 @@ public interface V1ItemsApi {
     /**
      * Removes a modifier list association from an item so the modifier
      * options from the list can no longer be applied to the item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -869,11 +649,6 @@ public interface V1ItemsApi {
     /**
      * Associates a modifier list with an item so the associated modifier
      * options can be applied to the item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -889,11 +664,6 @@ public interface V1ItemsApi {
     /**
      * Associates a modifier list with an item so the associated modifier
      * options can be applied to the item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -909,11 +679,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item variation for an existing item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -928,11 +693,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item variation for an existing item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -948,11 +708,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item variation from an item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteVariation__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteVariationRequest` object
      * as documented below.
@@ -970,11 +725,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item variation from an item.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteVariation__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteVariationRequest` object
      * as documented below.
@@ -993,11 +743,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item variation.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1014,11 +759,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item variation.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1036,11 +776,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the modifier lists for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list modifier lists for.
@@ -1051,11 +786,6 @@ public interface V1ItemsApi {
 
     /**
      * Lists all the modifier lists for a given location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list modifier lists for.
@@ -1067,11 +797,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item modifier list and at least 1 modifier option for it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create a modifier list for.
@@ -1084,11 +809,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item modifier list and at least 1 modifier option for it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create a modifier list for.
@@ -1103,11 +823,6 @@ public interface V1ItemsApi {
     /**
      * Deletes an existing item modifier list and all modifier options
      * associated with it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteModifierList__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteModifierListRequest` object
      * as documented below.
@@ -1124,11 +839,6 @@ public interface V1ItemsApi {
     /**
      * Deletes an existing item modifier list and all modifier options
      * associated with it.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteModifierList__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeleteModifierListRequest` object
      * as documented below.
@@ -1145,11 +855,6 @@ public interface V1ItemsApi {
 
     /**
      * Provides the details for a single modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1162,11 +867,6 @@ public interface V1ItemsApi {
 
     /**
      * Provides the details for a single modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1180,11 +880,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1199,11 +894,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1219,11 +909,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item modifier option and adds it to a modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1238,11 +923,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates an item modifier option and adds it to a modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1258,11 +938,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item modifier option from a modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteModifierOption__ returns nothing on success but Connect
      * SDKs map the empty response to an empty `V1DeleteModifierOptionRequest`
      * object.
@@ -1280,11 +955,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing item modifier option from a modifier list.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeleteModifierOption__ returns nothing on success but Connect
      * SDKs map the empty response to an empty `V1DeleteModifierOptionRequest`
      * object.
@@ -1303,11 +973,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item modifier option.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1324,11 +989,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of an existing item modifier option.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the item's associated location.
@@ -1347,11 +1007,6 @@ public interface V1ItemsApi {
     /**
      * Lists all Favorites pages (in Square Point of Sale) for a given
      * location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list Favorites pages for.
@@ -1363,11 +1018,6 @@ public interface V1ItemsApi {
     /**
      * Lists all Favorites pages (in Square Point of Sale) for a given
      * location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to list Favorites pages for.
@@ -1379,11 +1029,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -1396,11 +1041,6 @@ public interface V1ItemsApi {
 
     /**
      * Creates a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the location to create an item for.
@@ -1414,11 +1054,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing Favorites page and all of its cells.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeletePage__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeletePageRequest` object.
      * @deprecated
@@ -1433,11 +1068,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes an existing Favorites page and all of its cells.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeletePage__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeletePageRequest` object.
      * @deprecated
@@ -1453,11 +1083,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the Favorites page's associated location
@@ -1472,11 +1097,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies the details of a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the Favorites page's associated location
@@ -1492,11 +1112,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes a cell from a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeletePageCell__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeletePageCellRequest` object
      * as documented below.
@@ -1516,11 +1131,6 @@ public interface V1ItemsApi {
 
     /**
      * Deletes a cell from a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * __DeletePageCell__ returns nothing on success but Connect SDKs
      * map the empty response to an empty `V1DeletePageCellRequest` object
      * as documented below.
@@ -1541,11 +1151,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies a cell of a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
@@ -1560,11 +1165,6 @@ public interface V1ItemsApi {
 
     /**
      * Modifies a cell of a Favorites page in Square Point of Sale.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-items)
-     * ---
      * @deprecated
      * 
      * @param    locationId    Required parameter: The ID of the Favorites page's associated location.

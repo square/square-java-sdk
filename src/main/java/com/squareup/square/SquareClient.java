@@ -33,6 +33,7 @@ import com.squareup.square.api.DefaultOrdersApi;
 import com.squareup.square.api.DefaultPaymentsApi;
 import com.squareup.square.api.DefaultRefundsApi;
 import com.squareup.square.api.DefaultReportingApi;
+import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
 import com.squareup.square.api.DefaultV1EmployeesApi;
@@ -53,6 +54,7 @@ import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
 import com.squareup.square.api.ReportingApi;
+import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
@@ -99,6 +101,7 @@ public final class SquareClient implements SquareClientInterface {
     private MerchantsApi merchants;
     private PaymentsApi payments;
     private RefundsApi refunds;
+    private TeamApi team;
     private TerminalApi terminal;
 
     /**
@@ -318,6 +321,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of TeamApi
+     * @return team
+     */
+    public TeamApi getTeamApi() {
+        return team;
+    }
+
+    /**
      * Get the instance of TerminalApi
      * @return terminal
      */
@@ -378,6 +389,7 @@ public final class SquareClient implements SquareClientInterface {
         merchants = new DefaultMerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        team = new DefaultTeamApi(this, this.httpClient, this.authManagers, this.httpCallback);
         terminal = new DefaultTerminalApi(this, this.httpClient, this.authManagers, this.httpCallback);
     }
 
@@ -474,7 +486,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "5.3.0.20200528";
+        return "6.0.0.20200625";
     }
 
     /**
@@ -482,7 +494,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return squareVersion
      */
     public String getSquareVersion() {
-        return "2020-05-28";
+        return "2020-06-25";
     }
 
     /**
