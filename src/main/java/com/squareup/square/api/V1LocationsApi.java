@@ -13,11 +13,6 @@ import com.squareup.square.models.V1Merchant;
 public interface V1LocationsApi {
     /**
      * Get the general information for a business.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the V1Merchant response from the API call
@@ -26,11 +21,6 @@ public interface V1LocationsApi {
 
     /**
      * Get the general information for a business.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the V1Merchant response from the API call 
@@ -41,11 +31,6 @@ public interface V1LocationsApi {
     /**
      * Provides details for all business locations associated with a Square
      * account, including the Square-assigned object ID for the location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the List<V1Merchant> response from the API call
@@ -55,11 +40,6 @@ public interface V1LocationsApi {
     /**
      * Provides details for all business locations associated with a Square
      * account, including the Square-assigned object ID for the location.
-     * ---
-     * - __Deprecation date__: 2019-11-20
-     * - [__Retirement date__](https://developer.squareup.com/docs/build-basics/api-lifecycle#deprecated): 2020-11-18
-     * - [Migration guide](https://developer.squareup.com/docs/migrate-from-v1/guides/v1-locations)
-     * ---
      * @deprecated
      * 
      * @return    Returns the List<V1Merchant> response from the API call 

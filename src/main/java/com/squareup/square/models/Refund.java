@@ -97,7 +97,7 @@ public class Refund {
 
     /**
      * Getter for CreatedAt.
-     * The time when the refund was created, in RFC 3339 format.
+     * The timestamp for when the refund was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {

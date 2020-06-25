@@ -129,7 +129,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -226,7 +226,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -329,7 +329,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -374,33 +374,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * [CatalogObject](#type-catalogobject). Images can be uploaded and linked in this request or created independently
      * (without an object assignment) and linked to a [CatalogObject](#type-catalogobject) at a later time.
      * CreateCatalogImage accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. The following is an example of such an HTTP request:
-     * ```
-     * POST /v2/catalog/images
-     * Accept: application/json
-     * Content-Type: multipart/form-data;boundary="boundary"
-     * Square-Version: XXXX-XX-XX
-     * Authorization: Bearer {ACCESS_TOKEN}
-     * --boundary
-     * Content-Disposition: form-data; name="request"
-     * Content-Type: application/json
-     * {
-     * "idempotency_key":"528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
-     * "object_id": "ND6EA5AAJEO5WL3JNNIAQA32",
-     * "image":{
-     * "id":"#TEMP_ID",
-     * "type":"IMAGE",
-     * "image_data":{
-     * "caption":"A picture of a cup of coffee"
-     * }
-     * }
-     * }
-     * --boundary
-     * Content-Disposition: form-data; name="image"; filename="Coffee.jpg"
-     * Content-Type: image/jpeg
-     * {ACTUAL_IMAGE_BYTES}
-     * --boundary
-     * ```
+     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. 
      * Additional information and an example cURL request can be found in the [Create a Catalog Image recipe](https://developer.squareup.com/docs/more-apis/catalog/cookbook/create-catalog-images).
      * @param    request    Optional parameter: Example: 
      * @param    imageFile    Optional parameter: Example: 
@@ -423,33 +397,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * [CatalogObject](#type-catalogobject). Images can be uploaded and linked in this request or created independently
      * (without an object assignment) and linked to a [CatalogObject](#type-catalogobject) at a later time.
      * CreateCatalogImage accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. The following is an example of such an HTTP request:
-     * ```
-     * POST /v2/catalog/images
-     * Accept: application/json
-     * Content-Type: multipart/form-data;boundary="boundary"
-     * Square-Version: XXXX-XX-XX
-     * Authorization: Bearer {ACCESS_TOKEN}
-     * --boundary
-     * Content-Disposition: form-data; name="request"
-     * Content-Type: application/json
-     * {
-     * "idempotency_key":"528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
-     * "object_id": "ND6EA5AAJEO5WL3JNNIAQA32",
-     * "image":{
-     * "id":"#TEMP_ID",
-     * "type":"IMAGE",
-     * "image_data":{
-     * "caption":"A picture of a cup of coffee"
-     * }
-     * }
-     * }
-     * --boundary
-     * Content-Disposition: form-data; name="image"; filename="Coffee.jpg"
-     * Content-Type: image/jpeg
-     * {ACTUAL_IMAGE_BYTES}
-     * --boundary
-     * ```
+     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. 
      * Additional information and an example cURL request can be found in the [Create a Catalog Image recipe](https://developer.squareup.com/docs/more-apis/catalog/cookbook/create-catalog-images).
      * @param    request    Optional parameter: Example: 
      * @param    imageFile    Optional parameter: Example: 
@@ -482,7 +430,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
@@ -579,7 +527,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -689,7 +637,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -775,7 +723,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -876,7 +824,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -979,7 +927,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //process query parameters
         Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("include_related_objects", includeRelatedObjects);
+        queryParameters.put("include_related_objects", (includeRelatedObjects != null) ? includeRelatedObjects : false);
         ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
@@ -988,7 +936,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1028,20 +976,16 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Queries the targeted catalog using a variety of query types:
-     * [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
-     * [CatalogQueryExact](#type-catalogqueryexact),
-     * [CatalogQueryRange](#type-catalogqueryrange),
-     * [CatalogQueryText](#type-catalogquerytext),
-     * [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax), and
-     * [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist).
-     * --
-     * --
-     * Future end of the above comment:
-     * [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
-     * [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
-     * [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
-     * [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
+     * Queries the targeted catalog using a variety of query expressions.
+     * Supported query expressions are of the following types:
+     * - [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
+     * - [CatalogQueryExact](#type-catalogqueryexact),
+     * - [CatalogQueryRange](#type-catalogqueryrange),
+     * - [CatalogQueryText](#type-catalogquerytext),
+     * - [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
+     * - [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
+     * - [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
+     * - [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the SearchCatalogObjectsResponse response from the API call
      */
@@ -1057,20 +1001,16 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Queries the targeted catalog using a variety of query types:
-     * [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
-     * [CatalogQueryExact](#type-catalogqueryexact),
-     * [CatalogQueryRange](#type-catalogqueryrange),
-     * [CatalogQueryText](#type-catalogquerytext),
-     * [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax), and
-     * [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist).
-     * --
-     * --
-     * Future end of the above comment:
-     * [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
-     * [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
-     * [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
-     * [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
+     * Queries the targeted catalog using a variety of query expressions.
+     * Supported query expressions are of the following types:
+     * - [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
+     * - [CatalogQueryExact](#type-catalogqueryexact),
+     * - [CatalogQueryRange](#type-catalogqueryrange),
+     * - [CatalogQueryText](#type-catalogquerytext),
+     * - [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
+     * - [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
+     * - [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
+     * - [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the SearchCatalogObjectsResponse response from the API call 
      */
@@ -1100,7 +1040,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1191,7 +1131,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1282,7 +1222,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

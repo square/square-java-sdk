@@ -27,6 +27,7 @@ public class CardPaymentDetails {
      * @param verificationResults
      * @param statementDescription
      * @param deviceDetails
+     * @param refundRequiresCardPresence
      * @param errors
      */
     @JsonCreator
@@ -44,6 +45,7 @@ public class CardPaymentDetails {
             @JsonProperty("verification_results") String verificationResults,
             @JsonProperty("statement_description") String statementDescription,
             @JsonProperty("device_details") DeviceDetails deviceDetails,
+            @JsonProperty("refund_requires_card_presence") Boolean refundRequiresCardPresence,
             @JsonProperty("errors") List<Error> errors) {
         this.status = status;
         this.card = card;
@@ -58,6 +60,7 @@ public class CardPaymentDetails {
         this.verificationResults = verificationResults;
         this.statementDescription = statementDescription;
         this.deviceDetails = deviceDetails;
+        this.refundRequiresCardPresence = refundRequiresCardPresence;
         this.errors = errors;
     }
 
@@ -74,6 +77,7 @@ public class CardPaymentDetails {
     private final String verificationResults;
     private final String statementDescription;
     private final DeviceDetails deviceDetails;
+    private final Boolean refundRequiresCardPresence;
     private final List<Error> errors;
     /**
      * Getter for Status.
@@ -203,6 +207,16 @@ public class CardPaymentDetails {
     }
 
     /**
+     * Getter for RefundRequiresCardPresence.
+     * Whether or not the card is required to be physically present in order for the payment to
+     * be refunded.  If true, the card is required to be present.
+     */
+    @JsonGetter("refund_requires_card_presence")
+    public Boolean getRefundRequiresCardPresence() {
+        return this.refundRequiresCardPresence;
+    }
+
+    /**
      * Getter for Errors.
      * Information on errors encountered during the request.
      */
@@ -216,7 +230,8 @@ public class CardPaymentDetails {
     public int hashCode() {
         return Objects.hash(status, card, entryMethod, cvvStatus, avsStatus, authResultCode,
             applicationIdentifier, applicationName, applicationCryptogram, verificationMethod,
-            verificationResults, statementDescription, deviceDetails, errors);
+            verificationResults, statementDescription, deviceDetails, refundRequiresCardPresence,
+            errors);
     }
 
     @Override
@@ -241,6 +256,7 @@ public class CardPaymentDetails {
             Objects.equals(verificationResults, cardPaymentDetails.verificationResults) &&
             Objects.equals(statementDescription, cardPaymentDetails.statementDescription) &&
             Objects.equals(deviceDetails, cardPaymentDetails.deviceDetails) &&
+            Objects.equals(refundRequiresCardPresence, cardPaymentDetails.refundRequiresCardPresence) &&
             Objects.equals(errors, cardPaymentDetails.errors);
     }
 
@@ -264,6 +280,7 @@ public class CardPaymentDetails {
             .verificationResults(getVerificationResults())
             .statementDescription(getStatementDescription())
             .deviceDetails(getDeviceDetails())
+            .refundRequiresCardPresence(getRefundRequiresCardPresence())
             .errors(getErrors());
             return builder;
     }
@@ -285,6 +302,7 @@ public class CardPaymentDetails {
         private String verificationResults;
         private String statementDescription;
         private DeviceDetails deviceDetails;
+        private Boolean refundRequiresCardPresence;
         private List<Error> errors;
 
         /**
@@ -412,6 +430,15 @@ public class CardPaymentDetails {
             return this;
         }
         /**
+         * Setter for refundRequiresCardPresence
+         * @param refundRequiresCardPresence
+         * @return Builder
+         */
+        public Builder refundRequiresCardPresence(Boolean refundRequiresCardPresence) {
+            this.refundRequiresCardPresence = refundRequiresCardPresence;
+            return this;
+        }
+        /**
          * Setter for errors
          * @param errors
          * @return Builder
@@ -439,6 +466,7 @@ public class CardPaymentDetails {
                 verificationResults,
                 statementDescription,
                 deviceDetails,
+                refundRequiresCardPresence,
                 errors);
         }
     }

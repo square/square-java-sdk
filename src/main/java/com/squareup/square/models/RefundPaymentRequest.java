@@ -40,8 +40,8 @@ public class RefundPaymentRequest {
     private final String reason;
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this RefundPayment request. Key can be any valid string but
-     * must be unique for every RefundPayment request.
+     * A unique string that identifies this RefundPayment request. Key can be any valid string
+     * but must be unique for every RefundPayment request.
      * For more information, see [Idempotency keys](https://developer.squareup.com/docs/working-with-apis/idempotency).
      */
     @JsonGetter("idempotency_key")

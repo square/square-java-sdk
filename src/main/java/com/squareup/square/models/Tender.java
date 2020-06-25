@@ -104,7 +104,7 @@ public class Tender {
 
     /**
      * Getter for CreatedAt.
-     * The time when the tender was created, in RFC 3339 format.
+     * The timestamp for when the tender was created, in RFC 3339 format.
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {

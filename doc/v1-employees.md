@@ -350,14 +350,6 @@ v1EmployeesApi.updateEmployeeRoleAsync(roleId, body).thenAccept(result -> {
 
 Provides summary information for all of a business's employee timecards.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
-
 ```java
 CompletableFuture<List<V1Timecard>> listTimecardsAsync(
     final String order,
@@ -410,15 +402,6 @@ Creates a timecard for an employee and clocks them in with an
 `API_CREATE` event and a `clockin_time` set to the current time unless
 the request provides a different value.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
-
-
 To import timecards from another
 system (rather than clocking someone in). Specify the `clockin_time`
 and* `clockout_time` in the request.
@@ -466,24 +449,15 @@ Square Dashboard. Deleted timecards are still accessible through
 Connect API endpoints, but cannot be modified. The `deleted` field of
 the `Timecard` object indicates whether the timecard has been deleted.
 
----
 
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
-
-*Note**: By default, deleted timecards appear alongside valid timecards in
+__Note__: By default, deleted timecards appear alongside valid timecards in
 results returned by the [ListTimecards](#endpoint-v1employees-listtimecards)
 endpoint. To filter deleted timecards, include the `deleted` query
 parameter in the list request.
 
-<aside>
 Only approved accounts can manage their employees with Square.
 Unapproved accounts cannot use employee management features with the
 API.
-</aside>
 
 ```java
 CompletableFuture<Object> deleteTimecardAsync(
@@ -517,13 +491,6 @@ v1EmployeesApi.deleteTimecardAsync(timecardId).thenAccept(result -> {
 
 Provides the details for a single timecard.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
 
 <aside>
 Only approved accounts can manage their employees with Square.
@@ -565,14 +532,6 @@ Modifies the details of a timecard with an `API_EDIT` event for
 the timecard. Updating an active timecard with a `clockout_time`
 clocks the employee out.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
-
 ```java
 CompletableFuture<V1Timecard> updateTimecardAsync(
     final String timecardId,
@@ -611,13 +570,6 @@ v1EmployeesApi.updateTimecardAsync(timecardId, body).thenAccept(result -> {
 Provides summary information for all events associated with a
 particular timecard.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-timecards)
-
----
 
 <aside>
 Only approved accounts can manage their employees with Square.
@@ -657,14 +609,6 @@ v1EmployeesApi.listTimecardEventsAsync(timecardId).thenAccept(result -> {
 
 Provides the details for all of a location's cash drawer shifts during a date range. The date range you specify cannot exceed 90 days.
 
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
-
----
-
 ```java
 CompletableFuture<List<V1CashDrawerShift>> listCashDrawerShiftsAsync(
     final String locationId,
@@ -702,14 +646,6 @@ v1EmployeesApi.listCashDrawerShiftsAsync(locationId, null, null, null).thenAccep
 ## Retrieve Cash Drawer Shift
 
 Provides the details for a single cash drawer shift, including all events that occurred during the shift.
-
----
-
-- __Deprecation date__: 2020-02-26
-- [__Retirement date__](https://developer.squareup.com/docs/docs/build-basics/api-lifecycle#deprecated): 2021-02-26
-- [Migration guide](https://developer.squareup.com/docs/docs/migrate-from-v1/guides/v1-cashdrawershifts)
-
----
 
 ```java
 CompletableFuture<V1CashDrawerShift> retrieveCashDrawerShiftAsync(

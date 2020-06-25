@@ -122,7 +122,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -212,7 +212,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -314,7 +314,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -404,7 +404,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -506,7 +506,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -608,7 +608,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -650,16 +650,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts
      * HTTP multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG,
-     * and TIFF formats. The following is an example of such an HTTP request:
-     * ```
-     * curl -X POST \
-     * -H 'Accept: application/json' \
-     * -H 'Authorization: Bearer {{ACCESS_TOKEN}}' \
-     * -H 'Content-Type: multipart/form-data' \
-     * -F 'evidence=@/path/to/file/filename.tiff' \
-     * -F 'request={ "idempotency_key":"{{UNIQUE_KEY}}", "evidence_type":"{{EVIDENCE_TYPE}}", "content_type":"image/tiff" }' \
-     * 'https://connect.squareup.com/v2/disputes/{{DISPUTE_ID}}/evidence_file'
-     * ```
+     * and TIFF formats.
      * For more information, see [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
      * @param    disputeId    Required parameter: ID of the dispute you want to upload evidence for.
      * @param    request    Optional parameter: Defines parameters for a CreateDisputeEvidenceFile request.
@@ -682,16 +673,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts
      * HTTP multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG,
-     * and TIFF formats. The following is an example of such an HTTP request:
-     * ```
-     * curl -X POST \
-     * -H 'Accept: application/json' \
-     * -H 'Authorization: Bearer {{ACCESS_TOKEN}}' \
-     * -H 'Content-Type: multipart/form-data' \
-     * -F 'evidence=@/path/to/file/filename.tiff' \
-     * -F 'request={ "idempotency_key":"{{UNIQUE_KEY}}", "evidence_type":"{{EVIDENCE_TYPE}}", "content_type":"image/tiff" }' \
-     * 'https://connect.squareup.com/v2/disputes/{{DISPUTE_ID}}/evidence_file'
-     * ```
+     * and TIFF formats.
      * For more information, see [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
      * @param    disputeId    Required parameter: ID of the dispute you want to upload evidence for.
      * @param    request    Optional parameter: Defines parameters for a CreateDisputeEvidenceFile request.
@@ -732,7 +714,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
@@ -845,7 +827,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -950,7 +932,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers headers = new Headers();
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-05-28");
+        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

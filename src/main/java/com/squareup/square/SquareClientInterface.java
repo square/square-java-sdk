@@ -22,6 +22,7 @@ import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
 import com.squareup.square.api.ReportingApi;
+import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
@@ -199,6 +200,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the RefundsApi instance
      */
     RefundsApi getRefundsApi();
+
+    /**
+     * Provides access to Team controller
+     * @return Returns the TeamApi instance
+     */
+    TeamApi getTeamApi();
 
     /**
      * Provides access to Terminal controller
