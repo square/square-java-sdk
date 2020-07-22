@@ -28,7 +28,7 @@ public class CatalogIdMapping {
     private final String objectId;
     /**
      * Getter for ClientObjectId.
-     * The client-supplied, temporary `#`-prefixed ID for a new `CatalogObject`.
+     * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
      */
     @JsonGetter("client_object_id")
     public String getClientObjectId() {

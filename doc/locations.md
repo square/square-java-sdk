@@ -90,7 +90,10 @@ locationsApi.createLocationAsync(body).thenAccept(result -> {
 
 ## Retrieve Location
 
-Retrieves details of a location.
+Retrieves details of a location. You can specify "main" 
+as the location ID to retrieve details of the 
+main location. For more information, 
+see [Locations API Overview](https://developer.squareup.com/docs/docs/locations-api).
 
 ```java
 CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
@@ -101,7 +104,7 @@ CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the location to retrieve. |
+| `locationId` | `String` | Template, Required | The ID of the location to retrieve. If you specify the string "main",<br>then the endpoint returns the main location. |
 
 ### Response Type
 

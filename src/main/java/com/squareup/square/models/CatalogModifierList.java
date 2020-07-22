@@ -37,7 +37,7 @@ public class CatalogModifierList {
     private final List<CatalogObject> modifiers;
     /**
      * Getter for Name.
-     * A searchable name for the `CatalogModifierList`. This field has max length of 255 Unicode code points.
+     * The name for the `CatalogModifierList` instance. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {
@@ -46,7 +46,7 @@ public class CatalogModifierList {
 
     /**
      * Getter for Ordinal.
-     * Determines where this `CatalogModifierList` appears in a list of `CatalogModifierList` values.
+     * Determines where this modifier list appears in a list of `CatalogModifierList` values.
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {

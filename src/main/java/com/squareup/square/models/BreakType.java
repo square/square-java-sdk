@@ -102,7 +102,7 @@ public class BreakType {
      * Getter for Version.
      * Used for resolving concurrency issues; request will fail if version
      * provided does not match server version at time of request. If a value is not
-     * provided, Square's servers execute a "blind" write; potentially 
+     * provided, Square's servers execute a "blind" write; potentially
      * overwriting another writer's data.
      */
     @JsonGetter("version")

@@ -24,7 +24,7 @@ public class CatalogCategory {
     private final String name;
     /**
      * Getter for Name.
-     * The category name. Searchable. This field has max length of 255 Unicode code points.
+     * The category name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {

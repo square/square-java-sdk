@@ -104,9 +104,9 @@ public final class DefaultMerchantsApi extends BaseApi implements MerchantsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -147,7 +147,7 @@ public final class DefaultMerchantsApi extends BaseApi implements MerchantsApi {
 
     /**
      * Retrieve a `Merchant` object for the given `merchant_id`.
-     * @param    merchantId    Required parameter: The ID of the merchant to retrieve.
+     * @param    merchantId    Required parameter: The ID of the merchant to retrieve. If the string "me" is supplied as the ID, then retrieve the merchant that is currently accessible to this call.
      * @return    Returns the RetrieveMerchantResponse response from the API call
      */
     public RetrieveMerchantResponse retrieveMerchant(
@@ -163,7 +163,7 @@ public final class DefaultMerchantsApi extends BaseApi implements MerchantsApi {
 
     /**
      * Retrieve a `Merchant` object for the given `merchant_id`.
-     * @param    merchantId    Required parameter: The ID of the merchant to retrieve.
+     * @param    merchantId    Required parameter: The ID of the merchant to retrieve. If the string "me" is supplied as the ID, then retrieve the merchant that is currently accessible to this call.
      * @return    Returns the RetrieveMerchantResponse response from the API call 
      */
     public CompletableFuture<RetrieveMerchantResponse> retrieveMerchantAsync(
@@ -194,9 +194,9 @@ public final class DefaultMerchantsApi extends BaseApi implements MerchantsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

@@ -44,7 +44,7 @@ public class CatalogTax {
     private final Boolean enabled;
     /**
      * Getter for Name.
-     * The tax's name. Searchable. This field has max length of 255 Unicode code points.
+     * The tax's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {

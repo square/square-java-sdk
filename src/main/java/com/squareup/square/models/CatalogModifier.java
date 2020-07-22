@@ -36,7 +36,7 @@ public class CatalogModifier {
     private final String modifierListId;
     /**
      * Getter for Name.
-     * The modifier name. Searchable. This field has max length of 255 Unicode code points.
+     * The modifier name.  This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {
@@ -68,7 +68,7 @@ public class CatalogModifier {
 
     /**
      * Getter for ModifierListId.
-     * The ID of the `CatalogModifierList` associated with this modifier. Searchable.
+     * The ID of the `CatalogModifierList` associated with this modifier.
      */
     @JsonGetter("modifier_list_id")
     public String getModifierListId() {

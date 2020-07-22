@@ -25,6 +25,7 @@ public class OrderLineItemDiscount {
      * @param metadata
      * @param scope
      * @param rewardIds
+     * @param pricingRuleId
      */
     @JsonCreator
     public OrderLineItemDiscount(
@@ -37,7 +38,8 @@ public class OrderLineItemDiscount {
             @JsonProperty("applied_money") Money appliedMoney,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("scope") String scope,
-            @JsonProperty("reward_ids") List<String> rewardIds) {
+            @JsonProperty("reward_ids") List<String> rewardIds,
+            @JsonProperty("pricing_rule_id") String pricingRuleId) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
         this.name = name;
@@ -48,6 +50,7 @@ public class OrderLineItemDiscount {
         this.metadata = metadata;
         this.scope = scope;
         this.rewardIds = rewardIds;
+        this.pricingRuleId = pricingRuleId;
     }
 
     private final String uid;
@@ -60,6 +63,7 @@ public class OrderLineItemDiscount {
     private final Map<String, String> metadata;
     private final String scope;
     private final List<String> rewardIds;
+    private final String pricingRuleId;
     /**
      * Getter for Uid.
      * Unique ID that identifies the discount only within this order.
@@ -178,11 +182,22 @@ public class OrderLineItemDiscount {
         return this.rewardIds;
     }
 
+    /**
+     * Getter for PricingRuleId.
+     * The object identifier of a [pricing rule](#type-CatalogPricingRule) to be applied automatically
+     * to this discount. The specification and application of the discounts, to which a `pricing_rule_id` is
+     * assigned, are completely controlled by the corresponding pricing rule.
+     */
+    @JsonGetter("pricing_rule_id")
+    public String getPricingRuleId() {
+        return this.pricingRuleId;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, type, percentage, amountMoney, appliedMoney,
-            metadata, scope, rewardIds);
+            metadata, scope, rewardIds, pricingRuleId);
     }
 
     @Override
@@ -203,7 +218,8 @@ public class OrderLineItemDiscount {
             Objects.equals(appliedMoney, orderLineItemDiscount.appliedMoney) &&
             Objects.equals(metadata, orderLineItemDiscount.metadata) &&
             Objects.equals(scope, orderLineItemDiscount.scope) &&
-            Objects.equals(rewardIds, orderLineItemDiscount.rewardIds);
+            Objects.equals(rewardIds, orderLineItemDiscount.rewardIds) &&
+            Objects.equals(pricingRuleId, orderLineItemDiscount.pricingRuleId);
     }
 
     /**
@@ -222,7 +238,8 @@ public class OrderLineItemDiscount {
             .appliedMoney(getAppliedMoney())
             .metadata(getMetadata())
             .scope(getScope())
-            .rewardIds(getRewardIds());
+            .rewardIds(getRewardIds())
+            .pricingRuleId(getPricingRuleId());
             return builder;
     }
 
@@ -240,6 +257,7 @@ public class OrderLineItemDiscount {
         private Map<String, String> metadata;
         private String scope;
         private List<String> rewardIds;
+        private String pricingRuleId;
 
         /**
          * Initialization constructor
@@ -338,6 +356,15 @@ public class OrderLineItemDiscount {
             this.rewardIds = rewardIds;
             return this;
         }
+        /**
+         * Setter for pricingRuleId
+         * @param pricingRuleId
+         * @return Builder
+         */
+        public Builder pricingRuleId(String pricingRuleId) {
+            this.pricingRuleId = pricingRuleId;
+            return this;
+        }
 
         /**
          * Builds a new {@link OrderLineItemDiscount} object using the set fields.
@@ -353,7 +380,8 @@ public class OrderLineItemDiscount {
                 appliedMoney,
                 metadata,
                 scope,
-                rewardIds);
+                rewardIds,
+                pricingRuleId);
         }
     }
 }

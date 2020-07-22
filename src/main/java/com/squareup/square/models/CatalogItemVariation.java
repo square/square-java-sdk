@@ -81,7 +81,7 @@ public class CatalogItemVariation {
     private final String measurementUnitId;
     /**
      * Getter for ItemId.
-     * The ID of the `CatalogItem` associated with this item variation. Searchable.
+     * The ID of the `CatalogItem` associated with this item variation.
      */
     @JsonGetter("item_id")
     public String getItemId() {
@@ -90,7 +90,7 @@ public class CatalogItemVariation {
 
     /**
      * Getter for Name.
-     * The item variation's name. Searchable. This field has max length of 255 Unicode code points.
+     * The item variation's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {
@@ -99,7 +99,7 @@ public class CatalogItemVariation {
 
     /**
      * Getter for Sku.
-     * The item variation's SKU, if any. Searchable.
+     * The item variation's SKU, if any. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("sku")
     public String getSku() {
@@ -108,9 +108,9 @@ public class CatalogItemVariation {
 
     /**
      * Getter for Upc.
-     * The item variation's UPC, if any. Searchable in the Connect API.
-     * This field is only exposed in the Connect API. It is not exposed in Square's Dashboard,
-     * Square Point of Sale app or Retail Point of Sale app.
+     * The item variation's UPC, if any. This is a searchable attribute for use in applicable query filters.
+     * It is only accessible through the Square API, and not exposed in the Square Seller Dashboard,
+     * Square Point of Sale or Retail Point of Sale apps.
      */
     @JsonGetter("upc")
     public String getUpc() {
@@ -191,7 +191,7 @@ public class CatalogItemVariation {
 
     /**
      * Getter for UserData.
-     * Arbitrary user metadata to associate with the item variation. Searchable. This field has max length of 255 Unicode code points.
+     * Arbitrary user metadata to associate with the item variation. This attribute value length is of Unicode code points.
      */
     @JsonGetter("user_data")
     public String getUserData() {

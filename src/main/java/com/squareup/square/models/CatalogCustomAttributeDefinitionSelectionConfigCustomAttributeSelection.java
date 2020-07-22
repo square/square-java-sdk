@@ -38,7 +38,6 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     /**
      * Getter for Name.
      * Selection name, unique within `allowed_selections`.
-     * Required. Min length of 1, max length of 255.
      */
     @JsonGetter("name")
     public String getName() {

@@ -53,7 +53,7 @@ public class CatalogItemOptionValue {
 
     /**
      * Getter for Name.
-     * Name of this item option value. Searchable.
+     * Name of this item option value. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("name")
     public String getName() {
@@ -62,7 +62,7 @@ public class CatalogItemOptionValue {
 
     /**
      * Getter for Description.
-     * A human-readable description for the option value.
+     * A human-readable description for the option value. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -93,10 +93,9 @@ public class CatalogItemOptionValue {
     /**
      * Getter for ItemVariationCount.
      * The number of `CatalogItemVariation`s that
-     * currently make use of this Item Option value. Present only if `retrieve_counts`
-     * was specified on the request used to retrieve the parent Item Option of this
+     * currently use this item option value. Present only if `retrieve_counts`
+     * was specified on the request used to retrieve the parent item option of this
      * value.
-     * Maximum: 100 counts.
      */
     @JsonGetter("item_variation_count")
     public Long getItemVariationCount() {

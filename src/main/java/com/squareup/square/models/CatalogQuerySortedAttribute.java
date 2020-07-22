@@ -32,7 +32,7 @@ public class CatalogQuerySortedAttribute {
     private final String sortOrder;
     /**
      * Getter for AttributeName.
-     * The attribute whose value should be used as the sort key.
+     * The attribute whose value is used as the sort key.
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {

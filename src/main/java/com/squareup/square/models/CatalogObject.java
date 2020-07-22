@@ -255,7 +255,7 @@ public class CatalogObject {
 
     /**
      * Getter for ItemData.
-     * An item (i.e., product family) in the Catalog object model.
+     * An [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referred to as an item, in the catalog.
      */
     @JsonGetter("item_data")
     public CatalogItem getItemData() {
@@ -264,7 +264,7 @@ public class CatalogObject {
 
     /**
      * Getter for CategoryData.
-     * A category to which a `CatalogItem` belongs in the `Catalog` object model.
+     * A category to which a `CatalogItem` instance belongs.
      */
     @JsonGetter("category_data")
     public CatalogCategory getCategoryData() {
@@ -283,7 +283,7 @@ public class CatalogObject {
 
     /**
      * Getter for TaxData.
-     * A tax in the Catalog object model.
+     * A tax applicable to an item.
      */
     @JsonGetter("tax_data")
     public CatalogTax getTaxData() {
@@ -292,7 +292,7 @@ public class CatalogObject {
 
     /**
      * Getter for DiscountData.
-     * A discount in the Catalog object model.
+     * A discount applicable to items.
      */
     @JsonGetter("discount_data")
     public CatalogDiscount getDiscountData() {
@@ -301,12 +301,10 @@ public class CatalogObject {
 
     /**
      * Getter for ModifierListData.
-     * A modifier list in the Catalog object model. A `CatalogModifierList`
-     * contains `CatalogModifier` objects that can be applied to a `CatalogItem` at
-     * the time of sale.
-     * For example, a modifier list "Condiments" that would apply to a "Hot Dog"
-     * `CatalogItem` might contain `CatalogModifier`s "Ketchup", "Mustard", and "Relish".
-     * The `selection_type` field specifies whether or not multiple selections from
+     * A list of modifiers applicable to items at the time of sale.
+     * For example, a "Condiments" modifier list applicable to a "Hot Dog" item
+     * may contain "Ketchup", "Mustard", and "Relish" modifiers.
+     * Use the `selection_type` field to specify whether or not multiple selections from
      * the modifier list are allowed.
      */
     @JsonGetter("modifier_list_data")
@@ -316,7 +314,7 @@ public class CatalogObject {
 
     /**
      * Getter for ModifierData.
-     * A modifier in the Catalog object model.
+     * A modifier applicable to items at the time of sale.
      */
     @JsonGetter("modifier_data")
     public CatalogModifier getModifierData() {
@@ -357,7 +355,7 @@ public class CatalogObject {
 
     /**
      * Getter for ImageData.
-     * An image file to use in Square catalogs. Can be associated with catalog
+     * An image file to use in Square catalogs. It can be associated with catalog
      * items, item variations, and categories.
      */
     @JsonGetter("image_data")

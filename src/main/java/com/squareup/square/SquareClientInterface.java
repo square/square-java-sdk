@@ -12,6 +12,7 @@ import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
 import com.squareup.square.api.InventoryApi;
+import com.squareup.square.api.InvoicesApi;
 import com.squareup.square.api.LaborApi;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.LoyaltyApi;
@@ -142,6 +143,12 @@ public interface SquareClientInterface extends Configuration {
     InventoryApi getInventoryApi();
 
     /**
+     * Provides access to Invoices controller
+     * @return Returns the InvoicesApi instance
+     */
+    InvoicesApi getInvoicesApi();
+
+    /**
      * Provides access to Labor controller
      * @return Returns the LaborApi instance
      */
@@ -220,6 +227,12 @@ public interface SquareClientInterface extends Configuration {
     Environment getEnvironment();
 
     /**
+     * Square Connect API versions
+     * @return a copy of squareVersion
+     */
+    String getSquareVersion();
+
+    /**
      * OAuth 2.0 Access Token
      * @return a copy of accessToken
      */
@@ -249,11 +262,6 @@ public interface SquareClientInterface extends Configuration {
      */
     public String getSdkVersion();
 
-    /**
-     * Current Square Version
-     * @return squareVersion
-     */
-    public String getSquareVersion();
     /**
      * Get base URI by current environment
      * @param server Server for which to get the base URI
