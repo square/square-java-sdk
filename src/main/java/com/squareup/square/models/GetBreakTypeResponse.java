@@ -36,7 +36,7 @@ public class GetBreakTypeResponse {
 
     /**
      * Getter for BreakType.
-     * A defined break template that sets an expectation for possible `Break` 
+     * A defined break template that sets an expectation for possible `Break`
      * instances on a `Shift`.
      */
     @JsonGetter("break_type")

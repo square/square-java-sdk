@@ -104,9 +104,9 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -195,10 +195,10 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -292,10 +292,10 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -395,10 +395,10 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -489,9 +489,9 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -601,9 +601,9 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -653,7 +653,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
      * sophisticated queries, use a batch endpoint.
      * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
      * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      * @return    Returns the RetrieveInventoryChangesResponse response from the API call
      */
     public RetrieveInventoryChangesResponse retrieveInventoryChanges(
@@ -680,7 +680,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
      * sophisticated queries, use a batch endpoint.
      * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
      * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      * @return    Returns the RetrieveInventoryChangesResponse response from the API call 
      */
     public CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsync(
@@ -721,9 +721,9 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

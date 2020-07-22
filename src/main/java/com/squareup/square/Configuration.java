@@ -15,6 +15,12 @@ public interface Configuration {
     Environment getEnvironment();
 
     /**
+     * Square Connect API versions
+     * @return a copy of squareVersion
+     */
+    String getSquareVersion();
+
+    /**
      * OAuth 2.0 Access Token
      * @return a copy of accessToken
      */

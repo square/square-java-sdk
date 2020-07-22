@@ -77,7 +77,7 @@ public class CatalogItem {
     private final List<CatalogItemOptionForItem> itemOptions;
     /**
      * Getter for Name.
-     * The item's name. Searchable. This field must not be empty. This field has max length of 512 Unicode code points.
+     * The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {
@@ -86,7 +86,7 @@ public class CatalogItem {
 
     /**
      * Getter for Description.
-     * The item's description. Searchable. This field has max length of 4096 Unicode code points.
+     * The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -95,8 +95,8 @@ public class CatalogItem {
 
     /**
      * Getter for Abbreviation.
-     * The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used. Searchable.
-     * This field has max length of 24 Unicode code points.
+     * The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.
+     * This attribute is searchable, and its value length is of Unicode code points.
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {

@@ -20,6 +20,7 @@ CatalogApi catalogApi = client.getCatalogApi();
 * [Delete Catalog Object](/doc/catalog.md#delete-catalog-object)
 * [Retrieve Catalog Object](/doc/catalog.md#retrieve-catalog-object)
 * [Search Catalog Objects](/doc/catalog.md#search-catalog-objects)
+* [Search Catalog Items](/doc/catalog.md#search-catalog-items)
 * [Update Item Modifier Lists](/doc/catalog.md#update-item-modifier-lists)
 * [Update Item Taxes](/doc/catalog.md#update-item-taxes)
 
@@ -270,12 +271,12 @@ catalogApi.batchUpsertCatalogObjectsAsync(body).thenAccept(result -> {
 
 ## Create Catalog Image
 
-Upload an image file to create a new [CatalogImage](#type-catalogimage) for an existing
-[CatalogObject](#type-catalogobject). Images can be uploaded and linked in this request or created independently
-(without an object assignment) and linked to a [CatalogObject](#type-catalogobject) at a later time.
+Uploads an image file to be represented by an [CatalogImage](#type-catalogimage) object linked to an existing
+[CatalogObject](#type-catalogobject) instance. A call to this endpoint can upload an image, link an image to
+a catalog object, or do both.
 
-CreateCatalogImage accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. 
+This `CreateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
 
 Additional information and an example cURL request can be found in the [Create a Catalog Image recipe](https://developer.squareup.com/docs/more-apis/catalog/cookbook/create-catalog-images).
 
@@ -323,8 +324,8 @@ catalogApi.createCatalogImageAsync(request, null).thenAccept(result -> {
 
 ## Catalog Info
 
-Returns information about the Square Catalog API, such as batch size
-limits for `BatchUpsertCatalogObjects`.
+Retrieves information about the Square Catalog API, such as batch size
+limits that can be used by the `BatchUpsertCatalogObjects` endpoint.
 
 ```java
 CompletableFuture<CatalogInfoResponse> catalogInfoAsync()
@@ -509,17 +510,16 @@ catalogApi.retrieveCatalogObjectAsync(objectId, null).thenAccept(result -> {
 
 ## Search Catalog Objects
 
-Queries the targeted catalog using a variety of query expressions.
+Searches for [CatalogObject](#type-CatalogObject) of any types against supported search attribute values, 
+excluding custom attribute values on items or item variations, against one or more of the specified query expressions, 
 
-Supported query expressions are of the following types:
-- [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
-- [CatalogQueryExact](#type-catalogqueryexact),
-- [CatalogQueryRange](#type-catalogqueryrange),
-- [CatalogQueryText](#type-catalogquerytext),
-- [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
-- [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
-- [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
-- [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
+This (`SearchCatalogObjects`) endpoint differs from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems)
+endpoint in the following aspects:
+
+- `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+- `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+- `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+- The both endpoints have different call conventions, including the query filter formats.
 
 ```java
 CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
@@ -555,6 +555,94 @@ SearchCatalogObjectsRequest body = new SearchCatalogObjectsRequest.Builder()
     .build();
 
 catalogApi.searchCatalogObjectsAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## Search Catalog Items
+
+Searches for catalog items or item variations by matching supported search attribute values, including
+custom attribute values, against one or more of the specified query expressions, 
+
+This (`SearchCatalogItems`) endpoint differs from the [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects)
+endpoint in the following aspects:
+
+- `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+- `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+- `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+- The both endpoints use different call conventions, including the query filter formats.
+
+```java
+CompletableFuture<SearchCatalogItemsResponse> searchCatalogItemsAsync(
+    final SearchCatalogItemsRequest body)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`SearchCatalogItemsRequest`](/doc/models/search-catalog-items-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+### Response Type
+
+[`SearchCatalogItemsResponse`](/doc/models/search-catalog-items-response.md)
+
+### Example Usage
+
+```java
+List<String> bodyCategoryIds = new LinkedList<>();
+bodyCategoryIds.add("WINE_CATEGORY_ID");
+List<String> bodyStockLevels = new LinkedList<>();
+bodyStockLevels.add("OUT");
+bodyStockLevels.add("LOW");
+List<String> bodyEnabledLocationIds = new LinkedList<>();
+bodyEnabledLocationIds.add("ATL_LOCATION_ID");
+List<String> bodyProductTypes = new LinkedList<>();
+bodyProductTypes.add("REGULAR");
+List<CustomAttributeFilter> bodyCustomAttributeFilters = new LinkedList<>();
+
+CustomAttributeFilter bodyCustomAttributeFilters0 = new CustomAttributeFilter.Builder()
+    .customAttributeDefinitionId("VEGAN_DEFINITION_ID")
+    .boolFilter(true)
+    .build();
+bodyCustomAttributeFilters.add(bodyCustomAttributeFilters0);
+
+CustomAttributeFilter bodyCustomAttributeFilters1 = new CustomAttributeFilter.Builder()
+    .customAttributeDefinitionId("BRAND_DEFINITION_ID")
+    .stringFilter("Dark Horse")
+    .build();
+bodyCustomAttributeFilters.add(bodyCustomAttributeFilters1);
+
+Range bodyCustomAttributeFilters2NumberFilter = new Range.Builder()
+    .min("2017")
+    .max("2018")
+    .build();
+CustomAttributeFilter bodyCustomAttributeFilters2 = new CustomAttributeFilter.Builder()
+    .key("VINTAGE")
+    .numberFilter(bodyCustomAttributeFilters2NumberFilter)
+    .build();
+bodyCustomAttributeFilters.add(bodyCustomAttributeFilters2);
+
+CustomAttributeFilter bodyCustomAttributeFilters3 = new CustomAttributeFilter.Builder()
+    .customAttributeDefinitionId("VARIETAL_DEFINITION_ID")
+    .build();
+bodyCustomAttributeFilters.add(bodyCustomAttributeFilters3);
+
+SearchCatalogItemsRequest body = new SearchCatalogItemsRequest.Builder()
+    .textFilter("red")
+    .categoryIds(bodyCategoryIds)
+    .stockLevels(bodyStockLevels)
+    .enabledLocationIds(bodyEnabledLocationIds)
+    .limit(100)
+    .sortOrder("ASC")
+    .productTypes(bodyProductTypes)
+    .customAttributeFilters(bodyCustomAttributeFilters)
+    .build();
+
+catalogApi.searchCatalogItemsAsync(body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

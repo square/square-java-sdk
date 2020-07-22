@@ -30,6 +30,8 @@ import com.squareup.square.models.CreateCatalogImageResponse;
 import com.squareup.square.models.DeleteCatalogObjectResponse;
 import com.squareup.square.models.ListCatalogResponse;
 import com.squareup.square.models.RetrieveCatalogObjectResponse;
+import com.squareup.square.models.SearchCatalogItemsRequest;
+import com.squareup.square.models.SearchCatalogItemsResponse;
 import com.squareup.square.models.SearchCatalogObjectsRequest;
 import com.squareup.square.models.SearchCatalogObjectsResponse;
 import com.squareup.square.models.UpdateItemModifierListsRequest;
@@ -126,10 +128,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -223,10 +225,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -326,10 +328,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -370,11 +372,11 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Upload an image file to create a new [CatalogImage](#type-catalogimage) for an existing
-     * [CatalogObject](#type-catalogobject). Images can be uploaded and linked in this request or created independently
-     * (without an object assignment) and linked to a [CatalogObject](#type-catalogobject) at a later time.
-     * CreateCatalogImage accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. 
+     * Uploads an image file to be represented by an [CatalogImage](#type-catalogimage) object linked to an existing
+     * [CatalogObject](#type-catalogobject) instance. A call to this endpoint can upload an image, link an image to
+     * a catalog object, or do both.
+     * This `CreateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * Additional information and an example cURL request can be found in the [Create a Catalog Image recipe](https://developer.squareup.com/docs/more-apis/catalog/cookbook/create-catalog-images).
      * @param    request    Optional parameter: Example: 
      * @param    imageFile    Optional parameter: Example: 
@@ -393,11 +395,11 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Upload an image file to create a new [CatalogImage](#type-catalogimage) for an existing
-     * [CatalogObject](#type-catalogobject). Images can be uploaded and linked in this request or created independently
-     * (without an object assignment) and linked to a [CatalogObject](#type-catalogobject) at a later time.
-     * CreateCatalogImage accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB. 
+     * Uploads an image file to be represented by an [CatalogImage](#type-catalogimage) object linked to an existing
+     * [CatalogObject](#type-catalogobject) instance. A call to this endpoint can upload an image, link an image to
+     * a catalog object, or do both.
+     * This `CreateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * Additional information and an example cURL request can be found in the [Create a Catalog Image recipe](https://developer.squareup.com/docs/more-apis/catalog/cookbook/create-catalog-images).
      * @param    request    Optional parameter: Example: 
      * @param    imageFile    Optional parameter: Example: 
@@ -428,9 +430,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
@@ -485,8 +487,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Returns information about the Square Catalog API, such as batch size
-     * limits for `BatchUpsertCatalogObjects`.
+     * Retrieves information about the Square Catalog API, such as batch size
+     * limits that can be used by the `BatchUpsertCatalogObjects` endpoint.
      * @return    Returns the CatalogInfoResponse response from the API call
      */
     public CatalogInfoResponse catalogInfo() throws ApiException, IOException {
@@ -500,8 +502,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Returns information about the Square Catalog API, such as batch size
-     * limits for `BatchUpsertCatalogObjects`.
+     * Retrieves information about the Square Catalog API, such as batch size
+     * limits that can be used by the `BatchUpsertCatalogObjects` endpoint.
      * @return    Returns the CatalogInfoResponse response from the API call 
      */
     public CompletableFuture<CatalogInfoResponse> catalogInfoAsync() {
@@ -525,9 +527,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -635,9 +637,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -720,10 +722,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -822,9 +824,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -934,9 +936,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -976,16 +978,14 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Queries the targeted catalog using a variety of query expressions.
-     * Supported query expressions are of the following types:
-     * - [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
-     * - [CatalogQueryExact](#type-catalogqueryexact),
-     * - [CatalogQueryRange](#type-catalogqueryrange),
-     * - [CatalogQueryText](#type-catalogquerytext),
-     * - [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
-     * - [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
-     * - [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
-     * - [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
+     * Searches for [CatalogObject](#type-CatalogObject) of any types against supported search attribute values, 
+     * excluding custom attribute values on items or item variations, against one or more of the specified query expressions, 
+     * This (`SearchCatalogObjects`) endpoint differs from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems)
+     * endpoint in the following aspects:
+     * - `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+     * - `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+     * - `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+     * - The both endpoints have different call conventions, including the query filter formats.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the SearchCatalogObjectsResponse response from the API call
      */
@@ -1001,16 +1001,14 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Queries the targeted catalog using a variety of query expressions.
-     * Supported query expressions are of the following types:
-     * - [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
-     * - [CatalogQueryExact](#type-catalogqueryexact),
-     * - [CatalogQueryRange](#type-catalogqueryrange),
-     * - [CatalogQueryText](#type-catalogquerytext),
-     * - [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
-     * - [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist),
-     * - [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions), and
-     * - [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
+     * Searches for [CatalogObject](#type-CatalogObject) of any types against supported search attribute values, 
+     * excluding custom attribute values on items or item variations, against one or more of the specified query expressions, 
+     * This (`SearchCatalogObjects`) endpoint differs from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems)
+     * endpoint in the following aspects:
+     * - `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+     * - `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+     * - `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+     * - The both endpoints have different call conventions, including the query filter formats.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the SearchCatalogObjectsResponse response from the API call 
      */
@@ -1037,10 +1035,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1075,6 +1073,107 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         String responseBody = ((HttpStringResponse)response).getBody();
         SearchCatalogObjectsResponse result = ApiHelper.deserialize(responseBody,
                 SearchCatalogObjectsResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Searches for catalog items or item variations by matching supported search attribute values, including
+     * custom attribute values, against one or more of the specified query expressions, 
+     * This (`SearchCatalogItems`) endpoint differs from the [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects)
+     * endpoint in the following aspects:
+     * - `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+     * - `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+     * - `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+     * - The both endpoints use different call conventions, including the query filter formats.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the SearchCatalogItemsResponse response from the API call
+     */
+    public SearchCatalogItemsResponse searchCatalogItems(
+            final SearchCatalogItemsRequest body) throws ApiException, IOException {
+        HttpRequest request = buildSearchCatalogItemsRequest(body);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleSearchCatalogItemsResponse(context);
+    }
+
+    /**
+     * Searches for catalog items or item variations by matching supported search attribute values, including
+     * custom attribute values, against one or more of the specified query expressions, 
+     * This (`SearchCatalogItems`) endpoint differs from the [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects)
+     * endpoint in the following aspects:
+     * - `SearchCatalogItems` can only search for items or item variations, whereas `SearchCatalogObjects` can search for any type of catalog objects.
+     * - `SearchCatalogItems` supports the custom attribute query filters to return items or item variations that contain custom attribute values, where `SearchCatalogObjects` does not.
+     * - `SearchCatalogItems` does not support the `include_deleted_objects` filter to search for deleted items or item variations, whereas `SearchCatalogObjects` does.
+     * - The both endpoints use different call conventions, including the query filter formats.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the SearchCatalogItemsResponse response from the API call 
+     */
+    public CompletableFuture<SearchCatalogItemsResponse> searchCatalogItemsAsync(
+            final SearchCatalogItemsRequest body) {
+        return makeHttpCallAsync(() -> buildSearchCatalogItemsRequest(body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleSearchCatalogItemsResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for searchCatalogItems
+     */
+    private HttpRequest buildSearchCatalogItemsRequest(
+            final SearchCatalogItemsRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/catalog/search-catalog-items");
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for searchCatalogItems
+     * @return An object of type SearchCatalogItemsResponse
+     */
+    private SearchCatalogItemsResponse handleSearchCatalogItemsResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        SearchCatalogItemsResponse result = ApiHelper.deserialize(responseBody,
+                SearchCatalogItemsResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;
@@ -1128,10 +1227,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1219,10 +1318,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

@@ -37,8 +37,8 @@ public class CreateShiftRequest {
 
     /**
      * Getter for Shift.
-     * A record of the hourly rate, start, and end times for a single work shift 
-     * for an employee. May include a record of the start and end times for breaks 
+     * A record of the hourly rate, start, and end times for a single work shift
+     * for an employee. May include a record of the start and end times for breaks
      * taken during the shift.
      */
     @JsonGetter("shift")

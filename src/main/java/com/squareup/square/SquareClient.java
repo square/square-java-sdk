@@ -23,6 +23,7 @@ import com.squareup.square.api.DefaultDevicesApi;
 import com.squareup.square.api.DefaultDisputesApi;
 import com.squareup.square.api.DefaultEmployeesApi;
 import com.squareup.square.api.DefaultInventoryApi;
+import com.squareup.square.api.DefaultInvoicesApi;
 import com.squareup.square.api.DefaultLaborApi;
 import com.squareup.square.api.DefaultLocationsApi;
 import com.squareup.square.api.DefaultLoyaltyApi;
@@ -44,6 +45,7 @@ import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
 import com.squareup.square.api.InventoryApi;
+import com.squareup.square.api.InvoicesApi;
 import com.squareup.square.api.LaborApi;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.LoyaltyApi;
@@ -91,6 +93,7 @@ public final class SquareClient implements SquareClientInterface {
     private DisputesApi disputes;
     private EmployeesApi employees;
     private InventoryApi inventory;
+    private InvoicesApi invoices;
     private LaborApi labor;
     private LocationsApi locations;
     private ReportingApi reporting;
@@ -241,6 +244,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of InvoicesApi
+     * @return invoices
+     */
+    public InvoicesApi getInvoicesApi() {
+        return invoices;
+    }
+
+    /**
      * Get the instance of LaborApi
      * @return labor
      */
@@ -343,10 +354,11 @@ public final class SquareClient implements SquareClientInterface {
         OkClient.shutdown();
     }
 
-    private SquareClient(Environment environment, String accessToken, HttpClient httpClient, long timeout,
-            ReadonlyHttpClientConfiguration httpClientConfig, Headers additionalHeaders,
+    private SquareClient(Environment environment, String squareVersion, String accessToken, HttpClient httpClient,
+            long timeout, ReadonlyHttpClientConfiguration httpClientConfig, Headers additionalHeaders,
             Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         this.environment = environment;
+        this.squareVersion = squareVersion;
         this.accessToken = accessToken;
         this.httpClient = httpClient;
         this.timeout = timeout;
@@ -379,6 +391,7 @@ public final class SquareClient implements SquareClientInterface {
         disputes = new DefaultDisputesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         employees = new DefaultEmployeesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         inventory = new DefaultInventoryApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        invoices = new DefaultInvoicesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         labor = new DefaultLaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
         locations = new DefaultLocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         reporting = new DefaultReportingApi(this, this.httpClient, this.authManagers, this.httpCallback);
@@ -397,6 +410,11 @@ public final class SquareClient implements SquareClientInterface {
      * Current API environment
      */
     private final Environment environment;
+
+    /**
+     * Square Connect API versions
+     */
+    private final String squareVersion;
 
     /**
      * OAuth 2.0 Access Token
@@ -439,6 +457,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public Environment getEnvironment() {
         return environment;
+    }
+
+    /**
+     * Square Connect API versions
+     * @return squareVersion
+     */
+    public String getSquareVersion() {
+        return squareVersion;
     }
 
     /**
@@ -486,15 +512,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "6.0.0.20200625";
-    }
-
-    /**
-     * Current Square Version
-     * @return squareVersion
-     */
-    public String getSquareVersion() {
-        return "2020-06-25";
+        return "6.1.0.20200722";
     }
 
     /**
@@ -546,6 +564,7 @@ public final class SquareClient implements SquareClientInterface {
     public Builder newBuilder() {
         Builder builder = new Builder();
         builder.environment = getEnvironment();
+        builder.squareVersion = getSquareVersion();
         builder.accessToken = getAccessToken();
         builder.httpClient = getHttpClient();
         builder.timeout = getTimeout();
@@ -561,6 +580,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
+        private String squareVersion = "2020-07-22";
         private String accessToken = "TODO: Replace";
         private HttpClient httpClient;
         private long timeout = 60;
@@ -576,6 +596,17 @@ public final class SquareClient implements SquareClientInterface {
          */
         public Builder environment(Environment environment) {
             this.environment = environment;
+            return this;
+        }
+        /**
+         * Square Connect API versions
+         * @param squareVersion
+         */
+        public Builder squareVersion(String squareVersion) {
+            if (squareVersion == null) {
+                throw new NullPointerException("squareVersion cannot be null");
+            }
+            this.squareVersion = squareVersion;
             return this;
         }
         /**
@@ -633,8 +664,8 @@ public final class SquareClient implements SquareClientInterface {
             httpClientConfig.setTimeout(timeout);
             httpClient = new OkClient(httpClientConfig);
 
-            return new SquareClient(environment, accessToken, httpClient, timeout, httpClientConfig, additionalHeaders,
-                    authManagers, httpCallback);
+            return new SquareClient(environment, squareVersion, accessToken, httpClient, timeout, httpClientConfig,
+                    additionalHeaders, authManagers, httpCallback);
         }
     }
 }

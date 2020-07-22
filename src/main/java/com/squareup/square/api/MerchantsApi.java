@@ -39,7 +39,7 @@ public interface MerchantsApi {
 
     /**
      * Retrieve a `Merchant` object for the given `merchant_id`.
-     * @param    merchantId    Required parameter: The ID of the merchant to retrieve.
+     * @param    merchantId    Required parameter: The ID of the merchant to retrieve. If the string "me" is supplied as the ID, then retrieve the merchant that is currently accessible to this call.
      * @return    Returns the RetrieveMerchantResponse response from the API call
      */
     RetrieveMerchantResponse retrieveMerchant(
@@ -47,7 +47,7 @@ public interface MerchantsApi {
 
     /**
      * Retrieve a `Merchant` object for the given `merchant_id`.
-     * @param    merchantId    Required parameter: The ID of the merchant to retrieve.
+     * @param    merchantId    Required parameter: The ID of the merchant to retrieve. If the string "me" is supplied as the ID, then retrieve the merchant that is currently accessible to this call.
      * @return    Returns the RetrieveMerchantResponse response from the API call 
      */
     CompletableFuture<RetrieveMerchantResponse> retrieveMerchantAsync(

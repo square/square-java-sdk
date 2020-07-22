@@ -10,7 +10,7 @@ A request to update a `BreakType`
 
 | Name | Type | Description |
 |  --- | --- | --- |
-| `BreakType` | [`BreakType`](/doc/models/break-type.md) | A defined break template that sets an expectation for possible `Break` <br>instances on a `Shift`. |
+| `BreakType` | [`BreakType`](/doc/models/break-type.md) | A defined break template that sets an expectation for possible `Break`<br>instances on a `Shift`. |
 
 ### Example (as JSON)
 

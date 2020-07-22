@@ -48,7 +48,7 @@ public class CatalogDiscount {
     private final String modifyTaxBasis;
     /**
      * Getter for Name.
-     * The discount name. Searchable. This field has max length of 255 Unicode code points.
+     * The discount name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     @JsonGetter("name")
     public String getName() {
@@ -69,7 +69,7 @@ public class CatalogDiscount {
      * The percentage of the discount as a string representation of a decimal number, using a `.` as the decimal
      * separator and without a `%` sign. A value of `7.5` corresponds to `7.5%`. Specify a percentage of `0` if `discount_type`
      * is `VARIABLE_PERCENTAGE`.
-     * Do not include this field for amount-based or variable discounts.
+     * Do not use this field for amount-based or variable discounts.
      */
     @JsonGetter("percentage")
     public String getPercentage() {

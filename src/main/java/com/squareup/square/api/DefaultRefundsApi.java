@@ -134,9 +134,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -223,10 +223,10 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.add("content-type", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -315,9 +315,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("Square-Version", "2020-06-25");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

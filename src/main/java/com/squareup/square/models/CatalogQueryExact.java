@@ -28,7 +28,7 @@ public class CatalogQueryExact {
     private final String attributeValue;
     /**
      * Getter for AttributeName.
-     * The name of the attribute to be searched.
+     * The name of the attribute to be searched. Matching of the attribute name is exact.
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
@@ -37,7 +37,8 @@ public class CatalogQueryExact {
 
     /**
      * Getter for AttributeValue.
-     * The desired value of the search attribute.
+     * The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial. 
+     * For example, if a specified value of "sma", objects with the named attribute value of "Small", "small" are both matched.
      */
     @JsonGetter("attribute_value")
     public String getAttributeValue() {

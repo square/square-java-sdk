@@ -46,7 +46,7 @@ public class CatalogItemOption {
     /**
      * Getter for Name.
      * The item option's display name for the seller. Must be unique across
-     * all item options. Searchable.
+     * all item options. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("name")
     public String getName() {
@@ -55,7 +55,7 @@ public class CatalogItemOption {
 
     /**
      * Getter for DisplayName.
-     * The item option's display name for the customer. Searchable.
+     * The item option's display name for the customer. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
@@ -66,7 +66,7 @@ public class CatalogItemOption {
      * Getter for Description.
      * The item option's human-readable description. Displayed in the Square
      * Point of Sale app for the seller and in the Online Store or on receipts for
-     * the buyer.
+     * the buyer. This is a searchable attribute for use in applicable query filters.
      */
     @JsonGetter("description")
     public String getDescription() {

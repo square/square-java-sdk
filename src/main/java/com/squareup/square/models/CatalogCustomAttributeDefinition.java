@@ -99,8 +99,7 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for SourceApplication.
-     * Provides information about the application used to generate an inventory
-     * change.
+     * Provides information about the application used to generate a change.
      */
     @JsonGetter("source_application")
     public SourceApplication getSourceApplication() {

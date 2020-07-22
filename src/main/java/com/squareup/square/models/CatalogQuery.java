@@ -56,6 +56,7 @@ public class CatalogQuery {
     private final CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery;
     /**
      * Getter for SortedAttributeQuery.
+     * The query expression to specify the key to sort search results.
      */
     @JsonGetter("sorted_attribute_query")
     public CatalogQuerySortedAttribute getSortedAttributeQuery() {
@@ -64,6 +65,7 @@ public class CatalogQuery {
 
     /**
      * Getter for ExactQuery.
+     * The query filter to return the serch result by exact match of the specified attribute name and value.
      */
     @JsonGetter("exact_query")
     public CatalogQueryExact getExactQuery() {
@@ -72,6 +74,7 @@ public class CatalogQuery {
 
     /**
      * Getter for PrefixQuery.
+     * The query filter to return the search result whose named attribute values are prefixed by the specified attribute value.
      */
     @JsonGetter("prefix_query")
     public CatalogQueryPrefix getPrefixQuery() {
@@ -80,6 +83,7 @@ public class CatalogQuery {
 
     /**
      * Getter for RangeQuery.
+     * The query filter to return the search result whose named attribute values fall between the specified range.
      */
     @JsonGetter("range_query")
     public CatalogQueryRange getRangeQuery() {
@@ -88,6 +92,7 @@ public class CatalogQuery {
 
     /**
      * Getter for TextQuery.
+     * The query filter to return the search result whose searchable attribute values contain all of the specified keywords or tokens, independent of the token order or case.
      */
     @JsonGetter("text_query")
     public CatalogQueryText getTextQuery() {
@@ -96,6 +101,7 @@ public class CatalogQuery {
 
     /**
      * Getter for ItemsForTaxQuery.
+     * The query filter to return the items containing the specified tax IDs.
      */
     @JsonGetter("items_for_tax_query")
     public CatalogQueryItemsForTax getItemsForTaxQuery() {
@@ -104,6 +110,7 @@ public class CatalogQuery {
 
     /**
      * Getter for ItemsForModifierListQuery.
+     * The query filter to return the items containing the specified modifier list IDs.
      */
     @JsonGetter("items_for_modifier_list_query")
     public CatalogQueryItemsForModifierList getItemsForModifierListQuery() {
@@ -112,6 +119,7 @@ public class CatalogQuery {
 
     /**
      * Getter for ItemsForItemOptionsQuery.
+     * The query filter to return the items containing the specified item option IDs.
      */
     @JsonGetter("items_for_item_options_query")
     public CatalogQueryItemsForItemOptions getItemsForItemOptionsQuery() {
@@ -120,6 +128,7 @@ public class CatalogQuery {
 
     /**
      * Getter for ItemVariationsForItemOptionValuesQuery.
+     * The query filter to return the item variations containing the specified item option value IDs.
      */
     @JsonGetter("item_variations_for_item_option_values_query")
     public CatalogQueryItemVariationsForItemOptionValues getItemVariationsForItemOptionValuesQuery() {

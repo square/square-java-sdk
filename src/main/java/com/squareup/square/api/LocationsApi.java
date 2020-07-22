@@ -52,16 +52,22 @@ public interface LocationsApi {
             final CreateLocationRequest body);
 
     /**
-     * Retrieves details of a location.
-     * @param    locationId    Required parameter: The ID of the location to retrieve.
+     * Retrieves details of a location. You can specify "main" 
+     * as the location ID to retrieve details of the 
+     * main location. For more information, 
+     * see [Locations API Overview](https://developer.squareup.com/docs/docs/locations-api).
+     * @param    locationId    Required parameter: The ID of the location to retrieve. If you specify the string "main", then the endpoint returns the main location.
      * @return    Returns the RetrieveLocationResponse response from the API call
      */
     RetrieveLocationResponse retrieveLocation(
             final String locationId) throws ApiException, IOException;
 
     /**
-     * Retrieves details of a location.
-     * @param    locationId    Required parameter: The ID of the location to retrieve.
+     * Retrieves details of a location. You can specify "main" 
+     * as the location ID to retrieve details of the 
+     * main location. For more information, 
+     * see [Locations API Overview](https://developer.squareup.com/docs/docs/locations-api).
+     * @param    locationId    Required parameter: The ID of the location to retrieve. If you specify the string "main", then the endpoint returns the main location.
      * @return    Returns the RetrieveLocationResponse response from the API call 
      */
     CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(

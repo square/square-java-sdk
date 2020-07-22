@@ -50,7 +50,7 @@ public class BatchRetrieveInventoryChangesRequest {
     /**
      * Getter for CatalogObjectIds.
      * Filters results by `CatalogObject` ID.
-     * Only applied when set. Default: unset.
+     * Only applied when set. Max size is 500 IDs. Default: unset.
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {

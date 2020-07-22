@@ -41,6 +41,7 @@ public class Order {
      * @param totalTaxMoney
      * @param totalDiscountMoney
      * @param totalServiceChargeMoney
+     * @param pricingOptions
      * @param rewards
      */
     @JsonCreator
@@ -71,6 +72,7 @@ public class Order {
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
             @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney,
+            @JsonProperty("pricing_options") OrderPricingOptions pricingOptions,
             @JsonProperty("rewards") List<OrderReward> rewards) {
         this.id = id;
         this.locationId = locationId;
@@ -98,6 +100,7 @@ public class Order {
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalServiceChargeMoney = totalServiceChargeMoney;
+        this.pricingOptions = pricingOptions;
         this.rewards = rewards;
     }
 
@@ -127,6 +130,7 @@ public class Order {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalServiceChargeMoney;
+    private final OrderPricingOptions pricingOptions;
     private final List<OrderReward> rewards;
     /**
      * Getter for Id.
@@ -418,6 +422,17 @@ public class Order {
     }
 
     /**
+     * Getter for PricingOptions.
+     * Pricing options for an order. The options affect how the order's price is calculated.
+     * They can be used, for example, to apply automatic price adjustments that are based on pre-configured
+     * [pricing rules](https://developer.squareup.com/docs/reference/square/objects/CatalogPricingRule).
+     */
+    @JsonGetter("pricing_options")
+    public OrderPricingOptions getPricingOptions() {
+        return this.pricingOptions;
+    }
+
+    /**
      * Getter for Rewards.
      * A set-like list of rewards that have been added to the order.
      */
@@ -432,7 +447,8 @@ public class Order {
         return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
             discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
             roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt, state,
-            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney, rewards);
+            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney,
+            pricingOptions, rewards);
     }
 
     @Override
@@ -470,6 +486,7 @@ public class Order {
             Objects.equals(totalTaxMoney, order.totalTaxMoney) &&
             Objects.equals(totalDiscountMoney, order.totalDiscountMoney) &&
             Objects.equals(totalServiceChargeMoney, order.totalServiceChargeMoney) &&
+            Objects.equals(pricingOptions, order.pricingOptions) &&
             Objects.equals(rewards, order.rewards);
     }
 
@@ -505,6 +522,7 @@ public class Order {
             .totalTaxMoney(getTotalTaxMoney())
             .totalDiscountMoney(getTotalDiscountMoney())
             .totalServiceChargeMoney(getTotalServiceChargeMoney())
+            .pricingOptions(getPricingOptions())
             .rewards(getRewards());
             return builder;
     }
@@ -539,6 +557,7 @@ public class Order {
         private Money totalTaxMoney;
         private Money totalDiscountMoney;
         private Money totalServiceChargeMoney;
+        private OrderPricingOptions pricingOptions;
         private List<OrderReward> rewards;
 
         /**
@@ -783,6 +802,15 @@ public class Order {
             return this;
         }
         /**
+         * Setter for pricingOptions
+         * @param pricingOptions
+         * @return Builder
+         */
+        public Builder pricingOptions(OrderPricingOptions pricingOptions) {
+            this.pricingOptions = pricingOptions;
+            return this;
+        }
+        /**
          * Setter for rewards
          * @param rewards
          * @return Builder
@@ -823,6 +851,7 @@ public class Order {
                 totalTaxMoney,
                 totalDiscountMoney,
                 totalServiceChargeMoney,
+                pricingOptions,
                 rewards);
         }
     }
