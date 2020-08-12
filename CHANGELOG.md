@@ -1,5 +1,27 @@
 # Change Log
 
+## Version 6.2.0.20200812 (2020-08-12)
+## API releases
+* Subscriptions API (beta):
+  * For an overview, see [Square Subscriptions.](https://developer.squareup.com/docs/subscriptions/overview)
+  * For technical reference, see [Subscriptions API.](https://developer.squareup.com/reference/square_2020-08-12/subscriptions-api)
+
+## Existing API updates
+* Catalog API
+	* [CatalogSubscriptionPlan](https://developer.squareup.com/reference/square_2020-08-12/objects/CatalogSubscriptionPlan) (beta). This catalog type is added in support of the Subscriptions API. Subscription plans are stored as catalog object of the `SUBSCRIPTION_PLAN` type. For more information, see [Set Up and Manage a Subscription Plan.](https://developer.squareup.com/docs/subscriptions-api/setup-plan)
+
+## SqPaymentForm SDK updates
+* [SqPaymentForm.masterpassImageURL.](https://developer.squareup.com/docs/api/paymentform#masterpassimageurl) This function is updated to return a Secure Remote Commerce background image URL.
+
+## Documentation updates
+* Locations API
+	* [About the main location.](https://developer.squareup.com/docs/locations-api#about-the-main-location) Added  clarifying information about the main location concept.
+* OAuth API
+	* [Migrate to the Square API OAuth Flow.](https://developer.squareup.com/docs/oauth-api/migrate-to-square-oauth-flow) Added a new topic to document migration from a v1 location-scoped OAuth access token to the Square seller-scoped OAuth access token.
+* Payment Form SDK
+  * Renamed the Add a Masterpass Button topic to [Add a Secure Remote Commerce Button.](https://developer.squareup.com/docs/payment-form/add-digital-wallets/masterpass) Updated the instructions to add a Secure Remote Commerce button to replace a legacy Masterpass button.
+  * [Payment form technical reference.](https://developer.squareup.com/docs/api/paymentform) Updated the reference to show code examples for adding a Secure Remote Commerce button.
+
 ## Version 6.1.0.20200722 (2020-07-22)
 ## API releases
 
@@ -114,7 +136,7 @@
   * For an overview, see [Overview](/customer-segmentss-api/what-it-does) 
   * For technical reference, see [Customer Segments]( https://developer.squareup.com/reference/square/customer-segments-api).  
 
-   
+
 * **New webhooks.** v2 Webhooks (beta) now supports webhooks for the following APIs:
   * Orders API. `order.created`, `order.updated`, and `order.fulfillment.updated`
   * Terminal API. `terminal.checkout.created` and `terminal.checkout.updated`
@@ -187,18 +209,15 @@ All SDKs have been updated to support the following changes:
 
 * **Shared object updates**
   * **Card object** &mdash; New fields added: `card_type`, `prepaid_type`. Currently, only the Payments API responses populate these fields. 
-  
-## Version 4.1.0.20200122 (2020-01-22)
 
+## Version 4.1.0.20200122 (2020-01-22)
 * New field:  The **Employee** object now has an `is_owner` field.
 * New enumeration:  The **CardBrand** enumeration has a new `SQUARE_CAPITAL_CARD` enum value to support a Square one-time Installments payment.
 
 * New request body field constraint: The __Refund__ Payment request now requires a payment_id. 
 
-## Version 4.0.0-20191217 (2019-12-17)
-!!!important
-Square is excited to announce the public release of customized SDKs for [Java](https://github.com/square/square-java-sdk) and [.NET](https://github.com/square/square-dotnet-sdk). For more information, see [Square SDKs](/sdks).
-!!!
+## Version 4.0.0.20191217 (2019-12-17)
+* Square is excited to announce the public release of customized SDK for Java
 
 * __GA release:__ SDKs updated to support new `receipt_url` and `receipt_number` fields added to the  [Payment](https://developer.squareup.com/reference/square/objects/Payment) type.  
 
@@ -206,30 +225,3 @@ Square is excited to announce the public release of customized SDKs for [Java](h
 
 * Square now follows the semantic versioning scheme for all SDKs except PHP and Node.js. This versioning scheme uses three numbers to delineate MAJOR, MINOR, and PATCH versions of our SDK. In addition, the SDK version also includes the API version so you know what Square API version the SDK is related to. For more information, see [Versioning and SDKs](build-basics/versioning-overview#versioning-and-sdks).
 * Java, .Net, Python, and Ruby SDKs are now version 4.0.0. Java and .Net SDKs have breaking changes in version 4.0.0. Ruby and Python do not have breaking changes.
-
-## Version 3.20191120.0 (2019-11-20)
-!!!important
-Square has begun the retirement process for Connect v1 APIs. See the [Connect v1 Retirement](/migrate-from-v1) information page for details.
-!!!
-
-* __GA releases:__ SDKs now support the new `modify_tax_basis` field to Discounts and v2 Sandbox
-* __BETA releases:__ SDKs now support the Shifts API webhooks for Labor shift created, updated, deleted, CreateLocation endpoint, and the ability to customize statement description in Payments API.
-* **Deprecated**: Support for v1Items API and v1Locations API is fully deprecated.
-
-## 3.20191023.0 (2019-10-23)
-* **GA release**: Merchants.ListMerchant is GA for all SDKs.
-* **Beta release**: All SDKs support exclusion strategies for pricing rules.
-
-## 3.20190925.0 (2019-09-25)
-
-* **GA release**: All SDKs have been updated to support the new Merchants API.
-
-* **Beta release**: All SDKs have been updated to support the new endpoints (RetrieveLocation, UpdateLocation) added to the Locations API.
-
-* **Beta release**: All SDKs have been updated to support the new field (`mcc`) added to the `Location` type. 
-
-* **GA release**:  All SDKs have been updated to support the new field (`bin`) added to the `Card` type. 
-
-* **GA release**: All SDKs have been updated to support the new `CardPaymentDetails` fields  (`verification_results`, `statement_description`, and `verification_method`). 
-
-* **GA release**: All SDKs have been updated to support the new `Payment` field, (`employee_id`).

@@ -38,6 +38,7 @@ public class CatalogObject {
      * @param pricingRuleData
      * @param imageData
      * @param measurementUnitData
+     * @param subscriptionPlanData
      * @param itemOptionData
      * @param itemOptionValueData
      * @param customAttributeDefinitionData
@@ -68,6 +69,7 @@ public class CatalogObject {
             @JsonProperty("pricing_rule_data") CatalogPricingRule pricingRuleData,
             @JsonProperty("image_data") CatalogImage imageData,
             @JsonProperty("measurement_unit_data") CatalogMeasurementUnit measurementUnitData,
+            @JsonProperty("subscription_plan_data") CatalogSubscriptionPlan subscriptionPlanData,
             @JsonProperty("item_option_data") CatalogItemOption itemOptionData,
             @JsonProperty("item_option_value_data") CatalogItemOptionValue itemOptionValueData,
             @JsonProperty("custom_attribute_definition_data") CatalogCustomAttributeDefinition customAttributeDefinitionData,
@@ -95,6 +97,7 @@ public class CatalogObject {
         this.pricingRuleData = pricingRuleData;
         this.imageData = imageData;
         this.measurementUnitData = measurementUnitData;
+        this.subscriptionPlanData = subscriptionPlanData;
         this.itemOptionData = itemOptionData;
         this.itemOptionValueData = itemOptionValueData;
         this.customAttributeDefinitionData = customAttributeDefinitionData;
@@ -124,6 +127,7 @@ public class CatalogObject {
     private final CatalogPricingRule pricingRuleData;
     private final CatalogImage imageData;
     private final CatalogMeasurementUnit measurementUnitData;
+    private final CatalogSubscriptionPlan subscriptionPlanData;
     private final CatalogItemOption itemOptionData;
     private final CatalogItemOptionValue itemOptionValueData;
     private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
@@ -374,6 +378,16 @@ public class CatalogObject {
     }
 
     /**
+     * Getter for SubscriptionPlanData.
+     * Describes a subscription plan. For more information, see
+     * [Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/docs/subscriptions-api/setup-plan).
+     */
+    @JsonGetter("subscription_plan_data")
+    public CatalogSubscriptionPlan getSubscriptionPlanData() {
+        return this.subscriptionPlanData;
+    }
+
+    /**
      * Getter for ItemOptionData.
      * A group of variations for a `CatalogItem`.
      */
@@ -422,8 +436,8 @@ public class CatalogObject {
             catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds, imageId,
             itemData, categoryData, itemVariationData, taxData, discountData, modifierListData,
             modifierData, timePeriodData, productSetData, pricingRuleData, imageData,
-            measurementUnitData, itemOptionData, itemOptionValueData, customAttributeDefinitionData,
-            quickAmountsSettingsData);
+            measurementUnitData, subscriptionPlanData, itemOptionData, itemOptionValueData,
+            customAttributeDefinitionData, quickAmountsSettingsData);
     }
 
     @Override
@@ -458,6 +472,7 @@ public class CatalogObject {
             Objects.equals(pricingRuleData, catalogObject.pricingRuleData) &&
             Objects.equals(imageData, catalogObject.imageData) &&
             Objects.equals(measurementUnitData, catalogObject.measurementUnitData) &&
+            Objects.equals(subscriptionPlanData, catalogObject.subscriptionPlanData) &&
             Objects.equals(itemOptionData, catalogObject.itemOptionData) &&
             Objects.equals(itemOptionValueData, catalogObject.itemOptionValueData) &&
             Objects.equals(customAttributeDefinitionData, catalogObject.customAttributeDefinitionData) &&
@@ -493,6 +508,7 @@ public class CatalogObject {
             .pricingRuleData(getPricingRuleData())
             .imageData(getImageData())
             .measurementUnitData(getMeasurementUnitData())
+            .subscriptionPlanData(getSubscriptionPlanData())
             .itemOptionData(getItemOptionData())
             .itemOptionValueData(getItemOptionValueData())
             .customAttributeDefinitionData(getCustomAttributeDefinitionData())
@@ -527,6 +543,7 @@ public class CatalogObject {
         private CatalogPricingRule pricingRuleData;
         private CatalogImage imageData;
         private CatalogMeasurementUnit measurementUnitData;
+        private CatalogSubscriptionPlan subscriptionPlanData;
         private CatalogItemOption itemOptionData;
         private CatalogItemOptionValue itemOptionValueData;
         private CatalogCustomAttributeDefinition customAttributeDefinitionData;
@@ -749,6 +766,15 @@ public class CatalogObject {
             return this;
         }
         /**
+         * Setter for subscriptionPlanData
+         * @param subscriptionPlanData
+         * @return Builder
+         */
+        public Builder subscriptionPlanData(CatalogSubscriptionPlan subscriptionPlanData) {
+            this.subscriptionPlanData = subscriptionPlanData;
+            return this;
+        }
+        /**
          * Setter for itemOptionData
          * @param itemOptionData
          * @return Builder
@@ -813,6 +839,7 @@ public class CatalogObject {
                 pricingRuleData,
                 imageData,
                 measurementUnitData,
+                subscriptionPlanData,
                 itemOptionData,
                 itemOptionValueData,
                 customAttributeDefinitionData,

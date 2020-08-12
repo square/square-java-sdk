@@ -11,7 +11,7 @@ CreateCustomer endpoint.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `IdempotencyKey` | `String` | Optional | The idempotency key for the request.	See the<br>[Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) guide for more information. |
+| `IdempotencyKey` | `String` | Optional | The idempotency key for the request. See the<br>[Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) guide for more information. |
 | `GivenName` | `String` | Optional | The given (i.e., first) name associated with the customer profile. |
 | `FamilyName` | `String` | Optional | The family (i.e., last) name associated with the customer profile. |
 | `CompanyName` | `String` | Optional | A business name associated with the customer profile. |

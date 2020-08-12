@@ -34,6 +34,7 @@ import com.squareup.square.api.DefaultOrdersApi;
 import com.squareup.square.api.DefaultPaymentsApi;
 import com.squareup.square.api.DefaultRefundsApi;
 import com.squareup.square.api.DefaultReportingApi;
+import com.squareup.square.api.DefaultSubscriptionsApi;
 import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
@@ -56,6 +57,7 @@ import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
 import com.squareup.square.api.ReportingApi;
+import com.squareup.square.api.SubscriptionsApi;
 import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
@@ -104,6 +106,7 @@ public final class SquareClient implements SquareClientInterface {
     private MerchantsApi merchants;
     private PaymentsApi payments;
     private RefundsApi refunds;
+    private SubscriptionsApi subscriptions;
     private TeamApi team;
     private TerminalApi terminal;
 
@@ -332,6 +335,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of SubscriptionsApi
+     * @return subscriptions
+     */
+    public SubscriptionsApi getSubscriptionsApi() {
+        return subscriptions;
+    }
+
+    /**
      * Get the instance of TeamApi
      * @return team
      */
@@ -402,6 +413,7 @@ public final class SquareClient implements SquareClientInterface {
         merchants = new DefaultMerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        subscriptions = new DefaultSubscriptionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         team = new DefaultTeamApi(this, this.httpClient, this.authManagers, this.httpCallback);
         terminal = new DefaultTerminalApi(this, this.httpClient, this.authManagers, this.httpCallback);
     }
@@ -512,7 +524,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "6.1.0.20200722";
+        return "6.2.0.20200812";
     }
 
     /**
@@ -580,7 +592,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2020-07-22";
+        private String squareVersion = "2020-08-12";
         private String accessToken = "TODO: Replace";
         private HttpClient httpClient;
         private long timeout = 60;
