@@ -13,13 +13,15 @@ import com.squareup.square.models.RetrieveEmployeeResponse;
 public interface EmployeesApi {
     /**
      * ListEmployees
-     * @param    locationId    Optional parameter: Filter employees returned to only those that are associated with the specified location.
+     * @deprecated
+     * 
+     * @param    locationId    Optional parameter: Example: 
      * @param    status    Optional parameter: Specifies the EmployeeStatus to filter the employee by.
      * @param    limit    Optional parameter: The number of employees to be returned on each page.
      * @param    cursor    Optional parameter: The token required to retrieve the specified page of results.
      * @return    Returns the ListEmployeesResponse response from the API call
      */
-    ListEmployeesResponse listEmployees(
+    @Deprecated    ListEmployeesResponse listEmployees(
             final String locationId,
             final String status,
             final Integer limit,
@@ -27,12 +29,15 @@ public interface EmployeesApi {
 
     /**
      * ListEmployees
-     * @param    locationId    Optional parameter: Filter employees returned to only those that are associated with the specified location.
+     * @deprecated
+     * 
+     * @param    locationId    Optional parameter: Example: 
      * @param    status    Optional parameter: Specifies the EmployeeStatus to filter the employee by.
      * @param    limit    Optional parameter: The number of employees to be returned on each page.
      * @param    cursor    Optional parameter: The token required to retrieve the specified page of results.
      * @return    Returns the ListEmployeesResponse response from the API call 
      */
+    @Deprecated
     CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
             final String locationId,
             final String status,
@@ -41,17 +46,22 @@ public interface EmployeesApi {
 
     /**
      * RetrieveEmployee
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the employee that was requested.
      * @return    Returns the RetrieveEmployeeResponse response from the API call
      */
-    RetrieveEmployeeResponse retrieveEmployee(
+    @Deprecated    RetrieveEmployeeResponse retrieveEmployee(
             final String id) throws ApiException, IOException;
 
     /**
      * RetrieveEmployee
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the employee that was requested.
      * @return    Returns the RetrieveEmployeeResponse response from the API call 
      */
+    @Deprecated
     CompletableFuture<RetrieveEmployeeResponse> retrieveEmployeeAsync(
             final String id);
 

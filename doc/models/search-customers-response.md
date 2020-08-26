@@ -11,11 +11,11 @@ One of `errors` or `customers` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Customers` | [`List<Customer>`](/doc/models/customer.md) | Optional | An array of `Customer` objects that match a query. |
-| `Cursor` | `String` | Optional | A pagination cursor that can be used during subsequent calls<br>to SearchCustomers to retrieve the next set of results associated<br>with the original query. Pagination cursors are only present when<br>a request succeeds and additional results are available.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Customers` | [`List<Customer>`](/doc/models/customer.md) | Optional | An array of `Customer` objects that match a query. | List<Customer> getCustomers() |
+| `Cursor` | `String` | Optional | A pagination cursor that can be used during subsequent calls<br>to SearchCustomers to retrieve the next set of results associated<br>with the original query. Pagination cursors are only present when<br>a request succeeds and additional results are available.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. | String getCursor() |
 
 ### Example (as JSON)
 

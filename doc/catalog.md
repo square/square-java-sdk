@@ -147,18 +147,46 @@ List<CatalogObjectBatch> bodyBatches = new LinkedList<>();
 
 List<CatalogObject> bodyBatches0Objects = new LinkedList<>();
 
+CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects0CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects0CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id4")
+    .locationId("location_id4")
+    .build();
+bodyBatches0Objects0CatalogV1Ids.add(bodyBatches0Objects0CatalogV1Ids0);
+
 List<String> bodyBatches0Objects0ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects0ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects0ItemDataVariations = new LinkedList<>();
 
+CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects0ItemDataVariations0CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id3")
+    .locationId("location_id3")
+    .build();
+bodyBatches0Objects0ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0);
+
 CatalogItemVariation bodyBatches0Objects0ItemDataVariations0ItemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Tea")
     .name("Mug")
+    .sku("sku9")
+    .upc("upc7")
+    .ordinal(149)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects0ItemDataVariations0 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Tea_Mug")
+    .updatedAt("updated_at5")
+    .version(99L)
+    .isDeleted(true)
+    .customAttributeValues(bodyBatches0Objects0ItemDataVariations0CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects0ItemDataVariations0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects0ItemDataVariations0ItemVariationData)
     .build();
@@ -167,6 +195,9 @@ bodyBatches0Objects0ItemDataVariations.add(bodyBatches0Objects0ItemDataVariation
 CatalogItem bodyBatches0Objects0ItemData = new CatalogItem.Builder()
     .name("Tea")
     .description("Hot Leaf Juice")
+    .abbreviation("abbreviation0")
+    .labelColor("label_color0")
+    .availableOnline(false)
     .categoryId("#Beverages")
     .taxIds(bodyBatches0Objects0ItemDataTaxIds)
     .variations(bodyBatches0Objects0ItemDataVariations)
@@ -174,36 +205,111 @@ CatalogItem bodyBatches0Objects0ItemData = new CatalogItem.Builder()
 CatalogObject bodyBatches0Objects0 = new CatalogObject.Builder(
         "ITEM",
         "#Tea")
+    .updatedAt("updated_at6")
+    .version(252L)
+    .isDeleted(false)
+    .customAttributeValues(bodyBatches0Objects0CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemData(bodyBatches0Objects0ItemData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects0);
 
+CatalogCustomAttributeValue bodyBatches0Objects1CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects1CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects1CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id5")
+    .locationId("location_id5")
+    .build();
+bodyBatches0Objects1CatalogV1Ids.add(bodyBatches0Objects1CatalogV1Ids0);
+
+CatalogV1Id bodyBatches0Objects1CatalogV1Ids1 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id6")
+    .locationId("location_id6")
+    .build();
+bodyBatches0Objects1CatalogV1Ids.add(bodyBatches0Objects1CatalogV1Ids1);
+
 List<String> bodyBatches0Objects1ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects1ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects1ItemDataVariations = new LinkedList<>();
 
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations0CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id4")
+    .locationId("location_id4")
+    .build();
+bodyBatches0Objects1ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids0);
+
+CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id5")
+    .locationId("location_id5")
+    .build();
+bodyBatches0Objects1ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1);
+
 CatalogItemVariation bodyBatches0Objects1ItemDataVariations0ItemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Regular")
+    .sku("sku8")
+    .upc("upc6")
+    .ordinal(150)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects1ItemDataVariations0 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Coffee_Regular")
+    .updatedAt("updated_at4")
+    .version(100L)
+    .isDeleted(false)
+    .customAttributeValues(bodyBatches0Objects1ItemDataVariations0CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects1ItemDataVariations0ItemVariationData)
     .build();
 bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariations0);
 
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations1CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id5")
+    .locationId("location_id5")
+    .build();
+bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids0);
+
+CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids1 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id6")
+    .locationId("location_id6")
+    .build();
+bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids1);
+
+CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id7")
+    .locationId("location_id7")
+    .build();
+bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2);
+
 CatalogItemVariation bodyBatches0Objects1ItemDataVariations1ItemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Large")
+    .sku("sku7")
+    .upc("upc5")
+    .ordinal(151)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects1ItemDataVariations1 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Coffee_Large")
+    .updatedAt("updated_at3")
+    .version(101L)
+    .isDeleted(true)
+    .customAttributeValues(bodyBatches0Objects1ItemDataVariations1CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects1ItemDataVariations1ItemVariationData)
     .build();
@@ -212,6 +318,9 @@ bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariation
 CatalogItem bodyBatches0Objects1ItemData = new CatalogItem.Builder()
     .name("Coffee")
     .description("Hot Bean Juice")
+    .abbreviation("abbreviation9")
+    .labelColor("label_color9")
+    .availableOnline(true)
     .categoryId("#Beverages")
     .taxIds(bodyBatches0Objects1ItemDataTaxIds)
     .variations(bodyBatches0Objects1ItemDataVariations)
@@ -219,10 +328,37 @@ CatalogItem bodyBatches0Objects1ItemData = new CatalogItem.Builder()
 CatalogObject bodyBatches0Objects1 = new CatalogObject.Builder(
         "ITEM",
         "#Coffee")
+    .updatedAt("updated_at7")
+    .version(253L)
+    .isDeleted(true)
+    .customAttributeValues(bodyBatches0Objects1CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects1CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemData(bodyBatches0Objects1ItemData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects1);
+
+CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects2CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects2CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id6")
+    .locationId("location_id6")
+    .build();
+bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids0);
+
+CatalogV1Id bodyBatches0Objects2CatalogV1Ids1 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id7")
+    .locationId("location_id7")
+    .build();
+bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids1);
+
+CatalogV1Id bodyBatches0Objects2CatalogV1Ids2 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id8")
+    .locationId("location_id8")
+    .build();
+bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids2);
 
 CatalogCategory bodyBatches0Objects2CategoryData = new CatalogCategory.Builder()
     .name("Beverages")
@@ -230,10 +366,25 @@ CatalogCategory bodyBatches0Objects2CategoryData = new CatalogCategory.Builder()
 CatalogObject bodyBatches0Objects2 = new CatalogObject.Builder(
         "CATEGORY",
         "#Beverages")
+    .updatedAt("updated_at8")
+    .version(254L)
+    .isDeleted(false)
+    .customAttributeValues(bodyBatches0Objects2CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects2CatalogV1Ids)
     .presentAtAllLocations(true)
     .categoryData(bodyBatches0Objects2CategoryData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects2);
+
+CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyBatches0Objects3CatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyBatches0Objects3CatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id7")
+    .locationId("location_id7")
+    .build();
+bodyBatches0Objects3CatalogV1Ids.add(bodyBatches0Objects3CatalogV1Ids0);
 
 CatalogTax bodyBatches0Objects3TaxData = new CatalogTax.Builder()
     .name("Sales Tax")
@@ -246,6 +397,11 @@ CatalogTax bodyBatches0Objects3TaxData = new CatalogTax.Builder()
 CatalogObject bodyBatches0Objects3 = new CatalogObject.Builder(
         "TAX",
         "#SalesTax")
+    .updatedAt("updated_at9")
+    .version(255L)
+    .isDeleted(true)
+    .customAttributeValues(bodyBatches0Objects3CustomAttributeValues)
+    .catalogV1Ids(bodyBatches0Objects3CatalogV1Ids)
     .presentAtAllLocations(true)
     .taxData(bodyBatches0Objects3TaxData)
     .build();
@@ -300,12 +456,29 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 ### Example Usage
 
 ```java
+CatalogCustomAttributeValue requestImageCustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> requestImageCatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id requestImageCatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id4")
+    .locationId("location_id4")
+    .build();
+requestImageCatalogV1Ids.add(requestImageCatalogV1Ids0);
+
 CatalogImage requestImageImageData = new CatalogImage.Builder()
+    .name("name0")
+    .url("url4")
     .caption("A picture of a cup of coffee")
     .build();
 CatalogObject requestImage = new CatalogObject.Builder(
         "IMAGE",
         "#TEMP_ID")
+    .updatedAt("updated_at4")
+    .version(68L)
+    .isDeleted(false)
+    .customAttributeValues(requestImageCustomAttributeValues)
+    .catalogV1Ids(requestImageCatalogV1Ids)
     .imageData(requestImageImageData)
     .build();
 CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
@@ -313,8 +486,9 @@ CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
     .objectId("ND6EA5AAJEO5WL3JNNIAQA32")
     .image(requestImage)
     .build();
+FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
 
-catalogApi.createCatalogImageAsync(request, null).thenAccept(result -> {
+catalogApi.createCatalogImageAsync(request, imageFile).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -378,7 +552,10 @@ CompletableFuture<ListCatalogResponse> listCatalogAsync(
 ### Example Usage
 
 ```java
-catalogApi.listCatalogAsync(null, null).thenAccept(result -> {
+String cursor = "cursor6";
+String types = "types6";
+
+catalogApi.listCatalogAsync(cursor, types).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -408,14 +585,43 @@ CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
 ### Example Usage
 
 ```java
+CatalogCustomAttributeValue bodyObjectCustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+    .build();
+List<CatalogV1Id> bodyObjectCatalogV1Ids = new LinkedList<>();
+
+CatalogV1Id bodyObjectCatalogV1Ids0 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id0")
+    .locationId("location_id0")
+    .build();
+bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids0);
+
+CatalogV1Id bodyObjectCatalogV1Ids1 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id1")
+    .locationId("location_id1")
+    .build();
+bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids1);
+
+CatalogV1Id bodyObjectCatalogV1Ids2 = new CatalogV1Id.Builder()
+    .catalogV1Id("catalog_v1_id2")
+    .locationId("location_id2")
+    .build();
+bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids2);
+
 CatalogItem bodyObjectItemData = new CatalogItem.Builder()
     .name("Cocoa")
     .description("Hot chocolate")
     .abbreviation("Ch")
+    .labelColor("label_color4")
+    .availableOnline(false)
     .build();
 CatalogObject bodyObject = new CatalogObject.Builder(
         "ITEM",
         "#Cocoa")
+    .updatedAt("updated_at8")
+    .version(252L)
+    .isDeleted(false)
+    .customAttributeValues(bodyObjectCustomAttributeValues)
+    .catalogV1Ids(bodyObjectCatalogV1Ids)
     .itemData(bodyObjectItemData)
     .build();
 UpsertCatalogObjectRequest body = new UpsertCatalogObjectRequest.Builder(
@@ -499,8 +705,9 @@ CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
 
 ```java
 String objectId = "object_id8";
+Boolean includeRelatedObjects = false;
 
-catalogApi.retrieveCatalogObjectAsync(objectId, null).thenAccept(result -> {
+catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -541,15 +748,42 @@ CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
 ```java
 List<String> bodyObjectTypes = new LinkedList<>();
 bodyObjectTypes.add("ITEM");
+CatalogQuerySortedAttribute bodyQuerySortedAttributeQuery = new CatalogQuerySortedAttribute.Builder(
+        "attribute_name6")
+    .initialAttributeValue("initial_attribute_value4")
+    .sortOrder("DESC")
+    .build();
+CatalogQueryExact bodyQueryExactQuery = new CatalogQueryExact.Builder(
+        "attribute_name2",
+        "attribute_value2")
+    .build();
 CatalogQueryPrefix bodyQueryPrefixQuery = new CatalogQueryPrefix.Builder(
         "name",
         "tea")
     .build();
+CatalogQueryRange bodyQueryRangeQuery = new CatalogQueryRange.Builder(
+        "attribute_name6")
+    .attributeMinValue(14L)
+    .attributeMaxValue(180L)
+    .build();
+List<String> bodyQueryTextQueryKeywords = new LinkedList<>();
+bodyQueryTextQueryKeywords.add("keywords7");
+CatalogQueryText bodyQueryTextQuery = new CatalogQueryText.Builder(
+        bodyQueryTextQueryKeywords)
+    .build();
 CatalogQuery bodyQuery = new CatalogQuery.Builder()
+    .sortedAttributeQuery(bodyQuerySortedAttributeQuery)
+    .exactQuery(bodyQueryExactQuery)
     .prefixQuery(bodyQueryPrefixQuery)
+    .rangeQuery(bodyQueryRangeQuery)
+    .textQuery(bodyQueryTextQuery)
     .build();
 SearchCatalogObjectsRequest body = new SearchCatalogObjectsRequest.Builder()
+    .cursor("cursor0")
     .objectTypes(bodyObjectTypes)
+    .includeDeletedObjects(false)
+    .includeRelatedObjects(false)
+    .beginTime("begin_time4")
     .query(bodyQuery)
     .limit(100)
     .build();
@@ -604,15 +838,35 @@ List<String> bodyProductTypes = new LinkedList<>();
 bodyProductTypes.add("REGULAR");
 List<CustomAttributeFilter> bodyCustomAttributeFilters = new LinkedList<>();
 
+Range bodyCustomAttributeFilters0NumberFilter = new Range.Builder()
+    .min("min0")
+    .max("max2")
+    .build();
+List<String> bodyCustomAttributeFilters0SelectionUidsFilter = new LinkedList<>();
+bodyCustomAttributeFilters0SelectionUidsFilter.add("selection_uids_filter2");
+bodyCustomAttributeFilters0SelectionUidsFilter.add("selection_uids_filter3");
 CustomAttributeFilter bodyCustomAttributeFilters0 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("VEGAN_DEFINITION_ID")
+    .key("key2")
+    .stringFilter("string_filter4")
+    .numberFilter(bodyCustomAttributeFilters0NumberFilter)
+    .selectionUidsFilter(bodyCustomAttributeFilters0SelectionUidsFilter)
     .boolFilter(true)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters0);
 
+Range bodyCustomAttributeFilters1NumberFilter = new Range.Builder()
+    .min("min1")
+    .max("max1")
+    .build();
+List<String> bodyCustomAttributeFilters1SelectionUidsFilter = new LinkedList<>();
+bodyCustomAttributeFilters1SelectionUidsFilter.add("selection_uids_filter1");
 CustomAttributeFilter bodyCustomAttributeFilters1 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("BRAND_DEFINITION_ID")
+    .key("key3")
     .stringFilter("Dark Horse")
+    .numberFilter(bodyCustomAttributeFilters1NumberFilter)
+    .selectionUidsFilter(bodyCustomAttributeFilters1SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters1);
 
@@ -620,14 +874,32 @@ Range bodyCustomAttributeFilters2NumberFilter = new Range.Builder()
     .min("2017")
     .max("2018")
     .build();
+List<String> bodyCustomAttributeFilters2SelectionUidsFilter = new LinkedList<>();
+bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter0");
+bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter1");
+bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter2");
 CustomAttributeFilter bodyCustomAttributeFilters2 = new CustomAttributeFilter.Builder()
+    .customAttributeDefinitionId("custom_attribute_definition_id8")
     .key("VINTAGE")
+    .stringFilter("string_filter6")
     .numberFilter(bodyCustomAttributeFilters2NumberFilter)
+    .selectionUidsFilter(bodyCustomAttributeFilters2SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters2);
 
+Range bodyCustomAttributeFilters3NumberFilter = new Range.Builder()
+    .min("min3")
+    .max("max9")
+    .build();
+List<String> bodyCustomAttributeFilters3SelectionUidsFilter = new LinkedList<>();
+bodyCustomAttributeFilters3SelectionUidsFilter.add("selection_uids_filter9");
+bodyCustomAttributeFilters3SelectionUidsFilter.add("selection_uids_filter0");
 CustomAttributeFilter bodyCustomAttributeFilters3 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("VARIETAL_DEFINITION_ID")
+    .key("key5")
+    .stringFilter("string_filter7")
+    .numberFilter(bodyCustomAttributeFilters3NumberFilter)
+    .selectionUidsFilter(bodyCustomAttributeFilters3SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters3);
 
@@ -636,6 +908,7 @@ SearchCatalogItemsRequest body = new SearchCatalogItemsRequest.Builder()
     .categoryIds(bodyCategoryIds)
     .stockLevels(bodyStockLevels)
     .enabledLocationIds(bodyEnabledLocationIds)
+    .cursor("cursor0")
     .limit(100)
     .sortOrder("ASC")
     .productTypes(bodyProductTypes)

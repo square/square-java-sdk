@@ -9,29 +9,29 @@ instances on a `Shift`.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | UUID for this object. |
-| `LocationId` | `String` |  | The ID of the business location this type of break applies to. |
-| `BreakName` | `String` |  | A human-readable name for this type of break. Will be displayed to<br>employees in Square products. |
-| `ExpectedDuration` | `String` |  | Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of<br>this break. Precision below minutes is truncated. |
-| `IsPaid` | `boolean` |  | Whether this break counts towards time worked for compensation<br>purposes. |
-| `Version` | `Integer` | Optional | Used for resolving concurrency issues; request will fail if version<br>provided does not match server version at time of request. If a value is not<br>provided, Square's servers execute a "blind" write; potentially<br>overwriting another writer's data. |
-| `CreatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format. |
-| `UpdatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | UUID for this object. | String getId() |
+| `LocationId` | `String` |  | The ID of the business location this type of break applies to. | String getLocationId() |
+| `BreakName` | `String` |  | A human-readable name for this type of break. Will be displayed to<br>employees in Square products. | String getBreakName() |
+| `ExpectedDuration` | `String` |  | Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of<br>this break. Precision below minutes is truncated. | String getExpectedDuration() |
+| `IsPaid` | `boolean` |  | Whether this break counts towards time worked for compensation<br>purposes. | boolean getIsPaid() |
+| `Version` | `Integer` | Optional | Used for resolving concurrency issues; request will fail if version<br>provided does not match server version at time of request. If a value is not<br>provided, Square's servers execute a "blind" write; potentially<br>overwriting another writer's data. | Integer getVersion() |
+| `CreatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format. | String getCreatedAt() |
+| `UpdatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format. | String getUpdatedAt() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
+  "id": "id0",
   "location_id": "location_id4",
   "break_name": "break_name8",
   "expected_duration": "expected_duration4",
   "is_paid": false,
-  "version": null,
-  "created_at": null,
-  "updated_at": null
+  "version": 172,
+  "created_at": "created_at2",
+  "updated_at": "updated_at4"
 }
 ```
 

@@ -8,10 +8,10 @@ Response object returned by `GetBankAccount`.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `BankAccount` | [`BankAccount`](/doc/models/bank-account.md) | Optional | Represents a bank account. For more information about <br>linking a bank account to a Square account, see <br>[Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `BankAccount` | [`BankAccount`](/doc/models/bank-account.md) | Optional | Represents a bank account. For more information about <br>linking a bank account to a Square account, see <br>[Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api). | BankAccount getBankAccount() |
 
 ### Example (as JSON)
 

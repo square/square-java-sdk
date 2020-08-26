@@ -10,11 +10,11 @@ the request resulted in errors.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `BreakTypes` | [`List<BreakType>`](/doc/models/break-type.md) | Optional | A page of `BreakType` results. |
-| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Break Type results. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `BreakTypes` | [`List<BreakType>`](/doc/models/break-type.md) | Optional | A page of `BreakType` results. | List<BreakType> getBreakTypes() |
+| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Break Type results. | String getCursor() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

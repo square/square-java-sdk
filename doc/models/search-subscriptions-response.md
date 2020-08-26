@@ -9,11 +9,11 @@ Defines the fields that are included in the response from the
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. |
-| `Subscriptions` | [`List<Subscription>`](/doc/models/subscription.md) | Optional | The search result. |
-| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can <br>use in a subsequent request to fetch the next set of subscriptions. <br>If empty, this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Subscriptions` | [`List<Subscription>`](/doc/models/subscription.md) | Optional | The search result. | List<Subscription> getSubscriptions() |
+| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can <br>use in a subsequent request to fetch the next set of subscriptions. <br>If empty, this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination). | String getCursor() |
 
 ### Example (as JSON)
 

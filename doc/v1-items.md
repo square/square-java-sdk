@@ -109,6 +109,9 @@ CompletableFuture<V1Category> createCategoryAsync(
 ```java
 String locationId = "location_id4";
 V1Category body = new V1Category.Builder()
+    .id("id6")
+    .name("name6")
+    .v2Id("v2_id6")
     .build();
 
 v1ItemsApi.createCategoryAsync(locationId, body).thenAccept(result -> {
@@ -188,6 +191,9 @@ CompletableFuture<V1Category> updateCategoryAsync(
 String locationId = "location_id4";
 String categoryId = "category_id8";
 V1Category body = new V1Category.Builder()
+    .id("id6")
+    .name("name6")
+    .v2Id("v2_id6")
     .build();
 
 v1ItemsApi.updateCategoryAsync(locationId, categoryId, body).thenAccept(result -> {
@@ -255,7 +261,16 @@ CompletableFuture<V1Discount> createDiscountAsync(
 
 ```java
 String locationId = "location_id4";
+V1Money bodyAmountMoney = new V1Money.Builder()
+    .amount(194)
+    .currencyCode("KWD")
+    .build();
 V1Discount body = new V1Discount.Builder()
+    .id("id6")
+    .name("name6")
+    .rate("rate4")
+    .amountMoney(bodyAmountMoney)
+    .discountType("VARIABLE_AMOUNT")
     .build();
 
 v1ItemsApi.createDiscountAsync(locationId, body).thenAccept(result -> {
@@ -334,7 +349,16 @@ CompletableFuture<V1Discount> updateDiscountAsync(
 ```java
 String locationId = "location_id4";
 String discountId = "discount_id8";
+V1Money bodyAmountMoney = new V1Money.Builder()
+    .amount(194)
+    .currencyCode("KWD")
+    .build();
 V1Discount body = new V1Discount.Builder()
+    .id("id6")
+    .name("name6")
+    .rate("rate4")
+    .amountMoney(bodyAmountMoney)
+    .discountType("VARIABLE_AMOUNT")
     .build();
 
 v1ItemsApi.updateDiscountAsync(locationId, discountId, body).thenAccept(result -> {
@@ -403,6 +427,11 @@ CompletableFuture<V1Fee> createFeeAsync(
 ```java
 String locationId = "location_id4";
 V1Fee body = new V1Fee.Builder()
+    .id("id6")
+    .name("name6")
+    .rate("rate4")
+    .calculationPhase("FEE_SUBTOTAL_PHASE")
+    .adjustmentType("TAX")
     .build();
 
 v1ItemsApi.createFeeAsync(locationId, body).thenAccept(result -> {
@@ -482,6 +511,11 @@ CompletableFuture<V1Fee> updateFeeAsync(
 String locationId = "location_id4";
 String feeId = "fee_id8";
 V1Fee body = new V1Fee.Builder()
+    .id("id6")
+    .name("name6")
+    .rate("rate4")
+    .calculationPhase("FEE_SUBTOTAL_PHASE")
+    .adjustmentType("TAX")
     .build();
 
 v1ItemsApi.updateFeeAsync(locationId, feeId, body).thenAccept(result -> {
@@ -520,8 +554,10 @@ CompletableFuture<List<V1InventoryEntry>> listInventoryAsync(
 
 ```java
 String locationId = "location_id4";
+Integer limit = 172;
+String batchToken = "batch_token2";
 
-v1ItemsApi.listInventoryAsync(locationId, null, null).thenAccept(result -> {
+v1ItemsApi.listInventoryAsync(locationId, limit, batchToken).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -558,6 +594,9 @@ CompletableFuture<V1InventoryEntry> adjustInventoryAsync(
 String locationId = "location_id4";
 String variationId = "variation_id2";
 V1AdjustInventoryRequest body = new V1AdjustInventoryRequest.Builder()
+    .quantityDelta(87.82)
+    .adjustmentType("SALE")
+    .memo("memo0")
     .build();
 
 v1ItemsApi.adjustInventoryAsync(locationId, variationId, body).thenAccept(result -> {
@@ -593,8 +632,9 @@ CompletableFuture<List<V1Item>> listItemsAsync(
 
 ```java
 String locationId = "location_id4";
+String batchToken = "batch_token2";
 
-v1ItemsApi.listItemsAsync(locationId, null).thenAccept(result -> {
+v1ItemsApi.listItemsAsync(locationId, batchToken).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -641,6 +681,11 @@ CompletableFuture<V1Item> createItemAsync(
 ```java
 String locationId = "location_id4";
 V1Item body = new V1Item.Builder()
+    .id("id6")
+    .name("name6")
+    .description("description4")
+    .type("GIFT_CARD")
+    .color("593c00")
     .build();
 
 v1ItemsApi.createItemAsync(locationId, body).thenAccept(result -> {
@@ -756,6 +801,11 @@ CompletableFuture<V1Item> updateItemAsync(
 String locationId = "location_id4";
 String itemId = "item_id0";
 V1Item body = new V1Item.Builder()
+    .id("id6")
+    .name("name6")
+    .description("description4")
+    .type("GIFT_CARD")
+    .color("593c00")
     .build();
 
 v1ItemsApi.updateItemAsync(locationId, itemId, body).thenAccept(result -> {
@@ -951,6 +1001,11 @@ CompletableFuture<V1Variation> createVariationAsync(
 String locationId = "location_id4";
 String itemId = "item_id0";
 V1Variation body = new V1Variation.Builder()
+    .id("id6")
+    .name("name6")
+    .itemId("item_id4")
+    .ordinal(88)
+    .pricingType("FIXED_PRICING")
     .build();
 
 v1ItemsApi.createVariationAsync(locationId, itemId, body).thenAccept(result -> {
@@ -1036,6 +1091,11 @@ String locationId = "location_id4";
 String itemId = "item_id0";
 String variationId = "variation_id2";
 V1Variation body = new V1Variation.Builder()
+    .id("id6")
+    .name("name6")
+    .itemId("item_id4")
+    .ordinal(88)
+    .pricingType("FIXED_PRICING")
     .build();
 
 v1ItemsApi.updateVariationAsync(locationId, itemId, variationId, body).thenAccept(result -> {
@@ -1103,7 +1163,40 @@ CompletableFuture<V1ModifierList> createModifierListAsync(
 
 ```java
 String locationId = "location_id4";
+List<V1ModifierOption> bodyModifierOptions = new LinkedList<>();
+
+V1Money bodyModifierOptions0PriceMoney = new V1Money.Builder()
+    .amount(104)
+    .currencyCode("UAH")
+    .build();
+V1ModifierOption bodyModifierOptions0 = new V1ModifierOption.Builder()
+    .id("id0")
+    .name("name0")
+    .priceMoney(bodyModifierOptions0PriceMoney)
+    .onByDefault(false)
+    .ordinal(178)
+    .build();
+bodyModifierOptions.add(bodyModifierOptions0);
+
+V1Money bodyModifierOptions1PriceMoney = new V1Money.Builder()
+    .amount(103)
+    .currencyCode("TZS")
+    .build();
+V1ModifierOption bodyModifierOptions1 = new V1ModifierOption.Builder()
+    .id("id1")
+    .name("name1")
+    .priceMoney(bodyModifierOptions1PriceMoney)
+    .onByDefault(true)
+    .ordinal(179)
+    .build();
+bodyModifierOptions.add(bodyModifierOptions1);
+
 V1ModifierList body = new V1ModifierList.Builder()
+    .id("id6")
+    .name("name6")
+    .selectionType("SINGLE")
+    .modifierOptions(bodyModifierOptions)
+    .v2Id("v2_id6")
     .build();
 
 v1ItemsApi.createModifierListAsync(locationId, body).thenAccept(result -> {
@@ -1219,6 +1312,8 @@ CompletableFuture<V1ModifierList> updateModifierListAsync(
 String locationId = "location_id4";
 String modifierListId = "modifier_list_id6";
 V1UpdateModifierListRequest body = new V1UpdateModifierListRequest.Builder()
+    .name("name6")
+    .selectionType("SINGLE")
     .build();
 
 v1ItemsApi.updateModifierListAsync(locationId, modifierListId, body).thenAccept(result -> {
@@ -1257,7 +1352,16 @@ CompletableFuture<V1ModifierOption> createModifierOptionAsync(
 ```java
 String locationId = "location_id4";
 String modifierListId = "modifier_list_id6";
+V1Money bodyPriceMoney = new V1Money.Builder()
+    .amount(194)
+    .currencyCode("XBA")
+    .build();
 V1ModifierOption body = new V1ModifierOption.Builder()
+    .id("id6")
+    .name("name6")
+    .priceMoney(bodyPriceMoney)
+    .onByDefault(false)
+    .ordinal(88)
     .build();
 
 v1ItemsApi.createModifierOptionAsync(locationId, modifierListId, body).thenAccept(result -> {
@@ -1342,7 +1446,16 @@ CompletableFuture<V1ModifierOption> updateModifierOptionAsync(
 String locationId = "location_id4";
 String modifierListId = "modifier_list_id6";
 String modifierOptionId = "modifier_option_id6";
+V1Money bodyPriceMoney = new V1Money.Builder()
+    .amount(194)
+    .currencyCode("XBA")
+    .build();
 V1ModifierOption body = new V1ModifierOption.Builder()
+    .id("id6")
+    .name("name6")
+    .priceMoney(bodyPriceMoney)
+    .onByDefault(false)
+    .ordinal(88)
     .build();
 
 v1ItemsApi.updateModifierOptionAsync(locationId, modifierListId, modifierOptionId, body).thenAccept(result -> {
@@ -1411,7 +1524,22 @@ CompletableFuture<V1Page> createPageAsync(
 
 ```java
 String locationId = "location_id4";
+List<V1PageCell> bodyCells = new LinkedList<>();
+
+V1PageCell bodyCells0 = new V1PageCell.Builder()
+    .pageId("page_id8")
+    .row(2)
+    .column(80)
+    .objectType("ITEM")
+    .objectId("object_id6")
+    .build();
+bodyCells.add(bodyCells0);
+
 V1Page body = new V1Page.Builder()
+    .id("id6")
+    .name("name6")
+    .pageIndex(224)
+    .cells(bodyCells)
     .build();
 
 v1ItemsApi.createPageAsync(locationId, body).thenAccept(result -> {
@@ -1489,7 +1617,22 @@ CompletableFuture<V1Page> updatePageAsync(
 ```java
 String locationId = "location_id4";
 String pageId = "page_id0";
+List<V1PageCell> bodyCells = new LinkedList<>();
+
+V1PageCell bodyCells0 = new V1PageCell.Builder()
+    .pageId("page_id8")
+    .row(2)
+    .column(80)
+    .objectType("ITEM")
+    .objectId("object_id6")
+    .build();
+bodyCells.add(bodyCells0);
+
 V1Page body = new V1Page.Builder()
+    .id("id6")
+    .name("name6")
+    .pageIndex(224)
+    .cells(bodyCells)
     .build();
 
 v1ItemsApi.updatePageAsync(locationId, pageId, body).thenAccept(result -> {
@@ -1535,8 +1678,10 @@ CompletableFuture<V1Page> deletePageCellAsync(
 ```java
 String locationId = "location_id4";
 String pageId = "page_id0";
+String row = "row0";
+String column = "column4";
 
-v1ItemsApi.deletePageCellAsync(locationId, pageId, null, null).thenAccept(result -> {
+v1ItemsApi.deletePageCellAsync(locationId, pageId, row, column).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -1573,6 +1718,11 @@ CompletableFuture<V1Page> updatePageCellAsync(
 String locationId = "location_id4";
 String pageId = "page_id0";
 V1PageCell body = new V1PageCell.Builder()
+    .pageId("page_id6")
+    .row(22)
+    .column(60)
+    .objectType("ITEM")
+    .objectId("object_id4")
     .build();
 
 v1ItemsApi.updatePageCellAsync(locationId, pageId, body).thenAccept(result -> {

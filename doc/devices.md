@@ -40,7 +40,11 @@ CompletableFuture<ListDeviceCodesResponse> listDeviceCodesAsync(
 ### Example Usage
 
 ```java
-devicesApi.listDeviceCodesAsync(null, null, null).thenAccept(result -> {
+String cursor = "cursor6";
+String locationId = "location_id4";
+String productType = "TERMINAL_API";
+
+devicesApi.listDeviceCodesAsync(cursor, locationId, productType).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -73,7 +77,10 @@ CompletableFuture<CreateDeviceCodeResponse> createDeviceCodeAsync(
 ```java
 DeviceCode bodyDeviceCode = new DeviceCode.Builder(
         "TERMINAL_API")
+    .id("id0")
     .name("Counter 1")
+    .code("code8")
+    .deviceId("device_id6")
     .locationId("B5E4484SHHNYH")
     .build();
 CreateDeviceCodeRequest body = new CreateDeviceCodeRequest.Builder(

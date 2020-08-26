@@ -8,10 +8,10 @@ Contains some brief information about a Customer Group with its identifier inclu
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Id` | `String` | The ID of the Customer Group. |
-| `Name` | `String` | The name of the Customer Group. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Id` | `String` | The ID of the Customer Group. | String getId() |
+| `Name` | `String` | The name of the Customer Group. | String getName() |
 
 ### Example (as JSON)
 

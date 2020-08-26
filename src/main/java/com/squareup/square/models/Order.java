@@ -40,6 +40,7 @@ public class Order {
      * @param totalMoney
      * @param totalTaxMoney
      * @param totalDiscountMoney
+     * @param totalTipMoney
      * @param totalServiceChargeMoney
      * @param pricingOptions
      * @param rewards
@@ -71,6 +72,7 @@ public class Order {
             @JsonProperty("total_money") Money totalMoney,
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
+            @JsonProperty("total_tip_money") Money totalTipMoney,
             @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney,
             @JsonProperty("pricing_options") OrderPricingOptions pricingOptions,
             @JsonProperty("rewards") List<OrderReward> rewards) {
@@ -99,6 +101,7 @@ public class Order {
         this.totalMoney = totalMoney;
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
+        this.totalTipMoney = totalTipMoney;
         this.totalServiceChargeMoney = totalServiceChargeMoney;
         this.pricingOptions = pricingOptions;
         this.rewards = rewards;
@@ -129,6 +132,7 @@ public class Order {
     private final Money totalMoney;
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
+    private final Money totalTipMoney;
     private final Money totalServiceChargeMoney;
     private final OrderPricingOptions pricingOptions;
     private final List<OrderReward> rewards;
@@ -408,6 +412,20 @@ public class Order {
     }
 
     /**
+     * Getter for TotalTipMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned.
+     * Fields that do not explicitly define whether they are signed or unsigned are
+     * considered unsigned and can only hold positive amounts. For signed fields, the
+     * sign of the value indicates the purpose of the money transfer. See
+     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
+     * for more information.
+     */
+    @JsonGetter("total_tip_money")
+    public Money getTotalTipMoney() {
+        return this.totalTipMoney;
+    }
+
+    /**
      * Getter for TotalServiceChargeMoney.
      * Represents an amount of money. `Money` fields can be signed or unsigned.
      * Fields that do not explicitly define whether they are signed or unsigned are
@@ -447,8 +465,8 @@ public class Order {
         return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
             discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
             roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt, state,
-            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalServiceChargeMoney,
-            pricingOptions, rewards);
+            version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
+            totalServiceChargeMoney, pricingOptions, rewards);
     }
 
     @Override
@@ -485,6 +503,7 @@ public class Order {
             Objects.equals(totalMoney, order.totalMoney) &&
             Objects.equals(totalTaxMoney, order.totalTaxMoney) &&
             Objects.equals(totalDiscountMoney, order.totalDiscountMoney) &&
+            Objects.equals(totalTipMoney, order.totalTipMoney) &&
             Objects.equals(totalServiceChargeMoney, order.totalServiceChargeMoney) &&
             Objects.equals(pricingOptions, order.pricingOptions) &&
             Objects.equals(rewards, order.rewards);
@@ -521,6 +540,7 @@ public class Order {
             .totalMoney(getTotalMoney())
             .totalTaxMoney(getTotalTaxMoney())
             .totalDiscountMoney(getTotalDiscountMoney())
+            .totalTipMoney(getTotalTipMoney())
             .totalServiceChargeMoney(getTotalServiceChargeMoney())
             .pricingOptions(getPricingOptions())
             .rewards(getRewards());
@@ -556,6 +576,7 @@ public class Order {
         private Money totalMoney;
         private Money totalTaxMoney;
         private Money totalDiscountMoney;
+        private Money totalTipMoney;
         private Money totalServiceChargeMoney;
         private OrderPricingOptions pricingOptions;
         private List<OrderReward> rewards;
@@ -793,6 +814,15 @@ public class Order {
             return this;
         }
         /**
+         * Setter for totalTipMoney
+         * @param totalTipMoney
+         * @return Builder
+         */
+        public Builder totalTipMoney(Money totalTipMoney) {
+            this.totalTipMoney = totalTipMoney;
+            return this;
+        }
+        /**
          * Setter for totalServiceChargeMoney
          * @param totalServiceChargeMoney
          * @return Builder
@@ -850,6 +880,7 @@ public class Order {
                 totalMoney,
                 totalTaxMoney,
                 totalDiscountMoney,
+                totalTipMoney,
                 totalServiceChargeMoney,
                 pricingOptions,
                 rewards);

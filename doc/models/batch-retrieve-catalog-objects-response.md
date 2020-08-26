@@ -6,11 +6,11 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The set of [Error](#type-error)s encountered. |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s returned. |
-| `RelatedObjects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s referenced by the object in the `objects` field. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The set of [Error](#type-error)s encountered. | List<Error> getErrors() |
+| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s returned. | List<CatalogObject> getObjects() |
+| `RelatedObjects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s referenced by the object in the `objects` field. | List<CatalogObject> getRelatedObjects() |
 
 ### Example (as JSON)
 

@@ -10,15 +10,18 @@ associated with the Order. Does not filter based on the
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `CustomerIds` | `List<String>` | Optional | List of customer IDs to filter by.<br><br>Max: 10 customer IDs. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `CustomerIds` | `List<String>` | Optional | List of customer IDs to filter by.<br><br>Max: 10 customer IDs. | List<String> getCustomerIds() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "customer_ids": null
+  "customer_ids": [
+    "customer_ids1",
+    "customer_ids2"
+  ]
 }
 ```
 

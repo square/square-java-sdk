@@ -9,10 +9,10 @@ a request to the BatchRetrieveOrders endpoint.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Orders` | [`List<Order>`](/doc/models/order.md) | Optional | The requested orders. This will omit any requested orders that do not exist. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Orders` | [`List<Order>`](/doc/models/order.md) | Optional | The requested orders. This will omit any requested orders that do not exist. | List<Order> getOrders() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

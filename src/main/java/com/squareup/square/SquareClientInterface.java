@@ -22,7 +22,6 @@ import com.squareup.square.api.OAuthApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
-import com.squareup.square.api.ReportingApi;
 import com.squareup.square.api.SubscriptionsApi;
 import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
@@ -162,22 +161,10 @@ public interface SquareClientInterface extends Configuration {
     LocationsApi getLocationsApi();
 
     /**
-     * Provides access to Reporting controller
-     * @return Returns the ReportingApi instance
-     */
-    ReportingApi getReportingApi();
-
-    /**
      * Provides access to Checkout controller
      * @return Returns the CheckoutApi instance
      */
     CheckoutApi getCheckoutApi();
-
-    /**
-     * Provides access to Orders controller
-     * @return Returns the OrdersApi instance
-     */
-    OrdersApi getOrdersApi();
 
     /**
      * Provides access to Transactions controller
@@ -196,6 +183,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the MerchantsApi instance
      */
     MerchantsApi getMerchantsApi();
+
+    /**
+     * Provides access to Orders controller
+     * @return Returns the OrdersApi instance
+     */
+    OrdersApi getOrdersApi();
 
     /**
      * Provides access to Payments controller

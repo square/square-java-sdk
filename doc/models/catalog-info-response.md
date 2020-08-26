@@ -6,11 +6,11 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The set of errors encountered. |
-| `Limits` | [`CatalogInfoResponseLimits`](/doc/models/catalog-info-response-limits.md) | Optional | - |
-| `StandardUnitDescriptionGroup` | [`StandardUnitDescriptionGroup`](/doc/models/standard-unit-description-group.md) | Optional | Group of standard measurement units. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The set of errors encountered. | List<Error> getErrors() |
+| `Limits` | [`CatalogInfoResponseLimits`](/doc/models/catalog-info-response-limits.md) | Optional | - | CatalogInfoResponseLimits getLimits() |
+| `StandardUnitDescriptionGroup` | [`StandardUnitDescriptionGroup`](/doc/models/standard-unit-description-group.md) | Optional | Group of standard measurement units. | StandardUnitDescriptionGroup getStandardUnitDescriptionGroup() |
 
 ### Example (as JSON)
 

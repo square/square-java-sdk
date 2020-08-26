@@ -6,15 +6,15 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `CatalogObjectIds` | `List<String>` | Optional | Filters results by `CatalogObject` ID.<br>Only applied when set. Max size is 500 IDs. Default: unset. |
-| `LocationIds` | `List<String>` | Optional | Filters results by `Location` ID. Only<br>applied when set. Default: unset. |
-| `Types` | [`List<String>`](/doc/models/inventory-change-type.md) | Optional | Filters results by `InventoryChangeType`.<br>Default: [`PHYSICAL_COUNT`, `ADJUSTMENT`]. `TRANSFER` is not supported as<br>a filter.<br>See [InventoryChangeType](#type-inventorychangetype) for possible values |
-| `States` | [`List<String>`](/doc/models/inventory-state.md) | Optional | Filters `ADJUSTMENT` query results by<br>`InventoryState`. Only applied when set.<br>Default: unset.<br>See [InventoryState](#type-inventorystate) for possible values |
-| `UpdatedAfter` | `String` | Optional | Provided as an RFC 3339 timestamp. Returns results whose<br>`created_at` or `calculated_at` value is after the given time.<br>Default: UNIX epoch (`1970-01-01T00:00:00Z`). |
-| `UpdatedBefore` | `String` | Optional | Provided as an RFC 3339 timestamp. Returns results whose<br>`created_at` or `calculated_at` value is strictly before the given time.<br>Default: UNIX epoch (`1970-01-01T00:00:00Z`). |
-| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `CatalogObjectIds` | `List<String>` | Optional | The filter to return results by `CatalogObject` ID.<br>The filter is only applicable when set. The default value is null. | List<String> getCatalogObjectIds() |
+| `LocationIds` | `List<String>` | Optional | The filter to return results by `Location` ID. <br>The filter is only applicable when set. The default value is null. | List<String> getLocationIds() |
+| `Types` | [`List<String>`](/doc/models/inventory-change-type.md) | Optional | The filter to return results by `InventoryChangeType` values other than `TRANSFER`.<br>The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`.<br>See [InventoryChangeType](#type-inventorychangetype) for possible values | List<String> getTypes() |
+| `States` | [`List<String>`](/doc/models/inventory-state.md) | Optional | The filter to return `ADJUSTMENT` query results by<br>`InventoryState`. This filter is only applied when set.<br>The default value is null.<br>See [InventoryState](#type-inventorystate) for possible values | List<String> getStates() |
+| `UpdatedAfter` | `String` | Optional | The filter to return results with their `calculated_at` value  <br>after the given time as specified in an RFC 3339 timestamp. <br>The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`). | String getUpdatedAfter() |
+| `UpdatedBefore` | `String` | Optional | The filter to return results with their `created_at` or `calculated_at` value  <br>strictly before the given time as specified in an RFC 3339 timestamp. <br>The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`). | String getUpdatedBefore() |
+| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. | String getCursor() |
 
 ### Example (as JSON)
 

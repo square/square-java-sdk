@@ -24,10 +24,9 @@ Creates a subscription for a customer to a subscription plan.
 If you provide a card on file in the request, Square charges the card for 
 the subscription. Otherwise, Square bills an invoice to the customer's email 
 address. The subscription starts immediately, unless the request includes 
-the optional `start_date`. Each individual subscription is associated with a particular location. 
+the optional `start_date`. Each individual subscription is associated with a particular location.
 
-For more information, 
-see [Subscription API Overview](https://developer.squareup.com/docs/docs/subscriptions-api/overview).
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#create-subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#create-subscriptions)
 
 ```java
 CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
@@ -57,6 +56,7 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "6JHXF3B2CW3YKHDV4XEM674H",
         "CHFGVKYY8RSV93M5KCYTG4PN0G")
     .startDate("2020-08-01")
+    .canceledDate("canceled_date0")
     .taxPercentage("5")
     .priceOverrideMoney(bodyPriceOverrideMoney)
     .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
@@ -90,6 +90,8 @@ customer by subscription creation date.
 For more information, see 
 [Retrieve subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
 
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions)
+
 ```java
 CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
     final SearchSubscriptionsRequest body)
@@ -120,6 +122,8 @@ SearchSubscriptionsQuery bodyQuery = new SearchSubscriptionsQuery.Builder()
     .filter(bodyQueryFilter)
     .build();
 SearchSubscriptionsRequest body = new SearchSubscriptionsRequest.Builder()
+    .cursor("cursor0")
+    .limit(164)
     .query(bodyQuery)
     .build();
 
@@ -134,6 +138,8 @@ subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {
 ## Retrieve Subscription
 
 Retrieves a subscription.
+
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions)
 
 ```java
 CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
@@ -166,8 +172,9 @@ subscriptionsApi.retrieveSubscriptionAsync(subscriptionId).thenAccept(result -> 
 ## Update Subscription
 
 Updates a subscription. You can set, modify, and clear the 
-`subscription` field values. For more information and examples, see 
-[Update subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#update-subscriptions).
+`subscription` field values.
+
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#update-subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#update-subscriptions)
 
 ```java
 CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
@@ -195,6 +202,12 @@ Money bodySubscriptionPriceOverrideMoney = new Money.Builder()
     .currency("USD")
     .build();
 Subscription bodySubscription = new Subscription.Builder()
+    .id("id8")
+    .locationId("location_id2")
+    .planId("plan_id0")
+    .customerId("customer_id6")
+    .startDate("start_date2")
+    .taxPercentage("null")
     .priceOverrideMoney(bodySubscriptionPriceOverrideMoney)
     .version(1594155459464L)
     .build();
@@ -212,11 +225,10 @@ subscriptionsApi.updateSubscriptionAsync(subscriptionId, body).thenAccept(result
 
 ## Cancel Subscription
 
-Cancels a subscription immediately and sets the subscription
-`status` to `CANCELED`. You can also use the `UpdateSubscription`
-endpoint to cancel a subscription at a future date. For more
-information, see
-[CancelSubscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#cancel-subscriptions).
+Sets the `canceled_date` field to the end of the active billing period.
+After this date, the status changes from ACTIVE to CANCELED.
+
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#cancel-subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#cancel-subscriptions)
 
 ```java
 CompletableFuture<CancelSubscriptionResponse> cancelSubscriptionAsync(
@@ -251,6 +263,8 @@ subscriptionsApi.cancelSubscriptionAsync(subscriptionId).thenAccept(result -> {
 Lists all events for a specific subscription.
 In the current implementation, only `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are returned.
 
+Subscriptions Guide: [https://developer.squareup.com/docs/subscriptions-api/overview#subscription-events](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-events)
+
 ```java
 CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
     final String subscriptionId,
@@ -274,8 +288,10 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
+String cursor = "cursor6";
+Integer limit = 172;
 
-subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, null, null).thenAccept(result -> {
+subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, cursor, limit).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

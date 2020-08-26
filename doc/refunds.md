@@ -50,7 +50,15 @@ CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
 ### Example Usage
 
 ```java
-refundsApi.listPaymentRefundsAsync(null, null, null, null, null, null, null).thenAccept(result -> {
+String beginTime = "begin_time2";
+String endTime = "end_time2";
+String sortOrder = "sort_order0";
+String cursor = "cursor6";
+String locationId = "location_id4";
+String status = "status8";
+String sourceType = "source_type0";
+
+refundsApi.listPaymentRefundsAsync(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -86,10 +94,16 @@ Money bodyAmountMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
+Money bodyAppFeeMoney = new Money.Builder()
+    .amount(114L)
+    .currency("GEL")
+    .build();
 RefundPaymentRequest body = new RefundPaymentRequest.Builder(
         "a7e36d40-d24b-11e8-b568-0800200c9a66",
         bodyAmountMoney,
         "UNOE3kv2BZwqHlJ830RCt5YCuaB")
+    .appFeeMoney(bodyAppFeeMoney)
+    .reason("reason8")
     .build();
 
 refundsApi.refundPaymentAsync(body).thenAccept(result -> {

@@ -10,11 +10,11 @@ the request resulted in errors.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `WorkweekConfigs` | [`List<WorkweekConfig>`](/doc/models/workweek-config.md) | Optional | A page of Employee Wage results. |
-| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next page of<br>Employee Wage results. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `WorkweekConfigs` | [`List<WorkweekConfig>`](/doc/models/workweek-config.md) | Optional | A page of Employee Wage results. | List<WorkweekConfig> getWorkweekConfigs() |
+| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next page of<br>Employee Wage results. | String getCursor() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

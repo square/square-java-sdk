@@ -8,19 +8,19 @@ The query filter to return the search result whose named attribute values fall b
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `AttributeName` | `String` |  | The name of the attribute to be searched. |
-| `AttributeMinValue` | `Long` | Optional | The desired minimum value for the search attribute (inclusive). |
-| `AttributeMaxValue` | `Long` | Optional | The desired maximum value for the search attribute (inclusive). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AttributeName` | `String` |  | The name of the attribute to be searched. | String getAttributeName() |
+| `AttributeMinValue` | `Long` | Optional | The desired minimum value for the search attribute (inclusive). | Long getAttributeMinValue() |
+| `AttributeMaxValue` | `Long` | Optional | The desired maximum value for the search attribute (inclusive). | Long getAttributeMaxValue() |
 
 ### Example (as JSON)
 
 ```json
 {
   "attribute_name": "attribute_name4",
-  "attribute_min_value": null,
-  "attribute_max_value": null
+  "attribute_min_value": 232,
+  "attribute_max_value": 114
 }
 ```
 

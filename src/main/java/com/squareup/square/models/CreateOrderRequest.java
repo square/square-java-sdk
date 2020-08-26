@@ -14,17 +14,21 @@ public class CreateOrderRequest {
     /**
      * Initialization constructor.
      * @param order
+     * @param locationId
      * @param idempotencyKey
      */
     @JsonCreator
     public CreateOrderRequest(
             @JsonProperty("order") Order order,
+            @JsonProperty("location_id") String locationId,
             @JsonProperty("idempotency_key") String idempotencyKey) {
         this.order = order;
+        this.locationId = locationId;
         this.idempotencyKey = idempotencyKey;
     }
 
     private final Order order;
+    private final String locationId;
     private final String idempotencyKey;
     /**
      * Getter for Order.
@@ -37,6 +41,15 @@ public class CreateOrderRequest {
     @JsonGetter("order")
     public Order getOrder() {
         return this.order;
+    }
+
+    /**
+     * Getter for LocationId.
+     * The ID of the business location to associate the order with.
+     */
+    @JsonGetter("location_id")
+    public String getLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -56,7 +69,7 @@ public class CreateOrderRequest {
  
     @Override
     public int hashCode() {
-        return Objects.hash(order, idempotencyKey);
+        return Objects.hash(order, locationId, idempotencyKey);
     }
 
     @Override
@@ -69,6 +82,7 @@ public class CreateOrderRequest {
         }
         CreateOrderRequest createOrderRequest = (CreateOrderRequest) obj;
         return Objects.equals(order, createOrderRequest.order) &&
+            Objects.equals(locationId, createOrderRequest.locationId) &&
             Objects.equals(idempotencyKey, createOrderRequest.idempotencyKey);
     }
 
@@ -80,6 +94,7 @@ public class CreateOrderRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .order(getOrder())
+            .locationId(getLocationId())
             .idempotencyKey(getIdempotencyKey());
             return builder;
     }
@@ -89,6 +104,7 @@ public class CreateOrderRequest {
      */
     public static class Builder {
         private Order order;
+        private String locationId;
         private String idempotencyKey;
 
         /**
@@ -108,6 +124,15 @@ public class CreateOrderRequest {
             return this;
         }
         /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+        /**
          * Setter for idempotencyKey
          * @param idempotencyKey
          * @return Builder
@@ -123,6 +148,7 @@ public class CreateOrderRequest {
          */
         public CreateOrderRequest build() {
             return new CreateOrderRequest(order,
+                locationId,
                 idempotencyKey);
         }
     }

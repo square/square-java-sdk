@@ -65,7 +65,17 @@ CompletableFuture<List<V1Employee>> listEmployeesAsync(
 ### Example Usage
 
 ```java
-v1EmployeesApi.listEmployeesAsync(null, null, null, null, null, null, null, null, null).thenAccept(result -> {
+String order = "DESC";
+String beginUpdatedAt = "begin_updated_at6";
+String endUpdatedAt = "end_updated_at4";
+String beginCreatedAt = "begin_created_at6";
+String endCreatedAt = "end_created_at8";
+String status = "ACTIVE";
+String externalId = "external_id6";
+Integer limit = 172;
+String batchToken = "batch_token2";
+
+v1EmployeesApi.listEmployeesAsync(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -104,9 +114,20 @@ CompletableFuture<V1Employee> createEmployeeAsync(
 ### Example Usage
 
 ```java
+List<String> bodyRoleIds = new LinkedList<>();
+bodyRoleIds.add("role_ids0");
+bodyRoleIds.add("role_ids1");
+List<String> bodyAuthorizedLocationIds = new LinkedList<>();
+bodyAuthorizedLocationIds.add("authorized_location_ids7");
+bodyAuthorizedLocationIds.add("authorized_location_ids8");
 V1Employee body = new V1Employee.Builder(
         "first_name6",
         "last_name4")
+    .id("id6")
+    .roleIds(bodyRoleIds)
+    .authorizedLocationIds(bodyAuthorizedLocationIds)
+    .email("email0")
+    .status("ACTIVE")
     .build();
 
 v1EmployeesApi.createEmployeeAsync(body).thenAccept(result -> {
@@ -174,9 +195,20 @@ CompletableFuture<V1Employee> updateEmployeeAsync(
 
 ```java
 String employeeId = "employee_id0";
+List<String> bodyRoleIds = new LinkedList<>();
+bodyRoleIds.add("role_ids0");
+bodyRoleIds.add("role_ids1");
+List<String> bodyAuthorizedLocationIds = new LinkedList<>();
+bodyAuthorizedLocationIds.add("authorized_location_ids7");
+bodyAuthorizedLocationIds.add("authorized_location_ids8");
 V1Employee body = new V1Employee.Builder(
         "first_name6",
         "last_name4")
+    .id("id6")
+    .roleIds(bodyRoleIds)
+    .authorizedLocationIds(bodyAuthorizedLocationIds)
+    .email("email0")
+    .status("ACTIVE")
     .build();
 
 v1EmployeesApi.updateEmployeeAsync(employeeId, body).thenAccept(result -> {
@@ -213,7 +245,11 @@ CompletableFuture<List<V1EmployeeRole>> listEmployeeRolesAsync(
 ### Example Usage
 
 ```java
-v1EmployeesApi.listEmployeeRolesAsync(null, null, null).thenAccept(result -> {
+String order = "DESC";
+Integer limit = 172;
+String batchToken = "batch_token2";
+
+v1EmployeesApi.listEmployeeRolesAsync(order, limit, batchToken).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -262,6 +298,10 @@ bodyPermissions.add("REGISTER_EDIT_ITEM");
 V1EmployeeRole body = new V1EmployeeRole.Builder(
         "name6",
         bodyPermissions)
+    .id("id6")
+    .isOwner(false)
+    .createdAt("created_at4")
+    .updatedAt("updated_at8")
     .build();
 
 v1EmployeesApi.createEmployeeRoleAsync(body).thenAccept(result -> {
@@ -336,6 +376,10 @@ bodyPermissions.add("REGISTER_EDIT_ITEM");
 V1EmployeeRole body = new V1EmployeeRole.Builder(
         "name6",
         bodyPermissions)
+    .id("id6")
+    .isOwner(false)
+    .createdAt("created_at4")
+    .updatedAt("updated_at8")
     .build();
 
 v1EmployeesApi.updateEmployeeRoleAsync(roleId, body).thenAccept(result -> {
@@ -388,7 +432,19 @@ CompletableFuture<List<V1Timecard>> listTimecardsAsync(
 ### Example Usage
 
 ```java
-v1EmployeesApi.listTimecardsAsync(null, null, null, null, null, null, null, null, null, null, null).thenAccept(result -> {
+String order = "DESC";
+String employeeId = "employee_id0";
+String beginClockinTime = "begin_clockin_time8";
+String endClockinTime = "end_clockin_time2";
+String beginClockoutTime = "begin_clockout_time0";
+String endClockoutTime = "end_clockout_time2";
+String beginUpdatedAt = "begin_updated_at6";
+String endUpdatedAt = "end_updated_at4";
+Boolean deleted = false;
+Integer limit = 172;
+String batchToken = "batch_token2";
+
+v1EmployeesApi.listTimecardsAsync(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -432,6 +488,11 @@ CompletableFuture<V1Timecard> createTimecardAsync(
 ```java
 V1Timecard body = new V1Timecard.Builder(
         "employee_id4")
+    .id("id6")
+    .deleted(false)
+    .clockinTime("clockin_time2")
+    .clockoutTime("clockout_time2")
+    .clockinLocationId("clockin_location_id4")
     .build();
 
 v1EmployeesApi.createTimecardAsync(body).thenAccept(result -> {
@@ -555,6 +616,11 @@ CompletableFuture<V1Timecard> updateTimecardAsync(
 String timecardId = "timecard_id0";
 V1Timecard body = new V1Timecard.Builder(
         "employee_id4")
+    .id("id6")
+    .deleted(false)
+    .clockinTime("clockin_time2")
+    .clockoutTime("clockout_time2")
+    .clockinLocationId("clockin_location_id4")
     .build();
 
 v1EmployeesApi.updateTimecardAsync(timecardId, body).thenAccept(result -> {
@@ -634,8 +700,11 @@ CompletableFuture<List<V1CashDrawerShift>> listCashDrawerShiftsAsync(
 
 ```java
 String locationId = "location_id4";
+String order = "DESC";
+String beginTime = "begin_time2";
+String endTime = "end_time2";
 
-v1EmployeesApi.listCashDrawerShiftsAsync(locationId, null, null, null).thenAccept(result -> {
+v1EmployeesApi.listCashDrawerShiftsAsync(locationId, order, beginTime, endTime).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

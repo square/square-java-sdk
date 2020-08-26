@@ -8,9 +8,9 @@ The query filter to return the items containing the specified tax IDs.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `TaxIds` | `List<String>` | A set of `CatalogTax` IDs to be used to find associated `CatalogItem`s. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `TaxIds` | `List<String>` | A set of `CatalogTax` IDs to be used to find associated `CatalogItem`s. | List<String> getTaxIds() |
 
 ### Example (as JSON)
 

@@ -28,7 +28,7 @@ public class TimeRange {
     private final String endAt;
     /**
      * Getter for StartAt.
-     * A datetime value in RFC-3339 format indicating when the time range
+     * A datetime value in RFC 3339 format indicating when the time range
      * starts.
      */
     @JsonGetter("start_at")
@@ -38,7 +38,7 @@ public class TimeRange {
 
     /**
      * Getter for EndAt.
-     * A datetime value in RFC-3339 format indicating when the time range
+     * A datetime value in RFC 3339 format indicating when the time range
      * ends.
      */
     @JsonGetter("end_at")

@@ -119,6 +119,8 @@ CompletableFuture<RevokeTokenResponse> revokeTokenAsync(
 RevokeTokenRequest body = new RevokeTokenRequest.Builder()
     .clientId("CLIENT_ID")
     .accessToken("ACCESS_TOKEN")
+    .merchantId("merchant_id6")
+    .revokeOnlyAccessToken(false)
     .build();
 String authorization = "Client CLIENT_SECRET";
 
@@ -171,6 +173,9 @@ ObtainTokenRequest body = new ObtainTokenRequest.Builder(
         "APPLICATION_SECRET",
         "authorization_code")
     .code("CODE_FROM_AUTHORIZE")
+    .redirectUri("redirect_uri4")
+    .refreshToken("refresh_token6")
+    .migrationToken("migration_token4")
     .build();
 
 oAuthApi.obtainTokenAsync(body).thenAccept(result -> {

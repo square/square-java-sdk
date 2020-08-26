@@ -33,7 +33,6 @@ import com.squareup.square.api.DefaultOAuthApi;
 import com.squareup.square.api.DefaultOrdersApi;
 import com.squareup.square.api.DefaultPaymentsApi;
 import com.squareup.square.api.DefaultRefundsApi;
-import com.squareup.square.api.DefaultReportingApi;
 import com.squareup.square.api.DefaultSubscriptionsApi;
 import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
@@ -56,7 +55,6 @@ import com.squareup.square.api.OAuthApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
-import com.squareup.square.api.ReportingApi;
 import com.squareup.square.api.SubscriptionsApi;
 import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
@@ -98,12 +96,11 @@ public final class SquareClient implements SquareClientInterface {
     private InvoicesApi invoices;
     private LaborApi labor;
     private LocationsApi locations;
-    private ReportingApi reporting;
     private CheckoutApi checkout;
-    private OrdersApi orders;
     private TransactionsApi transactions;
     private LoyaltyApi loyalty;
     private MerchantsApi merchants;
+    private OrdersApi orders;
     private PaymentsApi payments;
     private RefundsApi refunds;
     private SubscriptionsApi subscriptions;
@@ -271,27 +268,11 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
-     * Get the instance of ReportingApi
-     * @return reporting
-     */
-    public ReportingApi getReportingApi() {
-        return reporting;
-    }
-
-    /**
      * Get the instance of CheckoutApi
      * @return checkout
      */
     public CheckoutApi getCheckoutApi() {
         return checkout;
-    }
-
-    /**
-     * Get the instance of OrdersApi
-     * @return orders
-     */
-    public OrdersApi getOrdersApi() {
-        return orders;
     }
 
     /**
@@ -316,6 +297,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public MerchantsApi getMerchantsApi() {
         return merchants;
+    }
+
+    /**
+     * Get the instance of OrdersApi
+     * @return orders
+     */
+    public OrdersApi getOrdersApi() {
+        return orders;
     }
 
     /**
@@ -405,12 +394,11 @@ public final class SquareClient implements SquareClientInterface {
         invoices = new DefaultInvoicesApi(this, this.httpClient, this.authManagers, this.httpCallback);
         labor = new DefaultLaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
         locations = new DefaultLocationsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        reporting = new DefaultReportingApi(this, this.httpClient, this.authManagers, this.httpCallback);
         checkout = new DefaultCheckoutApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        orders = new DefaultOrdersApi(this, this.httpClient, this.authManagers, this.httpCallback);
         transactions = new DefaultTransactionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         loyalty = new DefaultLoyaltyApi(this, this.httpClient, this.authManagers, this.httpCallback);
         merchants = new DefaultMerchantsApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        orders = new DefaultOrdersApi(this, this.httpClient, this.authManagers, this.httpCallback);
         payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         subscriptions = new DefaultSubscriptionsApi(this, this.httpClient, this.authManagers, this.httpCallback);
@@ -524,7 +512,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "6.2.0.20200812";
+        return "6.3.0.20200826";
     }
 
     /**
@@ -592,7 +580,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2020-08-12";
+        private String squareVersion = "2020-08-26";
         private String accessToken = "TODO: Replace";
         private HttpClient httpClient;
         private long timeout = 60;

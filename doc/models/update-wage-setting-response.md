@@ -9,10 +9,10 @@ or error messages.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `WageSetting` | [`WageSetting`](/doc/models/wage-setting.md) | Optional | An object representing a team member's wage information. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `WageSetting` | [`WageSetting`](/doc/models/wage-setting.md) | Optional | An object representing a team member's wage information. | WageSetting getWageSetting() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

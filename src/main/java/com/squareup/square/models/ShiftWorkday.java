@@ -32,7 +32,7 @@ public class ShiftWorkday {
     private final String defaultTimezone;
     /**
      * Getter for DateRange.
-     * A range defined by two dates. Used for filtering a query for Connect v2 
+     * A range defined by two dates. Used for filtering a query for Connect v2
      * objects that have date properties.
      */
     @JsonGetter("date_range")

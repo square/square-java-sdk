@@ -10,10 +10,10 @@ the request resulted in errors.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `WorkweekConfig` | [`WorkweekConfig`](/doc/models/workweek-config.md) | Optional | Sets the Day of the week and hour of the day that a business starts a<br>work week. Used for the calculation of overtime pay. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `WorkweekConfig` | [`WorkweekConfig`](/doc/models/workweek-config.md) | Optional | Sets the Day of the week and hour of the day that a business starts a<br>work week. Used for the calculation of overtime pay. | WorkweekConfig getWorkweekConfig() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

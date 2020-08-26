@@ -10,21 +10,21 @@ or more information, see
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | The Square-assigned ID of the mapping. |
-| `Type` | `String` |  | The type of mapping.<br>*Default: `"PHONE"`* |
-| `Value` | `String` |  | The phone number, in E.164 format. For example, "+14155551111". |
-| `CreatedAt` | `String` | Optional | The timestamp when the mapping was created, in RFC 3339 format. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | The Square-assigned ID of the mapping. | String getId() |
+| `Type` | `String` |  | The type of mapping.<br>*Default: `"PHONE"`* | String getType() |
+| `Value` | `String` |  | The phone number, in E.164 format. For example, "+14155551111". | String getValue() |
+| `CreatedAt` | `String` | Optional | The timestamp when the mapping was created, in RFC 3339 format. | String getCreatedAt() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
+  "id": "id0",
   "type": "type0",
   "value": "value2",
-  "created_at": null
+  "created_at": "created_at2"
 }
 ```
 

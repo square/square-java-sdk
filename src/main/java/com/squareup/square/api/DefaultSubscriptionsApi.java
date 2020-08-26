@@ -57,9 +57,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * If you provide a card on file in the request, Square charges the card for 
      * the subscription. Otherwise, Square bills an invoice to the customer's email 
      * address. The subscription starts immediately, unless the request includes 
-     * the optional `start_date`. Each individual subscription is associated with a particular location. 
-     * For more information, 
-     * see [Subscription API Overview](https://developer.squareup.com/docs/docs/subscriptions-api/overview).
+     * the optional `start_date`. Each individual subscription is associated with a particular location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateSubscriptionResponse response from the API call
      */
@@ -79,9 +77,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * If you provide a card on file in the request, Square charges the card for 
      * the subscription. Otherwise, Square bills an invoice to the customer's email 
      * address. The subscription starts immediately, unless the request includes 
-     * the optional `start_date`. Each individual subscription is associated with a particular location. 
-     * For more information, 
-     * see [Subscription API Overview](https://developer.squareup.com/docs/docs/subscriptions-api/overview).
+     * the optional `start_date`. Each individual subscription is associated with a particular location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateSubscriptionResponse response from the API call 
      */
@@ -356,8 +352,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Updates a subscription. You can set, modify, and clear the 
-     * `subscription` field values. For more information and examples, see 
-     * [Update subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#update-subscriptions).
+     * `subscription` field values.
      * @param    subscriptionId    Required parameter: The ID for the subscription to update.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the UpdateSubscriptionResponse response from the API call
@@ -376,8 +371,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Updates a subscription. You can set, modify, and clear the 
-     * `subscription` field values. For more information and examples, see 
-     * [Update subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#update-subscriptions).
+     * `subscription` field values.
      * @param    subscriptionId    Required parameter: The ID for the subscription to update.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the UpdateSubscriptionResponse response from the API call 
@@ -456,11 +450,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Cancels a subscription immediately and sets the subscription
-     * `status` to `CANCELED`. You can also use the `UpdateSubscription`
-     * endpoint to cancel a subscription at a future date. For more
-     * information, see
-     * [CancelSubscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#cancel-subscriptions).
+     * Sets the `canceled_date` field to the end of the active billing period.
+     * After this date, the status changes from ACTIVE to CANCELED.
      * @param    subscriptionId    Required parameter: The ID of the subscription to cancel.
      * @return    Returns the CancelSubscriptionResponse response from the API call
      */
@@ -476,11 +467,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Cancels a subscription immediately and sets the subscription
-     * `status` to `CANCELED`. You can also use the `UpdateSubscription`
-     * endpoint to cancel a subscription at a future date. For more
-     * information, see
-     * [CancelSubscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#cancel-subscriptions).
+     * Sets the `canceled_date` field to the end of the active billing period.
+     * After this date, the status changes from ACTIVE to CANCELED.
      * @param    subscriptionId    Required parameter: The ID of the subscription to cancel.
      * @return    Returns the CancelSubscriptionResponse response from the API call 
      */

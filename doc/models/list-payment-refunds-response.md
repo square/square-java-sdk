@@ -11,11 +11,11 @@ One of `errors` or `refunds` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Refunds` | [`List<PaymentRefund>`](/doc/models/payment-refund.md) | Optional | The list of requested refunds. |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Refunds` | [`List<PaymentRefund>`](/doc/models/payment-refund.md) | Optional | The list of requested refunds. | List<PaymentRefund> getRefunds() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
 
 ### Example (as JSON)
 

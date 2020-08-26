@@ -6,10 +6,10 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Order` | [`Order`](/doc/models/order.md) |  | Contains all information related to a single order to process with Square,<br>including line items that specify the products to purchase. Order objects also<br>include information on any associated tenders, refunds, and returns.<br><br>All Connect V2 Transactions have all been converted to Orders including all associated<br>itemization data. |
-| `ProposedRewards` | [`List<OrderReward>`](/doc/models/order-reward.md) | Optional | Identifies one or more loyalty reward tiers to apply during order calculation.<br>The discounts defined by the reward tiers are added to the order only to preview the<br>effect of applying the specified reward(s). The reward(s) do not correspond to actual<br>redemptions, that is, no `reward`s are created. Therefore, the reward `id`s are<br>random strings used only to reference the reward tier. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Order` | [`Order`](/doc/models/order.md) |  | Contains all information related to a single order to process with Square,<br>including line items that specify the products to purchase. Order objects also<br>include information on any associated tenders, refunds, and returns.<br><br>All Connect V2 Transactions have all been converted to Orders including all associated<br>itemization data. | Order getOrder() |
+| `ProposedRewards` | [`List<OrderReward>`](/doc/models/order-reward.md) | Optional | Identifies one or more loyalty reward tiers to apply during order calculation.<br>The discounts defined by the reward tiers are added to the order only to preview the<br>effect of applying the specified reward(s). The reward(s) do not correspond to actual<br>redemptions, that is, no `reward`s are created. Therefore, the reward `id`s are<br>random strings used only to reference the reward tier. | List<OrderReward> getProposedRewards() |
 
 ### Example (as JSON)
 

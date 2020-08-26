@@ -8,10 +8,10 @@ Represents a response from a bulk update request, containing the updated `TeamMe
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `TeamMembers` | [`Map<String, UpdateTeamMemberResponse>`](/doc/models/update-team-member-response.md) | Optional | The successfully updated `TeamMember` objects. Each key is the `team_member_id` that maps to the `UpdateTeamMemberRequest`. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `TeamMembers` | [`Map<String, UpdateTeamMemberResponse>`](/doc/models/update-team-member-response.md) | Optional | The successfully updated `TeamMember` objects. Each key is the `team_member_id` that maps to the `UpdateTeamMemberRequest`. | Map<String, UpdateTeamMemberResponse> getTeamMembers() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

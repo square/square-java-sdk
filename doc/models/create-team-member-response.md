@@ -8,10 +8,10 @@ Represents a response from a create request, containing the created `TeamMember`
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `TeamMember` | [`TeamMember`](/doc/models/team-member.md) | Optional | A record representing an individual team member for a business. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `TeamMember` | [`TeamMember`](/doc/models/team-member.md) | Optional | A record representing an individual team member for a business. | TeamMember getTeamMember() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

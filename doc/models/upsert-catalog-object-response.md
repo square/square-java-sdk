@@ -6,11 +6,11 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors encountered. |
-| `CatalogObject` | [`CatalogObject`](/doc/models/catalog-object.md) | Optional | - |
-| `IdMappings` | [`List<CatalogIdMapping>`](/doc/models/catalog-id-mapping.md) | Optional | The mapping between client and server IDs for this upsert. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors encountered. | List<Error> getErrors() |
+| `CatalogObject` | [`CatalogObject`](/doc/models/catalog-object.md) | Optional | - | CatalogObject getCatalogObject() |
+| `IdMappings` | [`List<CatalogIdMapping>`](/doc/models/catalog-id-mapping.md) | Optional | The mapping between client and server IDs for this upsert. | List<CatalogIdMapping> getIdMappings() |
 
 ### Example (as JSON)
 

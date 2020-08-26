@@ -9,11 +9,11 @@ SearchCustomers endpoint.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Cursor` | `String` | Optional | Include the pagination cursor in subsequent calls to this endpoint to retrieve<br>the next set of results associated with the original query.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. |
-| `Limit` | `Long` | Optional | A limit on the number of results to be returned in a single page.<br>The limit is advisory - the implementation may return more or fewer results.<br>If the supplied limit is negative, zero, or is higher than the maximum limit<br>of 100, it will be ignored. |
-| `Query` | [`CustomerQuery`](/doc/models/customer-query.md) | Optional | Represents a query (including filtering criteria, sorting criteria, or both) used to search<br>for customer profiles. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Cursor` | `String` | Optional | Include the pagination cursor in subsequent calls to this endpoint to retrieve<br>the next set of results associated with the original query.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. | String getCursor() |
+| `Limit` | `Long` | Optional | A limit on the number of results to be returned in a single page.<br>The limit is advisory - the implementation may return more or fewer results.<br>If the supplied limit is negative, zero, or is higher than the maximum limit<br>of 100, it will be ignored. | Long getLimit() |
+| `Query` | [`CustomerQuery`](/doc/models/customer-query.md) | Optional | Represents a query (including filtering criteria, sorting criteria, or both) used to search<br>for customer profiles. | CustomerQuery getQuery() |
 
 ### Example (as JSON)
 

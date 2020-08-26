@@ -9,10 +9,10 @@ a request to the [GetPayment](#endpoint-payments-getpayment) endpoint.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Payment` | [`Payment`](/doc/models/payment.md) | Optional | Represents a payment processed by the Square API. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Payment` | [`Payment`](/doc/models/payment.md) | Optional | Represents a payment processed by the Square API. | Payment getPayment() |
 
 ### Example (as JSON)
 

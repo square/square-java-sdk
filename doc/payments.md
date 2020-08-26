@@ -55,7 +55,16 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 ### Example Usage
 
 ```java
-paymentsApi.listPaymentsAsync(null, null, null, null, null, null, null, null).thenAccept(result -> {
+String beginTime = "begin_time2";
+String endTime = "end_time2";
+String sortOrder = "sort_order0";
+String cursor = "cursor6";
+String locationId = "location_id4";
+Long total = 10L;
+String last4 = "last_42";
+String cardBrand = "card_brand6";
+
+paymentsApi.listPaymentsAsync(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -101,6 +110,10 @@ Money bodyAmountMoney = new Money.Builder()
     .amount(200L)
     .currency("USD")
     .build();
+Money bodyTipMoney = new Money.Builder()
+    .amount(198L)
+    .currency("CHF")
+    .build();
 Money bodyAppFeeMoney = new Money.Builder()
     .amount(10L)
     .currency("USD")
@@ -109,8 +122,11 @@ CreatePaymentRequest body = new CreatePaymentRequest.Builder(
         "ccof:uIbfJXhXETSP197M3GB",
         "4935a656-a929-4792-b97c-8848be85c27c",
         bodyAmountMoney)
+    .tipMoney(bodyTipMoney)
     .appFeeMoney(bodyAppFeeMoney)
+    .delayDuration("delay_duration6")
     .autocomplete(true)
+    .orderId("order_id0")
     .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
     .locationId("XK3DBG77NJBFX")
     .referenceId("123456")

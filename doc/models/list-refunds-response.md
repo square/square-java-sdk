@@ -11,11 +11,11 @@ One of `errors` or `refunds` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Refunds` | [`List<Refund>`](/doc/models/refund.md) | Optional | An array of refunds that match your query. |
-| `Cursor` | `String` | Optional | A pagination cursor for retrieving the next set of results,<br>if any remain. Provide this value as the `cursor` parameter in a subsequent<br>request to this endpoint.<br><br>See [Paginating results](#paginatingresults) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Refunds` | [`List<Refund>`](/doc/models/refund.md) | Optional | An array of refunds that match your query. | List<Refund> getRefunds() |
+| `Cursor` | `String` | Optional | A pagination cursor for retrieving the next set of results,<br>if any remain. Provide this value as the `cursor` parameter in a subsequent<br>request to this endpoint.<br><br>See [Paginating results](#paginatingresults) for more information. | String getCursor() |
 
 ### Example (as JSON)
 

@@ -9,9 +9,9 @@ Defines the body parameters that can be provided in a request to the
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Group` | [`CustomerGroup`](/doc/models/customer-group.md) | Represents a group of customer profiles. <br><br>Customer groups can be created, modified, and have their membership defined either via <br>the Customers API or within Customer Directory in the Square Dashboard or Point of Sale. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Group` | [`CustomerGroup`](/doc/models/customer-group.md) | Represents a group of customer profiles. <br><br>Customer groups can be created, modified, and have their membership defined either via <br>the Customers API or within Customer Directory in the Square Dashboard or Point of Sale. | CustomerGroup getGroup() |
 
 ### Example (as JSON)
 

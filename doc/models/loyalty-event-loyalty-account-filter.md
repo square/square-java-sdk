@@ -8,9 +8,9 @@ Filter events by loyalty account.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `LoyaltyAccountId` | `String` | The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `LoyaltyAccountId` | `String` | The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events. | String getLoyaltyAccountId() |
 
 ### Example (as JSON)
 

@@ -6,17 +6,17 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | The device Square-issued ID |
-| `Name` | `String` | Optional | The device merchant-specified name. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | The device Square-issued ID | String getId() |
+| `Name` | `String` | Optional | The device merchant-specified name. | String getName() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
-  "name": null
+  "id": "id0",
+  "name": "name0"
 }
 ```
 

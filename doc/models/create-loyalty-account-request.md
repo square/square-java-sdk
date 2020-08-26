@@ -8,10 +8,10 @@ A request to create a new loyalty account.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `LoyaltyAccount` | [`LoyaltyAccount`](/doc/models/loyalty-account.md) | Describes a loyalty account. For more information, see <br>[Loyalty Overview](https://developer.squareup.com/docs/docs/loyalty/overview). |
-| `IdempotencyKey` | `String` | A unique string that identifies this `CreateLoyaltyAccount` request. <br>Keys can be any valid string, but must be unique for every request. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `LoyaltyAccount` | [`LoyaltyAccount`](/doc/models/loyalty-account.md) | Describes a loyalty account. For more information, see <br>[Loyalty Overview](https://developer.squareup.com/docs/docs/loyalty/overview). | LoyaltyAccount getLoyaltyAccount() |
+| `IdempotencyKey` | `String` | A unique string that identifies this `CreateLoyaltyAccount` request. <br>Keys can be any valid string, but must be unique for every request. | String getIdempotencyKey() |
 
 ### Example (as JSON)
 

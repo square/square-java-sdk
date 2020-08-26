@@ -8,25 +8,27 @@ V1Settlement
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | The settlement's unique identifier. |
-| `Status` | [`String`](/doc/models/v1-settlement-status.md) | Optional | - |
-| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `InitiatedAt` | `String` | Optional | The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format. |
-| `BankAccountId` | `String` | Optional | The Square-issued unique identifier for the bank account associated with the settlement. |
-| `Entries` | [`List<V1SettlementEntry>`](/doc/models/v1-settlement-entry.md) | Optional | The entries included in this settlement. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | The settlement's unique identifier. | String getId() |
+| `Status` | [`String`](/doc/models/v1-settlement-status.md) | Optional | - | String getStatus() |
+| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTotalMoney() |
+| `InitiatedAt` | `String` | Optional | The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format. | String getInitiatedAt() |
+| `BankAccountId` | `String` | Optional | The Square-issued unique identifier for the bank account associated with the settlement. | String getBankAccountId() |
+| `Entries` | [`List<V1SettlementEntry>`](/doc/models/v1-settlement-entry.md) | Optional | The entries included in this settlement. | List<V1SettlementEntry> getEntries() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
-  "status": null,
-  "total_money": null,
-  "initiated_at": null,
-  "bank_account_id": null,
-  "entries": null
+  "id": "id0",
+  "status": "FAILED",
+  "total_money": {
+    "amount": 250,
+    "currency_code": "USS"
+  },
+  "initiated_at": "initiated_at2",
+  "bank_account_id": "bank_account_id0"
 }
 ```
 

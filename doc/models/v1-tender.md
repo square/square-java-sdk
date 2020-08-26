@@ -29,45 +29,34 @@ associated payment.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | The tender's unique ID. |
-| `Type` | [`String`](/doc/models/v1-tender-type.md) | Optional | - |
-| `Name` | `String` | Optional | A human-readable description of the tender. |
-| `EmployeeId` | `String` | Optional | The ID of the employee that processed the tender. |
-| `ReceiptUrl` | `String` | Optional | The URL of the receipt for the tender. |
-| `CardBrand` | [`String`](/doc/models/v1-tender-card-brand.md) | Optional | The brand of a credit card. |
-| `PanSuffix` | `String` | Optional | The last four digits of the provided credit card's account number. |
-| `EntryMethod` | [`String`](/doc/models/v1-tender-entry-method.md) | Optional | - |
-| `PaymentNote` | `String` | Optional | Notes entered by the merchant about the tender at the time of payment, if any. Typically only present for tender with the type: OTHER. |
-| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `TenderedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `TenderedAt` | `String` | Optional | The time when the tender was created, in ISO 8601 format. |
-| `SettledAt` | `String` | Optional | The time when the tender was settled, in ISO 8601 format. |
-| `ChangeBackMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `RefundedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `IsExchange` | `Boolean` | Optional | Indicates whether or not the tender is associated with an exchange. If is_exchange is true, the tender represents the value of goods returned in an exchange not the actual money paid. The exchange value reduces the tender amounts needed to pay for items purchased in the exchange. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | The tender's unique ID. | String getId() |
+| `Type` | [`String`](/doc/models/v1-tender-type.md) | Optional | - | String getType() |
+| `Name` | `String` | Optional | A human-readable description of the tender. | String getName() |
+| `EmployeeId` | `String` | Optional | The ID of the employee that processed the tender. | String getEmployeeId() |
+| `ReceiptUrl` | `String` | Optional | The URL of the receipt for the tender. | String getReceiptUrl() |
+| `CardBrand` | [`String`](/doc/models/v1-tender-card-brand.md) | Optional | The brand of a credit card. | String getCardBrand() |
+| `PanSuffix` | `String` | Optional | The last four digits of the provided credit card's account number. | String getPanSuffix() |
+| `EntryMethod` | [`String`](/doc/models/v1-tender-entry-method.md) | Optional | - | String getEntryMethod() |
+| `PaymentNote` | `String` | Optional | Notes entered by the merchant about the tender at the time of payment, if any. Typically only present for tender with the type: OTHER. | String getPaymentNote() |
+| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTotalMoney() |
+| `TenderedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTenderedMoney() |
+| `TenderedAt` | `String` | Optional | The time when the tender was created, in ISO 8601 format. | String getTenderedAt() |
+| `SettledAt` | `String` | Optional | The time when the tender was settled, in ISO 8601 format. | String getSettledAt() |
+| `ChangeBackMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getChangeBackMoney() |
+| `RefundedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getRefundedMoney() |
+| `IsExchange` | `Boolean` | Optional | Indicates whether or not the tender is associated with an exchange. If is_exchange is true, the tender represents the value of goods returned in an exchange not the actual money paid. The exchange value reduces the tender amounts needed to pay for items purchased in the exchange. | Boolean getIsExchange() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
-  "type": null,
-  "name": null,
-  "employee_id": null,
-  "receipt_url": null,
-  "card_brand": null,
-  "pan_suffix": null,
-  "entry_method": null,
-  "payment_note": null,
-  "total_money": null,
-  "tendered_money": null,
-  "tendered_at": null,
-  "settled_at": null,
-  "change_back_money": null,
-  "refunded_money": null,
-  "is_exchange": null
+  "id": "id0",
+  "type": "UNKNOWN",
+  "name": "name0",
+  "employee_id": "employee_id0",
+  "receipt_url": "receipt_url8"
 }
 ```
 

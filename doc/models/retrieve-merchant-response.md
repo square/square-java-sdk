@@ -8,10 +8,10 @@ The response object returned by the [RetrieveMerchant](#endpoint-retrieveMerchan
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Merchant` | [`Merchant`](/doc/models/merchant.md) | Optional | Represents a Square seller. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Merchant` | [`Merchant`](/doc/models/merchant.md) | Optional | Represents a Square seller. | Merchant getMerchant() |
 
 ### Example (as JSON)
 

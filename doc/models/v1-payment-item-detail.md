@@ -8,21 +8,21 @@ V1PaymentItemDetail
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `CategoryName` | `String` | Optional | The name of the item's merchant-defined category, if any. |
-| `Sku` | `String` | Optional | The item's merchant-defined SKU, if any. |
-| `ItemId` | `String` | Optional | The unique ID of the item purchased, if any. |
-| `ItemVariationId` | `String` | Optional | The unique ID of the item variation purchased, if any. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `CategoryName` | `String` | Optional | The name of the item's merchant-defined category, if any. | String getCategoryName() |
+| `Sku` | `String` | Optional | The item's merchant-defined SKU, if any. | String getSku() |
+| `ItemId` | `String` | Optional | The unique ID of the item purchased, if any. | String getItemId() |
+| `ItemVariationId` | `String` | Optional | The unique ID of the item variation purchased, if any. | String getItemVariationId() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "category_name": null,
-  "sku": null,
-  "item_id": null,
-  "item_variation_id": null
+  "category_name": "category_name8",
+  "sku": "sku4",
+  "item_id": "item_id0",
+  "item_variation_id": "item_variation_id4"
 }
 ```
 

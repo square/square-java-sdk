@@ -63,14 +63,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
      * To learn more about the Orders API, see the
      * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the business location to associate the order with.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
      */
     public CreateOrderResponse createOrder(
-            final String locationId,
             final CreateOrderRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateOrderRequest(locationId, body);
+        HttpRequest request = buildCreateOrderRequest(body);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -87,14 +85,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
      * To learn more about the Orders API, see the
      * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the business location to associate the order with.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call 
      */
     public CompletableFuture<CreateOrderResponse> createOrderAsync(
-            final String locationId,
             final CreateOrderRequest body) {
-        return makeHttpCallAsync(() -> buildCreateOrderRequest(locationId, body),
+        return makeHttpCallAsync(() -> buildCreateOrderRequest(body),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleCreateOrderResponse(context));
@@ -104,18 +100,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * Builds the HttpRequest object for createOrder
      */
     private HttpRequest buildCreateOrderRequest(
-            final String locationId,
             final CreateOrderRequest body) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/orders");
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
@@ -167,14 +157,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
-     * @param    locationId    Required parameter: The ID of the orders' associated location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
      */
     public BatchRetrieveOrdersResponse batchRetrieveOrders(
-            final String locationId,
             final BatchRetrieveOrdersRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBatchRetrieveOrdersRequest(locationId, body);
+        HttpRequest request = buildBatchRetrieveOrdersRequest(body);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -186,14 +174,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
-     * @param    locationId    Required parameter: The ID of the orders' associated location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call 
      */
     public CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
-            final String locationId,
             final BatchRetrieveOrdersRequest body) {
-        return makeHttpCallAsync(() -> buildBatchRetrieveOrdersRequest(locationId, body),
+        return makeHttpCallAsync(() -> buildBatchRetrieveOrdersRequest(body),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleBatchRetrieveOrdersResponse(context));
@@ -203,18 +189,12 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * Builds the HttpRequest object for batchRetrieveOrders
      */
     private HttpRequest buildBatchRetrieveOrdersRequest(
-            final String locationId,
             final BatchRetrieveOrdersRequest body) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders/batch-retrieve");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/orders/batch-retrieve");
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
@@ -258,133 +238,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         String responseBody = ((HttpStringResponse)response).getBody();
         BatchRetrieveOrdersResponse result = ApiHelper.deserialize(responseBody,
                 BatchRetrieveOrdersResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
-    /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting
-     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
-     * An UpdateOrder request requires the following:
-     * - The `order_id` in the endpoint path, identifying the order to update.
-     * - The latest `version` of the order to update.
-     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
-     * containing only the fields to update and the version the update is
-     * being applied to.
-     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
-     * identifying fields to clear.
-     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the order's associated location.
-     * @param    orderId    Required parameter: The ID of the order to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the UpdateOrderResponse response from the API call
-     */
-    public UpdateOrderResponse updateOrder(
-            final String locationId,
-            final String orderId,
-            final UpdateOrderRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateOrderRequest(locationId, orderId, body);
-        authManagers.get("default").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateOrderResponse(context);
-    }
-
-    /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting
-     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
-     * An UpdateOrder request requires the following:
-     * - The `order_id` in the endpoint path, identifying the order to update.
-     * - The latest `version` of the order to update.
-     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
-     * containing only the fields to update and the version the update is
-     * being applied to.
-     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
-     * identifying fields to clear.
-     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the order's associated location.
-     * @param    orderId    Required parameter: The ID of the order to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the UpdateOrderResponse response from the API call 
-     */
-    public CompletableFuture<UpdateOrderResponse> updateOrderAsync(
-            final String locationId,
-            final String orderId,
-            final UpdateOrderRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateOrderRequest(locationId, orderId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleUpdateOrderResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for updateOrder
-     */
-    private HttpRequest buildUpdateOrderRequest(
-            final String locationId,
-            final String orderId,
-            final UpdateOrderRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/locations/{location_id}/orders/{order_id}");
-
-        //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("location_id", locationId);
-        templateParameters.put("order_id", orderId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateOrder
-     * @return An object of type UpdateOrderResponse
-     */
-    private UpdateOrderResponse handleUpdateOrderResponse(HttpContext context)
-            throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
-        UpdateOrderResponse result = ApiHelper.deserialize(responseBody,
-                UpdateOrderResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;
@@ -585,6 +438,127 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         String responseBody = ((HttpStringResponse)response).getBody();
         SearchOrdersResponse result = ApiHelper.deserialize(responseBody,
                 SearchOrdersResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Updates an open [Order](#type-order) by adding, replacing, or deleting
+     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
+     * An UpdateOrder request requires the following:
+     * - The `order_id` in the endpoint path, identifying the order to update.
+     * - The latest `version` of the order to update.
+     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
+     * containing only the fields to update and the version the update is
+     * being applied to.
+     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
+     * identifying fields to clear.
+     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
+     * To learn more about the Orders API, see the
+     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
+     * @param    orderId    Required parameter: The ID of the order to update.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the UpdateOrderResponse response from the API call
+     */
+    public UpdateOrderResponse updateOrder(
+            final String orderId,
+            final UpdateOrderRequest body) throws ApiException, IOException {
+        HttpRequest request = buildUpdateOrderRequest(orderId, body);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleUpdateOrderResponse(context);
+    }
+
+    /**
+     * Updates an open [Order](#type-order) by adding, replacing, or deleting
+     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
+     * An UpdateOrder request requires the following:
+     * - The `order_id` in the endpoint path, identifying the order to update.
+     * - The latest `version` of the order to update.
+     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
+     * containing only the fields to update and the version the update is
+     * being applied to.
+     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
+     * identifying fields to clear.
+     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
+     * To learn more about the Orders API, see the
+     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
+     * @param    orderId    Required parameter: The ID of the order to update.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the UpdateOrderResponse response from the API call 
+     */
+    public CompletableFuture<UpdateOrderResponse> updateOrderAsync(
+            final String orderId,
+            final UpdateOrderRequest body) {
+        return makeHttpCallAsync(() -> buildUpdateOrderRequest(orderId, body),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleUpdateOrderResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for updateOrder
+     */
+    private HttpRequest buildUpdateOrderRequest(
+            final String orderId,
+            final UpdateOrderRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/orders/{order_id}");
+
+        //process template parameters
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("order_id", orderId);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for updateOrder
+     * @return An object of type UpdateOrderResponse
+     */
+    private UpdateOrderResponse handleUpdateOrderResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        UpdateOrderResponse result = ApiHelper.deserialize(responseBody,
+                UpdateOrderResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

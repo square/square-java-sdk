@@ -8,10 +8,10 @@ A response that includes the loyalty reward created.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Reward` | [`LoyaltyReward`](/doc/models/loyalty-reward.md) | Optional | - |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Reward` | [`LoyaltyReward`](/doc/models/loyalty-reward.md) | Optional | - | LoyaltyReward getReward() |
 
 ### Example (as JSON)
 

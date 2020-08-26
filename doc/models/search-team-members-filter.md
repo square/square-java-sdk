@@ -14,17 +14,19 @@ returns only active team members assigned to either location "A" or "B".
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `LocationIds` | `List<String>` | Optional | When present, filter by team members assigned to the specified locations.<br>When empty, include team members assigned to any location. |
-| `Status` | [`String`](/doc/models/team-member-status.md) | Optional | Enumerates the possible statuses the team member can have within a business. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `LocationIds` | `List<String>` | Optional | When present, filter by team members assigned to the specified locations.<br>When empty, include team members assigned to any location. | List<String> getLocationIds() |
+| `Status` | [`String`](/doc/models/team-member-status.md) | Optional | Enumerates the possible statuses the team member can have within a business. | String getStatus() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "location_ids": null,
-  "status": null
+  "location_ids": [
+    "location_ids0"
+  ],
+  "status": "ACTIVE"
 }
 ```
 

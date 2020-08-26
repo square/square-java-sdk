@@ -6,11 +6,11 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `ItemIds` | `List<String>` |  | IDs for the CatalogItems associated with the CatalogTax objects being updated. |
-| `TaxesToEnable` | `List<String>` | Optional | IDs of the CatalogTax objects to enable. |
-| `TaxesToDisable` | `List<String>` | Optional | IDs of the CatalogTax objects to disable. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `ItemIds` | `List<String>` |  | IDs for the CatalogItems associated with the CatalogTax objects being updated. | List<String> getItemIds() |
+| `TaxesToEnable` | `List<String>` | Optional | IDs of the CatalogTax objects to enable. | List<String> getTaxesToEnable() |
+| `TaxesToDisable` | `List<String>` | Optional | IDs of the CatalogTax objects to disable. | List<String> getTaxesToDisable() |
 
 ### Example (as JSON)
 

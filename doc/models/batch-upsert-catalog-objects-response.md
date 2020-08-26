@@ -6,12 +6,12 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors that encountered. |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | The created successfully created CatalogObjects. |
-| `UpdatedAt` | `String` | Optional | The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z". |
-| `IdMappings` | [`List<CatalogIdMapping>`](/doc/models/catalog-id-mapping.md) | Optional | The mapping between client and server IDs for this upsert. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors that encountered. | List<Error> getErrors() |
+| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | The created successfully created CatalogObjects. | List<CatalogObject> getObjects() |
+| `UpdatedAt` | `String` | Optional | The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z". | String getUpdatedAt() |
+| `IdMappings` | [`List<CatalogIdMapping>`](/doc/models/catalog-id-mapping.md) | Optional | The mapping between client and server IDs for this upsert. | List<CatalogIdMapping> getIdMappings() |
 
 ### Example (as JSON)
 

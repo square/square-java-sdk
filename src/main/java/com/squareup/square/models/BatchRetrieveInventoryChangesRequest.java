@@ -49,8 +49,8 @@ public class BatchRetrieveInventoryChangesRequest {
     private final String cursor;
     /**
      * Getter for CatalogObjectIds.
-     * Filters results by `CatalogObject` ID.
-     * Only applied when set. Max size is 500 IDs. Default: unset.
+     * The filter to return results by `CatalogObject` ID.
+     * The filter is only applicable when set. The default value is null.
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {
@@ -59,8 +59,8 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for LocationIds.
-     * Filters results by `Location` ID. Only
-     * applied when set. Default: unset.
+     * The filter to return results by `Location` ID. 
+     * The filter is only applicable when set. The default value is null.
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -69,9 +69,8 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for Types.
-     * Filters results by `InventoryChangeType`.
-     * Default: [`PHYSICAL_COUNT`, `ADJUSTMENT`]. `TRANSFER` is not supported as
-     * a filter.
+     * The filter to return results by `InventoryChangeType` values other than `TRANSFER`.
+     * The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`.
      * See [InventoryChangeType](#type-inventorychangetype) for possible values
      */
     @JsonGetter("types")
@@ -81,9 +80,9 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for States.
-     * Filters `ADJUSTMENT` query results by
-     * `InventoryState`. Only applied when set.
-     * Default: unset.
+     * The filter to return `ADJUSTMENT` query results by
+     * `InventoryState`. This filter is only applied when set.
+     * The default value is null.
      * See [InventoryState](#type-inventorystate) for possible values
      */
     @JsonGetter("states")
@@ -93,9 +92,9 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for UpdatedAfter.
-     * Provided as an RFC 3339 timestamp. Returns results whose
-     * `created_at` or `calculated_at` value is after the given time.
-     * Default: UNIX epoch (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `calculated_at` value  
+     * after the given time as specified in an RFC 3339 timestamp. 
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     @JsonGetter("updated_after")
     public String getUpdatedAfter() {
@@ -104,9 +103,9 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for UpdatedBefore.
-     * Provided as an RFC 3339 timestamp. Returns results whose
-     * `created_at` or `calculated_at` value is strictly before the given time.
-     * Default: UNIX epoch (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `created_at` or `calculated_at` value  
+     * strictly before the given time as specified in an RFC 3339 timestamp. 
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     @JsonGetter("updated_before")
     public String getUpdatedBefore() {

@@ -8,19 +8,69 @@ Defines fields in a ListDisputes response.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Disputes` | [`List<Dispute>`](/doc/models/dispute.md) | Optional | The list of Disputes. |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request.<br>If unset, this is the final response.<br>For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Disputes` | [`List<Dispute>`](/doc/models/dispute.md) | Optional | The list of Disputes. | List<Dispute> getDisputes() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request.<br>If unset, this is the final response.<br>For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "errors": null,
-  "disputes": null,
-  "cursor": null
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REQUEST_TIMEOUT",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "CONFLICT",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "GONE",
+      "detail": "detail3",
+      "field": "field1"
+    }
+  ],
+  "disputes": [
+    {
+      "dispute_id": "dispute_id5",
+      "amount_money": {
+        "amount": 29,
+        "currency": "GHS"
+      },
+      "reason": "CANCELLED",
+      "state": "INQUIRY_EVIDENCE_REQUIRED",
+      "due_at": "due_at9"
+    },
+    {
+      "dispute_id": "dispute_id6",
+      "amount_money": {
+        "amount": 30,
+        "currency": "GIP"
+      },
+      "reason": "AMOUNT_DIFFERS",
+      "state": "UNKNOWN_STATE",
+      "due_at": "due_at8"
+    },
+    {
+      "dispute_id": "dispute_id7",
+      "amount_money": {
+        "amount": 31,
+        "currency": "GMD"
+      },
+      "reason": "EMV_LIABILITY_SHIFT",
+      "state": "WAITING_THIRD_PARTY",
+      "due_at": "due_at7"
+    }
+  ],
+  "cursor": "cursor6"
 }
 ```
 

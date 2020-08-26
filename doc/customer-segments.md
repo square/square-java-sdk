@@ -35,7 +35,9 @@ CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
 ### Example Usage
 
 ```java
-customerSegmentsApi.listCustomerSegmentsAsync(null).thenAccept(result -> {
+String cursor = "cursor6";
+
+customerSegmentsApi.listCustomerSegmentsAsync(cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

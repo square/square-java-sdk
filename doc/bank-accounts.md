@@ -42,7 +42,11 @@ CompletableFuture<ListBankAccountsResponse> listBankAccountsAsync(
 ### Example Usage
 
 ```java
-bankAccountsApi.listBankAccountsAsync(null, null, null).thenAccept(result -> {
+String cursor = "cursor6";
+Integer limit = 172;
+String locationId = "location_id4";
+
+bankAccountsApi.listBankAccountsAsync(cursor, limit, locationId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

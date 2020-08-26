@@ -8,17 +8,17 @@ Details about the device that took the payment.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `DeviceId` | `String` | Optional | Square-issued ID of the device. |
-| `DeviceName` | `String` | Optional | The name of the device set by the merchant. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `DeviceId` | `String` | Optional | Square-issued ID of the device. | String getDeviceId() |
+| `DeviceName` | `String` | Optional | The name of the device set by the merchant. | String getDeviceName() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "device_id": null,
-  "device_name": null
+  "device_id": "device_id6",
+  "device_name": "device_name2"
 }
 ```
 

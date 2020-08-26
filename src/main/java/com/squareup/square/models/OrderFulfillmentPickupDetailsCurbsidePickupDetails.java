@@ -37,7 +37,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
 
     /**
      * Getter for BuyerArrivedAt.
-     * The [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z",
+     * The [timestamp](#workingwithdates) in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z",
      * indicating when the buyer arrived and is waiting for pickup.
      */
     @JsonGetter("buyer_arrived_at")

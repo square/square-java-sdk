@@ -8,14 +8,14 @@ Provides details about the loyalty program reward tier definition.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Scope` | [`String`](/doc/models/loyalty-program-reward-definition-scope.md) |  | Indicates the scope of the reward tier. |
-| `DiscountType` | [`String`](/doc/models/loyalty-program-reward-definition-type.md) |  | The type of discount the reward tier offers. |
-| `PercentageDiscount` | `String` | Optional | Present if `discount_type` is `FIXED_PERCENTAGE`.<br>For example, a 7.25% off discount will be represented as "7.25". |
-| `CatalogObjectIds` | `List<String>` | Optional | A list of [catalog object](#type-CatalogObject) ids to which this reward can be applied. They are either all item-variation ids or category ids, depending on the `type` field. |
-| `FixedDiscountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
-| `MaxDiscountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Scope` | [`String`](/doc/models/loyalty-program-reward-definition-scope.md) |  | Indicates the scope of the reward tier. | String getScope() |
+| `DiscountType` | [`String`](/doc/models/loyalty-program-reward-definition-type.md) |  | The type of discount the reward tier offers. | String getDiscountType() |
+| `PercentageDiscount` | `String` | Optional | Present if `discount_type` is `FIXED_PERCENTAGE`.<br>For example, a 7.25% off discount will be represented as "7.25". | String getPercentageDiscount() |
+| `CatalogObjectIds` | `List<String>` | Optional | A list of [catalog object](#type-CatalogObject) ids to which this reward can be applied. They are either all item-variation ids or category ids, depending on the `type` field. | List<String> getCatalogObjectIds() |
+| `FixedDiscountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getFixedDiscountMoney() |
+| `MaxDiscountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getMaxDiscountMoney() |
 
 ### Example (as JSON)
 
@@ -23,10 +23,20 @@ Provides details about the loyalty program reward tier definition.
 {
   "scope": "CATEGORY",
   "discount_type": "FIXED_AMOUNT",
-  "percentage_discount": null,
-  "catalog_object_ids": null,
-  "fixed_discount_money": null,
-  "max_discount_money": null
+  "percentage_discount": "percentage_discount8",
+  "catalog_object_ids": [
+    "catalog_object_ids2",
+    "catalog_object_ids3",
+    "catalog_object_ids4"
+  ],
+  "fixed_discount_money": {
+    "amount": 36,
+    "currency": "WST"
+  },
+  "max_discount_money": {
+    "amount": 84,
+    "currency": "JOD"
+  }
 }
 ```
 

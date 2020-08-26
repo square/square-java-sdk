@@ -8,11 +8,11 @@ Defines parameters for a CreateDisputeEvidenceText request.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `IdempotencyKey` | `String` |  | Unique ID. For more information,<br>see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency). |
-| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | Type of the dispute evidence. |
-| `EvidenceText` | `String` |  | The evidence string. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `IdempotencyKey` | `String` |  | Unique ID. For more information,<br>see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency). | String getIdempotencyKey() |
+| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | Type of the dispute evidence. | String getEvidenceType() |
+| `EvidenceText` | `String` |  | The evidence string. | String getEvidenceText() |
 
 ### Example (as JSON)
 

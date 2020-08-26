@@ -8,25 +8,27 @@ A line item modifier being returned.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Uid` | `String` | Optional | Unique ID that identifies the return modifier only within this order. |
-| `SourceModifierUid` | `String` | Optional | `uid` of the Modifier from the LineItem from the Order which contains the<br>original sale of this line item modifier. |
-| `CatalogObjectId` | `String` | Optional | The catalog object id referencing [CatalogModifier](#type-catalogmodifier). |
-| `Name` | `String` | Optional | The name of the item modifier. |
-| `BasePriceMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
-| `TotalPriceMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Uid` | `String` | Optional | Unique ID that identifies the return modifier only within this order. | String getUid() |
+| `SourceModifierUid` | `String` | Optional | `uid` of the Modifier from the LineItem from the Order which contains the<br>original sale of this line item modifier. | String getSourceModifierUid() |
+| `CatalogObjectId` | `String` | Optional | The catalog object id referencing [CatalogModifier](#type-catalogmodifier). | String getCatalogObjectId() |
+| `Name` | `String` | Optional | The name of the item modifier. | String getName() |
+| `BasePriceMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getBasePriceMoney() |
+| `TotalPriceMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getTotalPriceMoney() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "uid": null,
-  "source_modifier_uid": null,
-  "catalog_object_id": null,
-  "name": null,
-  "base_price_money": null,
-  "total_price_money": null
+  "uid": "uid0",
+  "source_modifier_uid": "source_modifier_uid6",
+  "catalog_object_id": "catalog_object_id6",
+  "name": "name0",
+  "base_price_money": {
+    "amount": 114,
+    "currency": "ALL"
+  }
 }
 ```
 

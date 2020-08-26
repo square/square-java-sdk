@@ -6,23 +6,23 @@
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Body` | [`V1Discount`](/doc/models/v1-discount.md) | V1Discount |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Body` | [`V1Discount`](/doc/models/v1-discount.md) | V1Discount | V1Discount getBody() |
 
 ### Example (as JSON)
 
 ```json
 {
   "body": {
-    "id": null,
-    "name": null,
-    "rate": null,
-    "amount_money": null,
-    "discount_type": null,
-    "pin_required": null,
-    "color": null,
-    "v2_id": null
+    "id": "id6",
+    "name": "name6",
+    "rate": "rate4",
+    "amount_money": {
+      "amount": 194,
+      "currency_code": "KWD"
+    },
+    "discount_type": "VARIABLE_AMOUNT"
   }
 }
 ```

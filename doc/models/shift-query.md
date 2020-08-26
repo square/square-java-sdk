@@ -8,17 +8,48 @@ The parameters of a `Shift` search query. Includes filter and sort options.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Filter` | [`ShiftFilter`](/doc/models/shift-filter.md) | Optional | Defines a filter used in a search for `Shift` records. `AND` logic is<br>used by Square's servers to apply each filter property specified. |
-| `Sort` | [`ShiftSort`](/doc/models/shift-sort.md) | Optional | Sets the sort order of search results. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Filter` | [`ShiftFilter`](/doc/models/shift-filter.md) | Optional | Defines a filter used in a search for `Shift` records. `AND` logic is<br>used by Square's servers to apply each filter property specified. | ShiftFilter getFilter() |
+| `Sort` | [`ShiftSort`](/doc/models/shift-sort.md) | Optional | Sets the sort order of search results. | ShiftSort getSort() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "filter": null,
-  "sort": null
+  "filter": {
+    "location_ids": [
+      "location_ids4"
+    ],
+    "employee_ids": [
+      "employee_ids9"
+    ],
+    "status": "OPEN",
+    "start": {
+      "start_at": "start_at0",
+      "end_at": "end_at2"
+    },
+    "end": {
+      "start_at": "start_at4",
+      "end_at": "end_at8"
+    },
+    "workday": {
+      "date_range": {
+        "start_date": "start_date4",
+        "end_date": "end_date8"
+      },
+      "match_shifts_by": "START_AT",
+      "default_timezone": "default_timezone4"
+    },
+    "team_member_ids": [
+      "team_member_ids1",
+      "team_member_ids2"
+    ]
+  },
+  "sort": {
+    "field": "START_AT",
+    "order": "DESC"
+  }
 }
 ```
 

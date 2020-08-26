@@ -58,8 +58,12 @@ CompletableFuture<ListRefundsResponse> listRefundsAsync(
 
 ```java
 String locationId = "location_id4";
+String beginTime = "begin_time2";
+String endTime = "end_time2";
+String sortOrder = "DESC";
+String cursor = "cursor6";
 
-transactionsApi.listRefundsAsync(locationId, null, null, null, null).thenAccept(result -> {
+transactionsApi.listRefundsAsync(locationId, beginTime, endTime, sortOrder, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -103,8 +107,12 @@ CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
 
 ```java
 String locationId = "location_id4";
+String beginTime = "begin_time2";
+String endTime = "end_time2";
+String sortOrder = "DESC";
+String cursor = "cursor6";
 
-transactionsApi.listTransactionsAsync(locationId, null, null, null, null).thenAccept(result -> {
+transactionsApi.listTransactionsAsync(locationId, beginTime, endTime, sortOrder, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -163,14 +171,19 @@ Money bodyAmountMoney = new Money.Builder()
 Address bodyBillingAddress = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
+    .addressLine3("address_line_38")
     .locality("New York")
+    .sublocality("sublocality2")
     .administrativeDistrictLevel1("NY")
     .postalCode("10003")
     .country("US")
     .build();
 Address bodyShippingAddress = new Address.Builder()
     .addressLine1("123 Main St")
+    .addressLine2("address_line_24")
+    .addressLine3("address_line_30")
     .locality("San Francisco")
+    .sublocality("sublocality4")
     .administrativeDistrictLevel1("CA")
     .postalCode("94114")
     .country("US")
@@ -185,6 +198,7 @@ AdditionalRecipient bodyAdditionalRecipients0 = new AdditionalRecipient.Builder(
         "057P5VYJ4A5X1",
         "Application fees",
         bodyAdditionalRecipients0AmountMoney)
+    .receivableId("receivable_id5")
     .build();
 bodyAdditionalRecipients.add(bodyAdditionalRecipients0);
 
@@ -192,6 +206,7 @@ ChargeRequest body = new ChargeRequest.Builder(
         "74ae1696-b1e3-4328-af6d-f1e04d947a13",
         bodyAmountMoney)
     .cardNonce("card_nonce_from_square_123")
+    .customerCardId("customer_card_id6")
     .delayCapture(false)
     .referenceId("some optional reference id")
     .note("some optional note")

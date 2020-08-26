@@ -137,7 +137,7 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for PlacedAt.
      * The [timestamp](#workingwithdates) indicating when the shipment was
-     * requested. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * requested. Must be in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("placed_at")
     public String getPlacedAt() {
@@ -148,7 +148,7 @@ public class OrderFulfillmentShipmentDetails {
      * Getter for InProgressAt.
      * The [timestamp](#workingwithdates) indicating when this fulfillment was
      * moved to the `RESERVED` state. Indicates that preparation of this shipment has begun.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * Must be in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("in_progress_at")
     public String getInProgressAt() {
@@ -159,7 +159,7 @@ public class OrderFulfillmentShipmentDetails {
      * Getter for PackagedAt.
      * The [timestamp](#workingwithdates) indicating when this fulfillment
      * was moved to the `PREPARED` state. Indicates that the fulfillment is packaged.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * Must be in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("packaged_at")
     public String getPackagedAt() {
@@ -169,7 +169,7 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for ExpectedShippedAt.
      * The [timestamp](#workingwithdates) indicating when the shipment is
-     * expected to be delivered to the shipping carrier. Must be in RFC3339 timestamp
+     * expected to be delivered to the shipping carrier. Must be in RFC 3339 timestamp
      * format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("expected_shipped_at")
@@ -181,7 +181,7 @@ public class OrderFulfillmentShipmentDetails {
      * Getter for ShippedAt.
      * The [timestamp](#workingwithdates) indicating when this fulfillment
      * was moved to the `COMPLETED`state. Indicates that the fulfillment has been given
-     * to the shipping carrier. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * to the shipping carrier. Must be in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("shipped_at")
     public String getShippedAt() {
@@ -191,7 +191,7 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for CanceledAt.
      * The [timestamp](#workingwithdates) indicating the shipment was canceled.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * Must be in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("canceled_at")
     public String getCanceledAt() {
@@ -210,7 +210,7 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for FailedAt.
      * The [timestamp](#workingwithdates) indicating when the shipment
-     * failed to be completed. Must be in RFC3339 timestamp format, e.g.,
+     * failed to be completed. Must be in RFC 3339 timestamp format, e.g.,
      * "2016-09-04T23:59:33.123Z".
      */
     @JsonGetter("failed_at")

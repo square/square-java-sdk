@@ -8,10 +8,10 @@ Represents a response from a bulk create request, containing the created `TeamMe
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `TeamMembers` | [`Map<String, CreateTeamMemberResponse>`](/doc/models/create-team-member-response.md) | Optional | The successfully created `TeamMember` objects. Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `TeamMembers` | [`Map<String, CreateTeamMemberResponse>`](/doc/models/create-team-member-response.md) | Optional | The successfully created `TeamMember` objects. Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`. | Map<String, CreateTeamMemberResponse> getTeamMembers() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

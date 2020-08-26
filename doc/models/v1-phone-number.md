@@ -8,10 +8,10 @@ Represents a phone number.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `CallingCode` | `String` | The phone number's international calling code. For US phone numbers, this value is +1. |
-| `Number` | `String` | The phone number. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `CallingCode` | `String` | The phone number's international calling code. For US phone numbers, this value is +1. | String getCallingCode() |
+| `Number` | `String` | The phone number. | String getNumber() |
 
 ### Example (as JSON)
 

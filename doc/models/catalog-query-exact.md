@@ -8,10 +8,10 @@ The query filter to return the serch result by exact match of the specified attr
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `AttributeName` | `String` | The name of the attribute to be searched. Matching of the attribute name is exact. |
-| `AttributeValue` | `String` | The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial. <br>For example, if a specified value of "sma", objects with the named attribute value of "Small", "small" are both matched. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `AttributeName` | `String` | The name of the attribute to be searched. Matching of the attribute name is exact. | String getAttributeName() |
+| `AttributeValue` | `String` | The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial. <br>For example, if a specified value of "sma", objects with the named attribute value of "Small", "small" are both matched. | String getAttributeValue() |
 
 ### Example (as JSON)
 

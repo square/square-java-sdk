@@ -26,67 +26,48 @@ Monetary values are <b>negative</b> if they represent an
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | The payment's unique identifier. |
-| `MerchantId` | `String` | Optional | The unique identifier of the merchant that took the payment. |
-| `CreatedAt` | `String` | Optional | The time when the payment was created, in ISO 8601 format. Reflects the time of the first payment if the object represents an incomplete partial payment, and the time of the last or complete payment otherwise. |
-| `CreatorId` | `String` | Optional | The unique identifier of the Square account that took the payment. |
-| `Device` | [`Device`](/doc/models/device.md) | Optional | - |
-| `PaymentUrl` | `String` | Optional | The URL of the payment's detail page in the merchant dashboard. The merchant must be signed in to the merchant dashboard to view this page. |
-| `ReceiptUrl` | `String` | Optional | The URL of the receipt for the payment. Note that for split tender<br>payments, this URL corresponds to the receipt for the first tender<br>listed in the payment's tender field. Each Tender object has its own<br>receipt_url field you can use to get the other receipts associated with<br>a split tender payment. |
-| `InclusiveTaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `AdditiveTaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `TaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `TipMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `DiscountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `TotalCollectedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `ProcessingFeeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `NetTotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `RefundedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `SwedishRoundingMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `GrossSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `NetSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `InclusiveTax` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All of the inclusive taxes associated with the payment. |
-| `AdditiveTax` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All of the additive taxes associated with the payment. |
-| `Tender` | [`List<V1Tender>`](/doc/models/v1-tender.md) | Optional | All of the tenders associated with the payment. |
-| `Refunds` | [`List<V1Refund>`](/doc/models/v1-refund.md) | Optional | All of the refunds applied to the payment. Note that the value of all refunds on a payment can exceed the value of all tenders if a merchant chooses to refund money to a tender after previously accepting returned goods as part of an exchange. |
-| `Itemizations` | [`List<V1PaymentItemization>`](/doc/models/v1-payment-itemization.md) | Optional | The items purchased in the payment. |
-| `SurchargeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `Surcharges` | [`List<V1PaymentSurcharge>`](/doc/models/v1-payment-surcharge.md) | Optional | A list of all surcharges associated with the payment. |
-| `IsPartial` | `Boolean` | Optional | Indicates whether or not the payment is only partially paid for.<br>If true, this payment will have the tenders collected so far, but the<br>itemizations will be empty until the payment is completed. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | The payment's unique identifier. | String getId() |
+| `MerchantId` | `String` | Optional | The unique identifier of the merchant that took the payment. | String getMerchantId() |
+| `CreatedAt` | `String` | Optional | The time when the payment was created, in ISO 8601 format. Reflects the time of the first payment if the object represents an incomplete partial payment, and the time of the last or complete payment otherwise. | String getCreatedAt() |
+| `CreatorId` | `String` | Optional | The unique identifier of the Square account that took the payment. | String getCreatorId() |
+| `Device` | [`Device`](/doc/models/device.md) | Optional | - | Device getDevice() |
+| `PaymentUrl` | `String` | Optional | The URL of the payment's detail page in the merchant dashboard. The merchant must be signed in to the merchant dashboard to view this page. | String getPaymentUrl() |
+| `ReceiptUrl` | `String` | Optional | The URL of the receipt for the payment. Note that for split tender<br>payments, this URL corresponds to the receipt for the first tender<br>listed in the payment's tender field. Each Tender object has its own<br>receipt_url field you can use to get the other receipts associated with<br>a split tender payment. | String getReceiptUrl() |
+| `InclusiveTaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getInclusiveTaxMoney() |
+| `AdditiveTaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAdditiveTaxMoney() |
+| `TaxMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTaxMoney() |
+| `TipMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTipMoney() |
+| `DiscountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getDiscountMoney() |
+| `TotalCollectedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTotalCollectedMoney() |
+| `ProcessingFeeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getProcessingFeeMoney() |
+| `NetTotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getNetTotalMoney() |
+| `RefundedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getRefundedMoney() |
+| `SwedishRoundingMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getSwedishRoundingMoney() |
+| `GrossSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getGrossSalesMoney() |
+| `NetSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getNetSalesMoney() |
+| `InclusiveTax` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All of the inclusive taxes associated with the payment. | List<V1PaymentTax> getInclusiveTax() |
+| `AdditiveTax` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All of the additive taxes associated with the payment. | List<V1PaymentTax> getAdditiveTax() |
+| `Tender` | [`List<V1Tender>`](/doc/models/v1-tender.md) | Optional | All of the tenders associated with the payment. | List<V1Tender> getTender() |
+| `Refunds` | [`List<V1Refund>`](/doc/models/v1-refund.md) | Optional | All of the refunds applied to the payment. Note that the value of all refunds on a payment can exceed the value of all tenders if a merchant chooses to refund money to a tender after previously accepting returned goods as part of an exchange. | List<V1Refund> getRefunds() |
+| `Itemizations` | [`List<V1PaymentItemization>`](/doc/models/v1-payment-itemization.md) | Optional | The items purchased in the payment. | List<V1PaymentItemization> getItemizations() |
+| `SurchargeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getSurchargeMoney() |
+| `Surcharges` | [`List<V1PaymentSurcharge>`](/doc/models/v1-payment-surcharge.md) | Optional | A list of all surcharges associated with the payment. | List<V1PaymentSurcharge> getSurcharges() |
+| `IsPartial` | `Boolean` | Optional | Indicates whether or not the payment is only partially paid for.<br>If true, this payment will have the tenders collected so far, but the<br>itemizations will be empty until the payment is completed. | Boolean getIsPartial() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
-  "merchant_id": null,
-  "created_at": null,
-  "creator_id": null,
-  "device": null,
-  "payment_url": null,
-  "receipt_url": null,
-  "inclusive_tax_money": null,
-  "additive_tax_money": null,
-  "tax_money": null,
-  "tip_money": null,
-  "discount_money": null,
-  "total_collected_money": null,
-  "processing_fee_money": null,
-  "net_total_money": null,
-  "refunded_money": null,
-  "swedish_rounding_money": null,
-  "gross_sales_money": null,
-  "net_sales_money": null,
-  "inclusive_tax": null,
-  "additive_tax": null,
-  "tender": null,
-  "refunds": null,
-  "itemizations": null,
-  "surcharge_money": null,
-  "surcharges": null,
-  "is_partial": null
+  "id": "id0",
+  "merchant_id": "merchant_id0",
+  "created_at": "created_at2",
+  "creator_id": "creator_id0",
+  "device": {
+    "id": "id6",
+    "name": "name6"
+  }
 }
 ```
 

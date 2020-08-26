@@ -9,10 +9,10 @@ reward tier criteria are met. Rewards are created through the Loyalty API.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Id` | `String` | The identifier of the reward. |
-| `RewardTierId` | `String` | The identifier of the reward tier corresponding to this reward. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Id` | `String` | The identifier of the reward. | String getId() |
+| `RewardTierId` | `String` | The identifier of the reward tier corresponding to this reward. | String getRewardTierId() |
 
 ### Example (as JSON)
 

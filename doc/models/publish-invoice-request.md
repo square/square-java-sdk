@@ -8,10 +8,10 @@ Describes a `PublishInvoice` request.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Version` | `int` |  | The version of the [Invoice](#type-invoice) to publish.<br>This must match the current version of the invoice,<br>otherwise the request is rejected. |
-| `IdempotencyKey` | `String` | Optional | A unique string that identifies the `PublishInvoice` request. If you do not <br>provide `idempotency_key` (or provide an empty string as the value), the endpoint <br>treats each request as independent.<br><br>For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Version` | `int` |  | The version of the [Invoice](#type-invoice) to publish.<br>This must match the current version of the invoice,<br>otherwise the request is rejected. | int getVersion() |
+| `IdempotencyKey` | `String` | Optional | A unique string that identifies the `PublishInvoice` request. If you do not <br>provide `idempotency_key` (or provide an empty string as the value), the endpoint <br>treats each request as independent.<br><br>For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency). | String getIdempotencyKey() |
 
 ### Example (as JSON)
 
