@@ -8,11 +8,11 @@ A request to search for loyalty accounts.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Query` | [`SearchLoyaltyAccountsRequestLoyaltyAccountQuery`](/doc/models/search-loyalty-accounts-request-loyalty-account-query.md) | Optional | The search criteria for the loyalty accounts. |
-| `Limit` | `Integer` | Optional | The maximum number of results to include in the response. |
-| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to <br>this endpoint. Provide this to retrieve the next set of <br>results for the original query.<br><br>For more information, <br>see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination). |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Query` | [`SearchLoyaltyAccountsRequestLoyaltyAccountQuery`](/doc/models/search-loyalty-accounts-request-loyalty-account-query.md) | Optional | The search criteria for the loyalty accounts. | SearchLoyaltyAccountsRequestLoyaltyAccountQuery getQuery() |
+| `Limit` | `Integer` | Optional | The maximum number of results to include in the response. | Integer getLimit() |
+| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to <br>this endpoint. Provide this to retrieve the next set of <br>results for the original query.<br><br>For more information, <br>see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination). | String getCursor() |
 
 ### Example (as JSON)
 

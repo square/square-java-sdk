@@ -47,7 +47,11 @@ CompletableFuture<ListDisputesResponse> listDisputesAsync(
 ### Example Usage
 
 ```java
-disputesApi.listDisputesAsync(null, null, null).thenAccept(result -> {
+String cursor = "cursor6";
+String states = "EVIDENCE_REQUIRED";
+String locationId = "location_id4";
+
+disputesApi.listDisputesAsync(cursor, states, locationId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -266,8 +270,14 @@ CompletableFuture<CreateDisputeEvidenceFileResponse> createDisputeEvidenceFileAs
 
 ```java
 String disputeId = "dispute_id2";
+CreateDisputeEvidenceFileRequest request = new CreateDisputeEvidenceFileRequest.Builder(
+        "idempotency_key2")
+    .evidenceType("REBUTTAL_EXPLANATION")
+    .contentType("content_type0")
+    .build();
+FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
 
-disputesApi.createDisputeEvidenceFileAsync(disputeId, null, null).thenAccept(result -> {
+disputesApi.createDisputeEvidenceFileAsync(disputeId, request, imageFile).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

@@ -18,27 +18,31 @@ public class BatchRetrieveInventoryCountsRequest {
      * @param locationIds
      * @param updatedAfter
      * @param cursor
+     * @param states
      */
     @JsonCreator
     public BatchRetrieveInventoryCountsRequest(
             @JsonProperty("catalog_object_ids") List<String> catalogObjectIds,
             @JsonProperty("location_ids") List<String> locationIds,
             @JsonProperty("updated_after") String updatedAfter,
-            @JsonProperty("cursor") String cursor) {
+            @JsonProperty("cursor") String cursor,
+            @JsonProperty("states") List<String> states) {
         this.catalogObjectIds = catalogObjectIds;
         this.locationIds = locationIds;
         this.updatedAfter = updatedAfter;
         this.cursor = cursor;
+        this.states = states;
     }
 
     private final List<String> catalogObjectIds;
     private final List<String> locationIds;
     private final String updatedAfter;
     private final String cursor;
+    private final List<String> states;
     /**
      * Getter for CatalogObjectIds.
-     * Filters results by `CatalogObject` ID.
-     * Only applied when set. Max size is 1000 IDs. Default: unset.
+     * The filter to return results by `CatalogObject` ID.
+     * The filter is applicable only when set.  The default is null.
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {
@@ -47,8 +51,8 @@ public class BatchRetrieveInventoryCountsRequest {
 
     /**
      * Getter for LocationIds.
-     * Filters results by `Location` ID. Only
-     * applied when set. Default: unset.
+     * The filter to return results by `Location` ID. 
+     * This filter is applicable only when set. The default is null.
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -57,9 +61,9 @@ public class BatchRetrieveInventoryCountsRequest {
 
     /**
      * Getter for UpdatedAfter.
-     * Provided as an RFC 3339 timestamp. Returns results whose
-     * `calculated_at` value is after the given time. Default: UNIX epoch
-     * (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `calculated_at` value 
+     * after the given time as specified in an RFC 3339 timestamp. 
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     @JsonGetter("updated_after")
     public String getUpdatedAfter() {
@@ -77,10 +81,22 @@ public class BatchRetrieveInventoryCountsRequest {
         return this.cursor;
     }
 
+    /**
+     * Getter for States.
+     * The filter to return results by `InventoryState`. The filter is only applicable when set.
+     * Ignored are untracked states of `NONE`, `SOLD`, and `UNLINKED_RETURN`.
+     * The default is null.
+     * See [InventoryState](#type-inventorystate) for possible values
+     */
+    @JsonGetter("states")
+    public List<String> getStates() {
+        return this.states;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(catalogObjectIds, locationIds, updatedAfter, cursor);
+        return Objects.hash(catalogObjectIds, locationIds, updatedAfter, cursor, states);
     }
 
     @Override
@@ -95,7 +111,8 @@ public class BatchRetrieveInventoryCountsRequest {
         return Objects.equals(catalogObjectIds, batchRetrieveInventoryCountsRequest.catalogObjectIds) &&
             Objects.equals(locationIds, batchRetrieveInventoryCountsRequest.locationIds) &&
             Objects.equals(updatedAfter, batchRetrieveInventoryCountsRequest.updatedAfter) &&
-            Objects.equals(cursor, batchRetrieveInventoryCountsRequest.cursor);
+            Objects.equals(cursor, batchRetrieveInventoryCountsRequest.cursor) &&
+            Objects.equals(states, batchRetrieveInventoryCountsRequest.states);
     }
 
     /**
@@ -108,7 +125,8 @@ public class BatchRetrieveInventoryCountsRequest {
             .catalogObjectIds(getCatalogObjectIds())
             .locationIds(getLocationIds())
             .updatedAfter(getUpdatedAfter())
-            .cursor(getCursor());
+            .cursor(getCursor())
+            .states(getStates());
             return builder;
     }
 
@@ -120,6 +138,7 @@ public class BatchRetrieveInventoryCountsRequest {
         private List<String> locationIds;
         private String updatedAfter;
         private String cursor;
+        private List<String> states;
 
         /**
          * Initialization constructor
@@ -164,6 +183,15 @@ public class BatchRetrieveInventoryCountsRequest {
             this.cursor = cursor;
             return this;
         }
+        /**
+         * Setter for states
+         * @param states
+         * @return Builder
+         */
+        public Builder states(List<String> states) {
+            this.states = states;
+            return this;
+        }
 
         /**
          * Builds a new {@link BatchRetrieveInventoryCountsRequest} object using the set fields.
@@ -173,7 +201,8 @@ public class BatchRetrieveInventoryCountsRequest {
             return new BatchRetrieveInventoryCountsRequest(catalogObjectIds,
                 locationIds,
                 updatedAfter,
-                cursor);
+                cursor,
+                states);
         }
     }
 }

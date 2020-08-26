@@ -41,14 +41,24 @@ Money bodyCheckoutAmountMoney = new Money.Builder()
     .amount(2610L)
     .currency("USD")
     .build();
+TipSettings bodyCheckoutDeviceOptionsTipSettings = new TipSettings.Builder()
+    .allowTipping(false)
+    .separateTipScreen(false)
+    .customTipField(false)
+    .build();
 DeviceCheckoutOptions bodyCheckoutDeviceOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
+    .skipReceiptScreen(false)
+    .tipSettings(bodyCheckoutDeviceOptionsTipSettings)
     .build();
 TerminalCheckout bodyCheckout = new TerminalCheckout.Builder(
         bodyCheckoutAmountMoney,
         bodyCheckoutDeviceOptions)
+    .id("id8")
     .referenceId("id11572")
     .note("A brief note")
+    .deadlineDuration("deadline_duration0")
+    .status("status0")
     .build();
 CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
         "28a0c3bc-7839-11ea-bc55-0242ac130003",
@@ -85,14 +95,25 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 ### Example Usage
 
 ```java
+TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
+    .startAt("start_at2")
+    .endAt("end_at0")
+    .build();
 TerminalCheckoutQueryFilter bodyQueryFilter = new TerminalCheckoutQueryFilter.Builder()
+    .deviceId("device_id8")
+    .createdAt(bodyQueryFilterCreatedAt)
     .status("COMPLETED")
+    .build();
+TerminalCheckoutQuerySort bodyQuerySort = new TerminalCheckoutQuerySort.Builder()
+    .sortOrder("sort_order8")
     .build();
 TerminalCheckoutQuery bodyQuery = new TerminalCheckoutQuery.Builder()
     .filter(bodyQueryFilter)
+    .sort(bodyQuerySort)
     .build();
 SearchTerminalCheckoutsRequest body = new SearchTerminalCheckoutsRequest.Builder()
     .query(bodyQuery)
+    .cursor("cursor0")
     .limit(2)
     .build();
 

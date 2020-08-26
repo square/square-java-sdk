@@ -53,7 +53,9 @@ TeamMemberAssignedLocations bodyTeamMemberAssignedLocations = new TeamMemberAssi
     .locationIds(bodyTeamMemberAssignedLocationsLocationIds)
     .build();
 TeamMember bodyTeamMember = new TeamMember.Builder()
+    .id("id2")
     .referenceId("reference_id_1")
+    .isOwner(false)
     .status("ACTIVE")
     .givenName("Joe")
     .familyName("Doe")
@@ -192,6 +194,7 @@ SearchTeamMembersQuery bodyQuery = new SearchTeamMembersQuery.Builder()
 SearchTeamMembersRequest body = new SearchTeamMembersRequest.Builder()
     .query(bodyQuery)
     .limit(10)
+    .cursor("cursor0")
     .build();
 
 teamApi.searchTeamMembersAsync(body).thenAccept(result -> {
@@ -269,7 +272,9 @@ TeamMemberAssignedLocations bodyTeamMemberAssignedLocations = new TeamMemberAssi
     .locationIds(bodyTeamMemberAssignedLocationsLocationIds)
     .build();
 TeamMember bodyTeamMember = new TeamMember.Builder()
+    .id("id2")
     .referenceId("reference_id_1")
+    .isOwner(false)
     .status("ACTIVE")
     .givenName("Joe")
     .familyName("Doe")
@@ -354,6 +359,10 @@ CompletableFuture<UpdateWageSettingResponse> updateWageSettingAsync(
 String teamMemberId = "team_member_id0";
 List<JobAssignment> bodyWageSettingJobAssignments = new LinkedList<>();
 
+Money bodyWageSettingJobAssignments0HourlyRate = new Money.Builder()
+    .amount(117L)
+    .currency("ERN")
+    .build();
 Money bodyWageSettingJobAssignments0AnnualRate = new Money.Builder()
     .amount(3000000L)
     .currency("USD")
@@ -361,6 +370,7 @@ Money bodyWageSettingJobAssignments0AnnualRate = new Money.Builder()
 JobAssignment bodyWageSettingJobAssignments0 = new JobAssignment.Builder(
         "Manager",
         "SALARY")
+    .hourlyRate(bodyWageSettingJobAssignments0HourlyRate)
     .annualRate(bodyWageSettingJobAssignments0AnnualRate)
     .weeklyHours(40)
     .build();
@@ -370,16 +380,25 @@ Money bodyWageSettingJobAssignments1HourlyRate = new Money.Builder()
     .amount(1200L)
     .currency("USD")
     .build();
+Money bodyWageSettingJobAssignments1AnnualRate = new Money.Builder()
+    .amount(58L)
+    .currency("DZD")
+    .build();
 JobAssignment bodyWageSettingJobAssignments1 = new JobAssignment.Builder(
         "Cashier",
         "HOURLY")
     .hourlyRate(bodyWageSettingJobAssignments1HourlyRate)
+    .annualRate(bodyWageSettingJobAssignments1AnnualRate)
+    .weeklyHours(226)
     .build();
 bodyWageSettingJobAssignments.add(bodyWageSettingJobAssignments1);
 
 WageSetting bodyWageSetting = new WageSetting.Builder()
+    .teamMemberId("team_member_id2")
     .jobAssignments(bodyWageSettingJobAssignments)
     .isOvertimeExempt(true)
+    .version(122)
+    .createdAt("created_at0")
     .build();
 UpdateWageSettingRequest body = new UpdateWageSettingRequest.Builder(
         bodyWageSetting)

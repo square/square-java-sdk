@@ -25,8 +25,10 @@ import com.squareup.square.models.DeleteShiftResponse;
 import com.squareup.square.models.GetBreakTypeResponse;
 import com.squareup.square.models.GetEmployeeWageResponse;
 import com.squareup.square.models.GetShiftResponse;
+import com.squareup.square.models.GetTeamMemberWageResponse;
 import com.squareup.square.models.ListBreakTypesResponse;
 import com.squareup.square.models.ListEmployeeWagesResponse;
+import com.squareup.square.models.ListTeamMemberWagesResponse;
 import com.squareup.square.models.ListWorkweekConfigsResponse;
 import com.squareup.square.models.SearchShiftsRequest;
 import com.squareup.square.models.SearchShiftsResponse;
@@ -166,8 +168,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `BreakType`. 
-     * A `BreakType` is a template for creating `Break` objects. 
+     * Creates a new `BreakType`.
+     * A `BreakType` is a template for creating `Break` objects.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
@@ -192,8 +194,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `BreakType`. 
-     * A `BreakType` is a template for creating `Break` objects. 
+     * Creates a new `BreakType`.
+     * A `BreakType` is a template for creating `Break` objects.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
@@ -273,7 +275,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Deletes an existing `BreakType`. 
+     * Deletes an existing `BreakType`.
      * A `BreakType` can be deleted even if it is referenced from a `Shift`.
      * @param    id    Required parameter: UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call
@@ -290,7 +292,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Deletes an existing `BreakType`. 
+     * Deletes an existing `BreakType`.
      * A `BreakType` can be deleted even if it is referenced from a `Shift`.
      * @param    id    Required parameter: UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call 
@@ -553,11 +555,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `EmployeeWage` instances for a business.
+     * @deprecated
+     * 
      * @param    employeeId    Optional parameter: Filter wages returned to only those that are associated with the specified employee.
      * @param    limit    Optional parameter: Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
      * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call
      */
+    @Deprecated
     public ListEmployeeWagesResponse listEmployeeWages(
             final String employeeId,
             final Integer limit,
@@ -573,11 +578,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `EmployeeWage` instances for a business.
+     * @deprecated
+     * 
      * @param    employeeId    Optional parameter: Filter wages returned to only those that are associated with the specified employee.
      * @param    limit    Optional parameter: Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
      * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call 
      */
+    @Deprecated
     public CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
             final String employeeId,
             final Integer limit,
@@ -655,9 +663,12 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a single `EmployeeWage` specified by id.
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call
      */
+    @Deprecated
     public GetEmployeeWageResponse getEmployeeWage(
             final String id) throws ApiException, IOException {
         HttpRequest request = buildGetEmployeeWageRequest(id);
@@ -671,9 +682,12 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a single `EmployeeWage` specified by id.
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call 
      */
+    @Deprecated
     public CompletableFuture<GetEmployeeWageResponse> getEmployeeWageAsync(
             final String id) {
         return makeHttpCallAsync(() -> buildGetEmployeeWageRequest(id),
@@ -744,16 +758,16 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. 
-     * A `Shift` represents a complete work day for a single employee. 
+     * Creates a new `Shift`.
+     * A `Shift` represents a complete work day for a single employee.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
      * - `employee_id`
      * - `start_at`
      * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
-     * - The `status` of the new `Shift` is `OPEN` and the employee has another 
-     * shift with an `OPEN` status. 
+     * - The `status` of the new `Shift` is `OPEN` and the employee has another
+     * shift with an `OPEN` status.
      * - The `start_at` date is in the future
      * - the `start_at` or `end_at` overlaps another shift for the same employee
      * - If `Break`s are set in the request, a break `start_at`
@@ -774,16 +788,16 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. 
-     * A `Shift` represents a complete work day for a single employee. 
+     * Creates a new `Shift`.
+     * A `Shift` represents a complete work day for a single employee.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
      * - `employee_id`
      * - `start_at`
      * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
-     * - The `status` of the new `Shift` is `OPEN` and the employee has another 
-     * shift with an `OPEN` status. 
+     * - The `status` of the new `Shift` is `OPEN` and the employee has another
+     * shift with an `OPEN` status.
      * - The `start_at` date is in the future
      * - the `start_at` or `end_at` overlaps another shift for the same employee
      * - If `Break`s are set in the request, a break `start_at`
@@ -859,7 +873,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a paginated list of `Shift` records for a business. 
+     * Returns a paginated list of `Shift` records for a business.
      * The list to be returned can be filtered by:
      * - Location IDs **and**
      * - employee IDs **and**
@@ -887,7 +901,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a paginated list of `Shift` records for a business. 
+     * Returns a paginated list of `Shift` records for a business.
      * The list to be returned can be filtered by:
      * - Location IDs **and**
      * - employee IDs **and**
@@ -1150,9 +1164,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Updates an existing `Shift`. 
-     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have 
-     * the `end_at` property set to a valid RFC-3339 datetime string. 
+     * Updates an existing `Shift`.
+     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string.
      * When closing a `Shift`, all `Break` instances in the shift must be complete with `end_at`
      * set on each `Break`.
      * @param    id    Required parameter: ID of the object being updated.
@@ -1172,9 +1186,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Updates an existing `Shift`. 
-     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have 
-     * the `end_at` property set to a valid RFC-3339 datetime string. 
+     * Updates an existing `Shift`.
+     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string.
      * When closing a `Shift`, all `Break` instances in the shift must be complete with `end_at`
      * set on each `Break`.
      * @param    id    Required parameter: ID of the object being updated.
@@ -1249,6 +1263,198 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         String responseBody = ((HttpStringResponse)response).getBody();
         UpdateShiftResponse result = ApiHelper.deserialize(responseBody,
                 UpdateShiftResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Returns a paginated list of `TeamMemberWage` instances for a business.
+     * @param    teamMemberId    Optional parameter: Filter wages returned to only those that are associated with the specified team member.
+     * @param    limit    Optional parameter: Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
+     * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
+     * @return    Returns the ListTeamMemberWagesResponse response from the API call
+     */
+    public ListTeamMemberWagesResponse listTeamMemberWages(
+            final String teamMemberId,
+            final Integer limit,
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListTeamMemberWagesRequest(teamMemberId, limit, cursor);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleListTeamMemberWagesResponse(context);
+    }
+
+    /**
+     * Returns a paginated list of `TeamMemberWage` instances for a business.
+     * @param    teamMemberId    Optional parameter: Filter wages returned to only those that are associated with the specified team member.
+     * @param    limit    Optional parameter: Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
+     * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
+     * @return    Returns the ListTeamMemberWagesResponse response from the API call 
+     */
+    public CompletableFuture<ListTeamMemberWagesResponse> listTeamMemberWagesAsync(
+            final String teamMemberId,
+            final Integer limit,
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListTeamMemberWagesRequest(teamMemberId, limit, cursor),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleListTeamMemberWagesResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for listTeamMemberWages
+     */
+    private HttpRequest buildListTeamMemberWagesRequest(
+            final String teamMemberId,
+            final Integer limit,
+            final String cursor) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/labor/team-member-wages");
+
+        //process query parameters
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("team_member_id", teamMemberId);
+        queryParameters.put("limit", limit);
+        queryParameters.put("cursor", cursor);
+        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for listTeamMemberWages
+     * @return An object of type ListTeamMemberWagesResponse
+     */
+    private ListTeamMemberWagesResponse handleListTeamMemberWagesResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        ListTeamMemberWagesResponse result = ApiHelper.deserialize(responseBody,
+                ListTeamMemberWagesResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Returns a single `TeamMemberWage` specified by id.
+     * @param    id    Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * @return    Returns the GetTeamMemberWageResponse response from the API call
+     */
+    public GetTeamMemberWageResponse getTeamMemberWage(
+            final String id) throws ApiException, IOException {
+        HttpRequest request = buildGetTeamMemberWageRequest(id);
+        authManagers.get("default").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleGetTeamMemberWageResponse(context);
+    }
+
+    /**
+     * Returns a single `TeamMemberWage` specified by id.
+     * @param    id    Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * @return    Returns the GetTeamMemberWageResponse response from the API call 
+     */
+    public CompletableFuture<GetTeamMemberWageResponse> getTeamMemberWageAsync(
+            final String id) {
+        return makeHttpCallAsync(() -> buildGetTeamMemberWageRequest(id),
+                req -> authManagers.get("default").applyAsync(req)
+                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
+                context -> handleGetTeamMemberWageResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for getTeamMemberWage
+     */
+    private HttpRequest buildGetTeamMemberWageRequest(
+            final String id) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/labor/team-member-wages/{id}");
+
+        //process template parameters
+        Map<String, Object> templateParameters = new HashMap<>();
+        templateParameters.put("id", id);
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        //validate and preprocess url
+        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for getTeamMemberWage
+     * @return An object of type GetTeamMemberWageResponse
+     */
+    private GetTeamMemberWageResponse handleGetTeamMemberWageResponse(HttpContext context)
+            throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse)response).getBody();
+        GetTeamMemberWageResponse result = ApiHelper.deserialize(responseBody,
+                GetTeamMemberWageResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

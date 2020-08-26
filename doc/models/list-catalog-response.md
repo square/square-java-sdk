@@ -6,11 +6,11 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors encountered. |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset, this is the final response.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | The CatalogObjects returned. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on any errors encountered. | List<Error> getErrors() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset, this is the final response.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
+| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | The CatalogObjects returned. | List<CatalogObject> getObjects() |
 
 ### Example (as JSON)
 

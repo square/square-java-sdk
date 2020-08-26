@@ -8,15 +8,18 @@ The query filter to return the item variations containing the specified item opt
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `ItemOptionValueIds` | `List<String>` | Optional | A set of `CatalogItemOptionValue` IDs to be used to find associated<br>`CatalogItemVariation`s. All ItemVariations that contain all of the given<br>Item Option Values (in any order) will be returned. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `ItemOptionValueIds` | `List<String>` | Optional | A set of `CatalogItemOptionValue` IDs to be used to find associated<br>`CatalogItemVariation`s. All ItemVariations that contain all of the given<br>Item Option Values (in any order) will be returned. | List<String> getItemOptionValueIds() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "item_option_value_ids": null
+  "item_option_value_ids": [
+    "item_option_value_ids0",
+    "item_option_value_ids1"
+  ]
 }
 ```
 

@@ -6,9 +6,9 @@
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `LocationId` | `String` | The ID of the location to retrieve cash drawer shifts from. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `LocationId` | `String` | The ID of the location to retrieve cash drawer shifts from. | String getLocationId() |
 
 ### Example (as JSON)
 

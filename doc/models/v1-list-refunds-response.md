@@ -6,15 +6,48 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Items` | [`List<V1Refund>`](/doc/models/v1-refund.md) | Optional | - |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Items` | [`List<V1Refund>`](/doc/models/v1-refund.md) | Optional | - | List<V1Refund> getItems() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "items": null
+  "items": [
+    {
+      "type": "PARTIAL",
+      "reason": "reason7",
+      "refunded_money": {
+        "amount": 17,
+        "currency_code": "XTS"
+      },
+      "refunded_processing_fee_money": {
+        "amount": 59,
+        "currency_code": "GYD"
+      },
+      "refunded_tax_money": {
+        "amount": 115,
+        "currency_code": "NIO"
+      }
+    },
+    {
+      "type": "FULL",
+      "reason": "reason6",
+      "refunded_money": {
+        "amount": 18,
+        "currency_code": "XXX"
+      },
+      "refunded_processing_fee_money": {
+        "amount": 60,
+        "currency_code": "HKD"
+      },
+      "refunded_tax_money": {
+        "amount": 116,
+        "currency_code": "NOK"
+      }
+    }
+  ]
 }
 ```
 

@@ -11,21 +11,21 @@ Deprecated - recommend using [SearchOrders](#endpoint-orders-searchorders)
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `BeginTime` | `String` | Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. |
-| `EndTime` | `String` | Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. |
-| `SortOrder` | [`String`](/doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. |
-| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](#paginatingresults) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `BeginTime` | `String` | Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. | String getBeginTime() |
+| `EndTime` | `String` | Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. | String getEndTime() |
+| `SortOrder` | [`String`](/doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. | String getSortOrder() |
+| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](#paginatingresults) for more information. | String getCursor() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "begin_time": null,
-  "end_time": null,
-  "sort_order": null,
-  "cursor": null
+  "begin_time": "begin_time2",
+  "end_time": "end_time2",
+  "sort_order": "DESC",
+  "cursor": "cursor6"
 }
 ```
 

@@ -40,7 +40,7 @@ public class SubscriptionPhase {
     private final Long ordinal;
     /**
      * Getter for Uid.
-     * The Square-assigned ID of the subscription phase.
+     * The Square-assigned ID of the subscription phase. This field cannot be changed after a `SubscriptionPhase` is created.
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -58,7 +58,7 @@ public class SubscriptionPhase {
 
     /**
      * Getter for Periods.
-     * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite.
+     * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite. This field cannot be changed after a `SubscriptionPhase` is created.
      */
     @JsonGetter("periods")
     public Integer getPeriods() {
@@ -81,7 +81,7 @@ public class SubscriptionPhase {
 
     /**
      * Getter for Ordinal.
-     * The position this phase appears in the sequence of phases defined for the plan, indexed from 0.
+     * The position this phase appears in the sequence of phases defined for the plan, indexed from 0. This field cannot be changed after a `SubscriptionPhase` is created.
      */
     @JsonGetter("ordinal")
     public Long getOrdinal() {

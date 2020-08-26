@@ -22,6 +22,8 @@ LaborApi laborApi = client.getLaborApi();
 * [Delete Shift](/doc/labor.md#delete-shift)
 * [Get Shift](/doc/labor.md#get-shift)
 * [Update Shift](/doc/labor.md#update-shift)
+* [List Team Member Wages](/doc/labor.md#list-team-member-wages)
+* [Get Team Member Wage](/doc/labor.md#get-team-member-wage)
 * [List Workweek Configs](/doc/labor.md#list-workweek-configs)
 * [Update Workweek Config](/doc/labor.md#update-workweek-config)
 
@@ -51,7 +53,11 @@ CompletableFuture<ListBreakTypesResponse> listBreakTypesAsync(
 ### Example Usage
 
 ```java
-laborApi.listBreakTypesAsync(null, null, null).thenAccept(result -> {
+String locationId = "location_id4";
+Integer limit = 172;
+String cursor = "cursor6";
+
+laborApi.listBreakTypesAsync(locationId, limit, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -61,9 +67,9 @@ laborApi.listBreakTypesAsync(null, null, null).thenAccept(result -> {
 
 ## Create Break Type
 
-Creates a new `BreakType`. 
+Creates a new `BreakType`.
 
-A `BreakType` is a template for creating `Break` objects. 
+A `BreakType` is a template for creating `Break` objects.
 You must provide the following values in your request to this
 endpoint:
 
@@ -99,6 +105,10 @@ BreakType bodyBreakType = new BreakType.Builder(
         "Lunch Break",
         "PT30M",
         true)
+    .id("id2")
+    .version(124)
+    .createdAt("created_at0")
+    .updatedAt("updated_at8")
     .build();
 CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
         bodyBreakType)
@@ -115,7 +125,7 @@ laborApi.createBreakTypeAsync(body).thenAccept(result -> {
 
 ## Delete Break Type
 
-Deletes an existing `BreakType`. 
+Deletes an existing `BreakType`.
 
 A `BreakType` can be deleted even if it is referenced from a `Shift`.
 
@@ -209,7 +219,10 @@ BreakType bodyBreakType = new BreakType.Builder(
         "Lunch",
         "PT50M",
         true)
+    .id("id2")
     .version(1)
+    .createdAt("created_at0")
+    .updatedAt("updated_at8")
     .build();
 UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
         bodyBreakType)
@@ -238,7 +251,7 @@ CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `employeeId` | `String` | Query, Optional | Filter wages returned to only those that are associated with the<br>specified employee. |
+| `employeeId` | `String` | Query, Optional | Filter wages returned to only those that are associated with the specified employee. |
 | `limit` | `Integer` | Query, Optional | Maximum number of Employee Wages to return per page. Can range between<br>1 and 200. The default is the maximum at 200. |
 | `cursor` | `String` | Query, Optional | Pointer to the next page of Employee Wage results to fetch. |
 
@@ -249,7 +262,11 @@ CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
 ### Example Usage
 
 ```java
-laborApi.listEmployeeWagesAsync(null, null, null).thenAccept(result -> {
+String employeeId = "employee_id0";
+Integer limit = 172;
+String cursor = "cursor6";
+
+laborApi.listEmployeeWagesAsync(employeeId, limit, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -291,9 +308,9 @@ laborApi.getEmployeeWageAsync(id).thenAccept(result -> {
 
 ## Create Shift
 
-Creates a new `Shift`. 
+Creates a new `Shift`.
 
-A `Shift` represents a complete work day for a single employee. 
+A `Shift` represents a complete work day for a single employee.
 You must provide the following values in your request to this
 endpoint:
 
@@ -302,8 +319,8 @@ endpoint:
 - `start_at`
 
 An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
-- The `status` of the new `Shift` is `OPEN` and the employee has another 
-shift with an `OPEN` status. 
+- The `status` of the new `Shift` is `OPEN` and the employee has another
+shift with an `OPEN` status.
 - The `start_at` date is in the future
 - the `start_at` or `end_at` overlaps another shift for the same employee
 - If `Break`s are set in the request, a break `start_at`
@@ -344,17 +361,21 @@ Break bodyShiftBreaks0 = new Break.Builder(
         "Tea Break",
         "PT5M",
         true)
+    .id("id4")
     .endAt("2019-01-25T06:16:00-05:00")
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift bodyShift = new Shift.Builder(
-        "ormj0jJJZ5OZIzxrZYJI",
         "2019-01-25T03:11:00-05:00")
+    .id("id8")
+    .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
+    .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(bodyShiftWage)
     .breaks(bodyShiftBreaks)
+    .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
 CreateShiftRequest body = new CreateShiftRequest.Builder(
         bodyShift)
@@ -371,7 +392,7 @@ laborApi.createShiftAsync(body).thenAccept(result -> {
 
 ## Search Shifts
 
-Returns a paginated list of `Shift` records for a business. 
+Returns a paginated list of `Shift` records for a business.
 The list to be returned can be filtered by:
 - Location IDs **and**
 - employee IDs **and**
@@ -404,24 +425,51 @@ CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
 ### Example Usage
 
 ```java
+List<String> bodyQueryFilterLocationIds = new LinkedList<>();
+bodyQueryFilterLocationIds.add("location_ids2");
+List<String> bodyQueryFilterTeamMemberIds = new LinkedList<>();
+bodyQueryFilterTeamMemberIds.add("team_member_ids9");
+bodyQueryFilterTeamMemberIds.add("team_member_ids0");
+List<String> bodyQueryFilterEmployeeIds = new LinkedList<>();
+bodyQueryFilterEmployeeIds.add("employee_ids7");
+TimeRange bodyQueryFilterStart = new TimeRange.Builder()
+    .startAt("start_at8")
+    .endAt("end_at4")
+    .build();
+TimeRange bodyQueryFilterEnd = new TimeRange.Builder()
+    .startAt("start_at2")
+    .endAt("end_at0")
+    .build();
 DateRange bodyQueryFilterWorkdayDateRange = new DateRange.Builder()
-    .startDate("2019-01-20")
-    .endDate("2019-02-03")
+    .startDate("start_date8")
+    .endDate("end_date4")
     .build();
 ShiftWorkday bodyQueryFilterWorkday = new ShiftWorkday.Builder()
     .dateRange(bodyQueryFilterWorkdayDateRange)
     .matchShiftsBy("START_AT")
-    .defaultTimezone("America/Los_Angeles")
+    .defaultTimezone("default_timezone8")
     .build();
-ShiftFilter bodyQueryFilter = new ShiftFilter.Builder()
+ShiftFilter bodyQueryFilter = new ShiftFilter.Builder(
+        bodyQueryFilterLocationIds,
+        bodyQueryFilterTeamMemberIds)
+    .employeeIds(bodyQueryFilterEmployeeIds)
+    .status("OPEN")
+    .start(bodyQueryFilterStart)
+    .end(bodyQueryFilterEnd)
     .workday(bodyQueryFilterWorkday)
+    .build();
+ShiftSort bodyQuerySort = new ShiftSort.Builder()
+    .field("CREATED_AT")
+    .order("DESC")
     .build();
 ShiftQuery bodyQuery = new ShiftQuery.Builder()
     .filter(bodyQueryFilter)
+    .sort(bodyQuerySort)
     .build();
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
     .query(bodyQuery)
-    .limit(100)
+    .limit(164)
+    .cursor("cursor0")
     .build();
 
 laborApi.searchShiftsAsync(body).thenAccept(result -> {
@@ -498,10 +546,10 @@ laborApi.getShiftAsync(id).thenAccept(result -> {
 
 ## Update Shift
 
-Updates an existing `Shift`. 
+Updates an existing `Shift`.
 
-When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have 
-the `end_at` property set to a valid RFC-3339 datetime string. 
+When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+the `end_at` property set to a valid RFC-3339 datetime string.
 
 When closing a `Shift`, all `Break` instances in the shift must be complete with `end_at`
 set on each `Break`.
@@ -549,19 +597,92 @@ Break bodyShiftBreaks0 = new Break.Builder(
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift bodyShift = new Shift.Builder(
-        "ormj0jJJZ5OZIzxrZYJI",
         "2019-01-25T03:11:00-05:00")
+    .id("id8")
+    .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
+    .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(bodyShiftWage)
     .breaks(bodyShiftBreaks)
     .version(1)
+    .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
 UpdateShiftRequest body = new UpdateShiftRequest.Builder(
         bodyShift)
     .build();
 
 laborApi.updateShiftAsync(id, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## List Team Member Wages
+
+Returns a paginated list of `TeamMemberWage` instances for a business.
+
+```java
+CompletableFuture<ListTeamMemberWagesResponse> listTeamMemberWagesAsync(
+    final String teamMemberId,
+    final Integer limit,
+    final String cursor)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `teamMemberId` | `String` | Query, Optional | Filter wages returned to only those that are associated with the<br>specified team member. |
+| `limit` | `Integer` | Query, Optional | Maximum number of Team Member Wages to return per page. Can range between<br>1 and 200. The default is the maximum at 200. |
+| `cursor` | `String` | Query, Optional | Pointer to the next page of Employee Wage results to fetch. |
+
+### Response Type
+
+[`ListTeamMemberWagesResponse`](/doc/models/list-team-member-wages-response.md)
+
+### Example Usage
+
+```java
+String teamMemberId = "team_member_id0";
+Integer limit = 172;
+String cursor = "cursor6";
+
+laborApi.listTeamMemberWagesAsync(teamMemberId, limit, cursor).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+## Get Team Member Wage
+
+Returns a single `TeamMemberWage` specified by id.
+
+```java
+CompletableFuture<GetTeamMemberWageResponse> getTeamMemberWageAsync(
+    final String id)
+```
+
+### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `String` | Template, Required | UUID for the `TeamMemberWage` being retrieved. |
+
+### Response Type
+
+[`GetTeamMemberWageResponse`](/doc/models/get-team-member-wage-response.md)
+
+### Example Usage
+
+```java
+String id = "id0";
+
+laborApi.getTeamMemberWageAsync(id).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -593,7 +714,10 @@ CompletableFuture<ListWorkweekConfigsResponse> listWorkweekConfigsAsync(
 ### Example Usage
 
 ```java
-laborApi.listWorkweekConfigsAsync(null, null).thenAccept(result -> {
+Integer limit = 172;
+String cursor = "cursor6";
+
+laborApi.listWorkweekConfigsAsync(limit, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -629,7 +753,10 @@ String id = "id0";
 WorkweekConfig bodyWorkweekConfig = new WorkweekConfig.Builder(
         "MON",
         "10:00")
+    .id("id4")
     .version(10)
+    .createdAt("created_at2")
+    .updatedAt("updated_at0")
     .build();
 UpdateWorkweekConfigRequest body = new UpdateWorkweekConfigRequest.Builder(
         bodyWorkweekConfig)

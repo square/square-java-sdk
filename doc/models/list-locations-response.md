@@ -11,10 +11,10 @@ One of `errors` or `locations` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Locations` | [`List<Location>`](/doc/models/location.md) | Optional | The business locations. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Locations` | [`List<Location>`](/doc/models/location.md) | Optional | The business locations. | List<Location> getLocations() |
 
 ### Example (as JSON)
 

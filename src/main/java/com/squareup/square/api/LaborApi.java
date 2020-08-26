@@ -12,8 +12,10 @@ import com.squareup.square.models.DeleteShiftResponse;
 import com.squareup.square.models.GetBreakTypeResponse;
 import com.squareup.square.models.GetEmployeeWageResponse;
 import com.squareup.square.models.GetShiftResponse;
+import com.squareup.square.models.GetTeamMemberWageResponse;
 import com.squareup.square.models.ListBreakTypesResponse;
 import com.squareup.square.models.ListEmployeeWagesResponse;
+import com.squareup.square.models.ListTeamMemberWagesResponse;
 import com.squareup.square.models.ListWorkweekConfigsResponse;
 import com.squareup.square.models.SearchShiftsRequest;
 import com.squareup.square.models.SearchShiftsResponse;
@@ -54,8 +56,8 @@ public interface LaborApi {
             final String cursor);
 
     /**
-     * Creates a new `BreakType`. 
-     * A `BreakType` is a template for creating `Break` objects. 
+     * Creates a new `BreakType`.
+     * A `BreakType` is a template for creating `Break` objects.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
@@ -72,8 +74,8 @@ public interface LaborApi {
             final CreateBreakTypeRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a new `BreakType`. 
-     * A `BreakType` is a template for creating `Break` objects. 
+     * Creates a new `BreakType`.
+     * A `BreakType` is a template for creating `Break` objects.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
@@ -90,7 +92,7 @@ public interface LaborApi {
             final CreateBreakTypeRequest body);
 
     /**
-     * Deletes an existing `BreakType`. 
+     * Deletes an existing `BreakType`.
      * A `BreakType` can be deleted even if it is referenced from a `Shift`.
      * @param    id    Required parameter: UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call
@@ -99,7 +101,7 @@ public interface LaborApi {
             final String id) throws ApiException, IOException;
 
     /**
-     * Deletes an existing `BreakType`. 
+     * Deletes an existing `BreakType`.
      * A `BreakType` can be deleted even if it is referenced from a `Shift`.
      * @param    id    Required parameter: UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call 
@@ -145,23 +147,28 @@ public interface LaborApi {
 
     /**
      * Returns a paginated list of `EmployeeWage` instances for a business.
+     * @deprecated
+     * 
      * @param    employeeId    Optional parameter: Filter wages returned to only those that are associated with the specified employee.
      * @param    limit    Optional parameter: Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
      * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call
      */
-    ListEmployeeWagesResponse listEmployeeWages(
+    @Deprecated    ListEmployeeWagesResponse listEmployeeWages(
             final String employeeId,
             final Integer limit,
             final String cursor) throws ApiException, IOException;
 
     /**
      * Returns a paginated list of `EmployeeWage` instances for a business.
+     * @deprecated
+     * 
      * @param    employeeId    Optional parameter: Filter wages returned to only those that are associated with the specified employee.
      * @param    limit    Optional parameter: Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
      * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call 
      */
+    @Deprecated
     CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
             final String employeeId,
             final Integer limit,
@@ -169,31 +176,36 @@ public interface LaborApi {
 
     /**
      * Returns a single `EmployeeWage` specified by id.
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call
      */
-    GetEmployeeWageResponse getEmployeeWage(
+    @Deprecated    GetEmployeeWageResponse getEmployeeWage(
             final String id) throws ApiException, IOException;
 
     /**
      * Returns a single `EmployeeWage` specified by id.
+     * @deprecated
+     * 
      * @param    id    Required parameter: UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call 
      */
+    @Deprecated
     CompletableFuture<GetEmployeeWageResponse> getEmployeeWageAsync(
             final String id);
 
     /**
-     * Creates a new `Shift`. 
-     * A `Shift` represents a complete work day for a single employee. 
+     * Creates a new `Shift`.
+     * A `Shift` represents a complete work day for a single employee.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
      * - `employee_id`
      * - `start_at`
      * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
-     * - The `status` of the new `Shift` is `OPEN` and the employee has another 
-     * shift with an `OPEN` status. 
+     * - The `status` of the new `Shift` is `OPEN` and the employee has another
+     * shift with an `OPEN` status.
      * - The `start_at` date is in the future
      * - the `start_at` or `end_at` overlaps another shift for the same employee
      * - If `Break`s are set in the request, a break `start_at`
@@ -206,16 +218,16 @@ public interface LaborApi {
             final CreateShiftRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a new `Shift`. 
-     * A `Shift` represents a complete work day for a single employee. 
+     * Creates a new `Shift`.
+     * A `Shift` represents a complete work day for a single employee.
      * You must provide the following values in your request to this
      * endpoint:
      * - `location_id`
      * - `employee_id`
      * - `start_at`
      * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
-     * - The `status` of the new `Shift` is `OPEN` and the employee has another 
-     * shift with an `OPEN` status. 
+     * - The `status` of the new `Shift` is `OPEN` and the employee has another
+     * shift with an `OPEN` status.
      * - The `start_at` date is in the future
      * - the `start_at` or `end_at` overlaps another shift for the same employee
      * - If `Break`s are set in the request, a break `start_at`
@@ -228,7 +240,7 @@ public interface LaborApi {
             final CreateShiftRequest body);
 
     /**
-     * Returns a paginated list of `Shift` records for a business. 
+     * Returns a paginated list of `Shift` records for a business.
      * The list to be returned can be filtered by:
      * - Location IDs **and**
      * - employee IDs **and**
@@ -248,7 +260,7 @@ public interface LaborApi {
             final SearchShiftsRequest body) throws ApiException, IOException;
 
     /**
-     * Returns a paginated list of `Shift` records for a business. 
+     * Returns a paginated list of `Shift` records for a business.
      * The list to be returned can be filtered by:
      * - Location IDs **and**
      * - employee IDs **and**
@@ -300,9 +312,9 @@ public interface LaborApi {
             final String id);
 
     /**
-     * Updates an existing `Shift`. 
-     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have 
-     * the `end_at` property set to a valid RFC-3339 datetime string. 
+     * Updates an existing `Shift`.
+     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string.
      * When closing a `Shift`, all `Break` instances in the shift must be complete with `end_at`
      * set on each `Break`.
      * @param    id    Required parameter: ID of the object being updated.
@@ -314,9 +326,9 @@ public interface LaborApi {
             final UpdateShiftRequest body) throws ApiException, IOException;
 
     /**
-     * Updates an existing `Shift`. 
-     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have 
-     * the `end_at` property set to a valid RFC-3339 datetime string. 
+     * Updates an existing `Shift`.
+     * When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string.
      * When closing a `Shift`, all `Break` instances in the shift must be complete with `end_at`
      * set on each `Break`.
      * @param    id    Required parameter: ID of the object being updated.
@@ -326,6 +338,46 @@ public interface LaborApi {
     CompletableFuture<UpdateShiftResponse> updateShiftAsync(
             final String id,
             final UpdateShiftRequest body);
+
+    /**
+     * Returns a paginated list of `TeamMemberWage` instances for a business.
+     * @param    teamMemberId    Optional parameter: Filter wages returned to only those that are associated with the specified team member.
+     * @param    limit    Optional parameter: Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
+     * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
+     * @return    Returns the ListTeamMemberWagesResponse response from the API call
+     */
+    ListTeamMemberWagesResponse listTeamMemberWages(
+            final String teamMemberId,
+            final Integer limit,
+            final String cursor) throws ApiException, IOException;
+
+    /**
+     * Returns a paginated list of `TeamMemberWage` instances for a business.
+     * @param    teamMemberId    Optional parameter: Filter wages returned to only those that are associated with the specified team member.
+     * @param    limit    Optional parameter: Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
+     * @param    cursor    Optional parameter: Pointer to the next page of Employee Wage results to fetch.
+     * @return    Returns the ListTeamMemberWagesResponse response from the API call 
+     */
+    CompletableFuture<ListTeamMemberWagesResponse> listTeamMemberWagesAsync(
+            final String teamMemberId,
+            final Integer limit,
+            final String cursor);
+
+    /**
+     * Returns a single `TeamMemberWage` specified by id.
+     * @param    id    Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * @return    Returns the GetTeamMemberWageResponse response from the API call
+     */
+    GetTeamMemberWageResponse getTeamMemberWage(
+            final String id) throws ApiException, IOException;
+
+    /**
+     * Returns a single `TeamMemberWage` specified by id.
+     * @param    id    Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * @return    Returns the GetTeamMemberWageResponse response from the API call 
+     */
+    CompletableFuture<GetTeamMemberWageResponse> getTeamMemberWageAsync(
+            final String id);
 
     /**
      * Returns a list of `WorkweekConfig` instances for a business.

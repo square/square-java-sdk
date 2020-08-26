@@ -32,8 +32,7 @@ public class ListEmployeeWagesRequest {
     private final String cursor;
     /**
      * Getter for EmployeeId.
-     * Filter wages returned to only those that are associated with the
-     * specified employee.
+     * Filter wages returned to only those that are associated with the specified employee.
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {

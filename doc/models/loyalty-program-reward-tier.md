@@ -8,13 +8,13 @@ Describes a loyalty program reward tier.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Id` | `String` | The Square-assigned ID of the reward tier. |
-| `Points` | `int` | The points exchanged for the reward tier. |
-| `Name` | `String` | The name of the reward tier. |
-| `Definition` | [`LoyaltyProgramRewardDefinition`](/doc/models/loyalty-program-reward-definition.md) | Provides details about the loyalty program reward tier definition. |
-| `CreatedAt` | `String` | The timestamp when the reward tier was created, in RFC 3339 format. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Id` | `String` | The Square-assigned ID of the reward tier. | String getId() |
+| `Points` | `int` | The points exchanged for the reward tier. | int getPoints() |
+| `Name` | `String` | The name of the reward tier. | String getName() |
+| `Definition` | [`LoyaltyProgramRewardDefinition`](/doc/models/loyalty-program-reward-definition.md) | Provides details about the loyalty program reward tier definition. | LoyaltyProgramRewardDefinition getDefinition() |
+| `CreatedAt` | `String` | The timestamp when the reward tier was created, in RFC 3339 format. | String getCreatedAt() |
 
 ### Example (as JSON)
 
@@ -26,10 +26,18 @@ Describes a loyalty program reward tier.
   "definition": {
     "scope": "ORDER",
     "discount_type": "FIXED_AMOUNT",
-    "percentage_discount": null,
-    "catalog_object_ids": null,
-    "fixed_discount_money": null,
-    "max_discount_money": null
+    "percentage_discount": "percentage_discount2",
+    "catalog_object_ids": [
+      "catalog_object_ids6"
+    ],
+    "fixed_discount_money": {
+      "amount": 132,
+      "currency": "TRY"
+    },
+    "max_discount_money": {
+      "amount": 176,
+      "currency": "MYR"
+    }
   },
   "created_at": "created_at2"
 }

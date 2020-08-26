@@ -29,12 +29,10 @@ public interface OrdersApi {
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
      * To learn more about the Orders API, see the
      * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the business location to associate the order with.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
      */
     CreateOrderResponse createOrder(
-            final String locationId,
             final CreateOrderRequest body) throws ApiException, IOException;
 
     /**
@@ -45,83 +43,29 @@ public interface OrdersApi {
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
      * To learn more about the Orders API, see the
      * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the business location to associate the order with.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call 
      */
     CompletableFuture<CreateOrderResponse> createOrderAsync(
-            final String locationId,
             final CreateOrderRequest body);
 
     /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
-     * @param    locationId    Required parameter: The ID of the orders' associated location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
      */
     BatchRetrieveOrdersResponse batchRetrieveOrders(
-            final String locationId,
             final BatchRetrieveOrdersRequest body) throws ApiException, IOException;
 
     /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
-     * @param    locationId    Required parameter: The ID of the orders' associated location.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call 
      */
     CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
-            final String locationId,
             final BatchRetrieveOrdersRequest body);
-
-    /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting
-     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
-     * An UpdateOrder request requires the following:
-     * - The `order_id` in the endpoint path, identifying the order to update.
-     * - The latest `version` of the order to update.
-     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
-     * containing only the fields to update and the version the update is
-     * being applied to.
-     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
-     * identifying fields to clear.
-     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the order's associated location.
-     * @param    orderId    Required parameter: The ID of the order to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the UpdateOrderResponse response from the API call
-     */
-    UpdateOrderResponse updateOrder(
-            final String locationId,
-            final String orderId,
-            final UpdateOrderRequest body) throws ApiException, IOException;
-
-    /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting
-     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
-     * An UpdateOrder request requires the following:
-     * - The `order_id` in the endpoint path, identifying the order to update.
-     * - The latest `version` of the order to update.
-     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
-     * containing only the fields to update and the version the update is
-     * being applied to.
-     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
-     * identifying fields to clear.
-     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
-     * @param    locationId    Required parameter: The ID of the order's associated location.
-     * @param    orderId    Required parameter: The ID of the order to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the UpdateOrderResponse response from the API call 
-     */
-    CompletableFuture<UpdateOrderResponse> updateOrderAsync(
-            final String locationId,
-            final String orderId,
-            final UpdateOrderRequest body);
 
     /**
      * Calculates an [Order](#type-order).
@@ -180,6 +124,50 @@ public interface OrdersApi {
      */
     CompletableFuture<SearchOrdersResponse> searchOrdersAsync(
             final SearchOrdersRequest body);
+
+    /**
+     * Updates an open [Order](#type-order) by adding, replacing, or deleting
+     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
+     * An UpdateOrder request requires the following:
+     * - The `order_id` in the endpoint path, identifying the order to update.
+     * - The latest `version` of the order to update.
+     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
+     * containing only the fields to update and the version the update is
+     * being applied to.
+     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
+     * identifying fields to clear.
+     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
+     * To learn more about the Orders API, see the
+     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
+     * @param    orderId    Required parameter: The ID of the order to update.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the UpdateOrderResponse response from the API call
+     */
+    UpdateOrderResponse updateOrder(
+            final String orderId,
+            final UpdateOrderRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates an open [Order](#type-order) by adding, replacing, or deleting
+     * fields. Orders with a `COMPLETED` or `CANCELED` state cannot be updated.
+     * An UpdateOrder request requires the following:
+     * - The `order_id` in the endpoint path, identifying the order to update.
+     * - The latest `version` of the order to update.
+     * - The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects)
+     * containing only the fields to update and the version the update is
+     * being applied to.
+     * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
+     * identifying fields to clear.
+     * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
+     * To learn more about the Orders API, see the
+     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
+     * @param    orderId    Required parameter: The ID of the order to update.
+     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @return    Returns the UpdateOrderResponse response from the API call 
+     */
+    CompletableFuture<UpdateOrderResponse> updateOrderAsync(
+            final String orderId,
+            final UpdateOrderRequest body);
 
     /**
      * Pay for an [order](#type-order) using one or more approved [payments](#type-payment),

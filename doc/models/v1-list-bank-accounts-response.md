@@ -6,15 +6,30 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Items` | [`List<V1BankAccount>`](/doc/models/v1-bank-account.md) | Optional | - |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Items` | [`List<V1BankAccount>`](/doc/models/v1-bank-account.md) | Optional | - | List<V1BankAccount> getItems() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "items": null
+  "items": [
+    {
+      "id": "id7",
+      "merchant_id": "merchant_id7",
+      "bank_name": "bank_name7",
+      "name": "name7",
+      "routing_number": "routing_number1"
+    },
+    {
+      "id": "id8",
+      "merchant_id": "merchant_id8",
+      "bank_name": "bank_name6",
+      "name": "name8",
+      "routing_number": "routing_number2"
+    }
+  ]
 }
 ```
 

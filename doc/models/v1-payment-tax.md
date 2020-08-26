@@ -8,25 +8,46 @@ V1PaymentTax
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Name` | `String` | Optional | The merchant-defined name of the tax. |
-| `AppliedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `Rate` | `String` | Optional | The rate of the tax, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%. |
-| `InclusionType` | [`String`](/doc/models/v1-payment-tax-inclusion-type.md) | Optional | - |
-| `FeeId` | `String` | Optional | The ID of the tax, if available. Taxes applied in older versions of Square Register might not have an ID. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Name` | `String` | Optional | The merchant-defined name of the tax. | String getName() |
+| `AppliedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
+| `Rate` | `String` | Optional | The rate of the tax, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%. | String getRate() |
+| `InclusionType` | [`String`](/doc/models/v1-payment-tax-inclusion-type.md) | Optional | - | String getInclusionType() |
+| `FeeId` | `String` | Optional | The ID of the tax, if available. Taxes applied in older versions of Square Register might not have an ID. | String getFeeId() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "errors": null,
-  "name": null,
-  "applied_money": null,
-  "rate": null,
-  "inclusion_type": null,
-  "fee_id": null
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REQUEST_TIMEOUT",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "CONFLICT",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "GONE",
+      "detail": "detail3",
+      "field": "field1"
+    }
+  ],
+  "name": "name0",
+  "applied_money": {
+    "amount": 196,
+    "currency_code": "LYD"
+  },
+  "rate": "rate0",
+  "inclusion_type": "ADDITIVE"
 }
 ```
 

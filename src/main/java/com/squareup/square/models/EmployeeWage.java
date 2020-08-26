@@ -13,15 +13,15 @@ public class EmployeeWage {
 
     /**
      * Initialization constructor.
-     * @param employeeId
      * @param id
+     * @param employeeId
      * @param title
      * @param hourlyRate
      */
     @JsonCreator
     public EmployeeWage(
-            @JsonProperty("employee_id") String employeeId,
             @JsonProperty("id") String id,
+            @JsonProperty("employee_id") String employeeId,
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate) {
         this.id = id;
@@ -102,8 +102,9 @@ public class EmployeeWage {
      * @return a new {@link EmployeeWage.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(employeeId)
+        Builder builder = new Builder()
             .id(getId())
+            .employeeId(getEmployeeId())
             .title(getTitle())
             .hourlyRate(getHourlyRate());
             return builder;
@@ -113,27 +114,18 @@ public class EmployeeWage {
      * Class to build instances of {@link EmployeeWage}
      */
     public static class Builder {
-        private String employeeId;
         private String id;
+        private String employeeId;
         private String title;
         private Money hourlyRate;
 
         /**
          * Initialization constructor
          */
-        public Builder(String employeeId) {
-            this.employeeId = employeeId;
+        public Builder() {
+           
         }
 
-        /**
-         * Setter for employeeId
-         * @param employeeId
-         * @return Builder
-         */
-        public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
-            return this;
-        }
         /**
          * Setter for id
          * @param id
@@ -141,6 +133,15 @@ public class EmployeeWage {
          */
         public Builder id(String id) {
             this.id = id;
+            return this;
+        }
+        /**
+         * Setter for employeeId
+         * @param employeeId
+         * @return Builder
+         */
+        public Builder employeeId(String employeeId) {
+            this.employeeId = employeeId;
             return this;
         }
         /**
@@ -167,8 +168,8 @@ public class EmployeeWage {
          * @return {@link EmployeeWage}
          */
         public EmployeeWage build() {
-            return new EmployeeWage(employeeId,
-                id,
+            return new EmployeeWage(id,
+                employeeId,
                 title,
                 hourlyRate);
         }

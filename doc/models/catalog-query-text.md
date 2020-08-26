@@ -8,9 +8,9 @@ The query filter to return the search result whose searchable attribute values c
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Keywords` | `List<String>` | A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 characters are ignored. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Keywords` | `List<String>` | A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 characters are ignored. | List<String> getKeywords() |
 
 ### Example (as JSON)
 

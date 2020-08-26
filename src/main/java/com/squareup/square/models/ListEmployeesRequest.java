@@ -36,7 +36,6 @@ public class ListEmployeesRequest {
     private final String cursor;
     /**
      * Getter for LocationId.
-     * Filter employees returned to only those that are associated with the specified location.
      */
     @JsonGetter("location_id")
     public String getLocationId() {

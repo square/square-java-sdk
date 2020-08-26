@@ -6,9 +6,9 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `AccessToken` | `String` | Optional | The token you want to renew. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AccessToken` | `String` | Optional | The token you want to renew. | String getAccessToken() |
 
 ### Example (as JSON)
 

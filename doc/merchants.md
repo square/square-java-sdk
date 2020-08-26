@@ -42,7 +42,9 @@ CompletableFuture<ListMerchantsResponse> listMerchantsAsync(
 ### Example Usage
 
 ```java
-merchantsApi.listMerchantsAsync(null).thenAccept(result -> {
+Integer cursor = 210;
+
+merchantsApi.listMerchantsAsync(cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

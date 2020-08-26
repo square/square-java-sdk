@@ -8,17 +8,19 @@ An object that represents a team member's assignment to locations.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `AssignmentType` | [`String`](/doc/models/team-member-assigned-locations-assignment-type.md) | Optional | Enumerates the possible assignment types the team member can have |
-| `LocationIds` | `List<String>` | Optional | The locations that the team member is assigned to. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AssignmentType` | [`String`](/doc/models/team-member-assigned-locations-assignment-type.md) | Optional | Enumerates the possible assignment types the team member can have | String getAssignmentType() |
+| `LocationIds` | `List<String>` | Optional | The locations that the team member is assigned to. | List<String> getLocationIds() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "assignment_type": null,
-  "location_ids": null
+  "assignment_type": "ALL_CURRENT_AND_FUTURE_LOCATIONS",
+  "location_ids": [
+    "location_ids0"
+  ]
 }
 ```
 

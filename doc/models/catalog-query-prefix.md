@@ -8,10 +8,10 @@ The query filter to return the search result whose named attribute values are pr
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `AttributeName` | `String` | The name of the attribute to be searched. |
-| `AttributePrefix` | `String` | The desired prefix of the search attribute value. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `AttributeName` | `String` | The name of the attribute to be searched. | String getAttributeName() |
+| `AttributePrefix` | `String` | The desired prefix of the search attribute value. | String getAttributePrefix() |
 
 ### Example (as JSON)
 

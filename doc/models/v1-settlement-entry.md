@@ -8,21 +8,27 @@ V1SettlementEntry
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `PaymentId` | `String` | Optional | The settlement's unique identifier. |
-| `Type` | [`String`](/doc/models/v1-settlement-entry-type.md) | Optional | - |
-| `AmountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `FeeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `PaymentId` | `String` | Optional | The settlement's unique identifier. | String getPaymentId() |
+| `Type` | [`String`](/doc/models/v1-settlement-entry-type.md) | Optional | - | String getType() |
+| `AmountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAmountMoney() |
+| `FeeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getFeeMoney() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "payment_id": null,
-  "type": null,
-  "amount_money": null,
-  "fee_money": null
+  "payment_id": "payment_id0",
+  "type": "PAID_SERVICE_FEE",
+  "amount_money": {
+    "amount": 186,
+    "currency_code": "KRW"
+  },
+  "fee_money": {
+    "amount": 108,
+    "currency_code": "UZS"
+  }
 }
 ```
 

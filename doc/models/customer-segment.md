@@ -10,21 +10,21 @@ Segments (also known as Smart Groups) are defined and created within Customer Di
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Id` | `String` | Optional | Unique Square-generated ID for the segment. |
-| `Name` | `String` |  | Name of the segment. |
-| `CreatedAt` | `String` | Optional | The timestamp when the segment was created, in RFC 3339 format. |
-| `UpdatedAt` | `String` | Optional | The timestamp when the segment was last updated, in RFC 3339 format. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Id` | `String` | Optional | Unique Square-generated ID for the segment. | String getId() |
+| `Name` | `String` |  | Name of the segment. | String getName() |
+| `CreatedAt` | `String` | Optional | The timestamp when the segment was created, in RFC 3339 format. | String getCreatedAt() |
+| `UpdatedAt` | `String` | Optional | The timestamp when the segment was last updated, in RFC 3339 format. | String getUpdatedAt() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "id": null,
+  "id": "id0",
   "name": "name0",
-  "created_at": null,
-  "updated_at": null
+  "created_at": "created_at2",
+  "updated_at": "updated_at4"
 }
 ```
 

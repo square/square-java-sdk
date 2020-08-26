@@ -8,17 +8,22 @@ Represents a set of SearchSubscriptionsQuery filters used to limit the set of Su
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `CustomerIds` | `List<String>` | Optional | A filter to select subscriptions based on the customer. |
-| `LocationIds` | `List<String>` | Optional | A filter to select subscriptions based the location. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `CustomerIds` | `List<String>` | Optional | A filter to select subscriptions based on the customer. | List<String> getCustomerIds() |
+| `LocationIds` | `List<String>` | Optional | A filter to select subscriptions based the location. | List<String> getLocationIds() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "customer_ids": null,
-  "location_ids": null
+  "customer_ids": [
+    "customer_ids1",
+    "customer_ids2"
+  ],
+  "location_ids": [
+    "location_ids0"
+  ]
 }
 ```
 

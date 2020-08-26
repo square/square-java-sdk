@@ -8,9 +8,9 @@ A category to which a `CatalogItem` instance belongs.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Name` | `String` | Optional | The category name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Name` | `String` | Optional | The category name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points. | String getName() |
 
 ### Example (as JSON)
 

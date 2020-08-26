@@ -9,17 +9,38 @@ Describes a subscription plan. For more information, see
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Name` | `String` | Optional | The name of the plan. |
-| `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Optional | A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for this plan. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Name` | `String` | Optional | The name of the plan. | String getName() |
+| `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Optional | A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for this plan. | List<SubscriptionPhase> getPhases() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "name": null,
-  "phases": null
+  "name": "name0",
+  "phases": [
+    {
+      "uid": "uid5",
+      "cadence": "EVERY_FOUR_MONTHS",
+      "periods": 241,
+      "recurring_price_money": {
+        "amount": 193,
+        "currency": "MOP"
+      },
+      "ordinal": 207
+    },
+    {
+      "uid": "uid6",
+      "cadence": "QUARTERLY",
+      "periods": 242,
+      "recurring_price_money": {
+        "amount": 194,
+        "currency": "MRO"
+      },
+      "ordinal": 208
+    }
+  ]
 }
 ```
 

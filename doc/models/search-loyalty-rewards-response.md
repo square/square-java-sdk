@@ -8,11 +8,11 @@ A response that includes the loyalty rewards satisfying the search criteria.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Rewards` | [`List<LoyaltyReward>`](/doc/models/loyalty-reward.md) | Optional | The loyalty rewards that satisfy the search criteria.<br>These are returned in descending order by `updated_at`. |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent <br>request. If empty, this is the final response. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Rewards` | [`List<LoyaltyReward>`](/doc/models/loyalty-reward.md) | Optional | The loyalty rewards that satisfy the search criteria.<br>These are returned in descending order by `updated_at`. | List<LoyaltyReward> getRewards() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent <br>request. If empty, this is the final response. | String getCursor() |
 
 ### Example (as JSON)
 

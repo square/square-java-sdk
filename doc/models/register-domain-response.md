@@ -11,10 +11,10 @@ Either `errors` or `status` will be present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Status` | [`String`](/doc/models/register-domain-response-status.md) | Optional | The status of domain registration. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Status` | [`String`](/doc/models/register-domain-response-status.md) | Optional | The status of domain registration. | String getStatus() |
 
 ### Example (as JSON)
 

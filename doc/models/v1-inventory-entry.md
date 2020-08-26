@@ -8,17 +8,17 @@ V1InventoryEntry
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `VariationId` | `String` | Optional | The variation that the entry corresponds to. |
-| `QuantityOnHand` | `Double` | Optional | The current available quantity of the item variation. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `VariationId` | `String` | Optional | The variation that the entry corresponds to. | String getVariationId() |
+| `QuantityOnHand` | `Double` | Optional | The current available quantity of the item variation. | Double getQuantityOnHand() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "variation_id": null,
-  "quantity_on_hand": null
+  "variation_id": "variation_id2",
+  "quantity_on_hand": 123.5
 }
 ```
 

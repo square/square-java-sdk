@@ -8,10 +8,10 @@ Provides metadata when the event `type` is `EXPIRE_POINTS`.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `LoyaltyProgramId` | `String` | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). |
-| `Points` | `int` | The number of points expired. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `LoyaltyProgramId` | `String` | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
+| `Points` | `int` | The number of points expired. | int getPoints() |
 
 ### Example (as JSON)
 

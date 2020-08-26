@@ -9,19 +9,22 @@ when the minimum unit of account is smaller than the lowest physical denominatio
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Uid` | `String` | Optional | Unique ID that identifies the rounding adjustment only within this order. |
-| `Name` | `String` | Optional | The name of the rounding adjustment from the original sale Order. |
-| `AmountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Uid` | `String` | Optional | Unique ID that identifies the rounding adjustment only within this order. | String getUid() |
+| `Name` | `String` | Optional | The name of the rounding adjustment from the original sale Order. | String getName() |
+| `AmountMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getAmountMoney() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "uid": null,
-  "name": null,
-  "amount_money": null
+  "uid": "uid0",
+  "name": "name0",
+  "amount_money": {
+    "amount": 186,
+    "currency": "NGN"
+  }
 }
 ```
 

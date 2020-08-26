@@ -6,10 +6,10 @@
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Counts` | [`List<InventoryCount>`](/doc/models/inventory-count.md) | Optional | The current counts for all objects referenced in the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Counts` | [`List<InventoryCount>`](/doc/models/inventory-count.md) | Optional | The current counts for all objects referenced in the request. | List<InventoryCount> getCounts() |
 
 ### Example (as JSON)
 

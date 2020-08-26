@@ -29,7 +29,7 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Query, Optional | Filter employees returned to only those that are associated with the specified location. |
+| `locationId` | `String` | Query, Optional | - |
 | `status` | [`String`](/doc/models/employee-status.md) | Query, Optional | Specifies the EmployeeStatus to filter the employee by. |
 | `limit` | `Integer` | Query, Optional | The number of employees to be returned on each page. |
 | `cursor` | `String` | Query, Optional | The token required to retrieve the specified page of results. |
@@ -41,7 +41,12 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
 ### Example Usage
 
 ```java
-employeesApi.listEmployeesAsync(null, null, null, null).thenAccept(result -> {
+String locationId = "location_id4";
+String status = "ACTIVE";
+Integer limit = 172;
+String cursor = "cursor6";
+
+employeesApi.listEmployeesAsync(locationId, status, limit, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

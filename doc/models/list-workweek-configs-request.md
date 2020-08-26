@@ -8,17 +8,17 @@ A request for a set of `WorkweekConfig` objects
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Limit` | `Integer` | Optional | Maximum number of Workweek Configs to return per page. |
-| `Cursor` | `String` | Optional | Pointer to the next page of Workweek Config results to fetch. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Limit` | `Integer` | Optional | Maximum number of Workweek Configs to return per page. | Integer getLimit() |
+| `Cursor` | `String` | Optional | Pointer to the next page of Workweek Config results to fetch. | String getCursor() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "limit": null,
-  "cursor": null
+  "limit": 172,
+  "cursor": "cursor6"
 }
 ```
 

@@ -8,15 +8,17 @@ Filter based on order `source` information.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `SourceNames` | `List<String>` | Optional | Filters by [Source](#type-ordersource) `name`. Will return any orders<br>with with a `source.name` that matches any of the listed source names.<br><br>Max: 10 source names. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `SourceNames` | `List<String>` | Optional | Filters by [Source](#type-ordersource) `name`. Will return any orders<br>with with a `source.name` that matches any of the listed source names.<br><br>Max: 10 source names. | List<String> getSourceNames() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "source_names": null
+  "source_names": [
+    "source_names8"
+  ]
 }
 ```
 

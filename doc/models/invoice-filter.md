@@ -8,10 +8,10 @@ Describes query filters to apply.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `LocationIds` | `List<String>` |  | Limits the search to the specified locations. A location is required. <br>In the current implementation, only one location can be specified. |
-| `CustomerIds` | `List<String>` | Optional | Limits the search to the specified customers, within the specified locations. <br>Specifying a customer is optional. In the current implementation, <br>a maximum of one customer can be specified. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `LocationIds` | `List<String>` |  | Limits the search to the specified locations. A location is required. <br>In the current implementation, only one location can be specified. | List<String> getLocationIds() |
+| `CustomerIds` | `List<String>` | Optional | Limits the search to the specified customers, within the specified locations. <br>Specifying a customer is optional. In the current implementation, <br>a maximum of one customer can be specified. | List<String> getCustomerIds() |
 
 ### Example (as JSON)
 
@@ -20,7 +20,10 @@ Describes query filters to apply.
   "location_ids": [
     "location_ids0"
   ],
-  "customer_ids": null
+  "customer_ids": [
+    "customer_ids1",
+    "customer_ids2"
+  ]
 }
 ```
 

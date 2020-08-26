@@ -8,12 +8,12 @@ Describes changes to subscription and billing states.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `Id` | `String` | The ID of the subscription event. |
-| `SubscriptionEventType` | [`String`](/doc/models/subscription-event-subscription-event-type.md) | The possible subscription event types. |
-| `EffectiveDate` | `String` | The date, in YYYY-MM-DD format (for<br>example, 2013-01-15), when the subscription event went into effect. |
-| `PlanId` | `String` | The ID of the subscription plan associated with the subscription. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `Id` | `String` | The ID of the subscription event. | String getId() |
+| `SubscriptionEventType` | [`String`](/doc/models/subscription-event-subscription-event-type.md) | The possible subscription event types. | String getSubscriptionEventType() |
+| `EffectiveDate` | `String` | The date, in YYYY-MM-DD format (for<br>example, 2013-01-15), when the subscription event went into effect. | String getEffectiveDate() |
+| `PlanId` | `String` | The ID of the subscription plan associated with the subscription. | String getPlanId() |
 
 ### Example (as JSON)
 

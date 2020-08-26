@@ -8,11 +8,11 @@ The response object returned by the [ListMerchant](#endpoint-listmerchant) endpo
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Merchant` | [`List<Merchant>`](/doc/models/merchant.md) | Optional | The requested `Merchant` entities. |
-| `Cursor` | `Integer` | Optional | If the  response is truncated, the cursor to use in next  request to fetch next set of objects. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Merchant` | [`List<Merchant>`](/doc/models/merchant.md) | Optional | The requested `Merchant` entities. | List<Merchant> getMerchant() |
+| `Cursor` | `Integer` | Optional | If the  response is truncated, the cursor to use in next  request to fetch next set of objects. | Integer getCursor() |
 
 ### Example (as JSON)
 

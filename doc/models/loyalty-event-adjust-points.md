@@ -8,19 +8,19 @@ Provides metadata when the event `type` is `ADJUST_POINTS`.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `LoyaltyProgramId` | `String` | Optional | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). |
-| `Points` | `int` |  | The number of points added or removed. |
-| `Reason` | `String` | Optional | The reason for the adjustment of points. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `LoyaltyProgramId` | `String` | Optional | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
+| `Points` | `int` |  | The number of points added or removed. | int getPoints() |
+| `Reason` | `String` | Optional | The reason for the adjustment of points. | String getReason() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "loyalty_program_id": null,
+  "loyalty_program_id": "loyalty_program_id0",
   "points": 236,
-  "reason": null
+  "reason": "reason4"
 }
 ```
 

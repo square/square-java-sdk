@@ -9,11 +9,11 @@ a request to the __CreateMobileAuthorizationCode__ endpoint.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `AuthorizationCode` | `String` | Optional | Generated authorization code that connects a mobile application instance<br>to a Square account. |
-| `ExpiresAt` | `String` | Optional | The timestamp when `authorization_code` expires in<br>[RFC 3339](https://tools.ietf.org/html/rfc3339) format, e.g., "2016-09-04T23:59:33.123Z". |
-| `Error` | [`Error`](/doc/models/error.md) | Optional | Represents an error encountered during a request to the Connect API.<br><br>See [Handling errors](#handlingerrors) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AuthorizationCode` | `String` | Optional | Generated authorization code that connects a mobile application instance<br>to a Square account. | String getAuthorizationCode() |
+| `ExpiresAt` | `String` | Optional | The timestamp when `authorization_code` expires in<br>[RFC 3339](https://tools.ietf.org/html/rfc3339) format, e.g., "2016-09-04T23:59:33.123Z". | String getExpiresAt() |
+| `Error` | [`Error`](/doc/models/error.md) | Optional | Represents an error encountered during a request to the Connect API.<br><br>See [Handling errors](#handlingerrors) for more information. | Error getError() |
 
 ### Example (as JSON)
 

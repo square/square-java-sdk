@@ -10,10 +10,10 @@ in a response.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. |
-| `Location` | [`Location`](/doc/models/location.md) | Optional | - |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
+| `Location` | [`Location`](/doc/models/location.md) | Optional | - | Location getLocation() |
 
 ### Example (as JSON)
 

@@ -40,7 +40,6 @@ public class ListEmployeesResponse {
 
     /**
      * Getter for Employees.
-     * List of employees returned from the request.
      */
     @JsonGetter("employees")
     public List<Employee> getEmployees() {

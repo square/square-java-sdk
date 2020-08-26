@@ -67,14 +67,25 @@ CompletableFuture<CreateLocationResponse> createLocationAsync(
 ```java
 Address bodyLocationAddress = new Address.Builder()
     .addressLine1("1234 Peachtree St. NE")
+    .addressLine2("address_line_26")
+    .addressLine3("address_line_32")
     .locality("Atlanta")
+    .sublocality("sublocality6")
     .administrativeDistrictLevel1("GA")
     .postalCode("30309")
     .build();
+List<String> bodyLocationCapabilities = new LinkedList<>();
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
 Location bodyLocation = new Location.Builder()
+    .id("id0")
     .name("New location name")
     .address(bodyLocationAddress)
+    .timezone("timezone0")
+    .capabilities(bodyLocationCapabilities)
     .description("My new location.")
+    .facebookUrl("null")
     .build();
 CreateLocationRequest body = new CreateLocationRequest.Builder()
     .location(bodyLocation)
@@ -150,10 +161,17 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 String locationId = "location_id4";
 Address bodyLocationAddress = new Address.Builder()
     .addressLine1("1234 Peachtree St. NE")
+    .addressLine2("address_line_26")
+    .addressLine3("address_line_32")
     .locality("Atlanta")
+    .sublocality("sublocality6")
     .administrativeDistrictLevel1("GA")
     .postalCode("30309")
     .build();
+List<String> bodyLocationCapabilities = new LinkedList<>();
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
 List<BusinessHoursPeriod> bodyLocationBusinessHoursPeriods = new LinkedList<>();
 
 BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.Builder()
@@ -167,12 +185,16 @@ BusinessHours bodyLocationBusinessHours = new BusinessHours.Builder()
     .periods(bodyLocationBusinessHoursPeriods)
     .build();
 Location bodyLocation = new Location.Builder()
+    .id("id0")
     .name("Updated nickname")
     .address(bodyLocationAddress)
+    .timezone("timezone0")
+    .capabilities(bodyLocationCapabilities)
     .businessHours(bodyLocationBusinessHours)
     .description("Updated description")
     .twitterUsername("twitter")
     .instagramUsername("instagram")
+    .facebookUrl("null")
     .build();
 UpdateLocationRequest body = new UpdateLocationRequest.Builder()
     .location(bodyLocation)

@@ -80,17 +80,35 @@ CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
 List<InventoryChange> bodyChanges = new LinkedList<>();
 
 InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Builder()
+    .id("id0")
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
+    .catalogObjectType("catalog_object_type4")
     .state("IN_STOCK")
     .locationId("C6W5YS5QM06F5")
     .quantity("53")
     .employeeId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
+InventoryAdjustment bodyChanges0Adjustment = new InventoryAdjustment.Builder()
+    .id("id6")
+    .referenceId("reference_id4")
+    .fromState("SOLD")
+    .toState("IN_TRANSIT_TO")
+    .locationId("location_id0")
+    .build();
+InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
+    .id("id0")
+    .referenceId("reference_id8")
+    .state("SOLD")
+    .fromLocationId("from_location_id2")
+    .toLocationId("to_location_id2")
+    .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
     .physicalCount(bodyChanges0PhysicalCount)
+    .adjustment(bodyChanges0Adjustment)
+    .transfer(bodyChanges0Transfer)
     .build();
 bodyChanges.add(bodyChanges0);
 
@@ -198,10 +216,14 @@ List<String> bodyCatalogObjectIds = new LinkedList<>();
 bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
 List<String> bodyLocationIds = new LinkedList<>();
 bodyLocationIds.add("59TNP9SA8VGDA");
+List<String> bodyStates = new LinkedList<>();
+bodyStates.add("IN_TRANSIT_TO");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)
     .updatedAfter("2016-11-16T00:00:00.000Z")
+    .cursor("cursor0")
+    .states(bodyStates)
     .build();
 
 inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
@@ -275,8 +297,10 @@ CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
 
 ```java
 String catalogObjectId = "catalog_object_id6";
+String locationIds = "location_ids0";
+String cursor = "cursor6";
 
-inventoryApi.retrieveInventoryCountAsync(catalogObjectId, null, null).thenAccept(result -> {
+inventoryApi.retrieveInventoryCountAsync(catalogObjectId, locationIds, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -293,8 +317,8 @@ provided [CatalogObject](#type-catalogobject) at the requested
 Results are paginated and sorted in descending order according to their
 `occurred_at` timestamp (newest first).
 
-There are no limits on how far back the caller can page. This endpoint is
-useful when displaying recent changes for a specific item. For more
+There are no limits on how far back the caller can page. This endpoint can be 
+used to display recent changes for a specific item. For more
 sophisticated queries, use a batch endpoint.
 
 ```java
@@ -320,8 +344,10 @@ CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsyn
 
 ```java
 String catalogObjectId = "catalog_object_id6";
+String locationIds = "location_ids0";
+String cursor = "cursor6";
 
-inventoryApi.retrieveInventoryChangesAsync(catalogObjectId, null, null).thenAccept(result -> {
+inventoryApi.retrieveInventoryChangesAsync(catalogObjectId, locationIds, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

@@ -12,29 +12,26 @@ order subtotal.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Uid` | `String` | Optional | Unique ID that identifies the return tax only within this order. |
-| `SourceTaxUid` | `String` | Optional | `uid` of the Tax from the Order which contains the original charge of this tax. |
-| `CatalogObjectId` | `String` | Optional | The catalog object id referencing [CatalogTax](#type-catalogtax). |
-| `Name` | `String` | Optional | The tax's name. |
-| `Type` | [`String`](/doc/models/order-line-item-tax-type.md) | Optional | Indicates how the tax is applied to the associated line item or order. |
-| `Percentage` | `String` | Optional | The percentage of the tax, as a string representation of a decimal number.<br>For example, a value of `"7.25"` corresponds to a percentage of 7.25%. |
-| `AppliedMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. |
-| `Scope` | [`String`](/doc/models/order-line-item-tax-scope.md) | Optional | Indicates whether this is a line item or order level tax. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Uid` | `String` | Optional | Unique ID that identifies the return tax only within this order. | String getUid() |
+| `SourceTaxUid` | `String` | Optional | `uid` of the Tax from the Order which contains the original charge of this tax. | String getSourceTaxUid() |
+| `CatalogObjectId` | `String` | Optional | The catalog object id referencing [CatalogTax](#type-catalogtax). | String getCatalogObjectId() |
+| `Name` | `String` | Optional | The tax's name. | String getName() |
+| `Type` | [`String`](/doc/models/order-line-item-tax-type.md) | Optional | Indicates how the tax is applied to the associated line item or order. | String getType() |
+| `Percentage` | `String` | Optional | The percentage of the tax, as a string representation of a decimal number.<br>For example, a value of `"7.25"` corresponds to a percentage of 7.25%. | String getPercentage() |
+| `AppliedMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getAppliedMoney() |
+| `Scope` | [`String`](/doc/models/order-line-item-tax-scope.md) | Optional | Indicates whether this is a line item or order level tax. | String getScope() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "uid": null,
-  "source_tax_uid": null,
-  "catalog_object_id": null,
-  "name": null,
-  "type": null,
-  "percentage": null,
-  "applied_money": null,
-  "scope": null
+  "uid": "uid0",
+  "source_tax_uid": "source_tax_uid2",
+  "catalog_object_id": "catalog_object_id6",
+  "name": "name0",
+  "type": "INCLUSIVE"
 }
 ```
 

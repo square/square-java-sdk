@@ -26,6 +26,7 @@ public class Tender {
      * @param customerId
      * @param cardDetails
      * @param cashDetails
+     * @param bankTransferDetails
      * @param additionalRecipients
      * @param paymentId
      */
@@ -43,6 +44,7 @@ public class Tender {
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("card_details") TenderCardDetails cardDetails,
             @JsonProperty("cash_details") TenderCashDetails cashDetails,
+            @JsonProperty("bank_transfer_details") TenderBankTransferDetails bankTransferDetails,
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients,
             @JsonProperty("payment_id") String paymentId) {
         this.id = id;
@@ -57,6 +59,7 @@ public class Tender {
         this.type = type;
         this.cardDetails = cardDetails;
         this.cashDetails = cashDetails;
+        this.bankTransferDetails = bankTransferDetails;
         this.additionalRecipients = additionalRecipients;
         this.paymentId = paymentId;
     }
@@ -73,6 +76,7 @@ public class Tender {
     private final String type;
     private final TenderCardDetails cardDetails;
     private final TenderCashDetails cashDetails;
+    private final TenderBankTransferDetails bankTransferDetails;
     private final List<AdditionalRecipient> additionalRecipients;
     private final String paymentId;
     /**
@@ -200,6 +204,16 @@ public class Tender {
     }
 
     /**
+     * Getter for BankTransferDetails.
+     * Represents the details of a tender with `type` `BANK_TRANSFER`.
+     * See [PaymentBankTransferDetails](#type-paymentbanktransferdetails) for more exposed details of a bank transfer payment.
+     */
+    @JsonGetter("bank_transfer_details")
+    public TenderBankTransferDetails getBankTransferDetails() {
+        return this.bankTransferDetails;
+    }
+
+    /**
      * Getter for AdditionalRecipients.
      * Additional recipients (other than the merchant) receiving a portion of this tender.
      * For example, fees assessed on the purchase by a third party integration.
@@ -223,8 +237,8 @@ public class Tender {
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, transactionId, createdAt, note, amountMoney, tipMoney,
-            processingFeeMoney, customerId, type, cardDetails, cashDetails, additionalRecipients,
-            paymentId);
+            processingFeeMoney, customerId, type, cardDetails, cashDetails, bankTransferDetails,
+            additionalRecipients, paymentId);
     }
 
     @Override
@@ -248,6 +262,7 @@ public class Tender {
             Objects.equals(type, tender.type) &&
             Objects.equals(cardDetails, tender.cardDetails) &&
             Objects.equals(cashDetails, tender.cashDetails) &&
+            Objects.equals(bankTransferDetails, tender.bankTransferDetails) &&
             Objects.equals(additionalRecipients, tender.additionalRecipients) &&
             Objects.equals(paymentId, tender.paymentId);
     }
@@ -270,6 +285,7 @@ public class Tender {
             .customerId(getCustomerId())
             .cardDetails(getCardDetails())
             .cashDetails(getCashDetails())
+            .bankTransferDetails(getBankTransferDetails())
             .additionalRecipients(getAdditionalRecipients())
             .paymentId(getPaymentId());
             return builder;
@@ -291,6 +307,7 @@ public class Tender {
         private String customerId;
         private TenderCardDetails cardDetails;
         private TenderCashDetails cashDetails;
+        private TenderBankTransferDetails bankTransferDetails;
         private List<AdditionalRecipient> additionalRecipients;
         private String paymentId;
 
@@ -410,6 +427,15 @@ public class Tender {
             return this;
         }
         /**
+         * Setter for bankTransferDetails
+         * @param bankTransferDetails
+         * @return Builder
+         */
+        public Builder bankTransferDetails(TenderBankTransferDetails bankTransferDetails) {
+            this.bankTransferDetails = bankTransferDetails;
+            return this;
+        }
+        /**
          * Setter for additionalRecipients
          * @param additionalRecipients
          * @return Builder
@@ -445,6 +471,7 @@ public class Tender {
                 customerId,
                 cardDetails,
                 cashDetails,
+                bankTransferDetails,
                 additionalRecipients,
                 paymentId);
         }

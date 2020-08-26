@@ -9,11 +9,11 @@ a set of `EmployeeWage`.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `EmployeeWages` | [`List<EmployeeWage>`](/doc/models/employee-wage.md) | Optional | A page of Employee Wage results. |
-| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Employee Wage results. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `EmployeeWages` | [`List<EmployeeWage>`](/doc/models/employee-wage.md) | Optional | A page of Employee Wage results. | List<EmployeeWage> getEmployeeWages() |
+| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Employee Wage results. | String getCursor() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 

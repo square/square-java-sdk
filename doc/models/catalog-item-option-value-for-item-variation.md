@@ -11,17 +11,17 @@ For example, "Color:Red, Size:Small" or "Color:Blue, Size:Medium".
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `ItemOptionId` | `String` | Optional | The unique id of an item option. |
-| `ItemOptionValueId` | `String` | Optional | The unique id of the selected value for the item option. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `ItemOptionId` | `String` | Optional | The unique id of an item option. | String getItemOptionId() |
+| `ItemOptionValueId` | `String` | Optional | The unique id of the selected value for the item option. | String getItemOptionValueId() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "item_option_id": null,
-  "item_option_value_id": null
+  "item_option_id": "item_option_id2",
+  "item_option_value_id": "item_option_value_id0"
 }
 ```
 

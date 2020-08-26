@@ -14,9 +14,9 @@ public class Shift {
 
     /**
      * Initialization constructor.
-     * @param employeeId
      * @param startAt
      * @param id
+     * @param employeeId
      * @param locationId
      * @param timezone
      * @param endAt
@@ -26,12 +26,13 @@ public class Shift {
      * @param version
      * @param createdAt
      * @param updatedAt
+     * @param teamMemberId
      */
     @JsonCreator
     public Shift(
-            @JsonProperty("employee_id") String employeeId,
             @JsonProperty("start_at") String startAt,
             @JsonProperty("id") String id,
+            @JsonProperty("employee_id") String employeeId,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("timezone") String timezone,
             @JsonProperty("end_at") String endAt,
@@ -40,7 +41,8 @@ public class Shift {
             @JsonProperty("status") String status,
             @JsonProperty("version") Integer version,
             @JsonProperty("created_at") String createdAt,
-            @JsonProperty("updated_at") String updatedAt) {
+            @JsonProperty("updated_at") String updatedAt,
+            @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
         this.employeeId = employeeId;
         this.locationId = locationId;
@@ -53,6 +55,7 @@ public class Shift {
         this.version = version;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.teamMemberId = teamMemberId;
     }
 
     private final String id;
@@ -67,6 +70,7 @@ public class Shift {
     private final Integer version;
     private final String createdAt;
     private final String updatedAt;
+    private final String teamMemberId;
     /**
      * Getter for Id.
      * UUID for this object
@@ -78,7 +82,7 @@ public class Shift {
 
     /**
      * Getter for EmployeeId.
-     * The ID of the employee this shift belongs to.
+     * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use `team_member_id` instead
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -119,9 +123,7 @@ public class Shift {
     /**
      * Getter for EndAt.
      * RFC 3339; shifted to timezone + offset. Precision up to the minute is
-     * respected; seconds are truncated. The `end_at` minute is not
-     * counted when the shift length is calculated. For example, a shift from `00:00`
-     * to `08:01` is considered an 8 hour shift (midnight to 8am).
+     * respected; seconds are truncated.
      */
     @JsonGetter("end_at")
     public String getEndAt() {
@@ -185,11 +187,20 @@ public class Shift {
         return this.updatedAt;
     }
 
+    /**
+     * Getter for TeamMemberId.
+     * The ID of the team member this shift belongs to. Replaced `employee_id` at version "2020-08-26"
+     */
+    @JsonGetter("team_member_id")
+    public String getTeamMemberId() {
+        return this.teamMemberId;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, locationId, timezone, startAt, endAt, wage, breaks,
-            status, version, createdAt, updatedAt);
+            status, version, createdAt, updatedAt, teamMemberId);
     }
 
     @Override
@@ -212,7 +223,8 @@ public class Shift {
             Objects.equals(status, shift.status) &&
             Objects.equals(version, shift.version) &&
             Objects.equals(createdAt, shift.createdAt) &&
-            Objects.equals(updatedAt, shift.updatedAt);
+            Objects.equals(updatedAt, shift.updatedAt) &&
+            Objects.equals(teamMemberId, shift.teamMemberId);
     }
 
     /**
@@ -221,9 +233,9 @@ public class Shift {
      * @return a new {@link Shift.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(employeeId,
-            startAt)
+        Builder builder = new Builder(startAt)
             .id(getId())
+            .employeeId(getEmployeeId())
             .locationId(getLocationId())
             .timezone(getTimezone())
             .endAt(getEndAt())
@@ -232,7 +244,8 @@ public class Shift {
             .status(getStatus())
             .version(getVersion())
             .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+            .updatedAt(getUpdatedAt())
+            .teamMemberId(getTeamMemberId());
             return builder;
     }
 
@@ -240,9 +253,9 @@ public class Shift {
      * Class to build instances of {@link Shift}
      */
     public static class Builder {
-        private String employeeId;
         private String startAt;
         private String id;
+        private String employeeId;
         private String locationId;
         private String timezone;
         private String endAt;
@@ -252,25 +265,15 @@ public class Shift {
         private Integer version;
         private String createdAt;
         private String updatedAt;
+        private String teamMemberId;
 
         /**
          * Initialization constructor
          */
-        public Builder(String employeeId,
-                String startAt) {
-            this.employeeId = employeeId;
+        public Builder(String startAt) {
             this.startAt = startAt;
         }
 
-        /**
-         * Setter for employeeId
-         * @param employeeId
-         * @return Builder
-         */
-        public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
-            return this;
-        }
         /**
          * Setter for startAt
          * @param startAt
@@ -287,6 +290,15 @@ public class Shift {
          */
         public Builder id(String id) {
             this.id = id;
+            return this;
+        }
+        /**
+         * Setter for employeeId
+         * @param employeeId
+         * @return Builder
+         */
+        public Builder employeeId(String employeeId) {
+            this.employeeId = employeeId;
             return this;
         }
         /**
@@ -370,15 +382,24 @@ public class Shift {
             this.updatedAt = updatedAt;
             return this;
         }
+        /**
+         * Setter for teamMemberId
+         * @param teamMemberId
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
 
         /**
          * Builds a new {@link Shift} object using the set fields.
          * @return {@link Shift}
          */
         public Shift build() {
-            return new Shift(employeeId,
-                startAt,
+            return new Shift(startAt,
                 id,
+                employeeId,
                 locationId,
                 timezone,
                 endAt,
@@ -387,7 +408,8 @@ public class Shift {
                 status,
                 version,
                 createdAt,
-                updatedAt);
+                updatedAt,
+                teamMemberId);
         }
     }
 }

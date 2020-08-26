@@ -11,10 +11,10 @@ One of `errors` or `group` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Group` | [`CustomerGroup`](/doc/models/customer-group.md) | Optional | Represents a group of customer profiles. <br><br>Customer groups can be created, modified, and have their membership defined either via <br>the Customers API or within Customer Directory in the Square Dashboard or Point of Sale. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Group` | [`CustomerGroup`](/doc/models/customer-group.md) | Optional | Represents a group of customer profiles. <br><br>Customer groups can be created, modified, and have their membership defined either via <br>the Customers API or within Customer Directory in the Square Dashboard or Point of Sale. | CustomerGroup getGroup() |
 
 ### Example (as JSON)
 

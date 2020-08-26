@@ -8,19 +8,19 @@ The query expression to specify the key to sort search results.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `AttributeName` | `String` |  | The attribute whose value is used as the sort key. |
-| `InitialAttributeValue` | `String` | Optional | The first attribute value to be returned by the query. Ascending sorts will return only<br>objects with this value or greater, while descending sorts will return only objects with this value<br>or less. If unset, start at the beginning (for ascending sorts) or end (for descending sorts). |
-| `SortOrder` | [`String`](/doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AttributeName` | `String` |  | The attribute whose value is used as the sort key. | String getAttributeName() |
+| `InitialAttributeValue` | `String` | Optional | The first attribute value to be returned by the query. Ascending sorts will return only<br>objects with this value or greater, while descending sorts will return only objects with this value<br>or less. If unset, start at the beginning (for ascending sorts) or end (for descending sorts). | String getInitialAttributeValue() |
+| `SortOrder` | [`String`](/doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. | String getSortOrder() |
 
 ### Example (as JSON)
 
 ```json
 {
   "attribute_name": "attribute_name4",
-  "initial_attribute_value": null,
-  "sort_order": null
+  "initial_attribute_value": "initial_attribute_value6",
+  "sort_order": "DESC"
 }
 ```
 

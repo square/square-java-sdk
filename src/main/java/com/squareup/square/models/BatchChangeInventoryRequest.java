@@ -48,7 +48,7 @@ public class BatchChangeInventoryRequest {
      * Getter for Changes.
      * The set of physical counts and inventory adjustments to be made.
      * Changes are applied based on the client-supplied timestamp and may be sent
-     * out of order. Max size is 100 changes.
+     * out of order.
      */
     @JsonGetter("changes")
     public List<InventoryChange> getChanges() {

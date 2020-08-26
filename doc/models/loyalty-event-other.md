@@ -8,10 +8,10 @@ Provides metadata when the event `type` is `OTHER`.
 
 ### Fields
 
-| Name | Type | Description |
-|  --- | --- | --- |
-| `LoyaltyProgramId` | `String` | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). |
-| `Points` | `int` | The number of points added or removed. |
+| Name | Type | Description | Getter |
+|  --- | --- | --- | --- |
+| `LoyaltyProgramId` | `String` | The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
+| `Points` | `int` | The number of points added or removed. | int getPoints() |
 
 ### Example (as JSON)
 

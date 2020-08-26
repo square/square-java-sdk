@@ -8,15 +8,15 @@ The payment the cardholder disputed.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `PaymentId` | `String` | Optional | Square-generated unique ID of the payment being disputed. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `PaymentId` | `String` | Optional | Square-generated unique ID of the payment being disputed. | String getPaymentId() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "payment_id": null
+  "payment_id": "payment_id0"
 }
 ```
 

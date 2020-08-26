@@ -68,9 +68,7 @@ public class Break {
     /**
      * Getter for EndAt.
      * RFC 3339; follows same timezone info as `Shift`. Precision up to
-     * the minute is respected; seconds are truncated. The `end_at` minute is not
-     * counted when the break length is calculated. For example, a break from `00:00`
-     * to `00:11`  is considered a 10 minute break (midnight to 10 minutes after midnight).
+     * the minute is respected; seconds are truncated.
      */
     @JsonGetter("end_at")
     public String getEndAt() {

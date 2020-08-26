@@ -12,19 +12,28 @@ Refer to the documentation of the field.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `All` | `List<String>` | Optional | A list of terms that must be present on the field of the resource. |
-| `Any` | `List<String>` | Optional | A list of terms where at least one of them must be present on the<br>field of the resource. |
-| `None` | `List<String>` | Optional | A list of terms that must not be present on the field the resource |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `All` | `List<String>` | Optional | A list of terms that must be present on the field of the resource. | List<String> getAll() |
+| `Any` | `List<String>` | Optional | A list of terms where at least one of them must be present on the<br>field of the resource. | List<String> getAny() |
+| `None` | `List<String>` | Optional | A list of terms that must not be present on the field the resource | List<String> getNone() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "all": null,
-  "any": null,
-  "none": null
+  "all": [
+    "all1",
+    "all2"
+  ],
+  "any": [
+    "any6"
+  ],
+  "none": [
+    "none1",
+    "none2",
+    "none3"
+  ]
 }
 ```
 

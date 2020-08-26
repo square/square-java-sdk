@@ -10,11 +10,11 @@ One of `errors` or `segments` is present in a given response (never both).
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
-| `Segments` | [`List<CustomerSegment>`](/doc/models/customer-segment.md) | Optional | The list of customer segments belonging to the associated Square account. |
-| `Cursor` | `String` | Optional | A pagination cursor to be used in subsequent calls to __ListCustomerSegments__<br>to retrieve the next set of query results. Only present only if the request succeeded and<br>additional results are available.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Segments` | [`List<CustomerSegment>`](/doc/models/customer-segment.md) | Optional | The list of customer segments belonging to the associated Square account. | List<CustomerSegment> getSegments() |
+| `Cursor` | `String` | Optional | A pagination cursor to be used in subsequent calls to __ListCustomerSegments__<br>to retrieve the next set of query results. Only present only if the request succeeded and<br>additional results are available.<br><br>See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information. | String getCursor() |
 
 ### Example (as JSON)
 

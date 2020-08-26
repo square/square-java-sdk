@@ -24,41 +24,37 @@ price of items might have changed since the payment was processed.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Name` | `String` | Optional | The item's name. |
-| `Quantity` | `Double` | Optional | The quantity of the item purchased. This can be a decimal value. |
-| `ItemizationType` | [`String`](/doc/models/v1-payment-itemization-itemization-type.md) | Optional | - |
-| `ItemDetail` | [`V1PaymentItemDetail`](/doc/models/v1-payment-item-detail.md) | Optional | V1PaymentItemDetail |
-| `Notes` | `String` | Optional | Notes entered by the merchant about the item at the time of payment, if any. |
-| `ItemVariationName` | `String` | Optional | The name of the item variation purchased, if any. |
-| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `SingleQuantityMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `GrossSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `DiscountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `NetSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - |
-| `Taxes` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All taxes applied to this itemization. |
-| `Discounts` | [`List<V1PaymentDiscount>`](/doc/models/v1-payment-discount.md) | Optional | All discounts applied to this itemization. |
-| `Modifiers` | [`List<V1PaymentModifier>`](/doc/models/v1-payment-modifier.md) | Optional | All modifier options applied to this itemization. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Name` | `String` | Optional | The item's name. | String getName() |
+| `Quantity` | `Double` | Optional | The quantity of the item purchased. This can be a decimal value. | Double getQuantity() |
+| `ItemizationType` | [`String`](/doc/models/v1-payment-itemization-itemization-type.md) | Optional | - | String getItemizationType() |
+| `ItemDetail` | [`V1PaymentItemDetail`](/doc/models/v1-payment-item-detail.md) | Optional | V1PaymentItemDetail | V1PaymentItemDetail getItemDetail() |
+| `Notes` | `String` | Optional | Notes entered by the merchant about the item at the time of payment, if any. | String getNotes() |
+| `ItemVariationName` | `String` | Optional | The name of the item variation purchased, if any. | String getItemVariationName() |
+| `TotalMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getTotalMoney() |
+| `SingleQuantityMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getSingleQuantityMoney() |
+| `GrossSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getGrossSalesMoney() |
+| `DiscountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getDiscountMoney() |
+| `NetSalesMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getNetSalesMoney() |
+| `Taxes` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | All taxes applied to this itemization. | List<V1PaymentTax> getTaxes() |
+| `Discounts` | [`List<V1PaymentDiscount>`](/doc/models/v1-payment-discount.md) | Optional | All discounts applied to this itemization. | List<V1PaymentDiscount> getDiscounts() |
+| `Modifiers` | [`List<V1PaymentModifier>`](/doc/models/v1-payment-modifier.md) | Optional | All modifier options applied to this itemization. | List<V1PaymentModifier> getModifiers() |
 
 ### Example (as JSON)
 
 ```json
 {
-  "name": null,
-  "quantity": null,
-  "itemization_type": null,
-  "item_detail": null,
-  "notes": null,
-  "item_variation_name": null,
-  "total_money": null,
-  "single_quantity_money": null,
-  "gross_sales_money": null,
-  "discount_money": null,
-  "net_sales_money": null,
-  "taxes": null,
-  "discounts": null,
-  "modifiers": null
+  "name": "name0",
+  "quantity": 149.16,
+  "itemization_type": "GIFT_CARD_UNKNOWN",
+  "item_detail": {
+    "category_name": "category_name0",
+    "sku": "sku6",
+    "item_id": "item_id2",
+    "item_variation_id": "item_variation_id2"
+  },
+  "notes": "notes0"
 }
 ```
 

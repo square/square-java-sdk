@@ -10,10 +10,10 @@ the request resulted in errors.
 
 ### Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `Shift` | [`Shift`](/doc/models/shift.md) | Optional | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. May include a record of the start and end times for breaks<br>taken during the shift. |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Shift` | [`Shift`](/doc/models/shift.md) | Optional | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. May include a record of the start and end times for breaks<br>taken during the shift. | Shift getShift() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ### Example (as JSON)
 
@@ -21,6 +21,7 @@ the request resulted in errors.
 {
   "shift": {
     "id": "K0YH4CV5462JB",
+    "team_member_id": "ormj0jJJZ5OZIzxrZYJI",
     "employee_id": "ormj0jJJZ5OZIzxrZYJI",
     "location_id": "PAA1RJZZKXBFG",
     "timezone": "America/New_York",

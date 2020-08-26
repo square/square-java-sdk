@@ -15,14 +15,28 @@ public class BatchRetrieveOrdersRequest {
     /**
      * Initialization constructor.
      * @param orderIds
+     * @param locationId
      */
     @JsonCreator
     public BatchRetrieveOrdersRequest(
-            @JsonProperty("order_ids") List<String> orderIds) {
+            @JsonProperty("order_ids") List<String> orderIds,
+            @JsonProperty("location_id") String locationId) {
+        this.locationId = locationId;
         this.orderIds = orderIds;
     }
 
+    private final String locationId;
     private final List<String> orderIds;
+    /**
+     * Getter for LocationId.
+     * The ID of the location for these orders. This field is optional: omit it to retrieve
+     * orders within the scope of the current authorization's merchant ID.
+     */
+    @JsonGetter("location_id")
+    public String getLocationId() {
+        return this.locationId;
+    }
+
     /**
      * Getter for OrderIds.
      * The IDs of the orders to retrieve. A maximum of 100 orders can be retrieved per request.
@@ -35,7 +49,7 @@ public class BatchRetrieveOrdersRequest {
  
     @Override
     public int hashCode() {
-        return Objects.hash(orderIds);
+        return Objects.hash(locationId, orderIds);
     }
 
     @Override
@@ -47,7 +61,8 @@ public class BatchRetrieveOrdersRequest {
             return false;
         }
         BatchRetrieveOrdersRequest batchRetrieveOrdersRequest = (BatchRetrieveOrdersRequest) obj;
-        return Objects.equals(orderIds, batchRetrieveOrdersRequest.orderIds);
+        return Objects.equals(locationId, batchRetrieveOrdersRequest.locationId) &&
+            Objects.equals(orderIds, batchRetrieveOrdersRequest.orderIds);
     }
 
     /**
@@ -56,7 +71,8 @@ public class BatchRetrieveOrdersRequest {
      * @return a new {@link BatchRetrieveOrdersRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(orderIds);
+        Builder builder = new Builder(orderIds)
+            .locationId(getLocationId());
             return builder;
     }
 
@@ -65,6 +81,7 @@ public class BatchRetrieveOrdersRequest {
      */
     public static class Builder {
         private List<String> orderIds;
+        private String locationId;
 
         /**
          * Initialization constructor
@@ -82,13 +99,23 @@ public class BatchRetrieveOrdersRequest {
             this.orderIds = orderIds;
             return this;
         }
+        /**
+         * Setter for locationId
+         * @param locationId
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
 
         /**
          * Builds a new {@link BatchRetrieveOrdersRequest} object using the set fields.
          * @return {@link BatchRetrieveOrdersRequest}
          */
         public BatchRetrieveOrdersRequest build() {
-            return new BatchRetrieveOrdersRequest(orderIds);
+            return new BatchRetrieveOrdersRequest(orderIds,
+                locationId);
         }
     }
 }
