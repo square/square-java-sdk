@@ -58,10 +58,11 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
      * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
+     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for the default (main) location associated with the merchant.
      * @param    total    Optional parameter: The exact amount in the total_money for a `Payment`.
      * @param    last4    Optional parameter: The last 4 digits of `Payment` card.
      * @param    cardBrand    Optional parameter: The brand of `Payment` card. For example, `VISA`
+     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
      * @return    Returns the ListPaymentsResponse response from the API call
      */
     public ListPaymentsResponse listPayments(
@@ -72,8 +73,9 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand);
+            final String cardBrand,
+            final Integer limit) throws ApiException, IOException {
+        HttpRequest request = buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand, limit);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -89,10 +91,11 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
      * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
+     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for the default (main) location associated with the merchant.
      * @param    total    Optional parameter: The exact amount in the total_money for a `Payment`.
      * @param    last4    Optional parameter: The last 4 digits of `Payment` card.
      * @param    cardBrand    Optional parameter: The brand of `Payment` card. For example, `VISA`
+     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
      * @return    Returns the ListPaymentsResponse response from the API call 
      */
     public CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
@@ -103,8 +106,9 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand) {
-        return makeHttpCallAsync(() -> buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand),
+            final String cardBrand,
+            final Integer limit) {
+        return makeHttpCallAsync(() -> buildListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand, limit),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleListPaymentsResponse(context));
@@ -121,7 +125,8 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final String locationId,
             final Long total,
             final String last4,
-            final String cardBrand) {
+            final String cardBrand,
+            final Integer limit) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -138,6 +143,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         queryParameters.put("total", total);
         queryParameters.put("last_4", last4);
         queryParameters.put("card_brand", cardBrand);
+        queryParameters.put("limit", limit);
         ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
@@ -193,8 +199,6 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * There are several optional parameters that you can include in the request. 
      * For example, tip money, whether to autocomplete the payment, or a reference ID
      * to correlate this payment with another system. 
-     * For more information about these 
-     * payment options, see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      * The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission is required
      * to enable application fees.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
@@ -219,8 +223,6 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * There are several optional parameters that you can include in the request. 
      * For example, tip money, whether to autocomplete the payment, or a reference ID
      * to correlate this payment with another system. 
-     * For more information about these 
-     * payment options, see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      * The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission is required
      * to enable application fees.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
@@ -487,8 +489,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
 
     /**
      * Cancels (voids) a payment. If you set `autocomplete` to false when creating a payment, 
-     * you can cancel the payment using this endpoint. For more information, see 
-     * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
+     * you can cancel the payment using this endpoint.
      * @param    paymentId    Required parameter: `payment_id` identifying the payment to be canceled.
      * @return    Returns the CancelPaymentResponse response from the API call
      */
@@ -505,8 +506,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
 
     /**
      * Cancels (voids) a payment. If you set `autocomplete` to false when creating a payment, 
-     * you can cancel the payment using this endpoint. For more information, see 
-     * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
+     * you can cancel the payment using this endpoint.
      * @param    paymentId    Required parameter: `payment_id` identifying the payment to be canceled.
      * @return    Returns the CancelPaymentResponse response from the API call 
      */
@@ -583,8 +583,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Completes (captures) a payment.
      * By default, payments are set to complete immediately after they are created. 
      * If you set autocomplete to false when creating a payment, you can complete (capture) 
-     * the payment using this endpoint. For more information, see
-     * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
+     * the payment using this endpoint.
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
@@ -603,8 +602,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Completes (captures) a payment.
      * By default, payments are set to complete immediately after they are created. 
      * If you set autocomplete to false when creating a payment, you can complete (capture) 
-     * the payment using this endpoint. For more information, see
-     * [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
+     * the payment using this endpoint.
      * @param    paymentId    Required parameter: Unique ID identifying the payment to be completed.
      * @return    Returns the CompletePaymentResponse response from the API call 
      */

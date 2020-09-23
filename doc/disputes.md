@@ -25,6 +25,8 @@ DisputesApi disputesApi = client.getDisputesApi();
 Returns a list of disputes associated
 with a particular account.
 
+Access dispute information: [https://developer.squareup.com/docs/disputes-api/process-disputes#access-dispute-information](https://developer.squareup.com/docs/disputes-api/process-disputes#access-dispute-information)
+
 ```java
 CompletableFuture<ListDisputesResponse> listDisputesAsync(
     final String cursor,
@@ -100,7 +102,8 @@ dispute state to ACCEPTED.
 Square debits the disputed amount from the seller’s Square
 account. If the Square account balance does not have
 sufficient funds, Square debits the associated bank account.
-For an overview of the Disputes API, see [Overview](https://developer.squareup.com/docs/docs/disputes-api/overview).
+
+Accept a dispute: [https://developer.squareup.com/docs/disputes-api/process-disputes#accept-a-dispute](https://developer.squareup.com/docs/disputes-api/process-disputes#accept-a-dispute)
 
 ```java
 CompletableFuture<AcceptDisputeResponse> acceptDisputeAsync(
@@ -245,7 +248,8 @@ disputesApi.retrieveDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(resul
 Uploads a file to use as evidence in a dispute challenge. The endpoint accepts
 HTTP multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG,
 and TIFF formats.
-For more information, see [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+
+Challenge a dispute: [https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute](https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute)
 
 ```java
 CompletableFuture<CreateDisputeEvidenceFileResponse> createDisputeEvidenceFileAsync(
@@ -287,8 +291,9 @@ disputesApi.createDisputeEvidenceFileAsync(disputeId, request, imageFile).thenAc
 
 ## Create Dispute Evidence Text
 
-Uploads text to use as evidence for a dispute challenge. For more information, see
-[Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+Uploads text to use as evidence for a dispute challenge.
+
+Challenge a dispute: [https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute](https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute)
 
 ```java
 CompletableFuture<CreateDisputeEvidenceTextResponse> createDisputeEvidenceTextAsync(
@@ -334,8 +339,9 @@ evidence uploaded using the
 [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file) and
 [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text) endpoints,
 and evidence automatically provided by Square, when
-available. For more information, see
-[Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+available.
+
+Challenge a dispute: [https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute](https://developer.squareup.com/docs/disputes-api/process-disputes#challenge-a-dispute)
 
 ```java
 CompletableFuture<SubmitEvidenceResponse> submitEvidenceAsync(

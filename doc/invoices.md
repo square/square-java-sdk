@@ -24,7 +24,8 @@ InvoicesApi invoicesApi = client.getInvoicesApi();
 Returns a list of invoices for a given location. The response 
 is paginated. If truncated, the response includes a `cursor` that you    
 use in a subsequent request to fetch the next set of invoices.
-For more information about retrieving invoices, see [Retrieve invoices](https://developer.squareup.com/docs/docs/invoices-api/overview#retrieve-invoices).
+
+Retrieve an invoice: [https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice)
 
 ```java
 CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
@@ -66,8 +67,9 @@ Creates a draft [invoice](#type-invoice)
 for an order created using the Orders API.
 
 A draft invoice remains in your account and no action is taken. 
-You must publish the invoice before Square can process it (send it to the customer's email address or charge the customer’s card on file). 
-For more information, see [Manage Invoices Using the Invoices API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+You must publish the invoice before Square can process it (send it to the customer's email address or charge the customer’s card on file).
+
+Create and publish an invoice: [https://developer.squareup.com/docs/invoices-api/overview#create-and-publish-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#create-and-publish-an-invoice)
 
 ```java
 CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
@@ -162,8 +164,9 @@ retrieve invoices. In the current implementation, you can only specify one locat
 optionally one customer.
 
 The response is paginated. If truncated, the response includes a `cursor` 
-that you use in a subsequent request to fetch the next set of invoices. 
-For more information about retrieving invoices, see [Retrieve invoices](https://developer.squareup.com/docs/docs/invoices-api/overview#retrieve-invoices).
+that you use in a subsequent request to fetch the next set of invoices.
+
+Retrieve an invoice: [https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice)
 
 ```java
 CompletableFuture<SearchInvoicesResponse> searchInvoicesAsync(
@@ -220,6 +223,8 @@ associated Order status changes to CANCELED. You can only delete a draft
 invoice (you cannot delete an invoice scheduled for publication, or a 
 published invoice).
 
+Delete an invoice: [https://developer.squareup.com/docs/invoices-api/overview#delete-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#delete-an-invoice)
+
 ```java
 CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
     final String invoiceId,
@@ -255,6 +260,8 @@ invoicesApi.deleteInvoiceAsync(invoiceId, version).thenAccept(result -> {
 
 Retrieves an invoice by invoice ID.
 
+Retrieve an invoice: [https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#retrieve-an-invoice)
+
 ```java
 CompletableFuture<GetInvoiceResponse> getInvoiceAsync(
     final String invoiceId)
@@ -288,8 +295,9 @@ invoicesApi.getInvoiceAsync(invoiceId).thenAccept(result -> {
 Updates an invoice by modifying field values, clearing field values, or both 
 as specified in the request. 
 There are no restrictions to updating an invoice in a draft state. 
-However, there are guidelines for updating a published invoice. 
-For more information, see [Update an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
+However, there are guidelines for updating a published invoice.
+
+Update an invoice: [https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice)
 
 ```java
 CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
@@ -373,6 +381,8 @@ the canceled invoice.
 
 You cannot cancel an invoice in a terminal state: `PAID`, `REFUNDED`, `CANCELED`, or `FAILED`.
 
+Cancel an invoice: [https://developer.squareup.com/docs/invoices-api/overview#cancel-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#cancel-an-invoice)
+
 ```java
 CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(
     final String invoiceId,
@@ -420,8 +430,7 @@ based on the invoice configuration. For example, the status changes to `UNPAID` 
 Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion of the 
 invoice amount).
 
-For more information, see 
-[Create and publish an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#create-and-publish-an-invoice).
+Create and publish an invoice: [https://developer.squareup.com/docs/invoices-api/overview#create-and-publish-an-invoice](https://developer.squareup.com/docs/invoices-api/overview#create-and-publish-an-invoice)
 
 ```java
 CompletableFuture<PublishInvoiceResponse> publishInvoiceAsync(

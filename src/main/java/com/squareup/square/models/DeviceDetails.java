@@ -14,17 +14,21 @@ public class DeviceDetails {
     /**
      * Initialization constructor.
      * @param deviceId
+     * @param deviceInstallationId
      * @param deviceName
      */
     @JsonCreator
     public DeviceDetails(
             @JsonProperty("device_id") String deviceId,
+            @JsonProperty("device_installation_id") String deviceInstallationId,
             @JsonProperty("device_name") String deviceName) {
         this.deviceId = deviceId;
+        this.deviceInstallationId = deviceInstallationId;
         this.deviceName = deviceName;
     }
 
     private final String deviceId;
+    private final String deviceInstallationId;
     private final String deviceName;
     /**
      * Getter for DeviceId.
@@ -33,6 +37,15 @@ public class DeviceDetails {
     @JsonGetter("device_id")
     public String getDeviceId() {
         return this.deviceId;
+    }
+
+    /**
+     * Getter for DeviceInstallationId.
+     * Square-issued installation ID for the device.
+     */
+    @JsonGetter("device_installation_id")
+    public String getDeviceInstallationId() {
+        return this.deviceInstallationId;
     }
 
     /**
@@ -47,7 +60,7 @@ public class DeviceDetails {
  
     @Override
     public int hashCode() {
-        return Objects.hash(deviceId, deviceName);
+        return Objects.hash(deviceId, deviceInstallationId, deviceName);
     }
 
     @Override
@@ -60,6 +73,7 @@ public class DeviceDetails {
         }
         DeviceDetails deviceDetails = (DeviceDetails) obj;
         return Objects.equals(deviceId, deviceDetails.deviceId) &&
+            Objects.equals(deviceInstallationId, deviceDetails.deviceInstallationId) &&
             Objects.equals(deviceName, deviceDetails.deviceName);
     }
 
@@ -71,6 +85,7 @@ public class DeviceDetails {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .deviceId(getDeviceId())
+            .deviceInstallationId(getDeviceInstallationId())
             .deviceName(getDeviceName());
             return builder;
     }
@@ -80,6 +95,7 @@ public class DeviceDetails {
      */
     public static class Builder {
         private String deviceId;
+        private String deviceInstallationId;
         private String deviceName;
 
         /**
@@ -99,6 +115,15 @@ public class DeviceDetails {
             return this;
         }
         /**
+         * Setter for deviceInstallationId
+         * @param deviceInstallationId
+         * @return Builder
+         */
+        public Builder deviceInstallationId(String deviceInstallationId) {
+            this.deviceInstallationId = deviceInstallationId;
+            return this;
+        }
+        /**
          * Setter for deviceName
          * @param deviceName
          * @return Builder
@@ -114,6 +139,7 @@ public class DeviceDetails {
          */
         public DeviceDetails build() {
             return new DeviceDetails(deviceId,
+                deviceInstallationId,
                 deviceName);
         }
     }

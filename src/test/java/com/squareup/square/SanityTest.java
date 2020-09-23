@@ -9,7 +9,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-
 package com.squareup.square;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -40,6 +39,7 @@ import com.squareup.square.models.CatalogObject;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.LocationsApi;
+import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.Error;
@@ -101,10 +101,10 @@ public class SanityTest {
         .accessToken("BAD_TOKEN")
         .build();
 
-        CustomersApi api = badClient.getCustomersApi();
+        PaymentsApi api = badClient.getPaymentsApi();
 
         try {
-            api.listCustomers(null, null, null);
+            api.listPayments(null, null, null, null, null, null, null, null, null );
         }
         catch(ApiException e) {
             assertEquals(e.getResponseCode(), 401);

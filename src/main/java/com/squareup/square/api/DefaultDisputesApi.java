@@ -258,7 +258,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * Square debits the disputed amount from the seller’s Square
      * account. If the Square account balance does not have
      * sufficient funds, Square debits the associated bank account.
-     * For an overview of the Disputes API, see [Overview](https://developer.squareup.com/docs/docs/disputes-api/overview).
      * @param    disputeId    Required parameter: ID of the dispute you want to accept.
      * @return    Returns the AcceptDisputeResponse response from the API call
      */
@@ -280,7 +279,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * Square debits the disputed amount from the seller’s Square
      * account. If the Square account balance does not have
      * sufficient funds, Square debits the associated bank account.
-     * For an overview of the Disputes API, see [Overview](https://developer.squareup.com/docs/docs/disputes-api/overview).
      * @param    disputeId    Required parameter: ID of the dispute you want to accept.
      * @return    Returns the AcceptDisputeResponse response from the API call 
      */
@@ -651,7 +649,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts
      * HTTP multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG,
      * and TIFF formats.
-     * For more information, see [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
      * @param    disputeId    Required parameter: ID of the dispute you want to upload evidence for.
      * @param    request    Optional parameter: Defines parameters for a CreateDisputeEvidenceFile request.
      * @param    imageFile    Optional parameter: Example: 
@@ -674,7 +671,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts
      * HTTP multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG,
      * and TIFF formats.
-     * For more information, see [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
      * @param    disputeId    Required parameter: ID of the dispute you want to upload evidence for.
      * @param    request    Optional parameter: Defines parameters for a CreateDisputeEvidenceFile request.
      * @param    imageFile    Optional parameter: Example: 
@@ -769,8 +765,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     }
 
     /**
-     * Uploads text to use as evidence for a dispute challenge. For more information, see
-     * [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+     * Uploads text to use as evidence for a dispute challenge.
      * @param    disputeId    Required parameter: The ID of the dispute you want to upload evidence for.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateDisputeEvidenceTextResponse response from the API call
@@ -788,8 +783,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     }
 
     /**
-     * Uploads text to use as evidence for a dispute challenge. For more information, see
-     * [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+     * Uploads text to use as evidence for a dispute challenge.
      * @param    disputeId    Required parameter: The ID of the dispute you want to upload evidence for.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateDisputeEvidenceTextResponse response from the API call 
@@ -874,8 +868,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file) and
      * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text) endpoints,
      * and evidence automatically provided by Square, when
-     * available. For more information, see
-     * [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+     * available.
      * @param    disputeId    Required parameter: The ID of the dispute you want to submit evidence for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
      */
@@ -897,8 +890,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file) and
      * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text) endpoints,
      * and evidence automatically provided by Square, when
-     * available. For more information, see
-     * [Challenge a Dispute](https://developer.squareup.com/docs/docs/disputes-api/process-disputes#challenge-a-dispute).
+     * available.
      * @param    disputeId    Required parameter: The ID of the dispute you want to submit evidence for.
      * @return    Returns the SubmitEvidenceResponse response from the API call 
      */

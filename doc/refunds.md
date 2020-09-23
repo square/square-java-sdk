@@ -28,7 +28,8 @@ CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
     final String cursor,
     final String locationId,
     final String status,
-    final String sourceType)
+    final String sourceType,
+    final Integer limit)
 ```
 
 ### Parameters
@@ -42,6 +43,7 @@ CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
 | `locationId` | `String` | Query, Optional | Limit results to the location supplied. By default, results are returned<br>for all locations associated with the merchant. |
 | `status` | `String` | Query, Optional | If provided, only refunds with the given status are returned.<br>For a list of refund status values, see [PaymentRefund](#type-paymentrefund).<br><br>Default: If omitted refunds are returned regardless of status. |
 | `sourceType` | `String` | Query, Optional | If provided, only refunds with the given source type are returned.<br>- `CARD` - List refunds only for payments where card was specified as payment<br>source.<br><br>Default: If omitted refunds are returned regardless of source type. |
+| `limit` | `Integer` | Query, Optional | Maximum number of results to be returned in a single page.<br>It is possible to receive fewer results than the specified limit on a given page.<br><br>If the supplied value is greater than 100, at most 100 results will be returned.<br><br>Default: `100` |
 
 ### Response Type
 
@@ -57,8 +59,9 @@ String cursor = "cursor6";
 String locationId = "location_id4";
 String status = "status8";
 String sourceType = "source_type0";
+Integer limit = 172;
 
-refundsApi.listPaymentRefundsAsync(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType).thenAccept(result -> {
+refundsApi.listPaymentRefundsAsync(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType, limit).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -69,8 +72,9 @@ refundsApi.listPaymentRefundsAsync(beginTime, endTime, sortOrder, cursor, locati
 ## Refund Payment
 
 Refunds a payment. You can refund the entire payment amount or a 
-portion of it. For more information, see 
-[Payments and Refunds Overview](https://developer.squareup.com/docs/payments-api/overview).
+portion of it.
+
+Refund a payment: [https://developer.squareup.com/docs/payments-api/refund-payments#refund-a-payment](https://developer.squareup.com/docs/payments-api/refund-payments#refund-a-payment)
 
 ```java
 CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
@@ -117,6 +121,8 @@ refundsApi.refundPaymentAsync(body).thenAccept(result -> {
 ## Get Payment Refund
 
 Retrieves a specific `Refund` using the `refund_id`.
+
+Retrieve refund information: [https://developer.squareup.com/docs/payments-api/refund-payments#retrieve-refund-information](https://developer.squareup.com/docs/payments-api/refund-payments#retrieve-refund-information)
 
 ```java
 CompletableFuture<GetPaymentRefundResponse> getPaymentRefundAsync(

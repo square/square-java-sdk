@@ -57,6 +57,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      * @param    status    Optional parameter: If provided, only refunds with the given status are returned. For a list of refund status values, see [PaymentRefund](#type-paymentrefund).  Default: If omitted refunds are returned regardless of status.
      * @param    sourceType    Optional parameter: If provided, only refunds with the given source type are returned. - `CARD` - List refunds only for payments where card was specified as payment source.  Default: If omitted refunds are returned regardless of source type.
+     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
      * @return    Returns the ListPaymentRefundsResponse response from the API call
      */
     public ListPaymentRefundsResponse listPaymentRefunds(
@@ -66,8 +67,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String cursor,
             final String locationId,
             final String status,
-            final String sourceType) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType);
+            final String sourceType,
+            final Integer limit) throws ApiException, IOException {
+        HttpRequest request = buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType, limit);
         authManagers.get("default").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -86,6 +88,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      * @param    status    Optional parameter: If provided, only refunds with the given status are returned. For a list of refund status values, see [PaymentRefund](#type-paymentrefund).  Default: If omitted refunds are returned regardless of status.
      * @param    sourceType    Optional parameter: If provided, only refunds with the given source type are returned. - `CARD` - List refunds only for payments where card was specified as payment source.  Default: If omitted refunds are returned regardless of source type.
+     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
      * @return    Returns the ListPaymentRefundsResponse response from the API call 
      */
     public CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
@@ -95,8 +98,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String cursor,
             final String locationId,
             final String status,
-            final String sourceType) {
-        return makeHttpCallAsync(() -> buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType),
+            final String sourceType,
+            final Integer limit) {
+        return makeHttpCallAsync(() -> buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType, limit),
                 req -> authManagers.get("default").applyAsync(req)
                     .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
                 context -> handleListPaymentRefundsResponse(context));
@@ -112,7 +116,8 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String cursor,
             final String locationId,
             final String status,
-            final String sourceType) {
+            final String sourceType,
+            final Integer limit) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -128,6 +133,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         queryParameters.put("location_id", locationId);
         queryParameters.put("status", status);
         queryParameters.put("source_type", sourceType);
+        queryParameters.put("limit", limit);
         ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
         //validate and preprocess url
         String queryUrl = ApiHelper.cleanUrl(queryBuilder);
@@ -177,8 +183,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
     /**
      * Refunds a payment. You can refund the entire payment amount or a 
-     * portion of it. For more information, see 
-     * [Payments and Refunds Overview](https://developer.squareup.com/docs/payments-api/overview).
+     * portion of it.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the RefundPaymentResponse response from the API call
      */
@@ -195,8 +200,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
     /**
      * Refunds a payment. You can refund the entire payment amount or a 
-     * portion of it. For more information, see 
-     * [Payments and Refunds Overview](https://developer.squareup.com/docs/payments-api/overview).
+     * portion of it.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the RefundPaymentResponse response from the API call 
      */

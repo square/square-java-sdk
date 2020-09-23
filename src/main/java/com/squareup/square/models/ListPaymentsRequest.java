@@ -21,6 +21,7 @@ public class ListPaymentsRequest {
      * @param total
      * @param last4
      * @param cardBrand
+     * @param limit
      */
     @JsonCreator
     public ListPaymentsRequest(
@@ -31,7 +32,8 @@ public class ListPaymentsRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("total") Long total,
             @JsonProperty("last_4") String last4,
-            @JsonProperty("card_brand") String cardBrand) {
+            @JsonProperty("card_brand") String cardBrand,
+            @JsonProperty("limit") Integer limit) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.sortOrder = sortOrder;
@@ -40,6 +42,7 @@ public class ListPaymentsRequest {
         this.total = total;
         this.last4 = last4;
         this.cardBrand = cardBrand;
+        this.limit = limit;
     }
 
     private final String beginTime;
@@ -50,6 +53,7 @@ public class ListPaymentsRequest {
     private final Long total;
     private final String last4;
     private final String cardBrand;
+    private final Integer limit;
     /**
      * Getter for BeginTime.
      * Timestamp for the beginning of the reporting period, in RFC 3339 format.
@@ -95,7 +99,7 @@ public class ListPaymentsRequest {
     /**
      * Getter for LocationId.
      * Limit results to the location supplied. By default, results are returned
-     * for all locations associated with the merchant.
+     * for the default (main) location associated with the merchant.
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -129,11 +133,23 @@ public class ListPaymentsRequest {
         return this.cardBrand;
     }
 
+    /**
+     * Getter for Limit.
+     * Maximum number of results to be returned in a single page.
+     * It is possible to receive fewer results than the specified limit on a given page.
+     * If the supplied value is greater than 100, at most 100 results will be returned.
+     * Default: `100`
+     */
+    @JsonGetter("limit")
+    public Integer getLimit() {
+        return this.limit;
+    }
+
  
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, total, last4,
-            cardBrand);
+            cardBrand, limit);
     }
 
     @Override
@@ -152,7 +168,8 @@ public class ListPaymentsRequest {
             Objects.equals(locationId, listPaymentsRequest.locationId) &&
             Objects.equals(total, listPaymentsRequest.total) &&
             Objects.equals(last4, listPaymentsRequest.last4) &&
-            Objects.equals(cardBrand, listPaymentsRequest.cardBrand);
+            Objects.equals(cardBrand, listPaymentsRequest.cardBrand) &&
+            Objects.equals(limit, listPaymentsRequest.limit);
     }
 
     /**
@@ -169,7 +186,8 @@ public class ListPaymentsRequest {
             .locationId(getLocationId())
             .total(getTotal())
             .last4(getLast4())
-            .cardBrand(getCardBrand());
+            .cardBrand(getCardBrand())
+            .limit(getLimit());
             return builder;
     }
 
@@ -185,6 +203,7 @@ public class ListPaymentsRequest {
         private Long total;
         private String last4;
         private String cardBrand;
+        private Integer limit;
 
         /**
          * Initialization constructor
@@ -265,6 +284,15 @@ public class ListPaymentsRequest {
             this.cardBrand = cardBrand;
             return this;
         }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
 
         /**
          * Builds a new {@link ListPaymentsRequest} object using the set fields.
@@ -278,7 +306,8 @@ public class ListPaymentsRequest {
                 locationId,
                 total,
                 last4,
-                cardBrand);
+                cardBrand,
+                limit);
         }
     }
 }
