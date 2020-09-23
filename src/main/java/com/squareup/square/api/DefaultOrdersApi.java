@@ -61,8 +61,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * To pay for a created order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders)
      * guide.
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
      */
@@ -83,8 +81,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * To pay for a created order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders)
      * guide.
      * You can modify open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call 
      */
@@ -455,8 +451,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
      * identifying fields to clear.
      * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
      * @param    orderId    Required parameter: The ID of the order to update.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the UpdateOrderResponse response from the API call
@@ -485,8 +479,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * - If deleting fields, the [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation)
      * identifying fields to clear.
      * To pay for an order, please refer to the [Pay for Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide.
-     * To learn more about the Orders API, see the
-     * [Orders API Overview](https://developer.squareup.com/docs/orders-api/what-it-does).
      * @param    orderId    Required parameter: The ID of the order to update.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the UpdateOrderResponse response from the API call 
@@ -576,7 +568,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * `payment_ids` will be canceled.
      * - Be approved with [delayed capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
-     * Learn how to [pay for orders with a single payment using the Payments API](https://developer.squareup.com/docs/orders-api/pay-for-orders).
      * @param    orderId    Required parameter: The ID of the order being paid.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the PayOrderResponse response from the API call
@@ -605,7 +596,6 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * `payment_ids` will be canceled.
      * - Be approved with [delayed capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
-     * Learn how to [pay for orders with a single payment using the Payments API](https://developer.squareup.com/docs/orders-api/pay-for-orders).
      * @param    orderId    Required parameter: The ID of the order being paid.
      * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
      * @return    Returns the PayOrderResponse response from the API call 

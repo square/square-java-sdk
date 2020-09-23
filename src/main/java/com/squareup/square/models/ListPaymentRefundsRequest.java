@@ -20,6 +20,7 @@ public class ListPaymentRefundsRequest {
      * @param locationId
      * @param status
      * @param sourceType
+     * @param limit
      */
     @JsonCreator
     public ListPaymentRefundsRequest(
@@ -29,7 +30,8 @@ public class ListPaymentRefundsRequest {
             @JsonProperty("cursor") String cursor,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("status") String status,
-            @JsonProperty("source_type") String sourceType) {
+            @JsonProperty("source_type") String sourceType,
+            @JsonProperty("limit") Integer limit) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.sortOrder = sortOrder;
@@ -37,6 +39,7 @@ public class ListPaymentRefundsRequest {
         this.locationId = locationId;
         this.status = status;
         this.sourceType = sourceType;
+        this.limit = limit;
     }
 
     private final String beginTime;
@@ -46,6 +49,7 @@ public class ListPaymentRefundsRequest {
     private final String locationId;
     private final String status;
     private final String sourceType;
+    private final Integer limit;
     /**
      * Getter for BeginTime.
      * Timestamp for the beginning of the requested reporting period, in RFC 3339 format.
@@ -121,10 +125,23 @@ public class ListPaymentRefundsRequest {
         return this.sourceType;
     }
 
+    /**
+     * Getter for Limit.
+     * Maximum number of results to be returned in a single page.
+     * It is possible to receive fewer results than the specified limit on a given page.
+     * If the supplied value is greater than 100, at most 100 results will be returned.
+     * Default: `100`
+     */
+    @JsonGetter("limit")
+    public Integer getLimit() {
+        return this.limit;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType);
+        return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType,
+            limit);
     }
 
     @Override
@@ -142,7 +159,8 @@ public class ListPaymentRefundsRequest {
             Objects.equals(cursor, listPaymentRefundsRequest.cursor) &&
             Objects.equals(locationId, listPaymentRefundsRequest.locationId) &&
             Objects.equals(status, listPaymentRefundsRequest.status) &&
-            Objects.equals(sourceType, listPaymentRefundsRequest.sourceType);
+            Objects.equals(sourceType, listPaymentRefundsRequest.sourceType) &&
+            Objects.equals(limit, listPaymentRefundsRequest.limit);
     }
 
     /**
@@ -158,7 +176,8 @@ public class ListPaymentRefundsRequest {
             .cursor(getCursor())
             .locationId(getLocationId())
             .status(getStatus())
-            .sourceType(getSourceType());
+            .sourceType(getSourceType())
+            .limit(getLimit());
             return builder;
     }
 
@@ -173,6 +192,7 @@ public class ListPaymentRefundsRequest {
         private String locationId;
         private String status;
         private String sourceType;
+        private Integer limit;
 
         /**
          * Initialization constructor
@@ -244,6 +264,15 @@ public class ListPaymentRefundsRequest {
             this.sourceType = sourceType;
             return this;
         }
+        /**
+         * Setter for limit
+         * @param limit
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
 
         /**
          * Builds a new {@link ListPaymentRefundsRequest} object using the set fields.
@@ -256,7 +285,8 @@ public class ListPaymentRefundsRequest {
                 cursor,
                 locationId,
                 status,
-                sourceType);
+                sourceType,
+                limit);
         }
     }
 }
