@@ -1,10 +1,11 @@
-## Order Created
 
-### Structure
+# Order Created
+
+## Structure
 
 `OrderCreated`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@
 | `State` | [`String`](/doc/models/order-state.md) | Optional | The state of the order. | String getState() |
 | `CreatedAt` | `String` | Optional | Timestamp for when the order was created in RFC 3339 format. | String getCreatedAt() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

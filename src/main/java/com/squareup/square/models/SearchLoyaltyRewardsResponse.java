@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchLoyaltyRewardsResponse type.
  */
 public class SearchLoyaltyRewardsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<LoyaltyReward> rewards;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param rewards
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param rewards List of LoyaltyReward value for rewards.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyRewardsResponse(
@@ -29,11 +34,6 @@ public class SearchLoyaltyRewardsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<LoyaltyReward> rewards;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class SearchLoyaltyRewardsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -49,8 +50,9 @@ public class SearchLoyaltyRewardsResponse {
 
     /**
      * Getter for Rewards.
-     * The loyalty rewards that satisfy the search criteria.
-     * These are returned in descending order by `updated_at`.
+     * The loyalty rewards that satisfy the search criteria. These are returned in descending order
+     * by `updated_at`.
+     * @return Returns the List of LoyaltyReward
      */
     @JsonGetter("rewards")
     public List<LoyaltyReward> getRewards() {
@@ -59,8 +61,9 @@ public class SearchLoyaltyRewardsResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent 
-     * request. If empty, this is the final response.
+     * The pagination cursor to be used in a subsequent request. If empty, this is the final
+     * response.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -75,16 +78,16 @@ public class SearchLoyaltyRewardsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchLoyaltyRewardsResponse)) {
+        if (!(obj instanceof SearchLoyaltyRewardsResponse)) {
             return false;
         }
-        SearchLoyaltyRewardsResponse searchLoyaltyRewardsResponse = (SearchLoyaltyRewardsResponse) obj;
-        return Objects.equals(errors, searchLoyaltyRewardsResponse.errors) &&
-            Objects.equals(rewards, searchLoyaltyRewardsResponse.rewards) &&
-            Objects.equals(cursor, searchLoyaltyRewardsResponse.cursor);
+        SearchLoyaltyRewardsResponse other = (SearchLoyaltyRewardsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(rewards, other.rewards)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -97,11 +100,11 @@ public class SearchLoyaltyRewardsResponse {
             .errors(getErrors())
             .rewards(getRewards())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchLoyaltyRewardsResponse}
+     * Class to build instances of {@link SearchLoyaltyRewardsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -109,43 +112,41 @@ public class SearchLoyaltyRewardsResponse {
         private List<LoyaltyReward> rewards;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for rewards
-         * @param rewards
+         * Setter for rewards.
+         * @param rewards List of LoyaltyReward value for rewards.
          * @return Builder
          */
         public Builder rewards(List<LoyaltyReward> rewards) {
             this.rewards = rewards;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -158,9 +159,10 @@ public class SearchLoyaltyRewardsResponse {
          * @return {@link SearchLoyaltyRewardsResponse}
          */
         public SearchLoyaltyRewardsResponse build() {
-            SearchLoyaltyRewardsResponse model = new SearchLoyaltyRewardsResponse(errors,
-                rewards,
-                cursor);
+            SearchLoyaltyRewardsResponse model =
+                    new SearchLoyaltyRewardsResponse(errors,
+                            rewards,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

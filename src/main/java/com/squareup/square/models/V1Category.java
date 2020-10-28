@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1Category type.
  */
 public class V1Category {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final String v2Id;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param v2Id
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param v2Id String value for v2Id.
      */
     @JsonCreator
     public V1Category(
@@ -28,11 +33,6 @@ public class V1Category {
         this.v2Id = v2Id;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final String v2Id;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -40,6 +40,7 @@ public class V1Category {
     /**
      * Getter for Id.
      * The category's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -49,6 +50,7 @@ public class V1Category {
     /**
      * Getter for Name.
      * The category's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -57,7 +59,9 @@ public class V1Category {
 
     /**
      * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple
+     * locations share the same v2 ID.
+     * @return Returns the String
      */
     @JsonGetter("v2_id")
     public String getV2Id() {
@@ -72,16 +76,16 @@ public class V1Category {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Category)) {
+        if (!(obj instanceof V1Category)) {
             return false;
         }
-        V1Category v1Category = (V1Category) obj;
-        return Objects.equals(id, v1Category.id) &&
-            Objects.equals(name, v1Category.name) &&
-            Objects.equals(v2Id, v1Category.v2Id);
+        V1Category other = (V1Category) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(v2Id, other.v2Id);
     }
 
     /**
@@ -94,11 +98,11 @@ public class V1Category {
             .id(getId())
             .name(getName())
             .v2Id(getV2Id());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Category}
+     * Class to build instances of {@link V1Category}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -106,43 +110,41 @@ public class V1Category {
         private String name;
         private String v2Id;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for v2Id
-         * @param v2Id
+         * Setter for v2Id.
+         * @param v2Id String value for v2Id.
          * @return Builder
          */
         public Builder v2Id(String v2Id) {
@@ -155,9 +157,10 @@ public class V1Category {
          * @return {@link V1Category}
          */
         public V1Category build() {
-            V1Category model = new V1Category(id,
-                name,
-                v2Id);
+            V1Category model =
+                    new V1Category(id,
+                            name,
+                            v2Id);
             model.httpContext = httpContext;
             return model;
         }

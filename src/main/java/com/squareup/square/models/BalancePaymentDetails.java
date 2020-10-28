@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for BalancePaymentDetails type.
  */
 public class BalancePaymentDetails {
+    private final String accountId;
+    private final String status;
 
     /**
      * Initialization constructor.
-     * @param accountId
-     * @param status
+     * @param accountId String value for accountId.
+     * @param status String value for status.
      */
     @JsonCreator
     public BalancePaymentDetails(
@@ -24,11 +27,10 @@ public class BalancePaymentDetails {
         this.status = status;
     }
 
-    private final String accountId;
-    private final String status;
     /**
      * Getter for AccountId.
      * ID for the account used to fund the payment.
+     * @return Returns the String
      */
     @JsonGetter("account_id")
     public String getAccountId() {
@@ -38,6 +40,7 @@ public class BalancePaymentDetails {
     /**
      * Getter for Status.
      * The balance payment’s current state. Can be `COMPLETED` or `FAILED`.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -52,15 +55,15 @@ public class BalancePaymentDetails {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BalancePaymentDetails)) {
+        if (!(obj instanceof BalancePaymentDetails)) {
             return false;
         }
-        BalancePaymentDetails balancePaymentDetails = (BalancePaymentDetails) obj;
-        return Objects.equals(accountId, balancePaymentDetails.accountId) &&
-            Objects.equals(status, balancePaymentDetails.status);
+        BalancePaymentDetails other = (BalancePaymentDetails) obj;
+        return Objects.equals(accountId, other.accountId)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -72,35 +75,31 @@ public class BalancePaymentDetails {
         Builder builder = new Builder()
             .accountId(getAccountId())
             .status(getStatus());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BalancePaymentDetails}
+     * Class to build instances of {@link BalancePaymentDetails}.
      */
     public static class Builder {
         private String accountId;
         private String status;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for accountId
-         * @param accountId
+         * Setter for accountId.
+         * @param accountId String value for accountId.
          * @return Builder
          */
         public Builder accountId(String accountId) {
             this.accountId = accountId;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {

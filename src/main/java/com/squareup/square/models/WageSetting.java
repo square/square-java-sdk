@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for WageSetting type.
  */
 public class WageSetting {
+    private final String teamMemberId;
+    private final List<JobAssignment> jobAssignments;
+    private final Boolean isOvertimeExempt;
+    private final Integer version;
+    private final String createdAt;
+    private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param teamMemberId
-     * @param jobAssignments
-     * @param isOvertimeExempt
-     * @param version
-     * @param createdAt
-     * @param updatedAt
+     * @param teamMemberId String value for teamMemberId.
+     * @param jobAssignments List of JobAssignment value for jobAssignments.
+     * @param isOvertimeExempt Boolean value for isOvertimeExempt.
+     * @param version Integer value for version.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
      */
     @JsonCreator
     public WageSetting(
@@ -37,15 +44,10 @@ public class WageSetting {
         this.updatedAt = updatedAt;
     }
 
-    private final String teamMemberId;
-    private final List<JobAssignment> jobAssignments;
-    private final Boolean isOvertimeExempt;
-    private final Integer version;
-    private final String createdAt;
-    private final String updatedAt;
     /**
      * Getter for TeamMemberId.
      * The unique ID of the `TeamMember` whom this wage setting describes.
+     * @return Returns the String
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
@@ -54,10 +56,10 @@ public class WageSetting {
 
     /**
      * Getter for JobAssignments.
-     * <b>Required</b> The ordered list of jobs that the team member is assigned to.
-     * The first job assignment is considered the team member's "Primary Job".
-     * <br>
-     * <b>Min Length 1    Max Length 12</b>
+     * <b>Required</b> The ordered list of jobs that the team member is assigned to. The first job
+     * assignment is considered the team member's "Primary Job". <br> <b>Min Length 1 Max Length
+     * 12</b>
+     * @return Returns the List of JobAssignment
      */
     @JsonGetter("job_assignments")
     public List<JobAssignment> getJobAssignments() {
@@ -67,6 +69,7 @@ public class WageSetting {
     /**
      * Getter for IsOvertimeExempt.
      * Whether the team member is exempt from the overtime rules of the seller country.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_overtime_exempt")
     public Boolean getIsOvertimeExempt() {
@@ -75,11 +78,12 @@ public class WageSetting {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version
-     * provided does not match server version at time of request. If not provided,
-     * Square executes a blind write, potentially overwriting data from another write. Read
-     * about [optimistic concurrency](https://developer.squareup.com/docs/docs/working-with-apis/optimistic-concurrency)
+     * Used for resolving concurrency issues; request will fail if version provided does not match
+     * server version at time of request. If not provided, Square executes a blind write,
+     * potentially overwriting data from another write. Read about [optimistic
+     * concurrency](https://developer.squareup.com/docs/docs/working-with-apis/optimistic-concurrency)
      * in Square APIs for more information.
+     * @return Returns the Integer
      */
     @JsonGetter("version")
     public Integer getVersion() {
@@ -88,8 +92,9 @@ public class WageSetting {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp in RFC 3339 format describing when the wage setting object was created.
-     * Ex: "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp in RFC 3339 format describing when the wage setting object was created. Ex:
+     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -100,6 +105,7 @@ public class WageSetting {
      * Getter for UpdatedAt.
      * The timestamp in RFC 3339 format describing when the wage setting object was last updated.
      * Ex: "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -110,24 +116,24 @@ public class WageSetting {
     @Override
     public int hashCode() {
         return Objects.hash(teamMemberId, jobAssignments, isOvertimeExempt, version, createdAt,
-            updatedAt);
+                updatedAt);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof WageSetting)) {
+        if (!(obj instanceof WageSetting)) {
             return false;
         }
-        WageSetting wageSetting = (WageSetting) obj;
-        return Objects.equals(teamMemberId, wageSetting.teamMemberId) &&
-            Objects.equals(jobAssignments, wageSetting.jobAssignments) &&
-            Objects.equals(isOvertimeExempt, wageSetting.isOvertimeExempt) &&
-            Objects.equals(version, wageSetting.version) &&
-            Objects.equals(createdAt, wageSetting.createdAt) &&
-            Objects.equals(updatedAt, wageSetting.updatedAt);
+        WageSetting other = (WageSetting) obj;
+        return Objects.equals(teamMemberId, other.teamMemberId)
+            && Objects.equals(jobAssignments, other.jobAssignments)
+            && Objects.equals(isOvertimeExempt, other.isOvertimeExempt)
+            && Objects.equals(version, other.version)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt);
     }
 
     /**
@@ -143,11 +149,11 @@ public class WageSetting {
             .version(getVersion())
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link WageSetting}
+     * Class to build instances of {@link WageSetting}.
      */
     public static class Builder {
         private String teamMemberId;
@@ -157,61 +163,61 @@ public class WageSetting {
         private String createdAt;
         private String updatedAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for teamMemberId
-         * @param teamMemberId
+         * Setter for teamMemberId.
+         * @param teamMemberId String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
             this.teamMemberId = teamMemberId;
             return this;
         }
+
         /**
-         * Setter for jobAssignments
-         * @param jobAssignments
+         * Setter for jobAssignments.
+         * @param jobAssignments List of JobAssignment value for jobAssignments.
          * @return Builder
          */
         public Builder jobAssignments(List<JobAssignment> jobAssignments) {
             this.jobAssignments = jobAssignments;
             return this;
         }
+
         /**
-         * Setter for isOvertimeExempt
-         * @param isOvertimeExempt
+         * Setter for isOvertimeExempt.
+         * @param isOvertimeExempt Boolean value for isOvertimeExempt.
          * @return Builder
          */
         public Builder isOvertimeExempt(Boolean isOvertimeExempt) {
             this.isOvertimeExempt = isOvertimeExempt;
             return this;
         }
+
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
             this.version = version;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

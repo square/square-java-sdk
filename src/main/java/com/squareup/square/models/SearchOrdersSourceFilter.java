@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for SearchOrdersSourceFilter type.
  */
 public class SearchOrdersSourceFilter {
+    private final List<String> sourceNames;
 
     /**
      * Initialization constructor.
-     * @param sourceNames
+     * @param sourceNames List of String value for sourceNames.
      */
     @JsonCreator
     public SearchOrdersSourceFilter(
@@ -22,12 +24,11 @@ public class SearchOrdersSourceFilter {
         this.sourceNames = sourceNames;
     }
 
-    private final List<String> sourceNames;
     /**
      * Getter for SourceNames.
-     * Filters by [Source](#type-ordersource) `name`. Will return any orders
-     * with with a `source.name` that matches any of the listed source names.
-     * Max: 10 source names.
+     * Filters by [Source](#type-ordersource) `name`. Will return any orders with with a
+     * `source.name` that matches any of the listed source names. Max: 10 source names.
+     * @return Returns the List of String
      */
     @JsonGetter("source_names")
     public List<String> getSourceNames() {
@@ -42,14 +43,14 @@ public class SearchOrdersSourceFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersSourceFilter)) {
+        if (!(obj instanceof SearchOrdersSourceFilter)) {
             return false;
         }
-        SearchOrdersSourceFilter searchOrdersSourceFilter = (SearchOrdersSourceFilter) obj;
-        return Objects.equals(sourceNames, searchOrdersSourceFilter.sourceNames);
+        SearchOrdersSourceFilter other = (SearchOrdersSourceFilter) obj;
+        return Objects.equals(sourceNames, other.sourceNames);
     }
 
     /**
@@ -60,25 +61,20 @@ public class SearchOrdersSourceFilter {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .sourceNames(getSourceNames());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersSourceFilter}
+     * Class to build instances of {@link SearchOrdersSourceFilter}.
      */
     public static class Builder {
         private List<String> sourceNames;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for sourceNames
-         * @param sourceNames
+         * Setter for sourceNames.
+         * @param sourceNames List of String value for sourceNames.
          * @return Builder
          */
         public Builder sourceNames(List<String> sourceNames) {

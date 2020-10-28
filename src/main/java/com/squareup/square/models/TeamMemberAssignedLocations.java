@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for TeamMemberAssignedLocations type.
  */
 public class TeamMemberAssignedLocations {
+    private final String assignmentType;
+    private final List<String> locationIds;
 
     /**
      * Initialization constructor.
-     * @param assignmentType
-     * @param locationIds
+     * @param assignmentType String value for assignmentType.
+     * @param locationIds List of String value for locationIds.
      */
     @JsonCreator
     public TeamMemberAssignedLocations(
@@ -25,11 +28,10 @@ public class TeamMemberAssignedLocations {
         this.locationIds = locationIds;
     }
 
-    private final String assignmentType;
-    private final List<String> locationIds;
     /**
      * Getter for AssignmentType.
      * Enumerates the possible assignment types the team member can have
+     * @return Returns the String
      */
     @JsonGetter("assignment_type")
     public String getAssignmentType() {
@@ -39,6 +41,7 @@ public class TeamMemberAssignedLocations {
     /**
      * Getter for LocationIds.
      * The locations that the team member is assigned to.
+     * @return Returns the List of String
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -53,15 +56,15 @@ public class TeamMemberAssignedLocations {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TeamMemberAssignedLocations)) {
+        if (!(obj instanceof TeamMemberAssignedLocations)) {
             return false;
         }
-        TeamMemberAssignedLocations teamMemberAssignedLocations = (TeamMemberAssignedLocations) obj;
-        return Objects.equals(assignmentType, teamMemberAssignedLocations.assignmentType) &&
-            Objects.equals(locationIds, teamMemberAssignedLocations.locationIds);
+        TeamMemberAssignedLocations other = (TeamMemberAssignedLocations) obj;
+        return Objects.equals(assignmentType, other.assignmentType)
+            && Objects.equals(locationIds, other.locationIds);
     }
 
     /**
@@ -73,35 +76,31 @@ public class TeamMemberAssignedLocations {
         Builder builder = new Builder()
             .assignmentType(getAssignmentType())
             .locationIds(getLocationIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TeamMemberAssignedLocations}
+     * Class to build instances of {@link TeamMemberAssignedLocations}.
      */
     public static class Builder {
         private String assignmentType;
         private List<String> locationIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for assignmentType
-         * @param assignmentType
+         * Setter for assignmentType.
+         * @param assignmentType String value for assignmentType.
          * @return Builder
          */
         public Builder assignmentType(String assignmentType) {
             this.assignmentType = assignmentType;
             return this;
         }
+
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

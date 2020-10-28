@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateDeviceCodeRequest type.
  */
 public class CreateDeviceCodeRequest {
+    private final String idempotencyKey;
+    private final DeviceCode deviceCode;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param deviceCode
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param deviceCode DeviceCode value for deviceCode.
      */
     @JsonCreator
     public CreateDeviceCodeRequest(
@@ -24,13 +27,12 @@ public class CreateDeviceCodeRequest {
         this.deviceCode = deviceCode;
     }
 
-    private final String idempotencyKey;
-    private final DeviceCode deviceCode;
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies this CreateCheckout request. Keys can be any valid string but
-     * must be unique for every CreateCheckout request.
-     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * must be unique for every CreateCheckout request. See [Idempotency
+     * keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -39,6 +41,7 @@ public class CreateDeviceCodeRequest {
 
     /**
      * Getter for DeviceCode.
+     * @return Returns the DeviceCode
      */
     @JsonGetter("device_code")
     public DeviceCode getDeviceCode() {
@@ -53,15 +56,15 @@ public class CreateDeviceCodeRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateDeviceCodeRequest)) {
+        if (!(obj instanceof CreateDeviceCodeRequest)) {
             return false;
         }
-        CreateDeviceCodeRequest createDeviceCodeRequest = (CreateDeviceCodeRequest) obj;
-        return Objects.equals(idempotencyKey, createDeviceCodeRequest.idempotencyKey) &&
-            Objects.equals(deviceCode, createDeviceCodeRequest.deviceCode);
+        CreateDeviceCodeRequest other = (CreateDeviceCodeRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(deviceCode, other.deviceCode);
     }
 
     /**
@@ -72,18 +75,20 @@ public class CreateDeviceCodeRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             deviceCode);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateDeviceCodeRequest}
+     * Class to build instances of {@link CreateDeviceCodeRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
         private DeviceCode deviceCode;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param deviceCode DeviceCode value for deviceCode.
          */
         public Builder(String idempotencyKey,
                 DeviceCode deviceCode) {
@@ -92,17 +97,18 @@ public class CreateDeviceCodeRequest {
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for deviceCode
-         * @param deviceCode
+         * Setter for deviceCode.
+         * @param deviceCode DeviceCode value for deviceCode.
          * @return Builder
          */
         public Builder deviceCode(DeviceCode deviceCode) {

@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for UpdateSubscriptionRequest type.
  */
 public class UpdateSubscriptionRequest {
+    private final Subscription subscription;
 
     /**
      * Initialization constructor.
-     * @param subscription
+     * @param subscription Subscription value for subscription.
      */
     @JsonCreator
     public UpdateSubscriptionRequest(
@@ -21,12 +23,12 @@ public class UpdateSubscriptionRequest {
         this.subscription = subscription;
     }
 
-    private final Subscription subscription;
     /**
      * Getter for Subscription.
-     * Represents a customer subscription to a subscription plan.
-     * For an overview of the `Subscription` type, see 
-     * [Subscription object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * Represents a customer subscription to a subscription plan. For an overview of the
+     * `Subscription` type, see [Subscription
+     * object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * @return Returns the Subscription
      */
     @JsonGetter("subscription")
     public Subscription getSubscription() {
@@ -41,14 +43,14 @@ public class UpdateSubscriptionRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateSubscriptionRequest)) {
+        if (!(obj instanceof UpdateSubscriptionRequest)) {
             return false;
         }
-        UpdateSubscriptionRequest updateSubscriptionRequest = (UpdateSubscriptionRequest) obj;
-        return Objects.equals(subscription, updateSubscriptionRequest.subscription);
+        UpdateSubscriptionRequest other = (UpdateSubscriptionRequest) obj;
+        return Objects.equals(subscription, other.subscription);
     }
 
     /**
@@ -59,25 +61,20 @@ public class UpdateSubscriptionRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .subscription(getSubscription());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateSubscriptionRequest}
+     * Class to build instances of {@link UpdateSubscriptionRequest}.
      */
     public static class Builder {
         private Subscription subscription;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for subscription
-         * @param subscription
+         * Setter for subscription.
+         * @param subscription Subscription value for subscription.
          * @return Builder
          */
         public Builder subscription(Subscription subscription) {

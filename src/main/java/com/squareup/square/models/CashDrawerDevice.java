@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CashDrawerDevice type.
  */
 public class CashDrawerDevice {
+    private final String id;
+    private final String name;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
+     * @param id String value for id.
+     * @param name String value for name.
      */
     @JsonCreator
     public CashDrawerDevice(
@@ -24,11 +27,10 @@ public class CashDrawerDevice {
         this.name = name;
     }
 
-    private final String id;
-    private final String name;
     /**
      * Getter for Id.
      * The device Square-issued ID
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -38,6 +40,7 @@ public class CashDrawerDevice {
     /**
      * Getter for Name.
      * The device merchant-specified name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -52,15 +55,15 @@ public class CashDrawerDevice {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CashDrawerDevice)) {
+        if (!(obj instanceof CashDrawerDevice)) {
             return false;
         }
-        CashDrawerDevice cashDrawerDevice = (CashDrawerDevice) obj;
-        return Objects.equals(id, cashDrawerDevice.id) &&
-            Objects.equals(name, cashDrawerDevice.name);
+        CashDrawerDevice other = (CashDrawerDevice) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name);
     }
 
     /**
@@ -72,35 +75,31 @@ public class CashDrawerDevice {
         Builder builder = new Builder()
             .id(getId())
             .name(getName());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CashDrawerDevice}
+     * Class to build instances of {@link CashDrawerDevice}.
      */
     public static class Builder {
         private String id;
         private String name;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {

@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderQuantityUnit type.
  */
 public class OrderQuantityUnit {
+    private final MeasurementUnit measurementUnit;
+    private final Integer precision;
 
     /**
      * Initialization constructor.
-     * @param measurementUnit
-     * @param precision
+     * @param measurementUnit MeasurementUnit value for measurementUnit.
+     * @param precision Integer value for precision.
      */
     @JsonCreator
     public OrderQuantityUnit(
@@ -24,13 +27,12 @@ public class OrderQuantityUnit {
         this.precision = precision;
     }
 
-    private final MeasurementUnit measurementUnit;
-    private final Integer precision;
     /**
      * Getter for MeasurementUnit.
-     * Represents a unit of measurement to use with a quantity, such as ounces
-     * or inches. Exactly one of the following fields are required: `custom_unit`,
-     * `area_unit`, `length_unit`, `volume_unit`, and `weight_unit`.
+     * Represents a unit of measurement to use with a quantity, such as ounces or inches. Exactly
+     * one of the following fields are required: `custom_unit`, `area_unit`, `length_unit`,
+     * `volume_unit`, and `weight_unit`.
+     * @return Returns the MeasurementUnit
      */
     @JsonGetter("measurement_unit")
     public MeasurementUnit getMeasurementUnit() {
@@ -40,9 +42,9 @@ public class OrderQuantityUnit {
     /**
      * Getter for Precision.
      * For non-integer quantities, represents the number of digits after the decimal point that are
-     * recorded for this quantity.
-     * For example, a precision of 1 allows quantities like `"1.0"` and `"1.1"`, but not `"1.01"`.
-     * Min: 0. Max: 5.
+     * recorded for this quantity. For example, a precision of 1 allows quantities like `"1.0"` and
+     * `"1.1"`, but not `"1.01"`. Min: 0. Max: 5.
+     * @return Returns the Integer
      */
     @JsonGetter("precision")
     public Integer getPrecision() {
@@ -57,15 +59,15 @@ public class OrderQuantityUnit {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderQuantityUnit)) {
+        if (!(obj instanceof OrderQuantityUnit)) {
             return false;
         }
-        OrderQuantityUnit orderQuantityUnit = (OrderQuantityUnit) obj;
-        return Objects.equals(measurementUnit, orderQuantityUnit.measurementUnit) &&
-            Objects.equals(precision, orderQuantityUnit.precision);
+        OrderQuantityUnit other = (OrderQuantityUnit) obj;
+        return Objects.equals(measurementUnit, other.measurementUnit)
+            && Objects.equals(precision, other.precision);
     }
 
     /**
@@ -77,35 +79,31 @@ public class OrderQuantityUnit {
         Builder builder = new Builder()
             .measurementUnit(getMeasurementUnit())
             .precision(getPrecision());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderQuantityUnit}
+     * Class to build instances of {@link OrderQuantityUnit}.
      */
     public static class Builder {
         private MeasurementUnit measurementUnit;
         private Integer precision;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for measurementUnit
-         * @param measurementUnit
+         * Setter for measurementUnit.
+         * @param measurementUnit MeasurementUnit value for measurementUnit.
          * @return Builder
          */
         public Builder measurementUnit(MeasurementUnit measurementUnit) {
             this.measurementUnit = measurementUnit;
             return this;
         }
+
         /**
-         * Setter for precision
-         * @param precision
+         * Setter for precision.
+         * @param precision Integer value for precision.
          * @return Builder
          */
         public Builder precision(Integer precision) {

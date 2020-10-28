@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 package com.squareup.square;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -39,7 +40,6 @@ import com.squareup.square.models.CatalogObject;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.LocationsApi;
-import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.Error;
@@ -101,17 +101,16 @@ public class SanityTest {
         .accessToken("BAD_TOKEN")
         .build();
 
-        PaymentsApi api = badClient.getPaymentsApi();
+        LocationsApi api = badClient.getLocationsApi();
 
         try {
-            api.listPayments(null, null, null, null, null, null, null, null, null );
+            api.listLocations();
         }
         catch(ApiException e) {
             assertEquals(e.getResponseCode(), 401);
             List<Error> errors =  e.getErrors();
             assertEquals(errors.get(0).getCategory(), "AUTHENTICATION_ERROR");
             assertEquals(errors.get(0).getCode(), "UNAUTHORIZED");
-            assertEquals(errors.get(0).getDetail(), "The `Authorization` http header of your request was malformed. The header value is expected to be of the format \"Bearer TOKEN\" (without quotation marks), where TOKEN is to be replaced with your access token (e.g. \"Bearer ABC123def456GHI789jkl0\"). For more information, see https://docs.connect.squareup.com/api/connect/v2/#requestandresponseheaders. If you are seeing this error message while using one of our officially supported SDKs, please report this to developers@squareup.com.");
         }
     }
 

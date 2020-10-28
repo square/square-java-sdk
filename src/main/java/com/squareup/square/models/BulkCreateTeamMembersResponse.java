@@ -1,23 +1,27 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for BulkCreateTeamMembersResponse type.
  */
 public class BulkCreateTeamMembersResponse {
+    private HttpContext httpContext;
+    private final Map<String, CreateTeamMemberResponse> teamMembers;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMembers
-     * @param errors
+     * @param teamMembers Map of String, value for teamMembers.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public BulkCreateTeamMembersResponse(
@@ -27,17 +31,15 @@ public class BulkCreateTeamMembersResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final Map<String, CreateTeamMemberResponse> teamMembers;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for TeamMembers.
-     * The successfully created `TeamMember` objects. Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     * The successfully created `TeamMember` objects. Each key is the `idempotency_key` that maps to
+     * the `CreateTeamMemberRequest`.
+     * @return Returns the Map of String, CreateTeamMemberResponse
      */
     @JsonGetter("team_members")
     public Map<String, CreateTeamMemberResponse> getTeamMembers() {
@@ -47,6 +49,7 @@ public class BulkCreateTeamMembersResponse {
     /**
      * Getter for Errors.
      * The errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -61,15 +64,15 @@ public class BulkCreateTeamMembersResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BulkCreateTeamMembersResponse)) {
+        if (!(obj instanceof BulkCreateTeamMembersResponse)) {
             return false;
         }
-        BulkCreateTeamMembersResponse bulkCreateTeamMembersResponse = (BulkCreateTeamMembersResponse) obj;
-        return Objects.equals(teamMembers, bulkCreateTeamMembersResponse.teamMembers) &&
-            Objects.equals(errors, bulkCreateTeamMembersResponse.errors);
+        BulkCreateTeamMembersResponse other = (BulkCreateTeamMembersResponse) obj;
+        return Objects.equals(teamMembers, other.teamMembers)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -81,45 +84,42 @@ public class BulkCreateTeamMembersResponse {
         Builder builder = new Builder()
             .teamMembers(getTeamMembers())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BulkCreateTeamMembersResponse}
+     * Class to build instances of {@link BulkCreateTeamMembersResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private Map<String, CreateTeamMemberResponse> teamMembers;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for teamMembers
-         * @param teamMembers
+         * Setter for teamMembers.
+         * @param teamMembers Map of String, value for teamMembers.
          * @return Builder
          */
         public Builder teamMembers(Map<String, CreateTeamMemberResponse> teamMembers) {
             this.teamMembers = teamMembers;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -132,8 +132,9 @@ public class BulkCreateTeamMembersResponse {
          * @return {@link BulkCreateTeamMembersResponse}
          */
         public BulkCreateTeamMembersResponse build() {
-            BulkCreateTeamMembersResponse model = new BulkCreateTeamMembersResponse(teamMembers,
-                errors);
+            BulkCreateTeamMembersResponse model =
+                    new BulkCreateTeamMembersResponse(teamMembers,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

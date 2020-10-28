@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1SettlementEntry type.
  */
 public class V1SettlementEntry {
+    private final String paymentId;
+    private final String type;
+    private final V1Money amountMoney;
+    private final V1Money feeMoney;
 
     /**
      * Initialization constructor.
-     * @param paymentId
-     * @param type
-     * @param amountMoney
-     * @param feeMoney
+     * @param paymentId String value for paymentId.
+     * @param type String value for type.
+     * @param amountMoney V1Money value for amountMoney.
+     * @param feeMoney V1Money value for feeMoney.
      */
     @JsonCreator
     public V1SettlementEntry(
@@ -30,13 +35,10 @@ public class V1SettlementEntry {
         this.feeMoney = feeMoney;
     }
 
-    private final String paymentId;
-    private final String type;
-    private final V1Money amountMoney;
-    private final V1Money feeMoney;
     /**
      * Getter for PaymentId.
      * The settlement's unique identifier.
+     * @return Returns the String
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
@@ -45,6 +47,7 @@ public class V1SettlementEntry {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -53,6 +56,7 @@ public class V1SettlementEntry {
 
     /**
      * Getter for AmountMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("amount_money")
     public V1Money getAmountMoney() {
@@ -61,6 +65,7 @@ public class V1SettlementEntry {
 
     /**
      * Getter for FeeMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("fee_money")
     public V1Money getFeeMoney() {
@@ -75,17 +80,17 @@ public class V1SettlementEntry {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1SettlementEntry)) {
+        if (!(obj instanceof V1SettlementEntry)) {
             return false;
         }
-        V1SettlementEntry v1SettlementEntry = (V1SettlementEntry) obj;
-        return Objects.equals(paymentId, v1SettlementEntry.paymentId) &&
-            Objects.equals(type, v1SettlementEntry.type) &&
-            Objects.equals(amountMoney, v1SettlementEntry.amountMoney) &&
-            Objects.equals(feeMoney, v1SettlementEntry.feeMoney);
+        V1SettlementEntry other = (V1SettlementEntry) obj;
+        return Objects.equals(paymentId, other.paymentId)
+            && Objects.equals(type, other.type)
+            && Objects.equals(amountMoney, other.amountMoney)
+            && Objects.equals(feeMoney, other.feeMoney);
     }
 
     /**
@@ -99,11 +104,11 @@ public class V1SettlementEntry {
             .type(getType())
             .amountMoney(getAmountMoney())
             .feeMoney(getFeeMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1SettlementEntry}
+     * Class to build instances of {@link V1SettlementEntry}.
      */
     public static class Builder {
         private String paymentId;
@@ -111,43 +116,41 @@ public class V1SettlementEntry {
         private V1Money amountMoney;
         private V1Money feeMoney;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for paymentId
-         * @param paymentId
+         * Setter for paymentId.
+         * @param paymentId String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
             this.paymentId = paymentId;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney V1Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(V1Money amountMoney) {
             this.amountMoney = amountMoney;
             return this;
         }
+
         /**
-         * Setter for feeMoney
-         * @param feeMoney
+         * Setter for feeMoney.
+         * @param feeMoney V1Money value for feeMoney.
          * @return Builder
          */
         public Builder feeMoney(V1Money feeMoney) {

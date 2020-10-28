@@ -1,34 +1,51 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1Tender type.
  */
 public class V1Tender {
+    private final String id;
+    private final String type;
+    private final String name;
+    private final String employeeId;
+    private final String receiptUrl;
+    private final String cardBrand;
+    private final String panSuffix;
+    private final String entryMethod;
+    private final String paymentNote;
+    private final V1Money totalMoney;
+    private final V1Money tenderedMoney;
+    private final String tenderedAt;
+    private final String settledAt;
+    private final V1Money changeBackMoney;
+    private final V1Money refundedMoney;
+    private final Boolean isExchange;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param type
-     * @param name
-     * @param employeeId
-     * @param receiptUrl
-     * @param cardBrand
-     * @param panSuffix
-     * @param entryMethod
-     * @param paymentNote
-     * @param totalMoney
-     * @param tenderedMoney
-     * @param tenderedAt
-     * @param settledAt
-     * @param changeBackMoney
-     * @param refundedMoney
-     * @param isExchange
+     * @param id String value for id.
+     * @param type String value for type.
+     * @param name String value for name.
+     * @param employeeId String value for employeeId.
+     * @param receiptUrl String value for receiptUrl.
+     * @param cardBrand String value for cardBrand.
+     * @param panSuffix String value for panSuffix.
+     * @param entryMethod String value for entryMethod.
+     * @param paymentNote String value for paymentNote.
+     * @param totalMoney V1Money value for totalMoney.
+     * @param tenderedMoney V1Money value for tenderedMoney.
+     * @param tenderedAt String value for tenderedAt.
+     * @param settledAt String value for settledAt.
+     * @param changeBackMoney V1Money value for changeBackMoney.
+     * @param refundedMoney V1Money value for refundedMoney.
+     * @param isExchange Boolean value for isExchange.
      */
     @JsonCreator
     public V1Tender(
@@ -66,25 +83,10 @@ public class V1Tender {
         this.isExchange = isExchange;
     }
 
-    private final String id;
-    private final String type;
-    private final String name;
-    private final String employeeId;
-    private final String receiptUrl;
-    private final String cardBrand;
-    private final String panSuffix;
-    private final String entryMethod;
-    private final String paymentNote;
-    private final V1Money totalMoney;
-    private final V1Money tenderedMoney;
-    private final String tenderedAt;
-    private final String settledAt;
-    private final V1Money changeBackMoney;
-    private final V1Money refundedMoney;
-    private final Boolean isExchange;
     /**
      * Getter for Id.
      * The tender's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -93,6 +95,7 @@ public class V1Tender {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -102,6 +105,7 @@ public class V1Tender {
     /**
      * Getter for Name.
      * A human-readable description of the tender.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -111,6 +115,7 @@ public class V1Tender {
     /**
      * Getter for EmployeeId.
      * The ID of the employee that processed the tender.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -120,6 +125,7 @@ public class V1Tender {
     /**
      * Getter for ReceiptUrl.
      * The URL of the receipt for the tender.
+     * @return Returns the String
      */
     @JsonGetter("receipt_url")
     public String getReceiptUrl() {
@@ -129,6 +135,7 @@ public class V1Tender {
     /**
      * Getter for CardBrand.
      * The brand of a credit card.
+     * @return Returns the String
      */
     @JsonGetter("card_brand")
     public String getCardBrand() {
@@ -138,6 +145,7 @@ public class V1Tender {
     /**
      * Getter for PanSuffix.
      * The last four digits of the provided credit card's account number.
+     * @return Returns the String
      */
     @JsonGetter("pan_suffix")
     public String getPanSuffix() {
@@ -146,6 +154,7 @@ public class V1Tender {
 
     /**
      * Getter for EntryMethod.
+     * @return Returns the String
      */
     @JsonGetter("entry_method")
     public String getEntryMethod() {
@@ -154,7 +163,9 @@ public class V1Tender {
 
     /**
      * Getter for PaymentNote.
-     * Notes entered by the merchant about the tender at the time of payment, if any. Typically only present for tender with the type: OTHER.
+     * Notes entered by the merchant about the tender at the time of payment, if any. Typically only
+     * present for tender with the type: OTHER.
+     * @return Returns the String
      */
     @JsonGetter("payment_note")
     public String getPaymentNote() {
@@ -163,6 +174,7 @@ public class V1Tender {
 
     /**
      * Getter for TotalMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_money")
     public V1Money getTotalMoney() {
@@ -171,6 +183,7 @@ public class V1Tender {
 
     /**
      * Getter for TenderedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("tendered_money")
     public V1Money getTenderedMoney() {
@@ -180,6 +193,7 @@ public class V1Tender {
     /**
      * Getter for TenderedAt.
      * The time when the tender was created, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("tendered_at")
     public String getTenderedAt() {
@@ -189,6 +203,7 @@ public class V1Tender {
     /**
      * Getter for SettledAt.
      * The time when the tender was settled, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("settled_at")
     public String getSettledAt() {
@@ -197,6 +212,7 @@ public class V1Tender {
 
     /**
      * Getter for ChangeBackMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("change_back_money")
     public V1Money getChangeBackMoney() {
@@ -205,6 +221,7 @@ public class V1Tender {
 
     /**
      * Getter for RefundedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
@@ -213,7 +230,11 @@ public class V1Tender {
 
     /**
      * Getter for IsExchange.
-     * Indicates whether or not the tender is associated with an exchange. If is_exchange is true, the tender represents the value of goods returned in an exchange not the actual money paid. The exchange value reduces the tender amounts needed to pay for items purchased in the exchange.
+     * Indicates whether or not the tender is associated with an exchange. If is_exchange is true,
+     * the tender represents the value of goods returned in an exchange not the actual money paid.
+     * The exchange value reduces the tender amounts needed to pay for items purchased in the
+     * exchange.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_exchange")
     public Boolean getIsExchange() {
@@ -224,35 +245,35 @@ public class V1Tender {
     @Override
     public int hashCode() {
         return Objects.hash(id, type, name, employeeId, receiptUrl, cardBrand, panSuffix,
-            entryMethod, paymentNote, totalMoney, tenderedMoney, tenderedAt, settledAt,
-            changeBackMoney, refundedMoney, isExchange);
+                entryMethod, paymentNote, totalMoney, tenderedMoney, tenderedAt, settledAt,
+                changeBackMoney, refundedMoney, isExchange);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Tender)) {
+        if (!(obj instanceof V1Tender)) {
             return false;
         }
-        V1Tender v1Tender = (V1Tender) obj;
-        return Objects.equals(id, v1Tender.id) &&
-            Objects.equals(type, v1Tender.type) &&
-            Objects.equals(name, v1Tender.name) &&
-            Objects.equals(employeeId, v1Tender.employeeId) &&
-            Objects.equals(receiptUrl, v1Tender.receiptUrl) &&
-            Objects.equals(cardBrand, v1Tender.cardBrand) &&
-            Objects.equals(panSuffix, v1Tender.panSuffix) &&
-            Objects.equals(entryMethod, v1Tender.entryMethod) &&
-            Objects.equals(paymentNote, v1Tender.paymentNote) &&
-            Objects.equals(totalMoney, v1Tender.totalMoney) &&
-            Objects.equals(tenderedMoney, v1Tender.tenderedMoney) &&
-            Objects.equals(tenderedAt, v1Tender.tenderedAt) &&
-            Objects.equals(settledAt, v1Tender.settledAt) &&
-            Objects.equals(changeBackMoney, v1Tender.changeBackMoney) &&
-            Objects.equals(refundedMoney, v1Tender.refundedMoney) &&
-            Objects.equals(isExchange, v1Tender.isExchange);
+        V1Tender other = (V1Tender) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(type, other.type)
+            && Objects.equals(name, other.name)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(receiptUrl, other.receiptUrl)
+            && Objects.equals(cardBrand, other.cardBrand)
+            && Objects.equals(panSuffix, other.panSuffix)
+            && Objects.equals(entryMethod, other.entryMethod)
+            && Objects.equals(paymentNote, other.paymentNote)
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(tenderedMoney, other.tenderedMoney)
+            && Objects.equals(tenderedAt, other.tenderedAt)
+            && Objects.equals(settledAt, other.settledAt)
+            && Objects.equals(changeBackMoney, other.changeBackMoney)
+            && Objects.equals(refundedMoney, other.refundedMoney)
+            && Objects.equals(isExchange, other.isExchange);
     }
 
     /**
@@ -278,11 +299,11 @@ public class V1Tender {
             .changeBackMoney(getChangeBackMoney())
             .refundedMoney(getRefundedMoney())
             .isExchange(getIsExchange());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Tender}
+     * Class to build instances of {@link V1Tender}.
      */
     public static class Builder {
         private String id;
@@ -302,151 +323,161 @@ public class V1Tender {
         private V1Money refundedMoney;
         private Boolean isExchange;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for receiptUrl
-         * @param receiptUrl
+         * Setter for receiptUrl.
+         * @param receiptUrl String value for receiptUrl.
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {
             this.receiptUrl = receiptUrl;
             return this;
         }
+
         /**
-         * Setter for cardBrand
-         * @param cardBrand
+         * Setter for cardBrand.
+         * @param cardBrand String value for cardBrand.
          * @return Builder
          */
         public Builder cardBrand(String cardBrand) {
             this.cardBrand = cardBrand;
             return this;
         }
+
         /**
-         * Setter for panSuffix
-         * @param panSuffix
+         * Setter for panSuffix.
+         * @param panSuffix String value for panSuffix.
          * @return Builder
          */
         public Builder panSuffix(String panSuffix) {
             this.panSuffix = panSuffix;
             return this;
         }
+
         /**
-         * Setter for entryMethod
-         * @param entryMethod
+         * Setter for entryMethod.
+         * @param entryMethod String value for entryMethod.
          * @return Builder
          */
         public Builder entryMethod(String entryMethod) {
             this.entryMethod = entryMethod;
             return this;
         }
+
         /**
-         * Setter for paymentNote
-         * @param paymentNote
+         * Setter for paymentNote.
+         * @param paymentNote String value for paymentNote.
          * @return Builder
          */
         public Builder paymentNote(String paymentNote) {
             this.paymentNote = paymentNote;
             return this;
         }
+
         /**
-         * Setter for totalMoney
-         * @param totalMoney
+         * Setter for totalMoney.
+         * @param totalMoney V1Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(V1Money totalMoney) {
             this.totalMoney = totalMoney;
             return this;
         }
+
         /**
-         * Setter for tenderedMoney
-         * @param tenderedMoney
+         * Setter for tenderedMoney.
+         * @param tenderedMoney V1Money value for tenderedMoney.
          * @return Builder
          */
         public Builder tenderedMoney(V1Money tenderedMoney) {
             this.tenderedMoney = tenderedMoney;
             return this;
         }
+
         /**
-         * Setter for tenderedAt
-         * @param tenderedAt
+         * Setter for tenderedAt.
+         * @param tenderedAt String value for tenderedAt.
          * @return Builder
          */
         public Builder tenderedAt(String tenderedAt) {
             this.tenderedAt = tenderedAt;
             return this;
         }
+
         /**
-         * Setter for settledAt
-         * @param settledAt
+         * Setter for settledAt.
+         * @param settledAt String value for settledAt.
          * @return Builder
          */
         public Builder settledAt(String settledAt) {
             this.settledAt = settledAt;
             return this;
         }
+
         /**
-         * Setter for changeBackMoney
-         * @param changeBackMoney
+         * Setter for changeBackMoney.
+         * @param changeBackMoney V1Money value for changeBackMoney.
          * @return Builder
          */
         public Builder changeBackMoney(V1Money changeBackMoney) {
             this.changeBackMoney = changeBackMoney;
             return this;
         }
+
         /**
-         * Setter for refundedMoney
-         * @param refundedMoney
+         * Setter for refundedMoney.
+         * @param refundedMoney V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
             this.refundedMoney = refundedMoney;
             return this;
         }
+
         /**
-         * Setter for isExchange
-         * @param isExchange
+         * Setter for isExchange.
+         * @param isExchange Boolean value for isExchange.
          * @return Builder
          */
         public Builder isExchange(Boolean isExchange) {

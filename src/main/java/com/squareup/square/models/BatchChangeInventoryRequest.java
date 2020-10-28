@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BatchChangeInventoryRequest type.
  */
 public class BatchChangeInventoryRequest {
+    private final String idempotencyKey;
+    private final List<InventoryChange> changes;
+    private final Boolean ignoreUnchangedCounts;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param changes
-     * @param ignoreUnchangedCounts
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param changes List of InventoryChange value for changes.
+     * @param ignoreUnchangedCounts Boolean value for ignoreUnchangedCounts.
      */
     @JsonCreator
     public BatchChangeInventoryRequest(
@@ -28,16 +32,13 @@ public class BatchChangeInventoryRequest {
         this.ignoreUnchangedCounts = ignoreUnchangedCounts;
     }
 
-    private final String idempotencyKey;
-    private final List<InventoryChange> changes;
-    private final Boolean ignoreUnchangedCounts;
     /**
      * Getter for IdempotencyKey.
-     * A client-supplied, universally unique identifier (UUID) for the
-     * request.
-     * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the
-     * [API Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more
+     * A client-supplied, universally unique identifier (UUID) for the request. See
+     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the [API
+     * Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more
      * information.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -46,9 +47,9 @@ public class BatchChangeInventoryRequest {
 
     /**
      * Getter for Changes.
-     * The set of physical counts and inventory adjustments to be made.
-     * Changes are applied based on the client-supplied timestamp and may be sent
-     * out of order.
+     * The set of physical counts and inventory adjustments to be made. Changes are applied based on
+     * the client-supplied timestamp and may be sent out of order.
+     * @return Returns the List of InventoryChange
      */
     @JsonGetter("changes")
     public List<InventoryChange> getChanges() {
@@ -57,8 +58,9 @@ public class BatchChangeInventoryRequest {
 
     /**
      * Getter for IgnoreUnchangedCounts.
-     * Indicates whether the current physical count should be ignored if
-     * the quantity is unchanged since the last physical count. Default: `true`.
+     * Indicates whether the current physical count should be ignored if the quantity is unchanged
+     * since the last physical count. Default: `true`.
+     * @return Returns the Boolean
      */
     @JsonGetter("ignore_unchanged_counts")
     public Boolean getIgnoreUnchangedCounts() {
@@ -73,16 +75,16 @@ public class BatchChangeInventoryRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchChangeInventoryRequest)) {
+        if (!(obj instanceof BatchChangeInventoryRequest)) {
             return false;
         }
-        BatchChangeInventoryRequest batchChangeInventoryRequest = (BatchChangeInventoryRequest) obj;
-        return Objects.equals(idempotencyKey, batchChangeInventoryRequest.idempotencyKey) &&
-            Objects.equals(changes, batchChangeInventoryRequest.changes) &&
-            Objects.equals(ignoreUnchangedCounts, batchChangeInventoryRequest.ignoreUnchangedCounts);
+        BatchChangeInventoryRequest other = (BatchChangeInventoryRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(changes, other.changes)
+            && Objects.equals(ignoreUnchangedCounts, other.ignoreUnchangedCounts);
     }
 
     /**
@@ -95,45 +97,42 @@ public class BatchChangeInventoryRequest {
             .idempotencyKey(getIdempotencyKey())
             .changes(getChanges())
             .ignoreUnchangedCounts(getIgnoreUnchangedCounts());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchChangeInventoryRequest}
+     * Class to build instances of {@link BatchChangeInventoryRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
         private List<InventoryChange> changes;
         private Boolean ignoreUnchangedCounts;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for changes
-         * @param changes
+         * Setter for changes.
+         * @param changes List of InventoryChange value for changes.
          * @return Builder
          */
         public Builder changes(List<InventoryChange> changes) {
             this.changes = changes;
             return this;
         }
+
         /**
-         * Setter for ignoreUnchangedCounts
-         * @param ignoreUnchangedCounts
+         * Setter for ignoreUnchangedCounts.
+         * @param ignoreUnchangedCounts Boolean value for ignoreUnchangedCounts.
          * @return Builder
          */
         public Builder ignoreUnchangedCounts(Boolean ignoreUnchangedCounts) {

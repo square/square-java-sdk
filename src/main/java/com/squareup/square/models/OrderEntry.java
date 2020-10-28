@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderEntry type.
  */
 public class OrderEntry {
+    private final String orderId;
+    private final Integer version;
+    private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param orderId
-     * @param version
-     * @param locationId
+     * @param orderId String value for orderId.
+     * @param version Integer value for version.
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public OrderEntry(
@@ -27,12 +31,10 @@ public class OrderEntry {
         this.locationId = locationId;
     }
 
-    private final String orderId;
-    private final Integer version;
-    private final String locationId;
     /**
      * Getter for OrderId.
      * The id of the Order
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -41,10 +43,11 @@ public class OrderEntry {
 
     /**
      * Getter for Version.
-     * Version number which is incremented each time an update is committed to the order.
-     * Orders that were not created through the API will not include a version and
-     * thus cannot be updated.
-     * [Read more about working with versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
+     * Version number which is incremented each time an update is committed to the order. Orders
+     * that were not created through the API will not include a version and thus cannot be updated.
+     * [Read more about working with
+     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
+     * @return Returns the Integer
      */
     @JsonGetter("version")
     public Integer getVersion() {
@@ -54,6 +57,7 @@ public class OrderEntry {
     /**
      * Getter for LocationId.
      * The location id the Order belongs to.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -68,16 +72,16 @@ public class OrderEntry {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderEntry)) {
+        if (!(obj instanceof OrderEntry)) {
             return false;
         }
-        OrderEntry orderEntry = (OrderEntry) obj;
-        return Objects.equals(orderId, orderEntry.orderId) &&
-            Objects.equals(version, orderEntry.version) &&
-            Objects.equals(locationId, orderEntry.locationId);
+        OrderEntry other = (OrderEntry) obj;
+        return Objects.equals(orderId, other.orderId)
+            && Objects.equals(version, other.version)
+            && Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -90,45 +94,42 @@ public class OrderEntry {
             .orderId(getOrderId())
             .version(getVersion())
             .locationId(getLocationId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderEntry}
+     * Class to build instances of {@link OrderEntry}.
      */
     public static class Builder {
         private String orderId;
         private Integer version;
         private String locationId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
             return this;
         }
+
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
             this.version = version;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

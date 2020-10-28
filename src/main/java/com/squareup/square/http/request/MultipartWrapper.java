@@ -1,9 +1,10 @@
+
 package com.squareup.square.http.request;
 
 import com.squareup.square.http.Headers;
 
 /**
- * Class to wrap byteArray and headers to be sent as part of a multipart request
+ * Class to wrap byteArray and headers to be sent as part of a multipart request.
  */
 public class MultipartWrapper {
 
@@ -11,9 +12,9 @@ public class MultipartWrapper {
     private Headers headers;
 
     /**
-     * Initialization constructor
-     * @param byteArray
-     * @param headers
+     * Initialization constructor.
+     * @param byteArray Array of bytes
+     * @param headers Headers for wrapping
      */
     public MultipartWrapper(byte[] byteArray, Headers headers) {
         this.byteArray = byteArray;
@@ -21,6 +22,7 @@ public class MultipartWrapper {
     }
 
     /**
+     * Getter for bytes.
      * @return Array of bytes.
      */
     public byte[] getByteArray() {
@@ -28,6 +30,7 @@ public class MultipartWrapper {
     }
 
     /**
+     * Getter for headers.
      * @return headers
      */
     public Headers getHeaders() {

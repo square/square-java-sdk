@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyEventAccumulatePoints type.
  */
 public class LoyaltyEventAccumulatePoints {
+    private final String loyaltyProgramId;
+    private final Integer points;
+    private final String orderId;
 
     /**
      * Initialization constructor.
-     * @param loyaltyProgramId
-     * @param points
-     * @param orderId
+     * @param loyaltyProgramId String value for loyaltyProgramId.
+     * @param points Integer value for points.
+     * @param orderId String value for orderId.
      */
     @JsonCreator
     public LoyaltyEventAccumulatePoints(
@@ -27,12 +31,10 @@ public class LoyaltyEventAccumulatePoints {
         this.orderId = orderId;
     }
 
-    private final String loyaltyProgramId;
-    private final Integer points;
-    private final String orderId;
     /**
      * Getter for LoyaltyProgramId.
      * The ID of the [loyalty program](#type-LoyaltyProgram).
+     * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
     public String getLoyaltyProgramId() {
@@ -42,6 +44,7 @@ public class LoyaltyEventAccumulatePoints {
     /**
      * Getter for Points.
      * The number of points accumulated by the event.
+     * @return Returns the Integer
      */
     @JsonGetter("points")
     public Integer getPoints() {
@@ -50,8 +53,9 @@ public class LoyaltyEventAccumulatePoints {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order](#type-Order) for which the buyer accumulated the points.
-     * This field is returned only if the Orders API is used to process orders.
+     * The ID of the [order](#type-Order) for which the buyer accumulated the points. This field is
+     * returned only if the Orders API is used to process orders.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -66,16 +70,16 @@ public class LoyaltyEventAccumulatePoints {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventAccumulatePoints)) {
+        if (!(obj instanceof LoyaltyEventAccumulatePoints)) {
             return false;
         }
-        LoyaltyEventAccumulatePoints loyaltyEventAccumulatePoints = (LoyaltyEventAccumulatePoints) obj;
-        return Objects.equals(loyaltyProgramId, loyaltyEventAccumulatePoints.loyaltyProgramId) &&
-            Objects.equals(points, loyaltyEventAccumulatePoints.points) &&
-            Objects.equals(orderId, loyaltyEventAccumulatePoints.orderId);
+        LoyaltyEventAccumulatePoints other = (LoyaltyEventAccumulatePoints) obj;
+        return Objects.equals(loyaltyProgramId, other.loyaltyProgramId)
+            && Objects.equals(points, other.points)
+            && Objects.equals(orderId, other.orderId);
     }
 
     /**
@@ -88,45 +92,42 @@ public class LoyaltyEventAccumulatePoints {
             .loyaltyProgramId(getLoyaltyProgramId())
             .points(getPoints())
             .orderId(getOrderId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventAccumulatePoints}
+     * Class to build instances of {@link LoyaltyEventAccumulatePoints}.
      */
     public static class Builder {
         private String loyaltyProgramId;
         private Integer points;
         private String orderId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for loyaltyProgramId
-         * @param loyaltyProgramId
+         * Setter for loyaltyProgramId.
+         * @param loyaltyProgramId String value for loyaltyProgramId.
          * @return Builder
          */
         public Builder loyaltyProgramId(String loyaltyProgramId) {
             this.loyaltyProgramId = loyaltyProgramId;
             return this;
         }
+
         /**
-         * Setter for points
-         * @param points
+         * Setter for points.
+         * @param points Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
             this.points = points;
             return this;
         }
+
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {

@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderCreatedObject type.
  */
 public class OrderCreatedObject {
+    private final OrderCreated orderCreated;
 
     /**
      * Initialization constructor.
-     * @param orderCreated
+     * @param orderCreated OrderCreated value for orderCreated.
      */
     @JsonCreator
     public OrderCreatedObject(
@@ -21,9 +23,9 @@ public class OrderCreatedObject {
         this.orderCreated = orderCreated;
     }
 
-    private final OrderCreated orderCreated;
     /**
      * Getter for OrderCreated.
+     * @return Returns the OrderCreated
      */
     @JsonGetter("order_created")
     public OrderCreated getOrderCreated() {
@@ -38,14 +40,14 @@ public class OrderCreatedObject {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderCreatedObject)) {
+        if (!(obj instanceof OrderCreatedObject)) {
             return false;
         }
-        OrderCreatedObject orderCreatedObject = (OrderCreatedObject) obj;
-        return Objects.equals(orderCreated, orderCreatedObject.orderCreated);
+        OrderCreatedObject other = (OrderCreatedObject) obj;
+        return Objects.equals(orderCreated, other.orderCreated);
     }
 
     /**
@@ -56,25 +58,20 @@ public class OrderCreatedObject {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .orderCreated(getOrderCreated());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderCreatedObject}
+     * Class to build instances of {@link OrderCreatedObject}.
      */
     public static class Builder {
         private OrderCreated orderCreated;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for orderCreated
-         * @param orderCreated
+         * Setter for orderCreated.
+         * @param orderCreated OrderCreated value for orderCreated.
          * @return Builder
          */
         public Builder orderCreated(OrderCreated orderCreated) {

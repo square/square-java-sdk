@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ChargeRequestAdditionalRecipient type.
  */
 public class ChargeRequestAdditionalRecipient {
+    private final String locationId;
+    private final String description;
+    private final Money amountMoney;
 
     /**
      * Initialization constructor.
-     * @param locationId
-     * @param description
-     * @param amountMoney
+     * @param locationId String value for locationId.
+     * @param description String value for description.
+     * @param amountMoney Money value for amountMoney.
      */
     @JsonCreator
     public ChargeRequestAdditionalRecipient(
@@ -27,12 +31,10 @@ public class ChargeRequestAdditionalRecipient {
         this.amountMoney = amountMoney;
     }
 
-    private final String locationId;
-    private final String description;
-    private final Money amountMoney;
     /**
      * Getter for LocationId.
      * The location ID for a recipient (other than the merchant) receiving a portion of the tender.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -42,6 +44,7 @@ public class ChargeRequestAdditionalRecipient {
     /**
      * Getter for Description.
      * The description of the additional recipient.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -50,12 +53,13 @@ public class ChargeRequestAdditionalRecipient {
 
     /**
      * Getter for AmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
@@ -70,16 +74,16 @@ public class ChargeRequestAdditionalRecipient {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ChargeRequestAdditionalRecipient)) {
+        if (!(obj instanceof ChargeRequestAdditionalRecipient)) {
             return false;
         }
-        ChargeRequestAdditionalRecipient chargeRequestAdditionalRecipient = (ChargeRequestAdditionalRecipient) obj;
-        return Objects.equals(locationId, chargeRequestAdditionalRecipient.locationId) &&
-            Objects.equals(description, chargeRequestAdditionalRecipient.description) &&
-            Objects.equals(amountMoney, chargeRequestAdditionalRecipient.amountMoney);
+        ChargeRequestAdditionalRecipient other = (ChargeRequestAdditionalRecipient) obj;
+        return Objects.equals(locationId, other.locationId)
+            && Objects.equals(description, other.description)
+            && Objects.equals(amountMoney, other.amountMoney);
     }
 
     /**
@@ -91,11 +95,11 @@ public class ChargeRequestAdditionalRecipient {
         Builder builder = new Builder(locationId,
             description,
             amountMoney);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ChargeRequestAdditionalRecipient}
+     * Class to build instances of {@link ChargeRequestAdditionalRecipient}.
      */
     public static class Builder {
         private String locationId;
@@ -103,7 +107,10 @@ public class ChargeRequestAdditionalRecipient {
         private Money amountMoney;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param locationId String value for locationId.
+         * @param description String value for description.
+         * @param amountMoney Money value for amountMoney.
          */
         public Builder(String locationId,
                 String description,
@@ -114,26 +121,28 @@ public class ChargeRequestAdditionalRecipient {
         }
 
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {

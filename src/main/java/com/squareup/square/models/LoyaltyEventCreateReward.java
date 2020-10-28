@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyEventCreateReward type.
  */
 public class LoyaltyEventCreateReward {
+    private final String loyaltyProgramId;
+    private final String rewardId;
+    private final int points;
 
     /**
      * Initialization constructor.
-     * @param loyaltyProgramId
-     * @param points
-     * @param rewardId
+     * @param loyaltyProgramId String value for loyaltyProgramId.
+     * @param points int value for points.
+     * @param rewardId String value for rewardId.
      */
     @JsonCreator
     public LoyaltyEventCreateReward(
@@ -27,12 +31,10 @@ public class LoyaltyEventCreateReward {
         this.points = points;
     }
 
-    private final String loyaltyProgramId;
-    private final String rewardId;
-    private final int points;
     /**
      * Getter for LoyaltyProgramId.
      * The ID of the [loyalty program](#type-LoyaltyProgram).
+     * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
     public String getLoyaltyProgramId() {
@@ -41,8 +43,9 @@ public class LoyaltyEventCreateReward {
 
     /**
      * Getter for RewardId.
-     * The Square-assigned ID of the created [loyalty reward](#type-LoyaltyReward).
-     * This field is returned only if the event source is `LOYALTY_API`.
+     * The Square-assigned ID of the created [loyalty reward](#type-LoyaltyReward). This field is
+     * returned only if the event source is `LOYALTY_API`.
+     * @return Returns the String
      */
     @JsonGetter("reward_id")
     public String getRewardId() {
@@ -52,6 +55,7 @@ public class LoyaltyEventCreateReward {
     /**
      * Getter for Points.
      * The loyalty points used to create the reward.
+     * @return Returns the int
      */
     @JsonGetter("points")
     public int getPoints() {
@@ -66,16 +70,16 @@ public class LoyaltyEventCreateReward {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventCreateReward)) {
+        if (!(obj instanceof LoyaltyEventCreateReward)) {
             return false;
         }
-        LoyaltyEventCreateReward loyaltyEventCreateReward = (LoyaltyEventCreateReward) obj;
-        return Objects.equals(loyaltyProgramId, loyaltyEventCreateReward.loyaltyProgramId) &&
-            Objects.equals(rewardId, loyaltyEventCreateReward.rewardId) &&
-            Objects.equals(points, loyaltyEventCreateReward.points);
+        LoyaltyEventCreateReward other = (LoyaltyEventCreateReward) obj;
+        return Objects.equals(loyaltyProgramId, other.loyaltyProgramId)
+            && Objects.equals(rewardId, other.rewardId)
+            && Objects.equals(points, other.points);
     }
 
     /**
@@ -87,11 +91,11 @@ public class LoyaltyEventCreateReward {
         Builder builder = new Builder(loyaltyProgramId,
             points)
             .rewardId(getRewardId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventCreateReward}
+     * Class to build instances of {@link LoyaltyEventCreateReward}.
      */
     public static class Builder {
         private String loyaltyProgramId;
@@ -99,7 +103,9 @@ public class LoyaltyEventCreateReward {
         private String rewardId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param loyaltyProgramId String value for loyaltyProgramId.
+         * @param points int value for points.
          */
         public Builder(String loyaltyProgramId,
                 int points) {
@@ -108,26 +114,28 @@ public class LoyaltyEventCreateReward {
         }
 
         /**
-         * Setter for loyaltyProgramId
-         * @param loyaltyProgramId
+         * Setter for loyaltyProgramId.
+         * @param loyaltyProgramId String value for loyaltyProgramId.
          * @return Builder
          */
         public Builder loyaltyProgramId(String loyaltyProgramId) {
             this.loyaltyProgramId = loyaltyProgramId;
             return this;
         }
+
         /**
-         * Setter for points
-         * @param points
+         * Setter for points.
+         * @param points int value for points.
          * @return Builder
          */
         public Builder points(int points) {
             this.points = points;
             return this;
         }
+
         /**
-         * Setter for rewardId
-         * @param rewardId
+         * Setter for rewardId.
+         * @param rewardId String value for rewardId.
          * @return Builder
          */
         public Builder rewardId(String rewardId) {

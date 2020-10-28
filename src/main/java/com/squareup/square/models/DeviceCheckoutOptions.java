@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DeviceCheckoutOptions type.
  */
 public class DeviceCheckoutOptions {
+    private final String deviceId;
+    private final Boolean skipReceiptScreen;
+    private final TipSettings tipSettings;
 
     /**
      * Initialization constructor.
-     * @param deviceId
-     * @param skipReceiptScreen
-     * @param tipSettings
+     * @param deviceId String value for deviceId.
+     * @param skipReceiptScreen Boolean value for skipReceiptScreen.
+     * @param tipSettings TipSettings value for tipSettings.
      */
     @JsonCreator
     public DeviceCheckoutOptions(
@@ -27,13 +31,12 @@ public class DeviceCheckoutOptions {
         this.tipSettings = tipSettings;
     }
 
-    private final String deviceId;
-    private final Boolean skipReceiptScreen;
-    private final TipSettings tipSettings;
     /**
      * Getter for DeviceId.
-     * The unique Id of the device intended for this `TerminalCheckout`.
-     * The Id can be retrieved from /v2/devices api.
+     * The unique ID of the device intended for this `TerminalCheckout`. A list of `DeviceCode`
+     * objects can be retrieved from the /v2/devices/codes endpoint. Match a `DeviceCode.device_id`
+     * value with `device_id` to get the associated device code.
+     * @return Returns the String
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
@@ -43,6 +46,7 @@ public class DeviceCheckoutOptions {
     /**
      * Getter for SkipReceiptScreen.
      * Instruct the device to skip the receipt screen. Defaults to false.
+     * @return Returns the Boolean
      */
     @JsonGetter("skip_receipt_screen")
     public Boolean getSkipReceiptScreen() {
@@ -51,6 +55,7 @@ public class DeviceCheckoutOptions {
 
     /**
      * Getter for TipSettings.
+     * @return Returns the TipSettings
      */
     @JsonGetter("tip_settings")
     public TipSettings getTipSettings() {
@@ -65,16 +70,16 @@ public class DeviceCheckoutOptions {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DeviceCheckoutOptions)) {
+        if (!(obj instanceof DeviceCheckoutOptions)) {
             return false;
         }
-        DeviceCheckoutOptions deviceCheckoutOptions = (DeviceCheckoutOptions) obj;
-        return Objects.equals(deviceId, deviceCheckoutOptions.deviceId) &&
-            Objects.equals(skipReceiptScreen, deviceCheckoutOptions.skipReceiptScreen) &&
-            Objects.equals(tipSettings, deviceCheckoutOptions.tipSettings);
+        DeviceCheckoutOptions other = (DeviceCheckoutOptions) obj;
+        return Objects.equals(deviceId, other.deviceId)
+            && Objects.equals(skipReceiptScreen, other.skipReceiptScreen)
+            && Objects.equals(tipSettings, other.tipSettings);
     }
 
     /**
@@ -86,11 +91,11 @@ public class DeviceCheckoutOptions {
         Builder builder = new Builder(deviceId)
             .skipReceiptScreen(getSkipReceiptScreen())
             .tipSettings(getTipSettings());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DeviceCheckoutOptions}
+     * Class to build instances of {@link DeviceCheckoutOptions}.
      */
     public static class Builder {
         private String deviceId;
@@ -98,33 +103,36 @@ public class DeviceCheckoutOptions {
         private TipSettings tipSettings;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param deviceId String value for deviceId.
          */
         public Builder(String deviceId) {
             this.deviceId = deviceId;
         }
 
         /**
-         * Setter for deviceId
-         * @param deviceId
+         * Setter for deviceId.
+         * @param deviceId String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
             this.deviceId = deviceId;
             return this;
         }
+
         /**
-         * Setter for skipReceiptScreen
-         * @param skipReceiptScreen
+         * Setter for skipReceiptScreen.
+         * @param skipReceiptScreen Boolean value for skipReceiptScreen.
          * @return Builder
          */
         public Builder skipReceiptScreen(Boolean skipReceiptScreen) {
             this.skipReceiptScreen = skipReceiptScreen;
             return this;
         }
+
         /**
-         * Setter for tipSettings
-         * @param tipSettings
+         * Setter for tipSettings.
+         * @param tipSettings TipSettings value for tipSettings.
          * @return Builder
          */
         public Builder tipSettings(TipSettings tipSettings) {

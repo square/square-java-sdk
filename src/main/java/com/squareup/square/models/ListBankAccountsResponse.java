@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListBankAccountsResponse type.
  */
 public class ListBankAccountsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<BankAccount> bankAccounts;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param bankAccounts
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param bankAccounts List of BankAccount value for bankAccounts.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListBankAccountsResponse(
@@ -29,11 +34,6 @@ public class ListBankAccountsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<BankAccount> bankAccounts;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListBankAccountsResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListBankAccountsResponse {
     /**
      * Getter for BankAccounts.
      * List of BankAccounts associated with this account.
+     * @return Returns the List of BankAccount
      */
     @JsonGetter("bank_accounts")
     public List<BankAccount> getBankAccounts() {
@@ -58,10 +60,11 @@ public class ListBankAccountsResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can 
-     * use in a subsequent request to fetch next set of bank accounts.
-     * If empty, this is the final response.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request
+     * to fetch next set of bank accounts. If empty, this is the final response. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +79,16 @@ public class ListBankAccountsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListBankAccountsResponse)) {
+        if (!(obj instanceof ListBankAccountsResponse)) {
             return false;
         }
-        ListBankAccountsResponse listBankAccountsResponse = (ListBankAccountsResponse) obj;
-        return Objects.equals(errors, listBankAccountsResponse.errors) &&
-            Objects.equals(bankAccounts, listBankAccountsResponse.bankAccounts) &&
-            Objects.equals(cursor, listBankAccountsResponse.cursor);
+        ListBankAccountsResponse other = (ListBankAccountsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(bankAccounts, other.bankAccounts)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +101,11 @@ public class ListBankAccountsResponse {
             .errors(getErrors())
             .bankAccounts(getBankAccounts())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListBankAccountsResponse}
+     * Class to build instances of {@link ListBankAccountsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +113,41 @@ public class ListBankAccountsResponse {
         private List<BankAccount> bankAccounts;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for bankAccounts
-         * @param bankAccounts
+         * Setter for bankAccounts.
+         * @param bankAccounts List of BankAccount value for bankAccounts.
          * @return Builder
          */
         public Builder bankAccounts(List<BankAccount> bankAccounts) {
             this.bankAccounts = bankAccounts;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +160,10 @@ public class ListBankAccountsResponse {
          * @return {@link ListBankAccountsResponse}
          */
         public ListBankAccountsResponse build() {
-            ListBankAccountsResponse model = new ListBankAccountsResponse(errors,
-                bankAccounts,
-                cursor);
+            ListBankAccountsResponse model =
+                    new ListBankAccountsResponse(errors,
+                            bankAccounts,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

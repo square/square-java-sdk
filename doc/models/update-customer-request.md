@@ -1,13 +1,14 @@
-## Update Customer Request
+
+# Update Customer Request
 
 Defines the body parameters that can be provided in a request to the
 UpdateCustomer endpoint.
 
-### Structure
+## Structure
 
 `UpdateCustomerRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -20,15 +21,15 @@ UpdateCustomer endpoint.
 | `PhoneNumber` | `String` | Optional | The 11-digit phone number associated with the customer profile. | String getPhoneNumber() |
 | `ReferenceId` | `String` | Optional | An optional, second ID used to associate the customer profile with an<br>entity in another system. | String getReferenceId() |
 | `Note` | `String` | Optional | A custom note associated with the customer profile. | String getNote() |
-| `Birthday` | `String` | Optional | The birthday associated with the customer profile, in RFC-3339 format.<br>Year is optional, timezone and times are not allowed.<br>For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.<br>`1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__. | String getBirthday() |
+| `Birthday` | `String` | Optional | The birthday associated with the customer profile, in RFC 3339 format.<br>Year is optional, timezone and times are not allowed.<br>For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.<br>`1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__. | String getBirthday() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {
-  "phone_number": "",
   "email_address": "New.Amelia.Earhart@example.com",
-  "note": "updated customer note"
+  "note": "updated customer note",
+  "phone_number": ""
 }
 ```
 

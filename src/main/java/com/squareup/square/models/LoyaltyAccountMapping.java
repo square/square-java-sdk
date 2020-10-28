@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyAccountMapping type.
  */
 public class LoyaltyAccountMapping {
+    private final String id;
+    private final String type;
+    private final String value;
+    private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param type
-     * @param value
-     * @param id
-     * @param createdAt
+     * @param type String value for type.
+     * @param value String value for value.
+     * @param id String value for id.
+     * @param createdAt String value for createdAt.
      */
     @JsonCreator
     public LoyaltyAccountMapping(
@@ -30,13 +35,10 @@ public class LoyaltyAccountMapping {
         this.createdAt = createdAt;
     }
 
-    private final String id;
-    private final String type;
-    private final String value;
-    private final String createdAt;
     /**
      * Getter for Id.
      * The Square-assigned ID of the mapping.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -46,6 +48,7 @@ public class LoyaltyAccountMapping {
     /**
      * Getter for Type.
      * The type of mapping.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -55,6 +58,7 @@ public class LoyaltyAccountMapping {
     /**
      * Getter for Value.
      * The phone number, in E.164 format. For example, "+14155551111".
+     * @return Returns the String
      */
     @JsonGetter("value")
     public String getValue() {
@@ -64,6 +68,7 @@ public class LoyaltyAccountMapping {
     /**
      * Getter for CreatedAt.
      * The timestamp when the mapping was created, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -78,17 +83,17 @@ public class LoyaltyAccountMapping {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyAccountMapping)) {
+        if (!(obj instanceof LoyaltyAccountMapping)) {
             return false;
         }
-        LoyaltyAccountMapping loyaltyAccountMapping = (LoyaltyAccountMapping) obj;
-        return Objects.equals(id, loyaltyAccountMapping.id) &&
-            Objects.equals(type, loyaltyAccountMapping.type) &&
-            Objects.equals(value, loyaltyAccountMapping.value) &&
-            Objects.equals(createdAt, loyaltyAccountMapping.createdAt);
+        LoyaltyAccountMapping other = (LoyaltyAccountMapping) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(type, other.type)
+            && Objects.equals(value, other.value)
+            && Objects.equals(createdAt, other.createdAt);
     }
 
     /**
@@ -101,11 +106,11 @@ public class LoyaltyAccountMapping {
             value)
             .id(getId())
             .createdAt(getCreatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyAccountMapping}
+     * Class to build instances of {@link LoyaltyAccountMapping}.
      */
     public static class Builder {
         private String type = "PHONE";
@@ -114,7 +119,9 @@ public class LoyaltyAccountMapping {
         private String createdAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param type String value for type.
+         * @param value String value for value.
          */
         public Builder(String type,
                 String value) {
@@ -123,35 +130,38 @@ public class LoyaltyAccountMapping {
         }
 
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for value
-         * @param value
+         * Setter for value.
+         * @param value String value for value.
          * @return Builder
          */
         public Builder value(String value) {
             this.value = value;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

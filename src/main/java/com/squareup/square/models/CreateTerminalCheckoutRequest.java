@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateTerminalCheckoutRequest type.
  */
 public class CreateTerminalCheckoutRequest {
+    private final String idempotencyKey;
+    private final TerminalCheckout checkout;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param checkout
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param checkout TerminalCheckout value for checkout.
      */
     @JsonCreator
     public CreateTerminalCheckoutRequest(
@@ -24,13 +27,12 @@ public class CreateTerminalCheckoutRequest {
         this.checkout = checkout;
     }
 
-    private final String idempotencyKey;
-    private final TerminalCheckout checkout;
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this CreateCheckout request. Keys can be any valid string but
-     * must be unique for every CreateCheckout request.
-     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * A unique string that identifies this `CreateCheckout` request. Keys can be any valid string
+     * but must be unique for every `CreateCheckout` request. See [Idempotency
+     * keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -39,6 +41,7 @@ public class CreateTerminalCheckoutRequest {
 
     /**
      * Getter for Checkout.
+     * @return Returns the TerminalCheckout
      */
     @JsonGetter("checkout")
     public TerminalCheckout getCheckout() {
@@ -53,15 +56,15 @@ public class CreateTerminalCheckoutRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateTerminalCheckoutRequest)) {
+        if (!(obj instanceof CreateTerminalCheckoutRequest)) {
             return false;
         }
-        CreateTerminalCheckoutRequest createTerminalCheckoutRequest = (CreateTerminalCheckoutRequest) obj;
-        return Objects.equals(idempotencyKey, createTerminalCheckoutRequest.idempotencyKey) &&
-            Objects.equals(checkout, createTerminalCheckoutRequest.checkout);
+        CreateTerminalCheckoutRequest other = (CreateTerminalCheckoutRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(checkout, other.checkout);
     }
 
     /**
@@ -72,18 +75,20 @@ public class CreateTerminalCheckoutRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             checkout);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateTerminalCheckoutRequest}
+     * Class to build instances of {@link CreateTerminalCheckoutRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
         private TerminalCheckout checkout;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param checkout TerminalCheckout value for checkout.
          */
         public Builder(String idempotencyKey,
                 TerminalCheckout checkout) {
@@ -92,17 +97,18 @@ public class CreateTerminalCheckoutRequest {
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for checkout
-         * @param checkout
+         * Setter for checkout.
+         * @param checkout TerminalCheckout value for checkout.
          * @return Builder
          */
         public Builder checkout(TerminalCheckout checkout) {

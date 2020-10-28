@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateCustomerGroupRequest type.
  */
 public class CreateCustomerGroupRequest {
+    private final String idempotencyKey;
+    private final CustomerGroup group;
 
     /**
      * Initialization constructor.
-     * @param group
-     * @param idempotencyKey
+     * @param group CustomerGroup value for group.
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CreateCustomerGroupRequest(
@@ -24,12 +27,12 @@ public class CreateCustomerGroupRequest {
         this.group = group;
     }
 
-    private final String idempotencyKey;
-    private final CustomerGroup group;
     /**
      * Getter for IdempotencyKey.
-     * The idempotency key for the request. See the [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency)
-     * guide for more information.
+     * The idempotency key for the request. See the
+     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) guide for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -38,9 +41,10 @@ public class CreateCustomerGroupRequest {
 
     /**
      * Getter for Group.
-     * Represents a group of customer profiles. 
-     * Customer groups can be created, modified, and have their membership defined either via 
-     * the Customers API or within Customer Directory in the Square Dashboard or Point of Sale.
+     * Represents a group of customer profiles. Customer groups can be created, modified, and have
+     * their membership defined either via the Customers API or within Customer Directory in the
+     * Square Dashboard or Point of Sale.
+     * @return Returns the CustomerGroup
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
@@ -55,15 +59,15 @@ public class CreateCustomerGroupRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateCustomerGroupRequest)) {
+        if (!(obj instanceof CreateCustomerGroupRequest)) {
             return false;
         }
-        CreateCustomerGroupRequest createCustomerGroupRequest = (CreateCustomerGroupRequest) obj;
-        return Objects.equals(idempotencyKey, createCustomerGroupRequest.idempotencyKey) &&
-            Objects.equals(group, createCustomerGroupRequest.group);
+        CreateCustomerGroupRequest other = (CreateCustomerGroupRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(group, other.group);
     }
 
     /**
@@ -74,35 +78,37 @@ public class CreateCustomerGroupRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(group)
             .idempotencyKey(getIdempotencyKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateCustomerGroupRequest}
+     * Class to build instances of {@link CreateCustomerGroupRequest}.
      */
     public static class Builder {
         private CustomerGroup group;
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param group CustomerGroup value for group.
          */
         public Builder(CustomerGroup group) {
             this.group = group;
         }
 
         /**
-         * Setter for group
-         * @param group
+         * Setter for group.
+         * @param group CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {
             this.group = group;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CancelPaymentByIdempotencyKeyRequest type.
  */
 public class CancelPaymentByIdempotencyKeyRequest {
+    private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CancelPaymentByIdempotencyKeyRequest(
@@ -21,10 +23,10 @@ public class CancelPaymentByIdempotencyKeyRequest {
         this.idempotencyKey = idempotencyKey;
     }
 
-    private final String idempotencyKey;
     /**
      * Getter for IdempotencyKey.
-     * `idempotency_key` identifying the payment to be canceled.
+     * The `idempotency_key` identifying the payment to be canceled.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -39,14 +41,14 @@ public class CancelPaymentByIdempotencyKeyRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CancelPaymentByIdempotencyKeyRequest)) {
+        if (!(obj instanceof CancelPaymentByIdempotencyKeyRequest)) {
             return false;
         }
-        CancelPaymentByIdempotencyKeyRequest cancelPaymentByIdempotencyKeyRequest = (CancelPaymentByIdempotencyKeyRequest) obj;
-        return Objects.equals(idempotencyKey, cancelPaymentByIdempotencyKeyRequest.idempotencyKey);
+        CancelPaymentByIdempotencyKeyRequest other = (CancelPaymentByIdempotencyKeyRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey);
     }
 
     /**
@@ -56,25 +58,26 @@ public class CancelPaymentByIdempotencyKeyRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CancelPaymentByIdempotencyKeyRequest}
+     * Class to build instances of {@link CancelPaymentByIdempotencyKeyRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

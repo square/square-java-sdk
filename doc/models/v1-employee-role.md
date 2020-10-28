@@ -1,12 +1,13 @@
-## V1 Employee Role
+
+# V1 Employee Role
 
 V1EmployeeRole
 
-### Structure
+## Structure
 
 `V1EmployeeRole`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -17,7 +18,7 @@ V1EmployeeRole
 | `CreatedAt` | `String` | Optional | The time when the employee entity was created, in ISO 8601 format. Is set by Square when the Role is created. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | The time when the employee entity was most recently updated, in ISO 8601 format. Is set by Square when the Role updated. | String getUpdatedAt() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

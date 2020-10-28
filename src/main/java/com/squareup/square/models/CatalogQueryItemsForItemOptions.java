@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogQueryItemsForItemOptions type.
  */
 public class CatalogQueryItemsForItemOptions {
+    private final List<String> itemOptionIds;
 
     /**
      * Initialization constructor.
-     * @param itemOptionIds
+     * @param itemOptionIds List of String value for itemOptionIds.
      */
     @JsonCreator
     public CatalogQueryItemsForItemOptions(
@@ -22,12 +24,11 @@ public class CatalogQueryItemsForItemOptions {
         this.itemOptionIds = itemOptionIds;
     }
 
-    private final List<String> itemOptionIds;
     /**
      * Getter for ItemOptionIds.
-     * A set of `CatalogItemOption` IDs to be used to find associated
-     * `CatalogItem`s. All Items that contain all of the given Item Options (in any order)
-     * will be returned.
+     * A set of `CatalogItemOption` IDs to be used to find associated `CatalogItem`s. All Items that
+     * contain all of the given Item Options (in any order) will be returned.
+     * @return Returns the List of String
      */
     @JsonGetter("item_option_ids")
     public List<String> getItemOptionIds() {
@@ -42,14 +43,14 @@ public class CatalogQueryItemsForItemOptions {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogQueryItemsForItemOptions)) {
+        if (!(obj instanceof CatalogQueryItemsForItemOptions)) {
             return false;
         }
-        CatalogQueryItemsForItemOptions catalogQueryItemsForItemOptions = (CatalogQueryItemsForItemOptions) obj;
-        return Objects.equals(itemOptionIds, catalogQueryItemsForItemOptions.itemOptionIds);
+        CatalogQueryItemsForItemOptions other = (CatalogQueryItemsForItemOptions) obj;
+        return Objects.equals(itemOptionIds, other.itemOptionIds);
     }
 
     /**
@@ -60,25 +61,20 @@ public class CatalogQueryItemsForItemOptions {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .itemOptionIds(getItemOptionIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogQueryItemsForItemOptions}
+     * Class to build instances of {@link CatalogQueryItemsForItemOptions}.
      */
     public static class Builder {
         private List<String> itemOptionIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for itemOptionIds
-         * @param itemOptionIds
+         * Setter for itemOptionIds.
+         * @param itemOptionIds List of String value for itemOptionIds.
          * @return Builder
          */
         public Builder itemOptionIds(List<String> itemOptionIds) {

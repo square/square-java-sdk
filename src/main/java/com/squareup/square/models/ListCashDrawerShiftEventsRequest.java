@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListCashDrawerShiftEventsRequest type.
  */
 public class ListCashDrawerShiftEventsRequest {
+    private final String locationId;
+    private final Integer limit;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param locationId
-     * @param limit
-     * @param cursor
+     * @param locationId String value for locationId.
+     * @param limit Integer value for limit.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListCashDrawerShiftEventsRequest(
@@ -27,12 +31,10 @@ public class ListCashDrawerShiftEventsRequest {
         this.cursor = cursor;
     }
 
-    private final String locationId;
-    private final Integer limit;
-    private final String cursor;
     /**
      * Getter for LocationId.
      * The ID of the location to list cash drawer shifts for.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -41,8 +43,8 @@ public class ListCashDrawerShiftEventsRequest {
 
     /**
      * Getter for Limit.
-     * Number of resources to be returned in a page of results (200 by
-     * default, 1000 max).
+     * Number of resources to be returned in a page of results (200 by default, 1000 max).
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -52,6 +54,7 @@ public class ListCashDrawerShiftEventsRequest {
     /**
      * Getter for Cursor.
      * Opaque cursor for fetching the next page of results.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -66,16 +69,16 @@ public class ListCashDrawerShiftEventsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListCashDrawerShiftEventsRequest)) {
+        if (!(obj instanceof ListCashDrawerShiftEventsRequest)) {
             return false;
         }
-        ListCashDrawerShiftEventsRequest listCashDrawerShiftEventsRequest = (ListCashDrawerShiftEventsRequest) obj;
-        return Objects.equals(locationId, listCashDrawerShiftEventsRequest.locationId) &&
-            Objects.equals(limit, listCashDrawerShiftEventsRequest.limit) &&
-            Objects.equals(cursor, listCashDrawerShiftEventsRequest.cursor);
+        ListCashDrawerShiftEventsRequest other = (ListCashDrawerShiftEventsRequest) obj;
+        return Objects.equals(locationId, other.locationId)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -87,11 +90,11 @@ public class ListCashDrawerShiftEventsRequest {
         Builder builder = new Builder(locationId)
             .limit(getLimit())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListCashDrawerShiftEventsRequest}
+     * Class to build instances of {@link ListCashDrawerShiftEventsRequest}.
      */
     public static class Builder {
         private String locationId;
@@ -99,33 +102,36 @@ public class ListCashDrawerShiftEventsRequest {
         private String cursor;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param locationId String value for locationId.
          */
         public Builder(String locationId) {
             this.locationId = locationId;
         }
 
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

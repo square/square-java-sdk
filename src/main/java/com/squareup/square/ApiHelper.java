@@ -1,11 +1,23 @@
+
 package com.squareup.square;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.request.MultipartFileWrapper;
+import com.squareup.square.http.request.MultipartWrapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -21,33 +33,36 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.request.MultipartFileWrapper;
-import com.squareup.square.http.request.MultipartWrapper;
-
 /**
  * This is a Helper class with commonly used utilities for the SDK.
  */
 public class ApiHelper {
+
     // Deserialization of Json data
     public static ObjectMapper mapper = new ObjectMapper() {
-        private static final long serialVersionUID = -174113593500315394L; {
+        private static final long serialVersionUID = -174113593500315394L;
+        {
             configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            configOverride(BigDecimal.class).setFormat(
+                    JsonFormat.Value.forShape(JsonFormat.Shape.STRING));
         }
     };
 
     /**
+     * List of classes that are wrapped directly. This information is needed when
+     * traversing object trees for reference matching.
+     */
+    private static final Set<Object> WRAPPER_TYPES = new HashSet<Object>(Arrays.asList(
+            Boolean.class, Character.class, Byte.class, Short.class, String.class,
+            Integer.class, Long.class, Float.class, Double.class, BigDecimal.class,
+            Void.class, File.class, MultipartWrapper.class, MultipartFileWrapper.class));
+
+    /**
      * Json Serialization of a given object.
-     * @param  obj The object to serialize into Json
-     * @return The serialized Json String representation of the given object
+     * @param  obj The object to serialize into Json.
+     * @return The serialized Json String representation of the given object.
+     * @throws JsonProcessingException Signals that a Json Processing Exception has occurred.
      */
     public static String serialize(Object obj)
             throws JsonProcessingException {
@@ -61,23 +76,62 @@ public class ApiHelper {
 
     /**
      * Json deserialization of the given Json string.
+     * @param   <T> The type of the object to deserialize into
      * @param   json The Json string to deserialize
      * @param   clazz The type of the object to deserialize into
      * @return  The deserialized object
+     * @throws  IOException Signals if any I/O exception occured.
      */
     public static <T extends Object> T deserialize(String json, Class<T> clazz)
             throws IOException {
-        if (isNullOrWhiteSpace(json))
+        if (isNullOrWhiteSpace(json)) {
             return null;
+        }
 
         return mapper.readValue(json, clazz);
     }
 
     /**
+     * Json deserialization of the given Json string.
+     * @param   json The Json string to deserialize
+     * @return  The deserialized Json as a Map
+     * @throws  IOException Signals if any I/O exception occured.
+     */
+    public static LinkedHashMap<String, Object> deserialize(String json)
+            throws IOException {
+        if (isNullOrWhiteSpace(json)) {
+            return null;
+        }
+
+        TypeReference<LinkedHashMap<String, Object>> typeRef 
+            = new TypeReference<LinkedHashMap<String, Object>>(){};
+        return deserialize(json, typeRef);
+    }
+
+    /**
      * JSON Deserialization of the given json string.
+     * @param   json The json string to deserialize
+     * @param   typeReference TypeReference of T
+     * @param   <T>  The type of the object to deserialize into
+     * @return  The deserialized object
+     * @throws  IOException Signals if any I/O exception occured.
+     */
+    public static <T extends Object> T deserialize(String json, TypeReference<T> typeReference)
+            throws IOException {
+        if (isNullOrWhiteSpace(json)) {
+            return null;
+        }
+
+        return mapper.readValue(json, typeReference);
+    }
+
+    /**
+     * JSON Deserialization of the given json string.
+     * @param   <T> The type of the object to deserialize into
      * @param   json The Json string to deserialize
      * @param   classArray The class of the array of objects to deserialize into
      * @return  The deserialized list of objects
+     * @throws  IOException Signals if any I/O exception occured.
      */
     public static <T extends Object> List<T> deserializeArray(String json, Class<T[]> classArray)
             throws IOException {
@@ -92,6 +146,7 @@ public class ApiHelper {
      * Populates an object of an ApiException subclass with the required properties.
      * @param   json The Json string to deserialize
      * @param   obj The object to populate.
+     * @throws  IOException Signals if any I/O exception occured.
      */
     public static void populate(String json, ApiException obj)
             throws IOException {
@@ -101,45 +156,16 @@ public class ApiHelper {
     }
 
     /**
-     * Json deserialization of the given Json string.
-     * @param   json The Json string to deserialize
-     * @return  The deserialized Json as a Map
-     */
-    public static LinkedHashMap<String, Object> deserialize(String json)
-            throws IOException {
-        if (isNullOrWhiteSpace(json)) {
-            return null;
-        }
-
-        TypeReference<LinkedHashMap<String,Object>> typeRef 
-            = new TypeReference<LinkedHashMap<String,Object>>(){};
-        return deserialize(json, typeRef);
-    }
-
-    /**
-     * JSON Deserialization of the given json string.
-     * @param   json The json string to deserialize
-     * @param   <T>  The type of the object to deserialize into
-     * @return  The deserialized object
-     */
-    public static <T extends Object> T deserialize(String json, TypeReference<T> typeReference)
-            throws IOException {
-        if (isNullOrWhiteSpace(json))
-            return null;
-
-        return mapper.readValue(json, typeReference);
-    }
-
-    /**
-     * Replaces template parameters in the given URL
+     * Replaces template parameters in the given URL.
      * @param   queryBuilder The query string builder to replace the template parameters
      * @param   parameters The parameters to replace in the URL
      */
-    public static void appendUrlWithTemplateParameters(StringBuilder queryBuilder, Map<String, Object> parameters,
-            boolean encode) {
+    public static void appendUrlWithTemplateParameters(StringBuilder queryBuilder, 
+        Map<String, SimpleEntry<Object, Boolean>> parameters) {
         // Perform parameter validation
         if (null == queryBuilder) {
-            throw new IllegalArgumentException("Given value for parameter \"queryBuilder\" is invalid." );
+            throw new IllegalArgumentException(
+                    "Given value for parameter \"queryBuilder\" is invalid.");
         }
 
         if (null == parameters) {
@@ -147,22 +173,23 @@ public class ApiHelper {
         }
 
         // Iterate and append parameters
-        for (Map.Entry<String, Object> pair : parameters.entrySet()) {
+        for (Map.Entry<String, SimpleEntry<Object, Boolean>> pair : parameters.entrySet()) {
         
             String replaceValue = "";
+            Object element = pair.getValue().getKey();
+            boolean shouldEncode = pair.getValue().getValue();
             
             // Load element value as string
-            if (null == pair.getValue()) {
+            if (null == element) {
                 replaceValue = "";
-            }
-            else if (pair.getValue() instanceof Collection<?>) {
-                replaceValue = flattenCollection("", (Collection<?>) pair.getValue(), "%s%s%s", '/');
-            }
-            else {
-                if (encode) {
-                    replaceValue = tryUrlEncode(pair.getValue().toString());
+            } else if (element instanceof Collection<?>) {
+                replaceValue = flattenCollection("", (Collection<?>) element, shouldEncode,
+                        "%s%s%s", '/');
+            } else {
+                if (shouldEncode) {
+                    replaceValue = tryUrlEncode(element.toString());
                 } else {
-                    replaceValue = pair.getValue().toString();
+                    replaceValue = element.toString();
                 }
             }
 
@@ -172,16 +199,18 @@ public class ApiHelper {
     }
 
     /**
-     * Appends the given set of parameters to the given query string
-     * @param   queryBuilder The query URL string to append the parameters
-     * @param   parameters The parameters to append
+     * Appends the given set of parameters to the given query string.
+     * @param   queryBuilder The query URL string to append the parameters.
+     * @param   parameters The parameters to append.
      */
-    public static void appendUrlWithQueryParameters(StringBuilder queryBuilder, Map<String, Object> parameters) {
+    public static void appendUrlWithQueryParameters(StringBuilder queryBuilder,
+            Map<String, Object> parameters) {
         // Perform parameter validation
-        if (null == queryBuilder) {
-            throw new IllegalArgumentException("Given value for parameter \"queryBuilder\" is invalid.");
+        if (queryBuilder == null) {
+            throw new IllegalArgumentException(
+                    "Given value for parameter \"queryBuilder\" is invalid.");
         }
-        if (null == parameters) {
+        if (parameters == null || parameters.isEmpty()) {
             return;
         }
         
@@ -193,18 +222,19 @@ public class ApiHelper {
     }
 
     /**
-     * Validates if the string is null, empty or whitespace
-     * @param   s The string to validate
-     * @return  The result of validation
+     * Validates if the string is null, empty or whitespace.
+     * @param   s The string to validate.
+     * @return  The result of validation.
      */
     public static boolean isNullOrWhiteSpace(String s) {
-        if(s == null) {
+        if (s == null) {
             return true;
         }
 
         int length = s.length();
         if (length > 0) {
-            for (int start = 0, middle = length / 2, end = length - 1; start <= middle; start++, end--) {
+            for (int start = 0, middle = length / 2, end = length - 1; start <= middle;
+                    start++, end--) {
                 if (s.charAt(start) > ' ' || s.charAt(end) > ' ') {
                     return false;
                 }
@@ -215,12 +245,13 @@ public class ApiHelper {
     }
 
     /**
-     * Replaces all occurrences of the given string in the string builder
-     * @param   stringBuilder The string builder to update with replaced strings
-     * @param   toReplace The string to replace in the string builder
-     * @param   replaceWith The string to replace with
+     * Replaces all occurrences of the given string in the string builder.
+     * @param   stringBuilder The string builder to update with replaced strings.
+     * @param   toReplace The string to replace in the string builder.
+     * @param   replaceWith The string to replace with.
      */
-    public static void replaceAll(StringBuilder stringBuilder, String toReplace, String replaceWith) {
+    public static void replaceAll(StringBuilder stringBuilder, String toReplace,
+            String replaceWith) {
         int index = stringBuilder.indexOf(toReplace);
         
         while (index != -1) {
@@ -231,8 +262,8 @@ public class ApiHelper {
     }
 
     /**
-     * Removes null values from the given map
-     * @param map Map of values
+     * Removes null values from the given map.
+     * @param map Map of values.
      */
     public static void removeNullValues(Map<String, ?> map) {
         if (map == null) {
@@ -243,9 +274,9 @@ public class ApiHelper {
     }
 
     /**
-     * Validates and processes the given URL
-     * @param    url The given URL to process
-     * @return   Pre-process URL as string
+     * Validates and processes the given URL.
+     * @param    url The given URL to process.
+     * @return   Pre-process URL as string.
      */
     public static String cleanUrl(StringBuilder url) {
         // Ensures that the URLs are absolute
@@ -267,25 +298,26 @@ public class ApiHelper {
     }
 
     /**
-     * Prepares Array style form fields from a given array of values
-     * @param   value Value for the form fields
-     * @return  Dictionary of form fields created from array elements
+     * Prepares Array style form fields from a given array of values.
+     * @param   value Value for the form fields.
+     * @return  Dictionary of form fields created from array elements.
      */
-    public static List<SimpleEntry<String, Object>> prepareFormFields(Map <?, ?> value) {
+    public static List<SimpleEntry<String, Object>> prepareFormFields(Map<?, ?> value) {
         List<SimpleEntry<String, Object>> formFields = new ArrayList<>();
-        if(value != null) {
+        if (value != null) {
             objectToList("", value, formFields, new HashSet<Integer>());
         }
         return formFields;
     }
 
     /**
-     * Encodes a given object to URL encoded string
-     * @param name Name of the object
-     * @param obj Raw object sent from caller
-     * @param objBuilder String of elements
+     * Encodes a given object to URL encoded string.
+     * @param name Name of the object.
+     * @param obj Raw object sent from caller.
+     * @param objBuilder String of elements.
      */
-    private static void encodeObjectAsQueryString(String name, Object obj, StringBuilder objBuilder) {
+    private static void encodeObjectAsQueryString(String name, Object obj,
+            StringBuilder objBuilder) {
         if (obj == null) {
             return;
         }
@@ -300,7 +332,7 @@ public class ApiHelper {
             String accessor = pair.getKey();
             // Ignore null
             Object value = pair.getValue();
-            if(value == null) {
+            if (value == null) {
                 continue;
             }
                 
@@ -309,22 +341,23 @@ public class ApiHelper {
             paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString()));
             objBuilder.append(paramKeyValPair);
 
-            }
+        }
 
         // Removing the last &
-        if(hasParam) {
+        if (hasParam) {
             objBuilder.setLength(objBuilder.length() - 1);
         }
     }
 
     /**
-     * Flattening a collection of objects into a string
-     * @param   array Array of elements to flatten
-     * @param   fmt Format string to use for array flattening
-     * @param   separator Separator to use for string concatenation
-     * @return  Representative string made up of array elements
+     * Flattening a collection of objects into a string.
+     * @param   array Array of elements to flatten.
+     * @param   fmt Format string to use for array flattening.
+     * @param   separator Separator to use for string concatenation.
+     * @return  Representative string made up of array elements.
      */
-    private static String flattenCollection(String elemName, Collection<?> array, String fmt, char separator) {
+    private static String flattenCollection(String elemName, Collection<?> array, boolean encode,
+            String fmt, char separator) {
         StringBuilder builder = new StringBuilder();
 
         // Append all elements of the array into a string
@@ -337,7 +370,9 @@ public class ApiHelper {
             } else {
                 elemValue = element.toString();
             }
-            elemValue = tryUrlEncode(elemValue);
+            if (encode) {
+                elemValue = tryUrlEncode(elemValue);
+            }
             builder.append(String.format(fmt, elemName, elemValue, separator));
         }
 
@@ -350,8 +385,8 @@ public class ApiHelper {
     }
 
     /**
-     * Tries URL encode using UTF-8
-     * @param value The value to URL encode
+     * Tries URL encode using UTF-8.
+     * @param value The value to URL encode.
      * @return
      */
     private static String tryUrlEncode(String value) {
@@ -362,26 +397,25 @@ public class ApiHelper {
         }
     }
 
-    private static void objectToList(String objName, Collection<?> obj,  
-            List<SimpleEntry<String,Object>> objectList, 
-            HashSet<Integer> processed) {
-      
-        Collection<?> array = (Collection<?>) obj;
+    private static void objectToList(String objName, Collection<?> obj,
+            List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
+
+        Collection<?> array = obj;
         // Append all elements of the array into a string
         int index = 0;
         for (Object element : array) {
             //load key value pair
-                      String key = String.format("%s[%d]", objName, index++);
+            String key = String.format("%s[%d]", objName, index++);
             loadKeyValuePairForEncoding(key, element, objectList, processed);
         }
       
     }
 
     private static void objectToList(String objName, Map<?, ?> obj, 
-            List<SimpleEntry<String,Object>> objectList, 
+            List<SimpleEntry<String, Object>> objectList, 
             HashSet<Integer> processed) {
         // Process map
-        Map<?, ?> map = (Map<?, ?>) obj;
+        Map<?, ?> map = obj;
         // Append all elements of the array into a string
         for (Map.Entry<?, ?> pair : map.entrySet()) {
             String attribName = pair.getKey().toString();
@@ -393,16 +427,16 @@ public class ApiHelper {
     }
 
     /**
-     * Converts a given object to a form encoded map
-     * @param objName Name of the object
-     * @param obj The object to convert into a map
-     * @param objectList The object list to populate
-     * @param processed List of object hashCodes that are already parsed
+     * Converts a given object to a form encoded map.
+     * @param objName Name of the object.
+     * @param obj The object to convert into a map.
+     * @param objectList The object list to populate.
+     * @param processed List of object hashCodes that are already parsed.
      */
-    private static void objectToList(
-            String objName, Object obj, List<SimpleEntry<String,Object>> objectList, HashSet<Integer> processed) {
+    private static void objectToList(String objName, Object obj,
+            List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
         // Null values need not to be processed
-        if(obj == null) {
+        if (obj == null) {
             return;
         }
 
@@ -437,7 +471,7 @@ public class ApiHelper {
             Method[] methods = obj.getClass().getMethods();
             for (Method method : methods) {
                 // Is a getter?
-                if ((method.getParameterTypes().length != 0) || (!method.getName().startsWith("get"))) {
+                if (method.getParameterTypes().length != 0 || !method.getName().startsWith("get")) {
                     continue;
                 }
 
@@ -456,10 +490,11 @@ public class ApiHelper {
                 try {
                     // Load key value pair
                     Object value = method.invoke(obj);
-                        loadKeyValuePairForEncoding(attribName, value, objectList, processed);
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    loadKeyValuePairForEncoding(attribName, value, objectList, processed);
+                } catch (IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException e) {
                     // This block only calls getter methods.
-                    // These getters do not throw any exception ruling out invocationTargetException.
+                    // These getters don't throw any exception except invocationTargetException.
                     // The getters are public so there is no chance of an IllegalAccessException
                     // Steps we've followed ensure that the object has the specified method.
                 }
@@ -468,14 +503,14 @@ public class ApiHelper {
     }
 
     /**
-     * While processing objects to map, decides whether to perform recursion or load value
-     * @param key The key for creating key value pair
-     * @param value The value to process against the given key
-     * @param objectList The object list to process with key value pair
-     * @param processed List of processed objects hashCodes
+     * While processing objects to map, decides whether to perform recursion or load value.
+     * @param key The key for creating key value pair.
+     * @param value The value to process against the given key.
+     * @param objectList The object list to process with key value pair.
+     * @param processed List of processed objects hashCodes.
      */
-    private static void loadKeyValuePairForEncoding(
-            String key, Object value, List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
+    private static void loadKeyValuePairForEncoding(String key, Object value,
+            List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
         if (value == null) {
             return;
         }
@@ -483,27 +518,19 @@ public class ApiHelper {
             objectList.add(new SimpleEntry<String, Object>(key, value));
         } else if (value instanceof UUID) {
             // UUIDs can be converted to string
-            objectList.add( new SimpleEntry<String, Object>(key, value.toString()));
+            objectList.add(new SimpleEntry<String, Object>(key, value.toString()));
         } else {
             objectToList(key, value, objectList, processed);
         }
     }
 
     /**
-     * List of classes that are wrapped directly. This information is needed when
-     * traversing object trees for reference matching
-     */
-    private static final Set<Object> WRAPPER_TYPES = new HashSet<Object>(Arrays.asList(
-            Boolean.class, Character.class, Byte.class, Short.class, String.class,
-            Integer.class, Long.class, Float.class, Double.class, Void.class, File.class, 
-            MultipartWrapper.class, MultipartFileWrapper.class));
-
-    /**
-     * Check if the given object can be wrapped directly
-     * @param object The given object
-     * @return true if the class is an autoboxed class e.g., Integer
+     * Check if the given object can be wrapped directly.
+     * @param object The given object.
+     * @return true if the class is an autoboxed class e.g., Integer.
      */
     private static boolean isWrapperType(Object object) {
-        return WRAPPER_TYPES.contains(object.getClass()) || object.getClass().isPrimitive() || object.getClass().isEnum();
+        return WRAPPER_TYPES.contains(object.getClass()) 
+                || object.getClass().isPrimitive() || object.getClass().isEnum();
     }
 }

@@ -1,18 +1,19 @@
-## Disputed Payment
+
+# Disputed Payment
 
 The payment the cardholder disputed.
 
-### Structure
+## Structure
 
 `DisputedPayment`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `PaymentId` | `String` | Optional | Square-generated unique ID of the payment being disputed. | String getPaymentId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

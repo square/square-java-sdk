@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderFulfillmentPickupDetailsCurbsidePickupDetails type.
  */
 public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
+    private final String curbsideDetails;
+    private final String buyerArrivedAt;
 
     /**
      * Initialization constructor.
-     * @param curbsideDetails
-     * @param buyerArrivedAt
+     * @param curbsideDetails String value for curbsideDetails.
+     * @param buyerArrivedAt String value for buyerArrivedAt.
      */
     @JsonCreator
     public OrderFulfillmentPickupDetailsCurbsidePickupDetails(
@@ -24,11 +27,10 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
         this.buyerArrivedAt = buyerArrivedAt;
     }
 
-    private final String curbsideDetails;
-    private final String buyerArrivedAt;
     /**
      * Getter for CurbsideDetails.
      * Specific details for curbside pickup, such as parking number, vehicle model, etc.
+     * @return Returns the String
      */
     @JsonGetter("curbside_details")
     public String getCurbsideDetails() {
@@ -37,8 +39,9 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
 
     /**
      * Getter for BuyerArrivedAt.
-     * The [timestamp](#workingwithdates) in RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z",
-     * indicating when the buyer arrived and is waiting for pickup.
+     * The [timestamp](#workingwithdates) in RFC 3339 timestamp format, e.g.,
+     * "2016-09-04T23:59:33.123Z", indicating when the buyer arrived and is waiting for pickup.
+     * @return Returns the String
      */
     @JsonGetter("buyer_arrived_at")
     public String getBuyerArrivedAt() {
@@ -53,15 +56,16 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderFulfillmentPickupDetailsCurbsidePickupDetails)) {
+        if (!(obj instanceof OrderFulfillmentPickupDetailsCurbsidePickupDetails)) {
             return false;
         }
-        OrderFulfillmentPickupDetailsCurbsidePickupDetails orderFulfillmentPickupDetailsCurbsidePickupDetails = (OrderFulfillmentPickupDetailsCurbsidePickupDetails) obj;
-        return Objects.equals(curbsideDetails, orderFulfillmentPickupDetailsCurbsidePickupDetails.curbsideDetails) &&
-            Objects.equals(buyerArrivedAt, orderFulfillmentPickupDetailsCurbsidePickupDetails.buyerArrivedAt);
+        OrderFulfillmentPickupDetailsCurbsidePickupDetails other =
+                (OrderFulfillmentPickupDetailsCurbsidePickupDetails) obj;
+        return Objects.equals(curbsideDetails, other.curbsideDetails)
+            && Objects.equals(buyerArrivedAt, other.buyerArrivedAt);
     }
 
     /**
@@ -73,35 +77,31 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
         Builder builder = new Builder()
             .curbsideDetails(getCurbsideDetails())
             .buyerArrivedAt(getBuyerArrivedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails}
+     * Class to build instances of {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails}.
      */
     public static class Builder {
         private String curbsideDetails;
         private String buyerArrivedAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for curbsideDetails
-         * @param curbsideDetails
+         * Setter for curbsideDetails.
+         * @param curbsideDetails String value for curbsideDetails.
          * @return Builder
          */
         public Builder curbsideDetails(String curbsideDetails) {
             this.curbsideDetails = curbsideDetails;
             return this;
         }
+
         /**
-         * Setter for buyerArrivedAt
-         * @param buyerArrivedAt
+         * Setter for buyerArrivedAt.
+         * @param buyerArrivedAt String value for buyerArrivedAt.
          * @return Builder
          */
         public Builder buyerArrivedAt(String buyerArrivedAt) {
@@ -110,7 +110,8 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
         }
 
         /**
-         * Builds a new {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails} object using the set fields.
+         * Builds a new {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails} object using the
+         * set fields.
          * @return {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails}
          */
         public OrderFulfillmentPickupDetailsCurbsidePickupDetails build() {

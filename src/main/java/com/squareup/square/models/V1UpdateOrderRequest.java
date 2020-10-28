@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateOrderRequest type.
  */
 public class V1UpdateOrderRequest {
+    private final String action;
+    private final String shippedTrackingNumber;
+    private final String completedNote;
+    private final String refundedNote;
+    private final String canceledNote;
 
     /**
      * Initialization constructor.
-     * @param action
-     * @param shippedTrackingNumber
-     * @param completedNote
-     * @param refundedNote
-     * @param canceledNote
+     * @param action String value for action.
+     * @param shippedTrackingNumber String value for shippedTrackingNumber.
+     * @param completedNote String value for completedNote.
+     * @param refundedNote String value for refundedNote.
+     * @param canceledNote String value for canceledNote.
      */
     @JsonCreator
     public V1UpdateOrderRequest(
@@ -33,13 +39,9 @@ public class V1UpdateOrderRequest {
         this.canceledNote = canceledNote;
     }
 
-    private final String action;
-    private final String shippedTrackingNumber;
-    private final String completedNote;
-    private final String refundedNote;
-    private final String canceledNote;
     /**
      * Getter for Action.
+     * @return Returns the String
      */
     @JsonGetter("action")
     public String getAction() {
@@ -48,7 +50,9 @@ public class V1UpdateOrderRequest {
 
     /**
      * Getter for ShippedTrackingNumber.
-     * The tracking number of the shipment associated with the order. Only valid if action is COMPLETE.
+     * The tracking number of the shipment associated with the order. Only valid if action is
+     * COMPLETE.
+     * @return Returns the String
      */
     @JsonGetter("shipped_tracking_number")
     public String getShippedTrackingNumber() {
@@ -57,7 +61,9 @@ public class V1UpdateOrderRequest {
 
     /**
      * Getter for CompletedNote.
-     * A merchant-specified note about the completion of the order. Only valid if action is COMPLETE.
+     * A merchant-specified note about the completion of the order. Only valid if action is
+     * COMPLETE.
+     * @return Returns the String
      */
     @JsonGetter("completed_note")
     public String getCompletedNote() {
@@ -67,6 +73,7 @@ public class V1UpdateOrderRequest {
     /**
      * Getter for RefundedNote.
      * A merchant-specified note about the refunding of the order. Only valid if action is REFUND.
+     * @return Returns the String
      */
     @JsonGetter("refunded_note")
     public String getRefundedNote() {
@@ -76,6 +83,7 @@ public class V1UpdateOrderRequest {
     /**
      * Getter for CanceledNote.
      * A merchant-specified note about the canceling of the order. Only valid if action is CANCEL.
+     * @return Returns the String
      */
     @JsonGetter("canceled_note")
     public String getCanceledNote() {
@@ -85,23 +93,24 @@ public class V1UpdateOrderRequest {
  
     @Override
     public int hashCode() {
-        return Objects.hash(action, shippedTrackingNumber, completedNote, refundedNote, canceledNote);
+        return Objects.hash(action, shippedTrackingNumber, completedNote, refundedNote,
+                canceledNote);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateOrderRequest)) {
+        if (!(obj instanceof V1UpdateOrderRequest)) {
             return false;
         }
-        V1UpdateOrderRequest v1UpdateOrderRequest = (V1UpdateOrderRequest) obj;
-        return Objects.equals(action, v1UpdateOrderRequest.action) &&
-            Objects.equals(shippedTrackingNumber, v1UpdateOrderRequest.shippedTrackingNumber) &&
-            Objects.equals(completedNote, v1UpdateOrderRequest.completedNote) &&
-            Objects.equals(refundedNote, v1UpdateOrderRequest.refundedNote) &&
-            Objects.equals(canceledNote, v1UpdateOrderRequest.canceledNote);
+        V1UpdateOrderRequest other = (V1UpdateOrderRequest) obj;
+        return Objects.equals(action, other.action)
+            && Objects.equals(shippedTrackingNumber, other.shippedTrackingNumber)
+            && Objects.equals(completedNote, other.completedNote)
+            && Objects.equals(refundedNote, other.refundedNote)
+            && Objects.equals(canceledNote, other.canceledNote);
     }
 
     /**
@@ -115,11 +124,11 @@ public class V1UpdateOrderRequest {
             .completedNote(getCompletedNote())
             .refundedNote(getRefundedNote())
             .canceledNote(getCanceledNote());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateOrderRequest}
+     * Class to build instances of {@link V1UpdateOrderRequest}.
      */
     public static class Builder {
         private String action;
@@ -129,51 +138,56 @@ public class V1UpdateOrderRequest {
         private String canceledNote;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param action String value for action.
          */
         public Builder(String action) {
             this.action = action;
         }
 
         /**
-         * Setter for action
-         * @param action
+         * Setter for action.
+         * @param action String value for action.
          * @return Builder
          */
         public Builder action(String action) {
             this.action = action;
             return this;
         }
+
         /**
-         * Setter for shippedTrackingNumber
-         * @param shippedTrackingNumber
+         * Setter for shippedTrackingNumber.
+         * @param shippedTrackingNumber String value for shippedTrackingNumber.
          * @return Builder
          */
         public Builder shippedTrackingNumber(String shippedTrackingNumber) {
             this.shippedTrackingNumber = shippedTrackingNumber;
             return this;
         }
+
         /**
-         * Setter for completedNote
-         * @param completedNote
+         * Setter for completedNote.
+         * @param completedNote String value for completedNote.
          * @return Builder
          */
         public Builder completedNote(String completedNote) {
             this.completedNote = completedNote;
             return this;
         }
+
         /**
-         * Setter for refundedNote
-         * @param refundedNote
+         * Setter for refundedNote.
+         * @param refundedNote String value for refundedNote.
          * @return Builder
          */
         public Builder refundedNote(String refundedNote) {
             this.refundedNote = refundedNote;
             return this;
         }
+
         /**
-         * Setter for canceledNote
-         * @param canceledNote
+         * Setter for canceledNote.
+         * @param canceledNote String value for canceledNote.
          * @return Builder
          */
         public Builder canceledNote(String canceledNote) {

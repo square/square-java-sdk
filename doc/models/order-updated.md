@@ -1,10 +1,11 @@
-## Order Updated
 
-### Structure
+# Order Updated
+
+## Structure
 
 `OrderUpdated`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -15,7 +16,7 @@
 | `CreatedAt` | `String` | Optional | Timestamp for when the order was created in RFC 3339 format. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | Timestamp for when the order was last updated in RFC 3339 format. | String getUpdatedAt() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

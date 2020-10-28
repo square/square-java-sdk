@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CancelSubscriptionResponse type.
  */
 public class CancelSubscriptionResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Subscription subscription;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param subscription
+     * @param errors List of Error value for errors.
+     * @param subscription Subscription value for subscription.
      */
     @JsonCreator
     public CancelSubscriptionResponse(
@@ -26,10 +30,6 @@ public class CancelSubscriptionResponse {
         this.subscription = subscription;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Subscription subscription;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class CancelSubscriptionResponse {
     /**
      * Getter for Errors.
      * Information about errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,9 +46,10 @@ public class CancelSubscriptionResponse {
 
     /**
      * Getter for Subscription.
-     * Represents a customer subscription to a subscription plan.
-     * For an overview of the `Subscription` type, see 
-     * [Subscription object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * Represents a customer subscription to a subscription plan. For an overview of the
+     * `Subscription` type, see [Subscription
+     * object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * @return Returns the Subscription
      */
     @JsonGetter("subscription")
     public Subscription getSubscription() {
@@ -62,15 +64,15 @@ public class CancelSubscriptionResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CancelSubscriptionResponse)) {
+        if (!(obj instanceof CancelSubscriptionResponse)) {
             return false;
         }
-        CancelSubscriptionResponse cancelSubscriptionResponse = (CancelSubscriptionResponse) obj;
-        return Objects.equals(errors, cancelSubscriptionResponse.errors) &&
-            Objects.equals(subscription, cancelSubscriptionResponse.subscription);
+        CancelSubscriptionResponse other = (CancelSubscriptionResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(subscription, other.subscription);
     }
 
     /**
@@ -82,45 +84,42 @@ public class CancelSubscriptionResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .subscription(getSubscription());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CancelSubscriptionResponse}
+     * Class to build instances of {@link CancelSubscriptionResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Subscription subscription;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for subscription
-         * @param subscription
+         * Setter for subscription.
+         * @param subscription Subscription value for subscription.
          * @return Builder
          */
         public Builder subscription(Subscription subscription) {
@@ -133,8 +132,9 @@ public class CancelSubscriptionResponse {
          * @return {@link CancelSubscriptionResponse}
          */
         public CancelSubscriptionResponse build() {
-            CancelSubscriptionResponse model = new CancelSubscriptionResponse(errors,
-                subscription);
+            CancelSubscriptionResponse model =
+                    new CancelSubscriptionResponse(errors,
+                            subscription);
             model.httpContext = httpContext;
             return model;
         }

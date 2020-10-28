@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for LoyaltyProgramRewardDefinition type.
  */
 public class LoyaltyProgramRewardDefinition {
+    private final String scope;
+    private final String discountType;
+    private final String percentageDiscount;
+    private final List<String> catalogObjectIds;
+    private final Money fixedDiscountMoney;
+    private final Money maxDiscountMoney;
 
     /**
      * Initialization constructor.
-     * @param scope
-     * @param discountType
-     * @param percentageDiscount
-     * @param catalogObjectIds
-     * @param fixedDiscountMoney
-     * @param maxDiscountMoney
+     * @param scope String value for scope.
+     * @param discountType String value for discountType.
+     * @param percentageDiscount String value for percentageDiscount.
+     * @param catalogObjectIds List of String value for catalogObjectIds.
+     * @param fixedDiscountMoney Money value for fixedDiscountMoney.
+     * @param maxDiscountMoney Money value for maxDiscountMoney.
      */
     @JsonCreator
     public LoyaltyProgramRewardDefinition(
@@ -37,15 +44,10 @@ public class LoyaltyProgramRewardDefinition {
         this.maxDiscountMoney = maxDiscountMoney;
     }
 
-    private final String scope;
-    private final String discountType;
-    private final String percentageDiscount;
-    private final List<String> catalogObjectIds;
-    private final Money fixedDiscountMoney;
-    private final Money maxDiscountMoney;
     /**
      * Getter for Scope.
      * Indicates the scope of the reward tier.
+     * @return Returns the String
      */
     @JsonGetter("scope")
     public String getScope() {
@@ -55,6 +57,7 @@ public class LoyaltyProgramRewardDefinition {
     /**
      * Getter for DiscountType.
      * The type of discount the reward tier offers.
+     * @return Returns the String
      */
     @JsonGetter("discount_type")
     public String getDiscountType() {
@@ -63,8 +66,9 @@ public class LoyaltyProgramRewardDefinition {
 
     /**
      * Getter for PercentageDiscount.
-     * Present if `discount_type` is `FIXED_PERCENTAGE`.
-     * For example, a 7.25% off discount will be represented as "7.25".
+     * Present if `discount_type` is `FIXED_PERCENTAGE`. For example, a 7.25% off discount will be
+     * represented as "7.25".
+     * @return Returns the String
      */
     @JsonGetter("percentage_discount")
     public String getPercentageDiscount() {
@@ -73,7 +77,9 @@ public class LoyaltyProgramRewardDefinition {
 
     /**
      * Getter for CatalogObjectIds.
-     * A list of [catalog object](#type-CatalogObject) ids to which this reward can be applied. They are either all item-variation ids or category ids, depending on the `type` field.
+     * A list of [catalog object](#type-CatalogObject) ids to which this reward can be applied. They
+     * are either all item-variation ids or category ids, depending on the `type` field.
+     * @return Returns the List of String
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {
@@ -82,12 +88,13 @@ public class LoyaltyProgramRewardDefinition {
 
     /**
      * Getter for FixedDiscountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("fixed_discount_money")
     public Money getFixedDiscountMoney() {
@@ -96,12 +103,13 @@ public class LoyaltyProgramRewardDefinition {
 
     /**
      * Getter for MaxDiscountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("max_discount_money")
     public Money getMaxDiscountMoney() {
@@ -112,24 +120,24 @@ public class LoyaltyProgramRewardDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(scope, discountType, percentageDiscount, catalogObjectIds,
-            fixedDiscountMoney, maxDiscountMoney);
+                fixedDiscountMoney, maxDiscountMoney);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyProgramRewardDefinition)) {
+        if (!(obj instanceof LoyaltyProgramRewardDefinition)) {
             return false;
         }
-        LoyaltyProgramRewardDefinition loyaltyProgramRewardDefinition = (LoyaltyProgramRewardDefinition) obj;
-        return Objects.equals(scope, loyaltyProgramRewardDefinition.scope) &&
-            Objects.equals(discountType, loyaltyProgramRewardDefinition.discountType) &&
-            Objects.equals(percentageDiscount, loyaltyProgramRewardDefinition.percentageDiscount) &&
-            Objects.equals(catalogObjectIds, loyaltyProgramRewardDefinition.catalogObjectIds) &&
-            Objects.equals(fixedDiscountMoney, loyaltyProgramRewardDefinition.fixedDiscountMoney) &&
-            Objects.equals(maxDiscountMoney, loyaltyProgramRewardDefinition.maxDiscountMoney);
+        LoyaltyProgramRewardDefinition other = (LoyaltyProgramRewardDefinition) obj;
+        return Objects.equals(scope, other.scope)
+            && Objects.equals(discountType, other.discountType)
+            && Objects.equals(percentageDiscount, other.percentageDiscount)
+            && Objects.equals(catalogObjectIds, other.catalogObjectIds)
+            && Objects.equals(fixedDiscountMoney, other.fixedDiscountMoney)
+            && Objects.equals(maxDiscountMoney, other.maxDiscountMoney);
     }
 
     /**
@@ -144,11 +152,11 @@ public class LoyaltyProgramRewardDefinition {
             .catalogObjectIds(getCatalogObjectIds())
             .fixedDiscountMoney(getFixedDiscountMoney())
             .maxDiscountMoney(getMaxDiscountMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyProgramRewardDefinition}
+     * Class to build instances of {@link LoyaltyProgramRewardDefinition}.
      */
     public static class Builder {
         private String scope;
@@ -159,7 +167,9 @@ public class LoyaltyProgramRewardDefinition {
         private Money maxDiscountMoney;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param scope String value for scope.
+         * @param discountType String value for discountType.
          */
         public Builder(String scope,
                 String discountType) {
@@ -168,53 +178,58 @@ public class LoyaltyProgramRewardDefinition {
         }
 
         /**
-         * Setter for scope
-         * @param scope
+         * Setter for scope.
+         * @param scope String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {
             this.scope = scope;
             return this;
         }
+
         /**
-         * Setter for discountType
-         * @param discountType
+         * Setter for discountType.
+         * @param discountType String value for discountType.
          * @return Builder
          */
         public Builder discountType(String discountType) {
             this.discountType = discountType;
             return this;
         }
+
         /**
-         * Setter for percentageDiscount
-         * @param percentageDiscount
+         * Setter for percentageDiscount.
+         * @param percentageDiscount String value for percentageDiscount.
          * @return Builder
          */
         public Builder percentageDiscount(String percentageDiscount) {
             this.percentageDiscount = percentageDiscount;
             return this;
         }
+
         /**
-         * Setter for catalogObjectIds
-         * @param catalogObjectIds
+         * Setter for catalogObjectIds.
+         * @param catalogObjectIds List of String value for catalogObjectIds.
          * @return Builder
          */
         public Builder catalogObjectIds(List<String> catalogObjectIds) {
             this.catalogObjectIds = catalogObjectIds;
             return this;
         }
+
         /**
-         * Setter for fixedDiscountMoney
-         * @param fixedDiscountMoney
+         * Setter for fixedDiscountMoney.
+         * @param fixedDiscountMoney Money value for fixedDiscountMoney.
          * @return Builder
          */
         public Builder fixedDiscountMoney(Money fixedDiscountMoney) {
             this.fixedDiscountMoney = fixedDiscountMoney;
             return this;
         }
+
         /**
-         * Setter for maxDiscountMoney
-         * @param maxDiscountMoney
+         * Setter for maxDiscountMoney.
+         * @param maxDiscountMoney Money value for maxDiscountMoney.
          * @return Builder
          */
         public Builder maxDiscountMoney(Money maxDiscountMoney) {

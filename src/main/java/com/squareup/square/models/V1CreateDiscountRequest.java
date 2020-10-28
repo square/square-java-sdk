@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateDiscountRequest type.
  */
 public class V1CreateDiscountRequest {
+    private final V1Discount body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Discount value for body.
      */
     @JsonCreator
     public V1CreateDiscountRequest(
@@ -21,10 +23,10 @@ public class V1CreateDiscountRequest {
         this.body = body;
     }
 
-    private final V1Discount body;
     /**
      * Getter for Body.
      * V1Discount
+     * @return Returns the V1Discount
      */
     @JsonGetter("body")
     public V1Discount getBody() {
@@ -39,14 +41,14 @@ public class V1CreateDiscountRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateDiscountRequest)) {
+        if (!(obj instanceof V1CreateDiscountRequest)) {
             return false;
         }
-        V1CreateDiscountRequest v1CreateDiscountRequest = (V1CreateDiscountRequest) obj;
-        return Objects.equals(body, v1CreateDiscountRequest.body);
+        V1CreateDiscountRequest other = (V1CreateDiscountRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreateDiscountRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .body(getBody());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateDiscountRequest}
+     * Class to build instances of {@link V1CreateDiscountRequest}.
      */
     public static class Builder {
         private V1Discount body;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Discount value for body.
          * @return Builder
          */
         public Builder body(V1Discount body) {

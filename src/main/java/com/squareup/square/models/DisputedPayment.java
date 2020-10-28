@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DisputedPayment type.
  */
 public class DisputedPayment {
+    private final String paymentId;
 
     /**
      * Initialization constructor.
-     * @param paymentId
+     * @param paymentId String value for paymentId.
      */
     @JsonCreator
     public DisputedPayment(
@@ -21,10 +23,10 @@ public class DisputedPayment {
         this.paymentId = paymentId;
     }
 
-    private final String paymentId;
     /**
      * Getter for PaymentId.
      * Square-generated unique ID of the payment being disputed.
+     * @return Returns the String
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
@@ -39,14 +41,14 @@ public class DisputedPayment {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DisputedPayment)) {
+        if (!(obj instanceof DisputedPayment)) {
             return false;
         }
-        DisputedPayment disputedPayment = (DisputedPayment) obj;
-        return Objects.equals(paymentId, disputedPayment.paymentId);
+        DisputedPayment other = (DisputedPayment) obj;
+        return Objects.equals(paymentId, other.paymentId);
     }
 
     /**
@@ -57,25 +59,20 @@ public class DisputedPayment {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .paymentId(getPaymentId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DisputedPayment}
+     * Class to build instances of {@link DisputedPayment}.
      */
     public static class Builder {
         private String paymentId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for paymentId
-         * @param paymentId
+         * Setter for paymentId.
+         * @param paymentId String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {

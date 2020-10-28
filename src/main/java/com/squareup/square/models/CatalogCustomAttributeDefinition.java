@@ -1,31 +1,44 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogCustomAttributeDefinition type.
  */
 public class CatalogCustomAttributeDefinition {
+    private final String type;
+    private final String name;
+    private final String description;
+    private final SourceApplication sourceApplication;
+    private final List<String> allowedObjectTypes;
+    private final String sellerVisibility;
+    private final String appVisibility;
+    private final CatalogCustomAttributeDefinitionStringConfig stringConfig;
+    private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
+    private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
+    private final Integer customAttributeUsageCount;
+    private final String key;
 
     /**
      * Initialization constructor.
-     * @param type
-     * @param name
-     * @param allowedObjectTypes
-     * @param description
-     * @param sourceApplication
-     * @param sellerVisibility
-     * @param appVisibility
-     * @param stringConfig
-     * @param numberConfig
-     * @param selectionConfig
-     * @param customAttributeUsageCount
-     * @param key
+     * @param type String value for type.
+     * @param name String value for name.
+     * @param allowedObjectTypes List of String value for allowedObjectTypes.
+     * @param description String value for description.
+     * @param sourceApplication SourceApplication value for sourceApplication.
+     * @param sellerVisibility String value for sellerVisibility.
+     * @param appVisibility String value for appVisibility.
+     * @param stringConfig CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
+     * @param numberConfig CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
+     * @param selectionConfig CatalogCustomAttributeDefinitionSelectionConfig value for selectionConfig.
+     * @param customAttributeUsageCount Integer value for customAttributeUsageCount.
+     * @param key String value for key.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinition(
@@ -55,21 +68,10 @@ public class CatalogCustomAttributeDefinition {
         this.key = key;
     }
 
-    private final String type;
-    private final String name;
-    private final String description;
-    private final SourceApplication sourceApplication;
-    private final List<String> allowedObjectTypes;
-    private final String sellerVisibility;
-    private final String appVisibility;
-    private final CatalogCustomAttributeDefinitionStringConfig stringConfig;
-    private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
-    private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
-    private final Integer customAttributeUsageCount;
-    private final String key;
     /**
      * Getter for Type.
      * Defines the possible types for a custom attribute.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -78,9 +80,10 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for Name.
-     * The name of this definition for API and seller-facing UI purposes.
-     * The name must be unique within the (merchant, application_id) pair. Required.
-     * May not be empty and may not exceed 255 characters. Can be modified after creation.
+     * The name of this definition for API and seller-facing UI purposes. The name must be unique
+     * within the (merchant, application) pair. Required. May not be empty and may not exceed 255
+     * characters. Can be modified after creation.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -89,8 +92,9 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for Description.
-     * Seller-oriented description of the meaning of this Custom Attribute,
-     * any constraints that the seller should observe, etc. May be displayed as a tooltip in Square UIs.
+     * Seller-oriented description of the meaning of this Custom Attribute, any constraints that the
+     * seller should observe, etc. May be displayed as a tooltip in Square UIs.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -100,6 +104,7 @@ public class CatalogCustomAttributeDefinition {
     /**
      * Getter for SourceApplication.
      * Provides information about the application used to generate a change.
+     * @return Returns the SourceApplication
      */
     @JsonGetter("source_application")
     public SourceApplication getSourceApplication() {
@@ -108,9 +113,10 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for AllowedObjectTypes.
-     * The set of Catalog Object Types that this Custom Attribute may be applied to.
-     * Currently, only `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included.
-     * See [CatalogObjectType](#type-catalogobjecttype) for possible values
+     * The set of Catalog Object Types that this Custom Attribute may be applied to. Currently, only
+     * `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included. See
+     * [CatalogObjectType](#type-catalogobjecttype) for possible values
+     * @return Returns the List of String
      */
     @JsonGetter("allowed_object_types")
     public List<String> getAllowedObjectTypes() {
@@ -119,9 +125,9 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for SellerVisibility.
-     * Defines the visibility of a custom attribute to sellers in Square
-     * client applications, Square APIs or in Square UIs (including Square Point
-     * of Sale applications and Square Dashboard).
+     * Defines the visibility of a custom attribute to sellers in Square client applications, Square
+     * APIs or in Square UIs (including Square Point of Sale applications and Square Dashboard).
+     * @return Returns the String
      */
     @JsonGetter("seller_visibility")
     public String getSellerVisibility() {
@@ -130,8 +136,9 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for AppVisibility.
-     * Defines the visibility of a custom attribute to applications other than their
-     * creating application.
+     * Defines the visibility of a custom attribute to applications other than their creating
+     * application.
+     * @return Returns the String
      */
     @JsonGetter("app_visibility")
     public String getAppVisibility() {
@@ -141,6 +148,7 @@ public class CatalogCustomAttributeDefinition {
     /**
      * Getter for StringConfig.
      * Configuration associated with Custom Attribute Definitions of type `STRING`.
+     * @return Returns the CatalogCustomAttributeDefinitionStringConfig
      */
     @JsonGetter("string_config")
     public CatalogCustomAttributeDefinitionStringConfig getStringConfig() {
@@ -149,6 +157,7 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for NumberConfig.
+     * @return Returns the CatalogCustomAttributeDefinitionNumberConfig
      */
     @JsonGetter("number_config")
     public CatalogCustomAttributeDefinitionNumberConfig getNumberConfig() {
@@ -158,6 +167,7 @@ public class CatalogCustomAttributeDefinition {
     /**
      * Getter for SelectionConfig.
      * Configuration associated with `SELECTION`-type custom attribute definitions.
+     * @return Returns the CatalogCustomAttributeDefinitionSelectionConfig
      */
     @JsonGetter("selection_config")
     public CatalogCustomAttributeDefinitionSelectionConfig getSelectionConfig() {
@@ -166,10 +176,11 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for CustomAttributeUsageCount.
-     * __Read-only.__ The number of custom attributes that reference this
-     * custom attribute definition. Set by the server in response to a ListCatalog
-     * request with `include_counts` set to `true`.  If the actual count is greater
-     * than 100, `custom_attribute_usage_count` will be set to `100`.
+     * __Read-only.__ The number of custom attributes that reference this custom attribute
+     * definition. Set by the server in response to a ListCatalog request with `include_counts` set
+     * to `true`. If the actual count is greater than 100, `custom_attribute_usage_count` will be
+     * set to `100`.
+     * @return Returns the Integer
      */
     @JsonGetter("custom_attribute_usage_count")
     public Integer getCustomAttributeUsageCount() {
@@ -178,10 +189,11 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for Key.
-     * The name of the desired custom attribute key that can be used to access
-     * the custom attribute value on catalog objects. Cannot be modified after the
-     * custom attribute definition has been created.
-     * Must be between 1 and 60 characters, and may only contain the characters [a-zA-Z0-9_-].
+     * The name of the desired custom attribute key that can be used to access the custom attribute
+     * value on catalog objects. Cannot be modified after the custom attribute definition has been
+     * created. Must be between 1 and 60 characters, and may only contain the characters
+     * `[a-zA-Z0-9_-]`.
+     * @return Returns the String
      */
     @JsonGetter("key")
     public String getKey() {
@@ -192,31 +204,31 @@ public class CatalogCustomAttributeDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(type, name, description, sourceApplication, allowedObjectTypes,
-            sellerVisibility, appVisibility, stringConfig, numberConfig, selectionConfig,
-            customAttributeUsageCount, key);
+                sellerVisibility, appVisibility, stringConfig, numberConfig, selectionConfig,
+                customAttributeUsageCount, key);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogCustomAttributeDefinition)) {
+        if (!(obj instanceof CatalogCustomAttributeDefinition)) {
             return false;
         }
-        CatalogCustomAttributeDefinition catalogCustomAttributeDefinition = (CatalogCustomAttributeDefinition) obj;
-        return Objects.equals(type, catalogCustomAttributeDefinition.type) &&
-            Objects.equals(name, catalogCustomAttributeDefinition.name) &&
-            Objects.equals(description, catalogCustomAttributeDefinition.description) &&
-            Objects.equals(sourceApplication, catalogCustomAttributeDefinition.sourceApplication) &&
-            Objects.equals(allowedObjectTypes, catalogCustomAttributeDefinition.allowedObjectTypes) &&
-            Objects.equals(sellerVisibility, catalogCustomAttributeDefinition.sellerVisibility) &&
-            Objects.equals(appVisibility, catalogCustomAttributeDefinition.appVisibility) &&
-            Objects.equals(stringConfig, catalogCustomAttributeDefinition.stringConfig) &&
-            Objects.equals(numberConfig, catalogCustomAttributeDefinition.numberConfig) &&
-            Objects.equals(selectionConfig, catalogCustomAttributeDefinition.selectionConfig) &&
-            Objects.equals(customAttributeUsageCount, catalogCustomAttributeDefinition.customAttributeUsageCount) &&
-            Objects.equals(key, catalogCustomAttributeDefinition.key);
+        CatalogCustomAttributeDefinition other = (CatalogCustomAttributeDefinition) obj;
+        return Objects.equals(type, other.type)
+            && Objects.equals(name, other.name)
+            && Objects.equals(description, other.description)
+            && Objects.equals(sourceApplication, other.sourceApplication)
+            && Objects.equals(allowedObjectTypes, other.allowedObjectTypes)
+            && Objects.equals(sellerVisibility, other.sellerVisibility)
+            && Objects.equals(appVisibility, other.appVisibility)
+            && Objects.equals(stringConfig, other.stringConfig)
+            && Objects.equals(numberConfig, other.numberConfig)
+            && Objects.equals(selectionConfig, other.selectionConfig)
+            && Objects.equals(customAttributeUsageCount, other.customAttributeUsageCount)
+            && Objects.equals(key, other.key);
     }
 
     /**
@@ -237,11 +249,11 @@ public class CatalogCustomAttributeDefinition {
             .selectionConfig(getSelectionConfig())
             .customAttributeUsageCount(getCustomAttributeUsageCount())
             .key(getKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogCustomAttributeDefinition}
+     * Class to build instances of {@link CatalogCustomAttributeDefinition}.
      */
     public static class Builder {
         private String type;
@@ -258,7 +270,10 @@ public class CatalogCustomAttributeDefinition {
         private String key;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param type String value for type.
+         * @param name String value for name.
+         * @param allowedObjectTypes List of String value for allowedObjectTypes.
          */
         public Builder(String type,
                 String name,
@@ -269,107 +284,118 @@ public class CatalogCustomAttributeDefinition {
         }
 
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for allowedObjectTypes
-         * @param allowedObjectTypes
+         * Setter for allowedObjectTypes.
+         * @param allowedObjectTypes List of String value for allowedObjectTypes.
          * @return Builder
          */
         public Builder allowedObjectTypes(List<String> allowedObjectTypes) {
             this.allowedObjectTypes = allowedObjectTypes;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
             return this;
         }
+
         /**
-         * Setter for sourceApplication
-         * @param sourceApplication
+         * Setter for sourceApplication.
+         * @param sourceApplication SourceApplication value for sourceApplication.
          * @return Builder
          */
         public Builder sourceApplication(SourceApplication sourceApplication) {
             this.sourceApplication = sourceApplication;
             return this;
         }
+
         /**
-         * Setter for sellerVisibility
-         * @param sellerVisibility
+         * Setter for sellerVisibility.
+         * @param sellerVisibility String value for sellerVisibility.
          * @return Builder
          */
         public Builder sellerVisibility(String sellerVisibility) {
             this.sellerVisibility = sellerVisibility;
             return this;
         }
+
         /**
-         * Setter for appVisibility
-         * @param appVisibility
+         * Setter for appVisibility.
+         * @param appVisibility String value for appVisibility.
          * @return Builder
          */
         public Builder appVisibility(String appVisibility) {
             this.appVisibility = appVisibility;
             return this;
         }
+
         /**
-         * Setter for stringConfig
-         * @param stringConfig
+         * Setter for stringConfig.
+         * @param stringConfig CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
          * @return Builder
          */
         public Builder stringConfig(CatalogCustomAttributeDefinitionStringConfig stringConfig) {
             this.stringConfig = stringConfig;
             return this;
         }
+
         /**
-         * Setter for numberConfig
-         * @param numberConfig
+         * Setter for numberConfig.
+         * @param numberConfig CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
          * @return Builder
          */
         public Builder numberConfig(CatalogCustomAttributeDefinitionNumberConfig numberConfig) {
             this.numberConfig = numberConfig;
             return this;
         }
+
         /**
-         * Setter for selectionConfig
-         * @param selectionConfig
+         * Setter for selectionConfig.
+         * @param selectionConfig CatalogCustomAttributeDefinitionSelectionConfig value for selectionConfig.
          * @return Builder
          */
         public Builder selectionConfig(CatalogCustomAttributeDefinitionSelectionConfig selectionConfig) {
             this.selectionConfig = selectionConfig;
             return this;
         }
+
         /**
-         * Setter for customAttributeUsageCount
-         * @param customAttributeUsageCount
+         * Setter for customAttributeUsageCount.
+         * @param customAttributeUsageCount Integer value for customAttributeUsageCount.
          * @return Builder
          */
         public Builder customAttributeUsageCount(Integer customAttributeUsageCount) {
             this.customAttributeUsageCount = customAttributeUsageCount;
             return this;
         }
+
         /**
-         * Setter for key
-         * @param key
+         * Setter for key.
+         * @param key String value for key.
          * @return Builder
          */
         public Builder key(String key) {

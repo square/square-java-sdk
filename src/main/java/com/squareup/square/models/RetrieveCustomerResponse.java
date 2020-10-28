@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for RetrieveCustomerResponse type.
  */
 public class RetrieveCustomerResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Customer customer;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param customer
+     * @param errors List of Error value for errors.
+     * @param customer Customer value for customer.
      */
     @JsonCreator
     public RetrieveCustomerResponse(
@@ -26,10 +30,6 @@ public class RetrieveCustomerResponse {
         this.customer = customer;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Customer customer;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class RetrieveCustomerResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,8 +46,9 @@ public class RetrieveCustomerResponse {
 
     /**
      * Getter for Customer.
-     * Represents a Square customer profile, which can have one or more
-     * cards on file associated with it.
+     * Represents a Square customer profile, which can have one or more cards on file associated
+     * with it.
+     * @return Returns the Customer
      */
     @JsonGetter("customer")
     public Customer getCustomer() {
@@ -61,15 +63,15 @@ public class RetrieveCustomerResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveCustomerResponse)) {
+        if (!(obj instanceof RetrieveCustomerResponse)) {
             return false;
         }
-        RetrieveCustomerResponse retrieveCustomerResponse = (RetrieveCustomerResponse) obj;
-        return Objects.equals(errors, retrieveCustomerResponse.errors) &&
-            Objects.equals(customer, retrieveCustomerResponse.customer);
+        RetrieveCustomerResponse other = (RetrieveCustomerResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(customer, other.customer);
     }
 
     /**
@@ -81,45 +83,42 @@ public class RetrieveCustomerResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .customer(getCustomer());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveCustomerResponse}
+     * Class to build instances of {@link RetrieveCustomerResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Customer customer;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for customer
-         * @param customer
+         * Setter for customer.
+         * @param customer Customer value for customer.
          * @return Builder
          */
         public Builder customer(Customer customer) {
@@ -132,8 +131,9 @@ public class RetrieveCustomerResponse {
          * @return {@link RetrieveCustomerResponse}
          */
         public RetrieveCustomerResponse build() {
-            RetrieveCustomerResponse model = new RetrieveCustomerResponse(errors,
-                customer);
+            RetrieveCustomerResponse model =
+                    new RetrieveCustomerResponse(errors,
+                            customer);
             model.httpContext = httpContext;
             return model;
         }

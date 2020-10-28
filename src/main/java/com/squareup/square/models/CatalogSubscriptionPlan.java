@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogSubscriptionPlan type.
  */
 public class CatalogSubscriptionPlan {
+    private final String name;
+    private final List<SubscriptionPhase> phases;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param phases
+     * @param name String value for name.
+     * @param phases List of SubscriptionPhase value for phases.
      */
     @JsonCreator
     public CatalogSubscriptionPlan(
@@ -25,11 +28,10 @@ public class CatalogSubscriptionPlan {
         this.phases = phases;
     }
 
-    private final String name;
-    private final List<SubscriptionPhase> phases;
     /**
      * Getter for Name.
      * The name of the plan.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -38,7 +40,9 @@ public class CatalogSubscriptionPlan {
 
     /**
      * Getter for Phases.
-     * A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for this plan.
+     * A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for
+     * this plan.
+     * @return Returns the List of SubscriptionPhase
      */
     @JsonGetter("phases")
     public List<SubscriptionPhase> getPhases() {
@@ -53,15 +57,15 @@ public class CatalogSubscriptionPlan {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogSubscriptionPlan)) {
+        if (!(obj instanceof CatalogSubscriptionPlan)) {
             return false;
         }
-        CatalogSubscriptionPlan catalogSubscriptionPlan = (CatalogSubscriptionPlan) obj;
-        return Objects.equals(name, catalogSubscriptionPlan.name) &&
-            Objects.equals(phases, catalogSubscriptionPlan.phases);
+        CatalogSubscriptionPlan other = (CatalogSubscriptionPlan) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(phases, other.phases);
     }
 
     /**
@@ -73,35 +77,31 @@ public class CatalogSubscriptionPlan {
         Builder builder = new Builder()
             .name(getName())
             .phases(getPhases());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogSubscriptionPlan}
+     * Class to build instances of {@link CatalogSubscriptionPlan}.
      */
     public static class Builder {
         private String name;
         private List<SubscriptionPhase> phases;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for phases
-         * @param phases
+         * Setter for phases.
+         * @param phases List of SubscriptionPhase value for phases.
          * @return Builder
          */
         public Builder phases(List<SubscriptionPhase> phases) {

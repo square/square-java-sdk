@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for UpdateCustomerGroupResponse type.
  */
 public class UpdateCustomerGroupResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final CustomerGroup group;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param group
+     * @param errors List of Error value for errors.
+     * @param group CustomerGroup value for group.
      */
     @JsonCreator
     public UpdateCustomerGroupResponse(
@@ -26,10 +30,6 @@ public class UpdateCustomerGroupResponse {
         this.group = group;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final CustomerGroup group;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class UpdateCustomerGroupResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,9 +46,10 @@ public class UpdateCustomerGroupResponse {
 
     /**
      * Getter for Group.
-     * Represents a group of customer profiles. 
-     * Customer groups can be created, modified, and have their membership defined either via 
-     * the Customers API or within Customer Directory in the Square Dashboard or Point of Sale.
+     * Represents a group of customer profiles. Customer groups can be created, modified, and have
+     * their membership defined either via the Customers API or within Customer Directory in the
+     * Square Dashboard or Point of Sale.
+     * @return Returns the CustomerGroup
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
@@ -62,15 +64,15 @@ public class UpdateCustomerGroupResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateCustomerGroupResponse)) {
+        if (!(obj instanceof UpdateCustomerGroupResponse)) {
             return false;
         }
-        UpdateCustomerGroupResponse updateCustomerGroupResponse = (UpdateCustomerGroupResponse) obj;
-        return Objects.equals(errors, updateCustomerGroupResponse.errors) &&
-            Objects.equals(group, updateCustomerGroupResponse.group);
+        UpdateCustomerGroupResponse other = (UpdateCustomerGroupResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(group, other.group);
     }
 
     /**
@@ -82,45 +84,42 @@ public class UpdateCustomerGroupResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .group(getGroup());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateCustomerGroupResponse}
+     * Class to build instances of {@link UpdateCustomerGroupResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private CustomerGroup group;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for group
-         * @param group
+         * Setter for group.
+         * @param group CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {
@@ -133,8 +132,9 @@ public class UpdateCustomerGroupResponse {
          * @return {@link UpdateCustomerGroupResponse}
          */
         public UpdateCustomerGroupResponse build() {
-            UpdateCustomerGroupResponse model = new UpdateCustomerGroupResponse(errors,
-                group);
+            UpdateCustomerGroupResponse model =
+                    new UpdateCustomerGroupResponse(errors,
+                            group);
             model.httpContext = httpContext;
             return model;
         }

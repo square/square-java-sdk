@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for BatchRetrieveInventoryCountsResponse type.
  */
 public class BatchRetrieveInventoryCountsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<InventoryCount> counts;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param counts
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param counts List of InventoryCount value for counts.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public BatchRetrieveInventoryCountsResponse(
@@ -29,11 +34,6 @@ public class BatchRetrieveInventoryCountsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<InventoryCount> counts;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class BatchRetrieveInventoryCountsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -49,8 +50,8 @@ public class BatchRetrieveInventoryCountsResponse {
 
     /**
      * Getter for Counts.
-     * The current calculated inventory counts for the requested objects
-     * and locations.
+     * The current calculated inventory counts for the requested objects and locations.
+     * @return Returns the List of InventoryCount
      */
     @JsonGetter("counts")
     public List<InventoryCount> getCounts() {
@@ -59,9 +60,11 @@ public class BatchRetrieveInventoryCountsResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent request. If unset,
-     * this is the final response.
-     * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. See the
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +79,16 @@ public class BatchRetrieveInventoryCountsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchRetrieveInventoryCountsResponse)) {
+        if (!(obj instanceof BatchRetrieveInventoryCountsResponse)) {
             return false;
         }
-        BatchRetrieveInventoryCountsResponse batchRetrieveInventoryCountsResponse = (BatchRetrieveInventoryCountsResponse) obj;
-        return Objects.equals(errors, batchRetrieveInventoryCountsResponse.errors) &&
-            Objects.equals(counts, batchRetrieveInventoryCountsResponse.counts) &&
-            Objects.equals(cursor, batchRetrieveInventoryCountsResponse.cursor);
+        BatchRetrieveInventoryCountsResponse other = (BatchRetrieveInventoryCountsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(counts, other.counts)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +101,11 @@ public class BatchRetrieveInventoryCountsResponse {
             .errors(getErrors())
             .counts(getCounts())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchRetrieveInventoryCountsResponse}
+     * Class to build instances of {@link BatchRetrieveInventoryCountsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +113,41 @@ public class BatchRetrieveInventoryCountsResponse {
         private List<InventoryCount> counts;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for counts
-         * @param counts
+         * Setter for counts.
+         * @param counts List of InventoryCount value for counts.
          * @return Builder
          */
         public Builder counts(List<InventoryCount> counts) {
             this.counts = counts;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +160,10 @@ public class BatchRetrieveInventoryCountsResponse {
          * @return {@link BatchRetrieveInventoryCountsResponse}
          */
         public BatchRetrieveInventoryCountsResponse build() {
-            BatchRetrieveInventoryCountsResponse model = new BatchRetrieveInventoryCountsResponse(errors,
-                counts,
-                cursor);
+            BatchRetrieveInventoryCountsResponse model =
+                    new BatchRetrieveInventoryCountsResponse(errors,
+                            counts,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

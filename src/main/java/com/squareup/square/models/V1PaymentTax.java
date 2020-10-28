@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for V1PaymentTax type.
  */
 public class V1PaymentTax {
+    private final List<Error> errors;
+    private final String name;
+    private final V1Money appliedMoney;
+    private final String rate;
+    private final String inclusionType;
+    private final String feeId;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param name
-     * @param appliedMoney
-     * @param rate
-     * @param inclusionType
-     * @param feeId
+     * @param errors List of Error value for errors.
+     * @param name String value for name.
+     * @param appliedMoney V1Money value for appliedMoney.
+     * @param rate String value for rate.
+     * @param inclusionType String value for inclusionType.
+     * @param feeId String value for feeId.
      */
     @JsonCreator
     public V1PaymentTax(
@@ -37,15 +44,10 @@ public class V1PaymentTax {
         this.feeId = feeId;
     }
 
-    private final List<Error> errors;
-    private final String name;
-    private final V1Money appliedMoney;
-    private final String rate;
-    private final String inclusionType;
-    private final String feeId;
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -55,6 +57,7 @@ public class V1PaymentTax {
     /**
      * Getter for Name.
      * The merchant-defined name of the tax.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -63,6 +66,7 @@ public class V1PaymentTax {
 
     /**
      * Getter for AppliedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
@@ -71,7 +75,9 @@ public class V1PaymentTax {
 
     /**
      * Getter for Rate.
-     * The rate of the tax, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%.
+     * The rate of the tax, as a string representation of a decimal number. A value of 0.07
+     * corresponds to a rate of 7%.
+     * @return Returns the String
      */
     @JsonGetter("rate")
     public String getRate() {
@@ -80,6 +86,7 @@ public class V1PaymentTax {
 
     /**
      * Getter for InclusionType.
+     * @return Returns the String
      */
     @JsonGetter("inclusion_type")
     public String getInclusionType() {
@@ -88,7 +95,9 @@ public class V1PaymentTax {
 
     /**
      * Getter for FeeId.
-     * The ID of the tax, if available. Taxes applied in older versions of Square Register might not have an ID.
+     * The ID of the tax, if available. Taxes applied in older versions of Square Register might not
+     * have an ID.
+     * @return Returns the String
      */
     @JsonGetter("fee_id")
     public String getFeeId() {
@@ -103,19 +112,19 @@ public class V1PaymentTax {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PaymentTax)) {
+        if (!(obj instanceof V1PaymentTax)) {
             return false;
         }
-        V1PaymentTax v1PaymentTax = (V1PaymentTax) obj;
-        return Objects.equals(errors, v1PaymentTax.errors) &&
-            Objects.equals(name, v1PaymentTax.name) &&
-            Objects.equals(appliedMoney, v1PaymentTax.appliedMoney) &&
-            Objects.equals(rate, v1PaymentTax.rate) &&
-            Objects.equals(inclusionType, v1PaymentTax.inclusionType) &&
-            Objects.equals(feeId, v1PaymentTax.feeId);
+        V1PaymentTax other = (V1PaymentTax) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(name, other.name)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(rate, other.rate)
+            && Objects.equals(inclusionType, other.inclusionType)
+            && Objects.equals(feeId, other.feeId);
     }
 
     /**
@@ -131,11 +140,11 @@ public class V1PaymentTax {
             .rate(getRate())
             .inclusionType(getInclusionType())
             .feeId(getFeeId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PaymentTax}
+     * Class to build instances of {@link V1PaymentTax}.
      */
     public static class Builder {
         private List<Error> errors;
@@ -145,61 +154,61 @@ public class V1PaymentTax {
         private String inclusionType;
         private String feeId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for rate
-         * @param rate
+         * Setter for rate.
+         * @param rate String value for rate.
          * @return Builder
          */
         public Builder rate(String rate) {
             this.rate = rate;
             return this;
         }
+
         /**
-         * Setter for inclusionType
-         * @param inclusionType
+         * Setter for inclusionType.
+         * @param inclusionType String value for inclusionType.
          * @return Builder
          */
         public Builder inclusionType(String inclusionType) {
             this.inclusionType = inclusionType;
             return this;
         }
+
         /**
-         * Setter for feeId
-         * @param feeId
+         * Setter for feeId.
+         * @param feeId String value for feeId.
          * @return Builder
          */
         public Builder feeId(String feeId) {

@@ -1,12 +1,13 @@
-## V1 Cash Drawer Event
+
+# V1 Cash Drawer Event
 
 V1CashDrawerEvent
 
-### Structure
+## Structure
 
 `V1CashDrawerEvent`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -17,7 +18,7 @@ V1CashDrawerEvent
 | `CreatedAt` | `String` | Optional | The time when the event occurred, in ISO 8601 format. | String getCreatedAt() |
 | `Description` | `String` | Optional | An optional description of the event, entered by the employee that created it. | String getDescription() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

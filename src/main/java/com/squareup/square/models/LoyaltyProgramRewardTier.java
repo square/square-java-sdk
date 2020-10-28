@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyProgramRewardTier type.
  */
 public class LoyaltyProgramRewardTier {
+    private final String id;
+    private final int points;
+    private final String name;
+    private final LoyaltyProgramRewardDefinition definition;
+    private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param points
-     * @param name
-     * @param definition
-     * @param createdAt
+     * @param id String value for id.
+     * @param points int value for points.
+     * @param name String value for name.
+     * @param definition LoyaltyProgramRewardDefinition value for definition.
+     * @param createdAt String value for createdAt.
      */
     @JsonCreator
     public LoyaltyProgramRewardTier(
@@ -33,14 +39,10 @@ public class LoyaltyProgramRewardTier {
         this.createdAt = createdAt;
     }
 
-    private final String id;
-    private final int points;
-    private final String name;
-    private final LoyaltyProgramRewardDefinition definition;
-    private final String createdAt;
     /**
      * Getter for Id.
      * The Square-assigned ID of the reward tier.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -50,6 +52,7 @@ public class LoyaltyProgramRewardTier {
     /**
      * Getter for Points.
      * The points exchanged for the reward tier.
+     * @return Returns the int
      */
     @JsonGetter("points")
     public int getPoints() {
@@ -59,6 +62,7 @@ public class LoyaltyProgramRewardTier {
     /**
      * Getter for Name.
      * The name of the reward tier.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -68,6 +72,7 @@ public class LoyaltyProgramRewardTier {
     /**
      * Getter for Definition.
      * Provides details about the loyalty program reward tier definition.
+     * @return Returns the LoyaltyProgramRewardDefinition
      */
     @JsonGetter("definition")
     public LoyaltyProgramRewardDefinition getDefinition() {
@@ -77,6 +82,7 @@ public class LoyaltyProgramRewardTier {
     /**
      * Getter for CreatedAt.
      * The timestamp when the reward tier was created, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -91,18 +97,18 @@ public class LoyaltyProgramRewardTier {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyProgramRewardTier)) {
+        if (!(obj instanceof LoyaltyProgramRewardTier)) {
             return false;
         }
-        LoyaltyProgramRewardTier loyaltyProgramRewardTier = (LoyaltyProgramRewardTier) obj;
-        return Objects.equals(id, loyaltyProgramRewardTier.id) &&
-            Objects.equals(points, loyaltyProgramRewardTier.points) &&
-            Objects.equals(name, loyaltyProgramRewardTier.name) &&
-            Objects.equals(definition, loyaltyProgramRewardTier.definition) &&
-            Objects.equals(createdAt, loyaltyProgramRewardTier.createdAt);
+        LoyaltyProgramRewardTier other = (LoyaltyProgramRewardTier) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(points, other.points)
+            && Objects.equals(name, other.name)
+            && Objects.equals(definition, other.definition)
+            && Objects.equals(createdAt, other.createdAt);
     }
 
     /**
@@ -116,11 +122,11 @@ public class LoyaltyProgramRewardTier {
             name,
             definition,
             createdAt);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyProgramRewardTier}
+     * Class to build instances of {@link LoyaltyProgramRewardTier}.
      */
     public static class Builder {
         private String id;
@@ -130,7 +136,12 @@ public class LoyaltyProgramRewardTier {
         private String createdAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param id String value for id.
+         * @param points int value for points.
+         * @param name String value for name.
+         * @param definition LoyaltyProgramRewardDefinition value for definition.
+         * @param createdAt String value for createdAt.
          */
         public Builder(String id,
                 int points,
@@ -145,44 +156,48 @@ public class LoyaltyProgramRewardTier {
         }
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for points
-         * @param points
+         * Setter for points.
+         * @param points int value for points.
          * @return Builder
          */
         public Builder points(int points) {
             this.points = points;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for definition
-         * @param definition
+         * Setter for definition.
+         * @param definition LoyaltyProgramRewardDefinition value for definition.
          * @return Builder
          */
         public Builder definition(LoyaltyProgramRewardDefinition definition) {
             this.definition = definition;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

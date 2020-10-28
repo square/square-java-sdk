@@ -1,24 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for SearchOrdersRequest type.
  */
 public class SearchOrdersRequest {
+    private final List<String> locationIds;
+    private final String cursor;
+    private final SearchOrdersQuery query;
+    private final Integer limit;
+    private final Boolean returnEntries;
 
     /**
      * Initialization constructor.
-     * @param locationIds
-     * @param cursor
-     * @param query
-     * @param limit
-     * @param returnEntries
+     * @param locationIds List of String value for locationIds.
+     * @param cursor String value for cursor.
+     * @param query SearchOrdersQuery value for query.
+     * @param limit Integer value for limit.
+     * @param returnEntries Boolean value for returnEntries.
      */
     @JsonCreator
     public SearchOrdersRequest(
@@ -34,17 +40,11 @@ public class SearchOrdersRequest {
         this.returnEntries = returnEntries;
     }
 
-    private final List<String> locationIds;
-    private final String cursor;
-    private final SearchOrdersQuery query;
-    private final Integer limit;
-    private final Boolean returnEntries;
     /**
      * Getter for LocationIds.
-     * The location IDs for the orders to query. All locations must belong to
-     * the same merchant.
-     * Min: 1 location IDs.
-     * Max: 10 location IDs.
+     * The location IDs for the orders to query. All locations must belong to the same merchant.
+     * Min: 1 location IDs. Max: 10 location IDs.
+     * @return Returns the List of String
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -53,9 +53,11 @@ public class SearchOrdersRequest {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. See
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -65,6 +67,7 @@ public class SearchOrdersRequest {
     /**
      * Getter for Query.
      * Contains query criteria for the search.
+     * @return Returns the SearchOrdersQuery
      */
     @JsonGetter("query")
     public SearchOrdersQuery getQuery() {
@@ -73,9 +76,9 @@ public class SearchOrdersRequest {
 
     /**
      * Getter for Limit.
-     * Maximum number of results to be returned in a single page. It is
-     * possible to receive fewer results than the specified limit on a given page.
-     * Default: `500`
+     * Maximum number of results to be returned in a single page. It is possible to receive fewer
+     * results than the specified limit on a given page. Default: `500`
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -84,10 +87,10 @@ public class SearchOrdersRequest {
 
     /**
      * Getter for ReturnEntries.
-     * Boolean that controls the format of the search results. If `true`,
-     * SearchOrders will return [`OrderEntry`](#type-orderentry) objects. If `false`, SearchOrders
-     * will return complete Order objects.
-     * Default: `false`.
+     * Boolean that controls the format of the search results. If `true`, SearchOrders will return
+     * [`OrderEntry`](#type-orderentry) objects. If `false`, SearchOrders will return complete Order
+     * objects. Default: `false`.
+     * @return Returns the Boolean
      */
     @JsonGetter("return_entries")
     public Boolean getReturnEntries() {
@@ -102,18 +105,18 @@ public class SearchOrdersRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersRequest)) {
+        if (!(obj instanceof SearchOrdersRequest)) {
             return false;
         }
-        SearchOrdersRequest searchOrdersRequest = (SearchOrdersRequest) obj;
-        return Objects.equals(locationIds, searchOrdersRequest.locationIds) &&
-            Objects.equals(cursor, searchOrdersRequest.cursor) &&
-            Objects.equals(query, searchOrdersRequest.query) &&
-            Objects.equals(limit, searchOrdersRequest.limit) &&
-            Objects.equals(returnEntries, searchOrdersRequest.returnEntries);
+        SearchOrdersRequest other = (SearchOrdersRequest) obj;
+        return Objects.equals(locationIds, other.locationIds)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(query, other.query)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(returnEntries, other.returnEntries);
     }
 
     /**
@@ -128,11 +131,11 @@ public class SearchOrdersRequest {
             .query(getQuery())
             .limit(getLimit())
             .returnEntries(getReturnEntries());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersRequest}
+     * Class to build instances of {@link SearchOrdersRequest}.
      */
     public static class Builder {
         private List<String> locationIds;
@@ -141,52 +144,51 @@ public class SearchOrdersRequest {
         private Integer limit;
         private Boolean returnEntries;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
             this.locationIds = locationIds;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query SearchOrdersQuery value for query.
          * @return Builder
          */
         public Builder query(SearchOrdersQuery query) {
             this.query = query;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for returnEntries
-         * @param returnEntries
+         * Setter for returnEntries.
+         * @param returnEntries Boolean value for returnEntries.
          * @return Builder
          */
         public Builder returnEntries(Boolean returnEntries) {

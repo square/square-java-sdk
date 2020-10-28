@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchTerminalCheckoutsRequest type.
  */
 public class SearchTerminalCheckoutsRequest {
+    private final TerminalCheckoutQuery query;
+    private final String cursor;
+    private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param query
-     * @param cursor
-     * @param limit
+     * @param query TerminalCheckoutQuery value for query.
+     * @param cursor String value for cursor.
+     * @param limit Integer value for limit.
      */
     @JsonCreator
     public SearchTerminalCheckoutsRequest(
@@ -27,11 +31,9 @@ public class SearchTerminalCheckoutsRequest {
         this.limit = limit;
     }
 
-    private final TerminalCheckoutQuery query;
-    private final String cursor;
-    private final Integer limit;
     /**
      * Getter for Query.
+     * @return Returns the TerminalCheckoutQuery
      */
     @JsonGetter("query")
     public TerminalCheckoutQuery getQuery() {
@@ -40,8 +42,11 @@ public class SearchTerminalCheckoutsRequest {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for the original query.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. See
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -51,6 +56,7 @@ public class SearchTerminalCheckoutsRequest {
     /**
      * Getter for Limit.
      * Limit the number of results returned for a single request.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -65,16 +71,16 @@ public class SearchTerminalCheckoutsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchTerminalCheckoutsRequest)) {
+        if (!(obj instanceof SearchTerminalCheckoutsRequest)) {
             return false;
         }
-        SearchTerminalCheckoutsRequest searchTerminalCheckoutsRequest = (SearchTerminalCheckoutsRequest) obj;
-        return Objects.equals(query, searchTerminalCheckoutsRequest.query) &&
-            Objects.equals(cursor, searchTerminalCheckoutsRequest.cursor) &&
-            Objects.equals(limit, searchTerminalCheckoutsRequest.limit);
+        SearchTerminalCheckoutsRequest other = (SearchTerminalCheckoutsRequest) obj;
+        return Objects.equals(query, other.query)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit);
     }
 
     /**
@@ -87,45 +93,42 @@ public class SearchTerminalCheckoutsRequest {
             .query(getQuery())
             .cursor(getCursor())
             .limit(getLimit());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchTerminalCheckoutsRequest}
+     * Class to build instances of {@link SearchTerminalCheckoutsRequest}.
      */
     public static class Builder {
         private TerminalCheckoutQuery query;
         private String cursor;
         private Integer limit;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query TerminalCheckoutQuery value for query.
          * @return Builder
          */
         public Builder query(TerminalCheckoutQuery query) {
             this.query = query;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

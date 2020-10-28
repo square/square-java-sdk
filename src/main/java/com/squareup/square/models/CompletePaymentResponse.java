@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CompletePaymentResponse type.
  */
 public class CompletePaymentResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Payment payment;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param payment
+     * @param errors List of Error value for errors.
+     * @param payment Payment value for payment.
      */
     @JsonCreator
     public CompletePaymentResponse(
@@ -26,17 +30,14 @@ public class CompletePaymentResponse {
         this.payment = payment;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Payment payment;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request
+     * Information about errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -46,6 +47,7 @@ public class CompletePaymentResponse {
     /**
      * Getter for Payment.
      * Represents a payment processed by the Square API.
+     * @return Returns the Payment
      */
     @JsonGetter("payment")
     public Payment getPayment() {
@@ -60,15 +62,15 @@ public class CompletePaymentResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CompletePaymentResponse)) {
+        if (!(obj instanceof CompletePaymentResponse)) {
             return false;
         }
-        CompletePaymentResponse completePaymentResponse = (CompletePaymentResponse) obj;
-        return Objects.equals(errors, completePaymentResponse.errors) &&
-            Objects.equals(payment, completePaymentResponse.payment);
+        CompletePaymentResponse other = (CompletePaymentResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(payment, other.payment);
     }
 
     /**
@@ -80,45 +82,42 @@ public class CompletePaymentResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .payment(getPayment());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CompletePaymentResponse}
+     * Class to build instances of {@link CompletePaymentResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Payment payment;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for payment
-         * @param payment
+         * Setter for payment.
+         * @param payment Payment value for payment.
          * @return Builder
          */
         public Builder payment(Payment payment) {
@@ -131,8 +130,9 @@ public class CompletePaymentResponse {
          * @return {@link CompletePaymentResponse}
          */
         public CompletePaymentResponse build() {
-            CompletePaymentResponse model = new CompletePaymentResponse(errors,
-                payment);
+            CompletePaymentResponse model =
+                    new CompletePaymentResponse(errors,
+                            payment);
             model.httpContext = httpContext;
             return model;
         }

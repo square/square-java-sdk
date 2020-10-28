@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchSubscriptionsResponse type.
  */
 public class SearchSubscriptionsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<Subscription> subscriptions;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param subscriptions
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param subscriptions List of Subscription value for subscriptions.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public SearchSubscriptionsResponse(
@@ -29,11 +34,6 @@ public class SearchSubscriptionsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<Subscription> subscriptions;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class SearchSubscriptionsResponse {
     /**
      * Getter for Errors.
      * Information about errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class SearchSubscriptionsResponse {
     /**
      * Getter for Subscriptions.
      * The search result.
+     * @return Returns the List of Subscription
      */
     @JsonGetter("subscriptions")
     public List<Subscription> getSubscriptions() {
@@ -58,10 +60,11 @@ public class SearchSubscriptionsResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can 
-     * use in a subsequent request to fetch the next set of subscriptions. 
-     * If empty, this is the final response.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request
+     * to fetch the next set of subscriptions. If empty, this is the final response. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +79,16 @@ public class SearchSubscriptionsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchSubscriptionsResponse)) {
+        if (!(obj instanceof SearchSubscriptionsResponse)) {
             return false;
         }
-        SearchSubscriptionsResponse searchSubscriptionsResponse = (SearchSubscriptionsResponse) obj;
-        return Objects.equals(errors, searchSubscriptionsResponse.errors) &&
-            Objects.equals(subscriptions, searchSubscriptionsResponse.subscriptions) &&
-            Objects.equals(cursor, searchSubscriptionsResponse.cursor);
+        SearchSubscriptionsResponse other = (SearchSubscriptionsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(subscriptions, other.subscriptions)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +101,11 @@ public class SearchSubscriptionsResponse {
             .errors(getErrors())
             .subscriptions(getSubscriptions())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchSubscriptionsResponse}
+     * Class to build instances of {@link SearchSubscriptionsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +113,41 @@ public class SearchSubscriptionsResponse {
         private List<Subscription> subscriptions;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for subscriptions
-         * @param subscriptions
+         * Setter for subscriptions.
+         * @param subscriptions List of Subscription value for subscriptions.
          * @return Builder
          */
         public Builder subscriptions(List<Subscription> subscriptions) {
             this.subscriptions = subscriptions;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +160,10 @@ public class SearchSubscriptionsResponse {
          * @return {@link SearchSubscriptionsResponse}
          */
         public SearchSubscriptionsResponse build() {
-            SearchSubscriptionsResponse model = new SearchSubscriptionsResponse(errors,
-                subscriptions,
-                cursor);
+            SearchSubscriptionsResponse model =
+                    new SearchSubscriptionsResponse(errors,
+                            subscriptions,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

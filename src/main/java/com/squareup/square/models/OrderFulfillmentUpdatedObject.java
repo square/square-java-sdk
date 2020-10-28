@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderFulfillmentUpdatedObject type.
  */
 public class OrderFulfillmentUpdatedObject {
+    private final OrderFulfillmentUpdated orderFulfillmentUpdated;
 
     /**
      * Initialization constructor.
-     * @param orderFulfillmentUpdated
+     * @param orderFulfillmentUpdated OrderFulfillmentUpdated value for orderFulfillmentUpdated.
      */
     @JsonCreator
     public OrderFulfillmentUpdatedObject(
@@ -21,9 +23,9 @@ public class OrderFulfillmentUpdatedObject {
         this.orderFulfillmentUpdated = orderFulfillmentUpdated;
     }
 
-    private final OrderFulfillmentUpdated orderFulfillmentUpdated;
     /**
      * Getter for OrderFulfillmentUpdated.
+     * @return Returns the OrderFulfillmentUpdated
      */
     @JsonGetter("order_fulfillment_updated")
     public OrderFulfillmentUpdated getOrderFulfillmentUpdated() {
@@ -38,14 +40,14 @@ public class OrderFulfillmentUpdatedObject {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderFulfillmentUpdatedObject)) {
+        if (!(obj instanceof OrderFulfillmentUpdatedObject)) {
             return false;
         }
-        OrderFulfillmentUpdatedObject orderFulfillmentUpdatedObject = (OrderFulfillmentUpdatedObject) obj;
-        return Objects.equals(orderFulfillmentUpdated, orderFulfillmentUpdatedObject.orderFulfillmentUpdated);
+        OrderFulfillmentUpdatedObject other = (OrderFulfillmentUpdatedObject) obj;
+        return Objects.equals(orderFulfillmentUpdated, other.orderFulfillmentUpdated);
     }
 
     /**
@@ -56,25 +58,20 @@ public class OrderFulfillmentUpdatedObject {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .orderFulfillmentUpdated(getOrderFulfillmentUpdated());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderFulfillmentUpdatedObject}
+     * Class to build instances of {@link OrderFulfillmentUpdatedObject}.
      */
     public static class Builder {
         private OrderFulfillmentUpdated orderFulfillmentUpdated;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for orderFulfillmentUpdated
-         * @param orderFulfillmentUpdated
+         * Setter for orderFulfillmentUpdated.
+         * @param orderFulfillmentUpdated OrderFulfillmentUpdated value for orderFulfillmentUpdated.
          * @return Builder
          */
         public Builder orderFulfillmentUpdated(OrderFulfillmentUpdated orderFulfillmentUpdated) {

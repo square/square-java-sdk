@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for UpdateShiftRequest type.
  */
 public class UpdateShiftRequest {
+    private final Shift shift;
 
     /**
      * Initialization constructor.
-     * @param shift
+     * @param shift Shift value for shift.
      */
     @JsonCreator
     public UpdateShiftRequest(
@@ -21,12 +23,11 @@ public class UpdateShiftRequest {
         this.shift = shift;
     }
 
-    private final Shift shift;
     /**
      * Getter for Shift.
-     * A record of the hourly rate, start, and end times for a single work shift
-     * for an employee. May include a record of the start and end times for breaks
-     * taken during the shift.
+     * A record of the hourly rate, start, and end times for a single work shift for an employee.
+     * May include a record of the start and end times for breaks taken during the shift.
+     * @return Returns the Shift
      */
     @JsonGetter("shift")
     public Shift getShift() {
@@ -41,14 +42,14 @@ public class UpdateShiftRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateShiftRequest)) {
+        if (!(obj instanceof UpdateShiftRequest)) {
             return false;
         }
-        UpdateShiftRequest updateShiftRequest = (UpdateShiftRequest) obj;
-        return Objects.equals(shift, updateShiftRequest.shift);
+        UpdateShiftRequest other = (UpdateShiftRequest) obj;
+        return Objects.equals(shift, other.shift);
     }
 
     /**
@@ -58,25 +59,26 @@ public class UpdateShiftRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(shift);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateShiftRequest}
+     * Class to build instances of {@link UpdateShiftRequest}.
      */
     public static class Builder {
         private Shift shift;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param shift Shift value for shift.
          */
         public Builder(Shift shift) {
             this.shift = shift;
         }
 
         /**
-         * Setter for shift
-         * @param shift
+         * Setter for shift.
+         * @param shift Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {

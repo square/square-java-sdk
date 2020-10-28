@@ -1,29 +1,41 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for TeamMember type.
  */
 public class TeamMember {
+    private final String id;
+    private final String referenceId;
+    private final Boolean isOwner;
+    private final String status;
+    private final String givenName;
+    private final String familyName;
+    private final String emailAddress;
+    private final String phoneNumber;
+    private final String createdAt;
+    private final String updatedAt;
+    private final TeamMemberAssignedLocations assignedLocations;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param referenceId
-     * @param isOwner
-     * @param status
-     * @param givenName
-     * @param familyName
-     * @param emailAddress
-     * @param phoneNumber
-     * @param createdAt
-     * @param updatedAt
-     * @param assignedLocations
+     * @param id String value for id.
+     * @param referenceId String value for referenceId.
+     * @param isOwner Boolean value for isOwner.
+     * @param status String value for status.
+     * @param givenName String value for givenName.
+     * @param familyName String value for familyName.
+     * @param emailAddress String value for emailAddress.
+     * @param phoneNumber String value for phoneNumber.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param assignedLocations TeamMemberAssignedLocations value for assignedLocations.
      */
     @JsonCreator
     public TeamMember(
@@ -51,20 +63,10 @@ public class TeamMember {
         this.assignedLocations = assignedLocations;
     }
 
-    private final String id;
-    private final String referenceId;
-    private final Boolean isOwner;
-    private final String status;
-    private final String givenName;
-    private final String familyName;
-    private final String emailAddress;
-    private final String phoneNumber;
-    private final String createdAt;
-    private final String updatedAt;
-    private final TeamMemberAssignedLocations assignedLocations;
     /**
      * Getter for Id.
      * The unique ID for the team member.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -74,6 +76,7 @@ public class TeamMember {
     /**
      * Getter for ReferenceId.
      * A second ID used to associate the team member with an entity in another system.
+     * @return Returns the String
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
@@ -83,6 +86,7 @@ public class TeamMember {
     /**
      * Getter for IsOwner.
      * Whether the team member is the owner of the Square account.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_owner")
     public Boolean getIsOwner() {
@@ -92,6 +96,7 @@ public class TeamMember {
     /**
      * Getter for Status.
      * Enumerates the possible statuses the team member can have within a business.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -101,6 +106,7 @@ public class TeamMember {
     /**
      * Getter for GivenName.
      * The given (i.e., first) name associated with the team member.
+     * @return Returns the String
      */
     @JsonGetter("given_name")
     public String getGivenName() {
@@ -110,6 +116,7 @@ public class TeamMember {
     /**
      * Getter for FamilyName.
      * The family (i.e., last) name associated with the team member.
+     * @return Returns the String
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
@@ -119,6 +126,7 @@ public class TeamMember {
     /**
      * Getter for EmailAddress.
      * The email address associated with the team member.
+     * @return Returns the String
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
@@ -127,9 +135,9 @@ public class TeamMember {
 
     /**
      * Getter for PhoneNumber.
-     * The team member's phone number in E.164 format. Examples:
-     * +14155552671 - the country code is 1 for US
-     * +551155256325 - the country code is 55 for BR
+     * The team member's phone number in E.164 format. Examples: +14155552671 - the country code is
+     * 1 for US +551155256325 - the country code is 55 for BR
+     * @return Returns the String
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
@@ -138,8 +146,9 @@ public class TeamMember {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp in RFC 3339 format describing when the team member was created.
-     * Ex: "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp in RFC 3339 format describing when the team member was created. Ex:
+     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -148,8 +157,9 @@ public class TeamMember {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp in RFC 3339 format describing when the team member was last updated.
-     * Ex: "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp in RFC 3339 format describing when the team member was last updated. Ex:
+     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -159,6 +169,7 @@ public class TeamMember {
     /**
      * Getter for AssignedLocations.
      * An object that represents a team member's assignment to locations.
+     * @return Returns the TeamMemberAssignedLocations
      */
     @JsonGetter("assigned_locations")
     public TeamMemberAssignedLocations getAssignedLocations() {
@@ -169,29 +180,29 @@ public class TeamMember {
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, isOwner, status, givenName, familyName, emailAddress,
-            phoneNumber, createdAt, updatedAt, assignedLocations);
+                phoneNumber, createdAt, updatedAt, assignedLocations);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TeamMember)) {
+        if (!(obj instanceof TeamMember)) {
             return false;
         }
-        TeamMember teamMember = (TeamMember) obj;
-        return Objects.equals(id, teamMember.id) &&
-            Objects.equals(referenceId, teamMember.referenceId) &&
-            Objects.equals(isOwner, teamMember.isOwner) &&
-            Objects.equals(status, teamMember.status) &&
-            Objects.equals(givenName, teamMember.givenName) &&
-            Objects.equals(familyName, teamMember.familyName) &&
-            Objects.equals(emailAddress, teamMember.emailAddress) &&
-            Objects.equals(phoneNumber, teamMember.phoneNumber) &&
-            Objects.equals(createdAt, teamMember.createdAt) &&
-            Objects.equals(updatedAt, teamMember.updatedAt) &&
-            Objects.equals(assignedLocations, teamMember.assignedLocations);
+        TeamMember other = (TeamMember) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(referenceId, other.referenceId)
+            && Objects.equals(isOwner, other.isOwner)
+            && Objects.equals(status, other.status)
+            && Objects.equals(givenName, other.givenName)
+            && Objects.equals(familyName, other.familyName)
+            && Objects.equals(emailAddress, other.emailAddress)
+            && Objects.equals(phoneNumber, other.phoneNumber)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(assignedLocations, other.assignedLocations);
     }
 
     /**
@@ -212,11 +223,11 @@ public class TeamMember {
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt())
             .assignedLocations(getAssignedLocations());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TeamMember}
+     * Class to build instances of {@link TeamMember}.
      */
     public static class Builder {
         private String id;
@@ -231,106 +242,111 @@ public class TeamMember {
         private String updatedAt;
         private TeamMemberAssignedLocations assignedLocations;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for referenceId
-         * @param referenceId
+         * Setter for referenceId.
+         * @param referenceId String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
             this.referenceId = referenceId;
             return this;
         }
+
         /**
-         * Setter for isOwner
-         * @param isOwner
+         * Setter for isOwner.
+         * @param isOwner Boolean value for isOwner.
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
             this.isOwner = isOwner;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for givenName
-         * @param givenName
+         * Setter for givenName.
+         * @param givenName String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
             this.givenName = givenName;
             return this;
         }
+
         /**
-         * Setter for familyName
-         * @param familyName
+         * Setter for familyName.
+         * @param familyName String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
             this.familyName = familyName;
             return this;
         }
+
         /**
-         * Setter for emailAddress
-         * @param emailAddress
+         * Setter for emailAddress.
+         * @param emailAddress String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
+
         /**
-         * Setter for phoneNumber
-         * @param phoneNumber
+         * Setter for phoneNumber.
+         * @param phoneNumber String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for assignedLocations
-         * @param assignedLocations
+         * Setter for assignedLocations.
+         * @param assignedLocations TeamMemberAssignedLocations value for assignedLocations.
          * @return Builder
          */
         public Builder assignedLocations(TeamMemberAssignedLocations assignedLocations) {

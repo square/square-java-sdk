@@ -1,10 +1,11 @@
-## Revoke Token Request
 
-### Structure
+# Revoke Token Request
+
+## Structure
 
 `RevokeTokenRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -13,7 +14,7 @@
 | `MerchantId` | `String` | Optional | The ID of the merchant whose token you want to revoke.<br>Do not provide a value for access_token if you provide this parameter. | String getMerchantId() |
 | `RevokeOnlyAccessToken` | `Boolean` | Optional | If `true`, terminate the given single access token, but do not<br>terminate the entire authorization.<br>Default: `false` | Boolean getRevokeOnlyAccessToken() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchSubscriptionsRequest type.
  */
 public class SearchSubscriptionsRequest {
+    private final String cursor;
+    private final Integer limit;
+    private final SearchSubscriptionsQuery query;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param limit
-     * @param query
+     * @param cursor String value for cursor.
+     * @param limit Integer value for limit.
+     * @param query SearchSubscriptionsQuery value for query.
      */
     @JsonCreator
     public SearchSubscriptionsRequest(
@@ -27,14 +31,12 @@ public class SearchSubscriptionsRequest {
         this.query = query;
     }
 
-    private final String cursor;
-    private final Integer limit;
-    private final SearchSubscriptionsQuery query;
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for the original query.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -43,9 +45,8 @@ public class SearchSubscriptionsRequest {
 
     /**
      * Getter for Limit.
-     * The upper limit on the number of subscriptions to return 
-     * in the response. 
-     * Default: `200`
+     * The upper limit on the number of subscriptions to return in the response. Default: `200`
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -55,6 +56,7 @@ public class SearchSubscriptionsRequest {
     /**
      * Getter for Query.
      * Represents a query (including filtering criteria) used to search for subscriptions.
+     * @return Returns the SearchSubscriptionsQuery
      */
     @JsonGetter("query")
     public SearchSubscriptionsQuery getQuery() {
@@ -69,16 +71,16 @@ public class SearchSubscriptionsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchSubscriptionsRequest)) {
+        if (!(obj instanceof SearchSubscriptionsRequest)) {
             return false;
         }
-        SearchSubscriptionsRequest searchSubscriptionsRequest = (SearchSubscriptionsRequest) obj;
-        return Objects.equals(cursor, searchSubscriptionsRequest.cursor) &&
-            Objects.equals(limit, searchSubscriptionsRequest.limit) &&
-            Objects.equals(query, searchSubscriptionsRequest.query);
+        SearchSubscriptionsRequest other = (SearchSubscriptionsRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(query, other.query);
     }
 
     /**
@@ -91,45 +93,42 @@ public class SearchSubscriptionsRequest {
             .cursor(getCursor())
             .limit(getLimit())
             .query(getQuery());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchSubscriptionsRequest}
+     * Class to build instances of {@link SearchSubscriptionsRequest}.
      */
     public static class Builder {
         private String cursor;
         private Integer limit;
         private SearchSubscriptionsQuery query;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query SearchSubscriptionsQuery value for query.
          * @return Builder
          */
         public Builder query(SearchSubscriptionsQuery query) {

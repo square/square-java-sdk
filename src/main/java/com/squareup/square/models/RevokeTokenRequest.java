@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for RevokeTokenRequest type.
  */
 public class RevokeTokenRequest {
+    private final String clientId;
+    private final String accessToken;
+    private final String merchantId;
+    private final Boolean revokeOnlyAccessToken;
 
     /**
      * Initialization constructor.
-     * @param clientId
-     * @param accessToken
-     * @param merchantId
-     * @param revokeOnlyAccessToken
+     * @param clientId String value for clientId.
+     * @param accessToken String value for accessToken.
+     * @param merchantId String value for merchantId.
+     * @param revokeOnlyAccessToken Boolean value for revokeOnlyAccessToken.
      */
     @JsonCreator
     public RevokeTokenRequest(
@@ -30,14 +35,11 @@ public class RevokeTokenRequest {
         this.revokeOnlyAccessToken = revokeOnlyAccessToken;
     }
 
-    private final String clientId;
-    private final String accessToken;
-    private final String merchantId;
-    private final Boolean revokeOnlyAccessToken;
     /**
      * Getter for ClientId.
-     * The Square issued ID for your application, available from the
-     * [application dashboard](https://connect.squareup.com/apps).
+     * The Square issued ID for your application, available from the [application
+     * dashboard](https://connect.squareup.com/apps).
+     * @return Returns the String
      */
     @JsonGetter("client_id")
     public String getClientId() {
@@ -46,8 +48,9 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for AccessToken.
-     * The access token of the merchant whose token you want to revoke.
-     * Do not provide a value for merchant_id if you provide this parameter.
+     * The access token of the merchant whose token you want to revoke. Do not provide a value for
+     * merchant_id if you provide this parameter.
+     * @return Returns the String
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
@@ -56,8 +59,9 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for MerchantId.
-     * The ID of the merchant whose token you want to revoke.
-     * Do not provide a value for access_token if you provide this parameter.
+     * The ID of the merchant whose token you want to revoke. Do not provide a value for
+     * access_token if you provide this parameter.
+     * @return Returns the String
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
@@ -66,9 +70,9 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for RevokeOnlyAccessToken.
-     * If `true`, terminate the given single access token, but do not
-     * terminate the entire authorization.
-     * Default: `false`
+     * If `true`, terminate the given single access token, but do not terminate the entire
+     * authorization. Default: `false`
+     * @return Returns the Boolean
      */
     @JsonGetter("revoke_only_access_token")
     public Boolean getRevokeOnlyAccessToken() {
@@ -83,17 +87,17 @@ public class RevokeTokenRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RevokeTokenRequest)) {
+        if (!(obj instanceof RevokeTokenRequest)) {
             return false;
         }
-        RevokeTokenRequest revokeTokenRequest = (RevokeTokenRequest) obj;
-        return Objects.equals(clientId, revokeTokenRequest.clientId) &&
-            Objects.equals(accessToken, revokeTokenRequest.accessToken) &&
-            Objects.equals(merchantId, revokeTokenRequest.merchantId) &&
-            Objects.equals(revokeOnlyAccessToken, revokeTokenRequest.revokeOnlyAccessToken);
+        RevokeTokenRequest other = (RevokeTokenRequest) obj;
+        return Objects.equals(clientId, other.clientId)
+            && Objects.equals(accessToken, other.accessToken)
+            && Objects.equals(merchantId, other.merchantId)
+            && Objects.equals(revokeOnlyAccessToken, other.revokeOnlyAccessToken);
     }
 
     /**
@@ -107,11 +111,11 @@ public class RevokeTokenRequest {
             .accessToken(getAccessToken())
             .merchantId(getMerchantId())
             .revokeOnlyAccessToken(getRevokeOnlyAccessToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RevokeTokenRequest}
+     * Class to build instances of {@link RevokeTokenRequest}.
      */
     public static class Builder {
         private String clientId;
@@ -119,43 +123,41 @@ public class RevokeTokenRequest {
         private String merchantId;
         private Boolean revokeOnlyAccessToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for clientId
-         * @param clientId
+         * Setter for clientId.
+         * @param clientId String value for clientId.
          * @return Builder
          */
         public Builder clientId(String clientId) {
             this.clientId = clientId;
             return this;
         }
+
         /**
-         * Setter for accessToken
-         * @param accessToken
+         * Setter for accessToken.
+         * @param accessToken String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
             this.accessToken = accessToken;
             return this;
         }
+
         /**
-         * Setter for merchantId
-         * @param merchantId
+         * Setter for merchantId.
+         * @param merchantId String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
             this.merchantId = merchantId;
             return this;
         }
+
         /**
-         * Setter for revokeOnlyAccessToken
-         * @param revokeOnlyAccessToken
+         * Setter for revokeOnlyAccessToken.
+         * @param revokeOnlyAccessToken Boolean value for revokeOnlyAccessToken.
          * @return Builder
          */
         public Builder revokeOnlyAccessToken(Boolean revokeOnlyAccessToken) {

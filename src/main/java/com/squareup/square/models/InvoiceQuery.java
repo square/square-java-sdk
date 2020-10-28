@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for InvoiceQuery type.
  */
 public class InvoiceQuery {
+    private final InvoiceFilter filter;
+    private final InvoiceSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter
-     * @param sort
+     * @param filter InvoiceFilter value for filter.
+     * @param sort InvoiceSort value for sort.
      */
     @JsonCreator
     public InvoiceQuery(
@@ -24,11 +27,10 @@ public class InvoiceQuery {
         this.sort = sort;
     }
 
-    private final InvoiceFilter filter;
-    private final InvoiceSort sort;
     /**
      * Getter for Filter.
      * Describes query filters to apply.
+     * @return Returns the InvoiceFilter
      */
     @JsonGetter("filter")
     public InvoiceFilter getFilter() {
@@ -37,7 +39,8 @@ public class InvoiceQuery {
 
     /**
      * Getter for Sort.
-     * Identifies the  sort field and sort order.
+     * Identifies the sort field and sort order.
+     * @return Returns the InvoiceSort
      */
     @JsonGetter("sort")
     public InvoiceSort getSort() {
@@ -52,15 +55,15 @@ public class InvoiceQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InvoiceQuery)) {
+        if (!(obj instanceof InvoiceQuery)) {
             return false;
         }
-        InvoiceQuery invoiceQuery = (InvoiceQuery) obj;
-        return Objects.equals(filter, invoiceQuery.filter) &&
-            Objects.equals(sort, invoiceQuery.sort);
+        InvoiceQuery other = (InvoiceQuery) obj;
+        return Objects.equals(filter, other.filter)
+            && Objects.equals(sort, other.sort);
     }
 
     /**
@@ -71,35 +74,37 @@ public class InvoiceQuery {
     public Builder toBuilder() {
         Builder builder = new Builder(filter)
             .sort(getSort());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoiceQuery}
+     * Class to build instances of {@link InvoiceQuery}.
      */
     public static class Builder {
         private InvoiceFilter filter;
         private InvoiceSort sort;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param filter InvoiceFilter value for filter.
          */
         public Builder(InvoiceFilter filter) {
             this.filter = filter;
         }
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter InvoiceFilter value for filter.
          * @return Builder
          */
         public Builder filter(InvoiceFilter filter) {
             this.filter = filter;
             return this;
         }
+
         /**
-         * Setter for sort
-         * @param sort
+         * Setter for sort.
+         * @param sort InvoiceSort value for sort.
          * @return Builder
          */
         public Builder sort(InvoiceSort sort) {

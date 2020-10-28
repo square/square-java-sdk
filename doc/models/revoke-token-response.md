@@ -1,16 +1,17 @@
-## Revoke Token Response
 
-### Structure
+# Revoke Token Response
+
+## Structure
 
 `RevokeTokenResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Success` | `Boolean` | Optional | If the request is successful, this is true. | Boolean getSuccess() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

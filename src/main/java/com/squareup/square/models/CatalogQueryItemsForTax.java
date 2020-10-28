@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogQueryItemsForTax type.
  */
 public class CatalogQueryItemsForTax {
+    private final List<String> taxIds;
 
     /**
      * Initialization constructor.
-     * @param taxIds
+     * @param taxIds List of String value for taxIds.
      */
     @JsonCreator
     public CatalogQueryItemsForTax(
@@ -22,10 +24,10 @@ public class CatalogQueryItemsForTax {
         this.taxIds = taxIds;
     }
 
-    private final List<String> taxIds;
     /**
      * Getter for TaxIds.
      * A set of `CatalogTax` IDs to be used to find associated `CatalogItem`s.
+     * @return Returns the List of String
      */
     @JsonGetter("tax_ids")
     public List<String> getTaxIds() {
@@ -40,14 +42,14 @@ public class CatalogQueryItemsForTax {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogQueryItemsForTax)) {
+        if (!(obj instanceof CatalogQueryItemsForTax)) {
             return false;
         }
-        CatalogQueryItemsForTax catalogQueryItemsForTax = (CatalogQueryItemsForTax) obj;
-        return Objects.equals(taxIds, catalogQueryItemsForTax.taxIds);
+        CatalogQueryItemsForTax other = (CatalogQueryItemsForTax) obj;
+        return Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -57,25 +59,26 @@ public class CatalogQueryItemsForTax {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(taxIds);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogQueryItemsForTax}
+     * Class to build instances of {@link CatalogQueryItemsForTax}.
      */
     public static class Builder {
         private List<String> taxIds;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param taxIds List of String value for taxIds.
          */
         public Builder(List<String> taxIds) {
             this.taxIds = taxIds;
         }
 
         /**
-         * Setter for taxIds
-         * @param taxIds
+         * Setter for taxIds.
+         * @param taxIds List of String value for taxIds.
          * @return Builder
          */
         public Builder taxIds(List<String> taxIds) {

@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for V1ListRefundsResponse type.
  */
 public class V1ListRefundsResponse {
+    private final List<V1Refund> items;
 
     /**
      * Initialization constructor.
-     * @param items
+     * @param items List of V1Refund value for items.
      */
     @JsonCreator
     public V1ListRefundsResponse(
@@ -22,9 +24,9 @@ public class V1ListRefundsResponse {
         this.items = items;
     }
 
-    private final List<V1Refund> items;
     /**
      * Getter for Items.
+     * @return Returns the List of V1Refund
      */
     @JsonGetter("items")
     public List<V1Refund> getItems() {
@@ -39,14 +41,14 @@ public class V1ListRefundsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListRefundsResponse)) {
+        if (!(obj instanceof V1ListRefundsResponse)) {
             return false;
         }
-        V1ListRefundsResponse v1ListRefundsResponse = (V1ListRefundsResponse) obj;
-        return Objects.equals(items, v1ListRefundsResponse.items);
+        V1ListRefundsResponse other = (V1ListRefundsResponse) obj;
+        return Objects.equals(items, other.items);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1ListRefundsResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .items(getItems());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListRefundsResponse}
+     * Class to build instances of {@link V1ListRefundsResponse}.
      */
     public static class Builder {
         private List<V1Refund> items;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for items
-         * @param items
+         * Setter for items.
+         * @param items List of V1Refund value for items.
          * @return Builder
          */
         public Builder items(List<V1Refund> items) {

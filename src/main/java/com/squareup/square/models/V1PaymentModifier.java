@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1PaymentModifier type.
  */
 public class V1PaymentModifier {
+    private final String name;
+    private final V1Money appliedMoney;
+    private final String modifierOptionId;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param appliedMoney
-     * @param modifierOptionId
+     * @param name String value for name.
+     * @param appliedMoney V1Money value for appliedMoney.
+     * @param modifierOptionId String value for modifierOptionId.
      */
     @JsonCreator
     public V1PaymentModifier(
@@ -27,12 +31,10 @@ public class V1PaymentModifier {
         this.modifierOptionId = modifierOptionId;
     }
 
-    private final String name;
-    private final V1Money appliedMoney;
-    private final String modifierOptionId;
     /**
      * Getter for Name.
      * The modifier option's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -41,6 +43,7 @@ public class V1PaymentModifier {
 
     /**
      * Getter for AppliedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
@@ -49,7 +52,9 @@ public class V1PaymentModifier {
 
     /**
      * Getter for ModifierOptionId.
-     * TThe ID of the applied modifier option, if available. Modifier options applied in older versions of Square Register might not have an ID.
+     * TThe ID of the applied modifier option, if available. Modifier options applied in older
+     * versions of Square Register might not have an ID.
+     * @return Returns the String
      */
     @JsonGetter("modifier_option_id")
     public String getModifierOptionId() {
@@ -64,16 +69,16 @@ public class V1PaymentModifier {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PaymentModifier)) {
+        if (!(obj instanceof V1PaymentModifier)) {
             return false;
         }
-        V1PaymentModifier v1PaymentModifier = (V1PaymentModifier) obj;
-        return Objects.equals(name, v1PaymentModifier.name) &&
-            Objects.equals(appliedMoney, v1PaymentModifier.appliedMoney) &&
-            Objects.equals(modifierOptionId, v1PaymentModifier.modifierOptionId);
+        V1PaymentModifier other = (V1PaymentModifier) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(modifierOptionId, other.modifierOptionId);
     }
 
     /**
@@ -86,45 +91,42 @@ public class V1PaymentModifier {
             .name(getName())
             .appliedMoney(getAppliedMoney())
             .modifierOptionId(getModifierOptionId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PaymentModifier}
+     * Class to build instances of {@link V1PaymentModifier}.
      */
     public static class Builder {
         private String name;
         private V1Money appliedMoney;
         private String modifierOptionId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for modifierOptionId
-         * @param modifierOptionId
+         * Setter for modifierOptionId.
+         * @param modifierOptionId String value for modifierOptionId.
          * @return Builder
          */
         public Builder modifierOptionId(String modifierOptionId) {

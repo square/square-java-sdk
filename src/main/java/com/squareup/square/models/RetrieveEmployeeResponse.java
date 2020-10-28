@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for RetrieveEmployeeResponse type.
  */
 public class RetrieveEmployeeResponse {
+    private HttpContext httpContext;
+    private final Employee employee;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param employee
-     * @param errors
+     * @param employee Employee value for employee.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public RetrieveEmployeeResponse(
@@ -26,10 +30,6 @@ public class RetrieveEmployeeResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final Employee employee;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class RetrieveEmployeeResponse {
     /**
      * Getter for Employee.
      * An employee object that is used by the external API.
+     * @return Returns the Employee
      */
     @JsonGetter("employee")
     public Employee getEmployee() {
@@ -46,6 +47,7 @@ public class RetrieveEmployeeResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -60,15 +62,15 @@ public class RetrieveEmployeeResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveEmployeeResponse)) {
+        if (!(obj instanceof RetrieveEmployeeResponse)) {
             return false;
         }
-        RetrieveEmployeeResponse retrieveEmployeeResponse = (RetrieveEmployeeResponse) obj;
-        return Objects.equals(employee, retrieveEmployeeResponse.employee) &&
-            Objects.equals(errors, retrieveEmployeeResponse.errors);
+        RetrieveEmployeeResponse other = (RetrieveEmployeeResponse) obj;
+        return Objects.equals(employee, other.employee)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -80,45 +82,42 @@ public class RetrieveEmployeeResponse {
         Builder builder = new Builder()
             .employee(getEmployee())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveEmployeeResponse}
+     * Class to build instances of {@link RetrieveEmployeeResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private Employee employee;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for employee
-         * @param employee
+         * Setter for employee.
+         * @param employee Employee value for employee.
          * @return Builder
          */
         public Builder employee(Employee employee) {
             this.employee = employee;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -131,8 +130,9 @@ public class RetrieveEmployeeResponse {
          * @return {@link RetrieveEmployeeResponse}
          */
         public RetrieveEmployeeResponse build() {
-            RetrieveEmployeeResponse model = new RetrieveEmployeeResponse(employee,
-                errors);
+            RetrieveEmployeeResponse model =
+                    new RetrieveEmployeeResponse(employee,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

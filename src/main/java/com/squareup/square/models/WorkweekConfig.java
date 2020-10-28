@@ -1,24 +1,31 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for WorkweekConfig type.
  */
 public class WorkweekConfig {
+    private final String id;
+    private final String startOfWeek;
+    private final String startOfDayLocalTime;
+    private final Integer version;
+    private final String createdAt;
+    private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param startOfWeek
-     * @param startOfDayLocalTime
-     * @param id
-     * @param version
-     * @param createdAt
-     * @param updatedAt
+     * @param startOfWeek String value for startOfWeek.
+     * @param startOfDayLocalTime String value for startOfDayLocalTime.
+     * @param id String value for id.
+     * @param version Integer value for version.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
      */
     @JsonCreator
     public WorkweekConfig(
@@ -36,15 +43,10 @@ public class WorkweekConfig {
         this.updatedAt = updatedAt;
     }
 
-    private final String id;
-    private final String startOfWeek;
-    private final String startOfDayLocalTime;
-    private final Integer version;
-    private final String createdAt;
-    private final String updatedAt;
     /**
      * Getter for Id.
      * UUID for this object
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -54,6 +56,7 @@ public class WorkweekConfig {
     /**
      * Getter for StartOfWeek.
      * The days of the week.
+     * @return Returns the String
      */
     @JsonGetter("start_of_week")
     public String getStartOfWeek() {
@@ -62,9 +65,9 @@ public class WorkweekConfig {
 
     /**
      * Getter for StartOfDayLocalTime.
-     * The local time at which a business week cuts over. Represented as a
-     * string in `HH:MM` format (`HH:MM:SS` is also accepted, but seconds are
-     * truncated).
+     * The local time at which a business week cuts over. Represented as a string in `HH:MM` format
+     * (`HH:MM:SS` is also accepted, but seconds are truncated).
+     * @return Returns the String
      */
     @JsonGetter("start_of_day_local_time")
     public String getStartOfDayLocalTime() {
@@ -73,10 +76,10 @@ public class WorkweekConfig {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version
-     * provided does not match server version at time of request. If not provided,
-     * Square executes a blind write; potentially overwriting data from another
-     * write.
+     * Used for resolving concurrency issues; request will fail if version provided does not match
+     * server version at time of request. If not provided, Square executes a blind write;
+     * potentially overwriting data from another write.
+     * @return Returns the Integer
      */
     @JsonGetter("version")
     public Integer getVersion() {
@@ -86,6 +89,7 @@ public class WorkweekConfig {
     /**
      * Getter for CreatedAt.
      * A read-only timestamp in RFC 3339 format; presented in UTC
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -95,6 +99,7 @@ public class WorkweekConfig {
     /**
      * Getter for UpdatedAt.
      * A read-only timestamp in RFC 3339 format; presented in UTC
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -109,19 +114,19 @@ public class WorkweekConfig {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof WorkweekConfig)) {
+        if (!(obj instanceof WorkweekConfig)) {
             return false;
         }
-        WorkweekConfig workweekConfig = (WorkweekConfig) obj;
-        return Objects.equals(id, workweekConfig.id) &&
-            Objects.equals(startOfWeek, workweekConfig.startOfWeek) &&
-            Objects.equals(startOfDayLocalTime, workweekConfig.startOfDayLocalTime) &&
-            Objects.equals(version, workweekConfig.version) &&
-            Objects.equals(createdAt, workweekConfig.createdAt) &&
-            Objects.equals(updatedAt, workweekConfig.updatedAt);
+        WorkweekConfig other = (WorkweekConfig) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(startOfWeek, other.startOfWeek)
+            && Objects.equals(startOfDayLocalTime, other.startOfDayLocalTime)
+            && Objects.equals(version, other.version)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt);
     }
 
     /**
@@ -136,11 +141,11 @@ public class WorkweekConfig {
             .version(getVersion())
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link WorkweekConfig}
+     * Class to build instances of {@link WorkweekConfig}.
      */
     public static class Builder {
         private String startOfWeek;
@@ -151,7 +156,9 @@ public class WorkweekConfig {
         private String updatedAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param startOfWeek String value for startOfWeek.
+         * @param startOfDayLocalTime String value for startOfDayLocalTime.
          */
         public Builder(String startOfWeek,
                 String startOfDayLocalTime) {
@@ -160,53 +167,58 @@ public class WorkweekConfig {
         }
 
         /**
-         * Setter for startOfWeek
-         * @param startOfWeek
+         * Setter for startOfWeek.
+         * @param startOfWeek String value for startOfWeek.
          * @return Builder
          */
         public Builder startOfWeek(String startOfWeek) {
             this.startOfWeek = startOfWeek;
             return this;
         }
+
         /**
-         * Setter for startOfDayLocalTime
-         * @param startOfDayLocalTime
+         * Setter for startOfDayLocalTime.
+         * @param startOfDayLocalTime String value for startOfDayLocalTime.
          * @return Builder
          */
         public Builder startOfDayLocalTime(String startOfDayLocalTime) {
             this.startOfDayLocalTime = startOfDayLocalTime;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
             this.version = version;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

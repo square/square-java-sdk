@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for UpdateTeamMemberRequest type.
  */
 public class UpdateTeamMemberRequest {
+    private final TeamMember teamMember;
 
     /**
      * Initialization constructor.
-     * @param teamMember
+     * @param teamMember TeamMember value for teamMember.
      */
     @JsonCreator
     public UpdateTeamMemberRequest(
@@ -21,10 +23,10 @@ public class UpdateTeamMemberRequest {
         this.teamMember = teamMember;
     }
 
-    private final TeamMember teamMember;
     /**
      * Getter for TeamMember.
      * A record representing an individual team member for a business.
+     * @return Returns the TeamMember
      */
     @JsonGetter("team_member")
     public TeamMember getTeamMember() {
@@ -39,14 +41,14 @@ public class UpdateTeamMemberRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateTeamMemberRequest)) {
+        if (!(obj instanceof UpdateTeamMemberRequest)) {
             return false;
         }
-        UpdateTeamMemberRequest updateTeamMemberRequest = (UpdateTeamMemberRequest) obj;
-        return Objects.equals(teamMember, updateTeamMemberRequest.teamMember);
+        UpdateTeamMemberRequest other = (UpdateTeamMemberRequest) obj;
+        return Objects.equals(teamMember, other.teamMember);
     }
 
     /**
@@ -57,25 +59,20 @@ public class UpdateTeamMemberRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .teamMember(getTeamMember());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateTeamMemberRequest}
+     * Class to build instances of {@link UpdateTeamMemberRequest}.
      */
     public static class Builder {
         private TeamMember teamMember;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for teamMember
-         * @param teamMember
+         * Setter for teamMember.
+         * @param teamMember TeamMember value for teamMember.
          * @return Builder
          */
         public Builder teamMember(TeamMember teamMember) {

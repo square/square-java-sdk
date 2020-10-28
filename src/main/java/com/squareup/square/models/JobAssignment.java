@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for JobAssignment type.
  */
 public class JobAssignment {
+    private final String jobTitle;
+    private final String payType;
+    private final Money hourlyRate;
+    private final Money annualRate;
+    private final Integer weeklyHours;
 
     /**
      * Initialization constructor.
-     * @param jobTitle
-     * @param payType
-     * @param hourlyRate
-     * @param annualRate
-     * @param weeklyHours
+     * @param jobTitle String value for jobTitle.
+     * @param payType String value for payType.
+     * @param hourlyRate Money value for hourlyRate.
+     * @param annualRate Money value for annualRate.
+     * @param weeklyHours Integer value for weeklyHours.
      */
     @JsonCreator
     public JobAssignment(
@@ -33,14 +39,10 @@ public class JobAssignment {
         this.weeklyHours = weeklyHours;
     }
 
-    private final String jobTitle;
-    private final String payType;
-    private final Money hourlyRate;
-    private final Money annualRate;
-    private final Integer weeklyHours;
     /**
      * Getter for JobTitle.
      * The title of the job.
+     * @return Returns the String
      */
     @JsonGetter("job_title")
     public String getJobTitle() {
@@ -50,6 +52,7 @@ public class JobAssignment {
     /**
      * Getter for PayType.
      * Enumerates the possible pay types that a job can be assigned.
+     * @return Returns the String
      */
     @JsonGetter("pay_type")
     public String getPayType() {
@@ -58,12 +61,13 @@ public class JobAssignment {
 
     /**
      * Getter for HourlyRate.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("hourly_rate")
     public Money getHourlyRate() {
@@ -72,12 +76,13 @@ public class JobAssignment {
 
     /**
      * Getter for AnnualRate.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("annual_rate")
     public Money getAnnualRate() {
@@ -87,6 +92,7 @@ public class JobAssignment {
     /**
      * Getter for WeeklyHours.
      * The planned hours per week for the job. Set if the job `PayType` is `SALARY`.
+     * @return Returns the Integer
      */
     @JsonGetter("weekly_hours")
     public Integer getWeeklyHours() {
@@ -101,18 +107,18 @@ public class JobAssignment {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof JobAssignment)) {
+        if (!(obj instanceof JobAssignment)) {
             return false;
         }
-        JobAssignment jobAssignment = (JobAssignment) obj;
-        return Objects.equals(jobTitle, jobAssignment.jobTitle) &&
-            Objects.equals(payType, jobAssignment.payType) &&
-            Objects.equals(hourlyRate, jobAssignment.hourlyRate) &&
-            Objects.equals(annualRate, jobAssignment.annualRate) &&
-            Objects.equals(weeklyHours, jobAssignment.weeklyHours);
+        JobAssignment other = (JobAssignment) obj;
+        return Objects.equals(jobTitle, other.jobTitle)
+            && Objects.equals(payType, other.payType)
+            && Objects.equals(hourlyRate, other.hourlyRate)
+            && Objects.equals(annualRate, other.annualRate)
+            && Objects.equals(weeklyHours, other.weeklyHours);
     }
 
     /**
@@ -126,11 +132,11 @@ public class JobAssignment {
             .hourlyRate(getHourlyRate())
             .annualRate(getAnnualRate())
             .weeklyHours(getWeeklyHours());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link JobAssignment}
+     * Class to build instances of {@link JobAssignment}.
      */
     public static class Builder {
         private String jobTitle;
@@ -140,7 +146,9 @@ public class JobAssignment {
         private Integer weeklyHours;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param jobTitle String value for jobTitle.
+         * @param payType String value for payType.
          */
         public Builder(String jobTitle,
                 String payType) {
@@ -149,44 +157,48 @@ public class JobAssignment {
         }
 
         /**
-         * Setter for jobTitle
-         * @param jobTitle
+         * Setter for jobTitle.
+         * @param jobTitle String value for jobTitle.
          * @return Builder
          */
         public Builder jobTitle(String jobTitle) {
             this.jobTitle = jobTitle;
             return this;
         }
+
         /**
-         * Setter for payType
-         * @param payType
+         * Setter for payType.
+         * @param payType String value for payType.
          * @return Builder
          */
         public Builder payType(String payType) {
             this.payType = payType;
             return this;
         }
+
         /**
-         * Setter for hourlyRate
-         * @param hourlyRate
+         * Setter for hourlyRate.
+         * @param hourlyRate Money value for hourlyRate.
          * @return Builder
          */
         public Builder hourlyRate(Money hourlyRate) {
             this.hourlyRate = hourlyRate;
             return this;
         }
+
         /**
-         * Setter for annualRate
-         * @param annualRate
+         * Setter for annualRate.
+         * @param annualRate Money value for annualRate.
          * @return Builder
          */
         public Builder annualRate(Money annualRate) {
             this.annualRate = annualRate;
             return this;
         }
+
         /**
-         * Setter for weeklyHours
-         * @param weeklyHours
+         * Setter for weeklyHours.
+         * @param weeklyHours Integer value for weeklyHours.
          * @return Builder
          */
         public Builder weeklyHours(Integer weeklyHours) {

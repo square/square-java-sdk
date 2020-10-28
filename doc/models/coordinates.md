@@ -1,19 +1,20 @@
-## Coordinates
+
+# Coordinates
 
 Latitude and longitude coordinates.
 
-### Structure
+## Structure
 
 `Coordinates`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Latitude` | `Double` | Optional | The latitude of the coordinate expressed in degrees. | Double getLatitude() |
 | `Longitude` | `Double` | Optional | The longitude of the coordinate expressed in degrees. | Double getLongitude() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

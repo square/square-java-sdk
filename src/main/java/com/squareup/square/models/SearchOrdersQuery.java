@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchOrdersQuery type.
  */
 public class SearchOrdersQuery {
+    private final SearchOrdersFilter filter;
+    private final SearchOrdersSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter
-     * @param sort
+     * @param filter SearchOrdersFilter value for filter.
+     * @param sort SearchOrdersSort value for sort.
      */
     @JsonCreator
     public SearchOrdersQuery(
@@ -24,12 +27,11 @@ public class SearchOrdersQuery {
         this.sort = sort;
     }
 
-    private final SearchOrdersFilter filter;
-    private final SearchOrdersSort sort;
     /**
      * Getter for Filter.
-     * Filtering criteria to use for a SearchOrders request. Multiple filters
-     * will be ANDed together.
+     * Filtering criteria to use for a SearchOrders request. Multiple filters will be ANDed
+     * together.
+     * @return Returns the SearchOrdersFilter
      */
     @JsonGetter("filter")
     public SearchOrdersFilter getFilter() {
@@ -38,8 +40,8 @@ public class SearchOrdersQuery {
 
     /**
      * Getter for Sort.
-     * Sorting criteria for a SearchOrders request. Results can only be sorted
-     * by a timestamp field.
+     * Sorting criteria for a SearchOrders request. Results can only be sorted by a timestamp field.
+     * @return Returns the SearchOrdersSort
      */
     @JsonGetter("sort")
     public SearchOrdersSort getSort() {
@@ -54,15 +56,15 @@ public class SearchOrdersQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersQuery)) {
+        if (!(obj instanceof SearchOrdersQuery)) {
             return false;
         }
-        SearchOrdersQuery searchOrdersQuery = (SearchOrdersQuery) obj;
-        return Objects.equals(filter, searchOrdersQuery.filter) &&
-            Objects.equals(sort, searchOrdersQuery.sort);
+        SearchOrdersQuery other = (SearchOrdersQuery) obj;
+        return Objects.equals(filter, other.filter)
+            && Objects.equals(sort, other.sort);
     }
 
     /**
@@ -74,35 +76,31 @@ public class SearchOrdersQuery {
         Builder builder = new Builder()
             .filter(getFilter())
             .sort(getSort());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersQuery}
+     * Class to build instances of {@link SearchOrdersQuery}.
      */
     public static class Builder {
         private SearchOrdersFilter filter;
         private SearchOrdersSort sort;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter SearchOrdersFilter value for filter.
          * @return Builder
          */
         public Builder filter(SearchOrdersFilter filter) {
             this.filter = filter;
             return this;
         }
+
         /**
-         * Setter for sort
-         * @param sort
+         * Setter for sort.
+         * @param sort SearchOrdersSort value for sort.
          * @return Builder
          */
         public Builder sort(SearchOrdersSort sort) {

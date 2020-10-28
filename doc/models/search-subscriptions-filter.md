@@ -1,19 +1,20 @@
-## Search Subscriptions Filter
+
+# Search Subscriptions Filter
 
 Represents a set of SearchSubscriptionsQuery filters used to limit the set of Subscriptions returned by SearchSubscriptions.
 
-### Structure
+## Structure
 
 `SearchSubscriptionsFilter`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `CustomerIds` | `List<String>` | Optional | A filter to select subscriptions based on the customer. | List<String> getCustomerIds() |
 | `LocationIds` | `List<String>` | Optional | A filter to select subscriptions based the location. | List<String> getLocationIds() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

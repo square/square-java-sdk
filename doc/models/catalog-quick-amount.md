@@ -1,12 +1,13 @@
-## Catalog Quick Amount
+
+# Catalog Quick Amount
 
 Represents a Quick Amount in the Catalog.
 
-### Structure
+## Structure
 
 `CatalogQuickAmount`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -15,7 +16,7 @@ Represents a Quick Amount in the Catalog.
 | `Score` | `Long` | Optional | Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].<br>MANUAL type amount will always have score = 100. | Long getScore() |
 | `Ordinal` | `Long` | Optional | The order in which this Quick Amount should be displayed. | Long getOrdinal() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

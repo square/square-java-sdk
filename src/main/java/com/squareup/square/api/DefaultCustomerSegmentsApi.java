@@ -1,23 +1,24 @@
-package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
+package com.squareup.square.api;
 
 import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.ListCustomerSegmentsResponse;
 import com.squareup.square.models.RetrieveCustomerSegmentResponse;
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -26,34 +27,42 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
 
     /**
      * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
      */
-    public DefaultCustomerSegmentsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
+    public DefaultCustomerSegmentsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
     /**
      * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
+     * @param httpCallback    Callback to be called before and after the HTTP call.
      */
-    public DefaultCustomerSegmentsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+    public DefaultCustomerSegmentsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
 
     /**
      * Retrieves the list of customer segments of a business.
-     * @param    cursor    Optional parameter: A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.  See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
+     * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
+     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
+     *         [Pagination
+     *         guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for
+     *         more information.
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCustomerSegmentsResponse listCustomerSegments(
             final String cursor) throws ApiException, IOException {
         HttpRequest request = buildListCustomerSegmentsRequest(cursor);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -63,19 +72,24 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
 
     /**
      * Retrieves the list of customer segments of a business.
-     * @param    cursor    Optional parameter: A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.  See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
-     * @return    Returns the ListCustomerSegmentsResponse response from the API call 
+     * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
+     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
+     *         [Pagination
+     *         guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for
+     *         more information.
+     * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     public CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
             final String cursor) {
         return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListCustomerSegmentsResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleListCustomerSegmentsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listCustomerSegments
+     * Builds the HttpRequest object for listCustomerSegments.
      */
     private HttpRequest buildListCustomerSegmentsRequest(
             final String cursor) {
@@ -83,14 +97,12 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/segments");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/customers/segments");
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -100,7 +112,8 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -111,11 +124,11 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
     }
 
     /**
-     * Processes the response for listCustomerSegments
+     * Processes the response for listCustomerSegments.
      * @return An object of type ListCustomerSegmentsResponse
      */
-    private ListCustomerSegmentsResponse handleListCustomerSegmentsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private ListCustomerSegmentsResponse handleListCustomerSegmentsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -127,7 +140,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         ListCustomerSegmentsResponse result = ApiHelper.deserialize(responseBody,
                 ListCustomerSegmentsResponse.class);
 
@@ -137,13 +150,15 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
 
     /**
      * Retrieves a specific customer segment as identified by the `segment_id` value.
-     * @param    segmentId    Required parameter: The Square-issued ID of the customer segment.
+     * @param  segmentId  Required parameter: The Square-issued ID of the customer segment.
      * @return    Returns the RetrieveCustomerSegmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveCustomerSegmentResponse retrieveCustomerSegment(
             final String segmentId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveCustomerSegmentRequest(segmentId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -153,19 +168,20 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
 
     /**
      * Retrieves a specific customer segment as identified by the `segment_id` value.
-     * @param    segmentId    Required parameter: The Square-issued ID of the customer segment.
-     * @return    Returns the RetrieveCustomerSegmentResponse response from the API call 
+     * @param  segmentId  Required parameter: The Square-issued ID of the customer segment.
+     * @return    Returns the RetrieveCustomerSegmentResponse response from the API call
      */
     public CompletableFuture<RetrieveCustomerSegmentResponse> retrieveCustomerSegmentAsync(
             final String segmentId) {
         return makeHttpCallAsync(() -> buildRetrieveCustomerSegmentRequest(segmentId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveCustomerSegmentResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveCustomerSegmentResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCustomerSegment
+     * Builds the HttpRequest object for retrieveCustomerSegment.
      */
     private HttpRequest buildRetrieveCustomerSegmentRequest(
             final String segmentId) {
@@ -173,14 +189,14 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/customers/segments/{segment_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/customers/segments/{segment_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("segment_id", segmentId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("segment_id",
+                new SimpleEntry<Object, Boolean>(segmentId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -190,7 +206,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -201,11 +217,11 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
     }
 
     /**
-     * Processes the response for retrieveCustomerSegment
+     * Processes the response for retrieveCustomerSegment.
      * @return An object of type RetrieveCustomerSegmentResponse
      */
-    private RetrieveCustomerSegmentResponse handleRetrieveCustomerSegmentResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveCustomerSegmentResponse handleRetrieveCustomerSegmentResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -217,7 +233,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveCustomerSegmentResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveCustomerSegmentResponse.class);
 

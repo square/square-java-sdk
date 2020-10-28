@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BulkCreateTeamMembersRequest type.
  */
 public class BulkCreateTeamMembersRequest {
+    private final Map<String, CreateTeamMemberRequest> teamMembers;
 
     /**
      * Initialization constructor.
-     * @param teamMembers
+     * @param teamMembers Map of String, value for teamMembers.
      */
     @JsonCreator
     public BulkCreateTeamMembersRequest(
@@ -22,10 +24,11 @@ public class BulkCreateTeamMembersRequest {
         this.teamMembers = teamMembers;
     }
 
-    private final Map<String, CreateTeamMemberRequest> teamMembers;
     /**
      * Getter for TeamMembers.
-     * The data which will be used to create the `TeamMember` objects. Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     * The data which will be used to create the `TeamMember` objects. Each key is the
+     * `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     * @return Returns the Map of String, CreateTeamMemberRequest
      */
     @JsonGetter("team_members")
     public Map<String, CreateTeamMemberRequest> getTeamMembers() {
@@ -40,14 +43,14 @@ public class BulkCreateTeamMembersRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BulkCreateTeamMembersRequest)) {
+        if (!(obj instanceof BulkCreateTeamMembersRequest)) {
             return false;
         }
-        BulkCreateTeamMembersRequest bulkCreateTeamMembersRequest = (BulkCreateTeamMembersRequest) obj;
-        return Objects.equals(teamMembers, bulkCreateTeamMembersRequest.teamMembers);
+        BulkCreateTeamMembersRequest other = (BulkCreateTeamMembersRequest) obj;
+        return Objects.equals(teamMembers, other.teamMembers);
     }
 
     /**
@@ -57,25 +60,26 @@ public class BulkCreateTeamMembersRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(teamMembers);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BulkCreateTeamMembersRequest}
+     * Class to build instances of {@link BulkCreateTeamMembersRequest}.
      */
     public static class Builder {
         private Map<String, CreateTeamMemberRequest> teamMembers;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param teamMembers Map of String, value for teamMembers.
          */
         public Builder(Map<String, CreateTeamMemberRequest> teamMembers) {
             this.teamMembers = teamMembers;
         }
 
         /**
-         * Setter for teamMembers
-         * @param teamMembers
+         * Setter for teamMembers.
+         * @param teamMembers Map of String, value for teamMembers.
          * @return Builder
          */
         public Builder teamMembers(Map<String, CreateTeamMemberRequest> teamMembers) {

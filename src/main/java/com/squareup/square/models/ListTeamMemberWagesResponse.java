@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListTeamMemberWagesResponse type.
  */
 public class ListTeamMemberWagesResponse {
+    private HttpContext httpContext;
+    private final List<TeamMemberWage> teamMemberWages;
+    private final String cursor;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMemberWages
-     * @param cursor
-     * @param errors
+     * @param teamMemberWages List of TeamMemberWage value for teamMemberWages.
+     * @param cursor String value for cursor.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public ListTeamMemberWagesResponse(
@@ -29,11 +34,6 @@ public class ListTeamMemberWagesResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<TeamMemberWage> teamMemberWages;
-    private final String cursor;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListTeamMemberWagesResponse {
     /**
      * Getter for TeamMemberWages.
      * A page of Team Member Wage results.
+     * @return Returns the List of TeamMemberWage
      */
     @JsonGetter("team_member_wages")
     public List<TeamMemberWage> getTeamMemberWages() {
@@ -49,8 +50,9 @@ public class ListTeamMemberWagesResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next next page
-     * of Team Member Wage results.
+     * Value supplied in the subsequent request to fetch the next next page of Team Member Wage
+     * results.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -60,6 +62,7 @@ public class ListTeamMemberWagesResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -74,16 +77,16 @@ public class ListTeamMemberWagesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListTeamMemberWagesResponse)) {
+        if (!(obj instanceof ListTeamMemberWagesResponse)) {
             return false;
         }
-        ListTeamMemberWagesResponse listTeamMemberWagesResponse = (ListTeamMemberWagesResponse) obj;
-        return Objects.equals(teamMemberWages, listTeamMemberWagesResponse.teamMemberWages) &&
-            Objects.equals(cursor, listTeamMemberWagesResponse.cursor) &&
-            Objects.equals(errors, listTeamMemberWagesResponse.errors);
+        ListTeamMemberWagesResponse other = (ListTeamMemberWagesResponse) obj;
+        return Objects.equals(teamMemberWages, other.teamMemberWages)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -96,11 +99,11 @@ public class ListTeamMemberWagesResponse {
             .teamMemberWages(getTeamMemberWages())
             .cursor(getCursor())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListTeamMemberWagesResponse}
+     * Class to build instances of {@link ListTeamMemberWagesResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -108,43 +111,41 @@ public class ListTeamMemberWagesResponse {
         private String cursor;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for teamMemberWages
-         * @param teamMemberWages
+         * Setter for teamMemberWages.
+         * @param teamMemberWages List of TeamMemberWage value for teamMemberWages.
          * @return Builder
          */
         public Builder teamMemberWages(List<TeamMemberWage> teamMemberWages) {
             this.teamMemberWages = teamMemberWages;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -157,9 +158,10 @@ public class ListTeamMemberWagesResponse {
          * @return {@link ListTeamMemberWagesResponse}
          */
         public ListTeamMemberWagesResponse build() {
-            ListTeamMemberWagesResponse model = new ListTeamMemberWagesResponse(teamMemberWages,
-                cursor,
-                errors);
+            ListTeamMemberWagesResponse model =
+                    new ListTeamMemberWagesResponse(teamMemberWages,
+                            cursor,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

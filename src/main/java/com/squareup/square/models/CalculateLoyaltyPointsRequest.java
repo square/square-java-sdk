@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CalculateLoyaltyPointsRequest type.
  */
 public class CalculateLoyaltyPointsRequest {
+    private final String orderId;
+    private final Money transactionAmountMoney;
 
     /**
      * Initialization constructor.
-     * @param orderId
-     * @param transactionAmountMoney
+     * @param orderId String value for orderId.
+     * @param transactionAmountMoney Money value for transactionAmountMoney.
      */
     @JsonCreator
     public CalculateLoyaltyPointsRequest(
@@ -24,13 +27,12 @@ public class CalculateLoyaltyPointsRequest {
         this.transactionAmountMoney = transactionAmountMoney;
     }
 
-    private final String orderId;
-    private final Money transactionAmountMoney;
     /**
      * Getter for OrderId.
-     * The [order](#type-Order) ID for which to calculate the points.
-     * Specify this field if your application uses the Orders API to process orders.
-     * Otherwise, specify the `transaction_amount`.
+     * The [order](#type-Order) ID for which to calculate the points. Specify this field if your
+     * application uses the Orders API to process orders. Otherwise, specify the
+     * `transaction_amount`.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -39,12 +41,13 @@ public class CalculateLoyaltyPointsRequest {
 
     /**
      * Getter for TransactionAmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("transaction_amount_money")
     public Money getTransactionAmountMoney() {
@@ -59,15 +62,15 @@ public class CalculateLoyaltyPointsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CalculateLoyaltyPointsRequest)) {
+        if (!(obj instanceof CalculateLoyaltyPointsRequest)) {
             return false;
         }
-        CalculateLoyaltyPointsRequest calculateLoyaltyPointsRequest = (CalculateLoyaltyPointsRequest) obj;
-        return Objects.equals(orderId, calculateLoyaltyPointsRequest.orderId) &&
-            Objects.equals(transactionAmountMoney, calculateLoyaltyPointsRequest.transactionAmountMoney);
+        CalculateLoyaltyPointsRequest other = (CalculateLoyaltyPointsRequest) obj;
+        return Objects.equals(orderId, other.orderId)
+            && Objects.equals(transactionAmountMoney, other.transactionAmountMoney);
     }
 
     /**
@@ -79,35 +82,31 @@ public class CalculateLoyaltyPointsRequest {
         Builder builder = new Builder()
             .orderId(getOrderId())
             .transactionAmountMoney(getTransactionAmountMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CalculateLoyaltyPointsRequest}
+     * Class to build instances of {@link CalculateLoyaltyPointsRequest}.
      */
     public static class Builder {
         private String orderId;
         private Money transactionAmountMoney;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
             return this;
         }
+
         /**
-         * Setter for transactionAmountMoney
-         * @param transactionAmountMoney
+         * Setter for transactionAmountMoney.
+         * @param transactionAmountMoney Money value for transactionAmountMoney.
          * @return Builder
          */
         public Builder transactionAmountMoney(Money transactionAmountMoney) {

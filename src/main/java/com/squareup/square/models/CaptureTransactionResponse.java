@@ -1,30 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CaptureTransactionResponse type.
  */
 public class CaptureTransactionResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param errors
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public CaptureTransactionResponse(
             @JsonProperty("errors") List<Error> errors) {
         this.errors = errors;
     }
-
-    private HttpContext httpContext;
-    private final List<Error> errors;
 
     public HttpContext getContext() {
         return httpContext;
@@ -33,6 +33,7 @@ public class CaptureTransactionResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -47,14 +48,14 @@ public class CaptureTransactionResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CaptureTransactionResponse)) {
+        if (!(obj instanceof CaptureTransactionResponse)) {
             return false;
         }
-        CaptureTransactionResponse captureTransactionResponse = (CaptureTransactionResponse) obj;
-        return Objects.equals(errors, captureTransactionResponse.errors);
+        CaptureTransactionResponse other = (CaptureTransactionResponse) obj;
+        return Objects.equals(errors, other.errors);
     }
 
     /**
@@ -65,35 +66,31 @@ public class CaptureTransactionResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CaptureTransactionResponse}
+     * Class to build instances of {@link CaptureTransactionResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -106,7 +103,8 @@ public class CaptureTransactionResponse {
          * @return {@link CaptureTransactionResponse}
          */
         public CaptureTransactionResponse build() {
-            CaptureTransactionResponse model = new CaptureTransactionResponse(errors);
+            CaptureTransactionResponse model =
+                    new CaptureTransactionResponse(errors);
             model.httpContext = httpContext;
             return model;
         }

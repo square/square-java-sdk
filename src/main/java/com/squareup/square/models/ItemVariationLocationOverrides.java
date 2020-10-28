@@ -1,24 +1,31 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ItemVariationLocationOverrides type.
  */
 public class ItemVariationLocationOverrides {
+    private final String locationId;
+    private final Money priceMoney;
+    private final String pricingType;
+    private final Boolean trackInventory;
+    private final String inventoryAlertType;
+    private final Long inventoryAlertThreshold;
 
     /**
      * Initialization constructor.
-     * @param locationId
-     * @param priceMoney
-     * @param pricingType
-     * @param trackInventory
-     * @param inventoryAlertType
-     * @param inventoryAlertThreshold
+     * @param locationId String value for locationId.
+     * @param priceMoney Money value for priceMoney.
+     * @param pricingType String value for pricingType.
+     * @param trackInventory Boolean value for trackInventory.
+     * @param inventoryAlertType String value for inventoryAlertType.
+     * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
      */
     @JsonCreator
     public ItemVariationLocationOverrides(
@@ -36,15 +43,10 @@ public class ItemVariationLocationOverrides {
         this.inventoryAlertThreshold = inventoryAlertThreshold;
     }
 
-    private final String locationId;
-    private final Money priceMoney;
-    private final String pricingType;
-    private final Boolean trackInventory;
-    private final String inventoryAlertType;
-    private final Long inventoryAlertThreshold;
     /**
      * Getter for LocationId.
      * The ID of the `Location`.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -53,12 +55,13 @@ public class ItemVariationLocationOverrides {
 
     /**
      * Getter for PriceMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("price_money")
     public Money getPriceMoney() {
@@ -67,7 +70,9 @@ public class ItemVariationLocationOverrides {
 
     /**
      * Getter for PricingType.
-     * Indicates whether the price of a CatalogItemVariation should be entered manually at the time of sale.
+     * Indicates whether the price of a CatalogItemVariation should be entered manually at the time
+     * of sale.
+     * @return Returns the String
      */
     @JsonGetter("pricing_type")
     public String getPricingType() {
@@ -77,6 +82,7 @@ public class ItemVariationLocationOverrides {
     /**
      * Getter for TrackInventory.
      * If `true`, inventory tracking is active for the `CatalogItemVariation` at this `Location`.
+     * @return Returns the Boolean
      */
     @JsonGetter("track_inventory")
     public Boolean getTrackInventory() {
@@ -85,7 +91,9 @@ public class ItemVariationLocationOverrides {
 
     /**
      * Getter for InventoryAlertType.
-     * Indicates whether Square should alert the merchant when the inventory quantity of a CatalogItemVariation is low.
+     * Indicates whether Square should alert the merchant when the inventory quantity of a
+     * CatalogItemVariation is low.
+     * @return Returns the String
      */
     @JsonGetter("inventory_alert_type")
     public String getInventoryAlertType() {
@@ -94,9 +102,10 @@ public class ItemVariationLocationOverrides {
 
     /**
      * Getter for InventoryAlertThreshold.
-     * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type`
-     * is `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard.
-     * This value is always an integer.
+     * If the inventory quantity for the variation is less than or equal to this value and
+     * `inventory_alert_type` is `LOW_QUANTITY`, the variation displays an alert in the merchant
+     * dashboard. This value is always an integer.
+     * @return Returns the Long
      */
     @JsonGetter("inventory_alert_threshold")
     public Long getInventoryAlertThreshold() {
@@ -107,24 +116,24 @@ public class ItemVariationLocationOverrides {
     @Override
     public int hashCode() {
         return Objects.hash(locationId, priceMoney, pricingType, trackInventory, inventoryAlertType,
-            inventoryAlertThreshold);
+                inventoryAlertThreshold);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ItemVariationLocationOverrides)) {
+        if (!(obj instanceof ItemVariationLocationOverrides)) {
             return false;
         }
-        ItemVariationLocationOverrides itemVariationLocationOverrides = (ItemVariationLocationOverrides) obj;
-        return Objects.equals(locationId, itemVariationLocationOverrides.locationId) &&
-            Objects.equals(priceMoney, itemVariationLocationOverrides.priceMoney) &&
-            Objects.equals(pricingType, itemVariationLocationOverrides.pricingType) &&
-            Objects.equals(trackInventory, itemVariationLocationOverrides.trackInventory) &&
-            Objects.equals(inventoryAlertType, itemVariationLocationOverrides.inventoryAlertType) &&
-            Objects.equals(inventoryAlertThreshold, itemVariationLocationOverrides.inventoryAlertThreshold);
+        ItemVariationLocationOverrides other = (ItemVariationLocationOverrides) obj;
+        return Objects.equals(locationId, other.locationId)
+            && Objects.equals(priceMoney, other.priceMoney)
+            && Objects.equals(pricingType, other.pricingType)
+            && Objects.equals(trackInventory, other.trackInventory)
+            && Objects.equals(inventoryAlertType, other.inventoryAlertType)
+            && Objects.equals(inventoryAlertThreshold, other.inventoryAlertThreshold);
     }
 
     /**
@@ -140,11 +149,11 @@ public class ItemVariationLocationOverrides {
             .trackInventory(getTrackInventory())
             .inventoryAlertType(getInventoryAlertType())
             .inventoryAlertThreshold(getInventoryAlertThreshold());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ItemVariationLocationOverrides}
+     * Class to build instances of {@link ItemVariationLocationOverrides}.
      */
     public static class Builder {
         private String locationId;
@@ -154,61 +163,61 @@ public class ItemVariationLocationOverrides {
         private String inventoryAlertType;
         private Long inventoryAlertThreshold;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for priceMoney
-         * @param priceMoney
+         * Setter for priceMoney.
+         * @param priceMoney Money value for priceMoney.
          * @return Builder
          */
         public Builder priceMoney(Money priceMoney) {
             this.priceMoney = priceMoney;
             return this;
         }
+
         /**
-         * Setter for pricingType
-         * @param pricingType
+         * Setter for pricingType.
+         * @param pricingType String value for pricingType.
          * @return Builder
          */
         public Builder pricingType(String pricingType) {
             this.pricingType = pricingType;
             return this;
         }
+
         /**
-         * Setter for trackInventory
-         * @param trackInventory
+         * Setter for trackInventory.
+         * @param trackInventory Boolean value for trackInventory.
          * @return Builder
          */
         public Builder trackInventory(Boolean trackInventory) {
             this.trackInventory = trackInventory;
             return this;
         }
+
         /**
-         * Setter for inventoryAlertType
-         * @param inventoryAlertType
+         * Setter for inventoryAlertType.
+         * @param inventoryAlertType String value for inventoryAlertType.
          * @return Builder
          */
         public Builder inventoryAlertType(String inventoryAlertType) {
             this.inventoryAlertType = inventoryAlertType;
             return this;
         }
+
         /**
-         * Setter for inventoryAlertThreshold
-         * @param inventoryAlertThreshold
+         * Setter for inventoryAlertThreshold.
+         * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
          * @return Builder
          */
         public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {

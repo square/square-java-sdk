@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DisputeEvidence type.
  */
 public class DisputeEvidence {
+    private final String evidenceId;
+    private final String disputeId;
+    private final String uploadedAt;
+    private final String evidenceType;
 
     /**
      * Initialization constructor.
-     * @param evidenceId
-     * @param disputeId
-     * @param uploadedAt
-     * @param evidenceType
+     * @param evidenceId String value for evidenceId.
+     * @param disputeId String value for disputeId.
+     * @param uploadedAt String value for uploadedAt.
+     * @param evidenceType String value for evidenceType.
      */
     @JsonCreator
     public DisputeEvidence(
@@ -30,13 +35,10 @@ public class DisputeEvidence {
         this.evidenceType = evidenceType;
     }
 
-    private final String evidenceId;
-    private final String disputeId;
-    private final String uploadedAt;
-    private final String evidenceType;
     /**
      * Getter for EvidenceId.
      * The Square-generated ID of the evidence.
+     * @return Returns the String
      */
     @JsonGetter("evidence_id")
     public String getEvidenceId() {
@@ -46,6 +48,7 @@ public class DisputeEvidence {
     /**
      * Getter for DisputeId.
      * The ID of the dispute the evidence is associated with.
+     * @return Returns the String
      */
     @JsonGetter("dispute_id")
     public String getDisputeId() {
@@ -55,6 +58,7 @@ public class DisputeEvidence {
     /**
      * Getter for UploadedAt.
      * The time when the next action is due, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("uploaded_at")
     public String getUploadedAt() {
@@ -64,6 +68,7 @@ public class DisputeEvidence {
     /**
      * Getter for EvidenceType.
      * Type of the dispute evidence.
+     * @return Returns the String
      */
     @JsonGetter("evidence_type")
     public String getEvidenceType() {
@@ -78,17 +83,17 @@ public class DisputeEvidence {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DisputeEvidence)) {
+        if (!(obj instanceof DisputeEvidence)) {
             return false;
         }
-        DisputeEvidence disputeEvidence = (DisputeEvidence) obj;
-        return Objects.equals(evidenceId, disputeEvidence.evidenceId) &&
-            Objects.equals(disputeId, disputeEvidence.disputeId) &&
-            Objects.equals(uploadedAt, disputeEvidence.uploadedAt) &&
-            Objects.equals(evidenceType, disputeEvidence.evidenceType);
+        DisputeEvidence other = (DisputeEvidence) obj;
+        return Objects.equals(evidenceId, other.evidenceId)
+            && Objects.equals(disputeId, other.disputeId)
+            && Objects.equals(uploadedAt, other.uploadedAt)
+            && Objects.equals(evidenceType, other.evidenceType);
     }
 
     /**
@@ -102,11 +107,11 @@ public class DisputeEvidence {
             .disputeId(getDisputeId())
             .uploadedAt(getUploadedAt())
             .evidenceType(getEvidenceType());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DisputeEvidence}
+     * Class to build instances of {@link DisputeEvidence}.
      */
     public static class Builder {
         private String evidenceId;
@@ -114,43 +119,41 @@ public class DisputeEvidence {
         private String uploadedAt;
         private String evidenceType;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for evidenceId
-         * @param evidenceId
+         * Setter for evidenceId.
+         * @param evidenceId String value for evidenceId.
          * @return Builder
          */
         public Builder evidenceId(String evidenceId) {
             this.evidenceId = evidenceId;
             return this;
         }
+
         /**
-         * Setter for disputeId
-         * @param disputeId
+         * Setter for disputeId.
+         * @param disputeId String value for disputeId.
          * @return Builder
          */
         public Builder disputeId(String disputeId) {
             this.disputeId = disputeId;
             return this;
         }
+
         /**
-         * Setter for uploadedAt
-         * @param uploadedAt
+         * Setter for uploadedAt.
+         * @param uploadedAt String value for uploadedAt.
          * @return Builder
          */
         public Builder uploadedAt(String uploadedAt) {
             this.uploadedAt = uploadedAt;
             return this;
         }
+
         /**
-         * Setter for evidenceType
-         * @param evidenceType
+         * Setter for evidenceType.
+         * @param evidenceType String value for evidenceType.
          * @return Builder
          */
         public Builder evidenceType(String evidenceType) {

@@ -1,26 +1,35 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ModifierOption type.
  */
 public class V1ModifierOption {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final V1Money priceMoney;
+    private final Boolean onByDefault;
+    private final Integer ordinal;
+    private final String modifierListId;
+    private final String v2Id;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param priceMoney
-     * @param onByDefault
-     * @param ordinal
-     * @param modifierListId
-     * @param v2Id
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param priceMoney V1Money value for priceMoney.
+     * @param onByDefault Boolean value for onByDefault.
+     * @param ordinal Integer value for ordinal.
+     * @param modifierListId String value for modifierListId.
+     * @param v2Id String value for v2Id.
      */
     @JsonCreator
     public V1ModifierOption(
@@ -40,15 +49,6 @@ public class V1ModifierOption {
         this.v2Id = v2Id;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final V1Money priceMoney;
-    private final Boolean onByDefault;
-    private final Integer ordinal;
-    private final String modifierListId;
-    private final String v2Id;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -56,6 +56,7 @@ public class V1ModifierOption {
     /**
      * Getter for Id.
      * The modifier option's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -65,6 +66,7 @@ public class V1ModifierOption {
     /**
      * Getter for Name.
      * The modifier option's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -73,6 +75,7 @@ public class V1ModifierOption {
 
     /**
      * Getter for PriceMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("price_money")
     public V1Money getPriceMoney() {
@@ -81,7 +84,9 @@ public class V1ModifierOption {
 
     /**
      * Getter for OnByDefault.
-     * If true, the modifier option is the default option in a modifier list for which selection_type is SINGLE.
+     * If true, the modifier option is the default option in a modifier list for which
+     * selection_type is SINGLE.
+     * @return Returns the Boolean
      */
     @JsonGetter("on_by_default")
     public Boolean getOnByDefault() {
@@ -90,7 +95,10 @@ public class V1ModifierOption {
 
     /**
      * Getter for Ordinal.
-     * Indicates the modifier option's list position when displayed in Square Point of Sale and the merchant dashboard. If more than one modifier option in the same modifier list has the same ordinal value, those options are displayed in alphabetical order.
+     * Indicates the modifier option's list position when displayed in Square Point of Sale and the
+     * merchant dashboard. If more than one modifier option in the same modifier list has the same
+     * ordinal value, those options are displayed in alphabetical order.
+     * @return Returns the Integer
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
@@ -100,6 +108,7 @@ public class V1ModifierOption {
     /**
      * Getter for ModifierListId.
      * The ID of the modifier list the option belongs to.
+     * @return Returns the String
      */
     @JsonGetter("modifier_list_id")
     public String getModifierListId() {
@@ -108,7 +117,9 @@ public class V1ModifierOption {
 
     /**
      * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple
+     * locations share the same v2 ID.
+     * @return Returns the String
      */
     @JsonGetter("v2_id")
     public String getV2Id() {
@@ -123,20 +134,20 @@ public class V1ModifierOption {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ModifierOption)) {
+        if (!(obj instanceof V1ModifierOption)) {
             return false;
         }
-        V1ModifierOption v1ModifierOption = (V1ModifierOption) obj;
-        return Objects.equals(id, v1ModifierOption.id) &&
-            Objects.equals(name, v1ModifierOption.name) &&
-            Objects.equals(priceMoney, v1ModifierOption.priceMoney) &&
-            Objects.equals(onByDefault, v1ModifierOption.onByDefault) &&
-            Objects.equals(ordinal, v1ModifierOption.ordinal) &&
-            Objects.equals(modifierListId, v1ModifierOption.modifierListId) &&
-            Objects.equals(v2Id, v1ModifierOption.v2Id);
+        V1ModifierOption other = (V1ModifierOption) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(priceMoney, other.priceMoney)
+            && Objects.equals(onByDefault, other.onByDefault)
+            && Objects.equals(ordinal, other.ordinal)
+            && Objects.equals(modifierListId, other.modifierListId)
+            && Objects.equals(v2Id, other.v2Id);
     }
 
     /**
@@ -153,11 +164,11 @@ public class V1ModifierOption {
             .ordinal(getOrdinal())
             .modifierListId(getModifierListId())
             .v2Id(getV2Id());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ModifierOption}
+     * Class to build instances of {@link V1ModifierOption}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -169,79 +180,81 @@ public class V1ModifierOption {
         private String modifierListId;
         private String v2Id;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for priceMoney
-         * @param priceMoney
+         * Setter for priceMoney.
+         * @param priceMoney V1Money value for priceMoney.
          * @return Builder
          */
         public Builder priceMoney(V1Money priceMoney) {
             this.priceMoney = priceMoney;
             return this;
         }
+
         /**
-         * Setter for onByDefault
-         * @param onByDefault
+         * Setter for onByDefault.
+         * @param onByDefault Boolean value for onByDefault.
          * @return Builder
          */
         public Builder onByDefault(Boolean onByDefault) {
             this.onByDefault = onByDefault;
             return this;
         }
+
         /**
-         * Setter for ordinal
-         * @param ordinal
+         * Setter for ordinal.
+         * @param ordinal Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
             this.ordinal = ordinal;
             return this;
         }
+
         /**
-         * Setter for modifierListId
-         * @param modifierListId
+         * Setter for modifierListId.
+         * @param modifierListId String value for modifierListId.
          * @return Builder
          */
         public Builder modifierListId(String modifierListId) {
             this.modifierListId = modifierListId;
             return this;
         }
+
         /**
-         * Setter for v2Id
-         * @param v2Id
+         * Setter for v2Id.
+         * @param v2Id String value for v2Id.
          * @return Builder
          */
         public Builder v2Id(String v2Id) {
@@ -254,13 +267,14 @@ public class V1ModifierOption {
          * @return {@link V1ModifierOption}
          */
         public V1ModifierOption build() {
-            V1ModifierOption model = new V1ModifierOption(id,
-                name,
-                priceMoney,
-                onByDefault,
-                ordinal,
-                modifierListId,
-                v2Id);
+            V1ModifierOption model =
+                    new V1ModifierOption(id,
+                            name,
+                            priceMoney,
+                            onByDefault,
+                            ordinal,
+                            modifierListId,
+                            v2Id);
             model.httpContext = httpContext;
             return model;
         }

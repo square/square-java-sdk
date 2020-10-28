@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for UpdateItemTaxesRequest type.
  */
 public class UpdateItemTaxesRequest {
+    private final List<String> itemIds;
+    private final List<String> taxesToEnable;
+    private final List<String> taxesToDisable;
 
     /**
      * Initialization constructor.
-     * @param itemIds
-     * @param taxesToEnable
-     * @param taxesToDisable
+     * @param itemIds List of String value for itemIds.
+     * @param taxesToEnable List of String value for taxesToEnable.
+     * @param taxesToDisable List of String value for taxesToDisable.
      */
     @JsonCreator
     public UpdateItemTaxesRequest(
@@ -28,12 +32,10 @@ public class UpdateItemTaxesRequest {
         this.taxesToDisable = taxesToDisable;
     }
 
-    private final List<String> itemIds;
-    private final List<String> taxesToEnable;
-    private final List<String> taxesToDisable;
     /**
      * Getter for ItemIds.
      * IDs for the CatalogItems associated with the CatalogTax objects being updated.
+     * @return Returns the List of String
      */
     @JsonGetter("item_ids")
     public List<String> getItemIds() {
@@ -43,6 +45,7 @@ public class UpdateItemTaxesRequest {
     /**
      * Getter for TaxesToEnable.
      * IDs of the CatalogTax objects to enable.
+     * @return Returns the List of String
      */
     @JsonGetter("taxes_to_enable")
     public List<String> getTaxesToEnable() {
@@ -52,6 +55,7 @@ public class UpdateItemTaxesRequest {
     /**
      * Getter for TaxesToDisable.
      * IDs of the CatalogTax objects to disable.
+     * @return Returns the List of String
      */
     @JsonGetter("taxes_to_disable")
     public List<String> getTaxesToDisable() {
@@ -66,16 +70,16 @@ public class UpdateItemTaxesRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateItemTaxesRequest)) {
+        if (!(obj instanceof UpdateItemTaxesRequest)) {
             return false;
         }
-        UpdateItemTaxesRequest updateItemTaxesRequest = (UpdateItemTaxesRequest) obj;
-        return Objects.equals(itemIds, updateItemTaxesRequest.itemIds) &&
-            Objects.equals(taxesToEnable, updateItemTaxesRequest.taxesToEnable) &&
-            Objects.equals(taxesToDisable, updateItemTaxesRequest.taxesToDisable);
+        UpdateItemTaxesRequest other = (UpdateItemTaxesRequest) obj;
+        return Objects.equals(itemIds, other.itemIds)
+            && Objects.equals(taxesToEnable, other.taxesToEnable)
+            && Objects.equals(taxesToDisable, other.taxesToDisable);
     }
 
     /**
@@ -87,11 +91,11 @@ public class UpdateItemTaxesRequest {
         Builder builder = new Builder(itemIds)
             .taxesToEnable(getTaxesToEnable())
             .taxesToDisable(getTaxesToDisable());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateItemTaxesRequest}
+     * Class to build instances of {@link UpdateItemTaxesRequest}.
      */
     public static class Builder {
         private List<String> itemIds;
@@ -99,33 +103,36 @@ public class UpdateItemTaxesRequest {
         private List<String> taxesToDisable;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param itemIds List of String value for itemIds.
          */
         public Builder(List<String> itemIds) {
             this.itemIds = itemIds;
         }
 
         /**
-         * Setter for itemIds
-         * @param itemIds
+         * Setter for itemIds.
+         * @param itemIds List of String value for itemIds.
          * @return Builder
          */
         public Builder itemIds(List<String> itemIds) {
             this.itemIds = itemIds;
             return this;
         }
+
         /**
-         * Setter for taxesToEnable
-         * @param taxesToEnable
+         * Setter for taxesToEnable.
+         * @param taxesToEnable List of String value for taxesToEnable.
          * @return Builder
          */
         public Builder taxesToEnable(List<String> taxesToEnable) {
             this.taxesToEnable = taxesToEnable;
             return this;
         }
+
         /**
-         * Setter for taxesToDisable
-         * @param taxesToDisable
+         * Setter for taxesToDisable.
+         * @param taxesToDisable List of String value for taxesToDisable.
          * @return Builder
          */
         public Builder taxesToDisable(List<String> taxesToDisable) {

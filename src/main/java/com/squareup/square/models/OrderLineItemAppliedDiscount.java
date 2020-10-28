@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderLineItemAppliedDiscount type.
  */
 public class OrderLineItemAppliedDiscount {
+    private final String uid;
+    private final String discountUid;
+    private final Money appliedMoney;
 
     /**
      * Initialization constructor.
-     * @param discountUid
-     * @param uid
-     * @param appliedMoney
+     * @param discountUid String value for discountUid.
+     * @param uid String value for uid.
+     * @param appliedMoney Money value for appliedMoney.
      */
     @JsonCreator
     public OrderLineItemAppliedDiscount(
@@ -27,12 +31,10 @@ public class OrderLineItemAppliedDiscount {
         this.appliedMoney = appliedMoney;
     }
 
-    private final String uid;
-    private final String discountUid;
-    private final Money appliedMoney;
     /**
      * Getter for Uid.
      * Unique ID that identifies the applied discount only within this order.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -41,10 +43,11 @@ public class OrderLineItemAppliedDiscount {
 
     /**
      * Getter for DiscountUid.
-     * The `uid` of the discount the applied discount represents. Must
-     * reference a discount present in the `order.discounts` field.
-     * This field is immutable. To change which discounts apply to a line item,
-     * you must delete the discount and re-add it as a new `OrderLineItemAppliedDiscount`.
+     * The `uid` of the discount the applied discount represents. Must reference a discount present
+     * in the `order.discounts` field. This field is immutable. To change which discounts apply to a
+     * line item, you must delete the discount and re-add it as a new
+     * `OrderLineItemAppliedDiscount`.
+     * @return Returns the String
      */
     @JsonGetter("discount_uid")
     public String getDiscountUid() {
@@ -53,12 +56,13 @@ public class OrderLineItemAppliedDiscount {
 
     /**
      * Getter for AppliedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
@@ -73,16 +77,16 @@ public class OrderLineItemAppliedDiscount {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderLineItemAppliedDiscount)) {
+        if (!(obj instanceof OrderLineItemAppliedDiscount)) {
             return false;
         }
-        OrderLineItemAppliedDiscount orderLineItemAppliedDiscount = (OrderLineItemAppliedDiscount) obj;
-        return Objects.equals(uid, orderLineItemAppliedDiscount.uid) &&
-            Objects.equals(discountUid, orderLineItemAppliedDiscount.discountUid) &&
-            Objects.equals(appliedMoney, orderLineItemAppliedDiscount.appliedMoney);
+        OrderLineItemAppliedDiscount other = (OrderLineItemAppliedDiscount) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(discountUid, other.discountUid)
+            && Objects.equals(appliedMoney, other.appliedMoney);
     }
 
     /**
@@ -94,11 +98,11 @@ public class OrderLineItemAppliedDiscount {
         Builder builder = new Builder(discountUid)
             .uid(getUid())
             .appliedMoney(getAppliedMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderLineItemAppliedDiscount}
+     * Class to build instances of {@link OrderLineItemAppliedDiscount}.
      */
     public static class Builder {
         private String discountUid;
@@ -106,33 +110,36 @@ public class OrderLineItemAppliedDiscount {
         private Money appliedMoney;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param discountUid String value for discountUid.
          */
         public Builder(String discountUid) {
             this.discountUid = discountUid;
         }
 
         /**
-         * Setter for discountUid
-         * @param discountUid
+         * Setter for discountUid.
+         * @param discountUid String value for discountUid.
          * @return Builder
          */
         public Builder discountUid(String discountUid) {
             this.discountUid = discountUid;
             return this;
         }
+
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {

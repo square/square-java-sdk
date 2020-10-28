@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogQueryItemsForModifierList type.
  */
 public class CatalogQueryItemsForModifierList {
+    private final List<String> modifierListIds;
 
     /**
      * Initialization constructor.
-     * @param modifierListIds
+     * @param modifierListIds List of String value for modifierListIds.
      */
     @JsonCreator
     public CatalogQueryItemsForModifierList(
@@ -22,10 +24,10 @@ public class CatalogQueryItemsForModifierList {
         this.modifierListIds = modifierListIds;
     }
 
-    private final List<String> modifierListIds;
     /**
      * Getter for ModifierListIds.
      * A set of `CatalogModifierList` IDs to be used to find associated `CatalogItem`s.
+     * @return Returns the List of String
      */
     @JsonGetter("modifier_list_ids")
     public List<String> getModifierListIds() {
@@ -40,14 +42,14 @@ public class CatalogQueryItemsForModifierList {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogQueryItemsForModifierList)) {
+        if (!(obj instanceof CatalogQueryItemsForModifierList)) {
             return false;
         }
-        CatalogQueryItemsForModifierList catalogQueryItemsForModifierList = (CatalogQueryItemsForModifierList) obj;
-        return Objects.equals(modifierListIds, catalogQueryItemsForModifierList.modifierListIds);
+        CatalogQueryItemsForModifierList other = (CatalogQueryItemsForModifierList) obj;
+        return Objects.equals(modifierListIds, other.modifierListIds);
     }
 
     /**
@@ -57,25 +59,26 @@ public class CatalogQueryItemsForModifierList {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(modifierListIds);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogQueryItemsForModifierList}
+     * Class to build instances of {@link CatalogQueryItemsForModifierList}.
      */
     public static class Builder {
         private List<String> modifierListIds;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param modifierListIds List of String value for modifierListIds.
          */
         public Builder(List<String> modifierListIds) {
             this.modifierListIds = modifierListIds;
         }
 
         /**
-         * Setter for modifierListIds
-         * @param modifierListIds
+         * Setter for modifierListIds.
+         * @param modifierListIds List of String value for modifierListIds.
          * @return Builder
          */
         public Builder modifierListIds(List<String> modifierListIds) {

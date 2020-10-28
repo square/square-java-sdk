@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListCustomersRequest type.
  */
 public class ListCustomersRequest {
+    private final String cursor;
+    private final String sortField;
+    private final String sortOrder;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param sortField
-     * @param sortOrder
+     * @param cursor String value for cursor.
+     * @param sortField String value for sortField.
+     * @param sortOrder String value for sortOrder.
      */
     @JsonCreator
     public ListCustomersRequest(
@@ -27,14 +31,13 @@ public class ListCustomersRequest {
         this.sortOrder = sortOrder;
     }
 
-    private final String cursor;
-    private final String sortField;
-    private final String sortOrder;
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. See the [Pagination
+     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -44,6 +47,7 @@ public class ListCustomersRequest {
     /**
      * Getter for SortField.
      * Specifies customer attributes as the sort key to customer profiles returned from a search.
+     * @return Returns the String
      */
     @JsonGetter("sort_field")
     public String getSortField() {
@@ -53,6 +57,7 @@ public class ListCustomersRequest {
     /**
      * Getter for SortOrder.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
@@ -67,16 +72,16 @@ public class ListCustomersRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListCustomersRequest)) {
+        if (!(obj instanceof ListCustomersRequest)) {
             return false;
         }
-        ListCustomersRequest listCustomersRequest = (ListCustomersRequest) obj;
-        return Objects.equals(cursor, listCustomersRequest.cursor) &&
-            Objects.equals(sortField, listCustomersRequest.sortField) &&
-            Objects.equals(sortOrder, listCustomersRequest.sortOrder);
+        ListCustomersRequest other = (ListCustomersRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(sortField, other.sortField)
+            && Objects.equals(sortOrder, other.sortOrder);
     }
 
     /**
@@ -89,45 +94,42 @@ public class ListCustomersRequest {
             .cursor(getCursor())
             .sortField(getSortField())
             .sortOrder(getSortOrder());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListCustomersRequest}
+     * Class to build instances of {@link ListCustomersRequest}.
      */
     public static class Builder {
         private String cursor;
         private String sortField;
         private String sortOrder;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for sortField
-         * @param sortField
+         * Setter for sortField.
+         * @param sortField String value for sortField.
          * @return Builder
          */
         public Builder sortField(String sortField) {
             this.sortField = sortField;
             return this;
         }
+
         /**
-         * Setter for sortOrder
-         * @param sortOrder
+         * Setter for sortOrder.
+         * @param sortOrder String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {

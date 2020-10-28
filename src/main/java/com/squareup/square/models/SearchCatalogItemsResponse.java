@@ -1,24 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchCatalogItemsResponse type.
  */
 public class SearchCatalogItemsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<CatalogObject> items;
+    private final String cursor;
+    private final List<String> matchedVariationIds;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param items
-     * @param cursor
-     * @param matchedVariationIds
+     * @param errors List of Error value for errors.
+     * @param items List of CatalogObject value for items.
+     * @param cursor String value for cursor.
+     * @param matchedVariationIds List of String value for matchedVariationIds.
      */
     @JsonCreator
     public SearchCatalogItemsResponse(
@@ -32,19 +38,14 @@ public class SearchCatalogItemsResponse {
         this.matchedVariationIds = matchedVariationIds;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<CatalogObject> items;
-    private final String cursor;
-    private final List<String> matchedVariationIds;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Errors.
-     * Errors detected when the call to [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint fails.
+     * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -54,6 +55,7 @@ public class SearchCatalogItemsResponse {
     /**
      * Getter for Items.
      * Returned items matching the specified query expressions.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("items")
     public List<CatalogObject> getItems() {
@@ -63,6 +65,7 @@ public class SearchCatalogItemsResponse {
     /**
      * Getter for Cursor.
      * Pagination token used in the next request to return more of the search result.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -72,6 +75,7 @@ public class SearchCatalogItemsResponse {
     /**
      * Getter for MatchedVariationIds.
      * Ids of returned item variations matching the specified query expression.
+     * @return Returns the List of String
      */
     @JsonGetter("matched_variation_ids")
     public List<String> getMatchedVariationIds() {
@@ -86,17 +90,17 @@ public class SearchCatalogItemsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchCatalogItemsResponse)) {
+        if (!(obj instanceof SearchCatalogItemsResponse)) {
             return false;
         }
-        SearchCatalogItemsResponse searchCatalogItemsResponse = (SearchCatalogItemsResponse) obj;
-        return Objects.equals(errors, searchCatalogItemsResponse.errors) &&
-            Objects.equals(items, searchCatalogItemsResponse.items) &&
-            Objects.equals(cursor, searchCatalogItemsResponse.cursor) &&
-            Objects.equals(matchedVariationIds, searchCatalogItemsResponse.matchedVariationIds);
+        SearchCatalogItemsResponse other = (SearchCatalogItemsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(items, other.items)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(matchedVariationIds, other.matchedVariationIds);
     }
 
     /**
@@ -110,11 +114,11 @@ public class SearchCatalogItemsResponse {
             .items(getItems())
             .cursor(getCursor())
             .matchedVariationIds(getMatchedVariationIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchCatalogItemsResponse}
+     * Class to build instances of {@link SearchCatalogItemsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -123,52 +127,51 @@ public class SearchCatalogItemsResponse {
         private String cursor;
         private List<String> matchedVariationIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for items
-         * @param items
+         * Setter for items.
+         * @param items List of CatalogObject value for items.
          * @return Builder
          */
         public Builder items(List<CatalogObject> items) {
             this.items = items;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for matchedVariationIds
-         * @param matchedVariationIds
+         * Setter for matchedVariationIds.
+         * @param matchedVariationIds List of String value for matchedVariationIds.
          * @return Builder
          */
         public Builder matchedVariationIds(List<String> matchedVariationIds) {
@@ -181,10 +184,11 @@ public class SearchCatalogItemsResponse {
          * @return {@link SearchCatalogItemsResponse}
          */
         public SearchCatalogItemsResponse build() {
-            SearchCatalogItemsResponse model = new SearchCatalogItemsResponse(errors,
-                items,
-                cursor,
-                matchedVariationIds);
+            SearchCatalogItemsResponse model =
+                    new SearchCatalogItemsResponse(errors,
+                            items,
+                            cursor,
+                            matchedVariationIds);
             model.httpContext = httpContext;
             return model;
         }

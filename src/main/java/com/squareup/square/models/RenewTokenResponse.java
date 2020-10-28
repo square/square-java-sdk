@@ -1,25 +1,33 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for RenewTokenResponse type.
  */
 public class RenewTokenResponse {
+    private HttpContext httpContext;
+    private final String accessToken;
+    private final String tokenType;
+    private final String expiresAt;
+    private final String merchantId;
+    private final String subscriptionId;
+    private final String planId;
 
     /**
      * Initialization constructor.
-     * @param accessToken
-     * @param tokenType
-     * @param expiresAt
-     * @param merchantId
-     * @param subscriptionId
-     * @param planId
+     * @param accessToken String value for accessToken.
+     * @param tokenType String value for tokenType.
+     * @param expiresAt String value for expiresAt.
+     * @param merchantId String value for merchantId.
+     * @param subscriptionId String value for subscriptionId.
+     * @param planId String value for planId.
      */
     @JsonCreator
     public RenewTokenResponse(
@@ -37,24 +45,18 @@ public class RenewTokenResponse {
         this.planId = planId;
     }
 
-    private HttpContext httpContext;
-    private final String accessToken;
-    private final String tokenType;
-    private final String expiresAt;
-    private final String merchantId;
-    private final String subscriptionId;
-    private final String planId;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for AccessToken.
-     * The renewed access token.
-     * This value might be different from the `access_token` you provided in your request.
-     * You provide this token in a header with every request to Connect API endpoints.
-     * See [Request and response headers](https://developer.squareup.com/docs/api/connect/v2/#requestandresponseheaders) for the format of this header.
+     * The renewed access token. This value might be different from the `access_token` you provided
+     * in your request. You provide this token in a header with every request to Connect API
+     * endpoints. See [Request and response
+     * headers](https://developer.squareup.com/docs/api/connect/v2/#requestandresponseheaders) for
+     * the format of this header.
+     * @return Returns the String
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
@@ -64,6 +66,7 @@ public class RenewTokenResponse {
     /**
      * Getter for TokenType.
      * This value is always _bearer_.
+     * @return Returns the String
      */
     @JsonGetter("token_type")
     public String getTokenType() {
@@ -72,7 +75,9 @@ public class RenewTokenResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The date when access_token expires, in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
+     * The date when access_token expires, in [ISO
+     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
+     * @return Returns the String
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
@@ -82,6 +87,7 @@ public class RenewTokenResponse {
     /**
      * Getter for MerchantId.
      * The ID of the authorizing merchant's business.
+     * @return Returns the String
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
@@ -90,9 +96,9 @@ public class RenewTokenResponse {
 
     /**
      * Getter for SubscriptionId.
-     * __LEGACY FIELD__. The ID of the merchant subscription associated with
-     * the authorization. Only present if the merchant signed up for a subscription
-     * during authorization..
+     * __LEGACY FIELD__. The ID of the merchant subscription associated with the authorization. Only
+     * present if the merchant signed up for a subscription during authorization..
+     * @return Returns the String
      */
     @JsonGetter("subscription_id")
     public String getSubscriptionId() {
@@ -101,9 +107,9 @@ public class RenewTokenResponse {
 
     /**
      * Getter for PlanId.
-     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed
-     * up for. Only present if the merchant signed up for a subscription during
-     * authorization.
+     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. Only present if
+     * the merchant signed up for a subscription during authorization.
+     * @return Returns the String
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
@@ -113,24 +119,25 @@ public class RenewTokenResponse {
  
     @Override
     public int hashCode() {
-        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId);
+        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId,
+                planId);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RenewTokenResponse)) {
+        if (!(obj instanceof RenewTokenResponse)) {
             return false;
         }
-        RenewTokenResponse renewTokenResponse = (RenewTokenResponse) obj;
-        return Objects.equals(accessToken, renewTokenResponse.accessToken) &&
-            Objects.equals(tokenType, renewTokenResponse.tokenType) &&
-            Objects.equals(expiresAt, renewTokenResponse.expiresAt) &&
-            Objects.equals(merchantId, renewTokenResponse.merchantId) &&
-            Objects.equals(subscriptionId, renewTokenResponse.subscriptionId) &&
-            Objects.equals(planId, renewTokenResponse.planId);
+        RenewTokenResponse other = (RenewTokenResponse) obj;
+        return Objects.equals(accessToken, other.accessToken)
+            && Objects.equals(tokenType, other.tokenType)
+            && Objects.equals(expiresAt, other.expiresAt)
+            && Objects.equals(merchantId, other.merchantId)
+            && Objects.equals(subscriptionId, other.subscriptionId)
+            && Objects.equals(planId, other.planId);
     }
 
     /**
@@ -146,11 +153,11 @@ public class RenewTokenResponse {
             .merchantId(getMerchantId())
             .subscriptionId(getSubscriptionId())
             .planId(getPlanId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RenewTokenResponse}
+     * Class to build instances of {@link RenewTokenResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -161,70 +168,71 @@ public class RenewTokenResponse {
         private String subscriptionId;
         private String planId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for accessToken
-         * @param accessToken
+         * Setter for accessToken.
+         * @param accessToken String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
             this.accessToken = accessToken;
             return this;
         }
+
         /**
-         * Setter for tokenType
-         * @param tokenType
+         * Setter for tokenType.
+         * @param tokenType String value for tokenType.
          * @return Builder
          */
         public Builder tokenType(String tokenType) {
             this.tokenType = tokenType;
             return this;
         }
+
         /**
-         * Setter for expiresAt
-         * @param expiresAt
+         * Setter for expiresAt.
+         * @param expiresAt String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
+
         /**
-         * Setter for merchantId
-         * @param merchantId
+         * Setter for merchantId.
+         * @param merchantId String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
             this.merchantId = merchantId;
             return this;
         }
+
         /**
-         * Setter for subscriptionId
-         * @param subscriptionId
+         * Setter for subscriptionId.
+         * @param subscriptionId String value for subscriptionId.
          * @return Builder
          */
         public Builder subscriptionId(String subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }
+
         /**
-         * Setter for planId
-         * @param planId
+         * Setter for planId.
+         * @param planId String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {
@@ -237,12 +245,13 @@ public class RenewTokenResponse {
          * @return {@link RenewTokenResponse}
          */
         public RenewTokenResponse build() {
-            RenewTokenResponse model = new RenewTokenResponse(accessToken,
-                tokenType,
-                expiresAt,
-                merchantId,
-                subscriptionId,
-                planId);
+            RenewTokenResponse model =
+                    new RenewTokenResponse(accessToken,
+                            tokenType,
+                            expiresAt,
+                            merchantId,
+                            subscriptionId,
+                            planId);
             model.httpContext = httpContext;
             return model;
         }

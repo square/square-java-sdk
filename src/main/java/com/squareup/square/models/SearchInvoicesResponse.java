@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchInvoicesResponse type.
  */
 public class SearchInvoicesResponse {
+    private HttpContext httpContext;
+    private final List<Invoice> invoices;
+    private final String cursor;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param invoices
-     * @param cursor
-     * @param errors
+     * @param invoices List of Invoice value for invoices.
+     * @param cursor String value for cursor.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public SearchInvoicesResponse(
@@ -29,11 +34,6 @@ public class SearchInvoicesResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<Invoice> invoices;
-    private final String cursor;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class SearchInvoicesResponse {
     /**
      * Getter for Invoices.
      * The list of invoices returned by the search.
+     * @return Returns the List of Invoice
      */
     @JsonGetter("invoices")
     public List<Invoice> getInvoices() {
@@ -49,10 +50,11 @@ public class SearchInvoicesResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can use in a 
-     * subsequent request to fetch the next set of invoices. If empty, this is the final 
-     * response. 
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request
+     * to fetch the next set of invoices. If empty, this is the final response. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -62,6 +64,7 @@ public class SearchInvoicesResponse {
     /**
      * Getter for Errors.
      * Information about errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -76,16 +79,16 @@ public class SearchInvoicesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchInvoicesResponse)) {
+        if (!(obj instanceof SearchInvoicesResponse)) {
             return false;
         }
-        SearchInvoicesResponse searchInvoicesResponse = (SearchInvoicesResponse) obj;
-        return Objects.equals(invoices, searchInvoicesResponse.invoices) &&
-            Objects.equals(cursor, searchInvoicesResponse.cursor) &&
-            Objects.equals(errors, searchInvoicesResponse.errors);
+        SearchInvoicesResponse other = (SearchInvoicesResponse) obj;
+        return Objects.equals(invoices, other.invoices)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -98,11 +101,11 @@ public class SearchInvoicesResponse {
             .invoices(getInvoices())
             .cursor(getCursor())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchInvoicesResponse}
+     * Class to build instances of {@link SearchInvoicesResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +113,41 @@ public class SearchInvoicesResponse {
         private String cursor;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for invoices
-         * @param invoices
+         * Setter for invoices.
+         * @param invoices List of Invoice value for invoices.
          * @return Builder
          */
         public Builder invoices(List<Invoice> invoices) {
             this.invoices = invoices;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -159,9 +160,10 @@ public class SearchInvoicesResponse {
          * @return {@link SearchInvoicesResponse}
          */
         public SearchInvoicesResponse build() {
-            SearchInvoicesResponse model = new SearchInvoicesResponse(invoices,
-                cursor,
-                errors);
+            SearchInvoicesResponse model =
+                    new SearchInvoicesResponse(invoices,
+                            cursor,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

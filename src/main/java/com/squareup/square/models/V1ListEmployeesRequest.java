@@ -1,27 +1,37 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ListEmployeesRequest type.
  */
 public class V1ListEmployeesRequest {
+    private final String order;
+    private final String beginUpdatedAt;
+    private final String endUpdatedAt;
+    private final String beginCreatedAt;
+    private final String endCreatedAt;
+    private final String status;
+    private final String externalId;
+    private final Integer limit;
+    private final String batchToken;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param beginUpdatedAt
-     * @param endUpdatedAt
-     * @param beginCreatedAt
-     * @param endCreatedAt
-     * @param status
-     * @param externalId
-     * @param limit
-     * @param batchToken
+     * @param order String value for order.
+     * @param beginUpdatedAt String value for beginUpdatedAt.
+     * @param endUpdatedAt String value for endUpdatedAt.
+     * @param beginCreatedAt String value for beginCreatedAt.
+     * @param endCreatedAt String value for endCreatedAt.
+     * @param status String value for status.
+     * @param externalId String value for externalId.
+     * @param limit Integer value for limit.
+     * @param batchToken String value for batchToken.
      */
     @JsonCreator
     public V1ListEmployeesRequest(
@@ -45,18 +55,10 @@ public class V1ListEmployeesRequest {
         this.batchToken = batchToken;
     }
 
-    private final String order;
-    private final String beginUpdatedAt;
-    private final String endUpdatedAt;
-    private final String beginCreatedAt;
-    private final String endCreatedAt;
-    private final String status;
-    private final String externalId;
-    private final Integer limit;
-    private final String batchToken;
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("order")
     public String getOrder() {
@@ -65,7 +67,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for BeginUpdatedAt.
-     * If filtering results by their updated_at field, the beginning of the requested reporting period, in ISO 8601 format
+     * If filtering results by their updated_at field, the beginning of the requested reporting
+     * period, in ISO 8601 format
+     * @return Returns the String
      */
     @JsonGetter("begin_updated_at")
     public String getBeginUpdatedAt() {
@@ -74,7 +78,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for EndUpdatedAt.
-     * If filtering results by there updated_at field, the end of the requested reporting period, in ISO 8601 format.
+     * If filtering results by there updated_at field, the end of the requested reporting period, in
+     * ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("end_updated_at")
     public String getEndUpdatedAt() {
@@ -83,7 +89,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for BeginCreatedAt.
-     * If filtering results by their created_at field, the beginning of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their created_at field, the beginning of the requested reporting
+     * period, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("begin_created_at")
     public String getBeginCreatedAt() {
@@ -92,7 +100,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for EndCreatedAt.
-     * If filtering results by their created_at field, the end of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their created_at field, the end of the requested reporting period, in
+     * ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("end_created_at")
     public String getEndCreatedAt() {
@@ -101,6 +111,7 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for Status.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -110,6 +121,7 @@ public class V1ListEmployeesRequest {
     /**
      * Getter for ExternalId.
      * If provided, the endpoint returns only employee entities with the specified external_id.
+     * @return Returns the String
      */
     @JsonGetter("external_id")
     public String getExternalId() {
@@ -118,7 +130,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
+     * The maximum integer number of employee entities to return in a single response. Default 100,
+     * maximum 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -127,8 +141,9 @@ public class V1ListEmployeesRequest {
 
     /**
      * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the String
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
@@ -139,27 +154,27 @@ public class V1ListEmployeesRequest {
     @Override
     public int hashCode() {
         return Objects.hash(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt,
-            status, externalId, limit, batchToken);
+                status, externalId, limit, batchToken);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListEmployeesRequest)) {
+        if (!(obj instanceof V1ListEmployeesRequest)) {
             return false;
         }
-        V1ListEmployeesRequest v1ListEmployeesRequest = (V1ListEmployeesRequest) obj;
-        return Objects.equals(order, v1ListEmployeesRequest.order) &&
-            Objects.equals(beginUpdatedAt, v1ListEmployeesRequest.beginUpdatedAt) &&
-            Objects.equals(endUpdatedAt, v1ListEmployeesRequest.endUpdatedAt) &&
-            Objects.equals(beginCreatedAt, v1ListEmployeesRequest.beginCreatedAt) &&
-            Objects.equals(endCreatedAt, v1ListEmployeesRequest.endCreatedAt) &&
-            Objects.equals(status, v1ListEmployeesRequest.status) &&
-            Objects.equals(externalId, v1ListEmployeesRequest.externalId) &&
-            Objects.equals(limit, v1ListEmployeesRequest.limit) &&
-            Objects.equals(batchToken, v1ListEmployeesRequest.batchToken);
+        V1ListEmployeesRequest other = (V1ListEmployeesRequest) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(beginUpdatedAt, other.beginUpdatedAt)
+            && Objects.equals(endUpdatedAt, other.endUpdatedAt)
+            && Objects.equals(beginCreatedAt, other.beginCreatedAt)
+            && Objects.equals(endCreatedAt, other.endCreatedAt)
+            && Objects.equals(status, other.status)
+            && Objects.equals(externalId, other.externalId)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(batchToken, other.batchToken);
     }
 
     /**
@@ -178,11 +193,11 @@ public class V1ListEmployeesRequest {
             .externalId(getExternalId())
             .limit(getLimit())
             .batchToken(getBatchToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListEmployeesRequest}
+     * Class to build instances of {@link V1ListEmployeesRequest}.
      */
     public static class Builder {
         private String order;
@@ -195,88 +210,91 @@ public class V1ListEmployeesRequest {
         private Integer limit;
         private String batchToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order String value for order.
          * @return Builder
          */
         public Builder order(String order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for beginUpdatedAt
-         * @param beginUpdatedAt
+         * Setter for beginUpdatedAt.
+         * @param beginUpdatedAt String value for beginUpdatedAt.
          * @return Builder
          */
         public Builder beginUpdatedAt(String beginUpdatedAt) {
             this.beginUpdatedAt = beginUpdatedAt;
             return this;
         }
+
         /**
-         * Setter for endUpdatedAt
-         * @param endUpdatedAt
+         * Setter for endUpdatedAt.
+         * @param endUpdatedAt String value for endUpdatedAt.
          * @return Builder
          */
         public Builder endUpdatedAt(String endUpdatedAt) {
             this.endUpdatedAt = endUpdatedAt;
             return this;
         }
+
         /**
-         * Setter for beginCreatedAt
-         * @param beginCreatedAt
+         * Setter for beginCreatedAt.
+         * @param beginCreatedAt String value for beginCreatedAt.
          * @return Builder
          */
         public Builder beginCreatedAt(String beginCreatedAt) {
             this.beginCreatedAt = beginCreatedAt;
             return this;
         }
+
         /**
-         * Setter for endCreatedAt
-         * @param endCreatedAt
+         * Setter for endCreatedAt.
+         * @param endCreatedAt String value for endCreatedAt.
          * @return Builder
          */
         public Builder endCreatedAt(String endCreatedAt) {
             this.endCreatedAt = endCreatedAt;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for externalId
-         * @param externalId
+         * Setter for externalId.
+         * @param externalId String value for externalId.
          * @return Builder
          */
         public Builder externalId(String externalId) {
             this.externalId = externalId;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for batchToken
-         * @param batchToken
+         * Setter for batchToken.
+         * @param batchToken String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {

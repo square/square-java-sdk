@@ -1,12 +1,13 @@
-## Device Details
+
+# Device Details
 
 Details about the device that took the payment.
 
-### Structure
+## Structure
 
 `DeviceDetails`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@ Details about the device that took the payment.
 | `DeviceInstallationId` | `String` | Optional | Square-issued installation ID for the device. | String getDeviceInstallationId() |
 | `DeviceName` | `String` | Optional | The name of the device set by the merchant. | String getDeviceName() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for SearchTeamMembersFilter type.
  */
 public class SearchTeamMembersFilter {
+    private final List<String> locationIds;
+    private final String status;
 
     /**
      * Initialization constructor.
-     * @param locationIds
-     * @param status
+     * @param locationIds List of String value for locationIds.
+     * @param status String value for status.
      */
     @JsonCreator
     public SearchTeamMembersFilter(
@@ -25,12 +28,11 @@ public class SearchTeamMembersFilter {
         this.status = status;
     }
 
-    private final List<String> locationIds;
-    private final String status;
     /**
      * Getter for LocationIds.
-     * When present, filter by team members assigned to the specified locations.
-     * When empty, include team members assigned to any location.
+     * When present, filter by team members assigned to the specified locations. When empty, include
+     * team members assigned to any location.
+     * @return Returns the List of String
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -40,6 +42,7 @@ public class SearchTeamMembersFilter {
     /**
      * Getter for Status.
      * Enumerates the possible statuses the team member can have within a business.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -54,15 +57,15 @@ public class SearchTeamMembersFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchTeamMembersFilter)) {
+        if (!(obj instanceof SearchTeamMembersFilter)) {
             return false;
         }
-        SearchTeamMembersFilter searchTeamMembersFilter = (SearchTeamMembersFilter) obj;
-        return Objects.equals(locationIds, searchTeamMembersFilter.locationIds) &&
-            Objects.equals(status, searchTeamMembersFilter.status);
+        SearchTeamMembersFilter other = (SearchTeamMembersFilter) obj;
+        return Objects.equals(locationIds, other.locationIds)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -74,35 +77,31 @@ public class SearchTeamMembersFilter {
         Builder builder = new Builder()
             .locationIds(getLocationIds())
             .status(getStatus());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchTeamMembersFilter}
+     * Class to build instances of {@link SearchTeamMembersFilter}.
      */
     public static class Builder {
         private List<String> locationIds;
         private String status;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
             this.locationIds = locationIds;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {

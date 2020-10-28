@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogItemOptionForItem type.
  */
 public class CatalogItemOptionForItem {
+    private final String itemOptionId;
 
     /**
      * Initialization constructor.
-     * @param itemOptionId
+     * @param itemOptionId String value for itemOptionId.
      */
     @JsonCreator
     public CatalogItemOptionForItem(
@@ -21,10 +23,11 @@ public class CatalogItemOptionForItem {
         this.itemOptionId = itemOptionId;
     }
 
-    private final String itemOptionId;
     /**
      * Getter for ItemOptionId.
-     * The unique id of the item option, used to form the dimensions of the item option matrix in a specified order.
+     * The unique id of the item option, used to form the dimensions of the item option matrix in a
+     * specified order.
+     * @return Returns the String
      */
     @JsonGetter("item_option_id")
     public String getItemOptionId() {
@@ -39,14 +42,14 @@ public class CatalogItemOptionForItem {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogItemOptionForItem)) {
+        if (!(obj instanceof CatalogItemOptionForItem)) {
             return false;
         }
-        CatalogItemOptionForItem catalogItemOptionForItem = (CatalogItemOptionForItem) obj;
-        return Objects.equals(itemOptionId, catalogItemOptionForItem.itemOptionId);
+        CatalogItemOptionForItem other = (CatalogItemOptionForItem) obj;
+        return Objects.equals(itemOptionId, other.itemOptionId);
     }
 
     /**
@@ -57,25 +60,20 @@ public class CatalogItemOptionForItem {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .itemOptionId(getItemOptionId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogItemOptionForItem}
+     * Class to build instances of {@link CatalogItemOptionForItem}.
      */
     public static class Builder {
         private String itemOptionId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for itemOptionId
-         * @param itemOptionId
+         * Setter for itemOptionId.
+         * @param itemOptionId String value for itemOptionId.
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {

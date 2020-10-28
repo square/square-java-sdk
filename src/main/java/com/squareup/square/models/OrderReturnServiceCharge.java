@@ -1,31 +1,44 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for OrderReturnServiceCharge type.
  */
 public class OrderReturnServiceCharge {
+    private final String uid;
+    private final String sourceServiceChargeUid;
+    private final String name;
+    private final String catalogObjectId;
+    private final String percentage;
+    private final Money amountMoney;
+    private final Money appliedMoney;
+    private final Money totalMoney;
+    private final Money totalTaxMoney;
+    private final String calculationPhase;
+    private final Boolean taxable;
+    private final List<OrderLineItemAppliedTax> appliedTaxes;
 
     /**
      * Initialization constructor.
-     * @param uid
-     * @param sourceServiceChargeUid
-     * @param name
-     * @param catalogObjectId
-     * @param percentage
-     * @param amountMoney
-     * @param appliedMoney
-     * @param totalMoney
-     * @param totalTaxMoney
-     * @param calculationPhase
-     * @param taxable
-     * @param appliedTaxes
+     * @param uid String value for uid.
+     * @param sourceServiceChargeUid String value for sourceServiceChargeUid.
+     * @param name String value for name.
+     * @param catalogObjectId String value for catalogObjectId.
+     * @param percentage String value for percentage.
+     * @param amountMoney Money value for amountMoney.
+     * @param appliedMoney Money value for appliedMoney.
+     * @param totalMoney Money value for totalMoney.
+     * @param totalTaxMoney Money value for totalTaxMoney.
+     * @param calculationPhase String value for calculationPhase.
+     * @param taxable Boolean value for taxable.
+     * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
      */
     @JsonCreator
     public OrderReturnServiceCharge(
@@ -55,21 +68,10 @@ public class OrderReturnServiceCharge {
         this.appliedTaxes = appliedTaxes;
     }
 
-    private final String uid;
-    private final String sourceServiceChargeUid;
-    private final String name;
-    private final String catalogObjectId;
-    private final String percentage;
-    private final Money amountMoney;
-    private final Money appliedMoney;
-    private final Money totalMoney;
-    private final Money totalTaxMoney;
-    private final String calculationPhase;
-    private final Boolean taxable;
-    private final List<OrderLineItemAppliedTax> appliedTaxes;
     /**
      * Getter for Uid.
      * Unique ID that identifies the return service charge only within this order.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -78,9 +80,9 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for SourceServiceChargeUid.
-     * `uid` of the Service Charge from the Order containing the original
-     * charge of the service charge. `source_service_charge_uid` is `null` for
-     * unlinked returns.
+     * `uid` of the Service Charge from the Order containing the original charge of the service
+     * charge. `source_service_charge_uid` is `null` for unlinked returns.
+     * @return Returns the String
      */
     @JsonGetter("source_service_charge_uid")
     public String getSourceServiceChargeUid() {
@@ -90,6 +92,7 @@ public class OrderReturnServiceCharge {
     /**
      * Getter for Name.
      * The name of the service charge.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -99,6 +102,7 @@ public class OrderReturnServiceCharge {
     /**
      * Getter for CatalogObjectId.
      * The catalog object ID of the associated [CatalogServiceCharge](#type-catalogservicecharge).
+     * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
@@ -107,10 +111,10 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for Percentage.
-     * The percentage of the service charge, as a string representation of
-     * a decimal number. For example, a value of `"7.25"` corresponds to a
-     * percentage of 7.25%.
-     * Exactly one of `percentage` or `amount_money` should be set.
+     * The percentage of the service charge, as a string representation of a decimal number. For
+     * example, a value of `"7.25"` corresponds to a percentage of 7.25%. Exactly one of
+     * `percentage` or `amount_money` should be set.
+     * @return Returns the String
      */
     @JsonGetter("percentage")
     public String getPercentage() {
@@ -119,12 +123,13 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for AmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
@@ -133,12 +138,13 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for AppliedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
@@ -147,12 +153,13 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for TotalMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
@@ -161,12 +168,13 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for TotalTaxMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("total_tax_money")
     public Money getTotalTaxMoney() {
@@ -175,9 +183,10 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for CalculationPhase.
-     * Represents a phase in the process of calculating order totals.
-     * Service charges are applied __after__ the indicated phase.
-     * [Read more about how order totals are calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
+     * Represents a phase in the process of calculating order totals. Service charges are applied
+     * __after__ the indicated phase. [Read more about how order totals are
+     * calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
+     * @return Returns the String
      */
     @JsonGetter("calculation_phase")
     public String getCalculationPhase() {
@@ -186,8 +195,9 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for Taxable.
-     * Indicates whether the surcharge can be taxed. Service charges
-     * calculated in the `TOTAL_PHASE` cannot be marked as taxable.
+     * Indicates whether the surcharge can be taxed. Service charges calculated in the `TOTAL_PHASE`
+     * cannot be marked as taxable.
+     * @return Returns the Boolean
      */
     @JsonGetter("taxable")
     public Boolean getTaxable() {
@@ -197,10 +207,10 @@ public class OrderReturnServiceCharge {
     /**
      * Getter for AppliedTaxes.
      * The list of references to `OrderReturnTax` entities applied to the
-     * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid`
-     * that references the `uid` of a top-level `OrderReturnTax` that is being
-     * applied to the `OrderReturnServiceCharge`. On reads, the amount applied is
-     * populated.
+     * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid` that references
+     * the `uid` of a top-level `OrderReturnTax` that is being applied to the
+     * `OrderReturnServiceCharge`. On reads, the amount applied is populated.
+     * @return Returns the List of OrderLineItemAppliedTax
      */
     @JsonGetter("applied_taxes")
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
@@ -211,31 +221,31 @@ public class OrderReturnServiceCharge {
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, percentage,
-            amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
-            appliedTaxes);
+                amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
+                appliedTaxes);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderReturnServiceCharge)) {
+        if (!(obj instanceof OrderReturnServiceCharge)) {
             return false;
         }
-        OrderReturnServiceCharge orderReturnServiceCharge = (OrderReturnServiceCharge) obj;
-        return Objects.equals(uid, orderReturnServiceCharge.uid) &&
-            Objects.equals(sourceServiceChargeUid, orderReturnServiceCharge.sourceServiceChargeUid) &&
-            Objects.equals(name, orderReturnServiceCharge.name) &&
-            Objects.equals(catalogObjectId, orderReturnServiceCharge.catalogObjectId) &&
-            Objects.equals(percentage, orderReturnServiceCharge.percentage) &&
-            Objects.equals(amountMoney, orderReturnServiceCharge.amountMoney) &&
-            Objects.equals(appliedMoney, orderReturnServiceCharge.appliedMoney) &&
-            Objects.equals(totalMoney, orderReturnServiceCharge.totalMoney) &&
-            Objects.equals(totalTaxMoney, orderReturnServiceCharge.totalTaxMoney) &&
-            Objects.equals(calculationPhase, orderReturnServiceCharge.calculationPhase) &&
-            Objects.equals(taxable, orderReturnServiceCharge.taxable) &&
-            Objects.equals(appliedTaxes, orderReturnServiceCharge.appliedTaxes);
+        OrderReturnServiceCharge other = (OrderReturnServiceCharge) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(sourceServiceChargeUid, other.sourceServiceChargeUid)
+            && Objects.equals(name, other.name)
+            && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(percentage, other.percentage)
+            && Objects.equals(amountMoney, other.amountMoney)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(totalTaxMoney, other.totalTaxMoney)
+            && Objects.equals(calculationPhase, other.calculationPhase)
+            && Objects.equals(taxable, other.taxable)
+            && Objects.equals(appliedTaxes, other.appliedTaxes);
     }
 
     /**
@@ -257,11 +267,11 @@ public class OrderReturnServiceCharge {
             .calculationPhase(getCalculationPhase())
             .taxable(getTaxable())
             .appliedTaxes(getAppliedTaxes());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderReturnServiceCharge}
+     * Class to build instances of {@link OrderReturnServiceCharge}.
      */
     public static class Builder {
         private String uid;
@@ -277,115 +287,121 @@ public class OrderReturnServiceCharge {
         private Boolean taxable;
         private List<OrderLineItemAppliedTax> appliedTaxes;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for sourceServiceChargeUid
-         * @param sourceServiceChargeUid
+         * Setter for sourceServiceChargeUid.
+         * @param sourceServiceChargeUid String value for sourceServiceChargeUid.
          * @return Builder
          */
         public Builder sourceServiceChargeUid(String sourceServiceChargeUid) {
             this.sourceServiceChargeUid = sourceServiceChargeUid;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for catalogObjectId
-         * @param catalogObjectId
+         * Setter for catalogObjectId.
+         * @param catalogObjectId String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
             return this;
         }
+
         /**
-         * Setter for percentage
-         * @param percentage
+         * Setter for percentage.
+         * @param percentage String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
             this.percentage = percentage;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
             this.amountMoney = amountMoney;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for totalMoney
-         * @param totalMoney
+         * Setter for totalMoney.
+         * @param totalMoney Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
             this.totalMoney = totalMoney;
             return this;
         }
+
         /**
-         * Setter for totalTaxMoney
-         * @param totalTaxMoney
+         * Setter for totalTaxMoney.
+         * @param totalTaxMoney Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(Money totalTaxMoney) {
             this.totalTaxMoney = totalTaxMoney;
             return this;
         }
+
         /**
-         * Setter for calculationPhase
-         * @param calculationPhase
+         * Setter for calculationPhase.
+         * @param calculationPhase String value for calculationPhase.
          * @return Builder
          */
         public Builder calculationPhase(String calculationPhase) {
             this.calculationPhase = calculationPhase;
             return this;
         }
+
         /**
-         * Setter for taxable
-         * @param taxable
+         * Setter for taxable.
+         * @param taxable Boolean value for taxable.
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
             this.taxable = taxable;
             return this;
         }
+
         /**
-         * Setter for appliedTaxes
-         * @param appliedTaxes
+         * Setter for appliedTaxes.
+         * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
          * @return Builder
          */
         public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {

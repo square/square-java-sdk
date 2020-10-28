@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for AdjustLoyaltyPointsResponse type.
  */
 public class AdjustLoyaltyPointsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final LoyaltyEvent event;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param event
+     * @param errors List of Error value for errors.
+     * @param event LoyaltyEvent value for event.
      */
     @JsonCreator
     public AdjustLoyaltyPointsResponse(
@@ -26,10 +30,6 @@ public class AdjustLoyaltyPointsResponse {
         this.event = event;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final LoyaltyEvent event;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class AdjustLoyaltyPointsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,8 +46,9 @@ public class AdjustLoyaltyPointsResponse {
 
     /**
      * Getter for Event.
-     * Provides information about a loyalty event. 
-     * For more information, see [Loyalty events](https://developer.squareup.com/docs/docs/loyalty-api/overview/#loyalty-events).
+     * Provides information about a loyalty event. For more information, see [Loyalty
+     * events](https://developer.squareup.com/docs/docs/loyalty-api/overview/#loyalty-events).
+     * @return Returns the LoyaltyEvent
      */
     @JsonGetter("event")
     public LoyaltyEvent getEvent() {
@@ -61,15 +63,15 @@ public class AdjustLoyaltyPointsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AdjustLoyaltyPointsResponse)) {
+        if (!(obj instanceof AdjustLoyaltyPointsResponse)) {
             return false;
         }
-        AdjustLoyaltyPointsResponse adjustLoyaltyPointsResponse = (AdjustLoyaltyPointsResponse) obj;
-        return Objects.equals(errors, adjustLoyaltyPointsResponse.errors) &&
-            Objects.equals(event, adjustLoyaltyPointsResponse.event);
+        AdjustLoyaltyPointsResponse other = (AdjustLoyaltyPointsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(event, other.event);
     }
 
     /**
@@ -81,45 +83,42 @@ public class AdjustLoyaltyPointsResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .event(getEvent());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link AdjustLoyaltyPointsResponse}
+     * Class to build instances of {@link AdjustLoyaltyPointsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private LoyaltyEvent event;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for event
-         * @param event
+         * Setter for event.
+         * @param event LoyaltyEvent value for event.
          * @return Builder
          */
         public Builder event(LoyaltyEvent event) {
@@ -132,8 +131,9 @@ public class AdjustLoyaltyPointsResponse {
          * @return {@link AdjustLoyaltyPointsResponse}
          */
         public AdjustLoyaltyPointsResponse build() {
-            AdjustLoyaltyPointsResponse model = new AdjustLoyaltyPointsResponse(errors,
-                event);
+            AdjustLoyaltyPointsResponse model =
+                    new AdjustLoyaltyPointsResponse(errors,
+                            event);
             model.httpContext = httpContext;
             return model;
         }

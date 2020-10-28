@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListTeamMemberWagesRequest type.
  */
 public class ListTeamMemberWagesRequest {
+    private final String teamMemberId;
+    private final Integer limit;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param teamMemberId
-     * @param limit
-     * @param cursor
+     * @param teamMemberId String value for teamMemberId.
+     * @param limit Integer value for limit.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListTeamMemberWagesRequest(
@@ -27,13 +31,10 @@ public class ListTeamMemberWagesRequest {
         this.cursor = cursor;
     }
 
-    private final String teamMemberId;
-    private final Integer limit;
-    private final String cursor;
     /**
      * Getter for TeamMemberId.
-     * Filter wages returned to only those that are associated with the
-     * specified team member.
+     * Filter wages returned to only those that are associated with the specified team member.
+     * @return Returns the String
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
@@ -42,8 +43,9 @@ public class ListTeamMemberWagesRequest {
 
     /**
      * Getter for Limit.
-     * Maximum number of Team Member Wages to return per page. Can range between
-     * 1 and 200. The default is the maximum at 200.
+     * Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The
+     * default is the maximum at 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -53,6 +55,7 @@ public class ListTeamMemberWagesRequest {
     /**
      * Getter for Cursor.
      * Pointer to the next page of Employee Wage results to fetch.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -67,16 +70,16 @@ public class ListTeamMemberWagesRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListTeamMemberWagesRequest)) {
+        if (!(obj instanceof ListTeamMemberWagesRequest)) {
             return false;
         }
-        ListTeamMemberWagesRequest listTeamMemberWagesRequest = (ListTeamMemberWagesRequest) obj;
-        return Objects.equals(teamMemberId, listTeamMemberWagesRequest.teamMemberId) &&
-            Objects.equals(limit, listTeamMemberWagesRequest.limit) &&
-            Objects.equals(cursor, listTeamMemberWagesRequest.cursor);
+        ListTeamMemberWagesRequest other = (ListTeamMemberWagesRequest) obj;
+        return Objects.equals(teamMemberId, other.teamMemberId)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -89,45 +92,42 @@ public class ListTeamMemberWagesRequest {
             .teamMemberId(getTeamMemberId())
             .limit(getLimit())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListTeamMemberWagesRequest}
+     * Class to build instances of {@link ListTeamMemberWagesRequest}.
      */
     public static class Builder {
         private String teamMemberId;
         private Integer limit;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for teamMemberId
-         * @param teamMemberId
+         * Setter for teamMemberId.
+         * @param teamMemberId String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
             this.teamMemberId = teamMemberId;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

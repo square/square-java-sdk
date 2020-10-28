@@ -1,12 +1,13 @@
-## Loyalty Event Adjust Points
+
+# Loyalty Event Adjust Points
 
 Provides metadata when the event `type` is `ADJUST_POINTS`.
 
-### Structure
+## Structure
 
 `LoyaltyEventAdjustPoints`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@ Provides metadata when the event `type` is `ADJUST_POINTS`.
 | `Points` | `int` |  | The number of points added or removed. | int getPoints() |
 | `Reason` | `String` | Optional | The reason for the adjustment of points. | String getReason() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for TipSettings type.
  */
 public class TipSettings {
+    private final Boolean allowTipping;
+    private final Boolean separateTipScreen;
+    private final Boolean customTipField;
 
     /**
      * Initialization constructor.
-     * @param allowTipping
-     * @param separateTipScreen
-     * @param customTipField
+     * @param allowTipping Boolean value for allowTipping.
+     * @param separateTipScreen Boolean value for separateTipScreen.
+     * @param customTipField Boolean value for customTipField.
      */
     @JsonCreator
     public TipSettings(
@@ -27,12 +31,10 @@ public class TipSettings {
         this.customTipField = customTipField;
     }
 
-    private final Boolean allowTipping;
-    private final Boolean separateTipScreen;
-    private final Boolean customTipField;
     /**
      * Getter for AllowTipping.
      * Indicates whether tipping is enabled for this checkout. Defaults to false.
+     * @return Returns the Boolean
      */
     @JsonGetter("allow_tipping")
     public Boolean getAllowTipping() {
@@ -41,8 +43,9 @@ public class TipSettings {
 
     /**
      * Getter for SeparateTipScreen.
-     * Indicates whether tip options should be presented on their own screen before presenting
-     * the signature screen during card payment. Defaults to false.
+     * Indicates whether tip options should be presented on their own screen before presenting the
+     * signature screen during card payment. Defaults to false.
+     * @return Returns the Boolean
      */
     @JsonGetter("separate_tip_screen")
     public Boolean getSeparateTipScreen() {
@@ -52,6 +55,7 @@ public class TipSettings {
     /**
      * Getter for CustomTipField.
      * Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.
+     * @return Returns the Boolean
      */
     @JsonGetter("custom_tip_field")
     public Boolean getCustomTipField() {
@@ -66,16 +70,16 @@ public class TipSettings {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TipSettings)) {
+        if (!(obj instanceof TipSettings)) {
             return false;
         }
-        TipSettings tipSettings = (TipSettings) obj;
-        return Objects.equals(allowTipping, tipSettings.allowTipping) &&
-            Objects.equals(separateTipScreen, tipSettings.separateTipScreen) &&
-            Objects.equals(customTipField, tipSettings.customTipField);
+        TipSettings other = (TipSettings) obj;
+        return Objects.equals(allowTipping, other.allowTipping)
+            && Objects.equals(separateTipScreen, other.separateTipScreen)
+            && Objects.equals(customTipField, other.customTipField);
     }
 
     /**
@@ -88,45 +92,42 @@ public class TipSettings {
             .allowTipping(getAllowTipping())
             .separateTipScreen(getSeparateTipScreen())
             .customTipField(getCustomTipField());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TipSettings}
+     * Class to build instances of {@link TipSettings}.
      */
     public static class Builder {
         private Boolean allowTipping;
         private Boolean separateTipScreen;
         private Boolean customTipField;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for allowTipping
-         * @param allowTipping
+         * Setter for allowTipping.
+         * @param allowTipping Boolean value for allowTipping.
          * @return Builder
          */
         public Builder allowTipping(Boolean allowTipping) {
             this.allowTipping = allowTipping;
             return this;
         }
+
         /**
-         * Setter for separateTipScreen
-         * @param separateTipScreen
+         * Setter for separateTipScreen.
+         * @param separateTipScreen Boolean value for separateTipScreen.
          * @return Builder
          */
         public Builder separateTipScreen(Boolean separateTipScreen) {
             this.separateTipScreen = separateTipScreen;
             return this;
         }
+
         /**
-         * Setter for customTipField
-         * @param customTipField
+         * Setter for customTipField.
+         * @param customTipField Boolean value for customTipField.
          * @return Builder
          */
         public Builder customTipField(Boolean customTipField) {

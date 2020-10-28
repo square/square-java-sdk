@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateEmployeeRoleRequest type.
  */
 public class V1UpdateEmployeeRoleRequest {
+    private final V1EmployeeRole body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1EmployeeRole value for body.
      */
     @JsonCreator
     public V1UpdateEmployeeRoleRequest(
@@ -21,10 +23,10 @@ public class V1UpdateEmployeeRoleRequest {
         this.body = body;
     }
 
-    private final V1EmployeeRole body;
     /**
      * Getter for Body.
      * V1EmployeeRole
+     * @return Returns the V1EmployeeRole
      */
     @JsonGetter("body")
     public V1EmployeeRole getBody() {
@@ -39,14 +41,14 @@ public class V1UpdateEmployeeRoleRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateEmployeeRoleRequest)) {
+        if (!(obj instanceof V1UpdateEmployeeRoleRequest)) {
             return false;
         }
-        V1UpdateEmployeeRoleRequest v1UpdateEmployeeRoleRequest = (V1UpdateEmployeeRoleRequest) obj;
-        return Objects.equals(body, v1UpdateEmployeeRoleRequest.body);
+        V1UpdateEmployeeRoleRequest other = (V1UpdateEmployeeRoleRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -56,25 +58,26 @@ public class V1UpdateEmployeeRoleRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(body);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateEmployeeRoleRequest}
+     * Class to build instances of {@link V1UpdateEmployeeRoleRequest}.
      */
     public static class Builder {
         private V1EmployeeRole body;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param body V1EmployeeRole value for body.
          */
         public Builder(V1EmployeeRole body) {
             this.body = body;
         }
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1EmployeeRole value for body.
          * @return Builder
          */
         public Builder body(V1EmployeeRole body) {

@@ -1,33 +1,48 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for ChargeRequest type.
  */
 public class ChargeRequest {
+    private final String idempotencyKey;
+    private final Money amountMoney;
+    private final String cardNonce;
+    private final String customerCardId;
+    private final Boolean delayCapture;
+    private final String referenceId;
+    private final String note;
+    private final String customerId;
+    private final Address billingAddress;
+    private final Address shippingAddress;
+    private final String buyerEmailAddress;
+    private final String orderId;
+    private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
+    private final String verificationToken;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param amountMoney
-     * @param cardNonce
-     * @param customerCardId
-     * @param delayCapture
-     * @param referenceId
-     * @param note
-     * @param customerId
-     * @param billingAddress
-     * @param shippingAddress
-     * @param buyerEmailAddress
-     * @param orderId
-     * @param additionalRecipients
-     * @param verificationToken
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param amountMoney Money value for amountMoney.
+     * @param cardNonce String value for cardNonce.
+     * @param customerCardId String value for customerCardId.
+     * @param delayCapture Boolean value for delayCapture.
+     * @param referenceId String value for referenceId.
+     * @param note String value for note.
+     * @param customerId String value for customerId.
+     * @param billingAddress Address value for billingAddress.
+     * @param shippingAddress Address value for shippingAddress.
+     * @param buyerEmailAddress String value for buyerEmailAddress.
+     * @param orderId String value for orderId.
+     * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
+     * @param verificationToken String value for verificationToken.
      */
     @JsonCreator
     public ChargeRequest(
@@ -43,7 +58,7 @@ public class ChargeRequest {
             @JsonProperty("shipping_address") Address shippingAddress,
             @JsonProperty("buyer_email_address") String buyerEmailAddress,
             @JsonProperty("order_id") String orderId,
-            @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients,
+            @JsonProperty("additional_recipients") List<ChargeRequestAdditionalRecipient> additionalRecipients,
             @JsonProperty("verification_token") String verificationToken) {
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
@@ -61,28 +76,13 @@ public class ChargeRequest {
         this.verificationToken = verificationToken;
     }
 
-    private final String idempotencyKey;
-    private final Money amountMoney;
-    private final String cardNonce;
-    private final String customerCardId;
-    private final Boolean delayCapture;
-    private final String referenceId;
-    private final String note;
-    private final String customerId;
-    private final Address billingAddress;
-    private final Address shippingAddress;
-    private final String buyerEmailAddress;
-    private final String orderId;
-    private final List<AdditionalRecipient> additionalRecipients;
-    private final String verificationToken;
     /**
      * Getter for IdempotencyKey.
-     * A value you specify that uniquely identifies this
-     * transaction among transactions you've created.
-     * If you're unsure whether a particular transaction succeeded,
-     * you can reattempt it with the same idempotency key without
-     * worrying about double-charging the buyer.
-     * See [Idempotency keys](#idempotencykeys) for more information.
+     * A value you specify that uniquely identifies this transaction among transactions you've
+     * created. If you're unsure whether a particular transaction succeeded, you can reattempt it
+     * with the same idempotency key without worrying about double-charging the buyer. See
+     * [Idempotency keys](#idempotencykeys) for more information.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -91,12 +91,13 @@ public class ChargeRequest {
 
     /**
      * Getter for AmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
@@ -105,13 +106,11 @@ public class ChargeRequest {
 
     /**
      * Getter for CardNonce.
-     * A nonce generated from the `SqPaymentForm` that represents the card
-     * to charge.
-     * The application that provides a nonce to this endpoint must be the
-     * _same application_ that generated the nonce with the `SqPaymentForm`.
-     * Otherwise, the nonce is invalid.
-     * Do not provide a value for this field if you provide a value for
-     * `customer_card_id`.
+     * A nonce generated from the `SqPaymentForm` that represents the card to charge. The
+     * application that provides a nonce to this endpoint must be the _same application_ that
+     * generated the nonce with the `SqPaymentForm`. Otherwise, the nonce is invalid. Do not provide
+     * a value for this field if you provide a value for `customer_card_id`.
+     * @return Returns the String
      */
     @JsonGetter("card_nonce")
     public String getCardNonce() {
@@ -120,10 +119,10 @@ public class ChargeRequest {
 
     /**
      * Getter for CustomerCardId.
-     * The ID of the customer card on file to charge. Do
-     * not provide a value for this field if you provide a value for `card_nonce`.
-     * If you provide this value, you _must_ also provide a value for
-     * `customer_id`.
+     * The ID of the customer card on file to charge. Do not provide a value for this field if you
+     * provide a value for `card_nonce`. If you provide this value, you _must_ also provide a value
+     * for `customer_id`.
+     * @return Returns the String
      */
     @JsonGetter("customer_card_id")
     public String getCustomerCardId() {
@@ -132,11 +131,11 @@ public class ChargeRequest {
 
     /**
      * Getter for DelayCapture.
-     * If `true`, the request will only perform an Auth on the provided
-     * card. You can then later perform either a Capture (with the
-     * [CaptureTransaction](#endpoint-capturetransaction) endpoint) or a Void
-     * (with the [VoidTransaction](#endpoint-voidtransaction) endpoint).
-     * Default value: `false`
+     * If `true`, the request will only perform an Auth on the provided card. You can then later
+     * perform either a Capture (with the [CaptureTransaction](#endpoint-capturetransaction)
+     * endpoint) or a Void (with the [VoidTransaction](#endpoint-voidtransaction) endpoint). Default
+     * value: `false`
+     * @return Returns the Boolean
      */
     @JsonGetter("delay_capture")
     public Boolean getDelayCapture() {
@@ -145,10 +144,10 @@ public class ChargeRequest {
 
     /**
      * Getter for ReferenceId.
-     * An optional ID you can associate with the transaction for your own
-     * purposes (such as to associate the transaction with an entity ID in your
-     * own database).
-     * This value cannot exceed 40 characters.
+     * An optional ID you can associate with the transaction for your own purposes (such as to
+     * associate the transaction with an entity ID in your own database). This value cannot exceed
+     * 40 characters.
+     * @return Returns the String
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
@@ -157,8 +156,8 @@ public class ChargeRequest {
 
     /**
      * Getter for Note.
-     * An optional note to associate with the transaction.
-     * This value cannot exceed 60 characters.
+     * An optional note to associate with the transaction. This value cannot exceed 60 characters.
+     * @return Returns the String
      */
     @JsonGetter("note")
     public String getNote() {
@@ -167,9 +166,9 @@ public class ChargeRequest {
 
     /**
      * Getter for CustomerId.
-     * The ID of the customer to associate this transaction with. This field
-     * is required if you provide a value for `customer_card_id`, and optional
-     * otherwise.
+     * The ID of the customer to associate this transaction with. This field is required if you
+     * provide a value for `customer_card_id`, and optional otherwise.
+     * @return Returns the String
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
@@ -179,6 +178,7 @@ public class ChargeRequest {
     /**
      * Getter for BillingAddress.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
@@ -188,6 +188,7 @@ public class ChargeRequest {
     /**
      * Getter for ShippingAddress.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
@@ -196,9 +197,9 @@ public class ChargeRequest {
 
     /**
      * Getter for BuyerEmailAddress.
-     * The buyer's email address, if available. This value is optional,
-     * but this transaction is ineligible for chargeback protection if it is not
-     * provided.
+     * The buyer's email address, if available. This value is optional, but this transaction is
+     * ineligible for chargeback protection if it is not provided.
+     * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
     public String getBuyerEmailAddress() {
@@ -207,9 +208,10 @@ public class ChargeRequest {
 
     /**
      * Getter for OrderId.
-     * The ID of the order to associate with this transaction.
-     * If you provide this value, the `amount_money` value of your request must
-     * __exactly match__ the value of the order's `total_money` field.
+     * The ID of the order to associate with this transaction. If you provide this value, the
+     * `amount_money` value of your request must __exactly match__ the value of the order's
+     * `total_money` field.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -218,23 +220,24 @@ public class ChargeRequest {
 
     /**
      * Getter for AdditionalRecipients.
-     * The basic primitive of multi-party transaction. The value is optional.
-     * The transaction facilitated by you can be split from here.
-     * If you provide this value, the `amount_money` value in your additional_recipients
-     * must not be more than 90% of the `amount_money` value in the charge request.
-     * The `location_id` must be the valid location of the app owner merchant.
-     * This field requires the `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission.
-     * This field is currently not supported in sandbox.
+     * The basic primitive of multi-party transaction. The value is optional. The transaction
+     * facilitated by you can be split from here. If you provide this value, the `amount_money`
+     * value in your additional_recipients must not be more than 90% of the `amount_money` value in
+     * the charge request. The `location_id` must be the valid location of the app owner merchant.
+     * This field requires the `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission. This field
+     * is currently not supported in sandbox.
+     * @return Returns the List of ChargeRequestAdditionalRecipient
      */
     @JsonGetter("additional_recipients")
-    public List<AdditionalRecipient> getAdditionalRecipients() {
+    public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
         return this.additionalRecipients;
     }
 
     /**
      * Getter for VerificationToken.
-     * A token generated by SqPaymentForm's verifyBuyer() that represents
-     * customer's device info and 3ds challenge result.
+     * A token generated by SqPaymentForm's verifyBuyer() that represents customer's device info and
+     * 3ds challenge result.
+     * @return Returns the String
      */
     @JsonGetter("verification_token")
     public String getVerificationToken() {
@@ -245,33 +248,33 @@ public class ChargeRequest {
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, amountMoney, cardNonce, customerCardId, delayCapture,
-            referenceId, note, customerId, billingAddress, shippingAddress, buyerEmailAddress,
-            orderId, additionalRecipients, verificationToken);
+                referenceId, note, customerId, billingAddress, shippingAddress, buyerEmailAddress,
+                orderId, additionalRecipients, verificationToken);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ChargeRequest)) {
+        if (!(obj instanceof ChargeRequest)) {
             return false;
         }
-        ChargeRequest chargeRequest = (ChargeRequest) obj;
-        return Objects.equals(idempotencyKey, chargeRequest.idempotencyKey) &&
-            Objects.equals(amountMoney, chargeRequest.amountMoney) &&
-            Objects.equals(cardNonce, chargeRequest.cardNonce) &&
-            Objects.equals(customerCardId, chargeRequest.customerCardId) &&
-            Objects.equals(delayCapture, chargeRequest.delayCapture) &&
-            Objects.equals(referenceId, chargeRequest.referenceId) &&
-            Objects.equals(note, chargeRequest.note) &&
-            Objects.equals(customerId, chargeRequest.customerId) &&
-            Objects.equals(billingAddress, chargeRequest.billingAddress) &&
-            Objects.equals(shippingAddress, chargeRequest.shippingAddress) &&
-            Objects.equals(buyerEmailAddress, chargeRequest.buyerEmailAddress) &&
-            Objects.equals(orderId, chargeRequest.orderId) &&
-            Objects.equals(additionalRecipients, chargeRequest.additionalRecipients) &&
-            Objects.equals(verificationToken, chargeRequest.verificationToken);
+        ChargeRequest other = (ChargeRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(amountMoney, other.amountMoney)
+            && Objects.equals(cardNonce, other.cardNonce)
+            && Objects.equals(customerCardId, other.customerCardId)
+            && Objects.equals(delayCapture, other.delayCapture)
+            && Objects.equals(referenceId, other.referenceId)
+            && Objects.equals(note, other.note)
+            && Objects.equals(customerId, other.customerId)
+            && Objects.equals(billingAddress, other.billingAddress)
+            && Objects.equals(shippingAddress, other.shippingAddress)
+            && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
+            && Objects.equals(orderId, other.orderId)
+            && Objects.equals(additionalRecipients, other.additionalRecipients)
+            && Objects.equals(verificationToken, other.verificationToken);
     }
 
     /**
@@ -294,11 +297,11 @@ public class ChargeRequest {
             .orderId(getOrderId())
             .additionalRecipients(getAdditionalRecipients())
             .verificationToken(getVerificationToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ChargeRequest}
+     * Class to build instances of {@link ChargeRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
@@ -313,11 +316,13 @@ public class ChargeRequest {
         private Address shippingAddress;
         private String buyerEmailAddress;
         private String orderId;
-        private List<AdditionalRecipient> additionalRecipients;
+        private List<ChargeRequestAdditionalRecipient> additionalRecipients;
         private String verificationToken;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param amountMoney Money value for amountMoney.
          */
         public Builder(String idempotencyKey,
                 Money amountMoney) {
@@ -326,125 +331,138 @@ public class ChargeRequest {
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
             this.amountMoney = amountMoney;
             return this;
         }
+
         /**
-         * Setter for cardNonce
-         * @param cardNonce
+         * Setter for cardNonce.
+         * @param cardNonce String value for cardNonce.
          * @return Builder
          */
         public Builder cardNonce(String cardNonce) {
             this.cardNonce = cardNonce;
             return this;
         }
+
         /**
-         * Setter for customerCardId
-         * @param customerCardId
+         * Setter for customerCardId.
+         * @param customerCardId String value for customerCardId.
          * @return Builder
          */
         public Builder customerCardId(String customerCardId) {
             this.customerCardId = customerCardId;
             return this;
         }
+
         /**
-         * Setter for delayCapture
-         * @param delayCapture
+         * Setter for delayCapture.
+         * @param delayCapture Boolean value for delayCapture.
          * @return Builder
          */
         public Builder delayCapture(Boolean delayCapture) {
             this.delayCapture = delayCapture;
             return this;
         }
+
         /**
-         * Setter for referenceId
-         * @param referenceId
+         * Setter for referenceId.
+         * @param referenceId String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
             this.referenceId = referenceId;
             return this;
         }
+
         /**
-         * Setter for note
-         * @param note
+         * Setter for note.
+         * @param note String value for note.
          * @return Builder
          */
         public Builder note(String note) {
             this.note = note;
             return this;
         }
+
         /**
-         * Setter for customerId
-         * @param customerId
+         * Setter for customerId.
+         * @param customerId String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
             this.customerId = customerId;
             return this;
         }
+
         /**
-         * Setter for billingAddress
-         * @param billingAddress
+         * Setter for billingAddress.
+         * @param billingAddress Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
             this.billingAddress = billingAddress;
             return this;
         }
+
         /**
-         * Setter for shippingAddress
-         * @param shippingAddress
+         * Setter for shippingAddress.
+         * @param shippingAddress Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
             this.shippingAddress = shippingAddress;
             return this;
         }
+
         /**
-         * Setter for buyerEmailAddress
-         * @param buyerEmailAddress
+         * Setter for buyerEmailAddress.
+         * @param buyerEmailAddress String value for buyerEmailAddress.
          * @return Builder
          */
         public Builder buyerEmailAddress(String buyerEmailAddress) {
             this.buyerEmailAddress = buyerEmailAddress;
             return this;
         }
+
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
             return this;
         }
+
         /**
-         * Setter for additionalRecipients
-         * @param additionalRecipients
+         * Setter for additionalRecipients.
+         * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
          * @return Builder
          */
-        public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
+        public Builder additionalRecipients(List<ChargeRequestAdditionalRecipient> additionalRecipients) {
             this.additionalRecipients = additionalRecipients;
             return this;
         }
+
         /**
-         * Setter for verificationToken
-         * @param verificationToken
+         * Setter for verificationToken.
+         * @param verificationToken String value for verificationToken.
          * @return Builder
          */
         public Builder verificationToken(String verificationToken) {

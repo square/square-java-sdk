@@ -1,12 +1,13 @@
-## V1 Payment Item Detail
+
+# V1 Payment Item Detail
 
 V1PaymentItemDetail
 
-### Structure
+## Structure
 
 `V1PaymentItemDetail`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -15,7 +16,7 @@ V1PaymentItemDetail
 | `ItemId` | `String` | Optional | The unique ID of the item purchased, if any. | String getItemId() |
 | `ItemVariationId` | `String` | Optional | The unique ID of the item variation purchased, if any. | String getItemVariationId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

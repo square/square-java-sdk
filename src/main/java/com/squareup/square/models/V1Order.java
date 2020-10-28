@@ -1,45 +1,72 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1Order type.
  */
 public class V1Order {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final String id;
+    private final String buyerEmail;
+    private final String recipientName;
+    private final String recipientPhoneNumber;
+    private final String state;
+    private final Address shippingAddress;
+    private final V1Money subtotalMoney;
+    private final V1Money totalShippingMoney;
+    private final V1Money totalTaxMoney;
+    private final V1Money totalPriceMoney;
+    private final V1Money totalDiscountMoney;
+    private final String createdAt;
+    private final String updatedAt;
+    private final String expiresAt;
+    private final String paymentId;
+    private final String buyerNote;
+    private final String completedNote;
+    private final String refundedNote;
+    private final String canceledNote;
+    private final V1Tender tender;
+    private final List<V1OrderHistoryEntry> orderHistory;
+    private final String promoCode;
+    private final String btcReceiveAddress;
+    private final Double btcPriceSatoshi;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param id
-     * @param buyerEmail
-     * @param recipientName
-     * @param recipientPhoneNumber
-     * @param state
-     * @param shippingAddress
-     * @param subtotalMoney
-     * @param totalShippingMoney
-     * @param totalTaxMoney
-     * @param totalPriceMoney
-     * @param totalDiscountMoney
-     * @param createdAt
-     * @param updatedAt
-     * @param expiresAt
-     * @param paymentId
-     * @param buyerNote
-     * @param completedNote
-     * @param refundedNote
-     * @param canceledNote
-     * @param tender
-     * @param orderHistory
-     * @param promoCode
-     * @param btcReceiveAddress
-     * @param btcPriceSatoshi
+     * @param errors List of Error value for errors.
+     * @param id String value for id.
+     * @param buyerEmail String value for buyerEmail.
+     * @param recipientName String value for recipientName.
+     * @param recipientPhoneNumber String value for recipientPhoneNumber.
+     * @param state String value for state.
+     * @param shippingAddress Address value for shippingAddress.
+     * @param subtotalMoney V1Money value for subtotalMoney.
+     * @param totalShippingMoney V1Money value for totalShippingMoney.
+     * @param totalTaxMoney V1Money value for totalTaxMoney.
+     * @param totalPriceMoney V1Money value for totalPriceMoney.
+     * @param totalDiscountMoney V1Money value for totalDiscountMoney.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param expiresAt String value for expiresAt.
+     * @param paymentId String value for paymentId.
+     * @param buyerNote String value for buyerNote.
+     * @param completedNote String value for completedNote.
+     * @param refundedNote String value for refundedNote.
+     * @param canceledNote String value for canceledNote.
+     * @param tender V1Tender value for tender.
+     * @param orderHistory List of V1OrderHistoryEntry value for orderHistory.
+     * @param promoCode String value for promoCode.
+     * @param btcReceiveAddress String value for btcReceiveAddress.
+     * @param btcPriceSatoshi Double value for btcPriceSatoshi.
      */
     @JsonCreator
     public V1Order(
@@ -95,33 +122,6 @@ public class V1Order {
         this.btcPriceSatoshi = btcPriceSatoshi;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final String id;
-    private final String buyerEmail;
-    private final String recipientName;
-    private final String recipientPhoneNumber;
-    private final String state;
-    private final Address shippingAddress;
-    private final V1Money subtotalMoney;
-    private final V1Money totalShippingMoney;
-    private final V1Money totalTaxMoney;
-    private final V1Money totalPriceMoney;
-    private final V1Money totalDiscountMoney;
-    private final String createdAt;
-    private final String updatedAt;
-    private final String expiresAt;
-    private final String paymentId;
-    private final String buyerNote;
-    private final String completedNote;
-    private final String refundedNote;
-    private final String canceledNote;
-    private final V1Tender tender;
-    private final List<V1OrderHistoryEntry> orderHistory;
-    private final String promoCode;
-    private final String btcReceiveAddress;
-    private final Double btcPriceSatoshi;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -129,6 +129,7 @@ public class V1Order {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -138,6 +139,7 @@ public class V1Order {
     /**
      * Getter for Id.
      * The order's unique identifier.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -147,6 +149,7 @@ public class V1Order {
     /**
      * Getter for BuyerEmail.
      * The email address of the order's buyer.
+     * @return Returns the String
      */
     @JsonGetter("buyer_email")
     public String getBuyerEmail() {
@@ -156,6 +159,7 @@ public class V1Order {
     /**
      * Getter for RecipientName.
      * The name of the order's buyer.
+     * @return Returns the String
      */
     @JsonGetter("recipient_name")
     public String getRecipientName() {
@@ -165,6 +169,7 @@ public class V1Order {
     /**
      * Getter for RecipientPhoneNumber.
      * The phone number to use for the order's delivery.
+     * @return Returns the String
      */
     @JsonGetter("recipient_phone_number")
     public String getRecipientPhoneNumber() {
@@ -173,6 +178,7 @@ public class V1Order {
 
     /**
      * Getter for State.
+     * @return Returns the String
      */
     @JsonGetter("state")
     public String getState() {
@@ -182,6 +188,7 @@ public class V1Order {
     /**
      * Getter for ShippingAddress.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
@@ -190,6 +197,7 @@ public class V1Order {
 
     /**
      * Getter for SubtotalMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("subtotal_money")
     public V1Money getSubtotalMoney() {
@@ -198,6 +206,7 @@ public class V1Order {
 
     /**
      * Getter for TotalShippingMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_shipping_money")
     public V1Money getTotalShippingMoney() {
@@ -206,6 +215,7 @@ public class V1Order {
 
     /**
      * Getter for TotalTaxMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_tax_money")
     public V1Money getTotalTaxMoney() {
@@ -214,6 +224,7 @@ public class V1Order {
 
     /**
      * Getter for TotalPriceMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_price_money")
     public V1Money getTotalPriceMoney() {
@@ -222,6 +233,7 @@ public class V1Order {
 
     /**
      * Getter for TotalDiscountMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_discount_money")
     public V1Money getTotalDiscountMoney() {
@@ -231,6 +243,7 @@ public class V1Order {
     /**
      * Getter for CreatedAt.
      * The time when the order was created, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -240,6 +253,7 @@ public class V1Order {
     /**
      * Getter for UpdatedAt.
      * The time when the order was last modified, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -249,6 +263,7 @@ public class V1Order {
     /**
      * Getter for ExpiresAt.
      * The time when the order expires if no action is taken, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
@@ -258,6 +273,7 @@ public class V1Order {
     /**
      * Getter for PaymentId.
      * The unique identifier of the payment associated with the order.
+     * @return Returns the String
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
@@ -267,6 +283,7 @@ public class V1Order {
     /**
      * Getter for BuyerNote.
      * A note provided by the buyer when the order was created, if any.
+     * @return Returns the String
      */
     @JsonGetter("buyer_note")
     public String getBuyerNote() {
@@ -276,6 +293,7 @@ public class V1Order {
     /**
      * Getter for CompletedNote.
      * A note provided by the merchant when the order's state was set to COMPLETED, if any
+     * @return Returns the String
      */
     @JsonGetter("completed_note")
     public String getCompletedNote() {
@@ -285,6 +303,7 @@ public class V1Order {
     /**
      * Getter for RefundedNote.
      * A note provided by the merchant when the order's state was set to REFUNDED, if any.
+     * @return Returns the String
      */
     @JsonGetter("refunded_note")
     public String getRefundedNote() {
@@ -294,6 +313,7 @@ public class V1Order {
     /**
      * Getter for CanceledNote.
      * A note provided by the merchant when the order's state was set to CANCELED, if any.
+     * @return Returns the String
      */
     @JsonGetter("canceled_note")
     public String getCanceledNote() {
@@ -302,23 +322,20 @@ public class V1Order {
 
     /**
      * Getter for Tender.
-     * A tender represents a discrete monetary exchange. Square represents this
-     * exchange as a money object with a specific currency and amount, where the
-     * amount is given in the smallest denomination of the given currency.
-     * Square POS can accept more than one form of tender for a single payment (such
-     * as by splitting a bill between a credit card and a gift card). The `tender`
-     * field of the Payment object lists all forms of tender used for the payment.
-     * Split tender payments behave slightly differently from single tender payments:
-     * The receipt_url for a split tender corresponds only to the first tender listed
-     * in the tender field. To get the receipt URLs for the remaining tenders, use
-     * the receipt_url fields of the corresponding Tender objects.
-     * *A note on gift cards**: when a customer purchases a Square gift card from a
-     * merchant, the merchant receives the full amount of the gift card in the
-     * associated payment.
-     * When that gift card is used as a tender, the balance of the gift card is
-     * reduced and the merchant receives no funds. A `Tender` object with a type of
-     * `SQUARE_GIFT_CARD` indicates a gift card was used for some or all of the
-     * associated payment.
+     * A tender represents a discrete monetary exchange. Square represents this exchange as a money
+     * object with a specific currency and amount, where the amount is given in the smallest
+     * denomination of the given currency. Square POS can accept more than one form of tender for a
+     * single payment (such as by splitting a bill between a credit card and a gift card). The
+     * `tender` field of the Payment object lists all forms of tender used for the payment. Split
+     * tender payments behave slightly differently from single tender payments: The receipt_url for
+     * a split tender corresponds only to the first tender listed in the tender field. To get the
+     * receipt URLs for the remaining tenders, use the receipt_url fields of the corresponding
+     * Tender objects. *A note on gift cards**: when a customer purchases a Square gift card from a
+     * merchant, the merchant receives the full amount of the gift card in the associated payment.
+     * When that gift card is used as a tender, the balance of the gift card is reduced and the
+     * merchant receives no funds. A `Tender` object with a type of `SQUARE_GIFT_CARD` indicates a
+     * gift card was used for some or all of the associated payment.
+     * @return Returns the V1Tender
      */
     @JsonGetter("tender")
     public V1Tender getTender() {
@@ -328,6 +345,7 @@ public class V1Order {
     /**
      * Getter for OrderHistory.
      * The history of actions associated with the order.
+     * @return Returns the List of V1OrderHistoryEntry
      */
     @JsonGetter("order_history")
     public List<V1OrderHistoryEntry> getOrderHistory() {
@@ -337,6 +355,7 @@ public class V1Order {
     /**
      * Getter for PromoCode.
      * The promo code provided by the buyer, if any.
+     * @return Returns the String
      */
     @JsonGetter("promo_code")
     public String getPromoCode() {
@@ -346,6 +365,7 @@ public class V1Order {
     /**
      * Getter for BtcReceiveAddress.
      * For Bitcoin transactions, the address that the buyer sent Bitcoin to.
+     * @return Returns the String
      */
     @JsonGetter("btc_receive_address")
     public String getBtcReceiveAddress() {
@@ -354,7 +374,9 @@ public class V1Order {
 
     /**
      * Getter for BtcPriceSatoshi.
-     * For Bitcoin transactions, the price of the buyer's order in satoshi (100 million satoshi equals 1 BTC).
+     * For Bitcoin transactions, the price of the buyer's order in satoshi (100 million satoshi
+     * equals 1 BTC).
+     * @return Returns the Double
      */
     @JsonGetter("btc_price_satoshi")
     public Double getBtcPriceSatoshi() {
@@ -365,46 +387,46 @@ public class V1Order {
     @Override
     public int hashCode() {
         return Objects.hash(errors, id, buyerEmail, recipientName, recipientPhoneNumber, state,
-            shippingAddress, subtotalMoney, totalShippingMoney, totalTaxMoney, totalPriceMoney,
-            totalDiscountMoney, createdAt, updatedAt, expiresAt, paymentId, buyerNote, completedNote,
-            refundedNote, canceledNote, tender, orderHistory, promoCode, btcReceiveAddress,
-            btcPriceSatoshi);
+                shippingAddress, subtotalMoney, totalShippingMoney, totalTaxMoney, totalPriceMoney,
+                totalDiscountMoney, createdAt, updatedAt, expiresAt, paymentId, buyerNote,
+                completedNote, refundedNote, canceledNote, tender, orderHistory, promoCode,
+                btcReceiveAddress, btcPriceSatoshi);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Order)) {
+        if (!(obj instanceof V1Order)) {
             return false;
         }
-        V1Order v1Order = (V1Order) obj;
-        return Objects.equals(errors, v1Order.errors) &&
-            Objects.equals(id, v1Order.id) &&
-            Objects.equals(buyerEmail, v1Order.buyerEmail) &&
-            Objects.equals(recipientName, v1Order.recipientName) &&
-            Objects.equals(recipientPhoneNumber, v1Order.recipientPhoneNumber) &&
-            Objects.equals(state, v1Order.state) &&
-            Objects.equals(shippingAddress, v1Order.shippingAddress) &&
-            Objects.equals(subtotalMoney, v1Order.subtotalMoney) &&
-            Objects.equals(totalShippingMoney, v1Order.totalShippingMoney) &&
-            Objects.equals(totalTaxMoney, v1Order.totalTaxMoney) &&
-            Objects.equals(totalPriceMoney, v1Order.totalPriceMoney) &&
-            Objects.equals(totalDiscountMoney, v1Order.totalDiscountMoney) &&
-            Objects.equals(createdAt, v1Order.createdAt) &&
-            Objects.equals(updatedAt, v1Order.updatedAt) &&
-            Objects.equals(expiresAt, v1Order.expiresAt) &&
-            Objects.equals(paymentId, v1Order.paymentId) &&
-            Objects.equals(buyerNote, v1Order.buyerNote) &&
-            Objects.equals(completedNote, v1Order.completedNote) &&
-            Objects.equals(refundedNote, v1Order.refundedNote) &&
-            Objects.equals(canceledNote, v1Order.canceledNote) &&
-            Objects.equals(tender, v1Order.tender) &&
-            Objects.equals(orderHistory, v1Order.orderHistory) &&
-            Objects.equals(promoCode, v1Order.promoCode) &&
-            Objects.equals(btcReceiveAddress, v1Order.btcReceiveAddress) &&
-            Objects.equals(btcPriceSatoshi, v1Order.btcPriceSatoshi);
+        V1Order other = (V1Order) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(id, other.id)
+            && Objects.equals(buyerEmail, other.buyerEmail)
+            && Objects.equals(recipientName, other.recipientName)
+            && Objects.equals(recipientPhoneNumber, other.recipientPhoneNumber)
+            && Objects.equals(state, other.state)
+            && Objects.equals(shippingAddress, other.shippingAddress)
+            && Objects.equals(subtotalMoney, other.subtotalMoney)
+            && Objects.equals(totalShippingMoney, other.totalShippingMoney)
+            && Objects.equals(totalTaxMoney, other.totalTaxMoney)
+            && Objects.equals(totalPriceMoney, other.totalPriceMoney)
+            && Objects.equals(totalDiscountMoney, other.totalDiscountMoney)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(expiresAt, other.expiresAt)
+            && Objects.equals(paymentId, other.paymentId)
+            && Objects.equals(buyerNote, other.buyerNote)
+            && Objects.equals(completedNote, other.completedNote)
+            && Objects.equals(refundedNote, other.refundedNote)
+            && Objects.equals(canceledNote, other.canceledNote)
+            && Objects.equals(tender, other.tender)
+            && Objects.equals(orderHistory, other.orderHistory)
+            && Objects.equals(promoCode, other.promoCode)
+            && Objects.equals(btcReceiveAddress, other.btcReceiveAddress)
+            && Objects.equals(btcPriceSatoshi, other.btcPriceSatoshi);
     }
 
     /**
@@ -439,11 +461,11 @@ public class V1Order {
             .promoCode(getPromoCode())
             .btcReceiveAddress(getBtcReceiveAddress())
             .btcPriceSatoshi(getBtcPriceSatoshi());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Order}
+     * Class to build instances of {@link V1Order}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -473,241 +495,261 @@ public class V1Order {
         private String btcReceiveAddress;
         private Double btcPriceSatoshi;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for buyerEmail
-         * @param buyerEmail
+         * Setter for buyerEmail.
+         * @param buyerEmail String value for buyerEmail.
          * @return Builder
          */
         public Builder buyerEmail(String buyerEmail) {
             this.buyerEmail = buyerEmail;
             return this;
         }
+
         /**
-         * Setter for recipientName
-         * @param recipientName
+         * Setter for recipientName.
+         * @param recipientName String value for recipientName.
          * @return Builder
          */
         public Builder recipientName(String recipientName) {
             this.recipientName = recipientName;
             return this;
         }
+
         /**
-         * Setter for recipientPhoneNumber
-         * @param recipientPhoneNumber
+         * Setter for recipientPhoneNumber.
+         * @param recipientPhoneNumber String value for recipientPhoneNumber.
          * @return Builder
          */
         public Builder recipientPhoneNumber(String recipientPhoneNumber) {
             this.recipientPhoneNumber = recipientPhoneNumber;
             return this;
         }
+
         /**
-         * Setter for state
-         * @param state
+         * Setter for state.
+         * @param state String value for state.
          * @return Builder
          */
         public Builder state(String state) {
             this.state = state;
             return this;
         }
+
         /**
-         * Setter for shippingAddress
-         * @param shippingAddress
+         * Setter for shippingAddress.
+         * @param shippingAddress Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
             this.shippingAddress = shippingAddress;
             return this;
         }
+
         /**
-         * Setter for subtotalMoney
-         * @param subtotalMoney
+         * Setter for subtotalMoney.
+         * @param subtotalMoney V1Money value for subtotalMoney.
          * @return Builder
          */
         public Builder subtotalMoney(V1Money subtotalMoney) {
             this.subtotalMoney = subtotalMoney;
             return this;
         }
+
         /**
-         * Setter for totalShippingMoney
-         * @param totalShippingMoney
+         * Setter for totalShippingMoney.
+         * @param totalShippingMoney V1Money value for totalShippingMoney.
          * @return Builder
          */
         public Builder totalShippingMoney(V1Money totalShippingMoney) {
             this.totalShippingMoney = totalShippingMoney;
             return this;
         }
+
         /**
-         * Setter for totalTaxMoney
-         * @param totalTaxMoney
+         * Setter for totalTaxMoney.
+         * @param totalTaxMoney V1Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(V1Money totalTaxMoney) {
             this.totalTaxMoney = totalTaxMoney;
             return this;
         }
+
         /**
-         * Setter for totalPriceMoney
-         * @param totalPriceMoney
+         * Setter for totalPriceMoney.
+         * @param totalPriceMoney V1Money value for totalPriceMoney.
          * @return Builder
          */
         public Builder totalPriceMoney(V1Money totalPriceMoney) {
             this.totalPriceMoney = totalPriceMoney;
             return this;
         }
+
         /**
-         * Setter for totalDiscountMoney
-         * @param totalDiscountMoney
+         * Setter for totalDiscountMoney.
+         * @param totalDiscountMoney V1Money value for totalDiscountMoney.
          * @return Builder
          */
         public Builder totalDiscountMoney(V1Money totalDiscountMoney) {
             this.totalDiscountMoney = totalDiscountMoney;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for expiresAt
-         * @param expiresAt
+         * Setter for expiresAt.
+         * @param expiresAt String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
+
         /**
-         * Setter for paymentId
-         * @param paymentId
+         * Setter for paymentId.
+         * @param paymentId String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
             this.paymentId = paymentId;
             return this;
         }
+
         /**
-         * Setter for buyerNote
-         * @param buyerNote
+         * Setter for buyerNote.
+         * @param buyerNote String value for buyerNote.
          * @return Builder
          */
         public Builder buyerNote(String buyerNote) {
             this.buyerNote = buyerNote;
             return this;
         }
+
         /**
-         * Setter for completedNote
-         * @param completedNote
+         * Setter for completedNote.
+         * @param completedNote String value for completedNote.
          * @return Builder
          */
         public Builder completedNote(String completedNote) {
             this.completedNote = completedNote;
             return this;
         }
+
         /**
-         * Setter for refundedNote
-         * @param refundedNote
+         * Setter for refundedNote.
+         * @param refundedNote String value for refundedNote.
          * @return Builder
          */
         public Builder refundedNote(String refundedNote) {
             this.refundedNote = refundedNote;
             return this;
         }
+
         /**
-         * Setter for canceledNote
-         * @param canceledNote
+         * Setter for canceledNote.
+         * @param canceledNote String value for canceledNote.
          * @return Builder
          */
         public Builder canceledNote(String canceledNote) {
             this.canceledNote = canceledNote;
             return this;
         }
+
         /**
-         * Setter for tender
-         * @param tender
+         * Setter for tender.
+         * @param tender V1Tender value for tender.
          * @return Builder
          */
         public Builder tender(V1Tender tender) {
             this.tender = tender;
             return this;
         }
+
         /**
-         * Setter for orderHistory
-         * @param orderHistory
+         * Setter for orderHistory.
+         * @param orderHistory List of V1OrderHistoryEntry value for orderHistory.
          * @return Builder
          */
         public Builder orderHistory(List<V1OrderHistoryEntry> orderHistory) {
             this.orderHistory = orderHistory;
             return this;
         }
+
         /**
-         * Setter for promoCode
-         * @param promoCode
+         * Setter for promoCode.
+         * @param promoCode String value for promoCode.
          * @return Builder
          */
         public Builder promoCode(String promoCode) {
             this.promoCode = promoCode;
             return this;
         }
+
         /**
-         * Setter for btcReceiveAddress
-         * @param btcReceiveAddress
+         * Setter for btcReceiveAddress.
+         * @param btcReceiveAddress String value for btcReceiveAddress.
          * @return Builder
          */
         public Builder btcReceiveAddress(String btcReceiveAddress) {
             this.btcReceiveAddress = btcReceiveAddress;
             return this;
         }
+
         /**
-         * Setter for btcPriceSatoshi
-         * @param btcPriceSatoshi
+         * Setter for btcPriceSatoshi.
+         * @param btcPriceSatoshi Double value for btcPriceSatoshi.
          * @return Builder
          */
         public Builder btcPriceSatoshi(Double btcPriceSatoshi) {
@@ -720,31 +762,32 @@ public class V1Order {
          * @return {@link V1Order}
          */
         public V1Order build() {
-            V1Order model = new V1Order(errors,
-                id,
-                buyerEmail,
-                recipientName,
-                recipientPhoneNumber,
-                state,
-                shippingAddress,
-                subtotalMoney,
-                totalShippingMoney,
-                totalTaxMoney,
-                totalPriceMoney,
-                totalDiscountMoney,
-                createdAt,
-                updatedAt,
-                expiresAt,
-                paymentId,
-                buyerNote,
-                completedNote,
-                refundedNote,
-                canceledNote,
-                tender,
-                orderHistory,
-                promoCode,
-                btcReceiveAddress,
-                btcPriceSatoshi);
+            V1Order model =
+                    new V1Order(errors,
+                            id,
+                            buyerEmail,
+                            recipientName,
+                            recipientPhoneNumber,
+                            state,
+                            shippingAddress,
+                            subtotalMoney,
+                            totalShippingMoney,
+                            totalTaxMoney,
+                            totalPriceMoney,
+                            totalDiscountMoney,
+                            createdAt,
+                            updatedAt,
+                            expiresAt,
+                            paymentId,
+                            buyerNote,
+                            completedNote,
+                            refundedNote,
+                            canceledNote,
+                            tender,
+                            orderHistory,
+                            promoCode,
+                            btcReceiveAddress,
+                            btcPriceSatoshi);
             model.httpContext = httpContext;
             return model;
         }

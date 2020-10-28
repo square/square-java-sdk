@@ -1,18 +1,19 @@
-## Search Orders State Filter
+
+# Search Orders State Filter
 
 Filter by current Order `state`.
 
-### Structure
+## Structure
 
 `SearchOrdersStateFilter`
 
-### Fields
+## Fields
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
 | `States` | [`List<String>`](/doc/models/order-state.md) | States to filter for.<br>See [OrderState](#type-orderstate) for possible values | List<String> getStates() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,33 +1,48 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for V1PaymentItemization type.
  */
 public class V1PaymentItemization {
+    private final String name;
+    private final Double quantity;
+    private final String itemizationType;
+    private final V1PaymentItemDetail itemDetail;
+    private final String notes;
+    private final String itemVariationName;
+    private final V1Money totalMoney;
+    private final V1Money singleQuantityMoney;
+    private final V1Money grossSalesMoney;
+    private final V1Money discountMoney;
+    private final V1Money netSalesMoney;
+    private final List<V1PaymentTax> taxes;
+    private final List<V1PaymentDiscount> discounts;
+    private final List<V1PaymentModifier> modifiers;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param quantity
-     * @param itemizationType
-     * @param itemDetail
-     * @param notes
-     * @param itemVariationName
-     * @param totalMoney
-     * @param singleQuantityMoney
-     * @param grossSalesMoney
-     * @param discountMoney
-     * @param netSalesMoney
-     * @param taxes
-     * @param discounts
-     * @param modifiers
+     * @param name String value for name.
+     * @param quantity Double value for quantity.
+     * @param itemizationType String value for itemizationType.
+     * @param itemDetail V1PaymentItemDetail value for itemDetail.
+     * @param notes String value for notes.
+     * @param itemVariationName String value for itemVariationName.
+     * @param totalMoney V1Money value for totalMoney.
+     * @param singleQuantityMoney V1Money value for singleQuantityMoney.
+     * @param grossSalesMoney V1Money value for grossSalesMoney.
+     * @param discountMoney V1Money value for discountMoney.
+     * @param netSalesMoney V1Money value for netSalesMoney.
+     * @param taxes List of V1PaymentTax value for taxes.
+     * @param discounts List of V1PaymentDiscount value for discounts.
+     * @param modifiers List of V1PaymentModifier value for modifiers.
      */
     @JsonCreator
     public V1PaymentItemization(
@@ -61,23 +76,10 @@ public class V1PaymentItemization {
         this.modifiers = modifiers;
     }
 
-    private final String name;
-    private final Double quantity;
-    private final String itemizationType;
-    private final V1PaymentItemDetail itemDetail;
-    private final String notes;
-    private final String itemVariationName;
-    private final V1Money totalMoney;
-    private final V1Money singleQuantityMoney;
-    private final V1Money grossSalesMoney;
-    private final V1Money discountMoney;
-    private final V1Money netSalesMoney;
-    private final List<V1PaymentTax> taxes;
-    private final List<V1PaymentDiscount> discounts;
-    private final List<V1PaymentModifier> modifiers;
     /**
      * Getter for Name.
      * The item's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -87,6 +89,7 @@ public class V1PaymentItemization {
     /**
      * Getter for Quantity.
      * The quantity of the item purchased. This can be a decimal value.
+     * @return Returns the Double
      */
     @JsonGetter("quantity")
     public Double getQuantity() {
@@ -95,6 +98,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for ItemizationType.
+     * @return Returns the String
      */
     @JsonGetter("itemization_type")
     public String getItemizationType() {
@@ -104,6 +108,7 @@ public class V1PaymentItemization {
     /**
      * Getter for ItemDetail.
      * V1PaymentItemDetail
+     * @return Returns the V1PaymentItemDetail
      */
     @JsonGetter("item_detail")
     public V1PaymentItemDetail getItemDetail() {
@@ -113,6 +118,7 @@ public class V1PaymentItemization {
     /**
      * Getter for Notes.
      * Notes entered by the merchant about the item at the time of payment, if any.
+     * @return Returns the String
      */
     @JsonGetter("notes")
     public String getNotes() {
@@ -122,6 +128,7 @@ public class V1PaymentItemization {
     /**
      * Getter for ItemVariationName.
      * The name of the item variation purchased, if any.
+     * @return Returns the String
      */
     @JsonGetter("item_variation_name")
     public String getItemVariationName() {
@@ -130,6 +137,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for TotalMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_money")
     public V1Money getTotalMoney() {
@@ -138,6 +146,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for SingleQuantityMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("single_quantity_money")
     public V1Money getSingleQuantityMoney() {
@@ -146,6 +155,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for GrossSalesMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("gross_sales_money")
     public V1Money getGrossSalesMoney() {
@@ -154,6 +164,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for DiscountMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("discount_money")
     public V1Money getDiscountMoney() {
@@ -162,6 +173,7 @@ public class V1PaymentItemization {
 
     /**
      * Getter for NetSalesMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("net_sales_money")
     public V1Money getNetSalesMoney() {
@@ -171,6 +183,7 @@ public class V1PaymentItemization {
     /**
      * Getter for Taxes.
      * All taxes applied to this itemization.
+     * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("taxes")
     public List<V1PaymentTax> getTaxes() {
@@ -180,6 +193,7 @@ public class V1PaymentItemization {
     /**
      * Getter for Discounts.
      * All discounts applied to this itemization.
+     * @return Returns the List of V1PaymentDiscount
      */
     @JsonGetter("discounts")
     public List<V1PaymentDiscount> getDiscounts() {
@@ -189,6 +203,7 @@ public class V1PaymentItemization {
     /**
      * Getter for Modifiers.
      * All modifier options applied to this itemization.
+     * @return Returns the List of V1PaymentModifier
      */
     @JsonGetter("modifiers")
     public List<V1PaymentModifier> getModifiers() {
@@ -199,33 +214,33 @@ public class V1PaymentItemization {
     @Override
     public int hashCode() {
         return Objects.hash(name, quantity, itemizationType, itemDetail, notes, itemVariationName,
-            totalMoney, singleQuantityMoney, grossSalesMoney, discountMoney, netSalesMoney, taxes,
-            discounts, modifiers);
+                totalMoney, singleQuantityMoney, grossSalesMoney, discountMoney, netSalesMoney,
+                taxes, discounts, modifiers);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PaymentItemization)) {
+        if (!(obj instanceof V1PaymentItemization)) {
             return false;
         }
-        V1PaymentItemization v1PaymentItemization = (V1PaymentItemization) obj;
-        return Objects.equals(name, v1PaymentItemization.name) &&
-            Objects.equals(quantity, v1PaymentItemization.quantity) &&
-            Objects.equals(itemizationType, v1PaymentItemization.itemizationType) &&
-            Objects.equals(itemDetail, v1PaymentItemization.itemDetail) &&
-            Objects.equals(notes, v1PaymentItemization.notes) &&
-            Objects.equals(itemVariationName, v1PaymentItemization.itemVariationName) &&
-            Objects.equals(totalMoney, v1PaymentItemization.totalMoney) &&
-            Objects.equals(singleQuantityMoney, v1PaymentItemization.singleQuantityMoney) &&
-            Objects.equals(grossSalesMoney, v1PaymentItemization.grossSalesMoney) &&
-            Objects.equals(discountMoney, v1PaymentItemization.discountMoney) &&
-            Objects.equals(netSalesMoney, v1PaymentItemization.netSalesMoney) &&
-            Objects.equals(taxes, v1PaymentItemization.taxes) &&
-            Objects.equals(discounts, v1PaymentItemization.discounts) &&
-            Objects.equals(modifiers, v1PaymentItemization.modifiers);
+        V1PaymentItemization other = (V1PaymentItemization) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(quantity, other.quantity)
+            && Objects.equals(itemizationType, other.itemizationType)
+            && Objects.equals(itemDetail, other.itemDetail)
+            && Objects.equals(notes, other.notes)
+            && Objects.equals(itemVariationName, other.itemVariationName)
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(singleQuantityMoney, other.singleQuantityMoney)
+            && Objects.equals(grossSalesMoney, other.grossSalesMoney)
+            && Objects.equals(discountMoney, other.discountMoney)
+            && Objects.equals(netSalesMoney, other.netSalesMoney)
+            && Objects.equals(taxes, other.taxes)
+            && Objects.equals(discounts, other.discounts)
+            && Objects.equals(modifiers, other.modifiers);
     }
 
     /**
@@ -249,11 +264,11 @@ public class V1PaymentItemization {
             .taxes(getTaxes())
             .discounts(getDiscounts())
             .modifiers(getModifiers());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PaymentItemization}
+     * Class to build instances of {@link V1PaymentItemization}.
      */
     public static class Builder {
         private String name;
@@ -271,133 +286,141 @@ public class V1PaymentItemization {
         private List<V1PaymentDiscount> discounts;
         private List<V1PaymentModifier> modifiers;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for quantity
-         * @param quantity
+         * Setter for quantity.
+         * @param quantity Double value for quantity.
          * @return Builder
          */
         public Builder quantity(Double quantity) {
             this.quantity = quantity;
             return this;
         }
+
         /**
-         * Setter for itemizationType
-         * @param itemizationType
+         * Setter for itemizationType.
+         * @param itemizationType String value for itemizationType.
          * @return Builder
          */
         public Builder itemizationType(String itemizationType) {
             this.itemizationType = itemizationType;
             return this;
         }
+
         /**
-         * Setter for itemDetail
-         * @param itemDetail
+         * Setter for itemDetail.
+         * @param itemDetail V1PaymentItemDetail value for itemDetail.
          * @return Builder
          */
         public Builder itemDetail(V1PaymentItemDetail itemDetail) {
             this.itemDetail = itemDetail;
             return this;
         }
+
         /**
-         * Setter for notes
-         * @param notes
+         * Setter for notes.
+         * @param notes String value for notes.
          * @return Builder
          */
         public Builder notes(String notes) {
             this.notes = notes;
             return this;
         }
+
         /**
-         * Setter for itemVariationName
-         * @param itemVariationName
+         * Setter for itemVariationName.
+         * @param itemVariationName String value for itemVariationName.
          * @return Builder
          */
         public Builder itemVariationName(String itemVariationName) {
             this.itemVariationName = itemVariationName;
             return this;
         }
+
         /**
-         * Setter for totalMoney
-         * @param totalMoney
+         * Setter for totalMoney.
+         * @param totalMoney V1Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(V1Money totalMoney) {
             this.totalMoney = totalMoney;
             return this;
         }
+
         /**
-         * Setter for singleQuantityMoney
-         * @param singleQuantityMoney
+         * Setter for singleQuantityMoney.
+         * @param singleQuantityMoney V1Money value for singleQuantityMoney.
          * @return Builder
          */
         public Builder singleQuantityMoney(V1Money singleQuantityMoney) {
             this.singleQuantityMoney = singleQuantityMoney;
             return this;
         }
+
         /**
-         * Setter for grossSalesMoney
-         * @param grossSalesMoney
+         * Setter for grossSalesMoney.
+         * @param grossSalesMoney V1Money value for grossSalesMoney.
          * @return Builder
          */
         public Builder grossSalesMoney(V1Money grossSalesMoney) {
             this.grossSalesMoney = grossSalesMoney;
             return this;
         }
+
         /**
-         * Setter for discountMoney
-         * @param discountMoney
+         * Setter for discountMoney.
+         * @param discountMoney V1Money value for discountMoney.
          * @return Builder
          */
         public Builder discountMoney(V1Money discountMoney) {
             this.discountMoney = discountMoney;
             return this;
         }
+
         /**
-         * Setter for netSalesMoney
-         * @param netSalesMoney
+         * Setter for netSalesMoney.
+         * @param netSalesMoney V1Money value for netSalesMoney.
          * @return Builder
          */
         public Builder netSalesMoney(V1Money netSalesMoney) {
             this.netSalesMoney = netSalesMoney;
             return this;
         }
+
         /**
-         * Setter for taxes
-         * @param taxes
+         * Setter for taxes.
+         * @param taxes List of V1PaymentTax value for taxes.
          * @return Builder
          */
         public Builder taxes(List<V1PaymentTax> taxes) {
             this.taxes = taxes;
             return this;
         }
+
         /**
-         * Setter for discounts
-         * @param discounts
+         * Setter for discounts.
+         * @param discounts List of V1PaymentDiscount value for discounts.
          * @return Builder
          */
         public Builder discounts(List<V1PaymentDiscount> discounts) {
             this.discounts = discounts;
             return this;
         }
+
         /**
-         * Setter for modifiers
-         * @param modifiers
+         * Setter for modifiers.
+         * @param modifiers List of V1PaymentModifier value for modifiers.
          * @return Builder
          */
         public Builder modifiers(List<V1PaymentModifier> modifiers) {

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ListEmployeeRolesRequest type.
  */
 public class V1ListEmployeeRolesRequest {
+    private final String order;
+    private final Integer limit;
+    private final String batchToken;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param limit
-     * @param batchToken
+     * @param order String value for order.
+     * @param limit Integer value for limit.
+     * @param batchToken String value for batchToken.
      */
     @JsonCreator
     public V1ListEmployeeRolesRequest(
@@ -27,12 +31,10 @@ public class V1ListEmployeeRolesRequest {
         this.batchToken = batchToken;
     }
 
-    private final String order;
-    private final Integer limit;
-    private final String batchToken;
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("order")
     public String getOrder() {
@@ -41,7 +43,9 @@ public class V1ListEmployeeRolesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
+     * The maximum integer number of employee entities to return in a single response. Default 100,
+     * maximum 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -50,8 +54,9 @@ public class V1ListEmployeeRolesRequest {
 
     /**
      * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the String
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
@@ -66,16 +71,16 @@ public class V1ListEmployeeRolesRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListEmployeeRolesRequest)) {
+        if (!(obj instanceof V1ListEmployeeRolesRequest)) {
             return false;
         }
-        V1ListEmployeeRolesRequest v1ListEmployeeRolesRequest = (V1ListEmployeeRolesRequest) obj;
-        return Objects.equals(order, v1ListEmployeeRolesRequest.order) &&
-            Objects.equals(limit, v1ListEmployeeRolesRequest.limit) &&
-            Objects.equals(batchToken, v1ListEmployeeRolesRequest.batchToken);
+        V1ListEmployeeRolesRequest other = (V1ListEmployeeRolesRequest) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(batchToken, other.batchToken);
     }
 
     /**
@@ -88,45 +93,42 @@ public class V1ListEmployeeRolesRequest {
             .order(getOrder())
             .limit(getLimit())
             .batchToken(getBatchToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListEmployeeRolesRequest}
+     * Class to build instances of {@link V1ListEmployeeRolesRequest}.
      */
     public static class Builder {
         private String order;
         private Integer limit;
         private String batchToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order String value for order.
          * @return Builder
          */
         public Builder order(String order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for batchToken
-         * @param batchToken
+         * Setter for batchToken.
+         * @param batchToken String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {

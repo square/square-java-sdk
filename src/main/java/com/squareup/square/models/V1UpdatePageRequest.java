@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdatePageRequest type.
  */
 public class V1UpdatePageRequest {
+    private final V1Page body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Page value for body.
      */
     @JsonCreator
     public V1UpdatePageRequest(
@@ -21,10 +23,10 @@ public class V1UpdatePageRequest {
         this.body = body;
     }
 
-    private final V1Page body;
     /**
      * Getter for Body.
      * V1Page
+     * @return Returns the V1Page
      */
     @JsonGetter("body")
     public V1Page getBody() {
@@ -39,14 +41,14 @@ public class V1UpdatePageRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdatePageRequest)) {
+        if (!(obj instanceof V1UpdatePageRequest)) {
             return false;
         }
-        V1UpdatePageRequest v1UpdatePageRequest = (V1UpdatePageRequest) obj;
-        return Objects.equals(body, v1UpdatePageRequest.body);
+        V1UpdatePageRequest other = (V1UpdatePageRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -56,25 +58,26 @@ public class V1UpdatePageRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(body);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdatePageRequest}
+     * Class to build instances of {@link V1UpdatePageRequest}.
      */
     public static class Builder {
         private V1Page body;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param body V1Page value for body.
          */
         public Builder(V1Page body) {
             this.body = body;
         }
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Page value for body.
          * @return Builder
          */
         public Builder body(V1Page body) {

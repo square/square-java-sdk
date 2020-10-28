@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CreateLocationResponse type.
  */
 public class CreateLocationResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Location location;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param location
+     * @param errors List of Error value for errors.
+     * @param location Location value for location.
      */
     @JsonCreator
     public CreateLocationResponse(
@@ -26,10 +30,6 @@ public class CreateLocationResponse {
         this.location = location;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Location location;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class CreateLocationResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,6 +46,7 @@ public class CreateLocationResponse {
 
     /**
      * Getter for Location.
+     * @return Returns the Location
      */
     @JsonGetter("location")
     public Location getLocation() {
@@ -59,15 +61,15 @@ public class CreateLocationResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateLocationResponse)) {
+        if (!(obj instanceof CreateLocationResponse)) {
             return false;
         }
-        CreateLocationResponse createLocationResponse = (CreateLocationResponse) obj;
-        return Objects.equals(errors, createLocationResponse.errors) &&
-            Objects.equals(location, createLocationResponse.location);
+        CreateLocationResponse other = (CreateLocationResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(location, other.location);
     }
 
     /**
@@ -79,45 +81,42 @@ public class CreateLocationResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .location(getLocation());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateLocationResponse}
+     * Class to build instances of {@link CreateLocationResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Location location;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for location
-         * @param location
+         * Setter for location.
+         * @param location Location value for location.
          * @return Builder
          */
         public Builder location(Location location) {
@@ -130,8 +129,9 @@ public class CreateLocationResponse {
          * @return {@link CreateLocationResponse}
          */
         public CreateLocationResponse build() {
-            CreateLocationResponse model = new CreateLocationResponse(errors,
-                location);
+            CreateLocationResponse model =
+                    new CreateLocationResponse(errors,
+                            location);
             model.httpContext = httpContext;
             return model;
         }

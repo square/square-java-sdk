@@ -1,24 +1,31 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1TimecardEvent type.
  */
 public class V1TimecardEvent {
+    private HttpContext httpContext;
+    private final String id;
+    private final String eventType;
+    private final String clockinTime;
+    private final String clockoutTime;
+    private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param eventType
-     * @param clockinTime
-     * @param clockoutTime
-     * @param createdAt
+     * @param id String value for id.
+     * @param eventType String value for eventType.
+     * @param clockinTime String value for clockinTime.
+     * @param clockoutTime String value for clockoutTime.
+     * @param createdAt String value for createdAt.
      */
     @JsonCreator
     public V1TimecardEvent(
@@ -34,13 +41,6 @@ public class V1TimecardEvent {
         this.createdAt = createdAt;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String eventType;
-    private final String clockinTime;
-    private final String clockoutTime;
-    private final String createdAt;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -48,6 +48,7 @@ public class V1TimecardEvent {
     /**
      * Getter for Id.
      * The event's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -56,9 +57,9 @@ public class V1TimecardEvent {
 
     /**
      * Getter for EventType.
-     * Actions that resulted in a change to a timecard. All timecard
-     * events created with the Connect API have an event type that begins with
-     * `API`.
+     * Actions that resulted in a change to a timecard. All timecard events created with the Connect
+     * API have an event type that begins with `API`.
+     * @return Returns the String
      */
     @JsonGetter("event_type")
     public String getEventType() {
@@ -68,6 +69,7 @@ public class V1TimecardEvent {
     /**
      * Getter for ClockinTime.
      * The time the employee clocked in, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("clockin_time")
     public String getClockinTime() {
@@ -77,6 +79,7 @@ public class V1TimecardEvent {
     /**
      * Getter for ClockoutTime.
      * The time the employee clocked out, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("clockout_time")
     public String getClockoutTime() {
@@ -86,6 +89,7 @@ public class V1TimecardEvent {
     /**
      * Getter for CreatedAt.
      * The time when the event was created, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -100,18 +104,18 @@ public class V1TimecardEvent {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1TimecardEvent)) {
+        if (!(obj instanceof V1TimecardEvent)) {
             return false;
         }
-        V1TimecardEvent v1TimecardEvent = (V1TimecardEvent) obj;
-        return Objects.equals(id, v1TimecardEvent.id) &&
-            Objects.equals(eventType, v1TimecardEvent.eventType) &&
-            Objects.equals(clockinTime, v1TimecardEvent.clockinTime) &&
-            Objects.equals(clockoutTime, v1TimecardEvent.clockoutTime) &&
-            Objects.equals(createdAt, v1TimecardEvent.createdAt);
+        V1TimecardEvent other = (V1TimecardEvent) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(eventType, other.eventType)
+            && Objects.equals(clockinTime, other.clockinTime)
+            && Objects.equals(clockoutTime, other.clockoutTime)
+            && Objects.equals(createdAt, other.createdAt);
     }
 
     /**
@@ -126,11 +130,11 @@ public class V1TimecardEvent {
             .clockinTime(getClockinTime())
             .clockoutTime(getClockoutTime())
             .createdAt(getCreatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1TimecardEvent}
+     * Class to build instances of {@link V1TimecardEvent}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -140,61 +144,61 @@ public class V1TimecardEvent {
         private String clockoutTime;
         private String createdAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for eventType
-         * @param eventType
+         * Setter for eventType.
+         * @param eventType String value for eventType.
          * @return Builder
          */
         public Builder eventType(String eventType) {
             this.eventType = eventType;
             return this;
         }
+
         /**
-         * Setter for clockinTime
-         * @param clockinTime
+         * Setter for clockinTime.
+         * @param clockinTime String value for clockinTime.
          * @return Builder
          */
         public Builder clockinTime(String clockinTime) {
             this.clockinTime = clockinTime;
             return this;
         }
+
         /**
-         * Setter for clockoutTime
-         * @param clockoutTime
+         * Setter for clockoutTime.
+         * @param clockoutTime String value for clockoutTime.
          * @return Builder
          */
         public Builder clockoutTime(String clockoutTime) {
             this.clockoutTime = clockoutTime;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -207,11 +211,12 @@ public class V1TimecardEvent {
          * @return {@link V1TimecardEvent}
          */
         public V1TimecardEvent build() {
-            V1TimecardEvent model = new V1TimecardEvent(id,
-                eventType,
-                clockinTime,
-                clockoutTime,
-                createdAt);
+            V1TimecardEvent model =
+                    new V1TimecardEvent(id,
+                            eventType,
+                            clockinTime,
+                            clockoutTime,
+                            createdAt);
             model.httpContext = httpContext;
             return model;
         }

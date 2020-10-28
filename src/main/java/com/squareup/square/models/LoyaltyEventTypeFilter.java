@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for LoyaltyEventTypeFilter type.
  */
 public class LoyaltyEventTypeFilter {
+    private final List<String> types;
 
     /**
      * Initialization constructor.
-     * @param types
+     * @param types List of String value for types.
      */
     @JsonCreator
     public LoyaltyEventTypeFilter(
@@ -22,13 +24,12 @@ public class LoyaltyEventTypeFilter {
         this.types = types;
     }
 
-    private final List<String> types;
     /**
      * Getter for Types.
-     * The loyalty event types used to filter the result.
-     * If multiple values are specified, the endpoint uses a 
-     * logical OR to combine them.
-     * See [LoyaltyEventType](#type-loyaltyeventtype) for possible values
+     * The loyalty event types used to filter the result. If multiple values are specified, the
+     * endpoint uses a logical OR to combine them. See [LoyaltyEventType](#type-loyaltyeventtype)
+     * for possible values
+     * @return Returns the List of String
      */
     @JsonGetter("types")
     public List<String> getTypes() {
@@ -43,14 +44,14 @@ public class LoyaltyEventTypeFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventTypeFilter)) {
+        if (!(obj instanceof LoyaltyEventTypeFilter)) {
             return false;
         }
-        LoyaltyEventTypeFilter loyaltyEventTypeFilter = (LoyaltyEventTypeFilter) obj;
-        return Objects.equals(types, loyaltyEventTypeFilter.types);
+        LoyaltyEventTypeFilter other = (LoyaltyEventTypeFilter) obj;
+        return Objects.equals(types, other.types);
     }
 
     /**
@@ -60,25 +61,26 @@ public class LoyaltyEventTypeFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(types);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventTypeFilter}
+     * Class to build instances of {@link LoyaltyEventTypeFilter}.
      */
     public static class Builder {
         private List<String> types;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param types List of String value for types.
          */
         public Builder(List<String> types) {
             this.types = types;
         }
 
         /**
-         * Setter for types
-         * @param types
+         * Setter for types.
+         * @param types List of String value for types.
          * @return Builder
          */
         public Builder types(List<String> types) {

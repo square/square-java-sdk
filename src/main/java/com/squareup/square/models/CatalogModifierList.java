@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogModifierList type.
  */
 public class CatalogModifierList {
+    private final String name;
+    private final Integer ordinal;
+    private final String selectionType;
+    private final List<CatalogObject> modifiers;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param ordinal
-     * @param selectionType
-     * @param modifiers
+     * @param name String value for name.
+     * @param ordinal Integer value for ordinal.
+     * @param selectionType String value for selectionType.
+     * @param modifiers List of CatalogObject value for modifiers.
      */
     @JsonCreator
     public CatalogModifierList(
@@ -31,13 +36,11 @@ public class CatalogModifierList {
         this.modifiers = modifiers;
     }
 
-    private final String name;
-    private final Integer ordinal;
-    private final String selectionType;
-    private final List<CatalogObject> modifiers;
     /**
      * Getter for Name.
-     * The name for the `CatalogModifierList` instance. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
+     * The name for the `CatalogModifierList` instance. This is a searchable attribute for use in
+     * applicable query filters, and its value length is of Unicode code points.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -47,6 +50,7 @@ public class CatalogModifierList {
     /**
      * Getter for Ordinal.
      * Determines where this modifier list appears in a list of `CatalogModifierList` values.
+     * @return Returns the Integer
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
@@ -56,6 +60,7 @@ public class CatalogModifierList {
     /**
      * Getter for SelectionType.
      * Indicates whether a CatalogModifierList supports multiple selections.
+     * @return Returns the String
      */
     @JsonGetter("selection_type")
     public String getSelectionType() {
@@ -64,10 +69,10 @@ public class CatalogModifierList {
 
     /**
      * Getter for Modifiers.
-     * The options included in the `CatalogModifierList`.
-     * You must include at least one `CatalogModifier`.
-     * Each CatalogObject must have type `MODIFIER` and contain
-     * `CatalogModifier` data.
+     * The options included in the `CatalogModifierList`. You must include at least one
+     * `CatalogModifier`. Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier`
+     * data.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("modifiers")
     public List<CatalogObject> getModifiers() {
@@ -82,17 +87,17 @@ public class CatalogModifierList {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogModifierList)) {
+        if (!(obj instanceof CatalogModifierList)) {
             return false;
         }
-        CatalogModifierList catalogModifierList = (CatalogModifierList) obj;
-        return Objects.equals(name, catalogModifierList.name) &&
-            Objects.equals(ordinal, catalogModifierList.ordinal) &&
-            Objects.equals(selectionType, catalogModifierList.selectionType) &&
-            Objects.equals(modifiers, catalogModifierList.modifiers);
+        CatalogModifierList other = (CatalogModifierList) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(ordinal, other.ordinal)
+            && Objects.equals(selectionType, other.selectionType)
+            && Objects.equals(modifiers, other.modifiers);
     }
 
     /**
@@ -106,11 +111,11 @@ public class CatalogModifierList {
             .ordinal(getOrdinal())
             .selectionType(getSelectionType())
             .modifiers(getModifiers());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogModifierList}
+     * Class to build instances of {@link CatalogModifierList}.
      */
     public static class Builder {
         private String name;
@@ -118,43 +123,41 @@ public class CatalogModifierList {
         private String selectionType;
         private List<CatalogObject> modifiers;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for ordinal
-         * @param ordinal
+         * Setter for ordinal.
+         * @param ordinal Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
             this.ordinal = ordinal;
             return this;
         }
+
         /**
-         * Setter for selectionType
-         * @param selectionType
+         * Setter for selectionType.
+         * @param selectionType String value for selectionType.
          * @return Builder
          */
         public Builder selectionType(String selectionType) {
             this.selectionType = selectionType;
             return this;
         }
+
         /**
-         * Setter for modifiers
-         * @param modifiers
+         * Setter for modifiers.
+         * @param modifiers List of CatalogObject value for modifiers.
          * @return Builder
          */
         public Builder modifiers(List<CatalogObject> modifiers) {

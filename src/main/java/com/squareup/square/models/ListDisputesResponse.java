@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListDisputesResponse type.
  */
 public class ListDisputesResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<Dispute> disputes;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param disputes
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param disputes List of Dispute value for disputes.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListDisputesResponse(
@@ -29,11 +34,6 @@ public class ListDisputesResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<Dispute> disputes;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListDisputesResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListDisputesResponse {
     /**
      * Getter for Disputes.
      * The list of Disputes.
+     * @return Returns the List of Dispute
      */
     @JsonGetter("disputes")
     public List<Dispute> getDisputes() {
@@ -58,9 +60,10 @@ public class ListDisputesResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent request.
-     * If unset, this is the final response.
-     * For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. For more information, see
+     * [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -75,16 +78,16 @@ public class ListDisputesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListDisputesResponse)) {
+        if (!(obj instanceof ListDisputesResponse)) {
             return false;
         }
-        ListDisputesResponse listDisputesResponse = (ListDisputesResponse) obj;
-        return Objects.equals(errors, listDisputesResponse.errors) &&
-            Objects.equals(disputes, listDisputesResponse.disputes) &&
-            Objects.equals(cursor, listDisputesResponse.cursor);
+        ListDisputesResponse other = (ListDisputesResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(disputes, other.disputes)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -97,11 +100,11 @@ public class ListDisputesResponse {
             .errors(getErrors())
             .disputes(getDisputes())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListDisputesResponse}
+     * Class to build instances of {@link ListDisputesResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -109,43 +112,41 @@ public class ListDisputesResponse {
         private List<Dispute> disputes;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for disputes
-         * @param disputes
+         * Setter for disputes.
+         * @param disputes List of Dispute value for disputes.
          * @return Builder
          */
         public Builder disputes(List<Dispute> disputes) {
             this.disputes = disputes;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -158,9 +159,10 @@ public class ListDisputesResponse {
          * @return {@link ListDisputesResponse}
          */
         public ListDisputesResponse build() {
-            ListDisputesResponse model = new ListDisputesResponse(errors,
-                disputes,
-                cursor);
+            ListDisputesResponse model =
+                    new ListDisputesResponse(errors,
+                            disputes,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

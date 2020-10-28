@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1PaymentDiscount type.
  */
 public class V1PaymentDiscount {
+    private final String name;
+    private final V1Money appliedMoney;
+    private final String discountId;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param appliedMoney
-     * @param discountId
+     * @param name String value for name.
+     * @param appliedMoney V1Money value for appliedMoney.
+     * @param discountId String value for discountId.
      */
     @JsonCreator
     public V1PaymentDiscount(
@@ -27,12 +31,10 @@ public class V1PaymentDiscount {
         this.discountId = discountId;
     }
 
-    private final String name;
-    private final V1Money appliedMoney;
-    private final String discountId;
     /**
      * Getter for Name.
      * The discount's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -41,6 +43,7 @@ public class V1PaymentDiscount {
 
     /**
      * Getter for AppliedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
@@ -49,7 +52,9 @@ public class V1PaymentDiscount {
 
     /**
      * Getter for DiscountId.
-     * The ID of the applied discount, if available. Discounts applied in older versions of Square Register might not have an ID.
+     * The ID of the applied discount, if available. Discounts applied in older versions of Square
+     * Register might not have an ID.
+     * @return Returns the String
      */
     @JsonGetter("discount_id")
     public String getDiscountId() {
@@ -64,16 +69,16 @@ public class V1PaymentDiscount {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PaymentDiscount)) {
+        if (!(obj instanceof V1PaymentDiscount)) {
             return false;
         }
-        V1PaymentDiscount v1PaymentDiscount = (V1PaymentDiscount) obj;
-        return Objects.equals(name, v1PaymentDiscount.name) &&
-            Objects.equals(appliedMoney, v1PaymentDiscount.appliedMoney) &&
-            Objects.equals(discountId, v1PaymentDiscount.discountId);
+        V1PaymentDiscount other = (V1PaymentDiscount) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(discountId, other.discountId);
     }
 
     /**
@@ -86,45 +91,42 @@ public class V1PaymentDiscount {
             .name(getName())
             .appliedMoney(getAppliedMoney())
             .discountId(getDiscountId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PaymentDiscount}
+     * Class to build instances of {@link V1PaymentDiscount}.
      */
     public static class Builder {
         private String name;
         private V1Money appliedMoney;
         private String discountId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for discountId
-         * @param discountId
+         * Setter for discountId.
+         * @param discountId String value for discountId.
          * @return Builder
          */
         public Builder discountId(String discountId) {

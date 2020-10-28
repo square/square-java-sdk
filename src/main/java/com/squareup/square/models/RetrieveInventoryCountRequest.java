@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for RetrieveInventoryCountRequest type.
  */
 public class RetrieveInventoryCountRequest {
+    private final String locationIds;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param locationIds
-     * @param cursor
+     * @param locationIds String value for locationIds.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public RetrieveInventoryCountRequest(
@@ -24,12 +27,11 @@ public class RetrieveInventoryCountRequest {
         this.cursor = cursor;
     }
 
-    private final String locationIds;
-    private final String cursor;
     /**
      * Getter for LocationIds.
-     * The [Location](#type-location) IDs to look up as a comma-separated
-     * list. An empty list queries all locations.
+     * The [Location](#type-location) IDs to look up as a comma-separated list. An empty list
+     * queries all locations.
+     * @return Returns the String
      */
     @JsonGetter("location_ids")
     public String getLocationIds() {
@@ -38,9 +40,11 @@ public class RetrieveInventoryCountRequest {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for the original query.
-     * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. See the
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for
+     * more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -55,15 +59,15 @@ public class RetrieveInventoryCountRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveInventoryCountRequest)) {
+        if (!(obj instanceof RetrieveInventoryCountRequest)) {
             return false;
         }
-        RetrieveInventoryCountRequest retrieveInventoryCountRequest = (RetrieveInventoryCountRequest) obj;
-        return Objects.equals(locationIds, retrieveInventoryCountRequest.locationIds) &&
-            Objects.equals(cursor, retrieveInventoryCountRequest.cursor);
+        RetrieveInventoryCountRequest other = (RetrieveInventoryCountRequest) obj;
+        return Objects.equals(locationIds, other.locationIds)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -75,35 +79,31 @@ public class RetrieveInventoryCountRequest {
         Builder builder = new Builder()
             .locationIds(getLocationIds())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveInventoryCountRequest}
+     * Class to build instances of {@link RetrieveInventoryCountRequest}.
      */
     public static class Builder {
         private String locationIds;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(String locationIds) {
             this.locationIds = locationIds;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

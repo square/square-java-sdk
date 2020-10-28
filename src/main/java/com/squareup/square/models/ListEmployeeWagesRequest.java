@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListEmployeeWagesRequest type.
  */
 public class ListEmployeeWagesRequest {
+    private final String employeeId;
+    private final Integer limit;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param employeeId
-     * @param limit
-     * @param cursor
+     * @param employeeId String value for employeeId.
+     * @param limit Integer value for limit.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListEmployeeWagesRequest(
@@ -27,12 +31,10 @@ public class ListEmployeeWagesRequest {
         this.cursor = cursor;
     }
 
-    private final String employeeId;
-    private final Integer limit;
-    private final String cursor;
     /**
      * Getter for EmployeeId.
      * Filter wages returned to only those that are associated with the specified employee.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -41,8 +43,9 @@ public class ListEmployeeWagesRequest {
 
     /**
      * Getter for Limit.
-     * Maximum number of Employee Wages to return per page. Can range between
-     * 1 and 200. The default is the maximum at 200.
+     * Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default
+     * is the maximum at 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -52,6 +55,7 @@ public class ListEmployeeWagesRequest {
     /**
      * Getter for Cursor.
      * Pointer to the next page of Employee Wage results to fetch.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -66,16 +70,16 @@ public class ListEmployeeWagesRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListEmployeeWagesRequest)) {
+        if (!(obj instanceof ListEmployeeWagesRequest)) {
             return false;
         }
-        ListEmployeeWagesRequest listEmployeeWagesRequest = (ListEmployeeWagesRequest) obj;
-        return Objects.equals(employeeId, listEmployeeWagesRequest.employeeId) &&
-            Objects.equals(limit, listEmployeeWagesRequest.limit) &&
-            Objects.equals(cursor, listEmployeeWagesRequest.cursor);
+        ListEmployeeWagesRequest other = (ListEmployeeWagesRequest) obj;
+        return Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -88,45 +92,42 @@ public class ListEmployeeWagesRequest {
             .employeeId(getEmployeeId())
             .limit(getLimit())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListEmployeeWagesRequest}
+     * Class to build instances of {@link ListEmployeeWagesRequest}.
      */
     public static class Builder {
         private String employeeId;
         private Integer limit;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

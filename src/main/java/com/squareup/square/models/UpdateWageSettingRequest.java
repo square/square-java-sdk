@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for UpdateWageSettingRequest type.
  */
 public class UpdateWageSettingRequest {
+    private final WageSetting wageSetting;
 
     /**
      * Initialization constructor.
-     * @param wageSetting
+     * @param wageSetting WageSetting value for wageSetting.
      */
     @JsonCreator
     public UpdateWageSettingRequest(
@@ -21,10 +23,10 @@ public class UpdateWageSettingRequest {
         this.wageSetting = wageSetting;
     }
 
-    private final WageSetting wageSetting;
     /**
      * Getter for WageSetting.
      * An object representing a team member's wage information.
+     * @return Returns the WageSetting
      */
     @JsonGetter("wage_setting")
     public WageSetting getWageSetting() {
@@ -39,14 +41,14 @@ public class UpdateWageSettingRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateWageSettingRequest)) {
+        if (!(obj instanceof UpdateWageSettingRequest)) {
             return false;
         }
-        UpdateWageSettingRequest updateWageSettingRequest = (UpdateWageSettingRequest) obj;
-        return Objects.equals(wageSetting, updateWageSettingRequest.wageSetting);
+        UpdateWageSettingRequest other = (UpdateWageSettingRequest) obj;
+        return Objects.equals(wageSetting, other.wageSetting);
     }
 
     /**
@@ -56,25 +58,26 @@ public class UpdateWageSettingRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(wageSetting);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateWageSettingRequest}
+     * Class to build instances of {@link UpdateWageSettingRequest}.
      */
     public static class Builder {
         private WageSetting wageSetting;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param wageSetting WageSetting value for wageSetting.
          */
         public Builder(WageSetting wageSetting) {
             this.wageSetting = wageSetting;
         }
 
         /**
-         * Setter for wageSetting
-         * @param wageSetting
+         * Setter for wageSetting.
+         * @param wageSetting WageSetting value for wageSetting.
          * @return Builder
          */
         public Builder wageSetting(WageSetting wageSetting) {

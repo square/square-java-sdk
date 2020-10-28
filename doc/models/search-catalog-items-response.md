@@ -1,40 +1,41 @@
-## Search Catalog Items Response
+
+# Search Catalog Items Response
 
 Defines the response body returned from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint.
 
-### Structure
+## Structure
 
 `SearchCatalogItemsResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors detected when the call to [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint fails. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 | `Items` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | Returned items matching the specified query expressions. | List<CatalogObject> getItems() |
 | `Cursor` | `String` | Optional | Pagination token used in the next request to return more of the search result. | String getCursor() |
 | `MatchedVariationIds` | `List<String>` | Optional | Ids of returned item variations matching the specified query expression. | List<String> getMatchedVariationIds() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {
   "errors": [
     {
       "category": "AUTHENTICATION_ERROR",
-      "code": "REQUEST_TIMEOUT",
+      "code": "MAP_KEY_LENGTH_TOO_SHORT",
       "detail": "detail1",
       "field": "field9"
     },
     {
       "category": "INVALID_REQUEST_ERROR",
-      "code": "CONFLICT",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
       "detail": "detail2",
       "field": "field0"
     },
     {
       "category": "RATE_LIMIT_ERROR",
-      "code": "GONE",
+      "code": "CARD_EXPIRED",
       "detail": "detail3",
       "field": "field1"
     }

@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CalculateLoyaltyPointsResponse type.
  */
 public class CalculateLoyaltyPointsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Integer points;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param points
+     * @param errors List of Error value for errors.
+     * @param points Integer value for points.
      */
     @JsonCreator
     public CalculateLoyaltyPointsResponse(
@@ -26,10 +30,6 @@ public class CalculateLoyaltyPointsResponse {
         this.points = points;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Integer points;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class CalculateLoyaltyPointsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -46,6 +47,7 @@ public class CalculateLoyaltyPointsResponse {
     /**
      * Getter for Points.
      * The points that the buyer can earn from a specified purchase.
+     * @return Returns the Integer
      */
     @JsonGetter("points")
     public Integer getPoints() {
@@ -60,15 +62,15 @@ public class CalculateLoyaltyPointsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CalculateLoyaltyPointsResponse)) {
+        if (!(obj instanceof CalculateLoyaltyPointsResponse)) {
             return false;
         }
-        CalculateLoyaltyPointsResponse calculateLoyaltyPointsResponse = (CalculateLoyaltyPointsResponse) obj;
-        return Objects.equals(errors, calculateLoyaltyPointsResponse.errors) &&
-            Objects.equals(points, calculateLoyaltyPointsResponse.points);
+        CalculateLoyaltyPointsResponse other = (CalculateLoyaltyPointsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(points, other.points);
     }
 
     /**
@@ -80,45 +82,42 @@ public class CalculateLoyaltyPointsResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .points(getPoints());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CalculateLoyaltyPointsResponse}
+     * Class to build instances of {@link CalculateLoyaltyPointsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Integer points;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for points
-         * @param points
+         * Setter for points.
+         * @param points Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
@@ -131,8 +130,9 @@ public class CalculateLoyaltyPointsResponse {
          * @return {@link CalculateLoyaltyPointsResponse}
          */
         public CalculateLoyaltyPointsResponse build() {
-            CalculateLoyaltyPointsResponse model = new CalculateLoyaltyPointsResponse(errors,
-                points);
+            CalculateLoyaltyPointsResponse model =
+                    new CalculateLoyaltyPointsResponse(errors,
+                            points);
             model.httpContext = httpContext;
             return model;
         }

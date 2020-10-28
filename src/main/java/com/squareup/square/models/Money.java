@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Money type.
  */
 public class Money {
+    private final Long amount;
+    private final String currency;
 
     /**
      * Initialization constructor.
-     * @param amount
-     * @param currency
+     * @param amount Long value for amount.
+     * @param currency String value for currency.
      */
     @JsonCreator
     public Money(
@@ -24,14 +27,13 @@ public class Money {
         this.currency = currency;
     }
 
-    private final Long amount;
-    private final String currency;
     /**
      * Getter for Amount.
-     * The amount of money, in the smallest denomination of the currency
-     * indicated by `currency`. For example, when `currency` is `USD`, `amount` is
-     * in cents. Monetary amounts can be positive or negative. See the specific
-     * field description to determine the meaning of the sign in a particular case.
+     * The amount of money, in the smallest denomination of the currency indicated by `currency`.
+     * For example, when `currency` is `USD`, `amount` is in cents. Monetary amounts can be positive
+     * or negative. See the specific field description to determine the meaning of the sign in a
+     * particular case.
+     * @return Returns the Long
      */
     @JsonGetter("amount")
     public Long getAmount() {
@@ -40,8 +42,9 @@ public class Money {
 
     /**
      * Getter for Currency.
-     * Indicates the associated currency for an amount of money. Values correspond
-     * to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).
+     * Indicates the associated currency for an amount of money. Values correspond to [ISO
+     * 4217](https://wikipedia.org/wiki/ISO_4217).
+     * @return Returns the String
      */
     @JsonGetter("currency")
     public String getCurrency() {
@@ -56,15 +59,15 @@ public class Money {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Money)) {
+        if (!(obj instanceof Money)) {
             return false;
         }
-        Money money = (Money) obj;
-        return Objects.equals(amount, money.amount) &&
-            Objects.equals(currency, money.currency);
+        Money other = (Money) obj;
+        return Objects.equals(amount, other.amount)
+            && Objects.equals(currency, other.currency);
     }
 
     /**
@@ -76,35 +79,31 @@ public class Money {
         Builder builder = new Builder()
             .amount(getAmount())
             .currency(getCurrency());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Money}
+     * Class to build instances of {@link Money}.
      */
     public static class Builder {
         private Long amount;
         private String currency;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for amount
-         * @param amount
+         * Setter for amount.
+         * @param amount Long value for amount.
          * @return Builder
          */
         public Builder amount(Long amount) {
             this.amount = amount;
             return this;
         }
+
         /**
-         * Setter for currency
-         * @param currency
+         * Setter for currency.
+         * @param currency String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {

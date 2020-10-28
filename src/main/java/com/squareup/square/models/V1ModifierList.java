@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1ModifierList type.
  */
 public class V1ModifierList {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final String selectionType;
+    private final List<V1ModifierOption> modifierOptions;
+    private final String v2Id;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param selectionType
-     * @param modifierOptions
-     * @param v2Id
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param selectionType String value for selectionType.
+     * @param modifierOptions List of V1ModifierOption value for modifierOptions.
+     * @param v2Id String value for v2Id.
      */
     @JsonCreator
     public V1ModifierList(
@@ -35,13 +42,6 @@ public class V1ModifierList {
         this.v2Id = v2Id;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final String selectionType;
-    private final List<V1ModifierOption> modifierOptions;
-    private final String v2Id;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -49,6 +49,7 @@ public class V1ModifierList {
     /**
      * Getter for Id.
      * The modifier list's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -58,6 +59,7 @@ public class V1ModifierList {
     /**
      * Getter for Name.
      * The modifier list's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -66,6 +68,7 @@ public class V1ModifierList {
 
     /**
      * Getter for SelectionType.
+     * @return Returns the String
      */
     @JsonGetter("selection_type")
     public String getSelectionType() {
@@ -75,6 +78,7 @@ public class V1ModifierList {
     /**
      * Getter for ModifierOptions.
      * The options included in the modifier list.
+     * @return Returns the List of V1ModifierOption
      */
     @JsonGetter("modifier_options")
     public List<V1ModifierOption> getModifierOptions() {
@@ -83,7 +87,9 @@ public class V1ModifierList {
 
     /**
      * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple
+     * locations share the same v2 ID.
+     * @return Returns the String
      */
     @JsonGetter("v2_id")
     public String getV2Id() {
@@ -98,18 +104,18 @@ public class V1ModifierList {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ModifierList)) {
+        if (!(obj instanceof V1ModifierList)) {
             return false;
         }
-        V1ModifierList v1ModifierList = (V1ModifierList) obj;
-        return Objects.equals(id, v1ModifierList.id) &&
-            Objects.equals(name, v1ModifierList.name) &&
-            Objects.equals(selectionType, v1ModifierList.selectionType) &&
-            Objects.equals(modifierOptions, v1ModifierList.modifierOptions) &&
-            Objects.equals(v2Id, v1ModifierList.v2Id);
+        V1ModifierList other = (V1ModifierList) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(selectionType, other.selectionType)
+            && Objects.equals(modifierOptions, other.modifierOptions)
+            && Objects.equals(v2Id, other.v2Id);
     }
 
     /**
@@ -124,11 +130,11 @@ public class V1ModifierList {
             .selectionType(getSelectionType())
             .modifierOptions(getModifierOptions())
             .v2Id(getV2Id());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ModifierList}
+     * Class to build instances of {@link V1ModifierList}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -138,61 +144,61 @@ public class V1ModifierList {
         private List<V1ModifierOption> modifierOptions;
         private String v2Id;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for selectionType
-         * @param selectionType
+         * Setter for selectionType.
+         * @param selectionType String value for selectionType.
          * @return Builder
          */
         public Builder selectionType(String selectionType) {
             this.selectionType = selectionType;
             return this;
         }
+
         /**
-         * Setter for modifierOptions
-         * @param modifierOptions
+         * Setter for modifierOptions.
+         * @param modifierOptions List of V1ModifierOption value for modifierOptions.
          * @return Builder
          */
         public Builder modifierOptions(List<V1ModifierOption> modifierOptions) {
             this.modifierOptions = modifierOptions;
             return this;
         }
+
         /**
-         * Setter for v2Id
-         * @param v2Id
+         * Setter for v2Id.
+         * @param v2Id String value for v2Id.
          * @return Builder
          */
         public Builder v2Id(String v2Id) {
@@ -205,11 +211,12 @@ public class V1ModifierList {
          * @return {@link V1ModifierList}
          */
         public V1ModifierList build() {
-            V1ModifierList model = new V1ModifierList(id,
-                name,
-                selectionType,
-                modifierOptions,
-                v2Id);
+            V1ModifierList model =
+                    new V1ModifierList(id,
+                            name,
+                            selectionType,
+                            modifierOptions,
+                            v2Id);
             model.httpContext = httpContext;
             return model;
         }

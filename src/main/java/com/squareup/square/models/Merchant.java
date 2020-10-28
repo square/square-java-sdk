@@ -1,25 +1,33 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Merchant type.
  */
 public class Merchant {
+    private final String id;
+    private final String businessName;
+    private final String country;
+    private final String languageCode;
+    private final String currency;
+    private final String status;
+    private final String mainLocationId;
 
     /**
      * Initialization constructor.
-     * @param country
-     * @param id
-     * @param businessName
-     * @param languageCode
-     * @param currency
-     * @param status
-     * @param mainLocationId
+     * @param country String value for country.
+     * @param id String value for id.
+     * @param businessName String value for businessName.
+     * @param languageCode String value for languageCode.
+     * @param currency String value for currency.
+     * @param status String value for status.
+     * @param mainLocationId String value for mainLocationId.
      */
     @JsonCreator
     public Merchant(
@@ -39,16 +47,10 @@ public class Merchant {
         this.mainLocationId = mainLocationId;
     }
 
-    private final String id;
-    private final String businessName;
-    private final String country;
-    private final String languageCode;
-    private final String currency;
-    private final String status;
-    private final String mainLocationId;
     /**
      * Getter for Id.
      * The Square-issued ID of the merchant.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -58,6 +60,7 @@ public class Merchant {
     /**
      * Getter for BusinessName.
      * The business name of the merchant.
+     * @return Returns the String
      */
     @JsonGetter("business_name")
     public String getBusinessName() {
@@ -66,8 +69,9 @@ public class Merchant {
 
     /**
      * Getter for Country.
-     * Indicates the country associated with another entity, such as a business.
-     * Values are in [ISO 3166-1-alpha-2 format](http://www.iso.org/iso/home/standards/country_codes.htm).
+     * Indicates the country associated with another entity, such as a business. Values are in [ISO
+     * 3166-1-alpha-2 format](http://www.iso.org/iso/home/standards/country_codes.htm).
+     * @return Returns the String
      */
     @JsonGetter("country")
     public String getCountry() {
@@ -77,6 +81,7 @@ public class Merchant {
     /**
      * Getter for LanguageCode.
      * The language code associated with the merchant account, in BCP 47 format.
+     * @return Returns the String
      */
     @JsonGetter("language_code")
     public String getLanguageCode() {
@@ -85,8 +90,9 @@ public class Merchant {
 
     /**
      * Getter for Currency.
-     * Indicates the associated currency for an amount of money. Values correspond
-     * to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).
+     * Indicates the associated currency for an amount of money. Values correspond to [ISO
+     * 4217](https://wikipedia.org/wiki/ISO_4217).
+     * @return Returns the String
      */
     @JsonGetter("currency")
     public String getCurrency() {
@@ -95,6 +101,7 @@ public class Merchant {
 
     /**
      * Getter for Status.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -104,6 +111,7 @@ public class Merchant {
     /**
      * Getter for MainLocationId.
      * The ID of the main `Location` for this merchant.
+     * @return Returns the String
      */
     @JsonGetter("main_location_id")
     public String getMainLocationId() {
@@ -114,25 +122,25 @@ public class Merchant {
     @Override
     public int hashCode() {
         return Objects.hash(id, businessName, country, languageCode, currency, status,
-            mainLocationId);
+                mainLocationId);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Merchant)) {
+        if (!(obj instanceof Merchant)) {
             return false;
         }
-        Merchant merchant = (Merchant) obj;
-        return Objects.equals(id, merchant.id) &&
-            Objects.equals(businessName, merchant.businessName) &&
-            Objects.equals(country, merchant.country) &&
-            Objects.equals(languageCode, merchant.languageCode) &&
-            Objects.equals(currency, merchant.currency) &&
-            Objects.equals(status, merchant.status) &&
-            Objects.equals(mainLocationId, merchant.mainLocationId);
+        Merchant other = (Merchant) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(businessName, other.businessName)
+            && Objects.equals(country, other.country)
+            && Objects.equals(languageCode, other.languageCode)
+            && Objects.equals(currency, other.currency)
+            && Objects.equals(status, other.status)
+            && Objects.equals(mainLocationId, other.mainLocationId);
     }
 
     /**
@@ -148,11 +156,11 @@ public class Merchant {
             .currency(getCurrency())
             .status(getStatus())
             .mainLocationId(getMainLocationId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Merchant}
+     * Class to build instances of {@link Merchant}.
      */
     public static class Builder {
         private String country;
@@ -164,69 +172,76 @@ public class Merchant {
         private String mainLocationId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param country String value for country.
          */
         public Builder(String country) {
             this.country = country;
         }
 
         /**
-         * Setter for country
-         * @param country
+         * Setter for country.
+         * @param country String value for country.
          * @return Builder
          */
         public Builder country(String country) {
             this.country = country;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for businessName
-         * @param businessName
+         * Setter for businessName.
+         * @param businessName String value for businessName.
          * @return Builder
          */
         public Builder businessName(String businessName) {
             this.businessName = businessName;
             return this;
         }
+
         /**
-         * Setter for languageCode
-         * @param languageCode
+         * Setter for languageCode.
+         * @param languageCode String value for languageCode.
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
             this.languageCode = languageCode;
             return this;
         }
+
         /**
-         * Setter for currency
-         * @param currency
+         * Setter for currency.
+         * @param currency String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {
             this.currency = currency;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for mainLocationId
-         * @param mainLocationId
+         * Setter for mainLocationId.
+         * @param mainLocationId String value for mainLocationId.
          * @return Builder
          */
         public Builder mainLocationId(String mainLocationId) {

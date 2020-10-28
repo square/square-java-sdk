@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for StandardUnitDescription type.
  */
 public class StandardUnitDescription {
+    private final MeasurementUnit unit;
+    private final String name;
+    private final String abbreviation;
 
     /**
      * Initialization constructor.
-     * @param unit
-     * @param name
-     * @param abbreviation
+     * @param unit MeasurementUnit value for unit.
+     * @param name String value for name.
+     * @param abbreviation String value for abbreviation.
      */
     @JsonCreator
     public StandardUnitDescription(
@@ -27,14 +31,12 @@ public class StandardUnitDescription {
         this.abbreviation = abbreviation;
     }
 
-    private final MeasurementUnit unit;
-    private final String name;
-    private final String abbreviation;
     /**
      * Getter for Unit.
-     * Represents a unit of measurement to use with a quantity, such as ounces
-     * or inches. Exactly one of the following fields are required: `custom_unit`,
-     * `area_unit`, `length_unit`, `volume_unit`, and `weight_unit`.
+     * Represents a unit of measurement to use with a quantity, such as ounces or inches. Exactly
+     * one of the following fields are required: `custom_unit`, `area_unit`, `length_unit`,
+     * `volume_unit`, and `weight_unit`.
+     * @return Returns the MeasurementUnit
      */
     @JsonGetter("unit")
     public MeasurementUnit getUnit() {
@@ -44,6 +46,7 @@ public class StandardUnitDescription {
     /**
      * Getter for Name.
      * UI display name of the measurement unit. For example, 'Pound'.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -53,6 +56,7 @@ public class StandardUnitDescription {
     /**
      * Getter for Abbreviation.
      * UI display abbreviation for the measurement unit. For example, 'lb'.
+     * @return Returns the String
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {
@@ -67,16 +71,16 @@ public class StandardUnitDescription {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof StandardUnitDescription)) {
+        if (!(obj instanceof StandardUnitDescription)) {
             return false;
         }
-        StandardUnitDescription standardUnitDescription = (StandardUnitDescription) obj;
-        return Objects.equals(unit, standardUnitDescription.unit) &&
-            Objects.equals(name, standardUnitDescription.name) &&
-            Objects.equals(abbreviation, standardUnitDescription.abbreviation);
+        StandardUnitDescription other = (StandardUnitDescription) obj;
+        return Objects.equals(unit, other.unit)
+            && Objects.equals(name, other.name)
+            && Objects.equals(abbreviation, other.abbreviation);
     }
 
     /**
@@ -89,45 +93,42 @@ public class StandardUnitDescription {
             .unit(getUnit())
             .name(getName())
             .abbreviation(getAbbreviation());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link StandardUnitDescription}
+     * Class to build instances of {@link StandardUnitDescription}.
      */
     public static class Builder {
         private MeasurementUnit unit;
         private String name;
         private String abbreviation;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for unit
-         * @param unit
+         * Setter for unit.
+         * @param unit MeasurementUnit value for unit.
          * @return Builder
          */
         public Builder unit(MeasurementUnit unit) {
             this.unit = unit;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for abbreviation
-         * @param abbreviation
+         * Setter for abbreviation.
+         * @param abbreviation String value for abbreviation.
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {

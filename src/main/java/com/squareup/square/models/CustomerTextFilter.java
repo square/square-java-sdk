@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CustomerTextFilter type.
  */
 public class CustomerTextFilter {
+    private final String exact;
+    private final String fuzzy;
 
     /**
      * Initialization constructor.
-     * @param exact
-     * @param fuzzy
+     * @param exact String value for exact.
+     * @param fuzzy String value for fuzzy.
      */
     @JsonCreator
     public CustomerTextFilter(
@@ -24,11 +27,10 @@ public class CustomerTextFilter {
         this.fuzzy = fuzzy;
     }
 
-    private final String exact;
-    private final String fuzzy;
     /**
      * Getter for Exact.
      * Use the exact filter to select customers whose attributes match exactly the specified query.
+     * @return Returns the String
      */
     @JsonGetter("exact")
     public String getExact() {
@@ -37,10 +39,11 @@ public class CustomerTextFilter {
 
     /**
      * Getter for Fuzzy.
-     * Use the fuzzy filter to select customers whose attributes match the specified query 
-     * in a fuzzy manner. When the fuzzy option is used, search queries are tokenized, and then 
-     * each query token must be matched somewhere in the searched attribute. For single token queries, 
+     * Use the fuzzy filter to select customers whose attributes match the specified query in a
+     * fuzzy manner. When the fuzzy option is used, search queries are tokenized, and then each
+     * query token must be matched somewhere in the searched attribute. For single token queries,
      * this is effectively the same behavior as a partial match operation.
+     * @return Returns the String
      */
     @JsonGetter("fuzzy")
     public String getFuzzy() {
@@ -55,15 +58,15 @@ public class CustomerTextFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerTextFilter)) {
+        if (!(obj instanceof CustomerTextFilter)) {
             return false;
         }
-        CustomerTextFilter customerTextFilter = (CustomerTextFilter) obj;
-        return Objects.equals(exact, customerTextFilter.exact) &&
-            Objects.equals(fuzzy, customerTextFilter.fuzzy);
+        CustomerTextFilter other = (CustomerTextFilter) obj;
+        return Objects.equals(exact, other.exact)
+            && Objects.equals(fuzzy, other.fuzzy);
     }
 
     /**
@@ -75,35 +78,31 @@ public class CustomerTextFilter {
         Builder builder = new Builder()
             .exact(getExact())
             .fuzzy(getFuzzy());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerTextFilter}
+     * Class to build instances of {@link CustomerTextFilter}.
      */
     public static class Builder {
         private String exact;
         private String fuzzy;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for exact
-         * @param exact
+         * Setter for exact.
+         * @param exact String value for exact.
          * @return Builder
          */
         public Builder exact(String exact) {
             this.exact = exact;
             return this;
         }
+
         /**
-         * Setter for fuzzy
-         * @param fuzzy
+         * Setter for fuzzy.
+         * @param fuzzy String value for fuzzy.
          * @return Builder
          */
         public Builder fuzzy(String fuzzy) {

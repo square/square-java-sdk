@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchShiftsRequest type.
  */
 public class SearchShiftsRequest {
+    private final ShiftQuery query;
+    private final Integer limit;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param query
-     * @param limit
-     * @param cursor
+     * @param query ShiftQuery value for query.
+     * @param limit Integer value for limit.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public SearchShiftsRequest(
@@ -27,12 +31,10 @@ public class SearchShiftsRequest {
         this.cursor = cursor;
     }
 
-    private final ShiftQuery query;
-    private final Integer limit;
-    private final String cursor;
     /**
      * Getter for Query.
      * The parameters of a `Shift` search query. Includes filter and sort options.
+     * @return Returns the ShiftQuery
      */
     @JsonGetter("query")
     public ShiftQuery getQuery() {
@@ -42,6 +44,7 @@ public class SearchShiftsRequest {
     /**
      * Getter for Limit.
      * number of resources in a page (200 by default).
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -51,6 +54,7 @@ public class SearchShiftsRequest {
     /**
      * Getter for Cursor.
      * opaque cursor for fetching the next page.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -65,16 +69,16 @@ public class SearchShiftsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchShiftsRequest)) {
+        if (!(obj instanceof SearchShiftsRequest)) {
             return false;
         }
-        SearchShiftsRequest searchShiftsRequest = (SearchShiftsRequest) obj;
-        return Objects.equals(query, searchShiftsRequest.query) &&
-            Objects.equals(limit, searchShiftsRequest.limit) &&
-            Objects.equals(cursor, searchShiftsRequest.cursor);
+        SearchShiftsRequest other = (SearchShiftsRequest) obj;
+        return Objects.equals(query, other.query)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -87,45 +91,42 @@ public class SearchShiftsRequest {
             .query(getQuery())
             .limit(getLimit())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchShiftsRequest}
+     * Class to build instances of {@link SearchShiftsRequest}.
      */
     public static class Builder {
         private ShiftQuery query;
         private Integer limit;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query ShiftQuery value for query.
          * @return Builder
          */
         public Builder query(ShiftQuery query) {
             this.query = query;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

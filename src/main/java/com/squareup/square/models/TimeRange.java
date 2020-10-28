@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for TimeRange type.
  */
 public class TimeRange {
+    private final String startAt;
+    private final String endAt;
 
     /**
      * Initialization constructor.
-     * @param startAt
-     * @param endAt
+     * @param startAt String value for startAt.
+     * @param endAt String value for endAt.
      */
     @JsonCreator
     public TimeRange(
@@ -24,12 +27,10 @@ public class TimeRange {
         this.endAt = endAt;
     }
 
-    private final String startAt;
-    private final String endAt;
     /**
      * Getter for StartAt.
-     * A datetime value in RFC 3339 format indicating when the time range
-     * starts.
+     * A datetime value in RFC 3339 format indicating when the time range starts.
+     * @return Returns the String
      */
     @JsonGetter("start_at")
     public String getStartAt() {
@@ -38,8 +39,8 @@ public class TimeRange {
 
     /**
      * Getter for EndAt.
-     * A datetime value in RFC 3339 format indicating when the time range
-     * ends.
+     * A datetime value in RFC 3339 format indicating when the time range ends.
+     * @return Returns the String
      */
     @JsonGetter("end_at")
     public String getEndAt() {
@@ -54,15 +55,15 @@ public class TimeRange {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TimeRange)) {
+        if (!(obj instanceof TimeRange)) {
             return false;
         }
-        TimeRange timeRange = (TimeRange) obj;
-        return Objects.equals(startAt, timeRange.startAt) &&
-            Objects.equals(endAt, timeRange.endAt);
+        TimeRange other = (TimeRange) obj;
+        return Objects.equals(startAt, other.startAt)
+            && Objects.equals(endAt, other.endAt);
     }
 
     /**
@@ -74,35 +75,31 @@ public class TimeRange {
         Builder builder = new Builder()
             .startAt(getStartAt())
             .endAt(getEndAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TimeRange}
+     * Class to build instances of {@link TimeRange}.
      */
     public static class Builder {
         private String startAt;
         private String endAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for startAt
-         * @param startAt
+         * Setter for startAt.
+         * @param startAt String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
             this.startAt = startAt;
             return this;
         }
+
         /**
-         * Setter for endAt
-         * @param endAt
+         * Setter for endAt.
+         * @param endAt String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {

@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateRefundRequest type.
  */
 public class V1CreateRefundRequest {
+    private final String paymentId;
+    private final String type;
+    private final String reason;
+    private final V1Money refundedMoney;
+    private final String requestIdempotenceKey;
 
     /**
      * Initialization constructor.
-     * @param paymentId
-     * @param type
-     * @param reason
-     * @param refundedMoney
-     * @param requestIdempotenceKey
+     * @param paymentId String value for paymentId.
+     * @param type String value for type.
+     * @param reason String value for reason.
+     * @param refundedMoney V1Money value for refundedMoney.
+     * @param requestIdempotenceKey String value for requestIdempotenceKey.
      */
     @JsonCreator
     public V1CreateRefundRequest(
@@ -33,16 +39,11 @@ public class V1CreateRefundRequest {
         this.requestIdempotenceKey = requestIdempotenceKey;
     }
 
-    private final String paymentId;
-    private final String type;
-    private final String reason;
-    private final V1Money refundedMoney;
-    private final String requestIdempotenceKey;
     /**
      * Getter for PaymentId.
-     * The ID of the payment to refund. If you are creating a `PARTIAL`
-     * refund for a split tender payment, instead provide the id of the
-     * particular tender you want to refund.
+     * The ID of the payment to refund. If you are creating a `PARTIAL` refund for a split tender
+     * payment, instead provide the id of the particular tender you want to refund.
+     * @return Returns the String
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
@@ -51,6 +52,7 @@ public class V1CreateRefundRequest {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -60,6 +62,7 @@ public class V1CreateRefundRequest {
     /**
      * Getter for Reason.
      * The reason for the refund.
+     * @return Returns the String
      */
     @JsonGetter("reason")
     public String getReason() {
@@ -68,6 +71,7 @@ public class V1CreateRefundRequest {
 
     /**
      * Getter for RefundedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
@@ -76,7 +80,9 @@ public class V1CreateRefundRequest {
 
     /**
      * Getter for RequestIdempotenceKey.
-     * An optional key to ensure idempotence if you issue the same PARTIAL refund request more than once.
+     * An optional key to ensure idempotence if you issue the same PARTIAL refund request more than
+     * once.
+     * @return Returns the String
      */
     @JsonGetter("request_idempotence_key")
     public String getRequestIdempotenceKey() {
@@ -91,18 +97,18 @@ public class V1CreateRefundRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateRefundRequest)) {
+        if (!(obj instanceof V1CreateRefundRequest)) {
             return false;
         }
-        V1CreateRefundRequest v1CreateRefundRequest = (V1CreateRefundRequest) obj;
-        return Objects.equals(paymentId, v1CreateRefundRequest.paymentId) &&
-            Objects.equals(type, v1CreateRefundRequest.type) &&
-            Objects.equals(reason, v1CreateRefundRequest.reason) &&
-            Objects.equals(refundedMoney, v1CreateRefundRequest.refundedMoney) &&
-            Objects.equals(requestIdempotenceKey, v1CreateRefundRequest.requestIdempotenceKey);
+        V1CreateRefundRequest other = (V1CreateRefundRequest) obj;
+        return Objects.equals(paymentId, other.paymentId)
+            && Objects.equals(type, other.type)
+            && Objects.equals(reason, other.reason)
+            && Objects.equals(refundedMoney, other.refundedMoney)
+            && Objects.equals(requestIdempotenceKey, other.requestIdempotenceKey);
     }
 
     /**
@@ -116,11 +122,11 @@ public class V1CreateRefundRequest {
             reason)
             .refundedMoney(getRefundedMoney())
             .requestIdempotenceKey(getRequestIdempotenceKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateRefundRequest}
+     * Class to build instances of {@link V1CreateRefundRequest}.
      */
     public static class Builder {
         private String paymentId;
@@ -130,7 +136,10 @@ public class V1CreateRefundRequest {
         private String requestIdempotenceKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param paymentId String value for paymentId.
+         * @param type String value for type.
+         * @param reason String value for reason.
          */
         public Builder(String paymentId,
                 String type,
@@ -141,44 +150,48 @@ public class V1CreateRefundRequest {
         }
 
         /**
-         * Setter for paymentId
-         * @param paymentId
+         * Setter for paymentId.
+         * @param paymentId String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
             this.paymentId = paymentId;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for reason
-         * @param reason
+         * Setter for reason.
+         * @param reason String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
             this.reason = reason;
             return this;
         }
+
         /**
-         * Setter for refundedMoney
-         * @param refundedMoney
+         * Setter for refundedMoney.
+         * @param refundedMoney V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
             this.refundedMoney = refundedMoney;
             return this;
         }
+
         /**
-         * Setter for requestIdempotenceKey
-         * @param requestIdempotenceKey
+         * Setter for requestIdempotenceKey.
+         * @param requestIdempotenceKey String value for requestIdempotenceKey.
          * @return Builder
          */
         public Builder requestIdempotenceKey(String requestIdempotenceKey) {

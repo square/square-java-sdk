@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogIdMapping type.
  */
 public class CatalogIdMapping {
+    private final String clientObjectId;
+    private final String objectId;
 
     /**
      * Initialization constructor.
-     * @param clientObjectId
-     * @param objectId
+     * @param clientObjectId String value for clientObjectId.
+     * @param objectId String value for objectId.
      */
     @JsonCreator
     public CatalogIdMapping(
@@ -24,11 +27,10 @@ public class CatalogIdMapping {
         this.objectId = objectId;
     }
 
-    private final String clientObjectId;
-    private final String objectId;
     /**
      * Getter for ClientObjectId.
      * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
+     * @return Returns the String
      */
     @JsonGetter("client_object_id")
     public String getClientObjectId() {
@@ -38,6 +40,7 @@ public class CatalogIdMapping {
     /**
      * Getter for ObjectId.
      * The permanent ID for the CatalogObject created by the server.
+     * @return Returns the String
      */
     @JsonGetter("object_id")
     public String getObjectId() {
@@ -52,15 +55,15 @@ public class CatalogIdMapping {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogIdMapping)) {
+        if (!(obj instanceof CatalogIdMapping)) {
             return false;
         }
-        CatalogIdMapping catalogIdMapping = (CatalogIdMapping) obj;
-        return Objects.equals(clientObjectId, catalogIdMapping.clientObjectId) &&
-            Objects.equals(objectId, catalogIdMapping.objectId);
+        CatalogIdMapping other = (CatalogIdMapping) obj;
+        return Objects.equals(clientObjectId, other.clientObjectId)
+            && Objects.equals(objectId, other.objectId);
     }
 
     /**
@@ -72,35 +75,31 @@ public class CatalogIdMapping {
         Builder builder = new Builder()
             .clientObjectId(getClientObjectId())
             .objectId(getObjectId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogIdMapping}
+     * Class to build instances of {@link CatalogIdMapping}.
      */
     public static class Builder {
         private String clientObjectId;
         private String objectId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for clientObjectId
-         * @param clientObjectId
+         * Setter for clientObjectId.
+         * @param clientObjectId String value for clientObjectId.
          * @return Builder
          */
         public Builder clientObjectId(String clientObjectId) {
             this.clientObjectId = clientObjectId;
             return this;
         }
+
         /**
-         * Setter for objectId
-         * @param objectId
+         * Setter for objectId.
+         * @param objectId String value for objectId.
          * @return Builder
          */
         public Builder objectId(String objectId) {

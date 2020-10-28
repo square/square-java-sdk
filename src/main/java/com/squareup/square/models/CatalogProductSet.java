@@ -1,26 +1,34 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogProductSet type.
  */
 public class CatalogProductSet {
+    private final String name;
+    private final List<String> productIdsAny;
+    private final List<String> productIdsAll;
+    private final Long quantityExact;
+    private final Long quantityMin;
+    private final Long quantityMax;
+    private final Boolean allProducts;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param productIdsAny
-     * @param productIdsAll
-     * @param quantityExact
-     * @param quantityMin
-     * @param quantityMax
-     * @param allProducts
+     * @param name String value for name.
+     * @param productIdsAny List of String value for productIdsAny.
+     * @param productIdsAll List of String value for productIdsAll.
+     * @param quantityExact Long value for quantityExact.
+     * @param quantityMin Long value for quantityMin.
+     * @param quantityMax Long value for quantityMax.
+     * @param allProducts Boolean value for allProducts.
      */
     @JsonCreator
     public CatalogProductSet(
@@ -40,17 +48,10 @@ public class CatalogProductSet {
         this.allProducts = allProducts;
     }
 
-    private final String name;
-    private final List<String> productIdsAny;
-    private final List<String> productIdsAll;
-    private final Long quantityExact;
-    private final Long quantityMin;
-    private final Long quantityMax;
-    private final Boolean allProducts;
     /**
      * Getter for Name.
-     * User-defined name for the product set. For example, "Clearance Items"
-     * or "Winter Sale Items".
+     * User-defined name for the product set. For example, "Clearance Items" or "Winter Sale Items".
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -59,13 +60,12 @@ public class CatalogProductSet {
 
     /**
      * Getter for ProductIdsAny.
-     * Unique IDs for any `CatalogObject` included in this product set. Any
-     * number of these catalog objects can be in an order for a pricing rule to apply.
-     * This can be used with `product_ids_all` in a parent `CatalogProductSet` to
-     * match groups of products for a bulk discount, such as a discount for an
-     * entree and side combo.
-     * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
-     * Max: 500 catalog object IDs.
+     * Unique IDs for any `CatalogObject` included in this product set. Any number of these catalog
+     * objects can be in an order for a pricing rule to apply. This can be used with
+     * `product_ids_all` in a parent `CatalogProductSet` to match groups of products for a bulk
+     * discount, such as a discount for an entree and side combo. Only one of `product_ids_all`,
+     * `product_ids_any`, or `all_products` can be set. Max: 500 catalog object IDs.
+     * @return Returns the List of String
      */
     @JsonGetter("product_ids_any")
     public List<String> getProductIdsAny() {
@@ -74,10 +74,10 @@ public class CatalogProductSet {
 
     /**
      * Getter for ProductIdsAll.
-     * Unique IDs for any `CatalogObject` included in this product set.
-     * All objects in this set must be included in an order for a pricing rule to apply.
-     * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
-     * Max: 500 catalog object IDs.
+     * Unique IDs for any `CatalogObject` included in this product set. All objects in this set must
+     * be included in an order for a pricing rule to apply. Only one of `product_ids_all`,
+     * `product_ids_any`, or `all_products` can be set. Max: 500 catalog object IDs.
+     * @return Returns the List of String
      */
     @JsonGetter("product_ids_all")
     public List<String> getProductIdsAll() {
@@ -86,9 +86,10 @@ public class CatalogProductSet {
 
     /**
      * Getter for QuantityExact.
-     * If set, there must be exactly this many items from `products_any` or `products_all`
-     * in the cart for the discount to apply.
-     * Cannot be combined with either `quantity_min` or `quantity_max`.
+     * If set, there must be exactly this many items from `products_any` or `products_all` in the
+     * cart for the discount to apply. Cannot be combined with either `quantity_min` or
+     * `quantity_max`.
+     * @return Returns the Long
      */
     @JsonGetter("quantity_exact")
     public Long getQuantityExact() {
@@ -97,9 +98,10 @@ public class CatalogProductSet {
 
     /**
      * Getter for QuantityMin.
-     * If set, there must be at least this many items from `products_any` or `products_all`
-     * in a cart for the discount to apply. See `quantity_exact`. Defaults to 0 if
-     * `quantity_exact`, `quantity_min` and `quantity_max` are all unspecified.
+     * If set, there must be at least this many items from `products_any` or `products_all` in a
+     * cart for the discount to apply. See `quantity_exact`. Defaults to 0 if `quantity_exact`,
+     * `quantity_min` and `quantity_max` are all unspecified.
+     * @return Returns the Long
      */
     @JsonGetter("quantity_min")
     public Long getQuantityMin() {
@@ -108,8 +110,9 @@ public class CatalogProductSet {
 
     /**
      * Getter for QuantityMax.
-     * If set, the pricing rule will apply to a maximum of this many items from
-     * `products_any` or `products_all`.
+     * If set, the pricing rule will apply to a maximum of this many items from `products_any` or
+     * `products_all`.
+     * @return Returns the Long
      */
     @JsonGetter("quantity_max")
     public Long getQuantityMax() {
@@ -118,8 +121,9 @@ public class CatalogProductSet {
 
     /**
      * Getter for AllProducts.
-     * If set to `true`, the product set will include every item in the catalog.
-     * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
+     * If set to `true`, the product set will include every item in the catalog. Only one of
+     * `product_ids_all`, `product_ids_any`, or `all_products` can be set.
+     * @return Returns the Boolean
      */
     @JsonGetter("all_products")
     public Boolean getAllProducts() {
@@ -130,25 +134,25 @@ public class CatalogProductSet {
     @Override
     public int hashCode() {
         return Objects.hash(name, productIdsAny, productIdsAll, quantityExact, quantityMin,
-            quantityMax, allProducts);
+                quantityMax, allProducts);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogProductSet)) {
+        if (!(obj instanceof CatalogProductSet)) {
             return false;
         }
-        CatalogProductSet catalogProductSet = (CatalogProductSet) obj;
-        return Objects.equals(name, catalogProductSet.name) &&
-            Objects.equals(productIdsAny, catalogProductSet.productIdsAny) &&
-            Objects.equals(productIdsAll, catalogProductSet.productIdsAll) &&
-            Objects.equals(quantityExact, catalogProductSet.quantityExact) &&
-            Objects.equals(quantityMin, catalogProductSet.quantityMin) &&
-            Objects.equals(quantityMax, catalogProductSet.quantityMax) &&
-            Objects.equals(allProducts, catalogProductSet.allProducts);
+        CatalogProductSet other = (CatalogProductSet) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(productIdsAny, other.productIdsAny)
+            && Objects.equals(productIdsAll, other.productIdsAll)
+            && Objects.equals(quantityExact, other.quantityExact)
+            && Objects.equals(quantityMin, other.quantityMin)
+            && Objects.equals(quantityMax, other.quantityMax)
+            && Objects.equals(allProducts, other.allProducts);
     }
 
     /**
@@ -165,11 +169,11 @@ public class CatalogProductSet {
             .quantityMin(getQuantityMin())
             .quantityMax(getQuantityMax())
             .allProducts(getAllProducts());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogProductSet}
+     * Class to build instances of {@link CatalogProductSet}.
      */
     public static class Builder {
         private String name;
@@ -180,70 +184,71 @@ public class CatalogProductSet {
         private Long quantityMax;
         private Boolean allProducts;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for productIdsAny
-         * @param productIdsAny
+         * Setter for productIdsAny.
+         * @param productIdsAny List of String value for productIdsAny.
          * @return Builder
          */
         public Builder productIdsAny(List<String> productIdsAny) {
             this.productIdsAny = productIdsAny;
             return this;
         }
+
         /**
-         * Setter for productIdsAll
-         * @param productIdsAll
+         * Setter for productIdsAll.
+         * @param productIdsAll List of String value for productIdsAll.
          * @return Builder
          */
         public Builder productIdsAll(List<String> productIdsAll) {
             this.productIdsAll = productIdsAll;
             return this;
         }
+
         /**
-         * Setter for quantityExact
-         * @param quantityExact
+         * Setter for quantityExact.
+         * @param quantityExact Long value for quantityExact.
          * @return Builder
          */
         public Builder quantityExact(Long quantityExact) {
             this.quantityExact = quantityExact;
             return this;
         }
+
         /**
-         * Setter for quantityMin
-         * @param quantityMin
+         * Setter for quantityMin.
+         * @param quantityMin Long value for quantityMin.
          * @return Builder
          */
         public Builder quantityMin(Long quantityMin) {
             this.quantityMin = quantityMin;
             return this;
         }
+
         /**
-         * Setter for quantityMax
-         * @param quantityMax
+         * Setter for quantityMax.
+         * @param quantityMax Long value for quantityMax.
          * @return Builder
          */
         public Builder quantityMax(Long quantityMax) {
             this.quantityMax = quantityMax;
             return this;
         }
+
         /**
-         * Setter for allProducts
-         * @param allProducts
+         * Setter for allProducts.
+         * @param allProducts Boolean value for allProducts.
          * @return Builder
          */
         public Builder allProducts(Boolean allProducts) {

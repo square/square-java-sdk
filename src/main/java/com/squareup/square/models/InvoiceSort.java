@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for InvoiceSort type.
  */
 public class InvoiceSort {
+    private final String field;
+    private final String order;
 
     /**
      * Initialization constructor.
-     * @param field
-     * @param order
+     * @param field String value for field.
+     * @param order String value for order.
      */
     @JsonCreator
     public InvoiceSort(
@@ -24,11 +27,10 @@ public class InvoiceSort {
         this.order = order;
     }
 
-    private final String field;
-    private final String order;
     /**
      * Getter for Field.
      * Field to use for sorting.
+     * @return Returns the String
      */
     @JsonGetter("field")
     public String getField() {
@@ -38,6 +40,7 @@ public class InvoiceSort {
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("order")
     public String getOrder() {
@@ -52,15 +55,15 @@ public class InvoiceSort {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InvoiceSort)) {
+        if (!(obj instanceof InvoiceSort)) {
             return false;
         }
-        InvoiceSort invoiceSort = (InvoiceSort) obj;
-        return Objects.equals(field, invoiceSort.field) &&
-            Objects.equals(order, invoiceSort.order);
+        InvoiceSort other = (InvoiceSort) obj;
+        return Objects.equals(field, other.field)
+            && Objects.equals(order, other.order);
     }
 
     /**
@@ -71,35 +74,37 @@ public class InvoiceSort {
     public Builder toBuilder() {
         Builder builder = new Builder(field)
             .order(getOrder());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoiceSort}
+     * Class to build instances of {@link InvoiceSort}.
      */
     public static class Builder {
         private String field = "INVOICE_SORT_DATE";
         private String order;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param field String value for field.
          */
         public Builder(String field) {
             this.field = field;
         }
 
         /**
-         * Setter for field
-         * @param field
+         * Setter for field.
+         * @param field String value for field.
          * @return Builder
          */
         public Builder field(String field) {
             this.field = field;
             return this;
         }
+
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order String value for order.
          * @return Builder
          */
         public Builder order(String order) {

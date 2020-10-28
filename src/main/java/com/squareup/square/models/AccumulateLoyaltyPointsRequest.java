@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for AccumulateLoyaltyPointsRequest type.
  */
 public class AccumulateLoyaltyPointsRequest {
+    private final LoyaltyEventAccumulatePoints accumulatePoints;
+    private final String idempotencyKey;
+    private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param accumulatePoints
-     * @param idempotencyKey
-     * @param locationId
+     * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public AccumulateLoyaltyPointsRequest(
@@ -27,12 +31,10 @@ public class AccumulateLoyaltyPointsRequest {
         this.locationId = locationId;
     }
 
-    private final LoyaltyEventAccumulatePoints accumulatePoints;
-    private final String idempotencyKey;
-    private final String locationId;
     /**
      * Getter for AccumulatePoints.
      * Provides metadata when the event `type` is `ACCUMULATE_POINTS`.
+     * @return Returns the LoyaltyEventAccumulatePoints
      */
     @JsonGetter("accumulate_points")
     public LoyaltyEventAccumulatePoints getAccumulatePoints() {
@@ -41,8 +43,9 @@ public class AccumulateLoyaltyPointsRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies the `AccumulateLoyaltyPoints` request. 
-     * Keys can be any valid string but must be unique for every request.
+     * A unique string that identifies the `AccumulateLoyaltyPoints` request. Keys can be any valid
+     * string but must be unique for every request.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -52,6 +55,7 @@ public class AccumulateLoyaltyPointsRequest {
     /**
      * Getter for LocationId.
      * The [location](#type-Location) where the purchase was made.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -66,16 +70,16 @@ public class AccumulateLoyaltyPointsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AccumulateLoyaltyPointsRequest)) {
+        if (!(obj instanceof AccumulateLoyaltyPointsRequest)) {
             return false;
         }
-        AccumulateLoyaltyPointsRequest accumulateLoyaltyPointsRequest = (AccumulateLoyaltyPointsRequest) obj;
-        return Objects.equals(accumulatePoints, accumulateLoyaltyPointsRequest.accumulatePoints) &&
-            Objects.equals(idempotencyKey, accumulateLoyaltyPointsRequest.idempotencyKey) &&
-            Objects.equals(locationId, accumulateLoyaltyPointsRequest.locationId);
+        AccumulateLoyaltyPointsRequest other = (AccumulateLoyaltyPointsRequest) obj;
+        return Objects.equals(accumulatePoints, other.accumulatePoints)
+            && Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -87,11 +91,11 @@ public class AccumulateLoyaltyPointsRequest {
         Builder builder = new Builder(accumulatePoints,
             idempotencyKey,
             locationId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link AccumulateLoyaltyPointsRequest}
+     * Class to build instances of {@link AccumulateLoyaltyPointsRequest}.
      */
     public static class Builder {
         private LoyaltyEventAccumulatePoints accumulatePoints;
@@ -99,7 +103,10 @@ public class AccumulateLoyaltyPointsRequest {
         private String locationId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param locationId String value for locationId.
          */
         public Builder(LoyaltyEventAccumulatePoints accumulatePoints,
                 String idempotencyKey,
@@ -110,26 +117,28 @@ public class AccumulateLoyaltyPointsRequest {
         }
 
         /**
-         * Setter for accumulatePoints
-         * @param accumulatePoints
+         * Setter for accumulatePoints.
+         * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
          * @return Builder
          */
         public Builder accumulatePoints(LoyaltyEventAccumulatePoints accumulatePoints) {
             this.accumulatePoints = accumulatePoints;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

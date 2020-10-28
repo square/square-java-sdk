@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ShiftWorkday type.
  */
 public class ShiftWorkday {
+    private final DateRange dateRange;
+    private final String matchShiftsBy;
+    private final String defaultTimezone;
 
     /**
      * Initialization constructor.
-     * @param dateRange
-     * @param matchShiftsBy
-     * @param defaultTimezone
+     * @param dateRange DateRange value for dateRange.
+     * @param matchShiftsBy String value for matchShiftsBy.
+     * @param defaultTimezone String value for defaultTimezone.
      */
     @JsonCreator
     public ShiftWorkday(
@@ -27,13 +31,11 @@ public class ShiftWorkday {
         this.defaultTimezone = defaultTimezone;
     }
 
-    private final DateRange dateRange;
-    private final String matchShiftsBy;
-    private final String defaultTimezone;
     /**
      * Getter for DateRange.
-     * A range defined by two dates. Used for filtering a query for Connect v2
-     * objects that have date properties.
+     * A range defined by two dates. Used for filtering a query for Connect v2 objects that have
+     * date properties.
+     * @return Returns the DateRange
      */
     @JsonGetter("date_range")
     public DateRange getDateRange() {
@@ -43,6 +45,7 @@ public class ShiftWorkday {
     /**
      * Getter for MatchShiftsBy.
      * Defines the logic used to apply a workday filter.
+     * @return Returns the String
      */
     @JsonGetter("match_shifts_by")
     public String getMatchShiftsBy() {
@@ -51,10 +54,10 @@ public class ShiftWorkday {
 
     /**
      * Getter for DefaultTimezone.
-     * Location-specific timezones convert workdays to datetime filters.
-     * Every location included in the query must have a timezone, or this field
-     * must be provided as a fallback. Format: the IANA timezone database
-     * identifier for the relevant timezone.
+     * Location-specific timezones convert workdays to datetime filters. Every location included in
+     * the query must have a timezone, or this field must be provided as a fallback. Format: the
+     * IANA timezone database identifier for the relevant timezone.
+     * @return Returns the String
      */
     @JsonGetter("default_timezone")
     public String getDefaultTimezone() {
@@ -69,16 +72,16 @@ public class ShiftWorkday {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ShiftWorkday)) {
+        if (!(obj instanceof ShiftWorkday)) {
             return false;
         }
-        ShiftWorkday shiftWorkday = (ShiftWorkday) obj;
-        return Objects.equals(dateRange, shiftWorkday.dateRange) &&
-            Objects.equals(matchShiftsBy, shiftWorkday.matchShiftsBy) &&
-            Objects.equals(defaultTimezone, shiftWorkday.defaultTimezone);
+        ShiftWorkday other = (ShiftWorkday) obj;
+        return Objects.equals(dateRange, other.dateRange)
+            && Objects.equals(matchShiftsBy, other.matchShiftsBy)
+            && Objects.equals(defaultTimezone, other.defaultTimezone);
     }
 
     /**
@@ -91,45 +94,42 @@ public class ShiftWorkday {
             .dateRange(getDateRange())
             .matchShiftsBy(getMatchShiftsBy())
             .defaultTimezone(getDefaultTimezone());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ShiftWorkday}
+     * Class to build instances of {@link ShiftWorkday}.
      */
     public static class Builder {
         private DateRange dateRange;
         private String matchShiftsBy;
         private String defaultTimezone;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for dateRange
-         * @param dateRange
+         * Setter for dateRange.
+         * @param dateRange DateRange value for dateRange.
          * @return Builder
          */
         public Builder dateRange(DateRange dateRange) {
             this.dateRange = dateRange;
             return this;
         }
+
         /**
-         * Setter for matchShiftsBy
-         * @param matchShiftsBy
+         * Setter for matchShiftsBy.
+         * @param matchShiftsBy String value for matchShiftsBy.
          * @return Builder
          */
         public Builder matchShiftsBy(String matchShiftsBy) {
             this.matchShiftsBy = matchShiftsBy;
             return this;
         }
+
         /**
-         * Setter for defaultTimezone
-         * @param defaultTimezone
+         * Setter for defaultTimezone.
+         * @param defaultTimezone String value for defaultTimezone.
          * @return Builder
          */
         public Builder defaultTimezone(String defaultTimezone) {

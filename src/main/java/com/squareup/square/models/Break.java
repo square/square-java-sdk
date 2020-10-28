@@ -1,25 +1,33 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Break type.
  */
 public class Break {
+    private final String id;
+    private final String startAt;
+    private final String endAt;
+    private final String breakTypeId;
+    private final String name;
+    private final String expectedDuration;
+    private final boolean isPaid;
 
     /**
      * Initialization constructor.
-     * @param startAt
-     * @param breakTypeId
-     * @param name
-     * @param expectedDuration
-     * @param isPaid
-     * @param id
-     * @param endAt
+     * @param startAt String value for startAt.
+     * @param breakTypeId String value for breakTypeId.
+     * @param name String value for name.
+     * @param expectedDuration String value for expectedDuration.
+     * @param isPaid boolean value for isPaid.
+     * @param id String value for id.
+     * @param endAt String value for endAt.
      */
     @JsonCreator
     public Break(
@@ -39,16 +47,10 @@ public class Break {
         this.isPaid = isPaid;
     }
 
-    private final String id;
-    private final String startAt;
-    private final String endAt;
-    private final String breakTypeId;
-    private final String name;
-    private final String expectedDuration;
-    private final boolean isPaid;
     /**
      * Getter for Id.
      * UUID for this object
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -57,8 +59,9 @@ public class Break {
 
     /**
      * Getter for StartAt.
-     * RFC 3339; follows same timezone info as `Shift`. Precision up to
-     * the minute is respected; seconds are truncated.
+     * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected;
+     * seconds are truncated.
+     * @return Returns the String
      */
     @JsonGetter("start_at")
     public String getStartAt() {
@@ -67,8 +70,9 @@ public class Break {
 
     /**
      * Getter for EndAt.
-     * RFC 3339; follows same timezone info as `Shift`. Precision up to
-     * the minute is respected; seconds are truncated.
+     * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected;
+     * seconds are truncated.
+     * @return Returns the String
      */
     @JsonGetter("end_at")
     public String getEndAt() {
@@ -78,6 +82,7 @@ public class Break {
     /**
      * Getter for BreakTypeId.
      * The `BreakType` this `Break` was templated on.
+     * @return Returns the String
      */
     @JsonGetter("break_type_id")
     public String getBreakTypeId() {
@@ -87,6 +92,7 @@ public class Break {
     /**
      * Getter for Name.
      * A human-readable name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -95,8 +101,8 @@ public class Break {
 
     /**
      * Getter for ExpectedDuration.
-     * Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
-     * the break.
+     * Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of the break.
+     * @return Returns the String
      */
     @JsonGetter("expected_duration")
     public String getExpectedDuration() {
@@ -105,8 +111,8 @@ public class Break {
 
     /**
      * Getter for IsPaid.
-     * Whether this break counts towards time worked for compensation
-     * purposes.
+     * Whether this break counts towards time worked for compensation purposes.
+     * @return Returns the boolean
      */
     @JsonGetter("is_paid")
     public boolean getIsPaid() {
@@ -121,20 +127,20 @@ public class Break {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Break)) {
+        if (!(obj instanceof Break)) {
             return false;
         }
-        Break mBreak = (Break) obj;
-        return Objects.equals(id, mBreak.id) &&
-            Objects.equals(startAt, mBreak.startAt) &&
-            Objects.equals(endAt, mBreak.endAt) &&
-            Objects.equals(breakTypeId, mBreak.breakTypeId) &&
-            Objects.equals(name, mBreak.name) &&
-            Objects.equals(expectedDuration, mBreak.expectedDuration) &&
-            Objects.equals(isPaid, mBreak.isPaid);
+        Break other = (Break) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(startAt, other.startAt)
+            && Objects.equals(endAt, other.endAt)
+            && Objects.equals(breakTypeId, other.breakTypeId)
+            && Objects.equals(name, other.name)
+            && Objects.equals(expectedDuration, other.expectedDuration)
+            && Objects.equals(isPaid, other.isPaid);
     }
 
     /**
@@ -150,11 +156,11 @@ public class Break {
             isPaid)
             .id(getId())
             .endAt(getEndAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Break}
+     * Class to build instances of {@link Break}.
      */
     public static class Builder {
         private String startAt;
@@ -166,7 +172,12 @@ public class Break {
         private String endAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param startAt String value for startAt.
+         * @param breakTypeId String value for breakTypeId.
+         * @param name String value for name.
+         * @param expectedDuration String value for expectedDuration.
+         * @param isPaid boolean value for isPaid.
          */
         public Builder(String startAt,
                 String breakTypeId,
@@ -181,62 +192,68 @@ public class Break {
         }
 
         /**
-         * Setter for startAt
-         * @param startAt
+         * Setter for startAt.
+         * @param startAt String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
             this.startAt = startAt;
             return this;
         }
+
         /**
-         * Setter for breakTypeId
-         * @param breakTypeId
+         * Setter for breakTypeId.
+         * @param breakTypeId String value for breakTypeId.
          * @return Builder
          */
         public Builder breakTypeId(String breakTypeId) {
             this.breakTypeId = breakTypeId;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for expectedDuration
-         * @param expectedDuration
+         * Setter for expectedDuration.
+         * @param expectedDuration String value for expectedDuration.
          * @return Builder
          */
         public Builder expectedDuration(String expectedDuration) {
             this.expectedDuration = expectedDuration;
             return this;
         }
+
         /**
-         * Setter for isPaid
-         * @param isPaid
+         * Setter for isPaid.
+         * @param isPaid boolean value for isPaid.
          * @return Builder
          */
         public Builder isPaid(boolean isPaid) {
             this.isPaid = isPaid;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for endAt
-         * @param endAt
+         * Setter for endAt.
+         * @param endAt String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {

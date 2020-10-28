@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for UpdateCustomerGroupRequest type.
  */
 public class UpdateCustomerGroupRequest {
+    private final CustomerGroup group;
 
     /**
      * Initialization constructor.
-     * @param group
+     * @param group CustomerGroup value for group.
      */
     @JsonCreator
     public UpdateCustomerGroupRequest(
@@ -21,12 +23,12 @@ public class UpdateCustomerGroupRequest {
         this.group = group;
     }
 
-    private final CustomerGroup group;
     /**
      * Getter for Group.
-     * Represents a group of customer profiles. 
-     * Customer groups can be created, modified, and have their membership defined either via 
-     * the Customers API or within Customer Directory in the Square Dashboard or Point of Sale.
+     * Represents a group of customer profiles. Customer groups can be created, modified, and have
+     * their membership defined either via the Customers API or within Customer Directory in the
+     * Square Dashboard or Point of Sale.
+     * @return Returns the CustomerGroup
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
@@ -41,14 +43,14 @@ public class UpdateCustomerGroupRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateCustomerGroupRequest)) {
+        if (!(obj instanceof UpdateCustomerGroupRequest)) {
             return false;
         }
-        UpdateCustomerGroupRequest updateCustomerGroupRequest = (UpdateCustomerGroupRequest) obj;
-        return Objects.equals(group, updateCustomerGroupRequest.group);
+        UpdateCustomerGroupRequest other = (UpdateCustomerGroupRequest) obj;
+        return Objects.equals(group, other.group);
     }
 
     /**
@@ -58,25 +60,26 @@ public class UpdateCustomerGroupRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(group);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateCustomerGroupRequest}
+     * Class to build instances of {@link UpdateCustomerGroupRequest}.
      */
     public static class Builder {
         private CustomerGroup group;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param group CustomerGroup value for group.
          */
         public Builder(CustomerGroup group) {
             this.group = group;
         }
 
         /**
-         * Setter for group
-         * @param group
+         * Setter for group.
+         * @param group CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {

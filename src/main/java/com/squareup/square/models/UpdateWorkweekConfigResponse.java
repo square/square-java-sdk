@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for UpdateWorkweekConfigResponse type.
  */
 public class UpdateWorkweekConfigResponse {
+    private HttpContext httpContext;
+    private final WorkweekConfig workweekConfig;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param workweekConfig
-     * @param errors
+     * @param workweekConfig WorkweekConfig value for workweekConfig.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public UpdateWorkweekConfigResponse(
@@ -26,18 +30,15 @@ public class UpdateWorkweekConfigResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final WorkweekConfig workweekConfig;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for WorkweekConfig.
-     * Sets the Day of the week and hour of the day that a business starts a
-     * work week. Used for the calculation of overtime pay.
+     * Sets the Day of the week and hour of the day that a business starts a work week. Used for the
+     * calculation of overtime pay.
+     * @return Returns the WorkweekConfig
      */
     @JsonGetter("workweek_config")
     public WorkweekConfig getWorkweekConfig() {
@@ -47,6 +48,7 @@ public class UpdateWorkweekConfigResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -61,15 +63,15 @@ public class UpdateWorkweekConfigResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateWorkweekConfigResponse)) {
+        if (!(obj instanceof UpdateWorkweekConfigResponse)) {
             return false;
         }
-        UpdateWorkweekConfigResponse updateWorkweekConfigResponse = (UpdateWorkweekConfigResponse) obj;
-        return Objects.equals(workweekConfig, updateWorkweekConfigResponse.workweekConfig) &&
-            Objects.equals(errors, updateWorkweekConfigResponse.errors);
+        UpdateWorkweekConfigResponse other = (UpdateWorkweekConfigResponse) obj;
+        return Objects.equals(workweekConfig, other.workweekConfig)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -81,45 +83,42 @@ public class UpdateWorkweekConfigResponse {
         Builder builder = new Builder()
             .workweekConfig(getWorkweekConfig())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateWorkweekConfigResponse}
+     * Class to build instances of {@link UpdateWorkweekConfigResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private WorkweekConfig workweekConfig;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for workweekConfig
-         * @param workweekConfig
+         * Setter for workweekConfig.
+         * @param workweekConfig WorkweekConfig value for workweekConfig.
          * @return Builder
          */
         public Builder workweekConfig(WorkweekConfig workweekConfig) {
             this.workweekConfig = workweekConfig;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -132,8 +131,9 @@ public class UpdateWorkweekConfigResponse {
          * @return {@link UpdateWorkweekConfigResponse}
          */
         public UpdateWorkweekConfigResponse build() {
-            UpdateWorkweekConfigResponse model = new UpdateWorkweekConfigResponse(workweekConfig,
-                errors);
+            UpdateWorkweekConfigResponse model =
+                    new UpdateWorkweekConfigResponse(workweekConfig,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

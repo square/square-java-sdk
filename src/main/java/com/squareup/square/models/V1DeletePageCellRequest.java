@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1DeletePageCellRequest type.
  */
 public class V1DeletePageCellRequest {
+    private final String row;
+    private final String column;
 
     /**
      * Initialization constructor.
-     * @param row
-     * @param column
+     * @param row String value for row.
+     * @param column String value for column.
      */
     @JsonCreator
     public V1DeletePageCellRequest(
@@ -24,11 +27,11 @@ public class V1DeletePageCellRequest {
         this.column = column;
     }
 
-    private final String row;
-    private final String column;
     /**
      * Getter for Row.
-     * The row of the cell to clear. Always an integer between 0 and 4, inclusive. Row 0 is the top row.
+     * The row of the cell to clear. Always an integer between 0 and 4, inclusive. Row 0 is the top
+     * row.
+     * @return Returns the String
      */
     @JsonGetter("row")
     public String getRow() {
@@ -37,7 +40,9 @@ public class V1DeletePageCellRequest {
 
     /**
      * Getter for Column.
-     * The column of the cell to clear. Always an integer between 0 and 4, inclusive. Column 0 is the leftmost column.
+     * The column of the cell to clear. Always an integer between 0 and 4, inclusive. Column 0 is
+     * the leftmost column.
+     * @return Returns the String
      */
     @JsonGetter("column")
     public String getColumn() {
@@ -52,15 +57,15 @@ public class V1DeletePageCellRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1DeletePageCellRequest)) {
+        if (!(obj instanceof V1DeletePageCellRequest)) {
             return false;
         }
-        V1DeletePageCellRequest v1DeletePageCellRequest = (V1DeletePageCellRequest) obj;
-        return Objects.equals(row, v1DeletePageCellRequest.row) &&
-            Objects.equals(column, v1DeletePageCellRequest.column);
+        V1DeletePageCellRequest other = (V1DeletePageCellRequest) obj;
+        return Objects.equals(row, other.row)
+            && Objects.equals(column, other.column);
     }
 
     /**
@@ -72,35 +77,31 @@ public class V1DeletePageCellRequest {
         Builder builder = new Builder()
             .row(getRow())
             .column(getColumn());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1DeletePageCellRequest}
+     * Class to build instances of {@link V1DeletePageCellRequest}.
      */
     public static class Builder {
         private String row;
         private String column;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for row
-         * @param row
+         * Setter for row.
+         * @param row String value for row.
          * @return Builder
          */
         public Builder row(String row) {
             this.row = row;
             return this;
         }
+
         /**
-         * Setter for column
-         * @param column
+         * Setter for column.
+         * @param column String value for column.
          * @return Builder
          */
         public Builder column(String column) {

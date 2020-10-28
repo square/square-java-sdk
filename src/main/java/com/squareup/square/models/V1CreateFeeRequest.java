@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateFeeRequest type.
  */
 public class V1CreateFeeRequest {
+    private final V1Fee body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Fee value for body.
      */
     @JsonCreator
     public V1CreateFeeRequest(
@@ -21,10 +23,10 @@ public class V1CreateFeeRequest {
         this.body = body;
     }
 
-    private final V1Fee body;
     /**
      * Getter for Body.
      * V1Fee
+     * @return Returns the V1Fee
      */
     @JsonGetter("body")
     public V1Fee getBody() {
@@ -39,14 +41,14 @@ public class V1CreateFeeRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateFeeRequest)) {
+        if (!(obj instanceof V1CreateFeeRequest)) {
             return false;
         }
-        V1CreateFeeRequest v1CreateFeeRequest = (V1CreateFeeRequest) obj;
-        return Objects.equals(body, v1CreateFeeRequest.body);
+        V1CreateFeeRequest other = (V1CreateFeeRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreateFeeRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .body(getBody());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateFeeRequest}
+     * Class to build instances of {@link V1CreateFeeRequest}.
      */
     public static class Builder {
         private V1Fee body;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Fee value for body.
          * @return Builder
          */
         public Builder body(V1Fee body) {

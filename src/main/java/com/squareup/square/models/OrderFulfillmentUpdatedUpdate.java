@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderFulfillmentUpdatedUpdate type.
  */
 public class OrderFulfillmentUpdatedUpdate {
+    private final String fulfillmentUid;
+    private final String oldState;
+    private final String newState;
 
     /**
      * Initialization constructor.
-     * @param fulfillmentUid
-     * @param oldState
-     * @param newState
+     * @param fulfillmentUid String value for fulfillmentUid.
+     * @param oldState String value for oldState.
+     * @param newState String value for newState.
      */
     @JsonCreator
     public OrderFulfillmentUpdatedUpdate(
@@ -27,12 +31,10 @@ public class OrderFulfillmentUpdatedUpdate {
         this.newState = newState;
     }
 
-    private final String fulfillmentUid;
-    private final String oldState;
-    private final String newState;
     /**
      * Getter for FulfillmentUid.
      * Unique ID that identifies the fulfillment only within this order.
+     * @return Returns the String
      */
     @JsonGetter("fulfillment_uid")
     public String getFulfillmentUid() {
@@ -42,6 +44,7 @@ public class OrderFulfillmentUpdatedUpdate {
     /**
      * Getter for OldState.
      * The current state of this fulfillment.
+     * @return Returns the String
      */
     @JsonGetter("old_state")
     public String getOldState() {
@@ -51,6 +54,7 @@ public class OrderFulfillmentUpdatedUpdate {
     /**
      * Getter for NewState.
      * The current state of this fulfillment.
+     * @return Returns the String
      */
     @JsonGetter("new_state")
     public String getNewState() {
@@ -65,16 +69,16 @@ public class OrderFulfillmentUpdatedUpdate {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderFulfillmentUpdatedUpdate)) {
+        if (!(obj instanceof OrderFulfillmentUpdatedUpdate)) {
             return false;
         }
-        OrderFulfillmentUpdatedUpdate orderFulfillmentUpdatedUpdate = (OrderFulfillmentUpdatedUpdate) obj;
-        return Objects.equals(fulfillmentUid, orderFulfillmentUpdatedUpdate.fulfillmentUid) &&
-            Objects.equals(oldState, orderFulfillmentUpdatedUpdate.oldState) &&
-            Objects.equals(newState, orderFulfillmentUpdatedUpdate.newState);
+        OrderFulfillmentUpdatedUpdate other = (OrderFulfillmentUpdatedUpdate) obj;
+        return Objects.equals(fulfillmentUid, other.fulfillmentUid)
+            && Objects.equals(oldState, other.oldState)
+            && Objects.equals(newState, other.newState);
     }
 
     /**
@@ -87,45 +91,42 @@ public class OrderFulfillmentUpdatedUpdate {
             .fulfillmentUid(getFulfillmentUid())
             .oldState(getOldState())
             .newState(getNewState());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderFulfillmentUpdatedUpdate}
+     * Class to build instances of {@link OrderFulfillmentUpdatedUpdate}.
      */
     public static class Builder {
         private String fulfillmentUid;
         private String oldState;
         private String newState;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for fulfillmentUid
-         * @param fulfillmentUid
+         * Setter for fulfillmentUid.
+         * @param fulfillmentUid String value for fulfillmentUid.
          * @return Builder
          */
         public Builder fulfillmentUid(String fulfillmentUid) {
             this.fulfillmentUid = fulfillmentUid;
             return this;
         }
+
         /**
-         * Setter for oldState
-         * @param oldState
+         * Setter for oldState.
+         * @param oldState String value for oldState.
          * @return Builder
          */
         public Builder oldState(String oldState) {
             this.oldState = oldState;
             return this;
         }
+
         /**
-         * Setter for newState
-         * @param newState
+         * Setter for newState.
+         * @param newState String value for newState.
          * @return Builder
          */
         public Builder newState(String newState) {

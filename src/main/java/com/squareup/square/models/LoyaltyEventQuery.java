@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyEventQuery type.
  */
 public class LoyaltyEventQuery {
+    private final LoyaltyEventFilter filter;
 
     /**
      * Initialization constructor.
-     * @param filter
+     * @param filter LoyaltyEventFilter value for filter.
      */
     @JsonCreator
     public LoyaltyEventQuery(
@@ -21,11 +23,11 @@ public class LoyaltyEventQuery {
         this.filter = filter;
     }
 
-    private final LoyaltyEventFilter filter;
     /**
      * Getter for Filter.
-     * The filtering criteria. If the request specifies multiple filters, 
-     * the endpoint uses a logical AND to evaluate them.
+     * The filtering criteria. If the request specifies multiple filters, the endpoint uses a
+     * logical AND to evaluate them.
+     * @return Returns the LoyaltyEventFilter
      */
     @JsonGetter("filter")
     public LoyaltyEventFilter getFilter() {
@@ -40,14 +42,14 @@ public class LoyaltyEventQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventQuery)) {
+        if (!(obj instanceof LoyaltyEventQuery)) {
             return false;
         }
-        LoyaltyEventQuery loyaltyEventQuery = (LoyaltyEventQuery) obj;
-        return Objects.equals(filter, loyaltyEventQuery.filter);
+        LoyaltyEventQuery other = (LoyaltyEventQuery) obj;
+        return Objects.equals(filter, other.filter);
     }
 
     /**
@@ -58,25 +60,20 @@ public class LoyaltyEventQuery {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .filter(getFilter());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventQuery}
+     * Class to build instances of {@link LoyaltyEventQuery}.
      */
     public static class Builder {
         private LoyaltyEventFilter filter;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter LoyaltyEventFilter value for filter.
          * @return Builder
          */
         public Builder filter(LoyaltyEventFilter filter) {

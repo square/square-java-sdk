@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateItemRequest type.
  */
 public class V1UpdateItemRequest {
+    private final V1Item body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Item value for body.
      */
     @JsonCreator
     public V1UpdateItemRequest(
@@ -21,10 +23,10 @@ public class V1UpdateItemRequest {
         this.body = body;
     }
 
-    private final V1Item body;
     /**
      * Getter for Body.
      * V1Item
+     * @return Returns the V1Item
      */
     @JsonGetter("body")
     public V1Item getBody() {
@@ -39,14 +41,14 @@ public class V1UpdateItemRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateItemRequest)) {
+        if (!(obj instanceof V1UpdateItemRequest)) {
             return false;
         }
-        V1UpdateItemRequest v1UpdateItemRequest = (V1UpdateItemRequest) obj;
-        return Objects.equals(body, v1UpdateItemRequest.body);
+        V1UpdateItemRequest other = (V1UpdateItemRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -56,25 +58,26 @@ public class V1UpdateItemRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(body);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateItemRequest}
+     * Class to build instances of {@link V1UpdateItemRequest}.
      */
     public static class Builder {
         private V1Item body;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param body V1Item value for body.
          */
         public Builder(V1Item body) {
             this.body = body;
         }
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Item value for body.
          * @return Builder
          */
         public Builder body(V1Item body) {

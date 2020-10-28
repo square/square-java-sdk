@@ -1,12 +1,13 @@
-## Loyalty Event Delete Reward
+
+# Loyalty Event Delete Reward
 
 Provides metadata when the event `type` is `DELETE_REWARD`.
 
-### Structure
+## Structure
 
 `LoyaltyEventDeleteReward`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@ Provides metadata when the event `type` is `DELETE_REWARD`.
 | `RewardId` | `String` | Optional | The ID of the deleted [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`. | String getRewardId() |
 | `Points` | `int` |  | The number of points returned to the loyalty account. | int getPoints() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

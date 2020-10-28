@@ -1,10 +1,11 @@
-## Cash Drawer Shift Event
 
-### Structure
+# Cash Drawer Shift Event
+
+## Structure
 
 `CashDrawerShiftEvent`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -15,7 +16,7 @@
 | `CreatedAt` | `String` | Optional | The event time in ISO 8601 format. | String getCreatedAt() |
 | `Description` | `String` | Optional | An optional description of the event, entered by the employee that<br>created the event. | String getDescription() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

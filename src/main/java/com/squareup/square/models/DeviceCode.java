@@ -1,29 +1,41 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DeviceCode type.
  */
 public class DeviceCode {
+    private final String id;
+    private final String name;
+    private final String code;
+    private final String deviceId;
+    private final String productType;
+    private final String locationId;
+    private final String status;
+    private final String pairBy;
+    private final String createdAt;
+    private final String statusChangedAt;
+    private final String pairedAt;
 
     /**
      * Initialization constructor.
-     * @param productType
-     * @param id
-     * @param name
-     * @param code
-     * @param deviceId
-     * @param locationId
-     * @param status
-     * @param pairBy
-     * @param createdAt
-     * @param statusChangedAt
-     * @param pairedAt
+     * @param productType String value for productType.
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param code String value for code.
+     * @param deviceId String value for deviceId.
+     * @param locationId String value for locationId.
+     * @param status String value for status.
+     * @param pairBy String value for pairBy.
+     * @param createdAt String value for createdAt.
+     * @param statusChangedAt String value for statusChangedAt.
+     * @param pairedAt String value for pairedAt.
      */
     @JsonCreator
     public DeviceCode(
@@ -51,20 +63,10 @@ public class DeviceCode {
         this.pairedAt = pairedAt;
     }
 
-    private final String id;
-    private final String name;
-    private final String code;
-    private final String deviceId;
-    private final String productType;
-    private final String locationId;
-    private final String status;
-    private final String pairBy;
-    private final String createdAt;
-    private final String statusChangedAt;
-    private final String pairedAt;
     /**
      * Getter for Id.
      * The unique id for this device code.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -74,6 +76,7 @@ public class DeviceCode {
     /**
      * Getter for Name.
      * An optional user-defined name for the device code.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -83,6 +86,7 @@ public class DeviceCode {
     /**
      * Getter for Code.
      * The unique code that can be used to login.
+     * @return Returns the String
      */
     @JsonGetter("code")
     public String getCode() {
@@ -92,6 +96,7 @@ public class DeviceCode {
     /**
      * Getter for DeviceId.
      * The unique id of the device that used this code. Populated when the device is paired up.
+     * @return Returns the String
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
@@ -100,6 +105,7 @@ public class DeviceCode {
 
     /**
      * Getter for ProductType.
+     * @return Returns the String
      */
     @JsonGetter("product_type")
     public String getProductType() {
@@ -109,6 +115,7 @@ public class DeviceCode {
     /**
      * Getter for LocationId.
      * The location assigned to this code.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -118,6 +125,7 @@ public class DeviceCode {
     /**
      * Getter for Status.
      * DeviceCode.Status enum.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -127,6 +135,7 @@ public class DeviceCode {
     /**
      * Getter for PairBy.
      * When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("pair_by")
     public String getPairBy() {
@@ -136,6 +145,7 @@ public class DeviceCode {
     /**
      * Getter for CreatedAt.
      * When this DeviceCode was created. Timestamp in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -145,6 +155,7 @@ public class DeviceCode {
     /**
      * Getter for StatusChangedAt.
      * When this DeviceCode's status was last changed. Timestamp in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("status_changed_at")
     public String getStatusChangedAt() {
@@ -154,6 +165,7 @@ public class DeviceCode {
     /**
      * Getter for PairedAt.
      * When this DeviceCode was paired. Timestamp in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("paired_at")
     public String getPairedAt() {
@@ -164,29 +176,29 @@ public class DeviceCode {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, code, deviceId, productType, locationId, status, pairBy,
-            createdAt, statusChangedAt, pairedAt);
+                createdAt, statusChangedAt, pairedAt);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DeviceCode)) {
+        if (!(obj instanceof DeviceCode)) {
             return false;
         }
-        DeviceCode deviceCode = (DeviceCode) obj;
-        return Objects.equals(id, deviceCode.id) &&
-            Objects.equals(name, deviceCode.name) &&
-            Objects.equals(code, deviceCode.code) &&
-            Objects.equals(deviceId, deviceCode.deviceId) &&
-            Objects.equals(productType, deviceCode.productType) &&
-            Objects.equals(locationId, deviceCode.locationId) &&
-            Objects.equals(status, deviceCode.status) &&
-            Objects.equals(pairBy, deviceCode.pairBy) &&
-            Objects.equals(createdAt, deviceCode.createdAt) &&
-            Objects.equals(statusChangedAt, deviceCode.statusChangedAt) &&
-            Objects.equals(pairedAt, deviceCode.pairedAt);
+        DeviceCode other = (DeviceCode) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(code, other.code)
+            && Objects.equals(deviceId, other.deviceId)
+            && Objects.equals(productType, other.productType)
+            && Objects.equals(locationId, other.locationId)
+            && Objects.equals(status, other.status)
+            && Objects.equals(pairBy, other.pairBy)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(statusChangedAt, other.statusChangedAt)
+            && Objects.equals(pairedAt, other.pairedAt);
     }
 
     /**
@@ -206,11 +218,11 @@ public class DeviceCode {
             .createdAt(getCreatedAt())
             .statusChangedAt(getStatusChangedAt())
             .pairedAt(getPairedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DeviceCode}
+     * Class to build instances of {@link DeviceCode}.
      */
     public static class Builder {
         private String productType = "TERMINAL_API";
@@ -226,105 +238,116 @@ public class DeviceCode {
         private String pairedAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param productType String value for productType.
          */
         public Builder(String productType) {
             this.productType = productType;
         }
 
         /**
-         * Setter for productType
-         * @param productType
+         * Setter for productType.
+         * @param productType String value for productType.
          * @return Builder
          */
         public Builder productType(String productType) {
             this.productType = productType;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for code
-         * @param code
+         * Setter for code.
+         * @param code String value for code.
          * @return Builder
          */
         public Builder code(String code) {
             this.code = code;
             return this;
         }
+
         /**
-         * Setter for deviceId
-         * @param deviceId
+         * Setter for deviceId.
+         * @param deviceId String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
             this.deviceId = deviceId;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for pairBy
-         * @param pairBy
+         * Setter for pairBy.
+         * @param pairBy String value for pairBy.
          * @return Builder
          */
         public Builder pairBy(String pairBy) {
             this.pairBy = pairBy;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for statusChangedAt
-         * @param statusChangedAt
+         * Setter for statusChangedAt.
+         * @param statusChangedAt String value for statusChangedAt.
          * @return Builder
          */
         public Builder statusChangedAt(String statusChangedAt) {
             this.statusChangedAt = statusChangedAt;
             return this;
         }
+
         /**
-         * Setter for pairedAt
-         * @param pairedAt
+         * Setter for pairedAt.
+         * @param pairedAt String value for pairedAt.
          * @return Builder
          */
         public Builder pairedAt(String pairedAt) {
