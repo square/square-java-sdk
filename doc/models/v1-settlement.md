@@ -1,12 +1,13 @@
-## V1 Settlement
+
+# V1 Settlement
 
 V1Settlement
 
-### Structure
+## Structure
 
 `V1Settlement`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -17,7 +18,7 @@ V1Settlement
 | `BankAccountId` | `String` | Optional | The Square-issued unique identifier for the bank account associated with the settlement. | String getBankAccountId() |
 | `Entries` | [`List<V1SettlementEntry>`](/doc/models/v1-settlement-entry.md) | Optional | The entries included in this settlement. | List<V1SettlementEntry> getEntries() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

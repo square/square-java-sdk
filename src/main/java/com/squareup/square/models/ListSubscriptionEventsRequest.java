@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListSubscriptionEventsRequest type.
  */
 public class ListSubscriptionEventsRequest {
+    private final String cursor;
+    private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param limit
+     * @param cursor String value for cursor.
+     * @param limit Integer value for limit.
      */
     @JsonCreator
     public ListSubscriptionEventsRequest(
@@ -24,13 +27,12 @@ public class ListSubscriptionEventsRequest {
         this.limit = limit;
     }
 
-    private final String cursor;
-    private final Integer limit;
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for the original query.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -39,9 +41,9 @@ public class ListSubscriptionEventsRequest {
 
     /**
      * Getter for Limit.
-     * The upper limit on the number of subscription events to return 
-     * in the response. 
-     * Default: `200`
+     * The upper limit on the number of subscription events to return in the response. Default:
+     * `200`
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -56,15 +58,15 @@ public class ListSubscriptionEventsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListSubscriptionEventsRequest)) {
+        if (!(obj instanceof ListSubscriptionEventsRequest)) {
             return false;
         }
-        ListSubscriptionEventsRequest listSubscriptionEventsRequest = (ListSubscriptionEventsRequest) obj;
-        return Objects.equals(cursor, listSubscriptionEventsRequest.cursor) &&
-            Objects.equals(limit, listSubscriptionEventsRequest.limit);
+        ListSubscriptionEventsRequest other = (ListSubscriptionEventsRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit);
     }
 
     /**
@@ -76,35 +78,31 @@ public class ListSubscriptionEventsRequest {
         Builder builder = new Builder()
             .cursor(getCursor())
             .limit(getLimit());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListSubscriptionEventsRequest}
+     * Class to build instances of {@link ListSubscriptionEventsRequest}.
      */
     public static class Builder {
         private String cursor;
         private Integer limit;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

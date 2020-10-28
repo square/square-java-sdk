@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchCatalogObjectsResponse type.
  */
 public class SearchCatalogObjectsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final String cursor;
+    private final List<CatalogObject> objects;
+    private final List<CatalogObject> relatedObjects;
+    private final String latestTime;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param cursor
-     * @param objects
-     * @param relatedObjects
-     * @param latestTime
+     * @param errors List of Error value for errors.
+     * @param cursor String value for cursor.
+     * @param objects List of CatalogObject value for objects.
+     * @param relatedObjects List of CatalogObject value for relatedObjects.
+     * @param latestTime String value for latestTime.
      */
     @JsonCreator
     public SearchCatalogObjectsResponse(
@@ -35,20 +42,14 @@ public class SearchCatalogObjectsResponse {
         this.latestTime = latestTime;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final String cursor;
-    private final List<CatalogObject> objects;
-    private final List<CatalogObject> relatedObjects;
-    private final String latestTime;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Errors.
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -57,8 +58,10 @@ public class SearchCatalogObjectsResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
+     * more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -68,6 +71,7 @@ public class SearchCatalogObjectsResponse {
     /**
      * Getter for Objects.
      * The CatalogObjects returned.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
@@ -77,6 +81,7 @@ public class SearchCatalogObjectsResponse {
     /**
      * Getter for RelatedObjects.
      * A list of CatalogObjects referenced by the objects in the `objects` field.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("related_objects")
     public List<CatalogObject> getRelatedObjects() {
@@ -85,8 +90,9 @@ public class SearchCatalogObjectsResponse {
 
     /**
      * Getter for LatestTime.
-     * When the associated product catalog was last updated. Will
-     * match the value for `end_time` or `cursor` if either field is included in the `SearchCatalog` request.
+     * When the associated product catalog was last updated. Will match the value for `end_time` or
+     * `cursor` if either field is included in the `SearchCatalog` request.
+     * @return Returns the String
      */
     @JsonGetter("latest_time")
     public String getLatestTime() {
@@ -101,18 +107,18 @@ public class SearchCatalogObjectsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchCatalogObjectsResponse)) {
+        if (!(obj instanceof SearchCatalogObjectsResponse)) {
             return false;
         }
-        SearchCatalogObjectsResponse searchCatalogObjectsResponse = (SearchCatalogObjectsResponse) obj;
-        return Objects.equals(errors, searchCatalogObjectsResponse.errors) &&
-            Objects.equals(cursor, searchCatalogObjectsResponse.cursor) &&
-            Objects.equals(objects, searchCatalogObjectsResponse.objects) &&
-            Objects.equals(relatedObjects, searchCatalogObjectsResponse.relatedObjects) &&
-            Objects.equals(latestTime, searchCatalogObjectsResponse.latestTime);
+        SearchCatalogObjectsResponse other = (SearchCatalogObjectsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(objects, other.objects)
+            && Objects.equals(relatedObjects, other.relatedObjects)
+            && Objects.equals(latestTime, other.latestTime);
     }
 
     /**
@@ -127,11 +133,11 @@ public class SearchCatalogObjectsResponse {
             .objects(getObjects())
             .relatedObjects(getRelatedObjects())
             .latestTime(getLatestTime());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchCatalogObjectsResponse}
+     * Class to build instances of {@link SearchCatalogObjectsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -141,61 +147,61 @@ public class SearchCatalogObjectsResponse {
         private List<CatalogObject> relatedObjects;
         private String latestTime;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for objects
-         * @param objects
+         * Setter for objects.
+         * @param objects List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
             this.objects = objects;
             return this;
         }
+
         /**
-         * Setter for relatedObjects
-         * @param relatedObjects
+         * Setter for relatedObjects.
+         * @param relatedObjects List of CatalogObject value for relatedObjects.
          * @return Builder
          */
         public Builder relatedObjects(List<CatalogObject> relatedObjects) {
             this.relatedObjects = relatedObjects;
             return this;
         }
+
         /**
-         * Setter for latestTime
-         * @param latestTime
+         * Setter for latestTime.
+         * @param latestTime String value for latestTime.
          * @return Builder
          */
         public Builder latestTime(String latestTime) {
@@ -208,11 +214,12 @@ public class SearchCatalogObjectsResponse {
          * @return {@link SearchCatalogObjectsResponse}
          */
         public SearchCatalogObjectsResponse build() {
-            SearchCatalogObjectsResponse model = new SearchCatalogObjectsResponse(errors,
-                cursor,
-                objects,
-                relatedObjects,
-                latestTime);
+            SearchCatalogObjectsResponse model =
+                    new SearchCatalogObjectsResponse(errors,
+                            cursor,
+                            objects,
+                            relatedObjects,
+                            latestTime);
             model.httpContext = httpContext;
             return model;
         }

@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for StandardUnitDescriptionGroup type.
  */
 public class StandardUnitDescriptionGroup {
+    private final List<StandardUnitDescription> standardUnitDescriptions;
+    private final String languageCode;
 
     /**
      * Initialization constructor.
-     * @param standardUnitDescriptions
-     * @param languageCode
+     * @param standardUnitDescriptions List of StandardUnitDescription value for standardUnitDescriptions.
+     * @param languageCode String value for languageCode.
      */
     @JsonCreator
     public StandardUnitDescriptionGroup(
@@ -25,11 +28,10 @@ public class StandardUnitDescriptionGroup {
         this.languageCode = languageCode;
     }
 
-    private final List<StandardUnitDescription> standardUnitDescriptions;
-    private final String languageCode;
     /**
      * Getter for StandardUnitDescriptions.
      * List of standard (non-custom) measurement units in this description group.
+     * @return Returns the List of StandardUnitDescription
      */
     @JsonGetter("standard_unit_descriptions")
     public List<StandardUnitDescription> getStandardUnitDescriptions() {
@@ -39,6 +41,7 @@ public class StandardUnitDescriptionGroup {
     /**
      * Getter for LanguageCode.
      * IETF language tag.
+     * @return Returns the String
      */
     @JsonGetter("language_code")
     public String getLanguageCode() {
@@ -53,15 +56,15 @@ public class StandardUnitDescriptionGroup {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof StandardUnitDescriptionGroup)) {
+        if (!(obj instanceof StandardUnitDescriptionGroup)) {
             return false;
         }
-        StandardUnitDescriptionGroup standardUnitDescriptionGroup = (StandardUnitDescriptionGroup) obj;
-        return Objects.equals(standardUnitDescriptions, standardUnitDescriptionGroup.standardUnitDescriptions) &&
-            Objects.equals(languageCode, standardUnitDescriptionGroup.languageCode);
+        StandardUnitDescriptionGroup other = (StandardUnitDescriptionGroup) obj;
+        return Objects.equals(standardUnitDescriptions, other.standardUnitDescriptions)
+            && Objects.equals(languageCode, other.languageCode);
     }
 
     /**
@@ -73,35 +76,31 @@ public class StandardUnitDescriptionGroup {
         Builder builder = new Builder()
             .standardUnitDescriptions(getStandardUnitDescriptions())
             .languageCode(getLanguageCode());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link StandardUnitDescriptionGroup}
+     * Class to build instances of {@link StandardUnitDescriptionGroup}.
      */
     public static class Builder {
         private List<StandardUnitDescription> standardUnitDescriptions;
         private String languageCode;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for standardUnitDescriptions
-         * @param standardUnitDescriptions
+         * Setter for standardUnitDescriptions.
+         * @param standardUnitDescriptions List of StandardUnitDescription value for standardUnitDescriptions.
          * @return Builder
          */
         public Builder standardUnitDescriptions(List<StandardUnitDescription> standardUnitDescriptions) {
             this.standardUnitDescriptions = standardUnitDescriptions;
             return this;
         }
+
         /**
-         * Setter for languageCode
-         * @param languageCode
+         * Setter for languageCode.
+         * @param languageCode String value for languageCode.
          * @return Builder
          */
         public Builder languageCode(String languageCode) {

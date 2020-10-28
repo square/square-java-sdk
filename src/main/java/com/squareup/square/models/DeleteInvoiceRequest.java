@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DeleteInvoiceRequest type.
  */
 public class DeleteInvoiceRequest {
+    private final Integer version;
 
     /**
      * Initialization constructor.
-     * @param version
+     * @param version Integer value for version.
      */
     @JsonCreator
     public DeleteInvoiceRequest(
@@ -21,12 +23,12 @@ public class DeleteInvoiceRequest {
         this.version = version;
     }
 
-    private final Integer version;
     /**
      * Getter for Version.
-     * The version of the [invoice](#type-invoice) to delete.
-     * If you do not know the version, you can call [GetInvoice](#endpoint-Invoices-GetInvoice) or 
+     * The version of the [invoice](#type-invoice) to delete. If you do not know the version, you
+     * can call [GetInvoice](#endpoint-Invoices-GetInvoice) or
      * [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @return Returns the Integer
      */
     @JsonGetter("version")
     public Integer getVersion() {
@@ -41,14 +43,14 @@ public class DeleteInvoiceRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DeleteInvoiceRequest)) {
+        if (!(obj instanceof DeleteInvoiceRequest)) {
             return false;
         }
-        DeleteInvoiceRequest deleteInvoiceRequest = (DeleteInvoiceRequest) obj;
-        return Objects.equals(version, deleteInvoiceRequest.version);
+        DeleteInvoiceRequest other = (DeleteInvoiceRequest) obj;
+        return Objects.equals(version, other.version);
     }
 
     /**
@@ -59,25 +61,20 @@ public class DeleteInvoiceRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .version(getVersion());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DeleteInvoiceRequest}
+     * Class to build instances of {@link DeleteInvoiceRequest}.
      */
     public static class Builder {
         private Integer version;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {

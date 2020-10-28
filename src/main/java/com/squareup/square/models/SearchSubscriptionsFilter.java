@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for SearchSubscriptionsFilter type.
  */
 public class SearchSubscriptionsFilter {
+    private final List<String> customerIds;
+    private final List<String> locationIds;
 
     /**
      * Initialization constructor.
-     * @param customerIds
-     * @param locationIds
+     * @param customerIds List of String value for customerIds.
+     * @param locationIds List of String value for locationIds.
      */
     @JsonCreator
     public SearchSubscriptionsFilter(
@@ -25,11 +28,10 @@ public class SearchSubscriptionsFilter {
         this.locationIds = locationIds;
     }
 
-    private final List<String> customerIds;
-    private final List<String> locationIds;
     /**
      * Getter for CustomerIds.
      * A filter to select subscriptions based on the customer.
+     * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
@@ -39,6 +41,7 @@ public class SearchSubscriptionsFilter {
     /**
      * Getter for LocationIds.
      * A filter to select subscriptions based the location.
+     * @return Returns the List of String
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -53,15 +56,15 @@ public class SearchSubscriptionsFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchSubscriptionsFilter)) {
+        if (!(obj instanceof SearchSubscriptionsFilter)) {
             return false;
         }
-        SearchSubscriptionsFilter searchSubscriptionsFilter = (SearchSubscriptionsFilter) obj;
-        return Objects.equals(customerIds, searchSubscriptionsFilter.customerIds) &&
-            Objects.equals(locationIds, searchSubscriptionsFilter.locationIds);
+        SearchSubscriptionsFilter other = (SearchSubscriptionsFilter) obj;
+        return Objects.equals(customerIds, other.customerIds)
+            && Objects.equals(locationIds, other.locationIds);
     }
 
     /**
@@ -73,35 +76,31 @@ public class SearchSubscriptionsFilter {
         Builder builder = new Builder()
             .customerIds(getCustomerIds())
             .locationIds(getLocationIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchSubscriptionsFilter}
+     * Class to build instances of {@link SearchSubscriptionsFilter}.
      */
     public static class Builder {
         private List<String> customerIds;
         private List<String> locationIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customerIds
-         * @param customerIds
+         * Setter for customerIds.
+         * @param customerIds List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {
             this.customerIds = customerIds;
             return this;
         }
+
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

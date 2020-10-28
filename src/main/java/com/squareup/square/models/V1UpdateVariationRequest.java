@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateVariationRequest type.
  */
 public class V1UpdateVariationRequest {
+    private final V1Variation body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Variation value for body.
      */
     @JsonCreator
     public V1UpdateVariationRequest(
@@ -21,10 +23,10 @@ public class V1UpdateVariationRequest {
         this.body = body;
     }
 
-    private final V1Variation body;
     /**
      * Getter for Body.
      * V1Variation
+     * @return Returns the V1Variation
      */
     @JsonGetter("body")
     public V1Variation getBody() {
@@ -39,14 +41,14 @@ public class V1UpdateVariationRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateVariationRequest)) {
+        if (!(obj instanceof V1UpdateVariationRequest)) {
             return false;
         }
-        V1UpdateVariationRequest v1UpdateVariationRequest = (V1UpdateVariationRequest) obj;
-        return Objects.equals(body, v1UpdateVariationRequest.body);
+        V1UpdateVariationRequest other = (V1UpdateVariationRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -56,25 +58,26 @@ public class V1UpdateVariationRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(body);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateVariationRequest}
+     * Class to build instances of {@link V1UpdateVariationRequest}.
      */
     public static class Builder {
         private V1Variation body;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param body V1Variation value for body.
          */
         public Builder(V1Variation body) {
             this.body = body;
         }
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Variation value for body.
          * @return Builder
          */
         public Builder body(V1Variation body) {

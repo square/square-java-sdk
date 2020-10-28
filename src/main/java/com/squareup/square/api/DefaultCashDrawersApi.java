@@ -1,24 +1,25 @@
-package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
+package com.squareup.square.api;
 
 import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.ListCashDrawerShiftEventsResponse;
 import com.squareup.square.models.ListCashDrawerShiftsResponse;
 import com.squareup.square.models.RetrieveCashDrawerShiftResponse;
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -27,35 +28,43 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
      */
-    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
+    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
     /**
      * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
+     * @param httpCallback    Callback to be called before and after the HTTP call.
      */
-    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
 
     /**
-     * Provides the details for all of the cash drawer shifts for a location
-     * in a date range.
-     * @param    locationId    Required parameter: The ID of the location to query for a list of cash drawer shifts.
-     * @param    sortOrder    Optional parameter: The order in which cash drawer shifts are listed in the response, based on their opened_at field. Default value: ASC
-     * @param    beginTime    Optional parameter: The inclusive start time of the query on opened_at, in ISO 8601 format.
-     * @param    endTime    Optional parameter: The exclusive end date of the query on opened_at, in ISO 8601 format.
-     * @param    limit    Optional parameter: Number of cash drawer shift events in a page of results (200 by default, 1000 max).
-     * @param    cursor    Optional parameter: Opaque cursor for fetching the next page of results.
+     * Provides the details for all of the cash drawer shifts for a location in a date range.
+     * @param  locationId  Required parameter: The ID of the location to query for a list of cash
+     *         drawer shifts.
+     * @param  sortOrder  Optional parameter: The order in which cash drawer shifts are listed in
+     *         the response, based on their opened_at field. Default value: ASC
+     * @param  beginTime  Optional parameter: The inclusive start time of the query on opened_at, in
+     *         ISO 8601 format.
+     * @param  endTime  Optional parameter: The exclusive end date of the query on opened_at, in ISO
+     *         8601 format.
+     * @param  limit  Optional parameter: Number of cash drawer shift events in a page of results
+     *         (200 by default, 1000 max).
+     * @param  cursor  Optional parameter: Opaque cursor for fetching the next page of results.
      * @return    Returns the ListCashDrawerShiftsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCashDrawerShiftsResponse listCashDrawerShifts(
             final String locationId,
@@ -64,8 +73,9 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String endTime,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCashDrawerShiftsRequest(locationId, sortOrder, beginTime, endTime, limit, cursor);
-        authManagers.get("default").apply(request);
+        HttpRequest request = buildListCashDrawerShiftsRequest(locationId, sortOrder, beginTime,
+                endTime, limit, cursor);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -74,15 +84,19 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     }
 
     /**
-     * Provides the details for all of the cash drawer shifts for a location
-     * in a date range.
-     * @param    locationId    Required parameter: The ID of the location to query for a list of cash drawer shifts.
-     * @param    sortOrder    Optional parameter: The order in which cash drawer shifts are listed in the response, based on their opened_at field. Default value: ASC
-     * @param    beginTime    Optional parameter: The inclusive start time of the query on opened_at, in ISO 8601 format.
-     * @param    endTime    Optional parameter: The exclusive end date of the query on opened_at, in ISO 8601 format.
-     * @param    limit    Optional parameter: Number of cash drawer shift events in a page of results (200 by default, 1000 max).
-     * @param    cursor    Optional parameter: Opaque cursor for fetching the next page of results.
-     * @return    Returns the ListCashDrawerShiftsResponse response from the API call 
+     * Provides the details for all of the cash drawer shifts for a location in a date range.
+     * @param  locationId  Required parameter: The ID of the location to query for a list of cash
+     *         drawer shifts.
+     * @param  sortOrder  Optional parameter: The order in which cash drawer shifts are listed in
+     *         the response, based on their opened_at field. Default value: ASC
+     * @param  beginTime  Optional parameter: The inclusive start time of the query on opened_at, in
+     *         ISO 8601 format.
+     * @param  endTime  Optional parameter: The exclusive end date of the query on opened_at, in ISO
+     *         8601 format.
+     * @param  limit  Optional parameter: Number of cash drawer shift events in a page of results
+     *         (200 by default, 1000 max).
+     * @param  cursor  Optional parameter: Opaque cursor for fetching the next page of results.
+     * @return    Returns the ListCashDrawerShiftsResponse response from the API call
      */
     public CompletableFuture<ListCashDrawerShiftsResponse> listCashDrawerShiftsAsync(
             final String locationId,
@@ -91,14 +105,16 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String endTime,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListCashDrawerShiftsRequest(locationId, sortOrder, beginTime, endTime, limit, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListCashDrawerShiftsResponse(context));
+        return makeHttpCallAsync(() -> buildListCashDrawerShiftsRequest(locationId, sortOrder,
+                beginTime, endTime, limit, cursor),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleListCashDrawerShiftsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listCashDrawerShifts
+     * Builds the HttpRequest object for listCashDrawerShifts.
      */
     private HttpRequest buildListCashDrawerShiftsRequest(
             final String locationId,
@@ -111,9 +127,10 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/cash-drawers/shifts");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/cash-drawers/shifts");
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("location_id", locationId);
         queryParameters.put("sort_order", sortOrder);
@@ -121,9 +138,6 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         queryParameters.put("end_time", endTime);
         queryParameters.put("limit", limit);
         queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -133,7 +147,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -144,11 +159,11 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     }
 
     /**
-     * Processes the response for listCashDrawerShifts
+     * Processes the response for listCashDrawerShifts.
      * @return An object of type ListCashDrawerShiftsResponse
      */
-    private ListCashDrawerShiftsResponse handleListCashDrawerShiftsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private ListCashDrawerShiftsResponse handleListCashDrawerShiftsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -160,7 +175,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         ListCashDrawerShiftsResponse result = ApiHelper.deserialize(responseBody,
                 ListCashDrawerShiftsResponse.class);
 
@@ -171,15 +186,18 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     /**
      * Provides the summary details for a single cash drawer shift. See
      * RetrieveCashDrawerShiftEvents for a list of cash drawer shift events.
-     * @param    locationId    Required parameter: The ID of the location to retrieve cash drawer shifts from.
-     * @param    shiftId    Required parameter: The shift ID.
+     * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
+     *         from.
+     * @param  shiftId  Required parameter: The shift ID.
      * @return    Returns the RetrieveCashDrawerShiftResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveCashDrawerShiftResponse retrieveCashDrawerShift(
             final String locationId,
             final String shiftId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveCashDrawerShiftRequest(locationId, shiftId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -190,21 +208,23 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     /**
      * Provides the summary details for a single cash drawer shift. See
      * RetrieveCashDrawerShiftEvents for a list of cash drawer shift events.
-     * @param    locationId    Required parameter: The ID of the location to retrieve cash drawer shifts from.
-     * @param    shiftId    Required parameter: The shift ID.
-     * @return    Returns the RetrieveCashDrawerShiftResponse response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
+     *         from.
+     * @param  shiftId  Required parameter: The shift ID.
+     * @return    Returns the RetrieveCashDrawerShiftResponse response from the API call
      */
     public CompletableFuture<RetrieveCashDrawerShiftResponse> retrieveCashDrawerShiftAsync(
             final String locationId,
             final String shiftId) {
         return makeHttpCallAsync(() -> buildRetrieveCashDrawerShiftRequest(locationId, shiftId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveCashDrawerShiftResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveCashDrawerShiftResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCashDrawerShift
+     * Builds the HttpRequest object for retrieveCashDrawerShift.
      */
     private HttpRequest buildRetrieveCashDrawerShiftRequest(
             final String locationId,
@@ -213,19 +233,18 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/cash-drawers/shifts/{shift_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/cash-drawers/shifts/{shift_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("shift_id", shiftId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("shift_id",
+                new SimpleEntry<Object, Boolean>(shiftId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("location_id", locationId);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -235,7 +254,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -246,11 +266,11 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     }
 
     /**
-     * Processes the response for retrieveCashDrawerShift
+     * Processes the response for retrieveCashDrawerShift.
      * @return An object of type RetrieveCashDrawerShiftResponse
      */
-    private RetrieveCashDrawerShiftResponse handleRetrieveCashDrawerShiftResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveCashDrawerShiftResponse handleRetrieveCashDrawerShiftResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -262,7 +282,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveCashDrawerShiftResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveCashDrawerShiftResponse.class);
 
@@ -272,19 +292,24 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Provides a paginated list of events for a single cash drawer shift.
-     * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
-     * @param    shiftId    Required parameter: The shift ID.
-     * @param    limit    Optional parameter: Number of resources to be returned in a page of results (200 by default, 1000 max).
-     * @param    cursor    Optional parameter: Opaque cursor for fetching the next page of results.
+     * @param  locationId  Required parameter: The ID of the location to list cash drawer shifts
+     *         for.
+     * @param  shiftId  Required parameter: The shift ID.
+     * @param  limit  Optional parameter: Number of resources to be returned in a page of results
+     *         (200 by default, 1000 max).
+     * @param  cursor  Optional parameter: Opaque cursor for fetching the next page of results.
      * @return    Returns the ListCashDrawerShiftEventsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCashDrawerShiftEventsResponse listCashDrawerShiftEvents(
             final String locationId,
             final String shiftId,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCashDrawerShiftEventsRequest(locationId, shiftId, limit, cursor);
-        authManagers.get("default").apply(request);
+        HttpRequest request = buildListCashDrawerShiftEventsRequest(locationId, shiftId, limit,
+                cursor);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -294,25 +319,29 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Provides a paginated list of events for a single cash drawer shift.
-     * @param    locationId    Required parameter: The ID of the location to list cash drawer shifts for.
-     * @param    shiftId    Required parameter: The shift ID.
-     * @param    limit    Optional parameter: Number of resources to be returned in a page of results (200 by default, 1000 max).
-     * @param    cursor    Optional parameter: Opaque cursor for fetching the next page of results.
-     * @return    Returns the ListCashDrawerShiftEventsResponse response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list cash drawer shifts
+     *         for.
+     * @param  shiftId  Required parameter: The shift ID.
+     * @param  limit  Optional parameter: Number of resources to be returned in a page of results
+     *         (200 by default, 1000 max).
+     * @param  cursor  Optional parameter: Opaque cursor for fetching the next page of results.
+     * @return    Returns the ListCashDrawerShiftEventsResponse response from the API call
      */
     public CompletableFuture<ListCashDrawerShiftEventsResponse> listCashDrawerShiftEventsAsync(
             final String locationId,
             final String shiftId,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListCashDrawerShiftEventsRequest(locationId, shiftId, limit, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListCashDrawerShiftEventsResponse(context));
+        return makeHttpCallAsync(() -> buildListCashDrawerShiftEventsRequest(locationId, shiftId,
+                limit, cursor),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleListCashDrawerShiftEventsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listCashDrawerShiftEvents
+     * Builds the HttpRequest object for listCashDrawerShiftEvents.
      */
     private HttpRequest buildListCashDrawerShiftEventsRequest(
             final String locationId,
@@ -323,21 +352,20 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/cash-drawers/shifts/{shift_id}/events");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/cash-drawers/shifts/{shift_id}/events");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("shift_id", shiftId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("shift_id",
+                new SimpleEntry<Object, Boolean>(shiftId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("location_id", locationId);
         queryParameters.put("limit", limit);
         queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -347,7 +375,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -358,11 +387,11 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     }
 
     /**
-     * Processes the response for listCashDrawerShiftEvents
+     * Processes the response for listCashDrawerShiftEvents.
      * @return An object of type ListCashDrawerShiftEventsResponse
      */
-    private ListCashDrawerShiftEventsResponse handleListCashDrawerShiftEventsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private ListCashDrawerShiftEventsResponse handleListCashDrawerShiftEventsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -374,7 +403,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         ListCashDrawerShiftEventsResponse result = ApiHelper.deserialize(responseBody,
                 ListCashDrawerShiftEventsResponse.class);
 

@@ -1,26 +1,34 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1EmployeeRole type.
  */
 public class V1EmployeeRole {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final List<String> permissions;
+    private final Boolean isOwner;
+    private final String createdAt;
+    private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param permissions
-     * @param id
-     * @param isOwner
-     * @param createdAt
-     * @param updatedAt
+     * @param name String value for name.
+     * @param permissions List of String value for permissions.
+     * @param id String value for id.
+     * @param isOwner Boolean value for isOwner.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
      */
     @JsonCreator
     public V1EmployeeRole(
@@ -38,14 +46,6 @@ public class V1EmployeeRole {
         this.updatedAt = updatedAt;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final List<String> permissions;
-    private final Boolean isOwner;
-    private final String createdAt;
-    private final String updatedAt;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -53,6 +53,7 @@ public class V1EmployeeRole {
     /**
      * Getter for Id.
      * The role's unique ID, Can only be set by Square.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -62,6 +63,7 @@ public class V1EmployeeRole {
     /**
      * Getter for Name.
      * The role's merchant-defined name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -70,8 +72,9 @@ public class V1EmployeeRole {
 
     /**
      * Getter for Permissions.
-     * The role's permissions.
-     * See [V1EmployeeRolePermissions](#type-v1employeerolepermissions) for possible values
+     * The role's permissions. See [V1EmployeeRolePermissions](#type-v1employeerolepermissions) for
+     * possible values
+     * @return Returns the List of String
      */
     @JsonGetter("permissions")
     public List<String> getPermissions() {
@@ -80,7 +83,9 @@ public class V1EmployeeRole {
 
     /**
      * Getter for IsOwner.
-     * If true, employees with this role have all permissions, regardless of the values indicated in permissions.
+     * If true, employees with this role have all permissions, regardless of the values indicated in
+     * permissions.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_owner")
     public Boolean getIsOwner() {
@@ -89,7 +94,9 @@ public class V1EmployeeRole {
 
     /**
      * Getter for CreatedAt.
-     * The time when the employee entity was created, in ISO 8601 format. Is set by Square when the Role is created.
+     * The time when the employee entity was created, in ISO 8601 format. Is set by Square when the
+     * Role is created.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -98,7 +105,9 @@ public class V1EmployeeRole {
 
     /**
      * Getter for UpdatedAt.
-     * The time when the employee entity was most recently updated, in ISO 8601 format. Is set by Square when the Role updated.
+     * The time when the employee entity was most recently updated, in ISO 8601 format. Is set by
+     * Square when the Role updated.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -113,19 +122,19 @@ public class V1EmployeeRole {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1EmployeeRole)) {
+        if (!(obj instanceof V1EmployeeRole)) {
             return false;
         }
-        V1EmployeeRole v1EmployeeRole = (V1EmployeeRole) obj;
-        return Objects.equals(id, v1EmployeeRole.id) &&
-            Objects.equals(name, v1EmployeeRole.name) &&
-            Objects.equals(permissions, v1EmployeeRole.permissions) &&
-            Objects.equals(isOwner, v1EmployeeRole.isOwner) &&
-            Objects.equals(createdAt, v1EmployeeRole.createdAt) &&
-            Objects.equals(updatedAt, v1EmployeeRole.updatedAt);
+        V1EmployeeRole other = (V1EmployeeRole) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(permissions, other.permissions)
+            && Objects.equals(isOwner, other.isOwner)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt);
     }
 
     /**
@@ -140,11 +149,11 @@ public class V1EmployeeRole {
             .isOwner(getIsOwner())
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1EmployeeRole}
+     * Class to build instances of {@link V1EmployeeRole}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -156,7 +165,9 @@ public class V1EmployeeRole {
         private String updatedAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param name String value for name.
+         * @param permissions List of String value for permissions.
          */
         public Builder(String name,
                 List<String> permissions) {
@@ -165,62 +176,68 @@ public class V1EmployeeRole {
         }
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for permissions
-         * @param permissions
+         * Setter for permissions.
+         * @param permissions List of String value for permissions.
          * @return Builder
          */
         public Builder permissions(List<String> permissions) {
             this.permissions = permissions;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for isOwner
-         * @param isOwner
+         * Setter for isOwner.
+         * @param isOwner Boolean value for isOwner.
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
             this.isOwner = isOwner;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -233,12 +250,13 @@ public class V1EmployeeRole {
          * @return {@link V1EmployeeRole}
          */
         public V1EmployeeRole build() {
-            V1EmployeeRole model = new V1EmployeeRole(name,
-                permissions,
-                id,
-                isOwner,
-                createdAt,
-                updatedAt);
+            V1EmployeeRole model =
+                    new V1EmployeeRole(name,
+                            permissions,
+                            id,
+                            isOwner,
+                            createdAt,
+                            updatedAt);
             model.httpContext = httpContext;
             return model;
         }

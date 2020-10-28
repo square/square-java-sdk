@@ -1,31 +1,44 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for InvoicePaymentRequest type.
  */
 public class InvoicePaymentRequest {
+    private final String uid;
+    private final String requestMethod;
+    private final String requestType;
+    private final String dueDate;
+    private final Money fixedAmountRequestedMoney;
+    private final String percentageRequested;
+    private final Boolean tippingEnabled;
+    private final String cardId;
+    private final List<InvoicePaymentReminder> reminders;
+    private final Money computedAmountMoney;
+    private final Money totalCompletedAmountMoney;
+    private final Money roundingAdjustmentIncludedMoney;
 
     /**
      * Initialization constructor.
-     * @param uid
-     * @param requestMethod
-     * @param requestType
-     * @param dueDate
-     * @param fixedAmountRequestedMoney
-     * @param percentageRequested
-     * @param tippingEnabled
-     * @param cardId
-     * @param reminders
-     * @param computedAmountMoney
-     * @param totalCompletedAmountMoney
-     * @param roundingAdjustmentIncludedMoney
+     * @param uid String value for uid.
+     * @param requestMethod String value for requestMethod.
+     * @param requestType String value for requestType.
+     * @param dueDate String value for dueDate.
+     * @param fixedAmountRequestedMoney Money value for fixedAmountRequestedMoney.
+     * @param percentageRequested String value for percentageRequested.
+     * @param tippingEnabled Boolean value for tippingEnabled.
+     * @param cardId String value for cardId.
+     * @param reminders List of InvoicePaymentReminder value for reminders.
+     * @param computedAmountMoney Money value for computedAmountMoney.
+     * @param totalCompletedAmountMoney Money value for totalCompletedAmountMoney.
+     * @param roundingAdjustmentIncludedMoney Money value for roundingAdjustmentIncludedMoney.
      */
     @JsonCreator
     public InvoicePaymentRequest(
@@ -55,21 +68,10 @@ public class InvoicePaymentRequest {
         this.roundingAdjustmentIncludedMoney = roundingAdjustmentIncludedMoney;
     }
 
-    private final String uid;
-    private final String requestMethod;
-    private final String requestType;
-    private final String dueDate;
-    private final Money fixedAmountRequestedMoney;
-    private final String percentageRequested;
-    private final Boolean tippingEnabled;
-    private final String cardId;
-    private final List<InvoicePaymentReminder> reminders;
-    private final Money computedAmountMoney;
-    private final Money totalCompletedAmountMoney;
-    private final Money roundingAdjustmentIncludedMoney;
     /**
      * Getter for Uid.
      * The Square-generated ID of the payment request in an [invoice](#type-invoice).
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -78,8 +80,9 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for RequestMethod.
-     * Specifies the action for Square to take for processing the invoice. For example, 
-     * email the invoice, charge a customer's card on file, or do nothing.
+     * Specifies the action for Square to take for processing the invoice. For example, email the
+     * invoice, charge a customer's card on file, or do nothing.
+     * @return Returns the String
      */
     @JsonGetter("request_method")
     public String getRequestMethod() {
@@ -88,8 +91,11 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for RequestType.
-     * Identifies the type of the payment request. For more information, 
-     * see [Payment request](TBD).
+     * Indicates the type of the payment request. An invoice supports the following payment request
+     * combinations: - 1 balance - 1 deposit with 1 balance - 2 - 12 installments - 1 deposit with 2
+     * - 12 installments For more information, see [Payment
+     * requests](https://developer.squareup.com/docs/docs/invoices-api/overview#payment-requests).
+     * @return Returns the String
      */
     @JsonGetter("request_type")
     public String getRequestType() {
@@ -98,8 +104,9 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for DueDate.
-     * The due date (in the invoice location's time zone) for the payment request. 
-     * After this date, the invoice becomes overdue.
+     * The due date (in the invoice location's time zone) for the payment request. After this date,
+     * the invoice becomes overdue.
+     * @return Returns the String
      */
     @JsonGetter("due_date")
     public String getDueDate() {
@@ -108,12 +115,13 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for FixedAmountRequestedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("fixed_amount_requested_money")
     public Money getFixedAmountRequestedMoney() {
@@ -122,13 +130,13 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for PercentageRequested.
-     * Specifies the amount for the payment request in percentage:
-     * - When the payment `request_type` is `DEPOSIT`, it is the percentage of the order total amount.
-     * - When the payment `request_type` is `INSTALLMENT`, it is the percentage of the order total less 
-     * the deposit, if requested. The sum of the `percentage_requested` in all installment 
-     * payment requests must be equal to 100.
-     * You cannot specify this when the payment `request_type` is `BALANCE` or when the 
-     * payment request specifies the `fixed_amount_requested_money` field.
+     * Specifies the amount for the payment request in percentage: - When the payment `request_type`
+     * is `DEPOSIT`, it is the percentage of the order total amount. - When the payment
+     * `request_type` is `INSTALLMENT`, it is the percentage of the order total less the deposit, if
+     * requested. The sum of the `percentage_requested` in all installment payment requests must be
+     * equal to 100. You cannot specify this when the payment `request_type` is `BALANCE` or when
+     * the payment request specifies the `fixed_amount_requested_money` field.
+     * @return Returns the String
      */
     @JsonGetter("percentage_requested")
     public String getPercentageRequested() {
@@ -137,10 +145,10 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for TippingEnabled.
-     * If set to true, the Square-hosted invoice page (the `public_url` field of the invoice) 
-     * provides a place for the customer to pay a tip. 
-     * This field is allowed only on the final payment request  
-     * and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
+     * If set to true, the Square-hosted invoice page (the `public_url` field of the invoice)
+     * provides a place for the customer to pay a tip. This field is allowed only on the final
+     * payment request and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
+     * @return Returns the Boolean
      */
     @JsonGetter("tipping_enabled")
     public Boolean getTippingEnabled() {
@@ -149,8 +157,8 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for CardId.
-     * If the request method is `CHARGE_CARD_ON_FILE`, this field provides the 
-     * card to charge.
+     * If the request method is `CHARGE_CARD_ON_FILE`, this field provides the card to charge.
+     * @return Returns the String
      */
     @JsonGetter("card_id")
     public String getCardId() {
@@ -160,6 +168,7 @@ public class InvoicePaymentRequest {
     /**
      * Getter for Reminders.
      * A list of one or more reminders to send for the payment request.
+     * @return Returns the List of InvoicePaymentReminder
      */
     @JsonGetter("reminders")
     public List<InvoicePaymentReminder> getReminders() {
@@ -168,12 +177,13 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for ComputedAmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("computed_amount_money")
     public Money getComputedAmountMoney() {
@@ -182,12 +192,13 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for TotalCompletedAmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("total_completed_amount_money")
     public Money getTotalCompletedAmountMoney() {
@@ -196,12 +207,13 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for RoundingAdjustmentIncludedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("rounding_adjustment_included_money")
     public Money getRoundingAdjustmentIncludedMoney() {
@@ -212,31 +224,32 @@ public class InvoicePaymentRequest {
     @Override
     public int hashCode() {
         return Objects.hash(uid, requestMethod, requestType, dueDate, fixedAmountRequestedMoney,
-            percentageRequested, tippingEnabled, cardId, reminders, computedAmountMoney,
-            totalCompletedAmountMoney, roundingAdjustmentIncludedMoney);
+                percentageRequested, tippingEnabled, cardId, reminders, computedAmountMoney,
+                totalCompletedAmountMoney, roundingAdjustmentIncludedMoney);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InvoicePaymentRequest)) {
+        if (!(obj instanceof InvoicePaymentRequest)) {
             return false;
         }
-        InvoicePaymentRequest invoicePaymentRequest = (InvoicePaymentRequest) obj;
-        return Objects.equals(uid, invoicePaymentRequest.uid) &&
-            Objects.equals(requestMethod, invoicePaymentRequest.requestMethod) &&
-            Objects.equals(requestType, invoicePaymentRequest.requestType) &&
-            Objects.equals(dueDate, invoicePaymentRequest.dueDate) &&
-            Objects.equals(fixedAmountRequestedMoney, invoicePaymentRequest.fixedAmountRequestedMoney) &&
-            Objects.equals(percentageRequested, invoicePaymentRequest.percentageRequested) &&
-            Objects.equals(tippingEnabled, invoicePaymentRequest.tippingEnabled) &&
-            Objects.equals(cardId, invoicePaymentRequest.cardId) &&
-            Objects.equals(reminders, invoicePaymentRequest.reminders) &&
-            Objects.equals(computedAmountMoney, invoicePaymentRequest.computedAmountMoney) &&
-            Objects.equals(totalCompletedAmountMoney, invoicePaymentRequest.totalCompletedAmountMoney) &&
-            Objects.equals(roundingAdjustmentIncludedMoney, invoicePaymentRequest.roundingAdjustmentIncludedMoney);
+        InvoicePaymentRequest other = (InvoicePaymentRequest) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(requestMethod, other.requestMethod)
+            && Objects.equals(requestType, other.requestType)
+            && Objects.equals(dueDate, other.dueDate)
+            && Objects.equals(fixedAmountRequestedMoney, other.fixedAmountRequestedMoney)
+            && Objects.equals(percentageRequested, other.percentageRequested)
+            && Objects.equals(tippingEnabled, other.tippingEnabled)
+            && Objects.equals(cardId, other.cardId)
+            && Objects.equals(reminders, other.reminders)
+            && Objects.equals(computedAmountMoney, other.computedAmountMoney)
+            && Objects.equals(totalCompletedAmountMoney, other.totalCompletedAmountMoney)
+            && Objects.equals(roundingAdjustmentIncludedMoney,
+                    other.roundingAdjustmentIncludedMoney);
     }
 
     /**
@@ -258,11 +271,11 @@ public class InvoicePaymentRequest {
             .computedAmountMoney(getComputedAmountMoney())
             .totalCompletedAmountMoney(getTotalCompletedAmountMoney())
             .roundingAdjustmentIncludedMoney(getRoundingAdjustmentIncludedMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoicePaymentRequest}
+     * Class to build instances of {@link InvoicePaymentRequest}.
      */
     public static class Builder {
         private String uid;
@@ -278,115 +291,121 @@ public class InvoicePaymentRequest {
         private Money totalCompletedAmountMoney;
         private Money roundingAdjustmentIncludedMoney;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for requestMethod
-         * @param requestMethod
+         * Setter for requestMethod.
+         * @param requestMethod String value for requestMethod.
          * @return Builder
          */
         public Builder requestMethod(String requestMethod) {
             this.requestMethod = requestMethod;
             return this;
         }
+
         /**
-         * Setter for requestType
-         * @param requestType
+         * Setter for requestType.
+         * @param requestType String value for requestType.
          * @return Builder
          */
         public Builder requestType(String requestType) {
             this.requestType = requestType;
             return this;
         }
+
         /**
-         * Setter for dueDate
-         * @param dueDate
+         * Setter for dueDate.
+         * @param dueDate String value for dueDate.
          * @return Builder
          */
         public Builder dueDate(String dueDate) {
             this.dueDate = dueDate;
             return this;
         }
+
         /**
-         * Setter for fixedAmountRequestedMoney
-         * @param fixedAmountRequestedMoney
+         * Setter for fixedAmountRequestedMoney.
+         * @param fixedAmountRequestedMoney Money value for fixedAmountRequestedMoney.
          * @return Builder
          */
         public Builder fixedAmountRequestedMoney(Money fixedAmountRequestedMoney) {
             this.fixedAmountRequestedMoney = fixedAmountRequestedMoney;
             return this;
         }
+
         /**
-         * Setter for percentageRequested
-         * @param percentageRequested
+         * Setter for percentageRequested.
+         * @param percentageRequested String value for percentageRequested.
          * @return Builder
          */
         public Builder percentageRequested(String percentageRequested) {
             this.percentageRequested = percentageRequested;
             return this;
         }
+
         /**
-         * Setter for tippingEnabled
-         * @param tippingEnabled
+         * Setter for tippingEnabled.
+         * @param tippingEnabled Boolean value for tippingEnabled.
          * @return Builder
          */
         public Builder tippingEnabled(Boolean tippingEnabled) {
             this.tippingEnabled = tippingEnabled;
             return this;
         }
+
         /**
-         * Setter for cardId
-         * @param cardId
+         * Setter for cardId.
+         * @param cardId String value for cardId.
          * @return Builder
          */
         public Builder cardId(String cardId) {
             this.cardId = cardId;
             return this;
         }
+
         /**
-         * Setter for reminders
-         * @param reminders
+         * Setter for reminders.
+         * @param reminders List of InvoicePaymentReminder value for reminders.
          * @return Builder
          */
         public Builder reminders(List<InvoicePaymentReminder> reminders) {
             this.reminders = reminders;
             return this;
         }
+
         /**
-         * Setter for computedAmountMoney
-         * @param computedAmountMoney
+         * Setter for computedAmountMoney.
+         * @param computedAmountMoney Money value for computedAmountMoney.
          * @return Builder
          */
         public Builder computedAmountMoney(Money computedAmountMoney) {
             this.computedAmountMoney = computedAmountMoney;
             return this;
         }
+
         /**
-         * Setter for totalCompletedAmountMoney
-         * @param totalCompletedAmountMoney
+         * Setter for totalCompletedAmountMoney.
+         * @param totalCompletedAmountMoney Money value for totalCompletedAmountMoney.
          * @return Builder
          */
         public Builder totalCompletedAmountMoney(Money totalCompletedAmountMoney) {
             this.totalCompletedAmountMoney = totalCompletedAmountMoney;
             return this;
         }
+
         /**
-         * Setter for roundingAdjustmentIncludedMoney
-         * @param roundingAdjustmentIncludedMoney
+         * Setter for roundingAdjustmentIncludedMoney.
+         * @param roundingAdjustmentIncludedMoney Money value for roundingAdjustmentIncludedMoney.
          * @return Builder
          */
         public Builder roundingAdjustmentIncludedMoney(Money roundingAdjustmentIncludedMoney) {

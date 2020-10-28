@@ -1,16 +1,17 @@
-## V1 List Bank Accounts Response
 
-### Structure
+# V1 List Bank Accounts Response
+
+## Structure
 
 `V1ListBankAccountsResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Items` | [`List<V1BankAccount>`](/doc/models/v1-bank-account.md) | Optional | - | List<V1BankAccount> getItems() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

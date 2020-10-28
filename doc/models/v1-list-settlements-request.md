@@ -1,10 +1,11 @@
-## V1 List Settlements Request
 
-### Structure
+# V1 List Settlements Request
+
+## Structure
 
 `V1ListSettlementsRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -15,7 +16,7 @@
 | `Status` | [`String`](/doc/models/v1-list-settlements-request-status.md) | Optional | - | String getStatus() |
 | `BatchToken` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. | String getBatchToken() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

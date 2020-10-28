@@ -1,27 +1,36 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogCustomAttributeValue type.
  */
 public class CatalogCustomAttributeValue {
+    private final String name;
+    private final String stringValue;
+    private final String customAttributeDefinitionId;
+    private final String type;
+    private final String numberValue;
+    private final Boolean booleanValue;
+    private final List<String> selectionUidValues;
+    private final String key;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param stringValue
-     * @param customAttributeDefinitionId
-     * @param type
-     * @param numberValue
-     * @param booleanValue
-     * @param selectionUidValues
-     * @param key
+     * @param name String value for name.
+     * @param stringValue String value for stringValue.
+     * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
+     * @param type String value for type.
+     * @param numberValue String value for numberValue.
+     * @param booleanValue Boolean value for booleanValue.
+     * @param selectionUidValues List of String value for selectionUidValues.
+     * @param key String value for key.
      */
     @JsonCreator
     public CatalogCustomAttributeValue(
@@ -43,17 +52,10 @@ public class CatalogCustomAttributeValue {
         this.key = key;
     }
 
-    private final String name;
-    private final String stringValue;
-    private final String customAttributeDefinitionId;
-    private final String type;
-    private final String numberValue;
-    private final Boolean booleanValue;
-    private final List<String> selectionUidValues;
-    private final String key;
     /**
      * Getter for Name.
      * The name of the custom attribute.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -62,7 +64,8 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for StringValue.
-     * The string value of the custom attribute.  Populated if `type` = `STRING`.
+     * The string value of the custom attribute. Populated if `type` = `STRING`.
+     * @return Returns the String
      */
     @JsonGetter("string_value")
     public String getStringValue() {
@@ -71,7 +74,10 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for CustomAttributeDefinitionId.
-     * __Read-only.__ The id of the [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) this value belongs to.
+     * __Read-only.__ The id of the
+     * [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) this value belongs
+     * to.
+     * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
     public String getCustomAttributeDefinitionId() {
@@ -81,6 +87,7 @@ public class CatalogCustomAttributeValue {
     /**
      * Getter for Type.
      * Defines the possible types for a custom attribute.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -89,8 +96,9 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for NumberValue.
-     * Populated if `type` = `NUMBER`. Contains a string
-     * representation of a decimal number, using a `.` as the decimal separator.
+     * Populated if `type` = `NUMBER`. Contains a string representation of a decimal number, using a
+     * `.` as the decimal separator.
+     * @return Returns the String
      */
     @JsonGetter("number_value")
     public String getNumberValue() {
@@ -100,6 +108,7 @@ public class CatalogCustomAttributeValue {
     /**
      * Getter for BooleanValue.
      * A `true` or `false` value. Populated if `type` = `BOOLEAN`.
+     * @return Returns the Boolean
      */
     @JsonGetter("boolean_value")
     public Boolean getBooleanValue() {
@@ -109,6 +118,7 @@ public class CatalogCustomAttributeValue {
     /**
      * Getter for SelectionUidValues.
      * One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`.
+     * @return Returns the List of String
      */
     @JsonGetter("selection_uid_values")
     public List<String> getSelectionUidValues() {
@@ -118,6 +128,7 @@ public class CatalogCustomAttributeValue {
     /**
      * Getter for Key.
      * __Read-only.__ A copy of key from the associated `CatalogCustomAttributeDefinition`.
+     * @return Returns the String
      */
     @JsonGetter("key")
     public String getKey() {
@@ -128,26 +139,26 @@ public class CatalogCustomAttributeValue {
     @Override
     public int hashCode() {
         return Objects.hash(name, stringValue, customAttributeDefinitionId, type, numberValue,
-            booleanValue, selectionUidValues, key);
+                booleanValue, selectionUidValues, key);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogCustomAttributeValue)) {
+        if (!(obj instanceof CatalogCustomAttributeValue)) {
             return false;
         }
-        CatalogCustomAttributeValue catalogCustomAttributeValue = (CatalogCustomAttributeValue) obj;
-        return Objects.equals(name, catalogCustomAttributeValue.name) &&
-            Objects.equals(stringValue, catalogCustomAttributeValue.stringValue) &&
-            Objects.equals(customAttributeDefinitionId, catalogCustomAttributeValue.customAttributeDefinitionId) &&
-            Objects.equals(type, catalogCustomAttributeValue.type) &&
-            Objects.equals(numberValue, catalogCustomAttributeValue.numberValue) &&
-            Objects.equals(booleanValue, catalogCustomAttributeValue.booleanValue) &&
-            Objects.equals(selectionUidValues, catalogCustomAttributeValue.selectionUidValues) &&
-            Objects.equals(key, catalogCustomAttributeValue.key);
+        CatalogCustomAttributeValue other = (CatalogCustomAttributeValue) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(stringValue, other.stringValue)
+            && Objects.equals(customAttributeDefinitionId, other.customAttributeDefinitionId)
+            && Objects.equals(type, other.type)
+            && Objects.equals(numberValue, other.numberValue)
+            && Objects.equals(booleanValue, other.booleanValue)
+            && Objects.equals(selectionUidValues, other.selectionUidValues)
+            && Objects.equals(key, other.key);
     }
 
     /**
@@ -165,11 +176,11 @@ public class CatalogCustomAttributeValue {
             .booleanValue(getBooleanValue())
             .selectionUidValues(getSelectionUidValues())
             .key(getKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogCustomAttributeValue}
+     * Class to build instances of {@link CatalogCustomAttributeValue}.
      */
     public static class Builder {
         private String name;
@@ -181,79 +192,81 @@ public class CatalogCustomAttributeValue {
         private List<String> selectionUidValues;
         private String key;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for stringValue
-         * @param stringValue
+         * Setter for stringValue.
+         * @param stringValue String value for stringValue.
          * @return Builder
          */
         public Builder stringValue(String stringValue) {
             this.stringValue = stringValue;
             return this;
         }
+
         /**
-         * Setter for customAttributeDefinitionId
-         * @param customAttributeDefinitionId
+         * Setter for customAttributeDefinitionId.
+         * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
          * @return Builder
          */
         public Builder customAttributeDefinitionId(String customAttributeDefinitionId) {
             this.customAttributeDefinitionId = customAttributeDefinitionId;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for numberValue
-         * @param numberValue
+         * Setter for numberValue.
+         * @param numberValue String value for numberValue.
          * @return Builder
          */
         public Builder numberValue(String numberValue) {
             this.numberValue = numberValue;
             return this;
         }
+
         /**
-         * Setter for booleanValue
-         * @param booleanValue
+         * Setter for booleanValue.
+         * @param booleanValue Boolean value for booleanValue.
          * @return Builder
          */
         public Builder booleanValue(Boolean booleanValue) {
             this.booleanValue = booleanValue;
             return this;
         }
+
         /**
-         * Setter for selectionUidValues
-         * @param selectionUidValues
+         * Setter for selectionUidValues.
+         * @param selectionUidValues List of String value for selectionUidValues.
          * @return Builder
          */
         public Builder selectionUidValues(List<String> selectionUidValues) {
             this.selectionUidValues = selectionUidValues;
             return this;
         }
+
         /**
-         * Setter for key
-         * @param key
+         * Setter for key.
+         * @param key String value for key.
          * @return Builder
          */
         public Builder key(String key) {

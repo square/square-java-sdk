@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateInvoiceRequest type.
  */
 public class CreateInvoiceRequest {
+    private final Invoice invoice;
+    private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param invoice
-     * @param idempotencyKey
+     * @param invoice Invoice value for invoice.
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CreateInvoiceRequest(
@@ -24,12 +27,12 @@ public class CreateInvoiceRequest {
         this.idempotencyKey = idempotencyKey;
     }
 
-    private final Invoice invoice;
-    private final String idempotencyKey;
     /**
      * Getter for Invoice.
-     * Stores information about an invoice. You use the Invoices API to create and process
-     * invoices. For more information, see [Manage Invoices Using the Invoices API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+     * Stores information about an invoice. You use the Invoices API to create and process invoices.
+     * For more information, see [Manage Invoices Using the Invoices
+     * API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+     * @return Returns the Invoice
      */
     @JsonGetter("invoice")
     public Invoice getInvoice() {
@@ -38,10 +41,11 @@ public class CreateInvoiceRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies the `CreateInvoice` request. If you do not 
-     * provide `idempotency_key` (or provide an empty string as the value), the endpoint 
-     * treats each request as independent.
-     * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * A unique string that identifies the `CreateInvoice` request. If you do not provide
+     * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
+     * as independent. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -56,15 +60,15 @@ public class CreateInvoiceRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateInvoiceRequest)) {
+        if (!(obj instanceof CreateInvoiceRequest)) {
             return false;
         }
-        CreateInvoiceRequest createInvoiceRequest = (CreateInvoiceRequest) obj;
-        return Objects.equals(invoice, createInvoiceRequest.invoice) &&
-            Objects.equals(idempotencyKey, createInvoiceRequest.idempotencyKey);
+        CreateInvoiceRequest other = (CreateInvoiceRequest) obj;
+        return Objects.equals(invoice, other.invoice)
+            && Objects.equals(idempotencyKey, other.idempotencyKey);
     }
 
     /**
@@ -75,35 +79,37 @@ public class CreateInvoiceRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(invoice)
             .idempotencyKey(getIdempotencyKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateInvoiceRequest}
+     * Class to build instances of {@link CreateInvoiceRequest}.
      */
     public static class Builder {
         private Invoice invoice;
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param invoice Invoice value for invoice.
          */
         public Builder(Invoice invoice) {
             this.invoice = invoice;
         }
 
         /**
-         * Setter for invoice
-         * @param invoice
+         * Setter for invoice.
+         * @param invoice Invoice value for invoice.
          * @return Builder
          */
         public Builder invoice(Invoice invoice) {
             this.invoice = invoice;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

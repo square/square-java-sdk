@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for AdjustLoyaltyPointsRequest type.
  */
 public class AdjustLoyaltyPointsRequest {
+    private final String idempotencyKey;
+    private final LoyaltyEventAdjustPoints adjustPoints;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param adjustPoints
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
      */
     @JsonCreator
     public AdjustLoyaltyPointsRequest(
@@ -24,12 +27,11 @@ public class AdjustLoyaltyPointsRequest {
         this.adjustPoints = adjustPoints;
     }
 
-    private final String idempotencyKey;
-    private final LoyaltyEventAdjustPoints adjustPoints;
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this `AdjustLoyaltyPoints` request. 
-     * Keys can be any valid string, but must be unique for every request.
+     * A unique string that identifies this `AdjustLoyaltyPoints` request. Keys can be any valid
+     * string, but must be unique for every request.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -39,6 +41,7 @@ public class AdjustLoyaltyPointsRequest {
     /**
      * Getter for AdjustPoints.
      * Provides metadata when the event `type` is `ADJUST_POINTS`.
+     * @return Returns the LoyaltyEventAdjustPoints
      */
     @JsonGetter("adjust_points")
     public LoyaltyEventAdjustPoints getAdjustPoints() {
@@ -53,15 +56,15 @@ public class AdjustLoyaltyPointsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AdjustLoyaltyPointsRequest)) {
+        if (!(obj instanceof AdjustLoyaltyPointsRequest)) {
             return false;
         }
-        AdjustLoyaltyPointsRequest adjustLoyaltyPointsRequest = (AdjustLoyaltyPointsRequest) obj;
-        return Objects.equals(idempotencyKey, adjustLoyaltyPointsRequest.idempotencyKey) &&
-            Objects.equals(adjustPoints, adjustLoyaltyPointsRequest.adjustPoints);
+        AdjustLoyaltyPointsRequest other = (AdjustLoyaltyPointsRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(adjustPoints, other.adjustPoints);
     }
 
     /**
@@ -72,18 +75,20 @@ public class AdjustLoyaltyPointsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey,
             adjustPoints);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link AdjustLoyaltyPointsRequest}
+     * Class to build instances of {@link AdjustLoyaltyPointsRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
         private LoyaltyEventAdjustPoints adjustPoints;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
          */
         public Builder(String idempotencyKey,
                 LoyaltyEventAdjustPoints adjustPoints) {
@@ -92,17 +97,18 @@ public class AdjustLoyaltyPointsRequest {
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for adjustPoints
-         * @param adjustPoints
+         * Setter for adjustPoints.
+         * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
          * @return Builder
          */
         public Builder adjustPoints(LoyaltyEventAdjustPoints adjustPoints) {

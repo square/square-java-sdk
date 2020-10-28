@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchLoyaltyAccountsResponse type.
  */
 public class SearchLoyaltyAccountsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<LoyaltyAccount> loyaltyAccounts;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param loyaltyAccounts
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param loyaltyAccounts List of LoyaltyAccount value for loyaltyAccounts.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyAccountsResponse(
@@ -29,11 +34,6 @@ public class SearchLoyaltyAccountsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<LoyaltyAccount> loyaltyAccounts;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class SearchLoyaltyAccountsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -49,8 +50,8 @@ public class SearchLoyaltyAccountsResponse {
 
     /**
      * Getter for LoyaltyAccounts.
-     * The loyalty accounts that met the search criteria,  
-     * in order of creation date.
+     * The loyalty accounts that met the search criteria, in order of creation date.
+     * @return Returns the List of LoyaltyAccount
      */
     @JsonGetter("loyalty_accounts")
     public List<LoyaltyAccount> getLoyaltyAccounts() {
@@ -59,10 +60,10 @@ public class SearchLoyaltyAccountsResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to use in a subsequent 
-     * request. If empty, this is the final response.
-     * For more information, 
-     * see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * The pagination cursor to use in a subsequent request. If empty, this is the final response.
+     * For more information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -77,16 +78,16 @@ public class SearchLoyaltyAccountsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchLoyaltyAccountsResponse)) {
+        if (!(obj instanceof SearchLoyaltyAccountsResponse)) {
             return false;
         }
-        SearchLoyaltyAccountsResponse searchLoyaltyAccountsResponse = (SearchLoyaltyAccountsResponse) obj;
-        return Objects.equals(errors, searchLoyaltyAccountsResponse.errors) &&
-            Objects.equals(loyaltyAccounts, searchLoyaltyAccountsResponse.loyaltyAccounts) &&
-            Objects.equals(cursor, searchLoyaltyAccountsResponse.cursor);
+        SearchLoyaltyAccountsResponse other = (SearchLoyaltyAccountsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(loyaltyAccounts, other.loyaltyAccounts)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -99,11 +100,11 @@ public class SearchLoyaltyAccountsResponse {
             .errors(getErrors())
             .loyaltyAccounts(getLoyaltyAccounts())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchLoyaltyAccountsResponse}
+     * Class to build instances of {@link SearchLoyaltyAccountsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -111,43 +112,41 @@ public class SearchLoyaltyAccountsResponse {
         private List<LoyaltyAccount> loyaltyAccounts;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for loyaltyAccounts
-         * @param loyaltyAccounts
+         * Setter for loyaltyAccounts.
+         * @param loyaltyAccounts List of LoyaltyAccount value for loyaltyAccounts.
          * @return Builder
          */
         public Builder loyaltyAccounts(List<LoyaltyAccount> loyaltyAccounts) {
             this.loyaltyAccounts = loyaltyAccounts;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -160,9 +159,10 @@ public class SearchLoyaltyAccountsResponse {
          * @return {@link SearchLoyaltyAccountsResponse}
          */
         public SearchLoyaltyAccountsResponse build() {
-            SearchLoyaltyAccountsResponse model = new SearchLoyaltyAccountsResponse(errors,
-                loyaltyAccounts,
-                cursor);
+            SearchLoyaltyAccountsResponse model =
+                    new SearchLoyaltyAccountsResponse(errors,
+                            loyaltyAccounts,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

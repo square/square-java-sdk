@@ -1,13 +1,14 @@
-## Workweek Config
+
+# Workweek Config
 
 Sets the Day of the week and hour of the day that a business starts a
 work week. Used for the calculation of overtime pay.
 
-### Structure
+## Structure
 
 `WorkweekConfig`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -18,7 +19,7 @@ work week. Used for the calculation of overtime pay.
 | `CreatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC | String getUpdatedAt() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

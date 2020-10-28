@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for BusinessHoursPeriod type.
  */
 public class BusinessHoursPeriod {
+    private final String dayOfWeek;
+    private final String startLocalTime;
+    private final String endLocalTime;
 
     /**
      * Initialization constructor.
-     * @param dayOfWeek
-     * @param startLocalTime
-     * @param endLocalTime
+     * @param dayOfWeek String value for dayOfWeek.
+     * @param startLocalTime String value for startLocalTime.
+     * @param endLocalTime String value for endLocalTime.
      */
     @JsonCreator
     public BusinessHoursPeriod(
@@ -27,12 +31,10 @@ public class BusinessHoursPeriod {
         this.endLocalTime = endLocalTime;
     }
 
-    private final String dayOfWeek;
-    private final String startLocalTime;
-    private final String endLocalTime;
     /**
      * Getter for DayOfWeek.
-     * Indicates the specific day  of the week.
+     * Indicates the specific day of the week.
+     * @return Returns the String
      */
     @JsonGetter("day_of_week")
     public String getDayOfWeek() {
@@ -41,8 +43,9 @@ public class BusinessHoursPeriod {
 
     /**
      * Getter for StartLocalTime.
-     * The start time of a business hours period, specified in local time using partial-time
-     * RFC3339 format.
+     * The start time of a business hours period, specified in local time using partial-time RFC
+     * 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("start_local_time")
     public String getStartLocalTime() {
@@ -51,8 +54,9 @@ public class BusinessHoursPeriod {
 
     /**
      * Getter for EndLocalTime.
-     * The end time of a business hours period, specified in local time using partial-time
-     * RFC3339 format.
+     * The end time of a business hours period, specified in local time using partial-time RFC 3339
+     * format.
+     * @return Returns the String
      */
     @JsonGetter("end_local_time")
     public String getEndLocalTime() {
@@ -67,16 +71,16 @@ public class BusinessHoursPeriod {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BusinessHoursPeriod)) {
+        if (!(obj instanceof BusinessHoursPeriod)) {
             return false;
         }
-        BusinessHoursPeriod businessHoursPeriod = (BusinessHoursPeriod) obj;
-        return Objects.equals(dayOfWeek, businessHoursPeriod.dayOfWeek) &&
-            Objects.equals(startLocalTime, businessHoursPeriod.startLocalTime) &&
-            Objects.equals(endLocalTime, businessHoursPeriod.endLocalTime);
+        BusinessHoursPeriod other = (BusinessHoursPeriod) obj;
+        return Objects.equals(dayOfWeek, other.dayOfWeek)
+            && Objects.equals(startLocalTime, other.startLocalTime)
+            && Objects.equals(endLocalTime, other.endLocalTime);
     }
 
     /**
@@ -89,45 +93,42 @@ public class BusinessHoursPeriod {
             .dayOfWeek(getDayOfWeek())
             .startLocalTime(getStartLocalTime())
             .endLocalTime(getEndLocalTime());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BusinessHoursPeriod}
+     * Class to build instances of {@link BusinessHoursPeriod}.
      */
     public static class Builder {
         private String dayOfWeek;
         private String startLocalTime;
         private String endLocalTime;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for dayOfWeek
-         * @param dayOfWeek
+         * Setter for dayOfWeek.
+         * @param dayOfWeek String value for dayOfWeek.
          * @return Builder
          */
         public Builder dayOfWeek(String dayOfWeek) {
             this.dayOfWeek = dayOfWeek;
             return this;
         }
+
         /**
-         * Setter for startLocalTime
-         * @param startLocalTime
+         * Setter for startLocalTime.
+         * @param startLocalTime String value for startLocalTime.
          * @return Builder
          */
         public Builder startLocalTime(String startLocalTime) {
             this.startLocalTime = startLocalTime;
             return this;
         }
+
         /**
-         * Setter for endLocalTime
-         * @param endLocalTime
+         * Setter for endLocalTime.
+         * @param endLocalTime String value for endLocalTime.
          * @return Builder
          */
         public Builder endLocalTime(String endLocalTime) {

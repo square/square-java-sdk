@@ -1,10 +1,11 @@
-## Dispute Evidence
 
-### Structure
+# Dispute Evidence
+
+## Structure
 
 `DisputeEvidence`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -13,7 +14,7 @@
 | `UploadedAt` | `String` | Optional | The time when the next action is due, in RFC 3339 format. | String getUploadedAt() |
 | `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | Type of the dispute evidence. | String getEvidenceType() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

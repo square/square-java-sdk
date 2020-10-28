@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateEmployeeRoleRequest type.
  */
 public class V1CreateEmployeeRoleRequest {
+    private final V1EmployeeRole employeeRole;
 
     /**
      * Initialization constructor.
-     * @param employeeRole
+     * @param employeeRole V1EmployeeRole value for employeeRole.
      */
     @JsonCreator
     public V1CreateEmployeeRoleRequest(
@@ -21,10 +23,10 @@ public class V1CreateEmployeeRoleRequest {
         this.employeeRole = employeeRole;
     }
 
-    private final V1EmployeeRole employeeRole;
     /**
      * Getter for EmployeeRole.
      * V1EmployeeRole
+     * @return Returns the V1EmployeeRole
      */
     @JsonGetter("employee_role")
     public V1EmployeeRole getEmployeeRole() {
@@ -39,14 +41,14 @@ public class V1CreateEmployeeRoleRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateEmployeeRoleRequest)) {
+        if (!(obj instanceof V1CreateEmployeeRoleRequest)) {
             return false;
         }
-        V1CreateEmployeeRoleRequest v1CreateEmployeeRoleRequest = (V1CreateEmployeeRoleRequest) obj;
-        return Objects.equals(employeeRole, v1CreateEmployeeRoleRequest.employeeRole);
+        V1CreateEmployeeRoleRequest other = (V1CreateEmployeeRoleRequest) obj;
+        return Objects.equals(employeeRole, other.employeeRole);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreateEmployeeRoleRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .employeeRole(getEmployeeRole());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateEmployeeRoleRequest}
+     * Class to build instances of {@link V1CreateEmployeeRoleRequest}.
      */
     public static class Builder {
         private V1EmployeeRole employeeRole;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for employeeRole
-         * @param employeeRole
+         * Setter for employeeRole.
+         * @param employeeRole V1EmployeeRole value for employeeRole.
          * @return Builder
          */
         public Builder employeeRole(V1EmployeeRole employeeRole) {

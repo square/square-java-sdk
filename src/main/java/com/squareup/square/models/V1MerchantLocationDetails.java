@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1MerchantLocationDetails type.
  */
 public class V1MerchantLocationDetails {
+    private final String nickname;
 
     /**
      * Initialization constructor.
-     * @param nickname
+     * @param nickname String value for nickname.
      */
     @JsonCreator
     public V1MerchantLocationDetails(
@@ -21,10 +23,11 @@ public class V1MerchantLocationDetails {
         this.nickname = nickname;
     }
 
-    private final String nickname;
     /**
      * Getter for Nickname.
-     * The nickname assigned to the single-location account by the parent business. This value appears in the parent business's multi-location dashboard.
+     * The nickname assigned to the single-location account by the parent business. This value
+     * appears in the parent business's multi-location dashboard.
+     * @return Returns the String
      */
     @JsonGetter("nickname")
     public String getNickname() {
@@ -39,14 +42,14 @@ public class V1MerchantLocationDetails {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1MerchantLocationDetails)) {
+        if (!(obj instanceof V1MerchantLocationDetails)) {
             return false;
         }
-        V1MerchantLocationDetails v1MerchantLocationDetails = (V1MerchantLocationDetails) obj;
-        return Objects.equals(nickname, v1MerchantLocationDetails.nickname);
+        V1MerchantLocationDetails other = (V1MerchantLocationDetails) obj;
+        return Objects.equals(nickname, other.nickname);
     }
 
     /**
@@ -57,25 +60,20 @@ public class V1MerchantLocationDetails {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .nickname(getNickname());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1MerchantLocationDetails}
+     * Class to build instances of {@link V1MerchantLocationDetails}.
      */
     public static class Builder {
         private String nickname;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for nickname
-         * @param nickname
+         * Setter for nickname.
+         * @param nickname String value for nickname.
          * @return Builder
          */
         public Builder nickname(String nickname) {

@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1Money type.
  */
 public class V1Money {
+    private final Integer amount;
+    private final String currencyCode;
 
     /**
      * Initialization constructor.
-     * @param amount
-     * @param currencyCode
+     * @param amount Integer value for amount.
+     * @param currencyCode String value for currencyCode.
      */
     @JsonCreator
     public V1Money(
@@ -24,12 +27,11 @@ public class V1Money {
         this.currencyCode = currencyCode;
     }
 
-    private final Integer amount;
-    private final String currencyCode;
     /**
      * Getter for Amount.
-     * Amount in the lowest denominated value of this Currency. E.g. in USD
-     * these are cents, in JPY they are Yen (which do not have a 'cent' concept).
+     * Amount in the lowest denominated value of this Currency. E.g. in USD these are cents, in JPY
+     * they are Yen (which do not have a 'cent' concept).
+     * @return Returns the Integer
      */
     @JsonGetter("amount")
     public Integer getAmount() {
@@ -38,8 +40,9 @@ public class V1Money {
 
     /**
      * Getter for CurrencyCode.
-     * Indicates the associated currency for an amount of money. Values correspond
-     * to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).
+     * Indicates the associated currency for an amount of money. Values correspond to [ISO
+     * 4217](https://wikipedia.org/wiki/ISO_4217).
+     * @return Returns the String
      */
     @JsonGetter("currency_code")
     public String getCurrencyCode() {
@@ -54,15 +57,15 @@ public class V1Money {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Money)) {
+        if (!(obj instanceof V1Money)) {
             return false;
         }
-        V1Money v1Money = (V1Money) obj;
-        return Objects.equals(amount, v1Money.amount) &&
-            Objects.equals(currencyCode, v1Money.currencyCode);
+        V1Money other = (V1Money) obj;
+        return Objects.equals(amount, other.amount)
+            && Objects.equals(currencyCode, other.currencyCode);
     }
 
     /**
@@ -74,35 +77,31 @@ public class V1Money {
         Builder builder = new Builder()
             .amount(getAmount())
             .currencyCode(getCurrencyCode());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Money}
+     * Class to build instances of {@link V1Money}.
      */
     public static class Builder {
         private Integer amount;
         private String currencyCode;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for amount
-         * @param amount
+         * Setter for amount.
+         * @param amount Integer value for amount.
          * @return Builder
          */
         public Builder amount(Integer amount) {
             this.amount = amount;
             return this;
         }
+
         /**
-         * Setter for currencyCode
-         * @param currencyCode
+         * Setter for currencyCode.
+         * @param currencyCode String value for currencyCode.
          * @return Builder
          */
         public Builder currencyCode(String currencyCode) {

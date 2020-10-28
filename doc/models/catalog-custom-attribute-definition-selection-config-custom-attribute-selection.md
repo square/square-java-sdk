@@ -1,19 +1,20 @@
-## Catalog Custom Attribute Definition Selection Config Custom Attribute Selection
+
+# Catalog Custom Attribute Definition Selection Config Custom Attribute Selection
 
 A named selection for this `SELECTION`-type custom attribute definition.
 
-### Structure
+## Structure
 
 `CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | Unique ID set by Square. | String getUid() |
 | `Name` | `String` |  | Selection name, unique within `allowed_selections`. | String getName() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

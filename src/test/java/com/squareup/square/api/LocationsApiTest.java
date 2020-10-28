@@ -2,8 +2,7 @@ package com.squareup.square.api;
 
 import static org.junit.Assert.*;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -12,7 +11,13 @@ import org.junit.Test;
 import com.squareup.square.ApiHelper;
 import com.squareup.square.SquareClient;
 import com.squareup.square.exceptions.*;
-import com.squareup.square.models.*;
+import com.squareup.square.utilities.FileWrapper;
+import com.squareup.square.models.ListLocationsResponse;
+import com.squareup.square.models.CreateLocationResponse;
+import com.squareup.square.models.CreateLocationRequest;
+import com.squareup.square.models.RetrieveLocationResponse;
+import com.squareup.square.models.UpdateLocationResponse;
+import com.squareup.square.models.UpdateLocationRequest;
 import com.squareup.square.testing.TestHelper;
 
 
@@ -48,7 +53,7 @@ public class LocationsApiTest extends BaseApiTest {
 
     /**
      * Provides information of all locations of a business.
-     * Most other Connect API endpoints have a required `location_id` path parameter.
+     * Many Square API endpoints require a `location_id` parameter.
      * The `id` field of the [`Location`](#type-location) objects returned by this
      * endpoint correspond to that `location_id` parameter.
      * @throws Throwable

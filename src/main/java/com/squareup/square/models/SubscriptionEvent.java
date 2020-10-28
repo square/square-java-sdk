@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SubscriptionEvent type.
  */
 public class SubscriptionEvent {
+    private final String id;
+    private final String subscriptionEventType;
+    private final String effectiveDate;
+    private final String planId;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param subscriptionEventType
-     * @param effectiveDate
-     * @param planId
+     * @param id String value for id.
+     * @param subscriptionEventType String value for subscriptionEventType.
+     * @param effectiveDate String value for effectiveDate.
+     * @param planId String value for planId.
      */
     @JsonCreator
     public SubscriptionEvent(
@@ -30,13 +35,10 @@ public class SubscriptionEvent {
         this.planId = planId;
     }
 
-    private final String id;
-    private final String subscriptionEventType;
-    private final String effectiveDate;
-    private final String planId;
     /**
      * Getter for Id.
      * The ID of the subscription event.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -46,6 +48,7 @@ public class SubscriptionEvent {
     /**
      * Getter for SubscriptionEventType.
      * The possible subscription event types.
+     * @return Returns the String
      */
     @JsonGetter("subscription_event_type")
     public String getSubscriptionEventType() {
@@ -54,8 +57,9 @@ public class SubscriptionEvent {
 
     /**
      * Getter for EffectiveDate.
-     * The date, in YYYY-MM-DD format (for
-     * example, 2013-01-15), when the subscription event went into effect.
+     * The date, in YYYY-MM-DD format (for example, 2013-01-15), when the subscription event went
+     * into effect.
+     * @return Returns the String
      */
     @JsonGetter("effective_date")
     public String getEffectiveDate() {
@@ -65,6 +69,7 @@ public class SubscriptionEvent {
     /**
      * Getter for PlanId.
      * The ID of the subscription plan associated with the subscription.
+     * @return Returns the String
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
@@ -79,17 +84,17 @@ public class SubscriptionEvent {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SubscriptionEvent)) {
+        if (!(obj instanceof SubscriptionEvent)) {
             return false;
         }
-        SubscriptionEvent subscriptionEvent = (SubscriptionEvent) obj;
-        return Objects.equals(id, subscriptionEvent.id) &&
-            Objects.equals(subscriptionEventType, subscriptionEvent.subscriptionEventType) &&
-            Objects.equals(effectiveDate, subscriptionEvent.effectiveDate) &&
-            Objects.equals(planId, subscriptionEvent.planId);
+        SubscriptionEvent other = (SubscriptionEvent) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(subscriptionEventType, other.subscriptionEventType)
+            && Objects.equals(effectiveDate, other.effectiveDate)
+            && Objects.equals(planId, other.planId);
     }
 
     /**
@@ -102,11 +107,11 @@ public class SubscriptionEvent {
             subscriptionEventType,
             effectiveDate,
             planId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SubscriptionEvent}
+     * Class to build instances of {@link SubscriptionEvent}.
      */
     public static class Builder {
         private String id;
@@ -115,7 +120,11 @@ public class SubscriptionEvent {
         private String planId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param id String value for id.
+         * @param subscriptionEventType String value for subscriptionEventType.
+         * @param effectiveDate String value for effectiveDate.
+         * @param planId String value for planId.
          */
         public Builder(String id,
                 String subscriptionEventType,
@@ -128,35 +137,38 @@ public class SubscriptionEvent {
         }
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for subscriptionEventType
-         * @param subscriptionEventType
+         * Setter for subscriptionEventType.
+         * @param subscriptionEventType String value for subscriptionEventType.
          * @return Builder
          */
         public Builder subscriptionEventType(String subscriptionEventType) {
             this.subscriptionEventType = subscriptionEventType;
             return this;
         }
+
         /**
-         * Setter for effectiveDate
-         * @param effectiveDate
+         * Setter for effectiveDate.
+         * @param effectiveDate String value for effectiveDate.
          * @return Builder
          */
         public Builder effectiveDate(String effectiveDate) {
             this.effectiveDate = effectiveDate;
             return this;
         }
+
         /**
-         * Setter for planId
-         * @param planId
+         * Setter for planId.
+         * @param planId String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {

@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListCustomerGroupsResponse type.
  */
 public class ListCustomerGroupsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<CustomerGroup> groups;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param groups
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param groups List of CustomerGroup value for groups.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListCustomerGroupsResponse(
@@ -29,11 +34,6 @@ public class ListCustomerGroupsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<CustomerGroup> groups;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListCustomerGroupsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListCustomerGroupsResponse {
     /**
      * Getter for Groups.
      * A list of customer groups belonging to the current merchant.
+     * @return Returns the List of CustomerGroup
      */
     @JsonGetter("groups")
     public List<CustomerGroup> getGroups() {
@@ -58,10 +60,12 @@ public class ListCustomerGroupsResponse {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint. This value is present only if the request
-     * succeeded and additional results are available.
-     * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint. This value is present only if the request succeeded and additional results are
+     * available. See the [Pagination
+     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +80,16 @@ public class ListCustomerGroupsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListCustomerGroupsResponse)) {
+        if (!(obj instanceof ListCustomerGroupsResponse)) {
             return false;
         }
-        ListCustomerGroupsResponse listCustomerGroupsResponse = (ListCustomerGroupsResponse) obj;
-        return Objects.equals(errors, listCustomerGroupsResponse.errors) &&
-            Objects.equals(groups, listCustomerGroupsResponse.groups) &&
-            Objects.equals(cursor, listCustomerGroupsResponse.cursor);
+        ListCustomerGroupsResponse other = (ListCustomerGroupsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(groups, other.groups)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +102,11 @@ public class ListCustomerGroupsResponse {
             .errors(getErrors())
             .groups(getGroups())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListCustomerGroupsResponse}
+     * Class to build instances of {@link ListCustomerGroupsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +114,41 @@ public class ListCustomerGroupsResponse {
         private List<CustomerGroup> groups;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for groups
-         * @param groups
+         * Setter for groups.
+         * @param groups List of CustomerGroup value for groups.
          * @return Builder
          */
         public Builder groups(List<CustomerGroup> groups) {
             this.groups = groups;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +161,10 @@ public class ListCustomerGroupsResponse {
          * @return {@link ListCustomerGroupsResponse}
          */
         public ListCustomerGroupsResponse build() {
-            ListCustomerGroupsResponse model = new ListCustomerGroupsResponse(errors,
-                groups,
-                cursor);
+            ListCustomerGroupsResponse model =
+                    new ListCustomerGroupsResponse(errors,
+                            groups,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

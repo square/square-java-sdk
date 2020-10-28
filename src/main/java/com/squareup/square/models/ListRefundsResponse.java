@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListRefundsResponse type.
  */
 public class ListRefundsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<Refund> refunds;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param refunds
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param refunds List of Refund value for refunds.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListRefundsResponse(
@@ -29,11 +34,6 @@ public class ListRefundsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<Refund> refunds;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListRefundsResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListRefundsResponse {
     /**
      * Getter for Refunds.
      * An array of refunds that match your query.
+     * @return Returns the List of Refund
      */
     @JsonGetter("refunds")
     public List<Refund> getRefunds() {
@@ -58,10 +60,10 @@ public class ListRefundsResponse {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor for retrieving the next set of results,
-     * if any remain. Provide this value as the `cursor` parameter in a subsequent
-     * request to this endpoint.
-     * See [Paginating results](#paginatingresults) for more information.
+     * A pagination cursor for retrieving the next set of results, if any remain. Provide this value
+     * as the `cursor` parameter in a subsequent request to this endpoint. See [Paginating
+     * results](#paginatingresults) for more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +78,16 @@ public class ListRefundsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListRefundsResponse)) {
+        if (!(obj instanceof ListRefundsResponse)) {
             return false;
         }
-        ListRefundsResponse listRefundsResponse = (ListRefundsResponse) obj;
-        return Objects.equals(errors, listRefundsResponse.errors) &&
-            Objects.equals(refunds, listRefundsResponse.refunds) &&
-            Objects.equals(cursor, listRefundsResponse.cursor);
+        ListRefundsResponse other = (ListRefundsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(refunds, other.refunds)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +100,11 @@ public class ListRefundsResponse {
             .errors(getErrors())
             .refunds(getRefunds())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListRefundsResponse}
+     * Class to build instances of {@link ListRefundsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +112,41 @@ public class ListRefundsResponse {
         private List<Refund> refunds;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for refunds
-         * @param refunds
+         * Setter for refunds.
+         * @param refunds List of Refund value for refunds.
          * @return Builder
          */
         public Builder refunds(List<Refund> refunds) {
             this.refunds = refunds;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +159,10 @@ public class ListRefundsResponse {
          * @return {@link ListRefundsResponse}
          */
         public ListRefundsResponse build() {
-            ListRefundsResponse model = new ListRefundsResponse(errors,
-                refunds,
-                cursor);
+            ListRefundsResponse model =
+                    new ListRefundsResponse(errors,
+                            refunds,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

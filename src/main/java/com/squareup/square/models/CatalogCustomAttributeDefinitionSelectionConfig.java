@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfig type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfig {
+    private final Integer maxAllowedSelections;
+    private final List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
 
     /**
      * Initialization constructor.
-     * @param maxAllowedSelections
-     * @param allowedSelections
+     * @param maxAllowedSelections Integer value for maxAllowedSelections.
+     * @param allowedSelections List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for allowedSelections.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionSelectionConfig(
@@ -25,14 +28,13 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
         this.allowedSelections = allowedSelections;
     }
 
-    private final Integer maxAllowedSelections;
-    private final List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
     /**
      * Getter for MaxAllowedSelections.
-     * The maximum number of selections that can be set. The maximum value for this
-     * attribute is 100. The default value is 1. The value can be modified, but changing the value will not
-     * affect existing custom attribute values on objects. Clients need to
-     * handle custom attributes with more selected values than allowed by this limit.
+     * The maximum number of selections that can be set. The maximum value for this attribute is
+     * 100. The default value is 1. The value can be modified, but changing the value will not
+     * affect existing custom attribute values on objects. Clients need to handle custom attributes
+     * with more selected values than allowed by this limit.
+     * @return Returns the Integer
      */
     @JsonGetter("max_allowed_selections")
     public Integer getMaxAllowedSelections() {
@@ -41,8 +43,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
 
     /**
      * Getter for AllowedSelections.
-     * The set of valid `CatalogCustomAttributeSelections`. Up to a maximum of 100
-     * selections can be defined. Can be modified.
+     * The set of valid `CatalogCustomAttributeSelections`. Up to a maximum of 100 selections can be
+     * defined. Can be modified.
+     * @return Returns the List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection
      */
     @JsonGetter("allowed_selections")
     public List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> getAllowedSelections() {
@@ -57,15 +60,16 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogCustomAttributeDefinitionSelectionConfig)) {
+        if (!(obj instanceof CatalogCustomAttributeDefinitionSelectionConfig)) {
             return false;
         }
-        CatalogCustomAttributeDefinitionSelectionConfig catalogCustomAttributeDefinitionSelectionConfig = (CatalogCustomAttributeDefinitionSelectionConfig) obj;
-        return Objects.equals(maxAllowedSelections, catalogCustomAttributeDefinitionSelectionConfig.maxAllowedSelections) &&
-            Objects.equals(allowedSelections, catalogCustomAttributeDefinitionSelectionConfig.allowedSelections);
+        CatalogCustomAttributeDefinitionSelectionConfig other =
+                (CatalogCustomAttributeDefinitionSelectionConfig) obj;
+        return Objects.equals(maxAllowedSelections, other.maxAllowedSelections)
+            && Objects.equals(allowedSelections, other.allowedSelections);
     }
 
     /**
@@ -77,35 +81,31 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
         Builder builder = new Builder()
             .maxAllowedSelections(getMaxAllowedSelections())
             .allowedSelections(getAllowedSelections());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogCustomAttributeDefinitionSelectionConfig}
+     * Class to build instances of {@link CatalogCustomAttributeDefinitionSelectionConfig}.
      */
     public static class Builder {
         private Integer maxAllowedSelections;
         private List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for maxAllowedSelections
-         * @param maxAllowedSelections
+         * Setter for maxAllowedSelections.
+         * @param maxAllowedSelections Integer value for maxAllowedSelections.
          * @return Builder
          */
         public Builder maxAllowedSelections(Integer maxAllowedSelections) {
             this.maxAllowedSelections = maxAllowedSelections;
             return this;
         }
+
         /**
-         * Setter for allowedSelections
-         * @param allowedSelections
+         * Setter for allowedSelections.
+         * @param allowedSelections List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for allowedSelections.
          * @return Builder
          */
         public Builder allowedSelections(List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections) {
@@ -114,7 +114,8 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
         }
 
         /**
-         * Builds a new {@link CatalogCustomAttributeDefinitionSelectionConfig} object using the set fields.
+         * Builds a new {@link CatalogCustomAttributeDefinitionSelectionConfig} object using the set
+         * fields.
          * @return {@link CatalogCustomAttributeDefinitionSelectionConfig}
          */
         public CatalogCustomAttributeDefinitionSelectionConfig build() {

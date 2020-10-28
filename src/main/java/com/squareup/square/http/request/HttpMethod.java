@@ -1,7 +1,8 @@
+
 package com.squareup.square.http.request;
 
 /**
- * HTTP methods enumeration
+ * HTTP methods enumeration.
  */
 public enum HttpMethod {
     GET,

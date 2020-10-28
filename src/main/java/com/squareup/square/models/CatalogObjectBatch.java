@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogObjectBatch type.
  */
 public class CatalogObjectBatch {
+    private final List<CatalogObject> objects;
 
     /**
      * Initialization constructor.
-     * @param objects
+     * @param objects List of CatalogObject value for objects.
      */
     @JsonCreator
     public CatalogObjectBatch(
@@ -22,10 +24,10 @@ public class CatalogObjectBatch {
         this.objects = objects;
     }
 
-    private final List<CatalogObject> objects;
     /**
      * Getter for Objects.
      * A list of CatalogObjects belonging to this batch.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
@@ -40,14 +42,14 @@ public class CatalogObjectBatch {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogObjectBatch)) {
+        if (!(obj instanceof CatalogObjectBatch)) {
             return false;
         }
-        CatalogObjectBatch catalogObjectBatch = (CatalogObjectBatch) obj;
-        return Objects.equals(objects, catalogObjectBatch.objects);
+        CatalogObjectBatch other = (CatalogObjectBatch) obj;
+        return Objects.equals(objects, other.objects);
     }
 
     /**
@@ -57,25 +59,26 @@ public class CatalogObjectBatch {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(objects);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogObjectBatch}
+     * Class to build instances of {@link CatalogObjectBatch}.
      */
     public static class Builder {
         private List<CatalogObject> objects;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param objects List of CatalogObject value for objects.
          */
         public Builder(List<CatalogObject> objects) {
             this.objects = objects;
         }
 
         /**
-         * Setter for objects
-         * @param objects
+         * Setter for objects.
+         * @param objects List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {

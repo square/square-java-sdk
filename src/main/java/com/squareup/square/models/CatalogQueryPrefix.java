@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogQueryPrefix type.
  */
 public class CatalogQueryPrefix {
+    private final String attributeName;
+    private final String attributePrefix;
 
     /**
      * Initialization constructor.
-     * @param attributeName
-     * @param attributePrefix
+     * @param attributeName String value for attributeName.
+     * @param attributePrefix String value for attributePrefix.
      */
     @JsonCreator
     public CatalogQueryPrefix(
@@ -24,11 +27,10 @@ public class CatalogQueryPrefix {
         this.attributePrefix = attributePrefix;
     }
 
-    private final String attributeName;
-    private final String attributePrefix;
     /**
      * Getter for AttributeName.
      * The name of the attribute to be searched.
+     * @return Returns the String
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
@@ -38,6 +40,7 @@ public class CatalogQueryPrefix {
     /**
      * Getter for AttributePrefix.
      * The desired prefix of the search attribute value.
+     * @return Returns the String
      */
     @JsonGetter("attribute_prefix")
     public String getAttributePrefix() {
@@ -52,15 +55,15 @@ public class CatalogQueryPrefix {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogQueryPrefix)) {
+        if (!(obj instanceof CatalogQueryPrefix)) {
             return false;
         }
-        CatalogQueryPrefix catalogQueryPrefix = (CatalogQueryPrefix) obj;
-        return Objects.equals(attributeName, catalogQueryPrefix.attributeName) &&
-            Objects.equals(attributePrefix, catalogQueryPrefix.attributePrefix);
+        CatalogQueryPrefix other = (CatalogQueryPrefix) obj;
+        return Objects.equals(attributeName, other.attributeName)
+            && Objects.equals(attributePrefix, other.attributePrefix);
     }
 
     /**
@@ -71,18 +74,20 @@ public class CatalogQueryPrefix {
     public Builder toBuilder() {
         Builder builder = new Builder(attributeName,
             attributePrefix);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogQueryPrefix}
+     * Class to build instances of {@link CatalogQueryPrefix}.
      */
     public static class Builder {
         private String attributeName;
         private String attributePrefix;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param attributeName String value for attributeName.
+         * @param attributePrefix String value for attributePrefix.
          */
         public Builder(String attributeName,
                 String attributePrefix) {
@@ -91,17 +96,18 @@ public class CatalogQueryPrefix {
         }
 
         /**
-         * Setter for attributeName
-         * @param attributeName
+         * Setter for attributeName.
+         * @param attributeName String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
             this.attributeName = attributeName;
             return this;
         }
+
         /**
-         * Setter for attributePrefix
-         * @param attributePrefix
+         * Setter for attributePrefix.
+         * @param attributePrefix String value for attributePrefix.
          * @return Builder
          */
         public Builder attributePrefix(String attributePrefix) {

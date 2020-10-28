@@ -1,24 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1Page type.
  */
 public class V1Page {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final Integer pageIndex;
+    private final List<V1PageCell> cells;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param pageIndex
-     * @param cells
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param pageIndex Integer value for pageIndex.
+     * @param cells List of V1PageCell value for cells.
      */
     @JsonCreator
     public V1Page(
@@ -32,12 +38,6 @@ public class V1Page {
         this.cells = cells;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final Integer pageIndex;
-    private final List<V1PageCell> cells;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -45,6 +45,7 @@ public class V1Page {
     /**
      * Getter for Id.
      * The page's unique identifier.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -54,6 +55,7 @@ public class V1Page {
     /**
      * Getter for Name.
      * The page's name, if any.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -62,7 +64,9 @@ public class V1Page {
 
     /**
      * Getter for PageIndex.
-     * The page's position in the merchant's list of pages. Always an integer between 0 and 6, inclusive.
+     * The page's position in the merchant's list of pages. Always an integer between 0 and 6,
+     * inclusive.
+     * @return Returns the Integer
      */
     @JsonGetter("page_index")
     public Integer getPageIndex() {
@@ -72,6 +76,7 @@ public class V1Page {
     /**
      * Getter for Cells.
      * The cells included on the page.
+     * @return Returns the List of V1PageCell
      */
     @JsonGetter("cells")
     public List<V1PageCell> getCells() {
@@ -86,17 +91,17 @@ public class V1Page {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Page)) {
+        if (!(obj instanceof V1Page)) {
             return false;
         }
-        V1Page v1Page = (V1Page) obj;
-        return Objects.equals(id, v1Page.id) &&
-            Objects.equals(name, v1Page.name) &&
-            Objects.equals(pageIndex, v1Page.pageIndex) &&
-            Objects.equals(cells, v1Page.cells);
+        V1Page other = (V1Page) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(pageIndex, other.pageIndex)
+            && Objects.equals(cells, other.cells);
     }
 
     /**
@@ -110,11 +115,11 @@ public class V1Page {
             .name(getName())
             .pageIndex(getPageIndex())
             .cells(getCells());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Page}
+     * Class to build instances of {@link V1Page}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -123,52 +128,51 @@ public class V1Page {
         private Integer pageIndex;
         private List<V1PageCell> cells;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for pageIndex
-         * @param pageIndex
+         * Setter for pageIndex.
+         * @param pageIndex Integer value for pageIndex.
          * @return Builder
          */
         public Builder pageIndex(Integer pageIndex) {
             this.pageIndex = pageIndex;
             return this;
         }
+
         /**
-         * Setter for cells
-         * @param cells
+         * Setter for cells.
+         * @param cells List of V1PageCell value for cells.
          * @return Builder
          */
         public Builder cells(List<V1PageCell> cells) {
@@ -181,10 +185,11 @@ public class V1Page {
          * @return {@link V1Page}
          */
         public V1Page build() {
-            V1Page model = new V1Page(id,
-                name,
-                pageIndex,
-                cells);
+            V1Page model =
+                    new V1Page(id,
+                            name,
+                            pageIndex,
+                            cells);
             model.httpContext = httpContext;
             return model;
         }

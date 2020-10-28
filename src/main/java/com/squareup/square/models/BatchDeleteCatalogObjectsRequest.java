@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BatchDeleteCatalogObjectsRequest type.
  */
 public class BatchDeleteCatalogObjectsRequest {
+    private final List<String> objectIds;
 
     /**
      * Initialization constructor.
-     * @param objectIds
+     * @param objectIds List of String value for objectIds.
      */
     @JsonCreator
     public BatchDeleteCatalogObjectsRequest(
@@ -22,12 +24,12 @@ public class BatchDeleteCatalogObjectsRequest {
         this.objectIds = objectIds;
     }
 
-    private final List<String> objectIds;
     /**
      * Getter for ObjectIds.
-     * The IDs of the CatalogObjects to be deleted. When an object is deleted, other objects
-     * in the graph that depend on that object will be deleted as well (for example, deleting a
-     * CatalogItem will delete its CatalogItemVariation.
+     * The IDs of the CatalogObjects to be deleted. When an object is deleted, other objects in the
+     * graph that depend on that object will be deleted as well (for example, deleting a CatalogItem
+     * will delete its CatalogItemVariation.
+     * @return Returns the List of String
      */
     @JsonGetter("object_ids")
     public List<String> getObjectIds() {
@@ -42,14 +44,14 @@ public class BatchDeleteCatalogObjectsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchDeleteCatalogObjectsRequest)) {
+        if (!(obj instanceof BatchDeleteCatalogObjectsRequest)) {
             return false;
         }
-        BatchDeleteCatalogObjectsRequest batchDeleteCatalogObjectsRequest = (BatchDeleteCatalogObjectsRequest) obj;
-        return Objects.equals(objectIds, batchDeleteCatalogObjectsRequest.objectIds);
+        BatchDeleteCatalogObjectsRequest other = (BatchDeleteCatalogObjectsRequest) obj;
+        return Objects.equals(objectIds, other.objectIds);
     }
 
     /**
@@ -60,25 +62,20 @@ public class BatchDeleteCatalogObjectsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .objectIds(getObjectIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchDeleteCatalogObjectsRequest}
+     * Class to build instances of {@link BatchDeleteCatalogObjectsRequest}.
      */
     public static class Builder {
         private List<String> objectIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for objectIds
-         * @param objectIds
+         * Setter for objectIds.
+         * @param objectIds List of String value for objectIds.
          * @return Builder
          */
         public Builder objectIds(List<String> objectIds) {

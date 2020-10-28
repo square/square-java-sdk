@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchLoyaltyRewardsRequestLoyaltyRewardQuery type.
  */
 public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
+    private final String loyaltyAccountId;
+    private final String status;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId
-     * @param status
+     * @param loyaltyAccountId String value for loyaltyAccountId.
+     * @param status String value for status.
      */
     @JsonCreator
     public SearchLoyaltyRewardsRequestLoyaltyRewardQuery(
@@ -24,11 +27,10 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
         this.status = status;
     }
 
-    private final String loyaltyAccountId;
-    private final String status;
     /**
      * Getter for LoyaltyAccountId.
      * The ID of the [loyalty account](#type-LoyaltyAccount) to which the loyalty reward belongs.
+     * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
@@ -38,6 +40,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     /**
      * Getter for Status.
      * The status of the loyalty reward.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -52,15 +55,16 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchLoyaltyRewardsRequestLoyaltyRewardQuery)) {
+        if (!(obj instanceof SearchLoyaltyRewardsRequestLoyaltyRewardQuery)) {
             return false;
         }
-        SearchLoyaltyRewardsRequestLoyaltyRewardQuery searchLoyaltyRewardsRequestLoyaltyRewardQuery = (SearchLoyaltyRewardsRequestLoyaltyRewardQuery) obj;
-        return Objects.equals(loyaltyAccountId, searchLoyaltyRewardsRequestLoyaltyRewardQuery.loyaltyAccountId) &&
-            Objects.equals(status, searchLoyaltyRewardsRequestLoyaltyRewardQuery.status);
+        SearchLoyaltyRewardsRequestLoyaltyRewardQuery other =
+                (SearchLoyaltyRewardsRequestLoyaltyRewardQuery) obj;
+        return Objects.equals(loyaltyAccountId, other.loyaltyAccountId)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -71,35 +75,37 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     public Builder toBuilder() {
         Builder builder = new Builder(loyaltyAccountId)
             .status(getStatus());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery}
+     * Class to build instances of {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery}.
      */
     public static class Builder {
         private String loyaltyAccountId;
         private String status;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
          */
         public Builder(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
         }
 
         /**
-         * Setter for loyaltyAccountId
-         * @param loyaltyAccountId
+         * Setter for loyaltyAccountId.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -108,7 +114,8 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
         }
 
         /**
-         * Builds a new {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery} object using the set fields.
+         * Builds a new {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery} object using the set
+         * fields.
          * @return {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery}
          */
         public SearchLoyaltyRewardsRequestLoyaltyRewardQuery build() {

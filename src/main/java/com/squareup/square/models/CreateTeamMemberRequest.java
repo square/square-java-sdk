@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateTeamMemberRequest type.
  */
 public class CreateTeamMemberRequest {
+    private final String idempotencyKey;
+    private final TeamMember teamMember;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param teamMember
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param teamMember TeamMember value for teamMember.
      */
     @JsonCreator
     public CreateTeamMemberRequest(
@@ -24,15 +27,13 @@ public class CreateTeamMemberRequest {
         this.teamMember = teamMember;
     }
 
-    private final String idempotencyKey;
-    private final TeamMember teamMember;
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this CreateTeamMember request.
-     * Keys can be any valid string but must be unique for every request.
-     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
-     * <br>
-     * <b>Min Length 1    Max Length 45</b>
+     * A unique string that identifies this CreateTeamMember request. Keys can be any valid string
+     * but must be unique for every request. See [Idempotency
+     * keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * <br> <b>Min Length 1 Max Length 45</b>
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -42,6 +43,7 @@ public class CreateTeamMemberRequest {
     /**
      * Getter for TeamMember.
      * A record representing an individual team member for a business.
+     * @return Returns the TeamMember
      */
     @JsonGetter("team_member")
     public TeamMember getTeamMember() {
@@ -56,15 +58,15 @@ public class CreateTeamMemberRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateTeamMemberRequest)) {
+        if (!(obj instanceof CreateTeamMemberRequest)) {
             return false;
         }
-        CreateTeamMemberRequest createTeamMemberRequest = (CreateTeamMemberRequest) obj;
-        return Objects.equals(idempotencyKey, createTeamMemberRequest.idempotencyKey) &&
-            Objects.equals(teamMember, createTeamMemberRequest.teamMember);
+        CreateTeamMemberRequest other = (CreateTeamMemberRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(teamMember, other.teamMember);
     }
 
     /**
@@ -76,35 +78,31 @@ public class CreateTeamMemberRequest {
         Builder builder = new Builder()
             .idempotencyKey(getIdempotencyKey())
             .teamMember(getTeamMember());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateTeamMemberRequest}
+     * Class to build instances of {@link CreateTeamMemberRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
         private TeamMember teamMember;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for teamMember
-         * @param teamMember
+         * Setter for teamMember.
+         * @param teamMember TeamMember value for teamMember.
          * @return Builder
          */
         public Builder teamMember(TeamMember teamMember) {

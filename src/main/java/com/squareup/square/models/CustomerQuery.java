@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CustomerQuery type.
  */
 public class CustomerQuery {
+    private final CustomerFilter filter;
+    private final CustomerSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter
-     * @param sort
+     * @param filter CustomerFilter value for filter.
+     * @param sort CustomerSort value for sort.
      */
     @JsonCreator
     public CustomerQuery(
@@ -24,12 +27,11 @@ public class CustomerQuery {
         this.sort = sort;
     }
 
-    private final CustomerFilter filter;
-    private final CustomerSort sort;
     /**
      * Getter for Filter.
-     * Represents a set of `CustomerQuery` filters used to limit the set of
-     * `Customers` returned by `SearchCustomers`.
+     * Represents a set of `CustomerQuery` filters used to limit the set of `Customers` returned by
+     * `SearchCustomers`.
+     * @return Returns the CustomerFilter
      */
     @JsonGetter("filter")
     public CustomerFilter getFilter() {
@@ -39,6 +41,7 @@ public class CustomerQuery {
     /**
      * Getter for Sort.
      * Specifies how searched customers profiles are sorted, including the sort key and sort order.
+     * @return Returns the CustomerSort
      */
     @JsonGetter("sort")
     public CustomerSort getSort() {
@@ -53,15 +56,15 @@ public class CustomerQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerQuery)) {
+        if (!(obj instanceof CustomerQuery)) {
             return false;
         }
-        CustomerQuery customerQuery = (CustomerQuery) obj;
-        return Objects.equals(filter, customerQuery.filter) &&
-            Objects.equals(sort, customerQuery.sort);
+        CustomerQuery other = (CustomerQuery) obj;
+        return Objects.equals(filter, other.filter)
+            && Objects.equals(sort, other.sort);
     }
 
     /**
@@ -73,35 +76,31 @@ public class CustomerQuery {
         Builder builder = new Builder()
             .filter(getFilter())
             .sort(getSort());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerQuery}
+     * Class to build instances of {@link CustomerQuery}.
      */
     public static class Builder {
         private CustomerFilter filter;
         private CustomerSort sort;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter CustomerFilter value for filter.
          * @return Builder
          */
         public Builder filter(CustomerFilter filter) {
             this.filter = filter;
             return this;
         }
+
         /**
-         * Setter for sort
-         * @param sort
+         * Setter for sort.
+         * @param sort CustomerSort value for sort.
          * @return Builder
          */
         public Builder sort(CustomerSort sort) {

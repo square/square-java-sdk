@@ -1,12 +1,13 @@
-## V1 Payment Surcharge
+
+# V1 Payment Surcharge
 
 V1PaymentSurcharge
 
-### Structure
+## Structure
 
 `V1PaymentSurcharge`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -19,7 +20,7 @@ V1PaymentSurcharge
 | `Taxes` | [`List<V1PaymentTax>`](/doc/models/v1-payment-tax.md) | Optional | The list of taxes that should be applied to the surcharge. | List<V1PaymentTax> getTaxes() |
 | `SurchargeId` | `String` | Optional | A Square-issued unique identifier associated with the surcharge. | String getSurchargeId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

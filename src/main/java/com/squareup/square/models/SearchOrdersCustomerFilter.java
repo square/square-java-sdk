@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for SearchOrdersCustomerFilter type.
  */
 public class SearchOrdersCustomerFilter {
+    private final List<String> customerIds;
 
     /**
      * Initialization constructor.
-     * @param customerIds
+     * @param customerIds List of String value for customerIds.
      */
     @JsonCreator
     public SearchOrdersCustomerFilter(
@@ -22,11 +24,10 @@ public class SearchOrdersCustomerFilter {
         this.customerIds = customerIds;
     }
 
-    private final List<String> customerIds;
     /**
      * Getter for CustomerIds.
-     * List of customer IDs to filter by.
-     * Max: 10 customer IDs.
+     * List of customer IDs to filter by. Max: 10 customer IDs.
+     * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
@@ -41,14 +42,14 @@ public class SearchOrdersCustomerFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersCustomerFilter)) {
+        if (!(obj instanceof SearchOrdersCustomerFilter)) {
             return false;
         }
-        SearchOrdersCustomerFilter searchOrdersCustomerFilter = (SearchOrdersCustomerFilter) obj;
-        return Objects.equals(customerIds, searchOrdersCustomerFilter.customerIds);
+        SearchOrdersCustomerFilter other = (SearchOrdersCustomerFilter) obj;
+        return Objects.equals(customerIds, other.customerIds);
     }
 
     /**
@@ -59,25 +60,20 @@ public class SearchOrdersCustomerFilter {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .customerIds(getCustomerIds());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersCustomerFilter}
+     * Class to build instances of {@link SearchOrdersCustomerFilter}.
      */
     public static class Builder {
         private List<String> customerIds;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customerIds
-         * @param customerIds
+         * Setter for customerIds.
+         * @param customerIds List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {

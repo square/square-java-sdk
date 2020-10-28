@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for InventoryChange type.
  */
 public class InventoryChange {
+    private final String type;
+    private final InventoryPhysicalCount physicalCount;
+    private final InventoryAdjustment adjustment;
+    private final InventoryTransfer transfer;
 
     /**
      * Initialization constructor.
-     * @param type
-     * @param physicalCount
-     * @param adjustment
-     * @param transfer
+     * @param type String value for type.
+     * @param physicalCount InventoryPhysicalCount value for physicalCount.
+     * @param adjustment InventoryAdjustment value for adjustment.
+     * @param transfer InventoryTransfer value for transfer.
      */
     @JsonCreator
     public InventoryChange(
@@ -30,13 +35,10 @@ public class InventoryChange {
         this.transfer = transfer;
     }
 
-    private final String type;
-    private final InventoryPhysicalCount physicalCount;
-    private final InventoryAdjustment adjustment;
-    private final InventoryTransfer transfer;
     /**
      * Getter for Type.
      * Indicates how the inventory change was applied to a tracked quantity of items.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -45,10 +47,11 @@ public class InventoryChange {
 
     /**
      * Getter for PhysicalCount.
-     * Represents the quantity of an item variation that is physically present
-     * at a specific location, verified by a seller or a seller's employee. For example,
-     * a physical count might come from an employee counting the item variations on
-     * hand or from syncing with an external system.
+     * Represents the quantity of an item variation that is physically present at a specific
+     * location, verified by a seller or a seller's employee. For example, a physical count might
+     * come from an employee counting the item variations on hand or from syncing with an external
+     * system.
+     * @return Returns the InventoryPhysicalCount
      */
     @JsonGetter("physical_count")
     public InventoryPhysicalCount getPhysicalCount() {
@@ -57,8 +60,9 @@ public class InventoryChange {
 
     /**
      * Getter for Adjustment.
-     * Represents a change in state or quantity of product inventory at a
-     * particular time and location.
+     * Represents a change in state or quantity of product inventory at a particular time and
+     * location.
+     * @return Returns the InventoryAdjustment
      */
     @JsonGetter("adjustment")
     public InventoryAdjustment getAdjustment() {
@@ -67,8 +71,9 @@ public class InventoryChange {
 
     /**
      * Getter for Transfer.
-     * Represents the transfer of a quantity of product inventory at a
-     * particular time from one location to another.
+     * Represents the transfer of a quantity of product inventory at a particular time from one
+     * location to another.
+     * @return Returns the InventoryTransfer
      */
     @JsonGetter("transfer")
     public InventoryTransfer getTransfer() {
@@ -83,17 +88,17 @@ public class InventoryChange {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InventoryChange)) {
+        if (!(obj instanceof InventoryChange)) {
             return false;
         }
-        InventoryChange inventoryChange = (InventoryChange) obj;
-        return Objects.equals(type, inventoryChange.type) &&
-            Objects.equals(physicalCount, inventoryChange.physicalCount) &&
-            Objects.equals(adjustment, inventoryChange.adjustment) &&
-            Objects.equals(transfer, inventoryChange.transfer);
+        InventoryChange other = (InventoryChange) obj;
+        return Objects.equals(type, other.type)
+            && Objects.equals(physicalCount, other.physicalCount)
+            && Objects.equals(adjustment, other.adjustment)
+            && Objects.equals(transfer, other.transfer);
     }
 
     /**
@@ -107,11 +112,11 @@ public class InventoryChange {
             .physicalCount(getPhysicalCount())
             .adjustment(getAdjustment())
             .transfer(getTransfer());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InventoryChange}
+     * Class to build instances of {@link InventoryChange}.
      */
     public static class Builder {
         private String type;
@@ -119,43 +124,41 @@ public class InventoryChange {
         private InventoryAdjustment adjustment;
         private InventoryTransfer transfer;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for physicalCount
-         * @param physicalCount
+         * Setter for physicalCount.
+         * @param physicalCount InventoryPhysicalCount value for physicalCount.
          * @return Builder
          */
         public Builder physicalCount(InventoryPhysicalCount physicalCount) {
             this.physicalCount = physicalCount;
             return this;
         }
+
         /**
-         * Setter for adjustment
-         * @param adjustment
+         * Setter for adjustment.
+         * @param adjustment InventoryAdjustment value for adjustment.
          * @return Builder
          */
         public Builder adjustment(InventoryAdjustment adjustment) {
             this.adjustment = adjustment;
             return this;
         }
+
         /**
-         * Setter for transfer
-         * @param transfer
+         * Setter for transfer.
+         * @param transfer InventoryTransfer value for transfer.
          * @return Builder
          */
         public Builder transfer(InventoryTransfer transfer) {

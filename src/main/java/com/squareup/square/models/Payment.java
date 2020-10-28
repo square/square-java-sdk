@@ -1,47 +1,76 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for Payment type.
  */
 public class Payment {
+    private final String id;
+    private final String createdAt;
+    private final String updatedAt;
+    private final Money amountMoney;
+    private final Money tipMoney;
+    private final Money totalMoney;
+    private final Money appFeeMoney;
+    private final List<ProcessingFee> processingFee;
+    private final Money refundedMoney;
+    private final String status;
+    private final String delayDuration;
+    private final String delayAction;
+    private final String delayedUntil;
+    private final String sourceType;
+    private final CardPaymentDetails cardDetails;
+    private final String locationId;
+    private final String orderId;
+    private final String referenceId;
+    private final String customerId;
+    private final String employeeId;
+    private final List<String> refundIds;
+    private final String buyerEmailAddress;
+    private final Address billingAddress;
+    private final Address shippingAddress;
+    private final String note;
+    private final String statementDescriptionIdentifier;
+    private final String receiptNumber;
+    private final String receiptUrl;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param createdAt
-     * @param updatedAt
-     * @param amountMoney
-     * @param tipMoney
-     * @param totalMoney
-     * @param appFeeMoney
-     * @param processingFee
-     * @param refundedMoney
-     * @param status
-     * @param delayDuration
-     * @param delayAction
-     * @param delayedUntil
-     * @param sourceType
-     * @param cardDetails
-     * @param locationId
-     * @param orderId
-     * @param referenceId
-     * @param customerId
-     * @param employeeId
-     * @param refundIds
-     * @param buyerEmailAddress
-     * @param billingAddress
-     * @param shippingAddress
-     * @param note
-     * @param statementDescriptionIdentifier
-     * @param receiptNumber
-     * @param receiptUrl
+     * @param id String value for id.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param amountMoney Money value for amountMoney.
+     * @param tipMoney Money value for tipMoney.
+     * @param totalMoney Money value for totalMoney.
+     * @param appFeeMoney Money value for appFeeMoney.
+     * @param processingFee List of ProcessingFee value for processingFee.
+     * @param refundedMoney Money value for refundedMoney.
+     * @param status String value for status.
+     * @param delayDuration String value for delayDuration.
+     * @param delayAction String value for delayAction.
+     * @param delayedUntil String value for delayedUntil.
+     * @param sourceType String value for sourceType.
+     * @param cardDetails CardPaymentDetails value for cardDetails.
+     * @param locationId String value for locationId.
+     * @param orderId String value for orderId.
+     * @param referenceId String value for referenceId.
+     * @param customerId String value for customerId.
+     * @param employeeId String value for employeeId.
+     * @param refundIds List of String value for refundIds.
+     * @param buyerEmailAddress String value for buyerEmailAddress.
+     * @param billingAddress Address value for billingAddress.
+     * @param shippingAddress Address value for shippingAddress.
+     * @param note String value for note.
+     * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
+     * @param receiptNumber String value for receiptNumber.
+     * @param receiptUrl String value for receiptUrl.
      */
     @JsonCreator
     public Payment(
@@ -103,37 +132,10 @@ public class Payment {
         this.receiptUrl = receiptUrl;
     }
 
-    private final String id;
-    private final String createdAt;
-    private final String updatedAt;
-    private final Money amountMoney;
-    private final Money tipMoney;
-    private final Money totalMoney;
-    private final Money appFeeMoney;
-    private final List<ProcessingFee> processingFee;
-    private final Money refundedMoney;
-    private final String status;
-    private final String delayDuration;
-    private final String delayAction;
-    private final String delayedUntil;
-    private final String sourceType;
-    private final CardPaymentDetails cardDetails;
-    private final String locationId;
-    private final String orderId;
-    private final String referenceId;
-    private final String customerId;
-    private final String employeeId;
-    private final List<String> refundIds;
-    private final String buyerEmailAddress;
-    private final Address billingAddress;
-    private final Address shippingAddress;
-    private final String note;
-    private final String statementDescriptionIdentifier;
-    private final String receiptNumber;
-    private final String receiptUrl;
     /**
      * Getter for Id.
      * Unique ID for the payment.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -143,6 +145,7 @@ public class Payment {
     /**
      * Getter for CreatedAt.
      * Timestamp of when the payment was created, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -152,6 +155,7 @@ public class Payment {
     /**
      * Getter for UpdatedAt.
      * Timestamp of when the payment was last updated, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -160,12 +164,13 @@ public class Payment {
 
     /**
      * Getter for AmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
@@ -174,12 +179,13 @@ public class Payment {
 
     /**
      * Getter for TipMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("tip_money")
     public Money getTipMoney() {
@@ -188,12 +194,13 @@ public class Payment {
 
     /**
      * Getter for TotalMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
@@ -202,12 +209,13 @@ public class Payment {
 
     /**
      * Getter for AppFeeMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
@@ -217,6 +225,7 @@ public class Payment {
     /**
      * Getter for ProcessingFee.
      * Processing fees and fee adjustments assessed by Square on this payment.
+     * @return Returns the List of ProcessingFee
      */
     @JsonGetter("processing_fee")
     public List<ProcessingFee> getProcessingFee() {
@@ -225,12 +234,13 @@ public class Payment {
 
     /**
      * Getter for RefundedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("refunded_money")
     public Money getRefundedMoney() {
@@ -240,6 +250,7 @@ public class Payment {
     /**
      * Getter for Status.
      * Indicates whether the payment is `APPROVED`, `COMPLETED`, `CANCELED`, or `FAILED`.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -251,13 +262,11 @@ public class Payment {
      * The duration of time after the payment's creation when Square automatically applies the
      * `delay_action` to the payment. This automatic `delay_action` applies only to payments that
      * don't reach a terminal state (COMPLETED, CANCELED, or FAILED) before the `delay_duration`
-     * time period.
-     * This field is specified as a time duration, in RFC 3339 format.
-     * Notes:
-     * This feature is only supported for card payments.
-     * Default:
-     * - Card Present payments: "PT36H" (36 hours) from the creation time.
-     * - Card Not Present payments: "P7D" (7 days) from the creation time.
+     * time period. This field is specified as a time duration, in RFC 3339 format. Notes: This
+     * feature is only supported for card payments. Default: - Card Present payments: "PT36H" (36
+     * hours) from the creation time. - Card Not Present payments: "P7D" (7 days) from the creation
+     * time.
+     * @return Returns the String
      */
     @JsonGetter("delay_duration")
     public String getDelayDuration() {
@@ -266,10 +275,9 @@ public class Payment {
 
     /**
      * Getter for DelayAction.
-     * The action to be applied to the payment when the `delay_duration` has elapsed. This field
-     * is read only.
-     * Current values include:
-     * `CANCEL`
+     * The action to be applied to the payment when the `delay_duration` has elapsed. This field is
+     * read only. Current values include: `CANCEL`
+     * @return Returns the String
      */
     @JsonGetter("delay_action")
     public String getDelayAction() {
@@ -278,11 +286,11 @@ public class Payment {
 
     /**
      * Getter for DelayedUntil.
-     * Read only timestamp of when the `delay_action` will automatically be applied,
-     * in RFC 3339 format.
-     * Note that this field is calculated by summing the payment's `delay_duration` and `created_at`
-     * fields. The `created_at` field is generated by Square and may not exactly match the
-     * time on your local machine.
+     * Read only timestamp of when the `delay_action` will automatically be applied, in RFC 3339
+     * format. Note that this field is calculated by summing the payment's `delay_duration` and
+     * `created_at` fields. The `created_at` field is generated by Square and may not exactly match
+     * the time on your local machine.
+     * @return Returns the String
      */
     @JsonGetter("delayed_until")
     public String getDelayedUntil() {
@@ -291,8 +299,8 @@ public class Payment {
 
     /**
      * Getter for SourceType.
-     * The source type for this payment
-     * Current values include: `CARD`.
+     * The source type for this payment Current values include: `CARD`.
+     * @return Returns the String
      */
     @JsonGetter("source_type")
     public String getSourceType() {
@@ -302,6 +310,7 @@ public class Payment {
     /**
      * Getter for CardDetails.
      * Reflects the current status of a card payment.
+     * @return Returns the CardPaymentDetails
      */
     @JsonGetter("card_details")
     public CardPaymentDetails getCardDetails() {
@@ -311,6 +320,7 @@ public class Payment {
     /**
      * Getter for LocationId.
      * ID of the location associated with the payment.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -320,6 +330,7 @@ public class Payment {
     /**
      * Getter for OrderId.
      * ID of the order associated with this payment.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -328,8 +339,8 @@ public class Payment {
 
     /**
      * Getter for ReferenceId.
-     * An optional ID that associates this payment with an entity in
-     * another system.
+     * An optional ID that associates this payment with an entity in another system.
+     * @return Returns the String
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
@@ -339,6 +350,7 @@ public class Payment {
     /**
      * Getter for CustomerId.
      * The [Customer](#type-customer) ID of the customer associated with the payment.
+     * @return Returns the String
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
@@ -348,6 +360,7 @@ public class Payment {
     /**
      * Getter for EmployeeId.
      * An optional ID of the employee associated with taking this payment.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -357,6 +370,7 @@ public class Payment {
     /**
      * Getter for RefundIds.
      * List of `refund_id`s identifying refunds for this payment.
+     * @return Returns the List of String
      */
     @JsonGetter("refund_ids")
     public List<String> getRefundIds() {
@@ -366,6 +380,7 @@ public class Payment {
     /**
      * Getter for BuyerEmailAddress.
      * The buyer's e-mail address
+     * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
     public String getBuyerEmailAddress() {
@@ -375,6 +390,7 @@ public class Payment {
     /**
      * Getter for BillingAddress.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
@@ -384,6 +400,7 @@ public class Payment {
     /**
      * Getter for ShippingAddress.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
@@ -393,6 +410,7 @@ public class Payment {
     /**
      * Getter for Note.
      * An optional note to include when creating a payment
+     * @return Returns the String
      */
     @JsonGetter("note")
     public String getNote() {
@@ -401,11 +419,11 @@ public class Payment {
 
     /**
      * Getter for StatementDescriptionIdentifier.
-     * Additional payment information that gets added on the customer's card statement
-     * as part of the statement description.
-     * Note that the `statement_description_identifier` may get truncated on the statement description
-     * to fit the required information including the Square identifier (SQ *) and name of the
-     * merchant taking the payment.
+     * Additional payment information that gets added on the customer's card statement as part of
+     * the statement description. Note that the `statement_description_identifier` may get truncated
+     * on the statement description to fit the required information including the Square identifier
+     * (SQ *) and name of the merchant taking the payment.
+     * @return Returns the String
      */
     @JsonGetter("statement_description_identifier")
     public String getStatementDescriptionIdentifier() {
@@ -414,8 +432,8 @@ public class Payment {
 
     /**
      * Getter for ReceiptNumber.
-     * The payment's receipt number.
-     * The field will be missing if a payment is CANCELED
+     * The payment's receipt number. The field will be missing if a payment is CANCELED
+     * @return Returns the String
      */
     @JsonGetter("receipt_number")
     public String getReceiptNumber() {
@@ -424,8 +442,8 @@ public class Payment {
 
     /**
      * Getter for ReceiptUrl.
-     * The URL for the payment's receipt.
-     * The field will only be populated for COMPLETED payments.
+     * The URL for the payment's receipt. The field will only be populated for COMPLETED payments.
+     * @return Returns the String
      */
     @JsonGetter("receipt_url")
     public String getReceiptUrl() {
@@ -435,50 +453,51 @@ public class Payment {
  
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney, appFeeMoney,
-            processingFee, refundedMoney, status, delayDuration, delayAction, delayedUntil,
-            sourceType, cardDetails, locationId, orderId, referenceId, customerId, employeeId,
-            refundIds, buyerEmailAddress, billingAddress, shippingAddress, note,
-            statementDescriptionIdentifier, receiptNumber, receiptUrl);
+        return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
+                appFeeMoney, processingFee, refundedMoney, status, delayDuration, delayAction,
+                delayedUntil, sourceType, cardDetails, locationId, orderId, referenceId, customerId,
+                employeeId, refundIds, buyerEmailAddress, billingAddress, shippingAddress, note,
+                statementDescriptionIdentifier, receiptNumber, receiptUrl);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Payment)) {
+        if (!(obj instanceof Payment)) {
             return false;
         }
-        Payment payment = (Payment) obj;
-        return Objects.equals(id, payment.id) &&
-            Objects.equals(createdAt, payment.createdAt) &&
-            Objects.equals(updatedAt, payment.updatedAt) &&
-            Objects.equals(amountMoney, payment.amountMoney) &&
-            Objects.equals(tipMoney, payment.tipMoney) &&
-            Objects.equals(totalMoney, payment.totalMoney) &&
-            Objects.equals(appFeeMoney, payment.appFeeMoney) &&
-            Objects.equals(processingFee, payment.processingFee) &&
-            Objects.equals(refundedMoney, payment.refundedMoney) &&
-            Objects.equals(status, payment.status) &&
-            Objects.equals(delayDuration, payment.delayDuration) &&
-            Objects.equals(delayAction, payment.delayAction) &&
-            Objects.equals(delayedUntil, payment.delayedUntil) &&
-            Objects.equals(sourceType, payment.sourceType) &&
-            Objects.equals(cardDetails, payment.cardDetails) &&
-            Objects.equals(locationId, payment.locationId) &&
-            Objects.equals(orderId, payment.orderId) &&
-            Objects.equals(referenceId, payment.referenceId) &&
-            Objects.equals(customerId, payment.customerId) &&
-            Objects.equals(employeeId, payment.employeeId) &&
-            Objects.equals(refundIds, payment.refundIds) &&
-            Objects.equals(buyerEmailAddress, payment.buyerEmailAddress) &&
-            Objects.equals(billingAddress, payment.billingAddress) &&
-            Objects.equals(shippingAddress, payment.shippingAddress) &&
-            Objects.equals(note, payment.note) &&
-            Objects.equals(statementDescriptionIdentifier, payment.statementDescriptionIdentifier) &&
-            Objects.equals(receiptNumber, payment.receiptNumber) &&
-            Objects.equals(receiptUrl, payment.receiptUrl);
+        Payment other = (Payment) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(amountMoney, other.amountMoney)
+            && Objects.equals(tipMoney, other.tipMoney)
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(appFeeMoney, other.appFeeMoney)
+            && Objects.equals(processingFee, other.processingFee)
+            && Objects.equals(refundedMoney, other.refundedMoney)
+            && Objects.equals(status, other.status)
+            && Objects.equals(delayDuration, other.delayDuration)
+            && Objects.equals(delayAction, other.delayAction)
+            && Objects.equals(delayedUntil, other.delayedUntil)
+            && Objects.equals(sourceType, other.sourceType)
+            && Objects.equals(cardDetails, other.cardDetails)
+            && Objects.equals(locationId, other.locationId)
+            && Objects.equals(orderId, other.orderId)
+            && Objects.equals(referenceId, other.referenceId)
+            && Objects.equals(customerId, other.customerId)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(refundIds, other.refundIds)
+            && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
+            && Objects.equals(billingAddress, other.billingAddress)
+            && Objects.equals(shippingAddress, other.shippingAddress)
+            && Objects.equals(note, other.note)
+            && Objects.equals(statementDescriptionIdentifier,
+                    other.statementDescriptionIdentifier)
+            && Objects.equals(receiptNumber, other.receiptNumber)
+            && Objects.equals(receiptUrl, other.receiptUrl);
     }
 
     /**
@@ -516,11 +535,11 @@ public class Payment {
             .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
             .receiptNumber(getReceiptNumber())
             .receiptUrl(getReceiptUrl());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Payment}
+     * Class to build instances of {@link Payment}.
      */
     public static class Builder {
         private String id;
@@ -552,259 +571,281 @@ public class Payment {
         private String receiptNumber;
         private String receiptUrl;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
             this.amountMoney = amountMoney;
             return this;
         }
+
         /**
-         * Setter for tipMoney
-         * @param tipMoney
+         * Setter for tipMoney.
+         * @param tipMoney Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(Money tipMoney) {
             this.tipMoney = tipMoney;
             return this;
         }
+
         /**
-         * Setter for totalMoney
-         * @param totalMoney
+         * Setter for totalMoney.
+         * @param totalMoney Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
             this.totalMoney = totalMoney;
             return this;
         }
+
         /**
-         * Setter for appFeeMoney
-         * @param appFeeMoney
+         * Setter for appFeeMoney.
+         * @param appFeeMoney Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
             return this;
         }
+
         /**
-         * Setter for processingFee
-         * @param processingFee
+         * Setter for processingFee.
+         * @param processingFee List of ProcessingFee value for processingFee.
          * @return Builder
          */
         public Builder processingFee(List<ProcessingFee> processingFee) {
             this.processingFee = processingFee;
             return this;
         }
+
         /**
-         * Setter for refundedMoney
-         * @param refundedMoney
+         * Setter for refundedMoney.
+         * @param refundedMoney Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(Money refundedMoney) {
             this.refundedMoney = refundedMoney;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for delayDuration
-         * @param delayDuration
+         * Setter for delayDuration.
+         * @param delayDuration String value for delayDuration.
          * @return Builder
          */
         public Builder delayDuration(String delayDuration) {
             this.delayDuration = delayDuration;
             return this;
         }
+
         /**
-         * Setter for delayAction
-         * @param delayAction
+         * Setter for delayAction.
+         * @param delayAction String value for delayAction.
          * @return Builder
          */
         public Builder delayAction(String delayAction) {
             this.delayAction = delayAction;
             return this;
         }
+
         /**
-         * Setter for delayedUntil
-         * @param delayedUntil
+         * Setter for delayedUntil.
+         * @param delayedUntil String value for delayedUntil.
          * @return Builder
          */
         public Builder delayedUntil(String delayedUntil) {
             this.delayedUntil = delayedUntil;
             return this;
         }
+
         /**
-         * Setter for sourceType
-         * @param sourceType
+         * Setter for sourceType.
+         * @param sourceType String value for sourceType.
          * @return Builder
          */
         public Builder sourceType(String sourceType) {
             this.sourceType = sourceType;
             return this;
         }
+
         /**
-         * Setter for cardDetails
-         * @param cardDetails
+         * Setter for cardDetails.
+         * @param cardDetails CardPaymentDetails value for cardDetails.
          * @return Builder
          */
         public Builder cardDetails(CardPaymentDetails cardDetails) {
             this.cardDetails = cardDetails;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
             return this;
         }
+
         /**
-         * Setter for referenceId
-         * @param referenceId
+         * Setter for referenceId.
+         * @param referenceId String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
             this.referenceId = referenceId;
             return this;
         }
+
         /**
-         * Setter for customerId
-         * @param customerId
+         * Setter for customerId.
+         * @param customerId String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
             this.customerId = customerId;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for refundIds
-         * @param refundIds
+         * Setter for refundIds.
+         * @param refundIds List of String value for refundIds.
          * @return Builder
          */
         public Builder refundIds(List<String> refundIds) {
             this.refundIds = refundIds;
             return this;
         }
+
         /**
-         * Setter for buyerEmailAddress
-         * @param buyerEmailAddress
+         * Setter for buyerEmailAddress.
+         * @param buyerEmailAddress String value for buyerEmailAddress.
          * @return Builder
          */
         public Builder buyerEmailAddress(String buyerEmailAddress) {
             this.buyerEmailAddress = buyerEmailAddress;
             return this;
         }
+
         /**
-         * Setter for billingAddress
-         * @param billingAddress
+         * Setter for billingAddress.
+         * @param billingAddress Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
             this.billingAddress = billingAddress;
             return this;
         }
+
         /**
-         * Setter for shippingAddress
-         * @param shippingAddress
+         * Setter for shippingAddress.
+         * @param shippingAddress Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
             this.shippingAddress = shippingAddress;
             return this;
         }
+
         /**
-         * Setter for note
-         * @param note
+         * Setter for note.
+         * @param note String value for note.
          * @return Builder
          */
         public Builder note(String note) {
             this.note = note;
             return this;
         }
+
         /**
-         * Setter for statementDescriptionIdentifier
-         * @param statementDescriptionIdentifier
+         * Setter for statementDescriptionIdentifier.
+         * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
          * @return Builder
          */
         public Builder statementDescriptionIdentifier(String statementDescriptionIdentifier) {
             this.statementDescriptionIdentifier = statementDescriptionIdentifier;
             return this;
         }
+
         /**
-         * Setter for receiptNumber
-         * @param receiptNumber
+         * Setter for receiptNumber.
+         * @param receiptNumber String value for receiptNumber.
          * @return Builder
          */
         public Builder receiptNumber(String receiptNumber) {
             this.receiptNumber = receiptNumber;
             return this;
         }
+
         /**
-         * Setter for receiptUrl
-         * @param receiptUrl
+         * Setter for receiptUrl.
+         * @param receiptUrl String value for receiptUrl.
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {

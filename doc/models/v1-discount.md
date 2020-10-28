@@ -1,12 +1,13 @@
-## V1 Discount
+
+# V1 Discount
 
 V1Discount
 
-### Structure
+## Structure
 
 `V1Discount`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -19,7 +20,7 @@ V1Discount
 | `Color` | [`String`](/doc/models/v1-discount-color.md) | Optional | - | String getColor() |
 | `V2Id` | `String` | Optional | The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID. | String getV2Id() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

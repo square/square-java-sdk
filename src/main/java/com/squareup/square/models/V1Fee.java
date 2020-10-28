@@ -1,29 +1,41 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1Fee type.
  */
 public class V1Fee {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final String rate;
+    private final String calculationPhase;
+    private final String adjustmentType;
+    private final Boolean appliesToCustomAmounts;
+    private final Boolean enabled;
+    private final String inclusionType;
+    private final String type;
+    private final String v2Id;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param rate
-     * @param calculationPhase
-     * @param adjustmentType
-     * @param appliesToCustomAmounts
-     * @param enabled
-     * @param inclusionType
-     * @param type
-     * @param v2Id
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param rate String value for rate.
+     * @param calculationPhase String value for calculationPhase.
+     * @param adjustmentType String value for adjustmentType.
+     * @param appliesToCustomAmounts Boolean value for appliesToCustomAmounts.
+     * @param enabled Boolean value for enabled.
+     * @param inclusionType String value for inclusionType.
+     * @param type String value for type.
+     * @param v2Id String value for v2Id.
      */
     @JsonCreator
     public V1Fee(
@@ -49,18 +61,6 @@ public class V1Fee {
         this.v2Id = v2Id;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final String rate;
-    private final String calculationPhase;
-    private final String adjustmentType;
-    private final Boolean appliesToCustomAmounts;
-    private final Boolean enabled;
-    private final String inclusionType;
-    private final String type;
-    private final String v2Id;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -68,6 +68,7 @@ public class V1Fee {
     /**
      * Getter for Id.
      * The fee's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -77,6 +78,7 @@ public class V1Fee {
     /**
      * Getter for Name.
      * The fee's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -85,7 +87,9 @@ public class V1Fee {
 
     /**
      * Getter for Rate.
-     * The rate of the fee, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%.
+     * The rate of the fee, as a string representation of a decimal number. A value of 0.07
+     * corresponds to a rate of 7%.
+     * @return Returns the String
      */
     @JsonGetter("rate")
     public String getRate() {
@@ -94,6 +98,7 @@ public class V1Fee {
 
     /**
      * Getter for CalculationPhase.
+     * @return Returns the String
      */
     @JsonGetter("calculation_phase")
     public String getCalculationPhase() {
@@ -102,6 +107,7 @@ public class V1Fee {
 
     /**
      * Getter for AdjustmentType.
+     * @return Returns the String
      */
     @JsonGetter("adjustment_type")
     public String getAdjustmentType() {
@@ -110,7 +116,9 @@ public class V1Fee {
 
     /**
      * Getter for AppliesToCustomAmounts.
-     * If true, the fee applies to custom amounts entered into Square Point of Sale that are not associated with a particular item.
+     * If true, the fee applies to custom amounts entered into Square Point of Sale that are not
+     * associated with a particular item.
+     * @return Returns the Boolean
      */
     @JsonGetter("applies_to_custom_amounts")
     public Boolean getAppliesToCustomAmounts() {
@@ -119,7 +127,9 @@ public class V1Fee {
 
     /**
      * Getter for Enabled.
-     * If true, the fee is applied to all appropriate items. If false, the fee is not applied at all.
+     * If true, the fee is applied to all appropriate items. If false, the fee is not applied at
+     * all.
+     * @return Returns the Boolean
      */
     @JsonGetter("enabled")
     public Boolean getEnabled() {
@@ -128,6 +138,7 @@ public class V1Fee {
 
     /**
      * Getter for InclusionType.
+     * @return Returns the String
      */
     @JsonGetter("inclusion_type")
     public String getInclusionType() {
@@ -136,6 +147,7 @@ public class V1Fee {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -144,7 +156,9 @@ public class V1Fee {
 
     /**
      * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple
+     * locations share the same v2 ID.
+     * @return Returns the String
      */
     @JsonGetter("v2_id")
     public String getV2Id() {
@@ -154,29 +168,29 @@ public class V1Fee {
  
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, rate, calculationPhase, adjustmentType, appliesToCustomAmounts,
-            enabled, inclusionType, type, v2Id);
+        return Objects.hash(id, name, rate, calculationPhase, adjustmentType,
+                appliesToCustomAmounts, enabled, inclusionType, type, v2Id);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Fee)) {
+        if (!(obj instanceof V1Fee)) {
             return false;
         }
-        V1Fee v1Fee = (V1Fee) obj;
-        return Objects.equals(id, v1Fee.id) &&
-            Objects.equals(name, v1Fee.name) &&
-            Objects.equals(rate, v1Fee.rate) &&
-            Objects.equals(calculationPhase, v1Fee.calculationPhase) &&
-            Objects.equals(adjustmentType, v1Fee.adjustmentType) &&
-            Objects.equals(appliesToCustomAmounts, v1Fee.appliesToCustomAmounts) &&
-            Objects.equals(enabled, v1Fee.enabled) &&
-            Objects.equals(inclusionType, v1Fee.inclusionType) &&
-            Objects.equals(type, v1Fee.type) &&
-            Objects.equals(v2Id, v1Fee.v2Id);
+        V1Fee other = (V1Fee) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(rate, other.rate)
+            && Objects.equals(calculationPhase, other.calculationPhase)
+            && Objects.equals(adjustmentType, other.adjustmentType)
+            && Objects.equals(appliesToCustomAmounts, other.appliesToCustomAmounts)
+            && Objects.equals(enabled, other.enabled)
+            && Objects.equals(inclusionType, other.inclusionType)
+            && Objects.equals(type, other.type)
+            && Objects.equals(v2Id, other.v2Id);
     }
 
     /**
@@ -196,11 +210,11 @@ public class V1Fee {
             .inclusionType(getInclusionType())
             .type(getType())
             .v2Id(getV2Id());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Fee}
+     * Class to build instances of {@link V1Fee}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -215,106 +229,111 @@ public class V1Fee {
         private String type;
         private String v2Id;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for rate
-         * @param rate
+         * Setter for rate.
+         * @param rate String value for rate.
          * @return Builder
          */
         public Builder rate(String rate) {
             this.rate = rate;
             return this;
         }
+
         /**
-         * Setter for calculationPhase
-         * @param calculationPhase
+         * Setter for calculationPhase.
+         * @param calculationPhase String value for calculationPhase.
          * @return Builder
          */
         public Builder calculationPhase(String calculationPhase) {
             this.calculationPhase = calculationPhase;
             return this;
         }
+
         /**
-         * Setter for adjustmentType
-         * @param adjustmentType
+         * Setter for adjustmentType.
+         * @param adjustmentType String value for adjustmentType.
          * @return Builder
          */
         public Builder adjustmentType(String adjustmentType) {
             this.adjustmentType = adjustmentType;
             return this;
         }
+
         /**
-         * Setter for appliesToCustomAmounts
-         * @param appliesToCustomAmounts
+         * Setter for appliesToCustomAmounts.
+         * @param appliesToCustomAmounts Boolean value for appliesToCustomAmounts.
          * @return Builder
          */
         public Builder appliesToCustomAmounts(Boolean appliesToCustomAmounts) {
             this.appliesToCustomAmounts = appliesToCustomAmounts;
             return this;
         }
+
         /**
-         * Setter for enabled
-         * @param enabled
+         * Setter for enabled.
+         * @param enabled Boolean value for enabled.
          * @return Builder
          */
         public Builder enabled(Boolean enabled) {
             this.enabled = enabled;
             return this;
         }
+
         /**
-         * Setter for inclusionType
-         * @param inclusionType
+         * Setter for inclusionType.
+         * @param inclusionType String value for inclusionType.
          * @return Builder
          */
         public Builder inclusionType(String inclusionType) {
             this.inclusionType = inclusionType;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for v2Id
-         * @param v2Id
+         * Setter for v2Id.
+         * @param v2Id String value for v2Id.
          * @return Builder
          */
         public Builder v2Id(String v2Id) {
@@ -327,16 +346,17 @@ public class V1Fee {
          * @return {@link V1Fee}
          */
         public V1Fee build() {
-            V1Fee model = new V1Fee(id,
-                name,
-                rate,
-                calculationPhase,
-                adjustmentType,
-                appliesToCustomAmounts,
-                enabled,
-                inclusionType,
-                type,
-                v2Id);
+            V1Fee model =
+                    new V1Fee(id,
+                            name,
+                            rate,
+                            calculationPhase,
+                            adjustmentType,
+                            appliesToCustomAmounts,
+                            enabled,
+                            inclusionType,
+                            type,
+                            v2Id);
             model.httpContext = httpContext;
             return model;
         }

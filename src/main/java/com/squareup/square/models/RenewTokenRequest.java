@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for RenewTokenRequest type.
  */
 public class RenewTokenRequest {
+    private final String accessToken;
 
     /**
      * Initialization constructor.
-     * @param accessToken
+     * @param accessToken String value for accessToken.
      */
     @JsonCreator
     public RenewTokenRequest(
@@ -21,10 +23,10 @@ public class RenewTokenRequest {
         this.accessToken = accessToken;
     }
 
-    private final String accessToken;
     /**
      * Getter for AccessToken.
      * The token you want to renew.
+     * @return Returns the String
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
@@ -39,14 +41,14 @@ public class RenewTokenRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RenewTokenRequest)) {
+        if (!(obj instanceof RenewTokenRequest)) {
             return false;
         }
-        RenewTokenRequest renewTokenRequest = (RenewTokenRequest) obj;
-        return Objects.equals(accessToken, renewTokenRequest.accessToken);
+        RenewTokenRequest other = (RenewTokenRequest) obj;
+        return Objects.equals(accessToken, other.accessToken);
     }
 
     /**
@@ -57,25 +59,20 @@ public class RenewTokenRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .accessToken(getAccessToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RenewTokenRequest}
+     * Class to build instances of {@link RenewTokenRequest}.
      */
     public static class Builder {
         private String accessToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for accessToken
-         * @param accessToken
+         * Setter for accessToken.
+         * @param accessToken String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {

@@ -1,15 +1,7 @@
+
 package com.squareup.square.http.client;
-import com.squareup.square.utilities.FileWrapper;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
+import com.squareup.square.ApiHelper;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpBodyRequest;
 import com.squareup.square.http.request.HttpMethod;
@@ -18,13 +10,22 @@ import com.squareup.square.http.request.MultipartFileWrapper;
 import com.squareup.square.http.request.MultipartWrapper;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-
+import com.squareup.square.utilities.FileWrapper;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * HTTP Client class to send HTTP Requests and read the responses.
  */
 public class OkClient implements HttpClient {
-    private final static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static volatile okhttp3.OkHttpClient defaultOkHttpClient;
     
     /**
@@ -33,16 +34,20 @@ public class OkClient implements HttpClient {
     private okhttp3.OkHttpClient client;
 
     /**
-     * Default constructor
+     * Default constructor.
+     * @param  httpClientConfig  The specified http client configuration.
      */
     public OkClient(HttpClientConfiguration httpClientConfig) {
         okhttp3.OkHttpClient.Builder clientBuilder = getDefaultOkHttpClient().newBuilder();
-        clientBuilder.callTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);
+        clientBuilder.callTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
+                .readTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
+                .writeTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
+                .connectTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);
         this.client = clientBuilder.build();
     }
 
     /**
-     * Getter for the default static instance of the okhttp3.OkHttpClient
+     * Getter for the default static instance of the okhttp3.OkHttpClient.
      */
     private okhttp3.OkHttpClient getDefaultOkHttpClient() {
         if (defaultOkHttpClient == null) {
@@ -70,9 +75,9 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get string response back
+     * Execute a given HttpRequest to get string response back.
      * @param   httpRequest     The given HttpRequest to execute
-     * @return   CompletableFuture<HttpResponse> after execution
+     * @return   CompletableFuture of HttpResponse after execution
      */
     public CompletableFuture<HttpResponse> executeAsStringAsync(final HttpRequest httpRequest) {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -80,21 +85,12 @@ public class OkClient implements HttpClient {
         client.newCall(okHttpRequest).enqueue(new okhttp3.Callback() {
 
             public void onFailure(okhttp3.Call call, IOException e) {
-                try {
-                    publishResponse(null, httpRequest, callBack, e, false);
-                } catch (IOException ex) {
-                    callBack.completeExceptionally(ex);
-                }
+                publishResponse(null, httpRequest, callBack, e, false);
             }
 
-            public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) throws IOException {
-                try {
-                    publishResponse(okHttpResponse, httpRequest, callBack, null, false);
-                } catch (IOException ex) {
-                    callBack.completeExceptionally(ex);
-                } finally {
-                    okHttpResponse.close();
-                }
+            public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) {
+                publishResponse(okHttpResponse, httpRequest, callBack, null, false);
+                okHttpResponse.close();
             }
         });
 
@@ -102,9 +98,9 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get binary response back
-     * @param   httpRequest     The given HttpRequest to execute
-     * @return   CompletableFuture<HttpResponse> after execution
+     * Execute a given HttpRequest to get binary response back.
+     * @param   httpRequest     The given HttpRequest to execute.
+     * @return   CompletableFuture of HttpResponse after execution
      */
     public CompletableFuture<HttpResponse> executeAsBinaryAsync(final HttpRequest httpRequest) {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -112,19 +108,11 @@ public class OkClient implements HttpClient {
         client.newCall(okHttpRequest).enqueue(new okhttp3.Callback() {
 
             public void onFailure(okhttp3.Call call, IOException e) {
-                try {
-                    publishResponse(null, httpRequest, callBack, e, true);
-                } catch (IOException ex) {
-                    callBack.completeExceptionally(ex);
-                }
+                publishResponse(null, httpRequest, callBack, e, true);
             }
 
-            public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) throws IOException {
-                try {
-                    publishResponse(okHttpResponse, httpRequest, callBack, null, true);
-                } catch (IOException ex) {
-                    callBack.completeExceptionally(ex);
-                }
+            public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) {
+                publishResponse(okHttpResponse, httpRequest, callBack, null, true);
             }
         });
 
@@ -132,8 +120,8 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get string response back
-     * @param   httpRequest     The given HttpRequest to execute     
+     * Execute a given HttpRequest to get string response back.
+     * @param   httpRequest     The given HttpRequest to execute.
      */
     public HttpResponse executeAsString(HttpRequest httpRequest) throws IOException {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -142,8 +130,8 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get binary response back
-     * @param   httpRequest     The given HttpRequest to execute     
+     * Execute a given HttpRequest to get binary response back.
+     * @param   httpRequest     The given HttpRequest to execute.
      */
     public HttpResponse executeAsBinary(HttpRequest httpRequest) throws IOException {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
@@ -152,14 +140,15 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Publishes success or failure result as HttpResponse from a HttpRequest
-     * @param   okHttpResponse  The okhttp response to publish
-     * @param   httpRequest     The internal http request
-     * @param   completionBlock The success and failure code block reference to invoke the delegate
-     * @param   error           The reported errors for getting the http response
+     * Publishes success or failure result as HttpResponse from a HttpRequest.
+     * @param   okHttpResponse  The okhttp response to publish.
+     * @param   httpRequest     The internal http request.
+     * @param   completionBlock The success and failure code block reference to invoke the delegate.
+     * @param   error           The reported errors for getting the http response.
      */
-    private static HttpResponse publishResponse(okhttp3.Response okHttpResponse, HttpRequest httpRequest,
-            CompletableFuture<HttpResponse> completionBlock, Throwable error, boolean binaryResponse) throws IOException {
+    private static HttpResponse publishResponse(okhttp3.Response okHttpResponse, 
+            HttpRequest httpRequest, CompletableFuture<HttpResponse> completionBlock,
+            Throwable error, boolean binaryResponse) {
         HttpResponse httpResponse = null;
         try {
             httpResponse = OkClient.convertResponse(okHttpResponse, binaryResponse);
@@ -177,12 +166,13 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Converts a given OkHttp response into our internal http response model
-     * @param   response    The given OkHttp response
-     * @return              The converted http response
-     * @throws              IOException
+     * Converts a given OkHttp response into our internal http response model.
+     * @param   response    The given OkHttp response.
+     * @return  The converted http response.
+     * @throws  IOException exception to be thrown while converting response.
      */
-    private static HttpResponse convertResponse(okhttp3.Response response, boolean binaryResponse) throws IOException {
+    private static HttpResponse convertResponse(okhttp3.Response response,
+            boolean binaryResponse) throws IOException {
         HttpResponse httpResponse = null;
 
         if (null == response) {
@@ -199,7 +189,8 @@ public class OkClient implements HttpClient {
         } else {
             String responseString = responseBody.string();
             InputStream responseStream = new ByteArrayInputStream(responseString.getBytes());
-            httpResponse = new HttpStringResponse(response.code(), headers, responseStream, responseString);
+            httpResponse = new HttpStringResponse(response.code(), headers, responseStream,
+                    responseString);
 
             responseBody.close();
             response.close();
@@ -209,13 +200,11 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Converts a given internal http request into an okhttp request model
+     * Converts a given internal http request into an okhttp request model.
      * @param   httpRequest     The given http request in internal format
      * @return              The converted okhttp request
      */
     private static okhttp3.Request convertRequest(HttpRequest httpRequest) {
-        String url = httpRequest.getQueryUrl();
-
         okhttp3.RequestBody requestBody;
 
         if (httpRequest instanceof HttpBodyRequest) {
@@ -260,7 +249,8 @@ public class OkClient implements HttpClient {
             if (parameters != null && parameters.size() > 0) {
                 // check if a request is a multipart request
                 for (SimpleEntry<String, Object> param : parameters) {
-                    if ((param.getValue() instanceof MultipartFileWrapper) || (param.getValue() instanceof MultipartWrapper)) {
+                    if ((param.getValue() instanceof MultipartFileWrapper)
+                            || (param.getValue() instanceof MultipartWrapper)) {
                         multipartRequest = true;
                         break;
                     }
@@ -268,50 +258,12 @@ public class OkClient implements HttpClient {
 
                 if (multipartRequest) {
                     // make a multipart request if a file is being sent
-                    okhttp3.MultipartBody.Builder multipartBuilder = new okhttp3.MultipartBody.Builder()
-                            .setType(okhttp3.MultipartBody.FORM);
-                    for (SimpleEntry<String, Object> param : parameters) {
-                        if (param.getValue() instanceof MultipartFileWrapper) {
-                            MultipartFileWrapper wrapperObj = (MultipartFileWrapper) param.getValue();
-                            
-                            okhttp3.MediaType mediaType;
-                            if (wrapperObj.getFileWrapper().getContentType() != null && !wrapperObj.getFileWrapper().getContentType().isEmpty()) {
-                                mediaType = okhttp3.MediaType.parse(wrapperObj.getFileWrapper().getContentType());
-                            } else {
-                                mediaType = okhttp3.MediaType.parse(wrapperObj.getHeaders().value("content-type"));
-                            }
-
-                            okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, 
-                                wrapperObj.getFileWrapper().getFile());
-                            Headers fileWrapperHeaders = new Headers(wrapperObj.getHeaders());
-                            fileWrapperHeaders.remove("content-type");
-                            okhttp3.Headers.Builder fileWrapperHeadersBuilder = createRequestHeaders(fileWrapperHeaders);
-
-                            fileWrapperHeadersBuilder.add(
-                                "Content-Disposition", "form-data; name=" + appendQuotedStringAndEncodeEscapeCharacters(param.getKey()) +
-                                "; filename=" + appendQuotedStringAndEncodeEscapeCharacters(wrapperObj.getFileWrapper().getFile().getName()));
-                            multipartBuilder.addPart(fileWrapperHeadersBuilder.build(), body);
-                        } else if (param.getValue() instanceof MultipartWrapper) {
-                            MultipartWrapper wrapperObject = (MultipartWrapper) param.getValue();
-                            okhttp3.RequestBody body = okhttp3.RequestBody.create(
-                                okhttp3.MediaType.parse(wrapperObject.getHeaders().value("content-type")),
-                                wrapperObject.getByteArray());
-                            Headers wrapperHeaders = new Headers(wrapperObject.getHeaders());
-                            wrapperHeaders.remove("content-type");
-                            okhttp3.Headers.Builder wrapperHeadersBuilder = createRequestHeaders(wrapperHeaders);
-                            wrapperHeadersBuilder.add(
-                                "Content-Disposition", "form-data; name=" + appendQuotedStringAndEncodeEscapeCharacters(param.getKey()));
-                            multipartBuilder.addPart(wrapperHeadersBuilder.build(), body);
-                        } else {
-                            multipartBuilder.addFormDataPart(param.getKey(),
-                                    (param.getValue() == null) ? "" : param.getValue().toString());
-                        }
-                    }
-                    requestBody = multipartBuilder.build();
+                    requestBody = createMultipartRequestBody(httpRequest);
                 } else {
                     okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder();
                     for (SimpleEntry<String, Object> param : parameters) {
-                        formBuilder.add(param.getKey(), (param.getValue() == null) ? "" : param.getValue().toString());
+                        formBuilder.add(param.getKey(),
+                                (param.getValue() == null) ? "" : param.getValue().toString());
                     }
                     requestBody = formBuilder.build();
                 }
@@ -328,12 +280,71 @@ public class OkClient implements HttpClient {
             requestHeaders = createRequestHeaders(httpRequest.getHeaders());
         }
 
+        StringBuilder urlBuilder = new StringBuilder(httpRequest.getQueryUrl());
+
+        // set query parameters
+        ApiHelper.appendUrlWithQueryParameters(urlBuilder, httpRequest.getQueryParameters());
+
+        //validate and preprocess url
+        String url = ApiHelper.cleanUrl(urlBuilder);
+
         // build the request
         okhttp3.Request okHttpRequest = new okhttp3.Request.Builder()
-                .method(httpRequest.getHttpMethod().toString(), requestBody).headers(requestHeaders.build()).url(url)
+                .method(httpRequest.getHttpMethod().toString(), requestBody)
+                .headers(requestHeaders.build()).url(url)
                 .build();
 
         return okHttpRequest;
+    }
+    
+    private static okhttp3.RequestBody createMultipartRequestBody(HttpRequest httpRequest) {
+        okhttp3.MultipartBody.Builder multipartBuilder = new okhttp3.MultipartBody.Builder()
+                .setType(okhttp3.MultipartBody.FORM);
+        
+        for (SimpleEntry<String, Object> param : httpRequest.getParameters()) {
+            if (param.getValue() instanceof MultipartFileWrapper) {
+                MultipartFileWrapper wrapperObj = (MultipartFileWrapper) param.getValue();
+                okhttp3.MediaType mediaType;
+                if (wrapperObj.getFileWrapper().getContentType() != null
+                        && !wrapperObj.getFileWrapper().getContentType().isEmpty()) {
+                    mediaType =
+                            okhttp3.MediaType.parse(wrapperObj.getFileWrapper().getContentType());
+                } else {
+                    mediaType =
+                            okhttp3.MediaType.parse(wrapperObj.getHeaders().value("content-type"));
+                }
+
+                okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType,
+                        wrapperObj.getFileWrapper().getFile());
+                Headers fileWrapperHeaders = new Headers(wrapperObj.getHeaders());
+                fileWrapperHeaders.remove("content-type");
+                okhttp3.Headers.Builder fileWrapperHeadersBuilder =
+                        createRequestHeaders(fileWrapperHeaders);
+                
+                fileWrapperHeadersBuilder.add("Content-Disposition", "form-data; name="
+                        + appendQuotedStringAndEncodeEscapeCharacters(param.getKey()) 
+                        + "; filename=" + appendQuotedStringAndEncodeEscapeCharacters(
+                                wrapperObj.getFileWrapper().getFile().getName()));
+                multipartBuilder.addPart(fileWrapperHeadersBuilder.build(), body);
+            } else if (param.getValue() instanceof MultipartWrapper) {
+                MultipartWrapper wrapperObject = (MultipartWrapper) param.getValue();
+                okhttp3.RequestBody body = okhttp3.RequestBody.create(
+                    okhttp3.MediaType.parse(wrapperObject.getHeaders().value("content-type")),
+                    wrapperObject.getByteArray());
+                Headers wrapperHeaders = new Headers(wrapperObject.getHeaders());
+                wrapperHeaders.remove("content-type");
+                okhttp3.Headers.Builder wrapperHeadersBuilder =
+                        createRequestHeaders(wrapperHeaders);
+
+                wrapperHeadersBuilder.add("Content-Disposition", "form-data; name="
+                        + appendQuotedStringAndEncodeEscapeCharacters(param.getKey()));
+                multipartBuilder.addPart(wrapperHeadersBuilder.build(), body);
+            } else {
+                multipartBuilder.addFormDataPart(param.getKey(),
+                        (param.getValue() == null) ? "" : param.getValue().toString());
+            }
+        }
+        return multipartBuilder.build();
     }
 
     private static okhttp3.Headers.Builder createRequestHeaders(Headers headers) {
@@ -370,75 +381,84 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Create a simple HTTP GET request
+     * Create a simple HTTP GET request.
      */
-    public HttpRequest get(String queryUrl, Headers headers, List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.GET, queryUrl, headers, parameters);
+    public HttpRequest get(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.GET, queryUrlBuilder, headers, queryParams, parameters);
     }
 
     /**
-     * Create a simple HTTP HEAD request
+     * Create a simple HTTP HEAD request.
      */
-    public HttpRequest head(String queryUrl, Headers headers, List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.HEAD, queryUrl, headers, parameters);
+    public HttpRequest head(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.HEAD, queryUrlBuilder, headers, queryParams, parameters);
     }
 
     /**
-     * Create an HTTP POST request with parameters
+     * Create an HTTP POST request with parameters.
      */
-    public HttpRequest post(String queryUrl, Headers headers, List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.POST, queryUrl, headers, parameters);
+    public HttpRequest post(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.POST, queryUrlBuilder, headers, queryParams, parameters);
     }
 
     /**
-     * Create an HTTP POST request with body
+     * Create an HTTP POST request with body.
      */
-    public HttpBodyRequest postBody(String queryUrl, Headers headers, Object body) {
-        return new HttpBodyRequest(HttpMethod.POST, queryUrl, headers, body);
+    public HttpBodyRequest postBody(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, Object body) {
+        return new HttpBodyRequest(HttpMethod.POST, queryUrlBuilder, headers, queryParams, body);
     }
 
 
     /**
-     * Create an HTTP PUT request with parameters
+     * Create an HTTP PUT request with parameters.
      */
-    public HttpRequest put(String queryUrl, Headers headers,
-            List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.PUT, queryUrl, headers, parameters);
+    public HttpRequest put(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.PUT, queryUrlBuilder, headers, queryParams, parameters);
     }
 
     /**
-     * Create an HTTP PUT request with body
+     * Create an HTTP PUT request with body.
      */
-    public HttpBodyRequest putBody(String queryUrl, Headers headers, Object body) {
-        return new HttpBodyRequest(HttpMethod.PUT, queryUrl, headers, body);
+    public HttpBodyRequest putBody(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, Object body) {
+        return new HttpBodyRequest(HttpMethod.PUT, queryUrlBuilder, headers, queryParams, body);
     }
 
     /**
-     * Create an HTTP PATCH request with parameters
+     * Create an HTTP PATCH request with parameters.
      */
-    public HttpRequest patch(String queryUrl, Headers headers, List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.PATCH, queryUrl, headers, parameters);
+    public HttpRequest patch(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.PATCH, queryUrlBuilder, headers, queryParams, parameters);
     }
 
     /**
-     * Create an HTTP PATCH request with body
+     * Create an HTTP PATCH request with body.
      */
-    public HttpBodyRequest patchBody(String queryUrl, Headers headers, Object body) {
-        return new HttpBodyRequest(HttpMethod.PATCH, queryUrl, headers, body);
+    public HttpBodyRequest patchBody(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, Object body) {
+        return new HttpBodyRequest(HttpMethod.PATCH, queryUrlBuilder, headers, queryParams, body);
     }
 
     /**
-     * Create an HTTP DELETE request with parameters
+     * Create an HTTP DELETE request with parameters.
      */
-    public HttpRequest delete(String queryUrl, Headers headers, List<SimpleEntry<String, Object>> parameters) {
-        return new HttpRequest(HttpMethod.DELETE, queryUrl, headers, parameters);
+    public HttpRequest delete(StringBuilder queryUrl, Headers headers, 
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters) {
+        return new HttpRequest(HttpMethod.DELETE, queryUrl, headers, queryParams, parameters);
     }
 
     /**
-     * Create an HTTP DELETE request with body
+     * Create an HTTP DELETE request with body.
      */
-    public HttpBodyRequest deleteBody(String queryUrl, Headers headers, Object body) {
-        return new HttpBodyRequest(HttpMethod.DELETE, queryUrl, headers, body);
+    public HttpBodyRequest deleteBody(StringBuilder queryUrlBuilder, Headers headers, 
+            Map<String, Object> queryParams, Object body) {
+        return new HttpBodyRequest(HttpMethod.DELETE, queryUrlBuilder, headers, queryParams, body);
     }
 
 }

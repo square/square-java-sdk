@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for GetEmployeeWageResponse type.
  */
 public class GetEmployeeWageResponse {
+    private HttpContext httpContext;
+    private final EmployeeWage employeeWage;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param employeeWage
-     * @param errors
+     * @param employeeWage EmployeeWage value for employeeWage.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public GetEmployeeWageResponse(
@@ -26,18 +30,16 @@ public class GetEmployeeWageResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final EmployeeWage employeeWage;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for EmployeeWage.
-     * The hourly wage rate that an employee will earn on a `Shift` for doing the job
-     * specified by the `title` property of this object. Deprecated at verison 2020-08-26. Use `TeamMemberWage` instead.
+     * The hourly wage rate that an employee will earn on a `Shift` for doing the job specified by
+     * the `title` property of this object. Deprecated at verison 2020-08-26. Use `TeamMemberWage`
+     * instead.
+     * @return Returns the EmployeeWage
      */
     @JsonGetter("employee_wage")
     public EmployeeWage getEmployeeWage() {
@@ -47,6 +49,7 @@ public class GetEmployeeWageResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -61,15 +64,15 @@ public class GetEmployeeWageResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof GetEmployeeWageResponse)) {
+        if (!(obj instanceof GetEmployeeWageResponse)) {
             return false;
         }
-        GetEmployeeWageResponse getEmployeeWageResponse = (GetEmployeeWageResponse) obj;
-        return Objects.equals(employeeWage, getEmployeeWageResponse.employeeWage) &&
-            Objects.equals(errors, getEmployeeWageResponse.errors);
+        GetEmployeeWageResponse other = (GetEmployeeWageResponse) obj;
+        return Objects.equals(employeeWage, other.employeeWage)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -81,45 +84,42 @@ public class GetEmployeeWageResponse {
         Builder builder = new Builder()
             .employeeWage(getEmployeeWage())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link GetEmployeeWageResponse}
+     * Class to build instances of {@link GetEmployeeWageResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private EmployeeWage employeeWage;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for employeeWage
-         * @param employeeWage
+         * Setter for employeeWage.
+         * @param employeeWage EmployeeWage value for employeeWage.
          * @return Builder
          */
         public Builder employeeWage(EmployeeWage employeeWage) {
             this.employeeWage = employeeWage;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -132,8 +132,9 @@ public class GetEmployeeWageResponse {
          * @return {@link GetEmployeeWageResponse}
          */
         public GetEmployeeWageResponse build() {
-            GetEmployeeWageResponse model = new GetEmployeeWageResponse(employeeWage,
-                errors);
+            GetEmployeeWageResponse model =
+                    new GetEmployeeWageResponse(employeeWage,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

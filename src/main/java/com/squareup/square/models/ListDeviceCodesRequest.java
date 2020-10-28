@@ -1,40 +1,47 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListDeviceCodesRequest type.
  */
 public class ListDeviceCodesRequest {
+    private final String cursor;
+    private final String locationId;
+    private final String productType;
+    private final List<String> status;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param locationId
-     * @param productType
+     * @param cursor String value for cursor.
+     * @param locationId String value for locationId.
+     * @param productType String value for productType.
+     * @param status List of String value for status.
      */
     @JsonCreator
     public ListDeviceCodesRequest(
             @JsonProperty("cursor") String cursor,
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("product_type") String productType) {
+            @JsonProperty("product_type") String productType,
+            @JsonProperty("status") List<String> status) {
         this.cursor = cursor;
         this.locationId = locationId;
         this.productType = productType;
+        this.status = status;
     }
 
-    private final String cursor;
-    private final String locationId;
-    private final String productType;
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * See [Paginating results](#paginatingresults) for more information.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. See [Paginating results](#paginatingresults)
+     * for more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -43,8 +50,9 @@ public class ListDeviceCodesRequest {
 
     /**
      * Getter for LocationId.
-     * If specified, only returns DeviceCodes of the specified location.
-     * Returns DeviceCodes of all locations if empty.
+     * If specified, only returns DeviceCodes of the specified location. Returns DeviceCodes of all
+     * locations if empty.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -53,30 +61,44 @@ public class ListDeviceCodesRequest {
 
     /**
      * Getter for ProductType.
+     * @return Returns the String
      */
     @JsonGetter("product_type")
     public String getProductType() {
         return this.productType;
     }
 
+    /**
+     * Getter for Status.
+     * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status
+     * `PAIRED` and `UNPAIRED` if empty. See [DeviceCodeStatus](#type-devicecodestatus) for possible
+     * values
+     * @return Returns the List of String
+     */
+    @JsonGetter("status")
+    public List<String> getStatus() {
+        return this.status;
+    }
+
  
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, locationId, productType);
+        return Objects.hash(cursor, locationId, productType, status);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListDeviceCodesRequest)) {
+        if (!(obj instanceof ListDeviceCodesRequest)) {
             return false;
         }
-        ListDeviceCodesRequest listDeviceCodesRequest = (ListDeviceCodesRequest) obj;
-        return Objects.equals(cursor, listDeviceCodesRequest.cursor) &&
-            Objects.equals(locationId, listDeviceCodesRequest.locationId) &&
-            Objects.equals(productType, listDeviceCodesRequest.productType);
+        ListDeviceCodesRequest other = (ListDeviceCodesRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(locationId, other.locationId)
+            && Objects.equals(productType, other.productType)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -88,50 +110,59 @@ public class ListDeviceCodesRequest {
         Builder builder = new Builder()
             .cursor(getCursor())
             .locationId(getLocationId())
-            .productType(getProductType());
-            return builder;
+            .productType(getProductType())
+            .status(getStatus());
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListDeviceCodesRequest}
+     * Class to build instances of {@link ListDeviceCodesRequest}.
      */
     public static class Builder {
         private String cursor;
         private String locationId;
         private String productType;
+        private List<String> status;
+
+
 
         /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
-
-        /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for productType
-         * @param productType
+         * Setter for productType.
+         * @param productType String value for productType.
          * @return Builder
          */
         public Builder productType(String productType) {
             this.productType = productType;
+            return this;
+        }
+
+        /**
+         * Setter for status.
+         * @param status List of String value for status.
+         * @return Builder
+         */
+        public Builder status(List<String> status) {
+            this.status = status;
             return this;
         }
 
@@ -142,7 +173,8 @@ public class ListDeviceCodesRequest {
         public ListDeviceCodesRequest build() {
             return new ListDeviceCodesRequest(cursor,
                 locationId,
-                productType);
+                productType,
+                status);
         }
     }
 }

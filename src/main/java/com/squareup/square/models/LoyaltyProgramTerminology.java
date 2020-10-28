@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyProgramTerminology type.
  */
 public class LoyaltyProgramTerminology {
+    private final String one;
+    private final String other;
 
     /**
      * Initialization constructor.
-     * @param one
-     * @param other
+     * @param one String value for one.
+     * @param other String value for other.
      */
     @JsonCreator
     public LoyaltyProgramTerminology(
@@ -24,11 +27,10 @@ public class LoyaltyProgramTerminology {
         this.other = other;
     }
 
-    private final String one;
-    private final String other;
     /**
      * Getter for One.
      * A singular unit for a point (for example, 1 point is called 1 star).
+     * @return Returns the String
      */
     @JsonGetter("one")
     public String getOne() {
@@ -38,6 +40,7 @@ public class LoyaltyProgramTerminology {
     /**
      * Getter for Other.
      * A plural unit for point (for example, 10 points is called 10 stars).
+     * @return Returns the String
      */
     @JsonGetter("other")
     public String getOther() {
@@ -52,15 +55,15 @@ public class LoyaltyProgramTerminology {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyProgramTerminology)) {
+        if (!(obj instanceof LoyaltyProgramTerminology)) {
             return false;
         }
-        LoyaltyProgramTerminology loyaltyProgramTerminology = (LoyaltyProgramTerminology) obj;
-        return Objects.equals(one, loyaltyProgramTerminology.one) &&
-            Objects.equals(other, loyaltyProgramTerminology.other);
+        LoyaltyProgramTerminology internalOther = (LoyaltyProgramTerminology) obj;
+        return Objects.equals(one, internalOther.one)
+            && Objects.equals(other, internalOther.other);
     }
 
     /**
@@ -71,18 +74,20 @@ public class LoyaltyProgramTerminology {
     public Builder toBuilder() {
         Builder builder = new Builder(one,
             other);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyProgramTerminology}
+     * Class to build instances of {@link LoyaltyProgramTerminology}.
      */
     public static class Builder {
         private String one;
         private String other;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param one String value for one.
+         * @param other String value for other.
          */
         public Builder(String one,
                 String other) {
@@ -91,17 +96,18 @@ public class LoyaltyProgramTerminology {
         }
 
         /**
-         * Setter for one
-         * @param one
+         * Setter for one.
+         * @param one String value for one.
          * @return Builder
          */
         public Builder one(String one) {
             this.one = one;
             return this;
         }
+
         /**
-         * Setter for other
-         * @param other
+         * Setter for other.
+         * @param other String value for other.
          * @return Builder
          */
         public Builder other(String other) {

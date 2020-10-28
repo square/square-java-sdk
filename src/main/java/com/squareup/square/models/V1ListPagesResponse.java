@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for V1ListPagesResponse type.
  */
 public class V1ListPagesResponse {
+    private final List<V1Page> items;
 
     /**
      * Initialization constructor.
-     * @param items
+     * @param items List of V1Page value for items.
      */
     @JsonCreator
     public V1ListPagesResponse(
@@ -22,9 +24,9 @@ public class V1ListPagesResponse {
         this.items = items;
     }
 
-    private final List<V1Page> items;
     /**
      * Getter for Items.
+     * @return Returns the List of V1Page
      */
     @JsonGetter("items")
     public List<V1Page> getItems() {
@@ -39,14 +41,14 @@ public class V1ListPagesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListPagesResponse)) {
+        if (!(obj instanceof V1ListPagesResponse)) {
             return false;
         }
-        V1ListPagesResponse v1ListPagesResponse = (V1ListPagesResponse) obj;
-        return Objects.equals(items, v1ListPagesResponse.items);
+        V1ListPagesResponse other = (V1ListPagesResponse) obj;
+        return Objects.equals(items, other.items);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1ListPagesResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .items(getItems());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListPagesResponse}
+     * Class to build instances of {@link V1ListPagesResponse}.
      */
     public static class Builder {
         private List<V1Page> items;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for items
-         * @param items
+         * Setter for items.
+         * @param items List of V1Page value for items.
          * @return Builder
          */
         public Builder items(List<V1Page> items) {

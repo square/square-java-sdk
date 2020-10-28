@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for PaymentOptions type.
  */
 public class PaymentOptions {
+    private final Boolean autocomplete;
 
     /**
      * Initialization constructor.
-     * @param autocomplete
+     * @param autocomplete Boolean value for autocomplete.
      */
     @JsonCreator
     public PaymentOptions(
@@ -21,11 +23,11 @@ public class PaymentOptions {
         this.autocomplete = autocomplete;
     }
 
-    private final Boolean autocomplete;
     /**
      * Getter for Autocomplete.
-     * Indicates whether the Payment objects created from this `TerminalCheckout` will automatically be
-     * COMPLETED or left in an APPROVED state for later modification.
+     * Indicates whether the Payment objects created from this `TerminalCheckout` will automatically
+     * be `COMPLETED` or left in an `APPROVED` state for later modification.
+     * @return Returns the Boolean
      */
     @JsonGetter("autocomplete")
     public Boolean getAutocomplete() {
@@ -40,14 +42,14 @@ public class PaymentOptions {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof PaymentOptions)) {
+        if (!(obj instanceof PaymentOptions)) {
             return false;
         }
-        PaymentOptions paymentOptions = (PaymentOptions) obj;
-        return Objects.equals(autocomplete, paymentOptions.autocomplete);
+        PaymentOptions other = (PaymentOptions) obj;
+        return Objects.equals(autocomplete, other.autocomplete);
     }
 
     /**
@@ -58,25 +60,20 @@ public class PaymentOptions {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .autocomplete(getAutocomplete());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link PaymentOptions}
+     * Class to build instances of {@link PaymentOptions}.
      */
     public static class Builder {
         private Boolean autocomplete;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for autocomplete
-         * @param autocomplete
+         * Setter for autocomplete.
+         * @param autocomplete Boolean value for autocomplete.
          * @return Builder
          */
         public Builder autocomplete(Boolean autocomplete) {

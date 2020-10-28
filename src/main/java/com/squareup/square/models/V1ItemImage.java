@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ItemImage type.
  */
 public class V1ItemImage {
+    private final String id;
+    private final String url;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param url
+     * @param id String value for id.
+     * @param url String value for url.
      */
     @JsonCreator
     public V1ItemImage(
@@ -24,11 +27,10 @@ public class V1ItemImage {
         this.url = url;
     }
 
-    private final String id;
-    private final String url;
     /**
      * Getter for Id.
      * The image's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -38,6 +40,7 @@ public class V1ItemImage {
     /**
      * Getter for Url.
      * The image's publicly accessible URL.
+     * @return Returns the String
      */
     @JsonGetter("url")
     public String getUrl() {
@@ -52,15 +55,15 @@ public class V1ItemImage {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ItemImage)) {
+        if (!(obj instanceof V1ItemImage)) {
             return false;
         }
-        V1ItemImage v1ItemImage = (V1ItemImage) obj;
-        return Objects.equals(id, v1ItemImage.id) &&
-            Objects.equals(url, v1ItemImage.url);
+        V1ItemImage other = (V1ItemImage) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(url, other.url);
     }
 
     /**
@@ -72,35 +75,31 @@ public class V1ItemImage {
         Builder builder = new Builder()
             .id(getId())
             .url(getUrl());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ItemImage}
+     * Class to build instances of {@link V1ItemImage}.
      */
     public static class Builder {
         private String id;
         private String url;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for url
-         * @param url
+         * Setter for url.
+         * @param url String value for url.
          * @return Builder
          */
         public Builder url(String url) {

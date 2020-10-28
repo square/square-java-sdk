@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Range type.
  */
 public class Range {
+    private final String min;
+    private final String max;
 
     /**
      * Initialization constructor.
-     * @param min
-     * @param max
+     * @param min String value for min.
+     * @param max String value for max.
      */
     @JsonCreator
     public Range(
@@ -24,11 +27,10 @@ public class Range {
         this.max = max;
     }
 
-    private final String min;
-    private final String max;
     /**
      * Getter for Min.
      * The lower bound of the number range.
+     * @return Returns the String
      */
     @JsonGetter("min")
     public String getMin() {
@@ -38,6 +40,7 @@ public class Range {
     /**
      * Getter for Max.
      * The upper bound of the number range.
+     * @return Returns the String
      */
     @JsonGetter("max")
     public String getMax() {
@@ -52,15 +55,15 @@ public class Range {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Range)) {
+        if (!(obj instanceof Range)) {
             return false;
         }
-        Range range = (Range) obj;
-        return Objects.equals(min, range.min) &&
-            Objects.equals(max, range.max);
+        Range other = (Range) obj;
+        return Objects.equals(min, other.min)
+            && Objects.equals(max, other.max);
     }
 
     /**
@@ -72,35 +75,31 @@ public class Range {
         Builder builder = new Builder()
             .min(getMin())
             .max(getMax());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Range}
+     * Class to build instances of {@link Range}.
      */
     public static class Builder {
         private String min;
         private String max;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for min
-         * @param min
+         * Setter for min.
+         * @param min String value for min.
          * @return Builder
          */
         public Builder min(String min) {
             this.min = min;
             return this;
         }
+
         /**
-         * Setter for max
-         * @param max
+         * Setter for max.
+         * @param max String value for max.
          * @return Builder
          */
         public Builder max(String max) {

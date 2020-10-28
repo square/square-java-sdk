@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateShiftRequest type.
  */
 public class CreateShiftRequest {
+    private final String idempotencyKey;
+    private final Shift shift;
 
     /**
      * Initialization constructor.
-     * @param shift
-     * @param idempotencyKey
+     * @param shift Shift value for shift.
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CreateShiftRequest(
@@ -24,11 +27,10 @@ public class CreateShiftRequest {
         this.shift = shift;
     }
 
-    private final String idempotencyKey;
-    private final Shift shift;
     /**
      * Getter for IdempotencyKey.
      * Unique string value to insure the idempotency of the operation.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -37,9 +39,9 @@ public class CreateShiftRequest {
 
     /**
      * Getter for Shift.
-     * A record of the hourly rate, start, and end times for a single work shift
-     * for an employee. May include a record of the start and end times for breaks
-     * taken during the shift.
+     * A record of the hourly rate, start, and end times for a single work shift for an employee.
+     * May include a record of the start and end times for breaks taken during the shift.
+     * @return Returns the Shift
      */
     @JsonGetter("shift")
     public Shift getShift() {
@@ -54,15 +56,15 @@ public class CreateShiftRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateShiftRequest)) {
+        if (!(obj instanceof CreateShiftRequest)) {
             return false;
         }
-        CreateShiftRequest createShiftRequest = (CreateShiftRequest) obj;
-        return Objects.equals(idempotencyKey, createShiftRequest.idempotencyKey) &&
-            Objects.equals(shift, createShiftRequest.shift);
+        CreateShiftRequest other = (CreateShiftRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(shift, other.shift);
     }
 
     /**
@@ -73,35 +75,37 @@ public class CreateShiftRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(shift)
             .idempotencyKey(getIdempotencyKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateShiftRequest}
+     * Class to build instances of {@link CreateShiftRequest}.
      */
     public static class Builder {
         private Shift shift;
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param shift Shift value for shift.
          */
         public Builder(Shift shift) {
             this.shift = shift;
         }
 
         /**
-         * Setter for shift
-         * @param shift
+         * Setter for shift.
+         * @param shift Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {
             this.shift = shift;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

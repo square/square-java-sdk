@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListCatalogResponse type.
  */
 public class ListCatalogResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final String cursor;
+    private final List<CatalogObject> objects;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param cursor
-     * @param objects
+     * @param errors List of Error value for errors.
+     * @param cursor String value for cursor.
+     * @param objects List of CatalogObject value for objects.
      */
     @JsonCreator
     public ListCatalogResponse(
@@ -29,18 +34,14 @@ public class ListCatalogResponse {
         this.objects = objects;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final String cursor;
-    private final List<CatalogObject> objects;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Errors.
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -49,8 +50,10 @@ public class ListCatalogResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
+     * more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -60,6 +63,7 @@ public class ListCatalogResponse {
     /**
      * Getter for Objects.
      * The CatalogObjects returned.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
@@ -74,16 +78,16 @@ public class ListCatalogResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListCatalogResponse)) {
+        if (!(obj instanceof ListCatalogResponse)) {
             return false;
         }
-        ListCatalogResponse listCatalogResponse = (ListCatalogResponse) obj;
-        return Objects.equals(errors, listCatalogResponse.errors) &&
-            Objects.equals(cursor, listCatalogResponse.cursor) &&
-            Objects.equals(objects, listCatalogResponse.objects);
+        ListCatalogResponse other = (ListCatalogResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(objects, other.objects);
     }
 
     /**
@@ -96,11 +100,11 @@ public class ListCatalogResponse {
             .errors(getErrors())
             .cursor(getCursor())
             .objects(getObjects());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListCatalogResponse}
+     * Class to build instances of {@link ListCatalogResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -108,43 +112,41 @@ public class ListCatalogResponse {
         private String cursor;
         private List<CatalogObject> objects;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for objects
-         * @param objects
+         * Setter for objects.
+         * @param objects List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
@@ -157,9 +159,10 @@ public class ListCatalogResponse {
          * @return {@link ListCatalogResponse}
          */
         public ListCatalogResponse build() {
-            ListCatalogResponse model = new ListCatalogResponse(errors,
-                cursor,
-                objects);
+            ListCatalogResponse model =
+                    new ListCatalogResponse(errors,
+                            cursor,
+                            objects);
             model.httpContext = httpContext;
             return model;
         }

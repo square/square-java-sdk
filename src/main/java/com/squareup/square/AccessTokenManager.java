@@ -1,48 +1,53 @@
+
 package com.squareup.square;
 
-import java.io.IOException;
+import com.squareup.square.http.request.HttpRequest;
 import java.util.concurrent.CompletableFuture;
 
-import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.request.HttpRequest;
-
 /**
- * Utility class for authorization and token management
+ * Utility class for authorization and token management.
  */
- public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
+public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
+
+    private String accessToken;
 
     /**
-     * Constructor
+     * Constructor.
+     * @param accessToken String value for accessToken.
      */
     public AccessTokenManager(String accessToken) {
         this.accessToken = accessToken;
     }
 
     /**
-     * Header Param to be used for requests
-     */
-    private String accessToken;
-
-    /**
-     * @return public String getAccessToken()
+     * String value for accessToken.
+     * @return accessToken
      */
     public String getAccessToken() {
         return accessToken;
     }
 
     /**
-     * Adds authentication to the given HttpRequest
+     * Checks if provided credentials matched with existing ones.
+     * @param accessToken String value for credentials.
+     * @return true if credentials matched.
      */
-    public HttpRequest apply(HttpRequest httpRequest) throws ApiException, IOException {
+    public boolean equals(String accessToken) {
+        return accessToken.equals(getAccessToken());
+    }
+
+    /**
+     * Adds authentication to the given HttpRequest.
+     */
+    public HttpRequest apply(HttpRequest httpRequest) {
         httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
         return httpRequest;
     }
 
     /**
-     * Asynchronously adds authentication to the given HttpRequest
+     * Asynchronously adds authentication to the given HttpRequest.
      */
     public CompletableFuture<HttpRequest> applyAsync(HttpRequest httpRequest) {
-        httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
-        return CompletableFuture.completedFuture(httpRequest);
+        return CompletableFuture.completedFuture(apply(httpRequest));
     }
 }

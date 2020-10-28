@@ -1,12 +1,13 @@
-## Order Fulfillment Recipient
+
+# Order Fulfillment Recipient
 
 Contains information on the recipient of a fulfillment.
 
-### Structure
+## Structure
 
 `OrderFulfillmentRecipient`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -16,7 +17,7 @@ Contains information on the recipient of a fulfillment.
 | `PhoneNumber` | `String` | Optional | The phone number of the fulfillment recipient.<br><br>If provided, overrides the value pulled from the customer profile indicated by `customer_id`. | String getPhoneNumber() |
 | `Address` | [`Address`](/doc/models/address.md) | Optional | Represents a physical address. | Address getAddress() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

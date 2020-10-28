@@ -1,24 +1,31 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ListPaymentsRequest type.
  */
 public class V1ListPaymentsRequest {
+    private final String order;
+    private final String beginTime;
+    private final String endTime;
+    private final Integer limit;
+    private final String batchToken;
+    private final Boolean includePartial;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param beginTime
-     * @param endTime
-     * @param limit
-     * @param batchToken
-     * @param includePartial
+     * @param order String value for order.
+     * @param beginTime String value for beginTime.
+     * @param endTime String value for endTime.
+     * @param limit Integer value for limit.
+     * @param batchToken String value for batchToken.
+     * @param includePartial Boolean value for includePartial.
      */
     @JsonCreator
     public V1ListPaymentsRequest(
@@ -36,15 +43,10 @@ public class V1ListPaymentsRequest {
         this.includePartial = includePartial;
     }
 
-    private final String order;
-    private final String beginTime;
-    private final String endTime;
-    private final Integer limit;
-    private final String batchToken;
-    private final Boolean includePartial;
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("order")
     public String getOrder() {
@@ -53,7 +55,10 @@ public class V1ListPaymentsRequest {
 
     /**
      * Getter for BeginTime.
-     * The beginning of the requested reporting period, in ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The current time minus one year.
+     * The beginning of the requested reporting period, in ISO 8601 format. If this value is before
+     * January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The
+     * current time minus one year.
+     * @return Returns the String
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
@@ -62,7 +67,10 @@ public class V1ListPaymentsRequest {
 
     /**
      * Getter for EndTime.
-     * The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time.
+     * The end of the requested reporting period, in ISO 8601 format. If this value is more than one
+     * year greater than begin_time, this endpoint returns an error. Default value: The current
+     * time.
+     * @return Returns the String
      */
     @JsonGetter("end_time")
     public String getEndTime() {
@@ -72,6 +80,7 @@ public class V1ListPaymentsRequest {
     /**
      * Getter for Limit.
      * The maximum number of payments to return in a single response. This value cannot exceed 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -80,8 +89,9 @@ public class V1ListPaymentsRequest {
 
     /**
      * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the String
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
@@ -90,7 +100,10 @@ public class V1ListPaymentsRequest {
 
     /**
      * Getter for IncludePartial.
-     * Indicates whether or not to include partial payments in the response. Partial payments will have the tenders collected so far, but the itemizations will be empty until the payment is completed.
+     * Indicates whether or not to include partial payments in the response. Partial payments will
+     * have the tenders collected so far, but the itemizations will be empty until the payment is
+     * completed.
+     * @return Returns the Boolean
      */
     @JsonGetter("include_partial")
     public Boolean getIncludePartial() {
@@ -105,19 +118,19 @@ public class V1ListPaymentsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListPaymentsRequest)) {
+        if (!(obj instanceof V1ListPaymentsRequest)) {
             return false;
         }
-        V1ListPaymentsRequest v1ListPaymentsRequest = (V1ListPaymentsRequest) obj;
-        return Objects.equals(order, v1ListPaymentsRequest.order) &&
-            Objects.equals(beginTime, v1ListPaymentsRequest.beginTime) &&
-            Objects.equals(endTime, v1ListPaymentsRequest.endTime) &&
-            Objects.equals(limit, v1ListPaymentsRequest.limit) &&
-            Objects.equals(batchToken, v1ListPaymentsRequest.batchToken) &&
-            Objects.equals(includePartial, v1ListPaymentsRequest.includePartial);
+        V1ListPaymentsRequest other = (V1ListPaymentsRequest) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(beginTime, other.beginTime)
+            && Objects.equals(endTime, other.endTime)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(batchToken, other.batchToken)
+            && Objects.equals(includePartial, other.includePartial);
     }
 
     /**
@@ -133,11 +146,11 @@ public class V1ListPaymentsRequest {
             .limit(getLimit())
             .batchToken(getBatchToken())
             .includePartial(getIncludePartial());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListPaymentsRequest}
+     * Class to build instances of {@link V1ListPaymentsRequest}.
      */
     public static class Builder {
         private String order;
@@ -147,61 +160,61 @@ public class V1ListPaymentsRequest {
         private String batchToken;
         private Boolean includePartial;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order String value for order.
          * @return Builder
          */
         public Builder order(String order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for beginTime
-         * @param beginTime
+         * Setter for beginTime.
+         * @param beginTime String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
             this.beginTime = beginTime;
             return this;
         }
+
         /**
-         * Setter for endTime
-         * @param endTime
+         * Setter for endTime.
+         * @param endTime String value for endTime.
          * @return Builder
          */
         public Builder endTime(String endTime) {
             this.endTime = endTime;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for batchToken
-         * @param batchToken
+         * Setter for batchToken.
+         * @param batchToken String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {
             this.batchToken = batchToken;
             return this;
         }
+
         /**
-         * Setter for includePartial
-         * @param includePartial
+         * Setter for includePartial.
+         * @param includePartial Boolean value for includePartial.
          * @return Builder
          */
         public Builder includePartial(Boolean includePartial) {

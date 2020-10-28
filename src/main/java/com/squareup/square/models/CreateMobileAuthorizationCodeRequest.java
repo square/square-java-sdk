@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateMobileAuthorizationCodeRequest type.
  */
 public class CreateMobileAuthorizationCodeRequest {
+    private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param locationId
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public CreateMobileAuthorizationCodeRequest(
@@ -21,10 +23,10 @@ public class CreateMobileAuthorizationCodeRequest {
         this.locationId = locationId;
     }
 
-    private final String locationId;
     /**
      * Getter for LocationId.
      * The Square location ID the authorization code should be tied to.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -39,14 +41,14 @@ public class CreateMobileAuthorizationCodeRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateMobileAuthorizationCodeRequest)) {
+        if (!(obj instanceof CreateMobileAuthorizationCodeRequest)) {
             return false;
         }
-        CreateMobileAuthorizationCodeRequest createMobileAuthorizationCodeRequest = (CreateMobileAuthorizationCodeRequest) obj;
-        return Objects.equals(locationId, createMobileAuthorizationCodeRequest.locationId);
+        CreateMobileAuthorizationCodeRequest other = (CreateMobileAuthorizationCodeRequest) obj;
+        return Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -57,25 +59,20 @@ public class CreateMobileAuthorizationCodeRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .locationId(getLocationId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateMobileAuthorizationCodeRequest}
+     * Class to build instances of {@link CreateMobileAuthorizationCodeRequest}.
      */
     public static class Builder {
         private String locationId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

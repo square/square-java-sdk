@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateCategoryRequest type.
  */
 public class V1CreateCategoryRequest {
+    private final V1Category body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Category value for body.
      */
     @JsonCreator
     public V1CreateCategoryRequest(
@@ -21,10 +23,10 @@ public class V1CreateCategoryRequest {
         this.body = body;
     }
 
-    private final V1Category body;
     /**
      * Getter for Body.
      * V1Category
+     * @return Returns the V1Category
      */
     @JsonGetter("body")
     public V1Category getBody() {
@@ -39,14 +41,14 @@ public class V1CreateCategoryRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateCategoryRequest)) {
+        if (!(obj instanceof V1CreateCategoryRequest)) {
             return false;
         }
-        V1CreateCategoryRequest v1CreateCategoryRequest = (V1CreateCategoryRequest) obj;
-        return Objects.equals(body, v1CreateCategoryRequest.body);
+        V1CreateCategoryRequest other = (V1CreateCategoryRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreateCategoryRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .body(getBody());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateCategoryRequest}
+     * Class to build instances of {@link V1CreateCategoryRequest}.
      */
     public static class Builder {
         private V1Category body;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Category value for body.
          * @return Builder
          */
         public Builder body(V1Category body) {

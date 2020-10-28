@@ -1,13 +1,14 @@
-## Inventory Transfer
+
+# Inventory Transfer
 
 Represents the transfer of a quantity of product inventory at a
 particular time from one location to another.
 
-### Structure
+## Structure
 
 `InventoryTransfer`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -24,7 +25,7 @@ particular time from one location to another.
 | `Source` | [`SourceApplication`](/doc/models/source-application.md) | Optional | Provides information about the application used to generate a change. | SourceApplication getSource() |
 | `EmployeeId` | `String` | Optional | The Square ID of the [Employee](#type-employee) responsible for the<br>inventory transfer. | String getEmployeeId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

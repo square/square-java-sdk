@@ -1,12 +1,13 @@
-## Break
+
+# Break
 
 A record of an employee's break during a shift.
 
-### Structure
+## Structure
 
 `Break`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -18,7 +19,7 @@ A record of an employee's break during a shift.
 | `ExpectedDuration` | `String` |  | Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of<br>the break. | String getExpectedDuration() |
 | `IsPaid` | `boolean` |  | Whether this break counts towards time worked for compensation<br>purposes. | boolean getIsPaid() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for GetShiftResponse type.
  */
 public class GetShiftResponse {
+    private HttpContext httpContext;
+    private final Shift shift;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param shift
-     * @param errors
+     * @param shift Shift value for shift.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public GetShiftResponse(
@@ -26,19 +30,15 @@ public class GetShiftResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final Shift shift;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Shift.
-     * A record of the hourly rate, start, and end times for a single work shift
-     * for an employee. May include a record of the start and end times for breaks
-     * taken during the shift.
+     * A record of the hourly rate, start, and end times for a single work shift for an employee.
+     * May include a record of the start and end times for breaks taken during the shift.
+     * @return Returns the Shift
      */
     @JsonGetter("shift")
     public Shift getShift() {
@@ -48,6 +48,7 @@ public class GetShiftResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -62,15 +63,15 @@ public class GetShiftResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof GetShiftResponse)) {
+        if (!(obj instanceof GetShiftResponse)) {
             return false;
         }
-        GetShiftResponse getShiftResponse = (GetShiftResponse) obj;
-        return Objects.equals(shift, getShiftResponse.shift) &&
-            Objects.equals(errors, getShiftResponse.errors);
+        GetShiftResponse other = (GetShiftResponse) obj;
+        return Objects.equals(shift, other.shift)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -82,45 +83,42 @@ public class GetShiftResponse {
         Builder builder = new Builder()
             .shift(getShift())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link GetShiftResponse}
+     * Class to build instances of {@link GetShiftResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private Shift shift;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for shift
-         * @param shift
+         * Setter for shift.
+         * @param shift Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {
             this.shift = shift;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -133,8 +131,9 @@ public class GetShiftResponse {
          * @return {@link GetShiftResponse}
          */
         public GetShiftResponse build() {
-            GetShiftResponse model = new GetShiftResponse(shift,
-                errors);
+            GetShiftResponse model =
+                    new GetShiftResponse(shift,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchOrdersDateTimeFilter type.
  */
 public class SearchOrdersDateTimeFilter {
+    private final TimeRange createdAt;
+    private final TimeRange updatedAt;
+    private final TimeRange closedAt;
 
     /**
      * Initialization constructor.
-     * @param createdAt
-     * @param updatedAt
-     * @param closedAt
+     * @param createdAt TimeRange value for createdAt.
+     * @param updatedAt TimeRange value for updatedAt.
+     * @param closedAt TimeRange value for closedAt.
      */
     @JsonCreator
     public SearchOrdersDateTimeFilter(
@@ -27,16 +31,13 @@ public class SearchOrdersDateTimeFilter {
         this.closedAt = closedAt;
     }
 
-    private final TimeRange createdAt;
-    private final TimeRange updatedAt;
-    private final TimeRange closedAt;
     /**
      * Getter for CreatedAt.
-     * Represents a generic time range. The start and end values are
-     * represented in RFC 3339 format. Time ranges are customized to be
-     * inclusive or exclusive based on the needs of a particular endpoint.
-     * Refer to the relevant endpoint-specific documentation to determine
-     * how time ranges are handled.
+     * Represents a generic time range. The start and end values are represented in RFC 3339 format.
+     * Time ranges are customized to be inclusive or exclusive based on the needs of a particular
+     * endpoint. Refer to the relevant endpoint-specific documentation to determine how time ranges
+     * are handled.
+     * @return Returns the TimeRange
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
@@ -45,11 +46,11 @@ public class SearchOrdersDateTimeFilter {
 
     /**
      * Getter for UpdatedAt.
-     * Represents a generic time range. The start and end values are
-     * represented in RFC 3339 format. Time ranges are customized to be
-     * inclusive or exclusive based on the needs of a particular endpoint.
-     * Refer to the relevant endpoint-specific documentation to determine
-     * how time ranges are handled.
+     * Represents a generic time range. The start and end values are represented in RFC 3339 format.
+     * Time ranges are customized to be inclusive or exclusive based on the needs of a particular
+     * endpoint. Refer to the relevant endpoint-specific documentation to determine how time ranges
+     * are handled.
+     * @return Returns the TimeRange
      */
     @JsonGetter("updated_at")
     public TimeRange getUpdatedAt() {
@@ -58,11 +59,11 @@ public class SearchOrdersDateTimeFilter {
 
     /**
      * Getter for ClosedAt.
-     * Represents a generic time range. The start and end values are
-     * represented in RFC 3339 format. Time ranges are customized to be
-     * inclusive or exclusive based on the needs of a particular endpoint.
-     * Refer to the relevant endpoint-specific documentation to determine
-     * how time ranges are handled.
+     * Represents a generic time range. The start and end values are represented in RFC 3339 format.
+     * Time ranges are customized to be inclusive or exclusive based on the needs of a particular
+     * endpoint. Refer to the relevant endpoint-specific documentation to determine how time ranges
+     * are handled.
+     * @return Returns the TimeRange
      */
     @JsonGetter("closed_at")
     public TimeRange getClosedAt() {
@@ -77,16 +78,16 @@ public class SearchOrdersDateTimeFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersDateTimeFilter)) {
+        if (!(obj instanceof SearchOrdersDateTimeFilter)) {
             return false;
         }
-        SearchOrdersDateTimeFilter searchOrdersDateTimeFilter = (SearchOrdersDateTimeFilter) obj;
-        return Objects.equals(createdAt, searchOrdersDateTimeFilter.createdAt) &&
-            Objects.equals(updatedAt, searchOrdersDateTimeFilter.updatedAt) &&
-            Objects.equals(closedAt, searchOrdersDateTimeFilter.closedAt);
+        SearchOrdersDateTimeFilter other = (SearchOrdersDateTimeFilter) obj;
+        return Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(closedAt, other.closedAt);
     }
 
     /**
@@ -99,45 +100,42 @@ public class SearchOrdersDateTimeFilter {
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt())
             .closedAt(getClosedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersDateTimeFilter}
+     * Class to build instances of {@link SearchOrdersDateTimeFilter}.
      */
     public static class Builder {
         private TimeRange createdAt;
         private TimeRange updatedAt;
         private TimeRange closedAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt TimeRange value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(TimeRange updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for closedAt
-         * @param closedAt
+         * Setter for closedAt.
+         * @param closedAt TimeRange value for closedAt.
          * @return Builder
          */
         public Builder closedAt(TimeRange closedAt) {

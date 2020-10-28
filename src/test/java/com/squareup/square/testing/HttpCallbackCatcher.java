@@ -31,7 +31,7 @@ public class HttpCallbackCatcher implements HttpCallback {
 
     /**
      * Get the HTTP Request object associated with this API call 
-     * @return
+     * @return the HTTP Request
      */
     public HttpRequest getRequest() {
         return request;
@@ -47,7 +47,7 @@ public class HttpCallbackCatcher implements HttpCallback {
 
     /**
      * Get the HTTP Response object associated with this API call
-     * @return
+     * @return the HTTP Response
      */
     public HttpResponse getResponse() {
         return response;

@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection {
+    private final String uid;
+    private final String name;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param uid
+     * @param name String value for name.
+     * @param uid String value for uid.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(
@@ -24,11 +27,10 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
         this.name = name;
     }
 
-    private final String uid;
-    private final String name;
     /**
      * Getter for Uid.
      * Unique ID set by Square.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -38,6 +40,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     /**
      * Getter for Name.
      * Selection name, unique within `allowed_selections`.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -52,15 +55,16 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection)) {
+        if (!(obj instanceof CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection)) {
             return false;
         }
-        CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection catalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection = (CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection) obj;
-        return Objects.equals(uid, catalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection.uid) &&
-            Objects.equals(name, catalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection.name);
+        CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection other =
+                (CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(name, other.name);
     }
 
     /**
@@ -71,35 +75,37 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     public Builder toBuilder() {
         Builder builder = new Builder(name)
             .uid(getUid());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection}
+     * Class to build instances of {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection}.
      */
     public static class Builder {
         private String name;
         private String uid;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param name String value for name.
          */
         public Builder(String name) {
             this.name = name;
         }
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -108,7 +114,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
         }
 
         /**
-         * Builds a new {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection} object using the set fields.
+         * Builds a new {@link
+         * CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection} object using the
+         * set fields.
          * @return {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection}
          */
         public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection build() {

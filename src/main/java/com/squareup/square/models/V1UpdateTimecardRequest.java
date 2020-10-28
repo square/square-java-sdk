@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateTimecardRequest type.
  */
 public class V1UpdateTimecardRequest {
+    private final V1Timecard body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Timecard value for body.
      */
     @JsonCreator
     public V1UpdateTimecardRequest(
@@ -21,10 +23,10 @@ public class V1UpdateTimecardRequest {
         this.body = body;
     }
 
-    private final V1Timecard body;
     /**
      * Getter for Body.
      * Represents a timecard for an employee.
+     * @return Returns the V1Timecard
      */
     @JsonGetter("body")
     public V1Timecard getBody() {
@@ -39,14 +41,14 @@ public class V1UpdateTimecardRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateTimecardRequest)) {
+        if (!(obj instanceof V1UpdateTimecardRequest)) {
             return false;
         }
-        V1UpdateTimecardRequest v1UpdateTimecardRequest = (V1UpdateTimecardRequest) obj;
-        return Objects.equals(body, v1UpdateTimecardRequest.body);
+        V1UpdateTimecardRequest other = (V1UpdateTimecardRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -56,25 +58,26 @@ public class V1UpdateTimecardRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(body);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateTimecardRequest}
+     * Class to build instances of {@link V1UpdateTimecardRequest}.
      */
     public static class Builder {
         private V1Timecard body;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param body V1Timecard value for body.
          */
         public Builder(V1Timecard body) {
             this.body = body;
         }
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Timecard value for body.
          * @return Builder
          */
         public Builder body(V1Timecard body) {

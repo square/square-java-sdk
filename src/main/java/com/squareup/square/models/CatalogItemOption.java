@@ -1,25 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CatalogItemOption type.
  */
 public class CatalogItemOption {
+    private final String name;
+    private final String displayName;
+    private final String description;
+    private final Boolean showColors;
+    private final List<CatalogObject> values;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param displayName
-     * @param description
-     * @param showColors
-     * @param values
-     * @param itemCount
+     * @param name String value for name.
+     * @param displayName String value for displayName.
+     * @param description String value for description.
+     * @param showColors Boolean value for showColors.
+     * @param values List of CatalogObject value for values.
      */
     @JsonCreator
     public CatalogItemOption(
@@ -27,26 +32,19 @@ public class CatalogItemOption {
             @JsonProperty("display_name") String displayName,
             @JsonProperty("description") String description,
             @JsonProperty("show_colors") Boolean showColors,
-            @JsonProperty("values") List<CatalogObject> values,
-            @JsonProperty("item_count") Long itemCount) {
+            @JsonProperty("values") List<CatalogObject> values) {
         this.name = name;
         this.displayName = displayName;
         this.description = description;
         this.showColors = showColors;
         this.values = values;
-        this.itemCount = itemCount;
     }
 
-    private final String name;
-    private final String displayName;
-    private final String description;
-    private final Boolean showColors;
-    private final List<CatalogObject> values;
-    private final Long itemCount;
     /**
      * Getter for Name.
-     * The item option's display name for the seller. Must be unique across
-     * all item options. This is a searchable attribute for use in applicable query filters.
+     * The item option's display name for the seller. Must be unique across all item options. This
+     * is a searchable attribute for use in applicable query filters.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -55,7 +53,9 @@ public class CatalogItemOption {
 
     /**
      * Getter for DisplayName.
-     * The item option's display name for the customer. This is a searchable attribute for use in applicable query filters.
+     * The item option's display name for the customer. This is a searchable attribute for use in
+     * applicable query filters.
+     * @return Returns the String
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
@@ -64,9 +64,10 @@ public class CatalogItemOption {
 
     /**
      * Getter for Description.
-     * The item option's human-readable description. Displayed in the Square
-     * Point of Sale app for the seller and in the Online Store or on receipts for
-     * the buyer. This is a searchable attribute for use in applicable query filters.
+     * The item option's human-readable description. Displayed in the Square Point of Sale app for
+     * the seller and in the Online Store or on receipts for the buyer. This is a searchable
+     * attribute for use in applicable query filters.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -76,6 +77,7 @@ public class CatalogItemOption {
     /**
      * Getter for ShowColors.
      * If true, display colors for entries in `values` when present.
+     * @return Returns the Boolean
      */
     @JsonGetter("show_colors")
     public Boolean getShowColors() {
@@ -84,46 +86,34 @@ public class CatalogItemOption {
 
     /**
      * Getter for Values.
-     * A list of CatalogObjects containing the
-     * `CatalogItemOptionValue`s for this item.
+     * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("values")
     public List<CatalogObject> getValues() {
         return this.values;
     }
 
-    /**
-     * Getter for ItemCount.
-     * The number of `CatalogItem`s currently associated
-     * with this item option. Present only if the `include_counts` was specified
-     * in the request. Any count over 100 will be returned as `100`.
-     */
-    @JsonGetter("item_count")
-    public Long getItemCount() {
-        return this.itemCount;
-    }
-
  
     @Override
     public int hashCode() {
-        return Objects.hash(name, displayName, description, showColors, values, itemCount);
+        return Objects.hash(name, displayName, description, showColors, values);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogItemOption)) {
+        if (!(obj instanceof CatalogItemOption)) {
             return false;
         }
-        CatalogItemOption catalogItemOption = (CatalogItemOption) obj;
-        return Objects.equals(name, catalogItemOption.name) &&
-            Objects.equals(displayName, catalogItemOption.displayName) &&
-            Objects.equals(description, catalogItemOption.description) &&
-            Objects.equals(showColors, catalogItemOption.showColors) &&
-            Objects.equals(values, catalogItemOption.values) &&
-            Objects.equals(itemCount, catalogItemOption.itemCount);
+        CatalogItemOption other = (CatalogItemOption) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(displayName, other.displayName)
+            && Objects.equals(description, other.description)
+            && Objects.equals(showColors, other.showColors)
+            && Objects.equals(values, other.values);
     }
 
     /**
@@ -137,13 +127,12 @@ public class CatalogItemOption {
             .displayName(getDisplayName())
             .description(getDescription())
             .showColors(getShowColors())
-            .values(getValues())
-            .itemCount(getItemCount());
-            return builder;
+            .values(getValues());
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogItemOption}
+     * Class to build instances of {@link CatalogItemOption}.
      */
     public static class Builder {
         private String name;
@@ -151,67 +140,56 @@ public class CatalogItemOption {
         private String description;
         private Boolean showColors;
         private List<CatalogObject> values;
-        private Long itemCount;
+
+
 
         /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
-
-        /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for displayName
-         * @param displayName
+         * Setter for displayName.
+         * @param displayName String value for displayName.
          * @return Builder
          */
         public Builder displayName(String displayName) {
             this.displayName = displayName;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
             return this;
         }
+
         /**
-         * Setter for showColors
-         * @param showColors
+         * Setter for showColors.
+         * @param showColors Boolean value for showColors.
          * @return Builder
          */
         public Builder showColors(Boolean showColors) {
             this.showColors = showColors;
             return this;
         }
+
         /**
-         * Setter for values
-         * @param values
+         * Setter for values.
+         * @param values List of CatalogObject value for values.
          * @return Builder
          */
         public Builder values(List<CatalogObject> values) {
             this.values = values;
-            return this;
-        }
-        /**
-         * Setter for itemCount
-         * @param itemCount
-         * @return Builder
-         */
-        public Builder itemCount(Long itemCount) {
-            this.itemCount = itemCount;
             return this;
         }
 
@@ -224,8 +202,7 @@ public class CatalogItemOption {
                 displayName,
                 description,
                 showColors,
-                values,
-                itemCount);
+                values);
         }
     }
 }

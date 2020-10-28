@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for InvoicePaymentReminder type.
  */
 public class InvoicePaymentReminder {
+    private final String uid;
+    private final Integer relativeScheduledDays;
+    private final String message;
+    private final String status;
+    private final String sentAt;
 
     /**
      * Initialization constructor.
-     * @param uid
-     * @param relativeScheduledDays
-     * @param message
-     * @param status
-     * @param sentAt
+     * @param uid String value for uid.
+     * @param relativeScheduledDays Integer value for relativeScheduledDays.
+     * @param message String value for message.
+     * @param status String value for status.
+     * @param sentAt String value for sentAt.
      */
     @JsonCreator
     public InvoicePaymentReminder(
@@ -33,15 +39,11 @@ public class InvoicePaymentReminder {
         this.sentAt = sentAt;
     }
 
-    private final String uid;
-    private final Integer relativeScheduledDays;
-    private final String message;
-    private final String status;
-    private final String sentAt;
     /**
      * Getter for Uid.
      * A Square-assigned ID that uniquely identifies the reminder within the
      * `InvoicePaymentRequest`.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -50,9 +52,10 @@ public class InvoicePaymentReminder {
 
     /**
      * Getter for RelativeScheduledDays.
-     * The number of days before (a negative number) or after (a positive number)
-     * the payment request `due_date` when the reminder is sent. For example, -3 indicates that
-     * the reminder should be sent 3 days before the payment request `due_date`.
+     * The number of days before (a negative number) or after (a positive number) the payment
+     * request `due_date` when the reminder is sent. For example, -3 indicates that the reminder
+     * should be sent 3 days before the payment request `due_date`.
+     * @return Returns the Integer
      */
     @JsonGetter("relative_scheduled_days")
     public Integer getRelativeScheduledDays() {
@@ -62,6 +65,7 @@ public class InvoicePaymentReminder {
     /**
      * Getter for Message.
      * The reminder message.
+     * @return Returns the String
      */
     @JsonGetter("message")
     public String getMessage() {
@@ -71,6 +75,7 @@ public class InvoicePaymentReminder {
     /**
      * Getter for Status.
      * The status of a payment request reminder.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -80,6 +85,7 @@ public class InvoicePaymentReminder {
     /**
      * Getter for SentAt.
      * If sent, the timestamp when the reminder was sent, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("sent_at")
     public String getSentAt() {
@@ -94,18 +100,18 @@ public class InvoicePaymentReminder {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InvoicePaymentReminder)) {
+        if (!(obj instanceof InvoicePaymentReminder)) {
             return false;
         }
-        InvoicePaymentReminder invoicePaymentReminder = (InvoicePaymentReminder) obj;
-        return Objects.equals(uid, invoicePaymentReminder.uid) &&
-            Objects.equals(relativeScheduledDays, invoicePaymentReminder.relativeScheduledDays) &&
-            Objects.equals(message, invoicePaymentReminder.message) &&
-            Objects.equals(status, invoicePaymentReminder.status) &&
-            Objects.equals(sentAt, invoicePaymentReminder.sentAt);
+        InvoicePaymentReminder other = (InvoicePaymentReminder) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(relativeScheduledDays, other.relativeScheduledDays)
+            && Objects.equals(message, other.message)
+            && Objects.equals(status, other.status)
+            && Objects.equals(sentAt, other.sentAt);
     }
 
     /**
@@ -120,11 +126,11 @@ public class InvoicePaymentReminder {
             .message(getMessage())
             .status(getStatus())
             .sentAt(getSentAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoicePaymentReminder}
+     * Class to build instances of {@link InvoicePaymentReminder}.
      */
     public static class Builder {
         private String uid;
@@ -133,52 +139,51 @@ public class InvoicePaymentReminder {
         private String status;
         private String sentAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for relativeScheduledDays
-         * @param relativeScheduledDays
+         * Setter for relativeScheduledDays.
+         * @param relativeScheduledDays Integer value for relativeScheduledDays.
          * @return Builder
          */
         public Builder relativeScheduledDays(Integer relativeScheduledDays) {
             this.relativeScheduledDays = relativeScheduledDays;
             return this;
         }
+
         /**
-         * Setter for message
-         * @param message
+         * Setter for message.
+         * @param message String value for message.
          * @return Builder
          */
         public Builder message(String message) {
             this.message = message;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for sentAt
-         * @param sentAt
+         * Setter for sentAt.
+         * @param sentAt String value for sentAt.
          * @return Builder
          */
         public Builder sentAt(String sentAt) {

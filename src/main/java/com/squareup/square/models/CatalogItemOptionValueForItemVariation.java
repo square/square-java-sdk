@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogItemOptionValueForItemVariation type.
  */
 public class CatalogItemOptionValueForItemVariation {
+    private final String itemOptionId;
+    private final String itemOptionValueId;
 
     /**
      * Initialization constructor.
-     * @param itemOptionId
-     * @param itemOptionValueId
+     * @param itemOptionId String value for itemOptionId.
+     * @param itemOptionValueId String value for itemOptionValueId.
      */
     @JsonCreator
     public CatalogItemOptionValueForItemVariation(
@@ -24,11 +27,10 @@ public class CatalogItemOptionValueForItemVariation {
         this.itemOptionValueId = itemOptionValueId;
     }
 
-    private final String itemOptionId;
-    private final String itemOptionValueId;
     /**
      * Getter for ItemOptionId.
      * The unique id of an item option.
+     * @return Returns the String
      */
     @JsonGetter("item_option_id")
     public String getItemOptionId() {
@@ -38,6 +40,7 @@ public class CatalogItemOptionValueForItemVariation {
     /**
      * Getter for ItemOptionValueId.
      * The unique id of the selected value for the item option.
+     * @return Returns the String
      */
     @JsonGetter("item_option_value_id")
     public String getItemOptionValueId() {
@@ -52,15 +55,15 @@ public class CatalogItemOptionValueForItemVariation {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogItemOptionValueForItemVariation)) {
+        if (!(obj instanceof CatalogItemOptionValueForItemVariation)) {
             return false;
         }
-        CatalogItemOptionValueForItemVariation catalogItemOptionValueForItemVariation = (CatalogItemOptionValueForItemVariation) obj;
-        return Objects.equals(itemOptionId, catalogItemOptionValueForItemVariation.itemOptionId) &&
-            Objects.equals(itemOptionValueId, catalogItemOptionValueForItemVariation.itemOptionValueId);
+        CatalogItemOptionValueForItemVariation other = (CatalogItemOptionValueForItemVariation) obj;
+        return Objects.equals(itemOptionId, other.itemOptionId)
+            && Objects.equals(itemOptionValueId, other.itemOptionValueId);
     }
 
     /**
@@ -72,35 +75,31 @@ public class CatalogItemOptionValueForItemVariation {
         Builder builder = new Builder()
             .itemOptionId(getItemOptionId())
             .itemOptionValueId(getItemOptionValueId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogItemOptionValueForItemVariation}
+     * Class to build instances of {@link CatalogItemOptionValueForItemVariation}.
      */
     public static class Builder {
         private String itemOptionId;
         private String itemOptionValueId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for itemOptionId
-         * @param itemOptionId
+         * Setter for itemOptionId.
+         * @param itemOptionId String value for itemOptionId.
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {
             this.itemOptionId = itemOptionId;
             return this;
         }
+
         /**
-         * Setter for itemOptionValueId
-         * @param itemOptionValueId
+         * Setter for itemOptionValueId.
+         * @param itemOptionValueId String value for itemOptionValueId.
          * @return Builder
          */
         public Builder itemOptionValueId(String itemOptionValueId) {

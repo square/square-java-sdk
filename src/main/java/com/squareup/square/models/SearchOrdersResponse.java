@@ -1,24 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for SearchOrdersResponse type.
  */
 public class SearchOrdersResponse {
+    private HttpContext httpContext;
+    private final List<OrderEntry> orderEntries;
+    private final List<Order> orders;
+    private final String cursor;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param orderEntries
-     * @param orders
-     * @param cursor
-     * @param errors
+     * @param orderEntries List of OrderEntry value for orderEntries.
+     * @param orders List of Order value for orders.
+     * @param cursor String value for cursor.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public SearchOrdersResponse(
@@ -32,20 +38,15 @@ public class SearchOrdersResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<OrderEntry> orderEntries;
-    private final List<Order> orders;
-    private final String cursor;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for OrderEntries.
-     * List of [OrderEntries](#type-orderentry) that fit the query
-     * conditions. Populated only if `return_entries` was set to `true` in the request.
+     * List of [OrderEntries](#type-orderentry) that fit the query conditions. Populated only if
+     * `return_entries` was set to `true` in the request.
+     * @return Returns the List of OrderEntry
      */
     @JsonGetter("order_entries")
     public List<OrderEntry> getOrderEntries() {
@@ -54,9 +55,9 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Orders.
-     * List of
-     * [Order](#type-order) objects that match query conditions. Populated only if
+     * List of [Order](#type-order) objects that match query conditions. Populated only if
      * `return_entries` in the request is set to `false`.
+     * @return Returns the List of Order
      */
     @JsonGetter("orders")
     public List<Order> getOrders() {
@@ -65,9 +66,10 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Cursor.
-     * The pagination cursor to be used in a subsequent request. If unset,
-     * this is the final response.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
+     * more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -77,6 +79,7 @@ public class SearchOrdersResponse {
     /**
      * Getter for Errors.
      * [Errors](#type-error) encountered during the search.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -91,17 +94,17 @@ public class SearchOrdersResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersResponse)) {
+        if (!(obj instanceof SearchOrdersResponse)) {
             return false;
         }
-        SearchOrdersResponse searchOrdersResponse = (SearchOrdersResponse) obj;
-        return Objects.equals(orderEntries, searchOrdersResponse.orderEntries) &&
-            Objects.equals(orders, searchOrdersResponse.orders) &&
-            Objects.equals(cursor, searchOrdersResponse.cursor) &&
-            Objects.equals(errors, searchOrdersResponse.errors);
+        SearchOrdersResponse other = (SearchOrdersResponse) obj;
+        return Objects.equals(orderEntries, other.orderEntries)
+            && Objects.equals(orders, other.orders)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -115,11 +118,11 @@ public class SearchOrdersResponse {
             .orders(getOrders())
             .cursor(getCursor())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersResponse}
+     * Class to build instances of {@link SearchOrdersResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -128,52 +131,51 @@ public class SearchOrdersResponse {
         private String cursor;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for orderEntries
-         * @param orderEntries
+         * Setter for orderEntries.
+         * @param orderEntries List of OrderEntry value for orderEntries.
          * @return Builder
          */
         public Builder orderEntries(List<OrderEntry> orderEntries) {
             this.orderEntries = orderEntries;
             return this;
         }
+
         /**
-         * Setter for orders
-         * @param orders
+         * Setter for orders.
+         * @param orders List of Order value for orders.
          * @return Builder
          */
         public Builder orders(List<Order> orders) {
             this.orders = orders;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -186,10 +188,11 @@ public class SearchOrdersResponse {
          * @return {@link SearchOrdersResponse}
          */
         public SearchOrdersResponse build() {
-            SearchOrdersResponse model = new SearchOrdersResponse(orderEntries,
-                orders,
-                cursor,
-                errors);
+            SearchOrdersResponse model =
+                    new SearchOrdersResponse(orderEntries,
+                            orders,
+                            cursor,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

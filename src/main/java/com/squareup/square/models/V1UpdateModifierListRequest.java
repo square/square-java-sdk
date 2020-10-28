@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1UpdateModifierListRequest type.
  */
 public class V1UpdateModifierListRequest {
+    private final String name;
+    private final String selectionType;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param selectionType
+     * @param name String value for name.
+     * @param selectionType String value for selectionType.
      */
     @JsonCreator
     public V1UpdateModifierListRequest(
@@ -24,11 +27,10 @@ public class V1UpdateModifierListRequest {
         this.selectionType = selectionType;
     }
 
-    private final String name;
-    private final String selectionType;
     /**
      * Getter for Name.
      * The modifier list's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -37,6 +39,7 @@ public class V1UpdateModifierListRequest {
 
     /**
      * Getter for SelectionType.
+     * @return Returns the String
      */
     @JsonGetter("selection_type")
     public String getSelectionType() {
@@ -51,15 +54,15 @@ public class V1UpdateModifierListRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1UpdateModifierListRequest)) {
+        if (!(obj instanceof V1UpdateModifierListRequest)) {
             return false;
         }
-        V1UpdateModifierListRequest v1UpdateModifierListRequest = (V1UpdateModifierListRequest) obj;
-        return Objects.equals(name, v1UpdateModifierListRequest.name) &&
-            Objects.equals(selectionType, v1UpdateModifierListRequest.selectionType);
+        V1UpdateModifierListRequest other = (V1UpdateModifierListRequest) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(selectionType, other.selectionType);
     }
 
     /**
@@ -71,35 +74,31 @@ public class V1UpdateModifierListRequest {
         Builder builder = new Builder()
             .name(getName())
             .selectionType(getSelectionType());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1UpdateModifierListRequest}
+     * Class to build instances of {@link V1UpdateModifierListRequest}.
      */
     public static class Builder {
         private String name;
         private String selectionType;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for selectionType
-         * @param selectionType
+         * Setter for selectionType.
+         * @param selectionType String value for selectionType.
          * @return Builder
          */
         public Builder selectionType(String selectionType) {

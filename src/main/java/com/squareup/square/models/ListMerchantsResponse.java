@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListMerchantsResponse type.
  */
 public class ListMerchantsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<Merchant> merchant;
+    private final Integer cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param merchant
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param merchant List of Merchant value for merchant.
+     * @param cursor Integer value for cursor.
      */
     @JsonCreator
     public ListMerchantsResponse(
@@ -29,11 +34,6 @@ public class ListMerchantsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<Merchant> merchant;
-    private final Integer cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListMerchantsResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListMerchantsResponse {
     /**
      * Getter for Merchant.
      * The requested `Merchant` entities.
+     * @return Returns the List of Merchant
      */
     @JsonGetter("merchant")
     public List<Merchant> getMerchant() {
@@ -58,7 +60,8 @@ public class ListMerchantsResponse {
 
     /**
      * Getter for Cursor.
-     * If the  response is truncated, the cursor to use in next  request to fetch next set of objects.
+     * If the response is truncated, the cursor to use in next request to fetch next set of objects.
+     * @return Returns the Integer
      */
     @JsonGetter("cursor")
     public Integer getCursor() {
@@ -73,16 +76,16 @@ public class ListMerchantsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListMerchantsResponse)) {
+        if (!(obj instanceof ListMerchantsResponse)) {
             return false;
         }
-        ListMerchantsResponse listMerchantsResponse = (ListMerchantsResponse) obj;
-        return Objects.equals(errors, listMerchantsResponse.errors) &&
-            Objects.equals(merchant, listMerchantsResponse.merchant) &&
-            Objects.equals(cursor, listMerchantsResponse.cursor);
+        ListMerchantsResponse other = (ListMerchantsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(merchant, other.merchant)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -95,11 +98,11 @@ public class ListMerchantsResponse {
             .errors(getErrors())
             .merchant(getMerchant())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListMerchantsResponse}
+     * Class to build instances of {@link ListMerchantsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -107,43 +110,41 @@ public class ListMerchantsResponse {
         private List<Merchant> merchant;
         private Integer cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for merchant
-         * @param merchant
+         * Setter for merchant.
+         * @param merchant List of Merchant value for merchant.
          * @return Builder
          */
         public Builder merchant(List<Merchant> merchant) {
             this.merchant = merchant;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor Integer value for cursor.
          * @return Builder
          */
         public Builder cursor(Integer cursor) {
@@ -156,9 +157,10 @@ public class ListMerchantsResponse {
          * @return {@link ListMerchantsResponse}
          */
         public ListMerchantsResponse build() {
-            ListMerchantsResponse model = new ListMerchantsResponse(errors,
-                merchant,
-                cursor);
+            ListMerchantsResponse model =
+                    new ListMerchantsResponse(errors,
+                            merchant,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

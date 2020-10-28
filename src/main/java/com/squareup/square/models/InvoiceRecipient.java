@@ -1,25 +1,33 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for InvoiceRecipient type.
  */
 public class InvoiceRecipient {
+    private final String customerId;
+    private final String givenName;
+    private final String familyName;
+    private final String emailAddress;
+    private final Address address;
+    private final String phoneNumber;
+    private final String companyName;
 
     /**
      * Initialization constructor.
-     * @param customerId
-     * @param givenName
-     * @param familyName
-     * @param emailAddress
-     * @param address
-     * @param phoneNumber
-     * @param companyName
+     * @param customerId String value for customerId.
+     * @param givenName String value for givenName.
+     * @param familyName String value for familyName.
+     * @param emailAddress String value for emailAddress.
+     * @param address Address value for address.
+     * @param phoneNumber String value for phoneNumber.
+     * @param companyName String value for companyName.
      */
     @JsonCreator
     public InvoiceRecipient(
@@ -39,17 +47,11 @@ public class InvoiceRecipient {
         this.companyName = companyName;
     }
 
-    private final String customerId;
-    private final String givenName;
-    private final String familyName;
-    private final String emailAddress;
-    private final Address address;
-    private final String phoneNumber;
-    private final String companyName;
     /**
      * Getter for CustomerId.
-     * The ID of the customer. This is the customer profile ID that 
-     * you provide when creating a draft invoice.
+     * The ID of the customer. This is the customer profile ID that you provide when creating a
+     * draft invoice.
+     * @return Returns the String
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
@@ -59,6 +61,7 @@ public class InvoiceRecipient {
     /**
      * Getter for GivenName.
      * The recipient's given (that is, first) name.
+     * @return Returns the String
      */
     @JsonGetter("given_name")
     public String getGivenName() {
@@ -68,6 +71,7 @@ public class InvoiceRecipient {
     /**
      * Getter for FamilyName.
      * The recipient's family (that is, last) name.
+     * @return Returns the String
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
@@ -77,6 +81,7 @@ public class InvoiceRecipient {
     /**
      * Getter for EmailAddress.
      * The recipient's email address.
+     * @return Returns the String
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
@@ -86,6 +91,7 @@ public class InvoiceRecipient {
     /**
      * Getter for Address.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("address")
     public Address getAddress() {
@@ -95,6 +101,7 @@ public class InvoiceRecipient {
     /**
      * Getter for PhoneNumber.
      * The recipient's phone number.
+     * @return Returns the String
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
@@ -104,6 +111,7 @@ public class InvoiceRecipient {
     /**
      * Getter for CompanyName.
      * The name of the recipient's company.
+     * @return Returns the String
      */
     @JsonGetter("company_name")
     public String getCompanyName() {
@@ -114,25 +122,25 @@ public class InvoiceRecipient {
     @Override
     public int hashCode() {
         return Objects.hash(customerId, givenName, familyName, emailAddress, address, phoneNumber,
-            companyName);
+                companyName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof InvoiceRecipient)) {
+        if (!(obj instanceof InvoiceRecipient)) {
             return false;
         }
-        InvoiceRecipient invoiceRecipient = (InvoiceRecipient) obj;
-        return Objects.equals(customerId, invoiceRecipient.customerId) &&
-            Objects.equals(givenName, invoiceRecipient.givenName) &&
-            Objects.equals(familyName, invoiceRecipient.familyName) &&
-            Objects.equals(emailAddress, invoiceRecipient.emailAddress) &&
-            Objects.equals(address, invoiceRecipient.address) &&
-            Objects.equals(phoneNumber, invoiceRecipient.phoneNumber) &&
-            Objects.equals(companyName, invoiceRecipient.companyName);
+        InvoiceRecipient other = (InvoiceRecipient) obj;
+        return Objects.equals(customerId, other.customerId)
+            && Objects.equals(givenName, other.givenName)
+            && Objects.equals(familyName, other.familyName)
+            && Objects.equals(emailAddress, other.emailAddress)
+            && Objects.equals(address, other.address)
+            && Objects.equals(phoneNumber, other.phoneNumber)
+            && Objects.equals(companyName, other.companyName);
     }
 
     /**
@@ -149,11 +157,11 @@ public class InvoiceRecipient {
             .address(getAddress())
             .phoneNumber(getPhoneNumber())
             .companyName(getCompanyName());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoiceRecipient}
+     * Class to build instances of {@link InvoiceRecipient}.
      */
     public static class Builder {
         private String customerId;
@@ -164,70 +172,71 @@ public class InvoiceRecipient {
         private String phoneNumber;
         private String companyName;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customerId
-         * @param customerId
+         * Setter for customerId.
+         * @param customerId String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
             this.customerId = customerId;
             return this;
         }
+
         /**
-         * Setter for givenName
-         * @param givenName
+         * Setter for givenName.
+         * @param givenName String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
             this.givenName = givenName;
             return this;
         }
+
         /**
-         * Setter for familyName
-         * @param familyName
+         * Setter for familyName.
+         * @param familyName String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
             this.familyName = familyName;
             return this;
         }
+
         /**
-         * Setter for emailAddress
-         * @param emailAddress
+         * Setter for emailAddress.
+         * @param emailAddress String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
+
         /**
-         * Setter for address
-         * @param address
+         * Setter for address.
+         * @param address Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
             this.address = address;
             return this;
         }
+
         /**
-         * Setter for phoneNumber
-         * @param phoneNumber
+         * Setter for phoneNumber.
+         * @param phoneNumber String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
         /**
-         * Setter for companyName
-         * @param companyName
+         * Setter for companyName.
+         * @param companyName String value for companyName.
          * @return Builder
          */
         public Builder companyName(String companyName) {

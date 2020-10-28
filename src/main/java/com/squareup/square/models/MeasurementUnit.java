@@ -1,26 +1,35 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for MeasurementUnit type.
  */
 public class MeasurementUnit {
+    private final MeasurementUnitCustom customUnit;
+    private final String areaUnit;
+    private final String lengthUnit;
+    private final String volumeUnit;
+    private final String weightUnit;
+    private final String genericUnit;
+    private final String timeUnit;
+    private final String type;
 
     /**
      * Initialization constructor.
-     * @param customUnit
-     * @param areaUnit
-     * @param lengthUnit
-     * @param volumeUnit
-     * @param weightUnit
-     * @param genericUnit
-     * @param timeUnit
-     * @param type
+     * @param customUnit MeasurementUnitCustom value for customUnit.
+     * @param areaUnit String value for areaUnit.
+     * @param lengthUnit String value for lengthUnit.
+     * @param volumeUnit String value for volumeUnit.
+     * @param weightUnit String value for weightUnit.
+     * @param genericUnit String value for genericUnit.
+     * @param timeUnit String value for timeUnit.
+     * @param type String value for type.
      */
     @JsonCreator
     public MeasurementUnit(
@@ -42,17 +51,10 @@ public class MeasurementUnit {
         this.type = type;
     }
 
-    private final MeasurementUnitCustom customUnit;
-    private final String areaUnit;
-    private final String lengthUnit;
-    private final String volumeUnit;
-    private final String weightUnit;
-    private final String genericUnit;
-    private final String timeUnit;
-    private final String type;
     /**
      * Getter for CustomUnit.
      * The information needed to define a custom unit, provided by the seller.
+     * @return Returns the MeasurementUnitCustom
      */
     @JsonGetter("custom_unit")
     public MeasurementUnitCustom getCustomUnit() {
@@ -62,6 +64,7 @@ public class MeasurementUnit {
     /**
      * Getter for AreaUnit.
      * Unit of area used to measure a quantity.
+     * @return Returns the String
      */
     @JsonGetter("area_unit")
     public String getAreaUnit() {
@@ -71,6 +74,7 @@ public class MeasurementUnit {
     /**
      * Getter for LengthUnit.
      * The unit of length used to measure a quantity.
+     * @return Returns the String
      */
     @JsonGetter("length_unit")
     public String getLengthUnit() {
@@ -80,6 +84,7 @@ public class MeasurementUnit {
     /**
      * Getter for VolumeUnit.
      * The unit of volume used to measure a quantity.
+     * @return Returns the String
      */
     @JsonGetter("volume_unit")
     public String getVolumeUnit() {
@@ -89,6 +94,7 @@ public class MeasurementUnit {
     /**
      * Getter for WeightUnit.
      * Unit of weight used to measure a quantity.
+     * @return Returns the String
      */
     @JsonGetter("weight_unit")
     public String getWeightUnit() {
@@ -97,6 +103,7 @@ public class MeasurementUnit {
 
     /**
      * Getter for GenericUnit.
+     * @return Returns the String
      */
     @JsonGetter("generic_unit")
     public String getGenericUnit() {
@@ -106,6 +113,7 @@ public class MeasurementUnit {
     /**
      * Getter for TimeUnit.
      * Unit of time used to measure a quantity (a duration).
+     * @return Returns the String
      */
     @JsonGetter("time_unit")
     public String getTimeUnit() {
@@ -114,7 +122,9 @@ public class MeasurementUnit {
 
     /**
      * Getter for Type.
-     * Describes the type of this unit and indicates which field contains the unit information. This is an ‘open’ enum.
+     * Describes the type of this unit and indicates which field contains the unit information. This
+     * is an ‘open’ enum.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -125,26 +135,26 @@ public class MeasurementUnit {
     @Override
     public int hashCode() {
         return Objects.hash(customUnit, areaUnit, lengthUnit, volumeUnit, weightUnit, genericUnit,
-            timeUnit, type);
+                timeUnit, type);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof MeasurementUnit)) {
+        if (!(obj instanceof MeasurementUnit)) {
             return false;
         }
-        MeasurementUnit measurementUnit = (MeasurementUnit) obj;
-        return Objects.equals(customUnit, measurementUnit.customUnit) &&
-            Objects.equals(areaUnit, measurementUnit.areaUnit) &&
-            Objects.equals(lengthUnit, measurementUnit.lengthUnit) &&
-            Objects.equals(volumeUnit, measurementUnit.volumeUnit) &&
-            Objects.equals(weightUnit, measurementUnit.weightUnit) &&
-            Objects.equals(genericUnit, measurementUnit.genericUnit) &&
-            Objects.equals(timeUnit, measurementUnit.timeUnit) &&
-            Objects.equals(type, measurementUnit.type);
+        MeasurementUnit other = (MeasurementUnit) obj;
+        return Objects.equals(customUnit, other.customUnit)
+            && Objects.equals(areaUnit, other.areaUnit)
+            && Objects.equals(lengthUnit, other.lengthUnit)
+            && Objects.equals(volumeUnit, other.volumeUnit)
+            && Objects.equals(weightUnit, other.weightUnit)
+            && Objects.equals(genericUnit, other.genericUnit)
+            && Objects.equals(timeUnit, other.timeUnit)
+            && Objects.equals(type, other.type);
     }
 
     /**
@@ -162,11 +172,11 @@ public class MeasurementUnit {
             .genericUnit(getGenericUnit())
             .timeUnit(getTimeUnit())
             .type(getType());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link MeasurementUnit}
+     * Class to build instances of {@link MeasurementUnit}.
      */
     public static class Builder {
         private MeasurementUnitCustom customUnit;
@@ -178,79 +188,81 @@ public class MeasurementUnit {
         private String timeUnit;
         private String type;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customUnit
-         * @param customUnit
+         * Setter for customUnit.
+         * @param customUnit MeasurementUnitCustom value for customUnit.
          * @return Builder
          */
         public Builder customUnit(MeasurementUnitCustom customUnit) {
             this.customUnit = customUnit;
             return this;
         }
+
         /**
-         * Setter for areaUnit
-         * @param areaUnit
+         * Setter for areaUnit.
+         * @param areaUnit String value for areaUnit.
          * @return Builder
          */
         public Builder areaUnit(String areaUnit) {
             this.areaUnit = areaUnit;
             return this;
         }
+
         /**
-         * Setter for lengthUnit
-         * @param lengthUnit
+         * Setter for lengthUnit.
+         * @param lengthUnit String value for lengthUnit.
          * @return Builder
          */
         public Builder lengthUnit(String lengthUnit) {
             this.lengthUnit = lengthUnit;
             return this;
         }
+
         /**
-         * Setter for volumeUnit
-         * @param volumeUnit
+         * Setter for volumeUnit.
+         * @param volumeUnit String value for volumeUnit.
          * @return Builder
          */
         public Builder volumeUnit(String volumeUnit) {
             this.volumeUnit = volumeUnit;
             return this;
         }
+
         /**
-         * Setter for weightUnit
-         * @param weightUnit
+         * Setter for weightUnit.
+         * @param weightUnit String value for weightUnit.
          * @return Builder
          */
         public Builder weightUnit(String weightUnit) {
             this.weightUnit = weightUnit;
             return this;
         }
+
         /**
-         * Setter for genericUnit
-         * @param genericUnit
+         * Setter for genericUnit.
+         * @param genericUnit String value for genericUnit.
          * @return Builder
          */
         public Builder genericUnit(String genericUnit) {
             this.genericUnit = genericUnit;
             return this;
         }
+
         /**
-         * Setter for timeUnit
-         * @param timeUnit
+         * Setter for timeUnit.
+         * @param timeUnit String value for timeUnit.
          * @return Builder
          */
         public Builder timeUnit(String timeUnit) {
             this.timeUnit = timeUnit;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {

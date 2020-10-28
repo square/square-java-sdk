@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1AdjustInventoryRequest type.
  */
 public class V1AdjustInventoryRequest {
+    private final Double quantityDelta;
+    private final String adjustmentType;
+    private final String memo;
 
     /**
      * Initialization constructor.
-     * @param quantityDelta
-     * @param adjustmentType
-     * @param memo
+     * @param quantityDelta Double value for quantityDelta.
+     * @param adjustmentType String value for adjustmentType.
+     * @param memo String value for memo.
      */
     @JsonCreator
     public V1AdjustInventoryRequest(
@@ -27,12 +31,10 @@ public class V1AdjustInventoryRequest {
         this.memo = memo;
     }
 
-    private final Double quantityDelta;
-    private final String adjustmentType;
-    private final String memo;
     /**
      * Getter for QuantityDelta.
      * The number to adjust the variation's quantity by.
+     * @return Returns the Double
      */
     @JsonGetter("quantity_delta")
     public Double getQuantityDelta() {
@@ -41,6 +43,7 @@ public class V1AdjustInventoryRequest {
 
     /**
      * Getter for AdjustmentType.
+     * @return Returns the String
      */
     @JsonGetter("adjustment_type")
     public String getAdjustmentType() {
@@ -50,6 +53,7 @@ public class V1AdjustInventoryRequest {
     /**
      * Getter for Memo.
      * A note about the inventory adjustment.
+     * @return Returns the String
      */
     @JsonGetter("memo")
     public String getMemo() {
@@ -64,16 +68,16 @@ public class V1AdjustInventoryRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1AdjustInventoryRequest)) {
+        if (!(obj instanceof V1AdjustInventoryRequest)) {
             return false;
         }
-        V1AdjustInventoryRequest v1AdjustInventoryRequest = (V1AdjustInventoryRequest) obj;
-        return Objects.equals(quantityDelta, v1AdjustInventoryRequest.quantityDelta) &&
-            Objects.equals(adjustmentType, v1AdjustInventoryRequest.adjustmentType) &&
-            Objects.equals(memo, v1AdjustInventoryRequest.memo);
+        V1AdjustInventoryRequest other = (V1AdjustInventoryRequest) obj;
+        return Objects.equals(quantityDelta, other.quantityDelta)
+            && Objects.equals(adjustmentType, other.adjustmentType)
+            && Objects.equals(memo, other.memo);
     }
 
     /**
@@ -86,45 +90,42 @@ public class V1AdjustInventoryRequest {
             .quantityDelta(getQuantityDelta())
             .adjustmentType(getAdjustmentType())
             .memo(getMemo());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1AdjustInventoryRequest}
+     * Class to build instances of {@link V1AdjustInventoryRequest}.
      */
     public static class Builder {
         private Double quantityDelta;
         private String adjustmentType;
         private String memo;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for quantityDelta
-         * @param quantityDelta
+         * Setter for quantityDelta.
+         * @param quantityDelta Double value for quantityDelta.
          * @return Builder
          */
         public Builder quantityDelta(Double quantityDelta) {
             this.quantityDelta = quantityDelta;
             return this;
         }
+
         /**
-         * Setter for adjustmentType
-         * @param adjustmentType
+         * Setter for adjustmentType.
+         * @param adjustmentType String value for adjustmentType.
          * @return Builder
          */
         public Builder adjustmentType(String adjustmentType) {
             this.adjustmentType = adjustmentType;
             return this;
         }
+
         /**
-         * Setter for memo
-         * @param memo
+         * Setter for memo.
+         * @param memo String value for memo.
          * @return Builder
          */
         public Builder memo(String memo) {

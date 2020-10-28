@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for CreateDeviceCodeResponse type.
  */
 public class CreateDeviceCodeResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final DeviceCode deviceCode;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param deviceCode
+     * @param errors List of Error value for errors.
+     * @param deviceCode DeviceCode value for deviceCode.
      */
     @JsonCreator
     public CreateDeviceCodeResponse(
@@ -26,10 +30,6 @@ public class CreateDeviceCodeResponse {
         this.deviceCode = deviceCode;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final DeviceCode deviceCode;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class CreateDeviceCodeResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,6 +46,7 @@ public class CreateDeviceCodeResponse {
 
     /**
      * Getter for DeviceCode.
+     * @return Returns the DeviceCode
      */
     @JsonGetter("device_code")
     public DeviceCode getDeviceCode() {
@@ -59,15 +61,15 @@ public class CreateDeviceCodeResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateDeviceCodeResponse)) {
+        if (!(obj instanceof CreateDeviceCodeResponse)) {
             return false;
         }
-        CreateDeviceCodeResponse createDeviceCodeResponse = (CreateDeviceCodeResponse) obj;
-        return Objects.equals(errors, createDeviceCodeResponse.errors) &&
-            Objects.equals(deviceCode, createDeviceCodeResponse.deviceCode);
+        CreateDeviceCodeResponse other = (CreateDeviceCodeResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(deviceCode, other.deviceCode);
     }
 
     /**
@@ -79,45 +81,42 @@ public class CreateDeviceCodeResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .deviceCode(getDeviceCode());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateDeviceCodeResponse}
+     * Class to build instances of {@link CreateDeviceCodeResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private DeviceCode deviceCode;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for deviceCode
-         * @param deviceCode
+         * Setter for deviceCode.
+         * @param deviceCode DeviceCode value for deviceCode.
          * @return Builder
          */
         public Builder deviceCode(DeviceCode deviceCode) {
@@ -130,8 +129,9 @@ public class CreateDeviceCodeResponse {
          * @return {@link CreateDeviceCodeResponse}
          */
         public CreateDeviceCodeResponse build() {
-            CreateDeviceCodeResponse model = new CreateDeviceCodeResponse(errors,
-                deviceCode);
+            CreateDeviceCodeResponse model =
+                    new CreateDeviceCodeResponse(errors,
+                            deviceCode);
             model.httpContext = httpContext;
             return model;
         }

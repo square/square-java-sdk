@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for TenderCashDetails type.
  */
 public class TenderCashDetails {
+    private final Money buyerTenderedMoney;
+    private final Money changeBackMoney;
 
     /**
      * Initialization constructor.
-     * @param buyerTenderedMoney
-     * @param changeBackMoney
+     * @param buyerTenderedMoney Money value for buyerTenderedMoney.
+     * @param changeBackMoney Money value for changeBackMoney.
      */
     @JsonCreator
     public TenderCashDetails(
@@ -24,16 +27,15 @@ public class TenderCashDetails {
         this.changeBackMoney = changeBackMoney;
     }
 
-    private final Money buyerTenderedMoney;
-    private final Money changeBackMoney;
     /**
      * Getter for BuyerTenderedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("buyer_tendered_money")
     public Money getBuyerTenderedMoney() {
@@ -42,12 +44,13 @@ public class TenderCashDetails {
 
     /**
      * Getter for ChangeBackMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("change_back_money")
     public Money getChangeBackMoney() {
@@ -62,15 +65,15 @@ public class TenderCashDetails {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TenderCashDetails)) {
+        if (!(obj instanceof TenderCashDetails)) {
             return false;
         }
-        TenderCashDetails tenderCashDetails = (TenderCashDetails) obj;
-        return Objects.equals(buyerTenderedMoney, tenderCashDetails.buyerTenderedMoney) &&
-            Objects.equals(changeBackMoney, tenderCashDetails.changeBackMoney);
+        TenderCashDetails other = (TenderCashDetails) obj;
+        return Objects.equals(buyerTenderedMoney, other.buyerTenderedMoney)
+            && Objects.equals(changeBackMoney, other.changeBackMoney);
     }
 
     /**
@@ -82,35 +85,31 @@ public class TenderCashDetails {
         Builder builder = new Builder()
             .buyerTenderedMoney(getBuyerTenderedMoney())
             .changeBackMoney(getChangeBackMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TenderCashDetails}
+     * Class to build instances of {@link TenderCashDetails}.
      */
     public static class Builder {
         private Money buyerTenderedMoney;
         private Money changeBackMoney;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for buyerTenderedMoney
-         * @param buyerTenderedMoney
+         * Setter for buyerTenderedMoney.
+         * @param buyerTenderedMoney Money value for buyerTenderedMoney.
          * @return Builder
          */
         public Builder buyerTenderedMoney(Money buyerTenderedMoney) {
             this.buyerTenderedMoney = buyerTenderedMoney;
             return this;
         }
+
         /**
-         * Setter for changeBackMoney
-         * @param changeBackMoney
+         * Setter for changeBackMoney.
+         * @param changeBackMoney Money value for changeBackMoney.
          * @return Builder
          */
         public Builder changeBackMoney(Money changeBackMoney) {

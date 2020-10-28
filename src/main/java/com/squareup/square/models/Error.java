@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Error type.
  */
 public class Error {
+    private final String category;
+    private final String code;
+    private final String detail;
+    private final String field;
 
     /**
      * Initialization constructor.
-     * @param category
-     * @param code
-     * @param detail
-     * @param field
+     * @param category String value for category.
+     * @param code String value for code.
+     * @param detail String value for detail.
+     * @param field String value for field.
      */
     @JsonCreator
     public Error(
@@ -30,14 +35,11 @@ public class Error {
         this.field = field;
     }
 
-    private final String category;
-    private final String code;
-    private final String detail;
-    private final String field;
     /**
      * Getter for Category.
-     * Indicates which high-level category of error has occurred during a
-     * request to the Connect API.
+     * Indicates which high-level category of error has occurred during a request to the Connect
+     * API.
+     * @return Returns the String
      */
     @JsonGetter("category")
     public String getCategory() {
@@ -46,8 +48,8 @@ public class Error {
 
     /**
      * Getter for Code.
-     * Indicates the specific error that occurred during a request to a
-     * Square API.
+     * Indicates the specific error that occurred during a request to a Square API.
+     * @return Returns the String
      */
     @JsonGetter("code")
     public String getCode() {
@@ -57,6 +59,7 @@ public class Error {
     /**
      * Getter for Detail.
      * A human-readable description of the error for debugging purposes.
+     * @return Returns the String
      */
     @JsonGetter("detail")
     public String getDetail() {
@@ -65,8 +68,8 @@ public class Error {
 
     /**
      * Getter for Field.
-     * The name of the field provided in the original request (if any) that
-     * the error pertains to.
+     * The name of the field provided in the original request (if any) that the error pertains to.
+     * @return Returns the String
      */
     @JsonGetter("field")
     public String getField() {
@@ -81,17 +84,17 @@ public class Error {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Error)) {
+        if (!(obj instanceof Error)) {
             return false;
         }
-        Error error = (Error) obj;
-        return Objects.equals(category, error.category) &&
-            Objects.equals(code, error.code) &&
-            Objects.equals(detail, error.detail) &&
-            Objects.equals(field, error.field);
+        Error other = (Error) obj;
+        return Objects.equals(category, other.category)
+            && Objects.equals(code, other.code)
+            && Objects.equals(detail, other.detail)
+            && Objects.equals(field, other.field);
     }
 
     /**
@@ -104,11 +107,11 @@ public class Error {
             code)
             .detail(getDetail())
             .field(getField());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Error}
+     * Class to build instances of {@link Error}.
      */
     public static class Builder {
         private String category;
@@ -117,7 +120,9 @@ public class Error {
         private String field;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param category String value for category.
+         * @param code String value for code.
          */
         public Builder(String category,
                 String code) {
@@ -126,35 +131,38 @@ public class Error {
         }
 
         /**
-         * Setter for category
-         * @param category
+         * Setter for category.
+         * @param category String value for category.
          * @return Builder
          */
         public Builder category(String category) {
             this.category = category;
             return this;
         }
+
         /**
-         * Setter for code
-         * @param code
+         * Setter for code.
+         * @param code String value for code.
          * @return Builder
          */
         public Builder code(String code) {
             this.code = code;
             return this;
         }
+
         /**
-         * Setter for detail
-         * @param detail
+         * Setter for detail.
+         * @param detail String value for detail.
          * @return Builder
          */
         public Builder detail(String detail) {
             this.detail = detail;
             return this;
         }
+
         /**
-         * Setter for field
-         * @param field
+         * Setter for field.
+         * @param field String value for field.
          * @return Builder
          */
         public Builder field(String field) {

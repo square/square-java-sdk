@@ -1,27 +1,37 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CashDrawerShiftSummary type.
  */
 public class CashDrawerShiftSummary {
+    private final String id;
+    private final String state;
+    private final String openedAt;
+    private final String endedAt;
+    private final String closedAt;
+    private final String description;
+    private final Money openedCashMoney;
+    private final Money expectedCashMoney;
+    private final Money closedCashMoney;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param state
-     * @param openedAt
-     * @param endedAt
-     * @param closedAt
-     * @param description
-     * @param openedCashMoney
-     * @param expectedCashMoney
-     * @param closedCashMoney
+     * @param id String value for id.
+     * @param state String value for state.
+     * @param openedAt String value for openedAt.
+     * @param endedAt String value for endedAt.
+     * @param closedAt String value for closedAt.
+     * @param description String value for description.
+     * @param openedCashMoney Money value for openedCashMoney.
+     * @param expectedCashMoney Money value for expectedCashMoney.
+     * @param closedCashMoney Money value for closedCashMoney.
      */
     @JsonCreator
     public CashDrawerShiftSummary(
@@ -45,18 +55,10 @@ public class CashDrawerShiftSummary {
         this.closedCashMoney = closedCashMoney;
     }
 
-    private final String id;
-    private final String state;
-    private final String openedAt;
-    private final String endedAt;
-    private final String closedAt;
-    private final String description;
-    private final Money openedCashMoney;
-    private final Money expectedCashMoney;
-    private final Money closedCashMoney;
     /**
      * Getter for Id.
      * The shift unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -66,6 +68,7 @@ public class CashDrawerShiftSummary {
     /**
      * Getter for State.
      * The current state of a cash drawer shift.
+     * @return Returns the String
      */
     @JsonGetter("state")
     public String getState() {
@@ -75,6 +78,7 @@ public class CashDrawerShiftSummary {
     /**
      * Getter for OpenedAt.
      * The shift start time in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("opened_at")
     public String getOpenedAt() {
@@ -84,6 +88,7 @@ public class CashDrawerShiftSummary {
     /**
      * Getter for EndedAt.
      * The shift end time in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("ended_at")
     public String getEndedAt() {
@@ -93,6 +98,7 @@ public class CashDrawerShiftSummary {
     /**
      * Getter for ClosedAt.
      * The shift close time in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("closed_at")
     public String getClosedAt() {
@@ -102,6 +108,7 @@ public class CashDrawerShiftSummary {
     /**
      * Getter for Description.
      * An employee free-text description of a cash drawer shift.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -110,12 +117,13 @@ public class CashDrawerShiftSummary {
 
     /**
      * Getter for OpenedCashMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("opened_cash_money")
     public Money getOpenedCashMoney() {
@@ -124,12 +132,13 @@ public class CashDrawerShiftSummary {
 
     /**
      * Getter for ExpectedCashMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("expected_cash_money")
     public Money getExpectedCashMoney() {
@@ -138,12 +147,13 @@ public class CashDrawerShiftSummary {
 
     /**
      * Getter for ClosedCashMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("closed_cash_money")
     public Money getClosedCashMoney() {
@@ -154,27 +164,27 @@ public class CashDrawerShiftSummary {
     @Override
     public int hashCode() {
         return Objects.hash(id, state, openedAt, endedAt, closedAt, description, openedCashMoney,
-            expectedCashMoney, closedCashMoney);
+                expectedCashMoney, closedCashMoney);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CashDrawerShiftSummary)) {
+        if (!(obj instanceof CashDrawerShiftSummary)) {
             return false;
         }
-        CashDrawerShiftSummary cashDrawerShiftSummary = (CashDrawerShiftSummary) obj;
-        return Objects.equals(id, cashDrawerShiftSummary.id) &&
-            Objects.equals(state, cashDrawerShiftSummary.state) &&
-            Objects.equals(openedAt, cashDrawerShiftSummary.openedAt) &&
-            Objects.equals(endedAt, cashDrawerShiftSummary.endedAt) &&
-            Objects.equals(closedAt, cashDrawerShiftSummary.closedAt) &&
-            Objects.equals(description, cashDrawerShiftSummary.description) &&
-            Objects.equals(openedCashMoney, cashDrawerShiftSummary.openedCashMoney) &&
-            Objects.equals(expectedCashMoney, cashDrawerShiftSummary.expectedCashMoney) &&
-            Objects.equals(closedCashMoney, cashDrawerShiftSummary.closedCashMoney);
+        CashDrawerShiftSummary other = (CashDrawerShiftSummary) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(state, other.state)
+            && Objects.equals(openedAt, other.openedAt)
+            && Objects.equals(endedAt, other.endedAt)
+            && Objects.equals(closedAt, other.closedAt)
+            && Objects.equals(description, other.description)
+            && Objects.equals(openedCashMoney, other.openedCashMoney)
+            && Objects.equals(expectedCashMoney, other.expectedCashMoney)
+            && Objects.equals(closedCashMoney, other.closedCashMoney);
     }
 
     /**
@@ -193,11 +203,11 @@ public class CashDrawerShiftSummary {
             .openedCashMoney(getOpenedCashMoney())
             .expectedCashMoney(getExpectedCashMoney())
             .closedCashMoney(getClosedCashMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CashDrawerShiftSummary}
+     * Class to build instances of {@link CashDrawerShiftSummary}.
      */
     public static class Builder {
         private String id;
@@ -210,88 +220,91 @@ public class CashDrawerShiftSummary {
         private Money expectedCashMoney;
         private Money closedCashMoney;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for state
-         * @param state
+         * Setter for state.
+         * @param state String value for state.
          * @return Builder
          */
         public Builder state(String state) {
             this.state = state;
             return this;
         }
+
         /**
-         * Setter for openedAt
-         * @param openedAt
+         * Setter for openedAt.
+         * @param openedAt String value for openedAt.
          * @return Builder
          */
         public Builder openedAt(String openedAt) {
             this.openedAt = openedAt;
             return this;
         }
+
         /**
-         * Setter for endedAt
-         * @param endedAt
+         * Setter for endedAt.
+         * @param endedAt String value for endedAt.
          * @return Builder
          */
         public Builder endedAt(String endedAt) {
             this.endedAt = endedAt;
             return this;
         }
+
         /**
-         * Setter for closedAt
-         * @param closedAt
+         * Setter for closedAt.
+         * @param closedAt String value for closedAt.
          * @return Builder
          */
         public Builder closedAt(String closedAt) {
             this.closedAt = closedAt;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
             return this;
         }
+
         /**
-         * Setter for openedCashMoney
-         * @param openedCashMoney
+         * Setter for openedCashMoney.
+         * @param openedCashMoney Money value for openedCashMoney.
          * @return Builder
          */
         public Builder openedCashMoney(Money openedCashMoney) {
             this.openedCashMoney = openedCashMoney;
             return this;
         }
+
         /**
-         * Setter for expectedCashMoney
-         * @param expectedCashMoney
+         * Setter for expectedCashMoney.
+         * @param expectedCashMoney Money value for expectedCashMoney.
          * @return Builder
          */
         public Builder expectedCashMoney(Money expectedCashMoney) {
             this.expectedCashMoney = expectedCashMoney;
             return this;
         }
+
         /**
-         * Setter for closedCashMoney
-         * @param closedCashMoney
+         * Setter for closedCashMoney.
+         * @param closedCashMoney Money value for closedCashMoney.
          * @return Builder
          */
         public Builder closedCashMoney(Money closedCashMoney) {

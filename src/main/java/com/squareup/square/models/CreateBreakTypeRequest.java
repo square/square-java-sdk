@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateBreakTypeRequest type.
  */
 public class CreateBreakTypeRequest {
+    private final String idempotencyKey;
+    private final BreakType breakType;
 
     /**
      * Initialization constructor.
-     * @param breakType
-     * @param idempotencyKey
+     * @param breakType BreakType value for breakType.
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CreateBreakTypeRequest(
@@ -24,11 +27,10 @@ public class CreateBreakTypeRequest {
         this.breakType = breakType;
     }
 
-    private final String idempotencyKey;
-    private final BreakType breakType;
     /**
      * Getter for IdempotencyKey.
      * Unique string value to insure idempotency of the operation
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -37,8 +39,9 @@ public class CreateBreakTypeRequest {
 
     /**
      * Getter for BreakType.
-     * A defined break template that sets an expectation for possible `Break`
-     * instances on a `Shift`.
+     * A defined break template that sets an expectation for possible `Break` instances on a
+     * `Shift`.
+     * @return Returns the BreakType
      */
     @JsonGetter("break_type")
     public BreakType getBreakType() {
@@ -53,15 +56,15 @@ public class CreateBreakTypeRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateBreakTypeRequest)) {
+        if (!(obj instanceof CreateBreakTypeRequest)) {
             return false;
         }
-        CreateBreakTypeRequest createBreakTypeRequest = (CreateBreakTypeRequest) obj;
-        return Objects.equals(idempotencyKey, createBreakTypeRequest.idempotencyKey) &&
-            Objects.equals(breakType, createBreakTypeRequest.breakType);
+        CreateBreakTypeRequest other = (CreateBreakTypeRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(breakType, other.breakType);
     }
 
     /**
@@ -72,35 +75,37 @@ public class CreateBreakTypeRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(breakType)
             .idempotencyKey(getIdempotencyKey());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateBreakTypeRequest}
+     * Class to build instances of {@link CreateBreakTypeRequest}.
      */
     public static class Builder {
         private BreakType breakType;
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param breakType BreakType value for breakType.
          */
         public Builder(BreakType breakType) {
             this.breakType = breakType;
         }
 
         /**
-         * Setter for breakType
-         * @param breakType
+         * Setter for breakType.
+         * @param breakType BreakType value for breakType.
          * @return Builder
          */
         public Builder breakType(BreakType breakType) {
             this.breakType = breakType;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

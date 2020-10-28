@@ -1,22 +1,27 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CustomerGroup type.
  */
 public class CustomerGroup {
+    private final String id;
+    private final String name;
+    private final String createdAt;
+    private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param id
-     * @param createdAt
-     * @param updatedAt
+     * @param name String value for name.
+     * @param id String value for id.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
      */
     @JsonCreator
     public CustomerGroup(
@@ -30,13 +35,10 @@ public class CustomerGroup {
         this.updatedAt = updatedAt;
     }
 
-    private final String id;
-    private final String name;
-    private final String createdAt;
-    private final String updatedAt;
     /**
      * Getter for Id.
      * Unique Square-generated ID for the customer group.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -46,6 +48,7 @@ public class CustomerGroup {
     /**
      * Getter for Name.
      * Name of the customer group.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -55,6 +58,7 @@ public class CustomerGroup {
     /**
      * Getter for CreatedAt.
      * The timestamp when the customer group was created, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -64,6 +68,7 @@ public class CustomerGroup {
     /**
      * Getter for UpdatedAt.
      * The timesamp when the customer group was last updated, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -78,17 +83,17 @@ public class CustomerGroup {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerGroup)) {
+        if (!(obj instanceof CustomerGroup)) {
             return false;
         }
-        CustomerGroup customerGroup = (CustomerGroup) obj;
-        return Objects.equals(id, customerGroup.id) &&
-            Objects.equals(name, customerGroup.name) &&
-            Objects.equals(createdAt, customerGroup.createdAt) &&
-            Objects.equals(updatedAt, customerGroup.updatedAt);
+        CustomerGroup other = (CustomerGroup) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt);
     }
 
     /**
@@ -101,11 +106,11 @@ public class CustomerGroup {
             .id(getId())
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerGroup}
+     * Class to build instances of {@link CustomerGroup}.
      */
     public static class Builder {
         private String name;
@@ -114,42 +119,46 @@ public class CustomerGroup {
         private String updatedAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param name String value for name.
          */
         public Builder(String name) {
             this.name = name;
         }
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for Coordinates type.
  */
 public class Coordinates {
+    private final Double latitude;
+    private final Double longitude;
 
     /**
      * Initialization constructor.
-     * @param latitude
-     * @param longitude
+     * @param latitude Double value for latitude.
+     * @param longitude Double value for longitude.
      */
     @JsonCreator
     public Coordinates(
@@ -24,11 +27,10 @@ public class Coordinates {
         this.longitude = longitude;
     }
 
-    private final Double latitude;
-    private final Double longitude;
     /**
      * Getter for Latitude.
      * The latitude of the coordinate expressed in degrees.
+     * @return Returns the Double
      */
     @JsonGetter("latitude")
     public Double getLatitude() {
@@ -38,6 +40,7 @@ public class Coordinates {
     /**
      * Getter for Longitude.
      * The longitude of the coordinate expressed in degrees.
+     * @return Returns the Double
      */
     @JsonGetter("longitude")
     public Double getLongitude() {
@@ -52,15 +55,15 @@ public class Coordinates {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Coordinates)) {
+        if (!(obj instanceof Coordinates)) {
             return false;
         }
-        Coordinates coordinates = (Coordinates) obj;
-        return Objects.equals(latitude, coordinates.latitude) &&
-            Objects.equals(longitude, coordinates.longitude);
+        Coordinates other = (Coordinates) obj;
+        return Objects.equals(latitude, other.latitude)
+            && Objects.equals(longitude, other.longitude);
     }
 
     /**
@@ -72,35 +75,31 @@ public class Coordinates {
         Builder builder = new Builder()
             .latitude(getLatitude())
             .longitude(getLongitude());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Coordinates}
+     * Class to build instances of {@link Coordinates}.
      */
     public static class Builder {
         private Double latitude;
         private Double longitude;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for latitude
-         * @param latitude
+         * Setter for latitude.
+         * @param latitude Double value for latitude.
          * @return Builder
          */
         public Builder latitude(Double latitude) {
             this.latitude = latitude;
             return this;
         }
+
         /**
-         * Setter for longitude
-         * @param longitude
+         * Setter for longitude.
+         * @param longitude Double value for longitude.
          * @return Builder
          */
         public Builder longitude(Double longitude) {

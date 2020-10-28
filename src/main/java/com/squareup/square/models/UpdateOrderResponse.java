@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for UpdateOrderResponse type.
  */
 public class UpdateOrderResponse {
+    private HttpContext httpContext;
+    private final Order order;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param errors
+     * @param order Order value for order.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public UpdateOrderResponse(
@@ -26,21 +30,17 @@ public class UpdateOrderResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final Order order;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Order.
-     * Contains all information related to a single order to process with Square,
-     * including line items that specify the products to purchase. Order objects also
-     * include information on any associated tenders, refunds, and returns.
-     * All Connect V2 Transactions have all been converted to Orders including all associated
-     * itemization data.
+     * Contains all information related to a single order to process with Square, including line
+     * items that specify the products to purchase. Order objects also include information on any
+     * associated tenders, refunds, and returns. All Connect V2 Transactions have all been converted
+     * to Orders including all associated itemization data.
+     * @return Returns the Order
      */
     @JsonGetter("order")
     public Order getOrder() {
@@ -50,6 +50,7 @@ public class UpdateOrderResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -64,15 +65,15 @@ public class UpdateOrderResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof UpdateOrderResponse)) {
+        if (!(obj instanceof UpdateOrderResponse)) {
             return false;
         }
-        UpdateOrderResponse updateOrderResponse = (UpdateOrderResponse) obj;
-        return Objects.equals(order, updateOrderResponse.order) &&
-            Objects.equals(errors, updateOrderResponse.errors);
+        UpdateOrderResponse other = (UpdateOrderResponse) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -84,45 +85,42 @@ public class UpdateOrderResponse {
         Builder builder = new Builder()
             .order(getOrder())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link UpdateOrderResponse}
+     * Class to build instances of {@link UpdateOrderResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private Order order;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -135,8 +133,9 @@ public class UpdateOrderResponse {
          * @return {@link UpdateOrderResponse}
          */
         public UpdateOrderResponse build() {
-            UpdateOrderResponse model = new UpdateOrderResponse(order,
-                errors);
+            UpdateOrderResponse model =
+                    new UpdateOrderResponse(order,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

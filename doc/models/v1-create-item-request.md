@@ -1,16 +1,17 @@
-## V1 Create Item Request
 
-### Structure
+# V1 Create Item Request
+
+## Structure
 
 `V1CreateItemRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Body` | [`V1Item`](/doc/models/v1-item.md) | Optional | V1Item | V1Item getBody() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

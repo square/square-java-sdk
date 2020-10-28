@@ -1,19 +1,20 @@
-## V1 Item Image
+
+# V1 Item Image
 
 V1ItemImage
 
-### Structure
+## Structure
 
 `V1ItemImage`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The image's unique ID. | String getId() |
 | `Url` | `String` | Optional | The image's publicly accessible URL. | String getUrl() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

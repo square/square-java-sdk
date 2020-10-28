@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for RetrieveCashDrawerShiftRequest type.
  */
 public class RetrieveCashDrawerShiftRequest {
+    private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param locationId
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public RetrieveCashDrawerShiftRequest(
@@ -21,10 +23,10 @@ public class RetrieveCashDrawerShiftRequest {
         this.locationId = locationId;
     }
 
-    private final String locationId;
     /**
      * Getter for LocationId.
      * The ID of the location to retrieve cash drawer shifts from.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -39,14 +41,14 @@ public class RetrieveCashDrawerShiftRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveCashDrawerShiftRequest)) {
+        if (!(obj instanceof RetrieveCashDrawerShiftRequest)) {
             return false;
         }
-        RetrieveCashDrawerShiftRequest retrieveCashDrawerShiftRequest = (RetrieveCashDrawerShiftRequest) obj;
-        return Objects.equals(locationId, retrieveCashDrawerShiftRequest.locationId);
+        RetrieveCashDrawerShiftRequest other = (RetrieveCashDrawerShiftRequest) obj;
+        return Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -56,25 +58,26 @@ public class RetrieveCashDrawerShiftRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveCashDrawerShiftRequest}
+     * Class to build instances of {@link RetrieveCashDrawerShiftRequest}.
      */
     public static class Builder {
         private String locationId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param locationId String value for locationId.
          */
         public Builder(String locationId) {
             this.locationId = locationId;
         }
 
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for GetTerminalCheckoutResponse type.
  */
 public class GetTerminalCheckoutResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final TerminalCheckout checkout;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param checkout
+     * @param errors List of Error value for errors.
+     * @param checkout TerminalCheckout value for checkout.
      */
     @JsonCreator
     public GetTerminalCheckoutResponse(
@@ -26,10 +30,6 @@ public class GetTerminalCheckoutResponse {
         this.checkout = checkout;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final TerminalCheckout checkout;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class GetTerminalCheckoutResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,6 +46,7 @@ public class GetTerminalCheckoutResponse {
 
     /**
      * Getter for Checkout.
+     * @return Returns the TerminalCheckout
      */
     @JsonGetter("checkout")
     public TerminalCheckout getCheckout() {
@@ -59,15 +61,15 @@ public class GetTerminalCheckoutResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof GetTerminalCheckoutResponse)) {
+        if (!(obj instanceof GetTerminalCheckoutResponse)) {
             return false;
         }
-        GetTerminalCheckoutResponse getTerminalCheckoutResponse = (GetTerminalCheckoutResponse) obj;
-        return Objects.equals(errors, getTerminalCheckoutResponse.errors) &&
-            Objects.equals(checkout, getTerminalCheckoutResponse.checkout);
+        GetTerminalCheckoutResponse other = (GetTerminalCheckoutResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(checkout, other.checkout);
     }
 
     /**
@@ -79,45 +81,42 @@ public class GetTerminalCheckoutResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .checkout(getCheckout());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link GetTerminalCheckoutResponse}
+     * Class to build instances of {@link GetTerminalCheckoutResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private TerminalCheckout checkout;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for checkout
-         * @param checkout
+         * Setter for checkout.
+         * @param checkout TerminalCheckout value for checkout.
          * @return Builder
          */
         public Builder checkout(TerminalCheckout checkout) {
@@ -130,8 +129,9 @@ public class GetTerminalCheckoutResponse {
          * @return {@link GetTerminalCheckoutResponse}
          */
         public GetTerminalCheckoutResponse build() {
-            GetTerminalCheckoutResponse model = new GetTerminalCheckoutResponse(errors,
-                checkout);
+            GetTerminalCheckoutResponse model =
+                    new GetTerminalCheckoutResponse(errors,
+                            checkout);
             model.httpContext = httpContext;
             return model;
         }

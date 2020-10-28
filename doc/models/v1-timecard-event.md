@@ -1,12 +1,13 @@
-## V1 Timecard Event
+
+# V1 Timecard Event
 
 V1TimecardEvent
 
-### Structure
+## Structure
 
 `V1TimecardEvent`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -16,7 +17,7 @@ V1TimecardEvent
 | `ClockoutTime` | `String` | Optional | The time the employee clocked out, in ISO 8601 format. | String getClockoutTime() |
 | `CreatedAt` | `String` | Optional | The time when the event was created, in ISO 8601 format. | String getCreatedAt() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

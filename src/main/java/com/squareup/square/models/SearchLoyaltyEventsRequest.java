@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchLoyaltyEventsRequest type.
  */
 public class SearchLoyaltyEventsRequest {
+    private final LoyaltyEventQuery query;
+    private final Integer limit;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param query
-     * @param limit
-     * @param cursor
+     * @param query LoyaltyEventQuery value for query.
+     * @param limit Integer value for limit.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyEventsRequest(
@@ -27,12 +31,10 @@ public class SearchLoyaltyEventsRequest {
         this.cursor = cursor;
     }
 
-    private final LoyaltyEventQuery query;
-    private final Integer limit;
-    private final String cursor;
     /**
      * Getter for Query.
      * Represents a query used to search for loyalty events.
+     * @return Returns the LoyaltyEventQuery
      */
     @JsonGetter("query")
     public LoyaltyEventQuery getQuery() {
@@ -41,9 +43,9 @@ public class SearchLoyaltyEventsRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of results to include in the response. 
-     * The last page might contain fewer events. 
-     * The default is 30 events.
+     * The maximum number of results to include in the response. The last page might contain fewer
+     * events. The default is 30 events.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -52,9 +54,10 @@ public class SearchLoyaltyEventsRequest {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -69,16 +72,16 @@ public class SearchLoyaltyEventsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchLoyaltyEventsRequest)) {
+        if (!(obj instanceof SearchLoyaltyEventsRequest)) {
             return false;
         }
-        SearchLoyaltyEventsRequest searchLoyaltyEventsRequest = (SearchLoyaltyEventsRequest) obj;
-        return Objects.equals(query, searchLoyaltyEventsRequest.query) &&
-            Objects.equals(limit, searchLoyaltyEventsRequest.limit) &&
-            Objects.equals(cursor, searchLoyaltyEventsRequest.cursor);
+        SearchLoyaltyEventsRequest other = (SearchLoyaltyEventsRequest) obj;
+        return Objects.equals(query, other.query)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -91,45 +94,42 @@ public class SearchLoyaltyEventsRequest {
             .query(getQuery())
             .limit(getLimit())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchLoyaltyEventsRequest}
+     * Class to build instances of {@link SearchLoyaltyEventsRequest}.
      */
     public static class Builder {
         private LoyaltyEventQuery query;
         private Integer limit;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query LoyaltyEventQuery value for query.
          * @return Builder
          */
         public Builder query(LoyaltyEventQuery query) {
             this.query = query;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

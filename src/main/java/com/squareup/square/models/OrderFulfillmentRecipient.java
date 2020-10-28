@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderFulfillmentRecipient type.
  */
 public class OrderFulfillmentRecipient {
+    private final String customerId;
+    private final String displayName;
+    private final String emailAddress;
+    private final String phoneNumber;
+    private final Address address;
 
     /**
      * Initialization constructor.
-     * @param customerId
-     * @param displayName
-     * @param emailAddress
-     * @param phoneNumber
-     * @param address
+     * @param customerId String value for customerId.
+     * @param displayName String value for displayName.
+     * @param emailAddress String value for emailAddress.
+     * @param phoneNumber String value for phoneNumber.
+     * @param address Address value for address.
      */
     @JsonCreator
     public OrderFulfillmentRecipient(
@@ -33,20 +39,15 @@ public class OrderFulfillmentRecipient {
         this.address = address;
     }
 
-    private final String customerId;
-    private final String displayName;
-    private final String emailAddress;
-    private final String phoneNumber;
-    private final Address address;
     /**
      * Getter for CustomerId.
-     * The Customer ID of the customer associated with the fulfillment.
-     * If `customer_id` is provided, the fulfillment recipient's `display_name`,
-     * `email_address`, and `phone_number` are automatically populated from the
-     * targeted customer profile. If these fields are set in the request, the request
-     * values will override the information from the customer profile. If the
-     * targeted customer profile does not contain the necessary information and
-     * these fields are left unset, the request will result in an error.
+     * The Customer ID of the customer associated with the fulfillment. If `customer_id` is
+     * provided, the fulfillment recipient's `display_name`, `email_address`, and `phone_number` are
+     * automatically populated from the targeted customer profile. If these fields are set in the
+     * request, the request values will override the information from the customer profile. If the
+     * targeted customer profile does not contain the necessary information and these fields are
+     * left unset, the request will result in an error.
+     * @return Returns the String
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
@@ -55,8 +56,9 @@ public class OrderFulfillmentRecipient {
 
     /**
      * Getter for DisplayName.
-     * The display name of the fulfillment recipient.
-     * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
+     * The display name of the fulfillment recipient. If provided, overrides the value pulled from
+     * the customer profile indicated by `customer_id`.
+     * @return Returns the String
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
@@ -65,8 +67,9 @@ public class OrderFulfillmentRecipient {
 
     /**
      * Getter for EmailAddress.
-     * The email address of the fulfillment recipient.
-     * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
+     * The email address of the fulfillment recipient. If provided, overrides the value pulled from
+     * the customer profile indicated by `customer_id`.
+     * @return Returns the String
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
@@ -75,8 +78,9 @@ public class OrderFulfillmentRecipient {
 
     /**
      * Getter for PhoneNumber.
-     * The phone number of the fulfillment recipient.
-     * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
+     * The phone number of the fulfillment recipient. If provided, overrides the value pulled from
+     * the customer profile indicated by `customer_id`.
+     * @return Returns the String
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
@@ -86,6 +90,7 @@ public class OrderFulfillmentRecipient {
     /**
      * Getter for Address.
      * Represents a physical address.
+     * @return Returns the Address
      */
     @JsonGetter("address")
     public Address getAddress() {
@@ -100,18 +105,18 @@ public class OrderFulfillmentRecipient {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderFulfillmentRecipient)) {
+        if (!(obj instanceof OrderFulfillmentRecipient)) {
             return false;
         }
-        OrderFulfillmentRecipient orderFulfillmentRecipient = (OrderFulfillmentRecipient) obj;
-        return Objects.equals(customerId, orderFulfillmentRecipient.customerId) &&
-            Objects.equals(displayName, orderFulfillmentRecipient.displayName) &&
-            Objects.equals(emailAddress, orderFulfillmentRecipient.emailAddress) &&
-            Objects.equals(phoneNumber, orderFulfillmentRecipient.phoneNumber) &&
-            Objects.equals(address, orderFulfillmentRecipient.address);
+        OrderFulfillmentRecipient other = (OrderFulfillmentRecipient) obj;
+        return Objects.equals(customerId, other.customerId)
+            && Objects.equals(displayName, other.displayName)
+            && Objects.equals(emailAddress, other.emailAddress)
+            && Objects.equals(phoneNumber, other.phoneNumber)
+            && Objects.equals(address, other.address);
     }
 
     /**
@@ -126,11 +131,11 @@ public class OrderFulfillmentRecipient {
             .emailAddress(getEmailAddress())
             .phoneNumber(getPhoneNumber())
             .address(getAddress());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderFulfillmentRecipient}
+     * Class to build instances of {@link OrderFulfillmentRecipient}.
      */
     public static class Builder {
         private String customerId;
@@ -139,52 +144,51 @@ public class OrderFulfillmentRecipient {
         private String phoneNumber;
         private Address address;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customerId
-         * @param customerId
+         * Setter for customerId.
+         * @param customerId String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
             this.customerId = customerId;
             return this;
         }
+
         /**
-         * Setter for displayName
-         * @param displayName
+         * Setter for displayName.
+         * @param displayName String value for displayName.
          * @return Builder
          */
         public Builder displayName(String displayName) {
             this.displayName = displayName;
             return this;
         }
+
         /**
-         * Setter for emailAddress
-         * @param emailAddress
+         * Setter for emailAddress.
+         * @param emailAddress String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
+
         /**
-         * Setter for phoneNumber
-         * @param phoneNumber
+         * Setter for phoneNumber.
+         * @param phoneNumber String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
         /**
-         * Setter for address
-         * @param address
+         * Setter for address.
+         * @param address Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {

@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CustomerGroupInfo type.
  */
 public class CustomerGroupInfo {
+    private final String id;
+    private final String name;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
+     * @param id String value for id.
+     * @param name String value for name.
      */
     @JsonCreator
     public CustomerGroupInfo(
@@ -24,11 +27,10 @@ public class CustomerGroupInfo {
         this.name = name;
     }
 
-    private final String id;
-    private final String name;
     /**
      * Getter for Id.
      * The ID of the Customer Group.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -38,6 +40,7 @@ public class CustomerGroupInfo {
     /**
      * Getter for Name.
      * The name of the Customer Group.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -52,15 +55,15 @@ public class CustomerGroupInfo {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerGroupInfo)) {
+        if (!(obj instanceof CustomerGroupInfo)) {
             return false;
         }
-        CustomerGroupInfo customerGroupInfo = (CustomerGroupInfo) obj;
-        return Objects.equals(id, customerGroupInfo.id) &&
-            Objects.equals(name, customerGroupInfo.name);
+        CustomerGroupInfo other = (CustomerGroupInfo) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name);
     }
 
     /**
@@ -71,18 +74,20 @@ public class CustomerGroupInfo {
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             name);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerGroupInfo}
+     * Class to build instances of {@link CustomerGroupInfo}.
      */
     public static class Builder {
         private String id;
         private String name;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param id String value for id.
+         * @param name String value for name.
          */
         public Builder(String id,
                 String name) {
@@ -91,17 +96,18 @@ public class CustomerGroupInfo {
         }
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {

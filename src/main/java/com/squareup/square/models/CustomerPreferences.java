@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CustomerPreferences type.
  */
 public class CustomerPreferences {
+    private final Boolean emailUnsubscribed;
 
     /**
      * Initialization constructor.
-     * @param emailUnsubscribed
+     * @param emailUnsubscribed Boolean value for emailUnsubscribed.
      */
     @JsonCreator
     public CustomerPreferences(
@@ -21,10 +23,10 @@ public class CustomerPreferences {
         this.emailUnsubscribed = emailUnsubscribed;
     }
 
-    private final Boolean emailUnsubscribed;
     /**
      * Getter for EmailUnsubscribed.
      * The customer has unsubscribed from receiving marketing campaign emails.
+     * @return Returns the Boolean
      */
     @JsonGetter("email_unsubscribed")
     public Boolean getEmailUnsubscribed() {
@@ -39,14 +41,14 @@ public class CustomerPreferences {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerPreferences)) {
+        if (!(obj instanceof CustomerPreferences)) {
             return false;
         }
-        CustomerPreferences customerPreferences = (CustomerPreferences) obj;
-        return Objects.equals(emailUnsubscribed, customerPreferences.emailUnsubscribed);
+        CustomerPreferences other = (CustomerPreferences) obj;
+        return Objects.equals(emailUnsubscribed, other.emailUnsubscribed);
     }
 
     /**
@@ -57,25 +59,20 @@ public class CustomerPreferences {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .emailUnsubscribed(getEmailUnsubscribed());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerPreferences}
+     * Class to build instances of {@link CustomerPreferences}.
      */
     public static class Builder {
         private Boolean emailUnsubscribed;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for emailUnsubscribed
-         * @param emailUnsubscribed
+         * Setter for emailUnsubscribed.
+         * @param emailUnsubscribed Boolean value for emailUnsubscribed.
          * @return Builder
          */
         public Builder emailUnsubscribed(Boolean emailUnsubscribed) {

@@ -1,18 +1,20 @@
-## Search Loyalty Accounts Request Loyalty Account Query
+
+# Search Loyalty Accounts Request Loyalty Account Query
 
 The search criteria for the loyalty accounts.
 
-### Structure
+## Structure
 
 `SearchLoyaltyAccountsRequestLoyaltyAccountQuery`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Mappings` | [`List<LoyaltyAccountMapping>`](/doc/models/loyalty-account-mapping.md) | Optional | The set of mappings to use in the loyalty account search. | List<LoyaltyAccountMapping> getMappings() |
+| `Mappings` | [`List<LoyaltyAccountMapping>`](/doc/models/loyalty-account-mapping.md) | Optional | The set of mappings to use in the loyalty account search.<br><br>This cannot be combined with `customer_ids`.<br><br>Max: 30 mappings | List<LoyaltyAccountMapping> getMappings() |
+| `CustomerIds` | `List<String>` | Optional | The set of customer IDs to use in the loyalty account search.<br><br>This cannot be combined with `mappings`.<br><br>Max: 30 customer IDs | List<String> getCustomerIds() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {
@@ -23,6 +25,10 @@ The search criteria for the loyalty accounts.
       "value": "value6",
       "created_at": "created_at8"
     }
+  ],
+  "customer_ids": [
+    "customer_ids1",
+    "customer_ids2"
   ]
 }
 ```

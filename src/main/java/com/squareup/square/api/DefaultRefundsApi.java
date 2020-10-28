@@ -1,18 +1,15 @@
+
 package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
@@ -20,6 +17,11 @@ import com.squareup.square.models.GetPaymentRefundResponse;
 import com.squareup.square.models.ListPaymentRefundsResponse;
 import com.squareup.square.models.RefundPaymentRequest;
 import com.squareup.square.models.RefundPaymentResponse;
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -28,37 +30,56 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
     /**
      * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
      */
-    public DefaultRefundsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
+    public DefaultRefundsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
     /**
      * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
+     * @param httpCallback    Callback to be called before and after the HTTP call.
      */
-    public DefaultRefundsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+    public DefaultRefundsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
 
     /**
-     * Retrieves a list of refunds for the account making the request.
-     * Max results per page: 100
-     * @param    beginTime    Optional parameter: Timestamp for the beginning of the requested reporting period, in RFC 3339 format.  Default: The current time minus one year.
-     * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
-     * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
-     * @param    status    Optional parameter: If provided, only refunds with the given status are returned. For a list of refund status values, see [PaymentRefund](#type-paymentrefund).  Default: If omitted refunds are returned regardless of status.
-     * @param    sourceType    Optional parameter: If provided, only refunds with the given source type are returned. - `CARD` - List refunds only for payments where card was specified as payment source.  Default: If omitted refunds are returned regardless of source type.
-     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
+     * Retrieves a list of refunds for the account making the request. The maximum results per page
+     * is 100.
+     * @param  beginTime  Optional parameter: Timestamp for the beginning of the requested reporting
+     *         period, in RFC 3339 format. Default: The current time minus one year.
+     * @param  endTime  Optional parameter: Timestamp for the end of the requested reporting period,
+     *         in RFC 3339 format. Default: The current time.
+     * @param  sortOrder  Optional parameter: The order in which results are listed. - `ASC` -
+     *         oldest to newest - `DESC` - newest to oldest (default).
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
+     *         more information.
+     * @param  locationId  Optional parameter: Limit results to the location supplied. By default,
+     *         results are returned for all locations associated with the merchant.
+     * @param  status  Optional parameter: If provided, only refunds with the given status are
+     *         returned. For a list of refund status values, see
+     *         [PaymentRefund](#type-paymentrefund). Default: If omitted refunds are returned
+     *         regardless of status.
+     * @param  sourceType  Optional parameter: If provided, only refunds with the given source type
+     *         are returned. - `CARD` - List refunds only for payments where card was specified as
+     *         payment source. Default: If omitted refunds are returned regardless of source type.
+     * @param  limit  Optional parameter: Maximum number of results to be returned in a single page.
+     *         It is possible to receive fewer results than the specified limit on a given page. If
+     *         the supplied value is greater than 100, at most 100 results will be returned.
+     *         Default: `100`
      * @return    Returns the ListPaymentRefundsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListPaymentRefundsResponse listPaymentRefunds(
             final String beginTime,
@@ -69,8 +90,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String status,
             final String sourceType,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType, limit);
-        authManagers.get("default").apply(request);
+        HttpRequest request = buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor,
+                locationId, status, sourceType, limit);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -79,17 +101,32 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Retrieves a list of refunds for the account making the request.
-     * Max results per page: 100
-     * @param    beginTime    Optional parameter: Timestamp for the beginning of the requested reporting period, in RFC 3339 format.  Default: The current time minus one year.
-     * @param    endTime    Optional parameter: Timestamp for the end of the requested reporting period, in RFC 3339 format.  Default: The current time.
-     * @param    sortOrder    Optional parameter: The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
-     * @param    locationId    Optional parameter: Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
-     * @param    status    Optional parameter: If provided, only refunds with the given status are returned. For a list of refund status values, see [PaymentRefund](#type-paymentrefund).  Default: If omitted refunds are returned regardless of status.
-     * @param    sourceType    Optional parameter: If provided, only refunds with the given source type are returned. - `CARD` - List refunds only for payments where card was specified as payment source.  Default: If omitted refunds are returned regardless of source type.
-     * @param    limit    Optional parameter: Maximum number of results to be returned in a single page. It is possible to receive fewer results than the specified limit on a given page.  If the supplied value is greater than 100, at most 100 results will be returned.  Default: `100`
-     * @return    Returns the ListPaymentRefundsResponse response from the API call 
+     * Retrieves a list of refunds for the account making the request. The maximum results per page
+     * is 100.
+     * @param  beginTime  Optional parameter: Timestamp for the beginning of the requested reporting
+     *         period, in RFC 3339 format. Default: The current time minus one year.
+     * @param  endTime  Optional parameter: Timestamp for the end of the requested reporting period,
+     *         in RFC 3339 format. Default: The current time.
+     * @param  sortOrder  Optional parameter: The order in which results are listed. - `ASC` -
+     *         oldest to newest - `DESC` - newest to oldest (default).
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
+     *         more information.
+     * @param  locationId  Optional parameter: Limit results to the location supplied. By default,
+     *         results are returned for all locations associated with the merchant.
+     * @param  status  Optional parameter: If provided, only refunds with the given status are
+     *         returned. For a list of refund status values, see
+     *         [PaymentRefund](#type-paymentrefund). Default: If omitted refunds are returned
+     *         regardless of status.
+     * @param  sourceType  Optional parameter: If provided, only refunds with the given source type
+     *         are returned. - `CARD` - List refunds only for payments where card was specified as
+     *         payment source. Default: If omitted refunds are returned regardless of source type.
+     * @param  limit  Optional parameter: Maximum number of results to be returned in a single page.
+     *         It is possible to receive fewer results than the specified limit on a given page. If
+     *         the supplied value is greater than 100, at most 100 results will be returned.
+     *         Default: `100`
+     * @return    Returns the ListPaymentRefundsResponse response from the API call
      */
     public CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
             final String beginTime,
@@ -100,14 +137,16 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String status,
             final String sourceType,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType, limit),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListPaymentRefundsResponse(context));
+        return makeHttpCallAsync(() -> buildListPaymentRefundsRequest(beginTime, endTime, sortOrder,
+                cursor, locationId, status, sourceType, limit),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleListPaymentRefundsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listPaymentRefunds
+     * Builds the HttpRequest object for listPaymentRefunds.
      */
     private HttpRequest buildListPaymentRefundsRequest(
             final String beginTime,
@@ -122,9 +161,10 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/refunds");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/refunds");
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("begin_time", beginTime);
         queryParameters.put("end_time", endTime);
@@ -134,9 +174,6 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         queryParameters.put("status", status);
         queryParameters.put("source_type", sourceType);
         queryParameters.put("limit", limit);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -146,7 +183,8 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -157,11 +195,11 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Processes the response for listPaymentRefunds
+     * Processes the response for listPaymentRefunds.
      * @return An object of type ListPaymentRefundsResponse
      */
-    private ListPaymentRefundsResponse handleListPaymentRefundsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private ListPaymentRefundsResponse handleListPaymentRefundsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -173,7 +211,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         ListPaymentRefundsResponse result = ApiHelper.deserialize(responseBody,
                 ListPaymentRefundsResponse.class);
 
@@ -182,15 +220,17 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Refunds a payment. You can refund the entire payment amount or a 
-     * portion of it.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Refunds a payment. You can refund the entire payment amount or a portion of it.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the RefundPaymentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RefundPaymentResponse refundPayment(
             final RefundPaymentRequest body) throws ApiException, IOException {
         HttpRequest request = buildRefundPaymentRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -199,21 +239,22 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Refunds a payment. You can refund the entire payment amount or a 
-     * portion of it.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the RefundPaymentResponse response from the API call 
+     * Refunds a payment. You can refund the entire payment amount or a portion of it.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the RefundPaymentResponse response from the API call
      */
     public CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
             final RefundPaymentRequest body) {
         return makeHttpCallAsync(() -> buildRefundPaymentRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRefundPaymentResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRefundPaymentResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for refundPayment
+     * Builds the HttpRequest object for refundPayment.
      */
     private HttpRequest buildRefundPaymentRequest(
             final RefundPaymentRequest body) throws JsonProcessingException {
@@ -221,9 +262,8 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/refunds");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/refunds");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -235,7 +275,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -246,11 +286,11 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Processes the response for refundPayment
+     * Processes the response for refundPayment.
      * @return An object of type RefundPaymentResponse
      */
-    private RefundPaymentResponse handleRefundPaymentResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RefundPaymentResponse handleRefundPaymentResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -262,7 +302,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RefundPaymentResponse result = ApiHelper.deserialize(responseBody,
                 RefundPaymentResponse.class);
 
@@ -271,14 +311,16 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Retrieves a specific `Refund` using the `refund_id`.
-     * @param    refundId    Required parameter: Unique ID for the desired `PaymentRefund`.
+     * Retrieves a specific refund using the `refund_id`.
+     * @param  refundId  Required parameter: Unique ID for the desired `PaymentRefund`.
      * @return    Returns the GetPaymentRefundResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public GetPaymentRefundResponse getPaymentRefund(
             final String refundId) throws ApiException, IOException {
         HttpRequest request = buildGetPaymentRefundRequest(refundId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -287,20 +329,21 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Retrieves a specific `Refund` using the `refund_id`.
-     * @param    refundId    Required parameter: Unique ID for the desired `PaymentRefund`.
-     * @return    Returns the GetPaymentRefundResponse response from the API call 
+     * Retrieves a specific refund using the `refund_id`.
+     * @param  refundId  Required parameter: Unique ID for the desired `PaymentRefund`.
+     * @return    Returns the GetPaymentRefundResponse response from the API call
      */
     public CompletableFuture<GetPaymentRefundResponse> getPaymentRefundAsync(
             final String refundId) {
         return makeHttpCallAsync(() -> buildGetPaymentRefundRequest(refundId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleGetPaymentRefundResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleGetPaymentRefundResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for getPaymentRefund
+     * Builds the HttpRequest object for getPaymentRefund.
      */
     private HttpRequest buildGetPaymentRefundRequest(
             final String refundId) {
@@ -308,14 +351,14 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/refunds/{refund_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/refunds/{refund_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("refund_id", refundId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("refund_id",
+                new SimpleEntry<Object, Boolean>(refundId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -325,7 +368,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -336,11 +379,11 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     }
 
     /**
-     * Processes the response for getPaymentRefund
+     * Processes the response for getPaymentRefund.
      * @return An object of type GetPaymentRefundResponse
      */
-    private GetPaymentRefundResponse handleGetPaymentRefundResponse(HttpContext context)
-            throws ApiException, IOException {
+    private GetPaymentRefundResponse handleGetPaymentRefundResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -352,7 +395,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         GetPaymentRefundResponse result = ApiHelper.deserialize(responseBody,
                 GetPaymentRefundResponse.class);
 

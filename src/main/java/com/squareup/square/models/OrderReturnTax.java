@@ -1,26 +1,35 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderReturnTax type.
  */
 public class OrderReturnTax {
+    private final String uid;
+    private final String sourceTaxUid;
+    private final String catalogObjectId;
+    private final String name;
+    private final String type;
+    private final String percentage;
+    private final Money appliedMoney;
+    private final String scope;
 
     /**
      * Initialization constructor.
-     * @param uid
-     * @param sourceTaxUid
-     * @param catalogObjectId
-     * @param name
-     * @param type
-     * @param percentage
-     * @param appliedMoney
-     * @param scope
+     * @param uid String value for uid.
+     * @param sourceTaxUid String value for sourceTaxUid.
+     * @param catalogObjectId String value for catalogObjectId.
+     * @param name String value for name.
+     * @param type String value for type.
+     * @param percentage String value for percentage.
+     * @param appliedMoney Money value for appliedMoney.
+     * @param scope String value for scope.
      */
     @JsonCreator
     public OrderReturnTax(
@@ -42,17 +51,10 @@ public class OrderReturnTax {
         this.scope = scope;
     }
 
-    private final String uid;
-    private final String sourceTaxUid;
-    private final String catalogObjectId;
-    private final String name;
-    private final String type;
-    private final String percentage;
-    private final Money appliedMoney;
-    private final String scope;
     /**
      * Getter for Uid.
      * Unique ID that identifies the return tax only within this order.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -62,6 +64,7 @@ public class OrderReturnTax {
     /**
      * Getter for SourceTaxUid.
      * `uid` of the Tax from the Order which contains the original charge of this tax.
+     * @return Returns the String
      */
     @JsonGetter("source_tax_uid")
     public String getSourceTaxUid() {
@@ -71,6 +74,7 @@ public class OrderReturnTax {
     /**
      * Getter for CatalogObjectId.
      * The catalog object id referencing [CatalogTax](#type-catalogtax).
+     * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
@@ -80,6 +84,7 @@ public class OrderReturnTax {
     /**
      * Getter for Name.
      * The tax's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -89,6 +94,7 @@ public class OrderReturnTax {
     /**
      * Getter for Type.
      * Indicates how the tax is applied to the associated line item or order.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -97,8 +103,9 @@ public class OrderReturnTax {
 
     /**
      * Getter for Percentage.
-     * The percentage of the tax, as a string representation of a decimal number.
-     * For example, a value of `"7.25"` corresponds to a percentage of 7.25%.
+     * The percentage of the tax, as a string representation of a decimal number. For example, a
+     * value of `"7.25"` corresponds to a percentage of 7.25%.
+     * @return Returns the String
      */
     @JsonGetter("percentage")
     public String getPercentage() {
@@ -107,12 +114,13 @@ public class OrderReturnTax {
 
     /**
      * Getter for AppliedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
@@ -122,6 +130,7 @@ public class OrderReturnTax {
     /**
      * Getter for Scope.
      * Indicates whether this is a line item or order level tax.
+     * @return Returns the String
      */
     @JsonGetter("scope")
     public String getScope() {
@@ -131,27 +140,27 @@ public class OrderReturnTax {
  
     @Override
     public int hashCode() {
-        return Objects.hash(uid, sourceTaxUid, catalogObjectId, name, type, percentage, appliedMoney,
-            scope);
+        return Objects.hash(uid, sourceTaxUid, catalogObjectId, name, type, percentage,
+                appliedMoney, scope);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderReturnTax)) {
+        if (!(obj instanceof OrderReturnTax)) {
             return false;
         }
-        OrderReturnTax orderReturnTax = (OrderReturnTax) obj;
-        return Objects.equals(uid, orderReturnTax.uid) &&
-            Objects.equals(sourceTaxUid, orderReturnTax.sourceTaxUid) &&
-            Objects.equals(catalogObjectId, orderReturnTax.catalogObjectId) &&
-            Objects.equals(name, orderReturnTax.name) &&
-            Objects.equals(type, orderReturnTax.type) &&
-            Objects.equals(percentage, orderReturnTax.percentage) &&
-            Objects.equals(appliedMoney, orderReturnTax.appliedMoney) &&
-            Objects.equals(scope, orderReturnTax.scope);
+        OrderReturnTax other = (OrderReturnTax) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(sourceTaxUid, other.sourceTaxUid)
+            && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(name, other.name)
+            && Objects.equals(type, other.type)
+            && Objects.equals(percentage, other.percentage)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(scope, other.scope);
     }
 
     /**
@@ -169,11 +178,11 @@ public class OrderReturnTax {
             .percentage(getPercentage())
             .appliedMoney(getAppliedMoney())
             .scope(getScope());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderReturnTax}
+     * Class to build instances of {@link OrderReturnTax}.
      */
     public static class Builder {
         private String uid;
@@ -185,79 +194,81 @@ public class OrderReturnTax {
         private Money appliedMoney;
         private String scope;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for sourceTaxUid
-         * @param sourceTaxUid
+         * Setter for sourceTaxUid.
+         * @param sourceTaxUid String value for sourceTaxUid.
          * @return Builder
          */
         public Builder sourceTaxUid(String sourceTaxUid) {
             this.sourceTaxUid = sourceTaxUid;
             return this;
         }
+
         /**
-         * Setter for catalogObjectId
-         * @param catalogObjectId
+         * Setter for catalogObjectId.
+         * @param catalogObjectId String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for percentage
-         * @param percentage
+         * Setter for percentage.
+         * @param percentage String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
             this.percentage = percentage;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for scope
-         * @param scope
+         * Setter for scope.
+         * @param scope String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {

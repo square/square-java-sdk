@@ -1,23 +1,29 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchOrdersFilter type.
  */
 public class SearchOrdersFilter {
+    private final SearchOrdersStateFilter stateFilter;
+    private final SearchOrdersDateTimeFilter dateTimeFilter;
+    private final SearchOrdersFulfillmentFilter fulfillmentFilter;
+    private final SearchOrdersSourceFilter sourceFilter;
+    private final SearchOrdersCustomerFilter customerFilter;
 
     /**
      * Initialization constructor.
-     * @param stateFilter
-     * @param dateTimeFilter
-     * @param fulfillmentFilter
-     * @param sourceFilter
-     * @param customerFilter
+     * @param stateFilter SearchOrdersStateFilter value for stateFilter.
+     * @param dateTimeFilter SearchOrdersDateTimeFilter value for dateTimeFilter.
+     * @param fulfillmentFilter SearchOrdersFulfillmentFilter value for fulfillmentFilter.
+     * @param sourceFilter SearchOrdersSourceFilter value for sourceFilter.
+     * @param customerFilter SearchOrdersCustomerFilter value for customerFilter.
      */
     @JsonCreator
     public SearchOrdersFilter(
@@ -33,14 +39,10 @@ public class SearchOrdersFilter {
         this.customerFilter = customerFilter;
     }
 
-    private final SearchOrdersStateFilter stateFilter;
-    private final SearchOrdersDateTimeFilter dateTimeFilter;
-    private final SearchOrdersFulfillmentFilter fulfillmentFilter;
-    private final SearchOrdersSourceFilter sourceFilter;
-    private final SearchOrdersCustomerFilter customerFilter;
     /**
      * Getter for StateFilter.
      * Filter by current Order `state`.
+     * @return Returns the SearchOrdersStateFilter
      */
     @JsonGetter("state_filter")
     public SearchOrdersStateFilter getStateFilter() {
@@ -49,18 +51,18 @@ public class SearchOrdersFilter {
 
     /**
      * Getter for DateTimeFilter.
-     * Filter for `Order` objects based on whether their `CREATED_AT`,
-     * `CLOSED_AT` or `UPDATED_AT` timestamps fall within a specified time range.
-     * You can specify the time range and which timestamp to filter for. You can filter
-     * for only one time range at a time.
-     * For each time range, the start time and end time are inclusive. If the end time
-     * is absent, it defaults to the time of the first request for the cursor.
-     * __Important:__ If you use the DateTimeFilter in a SearchOrders query,
-     * you must also set the `sort_field` in [OrdersSort](#type-searchorderordersort)
-     * to the same field you filter for. For example, if you set the `CLOSED_AT` field
-     * in DateTimeFilter, you must also set the `sort_field` in SearchOrdersSort to
-     * `CLOSED_AT`. Otherwise, SearchOrders will throw an error.
-     * [Learn more about filtering orders by time range](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range).
+     * Filter for `Order` objects based on whether their `CREATED_AT`, `CLOSED_AT` or `UPDATED_AT`
+     * timestamps fall within a specified time range. You can specify the time range and which
+     * timestamp to filter for. You can filter for only one time range at a time. For each time
+     * range, the start time and end time are inclusive. If the end time is absent, it defaults to
+     * the time of the first request for the cursor. __Important:__ If you use the DateTimeFilter in
+     * a SearchOrders query, you must also set the `sort_field` in
+     * [OrdersSort](#type-searchorderordersort) to the same field you filter for. For example, if
+     * you set the `CLOSED_AT` field in DateTimeFilter, you must also set the `sort_field` in
+     * SearchOrdersSort to `CLOSED_AT`. Otherwise, SearchOrders will throw an error. [Learn more
+     * about filtering orders by time
+     * range](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range).
+     * @return Returns the SearchOrdersDateTimeFilter
      */
     @JsonGetter("date_time_filter")
     public SearchOrdersDateTimeFilter getDateTimeFilter() {
@@ -70,6 +72,7 @@ public class SearchOrdersFilter {
     /**
      * Getter for FulfillmentFilter.
      * Filter based on [Order Fulfillment](#type-orderfulfillment) information.
+     * @return Returns the SearchOrdersFulfillmentFilter
      */
     @JsonGetter("fulfillment_filter")
     public SearchOrdersFulfillmentFilter getFulfillmentFilter() {
@@ -79,6 +82,7 @@ public class SearchOrdersFilter {
     /**
      * Getter for SourceFilter.
      * Filter based on order `source` information.
+     * @return Returns the SearchOrdersSourceFilter
      */
     @JsonGetter("source_filter")
     public SearchOrdersSourceFilter getSourceFilter() {
@@ -87,9 +91,10 @@ public class SearchOrdersFilter {
 
     /**
      * Getter for CustomerFilter.
-     * Filter based on Order `customer_id` and any Tender `customer_id`
-     * associated with the Order. Does not filter based on the
-     * [FulfillmentRecipient](#type-orderfulfillmentrecipient) `customer_id`.
+     * Filter based on Order `customer_id` and any Tender `customer_id` associated with the Order.
+     * Does not filter based on the [FulfillmentRecipient](#type-orderfulfillmentrecipient)
+     * `customer_id`.
+     * @return Returns the SearchOrdersCustomerFilter
      */
     @JsonGetter("customer_filter")
     public SearchOrdersCustomerFilter getCustomerFilter() {
@@ -100,23 +105,23 @@ public class SearchOrdersFilter {
     @Override
     public int hashCode() {
         return Objects.hash(stateFilter, dateTimeFilter, fulfillmentFilter, sourceFilter,
-            customerFilter);
+                customerFilter);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchOrdersFilter)) {
+        if (!(obj instanceof SearchOrdersFilter)) {
             return false;
         }
-        SearchOrdersFilter searchOrdersFilter = (SearchOrdersFilter) obj;
-        return Objects.equals(stateFilter, searchOrdersFilter.stateFilter) &&
-            Objects.equals(dateTimeFilter, searchOrdersFilter.dateTimeFilter) &&
-            Objects.equals(fulfillmentFilter, searchOrdersFilter.fulfillmentFilter) &&
-            Objects.equals(sourceFilter, searchOrdersFilter.sourceFilter) &&
-            Objects.equals(customerFilter, searchOrdersFilter.customerFilter);
+        SearchOrdersFilter other = (SearchOrdersFilter) obj;
+        return Objects.equals(stateFilter, other.stateFilter)
+            && Objects.equals(dateTimeFilter, other.dateTimeFilter)
+            && Objects.equals(fulfillmentFilter, other.fulfillmentFilter)
+            && Objects.equals(sourceFilter, other.sourceFilter)
+            && Objects.equals(customerFilter, other.customerFilter);
     }
 
     /**
@@ -131,11 +136,11 @@ public class SearchOrdersFilter {
             .fulfillmentFilter(getFulfillmentFilter())
             .sourceFilter(getSourceFilter())
             .customerFilter(getCustomerFilter());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchOrdersFilter}
+     * Class to build instances of {@link SearchOrdersFilter}.
      */
     public static class Builder {
         private SearchOrdersStateFilter stateFilter;
@@ -144,52 +149,51 @@ public class SearchOrdersFilter {
         private SearchOrdersSourceFilter sourceFilter;
         private SearchOrdersCustomerFilter customerFilter;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for stateFilter
-         * @param stateFilter
+         * Setter for stateFilter.
+         * @param stateFilter SearchOrdersStateFilter value for stateFilter.
          * @return Builder
          */
         public Builder stateFilter(SearchOrdersStateFilter stateFilter) {
             this.stateFilter = stateFilter;
             return this;
         }
+
         /**
-         * Setter for dateTimeFilter
-         * @param dateTimeFilter
+         * Setter for dateTimeFilter.
+         * @param dateTimeFilter SearchOrdersDateTimeFilter value for dateTimeFilter.
          * @return Builder
          */
         public Builder dateTimeFilter(SearchOrdersDateTimeFilter dateTimeFilter) {
             this.dateTimeFilter = dateTimeFilter;
             return this;
         }
+
         /**
-         * Setter for fulfillmentFilter
-         * @param fulfillmentFilter
+         * Setter for fulfillmentFilter.
+         * @param fulfillmentFilter SearchOrdersFulfillmentFilter value for fulfillmentFilter.
          * @return Builder
          */
         public Builder fulfillmentFilter(SearchOrdersFulfillmentFilter fulfillmentFilter) {
             this.fulfillmentFilter = fulfillmentFilter;
             return this;
         }
+
         /**
-         * Setter for sourceFilter
-         * @param sourceFilter
+         * Setter for sourceFilter.
+         * @param sourceFilter SearchOrdersSourceFilter value for sourceFilter.
          * @return Builder
          */
         public Builder sourceFilter(SearchOrdersSourceFilter sourceFilter) {
             this.sourceFilter = sourceFilter;
             return this;
         }
+
         /**
-         * Setter for customerFilter
-         * @param customerFilter
+         * Setter for customerFilter.
+         * @param customerFilter SearchOrdersCustomerFilter value for customerFilter.
          * @return Builder
          */
         public Builder customerFilter(SearchOrdersCustomerFilter customerFilter) {

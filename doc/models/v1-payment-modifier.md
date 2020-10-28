@@ -1,12 +1,13 @@
-## V1 Payment Modifier
+
+# V1 Payment Modifier
 
 V1PaymentModifier
 
-### Structure
+## Structure
 
 `V1PaymentModifier`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@ V1PaymentModifier
 | `AppliedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
 | `ModifierOptionId` | `String` | Optional | TThe ID of the applied modifier option, if available. Modifier options applied in older versions of Square Register might not have an ID. | String getModifierOptionId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

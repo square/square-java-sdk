@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyEventLoyaltyAccountFilter type.
  */
 public class LoyaltyEventLoyaltyAccountFilter {
+    private final String loyaltyAccountId;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId
+     * @param loyaltyAccountId String value for loyaltyAccountId.
      */
     @JsonCreator
     public LoyaltyEventLoyaltyAccountFilter(
@@ -21,10 +23,10 @@ public class LoyaltyEventLoyaltyAccountFilter {
         this.loyaltyAccountId = loyaltyAccountId;
     }
 
-    private final String loyaltyAccountId;
     /**
      * Getter for LoyaltyAccountId.
      * The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events.
+     * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
@@ -39,14 +41,14 @@ public class LoyaltyEventLoyaltyAccountFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventLoyaltyAccountFilter)) {
+        if (!(obj instanceof LoyaltyEventLoyaltyAccountFilter)) {
             return false;
         }
-        LoyaltyEventLoyaltyAccountFilter loyaltyEventLoyaltyAccountFilter = (LoyaltyEventLoyaltyAccountFilter) obj;
-        return Objects.equals(loyaltyAccountId, loyaltyEventLoyaltyAccountFilter.loyaltyAccountId);
+        LoyaltyEventLoyaltyAccountFilter other = (LoyaltyEventLoyaltyAccountFilter) obj;
+        return Objects.equals(loyaltyAccountId, other.loyaltyAccountId);
     }
 
     /**
@@ -56,25 +58,26 @@ public class LoyaltyEventLoyaltyAccountFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(loyaltyAccountId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventLoyaltyAccountFilter}
+     * Class to build instances of {@link LoyaltyEventLoyaltyAccountFilter}.
      */
     public static class Builder {
         private String loyaltyAccountId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
          */
         public Builder(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
         }
 
         /**
-         * Setter for loyaltyAccountId
-         * @param loyaltyAccountId
+         * Setter for loyaltyAccountId.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {

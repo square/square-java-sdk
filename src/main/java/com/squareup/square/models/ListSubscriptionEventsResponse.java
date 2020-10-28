@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListSubscriptionEventsResponse type.
  */
 public class ListSubscriptionEventsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<SubscriptionEvent> subscriptionEvents;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param subscriptionEvents
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param subscriptionEvents List of SubscriptionEvent value for subscriptionEvents.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListSubscriptionEventsResponse(
@@ -29,11 +34,6 @@ public class ListSubscriptionEventsResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<SubscriptionEvent> subscriptionEvents;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListSubscriptionEventsResponse {
     /**
      * Getter for Errors.
      * Information about errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListSubscriptionEventsResponse {
     /**
      * Getter for SubscriptionEvents.
      * The `SubscriptionEvents` retrieved.
+     * @return Returns the List of SubscriptionEvent
      */
     @JsonGetter("subscription_events")
     public List<SubscriptionEvent> getSubscriptionEvents() {
@@ -58,10 +60,10 @@ public class ListSubscriptionEventsResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can 
-     * use in a subsequent request to fetch the next set of events. 
-     * If empty, this is the final response.
-     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request
+     * to fetch the next set of events. If empty, this is the final response. For more information,
+     * see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +78,16 @@ public class ListSubscriptionEventsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListSubscriptionEventsResponse)) {
+        if (!(obj instanceof ListSubscriptionEventsResponse)) {
             return false;
         }
-        ListSubscriptionEventsResponse listSubscriptionEventsResponse = (ListSubscriptionEventsResponse) obj;
-        return Objects.equals(errors, listSubscriptionEventsResponse.errors) &&
-            Objects.equals(subscriptionEvents, listSubscriptionEventsResponse.subscriptionEvents) &&
-            Objects.equals(cursor, listSubscriptionEventsResponse.cursor);
+        ListSubscriptionEventsResponse other = (ListSubscriptionEventsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(subscriptionEvents, other.subscriptionEvents)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +100,11 @@ public class ListSubscriptionEventsResponse {
             .errors(getErrors())
             .subscriptionEvents(getSubscriptionEvents())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListSubscriptionEventsResponse}
+     * Class to build instances of {@link ListSubscriptionEventsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +112,41 @@ public class ListSubscriptionEventsResponse {
         private List<SubscriptionEvent> subscriptionEvents;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for subscriptionEvents
-         * @param subscriptionEvents
+         * Setter for subscriptionEvents.
+         * @param subscriptionEvents List of SubscriptionEvent value for subscriptionEvents.
          * @return Builder
          */
         public Builder subscriptionEvents(List<SubscriptionEvent> subscriptionEvents) {
             this.subscriptionEvents = subscriptionEvents;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +159,10 @@ public class ListSubscriptionEventsResponse {
          * @return {@link ListSubscriptionEventsResponse}
          */
         public ListSubscriptionEventsResponse build() {
-            ListSubscriptionEventsResponse model = new ListSubscriptionEventsResponse(errors,
-                subscriptionEvents,
-                cursor);
+            ListSubscriptionEventsResponse model =
+                    new ListSubscriptionEventsResponse(errors,
+                            subscriptionEvents,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

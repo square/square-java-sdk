@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1PhoneNumber type.
  */
 public class V1PhoneNumber {
+    private final String callingCode;
+    private final String number;
 
     /**
      * Initialization constructor.
-     * @param callingCode
-     * @param number
+     * @param callingCode String value for callingCode.
+     * @param number String value for number.
      */
     @JsonCreator
     public V1PhoneNumber(
@@ -24,11 +27,10 @@ public class V1PhoneNumber {
         this.number = number;
     }
 
-    private final String callingCode;
-    private final String number;
     /**
      * Getter for CallingCode.
      * The phone number's international calling code. For US phone numbers, this value is +1.
+     * @return Returns the String
      */
     @JsonGetter("calling_code")
     public String getCallingCode() {
@@ -38,6 +40,7 @@ public class V1PhoneNumber {
     /**
      * Getter for Number.
      * The phone number.
+     * @return Returns the String
      */
     @JsonGetter("number")
     public String getNumber() {
@@ -52,15 +55,15 @@ public class V1PhoneNumber {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PhoneNumber)) {
+        if (!(obj instanceof V1PhoneNumber)) {
             return false;
         }
-        V1PhoneNumber v1PhoneNumber = (V1PhoneNumber) obj;
-        return Objects.equals(callingCode, v1PhoneNumber.callingCode) &&
-            Objects.equals(number, v1PhoneNumber.number);
+        V1PhoneNumber other = (V1PhoneNumber) obj;
+        return Objects.equals(callingCode, other.callingCode)
+            && Objects.equals(number, other.number);
     }
 
     /**
@@ -71,18 +74,20 @@ public class V1PhoneNumber {
     public Builder toBuilder() {
         Builder builder = new Builder(callingCode,
             number);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PhoneNumber}
+     * Class to build instances of {@link V1PhoneNumber}.
      */
     public static class Builder {
         private String callingCode;
         private String number;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param callingCode String value for callingCode.
+         * @param number String value for number.
          */
         public Builder(String callingCode,
                 String number) {
@@ -91,17 +96,18 @@ public class V1PhoneNumber {
         }
 
         /**
-         * Setter for callingCode
-         * @param callingCode
+         * Setter for callingCode.
+         * @param callingCode String value for callingCode.
          * @return Builder
          */
         public Builder callingCode(String callingCode) {
             this.callingCode = callingCode;
             return this;
         }
+
         /**
-         * Setter for number
-         * @param number
+         * Setter for number.
+         * @param number String value for number.
          * @return Builder
          */
         public Builder number(String number) {

@@ -1,15 +1,15 @@
-package com.squareup.square.http.client;
 
-import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+package com.squareup.square.http.client;
 
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpBodyRequest;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
-
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * HTTP Client to send HTTP Requests and read the responses.
@@ -17,89 +17,143 @@ import com.squareup.square.http.response.HttpResponse;
 public interface HttpClient {
 
     /**
-     * Execute a given HttpRequest to get string response back
-     * @param   request     The given HttpRequest to execute
-     * @return  CompletableFuture<HttpResponse> after execution
+     * Execute a given HttpRequest to get string response back.
+     * @param   request     The given HttpRequest to execute.
+     * @return  CompletableFuture of HttpResponse after execution
      */
     public CompletableFuture<HttpResponse> executeAsStringAsync(final HttpRequest request);
 
     /**
-     * Execute a given HttpRequest to get binary response back
-     * @param   request     The given HttpRequest to execute
-     * @return   CompletableFuture<HttpResponse> after execution
+     * Execute a given HttpRequest to get binary response back.
+     * @param   request     The given HttpRequest to execute.
+     * @return   CompletableFuture of HttpResponse after execution
      */
     public CompletableFuture<HttpResponse> executeAsBinaryAsync(final HttpRequest request);
 
     /**
-     * Execute a given HttpRequest to get binary response back
-     * @param   request     The given HttpRequest to execute     
+     * Execute a given HttpRequest to get binary response back.
+     * @param   request     The given HttpRequest to execute.
+     * @return   HttpResponse after execution
+     * @throws   IOException    Signals that an I/O exception of some sort has occurred.
      */
     public HttpResponse executeAsBinary(final HttpRequest request) throws IOException;
 
     /**
-     * Execute a given HttpRequest to get string response back
-     * @param   request     The given HttpRequest to execute     
+     * Execute a given HttpRequest to get string response back.
+     * @param   request     The given HttpRequest to execute.
+     * @return   HttpResponse after execution
+     * @throws   IOException    Signals that an I/O exception of some sort has occurred.
      */
     public HttpResponse executeAsString(final HttpRequest request) throws IOException;
 
 
     /**
-     * Create a simple HTTP GET request
+     * Create a simple HTTP GET request.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
      */
-    public HttpRequest get(String queryUrl,
-                    Headers headers, List<SimpleEntry<String, Object>> parameters);
+    public HttpRequest get(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-    * Create a simple HTTP HEAD request
+    * Create a simple HTTP HEAD request.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
     */
-    public HttpRequest head(String queryUrl,
-            Headers headers, List<SimpleEntry<String, Object>> parameters);
+    public HttpRequest head(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-     * Create an HTTP POST request with parameters
+     * Create an HTTP POST request with parameters.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
      */
-    public HttpRequest post(String queryUrl,
-                     Headers headers, List<SimpleEntry<String, Object>> parameters);
+    public HttpRequest post(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-     * Create an HTTP POST request with body
+     * Create an HTTP POST request with body.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param body             The object to be sent as body after serialization.
+     * @return Returns the object of HttpBodyRequest
      */
-    public HttpBodyRequest postBody(String queryUrl,
-                             Headers headers, Object body);
+    public HttpBodyRequest postBody(StringBuilder queryUrlBuilder,
+            Headers headers, Map<String, Object> queryParams, Object body);
 
     /**
-     * Create an HTTP PUT request with parameters
+     * Create an HTTP PUT request with parameters.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
      */
-    public HttpRequest put(String queryUrl,
-                    Headers headers, List<SimpleEntry<String, Object>> parameters);
+    public HttpRequest put(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-     * Create an HTTP PUT request with body
+     * Create an HTTP PUT request with body.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param body             The object to be sent as body after serialization.
+     * @return Returns the object of HttpBodyRequest
      */
-    HttpBodyRequest putBody(String queryUrl,
-                            Headers headers, Object body);
+    HttpBodyRequest putBody(StringBuilder queryUrlBuilder,
+            Headers headers, Map<String, Object> queryParams, Object body);
 
     /**
-     * Create an HTTP PATCH request with parameters
+     * Create an HTTP PATCH request with parameters.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
      */
-    public HttpRequest patch(String queryUrl,
-                      Headers headers, List<SimpleEntry<String, Object>> parameters);
+    public HttpRequest patch(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-     * Create an HTTP PATCH request with body
+     * Create an HTTP PATCH request with body.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param body             The object to be sent as body after serialization.
+     * @return Returns the object of HttpBodyRequest
      */
-    public HttpBodyRequest patchBody(String queryUrl,
-                              Headers headers, Object body);
+    public HttpBodyRequest patchBody(StringBuilder queryUrlBuilder,
+            Headers headers, Map<String, Object> queryParams, Object body);
 
     /**
-     * Create an HTTP DELETE request with parameters
+     * Create an HTTP DELETE request with parameters.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param parameters       The form data values in a key-value map.
+     * @return Returns the object of HttpRequest
      */
-    HttpRequest delete(String queryUrl,
-                       Headers headers, List<SimpleEntry<String, Object>> parameters);
+    HttpRequest delete(StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParams, List<SimpleEntry<String, Object>> parameters);
 
     /**
-     * Create an HTTP DELETE request with body
+     * Create an HTTP DELETE request with body.
+     * @param queryUrlBuilder  The http url to create the HTTP Request.
+     * @param headers          The key-value map of all http headers to be sent.
+     * @param queryParams      The query parameters in a key-value map.
+     * @param body             The object to be sent as body after serialization.
+     * @return Returns the object of HttpBodyRequest
      */
-    public HttpBodyRequest deleteBody(String queryUrl,
-                               Headers headers, Object body);
+    public HttpBodyRequest deleteBody(StringBuilder queryUrlBuilder,
+            Headers headers, Map<String, Object> queryParams, Object body);
 }

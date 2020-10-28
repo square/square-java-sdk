@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListBankAccountsRequest type.
  */
 public class ListBankAccountsRequest {
+    private final String cursor;
+    private final Integer limit;
+    private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param limit
-     * @param locationId
+     * @param cursor String value for cursor.
+     * @param limit Integer value for limit.
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public ListBankAccountsRequest(
@@ -27,15 +31,13 @@ public class ListBankAccountsRequest {
         this.locationId = locationId;
     }
 
-    private final String cursor;
-    private final Integer limit;
-    private final String locationId;
     /**
      * Getter for Cursor.
-     * The pagination cursor returned by a previous call to this endpoint.
-     * Use it in the next `ListBankAccounts` request to retrieve the next set 
-     * of results.
-     * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * The pagination cursor returned by a previous call to this endpoint. Use it in the next
+     * `ListBankAccounts` request to retrieve the next set of results. See the
+     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for
+     * more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -44,9 +46,10 @@ public class ListBankAccountsRequest {
 
     /**
      * Getter for Limit.
-     * Upper limit on the number of bank accounts to return in the response. 
-     * Currently, 1000 is the largest supported limit. You can specify a limit 
-     * of up to 1000 bank accounts. This is also the default limit.
+     * Upper limit on the number of bank accounts to return in the response. Currently, 1000 is the
+     * largest supported limit. You can specify a limit of up to 1000 bank accounts. This is also
+     * the default limit.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -55,8 +58,9 @@ public class ListBankAccountsRequest {
 
     /**
      * Getter for LocationId.
-     * Location ID. You can specify this optional filter 
-     * to retrieve only the linked bank accounts belonging to a specific location.
+     * Location ID. You can specify this optional filter to retrieve only the linked bank accounts
+     * belonging to a specific location.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -71,16 +75,16 @@ public class ListBankAccountsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListBankAccountsRequest)) {
+        if (!(obj instanceof ListBankAccountsRequest)) {
             return false;
         }
-        ListBankAccountsRequest listBankAccountsRequest = (ListBankAccountsRequest) obj;
-        return Objects.equals(cursor, listBankAccountsRequest.cursor) &&
-            Objects.equals(limit, listBankAccountsRequest.limit) &&
-            Objects.equals(locationId, listBankAccountsRequest.locationId);
+        ListBankAccountsRequest other = (ListBankAccountsRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -93,45 +97,42 @@ public class ListBankAccountsRequest {
             .cursor(getCursor())
             .limit(getLimit())
             .locationId(getLocationId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListBankAccountsRequest}
+     * Class to build instances of {@link ListBankAccountsRequest}.
      */
     public static class Builder {
         private String cursor;
         private Integer limit;
         private String locationId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

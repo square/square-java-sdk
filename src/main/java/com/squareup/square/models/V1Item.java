@@ -1,37 +1,56 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1Item type.
  */
 public class V1Item {
+    private HttpContext httpContext;
+    private final String id;
+    private final String name;
+    private final String description;
+    private final String type;
+    private final String color;
+    private final String abbreviation;
+    private final String visibility;
+    private final Boolean availableOnline;
+    private final V1ItemImage masterImage;
+    private final V1Category category;
+    private final List<V1Variation> variations;
+    private final List<V1ModifierList> modifierLists;
+    private final List<V1Fee> fees;
+    private final Boolean taxable;
+    private final String categoryId;
+    private final Boolean availableForPickup;
+    private final String v2Id;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param name
-     * @param description
-     * @param type
-     * @param color
-     * @param abbreviation
-     * @param visibility
-     * @param availableOnline
-     * @param masterImage
-     * @param category
-     * @param variations
-     * @param modifierLists
-     * @param fees
-     * @param taxable
-     * @param categoryId
-     * @param availableForPickup
-     * @param v2Id
+     * @param id String value for id.
+     * @param name String value for name.
+     * @param description String value for description.
+     * @param type String value for type.
+     * @param color String value for color.
+     * @param abbreviation String value for abbreviation.
+     * @param visibility String value for visibility.
+     * @param availableOnline Boolean value for availableOnline.
+     * @param masterImage V1ItemImage value for masterImage.
+     * @param category V1Category value for category.
+     * @param variations List of V1Variation value for variations.
+     * @param modifierLists List of V1ModifierList value for modifierLists.
+     * @param fees List of V1Fee value for fees.
+     * @param taxable Boolean value for taxable.
+     * @param categoryId String value for categoryId.
+     * @param availableForPickup Boolean value for availableForPickup.
+     * @param v2Id String value for v2Id.
      */
     @JsonCreator
     public V1Item(
@@ -71,32 +90,16 @@ public class V1Item {
         this.v2Id = v2Id;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String name;
-    private final String description;
-    private final String type;
-    private final String color;
-    private final String abbreviation;
-    private final String visibility;
-    private final Boolean availableOnline;
-    private final V1ItemImage masterImage;
-    private final V1Category category;
-    private final List<V1Variation> variations;
-    private final List<V1ModifierList> modifierLists;
-    private final List<V1Fee> fees;
-    private final Boolean taxable;
-    private final String categoryId;
-    private final Boolean availableForPickup;
-    private final String v2Id;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Id.
-     * The item's ID. Must be unique among all entity IDs ever provided on behalf of the merchant. You can never reuse an ID. This value can include alphanumeric characters, dashes (-), and underscores (_).
+     * The item's ID. Must be unique among all entity IDs ever provided on behalf of the merchant.
+     * You can never reuse an ID. This value can include alphanumeric characters, dashes (-), and
+     * underscores (_).
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -106,6 +109,7 @@ public class V1Item {
     /**
      * Getter for Name.
      * The item's name.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -115,6 +119,7 @@ public class V1Item {
     /**
      * Getter for Description.
      * The item's description.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -123,6 +128,7 @@ public class V1Item {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -131,6 +137,7 @@ public class V1Item {
 
     /**
      * Getter for Color.
+     * @return Returns the String
      */
     @JsonGetter("color")
     public String getColor() {
@@ -139,7 +146,9 @@ public class V1Item {
 
     /**
      * Getter for Abbreviation.
-     * The text of the item's display label in Square Point of Sale. Only up to the first five characters of the string are used.
+     * The text of the item's display label in Square Point of Sale. Only up to the first five
+     * characters of the string are used.
+     * @return Returns the String
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {
@@ -148,6 +157,7 @@ public class V1Item {
 
     /**
      * Getter for Visibility.
+     * @return Returns the String
      */
     @JsonGetter("visibility")
     public String getVisibility() {
@@ -157,6 +167,7 @@ public class V1Item {
     /**
      * Getter for AvailableOnline.
      * If true, the item can be added to shipping orders from the merchant's online store.
+     * @return Returns the Boolean
      */
     @JsonGetter("available_online")
     public Boolean getAvailableOnline() {
@@ -166,6 +177,7 @@ public class V1Item {
     /**
      * Getter for MasterImage.
      * V1ItemImage
+     * @return Returns the V1ItemImage
      */
     @JsonGetter("master_image")
     public V1ItemImage getMasterImage() {
@@ -175,6 +187,7 @@ public class V1Item {
     /**
      * Getter for Category.
      * V1Category
+     * @return Returns the V1Category
      */
     @JsonGetter("category")
     public V1Category getCategory() {
@@ -184,6 +197,7 @@ public class V1Item {
     /**
      * Getter for Variations.
      * The item's variations. You must specify at least one variation.
+     * @return Returns the List of V1Variation
      */
     @JsonGetter("variations")
     public List<V1Variation> getVariations() {
@@ -193,6 +207,7 @@ public class V1Item {
     /**
      * Getter for ModifierLists.
      * The modifier lists that apply to the item, if any.
+     * @return Returns the List of V1ModifierList
      */
     @JsonGetter("modifier_lists")
     public List<V1ModifierList> getModifierLists() {
@@ -202,6 +217,7 @@ public class V1Item {
     /**
      * Getter for Fees.
      * The fees that apply to the item, if any.
+     * @return Returns the List of V1Fee
      */
     @JsonGetter("fees")
     public List<V1Fee> getFees() {
@@ -211,6 +227,7 @@ public class V1Item {
     /**
      * Getter for Taxable.
      * Deprecated. This field is not used.
+     * @return Returns the Boolean
      */
     @JsonGetter("taxable")
     public Boolean getTaxable() {
@@ -220,6 +237,7 @@ public class V1Item {
     /**
      * Getter for CategoryId.
      * The ID of the item's category, if any.
+     * @return Returns the String
      */
     @JsonGetter("category_id")
     public String getCategoryId() {
@@ -228,7 +246,9 @@ public class V1Item {
 
     /**
      * Getter for AvailableForPickup.
-     * If true, the item can be added to pickup orders from the merchant's online store. Default value: false
+     * If true, the item can be added to pickup orders from the merchant's online store. Default
+     * value: false
+     * @return Returns the Boolean
      */
     @JsonGetter("available_for_pickup")
     public Boolean getAvailableForPickup() {
@@ -237,7 +257,9 @@ public class V1Item {
 
     /**
      * Getter for V2Id.
-     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple locations share the same v2 ID.
+     * The ID of the CatalogObject in the Connect v2 API. Objects that are shared across multiple
+     * locations share the same v2 ID.
+     * @return Returns the String
      */
     @JsonGetter("v2_id")
     public String getV2Id() {
@@ -248,36 +270,36 @@ public class V1Item {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, type, color, abbreviation, visibility,
-            availableOnline, masterImage, category, variations, modifierLists, fees, taxable,
-            categoryId, availableForPickup, v2Id);
+                availableOnline, masterImage, category, variations, modifierLists, fees, taxable,
+                categoryId, availableForPickup, v2Id);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Item)) {
+        if (!(obj instanceof V1Item)) {
             return false;
         }
-        V1Item v1Item = (V1Item) obj;
-        return Objects.equals(id, v1Item.id) &&
-            Objects.equals(name, v1Item.name) &&
-            Objects.equals(description, v1Item.description) &&
-            Objects.equals(type, v1Item.type) &&
-            Objects.equals(color, v1Item.color) &&
-            Objects.equals(abbreviation, v1Item.abbreviation) &&
-            Objects.equals(visibility, v1Item.visibility) &&
-            Objects.equals(availableOnline, v1Item.availableOnline) &&
-            Objects.equals(masterImage, v1Item.masterImage) &&
-            Objects.equals(category, v1Item.category) &&
-            Objects.equals(variations, v1Item.variations) &&
-            Objects.equals(modifierLists, v1Item.modifierLists) &&
-            Objects.equals(fees, v1Item.fees) &&
-            Objects.equals(taxable, v1Item.taxable) &&
-            Objects.equals(categoryId, v1Item.categoryId) &&
-            Objects.equals(availableForPickup, v1Item.availableForPickup) &&
-            Objects.equals(v2Id, v1Item.v2Id);
+        V1Item other = (V1Item) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(description, other.description)
+            && Objects.equals(type, other.type)
+            && Objects.equals(color, other.color)
+            && Objects.equals(abbreviation, other.abbreviation)
+            && Objects.equals(visibility, other.visibility)
+            && Objects.equals(availableOnline, other.availableOnline)
+            && Objects.equals(masterImage, other.masterImage)
+            && Objects.equals(category, other.category)
+            && Objects.equals(variations, other.variations)
+            && Objects.equals(modifierLists, other.modifierLists)
+            && Objects.equals(fees, other.fees)
+            && Objects.equals(taxable, other.taxable)
+            && Objects.equals(categoryId, other.categoryId)
+            && Objects.equals(availableForPickup, other.availableForPickup)
+            && Objects.equals(v2Id, other.v2Id);
     }
 
     /**
@@ -304,11 +326,11 @@ public class V1Item {
             .categoryId(getCategoryId())
             .availableForPickup(getAvailableForPickup())
             .v2Id(getV2Id());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Item}
+     * Class to build instances of {@link V1Item}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -330,169 +352,181 @@ public class V1Item {
         private Boolean availableForPickup;
         private String v2Id;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for color
-         * @param color
+         * Setter for color.
+         * @param color String value for color.
          * @return Builder
          */
         public Builder color(String color) {
             this.color = color;
             return this;
         }
+
         /**
-         * Setter for abbreviation
-         * @param abbreviation
+         * Setter for abbreviation.
+         * @param abbreviation String value for abbreviation.
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {
             this.abbreviation = abbreviation;
             return this;
         }
+
         /**
-         * Setter for visibility
-         * @param visibility
+         * Setter for visibility.
+         * @param visibility String value for visibility.
          * @return Builder
          */
         public Builder visibility(String visibility) {
             this.visibility = visibility;
             return this;
         }
+
         /**
-         * Setter for availableOnline
-         * @param availableOnline
+         * Setter for availableOnline.
+         * @param availableOnline Boolean value for availableOnline.
          * @return Builder
          */
         public Builder availableOnline(Boolean availableOnline) {
             this.availableOnline = availableOnline;
             return this;
         }
+
         /**
-         * Setter for masterImage
-         * @param masterImage
+         * Setter for masterImage.
+         * @param masterImage V1ItemImage value for masterImage.
          * @return Builder
          */
         public Builder masterImage(V1ItemImage masterImage) {
             this.masterImage = masterImage;
             return this;
         }
+
         /**
-         * Setter for category
-         * @param category
+         * Setter for category.
+         * @param category V1Category value for category.
          * @return Builder
          */
         public Builder category(V1Category category) {
             this.category = category;
             return this;
         }
+
         /**
-         * Setter for variations
-         * @param variations
+         * Setter for variations.
+         * @param variations List of V1Variation value for variations.
          * @return Builder
          */
         public Builder variations(List<V1Variation> variations) {
             this.variations = variations;
             return this;
         }
+
         /**
-         * Setter for modifierLists
-         * @param modifierLists
+         * Setter for modifierLists.
+         * @param modifierLists List of V1ModifierList value for modifierLists.
          * @return Builder
          */
         public Builder modifierLists(List<V1ModifierList> modifierLists) {
             this.modifierLists = modifierLists;
             return this;
         }
+
         /**
-         * Setter for fees
-         * @param fees
+         * Setter for fees.
+         * @param fees List of V1Fee value for fees.
          * @return Builder
          */
         public Builder fees(List<V1Fee> fees) {
             this.fees = fees;
             return this;
         }
+
         /**
-         * Setter for taxable
-         * @param taxable
+         * Setter for taxable.
+         * @param taxable Boolean value for taxable.
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
             this.taxable = taxable;
             return this;
         }
+
         /**
-         * Setter for categoryId
-         * @param categoryId
+         * Setter for categoryId.
+         * @param categoryId String value for categoryId.
          * @return Builder
          */
         public Builder categoryId(String categoryId) {
             this.categoryId = categoryId;
             return this;
         }
+
         /**
-         * Setter for availableForPickup
-         * @param availableForPickup
+         * Setter for availableForPickup.
+         * @param availableForPickup Boolean value for availableForPickup.
          * @return Builder
          */
         public Builder availableForPickup(Boolean availableForPickup) {
             this.availableForPickup = availableForPickup;
             return this;
         }
+
         /**
-         * Setter for v2Id
-         * @param v2Id
+         * Setter for v2Id.
+         * @param v2Id String value for v2Id.
          * @return Builder
          */
         public Builder v2Id(String v2Id) {
@@ -505,23 +539,24 @@ public class V1Item {
          * @return {@link V1Item}
          */
         public V1Item build() {
-            V1Item model = new V1Item(id,
-                name,
-                description,
-                type,
-                color,
-                abbreviation,
-                visibility,
-                availableOnline,
-                masterImage,
-                category,
-                variations,
-                modifierLists,
-                fees,
-                taxable,
-                categoryId,
-                availableForPickup,
-                v2Id);
+            V1Item model =
+                    new V1Item(id,
+                            name,
+                            description,
+                            type,
+                            color,
+                            abbreviation,
+                            visibility,
+                            availableOnline,
+                            masterImage,
+                            category,
+                            variations,
+                            modifierLists,
+                            fees,
+                            taxable,
+                            categoryId,
+                            availableForPickup,
+                            v2Id);
             model.httpContext = httpContext;
             return model;
         }

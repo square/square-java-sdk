@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>6.4.0.20200923</version>
+    <version>6.5.0.20201028</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:6.3.0.20200826"
+implementation "com.squareup:square:6.5.0.20201028"
 ```
 
 ## API documentation
@@ -301,33 +301,33 @@ You can also use the Square API to create applications or services that work wit
 [Square API]: https://squareup.com/developers
 [sign up for a developer account]: https://squareup.com/signup?v=developers
 [Client]: doc/client.md
-[Devices]: doc/devices.md
-[Disputes]: doc/disputes.md
-[Terminal]: doc/terminal.md
-[Cash Drawers]: doc/cash-drawers.md
-[Customer Groups]: doc/customer-groups.md
-[Customer Segments]: doc/customer-segments.md
-[Bank Accounts]: doc/bank-accounts
-[Payments]: doc/payments.md
-[Checkout]: doc/checkout.md
-[Catalog]: doc/catalog.md
-[Customers]: doc/customers.md
-[Employees]: doc/employees.md
-[Inventory]: doc/inventory.md
-[Labor]: doc/labor.md
-[Loyalty]: doc/loyalty.md
-[Locations]: doc/locations.md
-[Merchants]: doc/merchants.md
-[Orders]: doc/orders.md
-[Invoices]: doc/invoices.md
-[Apple Pay]: doc/apple-pay.md
-[Refunds]: doc/refunds.md
-[Mobile Authorization]: doc/mobile-authorization.md
-[O Auth]: doc/o-auth.md
-[V1 Locations]: doc/v1-locations.md
-[V1 Employees]: doc/v1-employees.md
-[V1 Transactions]: doc/v1-transactions.md
-[V1 Items]: doc/v1-items.md
-[Team]: doc/team.md
-[Transactions]: doc/transactions.md
-[Subscriptions]: doc/subscriptions.md
+[Devices]: doc/apis/devices.md
+[Disputes]: doc/apis/disputes.md
+[Terminal]: doc/apis/terminal.md
+[Cash Drawers]: doc/apis/cash-drawers.md
+[Customer Groups]: doc/apis/customer-groups.md
+[Customer Segments]: doc/apis/customer-segments.md
+[Bank Accounts]: doc/apis/bank-accounts
+[Payments]: doc/apis/payments.md
+[Checkout]: doc/apis/checkout.md
+[Catalog]: doc/apis/catalog.md
+[Customers]: doc/apis/customers.md
+[Employees]: doc/apis/employees.md
+[Inventory]: doc/apis/inventory.md
+[Labor]: doc/apis/labor.md
+[Loyalty]: doc/apis/loyalty.md
+[Locations]: doc/apis/locations.md
+[Merchants]: doc/apis/merchants.md
+[Orders]: doc/apis/orders.md
+[Invoices]: doc/apis/invoices.md
+[Apple Pay]: doc/apis/apple-pay.md
+[Refunds]: doc/apis/refunds.md
+[Subscriptions]: doc/apis/subscriptions.md
+[Mobile Authorization]: doc/apis/mobile-authorization.md
+[O Auth]: doc/apis/o-auth.md
+[V1 Locations]: doc/apis/v1-locations.md
+[V1 Employees]: doc/apis/v1-employees.md
+[V1 Transactions]: doc/apis/v1-transactions.md
+[V1 Items]: doc/apis/v1-items.md
+[Team]: doc/apis/team.md
+[Transactions]: doc/apis/transactions.md

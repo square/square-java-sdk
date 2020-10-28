@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderLineItemAppliedTax type.
  */
 public class OrderLineItemAppliedTax {
+    private final String uid;
+    private final String taxUid;
+    private final Money appliedMoney;
 
     /**
      * Initialization constructor.
-     * @param taxUid
-     * @param uid
-     * @param appliedMoney
+     * @param taxUid String value for taxUid.
+     * @param uid String value for uid.
+     * @param appliedMoney Money value for appliedMoney.
      */
     @JsonCreator
     public OrderLineItemAppliedTax(
@@ -27,12 +31,10 @@ public class OrderLineItemAppliedTax {
         this.appliedMoney = appliedMoney;
     }
 
-    private final String uid;
-    private final String taxUid;
-    private final Money appliedMoney;
     /**
      * Getter for Uid.
      * Unique ID that identifies the applied tax only within this order.
+     * @return Returns the String
      */
     @JsonGetter("uid")
     public String getUid() {
@@ -41,10 +43,10 @@ public class OrderLineItemAppliedTax {
 
     /**
      * Getter for TaxUid.
-     * The `uid` of the tax for which this applied tax represents.  Must reference
-     * a tax present in the `order.taxes` field.
-     * This field is immutable. To change which taxes apply to a line item, delete and add new
-     * `OrderLineItemAppliedTax`s.
+     * The `uid` of the tax for which this applied tax represents. Must reference a tax present in
+     * the `order.taxes` field. This field is immutable. To change which taxes apply to a line item,
+     * delete and add new `OrderLineItemAppliedTax`s.
+     * @return Returns the String
      */
     @JsonGetter("tax_uid")
     public String getTaxUid() {
@@ -53,12 +55,13 @@ public class OrderLineItemAppliedTax {
 
     /**
      * Getter for AppliedMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned.
-     * Fields that do not explicitly define whether they are signed or unsigned are
-     * considered unsigned and can only hold positive amounts. For signed fields, the
-     * sign of the value indicates the purpose of the money transfer. See
-     * [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)
-     * for more information.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
@@ -73,16 +76,16 @@ public class OrderLineItemAppliedTax {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderLineItemAppliedTax)) {
+        if (!(obj instanceof OrderLineItemAppliedTax)) {
             return false;
         }
-        OrderLineItemAppliedTax orderLineItemAppliedTax = (OrderLineItemAppliedTax) obj;
-        return Objects.equals(uid, orderLineItemAppliedTax.uid) &&
-            Objects.equals(taxUid, orderLineItemAppliedTax.taxUid) &&
-            Objects.equals(appliedMoney, orderLineItemAppliedTax.appliedMoney);
+        OrderLineItemAppliedTax other = (OrderLineItemAppliedTax) obj;
+        return Objects.equals(uid, other.uid)
+            && Objects.equals(taxUid, other.taxUid)
+            && Objects.equals(appliedMoney, other.appliedMoney);
     }
 
     /**
@@ -94,11 +97,11 @@ public class OrderLineItemAppliedTax {
         Builder builder = new Builder(taxUid)
             .uid(getUid())
             .appliedMoney(getAppliedMoney());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderLineItemAppliedTax}
+     * Class to build instances of {@link OrderLineItemAppliedTax}.
      */
     public static class Builder {
         private String taxUid;
@@ -106,33 +109,36 @@ public class OrderLineItemAppliedTax {
         private Money appliedMoney;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param taxUid String value for taxUid.
          */
         public Builder(String taxUid) {
             this.taxUid = taxUid;
         }
 
         /**
-         * Setter for taxUid
-         * @param taxUid
+         * Setter for taxUid.
+         * @param taxUid String value for taxUid.
          * @return Builder
          */
         public Builder taxUid(String taxUid) {
             this.taxUid = taxUid;
             return this;
         }
+
         /**
-         * Setter for uid
-         * @param uid
+         * Setter for uid.
+         * @param uid String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
             this.uid = uid;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {

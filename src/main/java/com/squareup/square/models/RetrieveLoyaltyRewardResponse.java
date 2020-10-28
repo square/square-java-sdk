@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for RetrieveLoyaltyRewardResponse type.
  */
 public class RetrieveLoyaltyRewardResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final LoyaltyReward reward;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param reward
+     * @param errors List of Error value for errors.
+     * @param reward LoyaltyReward value for reward.
      */
     @JsonCreator
     public RetrieveLoyaltyRewardResponse(
@@ -26,10 +30,6 @@ public class RetrieveLoyaltyRewardResponse {
         this.reward = reward;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final LoyaltyReward reward;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class RetrieveLoyaltyRewardResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,6 +46,7 @@ public class RetrieveLoyaltyRewardResponse {
 
     /**
      * Getter for Reward.
+     * @return Returns the LoyaltyReward
      */
     @JsonGetter("reward")
     public LoyaltyReward getReward() {
@@ -59,15 +61,15 @@ public class RetrieveLoyaltyRewardResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveLoyaltyRewardResponse)) {
+        if (!(obj instanceof RetrieveLoyaltyRewardResponse)) {
             return false;
         }
-        RetrieveLoyaltyRewardResponse retrieveLoyaltyRewardResponse = (RetrieveLoyaltyRewardResponse) obj;
-        return Objects.equals(errors, retrieveLoyaltyRewardResponse.errors) &&
-            Objects.equals(reward, retrieveLoyaltyRewardResponse.reward);
+        RetrieveLoyaltyRewardResponse other = (RetrieveLoyaltyRewardResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(reward, other.reward);
     }
 
     /**
@@ -79,45 +81,42 @@ public class RetrieveLoyaltyRewardResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .reward(getReward());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveLoyaltyRewardResponse}
+     * Class to build instances of {@link RetrieveLoyaltyRewardResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private LoyaltyReward reward;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for reward
-         * @param reward
+         * Setter for reward.
+         * @param reward LoyaltyReward value for reward.
          * @return Builder
          */
         public Builder reward(LoyaltyReward reward) {
@@ -130,8 +129,9 @@ public class RetrieveLoyaltyRewardResponse {
          * @return {@link RetrieveLoyaltyRewardResponse}
          */
         public RetrieveLoyaltyRewardResponse build() {
-            RetrieveLoyaltyRewardResponse model = new RetrieveLoyaltyRewardResponse(errors,
-                reward);
+            RetrieveLoyaltyRewardResponse model =
+                    new RetrieveLoyaltyRewardResponse(errors,
+                            reward);
             model.httpContext = httpContext;
             return model;
         }

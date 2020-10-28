@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for BatchChangeInventoryResponse type.
  */
 public class BatchChangeInventoryResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<InventoryCount> counts;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param counts
+     * @param errors List of Error value for errors.
+     * @param counts List of InventoryCount value for counts.
      */
     @JsonCreator
     public BatchChangeInventoryResponse(
@@ -26,10 +30,6 @@ public class BatchChangeInventoryResponse {
         this.counts = counts;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<InventoryCount> counts;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class BatchChangeInventoryResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -46,6 +47,7 @@ public class BatchChangeInventoryResponse {
     /**
      * Getter for Counts.
      * The current counts for all objects referenced in the request.
+     * @return Returns the List of InventoryCount
      */
     @JsonGetter("counts")
     public List<InventoryCount> getCounts() {
@@ -60,15 +62,15 @@ public class BatchChangeInventoryResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchChangeInventoryResponse)) {
+        if (!(obj instanceof BatchChangeInventoryResponse)) {
             return false;
         }
-        BatchChangeInventoryResponse batchChangeInventoryResponse = (BatchChangeInventoryResponse) obj;
-        return Objects.equals(errors, batchChangeInventoryResponse.errors) &&
-            Objects.equals(counts, batchChangeInventoryResponse.counts);
+        BatchChangeInventoryResponse other = (BatchChangeInventoryResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(counts, other.counts);
     }
 
     /**
@@ -80,45 +82,42 @@ public class BatchChangeInventoryResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .counts(getCounts());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchChangeInventoryResponse}
+     * Class to build instances of {@link BatchChangeInventoryResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private List<InventoryCount> counts;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for counts
-         * @param counts
+         * Setter for counts.
+         * @param counts List of InventoryCount value for counts.
          * @return Builder
          */
         public Builder counts(List<InventoryCount> counts) {
@@ -131,8 +130,9 @@ public class BatchChangeInventoryResponse {
          * @return {@link BatchChangeInventoryResponse}
          */
         public BatchChangeInventoryResponse build() {
-            BatchChangeInventoryResponse model = new BatchChangeInventoryResponse(errors,
-                counts);
+            BatchChangeInventoryResponse model =
+                    new BatchChangeInventoryResponse(errors,
+                            counts);
             model.httpContext = httpContext;
             return model;
         }

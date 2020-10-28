@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreateItemRequest type.
  */
 public class V1CreateItemRequest {
+    private final V1Item body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Item value for body.
      */
     @JsonCreator
     public V1CreateItemRequest(
@@ -21,10 +23,10 @@ public class V1CreateItemRequest {
         this.body = body;
     }
 
-    private final V1Item body;
     /**
      * Getter for Body.
      * V1Item
+     * @return Returns the V1Item
      */
     @JsonGetter("body")
     public V1Item getBody() {
@@ -39,14 +41,14 @@ public class V1CreateItemRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreateItemRequest)) {
+        if (!(obj instanceof V1CreateItemRequest)) {
             return false;
         }
-        V1CreateItemRequest v1CreateItemRequest = (V1CreateItemRequest) obj;
-        return Objects.equals(body, v1CreateItemRequest.body);
+        V1CreateItemRequest other = (V1CreateItemRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreateItemRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .body(getBody());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreateItemRequest}
+     * Class to build instances of {@link V1CreateItemRequest}.
      */
     public static class Builder {
         private V1Item body;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Item value for body.
          * @return Builder
          */
         public Builder body(V1Item body) {

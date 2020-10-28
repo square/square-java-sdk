@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for DisputeEvidenceFile type.
  */
 public class DisputeEvidenceFile {
+    private final String filename;
+    private final String filetype;
 
     /**
      * Initialization constructor.
-     * @param filename
-     * @param filetype
+     * @param filename String value for filename.
+     * @param filetype String value for filetype.
      */
     @JsonCreator
     public DisputeEvidenceFile(
@@ -24,11 +27,10 @@ public class DisputeEvidenceFile {
         this.filetype = filetype;
     }
 
-    private final String filename;
-    private final String filetype;
     /**
      * Getter for Filename.
      * The file name including the file extension. For example: "receipt.tiff".
+     * @return Returns the String
      */
     @JsonGetter("filename")
     public String getFilename() {
@@ -37,7 +39,9 @@ public class DisputeEvidenceFile {
 
     /**
      * Getter for Filetype.
-     * Dispute evidence files must one of application/pdf, image/heic, image/heif, image/jpeg, image/png, image/tiff formats.
+     * Dispute evidence files must one of application/pdf, image/heic, image/heif, image/jpeg,
+     * image/png, image/tiff formats.
+     * @return Returns the String
      */
     @JsonGetter("filetype")
     public String getFiletype() {
@@ -52,15 +56,15 @@ public class DisputeEvidenceFile {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof DisputeEvidenceFile)) {
+        if (!(obj instanceof DisputeEvidenceFile)) {
             return false;
         }
-        DisputeEvidenceFile disputeEvidenceFile = (DisputeEvidenceFile) obj;
-        return Objects.equals(filename, disputeEvidenceFile.filename) &&
-            Objects.equals(filetype, disputeEvidenceFile.filetype);
+        DisputeEvidenceFile other = (DisputeEvidenceFile) obj;
+        return Objects.equals(filename, other.filename)
+            && Objects.equals(filetype, other.filetype);
     }
 
     /**
@@ -72,35 +76,31 @@ public class DisputeEvidenceFile {
         Builder builder = new Builder()
             .filename(getFilename())
             .filetype(getFiletype());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link DisputeEvidenceFile}
+     * Class to build instances of {@link DisputeEvidenceFile}.
      */
     public static class Builder {
         private String filename;
         private String filetype;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filename
-         * @param filename
+         * Setter for filename.
+         * @param filename String value for filename.
          * @return Builder
          */
         public Builder filename(String filename) {
             this.filename = filename;
             return this;
         }
+
         /**
-         * Setter for filetype
-         * @param filetype
+         * Setter for filetype.
+         * @param filetype String value for filetype.
          * @return Builder
          */
         public Builder filetype(String filetype) {

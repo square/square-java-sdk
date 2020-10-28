@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListDisputeEvidenceResponse type.
  */
 public class ListDisputeEvidenceResponse {
+    private HttpContext httpContext;
+    private final List<DisputeEvidence> evidence;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param evidence
-     * @param errors
+     * @param evidence List of DisputeEvidence value for evidence.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public ListDisputeEvidenceResponse(
@@ -26,10 +30,6 @@ public class ListDisputeEvidenceResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<DisputeEvidence> evidence;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class ListDisputeEvidenceResponse {
     /**
      * Getter for Evidence.
      * The list of evidence previously uploaded to the specified dispute.
+     * @return Returns the List of DisputeEvidence
      */
     @JsonGetter("evidence")
     public List<DisputeEvidence> getEvidence() {
@@ -46,6 +47,7 @@ public class ListDisputeEvidenceResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -60,15 +62,15 @@ public class ListDisputeEvidenceResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListDisputeEvidenceResponse)) {
+        if (!(obj instanceof ListDisputeEvidenceResponse)) {
             return false;
         }
-        ListDisputeEvidenceResponse listDisputeEvidenceResponse = (ListDisputeEvidenceResponse) obj;
-        return Objects.equals(evidence, listDisputeEvidenceResponse.evidence) &&
-            Objects.equals(errors, listDisputeEvidenceResponse.errors);
+        ListDisputeEvidenceResponse other = (ListDisputeEvidenceResponse) obj;
+        return Objects.equals(evidence, other.evidence)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -80,45 +82,42 @@ public class ListDisputeEvidenceResponse {
         Builder builder = new Builder()
             .evidence(getEvidence())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListDisputeEvidenceResponse}
+     * Class to build instances of {@link ListDisputeEvidenceResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<DisputeEvidence> evidence;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for evidence
-         * @param evidence
+         * Setter for evidence.
+         * @param evidence List of DisputeEvidence value for evidence.
          * @return Builder
          */
         public Builder evidence(List<DisputeEvidence> evidence) {
             this.evidence = evidence;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -131,8 +130,9 @@ public class ListDisputeEvidenceResponse {
          * @return {@link ListDisputeEvidenceResponse}
          */
         public ListDisputeEvidenceResponse build() {
-            ListDisputeEvidenceResponse model = new ListDisputeEvidenceResponse(evidence,
-                errors);
+            ListDisputeEvidenceResponse model =
+                    new ListDisputeEvidenceResponse(evidence,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

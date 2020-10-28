@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListBreakTypesResponse type.
  */
 public class ListBreakTypesResponse {
+    private HttpContext httpContext;
+    private final List<BreakType> breakTypes;
+    private final String cursor;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param breakTypes
-     * @param cursor
-     * @param errors
+     * @param breakTypes List of BreakType value for breakTypes.
+     * @param cursor String value for cursor.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public ListBreakTypesResponse(
@@ -29,11 +34,6 @@ public class ListBreakTypesResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<BreakType> breakTypes;
-    private final String cursor;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListBreakTypesResponse {
     /**
      * Getter for BreakTypes.
      * A page of `BreakType` results.
+     * @return Returns the List of BreakType
      */
     @JsonGetter("break_types")
     public List<BreakType> getBreakTypes() {
@@ -49,8 +50,8 @@ public class ListBreakTypesResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next next page
-     * of Break Type results.
+     * Value supplied in the subsequent request to fetch the next next page of Break Type results.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -60,6 +61,7 @@ public class ListBreakTypesResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -74,16 +76,16 @@ public class ListBreakTypesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListBreakTypesResponse)) {
+        if (!(obj instanceof ListBreakTypesResponse)) {
             return false;
         }
-        ListBreakTypesResponse listBreakTypesResponse = (ListBreakTypesResponse) obj;
-        return Objects.equals(breakTypes, listBreakTypesResponse.breakTypes) &&
-            Objects.equals(cursor, listBreakTypesResponse.cursor) &&
-            Objects.equals(errors, listBreakTypesResponse.errors);
+        ListBreakTypesResponse other = (ListBreakTypesResponse) obj;
+        return Objects.equals(breakTypes, other.breakTypes)
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -96,11 +98,11 @@ public class ListBreakTypesResponse {
             .breakTypes(getBreakTypes())
             .cursor(getCursor())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListBreakTypesResponse}
+     * Class to build instances of {@link ListBreakTypesResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -108,43 +110,41 @@ public class ListBreakTypesResponse {
         private String cursor;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for breakTypes
-         * @param breakTypes
+         * Setter for breakTypes.
+         * @param breakTypes List of BreakType value for breakTypes.
          * @return Builder
          */
         public Builder breakTypes(List<BreakType> breakTypes) {
             this.breakTypes = breakTypes;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -157,9 +157,10 @@ public class ListBreakTypesResponse {
          * @return {@link ListBreakTypesResponse}
          */
         public ListBreakTypesResponse build() {
-            ListBreakTypesResponse model = new ListBreakTypesResponse(breakTypes,
-                cursor,
-                errors);
+            ListBreakTypesResponse model =
+                    new ListBreakTypesResponse(breakTypes,
+                            cursor,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

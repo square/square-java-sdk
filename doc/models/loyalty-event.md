@@ -1,13 +1,14 @@
-## Loyalty Event
 
-Provides information about a loyalty event. 
+# Loyalty Event
+
+Provides information about a loyalty event.
 For more information, see [Loyalty events](https://developer.squareup.com/docs/docs/loyalty-api/overview/#loyalty-events).
 
-### Structure
+## Structure
 
 `LoyaltyEvent`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -25,7 +26,7 @@ For more information, see [Loyalty events](https://developer.squareup.com/docs/d
 | `ExpirePoints` | [`LoyaltyEventExpirePoints`](/doc/models/loyalty-event-expire-points.md) | Optional | Provides metadata when the event `type` is `EXPIRE_POINTS`. | LoyaltyEventExpirePoints getExpirePoints() |
 | `OtherEvent` | [`LoyaltyEventOther`](/doc/models/loyalty-event-other.md) | Optional | Provides metadata when the event `type` is `OTHER`. | LoyaltyEventOther getOtherEvent() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

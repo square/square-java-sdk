@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ListCatalogRequest type.
  */
 public class ListCatalogRequest {
+    private final String cursor;
+    private final String types;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param types
+     * @param cursor String value for cursor.
+     * @param types String value for types.
      */
     @JsonCreator
     public ListCatalogRequest(
@@ -24,12 +27,12 @@ public class ListCatalogRequest {
         this.types = types;
     }
 
-    private final String cursor;
-    private final String types;
     /**
      * Getter for Cursor.
      * The pagination cursor returned in the previous response. Leave unset for an initial request.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -39,10 +42,10 @@ public class ListCatalogRequest {
     /**
      * Getter for Types.
      * An optional case-insensitive, comma-separated list of object types to retrieve, for example
-     * `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`.
-     * The legal values are taken from the CatalogObjectType enum:
-     * `ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,
-     * `MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.
+     * `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`. The legal values are taken from the CatalogObjectType
+     * enum: `ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`,
+     * or `IMAGE`.
+     * @return Returns the String
      */
     @JsonGetter("types")
     public String getTypes() {
@@ -57,15 +60,15 @@ public class ListCatalogRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListCatalogRequest)) {
+        if (!(obj instanceof ListCatalogRequest)) {
             return false;
         }
-        ListCatalogRequest listCatalogRequest = (ListCatalogRequest) obj;
-        return Objects.equals(cursor, listCatalogRequest.cursor) &&
-            Objects.equals(types, listCatalogRequest.types);
+        ListCatalogRequest other = (ListCatalogRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(types, other.types);
     }
 
     /**
@@ -77,35 +80,31 @@ public class ListCatalogRequest {
         Builder builder = new Builder()
             .cursor(getCursor())
             .types(getTypes());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListCatalogRequest}
+     * Class to build instances of {@link ListCatalogRequest}.
      */
     public static class Builder {
         private String cursor;
         private String types;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for types
-         * @param types
+         * Setter for types.
+         * @param types String value for types.
          * @return Builder
          */
         public Builder types(String types) {

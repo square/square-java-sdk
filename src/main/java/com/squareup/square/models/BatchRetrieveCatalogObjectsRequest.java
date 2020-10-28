@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BatchRetrieveCatalogObjectsRequest type.
  */
 public class BatchRetrieveCatalogObjectsRequest {
+    private final List<String> objectIds;
+    private final Boolean includeRelatedObjects;
 
     /**
      * Initialization constructor.
-     * @param objectIds
-     * @param includeRelatedObjects
+     * @param objectIds List of String value for objectIds.
+     * @param includeRelatedObjects Boolean value for includeRelatedObjects.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsRequest(
@@ -25,11 +28,10 @@ public class BatchRetrieveCatalogObjectsRequest {
         this.includeRelatedObjects = includeRelatedObjects;
     }
 
-    private final List<String> objectIds;
-    private final Boolean includeRelatedObjects;
     /**
      * Getter for ObjectIds.
      * The IDs of the CatalogObjects to be retrieved.
+     * @return Returns the List of String
      */
     @JsonGetter("object_ids")
     public List<String> getObjectIds() {
@@ -38,14 +40,13 @@ public class BatchRetrieveCatalogObjectsRequest {
 
     /**
      * Getter for IncludeRelatedObjects.
-     * If `true`, the response will include additional objects that are related to the
-     * requested objects, as follows:
-     * If the `objects` field of the response contains a CatalogItem, its associated
-     * CatalogCategory objects, CatalogTax objects, CatalogImage objects and
-     * CatalogModifierLists will be returned in the `related_objects` field of the
-     * response. If the `objects` field of the response contains a CatalogItemVariation,
-     * its parent CatalogItem will be returned in the `related_objects` field of
-     * the response.
+     * If `true`, the response will include additional objects that are related to the requested
+     * objects, as follows: If the `objects` field of the response contains a CatalogItem, its
+     * associated CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+     * CatalogModifierLists will be returned in the `related_objects` field of the response. If the
+     * `objects` field of the response contains a CatalogItemVariation, its parent CatalogItem will
+     * be returned in the `related_objects` field of the response.
+     * @return Returns the Boolean
      */
     @JsonGetter("include_related_objects")
     public Boolean getIncludeRelatedObjects() {
@@ -60,15 +61,15 @@ public class BatchRetrieveCatalogObjectsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchRetrieveCatalogObjectsRequest)) {
+        if (!(obj instanceof BatchRetrieveCatalogObjectsRequest)) {
             return false;
         }
-        BatchRetrieveCatalogObjectsRequest batchRetrieveCatalogObjectsRequest = (BatchRetrieveCatalogObjectsRequest) obj;
-        return Objects.equals(objectIds, batchRetrieveCatalogObjectsRequest.objectIds) &&
-            Objects.equals(includeRelatedObjects, batchRetrieveCatalogObjectsRequest.includeRelatedObjects);
+        BatchRetrieveCatalogObjectsRequest other = (BatchRetrieveCatalogObjectsRequest) obj;
+        return Objects.equals(objectIds, other.objectIds)
+            && Objects.equals(includeRelatedObjects, other.includeRelatedObjects);
     }
 
     /**
@@ -79,35 +80,37 @@ public class BatchRetrieveCatalogObjectsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(objectIds)
             .includeRelatedObjects(getIncludeRelatedObjects());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchRetrieveCatalogObjectsRequest}
+     * Class to build instances of {@link BatchRetrieveCatalogObjectsRequest}.
      */
     public static class Builder {
         private List<String> objectIds;
         private Boolean includeRelatedObjects;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param objectIds List of String value for objectIds.
          */
         public Builder(List<String> objectIds) {
             this.objectIds = objectIds;
         }
 
         /**
-         * Setter for objectIds
-         * @param objectIds
+         * Setter for objectIds.
+         * @param objectIds List of String value for objectIds.
          * @return Builder
          */
         public Builder objectIds(List<String> objectIds) {
             this.objectIds = objectIds;
             return this;
         }
+
         /**
-         * Setter for includeRelatedObjects
-         * @param includeRelatedObjects
+         * Setter for includeRelatedObjects.
+         * @param includeRelatedObjects Boolean value for includeRelatedObjects.
          * @return Builder
          */
         public Builder includeRelatedObjects(Boolean includeRelatedObjects) {

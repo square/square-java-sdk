@@ -1,19 +1,20 @@
-## Create Mobile Authorization Code Request
+
+# Create Mobile Authorization Code Request
 
 Defines the body parameters that can be provided in a request to the
 __CreateMobileAuthorizationCode__ endpoint.
 
-### Structure
+## Structure
 
 `CreateMobileAuthorizationCodeRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `LocationId` | `String` | Optional | The Square location ID the authorization code should be tied to. | String getLocationId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

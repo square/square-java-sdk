@@ -1,36 +1,55 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderFulfillmentPickupDetails type.
  */
 public class OrderFulfillmentPickupDetails {
+    private final OrderFulfillmentRecipient recipient;
+    private final String expiresAt;
+    private final String autoCompleteDuration;
+    private final String scheduleType;
+    private final String pickupAt;
+    private final String pickupWindowDuration;
+    private final String prepTimeDuration;
+    private final String note;
+    private final String placedAt;
+    private final String acceptedAt;
+    private final String rejectedAt;
+    private final String readyAt;
+    private final String expiredAt;
+    private final String pickedUpAt;
+    private final String canceledAt;
+    private final String cancelReason;
+    private final Boolean isCurbsidePickup;
+    private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
     /**
      * Initialization constructor.
-     * @param recipient
-     * @param expiresAt
-     * @param autoCompleteDuration
-     * @param scheduleType
-     * @param pickupAt
-     * @param pickupWindowDuration
-     * @param prepTimeDuration
-     * @param note
-     * @param placedAt
-     * @param acceptedAt
-     * @param rejectedAt
-     * @param readyAt
-     * @param expiredAt
-     * @param pickedUpAt
-     * @param canceledAt
-     * @param cancelReason
-     * @param isCurbsidePickup
-     * @param curbsidePickupDetails
+     * @param recipient OrderFulfillmentRecipient value for recipient.
+     * @param expiresAt String value for expiresAt.
+     * @param autoCompleteDuration String value for autoCompleteDuration.
+     * @param scheduleType String value for scheduleType.
+     * @param pickupAt String value for pickupAt.
+     * @param pickupWindowDuration String value for pickupWindowDuration.
+     * @param prepTimeDuration String value for prepTimeDuration.
+     * @param note String value for note.
+     * @param placedAt String value for placedAt.
+     * @param acceptedAt String value for acceptedAt.
+     * @param rejectedAt String value for rejectedAt.
+     * @param readyAt String value for readyAt.
+     * @param expiredAt String value for expiredAt.
+     * @param pickedUpAt String value for pickedUpAt.
+     * @param canceledAt String value for canceledAt.
+     * @param cancelReason String value for cancelReason.
+     * @param isCurbsidePickup Boolean value for isCurbsidePickup.
+     * @param curbsidePickupDetails OrderFulfillmentPickupDetailsCurbsidePickupDetails value for curbsidePickupDetails.
      */
     @JsonCreator
     public OrderFulfillmentPickupDetails(
@@ -72,27 +91,10 @@ public class OrderFulfillmentPickupDetails {
         this.curbsidePickupDetails = curbsidePickupDetails;
     }
 
-    private final OrderFulfillmentRecipient recipient;
-    private final String expiresAt;
-    private final String autoCompleteDuration;
-    private final String scheduleType;
-    private final String pickupAt;
-    private final String pickupWindowDuration;
-    private final String prepTimeDuration;
-    private final String note;
-    private final String placedAt;
-    private final String acceptedAt;
-    private final String rejectedAt;
-    private final String readyAt;
-    private final String expiredAt;
-    private final String pickedUpAt;
-    private final String canceledAt;
-    private final String cancelReason;
-    private final Boolean isCurbsidePickup;
-    private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
     /**
      * Getter for Recipient.
      * Contains information on the recipient of a fulfillment.
+     * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
     public OrderFulfillmentRecipient getRecipient() {
@@ -101,11 +103,11 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for ExpiresAt.
-     * The [timestamp](#workingwithdates) indicating when this fulfillment
-     * will expire if it is not accepted. Must be in RFC 3339 format
-     * e.g., "2016-09-04T23:59:33.123Z". Expiration time can only be set up to 7
-     * days in the future. If `expires_at` is not set, this pickup fulfillment
+     * The [timestamp](#workingwithdates) indicating when this fulfillment will expire if it is not
+     * accepted. Must be in RFC 3339 format e.g., "2016-09-04T23:59:33.123Z". Expiration time can
+     * only be set up to 7 days in the future. If `expires_at` is not set, this pickup fulfillment
      * will be automatically accepted when placed.
+     * @return Returns the String
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
@@ -114,10 +116,10 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for AutoCompleteDuration.
-     * The duration of time after which an open and accepted pickup fulfillment
-     * will automatically move to the `COMPLETED` state. Must be in RFC3339
-     * duration format e.g., "P1W3D".
-     * If not set, this pickup fulfillment will remain accepted until it is canceled or completed.
+     * The duration of time after which an open and accepted pickup fulfillment will automatically
+     * move to the `COMPLETED` state. Must be in RFC3339 duration format e.g., "P1W3D". If not set,
+     * this pickup fulfillment will remain accepted until it is canceled or completed.
+     * @return Returns the String
      */
     @JsonGetter("auto_complete_duration")
     public String getAutoCompleteDuration() {
@@ -127,6 +129,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for ScheduleType.
      * The schedule type of the pickup fulfillment.
+     * @return Returns the String
      */
     @JsonGetter("schedule_type")
     public String getScheduleType() {
@@ -135,10 +138,11 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for PickupAt.
-     * The [timestamp](#workingwithdates) that represents the start of the pickup window.
-     * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
-     * For fulfillments with the schedule type `ASAP`, this is automatically set
-     * to the current time plus the expected duration to prepare the fulfillment.
+     * The [timestamp](#workingwithdates) that represents the start of the pickup window. Must be in
+     * RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For fulfillments with the
+     * schedule type `ASAP`, this is automatically set to the current time plus the expected
+     * duration to prepare the fulfillment.
+     * @return Returns the String
      */
     @JsonGetter("pickup_at")
     public String getPickupAt() {
@@ -148,8 +152,9 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for PickupWindowDuration.
      * The window of time in which the order should be picked up after the `pickup_at` timestamp.
-     * Must be in RFC3339 duration format, e.g., "P1W3D". Can be used as an
-     * informational guideline for merchants.
+     * Must be in RFC3339 duration format, e.g., "P1W3D". Can be used as an informational guideline
+     * for merchants.
+     * @return Returns the String
      */
     @JsonGetter("pickup_window_duration")
     public String getPickupWindowDuration() {
@@ -158,8 +163,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for PrepTimeDuration.
-     * The duration of time it takes to prepare this fulfillment.
-     * Must be in RFC3339 duration format, e.g., "P1W3D".
+     * The duration of time it takes to prepare this fulfillment. Must be in RFC3339 duration
+     * format, e.g., "P1W3D".
+     * @return Returns the String
      */
     @JsonGetter("prep_time_duration")
     public String getPrepTimeDuration() {
@@ -168,8 +174,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for Note.
-     * A note meant to provide additional instructions about the pickup
-     * fulfillment displayed in the Square Point of Sale and set by the API.
+     * A note meant to provide additional instructions about the pickup fulfillment displayed in the
+     * Square Point of Sale and set by the API.
+     * @return Returns the String
      */
     @JsonGetter("note")
     public String getNote() {
@@ -178,8 +185,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for PlacedAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment
-     * was placed. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment was placed. Must be in
+     * RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("placed_at")
     public String getPlacedAt() {
@@ -188,9 +196,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for AcceptedAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment
-     * was accepted. In RFC3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment was accepted. In RFC3339
+     * timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("accepted_at")
     public String getAcceptedAt() {
@@ -199,8 +207,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for RejectedAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment
-     * was rejected. In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment was rejected. In RFC3339
+     * timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("rejected_at")
     public String getRejectedAt() {
@@ -209,8 +218,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for ReadyAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment is
-     * marked as ready for pickup. In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment is marked as ready for
+     * pickup. In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("ready_at")
     public String getReadyAt() {
@@ -219,8 +229,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for ExpiredAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment expired.
-     * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment expired. In RFC3339
+     * timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("expired_at")
     public String getExpiredAt() {
@@ -229,9 +240,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for PickedUpAt.
-     * The [timestamp](#workingwithdates) indicating when the fulfillment
-     * was picked up by the recipient. In RFC3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * The [timestamp](#workingwithdates) indicating when the fulfillment was picked up by the
+     * recipient. In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("picked_up_at")
     public String getPickedUpAt() {
@@ -240,8 +251,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for CanceledAt.
-     * The [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z",
-     * indicating when the fulfillment was canceled.
+     * The [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g.,
+     * "2016-09-04T23:59:33.123Z", indicating when the fulfillment was canceled.
+     * @return Returns the String
      */
     @JsonGetter("canceled_at")
     public String getCanceledAt() {
@@ -251,6 +263,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for CancelReason.
      * A description of why the pickup was canceled. Max length: 100 characters.
+     * @return Returns the String
      */
     @JsonGetter("cancel_reason")
     public String getCancelReason() {
@@ -260,6 +273,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for IsCurbsidePickup.
      * If true, indicates this pickup order is for curbside pickup, not in-store pickup.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_curbside_pickup")
     public Boolean getIsCurbsidePickup() {
@@ -269,6 +283,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for CurbsidePickupDetails.
      * Specific details for curbside pickup.
+     * @return Returns the OrderFulfillmentPickupDetailsCurbsidePickupDetails
      */
     @JsonGetter("curbside_pickup_details")
     public OrderFulfillmentPickupDetailsCurbsidePickupDetails getCurbsidePickupDetails() {
@@ -279,37 +294,38 @@ public class OrderFulfillmentPickupDetails {
     @Override
     public int hashCode() {
         return Objects.hash(recipient, expiresAt, autoCompleteDuration, scheduleType, pickupAt,
-            pickupWindowDuration, prepTimeDuration, note, placedAt, acceptedAt, rejectedAt, readyAt,
-            expiredAt, pickedUpAt, canceledAt, cancelReason, isCurbsidePickup, curbsidePickupDetails);
+                pickupWindowDuration, prepTimeDuration, note, placedAt, acceptedAt, rejectedAt,
+                readyAt, expiredAt, pickedUpAt, canceledAt, cancelReason, isCurbsidePickup,
+                curbsidePickupDetails);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderFulfillmentPickupDetails)) {
+        if (!(obj instanceof OrderFulfillmentPickupDetails)) {
             return false;
         }
-        OrderFulfillmentPickupDetails orderFulfillmentPickupDetails = (OrderFulfillmentPickupDetails) obj;
-        return Objects.equals(recipient, orderFulfillmentPickupDetails.recipient) &&
-            Objects.equals(expiresAt, orderFulfillmentPickupDetails.expiresAt) &&
-            Objects.equals(autoCompleteDuration, orderFulfillmentPickupDetails.autoCompleteDuration) &&
-            Objects.equals(scheduleType, orderFulfillmentPickupDetails.scheduleType) &&
-            Objects.equals(pickupAt, orderFulfillmentPickupDetails.pickupAt) &&
-            Objects.equals(pickupWindowDuration, orderFulfillmentPickupDetails.pickupWindowDuration) &&
-            Objects.equals(prepTimeDuration, orderFulfillmentPickupDetails.prepTimeDuration) &&
-            Objects.equals(note, orderFulfillmentPickupDetails.note) &&
-            Objects.equals(placedAt, orderFulfillmentPickupDetails.placedAt) &&
-            Objects.equals(acceptedAt, orderFulfillmentPickupDetails.acceptedAt) &&
-            Objects.equals(rejectedAt, orderFulfillmentPickupDetails.rejectedAt) &&
-            Objects.equals(readyAt, orderFulfillmentPickupDetails.readyAt) &&
-            Objects.equals(expiredAt, orderFulfillmentPickupDetails.expiredAt) &&
-            Objects.equals(pickedUpAt, orderFulfillmentPickupDetails.pickedUpAt) &&
-            Objects.equals(canceledAt, orderFulfillmentPickupDetails.canceledAt) &&
-            Objects.equals(cancelReason, orderFulfillmentPickupDetails.cancelReason) &&
-            Objects.equals(isCurbsidePickup, orderFulfillmentPickupDetails.isCurbsidePickup) &&
-            Objects.equals(curbsidePickupDetails, orderFulfillmentPickupDetails.curbsidePickupDetails);
+        OrderFulfillmentPickupDetails other = (OrderFulfillmentPickupDetails) obj;
+        return Objects.equals(recipient, other.recipient)
+            && Objects.equals(expiresAt, other.expiresAt)
+            && Objects.equals(autoCompleteDuration, other.autoCompleteDuration)
+            && Objects.equals(scheduleType, other.scheduleType)
+            && Objects.equals(pickupAt, other.pickupAt)
+            && Objects.equals(pickupWindowDuration, other.pickupWindowDuration)
+            && Objects.equals(prepTimeDuration, other.prepTimeDuration)
+            && Objects.equals(note, other.note)
+            && Objects.equals(placedAt, other.placedAt)
+            && Objects.equals(acceptedAt, other.acceptedAt)
+            && Objects.equals(rejectedAt, other.rejectedAt)
+            && Objects.equals(readyAt, other.readyAt)
+            && Objects.equals(expiredAt, other.expiredAt)
+            && Objects.equals(pickedUpAt, other.pickedUpAt)
+            && Objects.equals(canceledAt, other.canceledAt)
+            && Objects.equals(cancelReason, other.cancelReason)
+            && Objects.equals(isCurbsidePickup, other.isCurbsidePickup)
+            && Objects.equals(curbsidePickupDetails, other.curbsidePickupDetails);
     }
 
     /**
@@ -337,11 +353,11 @@ public class OrderFulfillmentPickupDetails {
             .cancelReason(getCancelReason())
             .isCurbsidePickup(getIsCurbsidePickup())
             .curbsidePickupDetails(getCurbsidePickupDetails());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderFulfillmentPickupDetails}
+     * Class to build instances of {@link OrderFulfillmentPickupDetails}.
      */
     public static class Builder {
         private OrderFulfillmentRecipient recipient;
@@ -363,169 +379,181 @@ public class OrderFulfillmentPickupDetails {
         private Boolean isCurbsidePickup;
         private OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for recipient
-         * @param recipient
+         * Setter for recipient.
+         * @param recipient OrderFulfillmentRecipient value for recipient.
          * @return Builder
          */
         public Builder recipient(OrderFulfillmentRecipient recipient) {
             this.recipient = recipient;
             return this;
         }
+
         /**
-         * Setter for expiresAt
-         * @param expiresAt
+         * Setter for expiresAt.
+         * @param expiresAt String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
+
         /**
-         * Setter for autoCompleteDuration
-         * @param autoCompleteDuration
+         * Setter for autoCompleteDuration.
+         * @param autoCompleteDuration String value for autoCompleteDuration.
          * @return Builder
          */
         public Builder autoCompleteDuration(String autoCompleteDuration) {
             this.autoCompleteDuration = autoCompleteDuration;
             return this;
         }
+
         /**
-         * Setter for scheduleType
-         * @param scheduleType
+         * Setter for scheduleType.
+         * @param scheduleType String value for scheduleType.
          * @return Builder
          */
         public Builder scheduleType(String scheduleType) {
             this.scheduleType = scheduleType;
             return this;
         }
+
         /**
-         * Setter for pickupAt
-         * @param pickupAt
+         * Setter for pickupAt.
+         * @param pickupAt String value for pickupAt.
          * @return Builder
          */
         public Builder pickupAt(String pickupAt) {
             this.pickupAt = pickupAt;
             return this;
         }
+
         /**
-         * Setter for pickupWindowDuration
-         * @param pickupWindowDuration
+         * Setter for pickupWindowDuration.
+         * @param pickupWindowDuration String value for pickupWindowDuration.
          * @return Builder
          */
         public Builder pickupWindowDuration(String pickupWindowDuration) {
             this.pickupWindowDuration = pickupWindowDuration;
             return this;
         }
+
         /**
-         * Setter for prepTimeDuration
-         * @param prepTimeDuration
+         * Setter for prepTimeDuration.
+         * @param prepTimeDuration String value for prepTimeDuration.
          * @return Builder
          */
         public Builder prepTimeDuration(String prepTimeDuration) {
             this.prepTimeDuration = prepTimeDuration;
             return this;
         }
+
         /**
-         * Setter for note
-         * @param note
+         * Setter for note.
+         * @param note String value for note.
          * @return Builder
          */
         public Builder note(String note) {
             this.note = note;
             return this;
         }
+
         /**
-         * Setter for placedAt
-         * @param placedAt
+         * Setter for placedAt.
+         * @param placedAt String value for placedAt.
          * @return Builder
          */
         public Builder placedAt(String placedAt) {
             this.placedAt = placedAt;
             return this;
         }
+
         /**
-         * Setter for acceptedAt
-         * @param acceptedAt
+         * Setter for acceptedAt.
+         * @param acceptedAt String value for acceptedAt.
          * @return Builder
          */
         public Builder acceptedAt(String acceptedAt) {
             this.acceptedAt = acceptedAt;
             return this;
         }
+
         /**
-         * Setter for rejectedAt
-         * @param rejectedAt
+         * Setter for rejectedAt.
+         * @param rejectedAt String value for rejectedAt.
          * @return Builder
          */
         public Builder rejectedAt(String rejectedAt) {
             this.rejectedAt = rejectedAt;
             return this;
         }
+
         /**
-         * Setter for readyAt
-         * @param readyAt
+         * Setter for readyAt.
+         * @param readyAt String value for readyAt.
          * @return Builder
          */
         public Builder readyAt(String readyAt) {
             this.readyAt = readyAt;
             return this;
         }
+
         /**
-         * Setter for expiredAt
-         * @param expiredAt
+         * Setter for expiredAt.
+         * @param expiredAt String value for expiredAt.
          * @return Builder
          */
         public Builder expiredAt(String expiredAt) {
             this.expiredAt = expiredAt;
             return this;
         }
+
         /**
-         * Setter for pickedUpAt
-         * @param pickedUpAt
+         * Setter for pickedUpAt.
+         * @param pickedUpAt String value for pickedUpAt.
          * @return Builder
          */
         public Builder pickedUpAt(String pickedUpAt) {
             this.pickedUpAt = pickedUpAt;
             return this;
         }
+
         /**
-         * Setter for canceledAt
-         * @param canceledAt
+         * Setter for canceledAt.
+         * @param canceledAt String value for canceledAt.
          * @return Builder
          */
         public Builder canceledAt(String canceledAt) {
             this.canceledAt = canceledAt;
             return this;
         }
+
         /**
-         * Setter for cancelReason
-         * @param cancelReason
+         * Setter for cancelReason.
+         * @param cancelReason String value for cancelReason.
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
             this.cancelReason = cancelReason;
             return this;
         }
+
         /**
-         * Setter for isCurbsidePickup
-         * @param isCurbsidePickup
+         * Setter for isCurbsidePickup.
+         * @param isCurbsidePickup Boolean value for isCurbsidePickup.
          * @return Builder
          */
         public Builder isCurbsidePickup(Boolean isCurbsidePickup) {
             this.isCurbsidePickup = isCurbsidePickup;
             return this;
         }
+
         /**
-         * Setter for curbsidePickupDetails
-         * @param curbsidePickupDetails
+         * Setter for curbsidePickupDetails.
+         * @param curbsidePickupDetails OrderFulfillmentPickupDetailsCurbsidePickupDetails value for curbsidePickupDetails.
          * @return Builder
          */
         public Builder curbsidePickupDetails(OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {

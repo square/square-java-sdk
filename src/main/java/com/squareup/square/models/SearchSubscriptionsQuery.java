@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchSubscriptionsQuery type.
  */
 public class SearchSubscriptionsQuery {
+    private final SearchSubscriptionsFilter filter;
 
     /**
      * Initialization constructor.
-     * @param filter
+     * @param filter SearchSubscriptionsFilter value for filter.
      */
     @JsonCreator
     public SearchSubscriptionsQuery(
@@ -21,10 +23,11 @@ public class SearchSubscriptionsQuery {
         this.filter = filter;
     }
 
-    private final SearchSubscriptionsFilter filter;
     /**
      * Getter for Filter.
-     * Represents a set of SearchSubscriptionsQuery filters used to limit the set of Subscriptions returned by SearchSubscriptions.
+     * Represents a set of SearchSubscriptionsQuery filters used to limit the set of Subscriptions
+     * returned by SearchSubscriptions.
+     * @return Returns the SearchSubscriptionsFilter
      */
     @JsonGetter("filter")
     public SearchSubscriptionsFilter getFilter() {
@@ -39,14 +42,14 @@ public class SearchSubscriptionsQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchSubscriptionsQuery)) {
+        if (!(obj instanceof SearchSubscriptionsQuery)) {
             return false;
         }
-        SearchSubscriptionsQuery searchSubscriptionsQuery = (SearchSubscriptionsQuery) obj;
-        return Objects.equals(filter, searchSubscriptionsQuery.filter);
+        SearchSubscriptionsQuery other = (SearchSubscriptionsQuery) obj;
+        return Objects.equals(filter, other.filter);
     }
 
     /**
@@ -57,25 +60,20 @@ public class SearchSubscriptionsQuery {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .filter(getFilter());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchSubscriptionsQuery}
+     * Class to build instances of {@link SearchSubscriptionsQuery}.
      */
     public static class Builder {
         private SearchSubscriptionsFilter filter;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter SearchSubscriptionsFilter value for filter.
          * @return Builder
          */
         public Builder filter(SearchSubscriptionsFilter filter) {

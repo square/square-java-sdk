@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for RetrieveDisputeResponse type.
  */
 public class RetrieveDisputeResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Dispute dispute;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param dispute
+     * @param errors List of Error value for errors.
+     * @param dispute Dispute value for dispute.
      */
     @JsonCreator
     public RetrieveDisputeResponse(
@@ -26,10 +30,6 @@ public class RetrieveDisputeResponse {
         this.dispute = dispute;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Dispute dispute;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class RetrieveDisputeResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -46,6 +47,7 @@ public class RetrieveDisputeResponse {
     /**
      * Getter for Dispute.
      * Represents a dispute a cardholder initiated with their bank.
+     * @return Returns the Dispute
      */
     @JsonGetter("dispute")
     public Dispute getDispute() {
@@ -60,15 +62,15 @@ public class RetrieveDisputeResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveDisputeResponse)) {
+        if (!(obj instanceof RetrieveDisputeResponse)) {
             return false;
         }
-        RetrieveDisputeResponse retrieveDisputeResponse = (RetrieveDisputeResponse) obj;
-        return Objects.equals(errors, retrieveDisputeResponse.errors) &&
-            Objects.equals(dispute, retrieveDisputeResponse.dispute);
+        RetrieveDisputeResponse other = (RetrieveDisputeResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(dispute, other.dispute);
     }
 
     /**
@@ -80,45 +82,42 @@ public class RetrieveDisputeResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .dispute(getDispute());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveDisputeResponse}
+     * Class to build instances of {@link RetrieveDisputeResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Dispute dispute;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for dispute
-         * @param dispute
+         * Setter for dispute.
+         * @param dispute Dispute value for dispute.
          * @return Builder
          */
         public Builder dispute(Dispute dispute) {
@@ -131,8 +130,9 @@ public class RetrieveDisputeResponse {
          * @return {@link RetrieveDisputeResponse}
          */
         public RetrieveDisputeResponse build() {
-            RetrieveDisputeResponse model = new RetrieveDisputeResponse(errors,
-                dispute);
+            RetrieveDisputeResponse model =
+                    new RetrieveDisputeResponse(errors,
+                            dispute);
             model.httpContext = httpContext;
             return model;
         }

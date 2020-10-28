@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1OrderHistoryEntry type.
  */
 public class V1OrderHistoryEntry {
+    private final String action;
+    private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param action
-     * @param createdAt
+     * @param action String value for action.
+     * @param createdAt String value for createdAt.
      */
     @JsonCreator
     public V1OrderHistoryEntry(
@@ -24,10 +27,9 @@ public class V1OrderHistoryEntry {
         this.createdAt = createdAt;
     }
 
-    private final String action;
-    private final String createdAt;
     /**
      * Getter for Action.
+     * @return Returns the String
      */
     @JsonGetter("action")
     public String getAction() {
@@ -37,6 +39,7 @@ public class V1OrderHistoryEntry {
     /**
      * Getter for CreatedAt.
      * The time when the action was performed, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -51,15 +54,15 @@ public class V1OrderHistoryEntry {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1OrderHistoryEntry)) {
+        if (!(obj instanceof V1OrderHistoryEntry)) {
             return false;
         }
-        V1OrderHistoryEntry v1OrderHistoryEntry = (V1OrderHistoryEntry) obj;
-        return Objects.equals(action, v1OrderHistoryEntry.action) &&
-            Objects.equals(createdAt, v1OrderHistoryEntry.createdAt);
+        V1OrderHistoryEntry other = (V1OrderHistoryEntry) obj;
+        return Objects.equals(action, other.action)
+            && Objects.equals(createdAt, other.createdAt);
     }
 
     /**
@@ -71,35 +74,31 @@ public class V1OrderHistoryEntry {
         Builder builder = new Builder()
             .action(getAction())
             .createdAt(getCreatedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1OrderHistoryEntry}
+     * Class to build instances of {@link V1OrderHistoryEntry}.
      */
     public static class Builder {
         private String action;
         private String createdAt;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for action
-         * @param action
+         * Setter for action.
+         * @param action String value for action.
          * @return Builder
          */
         public Builder action(String action) {
             this.action = action;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

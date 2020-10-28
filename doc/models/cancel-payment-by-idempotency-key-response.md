@@ -1,20 +1,21 @@
-## Cancel Payment by Idempotency Key Response
 
-Return value from the
+# Cancel Payment by Idempotency Key Response
+
+The return value from the
 [CancelPaymentByIdempotencyKey](#endpoint-payments-cancelpaymentbyidempotencykey) endpoint.
-On success, `errors` will be empty.
+On success, `errors` is empty.
 
-### Structure
+## Structure
 
 `CancelPaymentByIdempotencyKeyResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {}

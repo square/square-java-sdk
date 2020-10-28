@@ -1,47 +1,76 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for V1Payment type.
  */
 public class V1Payment {
+    private HttpContext httpContext;
+    private final String id;
+    private final String merchantId;
+    private final String createdAt;
+    private final String creatorId;
+    private final Device device;
+    private final String paymentUrl;
+    private final String receiptUrl;
+    private final V1Money inclusiveTaxMoney;
+    private final V1Money additiveTaxMoney;
+    private final V1Money taxMoney;
+    private final V1Money tipMoney;
+    private final V1Money discountMoney;
+    private final V1Money totalCollectedMoney;
+    private final V1Money processingFeeMoney;
+    private final V1Money netTotalMoney;
+    private final V1Money refundedMoney;
+    private final V1Money swedishRoundingMoney;
+    private final V1Money grossSalesMoney;
+    private final V1Money netSalesMoney;
+    private final List<V1PaymentTax> inclusiveTax;
+    private final List<V1PaymentTax> additiveTax;
+    private final List<V1Tender> tender;
+    private final List<V1Refund> refunds;
+    private final List<V1PaymentItemization> itemizations;
+    private final V1Money surchargeMoney;
+    private final List<V1PaymentSurcharge> surcharges;
+    private final Boolean isPartial;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param merchantId
-     * @param createdAt
-     * @param creatorId
-     * @param device
-     * @param paymentUrl
-     * @param receiptUrl
-     * @param inclusiveTaxMoney
-     * @param additiveTaxMoney
-     * @param taxMoney
-     * @param tipMoney
-     * @param discountMoney
-     * @param totalCollectedMoney
-     * @param processingFeeMoney
-     * @param netTotalMoney
-     * @param refundedMoney
-     * @param swedishRoundingMoney
-     * @param grossSalesMoney
-     * @param netSalesMoney
-     * @param inclusiveTax
-     * @param additiveTax
-     * @param tender
-     * @param refunds
-     * @param itemizations
-     * @param surchargeMoney
-     * @param surcharges
-     * @param isPartial
+     * @param id String value for id.
+     * @param merchantId String value for merchantId.
+     * @param createdAt String value for createdAt.
+     * @param creatorId String value for creatorId.
+     * @param device Device value for device.
+     * @param paymentUrl String value for paymentUrl.
+     * @param receiptUrl String value for receiptUrl.
+     * @param inclusiveTaxMoney V1Money value for inclusiveTaxMoney.
+     * @param additiveTaxMoney V1Money value for additiveTaxMoney.
+     * @param taxMoney V1Money value for taxMoney.
+     * @param tipMoney V1Money value for tipMoney.
+     * @param discountMoney V1Money value for discountMoney.
+     * @param totalCollectedMoney V1Money value for totalCollectedMoney.
+     * @param processingFeeMoney V1Money value for processingFeeMoney.
+     * @param netTotalMoney V1Money value for netTotalMoney.
+     * @param refundedMoney V1Money value for refundedMoney.
+     * @param swedishRoundingMoney V1Money value for swedishRoundingMoney.
+     * @param grossSalesMoney V1Money value for grossSalesMoney.
+     * @param netSalesMoney V1Money value for netSalesMoney.
+     * @param inclusiveTax List of V1PaymentTax value for inclusiveTax.
+     * @param additiveTax List of V1PaymentTax value for additiveTax.
+     * @param tender List of V1Tender value for tender.
+     * @param refunds List of V1Refund value for refunds.
+     * @param itemizations List of V1PaymentItemization value for itemizations.
+     * @param surchargeMoney V1Money value for surchargeMoney.
+     * @param surcharges List of V1PaymentSurcharge value for surcharges.
+     * @param isPartial Boolean value for isPartial.
      */
     @JsonCreator
     public V1Payment(
@@ -101,35 +130,6 @@ public class V1Payment {
         this.isPartial = isPartial;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String merchantId;
-    private final String createdAt;
-    private final String creatorId;
-    private final Device device;
-    private final String paymentUrl;
-    private final String receiptUrl;
-    private final V1Money inclusiveTaxMoney;
-    private final V1Money additiveTaxMoney;
-    private final V1Money taxMoney;
-    private final V1Money tipMoney;
-    private final V1Money discountMoney;
-    private final V1Money totalCollectedMoney;
-    private final V1Money processingFeeMoney;
-    private final V1Money netTotalMoney;
-    private final V1Money refundedMoney;
-    private final V1Money swedishRoundingMoney;
-    private final V1Money grossSalesMoney;
-    private final V1Money netSalesMoney;
-    private final List<V1PaymentTax> inclusiveTax;
-    private final List<V1PaymentTax> additiveTax;
-    private final List<V1Tender> tender;
-    private final List<V1Refund> refunds;
-    private final List<V1PaymentItemization> itemizations;
-    private final V1Money surchargeMoney;
-    private final List<V1PaymentSurcharge> surcharges;
-    private final Boolean isPartial;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -137,6 +137,7 @@ public class V1Payment {
     /**
      * Getter for Id.
      * The payment's unique identifier.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -146,6 +147,7 @@ public class V1Payment {
     /**
      * Getter for MerchantId.
      * The unique identifier of the merchant that took the payment.
+     * @return Returns the String
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
@@ -154,7 +156,10 @@ public class V1Payment {
 
     /**
      * Getter for CreatedAt.
-     * The time when the payment was created, in ISO 8601 format. Reflects the time of the first payment if the object represents an incomplete partial payment, and the time of the last or complete payment otherwise.
+     * The time when the payment was created, in ISO 8601 format. Reflects the time of the first
+     * payment if the object represents an incomplete partial payment, and the time of the last or
+     * complete payment otherwise.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -164,6 +169,7 @@ public class V1Payment {
     /**
      * Getter for CreatorId.
      * The unique identifier of the Square account that took the payment.
+     * @return Returns the String
      */
     @JsonGetter("creator_id")
     public String getCreatorId() {
@@ -172,6 +178,7 @@ public class V1Payment {
 
     /**
      * Getter for Device.
+     * @return Returns the Device
      */
     @JsonGetter("device")
     public Device getDevice() {
@@ -180,7 +187,9 @@ public class V1Payment {
 
     /**
      * Getter for PaymentUrl.
-     * The URL of the payment's detail page in the merchant dashboard. The merchant must be signed in to the merchant dashboard to view this page.
+     * The URL of the payment's detail page in the merchant dashboard. The merchant must be signed
+     * in to the merchant dashboard to view this page.
+     * @return Returns the String
      */
     @JsonGetter("payment_url")
     public String getPaymentUrl() {
@@ -189,11 +198,11 @@ public class V1Payment {
 
     /**
      * Getter for ReceiptUrl.
-     * The URL of the receipt for the payment. Note that for split tender
-     * payments, this URL corresponds to the receipt for the first tender
-     * listed in the payment's tender field. Each Tender object has its own
-     * receipt_url field you can use to get the other receipts associated with
-     * a split tender payment.
+     * The URL of the receipt for the payment. Note that for split tender payments, this URL
+     * corresponds to the receipt for the first tender listed in the payment's tender field. Each
+     * Tender object has its own receipt_url field you can use to get the other receipts associated
+     * with a split tender payment.
+     * @return Returns the String
      */
     @JsonGetter("receipt_url")
     public String getReceiptUrl() {
@@ -202,6 +211,7 @@ public class V1Payment {
 
     /**
      * Getter for InclusiveTaxMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("inclusive_tax_money")
     public V1Money getInclusiveTaxMoney() {
@@ -210,6 +220,7 @@ public class V1Payment {
 
     /**
      * Getter for AdditiveTaxMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("additive_tax_money")
     public V1Money getAdditiveTaxMoney() {
@@ -218,6 +229,7 @@ public class V1Payment {
 
     /**
      * Getter for TaxMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("tax_money")
     public V1Money getTaxMoney() {
@@ -226,6 +238,7 @@ public class V1Payment {
 
     /**
      * Getter for TipMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("tip_money")
     public V1Money getTipMoney() {
@@ -234,6 +247,7 @@ public class V1Payment {
 
     /**
      * Getter for DiscountMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("discount_money")
     public V1Money getDiscountMoney() {
@@ -242,6 +256,7 @@ public class V1Payment {
 
     /**
      * Getter for TotalCollectedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("total_collected_money")
     public V1Money getTotalCollectedMoney() {
@@ -250,6 +265,7 @@ public class V1Payment {
 
     /**
      * Getter for ProcessingFeeMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("processing_fee_money")
     public V1Money getProcessingFeeMoney() {
@@ -258,6 +274,7 @@ public class V1Payment {
 
     /**
      * Getter for NetTotalMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("net_total_money")
     public V1Money getNetTotalMoney() {
@@ -266,6 +283,7 @@ public class V1Payment {
 
     /**
      * Getter for RefundedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
@@ -274,6 +292,7 @@ public class V1Payment {
 
     /**
      * Getter for SwedishRoundingMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("swedish_rounding_money")
     public V1Money getSwedishRoundingMoney() {
@@ -282,6 +301,7 @@ public class V1Payment {
 
     /**
      * Getter for GrossSalesMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("gross_sales_money")
     public V1Money getGrossSalesMoney() {
@@ -290,6 +310,7 @@ public class V1Payment {
 
     /**
      * Getter for NetSalesMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("net_sales_money")
     public V1Money getNetSalesMoney() {
@@ -299,6 +320,7 @@ public class V1Payment {
     /**
      * Getter for InclusiveTax.
      * All of the inclusive taxes associated with the payment.
+     * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("inclusive_tax")
     public List<V1PaymentTax> getInclusiveTax() {
@@ -308,6 +330,7 @@ public class V1Payment {
     /**
      * Getter for AdditiveTax.
      * All of the additive taxes associated with the payment.
+     * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("additive_tax")
     public List<V1PaymentTax> getAdditiveTax() {
@@ -317,6 +340,7 @@ public class V1Payment {
     /**
      * Getter for Tender.
      * All of the tenders associated with the payment.
+     * @return Returns the List of V1Tender
      */
     @JsonGetter("tender")
     public List<V1Tender> getTender() {
@@ -325,7 +349,10 @@ public class V1Payment {
 
     /**
      * Getter for Refunds.
-     * All of the refunds applied to the payment. Note that the value of all refunds on a payment can exceed the value of all tenders if a merchant chooses to refund money to a tender after previously accepting returned goods as part of an exchange.
+     * All of the refunds applied to the payment. Note that the value of all refunds on a payment
+     * can exceed the value of all tenders if a merchant chooses to refund money to a tender after
+     * previously accepting returned goods as part of an exchange.
+     * @return Returns the List of V1Refund
      */
     @JsonGetter("refunds")
     public List<V1Refund> getRefunds() {
@@ -335,6 +362,7 @@ public class V1Payment {
     /**
      * Getter for Itemizations.
      * The items purchased in the payment.
+     * @return Returns the List of V1PaymentItemization
      */
     @JsonGetter("itemizations")
     public List<V1PaymentItemization> getItemizations() {
@@ -343,6 +371,7 @@ public class V1Payment {
 
     /**
      * Getter for SurchargeMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("surcharge_money")
     public V1Money getSurchargeMoney() {
@@ -352,6 +381,7 @@ public class V1Payment {
     /**
      * Getter for Surcharges.
      * A list of all surcharges associated with the payment.
+     * @return Returns the List of V1PaymentSurcharge
      */
     @JsonGetter("surcharges")
     public List<V1PaymentSurcharge> getSurcharges() {
@@ -360,9 +390,10 @@ public class V1Payment {
 
     /**
      * Getter for IsPartial.
-     * Indicates whether or not the payment is only partially paid for.
-     * If true, this payment will have the tenders collected so far, but the
-     * itemizations will be empty until the payment is completed.
+     * Indicates whether or not the payment is only partially paid for. If true, this payment will
+     * have the tenders collected so far, but the itemizations will be empty until the payment is
+     * completed.
+     * @return Returns the Boolean
      */
     @JsonGetter("is_partial")
     public Boolean getIsPartial() {
@@ -373,48 +404,48 @@ public class V1Payment {
     @Override
     public int hashCode() {
         return Objects.hash(id, merchantId, createdAt, creatorId, device, paymentUrl, receiptUrl,
-            inclusiveTaxMoney, additiveTaxMoney, taxMoney, tipMoney, discountMoney,
-            totalCollectedMoney, processingFeeMoney, netTotalMoney, refundedMoney,
-            swedishRoundingMoney, grossSalesMoney, netSalesMoney, inclusiveTax, additiveTax, tender,
-            refunds, itemizations, surchargeMoney, surcharges, isPartial);
+                inclusiveTaxMoney, additiveTaxMoney, taxMoney, tipMoney, discountMoney,
+                totalCollectedMoney, processingFeeMoney, netTotalMoney, refundedMoney,
+                swedishRoundingMoney, grossSalesMoney, netSalesMoney, inclusiveTax, additiveTax,
+                tender, refunds, itemizations, surchargeMoney, surcharges, isPartial);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Payment)) {
+        if (!(obj instanceof V1Payment)) {
             return false;
         }
-        V1Payment v1Payment = (V1Payment) obj;
-        return Objects.equals(id, v1Payment.id) &&
-            Objects.equals(merchantId, v1Payment.merchantId) &&
-            Objects.equals(createdAt, v1Payment.createdAt) &&
-            Objects.equals(creatorId, v1Payment.creatorId) &&
-            Objects.equals(device, v1Payment.device) &&
-            Objects.equals(paymentUrl, v1Payment.paymentUrl) &&
-            Objects.equals(receiptUrl, v1Payment.receiptUrl) &&
-            Objects.equals(inclusiveTaxMoney, v1Payment.inclusiveTaxMoney) &&
-            Objects.equals(additiveTaxMoney, v1Payment.additiveTaxMoney) &&
-            Objects.equals(taxMoney, v1Payment.taxMoney) &&
-            Objects.equals(tipMoney, v1Payment.tipMoney) &&
-            Objects.equals(discountMoney, v1Payment.discountMoney) &&
-            Objects.equals(totalCollectedMoney, v1Payment.totalCollectedMoney) &&
-            Objects.equals(processingFeeMoney, v1Payment.processingFeeMoney) &&
-            Objects.equals(netTotalMoney, v1Payment.netTotalMoney) &&
-            Objects.equals(refundedMoney, v1Payment.refundedMoney) &&
-            Objects.equals(swedishRoundingMoney, v1Payment.swedishRoundingMoney) &&
-            Objects.equals(grossSalesMoney, v1Payment.grossSalesMoney) &&
-            Objects.equals(netSalesMoney, v1Payment.netSalesMoney) &&
-            Objects.equals(inclusiveTax, v1Payment.inclusiveTax) &&
-            Objects.equals(additiveTax, v1Payment.additiveTax) &&
-            Objects.equals(tender, v1Payment.tender) &&
-            Objects.equals(refunds, v1Payment.refunds) &&
-            Objects.equals(itemizations, v1Payment.itemizations) &&
-            Objects.equals(surchargeMoney, v1Payment.surchargeMoney) &&
-            Objects.equals(surcharges, v1Payment.surcharges) &&
-            Objects.equals(isPartial, v1Payment.isPartial);
+        V1Payment other = (V1Payment) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(merchantId, other.merchantId)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(creatorId, other.creatorId)
+            && Objects.equals(device, other.device)
+            && Objects.equals(paymentUrl, other.paymentUrl)
+            && Objects.equals(receiptUrl, other.receiptUrl)
+            && Objects.equals(inclusiveTaxMoney, other.inclusiveTaxMoney)
+            && Objects.equals(additiveTaxMoney, other.additiveTaxMoney)
+            && Objects.equals(taxMoney, other.taxMoney)
+            && Objects.equals(tipMoney, other.tipMoney)
+            && Objects.equals(discountMoney, other.discountMoney)
+            && Objects.equals(totalCollectedMoney, other.totalCollectedMoney)
+            && Objects.equals(processingFeeMoney, other.processingFeeMoney)
+            && Objects.equals(netTotalMoney, other.netTotalMoney)
+            && Objects.equals(refundedMoney, other.refundedMoney)
+            && Objects.equals(swedishRoundingMoney, other.swedishRoundingMoney)
+            && Objects.equals(grossSalesMoney, other.grossSalesMoney)
+            && Objects.equals(netSalesMoney, other.netSalesMoney)
+            && Objects.equals(inclusiveTax, other.inclusiveTax)
+            && Objects.equals(additiveTax, other.additiveTax)
+            && Objects.equals(tender, other.tender)
+            && Objects.equals(refunds, other.refunds)
+            && Objects.equals(itemizations, other.itemizations)
+            && Objects.equals(surchargeMoney, other.surchargeMoney)
+            && Objects.equals(surcharges, other.surcharges)
+            && Objects.equals(isPartial, other.isPartial);
     }
 
     /**
@@ -451,11 +482,11 @@ public class V1Payment {
             .surchargeMoney(getSurchargeMoney())
             .surcharges(getSurcharges())
             .isPartial(getIsPartial());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Payment}
+     * Class to build instances of {@link V1Payment}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -487,259 +518,281 @@ public class V1Payment {
         private List<V1PaymentSurcharge> surcharges;
         private Boolean isPartial;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for merchantId
-         * @param merchantId
+         * Setter for merchantId.
+         * @param merchantId String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
             this.merchantId = merchantId;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for creatorId
-         * @param creatorId
+         * Setter for creatorId.
+         * @param creatorId String value for creatorId.
          * @return Builder
          */
         public Builder creatorId(String creatorId) {
             this.creatorId = creatorId;
             return this;
         }
+
         /**
-         * Setter for device
-         * @param device
+         * Setter for device.
+         * @param device Device value for device.
          * @return Builder
          */
         public Builder device(Device device) {
             this.device = device;
             return this;
         }
+
         /**
-         * Setter for paymentUrl
-         * @param paymentUrl
+         * Setter for paymentUrl.
+         * @param paymentUrl String value for paymentUrl.
          * @return Builder
          */
         public Builder paymentUrl(String paymentUrl) {
             this.paymentUrl = paymentUrl;
             return this;
         }
+
         /**
-         * Setter for receiptUrl
-         * @param receiptUrl
+         * Setter for receiptUrl.
+         * @param receiptUrl String value for receiptUrl.
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {
             this.receiptUrl = receiptUrl;
             return this;
         }
+
         /**
-         * Setter for inclusiveTaxMoney
-         * @param inclusiveTaxMoney
+         * Setter for inclusiveTaxMoney.
+         * @param inclusiveTaxMoney V1Money value for inclusiveTaxMoney.
          * @return Builder
          */
         public Builder inclusiveTaxMoney(V1Money inclusiveTaxMoney) {
             this.inclusiveTaxMoney = inclusiveTaxMoney;
             return this;
         }
+
         /**
-         * Setter for additiveTaxMoney
-         * @param additiveTaxMoney
+         * Setter for additiveTaxMoney.
+         * @param additiveTaxMoney V1Money value for additiveTaxMoney.
          * @return Builder
          */
         public Builder additiveTaxMoney(V1Money additiveTaxMoney) {
             this.additiveTaxMoney = additiveTaxMoney;
             return this;
         }
+
         /**
-         * Setter for taxMoney
-         * @param taxMoney
+         * Setter for taxMoney.
+         * @param taxMoney V1Money value for taxMoney.
          * @return Builder
          */
         public Builder taxMoney(V1Money taxMoney) {
             this.taxMoney = taxMoney;
             return this;
         }
+
         /**
-         * Setter for tipMoney
-         * @param tipMoney
+         * Setter for tipMoney.
+         * @param tipMoney V1Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(V1Money tipMoney) {
             this.tipMoney = tipMoney;
             return this;
         }
+
         /**
-         * Setter for discountMoney
-         * @param discountMoney
+         * Setter for discountMoney.
+         * @param discountMoney V1Money value for discountMoney.
          * @return Builder
          */
         public Builder discountMoney(V1Money discountMoney) {
             this.discountMoney = discountMoney;
             return this;
         }
+
         /**
-         * Setter for totalCollectedMoney
-         * @param totalCollectedMoney
+         * Setter for totalCollectedMoney.
+         * @param totalCollectedMoney V1Money value for totalCollectedMoney.
          * @return Builder
          */
         public Builder totalCollectedMoney(V1Money totalCollectedMoney) {
             this.totalCollectedMoney = totalCollectedMoney;
             return this;
         }
+
         /**
-         * Setter for processingFeeMoney
-         * @param processingFeeMoney
+         * Setter for processingFeeMoney.
+         * @param processingFeeMoney V1Money value for processingFeeMoney.
          * @return Builder
          */
         public Builder processingFeeMoney(V1Money processingFeeMoney) {
             this.processingFeeMoney = processingFeeMoney;
             return this;
         }
+
         /**
-         * Setter for netTotalMoney
-         * @param netTotalMoney
+         * Setter for netTotalMoney.
+         * @param netTotalMoney V1Money value for netTotalMoney.
          * @return Builder
          */
         public Builder netTotalMoney(V1Money netTotalMoney) {
             this.netTotalMoney = netTotalMoney;
             return this;
         }
+
         /**
-         * Setter for refundedMoney
-         * @param refundedMoney
+         * Setter for refundedMoney.
+         * @param refundedMoney V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
             this.refundedMoney = refundedMoney;
             return this;
         }
+
         /**
-         * Setter for swedishRoundingMoney
-         * @param swedishRoundingMoney
+         * Setter for swedishRoundingMoney.
+         * @param swedishRoundingMoney V1Money value for swedishRoundingMoney.
          * @return Builder
          */
         public Builder swedishRoundingMoney(V1Money swedishRoundingMoney) {
             this.swedishRoundingMoney = swedishRoundingMoney;
             return this;
         }
+
         /**
-         * Setter for grossSalesMoney
-         * @param grossSalesMoney
+         * Setter for grossSalesMoney.
+         * @param grossSalesMoney V1Money value for grossSalesMoney.
          * @return Builder
          */
         public Builder grossSalesMoney(V1Money grossSalesMoney) {
             this.grossSalesMoney = grossSalesMoney;
             return this;
         }
+
         /**
-         * Setter for netSalesMoney
-         * @param netSalesMoney
+         * Setter for netSalesMoney.
+         * @param netSalesMoney V1Money value for netSalesMoney.
          * @return Builder
          */
         public Builder netSalesMoney(V1Money netSalesMoney) {
             this.netSalesMoney = netSalesMoney;
             return this;
         }
+
         /**
-         * Setter for inclusiveTax
-         * @param inclusiveTax
+         * Setter for inclusiveTax.
+         * @param inclusiveTax List of V1PaymentTax value for inclusiveTax.
          * @return Builder
          */
         public Builder inclusiveTax(List<V1PaymentTax> inclusiveTax) {
             this.inclusiveTax = inclusiveTax;
             return this;
         }
+
         /**
-         * Setter for additiveTax
-         * @param additiveTax
+         * Setter for additiveTax.
+         * @param additiveTax List of V1PaymentTax value for additiveTax.
          * @return Builder
          */
         public Builder additiveTax(List<V1PaymentTax> additiveTax) {
             this.additiveTax = additiveTax;
             return this;
         }
+
         /**
-         * Setter for tender
-         * @param tender
+         * Setter for tender.
+         * @param tender List of V1Tender value for tender.
          * @return Builder
          */
         public Builder tender(List<V1Tender> tender) {
             this.tender = tender;
             return this;
         }
+
         /**
-         * Setter for refunds
-         * @param refunds
+         * Setter for refunds.
+         * @param refunds List of V1Refund value for refunds.
          * @return Builder
          */
         public Builder refunds(List<V1Refund> refunds) {
             this.refunds = refunds;
             return this;
         }
+
         /**
-         * Setter for itemizations
-         * @param itemizations
+         * Setter for itemizations.
+         * @param itemizations List of V1PaymentItemization value for itemizations.
          * @return Builder
          */
         public Builder itemizations(List<V1PaymentItemization> itemizations) {
             this.itemizations = itemizations;
             return this;
         }
+
         /**
-         * Setter for surchargeMoney
-         * @param surchargeMoney
+         * Setter for surchargeMoney.
+         * @param surchargeMoney V1Money value for surchargeMoney.
          * @return Builder
          */
         public Builder surchargeMoney(V1Money surchargeMoney) {
             this.surchargeMoney = surchargeMoney;
             return this;
         }
+
         /**
-         * Setter for surcharges
-         * @param surcharges
+         * Setter for surcharges.
+         * @param surcharges List of V1PaymentSurcharge value for surcharges.
          * @return Builder
          */
         public Builder surcharges(List<V1PaymentSurcharge> surcharges) {
             this.surcharges = surcharges;
             return this;
         }
+
         /**
-         * Setter for isPartial
-         * @param isPartial
+         * Setter for isPartial.
+         * @param isPartial Boolean value for isPartial.
          * @return Builder
          */
         public Builder isPartial(Boolean isPartial) {
@@ -752,33 +805,34 @@ public class V1Payment {
          * @return {@link V1Payment}
          */
         public V1Payment build() {
-            V1Payment model = new V1Payment(id,
-                merchantId,
-                createdAt,
-                creatorId,
-                device,
-                paymentUrl,
-                receiptUrl,
-                inclusiveTaxMoney,
-                additiveTaxMoney,
-                taxMoney,
-                tipMoney,
-                discountMoney,
-                totalCollectedMoney,
-                processingFeeMoney,
-                netTotalMoney,
-                refundedMoney,
-                swedishRoundingMoney,
-                grossSalesMoney,
-                netSalesMoney,
-                inclusiveTax,
-                additiveTax,
-                tender,
-                refunds,
-                itemizations,
-                surchargeMoney,
-                surcharges,
-                isPartial);
+            V1Payment model =
+                    new V1Payment(id,
+                            merchantId,
+                            createdAt,
+                            creatorId,
+                            device,
+                            paymentUrl,
+                            receiptUrl,
+                            inclusiveTaxMoney,
+                            additiveTaxMoney,
+                            taxMoney,
+                            tipMoney,
+                            discountMoney,
+                            totalCollectedMoney,
+                            processingFeeMoney,
+                            netTotalMoney,
+                            refundedMoney,
+                            swedishRoundingMoney,
+                            grossSalesMoney,
+                            netSalesMoney,
+                            inclusiveTax,
+                            additiveTax,
+                            tender,
+                            refunds,
+                            itemizations,
+                            surchargeMoney,
+                            surcharges,
+                            isPartial);
             model.httpContext = httpContext;
             return model;
         }

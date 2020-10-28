@@ -1,24 +1,31 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CashDrawerEvent type.
  */
 public class V1CashDrawerEvent {
+    private final String id;
+    private final String employeeId;
+    private final String eventType;
+    private final V1Money eventMoney;
+    private final String createdAt;
+    private final String description;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param employeeId
-     * @param eventType
-     * @param eventMoney
-     * @param createdAt
-     * @param description
+     * @param id String value for id.
+     * @param employeeId String value for employeeId.
+     * @param eventType String value for eventType.
+     * @param eventMoney V1Money value for eventMoney.
+     * @param createdAt String value for createdAt.
+     * @param description String value for description.
      */
     @JsonCreator
     public V1CashDrawerEvent(
@@ -36,15 +43,10 @@ public class V1CashDrawerEvent {
         this.description = description;
     }
 
-    private final String id;
-    private final String employeeId;
-    private final String eventType;
-    private final V1Money eventMoney;
-    private final String createdAt;
-    private final String description;
     /**
      * Getter for Id.
      * The event's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -54,6 +56,7 @@ public class V1CashDrawerEvent {
     /**
      * Getter for EmployeeId.
      * The ID of the employee that created the event.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -62,6 +65,7 @@ public class V1CashDrawerEvent {
 
     /**
      * Getter for EventType.
+     * @return Returns the String
      */
     @JsonGetter("event_type")
     public String getEventType() {
@@ -70,6 +74,7 @@ public class V1CashDrawerEvent {
 
     /**
      * Getter for EventMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("event_money")
     public V1Money getEventMoney() {
@@ -79,6 +84,7 @@ public class V1CashDrawerEvent {
     /**
      * Getter for CreatedAt.
      * The time when the event occurred, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -88,6 +94,7 @@ public class V1CashDrawerEvent {
     /**
      * Getter for Description.
      * An optional description of the event, entered by the employee that created it.
+     * @return Returns the String
      */
     @JsonGetter("description")
     public String getDescription() {
@@ -102,19 +109,19 @@ public class V1CashDrawerEvent {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CashDrawerEvent)) {
+        if (!(obj instanceof V1CashDrawerEvent)) {
             return false;
         }
-        V1CashDrawerEvent v1CashDrawerEvent = (V1CashDrawerEvent) obj;
-        return Objects.equals(id, v1CashDrawerEvent.id) &&
-            Objects.equals(employeeId, v1CashDrawerEvent.employeeId) &&
-            Objects.equals(eventType, v1CashDrawerEvent.eventType) &&
-            Objects.equals(eventMoney, v1CashDrawerEvent.eventMoney) &&
-            Objects.equals(createdAt, v1CashDrawerEvent.createdAt) &&
-            Objects.equals(description, v1CashDrawerEvent.description);
+        V1CashDrawerEvent other = (V1CashDrawerEvent) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(eventType, other.eventType)
+            && Objects.equals(eventMoney, other.eventMoney)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(description, other.description);
     }
 
     /**
@@ -130,11 +137,11 @@ public class V1CashDrawerEvent {
             .eventMoney(getEventMoney())
             .createdAt(getCreatedAt())
             .description(getDescription());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CashDrawerEvent}
+     * Class to build instances of {@link V1CashDrawerEvent}.
      */
     public static class Builder {
         private String id;
@@ -144,61 +151,61 @@ public class V1CashDrawerEvent {
         private String createdAt;
         private String description;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for eventType
-         * @param eventType
+         * Setter for eventType.
+         * @param eventType String value for eventType.
          * @return Builder
          */
         public Builder eventType(String eventType) {
             this.eventType = eventType;
             return this;
         }
+
         /**
-         * Setter for eventMoney
-         * @param eventMoney
+         * Setter for eventMoney.
+         * @param eventMoney V1Money value for eventMoney.
          * @return Builder
          */
         public Builder eventMoney(V1Money eventMoney) {
             this.eventMoney = eventMoney;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for description
-         * @param description
+         * Setter for description.
+         * @param description String value for description.
          * @return Builder
          */
         public Builder description(String description) {

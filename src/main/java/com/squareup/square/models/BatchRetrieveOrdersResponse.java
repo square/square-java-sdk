@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for BatchRetrieveOrdersResponse type.
  */
 public class BatchRetrieveOrdersResponse {
+    private HttpContext httpContext;
+    private final List<Order> orders;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param orders
-     * @param errors
+     * @param orders List of Order value for orders.
+     * @param errors List of Error value for errors.
      */
     @JsonCreator
     public BatchRetrieveOrdersResponse(
@@ -26,10 +30,6 @@ public class BatchRetrieveOrdersResponse {
         this.errors = errors;
     }
 
-    private HttpContext httpContext;
-    private final List<Order> orders;
-    private final List<Error> errors;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class BatchRetrieveOrdersResponse {
     /**
      * Getter for Orders.
      * The requested orders. This will omit any requested orders that do not exist.
+     * @return Returns the List of Order
      */
     @JsonGetter("orders")
     public List<Order> getOrders() {
@@ -46,6 +47,7 @@ public class BatchRetrieveOrdersResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -60,15 +62,15 @@ public class BatchRetrieveOrdersResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchRetrieveOrdersResponse)) {
+        if (!(obj instanceof BatchRetrieveOrdersResponse)) {
             return false;
         }
-        BatchRetrieveOrdersResponse batchRetrieveOrdersResponse = (BatchRetrieveOrdersResponse) obj;
-        return Objects.equals(orders, batchRetrieveOrdersResponse.orders) &&
-            Objects.equals(errors, batchRetrieveOrdersResponse.errors);
+        BatchRetrieveOrdersResponse other = (BatchRetrieveOrdersResponse) obj;
+        return Objects.equals(orders, other.orders)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -80,45 +82,42 @@ public class BatchRetrieveOrdersResponse {
         Builder builder = new Builder()
             .orders(getOrders())
             .errors(getErrors());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchRetrieveOrdersResponse}
+     * Class to build instances of {@link BatchRetrieveOrdersResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Order> orders;
         private List<Error> errors;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for orders
-         * @param orders
+         * Setter for orders.
+         * @param orders List of Order value for orders.
          * @return Builder
          */
         public Builder orders(List<Order> orders) {
             this.orders = orders;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -131,8 +130,9 @@ public class BatchRetrieveOrdersResponse {
          * @return {@link BatchRetrieveOrdersResponse}
          */
         public BatchRetrieveOrdersResponse build() {
-            BatchRetrieveOrdersResponse model = new BatchRetrieveOrdersResponse(orders,
-                errors);
+            BatchRetrieveOrdersResponse model =
+                    new BatchRetrieveOrdersResponse(orders,
+                            errors);
             model.httpContext = httpContext;
             return model;
         }

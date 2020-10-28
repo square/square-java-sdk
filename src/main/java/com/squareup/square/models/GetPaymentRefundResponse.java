@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for GetPaymentRefundResponse type.
  */
 public class GetPaymentRefundResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final PaymentRefund refund;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param refund
+     * @param errors List of Error value for errors.
+     * @param refund PaymentRefund value for refund.
      */
     @JsonCreator
     public GetPaymentRefundResponse(
@@ -26,10 +30,6 @@ public class GetPaymentRefundResponse {
         this.refund = refund;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final PaymentRefund refund;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class GetPaymentRefundResponse {
     /**
      * Getter for Errors.
      * Information on errors encountered during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,8 +46,9 @@ public class GetPaymentRefundResponse {
 
     /**
      * Getter for Refund.
-     * Represents a refund of a payment made using Square. Contains information on
-     * the original payment and the amount of money refunded.
+     * Represents a refund of a payment made using Square. Contains information on the original
+     * payment and the amount of money refunded.
+     * @return Returns the PaymentRefund
      */
     @JsonGetter("refund")
     public PaymentRefund getRefund() {
@@ -61,15 +63,15 @@ public class GetPaymentRefundResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof GetPaymentRefundResponse)) {
+        if (!(obj instanceof GetPaymentRefundResponse)) {
             return false;
         }
-        GetPaymentRefundResponse getPaymentRefundResponse = (GetPaymentRefundResponse) obj;
-        return Objects.equals(errors, getPaymentRefundResponse.errors) &&
-            Objects.equals(refund, getPaymentRefundResponse.refund);
+        GetPaymentRefundResponse other = (GetPaymentRefundResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(refund, other.refund);
     }
 
     /**
@@ -81,45 +83,42 @@ public class GetPaymentRefundResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .refund(getRefund());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link GetPaymentRefundResponse}
+     * Class to build instances of {@link GetPaymentRefundResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private PaymentRefund refund;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for refund
-         * @param refund
+         * Setter for refund.
+         * @param refund PaymentRefund value for refund.
          * @return Builder
          */
         public Builder refund(PaymentRefund refund) {
@@ -132,8 +131,9 @@ public class GetPaymentRefundResponse {
          * @return {@link GetPaymentRefundResponse}
          */
         public GetPaymentRefundResponse build() {
-            GetPaymentRefundResponse model = new GetPaymentRefundResponse(errors,
-                refund);
+            GetPaymentRefundResponse model =
+                    new GetPaymentRefundResponse(errors,
+                            refund);
             model.httpContext = httpContext;
             return model;
         }

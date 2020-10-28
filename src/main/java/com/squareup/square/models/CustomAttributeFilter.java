@@ -1,25 +1,32 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CustomAttributeFilter type.
  */
 public class CustomAttributeFilter {
+    private final String customAttributeDefinitionId;
+    private final String key;
+    private final String stringFilter;
+    private final Range numberFilter;
+    private final List<String> selectionUidsFilter;
+    private final Boolean boolFilter;
 
     /**
      * Initialization constructor.
-     * @param customAttributeDefinitionId
-     * @param key
-     * @param stringFilter
-     * @param numberFilter
-     * @param selectionUidsFilter
-     * @param boolFilter
+     * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
+     * @param key String value for key.
+     * @param stringFilter String value for stringFilter.
+     * @param numberFilter Range value for numberFilter.
+     * @param selectionUidsFilter List of String value for selectionUidsFilter.
+     * @param boolFilter Boolean value for boolFilter.
      */
     @JsonCreator
     public CustomAttributeFilter(
@@ -37,17 +44,11 @@ public class CustomAttributeFilter {
         this.boolFilter = boolFilter;
     }
 
-    private final String customAttributeDefinitionId;
-    private final String key;
-    private final String stringFilter;
-    private final Range numberFilter;
-    private final List<String> selectionUidsFilter;
-    private final Boolean boolFilter;
     /**
      * Getter for CustomAttributeDefinitionId.
-     * A query expression to filter items or item variations by matching their custom attributes' 
-     * `custom_attribute_definition_id`  
-     * property value against the the specified id.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `custom_attribute_definition_id` property value against the the specified id.
+     * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
     public String getCustomAttributeDefinitionId() {
@@ -57,8 +58,8 @@ public class CustomAttributeFilter {
     /**
      * Getter for Key.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `key` property value against 
-     * the specified key.
+     * `key` property value against the specified key.
+     * @return Returns the String
      */
     @JsonGetter("key")
     public String getKey() {
@@ -67,9 +68,9 @@ public class CustomAttributeFilter {
 
     /**
      * Getter for StringFilter.
-     * A query expression to filter items or item variations by matching their custom attributes' 
-     * `string_value`  property value 
-     * against the specified text.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `string_value` property value against the specified text.
+     * @return Returns the String
      */
     @JsonGetter("string_filter")
     public String getStringFilter() {
@@ -79,6 +80,7 @@ public class CustomAttributeFilter {
     /**
      * Getter for NumberFilter.
      * The range of a number value between the specified lower and upper bounds.
+     * @return Returns the Range
      */
     @JsonGetter("number_filter")
     public Range getNumberFilter() {
@@ -87,9 +89,9 @@ public class CustomAttributeFilter {
 
     /**
      * Getter for SelectionUidsFilter.
-     * A query expression to filter items or item variations by matching  their custom attributes' 
-     * `selection_uid_values` 
-     * values against the specified selection uids.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `selection_uid_values` values against the specified selection uids.
+     * @return Returns the List of String
      */
     @JsonGetter("selection_uids_filter")
     public List<String> getSelectionUidsFilter() {
@@ -99,8 +101,8 @@ public class CustomAttributeFilter {
     /**
      * Getter for BoolFilter.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `boolean_value` property values 
-     * against the specified Boolean expression.
+     * `boolean_value` property values against the specified Boolean expression.
+     * @return Returns the Boolean
      */
     @JsonGetter("bool_filter")
     public Boolean getBoolFilter() {
@@ -111,24 +113,24 @@ public class CustomAttributeFilter {
     @Override
     public int hashCode() {
         return Objects.hash(customAttributeDefinitionId, key, stringFilter, numberFilter,
-            selectionUidsFilter, boolFilter);
+                selectionUidsFilter, boolFilter);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomAttributeFilter)) {
+        if (!(obj instanceof CustomAttributeFilter)) {
             return false;
         }
-        CustomAttributeFilter customAttributeFilter = (CustomAttributeFilter) obj;
-        return Objects.equals(customAttributeDefinitionId, customAttributeFilter.customAttributeDefinitionId) &&
-            Objects.equals(key, customAttributeFilter.key) &&
-            Objects.equals(stringFilter, customAttributeFilter.stringFilter) &&
-            Objects.equals(numberFilter, customAttributeFilter.numberFilter) &&
-            Objects.equals(selectionUidsFilter, customAttributeFilter.selectionUidsFilter) &&
-            Objects.equals(boolFilter, customAttributeFilter.boolFilter);
+        CustomAttributeFilter other = (CustomAttributeFilter) obj;
+        return Objects.equals(customAttributeDefinitionId, other.customAttributeDefinitionId)
+            && Objects.equals(key, other.key)
+            && Objects.equals(stringFilter, other.stringFilter)
+            && Objects.equals(numberFilter, other.numberFilter)
+            && Objects.equals(selectionUidsFilter, other.selectionUidsFilter)
+            && Objects.equals(boolFilter, other.boolFilter);
     }
 
     /**
@@ -144,11 +146,11 @@ public class CustomAttributeFilter {
             .numberFilter(getNumberFilter())
             .selectionUidsFilter(getSelectionUidsFilter())
             .boolFilter(getBoolFilter());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomAttributeFilter}
+     * Class to build instances of {@link CustomAttributeFilter}.
      */
     public static class Builder {
         private String customAttributeDefinitionId;
@@ -158,61 +160,61 @@ public class CustomAttributeFilter {
         private List<String> selectionUidsFilter;
         private Boolean boolFilter;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for customAttributeDefinitionId
-         * @param customAttributeDefinitionId
+         * Setter for customAttributeDefinitionId.
+         * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
          * @return Builder
          */
         public Builder customAttributeDefinitionId(String customAttributeDefinitionId) {
             this.customAttributeDefinitionId = customAttributeDefinitionId;
             return this;
         }
+
         /**
-         * Setter for key
-         * @param key
+         * Setter for key.
+         * @param key String value for key.
          * @return Builder
          */
         public Builder key(String key) {
             this.key = key;
             return this;
         }
+
         /**
-         * Setter for stringFilter
-         * @param stringFilter
+         * Setter for stringFilter.
+         * @param stringFilter String value for stringFilter.
          * @return Builder
          */
         public Builder stringFilter(String stringFilter) {
             this.stringFilter = stringFilter;
             return this;
         }
+
         /**
-         * Setter for numberFilter
-         * @param numberFilter
+         * Setter for numberFilter.
+         * @param numberFilter Range value for numberFilter.
          * @return Builder
          */
         public Builder numberFilter(Range numberFilter) {
             this.numberFilter = numberFilter;
             return this;
         }
+
         /**
-         * Setter for selectionUidsFilter
-         * @param selectionUidsFilter
+         * Setter for selectionUidsFilter.
+         * @param selectionUidsFilter List of String value for selectionUidsFilter.
          * @return Builder
          */
         public Builder selectionUidsFilter(List<String> selectionUidsFilter) {
             this.selectionUidsFilter = selectionUidsFilter;
             return this;
         }
+
         /**
-         * Setter for boolFilter
-         * @param boolFilter
+         * Setter for boolFilter.
+         * @param boolFilter Boolean value for boolFilter.
          * @return Builder
          */
         public Builder boolFilter(Boolean boolFilter) {

@@ -1,27 +1,36 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for V1PaymentSurcharge type.
  */
 public class V1PaymentSurcharge {
+    private final String name;
+    private final V1Money appliedMoney;
+    private final String rate;
+    private final V1Money amountMoney;
+    private final String type;
+    private final Boolean taxable;
+    private final List<V1PaymentTax> taxes;
+    private final String surchargeId;
 
     /**
      * Initialization constructor.
-     * @param name
-     * @param appliedMoney
-     * @param rate
-     * @param amountMoney
-     * @param type
-     * @param taxable
-     * @param taxes
-     * @param surchargeId
+     * @param name String value for name.
+     * @param appliedMoney V1Money value for appliedMoney.
+     * @param rate String value for rate.
+     * @param amountMoney V1Money value for amountMoney.
+     * @param type String value for type.
+     * @param taxable Boolean value for taxable.
+     * @param taxes List of V1PaymentTax value for taxes.
+     * @param surchargeId String value for surchargeId.
      */
     @JsonCreator
     public V1PaymentSurcharge(
@@ -43,17 +52,10 @@ public class V1PaymentSurcharge {
         this.surchargeId = surchargeId;
     }
 
-    private final String name;
-    private final V1Money appliedMoney;
-    private final String rate;
-    private final V1Money amountMoney;
-    private final String type;
-    private final Boolean taxable;
-    private final List<V1PaymentTax> taxes;
-    private final String surchargeId;
     /**
      * Getter for Name.
      * The name of the surcharge.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -62,6 +64,7 @@ public class V1PaymentSurcharge {
 
     /**
      * Getter for AppliedMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
@@ -70,7 +73,10 @@ public class V1PaymentSurcharge {
 
     /**
      * Getter for Rate.
-     * The amount of the surcharge as a percentage. The percentage is provided as a string representing the decimal equivalent of the percentage. For example, "0.7" corresponds to a 7% surcharge. Exactly one of rate or amount_money should be set.
+     * The amount of the surcharge as a percentage. The percentage is provided as a string
+     * representing the decimal equivalent of the percentage. For example, "0.7" corresponds to a 7%
+     * surcharge. Exactly one of rate or amount_money should be set.
+     * @return Returns the String
      */
     @JsonGetter("rate")
     public String getRate() {
@@ -79,6 +85,7 @@ public class V1PaymentSurcharge {
 
     /**
      * Getter for AmountMoney.
+     * @return Returns the V1Money
      */
     @JsonGetter("amount_money")
     public V1Money getAmountMoney() {
@@ -87,6 +94,7 @@ public class V1PaymentSurcharge {
 
     /**
      * Getter for Type.
+     * @return Returns the String
      */
     @JsonGetter("type")
     public String getType() {
@@ -96,6 +104,7 @@ public class V1PaymentSurcharge {
     /**
      * Getter for Taxable.
      * Indicates whether the surcharge is taxable.
+     * @return Returns the Boolean
      */
     @JsonGetter("taxable")
     public Boolean getTaxable() {
@@ -105,6 +114,7 @@ public class V1PaymentSurcharge {
     /**
      * Getter for Taxes.
      * The list of taxes that should be applied to the surcharge.
+     * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("taxes")
     public List<V1PaymentTax> getTaxes() {
@@ -114,6 +124,7 @@ public class V1PaymentSurcharge {
     /**
      * Getter for SurchargeId.
      * A Square-issued unique identifier associated with the surcharge.
+     * @return Returns the String
      */
     @JsonGetter("surcharge_id")
     public String getSurchargeId() {
@@ -123,26 +134,27 @@ public class V1PaymentSurcharge {
  
     @Override
     public int hashCode() {
-        return Objects.hash(name, appliedMoney, rate, amountMoney, type, taxable, taxes, surchargeId);
+        return Objects.hash(name, appliedMoney, rate, amountMoney, type, taxable, taxes,
+                surchargeId);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1PaymentSurcharge)) {
+        if (!(obj instanceof V1PaymentSurcharge)) {
             return false;
         }
-        V1PaymentSurcharge v1PaymentSurcharge = (V1PaymentSurcharge) obj;
-        return Objects.equals(name, v1PaymentSurcharge.name) &&
-            Objects.equals(appliedMoney, v1PaymentSurcharge.appliedMoney) &&
-            Objects.equals(rate, v1PaymentSurcharge.rate) &&
-            Objects.equals(amountMoney, v1PaymentSurcharge.amountMoney) &&
-            Objects.equals(type, v1PaymentSurcharge.type) &&
-            Objects.equals(taxable, v1PaymentSurcharge.taxable) &&
-            Objects.equals(taxes, v1PaymentSurcharge.taxes) &&
-            Objects.equals(surchargeId, v1PaymentSurcharge.surchargeId);
+        V1PaymentSurcharge other = (V1PaymentSurcharge) obj;
+        return Objects.equals(name, other.name)
+            && Objects.equals(appliedMoney, other.appliedMoney)
+            && Objects.equals(rate, other.rate)
+            && Objects.equals(amountMoney, other.amountMoney)
+            && Objects.equals(type, other.type)
+            && Objects.equals(taxable, other.taxable)
+            && Objects.equals(taxes, other.taxes)
+            && Objects.equals(surchargeId, other.surchargeId);
     }
 
     /**
@@ -160,11 +172,11 @@ public class V1PaymentSurcharge {
             .taxable(getTaxable())
             .taxes(getTaxes())
             .surchargeId(getSurchargeId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1PaymentSurcharge}
+     * Class to build instances of {@link V1PaymentSurcharge}.
      */
     public static class Builder {
         private String name;
@@ -176,79 +188,81 @@ public class V1PaymentSurcharge {
         private List<V1PaymentTax> taxes;
         private String surchargeId;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
+
         /**
-         * Setter for appliedMoney
-         * @param appliedMoney
+         * Setter for appliedMoney.
+         * @param appliedMoney V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
             this.appliedMoney = appliedMoney;
             return this;
         }
+
         /**
-         * Setter for rate
-         * @param rate
+         * Setter for rate.
+         * @param rate String value for rate.
          * @return Builder
          */
         public Builder rate(String rate) {
             this.rate = rate;
             return this;
         }
+
         /**
-         * Setter for amountMoney
-         * @param amountMoney
+         * Setter for amountMoney.
+         * @param amountMoney V1Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(V1Money amountMoney) {
             this.amountMoney = amountMoney;
             return this;
         }
+
         /**
-         * Setter for type
-         * @param type
+         * Setter for type.
+         * @param type String value for type.
          * @return Builder
          */
         public Builder type(String type) {
             this.type = type;
             return this;
         }
+
         /**
-         * Setter for taxable
-         * @param taxable
+         * Setter for taxable.
+         * @param taxable Boolean value for taxable.
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
             this.taxable = taxable;
             return this;
         }
+
         /**
-         * Setter for taxes
-         * @param taxes
+         * Setter for taxes.
+         * @param taxes List of V1PaymentTax value for taxes.
          * @return Builder
          */
         public Builder taxes(List<V1PaymentTax> taxes) {
             this.taxes = taxes;
             return this;
         }
+
         /**
-         * Setter for surchargeId
-         * @param surchargeId
+         * Setter for surchargeId.
+         * @param surchargeId String value for surchargeId.
          * @return Builder
          */
         public Builder surchargeId(String surchargeId) {

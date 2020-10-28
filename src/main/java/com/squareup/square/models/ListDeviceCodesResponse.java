@@ -1,23 +1,28 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ListDeviceCodesResponse type.
  */
 public class ListDeviceCodesResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<DeviceCode> deviceCodes;
+    private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param deviceCodes
-     * @param cursor
+     * @param errors List of Error value for errors.
+     * @param deviceCodes List of DeviceCode value for deviceCodes.
+     * @param cursor String value for cursor.
      */
     @JsonCreator
     public ListDeviceCodesResponse(
@@ -29,11 +34,6 @@ public class ListDeviceCodesResponse {
         this.cursor = cursor;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<DeviceCode> deviceCodes;
-    private final String cursor;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -41,6 +41,7 @@ public class ListDeviceCodesResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -50,6 +51,7 @@ public class ListDeviceCodesResponse {
     /**
      * Getter for DeviceCodes.
      * The queried DeviceCode.
+     * @return Returns the List of DeviceCode
      */
     @JsonGetter("device_codes")
     public List<DeviceCode> getDeviceCodes() {
@@ -58,10 +60,10 @@ public class ListDeviceCodesResponse {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint. This value is present only if the request
-     * succeeded and additional results are available.
-     * See [Paginating results](#paginatingresults) for more information.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint. This value is present only if the request succeeded and additional results are
+     * available. See [Paginating results](#paginatingresults) for more information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -76,16 +78,16 @@ public class ListDeviceCodesResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ListDeviceCodesResponse)) {
+        if (!(obj instanceof ListDeviceCodesResponse)) {
             return false;
         }
-        ListDeviceCodesResponse listDeviceCodesResponse = (ListDeviceCodesResponse) obj;
-        return Objects.equals(errors, listDeviceCodesResponse.errors) &&
-            Objects.equals(deviceCodes, listDeviceCodesResponse.deviceCodes) &&
-            Objects.equals(cursor, listDeviceCodesResponse.cursor);
+        ListDeviceCodesResponse other = (ListDeviceCodesResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(deviceCodes, other.deviceCodes)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -98,11 +100,11 @@ public class ListDeviceCodesResponse {
             .errors(getErrors())
             .deviceCodes(getDeviceCodes())
             .cursor(getCursor());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ListDeviceCodesResponse}
+     * Class to build instances of {@link ListDeviceCodesResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -110,43 +112,41 @@ public class ListDeviceCodesResponse {
         private List<DeviceCode> deviceCodes;
         private String cursor;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for deviceCodes
-         * @param deviceCodes
+         * Setter for deviceCodes.
+         * @param deviceCodes List of DeviceCode value for deviceCodes.
          * @return Builder
          */
         public Builder deviceCodes(List<DeviceCode> deviceCodes) {
             this.deviceCodes = deviceCodes;
             return this;
         }
+
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -159,9 +159,10 @@ public class ListDeviceCodesResponse {
          * @return {@link ListDeviceCodesResponse}
          */
         public ListDeviceCodesResponse build() {
-            ListDeviceCodesResponse model = new ListDeviceCodesResponse(errors,
-                deviceCodes,
-                cursor);
+            ListDeviceCodesResponse model =
+                    new ListDeviceCodesResponse(errors,
+                            deviceCodes,
+                            cursor);
             model.httpContext = httpContext;
             return model;
         }

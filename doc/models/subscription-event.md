@@ -1,12 +1,13 @@
-## Subscription Event
+
+# Subscription Event
 
 Describes changes to subscription and billing states.
 
-### Structure
+## Structure
 
 `SubscriptionEvent`
 
-### Fields
+## Fields
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
@@ -15,7 +16,7 @@ Describes changes to subscription and billing states.
 | `EffectiveDate` | `String` | The date, in YYYY-MM-DD format (for<br>example, 2013-01-15), when the subscription event went into effect. | String getEffectiveDate() |
 | `PlanId` | `String` | The ID of the subscription plan associated with the subscription. | String getPlanId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,20 +1,21 @@
-## Catalog Subscription Plan
+
+# Catalog Subscription Plan
 
 Describes a subscription plan. For more information, see
 [Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/docs/subscriptions-api/setup-plan).
 
-### Structure
+## Structure
 
 `CatalogSubscriptionPlan`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Name` | `String` | Optional | The name of the plan. | String getName() |
 | `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Optional | A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for this plan. | List<SubscriptionPhase> getPhases() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

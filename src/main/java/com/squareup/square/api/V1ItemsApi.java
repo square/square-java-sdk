@@ -1,8 +1,6 @@
+
 package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.List;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.V1AdjustInventoryRequest;
 import com.squareup.square.models.V1Category;
@@ -16,6 +14,9 @@ import com.squareup.square.models.V1Page;
 import com.squareup.square.models.V1PageCell;
 import com.squareup.square.models.V1UpdateModifierListRequest;
 import com.squareup.square.models.V1Variation;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This interface lists all the endpoints of the group.
@@ -26,8 +27,10 @@ public interface V1ItemsApi {
      * Lists all the item categories for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list categories for.
-     * @return    Returns the List<V1Category> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list categories for.
+     * @return    Returns the List of V1Category response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1Category> listCategories(
             final String locationId) throws ApiException, IOException;
@@ -36,8 +39,8 @@ public interface V1ItemsApi {
      * Lists all the item categories for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list categories for.
-     * @return    Returns the List<V1Category> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list categories for.
+     * @return    Returns the List of V1Category response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1Category>> listCategoriesAsync(
@@ -47,9 +50,12 @@ public interface V1ItemsApi {
      * Creates an item category.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Category response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Category createCategory(
             final String locationId,
@@ -59,9 +65,10 @@ public interface V1ItemsApi {
      * Creates an item category.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Category response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Category response from the API call
      */
     @Deprecated
     CompletableFuture<V1Category> createCategoryAsync(
@@ -69,30 +76,28 @@ public interface V1ItemsApi {
             final V1Category body);
 
     /**
-     * Deletes an existing item category.
-     * __DeleteCategory__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteCategoryRequest` object
-     * as documented below.
+     * Deletes an existing item category. __DeleteCategory__ returns nothing on success but Connect
+     * SDKs map the empty response to an empty `V1DeleteCategoryRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    categoryId    Required parameter: The ID of the category to delete.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  categoryId  Required parameter: The ID of the category to delete.
      * @return    Returns the V1Category response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Category deleteCategory(
             final String locationId,
             final String categoryId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing item category.
-     * __DeleteCategory__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteCategoryRequest` object
-     * as documented below.
+     * Deletes an existing item category. __DeleteCategory__ returns nothing on success but Connect
+     * SDKs map the empty response to an empty `V1DeleteCategoryRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    categoryId    Required parameter: The ID of the category to delete.
-     * @return    Returns the V1Category response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  categoryId  Required parameter: The ID of the category to delete.
+     * @return    Returns the V1Category response from the API call
      */
     @Deprecated
     CompletableFuture<V1Category> deleteCategoryAsync(
@@ -103,10 +108,13 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item category.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the category's associated location.
-     * @param    categoryId    Required parameter: The ID of the category to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the category's associated location.
+     * @param  categoryId  Required parameter: The ID of the category to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Category response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Category updateCategory(
             final String locationId,
@@ -117,10 +125,11 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item category.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the category's associated location.
-     * @param    categoryId    Required parameter: The ID of the category to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Category response from the API call 
+     * @param  locationId  Required parameter: The ID of the category's associated location.
+     * @param  categoryId  Required parameter: The ID of the category to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Category response from the API call
      */
     @Deprecated
     CompletableFuture<V1Category> updateCategoryAsync(
@@ -132,8 +141,10 @@ public interface V1ItemsApi {
      * Lists all the discounts for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list categories for.
-     * @return    Returns the List<V1Discount> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list categories for.
+     * @return    Returns the List of V1Discount response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1Discount> listDiscounts(
             final String locationId) throws ApiException, IOException;
@@ -142,8 +153,8 @@ public interface V1ItemsApi {
      * Lists all the discounts for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list categories for.
-     * @return    Returns the List<V1Discount> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list categories for.
+     * @return    Returns the List of V1Discount response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1Discount>> listDiscountsAsync(
@@ -153,9 +164,12 @@ public interface V1ItemsApi {
      * Creates a discount.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Discount response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Discount createDiscount(
             final String locationId,
@@ -165,9 +179,10 @@ public interface V1ItemsApi {
      * Creates a discount.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Discount response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Discount response from the API call
      */
     @Deprecated
     CompletableFuture<V1Discount> createDiscountAsync(
@@ -175,30 +190,28 @@ public interface V1ItemsApi {
             final V1Discount body);
 
     /**
-     * Deletes an existing discount.
-     * __DeleteDiscount__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteDiscountRequest` object
-     * as documented below.
+     * Deletes an existing discount. __DeleteDiscount__ returns nothing on success but Connect SDKs
+     * map the empty response to an empty `V1DeleteDiscountRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    discountId    Required parameter: The ID of the discount to delete.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  discountId  Required parameter: The ID of the discount to delete.
      * @return    Returns the V1Discount response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Discount deleteDiscount(
             final String locationId,
             final String discountId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing discount.
-     * __DeleteDiscount__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteDiscountRequest` object
-     * as documented below.
+     * Deletes an existing discount. __DeleteDiscount__ returns nothing on success but Connect SDKs
+     * map the empty response to an empty `V1DeleteDiscountRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    discountId    Required parameter: The ID of the discount to delete.
-     * @return    Returns the V1Discount response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  discountId  Required parameter: The ID of the discount to delete.
+     * @return    Returns the V1Discount response from the API call
      */
     @Deprecated
     CompletableFuture<V1Discount> deleteDiscountAsync(
@@ -209,10 +222,13 @@ public interface V1ItemsApi {
      * Modifies the details of an existing discount.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the category's associated location.
-     * @param    discountId    Required parameter: The ID of the discount to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the category's associated location.
+     * @param  discountId  Required parameter: The ID of the discount to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Discount response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Discount updateDiscount(
             final String locationId,
@@ -223,10 +239,11 @@ public interface V1ItemsApi {
      * Modifies the details of an existing discount.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the category's associated location.
-     * @param    discountId    Required parameter: The ID of the discount to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Discount response from the API call 
+     * @param  locationId  Required parameter: The ID of the category's associated location.
+     * @param  discountId  Required parameter: The ID of the discount to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Discount response from the API call
      */
     @Deprecated
     CompletableFuture<V1Discount> updateDiscountAsync(
@@ -238,8 +255,10 @@ public interface V1ItemsApi {
      * Lists all the fees (taxes) for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list fees for.
-     * @return    Returns the List<V1Fee> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list fees for.
+     * @return    Returns the List of V1Fee response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1Fee> listFees(
             final String locationId) throws ApiException, IOException;
@@ -248,8 +267,8 @@ public interface V1ItemsApi {
      * Lists all the fees (taxes) for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list fees for.
-     * @return    Returns the List<V1Fee> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list fees for.
+     * @return    Returns the List of V1Fee response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1Fee>> listFeesAsync(
@@ -259,9 +278,12 @@ public interface V1ItemsApi {
      * Creates a fee (tax).
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create a fee for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create a fee for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Fee response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Fee createFee(
             final String locationId,
@@ -271,9 +293,10 @@ public interface V1ItemsApi {
      * Creates a fee (tax).
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create a fee for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Fee response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create a fee for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Fee response from the API call
      */
     @Deprecated
     CompletableFuture<V1Fee> createFeeAsync(
@@ -281,30 +304,28 @@ public interface V1ItemsApi {
             final V1Fee body);
 
     /**
-     * Deletes an existing fee (tax).
-     * __DeleteFee__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteFeeRequest` object
-     * as documented below.
+     * Deletes an existing fee (tax). __DeleteFee__ returns nothing on success but Connect SDKs map
+     * the empty response to an empty `V1DeleteFeeRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    feeId    Required parameter: The ID of the fee to delete.
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  feeId  Required parameter: The ID of the fee to delete.
      * @return    Returns the V1Fee response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Fee deleteFee(
             final String locationId,
             final String feeId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing fee (tax).
-     * __DeleteFee__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteFeeRequest` object
-     * as documented below.
+     * Deletes an existing fee (tax). __DeleteFee__ returns nothing on success but Connect SDKs map
+     * the empty response to an empty `V1DeleteFeeRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    feeId    Required parameter: The ID of the fee to delete.
-     * @return    Returns the V1Fee response from the API call 
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  feeId  Required parameter: The ID of the fee to delete.
+     * @return    Returns the V1Fee response from the API call
      */
     @Deprecated
     CompletableFuture<V1Fee> deleteFeeAsync(
@@ -315,10 +336,13 @@ public interface V1ItemsApi {
      * Modifies the details of an existing fee (tax).
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    feeId    Required parameter: The ID of the fee to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  feeId  Required parameter: The ID of the fee to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Fee response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Fee updateFee(
             final String locationId,
@@ -329,10 +353,11 @@ public interface V1ItemsApi {
      * Modifies the details of an existing fee (tax).
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    feeId    Required parameter: The ID of the fee to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Fee response from the API call 
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  feeId  Required parameter: The ID of the fee to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Fee response from the API call
      */
     @Deprecated
     CompletableFuture<V1Fee> updateFeeAsync(
@@ -341,14 +366,17 @@ public interface V1ItemsApi {
             final V1Fee body);
 
     /**
-     * Provides inventory information for all inventory-enabled item
-     * variations.
+     * Provides inventory information for all inventory-enabled item variations.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    limit    Optional parameter: The maximum number of inventory entries to return in a single response. This value cannot exceed 1000.
-     * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
-     * @return    Returns the List<V1InventoryEntry> response from the API call
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  limit  Optional parameter: The maximum number of inventory entries to return in a
+     *         single response. This value cannot exceed 1000.
+     * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
+     *         results for your original query to the endpoint.
+     * @return    Returns the List of V1InventoryEntry response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1InventoryEntry> listInventory(
             final String locationId,
@@ -356,14 +384,15 @@ public interface V1ItemsApi {
             final String batchToken) throws ApiException, IOException;
 
     /**
-     * Provides inventory information for all inventory-enabled item
-     * variations.
+     * Provides inventory information for all inventory-enabled item variations.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    limit    Optional parameter: The maximum number of inventory entries to return in a single response. This value cannot exceed 1000.
-     * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
-     * @return    Returns the List<V1InventoryEntry> response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  limit  Optional parameter: The maximum number of inventory entries to return in a
+     *         single response. This value cannot exceed 1000.
+     * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
+     *         results for your original query to the endpoint.
+     * @return    Returns the List of V1InventoryEntry response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1InventoryEntry>> listInventoryAsync(
@@ -375,10 +404,14 @@ public interface V1ItemsApi {
      * Adjusts the current available inventory of an item variation.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    variationId    Required parameter: The ID of the variation to adjust inventory information for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  variationId  Required parameter: The ID of the variation to adjust inventory
+     *         information for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1InventoryEntry response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1InventoryEntry adjustInventory(
             final String locationId,
@@ -389,10 +422,12 @@ public interface V1ItemsApi {
      * Adjusts the current available inventory of an item variation.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    variationId    Required parameter: The ID of the variation to adjust inventory information for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1InventoryEntry response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  variationId  Required parameter: The ID of the variation to adjust inventory
+     *         information for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1InventoryEntry response from the API call
      */
     @Deprecated
     CompletableFuture<V1InventoryEntry> adjustInventoryAsync(
@@ -404,9 +439,12 @@ public interface V1ItemsApi {
      * Provides summary information of all items for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list items for.
-     * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
-     * @return    Returns the List<V1Item> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list items for.
+     * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
+     *         results for your original query to the endpoint.
+     * @return    Returns the List of V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1Item> listItems(
             final String locationId,
@@ -416,9 +454,10 @@ public interface V1ItemsApi {
      * Provides summary information of all items for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list items for.
-     * @param    batchToken    Optional parameter: A pagination cursor to retrieve the next set of results for your original query to the endpoint.
-     * @return    Returns the List<V1Item> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list items for.
+     * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
+     *         results for your original query to the endpoint.
+     * @return    Returns the List of V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1Item>> listItemsAsync(
@@ -426,40 +465,40 @@ public interface V1ItemsApi {
             final String batchToken);
 
     /**
-     * Creates an item and at least one variation for it.
-     * Item-related entities include fields you can use to associate them with
-     * entities in a non-Square system.
-     * When you create an item-related entity, you can optionally specify `id`.
-     * This value must be unique among all IDs ever specified for the account,
-     * including those specified by other applications. You can never reuse an
-     * entity ID. If you do not specify an ID, Square generates one for the entity.
-     * Item variations have a `user_data` string that lets you associate arbitrary
-     * metadata with the variation. The string cannot exceed 255 characters.
+     * Creates an item and at least one variation for it. Item-related entities include fields you
+     * can use to associate them with entities in a non-Square system. When you create an
+     * item-related entity, you can optionally specify `id`. This value must be unique among all IDs
+     * ever specified for the account, including those specified by other applications. You can
+     * never reuse an entity ID. If you do not specify an ID, Square generates one for the entity.
+     * Item variations have a `user_data` string that lets you associate arbitrary metadata with the
+     * variation. The string cannot exceed 255 characters.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item createItem(
             final String locationId,
             final V1Item body) throws ApiException, IOException;
 
     /**
-     * Creates an item and at least one variation for it.
-     * Item-related entities include fields you can use to associate them with
-     * entities in a non-Square system.
-     * When you create an item-related entity, you can optionally specify `id`.
-     * This value must be unique among all IDs ever specified for the account,
-     * including those specified by other applications. You can never reuse an
-     * entity ID. If you do not specify an ID, Square generates one for the entity.
-     * Item variations have a `user_data` string that lets you associate arbitrary
-     * metadata with the variation. The string cannot exceed 255 characters.
+     * Creates an item and at least one variation for it. Item-related entities include fields you
+     * can use to associate them with entities in a non-Square system. When you create an
+     * item-related entity, you can optionally specify `id`. This value must be unique among all IDs
+     * ever specified for the account, including those specified by other applications. You can
+     * never reuse an entity ID. If you do not specify an ID, Square generates one for the entity.
+     * Item variations have a `user_data` string that lets you associate arbitrary metadata with the
+     * variation. The string cannot exceed 255 characters.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> createItemAsync(
@@ -467,30 +506,30 @@ public interface V1ItemsApi {
             final V1Item body);
 
     /**
-     * Deletes an existing item and all item variations associated with it.
-     * __DeleteItem__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteItemRequest` object
-     * as documented below.
+     * Deletes an existing item and all item variations associated with it. __DeleteItem__ returns
+     * nothing on success but Connect SDKs map the empty response to an empty `V1DeleteItemRequest`
+     * object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item deleteItem(
             final String locationId,
             final String itemId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing item and all item variations associated with it.
-     * __DeleteItem__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteItemRequest` object
-     * as documented below.
+     * Deletes an existing item and all item variations associated with it. __DeleteItem__ returns
+     * nothing on success but Connect SDKs map the empty response to an empty `V1DeleteItemRequest`
+     * object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> deleteItemAsync(
@@ -498,26 +537,26 @@ public interface V1ItemsApi {
             final String itemId);
 
     /**
-     * Provides the details for a single item, including associated modifier
-     * lists and fees.
+     * Provides the details for a single item, including associated modifier lists and fees.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The item's ID.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The item's ID.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item retrieveItem(
             final String locationId,
             final String itemId) throws ApiException, IOException;
 
     /**
-     * Provides the details for a single item, including associated modifier
-     * lists and fees.
+     * Provides the details for a single item, including associated modifier lists and fees.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The item's ID.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The item's ID.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> retrieveItemAsync(
@@ -528,10 +567,13 @@ public interface V1ItemsApi {
      * Modifies the core details of an existing item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item updateItem(
             final String locationId,
@@ -542,10 +584,11 @@ public interface V1ItemsApi {
      * Modifies the core details of an existing item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> updateItemAsync(
@@ -554,14 +597,16 @@ public interface V1ItemsApi {
             final V1Item body);
 
     /**
-     * Removes a fee assocation from an item so the fee is no longer
-     * automatically applied to the item in Square Point of Sale.
+     * Removes a fee assocation from an item so the fee is no longer automatically applied to the
+     * item in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    itemId    Required parameter: The ID of the item to add the fee to.
-     * @param    feeId    Required parameter: The ID of the fee to apply.
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  itemId  Required parameter: The ID of the item to add the fee to.
+     * @param  feeId  Required parameter: The ID of the fee to apply.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item removeFee(
             final String locationId,
@@ -569,14 +614,14 @@ public interface V1ItemsApi {
             final String feeId) throws ApiException, IOException;
 
     /**
-     * Removes a fee assocation from an item so the fee is no longer
-     * automatically applied to the item in Square Point of Sale.
+     * Removes a fee assocation from an item so the fee is no longer automatically applied to the
+     * item in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    itemId    Required parameter: The ID of the item to add the fee to.
-     * @param    feeId    Required parameter: The ID of the fee to apply.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  itemId  Required parameter: The ID of the item to add the fee to.
+     * @param  feeId  Required parameter: The ID of the fee to apply.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> removeFeeAsync(
@@ -585,14 +630,16 @@ public interface V1ItemsApi {
             final String feeId);
 
     /**
-     * Associates a fee with an item so the fee is automatically applied to
-     * the item in Square Point of Sale.
+     * Associates a fee with an item so the fee is automatically applied to the item in Square Point
+     * of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    itemId    Required parameter: The ID of the item to add the fee to.
-     * @param    feeId    Required parameter: The ID of the fee to apply.
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  itemId  Required parameter: The ID of the item to add the fee to.
+     * @param  feeId  Required parameter: The ID of the fee to apply.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item applyFee(
             final String locationId,
@@ -600,14 +647,14 @@ public interface V1ItemsApi {
             final String feeId) throws ApiException, IOException;
 
     /**
-     * Associates a fee with an item so the fee is automatically applied to
-     * the item in Square Point of Sale.
+     * Associates a fee with an item so the fee is automatically applied to the item in Square Point
+     * of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the fee's associated location.
-     * @param    itemId    Required parameter: The ID of the item to add the fee to.
-     * @param    feeId    Required parameter: The ID of the fee to apply.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the fee's associated location.
+     * @param  itemId  Required parameter: The ID of the item to add the fee to.
+     * @param  feeId  Required parameter: The ID of the fee to apply.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> applyFeeAsync(
@@ -616,14 +663,16 @@ public interface V1ItemsApi {
             final String feeId);
 
     /**
-     * Removes a modifier list association from an item so the modifier
-     * options from the list can no longer be applied to the item.
+     * Removes a modifier list association from an item so the modifier options from the list can no
+     * longer be applied to the item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to remove.
-     * @param    itemId    Required parameter: The ID of the item to remove the modifier list from.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to remove.
+     * @param  itemId  Required parameter: The ID of the item to remove the modifier list from.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item removeModifierList(
             final String locationId,
@@ -631,14 +680,14 @@ public interface V1ItemsApi {
             final String itemId) throws ApiException, IOException;
 
     /**
-     * Removes a modifier list association from an item so the modifier
-     * options from the list can no longer be applied to the item.
+     * Removes a modifier list association from an item so the modifier options from the list can no
+     * longer be applied to the item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to remove.
-     * @param    itemId    Required parameter: The ID of the item to remove the modifier list from.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to remove.
+     * @param  itemId  Required parameter: The ID of the item to remove the modifier list from.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> removeModifierListAsync(
@@ -647,14 +696,16 @@ public interface V1ItemsApi {
             final String itemId);
 
     /**
-     * Associates a modifier list with an item so the associated modifier
-     * options can be applied to the item.
+     * Associates a modifier list with an item so the associated modifier options can be applied to
+     * the item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to apply.
-     * @param    itemId    Required parameter: The ID of the item to add the modifier list to.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to apply.
+     * @param  itemId  Required parameter: The ID of the item to add the modifier list to.
      * @return    Returns the V1Item response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Item applyModifierList(
             final String locationId,
@@ -662,14 +713,14 @@ public interface V1ItemsApi {
             final String itemId) throws ApiException, IOException;
 
     /**
-     * Associates a modifier list with an item so the associated modifier
-     * options can be applied to the item.
+     * Associates a modifier list with an item so the associated modifier options can be applied to
+     * the item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to apply.
-     * @param    itemId    Required parameter: The ID of the item to add the modifier list to.
-     * @return    Returns the V1Item response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to apply.
+     * @param  itemId  Required parameter: The ID of the item to add the modifier list to.
+     * @return    Returns the V1Item response from the API call
      */
     @Deprecated
     CompletableFuture<V1Item> applyModifierListAsync(
@@ -681,10 +732,13 @@ public interface V1ItemsApi {
      * Creates an item variation for an existing item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The item's ID.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The item's ID.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Variation response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Variation createVariation(
             final String locationId,
@@ -695,10 +749,11 @@ public interface V1ItemsApi {
      * Creates an item variation for an existing item.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The item's ID.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Variation response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The item's ID.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Variation response from the API call
      */
     @Deprecated
     CompletableFuture<V1Variation> createVariationAsync(
@@ -707,16 +762,17 @@ public interface V1ItemsApi {
             final V1Variation body);
 
     /**
-     * Deletes an existing item variation from an item.
-     * __DeleteVariation__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteVariationRequest` object
+     * Deletes an existing item variation from an item. __DeleteVariation__ returns nothing on
+     * success but Connect SDKs map the empty response to an empty `V1DeleteVariationRequest` object
      * as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to delete.
-     * @param    variationId    Required parameter: The ID of the variation to delete.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to delete.
+     * @param  variationId  Required parameter: The ID of the variation to delete.
      * @return    Returns the V1Variation response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Variation deleteVariation(
             final String locationId,
@@ -724,16 +780,15 @@ public interface V1ItemsApi {
             final String variationId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing item variation from an item.
-     * __DeleteVariation__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteVariationRequest` object
+     * Deletes an existing item variation from an item. __DeleteVariation__ returns nothing on
+     * success but Connect SDKs map the empty response to an empty `V1DeleteVariationRequest` object
      * as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to delete.
-     * @param    variationId    Required parameter: The ID of the variation to delete.
-     * @return    Returns the V1Variation response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to delete.
+     * @param  variationId  Required parameter: The ID of the variation to delete.
+     * @return    Returns the V1Variation response from the API call
      */
     @Deprecated
     CompletableFuture<V1Variation> deleteVariationAsync(
@@ -745,11 +800,14 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item variation.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
-     * @param    variationId    Required parameter: The ID of the variation to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
+     * @param  variationId  Required parameter: The ID of the variation to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Variation response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Variation updateVariation(
             final String locationId,
@@ -761,11 +819,12 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item variation.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    itemId    Required parameter: The ID of the item to modify.
-     * @param    variationId    Required parameter: The ID of the variation to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Variation response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  itemId  Required parameter: The ID of the item to modify.
+     * @param  variationId  Required parameter: The ID of the variation to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Variation response from the API call
      */
     @Deprecated
     CompletableFuture<V1Variation> updateVariationAsync(
@@ -778,8 +837,10 @@ public interface V1ItemsApi {
      * Lists all the modifier lists for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list modifier lists for.
-     * @return    Returns the List<V1ModifierList> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list modifier lists for.
+     * @return    Returns the List of V1ModifierList response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1ModifierList> listModifierLists(
             final String locationId) throws ApiException, IOException;
@@ -788,8 +849,8 @@ public interface V1ItemsApi {
      * Lists all the modifier lists for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list modifier lists for.
-     * @return    Returns the List<V1ModifierList> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list modifier lists for.
+     * @return    Returns the List of V1ModifierList response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1ModifierList>> listModifierListsAsync(
@@ -799,9 +860,12 @@ public interface V1ItemsApi {
      * Creates an item modifier list and at least 1 modifier option for it.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create a modifier list for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create a modifier list for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1ModifierList response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierList createModifierList(
             final String locationId,
@@ -811,9 +875,10 @@ public interface V1ItemsApi {
      * Creates an item modifier list and at least 1 modifier option for it.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create a modifier list for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1ModifierList response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create a modifier list for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1ModifierList response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierList> createModifierListAsync(
@@ -821,32 +886,30 @@ public interface V1ItemsApi {
             final V1ModifierList body);
 
     /**
-     * Deletes an existing item modifier list and all modifier options
-     * associated with it.
-     * __DeleteModifierList__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteModifierListRequest` object
-     * as documented below.
+     * Deletes an existing item modifier list and all modifier options associated with it.
+     * __DeleteModifierList__ returns nothing on success but Connect SDKs map the empty response to
+     * an empty `V1DeleteModifierListRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to delete.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to delete.
      * @return    Returns the V1ModifierList response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierList deleteModifierList(
             final String locationId,
             final String modifierListId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing item modifier list and all modifier options
-     * associated with it.
-     * __DeleteModifierList__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeleteModifierListRequest` object
-     * as documented below.
+     * Deletes an existing item modifier list and all modifier options associated with it.
+     * __DeleteModifierList__ returns nothing on success but Connect SDKs map the empty response to
+     * an empty `V1DeleteModifierListRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to delete.
-     * @return    Returns the V1ModifierList response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to delete.
+     * @return    Returns the V1ModifierList response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierList> deleteModifierListAsync(
@@ -857,9 +920,11 @@ public interface V1ItemsApi {
      * Provides the details for a single modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The modifier list's ID.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The modifier list's ID.
      * @return    Returns the V1ModifierList response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierList retrieveModifierList(
             final String locationId,
@@ -869,9 +934,9 @@ public interface V1ItemsApi {
      * Provides the details for a single modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The modifier list's ID.
-     * @return    Returns the V1ModifierList response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The modifier list's ID.
+     * @return    Returns the V1ModifierList response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierList> retrieveModifierListAsync(
@@ -882,10 +947,13 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1ModifierList response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierList updateModifierList(
             final String locationId,
@@ -896,10 +964,11 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1ModifierList response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1ModifierList response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierList> updateModifierListAsync(
@@ -911,10 +980,13 @@ public interface V1ItemsApi {
      * Creates an item modifier option and adds it to a modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1ModifierOption response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierOption createModifierOption(
             final String locationId,
@@ -925,10 +997,11 @@ public interface V1ItemsApi {
      * Creates an item modifier option and adds it to a modifier list.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1ModifierOption response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1ModifierOption response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierOption> createModifierOptionAsync(
@@ -937,16 +1010,17 @@ public interface V1ItemsApi {
             final V1ModifierOption body);
 
     /**
-     * Deletes an existing item modifier option from a modifier list.
-     * __DeleteModifierOption__ returns nothing on success but Connect
-     * SDKs map the empty response to an empty `V1DeleteModifierOptionRequest`
-     * object.
+     * Deletes an existing item modifier option from a modifier list. __DeleteModifierOption__
+     * returns nothing on success but Connect SDKs map the empty response to an empty
+     * `V1DeleteModifierOptionRequest` object.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to delete.
-     * @param    modifierOptionId    Required parameter: The ID of the modifier list to edit.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to delete.
+     * @param  modifierOptionId  Required parameter: The ID of the modifier list to edit.
      * @return    Returns the V1ModifierOption response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierOption deleteModifierOption(
             final String locationId,
@@ -954,16 +1028,15 @@ public interface V1ItemsApi {
             final String modifierOptionId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing item modifier option from a modifier list.
-     * __DeleteModifierOption__ returns nothing on success but Connect
-     * SDKs map the empty response to an empty `V1DeleteModifierOptionRequest`
-     * object.
+     * Deletes an existing item modifier option from a modifier list. __DeleteModifierOption__
+     * returns nothing on success but Connect SDKs map the empty response to an empty
+     * `V1DeleteModifierOptionRequest` object.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to delete.
-     * @param    modifierOptionId    Required parameter: The ID of the modifier list to edit.
-     * @return    Returns the V1ModifierOption response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to delete.
+     * @param  modifierOptionId  Required parameter: The ID of the modifier list to edit.
+     * @return    Returns the V1ModifierOption response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierOption> deleteModifierOptionAsync(
@@ -975,11 +1048,14 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item modifier option.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    modifierOptionId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  modifierOptionId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1ModifierOption response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1ModifierOption updateModifierOption(
             final String locationId,
@@ -991,11 +1067,12 @@ public interface V1ItemsApi {
      * Modifies the details of an existing item modifier option.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the item's associated location.
-     * @param    modifierListId    Required parameter: The ID of the modifier list to edit.
-     * @param    modifierOptionId    Required parameter: The ID of the modifier list to edit.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1ModifierOption response from the API call 
+     * @param  locationId  Required parameter: The ID of the item's associated location.
+     * @param  modifierListId  Required parameter: The ID of the modifier list to edit.
+     * @param  modifierOptionId  Required parameter: The ID of the modifier list to edit.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1ModifierOption response from the API call
      */
     @Deprecated
     CompletableFuture<V1ModifierOption> updateModifierOptionAsync(
@@ -1005,23 +1082,23 @@ public interface V1ItemsApi {
             final V1ModifierOption body);
 
     /**
-     * Lists all Favorites pages (in Square Point of Sale) for a given
-     * location.
+     * Lists all Favorites pages (in Square Point of Sale) for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list Favorites pages for.
-     * @return    Returns the List<V1Page> response from the API call
+     * @param  locationId  Required parameter: The ID of the location to list Favorites pages for.
+     * @return    Returns the List of V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    List<V1Page> listPages(
             final String locationId) throws ApiException, IOException;
 
     /**
-     * Lists all Favorites pages (in Square Point of Sale) for a given
-     * location.
+     * Lists all Favorites pages (in Square Point of Sale) for a given location.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to list Favorites pages for.
-     * @return    Returns the List<V1Page> response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to list Favorites pages for.
+     * @return    Returns the List of V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<List<V1Page>> listPagesAsync(
@@ -1031,9 +1108,12 @@ public interface V1ItemsApi {
      * Creates a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Page createPage(
             final String locationId,
@@ -1043,9 +1123,10 @@ public interface V1ItemsApi {
      * Creates a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the location to create an item for.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Page response from the API call 
+     * @param  locationId  Required parameter: The ID of the location to create an item for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<V1Page> createPageAsync(
@@ -1053,28 +1134,28 @@ public interface V1ItemsApi {
             final V1Page body);
 
     /**
-     * Deletes an existing Favorites page and all of its cells.
-     * __DeletePage__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeletePageRequest` object.
+     * Deletes an existing Favorites page and all of its cells. __DeletePage__ returns nothing on
+     * success but Connect SDKs map the empty response to an empty `V1DeletePageRequest` object.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page to delete.
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page to delete.
      * @return    Returns the V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Page deletePage(
             final String locationId,
             final String pageId) throws ApiException, IOException;
 
     /**
-     * Deletes an existing Favorites page and all of its cells.
-     * __DeletePage__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeletePageRequest` object.
+     * Deletes an existing Favorites page and all of its cells. __DeletePage__ returns nothing on
+     * success but Connect SDKs map the empty response to an empty `V1DeletePageRequest` object.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page to delete.
-     * @return    Returns the V1Page response from the API call 
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page to delete.
+     * @return    Returns the V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<V1Page> deletePageAsync(
@@ -1085,10 +1166,13 @@ public interface V1ItemsApi {
      * Modifies the details of a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location
-     * @param    pageId    Required parameter: The ID of the page to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location
+     * @param  pageId  Required parameter: The ID of the page to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Page updatePage(
             final String locationId,
@@ -1099,10 +1183,11 @@ public interface V1ItemsApi {
      * Modifies the details of a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location
-     * @param    pageId    Required parameter: The ID of the page to modify.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Page response from the API call 
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location
+     * @param  pageId  Required parameter: The ID of the page to modify.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<V1Page> updatePageAsync(
@@ -1111,17 +1196,20 @@ public interface V1ItemsApi {
             final V1Page body);
 
     /**
-     * Deletes a cell from a Favorites page in Square Point of Sale.
-     * __DeletePageCell__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeletePageCellRequest` object
-     * as documented below.
+     * Deletes a cell from a Favorites page in Square Point of Sale. __DeletePageCell__ returns
+     * nothing on success but Connect SDKs map the empty response to an empty
+     * `V1DeletePageCellRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page to delete.
-     * @param    row    Optional parameter: The row of the cell to clear. Always an integer between 0 and 4, inclusive. Row 0 is the top row.
-     * @param    column    Optional parameter: The column of the cell to clear. Always an integer between 0 and 4, inclusive. Column 0 is the leftmost column.
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page to delete.
+     * @param  row  Optional parameter: The row of the cell to clear. Always an integer between 0
+     *         and 4, inclusive. Row 0 is the top row.
+     * @param  column  Optional parameter: The column of the cell to clear. Always an integer
+     *         between 0 and 4, inclusive. Column 0 is the leftmost column.
      * @return    Returns the V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Page deletePageCell(
             final String locationId,
@@ -1130,17 +1218,18 @@ public interface V1ItemsApi {
             final String column) throws ApiException, IOException;
 
     /**
-     * Deletes a cell from a Favorites page in Square Point of Sale.
-     * __DeletePageCell__ returns nothing on success but Connect SDKs
-     * map the empty response to an empty `V1DeletePageCellRequest` object
-     * as documented below.
+     * Deletes a cell from a Favorites page in Square Point of Sale. __DeletePageCell__ returns
+     * nothing on success but Connect SDKs map the empty response to an empty
+     * `V1DeletePageCellRequest` object as documented below.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page to delete.
-     * @param    row    Optional parameter: The row of the cell to clear. Always an integer between 0 and 4, inclusive. Row 0 is the top row.
-     * @param    column    Optional parameter: The column of the cell to clear. Always an integer between 0 and 4, inclusive. Column 0 is the leftmost column.
-     * @return    Returns the V1Page response from the API call 
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page to delete.
+     * @param  row  Optional parameter: The row of the cell to clear. Always an integer between 0
+     *         and 4, inclusive. Row 0 is the top row.
+     * @param  column  Optional parameter: The column of the cell to clear. Always an integer
+     *         between 0 and 4, inclusive. Column 0 is the leftmost column.
+     * @return    Returns the V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<V1Page> deletePageCellAsync(
@@ -1153,10 +1242,13 @@ public interface V1ItemsApi {
      * Modifies a cell of a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page the cell belongs to.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page the cell belongs to.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the V1Page response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated    V1Page updatePageCell(
             final String locationId,
@@ -1167,10 +1259,11 @@ public interface V1ItemsApi {
      * Modifies a cell of a Favorites page in Square Point of Sale.
      * @deprecated
      * 
-     * @param    locationId    Required parameter: The ID of the Favorites page's associated location.
-     * @param    pageId    Required parameter: The ID of the page the cell belongs to.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the V1Page response from the API call 
+     * @param  locationId  Required parameter: The ID of the Favorites page's associated location.
+     * @param  pageId  Required parameter: The ID of the page the cell belongs to.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the V1Page response from the API call
      */
     @Deprecated
     CompletableFuture<V1Page> updatePageCellAsync(

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SearchCustomersRequest type.
  */
 public class SearchCustomersRequest {
+    private final String cursor;
+    private final Long limit;
+    private final CustomerQuery query;
 
     /**
      * Initialization constructor.
-     * @param cursor
-     * @param limit
-     * @param query
+     * @param cursor String value for cursor.
+     * @param limit Long value for limit.
+     * @param query CustomerQuery value for query.
      */
     @JsonCreator
     public SearchCustomersRequest(
@@ -27,14 +31,13 @@ public class SearchCustomersRequest {
         this.query = query;
     }
 
-    private final String cursor;
-    private final Long limit;
-    private final CustomerQuery query;
     /**
      * Getter for Cursor.
-     * Include the pagination cursor in subsequent calls to this endpoint to retrieve
-     * the next set of results associated with the original query.
-     * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     * Include the pagination cursor in subsequent calls to this endpoint to retrieve the next set
+     * of results associated with the original query. See the [Pagination
+     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
+     * @return Returns the String
      */
     @JsonGetter("cursor")
     public String getCursor() {
@@ -43,10 +46,10 @@ public class SearchCustomersRequest {
 
     /**
      * Getter for Limit.
-     * A limit on the number of results to be returned in a single page.
-     * The limit is advisory - the implementation may return more or fewer results.
-     * If the supplied limit is negative, zero, or is higher than the maximum limit
-     * of 100, it will be ignored.
+     * A limit on the number of results to be returned in a single page. The limit is advisory - the
+     * implementation may return more or fewer results. If the supplied limit is negative, zero, or
+     * is higher than the maximum limit of 100, it will be ignored.
+     * @return Returns the Long
      */
     @JsonGetter("limit")
     public Long getLimit() {
@@ -57,6 +60,7 @@ public class SearchCustomersRequest {
      * Getter for Query.
      * Represents a query (including filtering criteria, sorting criteria, or both) used to search
      * for customer profiles.
+     * @return Returns the CustomerQuery
      */
     @JsonGetter("query")
     public CustomerQuery getQuery() {
@@ -71,16 +75,16 @@ public class SearchCustomersRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SearchCustomersRequest)) {
+        if (!(obj instanceof SearchCustomersRequest)) {
             return false;
         }
-        SearchCustomersRequest searchCustomersRequest = (SearchCustomersRequest) obj;
-        return Objects.equals(cursor, searchCustomersRequest.cursor) &&
-            Objects.equals(limit, searchCustomersRequest.limit) &&
-            Objects.equals(query, searchCustomersRequest.query);
+        SearchCustomersRequest other = (SearchCustomersRequest) obj;
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(query, other.query);
     }
 
     /**
@@ -93,45 +97,42 @@ public class SearchCustomersRequest {
             .cursor(getCursor())
             .limit(getLimit())
             .query(getQuery());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SearchCustomersRequest}
+     * Class to build instances of {@link SearchCustomersRequest}.
      */
     public static class Builder {
         private String cursor;
         private Long limit;
         private CustomerQuery query;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for cursor
-         * @param cursor
+         * Setter for cursor.
+         * @param cursor String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Long value for limit.
          * @return Builder
          */
         public Builder limit(Long limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for query
-         * @param query
+         * Setter for query.
+         * @param query CustomerQuery value for query.
          * @return Builder
          */
         public Builder query(CustomerQuery query) {

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for SourceApplication type.
  */
 public class SourceApplication {
+    private final String product;
+    private final String applicationId;
+    private final String name;
 
     /**
      * Initialization constructor.
-     * @param product
-     * @param applicationId
-     * @param name
+     * @param product String value for product.
+     * @param applicationId String value for applicationId.
+     * @param name String value for name.
      */
     @JsonCreator
     public SourceApplication(
@@ -27,12 +31,10 @@ public class SourceApplication {
         this.name = name;
     }
 
-    private final String product;
-    private final String applicationId;
-    private final String name;
     /**
      * Getter for Product.
      * Indicates the Square product used to generate an inventory change.
+     * @return Returns the String
      */
     @JsonGetter("product")
     public String getProduct() {
@@ -41,8 +43,9 @@ public class SourceApplication {
 
     /**
      * Getter for ApplicationId.
-     * Read-only Square ID assigned to the application. Only used for
-     * [Product](#type-product) type `EXTERNAL_API`.
+     * Read-only Square ID assigned to the application. Only used for [Product](#type-product) type
+     * `EXTERNAL_API`.
+     * @return Returns the String
      */
     @JsonGetter("application_id")
     public String getApplicationId() {
@@ -51,8 +54,9 @@ public class SourceApplication {
 
     /**
      * Getter for Name.
-     * Read-only display name assigned to the application
-     * (e.g. `"Custom Application"`, `"Square POS 4.74 for Android"`).
+     * Read-only display name assigned to the application (e.g. `"Custom Application"`, `"Square POS
+     * 4.74 for Android"`).
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -67,16 +71,16 @@ public class SourceApplication {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SourceApplication)) {
+        if (!(obj instanceof SourceApplication)) {
             return false;
         }
-        SourceApplication sourceApplication = (SourceApplication) obj;
-        return Objects.equals(product, sourceApplication.product) &&
-            Objects.equals(applicationId, sourceApplication.applicationId) &&
-            Objects.equals(name, sourceApplication.name);
+        SourceApplication other = (SourceApplication) obj;
+        return Objects.equals(product, other.product)
+            && Objects.equals(applicationId, other.applicationId)
+            && Objects.equals(name, other.name);
     }
 
     /**
@@ -89,45 +93,42 @@ public class SourceApplication {
             .product(getProduct())
             .applicationId(getApplicationId())
             .name(getName());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link SourceApplication}
+     * Class to build instances of {@link SourceApplication}.
      */
     public static class Builder {
         private String product;
         private String applicationId;
         private String name;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for product
-         * @param product
+         * Setter for product.
+         * @param product String value for product.
          * @return Builder
          */
         public Builder product(String product) {
             this.product = product;
             return this;
         }
+
         /**
-         * Setter for applicationId
-         * @param applicationId
+         * Setter for applicationId.
+         * @param applicationId String value for applicationId.
          * @return Builder
          */
         public Builder applicationId(String applicationId) {
             this.applicationId = applicationId;
             return this;
         }
+
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {

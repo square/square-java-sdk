@@ -1,12 +1,13 @@
-## Dispute
+
+# Dispute
 
 Represents a dispute a cardholder initiated with their bank.
 
-### Structure
+## Structure
 
 `Dispute`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -25,7 +26,7 @@ Represents a dispute a cardholder initiated with their bank.
 | `Version` | `Integer` | Optional | The current version of the `Dispute`. | Integer getVersion() |
 | `LocationId` | `String` | Optional | The ID of location where dispute originated. | String getLocationId() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

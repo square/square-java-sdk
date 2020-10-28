@@ -1,19 +1,20 @@
-## V1 Inventory Entry
+
+# V1 Inventory Entry
 
 V1InventoryEntry
 
-### Structure
+## Structure
 
 `V1InventoryEntry`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `VariationId` | `String` | Optional | The variation that the entry corresponds to. | String getVariationId() |
 | `QuantityOnHand` | `Double` | Optional | The current available quantity of the item variation. | Double getQuantityOnHand() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

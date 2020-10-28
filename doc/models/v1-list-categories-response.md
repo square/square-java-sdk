@@ -1,16 +1,17 @@
-## V1 List Categories Response
 
-### Structure
+# V1 List Categories Response
+
+## Structure
 
 `V1ListCategoriesResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Items` | [`List<V1Category>`](/doc/models/v1-category.md) | Optional | - | List<V1Category> getItems() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CalculateOrderRequest type.
  */
 public class CalculateOrderRequest {
+    private final Order order;
+    private final List<OrderReward> proposedRewards;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param proposedRewards
+     * @param order Order value for order.
+     * @param proposedRewards List of OrderReward value for proposedRewards.
      */
     @JsonCreator
     public CalculateOrderRequest(
@@ -25,15 +28,13 @@ public class CalculateOrderRequest {
         this.proposedRewards = proposedRewards;
     }
 
-    private final Order order;
-    private final List<OrderReward> proposedRewards;
     /**
      * Getter for Order.
-     * Contains all information related to a single order to process with Square,
-     * including line items that specify the products to purchase. Order objects also
-     * include information on any associated tenders, refunds, and returns.
-     * All Connect V2 Transactions have all been converted to Orders including all associated
-     * itemization data.
+     * Contains all information related to a single order to process with Square, including line
+     * items that specify the products to purchase. Order objects also include information on any
+     * associated tenders, refunds, and returns. All Connect V2 Transactions have all been converted
+     * to Orders including all associated itemization data.
+     * @return Returns the Order
      */
     @JsonGetter("order")
     public Order getOrder() {
@@ -42,11 +43,12 @@ public class CalculateOrderRequest {
 
     /**
      * Getter for ProposedRewards.
-     * Identifies one or more loyalty reward tiers to apply during order calculation.
-     * The discounts defined by the reward tiers are added to the order only to preview the
-     * effect of applying the specified reward(s). The reward(s) do not correspond to actual
-     * redemptions, that is, no `reward`s are created. Therefore, the reward `id`s are
-     * random strings used only to reference the reward tier.
+     * Identifies one or more loyalty reward tiers to apply during order calculation. The discounts
+     * defined by the reward tiers are added to the order only to preview the effect of applying the
+     * specified reward(s). The reward(s) do not correspond to actual redemptions, that is, no
+     * `reward`s are created. Therefore, the reward `id`s are random strings used only to reference
+     * the reward tier.
+     * @return Returns the List of OrderReward
      */
     @JsonGetter("proposed_rewards")
     public List<OrderReward> getProposedRewards() {
@@ -61,15 +63,15 @@ public class CalculateOrderRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CalculateOrderRequest)) {
+        if (!(obj instanceof CalculateOrderRequest)) {
             return false;
         }
-        CalculateOrderRequest calculateOrderRequest = (CalculateOrderRequest) obj;
-        return Objects.equals(order, calculateOrderRequest.order) &&
-            Objects.equals(proposedRewards, calculateOrderRequest.proposedRewards);
+        CalculateOrderRequest other = (CalculateOrderRequest) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(proposedRewards, other.proposedRewards);
     }
 
     /**
@@ -80,35 +82,37 @@ public class CalculateOrderRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(order)
             .proposedRewards(getProposedRewards());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CalculateOrderRequest}
+     * Class to build instances of {@link CalculateOrderRequest}.
      */
     public static class Builder {
         private Order order;
         private List<OrderReward> proposedRewards;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param order Order value for order.
          */
         public Builder(Order order) {
             this.order = order;
         }
 
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for proposedRewards
-         * @param proposedRewards
+         * Setter for proposedRewards.
+         * @param proposedRewards List of OrderReward value for proposedRewards.
          * @return Builder
          */
         public Builder proposedRewards(List<OrderReward> proposedRewards) {

@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1CreatePageRequest type.
  */
 public class V1CreatePageRequest {
+    private final V1Page body;
 
     /**
      * Initialization constructor.
-     * @param body
+     * @param body V1Page value for body.
      */
     @JsonCreator
     public V1CreatePageRequest(
@@ -21,10 +23,10 @@ public class V1CreatePageRequest {
         this.body = body;
     }
 
-    private final V1Page body;
     /**
      * Getter for Body.
      * V1Page
+     * @return Returns the V1Page
      */
     @JsonGetter("body")
     public V1Page getBody() {
@@ -39,14 +41,14 @@ public class V1CreatePageRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1CreatePageRequest)) {
+        if (!(obj instanceof V1CreatePageRequest)) {
             return false;
         }
-        V1CreatePageRequest v1CreatePageRequest = (V1CreatePageRequest) obj;
-        return Objects.equals(body, v1CreatePageRequest.body);
+        V1CreatePageRequest other = (V1CreatePageRequest) obj;
+        return Objects.equals(body, other.body);
     }
 
     /**
@@ -57,25 +59,20 @@ public class V1CreatePageRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .body(getBody());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1CreatePageRequest}
+     * Class to build instances of {@link V1CreatePageRequest}.
      */
     public static class Builder {
         private V1Page body;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for body
-         * @param body
+         * Setter for body.
+         * @param body V1Page value for body.
          * @return Builder
          */
         public Builder body(V1Page body) {

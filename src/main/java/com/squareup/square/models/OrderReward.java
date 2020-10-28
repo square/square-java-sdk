@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for OrderReward type.
  */
 public class OrderReward {
+    private final String id;
+    private final String rewardTierId;
 
     /**
      * Initialization constructor.
-     * @param id
-     * @param rewardTierId
+     * @param id String value for id.
+     * @param rewardTierId String value for rewardTierId.
      */
     @JsonCreator
     public OrderReward(
@@ -24,11 +27,10 @@ public class OrderReward {
         this.rewardTierId = rewardTierId;
     }
 
-    private final String id;
-    private final String rewardTierId;
     /**
      * Getter for Id.
      * The identifier of the reward.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -38,6 +40,7 @@ public class OrderReward {
     /**
      * Getter for RewardTierId.
      * The identifier of the reward tier corresponding to this reward.
+     * @return Returns the String
      */
     @JsonGetter("reward_tier_id")
     public String getRewardTierId() {
@@ -52,15 +55,15 @@ public class OrderReward {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof OrderReward)) {
+        if (!(obj instanceof OrderReward)) {
             return false;
         }
-        OrderReward orderReward = (OrderReward) obj;
-        return Objects.equals(id, orderReward.id) &&
-            Objects.equals(rewardTierId, orderReward.rewardTierId);
+        OrderReward other = (OrderReward) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(rewardTierId, other.rewardTierId);
     }
 
     /**
@@ -71,18 +74,20 @@ public class OrderReward {
     public Builder toBuilder() {
         Builder builder = new Builder(id,
             rewardTierId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link OrderReward}
+     * Class to build instances of {@link OrderReward}.
      */
     public static class Builder {
         private String id;
         private String rewardTierId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param id String value for id.
+         * @param rewardTierId String value for rewardTierId.
          */
         public Builder(String id,
                 String rewardTierId) {
@@ -91,17 +96,18 @@ public class OrderReward {
         }
 
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for rewardTierId
-         * @param rewardTierId
+         * Setter for rewardTierId.
+         * @param rewardTierId String value for rewardTierId.
          * @return Builder
          */
         public Builder rewardTierId(String rewardTierId) {

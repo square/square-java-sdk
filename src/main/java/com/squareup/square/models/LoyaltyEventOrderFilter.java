@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyEventOrderFilter type.
  */
 public class LoyaltyEventOrderFilter {
+    private final String orderId;
 
     /**
      * Initialization constructor.
-     * @param orderId
+     * @param orderId String value for orderId.
      */
     @JsonCreator
     public LoyaltyEventOrderFilter(
@@ -21,10 +23,10 @@ public class LoyaltyEventOrderFilter {
         this.orderId = orderId;
     }
 
-    private final String orderId;
     /**
      * Getter for OrderId.
      * The ID of the [order](#type-Order) associated with the event.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -39,14 +41,14 @@ public class LoyaltyEventOrderFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventOrderFilter)) {
+        if (!(obj instanceof LoyaltyEventOrderFilter)) {
             return false;
         }
-        LoyaltyEventOrderFilter loyaltyEventOrderFilter = (LoyaltyEventOrderFilter) obj;
-        return Objects.equals(orderId, loyaltyEventOrderFilter.orderId);
+        LoyaltyEventOrderFilter other = (LoyaltyEventOrderFilter) obj;
+        return Objects.equals(orderId, other.orderId);
     }
 
     /**
@@ -56,25 +58,26 @@ public class LoyaltyEventOrderFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(orderId);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventOrderFilter}
+     * Class to build instances of {@link LoyaltyEventOrderFilter}.
      */
     public static class Builder {
         private String orderId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param orderId String value for orderId.
          */
         public Builder(String orderId) {
             this.orderId = orderId;
         }
 
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {

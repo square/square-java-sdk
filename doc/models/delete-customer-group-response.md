@@ -1,19 +1,20 @@
-## Delete Customer Group Response
+
+# Delete Customer Group Response
 
 Defines the fields that are included in the response body of
 a request to the [DeleteCustomerGroup](#endpoint-deletecustomergroup) endpoint.
 
-### Structure
+## Structure
 
 `DeleteCustomerGroupResponse`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {}

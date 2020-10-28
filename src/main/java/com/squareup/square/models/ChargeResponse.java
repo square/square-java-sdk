@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for ChargeResponse type.
  */
 public class ChargeResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final Transaction transaction;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param transaction
+     * @param errors List of Error value for errors.
+     * @param transaction Transaction value for transaction.
      */
     @JsonCreator
     public ChargeResponse(
@@ -26,10 +30,6 @@ public class ChargeResponse {
         this.transaction = transaction;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final Transaction transaction;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class ChargeResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,10 +46,10 @@ public class ChargeResponse {
 
     /**
      * Getter for Transaction.
-     * Represents a transaction processed with Square, either with the
-     * Connect API or with Square Point of Sale.
-     * The `tenders` field of this object lists all methods of payment used to pay in
+     * Represents a transaction processed with Square, either with the Connect API or with Square
+     * Point of Sale. The `tenders` field of this object lists all methods of payment used to pay in
      * the transaction.
+     * @return Returns the Transaction
      */
     @JsonGetter("transaction")
     public Transaction getTransaction() {
@@ -63,15 +64,15 @@ public class ChargeResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ChargeResponse)) {
+        if (!(obj instanceof ChargeResponse)) {
             return false;
         }
-        ChargeResponse chargeResponse = (ChargeResponse) obj;
-        return Objects.equals(errors, chargeResponse.errors) &&
-            Objects.equals(transaction, chargeResponse.transaction);
+        ChargeResponse other = (ChargeResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(transaction, other.transaction);
     }
 
     /**
@@ -83,45 +84,42 @@ public class ChargeResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .transaction(getTransaction());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ChargeResponse}
+     * Class to build instances of {@link ChargeResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private Transaction transaction;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for transaction
-         * @param transaction
+         * Setter for transaction.
+         * @param transaction Transaction value for transaction.
          * @return Builder
          */
         public Builder transaction(Transaction transaction) {
@@ -134,8 +132,9 @@ public class ChargeResponse {
          * @return {@link ChargeResponse}
          */
         public ChargeResponse build() {
-            ChargeResponse model = new ChargeResponse(errors,
-                transaction);
+            ChargeResponse model =
+                    new ChargeResponse(errors,
+                            transaction);
             model.httpContext = httpContext;
             return model;
         }

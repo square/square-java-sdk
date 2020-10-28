@@ -1,18 +1,15 @@
+
 package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
@@ -26,6 +23,11 @@ import com.squareup.square.models.RetrieveInventoryAdjustmentResponse;
 import com.squareup.square.models.RetrieveInventoryChangesResponse;
 import com.squareup.square.models.RetrieveInventoryCountResponse;
 import com.squareup.square.models.RetrieveInventoryPhysicalCountResponse;
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -34,35 +36,40 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
     /**
      * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
      */
-    public DefaultInventoryApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
+    public DefaultInventoryApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
     /**
      * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
+     * @param httpCallback    Callback to be called before and after the HTTP call.
      */
-    public DefaultInventoryApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+    public DefaultInventoryApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
 
     /**
-     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object
-     * with the provided `adjustment_id`.
-     * @param    adjustmentId    Required parameter: ID of the [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
+     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided
+     * `adjustment_id`.
+     * @param  adjustmentId  Required parameter: ID of the
+     *         [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
      * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveInventoryAdjustmentResponse retrieveInventoryAdjustment(
             final String adjustmentId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveInventoryAdjustmentRequest(adjustmentId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -71,21 +78,23 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object
-     * with the provided `adjustment_id`.
-     * @param    adjustmentId    Required parameter: ID of the [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
-     * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call 
+     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided
+     * `adjustment_id`.
+     * @param  adjustmentId  Required parameter: ID of the
+     *         [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
+     * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
      */
     public CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustmentAsync(
             final String adjustmentId) {
         return makeHttpCallAsync(() -> buildRetrieveInventoryAdjustmentRequest(adjustmentId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveInventoryAdjustmentResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveInventoryAdjustmentResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveInventoryAdjustment
+     * Builds the HttpRequest object for retrieveInventoryAdjustment.
      */
     private HttpRequest buildRetrieveInventoryAdjustmentRequest(
             final String adjustmentId) {
@@ -93,14 +102,14 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/adjustment/{adjustment_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/adjustment/{adjustment_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("adjustment_id", adjustmentId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("adjustment_id",
+                new SimpleEntry<Object, Boolean>(adjustmentId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -110,7 +119,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -121,11 +130,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for retrieveInventoryAdjustment
+     * Processes the response for retrieveInventoryAdjustment.
      * @return An object of type RetrieveInventoryAdjustmentResponse
      */
-    private RetrieveInventoryAdjustmentResponse handleRetrieveInventoryAdjustmentResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveInventoryAdjustmentResponse handleRetrieveInventoryAdjustmentResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -137,7 +146,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveInventoryAdjustmentResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveInventoryAdjustmentResponse.class);
 
@@ -146,17 +155,19 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Applies adjustments and counts to the provided item quantities.
-     * On success: returns the current calculated counts for all objects
-     * referenced in the request.
-     * On failure: returns a list of related errors.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Applies adjustments and counts to the provided item quantities. On success: returns the
+     * current calculated counts for all objects referenced in the request. On failure: returns a
+     * list of related errors.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the BatchChangeInventoryResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public BatchChangeInventoryResponse batchChangeInventory(
             final BatchChangeInventoryRequest body) throws ApiException, IOException {
         HttpRequest request = buildBatchChangeInventoryRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -165,23 +176,24 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Applies adjustments and counts to the provided item quantities.
-     * On success: returns the current calculated counts for all objects
-     * referenced in the request.
-     * On failure: returns a list of related errors.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the BatchChangeInventoryResponse response from the API call 
+     * Applies adjustments and counts to the provided item quantities. On success: returns the
+     * current calculated counts for all objects referenced in the request. On failure: returns a
+     * list of related errors.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchChangeInventoryResponse response from the API call
      */
     public CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
             final BatchChangeInventoryRequest body) {
         return makeHttpCallAsync(() -> buildBatchChangeInventoryRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleBatchChangeInventoryResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleBatchChangeInventoryResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for batchChangeInventory
+     * Builds the HttpRequest object for batchChangeInventory.
      */
     private HttpRequest buildBatchChangeInventoryRequest(
             final BatchChangeInventoryRequest body) throws JsonProcessingException {
@@ -189,9 +201,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/batch-change");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/batch-change");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -203,7 +214,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -214,11 +225,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for batchChangeInventory
+     * Processes the response for batchChangeInventory.
      * @return An object of type BatchChangeInventoryResponse
      */
-    private BatchChangeInventoryResponse handleBatchChangeInventoryResponse(HttpContext context)
-            throws ApiException, IOException {
+    private BatchChangeInventoryResponse handleBatchChangeInventoryResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -230,7 +241,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         BatchChangeInventoryResponse result = ApiHelper.deserialize(responseBody,
                 BatchChangeInventoryResponse.class);
 
@@ -239,19 +250,20 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns historical physical counts and adjustments based on the
-     * provided filter criteria.
-     * Results are paginated and sorted in ascending order according their
-     * `occurred_at` timestamp (oldest first).
-     * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries
-     * that cannot be handled by other, simpler endpoints.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Returns historical physical counts and adjustments based on the provided filter criteria.
+     * Results are paginated and sorted in ascending order according their `occurred_at` timestamp
+     * (oldest first). BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that
+     * cannot be handled by other, simpler endpoints.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveInventoryChangesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public BatchRetrieveInventoryChangesResponse batchRetrieveInventoryChanges(
             final BatchRetrieveInventoryChangesRequest body) throws ApiException, IOException {
         HttpRequest request = buildBatchRetrieveInventoryChangesRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -260,25 +272,25 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns historical physical counts and adjustments based on the
-     * provided filter criteria.
-     * Results are paginated and sorted in ascending order according their
-     * `occurred_at` timestamp (oldest first).
-     * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries
-     * that cannot be handled by other, simpler endpoints.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the BatchRetrieveInventoryChangesResponse response from the API call 
+     * Returns historical physical counts and adjustments based on the provided filter criteria.
+     * Results are paginated and sorted in ascending order according their `occurred_at` timestamp
+     * (oldest first). BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that
+     * cannot be handled by other, simpler endpoints.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryChangesResponse response from the API call
      */
     public CompletableFuture<BatchRetrieveInventoryChangesResponse> batchRetrieveInventoryChangesAsync(
             final BatchRetrieveInventoryChangesRequest body) {
         return makeHttpCallAsync(() -> buildBatchRetrieveInventoryChangesRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleBatchRetrieveInventoryChangesResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleBatchRetrieveInventoryChangesResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for batchRetrieveInventoryChanges
+     * Builds the HttpRequest object for batchRetrieveInventoryChanges.
      */
     private HttpRequest buildBatchRetrieveInventoryChangesRequest(
             final BatchRetrieveInventoryChangesRequest body) throws JsonProcessingException {
@@ -286,9 +298,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/batch-retrieve-changes");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/batch-retrieve-changes");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -300,7 +311,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -311,11 +322,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for batchRetrieveInventoryChanges
+     * Processes the response for batchRetrieveInventoryChanges.
      * @return An object of type BatchRetrieveInventoryChangesResponse
      */
-    private BatchRetrieveInventoryChangesResponse handleBatchRetrieveInventoryChangesResponse(HttpContext context)
-            throws ApiException, IOException {
+    private BatchRetrieveInventoryChangesResponse handleBatchRetrieveInventoryChangesResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -327,7 +338,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         BatchRetrieveInventoryChangesResponse result = ApiHelper.deserialize(responseBody,
                 BatchRetrieveInventoryChangesResponse.class);
 
@@ -336,22 +347,22 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns current counts for the provided
-     * [CatalogObject](#type-catalogobject)s at the requested
-     * [Location](#type-location)s.
-     * Results are paginated and sorted in descending order according to their
-     * `calculated_at` timestamp (newest first).
-     * When `updated_after` is specified, only counts that have changed since that
-     * time (based on the server timestamp for the most recent change) are
-     * returned. This allows clients to perform a "sync" operation, for example
-     * in response to receiving a Webhook notification.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the
+     * requested [Location](#type-location)s. Results are paginated and sorted in descending order
+     * according to their `calculated_at` timestamp (newest first). When `updated_after` is
+     * specified, only counts that have changed since that time (based on the server timestamp for
+     * the most recent change) are returned. This allows clients to perform a "sync" operation, for
+     * example in response to receiving a Webhook notification.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public BatchRetrieveInventoryCountsResponse batchRetrieveInventoryCounts(
             final BatchRetrieveInventoryCountsRequest body) throws ApiException, IOException {
         HttpRequest request = buildBatchRetrieveInventoryCountsRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -360,28 +371,27 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns current counts for the provided
-     * [CatalogObject](#type-catalogobject)s at the requested
-     * [Location](#type-location)s.
-     * Results are paginated and sorted in descending order according to their
-     * `calculated_at` timestamp (newest first).
-     * When `updated_after` is specified, only counts that have changed since that
-     * time (based on the server timestamp for the most recent change) are
-     * returned. This allows clients to perform a "sync" operation, for example
-     * in response to receiving a Webhook notification.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call 
+     * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the
+     * requested [Location](#type-location)s. Results are paginated and sorted in descending order
+     * according to their `calculated_at` timestamp (newest first). When `updated_after` is
+     * specified, only counts that have changed since that time (based on the server timestamp for
+     * the most recent change) are returned. This allows clients to perform a "sync" operation, for
+     * example in response to receiving a Webhook notification.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
      */
     public CompletableFuture<BatchRetrieveInventoryCountsResponse> batchRetrieveInventoryCountsAsync(
             final BatchRetrieveInventoryCountsRequest body) {
         return makeHttpCallAsync(() -> buildBatchRetrieveInventoryCountsRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleBatchRetrieveInventoryCountsResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleBatchRetrieveInventoryCountsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for batchRetrieveInventoryCounts
+     * Builds the HttpRequest object for batchRetrieveInventoryCounts.
      */
     private HttpRequest buildBatchRetrieveInventoryCountsRequest(
             final BatchRetrieveInventoryCountsRequest body) throws JsonProcessingException {
@@ -389,9 +399,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/batch-retrieve-counts");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/batch-retrieve-counts");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -403,7 +412,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -414,11 +423,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for batchRetrieveInventoryCounts
+     * Processes the response for batchRetrieveInventoryCounts.
      * @return An object of type BatchRetrieveInventoryCountsResponse
      */
-    private BatchRetrieveInventoryCountsResponse handleBatchRetrieveInventoryCountsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private BatchRetrieveInventoryCountsResponse handleBatchRetrieveInventoryCountsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -430,7 +439,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         BatchRetrieveInventoryCountsResponse result = ApiHelper.deserialize(responseBody,
                 BatchRetrieveInventoryCountsResponse.class);
 
@@ -439,15 +448,18 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount)
-     * object with the provided `physical_count_id`.
-     * @param    physicalCountId    Required parameter: ID of the [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
+     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided
+     * `physical_count_id`.
+     * @param  physicalCountId  Required parameter: ID of the
+     *         [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
      * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveInventoryPhysicalCountResponse retrieveInventoryPhysicalCount(
             final String physicalCountId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveInventoryPhysicalCountRequest(physicalCountId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -456,21 +468,23 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount)
-     * object with the provided `physical_count_id`.
-     * @param    physicalCountId    Required parameter: ID of the [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
-     * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call 
+     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided
+     * `physical_count_id`.
+     * @param  physicalCountId  Required parameter: ID of the
+     *         [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
+     * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
      */
     public CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysicalCountAsync(
             final String physicalCountId) {
         return makeHttpCallAsync(() -> buildRetrieveInventoryPhysicalCountRequest(physicalCountId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveInventoryPhysicalCountResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveInventoryPhysicalCountResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveInventoryPhysicalCount
+     * Builds the HttpRequest object for retrieveInventoryPhysicalCount.
      */
     private HttpRequest buildRetrieveInventoryPhysicalCountRequest(
             final String physicalCountId) {
@@ -478,14 +492,14 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/physical-count/{physical_count_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/physical-count/{physical_count_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("physical_count_id", physicalCountId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("physical_count_id",
+                new SimpleEntry<Object, Boolean>(physicalCountId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -495,7 +509,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -506,11 +520,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for retrieveInventoryPhysicalCount
+     * Processes the response for retrieveInventoryPhysicalCount.
      * @return An object of type RetrieveInventoryPhysicalCountResponse
      */
-    private RetrieveInventoryPhysicalCountResponse handleRetrieveInventoryPhysicalCountResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveInventoryPhysicalCountResponse handleRetrieveInventoryPhysicalCountResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -522,7 +536,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveInventoryPhysicalCountResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveInventoryPhysicalCountResponse.class);
 
@@ -531,21 +545,29 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Retrieves the current calculated stock count for a given
-     * [CatalogObject](#type-catalogobject) at a given set of
-     * [Location](#type-location)s. Responses are paginated and unsorted.
-     * For more sophisticated queries, use a batch endpoint.
-     * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
-     * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject)
+     * at a given set of [Location](#type-location)s. Responses are paginated and unsorted. For more
+     * sophisticated queries, use a batch endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
+     *         to retrieve.
+     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     *         comma-separated list. An empty list queries all locations.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See the
+     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination)
+     *         guide for more information.
      * @return    Returns the RetrieveInventoryCountResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveInventoryCountResponse retrieveInventoryCount(
             final String catalogObjectId,
             final String locationIds,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveInventoryCountRequest(catalogObjectId, locationIds, cursor);
-        authManagers.get("default").apply(request);
+        HttpRequest request = buildRetrieveInventoryCountRequest(catalogObjectId, locationIds,
+                cursor);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -554,27 +576,34 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Retrieves the current calculated stock count for a given
-     * [CatalogObject](#type-catalogobject) at a given set of
-     * [Location](#type-location)s. Responses are paginated and unsorted.
-     * For more sophisticated queries, use a batch endpoint.
-     * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
-     * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
-     * @return    Returns the RetrieveInventoryCountResponse response from the API call 
+     * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject)
+     * at a given set of [Location](#type-location)s. Responses are paginated and unsorted. For more
+     * sophisticated queries, use a batch endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
+     *         to retrieve.
+     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     *         comma-separated list. An empty list queries all locations.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See the
+     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination)
+     *         guide for more information.
+     * @return    Returns the RetrieveInventoryCountResponse response from the API call
      */
     public CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
             final String catalogObjectId,
             final String locationIds,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildRetrieveInventoryCountRequest(catalogObjectId, locationIds, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveInventoryCountResponse(context));
+        return makeHttpCallAsync(() -> buildRetrieveInventoryCountRequest(catalogObjectId,
+                locationIds, cursor),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveInventoryCountResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveInventoryCount
+     * Builds the HttpRequest object for retrieveInventoryCount.
      */
     private HttpRequest buildRetrieveInventoryCountRequest(
             final String catalogObjectId,
@@ -584,20 +613,19 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/{catalog_object_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/{catalog_object_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("catalog_object_id", catalogObjectId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("catalog_object_id",
+                new SimpleEntry<Object, Boolean>(catalogObjectId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("location_ids", locationIds);
         queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -607,7 +635,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -618,11 +647,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for retrieveInventoryCount
+     * Processes the response for retrieveInventoryCount.
      * @return An object of type RetrieveInventoryCountResponse
      */
-    private RetrieveInventoryCountResponse handleRetrieveInventoryCountResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveInventoryCountResponse handleRetrieveInventoryCountResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -634,7 +663,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveInventoryCountResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveInventoryCountResponse.class);
 
@@ -643,25 +672,32 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns a set of physical counts and inventory adjustments for the
-     * provided [CatalogObject](#type-catalogobject) at the requested
-     * [Location](#type-location)s.
-     * Results are paginated and sorted in descending order according to their
-     * `occurred_at` timestamp (newest first).
-     * There are no limits on how far back the caller can page. This endpoint can be 
-     * used to display recent changes for a specific item. For more
-     * sophisticated queries, use a batch endpoint.
-     * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
-     * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
+     * Returns a set of physical counts and inventory adjustments for the provided
+     * [CatalogObject](#type-catalogobject) at the requested [Location](#type-location)s. Results
+     * are paginated and sorted in descending order according to their `occurred_at` timestamp
+     * (newest first). There are no limits on how far back the caller can page. This endpoint can be
+     * used to display recent changes for a specific item. For more sophisticated queries, use a
+     * batch endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
+     *         to retrieve.
+     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     *         comma-separated list. An empty list queries all locations.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See the
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide
+     *         for more information.
      * @return    Returns the RetrieveInventoryChangesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveInventoryChangesResponse retrieveInventoryChanges(
             final String catalogObjectId,
             final String locationIds,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveInventoryChangesRequest(catalogObjectId, locationIds, cursor);
-        authManagers.get("default").apply(request);
+        HttpRequest request = buildRetrieveInventoryChangesRequest(catalogObjectId, locationIds,
+                cursor);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -670,31 +706,37 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Returns a set of physical counts and inventory adjustments for the
-     * provided [CatalogObject](#type-catalogobject) at the requested
-     * [Location](#type-location)s.
-     * Results are paginated and sorted in descending order according to their
-     * `occurred_at` timestamp (newest first).
-     * There are no limits on how far back the caller can page. This endpoint can be 
-     * used to display recent changes for a specific item. For more
-     * sophisticated queries, use a batch endpoint.
-     * @param    catalogObjectId    Required parameter: ID of the [CatalogObject](#type-catalogobject) to retrieve.
-     * @param    locationIds    Optional parameter: The [Location](#type-location) IDs to look up as a comma-separated list. An empty list queries all locations.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
-     * @return    Returns the RetrieveInventoryChangesResponse response from the API call 
+     * Returns a set of physical counts and inventory adjustments for the provided
+     * [CatalogObject](#type-catalogobject) at the requested [Location](#type-location)s. Results
+     * are paginated and sorted in descending order according to their `occurred_at` timestamp
+     * (newest first). There are no limits on how far back the caller can page. This endpoint can be
+     * used to display recent changes for a specific item. For more sophisticated queries, use a
+     * batch endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
+     *         to retrieve.
+     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     *         comma-separated list. An empty list queries all locations.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         See the
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide
+     *         for more information.
+     * @return    Returns the RetrieveInventoryChangesResponse response from the API call
      */
     public CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsync(
             final String catalogObjectId,
             final String locationIds,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildRetrieveInventoryChangesRequest(catalogObjectId, locationIds, cursor),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveInventoryChangesResponse(context));
+        return makeHttpCallAsync(() -> buildRetrieveInventoryChangesRequest(catalogObjectId,
+                locationIds, cursor),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveInventoryChangesResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveInventoryChanges
+     * Builds the HttpRequest object for retrieveInventoryChanges.
      */
     private HttpRequest buildRetrieveInventoryChangesRequest(
             final String catalogObjectId,
@@ -704,20 +746,19 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/inventory/{catalog_object_id}/changes");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/inventory/{catalog_object_id}/changes");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("catalog_object_id", catalogObjectId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("catalog_object_id",
+                new SimpleEntry<Object, Boolean>(catalogObjectId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("location_ids", locationIds);
         queryParameters.put("cursor", cursor);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -727,7 +768,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -738,11 +780,11 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
     }
 
     /**
-     * Processes the response for retrieveInventoryChanges
+     * Processes the response for retrieveInventoryChanges.
      * @return An object of type RetrieveInventoryChangesResponse
      */
-    private RetrieveInventoryChangesResponse handleRetrieveInventoryChangesResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveInventoryChangesResponse handleRetrieveInventoryChangesResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -754,7 +796,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveInventoryChangesResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveInventoryChangesResponse.class);
 

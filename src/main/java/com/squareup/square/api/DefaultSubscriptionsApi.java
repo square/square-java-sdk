@@ -1,18 +1,15 @@
+
 package com.squareup.square.api;
 
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.Headers;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
@@ -25,6 +22,11 @@ import com.squareup.square.models.SearchSubscriptionsRequest;
 import com.squareup.square.models.SearchSubscriptionsResponse;
 import com.squareup.square.models.UpdateSubscriptionRequest;
 import com.squareup.square.models.UpdateSubscriptionResponse;
+import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -33,38 +35,43 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Initializes the controller.
-     * @param config
-     * @param httpClient
-     * @param authManagers
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
      */
-    public DefaultSubscriptionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers) {
+    public DefaultSubscriptionsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers) {
         super(config, httpClient, authManagers);
     }
 
     /**
      * Initializes the controller with HTTPCallback.
-     * @param config
-     * @param httpClient
-     * @param authManagers
-     * @param httpCallback
+     * @param config    Configurations added in client.
+     * @param httpClient    Send HTTP requests and read the responses.
+     * @param authManagers    Apply authorization to requests.
+     * @param httpCallback    Callback to be called before and after the HTTP call.
      */
-    public DefaultSubscriptionsApi(Configuration config, HttpClient httpClient, Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+    public DefaultSubscriptionsApi(Configuration config, HttpClient httpClient,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
     }
 
     /**
-     * Creates a subscription for a customer to a subscription plan.
-     * If you provide a card on file in the request, Square charges the card for 
-     * the subscription. Otherwise, Square bills an invoice to the customer's email 
-     * address. The subscription starts immediately, unless the request includes 
-     * the optional `start_date`. Each individual subscription is associated with a particular location.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Creates a subscription for a customer to a subscription plan. If you provide a card on file
+     * in the request, Square charges the card for the subscription. Otherwise, Square bills an
+     * invoice to the customer's email address. The subscription starts immediately, unless the
+     * request includes the optional `start_date`. Each individual subscription is associated with a
+     * particular location.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the CreateSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CreateSubscriptionResponse createSubscription(
             final CreateSubscriptionRequest body) throws ApiException, IOException {
         HttpRequest request = buildCreateSubscriptionRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -73,24 +80,26 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Creates a subscription for a customer to a subscription plan.
-     * If you provide a card on file in the request, Square charges the card for 
-     * the subscription. Otherwise, Square bills an invoice to the customer's email 
-     * address. The subscription starts immediately, unless the request includes 
-     * the optional `start_date`. Each individual subscription is associated with a particular location.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the CreateSubscriptionResponse response from the API call 
+     * Creates a subscription for a customer to a subscription plan. If you provide a card on file
+     * in the request, Square charges the card for the subscription. Otherwise, Square bills an
+     * invoice to the customer's email address. The subscription starts immediately, unless the
+     * request includes the optional `start_date`. Each individual subscription is associated with a
+     * particular location.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateSubscriptionResponse response from the API call
      */
     public CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
             final CreateSubscriptionRequest body) {
         return makeHttpCallAsync(() -> buildCreateSubscriptionRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleCreateSubscriptionResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleCreateSubscriptionResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for createSubscription
+     * Builds the HttpRequest object for createSubscription.
      */
     private HttpRequest buildCreateSubscriptionRequest(
             final CreateSubscriptionRequest body) throws JsonProcessingException {
@@ -98,9 +107,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -112,7 +120,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -123,11 +131,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for createSubscription
+     * Processes the response for createSubscription.
      * @return An object of type CreateSubscriptionResponse
      */
-    private CreateSubscriptionResponse handleCreateSubscriptionResponse(HttpContext context)
-            throws ApiException, IOException {
+    private CreateSubscriptionResponse handleCreateSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -139,7 +147,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         CreateSubscriptionResponse result = ApiHelper.deserialize(responseBody,
                 CreateSubscriptionResponse.class);
 
@@ -148,27 +156,25 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Searches for subscriptions. 
-     * Results are ordered chronologically by subscription creation date. If
-     * the request specifies more than one location ID, 
-     * the endpoint orders the result 
-     * by location ID, and then by creation date within each location. If no locations are given
-     * in the query, all locations are searched.
-     * You can also optionally specify `customer_ids` to search by customer. 
-     * If left unset, all customers 
-     * associated with the specified locations are returned. 
-     * If the request specifies customer IDs, the endpoint orders results 
-     * first by location, within location by customer ID, and within 
-     * customer by subscription creation date.
-     * For more information, see 
-     * [Retrieve subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Searches for subscriptions. Results are ordered chronologically by subscription creation
+     * date. If the request specifies more than one location ID, the endpoint orders the result by
+     * location ID, and then by creation date within each location. If no locations are given in the
+     * query, all locations are searched. You can also optionally specify `customer_ids` to search
+     * by customer. If left unset, all customers associated with the specified locations are
+     * returned. If the request specifies customer IDs, the endpoint orders results first by
+     * location, within location by customer ID, and within customer by subscription creation date.
+     * For more information, see [Retrieve
+     * subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the SearchSubscriptionsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SearchSubscriptionsResponse searchSubscriptions(
             final SearchSubscriptionsRequest body) throws ApiException, IOException {
         HttpRequest request = buildSearchSubscriptionsRequest(body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -177,33 +183,30 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Searches for subscriptions. 
-     * Results are ordered chronologically by subscription creation date. If
-     * the request specifies more than one location ID, 
-     * the endpoint orders the result 
-     * by location ID, and then by creation date within each location. If no locations are given
-     * in the query, all locations are searched.
-     * You can also optionally specify `customer_ids` to search by customer. 
-     * If left unset, all customers 
-     * associated with the specified locations are returned. 
-     * If the request specifies customer IDs, the endpoint orders results 
-     * first by location, within location by customer ID, and within 
-     * customer by subscription creation date.
-     * For more information, see 
-     * [Retrieve subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the SearchSubscriptionsResponse response from the API call 
+     * Searches for subscriptions. Results are ordered chronologically by subscription creation
+     * date. If the request specifies more than one location ID, the endpoint orders the result by
+     * location ID, and then by creation date within each location. If no locations are given in the
+     * query, all locations are searched. You can also optionally specify `customer_ids` to search
+     * by customer. If left unset, all customers associated with the specified locations are
+     * returned. If the request specifies customer IDs, the endpoint orders results first by
+     * location, within location by customer ID, and within customer by subscription creation date.
+     * For more information, see [Retrieve
+     * subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SearchSubscriptionsResponse response from the API call
      */
     public CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
             final SearchSubscriptionsRequest body) {
         return makeHttpCallAsync(() -> buildSearchSubscriptionsRequest(body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleSearchSubscriptionsResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleSearchSubscriptionsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for searchSubscriptions
+     * Builds the HttpRequest object for searchSubscriptions.
      */
     private HttpRequest buildSearchSubscriptionsRequest(
             final SearchSubscriptionsRequest body) throws JsonProcessingException {
@@ -211,9 +214,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions/search");
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/search");
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -225,7 +227,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -236,11 +238,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for searchSubscriptions
+     * Processes the response for searchSubscriptions.
      * @return An object of type SearchSubscriptionsResponse
      */
-    private SearchSubscriptionsResponse handleSearchSubscriptionsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private SearchSubscriptionsResponse handleSearchSubscriptionsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -252,7 +254,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         SearchSubscriptionsResponse result = ApiHelper.deserialize(responseBody,
                 SearchSubscriptionsResponse.class);
 
@@ -262,13 +264,15 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Retrieves a subscription.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to retrieve.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve.
      * @return    Returns the RetrieveSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveSubscriptionResponse retrieveSubscription(
             final String subscriptionId) throws ApiException, IOException {
         HttpRequest request = buildRetrieveSubscriptionRequest(subscriptionId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -278,19 +282,20 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Retrieves a subscription.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to retrieve.
-     * @return    Returns the RetrieveSubscriptionResponse response from the API call 
+     * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve.
+     * @return    Returns the RetrieveSubscriptionResponse response from the API call
      */
     public CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
             final String subscriptionId) {
         return makeHttpCallAsync(() -> buildRetrieveSubscriptionRequest(subscriptionId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleRetrieveSubscriptionResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleRetrieveSubscriptionResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveSubscription
+     * Builds the HttpRequest object for retrieveSubscription.
      */
     private HttpRequest buildRetrieveSubscriptionRequest(
             final String subscriptionId) {
@@ -298,14 +303,14 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions/{subscription_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id", subscriptionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -315,7 +320,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -326,11 +331,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for retrieveSubscription
+     * Processes the response for retrieveSubscription.
      * @return An object of type RetrieveSubscriptionResponse
      */
-    private RetrieveSubscriptionResponse handleRetrieveSubscriptionResponse(HttpContext context)
-            throws ApiException, IOException {
+    private RetrieveSubscriptionResponse handleRetrieveSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -342,7 +347,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         RetrieveSubscriptionResponse result = ApiHelper.deserialize(responseBody,
                 RetrieveSubscriptionResponse.class);
 
@@ -351,17 +356,19 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Updates a subscription. You can set, modify, and clear the 
-     * `subscription` field values.
-     * @param    subscriptionId    Required parameter: The ID for the subscription to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
+     * Updates a subscription. You can set, modify, and clear the `subscription` field values.
+     * @param  subscriptionId  Required parameter: The ID for the subscription to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the UpdateSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public UpdateSubscriptionResponse updateSubscription(
             final String subscriptionId,
             final UpdateSubscriptionRequest body) throws ApiException, IOException {
         HttpRequest request = buildUpdateSubscriptionRequest(subscriptionId, body);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -370,23 +377,24 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Updates a subscription. You can set, modify, and clear the 
-     * `subscription` field values.
-     * @param    subscriptionId    Required parameter: The ID for the subscription to update.
-     * @param    body    Required parameter: An object containing the fields to POST for the request.  See the corresponding object definition for field details.
-     * @return    Returns the UpdateSubscriptionResponse response from the API call 
+     * Updates a subscription. You can set, modify, and clear the `subscription` field values.
+     * @param  subscriptionId  Required parameter: The ID for the subscription to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateSubscriptionResponse response from the API call
      */
     public CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
             final String subscriptionId,
             final UpdateSubscriptionRequest body) {
         return makeHttpCallAsync(() -> buildUpdateSubscriptionRequest(subscriptionId, body),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleUpdateSubscriptionResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleUpdateSubscriptionResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for updateSubscription
+     * Builds the HttpRequest object for updateSubscription.
      */
     private HttpRequest buildUpdateSubscriptionRequest(
             final String subscriptionId,
@@ -395,14 +403,14 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions/{subscription_id}");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id", subscriptionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -414,7 +422,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //prepare and invoke the API call request to fetch the response
         String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryUrl, headers, bodyJson);
+        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -425,11 +433,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for updateSubscription
+     * Processes the response for updateSubscription.
      * @return An object of type UpdateSubscriptionResponse
      */
-    private UpdateSubscriptionResponse handleUpdateSubscriptionResponse(HttpContext context)
-            throws ApiException, IOException {
+    private UpdateSubscriptionResponse handleUpdateSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -441,7 +449,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         UpdateSubscriptionResponse result = ApiHelper.deserialize(responseBody,
                 UpdateSubscriptionResponse.class);
 
@@ -450,15 +458,17 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Sets the `canceled_date` field to the end of the active billing period.
-     * After this date, the status changes from ACTIVE to CANCELED.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to cancel.
+     * Sets the `canceled_date` field to the end of the active billing period. After this date, the
+     * status changes from ACTIVE to CANCELED.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to cancel.
      * @return    Returns the CancelSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CancelSubscriptionResponse cancelSubscription(
             final String subscriptionId) throws ApiException, IOException {
         HttpRequest request = buildCancelSubscriptionRequest(subscriptionId);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -467,21 +477,22 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Sets the `canceled_date` field to the end of the active billing period.
-     * After this date, the status changes from ACTIVE to CANCELED.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to cancel.
-     * @return    Returns the CancelSubscriptionResponse response from the API call 
+     * Sets the `canceled_date` field to the end of the active billing period. After this date, the
+     * status changes from ACTIVE to CANCELED.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to cancel.
+     * @return    Returns the CancelSubscriptionResponse response from the API call
      */
     public CompletableFuture<CancelSubscriptionResponse> cancelSubscriptionAsync(
             final String subscriptionId) {
         return makeHttpCallAsync(() -> buildCancelSubscriptionRequest(subscriptionId),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleCancelSubscriptionResponse(context));
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleCancelSubscriptionResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for cancelSubscription
+     * Builds the HttpRequest object for cancelSubscription.
      */
     private HttpRequest buildCancelSubscriptionRequest(
             final String subscriptionId) {
@@ -489,14 +500,14 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions/{subscription_id}/cancel");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/cancel");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id", subscriptionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -506,7 +517,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -517,11 +528,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for cancelSubscription
+     * Processes the response for cancelSubscription.
      * @return An object of type CancelSubscriptionResponse
      */
-    private CancelSubscriptionResponse handleCancelSubscriptionResponse(HttpContext context)
-            throws ApiException, IOException {
+    private CancelSubscriptionResponse handleCancelSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -533,7 +544,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         CancelSubscriptionResponse result = ApiHelper.deserialize(responseBody,
                 CancelSubscriptionResponse.class);
 
@@ -542,19 +553,27 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Lists all events for a specific subscription.
-     * In the current implementation, only `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are returned.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to retrieve the events for.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
-     * @param    limit    Optional parameter: The upper limit on the number of subscription events to return  in the response.   Default: `200`
+     * Lists all events for a specific subscription. In the current implementation, only
+     * `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are
+     * returned.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
+     *         for.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The upper limit on the number of subscription events to
+     *         return in the response. Default: `200`
      * @return    Returns the ListSubscriptionEventsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListSubscriptionEventsResponse listSubscriptionEvents(
             final String subscriptionId,
             final String cursor,
             final Integer limit) throws ApiException, IOException {
         HttpRequest request = buildListSubscriptionEventsRequest(subscriptionId, cursor, limit);
-        authManagers.get("default").apply(request);
+        authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
         HttpContext context = new HttpContext(request, response);
@@ -563,25 +582,33 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Lists all events for a specific subscription.
-     * In the current implementation, only `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are returned.
-     * @param    subscriptionId    Required parameter: The ID of the subscription to retrieve the events for.
-     * @param    cursor    Optional parameter: A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.  For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
-     * @param    limit    Optional parameter: The upper limit on the number of subscription events to return  in the response.   Default: `200`
-     * @return    Returns the ListSubscriptionEventsResponse response from the API call 
+     * Lists all events for a specific subscription. In the current implementation, only
+     * `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are
+     * returned.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
+     *         for.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this to retrieve the next set of results for the original query.
+     *         For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The upper limit on the number of subscription events to
+     *         return in the response. Default: `200`
+     * @return    Returns the ListSubscriptionEventsResponse response from the API call
      */
     public CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
             final String subscriptionId,
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListSubscriptionEventsRequest(subscriptionId, cursor, limit),
-                req -> authManagers.get("default").applyAsync(req)
-                    .thenCompose(request -> getClientInstance().executeAsStringAsync(request)),
-                context -> handleListSubscriptionEventsResponse(context));
+        return makeHttpCallAsync(() -> buildListSubscriptionEventsRequest(subscriptionId, cursor,
+                limit),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleListSubscriptionEventsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listSubscriptionEvents
+     * Builds the HttpRequest object for listSubscriptionEvents.
      */
     private HttpRequest buildListSubscriptionEventsRequest(
             final String subscriptionId,
@@ -591,20 +618,19 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String baseUri = config.getBaseUri();
 
         //prepare query string for API call
-        StringBuilder queryBuilder = new StringBuilder(baseUri + "/v2/subscriptions/{subscription_id}/events");
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/events");
 
         //process template parameters
-        Map<String, Object> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id", subscriptionId);
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters, true);
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
-        //process query parameters
+        //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
         queryParameters.put("limit", limit);
-        ApiHelper.appendUrlWithQueryParameters(queryBuilder, queryParameters);
-        //validate and preprocess url
-        String queryUrl = ApiHelper.cleanUrl(queryBuilder);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -614,7 +640,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryUrl, headers, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -625,11 +652,11 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Processes the response for listSubscriptionEvents
+     * Processes the response for listSubscriptionEvents.
      * @return An object of type ListSubscriptionEventsResponse
      */
-    private ListSubscriptionEventsResponse handleListSubscriptionEventsResponse(HttpContext context)
-            throws ApiException, IOException {
+    private ListSubscriptionEventsResponse handleListSubscriptionEventsResponse(
+            HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
         //invoke the callback after response if its not null
@@ -641,7 +668,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         validateResponse(response, context);
 
         //extract result from the http response
-        String responseBody = ((HttpStringResponse)response).getBody();
+        String responseBody = ((HttpStringResponse) response).getBody();
         ListSubscriptionEventsResponse result = ApiHelper.deserialize(responseBody,
                 ListSubscriptionEventsResponse.class);
 

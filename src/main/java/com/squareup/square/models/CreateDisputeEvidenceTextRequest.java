@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateDisputeEvidenceTextRequest type.
  */
 public class CreateDisputeEvidenceTextRequest {
+    private final String idempotencyKey;
+    private final String evidenceType;
+    private final String evidenceText;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey
-     * @param evidenceText
-     * @param evidenceType
+     * @param idempotencyKey String value for idempotencyKey.
+     * @param evidenceText String value for evidenceText.
+     * @param evidenceType String value for evidenceType.
      */
     @JsonCreator
     public CreateDisputeEvidenceTextRequest(
@@ -27,13 +31,11 @@ public class CreateDisputeEvidenceTextRequest {
         this.evidenceText = evidenceText;
     }
 
-    private final String idempotencyKey;
-    private final String evidenceType;
-    private final String evidenceText;
     /**
      * Getter for IdempotencyKey.
-     * Unique ID. For more information,
-     * see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * Unique ID. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -43,6 +45,7 @@ public class CreateDisputeEvidenceTextRequest {
     /**
      * Getter for EvidenceType.
      * Type of the dispute evidence.
+     * @return Returns the String
      */
     @JsonGetter("evidence_type")
     public String getEvidenceType() {
@@ -52,6 +55,7 @@ public class CreateDisputeEvidenceTextRequest {
     /**
      * Getter for EvidenceText.
      * The evidence string.
+     * @return Returns the String
      */
     @JsonGetter("evidence_text")
     public String getEvidenceText() {
@@ -66,16 +70,16 @@ public class CreateDisputeEvidenceTextRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateDisputeEvidenceTextRequest)) {
+        if (!(obj instanceof CreateDisputeEvidenceTextRequest)) {
             return false;
         }
-        CreateDisputeEvidenceTextRequest createDisputeEvidenceTextRequest = (CreateDisputeEvidenceTextRequest) obj;
-        return Objects.equals(idempotencyKey, createDisputeEvidenceTextRequest.idempotencyKey) &&
-            Objects.equals(evidenceType, createDisputeEvidenceTextRequest.evidenceType) &&
-            Objects.equals(evidenceText, createDisputeEvidenceTextRequest.evidenceText);
+        CreateDisputeEvidenceTextRequest other = (CreateDisputeEvidenceTextRequest) obj;
+        return Objects.equals(idempotencyKey, other.idempotencyKey)
+            && Objects.equals(evidenceType, other.evidenceType)
+            && Objects.equals(evidenceText, other.evidenceText);
     }
 
     /**
@@ -87,11 +91,11 @@ public class CreateDisputeEvidenceTextRequest {
         Builder builder = new Builder(idempotencyKey,
             evidenceText)
             .evidenceType(getEvidenceType());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateDisputeEvidenceTextRequest}
+     * Class to build instances of {@link CreateDisputeEvidenceTextRequest}.
      */
     public static class Builder {
         private String idempotencyKey;
@@ -99,7 +103,9 @@ public class CreateDisputeEvidenceTextRequest {
         private String evidenceType;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param idempotencyKey String value for idempotencyKey.
+         * @param evidenceText String value for evidenceText.
          */
         public Builder(String idempotencyKey,
                 String evidenceText) {
@@ -108,26 +114,28 @@ public class CreateDisputeEvidenceTextRequest {
         }
 
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
             return this;
         }
+
         /**
-         * Setter for evidenceText
-         * @param evidenceText
+         * Setter for evidenceText.
+         * @param evidenceText String value for evidenceText.
          * @return Builder
          */
         public Builder evidenceText(String evidenceText) {
             this.evidenceText = evidenceText;
             return this;
         }
+
         /**
-         * Setter for evidenceType
-         * @param evidenceType
+         * Setter for evidenceType.
+         * @param evidenceType String value for evidenceType.
          * @return Builder
          */
         public Builder evidenceType(String evidenceType) {

@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CancelInvoiceRequest type.
  */
 public class CancelInvoiceRequest {
+    private final int version;
 
     /**
      * Initialization constructor.
-     * @param version
+     * @param version int value for version.
      */
     @JsonCreator
     public CancelInvoiceRequest(
@@ -21,12 +23,12 @@ public class CancelInvoiceRequest {
         this.version = version;
     }
 
-    private final int version;
     /**
      * Getter for Version.
-     * The version of the [invoice](#type-invoice) to cancel.
-     * If you do not know the version, you can call 
-     * [GetInvoice](#endpoint-Invoices-GetInvoice) or [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * The version of the [invoice](#type-invoice) to cancel. If you do not know the version, you
+     * can call [GetInvoice](#endpoint-Invoices-GetInvoice) or
+     * [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @return Returns the int
      */
     @JsonGetter("version")
     public int getVersion() {
@@ -41,14 +43,14 @@ public class CancelInvoiceRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CancelInvoiceRequest)) {
+        if (!(obj instanceof CancelInvoiceRequest)) {
             return false;
         }
-        CancelInvoiceRequest cancelInvoiceRequest = (CancelInvoiceRequest) obj;
-        return Objects.equals(version, cancelInvoiceRequest.version);
+        CancelInvoiceRequest other = (CancelInvoiceRequest) obj;
+        return Objects.equals(version, other.version);
     }
 
     /**
@@ -58,25 +60,26 @@ public class CancelInvoiceRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(version);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CancelInvoiceRequest}
+     * Class to build instances of {@link CancelInvoiceRequest}.
      */
     public static class Builder {
         private int version;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param version int value for version.
          */
         public Builder(int version) {
             this.version = version;
         }
 
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version int value for version.
          * @return Builder
          */
         public Builder version(int version) {

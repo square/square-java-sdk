@@ -57,16 +57,20 @@ public class BaseApiTest {
      protected static SquareClient createConfigurationFromEnvironment() {
         SquareClient.Builder builder = new SquareClient.Builder();
         String environment = System.getenv("SQUARE_ENVIRONMENT");
-        String accessToken = System.getenv("SQUARE_ACCESS_TOKEN");
+        String squareVersion = System.getenv("SQUARE_SQUARE_VERSION");
         String timeout = System.getenv("SQUARE_TIMEOUT");
+        String accessToken = System.getenv("SQUARE_ACCESS_TOKEN");
 
-        if (environment != null){
-            builder.environment(Environment.fromString(environment));
-        }
         if (accessToken != null){
             builder.accessToken(accessToken);
         }
-        if (timeout != null){
+        if (environment != null) {
+            builder.environment(Environment.fromString(environment));
+        }
+        if (squareVersion != null) {
+            builder.squareVersion(squareVersion);
+        }
+        if (timeout != null) {
             builder.timeout(Long.parseLong(timeout));
         }
         return builder.build();

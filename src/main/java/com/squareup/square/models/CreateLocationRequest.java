@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateLocationRequest type.
  */
 public class CreateLocationRequest {
+    private final Location location;
 
     /**
      * Initialization constructor.
-     * @param location
+     * @param location Location value for location.
      */
     @JsonCreator
     public CreateLocationRequest(
@@ -21,9 +23,9 @@ public class CreateLocationRequest {
         this.location = location;
     }
 
-    private final Location location;
     /**
      * Getter for Location.
+     * @return Returns the Location
      */
     @JsonGetter("location")
     public Location getLocation() {
@@ -38,14 +40,14 @@ public class CreateLocationRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateLocationRequest)) {
+        if (!(obj instanceof CreateLocationRequest)) {
             return false;
         }
-        CreateLocationRequest createLocationRequest = (CreateLocationRequest) obj;
-        return Objects.equals(location, createLocationRequest.location);
+        CreateLocationRequest other = (CreateLocationRequest) obj;
+        return Objects.equals(location, other.location);
     }
 
     /**
@@ -56,25 +58,20 @@ public class CreateLocationRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .location(getLocation());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateLocationRequest}
+     * Class to build instances of {@link CreateLocationRequest}.
      */
     public static class Builder {
         private Location location;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for location
-         * @param location
+         * Setter for location.
+         * @param location Location value for location.
          * @return Builder
          */
         public Builder location(Location location) {

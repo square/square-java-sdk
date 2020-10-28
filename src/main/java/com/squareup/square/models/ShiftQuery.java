@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for ShiftQuery type.
  */
 public class ShiftQuery {
+    private final ShiftFilter filter;
+    private final ShiftSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter
-     * @param sort
+     * @param filter ShiftFilter value for filter.
+     * @param sort ShiftSort value for sort.
      */
     @JsonCreator
     public ShiftQuery(
@@ -24,12 +27,11 @@ public class ShiftQuery {
         this.sort = sort;
     }
 
-    private final ShiftFilter filter;
-    private final ShiftSort sort;
     /**
      * Getter for Filter.
-     * Defines a filter used in a search for `Shift` records. `AND` logic is
-     * used by Square's servers to apply each filter property specified.
+     * Defines a filter used in a search for `Shift` records. `AND` logic is used by Square's
+     * servers to apply each filter property specified.
+     * @return Returns the ShiftFilter
      */
     @JsonGetter("filter")
     public ShiftFilter getFilter() {
@@ -39,6 +41,7 @@ public class ShiftQuery {
     /**
      * Getter for Sort.
      * Sets the sort order of search results.
+     * @return Returns the ShiftSort
      */
     @JsonGetter("sort")
     public ShiftSort getSort() {
@@ -53,15 +56,15 @@ public class ShiftQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof ShiftQuery)) {
+        if (!(obj instanceof ShiftQuery)) {
             return false;
         }
-        ShiftQuery shiftQuery = (ShiftQuery) obj;
-        return Objects.equals(filter, shiftQuery.filter) &&
-            Objects.equals(sort, shiftQuery.sort);
+        ShiftQuery other = (ShiftQuery) obj;
+        return Objects.equals(filter, other.filter)
+            && Objects.equals(sort, other.sort);
     }
 
     /**
@@ -73,35 +76,31 @@ public class ShiftQuery {
         Builder builder = new Builder()
             .filter(getFilter())
             .sort(getSort());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link ShiftQuery}
+     * Class to build instances of {@link ShiftQuery}.
      */
     public static class Builder {
         private ShiftFilter filter;
         private ShiftSort sort;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for filter
-         * @param filter
+         * Setter for filter.
+         * @param filter ShiftFilter value for filter.
          * @return Builder
          */
         public Builder filter(ShiftFilter filter) {
             this.filter = filter;
             return this;
         }
+
         /**
-         * Setter for sort
-         * @param sort
+         * Setter for sort.
+         * @param sort ShiftSort value for sort.
          * @return Builder
          */
         public Builder sort(ShiftSort sort) {

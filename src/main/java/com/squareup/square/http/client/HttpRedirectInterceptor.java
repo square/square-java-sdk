@@ -1,8 +1,8 @@
+
 package com.squareup.square.http.client;
 
 import java.io.IOException;
 import java.net.ProtocolException;
-
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -16,14 +16,15 @@ public class HttpRedirectInterceptor implements Interceptor {
     private boolean followSslRedirects;
 
     /**
-     * Initialization constructor
-     * @param followSslRedirects
+     * Initialization constructor.
+     * @param followSslRedirects boolean true if following ssl redirects
      */
     public HttpRedirectInterceptor(boolean followSslRedirects) {
         this.followSslRedirects = followSslRedirects;
     }
 
     /**
+     * Intercepts and complete 307 and 308 redirects as described in RFC.
      * @see okhttp3.Interceptor#intercept(okhttp3.Interceptor.Chain)
      */
     @Override
@@ -64,6 +65,7 @@ public class HttpRedirectInterceptor implements Interceptor {
                 } catch (RuntimeException rethrown) {
                     throw rethrown;
                 } catch (Exception ignored) {
+                    // Ignoring if its not runtime exception
                 }
             }
 

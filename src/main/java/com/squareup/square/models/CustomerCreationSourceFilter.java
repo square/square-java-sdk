@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for CustomerCreationSourceFilter type.
  */
 public class CustomerCreationSourceFilter {
+    private final List<String> values;
+    private final String rule;
 
     /**
      * Initialization constructor.
-     * @param values
-     * @param rule
+     * @param values List of String value for values.
+     * @param rule String value for rule.
      */
     @JsonCreator
     public CustomerCreationSourceFilter(
@@ -25,12 +28,11 @@ public class CustomerCreationSourceFilter {
         this.rule = rule;
     }
 
-    private final List<String> values;
-    private final String rule;
     /**
      * Getter for Values.
-     * The list of creation sources used as filtering criteria.
-     * See [CustomerCreationSource](#type-customercreationsource) for possible values
+     * The list of creation sources used as filtering criteria. See
+     * [CustomerCreationSource](#type-customercreationsource) for possible values
+     * @return Returns the List of String
      */
     @JsonGetter("values")
     public List<String> getValues() {
@@ -39,8 +41,9 @@ public class CustomerCreationSourceFilter {
 
     /**
      * Getter for Rule.
-     * Indicates whether customers should be included in, or excluded from,
-     * the result set when they match the filtering criteria.
+     * Indicates whether customers should be included in, or excluded from, the result set when they
+     * match the filtering criteria.
+     * @return Returns the String
      */
     @JsonGetter("rule")
     public String getRule() {
@@ -55,15 +58,15 @@ public class CustomerCreationSourceFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CustomerCreationSourceFilter)) {
+        if (!(obj instanceof CustomerCreationSourceFilter)) {
             return false;
         }
-        CustomerCreationSourceFilter customerCreationSourceFilter = (CustomerCreationSourceFilter) obj;
-        return Objects.equals(values, customerCreationSourceFilter.values) &&
-            Objects.equals(rule, customerCreationSourceFilter.rule);
+        CustomerCreationSourceFilter other = (CustomerCreationSourceFilter) obj;
+        return Objects.equals(values, other.values)
+            && Objects.equals(rule, other.rule);
     }
 
     /**
@@ -75,35 +78,31 @@ public class CustomerCreationSourceFilter {
         Builder builder = new Builder()
             .values(getValues())
             .rule(getRule());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CustomerCreationSourceFilter}
+     * Class to build instances of {@link CustomerCreationSourceFilter}.
      */
     public static class Builder {
         private List<String> values;
         private String rule;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for values
-         * @param values
+         * Setter for values.
+         * @param values List of String value for values.
          * @return Builder
          */
         public Builder values(List<String> values) {
             this.values = values;
             return this;
         }
+
         /**
-         * Setter for rule
-         * @param rule
+         * Setter for rule.
+         * @param rule String value for rule.
          * @return Builder
          */
         public Builder rule(String rule) {

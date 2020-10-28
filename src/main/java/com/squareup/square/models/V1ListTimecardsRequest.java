@@ -1,29 +1,41 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ListTimecardsRequest type.
  */
 public class V1ListTimecardsRequest {
+    private final String order;
+    private final String employeeId;
+    private final String beginClockinTime;
+    private final String endClockinTime;
+    private final String beginClockoutTime;
+    private final String endClockoutTime;
+    private final String beginUpdatedAt;
+    private final String endUpdatedAt;
+    private final Boolean deleted;
+    private final Integer limit;
+    private final String batchToken;
 
     /**
      * Initialization constructor.
-     * @param order
-     * @param employeeId
-     * @param beginClockinTime
-     * @param endClockinTime
-     * @param beginClockoutTime
-     * @param endClockoutTime
-     * @param beginUpdatedAt
-     * @param endUpdatedAt
-     * @param deleted
-     * @param limit
-     * @param batchToken
+     * @param order String value for order.
+     * @param employeeId String value for employeeId.
+     * @param beginClockinTime String value for beginClockinTime.
+     * @param endClockinTime String value for endClockinTime.
+     * @param beginClockoutTime String value for beginClockoutTime.
+     * @param endClockoutTime String value for endClockoutTime.
+     * @param beginUpdatedAt String value for beginUpdatedAt.
+     * @param endUpdatedAt String value for endUpdatedAt.
+     * @param deleted Boolean value for deleted.
+     * @param limit Integer value for limit.
+     * @param batchToken String value for batchToken.
      */
     @JsonCreator
     public V1ListTimecardsRequest(
@@ -51,20 +63,10 @@ public class V1ListTimecardsRequest {
         this.batchToken = batchToken;
     }
 
-    private final String order;
-    private final String employeeId;
-    private final String beginClockinTime;
-    private final String endClockinTime;
-    private final String beginClockoutTime;
-    private final String endClockoutTime;
-    private final String beginUpdatedAt;
-    private final String endUpdatedAt;
-    private final Boolean deleted;
-    private final Integer limit;
-    private final String batchToken;
     /**
      * Getter for Order.
      * The order (e.g., chronological or alphabetical) in which results from a request are returned.
+     * @return Returns the String
      */
     @JsonGetter("order")
     public String getOrder() {
@@ -74,6 +76,7 @@ public class V1ListTimecardsRequest {
     /**
      * Getter for EmployeeId.
      * If provided, the endpoint returns only timecards for the employee with the specified ID.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -82,7 +85,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for BeginClockinTime.
-     * If filtering results by their clockin_time field, the beginning of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their clockin_time field, the beginning of the requested reporting
+     * period, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("begin_clockin_time")
     public String getBeginClockinTime() {
@@ -91,7 +96,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for EndClockinTime.
-     * If filtering results by their clockin_time field, the end of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their clockin_time field, the end of the requested reporting period,
+     * in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("end_clockin_time")
     public String getEndClockinTime() {
@@ -100,7 +107,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for BeginClockoutTime.
-     * If filtering results by their clockout_time field, the beginning of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their clockout_time field, the beginning of the requested reporting
+     * period, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("begin_clockout_time")
     public String getBeginClockoutTime() {
@@ -109,7 +118,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for EndClockoutTime.
-     * If filtering results by their clockout_time field, the end of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their clockout_time field, the end of the requested reporting period,
+     * in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("end_clockout_time")
     public String getEndClockoutTime() {
@@ -118,7 +129,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for BeginUpdatedAt.
-     * If filtering results by their updated_at field, the beginning of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their updated_at field, the beginning of the requested reporting
+     * period, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("begin_updated_at")
     public String getBeginUpdatedAt() {
@@ -127,7 +140,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for EndUpdatedAt.
-     * If filtering results by their updated_at field, the end of the requested reporting period, in ISO 8601 format.
+     * If filtering results by their updated_at field, the end of the requested reporting period, in
+     * ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("end_updated_at")
     public String getEndUpdatedAt() {
@@ -136,7 +151,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for Deleted.
-     * If true, only deleted timecards are returned. If false, only valid timecards are returned.If you don't provide this parameter, both valid and deleted timecards are returned.
+     * If true, only deleted timecards are returned. If false, only valid timecards are returned.If
+     * you don't provide this parameter, both valid and deleted timecards are returned.
+     * @return Returns the Boolean
      */
     @JsonGetter("deleted")
     public Boolean getDeleted() {
@@ -145,7 +162,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for Limit.
-     * The maximum integer number of employee entities to return in a single response. Default 100, maximum 200.
+     * The maximum integer number of employee entities to return in a single response. Default 100,
+     * maximum 200.
+     * @return Returns the Integer
      */
     @JsonGetter("limit")
     public Integer getLimit() {
@@ -154,8 +173,9 @@ public class V1ListTimecardsRequest {
 
     /**
      * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the String
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
@@ -166,29 +186,29 @@ public class V1ListTimecardsRequest {
     @Override
     public int hashCode() {
         return Objects.hash(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime,
-            endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
+                endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted, limit, batchToken);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListTimecardsRequest)) {
+        if (!(obj instanceof V1ListTimecardsRequest)) {
             return false;
         }
-        V1ListTimecardsRequest v1ListTimecardsRequest = (V1ListTimecardsRequest) obj;
-        return Objects.equals(order, v1ListTimecardsRequest.order) &&
-            Objects.equals(employeeId, v1ListTimecardsRequest.employeeId) &&
-            Objects.equals(beginClockinTime, v1ListTimecardsRequest.beginClockinTime) &&
-            Objects.equals(endClockinTime, v1ListTimecardsRequest.endClockinTime) &&
-            Objects.equals(beginClockoutTime, v1ListTimecardsRequest.beginClockoutTime) &&
-            Objects.equals(endClockoutTime, v1ListTimecardsRequest.endClockoutTime) &&
-            Objects.equals(beginUpdatedAt, v1ListTimecardsRequest.beginUpdatedAt) &&
-            Objects.equals(endUpdatedAt, v1ListTimecardsRequest.endUpdatedAt) &&
-            Objects.equals(deleted, v1ListTimecardsRequest.deleted) &&
-            Objects.equals(limit, v1ListTimecardsRequest.limit) &&
-            Objects.equals(batchToken, v1ListTimecardsRequest.batchToken);
+        V1ListTimecardsRequest other = (V1ListTimecardsRequest) obj;
+        return Objects.equals(order, other.order)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(beginClockinTime, other.beginClockinTime)
+            && Objects.equals(endClockinTime, other.endClockinTime)
+            && Objects.equals(beginClockoutTime, other.beginClockoutTime)
+            && Objects.equals(endClockoutTime, other.endClockoutTime)
+            && Objects.equals(beginUpdatedAt, other.beginUpdatedAt)
+            && Objects.equals(endUpdatedAt, other.endUpdatedAt)
+            && Objects.equals(deleted, other.deleted)
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(batchToken, other.batchToken);
     }
 
     /**
@@ -209,11 +229,11 @@ public class V1ListTimecardsRequest {
             .deleted(getDeleted())
             .limit(getLimit())
             .batchToken(getBatchToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListTimecardsRequest}
+     * Class to build instances of {@link V1ListTimecardsRequest}.
      */
     public static class Builder {
         private String order;
@@ -228,106 +248,111 @@ public class V1ListTimecardsRequest {
         private Integer limit;
         private String batchToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for order
-         * @param order
+         * Setter for order.
+         * @param order String value for order.
          * @return Builder
          */
         public Builder order(String order) {
             this.order = order;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for beginClockinTime
-         * @param beginClockinTime
+         * Setter for beginClockinTime.
+         * @param beginClockinTime String value for beginClockinTime.
          * @return Builder
          */
         public Builder beginClockinTime(String beginClockinTime) {
             this.beginClockinTime = beginClockinTime;
             return this;
         }
+
         /**
-         * Setter for endClockinTime
-         * @param endClockinTime
+         * Setter for endClockinTime.
+         * @param endClockinTime String value for endClockinTime.
          * @return Builder
          */
         public Builder endClockinTime(String endClockinTime) {
             this.endClockinTime = endClockinTime;
             return this;
         }
+
         /**
-         * Setter for beginClockoutTime
-         * @param beginClockoutTime
+         * Setter for beginClockoutTime.
+         * @param beginClockoutTime String value for beginClockoutTime.
          * @return Builder
          */
         public Builder beginClockoutTime(String beginClockoutTime) {
             this.beginClockoutTime = beginClockoutTime;
             return this;
         }
+
         /**
-         * Setter for endClockoutTime
-         * @param endClockoutTime
+         * Setter for endClockoutTime.
+         * @param endClockoutTime String value for endClockoutTime.
          * @return Builder
          */
         public Builder endClockoutTime(String endClockoutTime) {
             this.endClockoutTime = endClockoutTime;
             return this;
         }
+
         /**
-         * Setter for beginUpdatedAt
-         * @param beginUpdatedAt
+         * Setter for beginUpdatedAt.
+         * @param beginUpdatedAt String value for beginUpdatedAt.
          * @return Builder
          */
         public Builder beginUpdatedAt(String beginUpdatedAt) {
             this.beginUpdatedAt = beginUpdatedAt;
             return this;
         }
+
         /**
-         * Setter for endUpdatedAt
-         * @param endUpdatedAt
+         * Setter for endUpdatedAt.
+         * @param endUpdatedAt String value for endUpdatedAt.
          * @return Builder
          */
         public Builder endUpdatedAt(String endUpdatedAt) {
             this.endUpdatedAt = endUpdatedAt;
             return this;
         }
+
         /**
-         * Setter for deleted
-         * @param deleted
+         * Setter for deleted.
+         * @param deleted Boolean value for deleted.
          * @return Builder
          */
         public Builder deleted(Boolean deleted) {
             this.deleted = deleted;
             return this;
         }
+
         /**
-         * Setter for limit
-         * @param limit
+         * Setter for limit.
+         * @param limit Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
             this.limit = limit;
             return this;
         }
+
         /**
-         * Setter for batchToken
-         * @param batchToken
+         * Setter for batchToken.
+         * @param batchToken String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {

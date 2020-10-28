@@ -1,12 +1,13 @@
-## V1 Adjust Inventory Request
+
+# V1 Adjust Inventory Request
 
 V1AdjustInventoryRequest
 
-### Structure
+## Structure
 
 `V1AdjustInventoryRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
@@ -14,7 +15,7 @@ V1AdjustInventoryRequest
 | `AdjustmentType` | [`String`](/doc/models/v1-adjust-inventory-request-adjustment-type.md) | Optional | - | String getAdjustmentType() |
 | `Memo` | `String` | Optional | A note about the inventory adjustment. | String getMemo() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

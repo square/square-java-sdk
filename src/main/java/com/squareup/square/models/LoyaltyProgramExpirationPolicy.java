@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyProgramExpirationPolicy type.
  */
 public class LoyaltyProgramExpirationPolicy {
+    private final String expirationDuration;
 
     /**
      * Initialization constructor.
-     * @param expirationDuration
+     * @param expirationDuration String value for expirationDuration.
      */
     @JsonCreator
     public LoyaltyProgramExpirationPolicy(
@@ -21,10 +23,10 @@ public class LoyaltyProgramExpirationPolicy {
         this.expirationDuration = expirationDuration;
     }
 
-    private final String expirationDuration;
     /**
      * Getter for ExpirationDuration.
      * The duration of time before points expire, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("expiration_duration")
     public String getExpirationDuration() {
@@ -39,14 +41,14 @@ public class LoyaltyProgramExpirationPolicy {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyProgramExpirationPolicy)) {
+        if (!(obj instanceof LoyaltyProgramExpirationPolicy)) {
             return false;
         }
-        LoyaltyProgramExpirationPolicy loyaltyProgramExpirationPolicy = (LoyaltyProgramExpirationPolicy) obj;
-        return Objects.equals(expirationDuration, loyaltyProgramExpirationPolicy.expirationDuration);
+        LoyaltyProgramExpirationPolicy other = (LoyaltyProgramExpirationPolicy) obj;
+        return Objects.equals(expirationDuration, other.expirationDuration);
     }
 
     /**
@@ -56,25 +58,26 @@ public class LoyaltyProgramExpirationPolicy {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(expirationDuration);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyProgramExpirationPolicy}
+     * Class to build instances of {@link LoyaltyProgramExpirationPolicy}.
      */
     public static class Builder {
         private String expirationDuration;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param expirationDuration String value for expirationDuration.
          */
         public Builder(String expirationDuration) {
             this.expirationDuration = expirationDuration;
         }
 
         /**
-         * Setter for expirationDuration
-         * @param expirationDuration
+         * Setter for expirationDuration.
+         * @param expirationDuration String value for expirationDuration.
          * @return Builder
          */
         public Builder expirationDuration(String expirationDuration) {

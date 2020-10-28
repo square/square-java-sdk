@@ -1,21 +1,24 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BatchRetrieveOrdersRequest type.
  */
 public class BatchRetrieveOrdersRequest {
+    private final String locationId;
+    private final List<String> orderIds;
 
     /**
      * Initialization constructor.
-     * @param orderIds
-     * @param locationId
+     * @param orderIds List of String value for orderIds.
+     * @param locationId String value for locationId.
      */
     @JsonCreator
     public BatchRetrieveOrdersRequest(
@@ -25,12 +28,11 @@ public class BatchRetrieveOrdersRequest {
         this.orderIds = orderIds;
     }
 
-    private final String locationId;
-    private final List<String> orderIds;
     /**
      * Getter for LocationId.
-     * The ID of the location for these orders. This field is optional: omit it to retrieve
-     * orders within the scope of the current authorization's merchant ID.
+     * The ID of the location for these orders. This field is optional: omit it to retrieve orders
+     * within the scope of the current authorization's merchant ID.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -40,6 +42,7 @@ public class BatchRetrieveOrdersRequest {
     /**
      * Getter for OrderIds.
      * The IDs of the orders to retrieve. A maximum of 100 orders can be retrieved per request.
+     * @return Returns the List of String
      */
     @JsonGetter("order_ids")
     public List<String> getOrderIds() {
@@ -54,15 +57,15 @@ public class BatchRetrieveOrdersRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchRetrieveOrdersRequest)) {
+        if (!(obj instanceof BatchRetrieveOrdersRequest)) {
             return false;
         }
-        BatchRetrieveOrdersRequest batchRetrieveOrdersRequest = (BatchRetrieveOrdersRequest) obj;
-        return Objects.equals(locationId, batchRetrieveOrdersRequest.locationId) &&
-            Objects.equals(orderIds, batchRetrieveOrdersRequest.orderIds);
+        BatchRetrieveOrdersRequest other = (BatchRetrieveOrdersRequest) obj;
+        return Objects.equals(locationId, other.locationId)
+            && Objects.equals(orderIds, other.orderIds);
     }
 
     /**
@@ -73,35 +76,37 @@ public class BatchRetrieveOrdersRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(orderIds)
             .locationId(getLocationId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchRetrieveOrdersRequest}
+     * Class to build instances of {@link BatchRetrieveOrdersRequest}.
      */
     public static class Builder {
         private List<String> orderIds;
         private String locationId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param orderIds List of String value for orderIds.
          */
         public Builder(List<String> orderIds) {
             this.orderIds = orderIds;
         }
 
         /**
-         * Setter for orderIds
-         * @param orderIds
+         * Setter for orderIds.
+         * @param orderIds List of String value for orderIds.
          * @return Builder
          */
         public Builder orderIds(List<String> orderIds) {
             this.orderIds = orderIds;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

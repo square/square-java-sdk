@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -57,13 +58,13 @@ public class TestHelper {
     }
 
     /**
-     * Recursively check whether the leftTree is a proper subset of the right tree
+     * Recursively check whether the left tree is a proper subset of the right tree
      * @param leftTree Left tree
      * @param rightTree Right tree
      * @param checkValues Check primitive values for equality?
      * @param allowExtra Are extra elements allowed in right array?
      * @param isOrdered Should elements in right be compared in order to left?
-     * @return
+     * @return <tt>true</tt> if left left tree is a proper subset of right tree
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static boolean isProperSubsetOf(Map<String, Object> leftTree, Map<String, Object> rightTree, 
@@ -130,7 +131,7 @@ public class TestHelper {
      * @param leftObject Left JSON object as string
      * @param rightObject Right JSON object as string
      * @param checkValues Check primitive values for equality? 
-     * @return
+     * @return <tt>true</tt> if left left JSON object is a proper subset of right JSON object
      */
     public static boolean isJsonObjectProperSubsetOf(String leftObject, String rightObject, 
             boolean checkValues, boolean allowExtra, boolean isOrdered) throws IOException
@@ -213,7 +214,7 @@ public class TestHelper {
      * @param rightList List to check
      * @param allowExtra Are extras allowed in the list to check?
      * @param isOrdered Should checking be in order?
-     * @return
+     * @return <tt>true</tt> if list is a subset of another list
      */
     public static boolean isListProperSubsetOf(List<Object> leftList, List<Object> rightList, 
             boolean allowExtra, boolean isOrdered) 
@@ -235,7 +236,7 @@ public class TestHelper {
      * @param leftTree Left headers map
      * @param rightTree Right headers map
      * @param checkValues Check header values for equality? 
-     * @return
+     * @return <tt>true</tt> if left headers map is a proper subset of right headers map
      */
     public static boolean areHeadersProperSubsetOf(Map<String, String> leftTree, 
             Map<String, String> rightTree, boolean checkValues)
@@ -359,5 +360,47 @@ public class TestHelper {
             result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
         }
         return result;
+    }
+
+    /**
+     * Checks actual list against expected list to have same order and count 
+     * and all corresponding values must be equal
+     * @param actual List of BigDecimal
+     * @param expected List of BigDecimal
+     * @return true if both lists are exactly same
+     */
+    public static boolean equalsBigDecimalList(List<BigDecimal> actual, List<BigDecimal> expected) {
+        if(actual.size() != expected.size())
+            return false;
+
+        for (int i = 0; i < actual.size(); i++) {
+            if(actual.get(i).compareTo(expected.get(i)) != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks actual list against expected list, without considering order of elements
+     * and actual list must have all the expected elements
+     * @param actual List of BigDecimal
+     * @param expected List of BigDecimal
+     * @return true if actual list is a super set of expected list
+     */
+    public static boolean containsBigDecimalList(List<BigDecimal> actual, List<BigDecimal> expected) {
+        for (BigDecimal expectedValue : expected) {
+            boolean found = false;
+            for (BigDecimal actualValue : actual) {
+                if(actualValue.compareTo(expectedValue) == 0) {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) {
+                return false;
+            }
+        }
+        return true;
     }
 }

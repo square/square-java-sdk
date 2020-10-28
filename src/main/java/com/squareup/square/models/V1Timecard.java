@@ -1,31 +1,45 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1Timecard type.
  */
 public class V1Timecard {
+    private HttpContext httpContext;
+    private final String id;
+    private final String employeeId;
+    private final Boolean deleted;
+    private final String clockinTime;
+    private final String clockoutTime;
+    private final String clockinLocationId;
+    private final String clockoutLocationId;
+    private final String createdAt;
+    private final String updatedAt;
+    private final Double regularSecondsWorked;
+    private final Double overtimeSecondsWorked;
+    private final Double doubletimeSecondsWorked;
 
     /**
      * Initialization constructor.
-     * @param employeeId
-     * @param id
-     * @param deleted
-     * @param clockinTime
-     * @param clockoutTime
-     * @param clockinLocationId
-     * @param clockoutLocationId
-     * @param createdAt
-     * @param updatedAt
-     * @param regularSecondsWorked
-     * @param overtimeSecondsWorked
-     * @param doubletimeSecondsWorked
+     * @param employeeId String value for employeeId.
+     * @param id String value for id.
+     * @param deleted Boolean value for deleted.
+     * @param clockinTime String value for clockinTime.
+     * @param clockoutTime String value for clockoutTime.
+     * @param clockinLocationId String value for clockinLocationId.
+     * @param clockoutLocationId String value for clockoutLocationId.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param regularSecondsWorked Double value for regularSecondsWorked.
+     * @param overtimeSecondsWorked Double value for overtimeSecondsWorked.
+     * @param doubletimeSecondsWorked Double value for doubletimeSecondsWorked.
      */
     @JsonCreator
     public V1Timecard(
@@ -55,20 +69,6 @@ public class V1Timecard {
         this.doubletimeSecondsWorked = doubletimeSecondsWorked;
     }
 
-    private HttpContext httpContext;
-    private final String id;
-    private final String employeeId;
-    private final Boolean deleted;
-    private final String clockinTime;
-    private final String clockoutTime;
-    private final String clockinLocationId;
-    private final String clockoutLocationId;
-    private final String createdAt;
-    private final String updatedAt;
-    private final Double regularSecondsWorked;
-    private final Double overtimeSecondsWorked;
-    private final Double doubletimeSecondsWorked;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -76,6 +76,7 @@ public class V1Timecard {
     /**
      * Getter for Id.
      * The timecard's unique ID.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -85,6 +86,7 @@ public class V1Timecard {
     /**
      * Getter for EmployeeId.
      * The ID of the employee the timecard is associated with.
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -94,6 +96,7 @@ public class V1Timecard {
     /**
      * Getter for Deleted.
      * If true, the timecard was deleted by the merchant, and it is no longer valid.
+     * @return Returns the Boolean
      */
     @JsonGetter("deleted")
     public Boolean getDeleted() {
@@ -103,6 +106,7 @@ public class V1Timecard {
     /**
      * Getter for ClockinTime.
      * The clock-in time for the timecard, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("clockin_time")
     public String getClockinTime() {
@@ -111,7 +115,9 @@ public class V1Timecard {
 
     /**
      * Getter for ClockoutTime.
-     * The clock-out time for the timecard, in ISO 8601 format. Provide this value only if importing timecard information from another system.
+     * The clock-out time for the timecard, in ISO 8601 format. Provide this value only if importing
+     * timecard information from another system.
+     * @return Returns the String
      */
     @JsonGetter("clockout_time")
     public String getClockoutTime() {
@@ -120,7 +126,10 @@ public class V1Timecard {
 
     /**
      * Getter for ClockinLocationId.
-     * The ID of the location the employee clocked in from. We strongly reccomend providing a clockin_location_id. Square uses the clockin_location_id to determine a timecard’s timezone and overtime rules.
+     * The ID of the location the employee clocked in from. We strongly reccomend providing a
+     * clockin_location_id. Square uses the clockin_location_id to determine a timecard’s timezone
+     * and overtime rules.
+     * @return Returns the String
      */
     @JsonGetter("clockin_location_id")
     public String getClockinLocationId() {
@@ -129,7 +138,9 @@ public class V1Timecard {
 
     /**
      * Getter for ClockoutLocationId.
-     * The ID of the location the employee clocked out from. Provide this value only if importing timecard information from another system.
+     * The ID of the location the employee clocked out from. Provide this value only if importing
+     * timecard information from another system.
+     * @return Returns the String
      */
     @JsonGetter("clockout_location_id")
     public String getClockoutLocationId() {
@@ -139,6 +150,7 @@ public class V1Timecard {
     /**
      * Getter for CreatedAt.
      * The time when the timecard was created, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -148,6 +160,7 @@ public class V1Timecard {
     /**
      * Getter for UpdatedAt.
      * The time when the timecard was most recently updated, in ISO 8601 format.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -157,6 +170,7 @@ public class V1Timecard {
     /**
      * Getter for RegularSecondsWorked.
      * The total number of regular (non-overtime) seconds worked in the timecard.
+     * @return Returns the Double
      */
     @JsonGetter("regular_seconds_worked")
     public Double getRegularSecondsWorked() {
@@ -166,6 +180,7 @@ public class V1Timecard {
     /**
      * Getter for OvertimeSecondsWorked.
      * The total number of overtime seconds worked in the timecard.
+     * @return Returns the Double
      */
     @JsonGetter("overtime_seconds_worked")
     public Double getOvertimeSecondsWorked() {
@@ -175,6 +190,7 @@ public class V1Timecard {
     /**
      * Getter for DoubletimeSecondsWorked.
      * The total number of doubletime seconds worked in the timecard.
+     * @return Returns the Double
      */
     @JsonGetter("doubletime_seconds_worked")
     public Double getDoubletimeSecondsWorked() {
@@ -185,31 +201,31 @@ public class V1Timecard {
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, deleted, clockinTime, clockoutTime, clockinLocationId,
-            clockoutLocationId, createdAt, updatedAt, regularSecondsWorked, overtimeSecondsWorked,
-            doubletimeSecondsWorked);
+                clockoutLocationId, createdAt, updatedAt, regularSecondsWorked,
+                overtimeSecondsWorked, doubletimeSecondsWorked);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1Timecard)) {
+        if (!(obj instanceof V1Timecard)) {
             return false;
         }
-        V1Timecard v1Timecard = (V1Timecard) obj;
-        return Objects.equals(id, v1Timecard.id) &&
-            Objects.equals(employeeId, v1Timecard.employeeId) &&
-            Objects.equals(deleted, v1Timecard.deleted) &&
-            Objects.equals(clockinTime, v1Timecard.clockinTime) &&
-            Objects.equals(clockoutTime, v1Timecard.clockoutTime) &&
-            Objects.equals(clockinLocationId, v1Timecard.clockinLocationId) &&
-            Objects.equals(clockoutLocationId, v1Timecard.clockoutLocationId) &&
-            Objects.equals(createdAt, v1Timecard.createdAt) &&
-            Objects.equals(updatedAt, v1Timecard.updatedAt) &&
-            Objects.equals(regularSecondsWorked, v1Timecard.regularSecondsWorked) &&
-            Objects.equals(overtimeSecondsWorked, v1Timecard.overtimeSecondsWorked) &&
-            Objects.equals(doubletimeSecondsWorked, v1Timecard.doubletimeSecondsWorked);
+        V1Timecard other = (V1Timecard) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(deleted, other.deleted)
+            && Objects.equals(clockinTime, other.clockinTime)
+            && Objects.equals(clockoutTime, other.clockoutTime)
+            && Objects.equals(clockinLocationId, other.clockinLocationId)
+            && Objects.equals(clockoutLocationId, other.clockoutLocationId)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(regularSecondsWorked, other.regularSecondsWorked)
+            && Objects.equals(overtimeSecondsWorked, other.overtimeSecondsWorked)
+            && Objects.equals(doubletimeSecondsWorked, other.doubletimeSecondsWorked);
     }
 
     /**
@@ -230,11 +246,11 @@ public class V1Timecard {
             .regularSecondsWorked(getRegularSecondsWorked())
             .overtimeSecondsWorked(getOvertimeSecondsWorked())
             .doubletimeSecondsWorked(getDoubletimeSecondsWorked());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1Timecard}
+     * Class to build instances of {@link V1Timecard}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -252,123 +268,136 @@ public class V1Timecard {
         private Double doubletimeSecondsWorked;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param employeeId String value for employeeId.
          */
         public Builder(String employeeId) {
             this.employeeId = employeeId;
         }
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for deleted
-         * @param deleted
+         * Setter for deleted.
+         * @param deleted Boolean value for deleted.
          * @return Builder
          */
         public Builder deleted(Boolean deleted) {
             this.deleted = deleted;
             return this;
         }
+
         /**
-         * Setter for clockinTime
-         * @param clockinTime
+         * Setter for clockinTime.
+         * @param clockinTime String value for clockinTime.
          * @return Builder
          */
         public Builder clockinTime(String clockinTime) {
             this.clockinTime = clockinTime;
             return this;
         }
+
         /**
-         * Setter for clockoutTime
-         * @param clockoutTime
+         * Setter for clockoutTime.
+         * @param clockoutTime String value for clockoutTime.
          * @return Builder
          */
         public Builder clockoutTime(String clockoutTime) {
             this.clockoutTime = clockoutTime;
             return this;
         }
+
         /**
-         * Setter for clockinLocationId
-         * @param clockinLocationId
+         * Setter for clockinLocationId.
+         * @param clockinLocationId String value for clockinLocationId.
          * @return Builder
          */
         public Builder clockinLocationId(String clockinLocationId) {
             this.clockinLocationId = clockinLocationId;
             return this;
         }
+
         /**
-         * Setter for clockoutLocationId
-         * @param clockoutLocationId
+         * Setter for clockoutLocationId.
+         * @param clockoutLocationId String value for clockoutLocationId.
          * @return Builder
          */
         public Builder clockoutLocationId(String clockoutLocationId) {
             this.clockoutLocationId = clockoutLocationId;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for regularSecondsWorked
-         * @param regularSecondsWorked
+         * Setter for regularSecondsWorked.
+         * @param regularSecondsWorked Double value for regularSecondsWorked.
          * @return Builder
          */
         public Builder regularSecondsWorked(Double regularSecondsWorked) {
             this.regularSecondsWorked = regularSecondsWorked;
             return this;
         }
+
         /**
-         * Setter for overtimeSecondsWorked
-         * @param overtimeSecondsWorked
+         * Setter for overtimeSecondsWorked.
+         * @param overtimeSecondsWorked Double value for overtimeSecondsWorked.
          * @return Builder
          */
         public Builder overtimeSecondsWorked(Double overtimeSecondsWorked) {
             this.overtimeSecondsWorked = overtimeSecondsWorked;
             return this;
         }
+
         /**
-         * Setter for doubletimeSecondsWorked
-         * @param doubletimeSecondsWorked
+         * Setter for doubletimeSecondsWorked.
+         * @param doubletimeSecondsWorked Double value for doubletimeSecondsWorked.
          * @return Builder
          */
         public Builder doubletimeSecondsWorked(Double doubletimeSecondsWorked) {
@@ -381,18 +410,19 @@ public class V1Timecard {
          * @return {@link V1Timecard}
          */
         public V1Timecard build() {
-            V1Timecard model = new V1Timecard(employeeId,
-                id,
-                deleted,
-                clockinTime,
-                clockoutTime,
-                clockinLocationId,
-                clockoutLocationId,
-                createdAt,
-                updatedAt,
-                regularSecondsWorked,
-                overtimeSecondsWorked,
-                doubletimeSecondsWorked);
+            V1Timecard model =
+                    new V1Timecard(employeeId,
+                            id,
+                            deleted,
+                            clockinTime,
+                            clockoutTime,
+                            clockinLocationId,
+                            clockoutLocationId,
+                            createdAt,
+                            updatedAt,
+                            regularSecondsWorked,
+                            overtimeSecondsWorked,
+                            doubletimeSecondsWorked);
             model.httpContext = httpContext;
             return model;
         }

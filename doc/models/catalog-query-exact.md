@@ -1,19 +1,20 @@
-## Catalog Query Exact
 
-The query filter to return the serch result by exact match of the specified attribute name and value.
+# Catalog Query Exact
 
-### Structure
+The query filter to return the search result by exact match of the specified attribute name and value.
+
+## Structure
 
 `CatalogQueryExact`
 
-### Fields
+## Fields
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
 | `AttributeName` | `String` | The name of the attribute to be searched. Matching of the attribute name is exact. | String getAttributeName() |
-| `AttributeValue` | `String` | The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial. <br>For example, if a specified value of "sma", objects with the named attribute value of "Small", "small" are both matched. | String getAttributeValue() |
+| `AttributeValue` | `String` | The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial.<br>For example, if a specified value of "sma", objects with the named attribute value of "Small", "small" are both matched. | String getAttributeValue() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for BusinessHours type.
  */
 public class BusinessHours {
+    private final List<BusinessHoursPeriod> periods;
 
     /**
      * Initialization constructor.
-     * @param periods
+     * @param periods List of BusinessHoursPeriod value for periods.
      */
     @JsonCreator
     public BusinessHours(
@@ -22,11 +24,11 @@ public class BusinessHours {
         this.periods = periods;
     }
 
-    private final List<BusinessHoursPeriod> periods;
     /**
      * Getter for Periods.
-     * The list of time periods during which the business is open. There may be at most 10
-     * periods per day.
+     * The list of time periods during which the business is open. There may be at most 10 periods
+     * per day.
+     * @return Returns the List of BusinessHoursPeriod
      */
     @JsonGetter("periods")
     public List<BusinessHoursPeriod> getPeriods() {
@@ -41,14 +43,14 @@ public class BusinessHours {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BusinessHours)) {
+        if (!(obj instanceof BusinessHours)) {
             return false;
         }
-        BusinessHours businessHours = (BusinessHours) obj;
-        return Objects.equals(periods, businessHours.periods);
+        BusinessHours other = (BusinessHours) obj;
+        return Objects.equals(periods, other.periods);
     }
 
     /**
@@ -59,25 +61,20 @@ public class BusinessHours {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .periods(getPeriods());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BusinessHours}
+     * Class to build instances of {@link BusinessHours}.
      */
     public static class Builder {
         private List<BusinessHoursPeriod> periods;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for periods
-         * @param periods
+         * Setter for periods.
+         * @param periods List of BusinessHoursPeriod value for periods.
          * @return Builder
          */
         public Builder periods(List<BusinessHoursPeriod> periods) {

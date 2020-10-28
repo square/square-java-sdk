@@ -1,20 +1,23 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CreateLoyaltyRewardRequest type.
  */
 public class CreateLoyaltyRewardRequest {
+    private final LoyaltyReward reward;
+    private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param reward
-     * @param idempotencyKey
+     * @param reward LoyaltyReward value for reward.
+     * @param idempotencyKey String value for idempotencyKey.
      */
     @JsonCreator
     public CreateLoyaltyRewardRequest(
@@ -24,10 +27,9 @@ public class CreateLoyaltyRewardRequest {
         this.idempotencyKey = idempotencyKey;
     }
 
-    private final LoyaltyReward reward;
-    private final String idempotencyKey;
     /**
      * Getter for Reward.
+     * @return Returns the LoyaltyReward
      */
     @JsonGetter("reward")
     public LoyaltyReward getReward() {
@@ -36,8 +38,9 @@ public class CreateLoyaltyRewardRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this `CreateLoyaltyReward` request. 
-     * Keys can be any valid string, but must be unique for every request.
+     * A unique string that identifies this `CreateLoyaltyReward` request. Keys can be any valid
+     * string, but must be unique for every request.
+     * @return Returns the String
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
@@ -52,15 +55,15 @@ public class CreateLoyaltyRewardRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CreateLoyaltyRewardRequest)) {
+        if (!(obj instanceof CreateLoyaltyRewardRequest)) {
             return false;
         }
-        CreateLoyaltyRewardRequest createLoyaltyRewardRequest = (CreateLoyaltyRewardRequest) obj;
-        return Objects.equals(reward, createLoyaltyRewardRequest.reward) &&
-            Objects.equals(idempotencyKey, createLoyaltyRewardRequest.idempotencyKey);
+        CreateLoyaltyRewardRequest other = (CreateLoyaltyRewardRequest) obj;
+        return Objects.equals(reward, other.reward)
+            && Objects.equals(idempotencyKey, other.idempotencyKey);
     }
 
     /**
@@ -71,18 +74,20 @@ public class CreateLoyaltyRewardRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(reward,
             idempotencyKey);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CreateLoyaltyRewardRequest}
+     * Class to build instances of {@link CreateLoyaltyRewardRequest}.
      */
     public static class Builder {
         private LoyaltyReward reward;
         private String idempotencyKey;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param reward LoyaltyReward value for reward.
+         * @param idempotencyKey String value for idempotencyKey.
          */
         public Builder(LoyaltyReward reward,
                 String idempotencyKey) {
@@ -91,17 +96,18 @@ public class CreateLoyaltyRewardRequest {
         }
 
         /**
-         * Setter for reward
-         * @param reward
+         * Setter for reward.
+         * @param reward LoyaltyReward value for reward.
          * @return Builder
          */
         public Builder reward(LoyaltyReward reward) {
             this.reward = reward;
             return this;
         }
+
         /**
-         * Setter for idempotencyKey
-         * @param idempotencyKey
+         * Setter for idempotencyKey.
+         * @param idempotencyKey String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

@@ -1,21 +1,25 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for TerminalCheckoutQueryFilter type.
  */
 public class TerminalCheckoutQueryFilter {
+    private final String deviceId;
+    private final TimeRange createdAt;
+    private final String status;
 
     /**
      * Initialization constructor.
-     * @param deviceId
-     * @param createdAt
-     * @param status
+     * @param deviceId String value for deviceId.
+     * @param createdAt TimeRange value for createdAt.
+     * @param status String value for status.
      */
     @JsonCreator
     public TerminalCheckoutQueryFilter(
@@ -27,13 +31,11 @@ public class TerminalCheckoutQueryFilter {
         this.status = status;
     }
 
-    private final String deviceId;
-    private final TimeRange createdAt;
-    private final String status;
     /**
      * Getter for DeviceId.
      * `TerminalCheckout`s associated with a specific device. If no device is specified then all
      * `TerminalCheckout`s for the merchant will be displayed.
+     * @return Returns the String
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
@@ -42,11 +44,11 @@ public class TerminalCheckoutQueryFilter {
 
     /**
      * Getter for CreatedAt.
-     * Represents a generic time range. The start and end values are
-     * represented in RFC 3339 format. Time ranges are customized to be
-     * inclusive or exclusive based on the needs of a particular endpoint.
-     * Refer to the relevant endpoint-specific documentation to determine
-     * how time ranges are handled.
+     * Represents a generic time range. The start and end values are represented in RFC 3339 format.
+     * Time ranges are customized to be inclusive or exclusive based on the needs of a particular
+     * endpoint. Refer to the relevant endpoint-specific documentation to determine how time ranges
+     * are handled.
+     * @return Returns the TimeRange
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
@@ -55,8 +57,9 @@ public class TerminalCheckoutQueryFilter {
 
     /**
      * Getter for Status.
-     * Filtered results with the desired status of the `TerminalCheckout`
-     * Options: PENDING, IN\_PROGRESS, CANCELED, COMPLETED
+     * Filtered results with the desired status of the `TerminalCheckout` Options: PENDING,
+     * IN\_PROGRESS, CANCELED, COMPLETED
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -71,16 +74,16 @@ public class TerminalCheckoutQueryFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof TerminalCheckoutQueryFilter)) {
+        if (!(obj instanceof TerminalCheckoutQueryFilter)) {
             return false;
         }
-        TerminalCheckoutQueryFilter terminalCheckoutQueryFilter = (TerminalCheckoutQueryFilter) obj;
-        return Objects.equals(deviceId, terminalCheckoutQueryFilter.deviceId) &&
-            Objects.equals(createdAt, terminalCheckoutQueryFilter.createdAt) &&
-            Objects.equals(status, terminalCheckoutQueryFilter.status);
+        TerminalCheckoutQueryFilter other = (TerminalCheckoutQueryFilter) obj;
+        return Objects.equals(deviceId, other.deviceId)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -93,45 +96,42 @@ public class TerminalCheckoutQueryFilter {
             .deviceId(getDeviceId())
             .createdAt(getCreatedAt())
             .status(getStatus());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link TerminalCheckoutQueryFilter}
+     * Class to build instances of {@link TerminalCheckoutQueryFilter}.
      */
     public static class Builder {
         private String deviceId;
         private TimeRange createdAt;
         private String status;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for deviceId
-         * @param deviceId
+         * Setter for deviceId.
+         * @param deviceId String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
             this.deviceId = deviceId;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {

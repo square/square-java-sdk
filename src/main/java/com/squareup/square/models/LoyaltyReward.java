@@ -1,27 +1,37 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for LoyaltyReward type.
  */
 public class LoyaltyReward {
+    private final String id;
+    private final String status;
+    private final String loyaltyAccountId;
+    private final String rewardTierId;
+    private final Integer points;
+    private final String orderId;
+    private final String createdAt;
+    private final String updatedAt;
+    private final String redeemedAt;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId
-     * @param rewardTierId
-     * @param id
-     * @param status
-     * @param points
-     * @param orderId
-     * @param createdAt
-     * @param updatedAt
-     * @param redeemedAt
+     * @param loyaltyAccountId String value for loyaltyAccountId.
+     * @param rewardTierId String value for rewardTierId.
+     * @param id String value for id.
+     * @param status String value for status.
+     * @param points Integer value for points.
+     * @param orderId String value for orderId.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param redeemedAt String value for redeemedAt.
      */
     @JsonCreator
     public LoyaltyReward(
@@ -45,18 +55,10 @@ public class LoyaltyReward {
         this.redeemedAt = redeemedAt;
     }
 
-    private final String id;
-    private final String status;
-    private final String loyaltyAccountId;
-    private final String rewardTierId;
-    private final Integer points;
-    private final String orderId;
-    private final String createdAt;
-    private final String updatedAt;
-    private final String redeemedAt;
     /**
      * Getter for Id.
      * The Square-assigned ID of the loyalty reward.
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -66,6 +68,7 @@ public class LoyaltyReward {
     /**
      * Getter for Status.
      * The status of the loyalty reward.
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -74,7 +77,9 @@ public class LoyaltyReward {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The Square-assigned ID of the [loyalty account](#type-LoyaltyAccount) to which the reward belongs.
+     * The Square-assigned ID of the [loyalty account](#type-LoyaltyAccount) to which the reward
+     * belongs.
+     * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
@@ -83,7 +88,9 @@ public class LoyaltyReward {
 
     /**
      * Getter for RewardTierId.
-     * The Square-assigned ID of the [reward tier](#type-LoyaltyProgramRewardTier) used to create the reward.
+     * The Square-assigned ID of the [reward tier](#type-LoyaltyProgramRewardTier) used to create
+     * the reward.
+     * @return Returns the String
      */
     @JsonGetter("reward_tier_id")
     public String getRewardTierId() {
@@ -93,6 +100,7 @@ public class LoyaltyReward {
     /**
      * Getter for Points.
      * The number of loyalty points used for the reward.
+     * @return Returns the Integer
      */
     @JsonGetter("points")
     public Integer getPoints() {
@@ -102,6 +110,7 @@ public class LoyaltyReward {
     /**
      * Getter for OrderId.
      * The Square-assigned ID of the [order](#type-Order) to which the reward is attached.
+     * @return Returns the String
      */
     @JsonGetter("order_id")
     public String getOrderId() {
@@ -111,6 +120,7 @@ public class LoyaltyReward {
     /**
      * Getter for CreatedAt.
      * The timestamp when the reward was created, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -120,6 +130,7 @@ public class LoyaltyReward {
     /**
      * Getter for UpdatedAt.
      * The timestamp when the reward was last updated, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -129,6 +140,7 @@ public class LoyaltyReward {
     /**
      * Getter for RedeemedAt.
      * The timestamp when the reward was redeemed, in RFC 3339 format.
+     * @return Returns the String
      */
     @JsonGetter("redeemed_at")
     public String getRedeemedAt() {
@@ -139,27 +151,27 @@ public class LoyaltyReward {
     @Override
     public int hashCode() {
         return Objects.hash(id, status, loyaltyAccountId, rewardTierId, points, orderId, createdAt,
-            updatedAt, redeemedAt);
+                updatedAt, redeemedAt);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyReward)) {
+        if (!(obj instanceof LoyaltyReward)) {
             return false;
         }
-        LoyaltyReward loyaltyReward = (LoyaltyReward) obj;
-        return Objects.equals(id, loyaltyReward.id) &&
-            Objects.equals(status, loyaltyReward.status) &&
-            Objects.equals(loyaltyAccountId, loyaltyReward.loyaltyAccountId) &&
-            Objects.equals(rewardTierId, loyaltyReward.rewardTierId) &&
-            Objects.equals(points, loyaltyReward.points) &&
-            Objects.equals(orderId, loyaltyReward.orderId) &&
-            Objects.equals(createdAt, loyaltyReward.createdAt) &&
-            Objects.equals(updatedAt, loyaltyReward.updatedAt) &&
-            Objects.equals(redeemedAt, loyaltyReward.redeemedAt);
+        LoyaltyReward other = (LoyaltyReward) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(status, other.status)
+            && Objects.equals(loyaltyAccountId, other.loyaltyAccountId)
+            && Objects.equals(rewardTierId, other.rewardTierId)
+            && Objects.equals(points, other.points)
+            && Objects.equals(orderId, other.orderId)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(redeemedAt, other.redeemedAt);
     }
 
     /**
@@ -177,11 +189,11 @@ public class LoyaltyReward {
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt())
             .redeemedAt(getRedeemedAt());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyReward}
+     * Class to build instances of {@link LoyaltyReward}.
      */
     public static class Builder {
         private String loyaltyAccountId;
@@ -195,7 +207,9 @@ public class LoyaltyReward {
         private String redeemedAt;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param rewardTierId String value for rewardTierId.
          */
         public Builder(String loyaltyAccountId,
                 String rewardTierId) {
@@ -204,80 +218,88 @@ public class LoyaltyReward {
         }
 
         /**
-         * Setter for loyaltyAccountId
-         * @param loyaltyAccountId
+         * Setter for loyaltyAccountId.
+         * @param loyaltyAccountId String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
             return this;
         }
+
         /**
-         * Setter for rewardTierId
-         * @param rewardTierId
+         * Setter for rewardTierId.
+         * @param rewardTierId String value for rewardTierId.
          * @return Builder
          */
         public Builder rewardTierId(String rewardTierId) {
             this.rewardTierId = rewardTierId;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for points
-         * @param points
+         * Setter for points.
+         * @param points Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
             this.points = points;
             return this;
         }
+
         /**
-         * Setter for orderId
-         * @param orderId
+         * Setter for orderId.
+         * @param orderId String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for redeemedAt
-         * @param redeemedAt
+         * Setter for redeemedAt.
+         * @param redeemedAt String value for redeemedAt.
          * @return Builder
          */
         public Builder redeemedAt(String redeemedAt) {

@@ -1,24 +1,30 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for BatchUpsertCatalogObjectsResponse type.
  */
 public class BatchUpsertCatalogObjectsResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final List<CatalogObject> objects;
+    private final String updatedAt;
+    private final List<CatalogIdMapping> idMappings;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param objects
-     * @param updatedAt
-     * @param idMappings
+     * @param errors List of Error value for errors.
+     * @param objects List of CatalogObject value for objects.
+     * @param updatedAt String value for updatedAt.
+     * @param idMappings List of CatalogIdMapping value for idMappings.
      */
     @JsonCreator
     public BatchUpsertCatalogObjectsResponse(
@@ -32,19 +38,14 @@ public class BatchUpsertCatalogObjectsResponse {
         this.idMappings = idMappings;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final List<CatalogObject> objects;
-    private final String updatedAt;
-    private final List<CatalogIdMapping> idMappings;
-
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Errors.
-     * Information on any errors that encountered.
+     * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -54,6 +55,7 @@ public class BatchUpsertCatalogObjectsResponse {
     /**
      * Getter for Objects.
      * The created successfully created CatalogObjects.
+     * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
@@ -62,7 +64,9 @@ public class BatchUpsertCatalogObjectsResponse {
 
     /**
      * Getter for UpdatedAt.
-     * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
+     * of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -72,6 +76,7 @@ public class BatchUpsertCatalogObjectsResponse {
     /**
      * Getter for IdMappings.
      * The mapping between client and server IDs for this upsert.
+     * @return Returns the List of CatalogIdMapping
      */
     @JsonGetter("id_mappings")
     public List<CatalogIdMapping> getIdMappings() {
@@ -86,17 +91,17 @@ public class BatchUpsertCatalogObjectsResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof BatchUpsertCatalogObjectsResponse)) {
+        if (!(obj instanceof BatchUpsertCatalogObjectsResponse)) {
             return false;
         }
-        BatchUpsertCatalogObjectsResponse batchUpsertCatalogObjectsResponse = (BatchUpsertCatalogObjectsResponse) obj;
-        return Objects.equals(errors, batchUpsertCatalogObjectsResponse.errors) &&
-            Objects.equals(objects, batchUpsertCatalogObjectsResponse.objects) &&
-            Objects.equals(updatedAt, batchUpsertCatalogObjectsResponse.updatedAt) &&
-            Objects.equals(idMappings, batchUpsertCatalogObjectsResponse.idMappings);
+        BatchUpsertCatalogObjectsResponse other = (BatchUpsertCatalogObjectsResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(objects, other.objects)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(idMappings, other.idMappings);
     }
 
     /**
@@ -110,11 +115,11 @@ public class BatchUpsertCatalogObjectsResponse {
             .objects(getObjects())
             .updatedAt(getUpdatedAt())
             .idMappings(getIdMappings());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link BatchUpsertCatalogObjectsResponse}
+     * Class to build instances of {@link BatchUpsertCatalogObjectsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
@@ -123,52 +128,51 @@ public class BatchUpsertCatalogObjectsResponse {
         private String updatedAt;
         private List<CatalogIdMapping> idMappings;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for objects
-         * @param objects
+         * Setter for objects.
+         * @param objects List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
             this.objects = objects;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for idMappings
-         * @param idMappings
+         * Setter for idMappings.
+         * @param idMappings List of CatalogIdMapping value for idMappings.
          * @return Builder
          */
         public Builder idMappings(List<CatalogIdMapping> idMappings) {
@@ -181,10 +185,11 @@ public class BatchUpsertCatalogObjectsResponse {
          * @return {@link BatchUpsertCatalogObjectsResponse}
          */
         public BatchUpsertCatalogObjectsResponse build() {
-            BatchUpsertCatalogObjectsResponse model = new BatchUpsertCatalogObjectsResponse(errors,
-                objects,
-                updatedAt,
-                idMappings);
+            BatchUpsertCatalogObjectsResponse model =
+                    new BatchUpsertCatalogObjectsResponse(errors,
+                            objects,
+                            updatedAt,
+                            idMappings);
             model.httpContext = httpContext;
             return model;
         }

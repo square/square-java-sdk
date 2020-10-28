@@ -1,18 +1,19 @@
-## Search Terminal Checkouts Request
 
-### Structure
+# Search Terminal Checkouts Request
+
+## Structure
 
 `SearchTerminalCheckoutsRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Query` | [`TerminalCheckoutQuery`](/doc/models/terminal-checkout-query.md) | Optional | - | TerminalCheckoutQuery getQuery() |
-| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query. | String getCursor() |
+| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
 | `Limit` | `Integer` | Optional | Limit the number of results returned for a single request. | Integer getLimit() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

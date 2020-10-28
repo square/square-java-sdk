@@ -1,22 +1,26 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.squareup.square.http.client.HttpContext;
 
 
 /**
  * This is a model class for RetrieveInventoryPhysicalCountResponse type.
  */
 public class RetrieveInventoryPhysicalCountResponse {
+    private HttpContext httpContext;
+    private final List<Error> errors;
+    private final InventoryPhysicalCount count;
 
     /**
      * Initialization constructor.
-     * @param errors
-     * @param count
+     * @param errors List of Error value for errors.
+     * @param count InventoryPhysicalCount value for count.
      */
     @JsonCreator
     public RetrieveInventoryPhysicalCountResponse(
@@ -26,10 +30,6 @@ public class RetrieveInventoryPhysicalCountResponse {
         this.count = count;
     }
 
-    private HttpContext httpContext;
-    private final List<Error> errors;
-    private final InventoryPhysicalCount count;
-
     public HttpContext getContext() {
         return httpContext;
     }
@@ -37,6 +37,7 @@ public class RetrieveInventoryPhysicalCountResponse {
     /**
      * Getter for Errors.
      * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
@@ -45,10 +46,11 @@ public class RetrieveInventoryPhysicalCountResponse {
 
     /**
      * Getter for Count.
-     * Represents the quantity of an item variation that is physically present
-     * at a specific location, verified by a seller or a seller's employee. For example,
-     * a physical count might come from an employee counting the item variations on
-     * hand or from syncing with an external system.
+     * Represents the quantity of an item variation that is physically present at a specific
+     * location, verified by a seller or a seller's employee. For example, a physical count might
+     * come from an employee counting the item variations on hand or from syncing with an external
+     * system.
+     * @return Returns the InventoryPhysicalCount
      */
     @JsonGetter("count")
     public InventoryPhysicalCount getCount() {
@@ -63,15 +65,15 @@ public class RetrieveInventoryPhysicalCountResponse {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RetrieveInventoryPhysicalCountResponse)) {
+        if (!(obj instanceof RetrieveInventoryPhysicalCountResponse)) {
             return false;
         }
-        RetrieveInventoryPhysicalCountResponse retrieveInventoryPhysicalCountResponse = (RetrieveInventoryPhysicalCountResponse) obj;
-        return Objects.equals(errors, retrieveInventoryPhysicalCountResponse.errors) &&
-            Objects.equals(count, retrieveInventoryPhysicalCountResponse.count);
+        RetrieveInventoryPhysicalCountResponse other = (RetrieveInventoryPhysicalCountResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(count, other.count);
     }
 
     /**
@@ -83,45 +85,42 @@ public class RetrieveInventoryPhysicalCountResponse {
         Builder builder = new Builder()
             .errors(getErrors())
             .count(getCount());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveInventoryPhysicalCountResponse}
+     * Class to build instances of {@link RetrieveInventoryPhysicalCountResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
         private InventoryPhysicalCount count;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for httpContext
-         * @param httpContext
+         * Setter for httpContext.
+         * @param httpContext HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
             return this;
         }
+
         /**
-         * Setter for errors
-         * @param errors
+         * Setter for errors.
+         * @param errors List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
             this.errors = errors;
             return this;
         }
+
         /**
-         * Setter for count
-         * @param count
+         * Setter for count.
+         * @param count InventoryPhysicalCount value for count.
          * @return Builder
          */
         public Builder count(InventoryPhysicalCount count) {
@@ -134,8 +133,9 @@ public class RetrieveInventoryPhysicalCountResponse {
          * @return {@link RetrieveInventoryPhysicalCountResponse}
          */
         public RetrieveInventoryPhysicalCountResponse build() {
-            RetrieveInventoryPhysicalCountResponse model = new RetrieveInventoryPhysicalCountResponse(errors,
-                count);
+            RetrieveInventoryPhysicalCountResponse model =
+                    new RetrieveInventoryPhysicalCountResponse(errors,
+                            count);
             model.httpContext = httpContext;
             return model;
         }

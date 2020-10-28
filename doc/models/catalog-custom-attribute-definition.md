@@ -1,4 +1,5 @@
-## Catalog Custom Attribute Definition
+
+# Catalog Custom Attribute Definition
 
 Contains information defining a custom attribute. Custom attributes are
 intended to store additional information about a catalog object or to associate a
@@ -6,16 +7,16 @@ catalog object with an entity in another system. Do not use custom attributes
 to store any sensitive information (personally identifiable information, card details, etc.).
 [Read more about custom attributes](https://developer.squareup.com/docs/catalog-api/add-custom-attributes)
 
-### Structure
+## Structure
 
 `CatalogCustomAttributeDefinition`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Type` | [`String`](/doc/models/catalog-custom-attribute-definition-type.md) |  | Defines the possible types for a custom attribute. | String getType() |
-| `Name` | `String` |  | The name of this definition for API and seller-facing UI purposes.<br>The name must be unique within the (merchant, application_id) pair. Required.<br>May not be empty and may not exceed 255 characters. Can be modified after creation. | String getName() |
+| `Name` | `String` |  | The name of this definition for API and seller-facing UI purposes.<br>The name must be unique within the (merchant, application) pair. Required.<br>May not be empty and may not exceed 255 characters. Can be modified after creation. | String getName() |
 | `Description` | `String` | Optional | Seller-oriented description of the meaning of this Custom Attribute,<br>any constraints that the seller should observe, etc. May be displayed as a tooltip in Square UIs. | String getDescription() |
 | `SourceApplication` | [`SourceApplication`](/doc/models/source-application.md) | Optional | Provides information about the application used to generate a change. | SourceApplication getSourceApplication() |
 | `AllowedObjectTypes` | [`List<String>`](/doc/models/catalog-object-type.md) |  | The set of Catalog Object Types that this Custom Attribute may be applied to.<br>Currently, only `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included.<br>See [CatalogObjectType](#type-catalogobjecttype) for possible values | List<String> getAllowedObjectTypes() |
@@ -25,9 +26,9 @@ to store any sensitive information (personally identifiable information, card de
 | `NumberConfig` | [`CatalogCustomAttributeDefinitionNumberConfig`](/doc/models/catalog-custom-attribute-definition-number-config.md) | Optional | - | CatalogCustomAttributeDefinitionNumberConfig getNumberConfig() |
 | `SelectionConfig` | [`CatalogCustomAttributeDefinitionSelectionConfig`](/doc/models/catalog-custom-attribute-definition-selection-config.md) | Optional | Configuration associated with `SELECTION`-type custom attribute definitions. | CatalogCustomAttributeDefinitionSelectionConfig getSelectionConfig() |
 | `CustomAttributeUsageCount` | `Integer` | Optional | __Read-only.__ The number of custom attributes that reference this<br>custom attribute definition. Set by the server in response to a ListCatalog<br>request with `include_counts` set to `true`.  If the actual count is greater<br>than 100, `custom_attribute_usage_count` will be set to `100`. | Integer getCustomAttributeUsageCount() |
-| `Key` | `String` | Optional | The name of the desired custom attribute key that can be used to access<br>the custom attribute value on catalog objects. Cannot be modified after the<br>custom attribute definition has been created.<br>Must be between 1 and 60 characters, and may only contain the characters [a-zA-Z0-9_-]. | String getKey() |
+| `Key` | `String` | Optional | The name of the desired custom attribute key that can be used to access<br>the custom attribute value on catalog objects. Cannot be modified after the<br>custom attribute definition has been created.<br>Must be between 1 and 60 characters, and may only contain the characters `[a-zA-Z0-9_-]`. | String getKey() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {

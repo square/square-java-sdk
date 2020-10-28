@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for CatalogCategory type.
  */
 public class CatalogCategory {
+    private final String name;
 
     /**
      * Initialization constructor.
-     * @param name
+     * @param name String value for name.
      */
     @JsonCreator
     public CatalogCategory(
@@ -21,10 +23,11 @@ public class CatalogCategory {
         this.name = name;
     }
 
-    private final String name;
     /**
      * Getter for Name.
-     * The category name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
+     * The category name. This is a searchable attribute for use in applicable query filters, and
+     * its value length is of Unicode code points.
+     * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
@@ -39,14 +42,14 @@ public class CatalogCategory {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof CatalogCategory)) {
+        if (!(obj instanceof CatalogCategory)) {
             return false;
         }
-        CatalogCategory catalogCategory = (CatalogCategory) obj;
-        return Objects.equals(name, catalogCategory.name);
+        CatalogCategory other = (CatalogCategory) obj;
+        return Objects.equals(name, other.name);
     }
 
     /**
@@ -57,25 +60,20 @@ public class CatalogCategory {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .name(getName());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link CatalogCategory}
+     * Class to build instances of {@link CatalogCategory}.
      */
     public static class Builder {
         private String name;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for name
-         * @param name
+         * Setter for name.
+         * @param name String value for name.
          * @return Builder
          */
         public Builder name(String name) {

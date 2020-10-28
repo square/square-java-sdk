@@ -1,19 +1,21 @@
+
 package com.squareup.square.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 
 /**
  * This is a model class for V1ListItemsRequest type.
  */
 public class V1ListItemsRequest {
+    private final String batchToken;
 
     /**
      * Initialization constructor.
-     * @param batchToken
+     * @param batchToken String value for batchToken.
      */
     @JsonCreator
     public V1ListItemsRequest(
@@ -21,11 +23,11 @@ public class V1ListItemsRequest {
         this.batchToken = batchToken;
     }
 
-    private final String batchToken;
     /**
      * Getter for BatchToken.
-     * A pagination cursor to retrieve the next set of results for your
-     * original query to the endpoint.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the String
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
@@ -40,14 +42,14 @@ public class V1ListItemsRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof V1ListItemsRequest)) {
+        if (!(obj instanceof V1ListItemsRequest)) {
             return false;
         }
-        V1ListItemsRequest v1ListItemsRequest = (V1ListItemsRequest) obj;
-        return Objects.equals(batchToken, v1ListItemsRequest.batchToken);
+        V1ListItemsRequest other = (V1ListItemsRequest) obj;
+        return Objects.equals(batchToken, other.batchToken);
     }
 
     /**
@@ -58,25 +60,20 @@ public class V1ListItemsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
             .batchToken(getBatchToken());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link V1ListItemsRequest}
+     * Class to build instances of {@link V1ListItemsRequest}.
      */
     public static class Builder {
         private String batchToken;
 
-        /**
-         * Initialization constructor
-         */
-        public Builder() {
-           
-        }
+
 
         /**
-         * Setter for batchToken
-         * @param batchToken
+         * Setter for batchToken.
+         * @param batchToken String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {

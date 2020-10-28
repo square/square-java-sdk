@@ -1,32 +1,46 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for Shift type.
  */
 public class Shift {
+    private final String id;
+    private final String employeeId;
+    private final String locationId;
+    private final String timezone;
+    private final String startAt;
+    private final String endAt;
+    private final ShiftWage wage;
+    private final List<Break> breaks;
+    private final String status;
+    private final Integer version;
+    private final String createdAt;
+    private final String updatedAt;
+    private final String teamMemberId;
 
     /**
      * Initialization constructor.
-     * @param startAt
-     * @param id
-     * @param employeeId
-     * @param locationId
-     * @param timezone
-     * @param endAt
-     * @param wage
-     * @param breaks
-     * @param status
-     * @param version
-     * @param createdAt
-     * @param updatedAt
-     * @param teamMemberId
+     * @param startAt String value for startAt.
+     * @param id String value for id.
+     * @param employeeId String value for employeeId.
+     * @param locationId String value for locationId.
+     * @param timezone String value for timezone.
+     * @param endAt String value for endAt.
+     * @param wage ShiftWage value for wage.
+     * @param breaks List of Break value for breaks.
+     * @param status String value for status.
+     * @param version Integer value for version.
+     * @param createdAt String value for createdAt.
+     * @param updatedAt String value for updatedAt.
+     * @param teamMemberId String value for teamMemberId.
      */
     @JsonCreator
     public Shift(
@@ -58,22 +72,10 @@ public class Shift {
         this.teamMemberId = teamMemberId;
     }
 
-    private final String id;
-    private final String employeeId;
-    private final String locationId;
-    private final String timezone;
-    private final String startAt;
-    private final String endAt;
-    private final ShiftWage wage;
-    private final List<Break> breaks;
-    private final String status;
-    private final Integer version;
-    private final String createdAt;
-    private final String updatedAt;
-    private final String teamMemberId;
     /**
      * Getter for Id.
      * UUID for this object
+     * @return Returns the String
      */
     @JsonGetter("id")
     public String getId() {
@@ -82,7 +84,9 @@ public class Shift {
 
     /**
      * Getter for EmployeeId.
-     * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use `team_member_id` instead
+     * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use
+     * `team_member_id` instead
+     * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
@@ -91,8 +95,9 @@ public class Shift {
 
     /**
      * Getter for LocationId.
-     * The ID of the location this shift occurred at. Should be based on
-     * where the employee clocked in.
+     * The ID of the location this shift occurred at. Should be based on where the employee clocked
+     * in.
+     * @return Returns the String
      */
     @JsonGetter("location_id")
     public String getLocationId() {
@@ -101,9 +106,9 @@ public class Shift {
 
     /**
      * Getter for Timezone.
-     * Read-only convenience value that is calculated from the location based
-     * on `location_id`. Format: the IANA Timezone Database identifier for the
-     * location timezone.
+     * Read-only convenience value that is calculated from the location based on `location_id`.
+     * Format: the IANA Timezone Database identifier for the location timezone.
+     * @return Returns the String
      */
     @JsonGetter("timezone")
     public String getTimezone() {
@@ -112,8 +117,9 @@ public class Shift {
 
     /**
      * Getter for StartAt.
-     * RFC 3339; shifted to location timezone + offset. Precision up to the
-     * minute is respected; seconds are truncated.
+     * RFC 3339; shifted to location timezone + offset. Precision up to the minute is respected;
+     * seconds are truncated.
+     * @return Returns the String
      */
     @JsonGetter("start_at")
     public String getStartAt() {
@@ -122,8 +128,9 @@ public class Shift {
 
     /**
      * Getter for EndAt.
-     * RFC 3339; shifted to timezone + offset. Precision up to the minute is
-     * respected; seconds are truncated.
+     * RFC 3339; shifted to timezone + offset. Precision up to the minute is respected; seconds are
+     * truncated.
+     * @return Returns the String
      */
     @JsonGetter("end_at")
     public String getEndAt() {
@@ -133,6 +140,7 @@ public class Shift {
     /**
      * Getter for Wage.
      * The hourly wage rate used to compensate an employee for this shift.
+     * @return Returns the ShiftWage
      */
     @JsonGetter("wage")
     public ShiftWage getWage() {
@@ -142,6 +150,7 @@ public class Shift {
     /**
      * Getter for Breaks.
      * A list of any paid or unpaid breaks that were taken during this shift.
+     * @return Returns the List of Break
      */
     @JsonGetter("breaks")
     public List<Break> getBreaks() {
@@ -151,6 +160,7 @@ public class Shift {
     /**
      * Getter for Status.
      * Enumerates the possible status of a `Shift`
+     * @return Returns the String
      */
     @JsonGetter("status")
     public String getStatus() {
@@ -159,10 +169,10 @@ public class Shift {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version
-     * provided does not match server version at time of request. If not provided,
-     * Square executes a blind write; potentially overwriting data from another
-     * write.
+     * Used for resolving concurrency issues; request will fail if version provided does not match
+     * server version at time of request. If not provided, Square executes a blind write;
+     * potentially overwriting data from another write.
+     * @return Returns the Integer
      */
     @JsonGetter("version")
     public Integer getVersion() {
@@ -172,6 +182,7 @@ public class Shift {
     /**
      * Getter for CreatedAt.
      * A read-only timestamp in RFC 3339 format; presented in UTC.
+     * @return Returns the String
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
@@ -181,6 +192,7 @@ public class Shift {
     /**
      * Getter for UpdatedAt.
      * A read-only timestamp in RFC 3339 format; presented in UTC.
+     * @return Returns the String
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
@@ -189,7 +201,9 @@ public class Shift {
 
     /**
      * Getter for TeamMemberId.
-     * The ID of the team member this shift belongs to. Replaced `employee_id` at version "2020-08-26"
+     * The ID of the team member this shift belongs to. Replaced `employee_id` at version
+     * "2020-08-26"
+     * @return Returns the String
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
@@ -200,31 +214,31 @@ public class Shift {
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, locationId, timezone, startAt, endAt, wage, breaks,
-            status, version, createdAt, updatedAt, teamMemberId);
+                status, version, createdAt, updatedAt, teamMemberId);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof Shift)) {
+        if (!(obj instanceof Shift)) {
             return false;
         }
-        Shift shift = (Shift) obj;
-        return Objects.equals(id, shift.id) &&
-            Objects.equals(employeeId, shift.employeeId) &&
-            Objects.equals(locationId, shift.locationId) &&
-            Objects.equals(timezone, shift.timezone) &&
-            Objects.equals(startAt, shift.startAt) &&
-            Objects.equals(endAt, shift.endAt) &&
-            Objects.equals(wage, shift.wage) &&
-            Objects.equals(breaks, shift.breaks) &&
-            Objects.equals(status, shift.status) &&
-            Objects.equals(version, shift.version) &&
-            Objects.equals(createdAt, shift.createdAt) &&
-            Objects.equals(updatedAt, shift.updatedAt) &&
-            Objects.equals(teamMemberId, shift.teamMemberId);
+        Shift other = (Shift) obj;
+        return Objects.equals(id, other.id)
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(locationId, other.locationId)
+            && Objects.equals(timezone, other.timezone)
+            && Objects.equals(startAt, other.startAt)
+            && Objects.equals(endAt, other.endAt)
+            && Objects.equals(wage, other.wage)
+            && Objects.equals(breaks, other.breaks)
+            && Objects.equals(status, other.status)
+            && Objects.equals(version, other.version)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(teamMemberId, other.teamMemberId);
     }
 
     /**
@@ -246,11 +260,11 @@ public class Shift {
             .createdAt(getCreatedAt())
             .updatedAt(getUpdatedAt())
             .teamMemberId(getTeamMemberId());
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link Shift}
+     * Class to build instances of {@link Shift}.
      */
     public static class Builder {
         private String startAt;
@@ -268,123 +282,136 @@ public class Shift {
         private String teamMemberId;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param startAt String value for startAt.
          */
         public Builder(String startAt) {
             this.startAt = startAt;
         }
 
         /**
-         * Setter for startAt
-         * @param startAt
+         * Setter for startAt.
+         * @param startAt String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
             this.startAt = startAt;
             return this;
         }
+
         /**
-         * Setter for id
-         * @param id
+         * Setter for id.
+         * @param id String value for id.
          * @return Builder
          */
         public Builder id(String id) {
             this.id = id;
             return this;
         }
+
         /**
-         * Setter for employeeId
-         * @param employeeId
+         * Setter for employeeId.
+         * @param employeeId String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
             this.employeeId = employeeId;
             return this;
         }
+
         /**
-         * Setter for locationId
-         * @param locationId
+         * Setter for locationId.
+         * @param locationId String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
             return this;
         }
+
         /**
-         * Setter for timezone
-         * @param timezone
+         * Setter for timezone.
+         * @param timezone String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {
             this.timezone = timezone;
             return this;
         }
+
         /**
-         * Setter for endAt
-         * @param endAt
+         * Setter for endAt.
+         * @param endAt String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {
             this.endAt = endAt;
             return this;
         }
+
         /**
-         * Setter for wage
-         * @param wage
+         * Setter for wage.
+         * @param wage ShiftWage value for wage.
          * @return Builder
          */
         public Builder wage(ShiftWage wage) {
             this.wage = wage;
             return this;
         }
+
         /**
-         * Setter for breaks
-         * @param breaks
+         * Setter for breaks.
+         * @param breaks List of Break value for breaks.
          * @return Builder
          */
         public Builder breaks(List<Break> breaks) {
             this.breaks = breaks;
             return this;
         }
+
         /**
-         * Setter for status
-         * @param status
+         * Setter for status.
+         * @param status String value for status.
          * @return Builder
          */
         public Builder status(String status) {
             this.status = status;
             return this;
         }
+
         /**
-         * Setter for version
-         * @param version
+         * Setter for version.
+         * @param version Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
             this.version = version;
             return this;
         }
+
         /**
-         * Setter for createdAt
-         * @param createdAt
+         * Setter for createdAt.
+         * @param createdAt String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         /**
-         * Setter for updatedAt
-         * @param updatedAt
+         * Setter for updatedAt.
+         * @param updatedAt String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
+
         /**
-         * Setter for teamMemberId
-         * @param teamMemberId
+         * Setter for teamMemberId.
+         * @param teamMemberId String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {

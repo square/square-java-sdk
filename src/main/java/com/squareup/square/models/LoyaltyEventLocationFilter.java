@@ -1,20 +1,22 @@
+
 package com.squareup.square.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 
 /**
  * This is a model class for LoyaltyEventLocationFilter type.
  */
 public class LoyaltyEventLocationFilter {
+    private final List<String> locationIds;
 
     /**
      * Initialization constructor.
-     * @param locationIds
+     * @param locationIds List of String value for locationIds.
      */
     @JsonCreator
     public LoyaltyEventLocationFilter(
@@ -22,12 +24,11 @@ public class LoyaltyEventLocationFilter {
         this.locationIds = locationIds;
     }
 
-    private final List<String> locationIds;
     /**
      * Getter for LocationIds.
-     * The [location](#type-Location) IDs for loyalty events to query.
-     * If multiple values are specified, the endpoint uses 
-     * a logical OR to combine them.
+     * The [location](#type-Location) IDs for loyalty events to query. If multiple values are
+     * specified, the endpoint uses a logical OR to combine them.
+     * @return Returns the List of String
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
@@ -42,14 +43,14 @@ public class LoyaltyEventLocationFilter {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof LoyaltyEventLocationFilter)) {
+        if (!(obj instanceof LoyaltyEventLocationFilter)) {
             return false;
         }
-        LoyaltyEventLocationFilter loyaltyEventLocationFilter = (LoyaltyEventLocationFilter) obj;
-        return Objects.equals(locationIds, loyaltyEventLocationFilter.locationIds);
+        LoyaltyEventLocationFilter other = (LoyaltyEventLocationFilter) obj;
+        return Objects.equals(locationIds, other.locationIds);
     }
 
     /**
@@ -59,25 +60,26 @@ public class LoyaltyEventLocationFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationIds);
-            return builder;
+        return builder;
     }
 
     /**
-     * Class to build instances of {@link LoyaltyEventLocationFilter}
+     * Class to build instances of {@link LoyaltyEventLocationFilter}.
      */
     public static class Builder {
         private List<String> locationIds;
 
         /**
-         * Initialization constructor
+         * Initialization constructor.
+         * @param locationIds List of String value for locationIds.
          */
         public Builder(List<String> locationIds) {
             this.locationIds = locationIds;
         }
 
         /**
-         * Setter for locationIds
-         * @param locationIds
+         * Setter for locationIds.
+         * @param locationIds List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

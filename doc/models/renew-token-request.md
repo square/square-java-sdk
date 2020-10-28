@@ -1,16 +1,17 @@
-## Renew Token Request
 
-### Structure
+# Renew Token Request
+
+## Structure
 
 `RenewTokenRequest`
 
-### Fields
+## Fields
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `AccessToken` | `String` | Optional | The token you want to renew. | String getAccessToken() |
 
-### Example (as JSON)
+## Example (as JSON)
 
 ```json
 {
