@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TenderCashDetails type.
  */
@@ -57,7 +56,6 @@ public class TenderCashDetails {
         return this.changeBackMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(buyerTenderedMoney, changeBackMoney);
@@ -77,14 +75,24 @@ public class TenderCashDetails {
     }
 
     /**
+     * Converts this TenderCashDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TenderCashDetails [" + "buyerTenderedMoney=" + buyerTenderedMoney
+                + ", changeBackMoney=" + changeBackMoney + "]";
+    }
+
+    /**
      * Builds a new {@link TenderCashDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TenderCashDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .buyerTenderedMoney(getBuyerTenderedMoney())
-            .changeBackMoney(getChangeBackMoney());
+                .buyerTenderedMoney(getBuyerTenderedMoney())
+                .changeBackMoney(getChangeBackMoney());
         return builder;
     }
 
@@ -122,8 +130,7 @@ public class TenderCashDetails {
          * @return {@link TenderCashDetails}
          */
         public TenderCashDetails build() {
-            return new TenderCashDetails(buyerTenderedMoney,
-                changeBackMoney);
+            return new TenderCashDetails(buyerTenderedMoney, changeBackMoney);
         }
     }
 }

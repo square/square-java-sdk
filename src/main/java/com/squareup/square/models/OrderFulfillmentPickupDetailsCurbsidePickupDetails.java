@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentPickupDetailsCurbsidePickupDetails type.
  */
@@ -48,7 +47,6 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
         return this.buyerArrivedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(curbsideDetails, buyerArrivedAt);
@@ -69,14 +67,24 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
     }
 
     /**
+     * Converts this OrderFulfillmentPickupDetailsCurbsidePickupDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentPickupDetailsCurbsidePickupDetails [" + "curbsideDetails="
+                + curbsideDetails + ", buyerArrivedAt=" + buyerArrivedAt + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentPickupDetailsCurbsidePickupDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .curbsideDetails(getCurbsideDetails())
-            .buyerArrivedAt(getBuyerArrivedAt());
+                .curbsideDetails(getCurbsideDetails())
+                .buyerArrivedAt(getBuyerArrivedAt());
         return builder;
     }
 
@@ -116,7 +124,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
          */
         public OrderFulfillmentPickupDetailsCurbsidePickupDetails build() {
             return new OrderFulfillmentPickupDetailsCurbsidePickupDetails(curbsideDetails,
-                buyerArrivedAt);
+                    buyerArrivedAt);
         }
     }
 }

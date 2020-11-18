@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateLoyaltyAccountRequest type.
  */
@@ -30,7 +29,7 @@ public class CreateLoyaltyAccountRequest {
     /**
      * Getter for LoyaltyAccount.
      * Describes a loyalty account. For more information, see [Loyalty
-     * Overview](https://developer.squareup.com/docs/docs/loyalty/overview).
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
      * @return Returns the LoyaltyAccount
      */
     @JsonGetter("loyalty_account")
@@ -49,7 +48,6 @@ public class CreateLoyaltyAccountRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyAccount, idempotencyKey);
@@ -69,13 +67,22 @@ public class CreateLoyaltyAccountRequest {
     }
 
     /**
+     * Converts this CreateLoyaltyAccountRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateLoyaltyAccountRequest [" + "loyaltyAccount=" + loyaltyAccount
+                + ", idempotencyKey=" + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link CreateLoyaltyAccountRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateLoyaltyAccountRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(loyaltyAccount,
-            idempotencyKey);
+        Builder builder = new Builder(loyaltyAccount, idempotencyKey);
         return builder;
     }
 
@@ -122,8 +129,7 @@ public class CreateLoyaltyAccountRequest {
          * @return {@link CreateLoyaltyAccountRequest}
          */
         public CreateLoyaltyAccountRequest build() {
-            return new CreateLoyaltyAccountRequest(loyaltyAccount,
-                idempotencyKey);
+            return new CreateLoyaltyAccountRequest(loyaltyAccount, idempotencyKey);
         }
     }
 }

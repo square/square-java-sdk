@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoicePaymentReminder type.
  */
@@ -92,7 +91,6 @@ public class InvoicePaymentReminder {
         return this.sentAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, relativeScheduledDays, message, status, sentAt);
@@ -115,17 +113,28 @@ public class InvoicePaymentReminder {
     }
 
     /**
+     * Converts this InvoicePaymentReminder into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoicePaymentReminder [" + "uid=" + uid + ", relativeScheduledDays="
+                + relativeScheduledDays + ", message=" + message + ", status=" + status
+                + ", sentAt=" + sentAt + "]";
+    }
+
+    /**
      * Builds a new {@link InvoicePaymentReminder.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoicePaymentReminder.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .relativeScheduledDays(getRelativeScheduledDays())
-            .message(getMessage())
-            .status(getStatus())
-            .sentAt(getSentAt());
+                .uid(getUid())
+                .relativeScheduledDays(getRelativeScheduledDays())
+                .message(getMessage())
+                .status(getStatus())
+                .sentAt(getSentAt());
         return builder;
     }
 
@@ -196,11 +205,7 @@ public class InvoicePaymentReminder {
          * @return {@link InvoicePaymentReminder}
          */
         public InvoicePaymentReminder build() {
-            return new InvoicePaymentReminder(uid,
-                relativeScheduledDays,
-                message,
-                status,
-                sentAt);
+            return new InvoicePaymentReminder(uid, relativeScheduledDays, message, status, sentAt);
         }
     }
 }

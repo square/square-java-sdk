@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Card type.
  */
@@ -175,7 +174,6 @@ public class Card {
         return this.bin;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
@@ -205,23 +203,36 @@ public class Card {
     }
 
     /**
+     * Converts this Card into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Card [" + "id=" + id + ", cardBrand=" + cardBrand + ", last4=" + last4
+                + ", expMonth=" + expMonth + ", expYear=" + expYear + ", cardholderName="
+                + cardholderName + ", billingAddress=" + billingAddress + ", fingerprint="
+                + fingerprint + ", cardType=" + cardType + ", prepaidType=" + prepaidType + ", bin="
+                + bin + "]";
+    }
+
+    /**
      * Builds a new {@link Card.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Card.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .cardBrand(getCardBrand())
-            .last4(getLast4())
-            .expMonth(getExpMonth())
-            .expYear(getExpYear())
-            .cardholderName(getCardholderName())
-            .billingAddress(getBillingAddress())
-            .fingerprint(getFingerprint())
-            .cardType(getCardType())
-            .prepaidType(getPrepaidType())
-            .bin(getBin());
+                .id(getId())
+                .cardBrand(getCardBrand())
+                .last4(getLast4())
+                .expMonth(getExpMonth())
+                .expYear(getExpYear())
+                .cardholderName(getCardholderName())
+                .billingAddress(getBillingAddress())
+                .fingerprint(getFingerprint())
+                .cardType(getCardType())
+                .prepaidType(getPrepaidType())
+                .bin(getBin());
         return builder;
     }
 
@@ -358,17 +369,8 @@ public class Card {
          * @return {@link Card}
          */
         public Card build() {
-            return new Card(id,
-                cardBrand,
-                last4,
-                expMonth,
-                expYear,
-                cardholderName,
-                billingAddress,
-                fingerprint,
-                cardType,
-                prepaidType,
-                bin);
+            return new Card(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
+                    fingerprint, cardType, prepaidType, bin);
         }
     }
 }

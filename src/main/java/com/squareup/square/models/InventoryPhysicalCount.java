@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InventoryPhysicalCount type.
  */
@@ -181,7 +180,6 @@ public class InventoryPhysicalCount {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, catalogObjectId, catalogObjectType, state, locationId,
@@ -211,23 +209,36 @@ public class InventoryPhysicalCount {
     }
 
     /**
+     * Converts this InventoryPhysicalCount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InventoryPhysicalCount [" + "id=" + id + ", referenceId=" + referenceId
+                + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
+                + catalogObjectType + ", state=" + state + ", locationId=" + locationId
+                + ", quantity=" + quantity + ", source=" + source + ", employeeId=" + employeeId
+                + ", occurredAt=" + occurredAt + ", createdAt=" + createdAt + "]";
+    }
+
+    /**
      * Builds a new {@link InventoryPhysicalCount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InventoryPhysicalCount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .referenceId(getReferenceId())
-            .catalogObjectId(getCatalogObjectId())
-            .catalogObjectType(getCatalogObjectType())
-            .state(getState())
-            .locationId(getLocationId())
-            .quantity(getQuantity())
-            .source(getSource())
-            .employeeId(getEmployeeId())
-            .occurredAt(getOccurredAt())
-            .createdAt(getCreatedAt());
+                .id(getId())
+                .referenceId(getReferenceId())
+                .catalogObjectId(getCatalogObjectId())
+                .catalogObjectType(getCatalogObjectType())
+                .state(getState())
+                .locationId(getLocationId())
+                .quantity(getQuantity())
+                .source(getSource())
+                .employeeId(getEmployeeId())
+                .occurredAt(getOccurredAt())
+                .createdAt(getCreatedAt());
         return builder;
     }
 
@@ -364,17 +375,8 @@ public class InventoryPhysicalCount {
          * @return {@link InventoryPhysicalCount}
          */
         public InventoryPhysicalCount build() {
-            return new InventoryPhysicalCount(id,
-                referenceId,
-                catalogObjectId,
-                catalogObjectType,
-                state,
-                locationId,
-                quantity,
-                source,
-                employeeId,
-                occurredAt,
-                createdAt);
+            return new InventoryPhysicalCount(id, referenceId, catalogObjectId, catalogObjectType,
+                    state, locationId, quantity, source, employeeId, occurredAt, createdAt);
         }
     }
 }

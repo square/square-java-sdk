@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentRecipient type.
  */
@@ -97,7 +96,6 @@ public class OrderFulfillmentRecipient {
         return this.address;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customerId, displayName, emailAddress, phoneNumber, address);
@@ -120,17 +118,28 @@ public class OrderFulfillmentRecipient {
     }
 
     /**
+     * Converts this OrderFulfillmentRecipient into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentRecipient [" + "customerId=" + customerId + ", displayName="
+                + displayName + ", emailAddress=" + emailAddress + ", phoneNumber=" + phoneNumber
+                + ", address=" + address + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentRecipient.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentRecipient.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customerId(getCustomerId())
-            .displayName(getDisplayName())
-            .emailAddress(getEmailAddress())
-            .phoneNumber(getPhoneNumber())
-            .address(getAddress());
+                .customerId(getCustomerId())
+                .displayName(getDisplayName())
+                .emailAddress(getEmailAddress())
+                .phoneNumber(getPhoneNumber())
+                .address(getAddress());
         return builder;
     }
 
@@ -201,11 +210,8 @@ public class OrderFulfillmentRecipient {
          * @return {@link OrderFulfillmentRecipient}
          */
         public OrderFulfillmentRecipient build() {
-            return new OrderFulfillmentRecipient(customerId,
-                displayName,
-                emailAddress,
-                phoneNumber,
-                address);
+            return new OrderFulfillmentRecipient(customerId, displayName, emailAddress, phoneNumber,
+                    address);
         }
     }
 }

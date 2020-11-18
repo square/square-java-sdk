@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveCashDrawerShiftRequest type.
  */
@@ -33,7 +32,6 @@ public class RetrieveCashDrawerShiftRequest {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId);
@@ -49,6 +47,15 @@ public class RetrieveCashDrawerShiftRequest {
         }
         RetrieveCashDrawerShiftRequest other = (RetrieveCashDrawerShiftRequest) obj;
         return Objects.equals(locationId, other.locationId);
+    }
+
+    /**
+     * Converts this RetrieveCashDrawerShiftRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveCashDrawerShiftRequest [" + "locationId=" + locationId + "]";
     }
 
     /**

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TenderCardDetails type.
  */
@@ -62,7 +61,6 @@ public class TenderCardDetails {
         return this.entryMethod;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(status, card, entryMethod);
@@ -83,15 +81,25 @@ public class TenderCardDetails {
     }
 
     /**
+     * Converts this TenderCardDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TenderCardDetails [" + "status=" + status + ", card=" + card + ", entryMethod="
+                + entryMethod + "]";
+    }
+
+    /**
      * Builds a new {@link TenderCardDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TenderCardDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .status(getStatus())
-            .card(getCard())
-            .entryMethod(getEntryMethod());
+                .status(getStatus())
+                .card(getCard())
+                .entryMethod(getEntryMethod());
         return builder;
     }
 
@@ -140,9 +148,7 @@ public class TenderCardDetails {
          * @return {@link TenderCardDetails}
          */
         public TenderCardDetails build() {
-            return new TenderCardDetails(status,
-                card,
-                entryMethod);
+            return new TenderCardDetails(status, card, entryMethod);
         }
     }
 }

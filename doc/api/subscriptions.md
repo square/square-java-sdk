@@ -88,7 +88,7 @@ first by location, within location by customer ID, and within
 customer by subscription creation date.
 
 For more information, see
-[Retrieve subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
+[Retrieve subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
 
 ```java
 CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
@@ -271,7 +271,7 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to retrieve the events for. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `limit` | `Integer` | Query, Optional | The upper limit on the number of subscription events to return<br>in the response.<br><br>Default: `200` |
 
 ## Response Type

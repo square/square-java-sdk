@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PhoneNumber type.
  */
@@ -47,7 +46,6 @@ public class V1PhoneNumber {
         return this.number;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(callingCode, number);
@@ -67,13 +65,21 @@ public class V1PhoneNumber {
     }
 
     /**
+     * Converts this V1PhoneNumber into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PhoneNumber [" + "callingCode=" + callingCode + ", number=" + number + "]";
+    }
+
+    /**
      * Builds a new {@link V1PhoneNumber.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PhoneNumber.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(callingCode,
-            number);
+        Builder builder = new Builder(callingCode, number);
         return builder;
     }
 
@@ -120,8 +126,7 @@ public class V1PhoneNumber {
          * @return {@link V1PhoneNumber}
          */
         public V1PhoneNumber build() {
-            return new V1PhoneNumber(callingCode,
-                number);
+            return new V1PhoneNumber(callingCode, number);
         }
     }
 }

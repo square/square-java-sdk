@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Category type.
  */
@@ -68,7 +67,6 @@ public class V1Category {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, v2Id);
@@ -89,15 +87,24 @@ public class V1Category {
     }
 
     /**
+     * Converts this V1Category into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Category [" + "id=" + id + ", name=" + name + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1Category.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Category.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -158,9 +165,7 @@ public class V1Category {
          */
         public V1Category build() {
             V1Category model =
-                    new V1Category(id,
-                            name,
-                            v2Id);
+                    new V1Category(id, name, v2Id);
             model.httpContext = httpContext;
             return model;
         }

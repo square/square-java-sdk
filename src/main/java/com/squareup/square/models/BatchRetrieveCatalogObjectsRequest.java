@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveCatalogObjectsRequest type.
  */
@@ -53,7 +52,6 @@ public class BatchRetrieveCatalogObjectsRequest {
         return this.includeRelatedObjects;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(objectIds, includeRelatedObjects);
@@ -73,13 +71,23 @@ public class BatchRetrieveCatalogObjectsRequest {
     }
 
     /**
+     * Converts this BatchRetrieveCatalogObjectsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveCatalogObjectsRequest [" + "objectIds=" + objectIds
+                + ", includeRelatedObjects=" + includeRelatedObjects + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveCatalogObjectsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveCatalogObjectsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(objectIds)
-            .includeRelatedObjects(getIncludeRelatedObjects());
+                .includeRelatedObjects(getIncludeRelatedObjects());
         return builder;
     }
 
@@ -123,8 +131,7 @@ public class BatchRetrieveCatalogObjectsRequest {
          * @return {@link BatchRetrieveCatalogObjectsRequest}
          */
         public BatchRetrieveCatalogObjectsRequest build() {
-            return new BatchRetrieveCatalogObjectsRequest(objectIds,
-                includeRelatedObjects);
+            return new BatchRetrieveCatalogObjectsRequest(objectIds, includeRelatedObjects);
         }
     }
 }

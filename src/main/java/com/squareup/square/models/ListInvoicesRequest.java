@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListInvoicesRequest type.
  */
@@ -45,7 +44,7 @@ public class ListInvoicesRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for your original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -64,7 +63,6 @@ public class ListInvoicesRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, cursor, limit);
@@ -85,14 +83,24 @@ public class ListInvoicesRequest {
     }
 
     /**
+     * Converts this ListInvoicesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListInvoicesRequest [" + "locationId=" + locationId + ", cursor=" + cursor
+                + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link ListInvoicesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListInvoicesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
-            .cursor(getCursor())
-            .limit(getLimit());
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -147,9 +155,7 @@ public class ListInvoicesRequest {
          * @return {@link ListInvoicesRequest}
          */
         public ListInvoicesRequest build() {
-            return new ListInvoicesRequest(locationId,
-                cursor,
-                limit);
+            return new ListInvoicesRequest(locationId, cursor, limit);
         }
     }
 }

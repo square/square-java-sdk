@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveLoyaltyAccountResponse type.
  */
@@ -47,7 +46,7 @@ public class RetrieveLoyaltyAccountResponse {
     /**
      * Getter for LoyaltyAccount.
      * Describes a loyalty account. For more information, see [Loyalty
-     * Overview](https://developer.squareup.com/docs/docs/loyalty/overview).
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
      * @return Returns the LoyaltyAccount
      */
     @JsonGetter("loyalty_account")
@@ -55,7 +54,6 @@ public class RetrieveLoyaltyAccountResponse {
         return this.loyaltyAccount;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, loyaltyAccount);
@@ -75,14 +73,24 @@ public class RetrieveLoyaltyAccountResponse {
     }
 
     /**
+     * Converts this RetrieveLoyaltyAccountResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveLoyaltyAccountResponse [" + "errors=" + errors + ", loyaltyAccount="
+                + loyaltyAccount + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveLoyaltyAccountResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveLoyaltyAccountResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .loyaltyAccount(getLoyaltyAccount());
+                .errors(getErrors())
+                .loyaltyAccount(getLoyaltyAccount());
         return builder;
     }
 
@@ -132,8 +140,7 @@ public class RetrieveLoyaltyAccountResponse {
          */
         public RetrieveLoyaltyAccountResponse build() {
             RetrieveLoyaltyAccountResponse model =
-                    new RetrieveLoyaltyAccountResponse(errors,
-                            loyaltyAccount);
+                    new RetrieveLoyaltyAccountResponse(errors, loyaltyAccount);
             model.httpContext = httpContext;
             return model;
         }

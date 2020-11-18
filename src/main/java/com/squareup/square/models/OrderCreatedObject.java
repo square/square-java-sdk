@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderCreatedObject type.
  */
@@ -32,7 +31,6 @@ public class OrderCreatedObject {
         return this.orderCreated;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderCreated);
@@ -51,13 +49,22 @@ public class OrderCreatedObject {
     }
 
     /**
+     * Converts this OrderCreatedObject into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderCreatedObject [" + "orderCreated=" + orderCreated + "]";
+    }
+
+    /**
      * Builds a new {@link OrderCreatedObject.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderCreatedObject.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderCreated(getOrderCreated());
+                .orderCreated(getOrderCreated());
         return builder;
     }
 

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryItemsForModifierList type.
  */
@@ -34,7 +33,6 @@ public class CatalogQueryItemsForModifierList {
         return this.modifierListIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(modifierListIds);
@@ -50,6 +48,15 @@ public class CatalogQueryItemsForModifierList {
         }
         CatalogQueryItemsForModifierList other = (CatalogQueryItemsForModifierList) obj;
         return Objects.equals(modifierListIds, other.modifierListIds);
+    }
+
+    /**
+     * Converts this CatalogQueryItemsForModifierList into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryItemsForModifierList [" + "modifierListIds=" + modifierListIds + "]";
     }
 
     /**

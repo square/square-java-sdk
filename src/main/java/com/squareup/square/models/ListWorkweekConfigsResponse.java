@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListWorkweekConfigsResponse type.
  */
@@ -68,7 +67,6 @@ public class ListWorkweekConfigsResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(workweekConfigs, cursor, errors);
@@ -89,15 +87,25 @@ public class ListWorkweekConfigsResponse {
     }
 
     /**
+     * Converts this ListWorkweekConfigsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListWorkweekConfigsResponse [" + "workweekConfigs=" + workweekConfigs + ", cursor="
+                + cursor + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListWorkweekConfigsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListWorkweekConfigsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .workweekConfigs(getWorkweekConfigs())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .workweekConfigs(getWorkweekConfigs())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -158,9 +166,7 @@ public class ListWorkweekConfigsResponse {
          */
         public ListWorkweekConfigsResponse build() {
             ListWorkweekConfigsResponse model =
-                    new ListWorkweekConfigsResponse(workweekConfigs,
-                            cursor,
-                            errors);
+                    new ListWorkweekConfigsResponse(workweekConfigs, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

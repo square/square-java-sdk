@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogDiscount type.
  */
@@ -127,7 +126,6 @@ public class CatalogDiscount {
         return this.modifyTaxBasis;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, discountType, percentage, amountMoney, pinRequired, labelColor,
@@ -153,19 +151,31 @@ public class CatalogDiscount {
     }
 
     /**
+     * Converts this CatalogDiscount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogDiscount [" + "name=" + name + ", discountType=" + discountType
+                + ", percentage=" + percentage + ", amountMoney=" + amountMoney + ", pinRequired="
+                + pinRequired + ", labelColor=" + labelColor + ", modifyTaxBasis=" + modifyTaxBasis
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogDiscount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogDiscount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .discountType(getDiscountType())
-            .percentage(getPercentage())
-            .amountMoney(getAmountMoney())
-            .pinRequired(getPinRequired())
-            .labelColor(getLabelColor())
-            .modifyTaxBasis(getModifyTaxBasis());
+                .name(getName())
+                .discountType(getDiscountType())
+                .percentage(getPercentage())
+                .amountMoney(getAmountMoney())
+                .pinRequired(getPinRequired())
+                .labelColor(getLabelColor())
+                .modifyTaxBasis(getModifyTaxBasis());
         return builder;
     }
 
@@ -258,13 +268,8 @@ public class CatalogDiscount {
          * @return {@link CatalogDiscount}
          */
         public CatalogDiscount build() {
-            return new CatalogDiscount(name,
-                discountType,
-                percentage,
-                amountMoney,
-                pinRequired,
-                labelColor,
-                modifyTaxBasis);
+            return new CatalogDiscount(name, discountType, percentage, amountMoney, pinRequired,
+                    labelColor, modifyTaxBasis);
         }
     }
 }

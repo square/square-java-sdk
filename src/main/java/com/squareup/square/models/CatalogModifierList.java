@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogModifierList type.
  */
@@ -79,7 +78,6 @@ public class CatalogModifierList {
         return this.modifiers;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, ordinal, selectionType, modifiers);
@@ -101,16 +99,26 @@ public class CatalogModifierList {
     }
 
     /**
+     * Converts this CatalogModifierList into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogModifierList [" + "name=" + name + ", ordinal=" + ordinal
+                + ", selectionType=" + selectionType + ", modifiers=" + modifiers + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogModifierList.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogModifierList.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .ordinal(getOrdinal())
-            .selectionType(getSelectionType())
-            .modifiers(getModifiers());
+                .name(getName())
+                .ordinal(getOrdinal())
+                .selectionType(getSelectionType())
+                .modifiers(getModifiers());
         return builder;
     }
 
@@ -170,10 +178,7 @@ public class CatalogModifierList {
          * @return {@link CatalogModifierList}
          */
         public CatalogModifierList build() {
-            return new CatalogModifierList(name,
-                ordinal,
-                selectionType,
-                modifiers);
+            return new CatalogModifierList(name, ordinal, selectionType, modifiers);
         }
     }
 }

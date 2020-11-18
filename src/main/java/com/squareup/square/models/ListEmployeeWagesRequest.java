@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListEmployeeWagesRequest type.
  */
@@ -62,7 +61,6 @@ public class ListEmployeeWagesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(employeeId, limit, cursor);
@@ -83,15 +81,25 @@ public class ListEmployeeWagesRequest {
     }
 
     /**
+     * Converts this ListEmployeeWagesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListEmployeeWagesRequest [" + "employeeId=" + employeeId + ", limit=" + limit
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListEmployeeWagesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListEmployeeWagesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .employeeId(getEmployeeId())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .employeeId(getEmployeeId())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -140,9 +148,7 @@ public class ListEmployeeWagesRequest {
          * @return {@link ListEmployeeWagesRequest}
          */
         public ListEmployeeWagesRequest build() {
-            return new ListEmployeeWagesRequest(employeeId,
-                limit,
-                cursor);
+            return new ListEmployeeWagesRequest(employeeId, limit, cursor);
         }
     }
 }

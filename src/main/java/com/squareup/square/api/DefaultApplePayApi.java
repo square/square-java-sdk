@@ -53,7 +53,7 @@ public final class DefaultApplePayApi extends BaseApi implements ApplePayApi {
      * endpoint provides an easy way for platform developers to bulk activate Web Apple Pay with
      * Square for merchants using their platform. To learn more about Apple Pay on Web see the Apple
      * Pay section in the [Square Payment Form
-     * Walkthrough](https://developer.squareup.com/docs/docs/payment-form/payment-form-walkthrough).
+     * Walkthrough](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the RegisterDomainResponse response from the API call
@@ -77,7 +77,7 @@ public final class DefaultApplePayApi extends BaseApi implements ApplePayApi {
      * endpoint provides an easy way for platform developers to bulk activate Web Apple Pay with
      * Square for merchants using their platform. To learn more about Apple Pay on Web see the Apple
      * Pay section in the [Square Payment Form
-     * Walkthrough](https://developer.squareup.com/docs/docs/payment-form/payment-form-walkthrough).
+     * Walkthrough](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the RegisterDomainResponse response from the API call

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Dispute type.
  */
@@ -221,7 +220,6 @@ public class Dispute {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(disputeId, amountMoney, reason, state, dueAt, disputedPayment,
@@ -255,26 +253,40 @@ public class Dispute {
     }
 
     /**
+     * Converts this Dispute into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Dispute [" + "disputeId=" + disputeId + ", amountMoney=" + amountMoney + ", reason="
+                + reason + ", state=" + state + ", dueAt=" + dueAt + ", disputedPayment="
+                + disputedPayment + ", evidenceIds=" + evidenceIds + ", cardBrand=" + cardBrand
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", brandDisputeId="
+                + brandDisputeId + ", reportedDate=" + reportedDate + ", version=" + version
+                + ", locationId=" + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link Dispute.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Dispute.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .disputeId(getDisputeId())
-            .amountMoney(getAmountMoney())
-            .reason(getReason())
-            .state(getState())
-            .dueAt(getDueAt())
-            .disputedPayment(getDisputedPayment())
-            .evidenceIds(getEvidenceIds())
-            .cardBrand(getCardBrand())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .brandDisputeId(getBrandDisputeId())
-            .reportedDate(getReportedDate())
-            .version(getVersion())
-            .locationId(getLocationId());
+                .disputeId(getDisputeId())
+                .amountMoney(getAmountMoney())
+                .reason(getReason())
+                .state(getState())
+                .dueAt(getDueAt())
+                .disputedPayment(getDisputedPayment())
+                .evidenceIds(getEvidenceIds())
+                .cardBrand(getCardBrand())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .brandDisputeId(getBrandDisputeId())
+                .reportedDate(getReportedDate())
+                .version(getVersion())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -444,20 +456,9 @@ public class Dispute {
          * @return {@link Dispute}
          */
         public Dispute build() {
-            return new Dispute(disputeId,
-                amountMoney,
-                reason,
-                state,
-                dueAt,
-                disputedPayment,
-                evidenceIds,
-                cardBrand,
-                createdAt,
-                updatedAt,
-                brandDisputeId,
-                reportedDate,
-                version,
-                locationId);
+            return new Dispute(disputeId, amountMoney, reason, state, dueAt, disputedPayment,
+                    evidenceIds, cardBrand, createdAt, updatedAt, brandDisputeId, reportedDate,
+                    version, locationId);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DisputeEvidenceFile type.
  */
@@ -48,7 +47,6 @@ public class DisputeEvidenceFile {
         return this.filetype;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filename, filetype);
@@ -68,14 +66,23 @@ public class DisputeEvidenceFile {
     }
 
     /**
+     * Converts this DisputeEvidenceFile into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DisputeEvidenceFile [" + "filename=" + filename + ", filetype=" + filetype + "]";
+    }
+
+    /**
      * Builds a new {@link DisputeEvidenceFile.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DisputeEvidenceFile.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .filename(getFilename())
-            .filetype(getFiletype());
+                .filename(getFilename())
+                .filetype(getFiletype());
         return builder;
     }
 
@@ -113,8 +120,7 @@ public class DisputeEvidenceFile {
          * @return {@link DisputeEvidenceFile}
          */
         public DisputeEvidenceFile build() {
-            return new DisputeEvidenceFile(filename,
-                filetype);
+            return new DisputeEvidenceFile(filename, filetype);
         }
     }
 }

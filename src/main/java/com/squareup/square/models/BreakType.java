@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BreakType type.
  */
@@ -135,7 +134,6 @@ public class BreakType {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, breakName, expectedDuration, isPaid, version, createdAt,
@@ -162,19 +160,28 @@ public class BreakType {
     }
 
     /**
+     * Converts this BreakType into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BreakType [" + "locationId=" + locationId + ", breakName=" + breakName
+                + ", expectedDuration=" + expectedDuration + ", isPaid=" + isPaid + ", id=" + id
+                + ", version=" + version + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + "]";
+    }
+
+    /**
      * Builds a new {@link BreakType.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BreakType.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId,
-            breakName,
-            expectedDuration,
-            isPaid)
-            .id(getId())
-            .version(getVersion())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(locationId, breakName, expectedDuration, isPaid)
+                .id(getId())
+                .version(getVersion())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -293,14 +300,8 @@ public class BreakType {
          * @return {@link BreakType}
          */
         public BreakType build() {
-            return new BreakType(locationId,
-                breakName,
-                expectedDuration,
-                isPaid,
-                id,
-                version,
-                createdAt,
-                updatedAt);
+            return new BreakType(locationId, breakName, expectedDuration, isPaid, id, version,
+                    createdAt, updatedAt);
         }
     }
 }

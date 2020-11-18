@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for JobAssignment type.
  */
@@ -99,7 +98,6 @@ public class JobAssignment {
         return this.weeklyHours;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(jobTitle, payType, hourlyRate, annualRate, weeklyHours);
@@ -122,16 +120,25 @@ public class JobAssignment {
     }
 
     /**
+     * Converts this JobAssignment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "JobAssignment [" + "jobTitle=" + jobTitle + ", payType=" + payType + ", hourlyRate="
+                + hourlyRate + ", annualRate=" + annualRate + ", weeklyHours=" + weeklyHours + "]";
+    }
+
+    /**
      * Builds a new {@link JobAssignment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link JobAssignment.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(jobTitle,
-            payType)
-            .hourlyRate(getHourlyRate())
-            .annualRate(getAnnualRate())
-            .weeklyHours(getWeeklyHours());
+        Builder builder = new Builder(jobTitle, payType)
+                .hourlyRate(getHourlyRate())
+                .annualRate(getAnnualRate())
+                .weeklyHours(getWeeklyHours());
         return builder;
     }
 
@@ -211,11 +218,7 @@ public class JobAssignment {
          * @return {@link JobAssignment}
          */
         public JobAssignment build() {
-            return new JobAssignment(jobTitle,
-                payType,
-                hourlyRate,
-                annualRate,
-                weeklyHours);
+            return new JobAssignment(jobTitle, payType, hourlyRate, annualRate, weeklyHours);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Range type.
  */
@@ -47,7 +46,6 @@ public class Range {
         return this.max;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(min, max);
@@ -67,14 +65,23 @@ public class Range {
     }
 
     /**
+     * Converts this Range into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Range [" + "min=" + min + ", max=" + max + "]";
+    }
+
+    /**
      * Builds a new {@link Range.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Range.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .min(getMin())
-            .max(getMax());
+                .min(getMin())
+                .max(getMax());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class Range {
          * @return {@link Range}
          */
         public Range build() {
-            return new Range(min,
-                max);
+            return new Range(min, max);
         }
     }
 }

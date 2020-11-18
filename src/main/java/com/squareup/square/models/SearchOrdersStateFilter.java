@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersStateFilter type.
  */
@@ -34,7 +33,6 @@ public class SearchOrdersStateFilter {
         return this.states;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(states);
@@ -50,6 +48,15 @@ public class SearchOrdersStateFilter {
         }
         SearchOrdersStateFilter other = (SearchOrdersStateFilter) obj;
         return Objects.equals(states, other.states);
+    }
+
+    /**
+     * Converts this SearchOrdersStateFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersStateFilter [" + "states=" + states + "]";
     }
 
     /**

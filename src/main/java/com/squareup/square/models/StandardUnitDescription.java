@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for StandardUnitDescription type.
  */
@@ -63,7 +62,6 @@ public class StandardUnitDescription {
         return this.abbreviation;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(unit, name, abbreviation);
@@ -84,15 +82,25 @@ public class StandardUnitDescription {
     }
 
     /**
+     * Converts this StandardUnitDescription into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "StandardUnitDescription [" + "unit=" + unit + ", name=" + name + ", abbreviation="
+                + abbreviation + "]";
+    }
+
+    /**
      * Builds a new {@link StandardUnitDescription.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link StandardUnitDescription.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .unit(getUnit())
-            .name(getName())
-            .abbreviation(getAbbreviation());
+                .unit(getUnit())
+                .name(getName())
+                .abbreviation(getAbbreviation());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class StandardUnitDescription {
          * @return {@link StandardUnitDescription}
          */
         public StandardUnitDescription build() {
-            return new StandardUnitDescription(unit,
-                name,
-                abbreviation);
+            return new StandardUnitDescription(unit, name, abbreviation);
         }
     }
 }

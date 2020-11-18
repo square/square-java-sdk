@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ShiftWorkday type.
  */
@@ -64,7 +63,6 @@ public class ShiftWorkday {
         return this.defaultTimezone;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(dateRange, matchShiftsBy, defaultTimezone);
@@ -85,15 +83,25 @@ public class ShiftWorkday {
     }
 
     /**
+     * Converts this ShiftWorkday into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ShiftWorkday [" + "dateRange=" + dateRange + ", matchShiftsBy=" + matchShiftsBy
+                + ", defaultTimezone=" + defaultTimezone + "]";
+    }
+
+    /**
      * Builds a new {@link ShiftWorkday.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ShiftWorkday.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .dateRange(getDateRange())
-            .matchShiftsBy(getMatchShiftsBy())
-            .defaultTimezone(getDefaultTimezone());
+                .dateRange(getDateRange())
+                .matchShiftsBy(getMatchShiftsBy())
+                .defaultTimezone(getDefaultTimezone());
         return builder;
     }
 
@@ -142,9 +150,7 @@ public class ShiftWorkday {
          * @return {@link ShiftWorkday}
          */
         public ShiftWorkday build() {
-            return new ShiftWorkday(dateRange,
-                matchShiftsBy,
-                defaultTimezone);
+            return new ShiftWorkday(dateRange, matchShiftsBy, defaultTimezone);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchUpsertCatalogObjectsResponse type.
  */
@@ -83,7 +82,6 @@ public class BatchUpsertCatalogObjectsResponse {
         return this.idMappings;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, objects, updatedAt, idMappings);
@@ -105,16 +103,26 @@ public class BatchUpsertCatalogObjectsResponse {
     }
 
     /**
+     * Converts this BatchUpsertCatalogObjectsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchUpsertCatalogObjectsResponse [" + "errors=" + errors + ", objects=" + objects
+                + ", updatedAt=" + updatedAt + ", idMappings=" + idMappings + "]";
+    }
+
+    /**
      * Builds a new {@link BatchUpsertCatalogObjectsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchUpsertCatalogObjectsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .objects(getObjects())
-            .updatedAt(getUpdatedAt())
-            .idMappings(getIdMappings());
+                .errors(getErrors())
+                .objects(getObjects())
+                .updatedAt(getUpdatedAt())
+                .idMappings(getIdMappings());
         return builder;
     }
 
@@ -186,10 +194,7 @@ public class BatchUpsertCatalogObjectsResponse {
          */
         public BatchUpsertCatalogObjectsResponse build() {
             BatchUpsertCatalogObjectsResponse model =
-                    new BatchUpsertCatalogObjectsResponse(errors,
-                            objects,
-                            updatedAt,
-                            idMappings);
+                    new BatchUpsertCatalogObjectsResponse(errors, objects, updatedAt, idMappings);
             model.httpContext = httpContext;
             return model;
         }

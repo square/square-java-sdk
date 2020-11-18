@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchCatalogItemsRequest type.
  */
@@ -156,7 +155,6 @@ public class SearchCatalogItemsRequest {
         return this.customAttributeFilters;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(textFilter, categoryIds, stockLevels, enabledLocationIds, cursor, limit,
@@ -184,21 +182,34 @@ public class SearchCatalogItemsRequest {
     }
 
     /**
+     * Converts this SearchCatalogItemsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchCatalogItemsRequest [" + "textFilter=" + textFilter + ", categoryIds="
+                + categoryIds + ", stockLevels=" + stockLevels + ", enabledLocationIds="
+                + enabledLocationIds + ", cursor=" + cursor + ", limit=" + limit + ", sortOrder="
+                + sortOrder + ", productTypes=" + productTypes + ", customAttributeFilters="
+                + customAttributeFilters + "]";
+    }
+
+    /**
      * Builds a new {@link SearchCatalogItemsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchCatalogItemsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .textFilter(getTextFilter())
-            .categoryIds(getCategoryIds())
-            .stockLevels(getStockLevels())
-            .enabledLocationIds(getEnabledLocationIds())
-            .cursor(getCursor())
-            .limit(getLimit())
-            .sortOrder(getSortOrder())
-            .productTypes(getProductTypes())
-            .customAttributeFilters(getCustomAttributeFilters());
+                .textFilter(getTextFilter())
+                .categoryIds(getCategoryIds())
+                .stockLevels(getStockLevels())
+                .enabledLocationIds(getEnabledLocationIds())
+                .cursor(getCursor())
+                .limit(getLimit())
+                .sortOrder(getSortOrder())
+                .productTypes(getProductTypes())
+                .customAttributeFilters(getCustomAttributeFilters());
         return builder;
     }
 
@@ -313,15 +324,9 @@ public class SearchCatalogItemsRequest {
          * @return {@link SearchCatalogItemsRequest}
          */
         public SearchCatalogItemsRequest build() {
-            return new SearchCatalogItemsRequest(textFilter,
-                categoryIds,
-                stockLevels,
-                enabledLocationIds,
-                cursor,
-                limit,
-                sortOrder,
-                productTypes,
-                customAttributeFilters);
+            return new SearchCatalogItemsRequest(textFilter, categoryIds, stockLevels,
+                    enabledLocationIds, cursor, limit, sortOrder, productTypes,
+                    customAttributeFilters);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogObjectBatch type.
  */
@@ -34,7 +33,6 @@ public class CatalogObjectBatch {
         return this.objects;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(objects);
@@ -50,6 +48,15 @@ public class CatalogObjectBatch {
         }
         CatalogObjectBatch other = (CatalogObjectBatch) obj;
         return Objects.equals(objects, other.objects);
+    }
+
+    /**
+     * Converts this CatalogObjectBatch into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogObjectBatch [" + "objects=" + objects + "]";
     }
 
     /**

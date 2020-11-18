@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillment type.
  */
@@ -114,7 +113,6 @@ public class OrderFulfillment {
         return this.shipmentDetails;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, type, state, metadata, pickupDetails, shipmentDetails);
@@ -138,18 +136,29 @@ public class OrderFulfillment {
     }
 
     /**
+     * Converts this OrderFulfillment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillment [" + "uid=" + uid + ", type=" + type + ", state=" + state
+                + ", metadata=" + metadata + ", pickupDetails=" + pickupDetails
+                + ", shipmentDetails=" + shipmentDetails + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .type(getType())
-            .state(getState())
-            .metadata(getMetadata())
-            .pickupDetails(getPickupDetails())
-            .shipmentDetails(getShipmentDetails());
+                .uid(getUid())
+                .type(getType())
+                .state(getState())
+                .metadata(getMetadata())
+                .pickupDetails(getPickupDetails())
+                .shipmentDetails(getShipmentDetails());
         return builder;
     }
 
@@ -231,12 +240,7 @@ public class OrderFulfillment {
          * @return {@link OrderFulfillment}
          */
         public OrderFulfillment build() {
-            return new OrderFulfillment(uid,
-                type,
-                state,
-                metadata,
-                pickupDetails,
-                shipmentDetails);
+            return new OrderFulfillment(uid, type, state, metadata, pickupDetails, shipmentDetails);
         }
     }
 }

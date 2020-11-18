@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelPaymentByIdempotencyKeyRequest type.
  */
@@ -33,7 +32,6 @@ public class CancelPaymentByIdempotencyKeyRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey);
@@ -49,6 +47,15 @@ public class CancelPaymentByIdempotencyKeyRequest {
         }
         CancelPaymentByIdempotencyKeyRequest other = (CancelPaymentByIdempotencyKeyRequest) obj;
         return Objects.equals(idempotencyKey, other.idempotencyKey);
+    }
+
+    /**
+     * Converts this CancelPaymentByIdempotencyKeyRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelPaymentByIdempotencyKeyRequest [" + "idempotencyKey=" + idempotencyKey + "]";
     }
 
     /**

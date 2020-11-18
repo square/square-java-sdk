@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateDeviceCodeResponse type.
  */
@@ -53,7 +52,6 @@ public class CreateDeviceCodeResponse {
         return this.deviceCode;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, deviceCode);
@@ -73,14 +71,24 @@ public class CreateDeviceCodeResponse {
     }
 
     /**
+     * Converts this CreateDeviceCodeResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateDeviceCodeResponse [" + "errors=" + errors + ", deviceCode=" + deviceCode
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CreateDeviceCodeResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateDeviceCodeResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .deviceCode(getDeviceCode());
+                .errors(getErrors())
+                .deviceCode(getDeviceCode());
         return builder;
     }
 
@@ -130,8 +138,7 @@ public class CreateDeviceCodeResponse {
          */
         public CreateDeviceCodeResponse build() {
             CreateDeviceCodeResponse model =
-                    new CreateDeviceCodeResponse(errors,
-                            deviceCode);
+                    new CreateDeviceCodeResponse(errors, deviceCode);
             model.httpContext = httpContext;
             return model;
         }

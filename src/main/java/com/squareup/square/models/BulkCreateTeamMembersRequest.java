@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BulkCreateTeamMembersRequest type.
  */
@@ -35,7 +34,6 @@ public class BulkCreateTeamMembersRequest {
         return this.teamMembers;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMembers);
@@ -51,6 +49,15 @@ public class BulkCreateTeamMembersRequest {
         }
         BulkCreateTeamMembersRequest other = (BulkCreateTeamMembersRequest) obj;
         return Objects.equals(teamMembers, other.teamMembers);
+    }
+
+    /**
+     * Converts this BulkCreateTeamMembersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BulkCreateTeamMembersRequest [" + "teamMembers=" + teamMembers + "]";
     }
 
     /**

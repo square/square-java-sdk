@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListSubscriptionEventsResponse type.
  */
@@ -62,7 +61,7 @@ public class ListSubscriptionEventsResponse {
      * Getter for Cursor.
      * When a response is truncated, it includes a cursor that you can use in a subsequent request
      * to fetch the next set of events. If empty, this is the final response. For more information,
-     * see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -70,7 +69,6 @@ public class ListSubscriptionEventsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, subscriptionEvents, cursor);
@@ -91,15 +89,25 @@ public class ListSubscriptionEventsResponse {
     }
 
     /**
+     * Converts this ListSubscriptionEventsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListSubscriptionEventsResponse [" + "errors=" + errors + ", subscriptionEvents="
+                + subscriptionEvents + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListSubscriptionEventsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListSubscriptionEventsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .subscriptionEvents(getSubscriptionEvents())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .subscriptionEvents(getSubscriptionEvents())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class ListSubscriptionEventsResponse {
          */
         public ListSubscriptionEventsResponse build() {
             ListSubscriptionEventsResponse model =
-                    new ListSubscriptionEventsResponse(errors,
-                            subscriptionEvents,
-                            cursor);
+                    new ListSubscriptionEventsResponse(errors, subscriptionEvents, cursor);
             model.httpContext = httpContext;
             return model;
         }

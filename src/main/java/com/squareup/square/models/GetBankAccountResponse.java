@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for GetBankAccountResponse type.
  */
@@ -47,7 +46,7 @@ public class GetBankAccountResponse {
     /**
      * Getter for BankAccount.
      * Represents a bank account. For more information about linking a bank account to a Square
-     * account, see [Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api).
+     * account, see [Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api).
      * @return Returns the BankAccount
      */
     @JsonGetter("bank_account")
@@ -55,7 +54,6 @@ public class GetBankAccountResponse {
         return this.bankAccount;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, bankAccount);
@@ -75,14 +73,24 @@ public class GetBankAccountResponse {
     }
 
     /**
+     * Converts this GetBankAccountResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "GetBankAccountResponse [" + "errors=" + errors + ", bankAccount=" + bankAccount
+                + "]";
+    }
+
+    /**
      * Builds a new {@link GetBankAccountResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link GetBankAccountResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .bankAccount(getBankAccount());
+                .errors(getErrors())
+                .bankAccount(getBankAccount());
         return builder;
     }
 
@@ -132,8 +140,7 @@ public class GetBankAccountResponse {
          */
         public GetBankAccountResponse build() {
             GetBankAccountResponse model =
-                    new GetBankAccountResponse(errors,
-                            bankAccount);
+                    new GetBankAccountResponse(errors, bankAccount);
             model.httpContext = httpContext;
             return model;
         }

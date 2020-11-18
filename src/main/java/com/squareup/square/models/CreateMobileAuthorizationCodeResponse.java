@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateMobileAuthorizationCodeResponse type.
  */
@@ -69,7 +68,6 @@ public class CreateMobileAuthorizationCodeResponse {
         return this.error;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(authorizationCode, expiresAt, error);
@@ -90,15 +88,25 @@ public class CreateMobileAuthorizationCodeResponse {
     }
 
     /**
+     * Converts this CreateMobileAuthorizationCodeResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateMobileAuthorizationCodeResponse [" + "authorizationCode=" + authorizationCode
+                + ", expiresAt=" + expiresAt + ", error=" + error + "]";
+    }
+
+    /**
      * Builds a new {@link CreateMobileAuthorizationCodeResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateMobileAuthorizationCodeResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .authorizationCode(getAuthorizationCode())
-            .expiresAt(getExpiresAt())
-            .error(getError());
+                .authorizationCode(getAuthorizationCode())
+                .expiresAt(getExpiresAt())
+                .error(getError());
         return builder;
     }
 
@@ -159,9 +167,7 @@ public class CreateMobileAuthorizationCodeResponse {
          */
         public CreateMobileAuthorizationCodeResponse build() {
             CreateMobileAuthorizationCodeResponse model =
-                    new CreateMobileAuthorizationCodeResponse(authorizationCode,
-                            expiresAt,
-                            error);
+                    new CreateMobileAuthorizationCodeResponse(authorizationCode, expiresAt, error);
             model.httpContext = httpContext;
             return model;
         }

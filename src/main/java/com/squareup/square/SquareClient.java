@@ -3,6 +3,7 @@ package com.squareup.square;
 
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
+import com.squareup.square.api.BookingsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
@@ -11,6 +12,7 @@ import com.squareup.square.api.CustomerSegmentsApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.DefaultApplePayApi;
 import com.squareup.square.api.DefaultBankAccountsApi;
+import com.squareup.square.api.DefaultBookingsApi;
 import com.squareup.square.api.DefaultCashDrawersApi;
 import com.squareup.square.api.DefaultCatalogApi;
 import com.squareup.square.api.DefaultCheckoutApi;
@@ -89,6 +91,7 @@ public final class SquareClient implements SquareClientInterface {
     private V1ItemsApi v1Items;
     private ApplePayApi applePay;
     private BankAccountsApi bankAccounts;
+    private BookingsApi bookings;
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
     private CustomersApi customers;
@@ -194,6 +197,8 @@ public final class SquareClient implements SquareClientInterface {
         applePay = new DefaultApplePayApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         bankAccounts = new DefaultBankAccountsApi(this, this.httpClient, this.authManagers,
+                this.httpCallback);
+        bookings = new DefaultBookingsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         cashDrawers = new DefaultCashDrawersApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
@@ -307,6 +312,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public BankAccountsApi getBankAccountsApi() {
         return bankAccounts;
+    }
+
+    /**
+     * Get the instance of BookingsApi.
+     * @return bookings
+     */
+    public BookingsApi getBookingsApi() {
+        return bookings;
     }
 
     /**
@@ -554,7 +567,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "6.5.0.20201028";
+        return "7.0.0.20201118";
     }
 
     /**
@@ -563,8 +576,8 @@ public final class SquareClient implements SquareClientInterface {
      * @return Processed base URI
      */
     public String getBaseUri(Server server) {
-        StringBuilder baseUrl = new StringBuilder(environmentMapper(environment, server));
         Map<String, SimpleEntry<Object, Boolean>> parameters = new HashMap<>();
+        StringBuilder baseUrl = new StringBuilder(environmentMapper(environment, server));
         ApiHelper.appendUrlWithTemplateParameters(baseUrl, parameters);
         return baseUrl.toString();
     }
@@ -597,7 +610,17 @@ public final class SquareClient implements SquareClientInterface {
         return "https://connect.squareup.com";
     }
 
-    
+    /**
+     * Converts this SquareClient into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SquareClient [" + "environment=" + environment + ", squareVersion=" + squareVersion
+                + ", httpClientConfig=" + httpClientConfig + ", additionalHeaders="
+                + additionalHeaders + ", authManagers=" + authManagers + "]";
+    }
+
     /**
      * Builds a new {@link SquareClient.Builder} object.
      * Creates the instance with the state of the current client.
@@ -622,7 +645,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2020-10-28";
+        private String squareVersion = "2020-11-18";
         private HttpClient httpClient;
         private long timeout = 60;
         private Headers additionalHeaders = new Headers();

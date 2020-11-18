@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchCustomersRequest type.
  */
@@ -67,7 +66,6 @@ public class SearchCustomersRequest {
         return this.query;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, limit, query);
@@ -88,15 +86,25 @@ public class SearchCustomersRequest {
     }
 
     /**
+     * Converts this SearchCustomersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchCustomersRequest [" + "cursor=" + cursor + ", limit=" + limit + ", query="
+                + query + "]";
+    }
+
+    /**
      * Builds a new {@link SearchCustomersRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchCustomersRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .limit(getLimit())
-            .query(getQuery());
+                .cursor(getCursor())
+                .limit(getLimit())
+                .query(getQuery());
         return builder;
     }
 
@@ -145,9 +153,7 @@ public class SearchCustomersRequest {
          * @return {@link SearchCustomersRequest}
          */
         public SearchCustomersRequest build() {
-            return new SearchCustomersRequest(cursor,
-                limit,
-                query);
+            return new SearchCustomersRequest(cursor, limit, query);
         }
     }
 }

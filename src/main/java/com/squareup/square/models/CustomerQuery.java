@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerQuery type.
  */
@@ -48,7 +47,6 @@ public class CustomerQuery {
         return this.sort;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filter, sort);
@@ -68,14 +66,23 @@ public class CustomerQuery {
     }
 
     /**
+     * Converts this CustomerQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerQuery [" + "filter=" + filter + ", sort=" + sort + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .filter(getFilter())
-            .sort(getSort());
+                .filter(getFilter())
+                .sort(getSort());
         return builder;
     }
 
@@ -113,8 +120,7 @@ public class CustomerQuery {
          * @return {@link CustomerQuery}
          */
         public CustomerQuery build() {
-            return new CustomerQuery(filter,
-                sort);
+            return new CustomerQuery(filter, sort);
         }
     }
 }

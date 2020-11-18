@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateOrderRequest type.
  */
@@ -73,7 +72,6 @@ public class UpdateOrderRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, fieldsToClear, idempotencyKey);
@@ -94,15 +92,25 @@ public class UpdateOrderRequest {
     }
 
     /**
+     * Converts this UpdateOrderRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateOrderRequest [" + "order=" + order + ", fieldsToClear=" + fieldsToClear
+                + ", idempotencyKey=" + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateOrderRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateOrderRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .fieldsToClear(getFieldsToClear())
-            .idempotencyKey(getIdempotencyKey());
+                .order(getOrder())
+                .fieldsToClear(getFieldsToClear())
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -151,9 +159,7 @@ public class UpdateOrderRequest {
          * @return {@link UpdateOrderRequest}
          */
         public UpdateOrderRequest build() {
-            return new UpdateOrderRequest(order,
-                fieldsToClear,
-                idempotencyKey);
+            return new UpdateOrderRequest(order, fieldsToClear, idempotencyKey);
         }
     }
 }

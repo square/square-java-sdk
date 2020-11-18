@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItemModifier type.
  */
@@ -99,7 +98,6 @@ public class OrderLineItemModifier {
         return this.totalPriceMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, basePriceMoney, totalPriceMoney);
@@ -122,17 +120,28 @@ public class OrderLineItemModifier {
     }
 
     /**
+     * Converts this OrderLineItemModifier into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItemModifier [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
+                + ", name=" + name + ", basePriceMoney=" + basePriceMoney + ", totalPriceMoney="
+                + totalPriceMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItemModifier.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItemModifier.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .basePriceMoney(getBasePriceMoney())
-            .totalPriceMoney(getTotalPriceMoney());
+                .uid(getUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .basePriceMoney(getBasePriceMoney())
+                .totalPriceMoney(getTotalPriceMoney());
         return builder;
     }
 
@@ -203,11 +212,8 @@ public class OrderLineItemModifier {
          * @return {@link OrderLineItemModifier}
          */
         public OrderLineItemModifier build() {
-            return new OrderLineItemModifier(uid,
-                catalogObjectId,
-                name,
-                basePriceMoney,
-                totalPriceMoney);
+            return new OrderLineItemModifier(uid, catalogObjectId, name, basePriceMoney,
+                    totalPriceMoney);
         }
     }
 }

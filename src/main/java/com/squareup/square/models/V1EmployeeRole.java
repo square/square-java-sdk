@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1EmployeeRole type.
  */
@@ -114,7 +113,6 @@ public class V1EmployeeRole {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, permissions, isOwner, createdAt, updatedAt);
@@ -138,17 +136,27 @@ public class V1EmployeeRole {
     }
 
     /**
+     * Converts this V1EmployeeRole into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1EmployeeRole [" + "name=" + name + ", permissions=" + permissions + ", id=" + id
+                + ", isOwner=" + isOwner + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + "]";
+    }
+
+    /**
      * Builds a new {@link V1EmployeeRole.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1EmployeeRole.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name,
-            permissions)
-            .id(getId())
-            .isOwner(getIsOwner())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(name, permissions)
+                .id(getId())
+                .isOwner(getIsOwner())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -251,12 +259,7 @@ public class V1EmployeeRole {
          */
         public V1EmployeeRole build() {
             V1EmployeeRole model =
-                    new V1EmployeeRole(name,
-                            permissions,
-                            id,
-                            isOwner,
-                            createdAt,
-                            updatedAt);
+                    new V1EmployeeRole(name, permissions, id, isOwner, createdAt, updatedAt);
             model.httpContext = httpContext;
             return model;
         }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCashDrawerShiftEventsResponse type.
  */
@@ -68,7 +67,6 @@ public class ListCashDrawerShiftEventsResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(events, cursor, errors);
@@ -89,15 +87,25 @@ public class ListCashDrawerShiftEventsResponse {
     }
 
     /**
+     * Converts this ListCashDrawerShiftEventsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCashDrawerShiftEventsResponse [" + "events=" + events + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListCashDrawerShiftEventsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCashDrawerShiftEventsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .events(getEvents())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .events(getEvents())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -158,9 +166,7 @@ public class ListCashDrawerShiftEventsResponse {
          */
         public ListCashDrawerShiftEventsResponse build() {
             ListCashDrawerShiftEventsResponse model =
-                    new ListCashDrawerShiftEventsResponse(events,
-                            cursor,
-                            errors);
+                    new ListCashDrawerShiftEventsResponse(events, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

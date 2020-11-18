@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListBankAccountsRequest type.
  */
@@ -35,8 +34,8 @@ public class ListBankAccountsRequest {
      * Getter for Cursor.
      * The pagination cursor returned by a previous call to this endpoint. Use it in the next
      * `ListBankAccounts` request to retrieve the next set of results. See the
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for
-     * more information.
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -67,7 +66,6 @@ public class ListBankAccountsRequest {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, limit, locationId);
@@ -88,15 +86,25 @@ public class ListBankAccountsRequest {
     }
 
     /**
+     * Converts this ListBankAccountsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListBankAccountsRequest [" + "cursor=" + cursor + ", limit=" + limit
+                + ", locationId=" + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link ListBankAccountsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListBankAccountsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .limit(getLimit())
-            .locationId(getLocationId());
+                .cursor(getCursor())
+                .limit(getLimit())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -145,9 +153,7 @@ public class ListBankAccountsRequest {
          * @return {@link ListBankAccountsRequest}
          */
         public ListBankAccountsRequest build() {
-            return new ListBankAccountsRequest(cursor,
-                limit,
-                locationId);
+            return new ListBankAccountsRequest(cursor, limit, locationId);
         }
     }
 }

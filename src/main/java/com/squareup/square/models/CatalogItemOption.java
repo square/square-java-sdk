@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItemOption type.
  */
@@ -94,7 +93,6 @@ public class CatalogItemOption {
         return this.values;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, displayName, description, showColors, values);
@@ -117,17 +115,28 @@ public class CatalogItemOption {
     }
 
     /**
+     * Converts this CatalogItemOption into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItemOption [" + "name=" + name + ", displayName=" + displayName
+                + ", description=" + description + ", showColors=" + showColors + ", values="
+                + values + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogItemOption.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogItemOption.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .displayName(getDisplayName())
-            .description(getDescription())
-            .showColors(getShowColors())
-            .values(getValues());
+                .name(getName())
+                .displayName(getDisplayName())
+                .description(getDescription())
+                .showColors(getShowColors())
+                .values(getValues());
         return builder;
     }
 
@@ -198,11 +207,7 @@ public class CatalogItemOption {
          * @return {@link CatalogItemOption}
          */
         public CatalogItemOption build() {
-            return new CatalogItemOption(name,
-                displayName,
-                description,
-                showColors,
-                values);
+            return new CatalogItemOption(name, displayName, description, showColors, values);
         }
     }
 }

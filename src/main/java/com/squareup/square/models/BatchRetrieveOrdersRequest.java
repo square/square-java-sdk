@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveOrdersRequest type.
  */
@@ -49,7 +48,6 @@ public class BatchRetrieveOrdersRequest {
         return this.orderIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, orderIds);
@@ -69,13 +67,23 @@ public class BatchRetrieveOrdersRequest {
     }
 
     /**
+     * Converts this BatchRetrieveOrdersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveOrdersRequest [" + "orderIds=" + orderIds + ", locationId="
+                + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveOrdersRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveOrdersRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(orderIds)
-            .locationId(getLocationId());
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -119,8 +127,7 @@ public class BatchRetrieveOrdersRequest {
          * @return {@link BatchRetrieveOrdersRequest}
          */
         public BatchRetrieveOrdersRequest build() {
-            return new BatchRetrieveOrdersRequest(orderIds,
-                locationId);
+            return new BatchRetrieveOrdersRequest(orderIds, locationId);
         }
     }
 }

@@ -215,4 +215,13 @@ public class Headers {
         }
         return null;
     }
+
+    /**
+     * Converts this Headers into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Headers " + headers;
+    }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalCheckoutQueryFilter type.
  */
@@ -58,7 +57,7 @@ public class TerminalCheckoutQueryFilter {
     /**
      * Getter for Status.
      * Filtered results with the desired status of the `TerminalCheckout` Options: PENDING,
-     * IN\_PROGRESS, CANCELED, COMPLETED
+     * IN_PROGRESS, CANCELED, COMPLETED
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -66,7 +65,6 @@ public class TerminalCheckoutQueryFilter {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(deviceId, createdAt, status);
@@ -87,15 +85,25 @@ public class TerminalCheckoutQueryFilter {
     }
 
     /**
+     * Converts this TerminalCheckoutQueryFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalCheckoutQueryFilter [" + "deviceId=" + deviceId + ", createdAt=" + createdAt
+                + ", status=" + status + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalCheckoutQueryFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalCheckoutQueryFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .deviceId(getDeviceId())
-            .createdAt(getCreatedAt())
-            .status(getStatus());
+                .deviceId(getDeviceId())
+                .createdAt(getCreatedAt())
+                .status(getStatus());
         return builder;
     }
 
@@ -144,9 +152,7 @@ public class TerminalCheckoutQueryFilter {
          * @return {@link TerminalCheckoutQueryFilter}
          */
         public TerminalCheckoutQueryFilter build() {
-            return new TerminalCheckoutQueryFilter(deviceId,
-                createdAt,
-                status);
+            return new TerminalCheckoutQueryFilter(deviceId, createdAt, status);
         }
     }
 }

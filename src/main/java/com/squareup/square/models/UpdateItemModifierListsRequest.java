@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateItemModifierListsRequest type.
  */
@@ -62,7 +61,6 @@ public class UpdateItemModifierListsRequest {
         return this.modifierListsToDisable;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(itemIds, modifierListsToEnable, modifierListsToDisable);
@@ -83,14 +81,25 @@ public class UpdateItemModifierListsRequest {
     }
 
     /**
+     * Converts this UpdateItemModifierListsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateItemModifierListsRequest [" + "itemIds=" + itemIds
+                + ", modifierListsToEnable=" + modifierListsToEnable + ", modifierListsToDisable="
+                + modifierListsToDisable + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateItemModifierListsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateItemModifierListsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(itemIds)
-            .modifierListsToEnable(getModifierListsToEnable())
-            .modifierListsToDisable(getModifierListsToDisable());
+                .modifierListsToEnable(getModifierListsToEnable())
+                .modifierListsToDisable(getModifierListsToDisable());
         return builder;
     }
 
@@ -145,9 +154,8 @@ public class UpdateItemModifierListsRequest {
          * @return {@link UpdateItemModifierListsRequest}
          */
         public UpdateItemModifierListsRequest build() {
-            return new UpdateItemModifierListsRequest(itemIds,
-                modifierListsToEnable,
-                modifierListsToDisable);
+            return new UpdateItemModifierListsRequest(itemIds, modifierListsToEnable,
+                    modifierListsToDisable);
         }
     }
 }

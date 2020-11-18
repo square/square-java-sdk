@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListPaymentRefundsRequest type.
  */
@@ -53,8 +52,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for BeginTime.
-     * Timestamp for the beginning of the requested reporting period, in RFC 3339 format. Default:
-     * The current time minus one year.
+     * The timestamp for the beginning of the requested reporting period, in RFC 3339 format.
+     * Default: The current time minus one year.
      * @return Returns the String
      */
     @JsonGetter("begin_time")
@@ -64,7 +63,7 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for EndTime.
-     * Timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The
+     * The timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The
      * current time.
      * @return Returns the String
      */
@@ -75,8 +74,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for SortOrder.
-     * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest
-     * (default).
+     * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to
+     * oldest (default).
      * @return Returns the String
      */
     @JsonGetter("sort_order")
@@ -86,10 +85,9 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
-     * the next set of results for the original query. See
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
-     * information.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -100,7 +98,7 @@ public class ListPaymentRefundsRequest {
     /**
      * Getter for LocationId.
      * Limit results to the location supplied. By default, results are returned for all locations
-     * associated with the merchant.
+     * associated with the seller.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -111,8 +109,8 @@ public class ListPaymentRefundsRequest {
     /**
      * Getter for Status.
      * If provided, only refunds with the given status are returned. For a list of refund status
-     * values, see [PaymentRefund](#type-paymentrefund). Default: If omitted refunds are returned
-     * regardless of status.
+     * values, see [PaymentRefund](#type-paymentrefund). Default: If omitted, refunds are returned
+     * regardless of their status.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -123,8 +121,8 @@ public class ListPaymentRefundsRequest {
     /**
      * Getter for SourceType.
      * If provided, only refunds with the given source type are returned. - `CARD` - List refunds
-     * only for payments where card was specified as payment source. Default: If omitted refunds are
-     * returned regardless of source type.
+     * only for payments where `CARD` was specified as the payment source. Default: If omitted,
+     * refunds are returned regardless of the source type.
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -134,9 +132,9 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for Limit.
-     * Maximum number of results to be returned in a single page. It is possible to receive fewer
-     * results than the specified limit on a given page. If the supplied value is greater than 100,
-     * at most 100 results will be returned. Default: `100`
+     * The maximum number of results to be returned in a single page. It is possible to receive
+     * fewer results than the specified limit on a given page. If the supplied value is greater than
+     * 100, no more than 100 results are returned. Default: 100
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -144,7 +142,6 @@ public class ListPaymentRefundsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, sourceType,
@@ -171,20 +168,31 @@ public class ListPaymentRefundsRequest {
     }
 
     /**
+     * Converts this ListPaymentRefundsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListPaymentRefundsRequest [" + "beginTime=" + beginTime + ", endTime=" + endTime
+                + ", sortOrder=" + sortOrder + ", cursor=" + cursor + ", locationId=" + locationId
+                + ", status=" + status + ", sourceType=" + sourceType + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link ListPaymentRefundsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListPaymentRefundsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .sortOrder(getSortOrder())
-            .cursor(getCursor())
-            .locationId(getLocationId())
-            .status(getStatus())
-            .sourceType(getSourceType())
-            .limit(getLimit());
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .sortOrder(getSortOrder())
+                .cursor(getCursor())
+                .locationId(getLocationId())
+                .status(getStatus())
+                .sourceType(getSourceType())
+                .limit(getLimit());
         return builder;
     }
 
@@ -288,14 +296,8 @@ public class ListPaymentRefundsRequest {
          * @return {@link ListPaymentRefundsRequest}
          */
         public ListPaymentRefundsRequest build() {
-            return new ListPaymentRefundsRequest(beginTime,
-                endTime,
-                sortOrder,
-                cursor,
-                locationId,
-                status,
-                sourceType,
-                limit);
+            return new ListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
+                    status, sourceType, limit);
         }
     }
 }

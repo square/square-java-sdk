@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for AccumulateLoyaltyPointsRequest type.
  */
@@ -62,7 +61,6 @@ public class AccumulateLoyaltyPointsRequest {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(accumulatePoints, idempotencyKey, locationId);
@@ -83,14 +81,22 @@ public class AccumulateLoyaltyPointsRequest {
     }
 
     /**
+     * Converts this AccumulateLoyaltyPointsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "AccumulateLoyaltyPointsRequest [" + "accumulatePoints=" + accumulatePoints
+                + ", idempotencyKey=" + idempotencyKey + ", locationId=" + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link AccumulateLoyaltyPointsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link AccumulateLoyaltyPointsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(accumulatePoints,
-            idempotencyKey,
-            locationId);
+        Builder builder = new Builder(accumulatePoints, idempotencyKey, locationId);
         return builder;
     }
 
@@ -151,9 +157,7 @@ public class AccumulateLoyaltyPointsRequest {
          * @return {@link AccumulateLoyaltyPointsRequest}
          */
         public AccumulateLoyaltyPointsRequest build() {
-            return new AccumulateLoyaltyPointsRequest(accumulatePoints,
-                idempotencyKey,
-                locationId);
+            return new AccumulateLoyaltyPointsRequest(accumulatePoints, idempotencyKey, locationId);
         }
     }
 }

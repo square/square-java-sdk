@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Location type.
  */
@@ -399,7 +398,6 @@ public class Location {
         return this.fullFormatLogoUrl;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, address, timezone, capabilities, status, createdAt,
@@ -447,38 +445,57 @@ public class Location {
     }
 
     /**
+     * Converts this Location into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Location [" + "id=" + id + ", name=" + name + ", address=" + address + ", timezone="
+                + timezone + ", capabilities=" + capabilities + ", status=" + status
+                + ", createdAt=" + createdAt + ", merchantId=" + merchantId + ", country=" + country
+                + ", languageCode=" + languageCode + ", currency=" + currency + ", phoneNumber="
+                + phoneNumber + ", businessName=" + businessName + ", type=" + type
+                + ", websiteUrl=" + websiteUrl + ", businessHours=" + businessHours
+                + ", businessEmail=" + businessEmail + ", description=" + description
+                + ", twitterUsername=" + twitterUsername + ", instagramUsername="
+                + instagramUsername + ", facebookUrl=" + facebookUrl + ", coordinates="
+                + coordinates + ", logoUrl=" + logoUrl + ", posBackgroundUrl=" + posBackgroundUrl
+                + ", mcc=" + mcc + ", fullFormatLogoUrl=" + fullFormatLogoUrl + "]";
+    }
+
+    /**
      * Builds a new {@link Location.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Location.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .address(getAddress())
-            .timezone(getTimezone())
-            .capabilities(getCapabilities())
-            .status(getStatus())
-            .createdAt(getCreatedAt())
-            .merchantId(getMerchantId())
-            .country(getCountry())
-            .languageCode(getLanguageCode())
-            .currency(getCurrency())
-            .phoneNumber(getPhoneNumber())
-            .businessName(getBusinessName())
-            .type(getType())
-            .websiteUrl(getWebsiteUrl())
-            .businessHours(getBusinessHours())
-            .businessEmail(getBusinessEmail())
-            .description(getDescription())
-            .twitterUsername(getTwitterUsername())
-            .instagramUsername(getInstagramUsername())
-            .facebookUrl(getFacebookUrl())
-            .coordinates(getCoordinates())
-            .logoUrl(getLogoUrl())
-            .posBackgroundUrl(getPosBackgroundUrl())
-            .mcc(getMcc())
-            .fullFormatLogoUrl(getFullFormatLogoUrl());
+                .id(getId())
+                .name(getName())
+                .address(getAddress())
+                .timezone(getTimezone())
+                .capabilities(getCapabilities())
+                .status(getStatus())
+                .createdAt(getCreatedAt())
+                .merchantId(getMerchantId())
+                .country(getCountry())
+                .languageCode(getLanguageCode())
+                .currency(getCurrency())
+                .phoneNumber(getPhoneNumber())
+                .businessName(getBusinessName())
+                .type(getType())
+                .websiteUrl(getWebsiteUrl())
+                .businessHours(getBusinessHours())
+                .businessEmail(getBusinessEmail())
+                .description(getDescription())
+                .twitterUsername(getTwitterUsername())
+                .instagramUsername(getInstagramUsername())
+                .facebookUrl(getFacebookUrl())
+                .coordinates(getCoordinates())
+                .logoUrl(getLogoUrl())
+                .posBackgroundUrl(getPosBackgroundUrl())
+                .mcc(getMcc())
+                .fullFormatLogoUrl(getFullFormatLogoUrl());
         return builder;
     }
 
@@ -780,32 +797,11 @@ public class Location {
          * @return {@link Location}
          */
         public Location build() {
-            return new Location(id,
-                name,
-                address,
-                timezone,
-                capabilities,
-                status,
-                createdAt,
-                merchantId,
-                country,
-                languageCode,
-                currency,
-                phoneNumber,
-                businessName,
-                type,
-                websiteUrl,
-                businessHours,
-                businessEmail,
-                description,
-                twitterUsername,
-                instagramUsername,
-                facebookUrl,
-                coordinates,
-                logoUrl,
-                posBackgroundUrl,
-                mcc,
-                fullFormatLogoUrl);
+            return new Location(id, name, address, timezone, capabilities, status, createdAt,
+                    merchantId, country, languageCode, currency, phoneNumber, businessName, type,
+                    websiteUrl, businessHours, businessEmail, description, twitterUsername,
+                    instagramUsername, facebookUrl, coordinates, logoUrl, posBackgroundUrl, mcc,
+                    fullFormatLogoUrl);
         }
     }
 }

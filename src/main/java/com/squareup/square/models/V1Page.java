@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Page type.
  */
@@ -83,7 +82,6 @@ public class V1Page {
         return this.cells;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, pageIndex, cells);
@@ -105,16 +103,26 @@ public class V1Page {
     }
 
     /**
+     * Converts this V1Page into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Page [" + "id=" + id + ", name=" + name + ", pageIndex=" + pageIndex + ", cells="
+                + cells + "]";
+    }
+
+    /**
      * Builds a new {@link V1Page.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Page.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .pageIndex(getPageIndex())
-            .cells(getCells());
+                .id(getId())
+                .name(getName())
+                .pageIndex(getPageIndex())
+                .cells(getCells());
         return builder;
     }
 
@@ -186,10 +194,7 @@ public class V1Page {
          */
         public V1Page build() {
             V1Page model =
-                    new V1Page(id,
-                            name,
-                            pageIndex,
-                            cells);
+                    new V1Page(id, name, pageIndex, cells);
             model.httpContext = httpContext;
             return model;
         }

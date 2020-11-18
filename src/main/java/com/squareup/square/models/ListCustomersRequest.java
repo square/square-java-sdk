@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCustomersRequest type.
  */
@@ -64,7 +63,6 @@ public class ListCustomersRequest {
         return this.sortOrder;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, sortField, sortOrder);
@@ -85,15 +83,25 @@ public class ListCustomersRequest {
     }
 
     /**
+     * Converts this ListCustomersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCustomersRequest [" + "cursor=" + cursor + ", sortField=" + sortField
+                + ", sortOrder=" + sortOrder + "]";
+    }
+
+    /**
      * Builds a new {@link ListCustomersRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCustomersRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .sortField(getSortField())
-            .sortOrder(getSortOrder());
+                .cursor(getCursor())
+                .sortField(getSortField())
+                .sortOrder(getSortOrder());
         return builder;
     }
 
@@ -142,9 +150,7 @@ public class ListCustomersRequest {
          * @return {@link ListCustomersRequest}
          */
         public ListCustomersRequest build() {
-            return new ListCustomersRequest(cursor,
-                sortField,
-                sortOrder);
+            return new ListCustomersRequest(cursor, sortField, sortOrder);
         }
     }
 }

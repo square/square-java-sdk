@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryRange type.
  */
@@ -61,7 +60,6 @@ public class CatalogQueryRange {
         return this.attributeMaxValue;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(attributeName, attributeMinValue, attributeMaxValue);
@@ -82,14 +80,24 @@ public class CatalogQueryRange {
     }
 
     /**
+     * Converts this CatalogQueryRange into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryRange [" + "attributeName=" + attributeName + ", attributeMinValue="
+                + attributeMinValue + ", attributeMaxValue=" + attributeMaxValue + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQueryRange.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQueryRange.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(attributeName)
-            .attributeMinValue(getAttributeMinValue())
-            .attributeMaxValue(getAttributeMaxValue());
+                .attributeMinValue(getAttributeMinValue())
+                .attributeMaxValue(getAttributeMaxValue());
         return builder;
     }
 
@@ -144,9 +152,7 @@ public class CatalogQueryRange {
          * @return {@link CatalogQueryRange}
          */
         public CatalogQueryRange build() {
-            return new CatalogQueryRange(attributeName,
-                attributeMinValue,
-                attributeMaxValue);
+            return new CatalogQueryRange(attributeName, attributeMinValue, attributeMaxValue);
         }
     }
 }

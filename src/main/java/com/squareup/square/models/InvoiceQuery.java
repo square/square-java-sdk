@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoiceQuery type.
  */
@@ -47,7 +46,6 @@ public class InvoiceQuery {
         return this.sort;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filter, sort);
@@ -67,13 +65,22 @@ public class InvoiceQuery {
     }
 
     /**
+     * Converts this InvoiceQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoiceQuery [" + "filter=" + filter + ", sort=" + sort + "]";
+    }
+
+    /**
      * Builds a new {@link InvoiceQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoiceQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(filter)
-            .sort(getSort());
+                .sort(getSort());
         return builder;
     }
 
@@ -117,8 +124,7 @@ public class InvoiceQuery {
          * @return {@link InvoiceQuery}
          */
         public InvoiceQuery build() {
-            return new InvoiceQuery(filter,
-                sort);
+            return new InvoiceQuery(filter, sort);
         }
     }
 }

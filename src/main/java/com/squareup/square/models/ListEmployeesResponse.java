@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListEmployeesResponse type.
  */
@@ -67,7 +66,6 @@ public class ListEmployeesResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(employees, cursor, errors);
@@ -88,15 +86,25 @@ public class ListEmployeesResponse {
     }
 
     /**
+     * Converts this ListEmployeesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListEmployeesResponse [" + "employees=" + employees + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListEmployeesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListEmployeesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .employees(getEmployees())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .employees(getEmployees())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -157,9 +165,7 @@ public class ListEmployeesResponse {
          */
         public ListEmployeesResponse build() {
             ListEmployeesResponse model =
-                    new ListEmployeesResponse(employees,
-                            cursor,
-                            errors);
+                    new ListEmployeesResponse(employees, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

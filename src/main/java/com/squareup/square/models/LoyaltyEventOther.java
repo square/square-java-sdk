@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventOther type.
  */
@@ -47,7 +46,6 @@ public class LoyaltyEventOther {
         return this.points;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyProgramId, points);
@@ -67,13 +65,22 @@ public class LoyaltyEventOther {
     }
 
     /**
+     * Converts this LoyaltyEventOther into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventOther [" + "loyaltyProgramId=" + loyaltyProgramId + ", points=" + points
+                + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEventOther.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEventOther.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(loyaltyProgramId,
-            points);
+        Builder builder = new Builder(loyaltyProgramId, points);
         return builder;
     }
 
@@ -120,8 +127,7 @@ public class LoyaltyEventOther {
          * @return {@link LoyaltyEventOther}
          */
         public LoyaltyEventOther build() {
-            return new LoyaltyEventOther(loyaltyProgramId,
-                points);
+            return new LoyaltyEventOther(loyaltyProgramId, points);
         }
     }
 }

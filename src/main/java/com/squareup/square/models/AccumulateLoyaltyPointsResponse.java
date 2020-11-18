@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for AccumulateLoyaltyPointsResponse type.
  */
@@ -47,7 +46,7 @@ public class AccumulateLoyaltyPointsResponse {
     /**
      * Getter for Event.
      * Provides information about a loyalty event. For more information, see [Loyalty
-     * events](https://developer.squareup.com/docs/docs/loyalty-api/overview/#loyalty-events).
+     * events](https://developer.squareup.com/docs/loyalty-api/overview/#loyalty-events).
      * @return Returns the LoyaltyEvent
      */
     @JsonGetter("event")
@@ -55,7 +54,6 @@ public class AccumulateLoyaltyPointsResponse {
         return this.event;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, event);
@@ -75,14 +73,23 @@ public class AccumulateLoyaltyPointsResponse {
     }
 
     /**
+     * Converts this AccumulateLoyaltyPointsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "AccumulateLoyaltyPointsResponse [" + "errors=" + errors + ", event=" + event + "]";
+    }
+
+    /**
      * Builds a new {@link AccumulateLoyaltyPointsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link AccumulateLoyaltyPointsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .event(getEvent());
+                .errors(getErrors())
+                .event(getEvent());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class AccumulateLoyaltyPointsResponse {
          */
         public AccumulateLoyaltyPointsResponse build() {
             AccumulateLoyaltyPointsResponse model =
-                    new AccumulateLoyaltyPointsResponse(errors,
-                            event);
+                    new AccumulateLoyaltyPointsResponse(errors, event);
             model.httpContext = httpContext;
             return model;
         }

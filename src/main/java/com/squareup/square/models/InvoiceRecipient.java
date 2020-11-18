@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoiceRecipient type.
  */
@@ -118,7 +117,6 @@ public class InvoiceRecipient {
         return this.companyName;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customerId, givenName, familyName, emailAddress, address, phoneNumber,
@@ -144,19 +142,30 @@ public class InvoiceRecipient {
     }
 
     /**
+     * Converts this InvoiceRecipient into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoiceRecipient [" + "customerId=" + customerId + ", givenName=" + givenName
+                + ", familyName=" + familyName + ", emailAddress=" + emailAddress + ", address="
+                + address + ", phoneNumber=" + phoneNumber + ", companyName=" + companyName + "]";
+    }
+
+    /**
      * Builds a new {@link InvoiceRecipient.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoiceRecipient.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customerId(getCustomerId())
-            .givenName(getGivenName())
-            .familyName(getFamilyName())
-            .emailAddress(getEmailAddress())
-            .address(getAddress())
-            .phoneNumber(getPhoneNumber())
-            .companyName(getCompanyName());
+                .customerId(getCustomerId())
+                .givenName(getGivenName())
+                .familyName(getFamilyName())
+                .emailAddress(getEmailAddress())
+                .address(getAddress())
+                .phoneNumber(getPhoneNumber())
+                .companyName(getCompanyName());
         return builder;
     }
 
@@ -249,13 +258,8 @@ public class InvoiceRecipient {
          * @return {@link InvoiceRecipient}
          */
         public InvoiceRecipient build() {
-            return new InvoiceRecipient(customerId,
-                givenName,
-                familyName,
-                emailAddress,
-                address,
-                phoneNumber,
-                companyName);
+            return new InvoiceRecipient(customerId, givenName, familyName, emailAddress, address,
+                    phoneNumber, companyName);
         }
     }
 }

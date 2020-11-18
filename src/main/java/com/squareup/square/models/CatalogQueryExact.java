@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryExact type.
  */
@@ -49,7 +48,6 @@ public class CatalogQueryExact {
         return this.attributeValue;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(attributeName, attributeValue);
@@ -69,13 +67,22 @@ public class CatalogQueryExact {
     }
 
     /**
+     * Converts this CatalogQueryExact into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryExact [" + "attributeName=" + attributeName + ", attributeValue="
+                + attributeValue + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQueryExact.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQueryExact.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(attributeName,
-            attributeValue);
+        Builder builder = new Builder(attributeName, attributeValue);
         return builder;
     }
 
@@ -122,8 +129,7 @@ public class CatalogQueryExact {
          * @return {@link CatalogQueryExact}
          */
         public CatalogQueryExact build() {
-            return new CatalogQueryExact(attributeName,
-                attributeValue);
+            return new CatalogQueryExact(attributeName, attributeValue);
         }
     }
 }

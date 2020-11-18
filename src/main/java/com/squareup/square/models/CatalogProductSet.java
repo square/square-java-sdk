@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogProductSet type.
  */
@@ -130,7 +129,6 @@ public class CatalogProductSet {
         return this.allProducts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, productIdsAny, productIdsAll, quantityExact, quantityMin,
@@ -156,19 +154,31 @@ public class CatalogProductSet {
     }
 
     /**
+     * Converts this CatalogProductSet into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogProductSet [" + "name=" + name + ", productIdsAny=" + productIdsAny
+                + ", productIdsAll=" + productIdsAll + ", quantityExact=" + quantityExact
+                + ", quantityMin=" + quantityMin + ", quantityMax=" + quantityMax + ", allProducts="
+                + allProducts + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogProductSet.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogProductSet.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .productIdsAny(getProductIdsAny())
-            .productIdsAll(getProductIdsAll())
-            .quantityExact(getQuantityExact())
-            .quantityMin(getQuantityMin())
-            .quantityMax(getQuantityMax())
-            .allProducts(getAllProducts());
+                .name(getName())
+                .productIdsAny(getProductIdsAny())
+                .productIdsAll(getProductIdsAll())
+                .quantityExact(getQuantityExact())
+                .quantityMin(getQuantityMin())
+                .quantityMax(getQuantityMax())
+                .allProducts(getAllProducts());
         return builder;
     }
 
@@ -261,13 +271,8 @@ public class CatalogProductSet {
          * @return {@link CatalogProductSet}
          */
         public CatalogProductSet build() {
-            return new CatalogProductSet(name,
-                productIdsAny,
-                productIdsAll,
-                quantityExact,
-                quantityMin,
-                quantityMax,
-                allProducts);
+            return new CatalogProductSet(name, productIdsAny, productIdsAll, quantityExact,
+                    quantityMin, quantityMax, allProducts);
         }
     }
 }

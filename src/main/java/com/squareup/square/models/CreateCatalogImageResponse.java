@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCatalogImageResponse type.
  */
@@ -79,7 +78,6 @@ public class CreateCatalogImageResponse {
         return this.image;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, image);
@@ -99,14 +97,23 @@ public class CreateCatalogImageResponse {
     }
 
     /**
+     * Converts this CreateCatalogImageResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCatalogImageResponse [" + "errors=" + errors + ", image=" + image + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCatalogImageResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCatalogImageResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .image(getImage());
+                .errors(getErrors())
+                .image(getImage());
         return builder;
     }
 
@@ -156,8 +163,7 @@ public class CreateCatalogImageResponse {
          */
         public CreateCatalogImageResponse build() {
             CreateCatalogImageResponse model =
-                    new CreateCatalogImageResponse(errors,
-                            image);
+                    new CreateCatalogImageResponse(errors, image);
             model.httpContext = httpContext;
             return model;
         }

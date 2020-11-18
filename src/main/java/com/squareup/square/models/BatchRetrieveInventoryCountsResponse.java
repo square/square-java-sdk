@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveInventoryCountsResponse type.
  */
@@ -71,7 +70,6 @@ public class BatchRetrieveInventoryCountsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, counts, cursor);
@@ -92,15 +90,25 @@ public class BatchRetrieveInventoryCountsResponse {
     }
 
     /**
+     * Converts this BatchRetrieveInventoryCountsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveInventoryCountsResponse [" + "errors=" + errors + ", counts=" + counts
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveInventoryCountsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveInventoryCountsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .counts(getCounts())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .counts(getCounts())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class BatchRetrieveInventoryCountsResponse {
          */
         public BatchRetrieveInventoryCountsResponse build() {
             BatchRetrieveInventoryCountsResponse model =
-                    new BatchRetrieveInventoryCountsResponse(errors,
-                            counts,
-                            cursor);
+                    new BatchRetrieveInventoryCountsResponse(errors, counts, cursor);
             model.httpContext = httpContext;
             return model;
         }

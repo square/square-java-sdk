@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchChangeInventoryRequest type.
  */
@@ -67,7 +66,6 @@ public class BatchChangeInventoryRequest {
         return this.ignoreUnchangedCounts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, changes, ignoreUnchangedCounts);
@@ -88,15 +86,25 @@ public class BatchChangeInventoryRequest {
     }
 
     /**
+     * Converts this BatchChangeInventoryRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchChangeInventoryRequest [" + "idempotencyKey=" + idempotencyKey + ", changes="
+                + changes + ", ignoreUnchangedCounts=" + ignoreUnchangedCounts + "]";
+    }
+
+    /**
      * Builds a new {@link BatchChangeInventoryRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchChangeInventoryRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .idempotencyKey(getIdempotencyKey())
-            .changes(getChanges())
-            .ignoreUnchangedCounts(getIgnoreUnchangedCounts());
+                .idempotencyKey(getIdempotencyKey())
+                .changes(getChanges())
+                .ignoreUnchangedCounts(getIgnoreUnchangedCounts());
         return builder;
     }
 
@@ -145,9 +153,7 @@ public class BatchChangeInventoryRequest {
          * @return {@link BatchChangeInventoryRequest}
          */
         public BatchChangeInventoryRequest build() {
-            return new BatchChangeInventoryRequest(idempotencyKey,
-                changes,
-                ignoreUnchangedCounts);
+            return new BatchChangeInventoryRequest(idempotencyKey, changes, ignoreUnchangedCounts);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentShipmentDetails type.
  */
@@ -241,7 +240,6 @@ public class OrderFulfillmentShipmentDetails {
         return this.failureReason;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(recipient, carrier, shippingNote, shippingType, trackingNumber,
@@ -276,27 +274,42 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
+     * Converts this OrderFulfillmentShipmentDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentShipmentDetails [" + "recipient=" + recipient + ", carrier="
+                + carrier + ", shippingNote=" + shippingNote + ", shippingType=" + shippingType
+                + ", trackingNumber=" + trackingNumber + ", trackingUrl=" + trackingUrl
+                + ", placedAt=" + placedAt + ", inProgressAt=" + inProgressAt + ", packagedAt="
+                + packagedAt + ", expectedShippedAt=" + expectedShippedAt + ", shippedAt="
+                + shippedAt + ", canceledAt=" + canceledAt + ", cancelReason=" + cancelReason
+                + ", failedAt=" + failedAt + ", failureReason=" + failureReason + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentShipmentDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentShipmentDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .recipient(getRecipient())
-            .carrier(getCarrier())
-            .shippingNote(getShippingNote())
-            .shippingType(getShippingType())
-            .trackingNumber(getTrackingNumber())
-            .trackingUrl(getTrackingUrl())
-            .placedAt(getPlacedAt())
-            .inProgressAt(getInProgressAt())
-            .packagedAt(getPackagedAt())
-            .expectedShippedAt(getExpectedShippedAt())
-            .shippedAt(getShippedAt())
-            .canceledAt(getCanceledAt())
-            .cancelReason(getCancelReason())
-            .failedAt(getFailedAt())
-            .failureReason(getFailureReason());
+                .recipient(getRecipient())
+                .carrier(getCarrier())
+                .shippingNote(getShippingNote())
+                .shippingType(getShippingType())
+                .trackingNumber(getTrackingNumber())
+                .trackingUrl(getTrackingUrl())
+                .placedAt(getPlacedAt())
+                .inProgressAt(getInProgressAt())
+                .packagedAt(getPackagedAt())
+                .expectedShippedAt(getExpectedShippedAt())
+                .shippedAt(getShippedAt())
+                .canceledAt(getCanceledAt())
+                .cancelReason(getCancelReason())
+                .failedAt(getFailedAt())
+                .failureReason(getFailureReason());
         return builder;
     }
 
@@ -477,21 +490,10 @@ public class OrderFulfillmentShipmentDetails {
          * @return {@link OrderFulfillmentShipmentDetails}
          */
         public OrderFulfillmentShipmentDetails build() {
-            return new OrderFulfillmentShipmentDetails(recipient,
-                carrier,
-                shippingNote,
-                shippingType,
-                trackingNumber,
-                trackingUrl,
-                placedAt,
-                inProgressAt,
-                packagedAt,
-                expectedShippedAt,
-                shippedAt,
-                canceledAt,
-                cancelReason,
-                failedAt,
-                failureReason);
+            return new OrderFulfillmentShipmentDetails(recipient, carrier, shippingNote,
+                    shippingType, trackingNumber, trackingUrl, placedAt, inProgressAt, packagedAt,
+                    expectedShippedAt, shippedAt, canceledAt, cancelReason, failedAt,
+                    failureReason);
         }
     }
 }

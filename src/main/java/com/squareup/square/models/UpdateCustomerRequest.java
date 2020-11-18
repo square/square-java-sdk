@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateCustomerRequest type.
  */
@@ -163,7 +162,6 @@ public class UpdateCustomerRequest {
         return this.birthday;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(givenName, familyName, companyName, nickname, emailAddress, address,
@@ -192,22 +190,35 @@ public class UpdateCustomerRequest {
     }
 
     /**
+     * Converts this UpdateCustomerRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateCustomerRequest [" + "givenName=" + givenName + ", familyName=" + familyName
+                + ", companyName=" + companyName + ", nickname=" + nickname + ", emailAddress="
+                + emailAddress + ", address=" + address + ", phoneNumber=" + phoneNumber
+                + ", referenceId=" + referenceId + ", note=" + note + ", birthday=" + birthday
+                + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateCustomerRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateCustomerRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .givenName(getGivenName())
-            .familyName(getFamilyName())
-            .companyName(getCompanyName())
-            .nickname(getNickname())
-            .emailAddress(getEmailAddress())
-            .address(getAddress())
-            .phoneNumber(getPhoneNumber())
-            .referenceId(getReferenceId())
-            .note(getNote())
-            .birthday(getBirthday());
+                .givenName(getGivenName())
+                .familyName(getFamilyName())
+                .companyName(getCompanyName())
+                .nickname(getNickname())
+                .emailAddress(getEmailAddress())
+                .address(getAddress())
+                .phoneNumber(getPhoneNumber())
+                .referenceId(getReferenceId())
+                .note(getNote())
+                .birthday(getBirthday());
         return builder;
     }
 
@@ -333,16 +344,8 @@ public class UpdateCustomerRequest {
          * @return {@link UpdateCustomerRequest}
          */
         public UpdateCustomerRequest build() {
-            return new UpdateCustomerRequest(givenName,
-                familyName,
-                companyName,
-                nickname,
-                emailAddress,
-                address,
-                phoneNumber,
-                referenceId,
-                note,
-                birthday);
+            return new UpdateCustomerRequest(givenName, familyName, companyName, nickname,
+                    emailAddress, address, phoneNumber, referenceId, note, birthday);
         }
     }
 }

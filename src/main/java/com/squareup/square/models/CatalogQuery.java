@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQuery type.
  */
@@ -165,7 +164,6 @@ public class CatalogQuery {
         return this.itemVariationsForItemOptionValuesQuery;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sortedAttributeQuery, exactQuery, setQuery, prefixQuery, rangeQuery,
@@ -196,22 +194,37 @@ public class CatalogQuery {
     }
 
     /**
+     * Converts this CatalogQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQuery [" + "sortedAttributeQuery=" + sortedAttributeQuery + ", exactQuery="
+                + exactQuery + ", setQuery=" + setQuery + ", prefixQuery=" + prefixQuery
+                + ", rangeQuery=" + rangeQuery + ", textQuery=" + textQuery + ", itemsForTaxQuery="
+                + itemsForTaxQuery + ", itemsForModifierListQuery=" + itemsForModifierListQuery
+                + ", itemsForItemOptionsQuery=" + itemsForItemOptionsQuery
+                + ", itemVariationsForItemOptionValuesQuery="
+                + itemVariationsForItemOptionValuesQuery + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .sortedAttributeQuery(getSortedAttributeQuery())
-            .exactQuery(getExactQuery())
-            .setQuery(getSetQuery())
-            .prefixQuery(getPrefixQuery())
-            .rangeQuery(getRangeQuery())
-            .textQuery(getTextQuery())
-            .itemsForTaxQuery(getItemsForTaxQuery())
-            .itemsForModifierListQuery(getItemsForModifierListQuery())
-            .itemsForItemOptionsQuery(getItemsForItemOptionsQuery())
-            .itemVariationsForItemOptionValuesQuery(getItemVariationsForItemOptionValuesQuery());
+                .sortedAttributeQuery(getSortedAttributeQuery())
+                .exactQuery(getExactQuery())
+                .setQuery(getSetQuery())
+                .prefixQuery(getPrefixQuery())
+                .rangeQuery(getRangeQuery())
+                .textQuery(getTextQuery())
+                .itemsForTaxQuery(getItemsForTaxQuery())
+                .itemsForModifierListQuery(getItemsForModifierListQuery())
+                .itemsForItemOptionsQuery(getItemsForItemOptionsQuery())
+                .itemVariationsForItemOptionValuesQuery(getItemVariationsForItemOptionValuesQuery());
         return builder;
     }
 
@@ -337,16 +350,9 @@ public class CatalogQuery {
          * @return {@link CatalogQuery}
          */
         public CatalogQuery build() {
-            return new CatalogQuery(sortedAttributeQuery,
-                exactQuery,
-                setQuery,
-                prefixQuery,
-                rangeQuery,
-                textQuery,
-                itemsForTaxQuery,
-                itemsForModifierListQuery,
-                itemsForItemOptionsQuery,
-                itemVariationsForItemOptionValuesQuery);
+            return new CatalogQuery(sortedAttributeQuery, exactQuery, setQuery, prefixQuery,
+                    rangeQuery, textQuery, itemsForTaxQuery, itemsForModifierListQuery,
+                    itemsForItemOptionsQuery, itemVariationsForItemOptionValuesQuery);
         }
     }
 }

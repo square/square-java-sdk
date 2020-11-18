@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentUpdatedUpdate type.
  */
@@ -61,7 +60,6 @@ public class OrderFulfillmentUpdatedUpdate {
         return this.newState;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(fulfillmentUid, oldState, newState);
@@ -82,15 +80,25 @@ public class OrderFulfillmentUpdatedUpdate {
     }
 
     /**
+     * Converts this OrderFulfillmentUpdatedUpdate into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentUpdatedUpdate [" + "fulfillmentUid=" + fulfillmentUid
+                + ", oldState=" + oldState + ", newState=" + newState + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentUpdatedUpdate.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentUpdatedUpdate.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .fulfillmentUid(getFulfillmentUid())
-            .oldState(getOldState())
-            .newState(getNewState());
+                .fulfillmentUid(getFulfillmentUid())
+                .oldState(getOldState())
+                .newState(getNewState());
         return builder;
     }
 
@@ -139,9 +147,7 @@ public class OrderFulfillmentUpdatedUpdate {
          * @return {@link OrderFulfillmentUpdatedUpdate}
          */
         public OrderFulfillmentUpdatedUpdate build() {
-            return new OrderFulfillmentUpdatedUpdate(fulfillmentUid,
-                oldState,
-                newState);
+            return new OrderFulfillmentUpdatedUpdate(fulfillmentUid, oldState, newState);
         }
     }
 }

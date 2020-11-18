@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateOrderResponse type.
  */
@@ -57,7 +56,6 @@ public class UpdateOrderResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, errors);
@@ -77,14 +75,23 @@ public class UpdateOrderResponse {
     }
 
     /**
+     * Converts this UpdateOrderResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateOrderResponse [" + "order=" + order + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateOrderResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateOrderResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .errors(getErrors());
+                .order(getOrder())
+                .errors(getErrors());
         return builder;
     }
 
@@ -134,8 +141,7 @@ public class UpdateOrderResponse {
          */
         public UpdateOrderResponse build() {
             UpdateOrderResponse model =
-                    new UpdateOrderResponse(order,
-                            errors);
+                    new UpdateOrderResponse(order, errors);
             model.httpContext = httpContext;
             return model;
         }

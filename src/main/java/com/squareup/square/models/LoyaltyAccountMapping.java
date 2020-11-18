@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyAccountMapping type.
  */
@@ -75,7 +74,6 @@ public class LoyaltyAccountMapping {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, type, value, createdAt);
@@ -97,15 +95,24 @@ public class LoyaltyAccountMapping {
     }
 
     /**
+     * Converts this LoyaltyAccountMapping into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyAccountMapping [" + "type=" + type + ", value=" + value + ", id=" + id
+                + ", createdAt=" + createdAt + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyAccountMapping.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyAccountMapping.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type,
-            value)
-            .id(getId())
-            .createdAt(getCreatedAt());
+        Builder builder = new Builder(type, value)
+                .id(getId())
+                .createdAt(getCreatedAt());
         return builder;
     }
 
@@ -174,10 +181,7 @@ public class LoyaltyAccountMapping {
          * @return {@link LoyaltyAccountMapping}
          */
         public LoyaltyAccountMapping build() {
-            return new LoyaltyAccountMapping(type,
-                value,
-                id,
-                createdAt);
+            return new LoyaltyAccountMapping(type, value, id, createdAt);
         }
     }
 }

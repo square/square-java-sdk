@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReward type.
  */
@@ -47,7 +46,6 @@ public class OrderReward {
         return this.rewardTierId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, rewardTierId);
@@ -67,13 +65,21 @@ public class OrderReward {
     }
 
     /**
+     * Converts this OrderReward into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReward [" + "id=" + id + ", rewardTierId=" + rewardTierId + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReward.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReward.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            rewardTierId);
+        Builder builder = new Builder(id, rewardTierId);
         return builder;
     }
 
@@ -120,8 +126,7 @@ public class OrderReward {
          * @return {@link OrderReward}
          */
         public OrderReward build() {
-            return new OrderReward(id,
-                rewardTierId);
+            return new OrderReward(id, rewardTierId);
         }
     }
 }

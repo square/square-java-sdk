@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTerminalRefundsResponse type.
  */
@@ -70,7 +69,6 @@ public class SearchTerminalRefundsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, refunds, cursor);
@@ -91,15 +89,25 @@ public class SearchTerminalRefundsResponse {
     }
 
     /**
+     * Converts this SearchTerminalRefundsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTerminalRefundsResponse [" + "errors=" + errors + ", refunds=" + refunds
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTerminalRefundsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTerminalRefundsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .refunds(getRefunds())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .refunds(getRefunds())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchTerminalRefundsResponse {
          */
         public SearchTerminalRefundsResponse build() {
             SearchTerminalRefundsResponse model =
-                    new SearchTerminalRefundsResponse(errors,
-                            refunds,
-                            cursor);
+                    new SearchTerminalRefundsResponse(errors, refunds, cursor);
             model.httpContext = httpContext;
             return model;
         }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListTimecardsResponse type.
  */
@@ -33,7 +32,6 @@ public class V1ListTimecardsResponse {
         return this.items;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(items);
@@ -52,13 +50,22 @@ public class V1ListTimecardsResponse {
     }
 
     /**
+     * Converts this V1ListTimecardsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListTimecardsResponse [" + "items=" + items + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListTimecardsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListTimecardsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .items(getItems());
+                .items(getItems());
         return builder;
     }
 

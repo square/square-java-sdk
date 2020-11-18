@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ChargeRequest type.
  */
@@ -244,7 +243,6 @@ public class ChargeRequest {
         return this.verificationToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, amountMoney, cardNonce, customerCardId, delayCapture,
@@ -278,25 +276,39 @@ public class ChargeRequest {
     }
 
     /**
+     * Converts this ChargeRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ChargeRequest [" + "idempotencyKey=" + idempotencyKey + ", amountMoney="
+                + amountMoney + ", cardNonce=" + cardNonce + ", customerCardId=" + customerCardId
+                + ", delayCapture=" + delayCapture + ", referenceId=" + referenceId + ", note="
+                + note + ", customerId=" + customerId + ", billingAddress=" + billingAddress
+                + ", shippingAddress=" + shippingAddress + ", buyerEmailAddress="
+                + buyerEmailAddress + ", orderId=" + orderId + ", additionalRecipients="
+                + additionalRecipients + ", verificationToken=" + verificationToken + "]";
+    }
+
+    /**
      * Builds a new {@link ChargeRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ChargeRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            amountMoney)
-            .cardNonce(getCardNonce())
-            .customerCardId(getCustomerCardId())
-            .delayCapture(getDelayCapture())
-            .referenceId(getReferenceId())
-            .note(getNote())
-            .customerId(getCustomerId())
-            .billingAddress(getBillingAddress())
-            .shippingAddress(getShippingAddress())
-            .buyerEmailAddress(getBuyerEmailAddress())
-            .orderId(getOrderId())
-            .additionalRecipients(getAdditionalRecipients())
-            .verificationToken(getVerificationToken());
+        Builder builder = new Builder(idempotencyKey, amountMoney)
+                .cardNonce(getCardNonce())
+                .customerCardId(getCustomerCardId())
+                .delayCapture(getDelayCapture())
+                .referenceId(getReferenceId())
+                .note(getNote())
+                .customerId(getCustomerId())
+                .billingAddress(getBillingAddress())
+                .shippingAddress(getShippingAddress())
+                .buyerEmailAddress(getBuyerEmailAddress())
+                .orderId(getOrderId())
+                .additionalRecipients(getAdditionalRecipients())
+                .verificationToken(getVerificationToken());
         return builder;
     }
 
@@ -475,20 +487,9 @@ public class ChargeRequest {
          * @return {@link ChargeRequest}
          */
         public ChargeRequest build() {
-            return new ChargeRequest(idempotencyKey,
-                amountMoney,
-                cardNonce,
-                customerCardId,
-                delayCapture,
-                referenceId,
-                note,
-                customerId,
-                billingAddress,
-                shippingAddress,
-                buyerEmailAddress,
-                orderId,
-                additionalRecipients,
-                verificationToken);
+            return new ChargeRequest(idempotencyKey, amountMoney, cardNonce, customerCardId,
+                    delayCapture, referenceId, note, customerId, billingAddress, shippingAddress,
+                    buyerEmailAddress, orderId, additionalRecipients, verificationToken);
         }
     }
 }

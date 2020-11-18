@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Discount type.
  */
@@ -137,7 +136,6 @@ public class V1Discount {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, rate, amountMoney, discountType, pinRequired, color, v2Id);
@@ -163,20 +161,31 @@ public class V1Discount {
     }
 
     /**
+     * Converts this V1Discount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Discount [" + "id=" + id + ", name=" + name + ", rate=" + rate + ", amountMoney="
+                + amountMoney + ", discountType=" + discountType + ", pinRequired=" + pinRequired
+                + ", color=" + color + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1Discount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Discount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .rate(getRate())
-            .amountMoney(getAmountMoney())
-            .discountType(getDiscountType())
-            .pinRequired(getPinRequired())
-            .color(getColor())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .rate(getRate())
+                .amountMoney(getAmountMoney())
+                .discountType(getDiscountType())
+                .pinRequired(getPinRequired())
+                .color(getColor())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -292,13 +301,7 @@ public class V1Discount {
          */
         public V1Discount build() {
             V1Discount model =
-                    new V1Discount(id,
-                            name,
-                            rate,
-                            amountMoney,
-                            discountType,
-                            pinRequired,
-                            color,
+                    new V1Discount(id, name, rate, amountMoney, discountType, pinRequired, color,
                             v2Id);
             model.httpContext = httpContext;
             return model;

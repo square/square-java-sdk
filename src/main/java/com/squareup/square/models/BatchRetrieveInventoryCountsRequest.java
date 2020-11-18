@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveInventoryCountsRequest type.
  */
@@ -98,7 +97,6 @@ public class BatchRetrieveInventoryCountsRequest {
         return this.states;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(catalogObjectIds, locationIds, updatedAfter, cursor, states);
@@ -121,17 +119,28 @@ public class BatchRetrieveInventoryCountsRequest {
     }
 
     /**
+     * Converts this BatchRetrieveInventoryCountsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveInventoryCountsRequest [" + "catalogObjectIds=" + catalogObjectIds
+                + ", locationIds=" + locationIds + ", updatedAfter=" + updatedAfter + ", cursor="
+                + cursor + ", states=" + states + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveInventoryCountsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveInventoryCountsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .catalogObjectIds(getCatalogObjectIds())
-            .locationIds(getLocationIds())
-            .updatedAfter(getUpdatedAfter())
-            .cursor(getCursor())
-            .states(getStates());
+                .catalogObjectIds(getCatalogObjectIds())
+                .locationIds(getLocationIds())
+                .updatedAfter(getUpdatedAfter())
+                .cursor(getCursor())
+                .states(getStates());
         return builder;
     }
 
@@ -202,11 +211,8 @@ public class BatchRetrieveInventoryCountsRequest {
          * @return {@link BatchRetrieveInventoryCountsRequest}
          */
         public BatchRetrieveInventoryCountsRequest build() {
-            return new BatchRetrieveInventoryCountsRequest(catalogObjectIds,
-                locationIds,
-                updatedAfter,
-                cursor,
-                states);
+            return new BatchRetrieveInventoryCountsRequest(catalogObjectIds, locationIds,
+                    updatedAfter, cursor, states);
         }
     }
 }

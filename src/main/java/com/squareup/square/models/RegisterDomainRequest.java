@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RegisterDomainRequest type.
  */
@@ -33,7 +32,6 @@ public class RegisterDomainRequest {
         return this.domainName;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(domainName);
@@ -49,6 +47,15 @@ public class RegisterDomainRequest {
         }
         RegisterDomainRequest other = (RegisterDomainRequest) obj;
         return Objects.equals(domainName, other.domainName);
+    }
+
+    /**
+     * Converts this RegisterDomainRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RegisterDomainRequest [" + "domainName=" + domainName + "]";
     }
 
     /**

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderRoundingAdjustment type.
  */
@@ -66,7 +65,6 @@ public class OrderRoundingAdjustment {
         return this.amountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, amountMoney);
@@ -87,15 +85,25 @@ public class OrderRoundingAdjustment {
     }
 
     /**
+     * Converts this OrderRoundingAdjustment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderRoundingAdjustment [" + "uid=" + uid + ", name=" + name + ", amountMoney="
+                + amountMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderRoundingAdjustment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderRoundingAdjustment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .name(getName())
-            .amountMoney(getAmountMoney());
+                .uid(getUid())
+                .name(getName())
+                .amountMoney(getAmountMoney());
         return builder;
     }
 
@@ -144,9 +152,7 @@ public class OrderRoundingAdjustment {
          * @return {@link OrderRoundingAdjustment}
          */
         public OrderRoundingAdjustment build() {
-            return new OrderRoundingAdjustment(uid,
-                name,
-                amountMoney);
+            return new OrderRoundingAdjustment(uid, name, amountMoney);
         }
     }
 }

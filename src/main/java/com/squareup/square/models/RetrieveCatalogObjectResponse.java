@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveCatalogObjectResponse type.
  */
@@ -93,7 +92,6 @@ public class RetrieveCatalogObjectResponse {
         return this.relatedObjects;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, object, relatedObjects);
@@ -114,15 +112,25 @@ public class RetrieveCatalogObjectResponse {
     }
 
     /**
+     * Converts this RetrieveCatalogObjectResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveCatalogObjectResponse [" + "errors=" + errors + ", object=" + object
+                + ", relatedObjects=" + relatedObjects + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveCatalogObjectResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveCatalogObjectResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .object(getObject())
-            .relatedObjects(getRelatedObjects());
+                .errors(getErrors())
+                .object(getObject())
+                .relatedObjects(getRelatedObjects());
         return builder;
     }
 
@@ -183,9 +191,7 @@ public class RetrieveCatalogObjectResponse {
          */
         public RetrieveCatalogObjectResponse build() {
             RetrieveCatalogObjectResponse model =
-                    new RetrieveCatalogObjectResponse(errors,
-                            object,
-                            relatedObjects);
+                    new RetrieveCatalogObjectResponse(errors, object, relatedObjects);
             model.httpContext = httpContext;
             return model;
         }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoicePaymentRequest type.
  */
@@ -94,7 +93,7 @@ public class InvoicePaymentRequest {
      * Indicates the type of the payment request. An invoice supports the following payment request
      * combinations: - 1 balance - 1 deposit with 1 balance - 2 - 12 installments - 1 deposit with 2
      * - 12 installments For more information, see [Payment
-     * requests](https://developer.squareup.com/docs/docs/invoices-api/overview#payment-requests).
+     * requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests).
      * @return Returns the String
      */
     @JsonGetter("request_type")
@@ -220,7 +219,6 @@ public class InvoicePaymentRequest {
         return this.roundingAdjustmentIncludedMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, requestMethod, requestType, dueDate, fixedAmountRequestedMoney,
@@ -253,24 +251,40 @@ public class InvoicePaymentRequest {
     }
 
     /**
+     * Converts this InvoicePaymentRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoicePaymentRequest [" + "uid=" + uid + ", requestMethod=" + requestMethod
+                + ", requestType=" + requestType + ", dueDate=" + dueDate
+                + ", fixedAmountRequestedMoney=" + fixedAmountRequestedMoney
+                + ", percentageRequested=" + percentageRequested + ", tippingEnabled="
+                + tippingEnabled + ", cardId=" + cardId + ", reminders=" + reminders
+                + ", computedAmountMoney=" + computedAmountMoney + ", totalCompletedAmountMoney="
+                + totalCompletedAmountMoney + ", roundingAdjustmentIncludedMoney="
+                + roundingAdjustmentIncludedMoney + "]";
+    }
+
+    /**
      * Builds a new {@link InvoicePaymentRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoicePaymentRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .requestMethod(getRequestMethod())
-            .requestType(getRequestType())
-            .dueDate(getDueDate())
-            .fixedAmountRequestedMoney(getFixedAmountRequestedMoney())
-            .percentageRequested(getPercentageRequested())
-            .tippingEnabled(getTippingEnabled())
-            .cardId(getCardId())
-            .reminders(getReminders())
-            .computedAmountMoney(getComputedAmountMoney())
-            .totalCompletedAmountMoney(getTotalCompletedAmountMoney())
-            .roundingAdjustmentIncludedMoney(getRoundingAdjustmentIncludedMoney());
+                .uid(getUid())
+                .requestMethod(getRequestMethod())
+                .requestType(getRequestType())
+                .dueDate(getDueDate())
+                .fixedAmountRequestedMoney(getFixedAmountRequestedMoney())
+                .percentageRequested(getPercentageRequested())
+                .tippingEnabled(getTippingEnabled())
+                .cardId(getCardId())
+                .reminders(getReminders())
+                .computedAmountMoney(getComputedAmountMoney())
+                .totalCompletedAmountMoney(getTotalCompletedAmountMoney())
+                .roundingAdjustmentIncludedMoney(getRoundingAdjustmentIncludedMoney());
         return builder;
     }
 
@@ -418,18 +432,10 @@ public class InvoicePaymentRequest {
          * @return {@link InvoicePaymentRequest}
          */
         public InvoicePaymentRequest build() {
-            return new InvoicePaymentRequest(uid,
-                requestMethod,
-                requestType,
-                dueDate,
-                fixedAmountRequestedMoney,
-                percentageRequested,
-                tippingEnabled,
-                cardId,
-                reminders,
-                computedAmountMoney,
-                totalCompletedAmountMoney,
-                roundingAdjustmentIncludedMoney);
+            return new InvoicePaymentRequest(uid, requestMethod, requestType, dueDate,
+                    fixedAmountRequestedMoney, percentageRequested, tippingEnabled, cardId,
+                    reminders, computedAmountMoney, totalCompletedAmountMoney,
+                    roundingAdjustmentIncludedMoney);
         }
     }
 }

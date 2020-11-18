@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RevokeTokenRequest type.
  */
@@ -79,7 +78,6 @@ public class RevokeTokenRequest {
         return this.revokeOnlyAccessToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(clientId, accessToken, merchantId, revokeOnlyAccessToken);
@@ -101,16 +99,27 @@ public class RevokeTokenRequest {
     }
 
     /**
+     * Converts this RevokeTokenRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RevokeTokenRequest [" + "clientId=" + clientId + ", accessToken=" + accessToken
+                + ", merchantId=" + merchantId + ", revokeOnlyAccessToken=" + revokeOnlyAccessToken
+                + "]";
+    }
+
+    /**
      * Builds a new {@link RevokeTokenRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RevokeTokenRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .clientId(getClientId())
-            .accessToken(getAccessToken())
-            .merchantId(getMerchantId())
-            .revokeOnlyAccessToken(getRevokeOnlyAccessToken());
+                .clientId(getClientId())
+                .accessToken(getAccessToken())
+                .merchantId(getMerchantId())
+                .revokeOnlyAccessToken(getRevokeOnlyAccessToken());
         return builder;
     }
 
@@ -170,10 +179,7 @@ public class RevokeTokenRequest {
          * @return {@link RevokeTokenRequest}
          */
         public RevokeTokenRequest build() {
-            return new RevokeTokenRequest(clientId,
-                accessToken,
-                merchantId,
-                revokeOnlyAccessToken);
+            return new RevokeTokenRequest(clientId, accessToken, merchantId, revokeOnlyAccessToken);
         }
     }
 }

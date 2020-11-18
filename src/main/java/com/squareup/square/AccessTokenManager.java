@@ -37,6 +37,15 @@ public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
     }
 
     /**
+     * Converts this AccessTokenManager into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "AccessTokenManager [" + "accessToken=" + accessToken + "]";
+    }
+
+    /**
      * Adds authentication to the given HttpRequest.
      */
     public HttpRequest apply(HttpRequest httpRequest) {

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1OrderHistoryEntry type.
  */
@@ -46,7 +45,6 @@ public class V1OrderHistoryEntry {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(action, createdAt);
@@ -66,14 +64,23 @@ public class V1OrderHistoryEntry {
     }
 
     /**
+     * Converts this V1OrderHistoryEntry into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1OrderHistoryEntry [" + "action=" + action + ", createdAt=" + createdAt + "]";
+    }
+
+    /**
      * Builds a new {@link V1OrderHistoryEntry.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1OrderHistoryEntry.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .action(getAction())
-            .createdAt(getCreatedAt());
+                .action(getAction())
+                .createdAt(getCreatedAt());
         return builder;
     }
 
@@ -111,8 +118,7 @@ public class V1OrderHistoryEntry {
          * @return {@link V1OrderHistoryEntry}
          */
         public V1OrderHistoryEntry build() {
-            return new V1OrderHistoryEntry(action,
-                createdAt);
+            return new V1OrderHistoryEntry(action, createdAt);
         }
     }
 }

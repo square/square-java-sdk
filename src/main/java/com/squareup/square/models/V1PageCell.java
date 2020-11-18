@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PageCell type.
  */
@@ -102,7 +101,6 @@ public class V1PageCell {
         return this.placeholderType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(pageId, row, column, objectType, objectId, placeholderType);
@@ -126,18 +124,29 @@ public class V1PageCell {
     }
 
     /**
+     * Converts this V1PageCell into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PageCell [" + "pageId=" + pageId + ", row=" + row + ", column=" + column
+                + ", objectType=" + objectType + ", objectId=" + objectId + ", placeholderType="
+                + placeholderType + "]";
+    }
+
+    /**
      * Builds a new {@link V1PageCell.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PageCell.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .pageId(getPageId())
-            .row(getRow())
-            .column(getColumn())
-            .objectType(getObjectType())
-            .objectId(getObjectId())
-            .placeholderType(getPlaceholderType());
+                .pageId(getPageId())
+                .row(getRow())
+                .column(getColumn())
+                .objectType(getObjectType())
+                .objectId(getObjectId())
+                .placeholderType(getPlaceholderType());
         return builder;
     }
 
@@ -219,12 +228,7 @@ public class V1PageCell {
          * @return {@link V1PageCell}
          */
         public V1PageCell build() {
-            return new V1PageCell(pageId,
-                row,
-                column,
-                objectType,
-                objectId,
-                placeholderType);
+            return new V1PageCell(pageId, row, column, objectType, objectId, placeholderType);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DisputedPayment type.
  */
@@ -33,7 +32,6 @@ public class DisputedPayment {
         return this.paymentId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(paymentId);
@@ -52,13 +50,22 @@ public class DisputedPayment {
     }
 
     /**
+     * Converts this DisputedPayment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DisputedPayment [" + "paymentId=" + paymentId + "]";
+    }
+
+    /**
      * Builds a new {@link DisputedPayment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DisputedPayment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .paymentId(getPaymentId());
+                .paymentId(getPaymentId());
         return builder;
     }
 

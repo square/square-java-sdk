@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ShiftFilter type.
  */
@@ -126,7 +125,6 @@ public class ShiftFilter {
         return this.teamMemberIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, employeeIds, status, start, end, workday, teamMemberIds);
@@ -151,18 +149,28 @@ public class ShiftFilter {
     }
 
     /**
+     * Converts this ShiftFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ShiftFilter [" + "locationIds=" + locationIds + ", teamMemberIds=" + teamMemberIds
+                + ", employeeIds=" + employeeIds + ", status=" + status + ", start=" + start
+                + ", end=" + end + ", workday=" + workday + "]";
+    }
+
+    /**
      * Builds a new {@link ShiftFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ShiftFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationIds,
-            teamMemberIds)
-            .employeeIds(getEmployeeIds())
-            .status(getStatus())
-            .start(getStart())
-            .end(getEnd())
-            .workday(getWorkday());
+        Builder builder = new Builder(locationIds, teamMemberIds)
+                .employeeIds(getEmployeeIds())
+                .status(getStatus())
+                .start(getStart())
+                .end(getEnd())
+                .workday(getWorkday());
         return builder;
     }
 
@@ -264,13 +272,8 @@ public class ShiftFilter {
          * @return {@link ShiftFilter}
          */
         public ShiftFilter build() {
-            return new ShiftFilter(locationIds,
-                teamMemberIds,
-                employeeIds,
-                status,
-                start,
-                end,
-                workday);
+            return new ShiftFilter(locationIds, teamMemberIds, employeeIds, status, start, end,
+                    workday);
         }
     }
 }

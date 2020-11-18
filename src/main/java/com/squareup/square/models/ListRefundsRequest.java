@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListRefundsRequest type.
  */
@@ -80,7 +79,6 @@ public class ListRefundsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor);
@@ -102,16 +100,26 @@ public class ListRefundsRequest {
     }
 
     /**
+     * Converts this ListRefundsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListRefundsRequest [" + "beginTime=" + beginTime + ", endTime=" + endTime
+                + ", sortOrder=" + sortOrder + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListRefundsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListRefundsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .sortOrder(getSortOrder())
-            .cursor(getCursor());
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .sortOrder(getSortOrder())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class ListRefundsRequest {
          * @return {@link ListRefundsRequest}
          */
         public ListRefundsRequest build() {
-            return new ListRefundsRequest(beginTime,
-                endTime,
-                sortOrder,
-                cursor);
+            return new ListRefundsRequest(beginTime, endTime, sortOrder, cursor);
         }
     }
 }

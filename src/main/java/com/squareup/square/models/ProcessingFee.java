@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ProcessingFee type.
  */
@@ -33,7 +32,7 @@ public class ProcessingFee {
 
     /**
      * Getter for EffectiveAt.
-     * Timestamp of when the fee takes effect, in RFC 3339 format.
+     * The timestamp of when the fee takes effect, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("effective_at")
@@ -43,7 +42,7 @@ public class ProcessingFee {
 
     /**
      * Getter for Type.
-     * The type of fee assessed or adjusted. Can be one of: `INITIAL`, `ADJUSTMENT`.
+     * The type of fee assessed or adjusted. The fee type can be `INITIAL` or `ADJUSTMENT`.
      * @return Returns the String
      */
     @JsonGetter("type")
@@ -66,7 +65,6 @@ public class ProcessingFee {
         return this.amountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(effectiveAt, type, amountMoney);
@@ -87,15 +85,25 @@ public class ProcessingFee {
     }
 
     /**
+     * Converts this ProcessingFee into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ProcessingFee [" + "effectiveAt=" + effectiveAt + ", type=" + type
+                + ", amountMoney=" + amountMoney + "]";
+    }
+
+    /**
      * Builds a new {@link ProcessingFee.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ProcessingFee.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .effectiveAt(getEffectiveAt())
-            .type(getType())
-            .amountMoney(getAmountMoney());
+                .effectiveAt(getEffectiveAt())
+                .type(getType())
+                .amountMoney(getAmountMoney());
         return builder;
     }
 
@@ -144,9 +152,7 @@ public class ProcessingFee {
          * @return {@link ProcessingFee}
          */
         public ProcessingFee build() {
-            return new ProcessingFee(effectiveAt,
-                type,
-                amountMoney);
+            return new ProcessingFee(effectiveAt, type, amountMoney);
         }
     }
 }

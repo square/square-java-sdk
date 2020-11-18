@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgramExpirationPolicy type.
  */
@@ -33,7 +32,6 @@ public class LoyaltyProgramExpirationPolicy {
         return this.expirationDuration;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(expirationDuration);
@@ -49,6 +47,16 @@ public class LoyaltyProgramExpirationPolicy {
         }
         LoyaltyProgramExpirationPolicy other = (LoyaltyProgramExpirationPolicy) obj;
         return Objects.equals(expirationDuration, other.expirationDuration);
+    }
+
+    /**
+     * Converts this LoyaltyProgramExpirationPolicy into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgramExpirationPolicy [" + "expirationDuration=" + expirationDuration
+                + "]";
     }
 
     /**

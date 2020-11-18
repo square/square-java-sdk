@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for MeasurementUnit type.
  */
@@ -131,7 +130,6 @@ public class MeasurementUnit {
         return this.type;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customUnit, areaUnit, lengthUnit, volumeUnit, weightUnit, genericUnit,
@@ -158,20 +156,32 @@ public class MeasurementUnit {
     }
 
     /**
+     * Converts this MeasurementUnit into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "MeasurementUnit [" + "customUnit=" + customUnit + ", areaUnit=" + areaUnit
+                + ", lengthUnit=" + lengthUnit + ", volumeUnit=" + volumeUnit + ", weightUnit="
+                + weightUnit + ", genericUnit=" + genericUnit + ", timeUnit=" + timeUnit + ", type="
+                + type + "]";
+    }
+
+    /**
      * Builds a new {@link MeasurementUnit.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link MeasurementUnit.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customUnit(getCustomUnit())
-            .areaUnit(getAreaUnit())
-            .lengthUnit(getLengthUnit())
-            .volumeUnit(getVolumeUnit())
-            .weightUnit(getWeightUnit())
-            .genericUnit(getGenericUnit())
-            .timeUnit(getTimeUnit())
-            .type(getType());
+                .customUnit(getCustomUnit())
+                .areaUnit(getAreaUnit())
+                .lengthUnit(getLengthUnit())
+                .volumeUnit(getVolumeUnit())
+                .weightUnit(getWeightUnit())
+                .genericUnit(getGenericUnit())
+                .timeUnit(getTimeUnit())
+                .type(getType());
         return builder;
     }
 
@@ -275,14 +285,8 @@ public class MeasurementUnit {
          * @return {@link MeasurementUnit}
          */
         public MeasurementUnit build() {
-            return new MeasurementUnit(customUnit,
-                areaUnit,
-                lengthUnit,
-                volumeUnit,
-                weightUnit,
-                genericUnit,
-                timeUnit,
-                type);
+            return new MeasurementUnit(customUnit, areaUnit, lengthUnit, volumeUnit, weightUnit,
+                    genericUnit, timeUnit, type);
         }
     }
 }

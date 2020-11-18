@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturnTax type.
  */
@@ -137,7 +136,6 @@ public class OrderReturnTax {
         return this.scope;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceTaxUid, catalogObjectId, name, type, percentage,
@@ -164,20 +162,32 @@ public class OrderReturnTax {
     }
 
     /**
+     * Converts this OrderReturnTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturnTax [" + "uid=" + uid + ", sourceTaxUid=" + sourceTaxUid
+                + ", catalogObjectId=" + catalogObjectId + ", name=" + name + ", type=" + type
+                + ", percentage=" + percentage + ", appliedMoney=" + appliedMoney + ", scope="
+                + scope + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturnTax.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturnTax.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .sourceTaxUid(getSourceTaxUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .type(getType())
-            .percentage(getPercentage())
-            .appliedMoney(getAppliedMoney())
-            .scope(getScope());
+                .uid(getUid())
+                .sourceTaxUid(getSourceTaxUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .type(getType())
+                .percentage(getPercentage())
+                .appliedMoney(getAppliedMoney())
+                .scope(getScope());
         return builder;
     }
 
@@ -281,14 +291,8 @@ public class OrderReturnTax {
          * @return {@link OrderReturnTax}
          */
         public OrderReturnTax build() {
-            return new OrderReturnTax(uid,
-                sourceTaxUid,
-                catalogObjectId,
-                name,
-                type,
-                percentage,
-                appliedMoney,
-                scope);
+            return new OrderReturnTax(uid, sourceTaxUid, catalogObjectId, name, type, percentage,
+                    appliedMoney, scope);
         }
     }
 }

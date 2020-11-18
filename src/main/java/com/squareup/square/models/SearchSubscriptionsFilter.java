@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchSubscriptionsFilter type.
  */
@@ -48,7 +47,6 @@ public class SearchSubscriptionsFilter {
         return this.locationIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customerIds, locationIds);
@@ -68,14 +66,24 @@ public class SearchSubscriptionsFilter {
     }
 
     /**
+     * Converts this SearchSubscriptionsFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchSubscriptionsFilter [" + "customerIds=" + customerIds + ", locationIds="
+                + locationIds + "]";
+    }
+
+    /**
      * Builds a new {@link SearchSubscriptionsFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchSubscriptionsFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customerIds(getCustomerIds())
-            .locationIds(getLocationIds());
+                .customerIds(getCustomerIds())
+                .locationIds(getLocationIds());
         return builder;
     }
 
@@ -113,8 +121,7 @@ public class SearchSubscriptionsFilter {
          * @return {@link SearchSubscriptionsFilter}
          */
         public SearchSubscriptionsFilter build() {
-            return new SearchSubscriptionsFilter(customerIds,
-                locationIds);
+            return new SearchSubscriptionsFilter(customerIds, locationIds);
         }
     }
 }

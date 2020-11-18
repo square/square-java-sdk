@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListRefundsRequest type.
  */
@@ -97,7 +96,6 @@ public class V1ListRefundsRequest {
         return this.batchToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, beginTime, endTime, limit, batchToken);
@@ -120,17 +118,27 @@ public class V1ListRefundsRequest {
     }
 
     /**
+     * Converts this V1ListRefundsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListRefundsRequest [" + "order=" + order + ", beginTime=" + beginTime
+                + ", endTime=" + endTime + ", limit=" + limit + ", batchToken=" + batchToken + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListRefundsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListRefundsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .limit(getLimit())
-            .batchToken(getBatchToken());
+                .order(getOrder())
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .limit(getLimit())
+                .batchToken(getBatchToken());
         return builder;
     }
 
@@ -201,11 +209,7 @@ public class V1ListRefundsRequest {
          * @return {@link V1ListRefundsRequest}
          */
         public V1ListRefundsRequest build() {
-            return new V1ListRefundsRequest(order,
-                beginTime,
-                endTime,
-                limit,
-                batchToken);
+            return new V1ListRefundsRequest(order, beginTime, endTime, limit, batchToken);
         }
     }
 }

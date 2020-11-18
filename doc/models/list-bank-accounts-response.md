@@ -13,7 +13,7 @@ Response object returned by ListBankAccounts.
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
 | `BankAccounts` | [`List<BankAccount>`](/doc/models/bank-account.md) | Optional | List of BankAccounts associated with this account. | List<BankAccount> getBankAccounts() |
-| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can<br>use in a subsequent request to fetch next set of bank accounts.<br>If empty, this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination). | String getCursor() |
+| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can<br>use in a subsequent request to fetch next set of bank accounts.<br>If empty, this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

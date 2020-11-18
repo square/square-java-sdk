@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderMoneyAmounts type.
  */
@@ -114,7 +113,6 @@ public class OrderMoneyAmounts {
         return this.serviceChargeMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(totalMoney, taxMoney, discountMoney, tipMoney, serviceChargeMoney);
@@ -137,17 +135,28 @@ public class OrderMoneyAmounts {
     }
 
     /**
+     * Converts this OrderMoneyAmounts into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderMoneyAmounts [" + "totalMoney=" + totalMoney + ", taxMoney=" + taxMoney
+                + ", discountMoney=" + discountMoney + ", tipMoney=" + tipMoney
+                + ", serviceChargeMoney=" + serviceChargeMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderMoneyAmounts.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderMoneyAmounts.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .totalMoney(getTotalMoney())
-            .taxMoney(getTaxMoney())
-            .discountMoney(getDiscountMoney())
-            .tipMoney(getTipMoney())
-            .serviceChargeMoney(getServiceChargeMoney());
+                .totalMoney(getTotalMoney())
+                .taxMoney(getTaxMoney())
+                .discountMoney(getDiscountMoney())
+                .tipMoney(getTipMoney())
+                .serviceChargeMoney(getServiceChargeMoney());
         return builder;
     }
 
@@ -218,11 +227,8 @@ public class OrderMoneyAmounts {
          * @return {@link OrderMoneyAmounts}
          */
         public OrderMoneyAmounts build() {
-            return new OrderMoneyAmounts(totalMoney,
-                taxMoney,
-                discountMoney,
-                tipMoney,
-                serviceChargeMoney);
+            return new OrderMoneyAmounts(totalMoney, taxMoney, discountMoney, tipMoney,
+                    serviceChargeMoney);
         }
     }
 }

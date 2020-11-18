@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderCreated type.
  */
@@ -54,7 +53,7 @@ public class OrderCreated {
      * Version number which is incremented each time an update is committed to the order. Orders
      * that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with
-     * versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders)
+     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -92,7 +91,6 @@ public class OrderCreated {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId, version, locationId, state, createdAt);
@@ -115,17 +113,27 @@ public class OrderCreated {
     }
 
     /**
+     * Converts this OrderCreated into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderCreated [" + "orderId=" + orderId + ", version=" + version + ", locationId="
+                + locationId + ", state=" + state + ", createdAt=" + createdAt + "]";
+    }
+
+    /**
      * Builds a new {@link OrderCreated.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderCreated.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderId(getOrderId())
-            .version(getVersion())
-            .locationId(getLocationId())
-            .state(getState())
-            .createdAt(getCreatedAt());
+                .orderId(getOrderId())
+                .version(getVersion())
+                .locationId(getLocationId())
+                .state(getState())
+                .createdAt(getCreatedAt());
         return builder;
     }
 
@@ -196,11 +204,7 @@ public class OrderCreated {
          * @return {@link OrderCreated}
          */
         public OrderCreated build() {
-            return new OrderCreated(orderId,
-                version,
-                locationId,
-                state,
-                createdAt);
+            return new OrderCreated(orderId, version, locationId, state, createdAt);
         }
     }
 }

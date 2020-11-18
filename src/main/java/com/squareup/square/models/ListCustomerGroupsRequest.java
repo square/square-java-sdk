@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCustomerGroupsRequest type.
  */
@@ -36,7 +35,6 @@ public class ListCustomerGroupsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor);
@@ -55,13 +53,22 @@ public class ListCustomerGroupsRequest {
     }
 
     /**
+     * Converts this ListCustomerGroupsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCustomerGroupsRequest [" + "cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListCustomerGroupsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCustomerGroupsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor());
+                .cursor(getCursor());
         return builder;
     }
 

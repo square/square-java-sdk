@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchLoyaltyAccountsResponse type.
  */
@@ -62,7 +61,7 @@ public class SearchLoyaltyAccountsResponse {
      * Getter for Cursor.
      * The pagination cursor to use in a subsequent request. If empty, this is the final response.
      * For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -70,7 +69,6 @@ public class SearchLoyaltyAccountsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, loyaltyAccounts, cursor);
@@ -91,15 +89,25 @@ public class SearchLoyaltyAccountsResponse {
     }
 
     /**
+     * Converts this SearchLoyaltyAccountsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchLoyaltyAccountsResponse [" + "errors=" + errors + ", loyaltyAccounts="
+                + loyaltyAccounts + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchLoyaltyAccountsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchLoyaltyAccountsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .loyaltyAccounts(getLoyaltyAccounts())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .loyaltyAccounts(getLoyaltyAccounts())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchLoyaltyAccountsResponse {
          */
         public SearchLoyaltyAccountsResponse build() {
             SearchLoyaltyAccountsResponse model =
-                    new SearchLoyaltyAccountsResponse(errors,
-                            loyaltyAccounts,
-                            cursor);
+                    new SearchLoyaltyAccountsResponse(errors, loyaltyAccounts, cursor);
             model.httpContext = httpContext;
             return model;
         }

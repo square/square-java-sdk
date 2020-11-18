@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1DeletePageCellRequest type.
  */
@@ -49,7 +48,6 @@ public class V1DeletePageCellRequest {
         return this.column;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(row, column);
@@ -69,14 +67,23 @@ public class V1DeletePageCellRequest {
     }
 
     /**
+     * Converts this V1DeletePageCellRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1DeletePageCellRequest [" + "row=" + row + ", column=" + column + "]";
+    }
+
+    /**
      * Builds a new {@link V1DeletePageCellRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1DeletePageCellRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .row(getRow())
-            .column(getColumn());
+                .row(getRow())
+                .column(getColumn());
         return builder;
     }
 
@@ -114,8 +121,7 @@ public class V1DeletePageCellRequest {
          * @return {@link V1DeletePageCellRequest}
          */
         public V1DeletePageCellRequest build() {
-            return new V1DeletePageCellRequest(row,
-                column);
+            return new V1DeletePageCellRequest(row, column);
         }
     }
 }

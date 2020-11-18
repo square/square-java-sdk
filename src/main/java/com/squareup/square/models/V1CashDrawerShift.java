@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1CashDrawerShift type.
  */
@@ -286,7 +285,6 @@ public class V1CashDrawerShift {
         return this.events;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, eventType, openedAt, endedAt, closedAt, employeeIds,
@@ -326,31 +324,48 @@ public class V1CashDrawerShift {
     }
 
     /**
+     * Converts this V1CashDrawerShift into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1CashDrawerShift [" + "id=" + id + ", eventType=" + eventType + ", openedAt="
+                + openedAt + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", employeeIds="
+                + employeeIds + ", openingEmployeeId=" + openingEmployeeId + ", endingEmployeeId="
+                + endingEmployeeId + ", closingEmployeeId=" + closingEmployeeId + ", description="
+                + description + ", startingCashMoney=" + startingCashMoney + ", cashPaymentMoney="
+                + cashPaymentMoney + ", cashRefundsMoney=" + cashRefundsMoney + ", cashPaidInMoney="
+                + cashPaidInMoney + ", cashPaidOutMoney=" + cashPaidOutMoney
+                + ", expectedCashMoney=" + expectedCashMoney + ", closedCashMoney="
+                + closedCashMoney + ", device=" + device + ", events=" + events + "]";
+    }
+
+    /**
      * Builds a new {@link V1CashDrawerShift.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1CashDrawerShift.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .eventType(getEventType())
-            .openedAt(getOpenedAt())
-            .endedAt(getEndedAt())
-            .closedAt(getClosedAt())
-            .employeeIds(getEmployeeIds())
-            .openingEmployeeId(getOpeningEmployeeId())
-            .endingEmployeeId(getEndingEmployeeId())
-            .closingEmployeeId(getClosingEmployeeId())
-            .description(getDescription())
-            .startingCashMoney(getStartingCashMoney())
-            .cashPaymentMoney(getCashPaymentMoney())
-            .cashRefundsMoney(getCashRefundsMoney())
-            .cashPaidInMoney(getCashPaidInMoney())
-            .cashPaidOutMoney(getCashPaidOutMoney())
-            .expectedCashMoney(getExpectedCashMoney())
-            .closedCashMoney(getClosedCashMoney())
-            .device(getDevice())
-            .events(getEvents());
+                .id(getId())
+                .eventType(getEventType())
+                .openedAt(getOpenedAt())
+                .endedAt(getEndedAt())
+                .closedAt(getClosedAt())
+                .employeeIds(getEmployeeIds())
+                .openingEmployeeId(getOpeningEmployeeId())
+                .endingEmployeeId(getEndingEmployeeId())
+                .closingEmployeeId(getClosingEmployeeId())
+                .description(getDescription())
+                .startingCashMoney(getStartingCashMoney())
+                .cashPaymentMoney(getCashPaymentMoney())
+                .cashRefundsMoney(getCashRefundsMoney())
+                .cashPaidInMoney(getCashPaidInMoney())
+                .cashPaidOutMoney(getCashPaidOutMoney())
+                .expectedCashMoney(getExpectedCashMoney())
+                .closedCashMoney(getClosedCashMoney())
+                .device(getDevice())
+                .events(getEvents());
         return builder;
     }
 
@@ -587,25 +602,10 @@ public class V1CashDrawerShift {
          */
         public V1CashDrawerShift build() {
             V1CashDrawerShift model =
-                    new V1CashDrawerShift(id,
-                            eventType,
-                            openedAt,
-                            endedAt,
-                            closedAt,
-                            employeeIds,
-                            openingEmployeeId,
-                            endingEmployeeId,
-                            closingEmployeeId,
-                            description,
-                            startingCashMoney,
-                            cashPaymentMoney,
-                            cashRefundsMoney,
-                            cashPaidInMoney,
-                            cashPaidOutMoney,
-                            expectedCashMoney,
-                            closedCashMoney,
-                            device,
-                            events);
+                    new V1CashDrawerShift(id, eventType, openedAt, endedAt, closedAt, employeeIds,
+                            openingEmployeeId, endingEmployeeId, closingEmployeeId, description,
+                            startingCashMoney, cashPaymentMoney, cashRefundsMoney, cashPaidInMoney,
+                            cashPaidOutMoney, expectedCashMoney, closedCashMoney, device, events);
             model.httpContext = httpContext;
             return model;
         }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListEmployeeWagesResponse type.
  */
@@ -69,7 +68,6 @@ public class ListEmployeeWagesResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(employeeWages, cursor, errors);
@@ -90,15 +88,25 @@ public class ListEmployeeWagesResponse {
     }
 
     /**
+     * Converts this ListEmployeeWagesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListEmployeeWagesResponse [" + "employeeWages=" + employeeWages + ", cursor="
+                + cursor + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListEmployeeWagesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListEmployeeWagesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .employeeWages(getEmployeeWages())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .employeeWages(getEmployeeWages())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -159,9 +167,7 @@ public class ListEmployeeWagesResponse {
          */
         public ListEmployeeWagesResponse build() {
             ListEmployeeWagesResponse model =
-                    new ListEmployeeWagesResponse(employeeWages,
-                            cursor,
-                            errors);
+                    new ListEmployeeWagesResponse(employeeWages, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BusinessHoursPeriod type.
  */
@@ -63,7 +62,6 @@ public class BusinessHoursPeriod {
         return this.endLocalTime;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(dayOfWeek, startLocalTime, endLocalTime);
@@ -84,15 +82,25 @@ public class BusinessHoursPeriod {
     }
 
     /**
+     * Converts this BusinessHoursPeriod into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BusinessHoursPeriod [" + "dayOfWeek=" + dayOfWeek + ", startLocalTime="
+                + startLocalTime + ", endLocalTime=" + endLocalTime + "]";
+    }
+
+    /**
      * Builds a new {@link BusinessHoursPeriod.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BusinessHoursPeriod.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .dayOfWeek(getDayOfWeek())
-            .startLocalTime(getStartLocalTime())
-            .endLocalTime(getEndLocalTime());
+                .dayOfWeek(getDayOfWeek())
+                .startLocalTime(getStartLocalTime())
+                .endLocalTime(getEndLocalTime());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class BusinessHoursPeriod {
          * @return {@link BusinessHoursPeriod}
          */
         public BusinessHoursPeriod build() {
-            return new BusinessHoursPeriod(dayOfWeek,
-                startLocalTime,
-                endLocalTime);
+            return new BusinessHoursPeriod(dayOfWeek, startLocalTime, endLocalTime);
         }
     }
 }

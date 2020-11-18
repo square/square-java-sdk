@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateLocationRequest type.
  */
@@ -32,7 +31,6 @@ public class UpdateLocationRequest {
         return this.location;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(location);
@@ -51,13 +49,22 @@ public class UpdateLocationRequest {
     }
 
     /**
+     * Converts this UpdateLocationRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateLocationRequest [" + "location=" + location + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateLocationRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateLocationRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .location(getLocation());
+                .location(getLocation());
         return builder;
     }
 

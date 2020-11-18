@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateShiftResponse type.
  */
@@ -55,7 +54,6 @@ public class CreateShiftResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(shift, errors);
@@ -75,14 +73,23 @@ public class CreateShiftResponse {
     }
 
     /**
+     * Converts this CreateShiftResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateShiftResponse [" + "shift=" + shift + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link CreateShiftResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateShiftResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .shift(getShift())
-            .errors(getErrors());
+                .shift(getShift())
+                .errors(getErrors());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class CreateShiftResponse {
          */
         public CreateShiftResponse build() {
             CreateShiftResponse model =
-                    new CreateShiftResponse(shift,
-                            errors);
+                    new CreateShiftResponse(shift, errors);
             model.httpContext = httpContext;
             return model;
         }

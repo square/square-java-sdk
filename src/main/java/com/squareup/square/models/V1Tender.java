@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Tender type.
  */
@@ -241,7 +240,6 @@ public class V1Tender {
         return this.isExchange;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, type, name, employeeId, receiptUrl, cardBrand, panSuffix,
@@ -277,28 +275,43 @@ public class V1Tender {
     }
 
     /**
+     * Converts this V1Tender into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Tender [" + "id=" + id + ", type=" + type + ", name=" + name + ", employeeId="
+                + employeeId + ", receiptUrl=" + receiptUrl + ", cardBrand=" + cardBrand
+                + ", panSuffix=" + panSuffix + ", entryMethod=" + entryMethod + ", paymentNote="
+                + paymentNote + ", totalMoney=" + totalMoney + ", tenderedMoney=" + tenderedMoney
+                + ", tenderedAt=" + tenderedAt + ", settledAt=" + settledAt + ", changeBackMoney="
+                + changeBackMoney + ", refundedMoney=" + refundedMoney + ", isExchange="
+                + isExchange + "]";
+    }
+
+    /**
      * Builds a new {@link V1Tender.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Tender.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .type(getType())
-            .name(getName())
-            .employeeId(getEmployeeId())
-            .receiptUrl(getReceiptUrl())
-            .cardBrand(getCardBrand())
-            .panSuffix(getPanSuffix())
-            .entryMethod(getEntryMethod())
-            .paymentNote(getPaymentNote())
-            .totalMoney(getTotalMoney())
-            .tenderedMoney(getTenderedMoney())
-            .tenderedAt(getTenderedAt())
-            .settledAt(getSettledAt())
-            .changeBackMoney(getChangeBackMoney())
-            .refundedMoney(getRefundedMoney())
-            .isExchange(getIsExchange());
+                .id(getId())
+                .type(getType())
+                .name(getName())
+                .employeeId(getEmployeeId())
+                .receiptUrl(getReceiptUrl())
+                .cardBrand(getCardBrand())
+                .panSuffix(getPanSuffix())
+                .entryMethod(getEntryMethod())
+                .paymentNote(getPaymentNote())
+                .totalMoney(getTotalMoney())
+                .tenderedMoney(getTenderedMoney())
+                .tenderedAt(getTenderedAt())
+                .settledAt(getSettledAt())
+                .changeBackMoney(getChangeBackMoney())
+                .refundedMoney(getRefundedMoney())
+                .isExchange(getIsExchange());
         return builder;
     }
 
@@ -490,22 +503,9 @@ public class V1Tender {
          * @return {@link V1Tender}
          */
         public V1Tender build() {
-            return new V1Tender(id,
-                type,
-                name,
-                employeeId,
-                receiptUrl,
-                cardBrand,
-                panSuffix,
-                entryMethod,
-                paymentNote,
-                totalMoney,
-                tenderedMoney,
-                tenderedAt,
-                settledAt,
-                changeBackMoney,
-                refundedMoney,
-                isExchange);
+            return new V1Tender(id, type, name, employeeId, receiptUrl, cardBrand, panSuffix,
+                    entryMethod, paymentNote, totalMoney, tenderedMoney, tenderedAt, settledAt,
+                    changeBackMoney, refundedMoney, isExchange);
         }
     }
 }

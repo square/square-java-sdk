@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTerminalRefundsRequest type.
  */
@@ -61,7 +60,6 @@ public class SearchTerminalRefundsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(query, cursor, limit);
@@ -82,15 +80,25 @@ public class SearchTerminalRefundsRequest {
     }
 
     /**
+     * Converts this SearchTerminalRefundsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTerminalRefundsRequest [" + "query=" + query + ", cursor=" + cursor
+                + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTerminalRefundsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTerminalRefundsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .query(getQuery())
-            .cursor(getCursor())
-            .limit(getLimit());
+                .query(getQuery())
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -139,9 +147,7 @@ public class SearchTerminalRefundsRequest {
          * @return {@link SearchTerminalRefundsRequest}
          */
         public SearchTerminalRefundsRequest build() {
-            return new SearchTerminalRefundsRequest(query,
-                cursor,
-                limit);
+            return new SearchTerminalRefundsRequest(query, cursor, limit);
         }
     }
 }

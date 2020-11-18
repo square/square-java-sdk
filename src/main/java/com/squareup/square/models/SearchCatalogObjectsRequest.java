@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchCatalogObjectsRequest type.
  */
@@ -62,9 +61,7 @@ public class SearchCatalogObjectsRequest {
 
     /**
      * Getter for ObjectTypes.
-     * The desired set of object types to appear in the search results. The legal values are taken
-     * from the CatalogObjectType enum: `"ITEM"`, `"ITEM_VARIATION"`, `"CATEGORY"`, `"DISCOUNT"`,
-     * `"TAX"`, `"MODIFIER"`, or `"MODIFIER_LIST"`.
+     * The desired set of object types to appear in the search results.
      * @return Returns the List of String
      */
     @JsonGetter("object_types")
@@ -115,15 +112,19 @@ public class SearchCatalogObjectsRequest {
      * Getter for Query.
      * A query composed of one or more different types of filters to narrow the scope of targeted
      * objects when calling the `SearchCatalogObjects` endpoint. Although a query can have multiple
-     * filters, only one query is allowed per call to
-     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects). When a query filter is based
-     * on an attribute, the attribute must be searchable. Searchable attributes are listed as
-     * follows, along their parent types that can be searched for with applicable query filters. *
-     * Searchable attribute and objects queryable by searchable attributes ** - `name`:
-     * `CatalogItem`, `CatalogItemVariation`, `CatelogCatogry`, `CatalogTax`, `CatalogDiscount`,
-     * `CatalogModifier`, 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` -
-     * `description`: `CatalogItem`, `CatalogItemOptionValue` - `abbreviation`: `CatalogItem` -
-     * `upc`: `CatalogItemVariation` - `sku`: `CatalogItemVariation` - `caption`: `CatalogImage` -
+     * filters, only certain query types can be combined per call to
+     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects). Any combination of the
+     * following types may be used together: - [exact_query](#type-CatalogExactQuery) -
+     * [prefix_query](#type-CatalogPrefixQuery) - [range_query](#type-CatalogRangeQuery) -
+     * [sorted_attribute_query](#type-CatalogSortedAttribute) - [text_query](#type-CatalogTextQuery)
+     * All other query types cannot be combined with any others. When a query filter is based on an
+     * attribute, the attribute must be searchable. Searchable attributes are listed as follows,
+     * along their parent types that can be searched for with applicable query filters. * Searchable
+     * attribute and objects queryable by searchable attributes ** - `name`: `CatalogItem`,
+     * `CatalogItemVariation`, `CatelogCatogry`, `CatalogTax`, `CatalogDiscount`, `CatalogModifier`,
+     * 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` - `description`:
+     * `CatalogItem`, `CatalogItemOptionValue` - `abbreviation`: `CatalogItem` - `upc`:
+     * `CatalogItemVariation` - `sku`: `CatalogItemVariation` - `caption`: `CatalogImage` -
      * `display_name`: `CatalogItemOption` For example, to search for
      * [CatalogItem](#type-CatalogItem) objects by searchable attributes, you can use the `"name"`,
      * `"description"`, or `"abbreviation"` attribute in an applicable query filter.
@@ -146,7 +147,6 @@ public class SearchCatalogObjectsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, objectTypes, includeDeletedObjects, includeRelatedObjects,
@@ -172,19 +172,31 @@ public class SearchCatalogObjectsRequest {
     }
 
     /**
+     * Converts this SearchCatalogObjectsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchCatalogObjectsRequest [" + "cursor=" + cursor + ", objectTypes=" + objectTypes
+                + ", includeDeletedObjects=" + includeDeletedObjects + ", includeRelatedObjects="
+                + includeRelatedObjects + ", beginTime=" + beginTime + ", query=" + query
+                + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link SearchCatalogObjectsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchCatalogObjectsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .objectTypes(getObjectTypes())
-            .includeDeletedObjects(getIncludeDeletedObjects())
-            .includeRelatedObjects(getIncludeRelatedObjects())
-            .beginTime(getBeginTime())
-            .query(getQuery())
-            .limit(getLimit());
+                .cursor(getCursor())
+                .objectTypes(getObjectTypes())
+                .includeDeletedObjects(getIncludeDeletedObjects())
+                .includeRelatedObjects(getIncludeRelatedObjects())
+                .beginTime(getBeginTime())
+                .query(getQuery())
+                .limit(getLimit());
         return builder;
     }
 
@@ -277,13 +289,8 @@ public class SearchCatalogObjectsRequest {
          * @return {@link SearchCatalogObjectsRequest}
          */
         public SearchCatalogObjectsRequest build() {
-            return new SearchCatalogObjectsRequest(cursor,
-                objectTypes,
-                includeDeletedObjects,
-                includeRelatedObjects,
-                beginTime,
-                query,
-                limit);
+            return new SearchCatalogObjectsRequest(cursor, objectTypes, includeDeletedObjects,
+                    includeRelatedObjects, beginTime, query, limit);
         }
     }
 }

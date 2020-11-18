@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCustomerCardRequest type.
  */
@@ -81,7 +80,6 @@ public class CreateCustomerCardRequest {
         return this.verificationToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cardNonce, billingAddress, cardholderName, verificationToken);
@@ -103,15 +101,26 @@ public class CreateCustomerCardRequest {
     }
 
     /**
+     * Converts this CreateCustomerCardRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCustomerCardRequest [" + "cardNonce=" + cardNonce + ", billingAddress="
+                + billingAddress + ", cardholderName=" + cardholderName + ", verificationToken="
+                + verificationToken + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCustomerCardRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCustomerCardRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(cardNonce)
-            .billingAddress(getBillingAddress())
-            .cardholderName(getCardholderName())
-            .verificationToken(getVerificationToken());
+                .billingAddress(getBillingAddress())
+                .cardholderName(getCardholderName())
+                .verificationToken(getVerificationToken());
         return builder;
     }
 
@@ -177,10 +186,8 @@ public class CreateCustomerCardRequest {
          * @return {@link CreateCustomerCardRequest}
          */
         public CreateCustomerCardRequest build() {
-            return new CreateCustomerCardRequest(cardNonce,
-                billingAddress,
-                cardholderName,
-                verificationToken);
+            return new CreateCustomerCardRequest(cardNonce, billingAddress, cardholderName,
+                    verificationToken);
         }
     }
 }

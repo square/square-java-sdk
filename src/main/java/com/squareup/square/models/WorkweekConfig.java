@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for WorkweekConfig type.
  */
@@ -106,7 +105,6 @@ public class WorkweekConfig {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, startOfWeek, startOfDayLocalTime, version, createdAt, updatedAt);
@@ -130,17 +128,27 @@ public class WorkweekConfig {
     }
 
     /**
+     * Converts this WorkweekConfig into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "WorkweekConfig [" + "startOfWeek=" + startOfWeek + ", startOfDayLocalTime="
+                + startOfDayLocalTime + ", id=" + id + ", version=" + version + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link WorkweekConfig.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link WorkweekConfig.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(startOfWeek,
-            startOfDayLocalTime)
-            .id(getId())
-            .version(getVersion())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(startOfWeek, startOfDayLocalTime)
+                .id(getId())
+                .version(getVersion())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -231,12 +239,8 @@ public class WorkweekConfig {
          * @return {@link WorkweekConfig}
          */
         public WorkweekConfig build() {
-            return new WorkweekConfig(startOfWeek,
-                startOfDayLocalTime,
-                id,
-                version,
-                createdAt,
-                updatedAt);
+            return new WorkweekConfig(startOfWeek, startOfDayLocalTime, id, version, createdAt,
+                    updatedAt);
         }
     }
 }

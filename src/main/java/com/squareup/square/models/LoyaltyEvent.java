@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEvent type.
  */
@@ -201,7 +200,6 @@ public class LoyaltyEvent {
         return this.otherEvent;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, type, createdAt, accumulatePoints, createReward, redeemReward,
@@ -234,24 +232,34 @@ public class LoyaltyEvent {
     }
 
     /**
+     * Converts this LoyaltyEvent into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEvent [" + "id=" + id + ", type=" + type + ", createdAt=" + createdAt
+                + ", loyaltyAccountId=" + loyaltyAccountId + ", source=" + source
+                + ", accumulatePoints=" + accumulatePoints + ", createReward=" + createReward
+                + ", redeemReward=" + redeemReward + ", deleteReward=" + deleteReward
+                + ", adjustPoints=" + adjustPoints + ", locationId=" + locationId
+                + ", expirePoints=" + expirePoints + ", otherEvent=" + otherEvent + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEvent.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEvent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            type,
-            createdAt,
-            loyaltyAccountId,
-            source)
-            .accumulatePoints(getAccumulatePoints())
-            .createReward(getCreateReward())
-            .redeemReward(getRedeemReward())
-            .deleteReward(getDeleteReward())
-            .adjustPoints(getAdjustPoints())
-            .locationId(getLocationId())
-            .expirePoints(getExpirePoints())
-            .otherEvent(getOtherEvent());
+        Builder builder = new Builder(id, type, createdAt, loyaltyAccountId, source)
+                .accumulatePoints(getAccumulatePoints())
+                .createReward(getCreateReward())
+                .redeemReward(getRedeemReward())
+                .deleteReward(getDeleteReward())
+                .adjustPoints(getAdjustPoints())
+                .locationId(getLocationId())
+                .expirePoints(getExpirePoints())
+                .otherEvent(getOtherEvent());
         return builder;
     }
 
@@ -428,19 +436,9 @@ public class LoyaltyEvent {
          * @return {@link LoyaltyEvent}
          */
         public LoyaltyEvent build() {
-            return new LoyaltyEvent(id,
-                type,
-                createdAt,
-                loyaltyAccountId,
-                source,
-                accumulatePoints,
-                createReward,
-                redeemReward,
-                deleteReward,
-                adjustPoints,
-                locationId,
-                expirePoints,
-                otherEvent);
+            return new LoyaltyEvent(id, type, createdAt, loyaltyAccountId, source, accumulatePoints,
+                    createReward, redeemReward, deleteReward, adjustPoints, locationId,
+                    expirePoints, otherEvent);
         }
     }
 }

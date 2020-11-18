@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Order type.
  */
@@ -487,7 +486,6 @@ public class Order {
         return this.rewards;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
@@ -538,40 +536,60 @@ public class Order {
     }
 
     /**
+     * Converts this Order into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Order [" + "locationId=" + locationId + ", id=" + id + ", referenceId="
+                + referenceId + ", source=" + source + ", customerId=" + customerId + ", lineItems="
+                + lineItems + ", taxes=" + taxes + ", discounts=" + discounts + ", serviceCharges="
+                + serviceCharges + ", fulfillments=" + fulfillments + ", returns=" + returns
+                + ", returnAmounts=" + returnAmounts + ", netAmounts=" + netAmounts
+                + ", roundingAdjustment=" + roundingAdjustment + ", tenders=" + tenders
+                + ", refunds=" + refunds + ", metadata=" + metadata + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", closedAt=" + closedAt + ", state=" + state
+                + ", version=" + version + ", totalMoney=" + totalMoney + ", totalTaxMoney="
+                + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney + ", totalTipMoney="
+                + totalTipMoney + ", totalServiceChargeMoney=" + totalServiceChargeMoney
+                + ", pricingOptions=" + pricingOptions + ", rewards=" + rewards + "]";
+    }
+
+    /**
      * Builds a new {@link Order.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Order.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
-            .id(getId())
-            .referenceId(getReferenceId())
-            .source(getSource())
-            .customerId(getCustomerId())
-            .lineItems(getLineItems())
-            .taxes(getTaxes())
-            .discounts(getDiscounts())
-            .serviceCharges(getServiceCharges())
-            .fulfillments(getFulfillments())
-            .returns(getReturns())
-            .returnAmounts(getReturnAmounts())
-            .netAmounts(getNetAmounts())
-            .roundingAdjustment(getRoundingAdjustment())
-            .tenders(getTenders())
-            .refunds(getRefunds())
-            .metadata(getMetadata())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .closedAt(getClosedAt())
-            .state(getState())
-            .version(getVersion())
-            .totalMoney(getTotalMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .totalDiscountMoney(getTotalDiscountMoney())
-            .totalTipMoney(getTotalTipMoney())
-            .totalServiceChargeMoney(getTotalServiceChargeMoney())
-            .pricingOptions(getPricingOptions())
-            .rewards(getRewards());
+                .id(getId())
+                .referenceId(getReferenceId())
+                .source(getSource())
+                .customerId(getCustomerId())
+                .lineItems(getLineItems())
+                .taxes(getTaxes())
+                .discounts(getDiscounts())
+                .serviceCharges(getServiceCharges())
+                .fulfillments(getFulfillments())
+                .returns(getReturns())
+                .returnAmounts(getReturnAmounts())
+                .netAmounts(getNetAmounts())
+                .roundingAdjustment(getRoundingAdjustment())
+                .tenders(getTenders())
+                .refunds(getRefunds())
+                .metadata(getMetadata())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .closedAt(getClosedAt())
+                .state(getState())
+                .version(getVersion())
+                .totalMoney(getTotalMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .totalDiscountMoney(getTotalDiscountMoney())
+                .totalTipMoney(getTotalTipMoney())
+                .totalServiceChargeMoney(getTotalServiceChargeMoney())
+                .pricingOptions(getPricingOptions())
+                .rewards(getRewards());
         return builder;
     }
 
@@ -912,35 +930,11 @@ public class Order {
          * @return {@link Order}
          */
         public Order build() {
-            return new Order(locationId,
-                id,
-                referenceId,
-                source,
-                customerId,
-                lineItems,
-                taxes,
-                discounts,
-                serviceCharges,
-                fulfillments,
-                returns,
-                returnAmounts,
-                netAmounts,
-                roundingAdjustment,
-                tenders,
-                refunds,
-                metadata,
-                createdAt,
-                updatedAt,
-                closedAt,
-                state,
-                version,
-                totalMoney,
-                totalTaxMoney,
-                totalDiscountMoney,
-                totalTipMoney,
-                totalServiceChargeMoney,
-                pricingOptions,
-                rewards);
+            return new Order(locationId, id, referenceId, source, customerId, lineItems, taxes,
+                    discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
+                    roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt,
+                    state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
+                    totalServiceChargeMoney, pricingOptions, rewards);
         }
     }
 }

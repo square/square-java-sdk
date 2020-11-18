@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Employee type.
  */
@@ -161,7 +160,6 @@ public class Employee {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, email, phoneNumber, locationIds, status,
@@ -190,22 +188,34 @@ public class Employee {
     }
 
     /**
+     * Converts this Employee into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Employee [" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", email=" + email + ", phoneNumber=" + phoneNumber + ", locationIds="
+                + locationIds + ", status=" + status + ", isOwner=" + isOwner + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link Employee.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Employee.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .firstName(getFirstName())
-            .lastName(getLastName())
-            .email(getEmail())
-            .phoneNumber(getPhoneNumber())
-            .locationIds(getLocationIds())
-            .status(getStatus())
-            .isOwner(getIsOwner())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+                .id(getId())
+                .firstName(getFirstName())
+                .lastName(getLastName())
+                .email(getEmail())
+                .phoneNumber(getPhoneNumber())
+                .locationIds(getLocationIds())
+                .status(getStatus())
+                .isOwner(getIsOwner())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -331,16 +341,8 @@ public class Employee {
          * @return {@link Employee}
          */
         public Employee build() {
-            return new Employee(id,
-                firstName,
-                lastName,
-                email,
-                phoneNumber,
-                locationIds,
-                status,
-                isOwner,
-                createdAt,
-                updatedAt);
+            return new Employee(id, firstName, lastName, email, phoneNumber, locationIds, status,
+                    isOwner, createdAt, updatedAt);
         }
     }
 }

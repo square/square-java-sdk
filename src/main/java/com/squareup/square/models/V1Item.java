@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Item type.
  */
@@ -266,7 +265,6 @@ public class V1Item {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, type, color, abbreviation, visibility,
@@ -303,29 +301,44 @@ public class V1Item {
     }
 
     /**
+     * Converts this V1Item into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Item [" + "id=" + id + ", name=" + name + ", description=" + description
+                + ", type=" + type + ", color=" + color + ", abbreviation=" + abbreviation
+                + ", visibility=" + visibility + ", availableOnline=" + availableOnline
+                + ", masterImage=" + masterImage + ", category=" + category + ", variations="
+                + variations + ", modifierLists=" + modifierLists + ", fees=" + fees + ", taxable="
+                + taxable + ", categoryId=" + categoryId + ", availableForPickup="
+                + availableForPickup + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1Item.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Item.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .description(getDescription())
-            .type(getType())
-            .color(getColor())
-            .abbreviation(getAbbreviation())
-            .visibility(getVisibility())
-            .availableOnline(getAvailableOnline())
-            .masterImage(getMasterImage())
-            .category(getCategory())
-            .variations(getVariations())
-            .modifierLists(getModifierLists())
-            .fees(getFees())
-            .taxable(getTaxable())
-            .categoryId(getCategoryId())
-            .availableForPickup(getAvailableForPickup())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .description(getDescription())
+                .type(getType())
+                .color(getColor())
+                .abbreviation(getAbbreviation())
+                .visibility(getVisibility())
+                .availableOnline(getAvailableOnline())
+                .masterImage(getMasterImage())
+                .category(getCategory())
+                .variations(getVariations())
+                .modifierLists(getModifierLists())
+                .fees(getFees())
+                .taxable(getTaxable())
+                .categoryId(getCategoryId())
+                .availableForPickup(getAvailableForPickup())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -540,23 +553,9 @@ public class V1Item {
          */
         public V1Item build() {
             V1Item model =
-                    new V1Item(id,
-                            name,
-                            description,
-                            type,
-                            color,
-                            abbreviation,
-                            visibility,
-                            availableOnline,
-                            masterImage,
-                            category,
-                            variations,
-                            modifierLists,
-                            fees,
-                            taxable,
-                            categoryId,
-                            availableForPickup,
-                            v2Id);
+                    new V1Item(id, name, description, type, color, abbreviation, visibility,
+                            availableOnline, masterImage, category, variations, modifierLists, fees,
+                            taxable, categoryId, availableForPickup, v2Id);
             model.httpContext = httpContext;
             return model;
         }

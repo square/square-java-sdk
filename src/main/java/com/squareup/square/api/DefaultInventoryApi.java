@@ -555,8 +555,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
      *         See the
-     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination)
-     *         guide for more information.
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide
+     *         for more information.
      * @return    Returns the RetrieveInventoryCountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -586,8 +586,8 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
      *         See the
-     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination)
-     *         guide for more information.
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide
+     *         for more information.
      * @return    Returns the RetrieveInventoryCountResponse response from the API call
      */
     public CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(

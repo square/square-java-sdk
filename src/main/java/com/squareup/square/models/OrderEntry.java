@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderEntry type.
  */
@@ -64,7 +63,6 @@ public class OrderEntry {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId, version, locationId);
@@ -85,15 +83,25 @@ public class OrderEntry {
     }
 
     /**
+     * Converts this OrderEntry into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderEntry [" + "orderId=" + orderId + ", version=" + version + ", locationId="
+                + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link OrderEntry.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderEntry.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderId(getOrderId())
-            .version(getVersion())
-            .locationId(getLocationId());
+                .orderId(getOrderId())
+                .version(getVersion())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -142,9 +150,7 @@ public class OrderEntry {
          * @return {@link OrderEntry}
          */
         public OrderEntry build() {
-            return new OrderEntry(orderId,
-                version,
-                locationId);
+            return new OrderEntry(orderId, version, locationId);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCustomerGroupResponse type.
  */
@@ -56,7 +55,6 @@ public class CreateCustomerGroupResponse {
         return this.group;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, group);
@@ -76,14 +74,23 @@ public class CreateCustomerGroupResponse {
     }
 
     /**
+     * Converts this CreateCustomerGroupResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCustomerGroupResponse [" + "errors=" + errors + ", group=" + group + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCustomerGroupResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCustomerGroupResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .group(getGroup());
+                .errors(getErrors())
+                .group(getGroup());
         return builder;
     }
 
@@ -133,8 +140,7 @@ public class CreateCustomerGroupResponse {
          */
         public CreateCustomerGroupResponse build() {
             CreateCustomerGroupResponse model =
-                    new CreateCustomerGroupResponse(errors,
-                            group);
+                    new CreateCustomerGroupResponse(errors, group);
             model.httpContext = httpContext;
             return model;
         }

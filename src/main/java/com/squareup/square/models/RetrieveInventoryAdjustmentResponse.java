@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveInventoryAdjustmentResponse type.
  */
@@ -55,7 +54,6 @@ public class RetrieveInventoryAdjustmentResponse {
         return this.adjustment;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, adjustment);
@@ -75,14 +73,24 @@ public class RetrieveInventoryAdjustmentResponse {
     }
 
     /**
+     * Converts this RetrieveInventoryAdjustmentResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveInventoryAdjustmentResponse [" + "errors=" + errors + ", adjustment="
+                + adjustment + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveInventoryAdjustmentResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveInventoryAdjustmentResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .adjustment(getAdjustment());
+                .errors(getErrors())
+                .adjustment(getAdjustment());
         return builder;
     }
 
@@ -132,8 +140,7 @@ public class RetrieveInventoryAdjustmentResponse {
          */
         public RetrieveInventoryAdjustmentResponse build() {
             RetrieveInventoryAdjustmentResponse model =
-                    new RetrieveInventoryAdjustmentResponse(errors,
-                            adjustment);
+                    new RetrieveInventoryAdjustmentResponse(errors, adjustment);
             model.httpContext = httpContext;
             return model;
         }

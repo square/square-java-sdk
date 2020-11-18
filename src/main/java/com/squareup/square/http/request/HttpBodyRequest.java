@@ -35,4 +35,15 @@ public class HttpBodyRequest extends HttpRequest {
     public Object getBody() {
         return body;
     }
+
+    /**
+     * Converts this HttpBodyRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "HttpBodyRequest [httpMethod=" + getHttpMethod()
+                + ", headers=" + getHeaders() + ", queryUrlBuilder=" + getQueryUrl()
+                + ", queryParameters=" + getQueryParameters() + ", body=" + body + "]";
+    }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ChargeRequestAdditionalRecipient type.
  */
@@ -66,7 +65,6 @@ public class ChargeRequestAdditionalRecipient {
         return this.amountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, description, amountMoney);
@@ -87,14 +85,22 @@ public class ChargeRequestAdditionalRecipient {
     }
 
     /**
+     * Converts this ChargeRequestAdditionalRecipient into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ChargeRequestAdditionalRecipient [" + "locationId=" + locationId + ", description="
+                + description + ", amountMoney=" + amountMoney + "]";
+    }
+
+    /**
      * Builds a new {@link ChargeRequestAdditionalRecipient.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ChargeRequestAdditionalRecipient.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId,
-            description,
-            amountMoney);
+        Builder builder = new Builder(locationId, description, amountMoney);
         return builder;
     }
 
@@ -155,9 +161,7 @@ public class ChargeRequestAdditionalRecipient {
          * @return {@link ChargeRequestAdditionalRecipient}
          */
         public ChargeRequestAdditionalRecipient build() {
-            return new ChargeRequestAdditionalRecipient(locationId,
-                description,
-                amountMoney);
+            return new ChargeRequestAdditionalRecipient(locationId, description, amountMoney);
         }
     }
 }

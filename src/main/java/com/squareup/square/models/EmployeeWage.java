@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for EmployeeWage type.
  */
@@ -80,7 +79,6 @@ public class EmployeeWage {
         return this.hourlyRate;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, title, hourlyRate);
@@ -102,16 +100,26 @@ public class EmployeeWage {
     }
 
     /**
+     * Converts this EmployeeWage into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "EmployeeWage [" + "id=" + id + ", employeeId=" + employeeId + ", title=" + title
+                + ", hourlyRate=" + hourlyRate + "]";
+    }
+
+    /**
      * Builds a new {@link EmployeeWage.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link EmployeeWage.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .employeeId(getEmployeeId())
-            .title(getTitle())
-            .hourlyRate(getHourlyRate());
+                .id(getId())
+                .employeeId(getEmployeeId())
+                .title(getTitle())
+                .hourlyRate(getHourlyRate());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class EmployeeWage {
          * @return {@link EmployeeWage}
          */
         public EmployeeWage build() {
-            return new EmployeeWage(id,
-                employeeId,
-                title,
-                hourlyRate);
+            return new EmployeeWage(id, employeeId, title, hourlyRate);
         }
     }
 }

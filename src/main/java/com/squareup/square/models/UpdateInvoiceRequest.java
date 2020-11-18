@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateInvoiceRequest type.
  */
@@ -36,7 +35,7 @@ public class UpdateInvoiceRequest {
      * Getter for Invoice.
      * Stores information about an invoice. You use the Invoices API to create and process invoices.
      * For more information, see [Manage Invoices Using the Invoices
-     * API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+     * API](https://developer.squareup.com/docs/invoices-api/overview).
      * @return Returns the Invoice
      */
     @JsonGetter("invoice")
@@ -49,7 +48,7 @@ public class UpdateInvoiceRequest {
      * A unique string that identifies the `UpdateInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
      * as independent. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -60,7 +59,7 @@ public class UpdateInvoiceRequest {
     /**
      * Getter for FieldsToClear.
      * List of fields to clear. For examples, see [Update an
-     * invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
+     * invoice](https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice).
      * @return Returns the List of String
      */
     @JsonGetter("fields_to_clear")
@@ -68,7 +67,6 @@ public class UpdateInvoiceRequest {
         return this.fieldsToClear;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(invoice, idempotencyKey, fieldsToClear);
@@ -89,14 +87,24 @@ public class UpdateInvoiceRequest {
     }
 
     /**
+     * Converts this UpdateInvoiceRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateInvoiceRequest [" + "invoice=" + invoice + ", idempotencyKey="
+                + idempotencyKey + ", fieldsToClear=" + fieldsToClear + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateInvoiceRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(invoice)
-            .idempotencyKey(getIdempotencyKey())
-            .fieldsToClear(getFieldsToClear());
+                .idempotencyKey(getIdempotencyKey())
+                .fieldsToClear(getFieldsToClear());
         return builder;
     }
 
@@ -151,9 +159,7 @@ public class UpdateInvoiceRequest {
          * @return {@link UpdateInvoiceRequest}
          */
         public UpdateInvoiceRequest build() {
-            return new UpdateInvoiceRequest(invoice,
-                idempotencyKey,
-                fieldsToClear);
+            return new UpdateInvoiceRequest(invoice, idempotencyKey, fieldsToClear);
         }
     }
 }

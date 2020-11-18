@@ -12,7 +12,7 @@ A response that includes loyalty account created.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `LoyaltyAccount` | [`LoyaltyAccount`](/doc/models/loyalty-account.md) | Optional | Describes a loyalty account. For more information, see<br>[Loyalty Overview](https://developer.squareup.com/docs/docs/loyalty/overview). | LoyaltyAccount getLoyaltyAccount() |
+| `LoyaltyAccount` | [`LoyaltyAccount`](/doc/models/loyalty-account.md) | Optional | Describes a loyalty account. For more information, see<br>[Loyalty Overview](https://developer.squareup.com/docs/loyalty/overview). | LoyaltyAccount getLoyaltyAccount() |
 
 ## Example (as JSON)
 

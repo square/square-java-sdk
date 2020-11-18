@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreatePaymentResponse type.
  */
@@ -54,7 +53,6 @@ public class CreatePaymentResponse {
         return this.payment;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, payment);
@@ -74,14 +72,23 @@ public class CreatePaymentResponse {
     }
 
     /**
+     * Converts this CreatePaymentResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreatePaymentResponse [" + "errors=" + errors + ", payment=" + payment + "]";
+    }
+
+    /**
      * Builds a new {@link CreatePaymentResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreatePaymentResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .payment(getPayment());
+                .errors(getErrors())
+                .payment(getPayment());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class CreatePaymentResponse {
          */
         public CreatePaymentResponse build() {
             CreatePaymentResponse model =
-                    new CreatePaymentResponse(errors,
-                            payment);
+                    new CreatePaymentResponse(errors, payment);
             model.httpContext = httpContext;
             return model;
         }

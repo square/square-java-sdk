@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RefundPaymentRequest type.
  */
@@ -41,9 +40,9 @@ public class RefundPaymentRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this RefundPayment request. Key can be any valid string but
-     * must be unique for every RefundPayment request. For more information, see [Idempotency
-     * keys](https://developer.squareup.com/docs/working-with-apis/idempotency).
+     * A unique string that identifies this `RefundPayment` request. The key can be any valid string
+     * but must be unique for every `RefundPayment` request. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -83,7 +82,7 @@ public class RefundPaymentRequest {
 
     /**
      * Getter for PaymentId.
-     * Unique ID of the payment being refunded.
+     * The unique ID of the payment being refunded.
      * @return Returns the String
      */
     @JsonGetter("payment_id")
@@ -101,7 +100,6 @@ public class RefundPaymentRequest {
         return this.reason;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, amountMoney, appFeeMoney, paymentId, reason);
@@ -124,16 +122,25 @@ public class RefundPaymentRequest {
     }
 
     /**
+     * Converts this RefundPaymentRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RefundPaymentRequest [" + "idempotencyKey=" + idempotencyKey + ", amountMoney="
+                + amountMoney + ", paymentId=" + paymentId + ", appFeeMoney=" + appFeeMoney
+                + ", reason=" + reason + "]";
+    }
+
+    /**
      * Builds a new {@link RefundPaymentRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RefundPaymentRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            amountMoney,
-            paymentId)
-            .appFeeMoney(getAppFeeMoney())
-            .reason(getReason());
+        Builder builder = new Builder(idempotencyKey, amountMoney, paymentId)
+                .appFeeMoney(getAppFeeMoney())
+                .reason(getReason());
         return builder;
     }
 
@@ -216,11 +223,8 @@ public class RefundPaymentRequest {
          * @return {@link RefundPaymentRequest}
          */
         public RefundPaymentRequest build() {
-            return new RefundPaymentRequest(idempotencyKey,
-                amountMoney,
-                paymentId,
-                appFeeMoney,
-                reason);
+            return new RefundPaymentRequest(idempotencyKey, amountMoney, paymentId, appFeeMoney,
+                    reason);
         }
     }
 }

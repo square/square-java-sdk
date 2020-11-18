@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItemOptionValueForItemVariation type.
  */
@@ -47,7 +46,6 @@ public class CatalogItemOptionValueForItemVariation {
         return this.itemOptionValueId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(itemOptionId, itemOptionValueId);
@@ -67,14 +65,24 @@ public class CatalogItemOptionValueForItemVariation {
     }
 
     /**
+     * Converts this CatalogItemOptionValueForItemVariation into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItemOptionValueForItemVariation [" + "itemOptionId=" + itemOptionId
+                + ", itemOptionValueId=" + itemOptionValueId + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogItemOptionValueForItemVariation.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogItemOptionValueForItemVariation.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .itemOptionId(getItemOptionId())
-            .itemOptionValueId(getItemOptionValueId());
+                .itemOptionId(getItemOptionId())
+                .itemOptionValueId(getItemOptionValueId());
         return builder;
     }
 
@@ -112,8 +120,7 @@ public class CatalogItemOptionValueForItemVariation {
          * @return {@link CatalogItemOptionValueForItemVariation}
          */
         public CatalogItemOptionValueForItemVariation build() {
-            return new CatalogItemOptionValueForItemVariation(itemOptionId,
-                itemOptionValueId);
+            return new CatalogItemOptionValueForItemVariation(itemOptionId, itemOptionValueId);
         }
     }
 }

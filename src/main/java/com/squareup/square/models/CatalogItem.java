@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItem type.
  */
@@ -233,7 +232,6 @@ public class CatalogItem {
         return this.itemOptions;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
@@ -267,26 +265,42 @@ public class CatalogItem {
     }
 
     /**
+     * Converts this CatalogItem into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItem [" + "name=" + name + ", description=" + description + ", abbreviation="
+                + abbreviation + ", labelColor=" + labelColor + ", availableOnline="
+                + availableOnline + ", availableForPickup=" + availableForPickup
+                + ", availableElectronically=" + availableElectronically + ", categoryId="
+                + categoryId + ", taxIds=" + taxIds + ", modifierListInfo=" + modifierListInfo
+                + ", variations=" + variations + ", productType=" + productType
+                + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogItem.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogItem.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .description(getDescription())
-            .abbreviation(getAbbreviation())
-            .labelColor(getLabelColor())
-            .availableOnline(getAvailableOnline())
-            .availableForPickup(getAvailableForPickup())
-            .availableElectronically(getAvailableElectronically())
-            .categoryId(getCategoryId())
-            .taxIds(getTaxIds())
-            .modifierListInfo(getModifierListInfo())
-            .variations(getVariations())
-            .productType(getProductType())
-            .skipModifierScreen(getSkipModifierScreen())
-            .itemOptions(getItemOptions());
+                .name(getName())
+                .description(getDescription())
+                .abbreviation(getAbbreviation())
+                .labelColor(getLabelColor())
+                .availableOnline(getAvailableOnline())
+                .availableForPickup(getAvailableForPickup())
+                .availableElectronically(getAvailableElectronically())
+                .categoryId(getCategoryId())
+                .taxIds(getTaxIds())
+                .modifierListInfo(getModifierListInfo())
+                .variations(getVariations())
+                .productType(getProductType())
+                .skipModifierScreen(getSkipModifierScreen())
+                .itemOptions(getItemOptions());
         return builder;
     }
 
@@ -456,20 +470,9 @@ public class CatalogItem {
          * @return {@link CatalogItem}
          */
         public CatalogItem build() {
-            return new CatalogItem(name,
-                description,
-                abbreviation,
-                labelColor,
-                availableOnline,
-                availableForPickup,
-                availableElectronically,
-                categoryId,
-                taxIds,
-                modifierListInfo,
-                variations,
-                productType,
-                skipModifierScreen,
-                itemOptions);
+            return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
+                    availableForPickup, availableElectronically, categoryId, taxIds,
+                    modifierListInfo, variations, productType, skipModifierScreen, itemOptions);
         }
     }
 }

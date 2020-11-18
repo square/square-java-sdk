@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RevokeTokenResponse type.
  */
@@ -39,7 +38,6 @@ public class RevokeTokenResponse {
         return this.success;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(success);
@@ -58,13 +56,22 @@ public class RevokeTokenResponse {
     }
 
     /**
+     * Converts this RevokeTokenResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RevokeTokenResponse [" + "success=" + success + "]";
+    }
+
+    /**
      * Builds a new {@link RevokeTokenResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RevokeTokenResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .success(getSuccess());
+                .success(getSuccess());
         return builder;
     }
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1CreateDiscountRequest type.
  */
@@ -33,7 +32,6 @@ public class V1CreateDiscountRequest {
         return this.body;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(body);
@@ -52,13 +50,22 @@ public class V1CreateDiscountRequest {
     }
 
     /**
+     * Converts this V1CreateDiscountRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1CreateDiscountRequest [" + "body=" + body + "]";
+    }
+
+    /**
      * Builds a new {@link V1CreateDiscountRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1CreateDiscountRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .body(getBody());
+                .body(getBody());
         return builder;
     }
 

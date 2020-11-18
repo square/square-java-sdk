@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgramTerminology type.
  */
@@ -47,7 +46,6 @@ public class LoyaltyProgramTerminology {
         return this.other;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(one, other);
@@ -67,13 +65,21 @@ public class LoyaltyProgramTerminology {
     }
 
     /**
+     * Converts this LoyaltyProgramTerminology into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgramTerminology [" + "one=" + one + ", other=" + other + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyProgramTerminology.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyProgramTerminology.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(one,
-            other);
+        Builder builder = new Builder(one, other);
         return builder;
     }
 
@@ -120,8 +126,7 @@ public class LoyaltyProgramTerminology {
          * @return {@link LoyaltyProgramTerminology}
          */
         public LoyaltyProgramTerminology build() {
-            return new LoyaltyProgramTerminology(one,
-                other);
+            return new LoyaltyProgramTerminology(one, other);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgram type.
  */
@@ -146,7 +145,6 @@ public class LoyaltyProgram {
         return this.accrualRules;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, status, rewardTiers, expirationPolicy, terminology, locationIds,
@@ -174,20 +172,26 @@ public class LoyaltyProgram {
     }
 
     /**
+     * Converts this LoyaltyProgram into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgram [" + "id=" + id + ", status=" + status + ", rewardTiers="
+                + rewardTiers + ", terminology=" + terminology + ", locationIds=" + locationIds
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", accrualRules="
+                + accrualRules + ", expirationPolicy=" + expirationPolicy + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyProgram.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyProgram.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            status,
-            rewardTiers,
-            terminology,
-            locationIds,
-            createdAt,
-            updatedAt,
-            accrualRules)
-            .expirationPolicy(getExpirationPolicy());
+        Builder builder = new Builder(id, status, rewardTiers, terminology, locationIds, createdAt,
+                updatedAt, accrualRules)
+                .expirationPolicy(getExpirationPolicy());
         return builder;
     }
 
@@ -329,15 +333,8 @@ public class LoyaltyProgram {
          * @return {@link LoyaltyProgram}
          */
         public LoyaltyProgram build() {
-            return new LoyaltyProgram(id,
-                status,
-                rewardTiers,
-                terminology,
-                locationIds,
-                createdAt,
-                updatedAt,
-                accrualRules,
-                expirationPolicy);
+            return new LoyaltyProgram(id, status, rewardTiers, terminology, locationIds, createdAt,
+                    updatedAt, accrualRules, expirationPolicy);
         }
     }
 }

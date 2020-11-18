@@ -63,7 +63,8 @@ public interface CashDrawersApi {
 
     /**
      * Provides the summary details for a single cash drawer shift. See
-     * RetrieveCashDrawerShiftEvents for a list of cash drawer shift events.
+     * [ListCashDrawerShiftEvents](#endpoint-CashDrawers-ListCashDrawerShiftEvents) for a list of
+     * cash drawer shift events.
      * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
      *         from.
      * @param  shiftId  Required parameter: The shift ID.
@@ -77,7 +78,8 @@ public interface CashDrawersApi {
 
     /**
      * Provides the summary details for a single cash drawer shift. See
-     * RetrieveCashDrawerShiftEvents for a list of cash drawer shift events.
+     * [ListCashDrawerShiftEvents](#endpoint-CashDrawers-ListCashDrawerShiftEvents) for a list of
+     * cash drawer shift events.
      * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
      *         from.
      * @param  shiftId  Required parameter: The shift ID.

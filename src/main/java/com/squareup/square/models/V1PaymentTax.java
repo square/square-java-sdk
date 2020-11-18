@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PaymentTax type.
  */
@@ -104,7 +103,6 @@ public class V1PaymentTax {
         return this.feeId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, name, appliedMoney, rate, inclusionType, feeId);
@@ -128,18 +126,29 @@ public class V1PaymentTax {
     }
 
     /**
+     * Converts this V1PaymentTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PaymentTax [" + "errors=" + errors + ", name=" + name + ", appliedMoney="
+                + appliedMoney + ", rate=" + rate + ", inclusionType=" + inclusionType + ", feeId="
+                + feeId + "]";
+    }
+
+    /**
      * Builds a new {@link V1PaymentTax.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PaymentTax.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .name(getName())
-            .appliedMoney(getAppliedMoney())
-            .rate(getRate())
-            .inclusionType(getInclusionType())
-            .feeId(getFeeId());
+                .errors(getErrors())
+                .name(getName())
+                .appliedMoney(getAppliedMoney())
+                .rate(getRate())
+                .inclusionType(getInclusionType())
+                .feeId(getFeeId());
         return builder;
     }
 
@@ -221,12 +230,7 @@ public class V1PaymentTax {
          * @return {@link V1PaymentTax}
          */
         public V1PaymentTax build() {
-            return new V1PaymentTax(errors,
-                name,
-                appliedMoney,
-                rate,
-                inclusionType,
-                feeId);
+            return new V1PaymentTax(errors, name, appliedMoney, rate, inclusionType, feeId);
         }
     }
 }

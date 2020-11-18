@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateWorkweekConfigRequest type.
  */
@@ -34,7 +33,6 @@ public class UpdateWorkweekConfigRequest {
         return this.workweekConfig;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(workweekConfig);
@@ -50,6 +48,15 @@ public class UpdateWorkweekConfigRequest {
         }
         UpdateWorkweekConfigRequest other = (UpdateWorkweekConfigRequest) obj;
         return Objects.equals(workweekConfig, other.workweekConfig);
+    }
+
+    /**
+     * Converts this UpdateWorkweekConfigRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateWorkweekConfigRequest [" + "workweekConfig=" + workweekConfig + "]";
     }
 
     /**

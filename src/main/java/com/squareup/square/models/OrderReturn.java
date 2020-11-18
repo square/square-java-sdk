@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturn type.
  */
@@ -137,7 +136,6 @@ public class OrderReturn {
         return this.returnAmounts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceOrderId, returnLineItems, returnServiceCharges, returnTaxes,
@@ -164,20 +162,33 @@ public class OrderReturn {
     }
 
     /**
+     * Converts this OrderReturn into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturn [" + "uid=" + uid + ", sourceOrderId=" + sourceOrderId
+                + ", returnLineItems=" + returnLineItems + ", returnServiceCharges="
+                + returnServiceCharges + ", returnTaxes=" + returnTaxes + ", returnDiscounts="
+                + returnDiscounts + ", roundingAdjustment=" + roundingAdjustment
+                + ", returnAmounts=" + returnAmounts + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturn.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturn.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .sourceOrderId(getSourceOrderId())
-            .returnLineItems(getReturnLineItems())
-            .returnServiceCharges(getReturnServiceCharges())
-            .returnTaxes(getReturnTaxes())
-            .returnDiscounts(getReturnDiscounts())
-            .roundingAdjustment(getRoundingAdjustment())
-            .returnAmounts(getReturnAmounts());
+                .uid(getUid())
+                .sourceOrderId(getSourceOrderId())
+                .returnLineItems(getReturnLineItems())
+                .returnServiceCharges(getReturnServiceCharges())
+                .returnTaxes(getReturnTaxes())
+                .returnDiscounts(getReturnDiscounts())
+                .roundingAdjustment(getRoundingAdjustment())
+                .returnAmounts(getReturnAmounts());
         return builder;
     }
 
@@ -281,14 +292,8 @@ public class OrderReturn {
          * @return {@link OrderReturn}
          */
         public OrderReturn build() {
-            return new OrderReturn(uid,
-                sourceOrderId,
-                returnLineItems,
-                returnServiceCharges,
-                returnTaxes,
-                returnDiscounts,
-                roundingAdjustment,
-                returnAmounts);
+            return new OrderReturn(uid, sourceOrderId, returnLineItems, returnServiceCharges,
+                    returnTaxes, returnDiscounts, roundingAdjustment, returnAmounts);
         }
     }
 }

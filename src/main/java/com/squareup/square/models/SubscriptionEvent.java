@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SubscriptionEvent type.
  */
@@ -76,7 +75,6 @@ public class SubscriptionEvent {
         return this.planId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, subscriptionEventType, effectiveDate, planId);
@@ -98,15 +96,23 @@ public class SubscriptionEvent {
     }
 
     /**
+     * Converts this SubscriptionEvent into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionEvent [" + "id=" + id + ", subscriptionEventType="
+                + subscriptionEventType + ", effectiveDate=" + effectiveDate + ", planId=" + planId
+                + "]";
+    }
+
+    /**
      * Builds a new {@link SubscriptionEvent.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SubscriptionEvent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            subscriptionEventType,
-            effectiveDate,
-            planId);
+        Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planId);
         return builder;
     }
 
@@ -181,10 +187,7 @@ public class SubscriptionEvent {
          * @return {@link SubscriptionEvent}
          */
         public SubscriptionEvent build() {
-            return new SubscriptionEvent(id,
-                subscriptionEventType,
-                effectiveDate,
-                planId);
+            return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planId);
         }
     }
 }

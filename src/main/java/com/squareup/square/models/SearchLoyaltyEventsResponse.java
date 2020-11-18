@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchLoyaltyEventsResponse type.
  */
@@ -62,7 +61,7 @@ public class SearchLoyaltyEventsResponse {
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If empty, this is the final
      * response. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -70,7 +69,6 @@ public class SearchLoyaltyEventsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, events, cursor);
@@ -91,15 +89,25 @@ public class SearchLoyaltyEventsResponse {
     }
 
     /**
+     * Converts this SearchLoyaltyEventsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchLoyaltyEventsResponse [" + "errors=" + errors + ", events=" + events
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchLoyaltyEventsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchLoyaltyEventsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .events(getEvents())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .events(getEvents())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchLoyaltyEventsResponse {
          */
         public SearchLoyaltyEventsResponse build() {
             SearchLoyaltyEventsResponse model =
-                    new SearchLoyaltyEventsResponse(errors,
-                            events,
-                            cursor);
+                    new SearchLoyaltyEventsResponse(errors, events, cursor);
             model.httpContext = httpContext;
             return model;
         }

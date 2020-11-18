@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection type.
  */
@@ -47,7 +46,6 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
         return this.name;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, name);
@@ -68,13 +66,23 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     }
 
     /**
+     * Converts this CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection [" + "name="
+                + name + ", uid=" + uid + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(name)
-            .uid(getUid());
+                .uid(getUid());
         return builder;
     }
 
@@ -121,7 +129,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
          */
         public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection build() {
             return new CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(name,
-                uid);
+                    uid);
         }
     }
 }

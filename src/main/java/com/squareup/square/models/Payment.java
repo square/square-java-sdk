@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Payment type.
  */
@@ -33,6 +32,7 @@ public class Payment {
     private final String customerId;
     private final String employeeId;
     private final List<String> refundIds;
+    private final RiskEvaluation riskEvaluation;
     private final String buyerEmailAddress;
     private final Address billingAddress;
     private final Address shippingAddress;
@@ -64,6 +64,7 @@ public class Payment {
      * @param customerId String value for customerId.
      * @param employeeId String value for employeeId.
      * @param refundIds List of String value for refundIds.
+     * @param riskEvaluation RiskEvaluation value for riskEvaluation.
      * @param buyerEmailAddress String value for buyerEmailAddress.
      * @param billingAddress Address value for billingAddress.
      * @param shippingAddress Address value for shippingAddress.
@@ -95,6 +96,7 @@ public class Payment {
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("employee_id") String employeeId,
             @JsonProperty("refund_ids") List<String> refundIds,
+            @JsonProperty("risk_evaluation") RiskEvaluation riskEvaluation,
             @JsonProperty("buyer_email_address") String buyerEmailAddress,
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("shipping_address") Address shippingAddress,
@@ -123,6 +125,7 @@ public class Payment {
         this.customerId = customerId;
         this.employeeId = employeeId;
         this.refundIds = refundIds;
+        this.riskEvaluation = riskEvaluation;
         this.buyerEmailAddress = buyerEmailAddress;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -134,7 +137,7 @@ public class Payment {
 
     /**
      * Getter for Id.
-     * Unique ID for the payment.
+     * A unique ID for the payment.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -144,7 +147,7 @@ public class Payment {
 
     /**
      * Getter for CreatedAt.
-     * Timestamp of when the payment was created, in RFC 3339 format.
+     * The timestamp of when the payment was created, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -154,7 +157,7 @@ public class Payment {
 
     /**
      * Getter for UpdatedAt.
-     * Timestamp of when the payment was last updated, in RFC 3339 format.
+     * The timestamp of when the payment was last updated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -224,7 +227,7 @@ public class Payment {
 
     /**
      * Getter for ProcessingFee.
-     * Processing fees and fee adjustments assessed by Square on this payment.
+     * The processing fees and fee adjustments assessed by Square for this payment.
      * @return Returns the List of ProcessingFee
      */
     @JsonGetter("processing_fee")
@@ -249,7 +252,7 @@ public class Payment {
 
     /**
      * Getter for Status.
-     * Indicates whether the payment is `APPROVED`, `COMPLETED`, `CANCELED`, or `FAILED`.
+     * Indicates whether the payment is APPROVED, COMPLETED, CANCELED, or FAILED.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -260,12 +263,11 @@ public class Payment {
     /**
      * Getter for DelayDuration.
      * The duration of time after the payment's creation when Square automatically applies the
-     * `delay_action` to the payment. This automatic `delay_action` applies only to payments that
-     * don't reach a terminal state (COMPLETED, CANCELED, or FAILED) before the `delay_duration`
-     * time period. This field is specified as a time duration, in RFC 3339 format. Notes: This
-     * feature is only supported for card payments. Default: - Card Present payments: "PT36H" (36
-     * hours) from the creation time. - Card Not Present payments: "P7D" (7 days) from the creation
-     * time.
+     * `delay_action` to the payment. This automatic `delay_action` applies only to payments that do
+     * not reach a terminal state (COMPLETED, CANCELED, or FAILED) before the `delay_duration` time
+     * period. This field is specified as a time duration, in RFC 3339 format. Notes: This feature
+     * is only supported for card payments. Default: - Card-present payments: "PT36H" (36 hours)
+     * from the creation time. - Card-not-present payments: "P7D" (7 days) from the creation time.
      * @return Returns the String
      */
     @JsonGetter("delay_duration")
@@ -276,7 +278,7 @@ public class Payment {
     /**
      * Getter for DelayAction.
      * The action to be applied to the payment when the `delay_duration` has elapsed. This field is
-     * read only. Current values include: `CANCEL`
+     * read-only. Current values include `CANCEL`.
      * @return Returns the String
      */
     @JsonGetter("delay_action")
@@ -286,10 +288,10 @@ public class Payment {
 
     /**
      * Getter for DelayedUntil.
-     * Read only timestamp of when the `delay_action` will automatically be applied, in RFC 3339
+     * The read-only timestamp of when the `delay_action` is automatically applied, in RFC 3339
      * format. Note that this field is calculated by summing the payment's `delay_duration` and
-     * `created_at` fields. The `created_at` field is generated by Square and may not exactly match
-     * the time on your local machine.
+     * `created_at` fields. The `created_at` field is generated by Square and might not exactly
+     * match the time on your local machine.
      * @return Returns the String
      */
     @JsonGetter("delayed_until")
@@ -299,7 +301,7 @@ public class Payment {
 
     /**
      * Getter for SourceType.
-     * The source type for this payment Current values include: `CARD`.
+     * The source type for this payment. Current values include `CARD`.
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -319,7 +321,7 @@ public class Payment {
 
     /**
      * Getter for LocationId.
-     * ID of the location associated with the payment.
+     * The ID of the location associated with the payment.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -329,7 +331,7 @@ public class Payment {
 
     /**
      * Getter for OrderId.
-     * ID of the order associated with this payment.
+     * The ID of the order associated with the payment.
      * @return Returns the String
      */
     @JsonGetter("order_id")
@@ -339,7 +341,7 @@ public class Payment {
 
     /**
      * Getter for ReferenceId.
-     * An optional ID that associates this payment with an entity in another system.
+     * An optional ID that associates the payment with an entity in another system.
      * @return Returns the String
      */
     @JsonGetter("reference_id")
@@ -359,7 +361,7 @@ public class Payment {
 
     /**
      * Getter for EmployeeId.
-     * An optional ID of the employee associated with taking this payment.
+     * An optional ID of the employee associated with taking the payment.
      * @return Returns the String
      */
     @JsonGetter("employee_id")
@@ -369,7 +371,7 @@ public class Payment {
 
     /**
      * Getter for RefundIds.
-     * List of `refund_id`s identifying refunds for this payment.
+     * A list of `refund_id`s identifying refunds for the payment.
      * @return Returns the List of String
      */
     @JsonGetter("refund_ids")
@@ -378,8 +380,21 @@ public class Payment {
     }
 
     /**
+     * Getter for RiskEvaluation.
+     * Represents fraud risk information for the associated payment. When you take a payment through
+     * Square's Payments API (using the `CreatePayment` endpoint), Square evaluates it and assigns a
+     * risk level to the payment. Sellers can use this information to determine the course of action
+     * (for example, provide the goods/services or refund the payment).
+     * @return Returns the RiskEvaluation
+     */
+    @JsonGetter("risk_evaluation")
+    public RiskEvaluation getRiskEvaluation() {
+        return this.riskEvaluation;
+    }
+
+    /**
      * Getter for BuyerEmailAddress.
-     * The buyer's e-mail address
+     * The buyer's email address.
      * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
@@ -409,7 +424,7 @@ public class Payment {
 
     /**
      * Getter for Note.
-     * An optional note to include when creating a payment
+     * An optional note to include when creating a payment.
      * @return Returns the String
      */
     @JsonGetter("note")
@@ -419,10 +434,10 @@ public class Payment {
 
     /**
      * Getter for StatementDescriptionIdentifier.
-     * Additional payment information that gets added on the customer's card statement as part of
-     * the statement description. Note that the `statement_description_identifier` may get truncated
-     * on the statement description to fit the required information including the Square identifier
-     * (SQ *) and name of the merchant taking the payment.
+     * Additional payment information that gets added to the customer's card statement as part of
+     * the statement description. Note that the `statement_description_identifier` might get
+     * truncated on the statement description to fit the required information including the Square
+     * identifier (SQ *) and the name of the seller taking the payment.
      * @return Returns the String
      */
     @JsonGetter("statement_description_identifier")
@@ -432,7 +447,7 @@ public class Payment {
 
     /**
      * Getter for ReceiptNumber.
-     * The payment's receipt number. The field will be missing if a payment is CANCELED
+     * The payment's receipt number. The field is missing if a payment is canceled.
      * @return Returns the String
      */
     @JsonGetter("receipt_number")
@@ -442,7 +457,7 @@ public class Payment {
 
     /**
      * Getter for ReceiptUrl.
-     * The URL for the payment's receipt. The field will only be populated for COMPLETED payments.
+     * The URL for the payment's receipt. The field is only populated for COMPLETED payments.
      * @return Returns the String
      */
     @JsonGetter("receipt_url")
@@ -450,14 +465,13 @@ public class Payment {
         return this.receiptUrl;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                 appFeeMoney, processingFee, refundedMoney, status, delayDuration, delayAction,
                 delayedUntil, sourceType, cardDetails, locationId, orderId, referenceId, customerId,
-                employeeId, refundIds, buyerEmailAddress, billingAddress, shippingAddress, note,
-                statementDescriptionIdentifier, receiptNumber, receiptUrl);
+                employeeId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
+                shippingAddress, note, statementDescriptionIdentifier, receiptNumber, receiptUrl);
     }
 
     @Override
@@ -490,6 +504,7 @@ public class Payment {
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(employeeId, other.employeeId)
             && Objects.equals(refundIds, other.refundIds)
+            && Objects.equals(riskEvaluation, other.riskEvaluation)
             && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
             && Objects.equals(billingAddress, other.billingAddress)
             && Objects.equals(shippingAddress, other.shippingAddress)
@@ -501,40 +516,62 @@ public class Payment {
     }
 
     /**
+     * Converts this Payment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Payment [" + "id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney + ", totalMoney="
+                + totalMoney + ", appFeeMoney=" + appFeeMoney + ", processingFee=" + processingFee
+                + ", refundedMoney=" + refundedMoney + ", status=" + status + ", delayDuration="
+                + delayDuration + ", delayAction=" + delayAction + ", delayedUntil=" + delayedUntil
+                + ", sourceType=" + sourceType + ", cardDetails=" + cardDetails + ", locationId="
+                + locationId + ", orderId=" + orderId + ", referenceId=" + referenceId
+                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", refundIds="
+                + refundIds + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress="
+                + buyerEmailAddress + ", billingAddress=" + billingAddress + ", shippingAddress="
+                + shippingAddress + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + ", receiptNumber=" + receiptNumber
+                + ", receiptUrl=" + receiptUrl + "]";
+    }
+
+    /**
      * Builds a new {@link Payment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Payment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .amountMoney(getAmountMoney())
-            .tipMoney(getTipMoney())
-            .totalMoney(getTotalMoney())
-            .appFeeMoney(getAppFeeMoney())
-            .processingFee(getProcessingFee())
-            .refundedMoney(getRefundedMoney())
-            .status(getStatus())
-            .delayDuration(getDelayDuration())
-            .delayAction(getDelayAction())
-            .delayedUntil(getDelayedUntil())
-            .sourceType(getSourceType())
-            .cardDetails(getCardDetails())
-            .locationId(getLocationId())
-            .orderId(getOrderId())
-            .referenceId(getReferenceId())
-            .customerId(getCustomerId())
-            .employeeId(getEmployeeId())
-            .refundIds(getRefundIds())
-            .buyerEmailAddress(getBuyerEmailAddress())
-            .billingAddress(getBillingAddress())
-            .shippingAddress(getShippingAddress())
-            .note(getNote())
-            .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
-            .receiptNumber(getReceiptNumber())
-            .receiptUrl(getReceiptUrl());
+                .id(getId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .amountMoney(getAmountMoney())
+                .tipMoney(getTipMoney())
+                .totalMoney(getTotalMoney())
+                .appFeeMoney(getAppFeeMoney())
+                .processingFee(getProcessingFee())
+                .refundedMoney(getRefundedMoney())
+                .status(getStatus())
+                .delayDuration(getDelayDuration())
+                .delayAction(getDelayAction())
+                .delayedUntil(getDelayedUntil())
+                .sourceType(getSourceType())
+                .cardDetails(getCardDetails())
+                .locationId(getLocationId())
+                .orderId(getOrderId())
+                .referenceId(getReferenceId())
+                .customerId(getCustomerId())
+                .employeeId(getEmployeeId())
+                .refundIds(getRefundIds())
+                .riskEvaluation(getRiskEvaluation())
+                .buyerEmailAddress(getBuyerEmailAddress())
+                .billingAddress(getBillingAddress())
+                .shippingAddress(getShippingAddress())
+                .note(getNote())
+                .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
+                .receiptNumber(getReceiptNumber())
+                .receiptUrl(getReceiptUrl());
         return builder;
     }
 
@@ -563,6 +600,7 @@ public class Payment {
         private String customerId;
         private String employeeId;
         private List<String> refundIds;
+        private RiskEvaluation riskEvaluation;
         private String buyerEmailAddress;
         private Address billingAddress;
         private Address shippingAddress;
@@ -784,6 +822,16 @@ public class Payment {
         }
 
         /**
+         * Setter for riskEvaluation.
+         * @param riskEvaluation RiskEvaluation value for riskEvaluation.
+         * @return Builder
+         */
+        public Builder riskEvaluation(RiskEvaluation riskEvaluation) {
+            this.riskEvaluation = riskEvaluation;
+            return this;
+        }
+
+        /**
          * Setter for buyerEmailAddress.
          * @param buyerEmailAddress String value for buyerEmailAddress.
          * @return Builder
@@ -858,34 +906,12 @@ public class Payment {
          * @return {@link Payment}
          */
         public Payment build() {
-            return new Payment(id,
-                createdAt,
-                updatedAt,
-                amountMoney,
-                tipMoney,
-                totalMoney,
-                appFeeMoney,
-                processingFee,
-                refundedMoney,
-                status,
-                delayDuration,
-                delayAction,
-                delayedUntil,
-                sourceType,
-                cardDetails,
-                locationId,
-                orderId,
-                referenceId,
-                customerId,
-                employeeId,
-                refundIds,
-                buyerEmailAddress,
-                billingAddress,
-                shippingAddress,
-                note,
-                statementDescriptionIdentifier,
-                receiptNumber,
-                receiptUrl);
+            return new Payment(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
+                    appFeeMoney, processingFee, refundedMoney, status, delayDuration, delayAction,
+                    delayedUntil, sourceType, cardDetails, locationId, orderId, referenceId,
+                    customerId, employeeId, refundIds, riskEvaluation, buyerEmailAddress,
+                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
+                    receiptNumber, receiptUrl);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DeviceCode type.
  */
@@ -172,7 +171,6 @@ public class DeviceCode {
         return this.pairedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, code, deviceId, productType, locationId, status, pairBy,
@@ -202,22 +200,34 @@ public class DeviceCode {
     }
 
     /**
+     * Converts this DeviceCode into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DeviceCode [" + "productType=" + productType + ", id=" + id + ", name=" + name
+                + ", code=" + code + ", deviceId=" + deviceId + ", locationId=" + locationId
+                + ", status=" + status + ", pairBy=" + pairBy + ", createdAt=" + createdAt
+                + ", statusChangedAt=" + statusChangedAt + ", pairedAt=" + pairedAt + "]";
+    }
+
+    /**
      * Builds a new {@link DeviceCode.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DeviceCode.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(productType)
-            .id(getId())
-            .name(getName())
-            .code(getCode())
-            .deviceId(getDeviceId())
-            .locationId(getLocationId())
-            .status(getStatus())
-            .pairBy(getPairBy())
-            .createdAt(getCreatedAt())
-            .statusChangedAt(getStatusChangedAt())
-            .pairedAt(getPairedAt());
+                .id(getId())
+                .name(getName())
+                .code(getCode())
+                .deviceId(getDeviceId())
+                .locationId(getLocationId())
+                .status(getStatus())
+                .pairBy(getPairBy())
+                .createdAt(getCreatedAt())
+                .statusChangedAt(getStatusChangedAt())
+                .pairedAt(getPairedAt());
         return builder;
     }
 
@@ -360,17 +370,8 @@ public class DeviceCode {
          * @return {@link DeviceCode}
          */
         public DeviceCode build() {
-            return new DeviceCode(productType,
-                id,
-                name,
-                code,
-                deviceId,
-                locationId,
-                status,
-                pairBy,
-                createdAt,
-                statusChangedAt,
-                pairedAt);
+            return new DeviceCode(productType, id, name, code, deviceId, locationId, status, pairBy,
+                    createdAt, statusChangedAt, pairedAt);
         }
     }
 }

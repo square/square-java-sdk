@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItemAppliedDiscount type.
  */
@@ -69,7 +68,6 @@ public class OrderLineItemAppliedDiscount {
         return this.appliedMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, discountUid, appliedMoney);
@@ -90,14 +88,24 @@ public class OrderLineItemAppliedDiscount {
     }
 
     /**
+     * Converts this OrderLineItemAppliedDiscount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItemAppliedDiscount [" + "discountUid=" + discountUid + ", uid=" + uid
+                + ", appliedMoney=" + appliedMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItemAppliedDiscount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItemAppliedDiscount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(discountUid)
-            .uid(getUid())
-            .appliedMoney(getAppliedMoney());
+                .uid(getUid())
+                .appliedMoney(getAppliedMoney());
         return builder;
     }
 
@@ -152,9 +160,7 @@ public class OrderLineItemAppliedDiscount {
          * @return {@link OrderLineItemAppliedDiscount}
          */
         public OrderLineItemAppliedDiscount build() {
-            return new OrderLineItemAppliedDiscount(discountUid,
-                uid,
-                appliedMoney);
+            return new OrderLineItemAppliedDiscount(discountUid, uid, appliedMoney);
         }
     }
 }

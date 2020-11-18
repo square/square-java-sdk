@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCustomerCardResponse type.
  */
@@ -55,7 +54,6 @@ public class CreateCustomerCardResponse {
         return this.card;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, card);
@@ -75,14 +73,23 @@ public class CreateCustomerCardResponse {
     }
 
     /**
+     * Converts this CreateCustomerCardResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCustomerCardResponse [" + "errors=" + errors + ", card=" + card + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCustomerCardResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCustomerCardResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .card(getCard());
+                .errors(getErrors())
+                .card(getCard());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class CreateCustomerCardResponse {
          */
         public CreateCustomerCardResponse build() {
             CreateCustomerCardResponse model =
-                    new CreateCustomerCardResponse(errors,
-                            card);
+                    new CreateCustomerCardResponse(errors, card);
             model.httpContext = httpContext;
             return model;
         }

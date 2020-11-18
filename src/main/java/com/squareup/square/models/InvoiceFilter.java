@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoiceFilter type.
  */
@@ -51,7 +50,6 @@ public class InvoiceFilter {
         return this.customerIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, customerIds);
@@ -71,13 +69,23 @@ public class InvoiceFilter {
     }
 
     /**
+     * Converts this InvoiceFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoiceFilter [" + "locationIds=" + locationIds + ", customerIds=" + customerIds
+                + "]";
+    }
+
+    /**
      * Builds a new {@link InvoiceFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoiceFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationIds)
-            .customerIds(getCustomerIds());
+                .customerIds(getCustomerIds());
         return builder;
     }
 
@@ -121,8 +129,7 @@ public class InvoiceFilter {
          * @return {@link InvoiceFilter}
          */
         public InvoiceFilter build() {
-            return new InvoiceFilter(locationIds,
-                customerIds);
+            return new InvoiceFilter(locationIds, customerIds);
         }
     }
 }

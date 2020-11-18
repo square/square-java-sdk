@@ -36,4 +36,13 @@ public class HttpContext {
     public HttpResponse getResponse() {
         return response;
     }
+
+    /**
+     * Converts this HttpContext into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "HttpContext [request=" + request + ", response=" + response + "]";
+    }
 }

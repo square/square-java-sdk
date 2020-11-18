@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentUpdated type.
  */
@@ -63,7 +62,7 @@ public class OrderFulfillmentUpdated {
      * Version number which is incremented each time an update is committed to the order. Orders
      * that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with
-     * versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders)
+     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -121,7 +120,6 @@ public class OrderFulfillmentUpdated {
         return this.fulfillmentUpdate;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId, version, locationId, state, createdAt, updatedAt,
@@ -147,19 +145,30 @@ public class OrderFulfillmentUpdated {
     }
 
     /**
+     * Converts this OrderFulfillmentUpdated into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentUpdated [" + "orderId=" + orderId + ", version=" + version
+                + ", locationId=" + locationId + ", state=" + state + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", fulfillmentUpdate=" + fulfillmentUpdate + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentUpdated.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentUpdated.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderId(getOrderId())
-            .version(getVersion())
-            .locationId(getLocationId())
-            .state(getState())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .fulfillmentUpdate(getFulfillmentUpdate());
+                .orderId(getOrderId())
+                .version(getVersion())
+                .locationId(getLocationId())
+                .state(getState())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .fulfillmentUpdate(getFulfillmentUpdate());
         return builder;
     }
 
@@ -252,13 +261,8 @@ public class OrderFulfillmentUpdated {
          * @return {@link OrderFulfillmentUpdated}
          */
         public OrderFulfillmentUpdated build() {
-            return new OrderFulfillmentUpdated(orderId,
-                version,
-                locationId,
-                state,
-                createdAt,
-                updatedAt,
-                fulfillmentUpdate);
+            return new OrderFulfillmentUpdated(orderId, version, locationId, state, createdAt,
+                    updatedAt, fulfillmentUpdate);
         }
     }
 }

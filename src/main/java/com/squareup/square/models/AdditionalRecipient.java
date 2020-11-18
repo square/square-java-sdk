@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for AdditionalRecipient type.
  */
@@ -81,7 +80,6 @@ public class AdditionalRecipient {
         return this.receivableId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, description, amountMoney, receivableId);
@@ -103,15 +101,23 @@ public class AdditionalRecipient {
     }
 
     /**
+     * Converts this AdditionalRecipient into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "AdditionalRecipient [" + "locationId=" + locationId + ", description=" + description
+                + ", amountMoney=" + amountMoney + ", receivableId=" + receivableId + "]";
+    }
+
+    /**
      * Builds a new {@link AdditionalRecipient.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link AdditionalRecipient.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId,
-            description,
-            amountMoney)
-            .receivableId(getReceivableId());
+        Builder builder = new Builder(locationId, description, amountMoney)
+                .receivableId(getReceivableId());
         return builder;
     }
 
@@ -183,10 +189,7 @@ public class AdditionalRecipient {
          * @return {@link AdditionalRecipient}
          */
         public AdditionalRecipient build() {
-            return new AdditionalRecipient(locationId,
-                description,
-                amountMoney,
-                receivableId);
+            return new AdditionalRecipient(locationId, description, amountMoney, receivableId);
         }
     }
 }

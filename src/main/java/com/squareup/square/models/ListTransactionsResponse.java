@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListTransactionsResponse type.
  */
@@ -70,7 +69,6 @@ public class ListTransactionsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, transactions, cursor);
@@ -91,15 +89,25 @@ public class ListTransactionsResponse {
     }
 
     /**
+     * Converts this ListTransactionsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListTransactionsResponse [" + "errors=" + errors + ", transactions=" + transactions
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListTransactionsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListTransactionsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .transactions(getTransactions())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .transactions(getTransactions())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class ListTransactionsResponse {
          */
         public ListTransactionsResponse build() {
             ListTransactionsResponse model =
-                    new ListTransactionsResponse(errors,
-                            transactions,
-                            cursor);
+                    new ListTransactionsResponse(errors, transactions, cursor);
             model.httpContext = httpContext;
             return model;
         }

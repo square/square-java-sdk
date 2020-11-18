@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCheckoutRequest type.
  */
@@ -172,7 +171,6 @@ public class CreateCheckoutRequest {
         return this.note;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, order, askForShippingAddress, merchantSupportEmail,
@@ -201,20 +199,33 @@ public class CreateCheckoutRequest {
     }
 
     /**
+     * Converts this CreateCheckoutRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCheckoutRequest [" + "idempotencyKey=" + idempotencyKey + ", order=" + order
+                + ", askForShippingAddress=" + askForShippingAddress + ", merchantSupportEmail="
+                + merchantSupportEmail + ", prePopulateBuyerEmail=" + prePopulateBuyerEmail
+                + ", prePopulateShippingAddress=" + prePopulateShippingAddress + ", redirectUrl="
+                + redirectUrl + ", additionalRecipients=" + additionalRecipients + ", note=" + note
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCheckoutRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCheckoutRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            order)
-            .askForShippingAddress(getAskForShippingAddress())
-            .merchantSupportEmail(getMerchantSupportEmail())
-            .prePopulateBuyerEmail(getPrePopulateBuyerEmail())
-            .prePopulateShippingAddress(getPrePopulateShippingAddress())
-            .redirectUrl(getRedirectUrl())
-            .additionalRecipients(getAdditionalRecipients())
-            .note(getNote());
+        Builder builder = new Builder(idempotencyKey, order)
+                .askForShippingAddress(getAskForShippingAddress())
+                .merchantSupportEmail(getMerchantSupportEmail())
+                .prePopulateBuyerEmail(getPrePopulateBuyerEmail())
+                .prePopulateShippingAddress(getPrePopulateShippingAddress())
+                .redirectUrl(getRedirectUrl())
+                .additionalRecipients(getAdditionalRecipients())
+                .note(getNote());
         return builder;
     }
 
@@ -338,15 +349,9 @@ public class CreateCheckoutRequest {
          * @return {@link CreateCheckoutRequest}
          */
         public CreateCheckoutRequest build() {
-            return new CreateCheckoutRequest(idempotencyKey,
-                order,
-                askForShippingAddress,
-                merchantSupportEmail,
-                prePopulateBuyerEmail,
-                prePopulateShippingAddress,
-                redirectUrl,
-                additionalRecipients,
-                note);
+            return new CreateCheckoutRequest(idempotencyKey, order, askForShippingAddress,
+                    merchantSupportEmail, prePopulateBuyerEmail, prePopulateShippingAddress,
+                    redirectUrl, additionalRecipients, note);
         }
     }
 }

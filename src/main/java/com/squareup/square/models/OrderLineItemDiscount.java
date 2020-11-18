@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItemDiscount type.
  */
@@ -203,7 +202,6 @@ public class OrderLineItemDiscount {
         return this.pricingRuleId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, type, percentage, amountMoney, appliedMoney,
@@ -233,23 +231,36 @@ public class OrderLineItemDiscount {
     }
 
     /**
+     * Converts this OrderLineItemDiscount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItemDiscount [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
+                + ", name=" + name + ", type=" + type + ", percentage=" + percentage
+                + ", amountMoney=" + amountMoney + ", appliedMoney=" + appliedMoney + ", metadata="
+                + metadata + ", scope=" + scope + ", rewardIds=" + rewardIds + ", pricingRuleId="
+                + pricingRuleId + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItemDiscount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItemDiscount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .type(getType())
-            .percentage(getPercentage())
-            .amountMoney(getAmountMoney())
-            .appliedMoney(getAppliedMoney())
-            .metadata(getMetadata())
-            .scope(getScope())
-            .rewardIds(getRewardIds())
-            .pricingRuleId(getPricingRuleId());
+                .uid(getUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .type(getType())
+                .percentage(getPercentage())
+                .amountMoney(getAmountMoney())
+                .appliedMoney(getAppliedMoney())
+                .metadata(getMetadata())
+                .scope(getScope())
+                .rewardIds(getRewardIds())
+                .pricingRuleId(getPricingRuleId());
         return builder;
     }
 
@@ -386,17 +397,8 @@ public class OrderLineItemDiscount {
          * @return {@link OrderLineItemDiscount}
          */
         public OrderLineItemDiscount build() {
-            return new OrderLineItemDiscount(uid,
-                catalogObjectId,
-                name,
-                type,
-                percentage,
-                amountMoney,
-                appliedMoney,
-                metadata,
-                scope,
-                rewardIds,
-                pricingRuleId);
+            return new OrderLineItemDiscount(uid, catalogObjectId, name, type, percentage,
+                    amountMoney, appliedMoney, metadata, scope, rewardIds, pricingRuleId);
         }
     }
 }

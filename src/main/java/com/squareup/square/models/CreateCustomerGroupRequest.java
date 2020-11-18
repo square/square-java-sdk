@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCustomerGroupRequest type.
  */
@@ -51,7 +50,6 @@ public class CreateCustomerGroupRequest {
         return this.group;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, group);
@@ -71,13 +69,23 @@ public class CreateCustomerGroupRequest {
     }
 
     /**
+     * Converts this CreateCustomerGroupRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCustomerGroupRequest [" + "group=" + group + ", idempotencyKey="
+                + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCustomerGroupRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCustomerGroupRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(group)
-            .idempotencyKey(getIdempotencyKey());
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -121,8 +129,7 @@ public class CreateCustomerGroupRequest {
          * @return {@link CreateCustomerGroupRequest}
          */
         public CreateCustomerGroupRequest build() {
-            return new CreateCustomerGroupRequest(group,
-                idempotencyKey);
+            return new CreateCustomerGroupRequest(group, idempotencyKey);
         }
     }
 }

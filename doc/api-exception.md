@@ -17,4 +17,5 @@ This is the base class for all exceptions that represent an error response from 
 | `getResponseCode()` | The HTTP response code from the API request | `int` |
 | `getHeaders()` | The HTTP response body from the API request. | `Headers` |
 | `getErrors()` | A list of errors. | `List<Error>` |
+| `getData()` | Returns data about the steps that completed successfully before an error was raised. This field is currently only populated for the PaymentsApi.CreatePayment endpoint. | `Object` |
 

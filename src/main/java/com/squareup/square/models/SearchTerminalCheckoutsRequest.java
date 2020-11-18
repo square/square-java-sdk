@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTerminalCheckoutsRequest type.
  */
@@ -63,7 +62,6 @@ public class SearchTerminalCheckoutsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(query, cursor, limit);
@@ -84,15 +82,25 @@ public class SearchTerminalCheckoutsRequest {
     }
 
     /**
+     * Converts this SearchTerminalCheckoutsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTerminalCheckoutsRequest [" + "query=" + query + ", cursor=" + cursor
+                + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTerminalCheckoutsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTerminalCheckoutsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .query(getQuery())
-            .cursor(getCursor())
-            .limit(getLimit());
+                .query(getQuery())
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class SearchTerminalCheckoutsRequest {
          * @return {@link SearchTerminalCheckoutsRequest}
          */
         public SearchTerminalCheckoutsRequest build() {
-            return new SearchTerminalCheckoutsRequest(query,
-                cursor,
-                limit);
+            return new SearchTerminalCheckoutsRequest(query, cursor, limit);
         }
     }
 }

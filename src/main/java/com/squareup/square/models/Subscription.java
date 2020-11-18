@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Subscription type.
  */
@@ -249,7 +248,6 @@ public class Subscription {
         return this.timezone;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate, status,
@@ -284,27 +282,41 @@ public class Subscription {
     }
 
     /**
+     * Converts this Subscription into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Subscription [" + "id=" + id + ", locationId=" + locationId + ", planId=" + planId
+                + ", customerId=" + customerId + ", startDate=" + startDate + ", canceledDate="
+                + canceledDate + ", status=" + status + ", taxPercentage=" + taxPercentage
+                + ", invoiceIds=" + invoiceIds + ", priceOverrideMoney=" + priceOverrideMoney
+                + ", version=" + version + ", createdAt=" + createdAt + ", cardId=" + cardId
+                + ", paidUntilDate=" + paidUntilDate + ", timezone=" + timezone + "]";
+    }
+
+    /**
      * Builds a new {@link Subscription.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Subscription.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .locationId(getLocationId())
-            .planId(getPlanId())
-            .customerId(getCustomerId())
-            .startDate(getStartDate())
-            .canceledDate(getCanceledDate())
-            .status(getStatus())
-            .taxPercentage(getTaxPercentage())
-            .invoiceIds(getInvoiceIds())
-            .priceOverrideMoney(getPriceOverrideMoney())
-            .version(getVersion())
-            .createdAt(getCreatedAt())
-            .cardId(getCardId())
-            .paidUntilDate(getPaidUntilDate())
-            .timezone(getTimezone());
+                .id(getId())
+                .locationId(getLocationId())
+                .planId(getPlanId())
+                .customerId(getCustomerId())
+                .startDate(getStartDate())
+                .canceledDate(getCanceledDate())
+                .status(getStatus())
+                .taxPercentage(getTaxPercentage())
+                .invoiceIds(getInvoiceIds())
+                .priceOverrideMoney(getPriceOverrideMoney())
+                .version(getVersion())
+                .createdAt(getCreatedAt())
+                .cardId(getCardId())
+                .paidUntilDate(getPaidUntilDate())
+                .timezone(getTimezone());
         return builder;
     }
 
@@ -485,21 +497,9 @@ public class Subscription {
          * @return {@link Subscription}
          */
         public Subscription build() {
-            return new Subscription(id,
-                locationId,
-                planId,
-                customerId,
-                startDate,
-                canceledDate,
-                status,
-                taxPercentage,
-                invoiceIds,
-                priceOverrideMoney,
-                version,
-                createdAt,
-                cardId,
-                paidUntilDate,
-                timezone);
+            return new Subscription(id, locationId, planId, customerId, startDate, canceledDate,
+                    status, taxPercentage, invoiceIds, priceOverrideMoney, version, createdAt,
+                    cardId, paidUntilDate, timezone);
         }
     }
 }

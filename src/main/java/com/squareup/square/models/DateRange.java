@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DateRange type.
  */
@@ -49,7 +48,6 @@ public class DateRange {
         return this.endDate;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(startDate, endDate);
@@ -69,14 +67,23 @@ public class DateRange {
     }
 
     /**
+     * Converts this DateRange into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DateRange [" + "startDate=" + startDate + ", endDate=" + endDate + "]";
+    }
+
+    /**
      * Builds a new {@link DateRange.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DateRange.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .startDate(getStartDate())
-            .endDate(getEndDate());
+                .startDate(getStartDate())
+                .endDate(getEndDate());
         return builder;
     }
 
@@ -114,8 +121,7 @@ public class DateRange {
          * @return {@link DateRange}
          */
         public DateRange build() {
-            return new DateRange(startDate,
-                endDate);
+            return new DateRange(startDate, endDate);
         }
     }
 }

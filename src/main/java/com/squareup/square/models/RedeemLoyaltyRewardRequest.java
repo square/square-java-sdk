@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RedeemLoyaltyRewardRequest type.
  */
@@ -48,7 +47,6 @@ public class RedeemLoyaltyRewardRequest {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, locationId);
@@ -68,13 +66,22 @@ public class RedeemLoyaltyRewardRequest {
     }
 
     /**
+     * Converts this RedeemLoyaltyRewardRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RedeemLoyaltyRewardRequest [" + "idempotencyKey=" + idempotencyKey + ", locationId="
+                + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link RedeemLoyaltyRewardRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RedeemLoyaltyRewardRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            locationId);
+        Builder builder = new Builder(idempotencyKey, locationId);
         return builder;
     }
 
@@ -121,8 +128,7 @@ public class RedeemLoyaltyRewardRequest {
          * @return {@link RedeemLoyaltyRewardRequest}
          */
         public RedeemLoyaltyRewardRequest build() {
-            return new RedeemLoyaltyRewardRequest(idempotencyKey,
-                locationId);
+            return new RedeemLoyaltyRewardRequest(idempotencyKey, locationId);
         }
     }
 }

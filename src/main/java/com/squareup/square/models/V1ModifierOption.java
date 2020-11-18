@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ModifierOption type.
  */
@@ -126,7 +125,6 @@ public class V1ModifierOption {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, priceMoney, onByDefault, ordinal, modifierListId, v2Id);
@@ -151,19 +149,30 @@ public class V1ModifierOption {
     }
 
     /**
+     * Converts this V1ModifierOption into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ModifierOption [" + "id=" + id + ", name=" + name + ", priceMoney=" + priceMoney
+                + ", onByDefault=" + onByDefault + ", ordinal=" + ordinal + ", modifierListId="
+                + modifierListId + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1ModifierOption.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ModifierOption.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .priceMoney(getPriceMoney())
-            .onByDefault(getOnByDefault())
-            .ordinal(getOrdinal())
-            .modifierListId(getModifierListId())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .priceMoney(getPriceMoney())
+                .onByDefault(getOnByDefault())
+                .ordinal(getOrdinal())
+                .modifierListId(getModifierListId())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -268,12 +277,7 @@ public class V1ModifierOption {
          */
         public V1ModifierOption build() {
             V1ModifierOption model =
-                    new V1ModifierOption(id,
-                            name,
-                            priceMoney,
-                            onByDefault,
-                            ordinal,
-                            modifierListId,
+                    new V1ModifierOption(id, name, priceMoney, onByDefault, ordinal, modifierListId,
                             v2Id);
             model.httpContext = httpContext;
             return model;

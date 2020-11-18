@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Shift type.
  */
@@ -210,7 +209,6 @@ public class Shift {
         return this.teamMemberId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, locationId, timezone, startAt, endAt, wage, breaks,
@@ -242,24 +240,37 @@ public class Shift {
     }
 
     /**
+     * Converts this Shift into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Shift [" + "startAt=" + startAt + ", id=" + id + ", employeeId=" + employeeId
+                + ", locationId=" + locationId + ", timezone=" + timezone + ", endAt=" + endAt
+                + ", wage=" + wage + ", breaks=" + breaks + ", status=" + status + ", version="
+                + version + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", teamMemberId=" + teamMemberId + "]";
+    }
+
+    /**
      * Builds a new {@link Shift.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Shift.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(startAt)
-            .id(getId())
-            .employeeId(getEmployeeId())
-            .locationId(getLocationId())
-            .timezone(getTimezone())
-            .endAt(getEndAt())
-            .wage(getWage())
-            .breaks(getBreaks())
-            .status(getStatus())
-            .version(getVersion())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .teamMemberId(getTeamMemberId());
+                .id(getId())
+                .employeeId(getEmployeeId())
+                .locationId(getLocationId())
+                .timezone(getTimezone())
+                .endAt(getEndAt())
+                .wage(getWage())
+                .breaks(getBreaks())
+                .status(getStatus())
+                .version(getVersion())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .teamMemberId(getTeamMemberId());
         return builder;
     }
 
@@ -424,19 +435,8 @@ public class Shift {
          * @return {@link Shift}
          */
         public Shift build() {
-            return new Shift(startAt,
-                id,
-                employeeId,
-                locationId,
-                timezone,
-                endAt,
-                wage,
-                breaks,
-                status,
-                version,
-                createdAt,
-                updatedAt,
-                teamMemberId);
+            return new Shift(startAt, id, employeeId, locationId, timezone, endAt, wage, breaks,
+                    status, version, createdAt, updatedAt, teamMemberId);
         }
     }
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderServiceCharge type.
  */
@@ -175,7 +174,7 @@ public class OrderServiceCharge {
      * Getter for CalculationPhase.
      * Represents a phase in the process of calculating order totals. Service charges are applied
      * __after__ the indicated phase. [Read more about how order totals are
-     * calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
+     * calculated.](https://developer.squareup.com/docs/orders-api/how-it-works#how-totals-are-calculated)
      * @return Returns the String
      */
     @JsonGetter("calculation_phase")
@@ -233,7 +232,6 @@ public class OrderServiceCharge {
         return this.metadata;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, catalogObjectId, percentage, amountMoney, appliedMoney,
@@ -264,24 +262,38 @@ public class OrderServiceCharge {
     }
 
     /**
+     * Converts this OrderServiceCharge into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderServiceCharge [" + "uid=" + uid + ", name=" + name + ", catalogObjectId="
+                + catalogObjectId + ", percentage=" + percentage + ", amountMoney=" + amountMoney
+                + ", appliedMoney=" + appliedMoney + ", totalMoney=" + totalMoney
+                + ", totalTaxMoney=" + totalTaxMoney + ", calculationPhase=" + calculationPhase
+                + ", taxable=" + taxable + ", appliedTaxes=" + appliedTaxes + ", metadata="
+                + metadata + "]";
+    }
+
+    /**
      * Builds a new {@link OrderServiceCharge.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderServiceCharge.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .name(getName())
-            .catalogObjectId(getCatalogObjectId())
-            .percentage(getPercentage())
-            .amountMoney(getAmountMoney())
-            .appliedMoney(getAppliedMoney())
-            .totalMoney(getTotalMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .calculationPhase(getCalculationPhase())
-            .taxable(getTaxable())
-            .appliedTaxes(getAppliedTaxes())
-            .metadata(getMetadata());
+                .uid(getUid())
+                .name(getName())
+                .catalogObjectId(getCatalogObjectId())
+                .percentage(getPercentage())
+                .amountMoney(getAmountMoney())
+                .appliedMoney(getAppliedMoney())
+                .totalMoney(getTotalMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .calculationPhase(getCalculationPhase())
+                .taxable(getTaxable())
+                .appliedTaxes(getAppliedTaxes())
+                .metadata(getMetadata());
         return builder;
     }
 
@@ -429,18 +441,9 @@ public class OrderServiceCharge {
          * @return {@link OrderServiceCharge}
          */
         public OrderServiceCharge build() {
-            return new OrderServiceCharge(uid,
-                name,
-                catalogObjectId,
-                percentage,
-                amountMoney,
-                appliedMoney,
-                totalMoney,
-                totalTaxMoney,
-                calculationPhase,
-                taxable,
-                appliedTaxes,
-                metadata);
+            return new OrderServiceCharge(uid, name, catalogObjectId, percentage, amountMoney,
+                    appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
+                    appliedTaxes, metadata);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InventoryAdjustment type.
  */
@@ -272,7 +271,6 @@ public class InventoryAdjustment {
         return this.goodsReceiptId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, fromState, toState, locationId, catalogObjectId,
@@ -309,29 +307,45 @@ public class InventoryAdjustment {
     }
 
     /**
+     * Converts this InventoryAdjustment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InventoryAdjustment [" + "id=" + id + ", referenceId=" + referenceId
+                + ", fromState=" + fromState + ", toState=" + toState + ", locationId=" + locationId
+                + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
+                + catalogObjectType + ", quantity=" + quantity + ", totalPriceMoney="
+                + totalPriceMoney + ", occurredAt=" + occurredAt + ", createdAt=" + createdAt
+                + ", source=" + source + ", employeeId=" + employeeId + ", transactionId="
+                + transactionId + ", refundId=" + refundId + ", purchaseOrderId=" + purchaseOrderId
+                + ", goodsReceiptId=" + goodsReceiptId + "]";
+    }
+
+    /**
      * Builds a new {@link InventoryAdjustment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InventoryAdjustment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .referenceId(getReferenceId())
-            .fromState(getFromState())
-            .toState(getToState())
-            .locationId(getLocationId())
-            .catalogObjectId(getCatalogObjectId())
-            .catalogObjectType(getCatalogObjectType())
-            .quantity(getQuantity())
-            .totalPriceMoney(getTotalPriceMoney())
-            .occurredAt(getOccurredAt())
-            .createdAt(getCreatedAt())
-            .source(getSource())
-            .employeeId(getEmployeeId())
-            .transactionId(getTransactionId())
-            .refundId(getRefundId())
-            .purchaseOrderId(getPurchaseOrderId())
-            .goodsReceiptId(getGoodsReceiptId());
+                .id(getId())
+                .referenceId(getReferenceId())
+                .fromState(getFromState())
+                .toState(getToState())
+                .locationId(getLocationId())
+                .catalogObjectId(getCatalogObjectId())
+                .catalogObjectType(getCatalogObjectType())
+                .quantity(getQuantity())
+                .totalPriceMoney(getTotalPriceMoney())
+                .occurredAt(getOccurredAt())
+                .createdAt(getCreatedAt())
+                .source(getSource())
+                .employeeId(getEmployeeId())
+                .transactionId(getTransactionId())
+                .refundId(getRefundId())
+                .purchaseOrderId(getPurchaseOrderId())
+                .goodsReceiptId(getGoodsReceiptId());
         return builder;
     }
 
@@ -534,23 +548,10 @@ public class InventoryAdjustment {
          * @return {@link InventoryAdjustment}
          */
         public InventoryAdjustment build() {
-            return new InventoryAdjustment(id,
-                referenceId,
-                fromState,
-                toState,
-                locationId,
-                catalogObjectId,
-                catalogObjectType,
-                quantity,
-                totalPriceMoney,
-                occurredAt,
-                createdAt,
-                source,
-                employeeId,
-                transactionId,
-                refundId,
-                purchaseOrderId,
-                goodsReceiptId);
+            return new InventoryAdjustment(id, referenceId, fromState, toState, locationId,
+                    catalogObjectId, catalogObjectType, quantity, totalPriceMoney, occurredAt,
+                    createdAt, source, employeeId, transactionId, refundId, purchaseOrderId,
+                    goodsReceiptId);
         }
     }
 }

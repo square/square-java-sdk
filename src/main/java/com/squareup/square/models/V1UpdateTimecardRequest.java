@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1UpdateTimecardRequest type.
  */
@@ -33,7 +32,6 @@ public class V1UpdateTimecardRequest {
         return this.body;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(body);
@@ -49,6 +47,15 @@ public class V1UpdateTimecardRequest {
         }
         V1UpdateTimecardRequest other = (V1UpdateTimecardRequest) obj;
         return Objects.equals(body, other.body);
+    }
+
+    /**
+     * Converts this V1UpdateTimecardRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1UpdateTimecardRequest [" + "body=" + body + "]";
     }
 
     /**

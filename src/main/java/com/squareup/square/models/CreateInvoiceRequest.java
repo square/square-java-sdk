@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateInvoiceRequest type.
  */
@@ -31,7 +30,7 @@ public class CreateInvoiceRequest {
      * Getter for Invoice.
      * Stores information about an invoice. You use the Invoices API to create and process invoices.
      * For more information, see [Manage Invoices Using the Invoices
-     * API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+     * API](https://developer.squareup.com/docs/invoices-api/overview).
      * @return Returns the Invoice
      */
     @JsonGetter("invoice")
@@ -44,7 +43,7 @@ public class CreateInvoiceRequest {
      * A unique string that identifies the `CreateInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
      * as independent. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -52,7 +51,6 @@ public class CreateInvoiceRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(invoice, idempotencyKey);
@@ -72,13 +70,23 @@ public class CreateInvoiceRequest {
     }
 
     /**
+     * Converts this CreateInvoiceRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateInvoiceRequest [" + "invoice=" + invoice + ", idempotencyKey="
+                + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link CreateInvoiceRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(invoice)
-            .idempotencyKey(getIdempotencyKey());
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -122,8 +130,7 @@ public class CreateInvoiceRequest {
          * @return {@link CreateInvoiceRequest}
          */
         public CreateInvoiceRequest build() {
-            return new CreateInvoiceRequest(invoice,
-                idempotencyKey);
+            return new CreateInvoiceRequest(invoice, idempotencyKey);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1MerchantLocationDetails type.
  */
@@ -34,7 +33,6 @@ public class V1MerchantLocationDetails {
         return this.nickname;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(nickname);
@@ -53,13 +51,22 @@ public class V1MerchantLocationDetails {
     }
 
     /**
+     * Converts this V1MerchantLocationDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1MerchantLocationDetails [" + "nickname=" + nickname + "]";
+    }
+
+    /**
      * Builds a new {@link V1MerchantLocationDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1MerchantLocationDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .nickname(getNickname());
+                .nickname(getNickname());
         return builder;
     }
 

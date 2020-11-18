@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListSubscriptionEventsRequest type.
  */
@@ -31,7 +30,7 @@ public class ListSubscriptionEventsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -50,7 +49,6 @@ public class ListSubscriptionEventsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, limit);
@@ -70,14 +68,23 @@ public class ListSubscriptionEventsRequest {
     }
 
     /**
+     * Converts this ListSubscriptionEventsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListSubscriptionEventsRequest [" + "cursor=" + cursor + ", limit=" + limit + "]";
+    }
+
+    /**
      * Builds a new {@link ListSubscriptionEventsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListSubscriptionEventsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .limit(getLimit());
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -115,8 +122,7 @@ public class ListSubscriptionEventsRequest {
          * @return {@link ListSubscriptionEventsRequest}
          */
         public ListSubscriptionEventsRequest build() {
-            return new ListSubscriptionEventsRequest(cursor,
-                limit);
+            return new ListSubscriptionEventsRequest(cursor, limit);
         }
     }
 }

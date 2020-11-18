@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Coordinates type.
  */
@@ -47,7 +46,6 @@ public class Coordinates {
         return this.longitude;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(latitude, longitude);
@@ -67,14 +65,23 @@ public class Coordinates {
     }
 
     /**
+     * Converts this Coordinates into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Coordinates [" + "latitude=" + latitude + ", longitude=" + longitude + "]";
+    }
+
+    /**
      * Builds a new {@link Coordinates.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Coordinates.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .latitude(getLatitude())
-            .longitude(getLongitude());
+                .latitude(getLatitude())
+                .longitude(getLongitude());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class Coordinates {
          * @return {@link Coordinates}
          */
         public Coordinates build() {
-            return new Coordinates(latitude,
-                longitude);
+            return new Coordinates(latitude, longitude);
         }
     }
 }

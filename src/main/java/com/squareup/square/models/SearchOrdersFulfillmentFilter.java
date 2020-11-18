@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersFulfillmentFilter type.
  */
@@ -52,7 +51,6 @@ public class SearchOrdersFulfillmentFilter {
         return this.fulfillmentStates;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(fulfillmentTypes, fulfillmentStates);
@@ -72,14 +70,24 @@ public class SearchOrdersFulfillmentFilter {
     }
 
     /**
+     * Converts this SearchOrdersFulfillmentFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersFulfillmentFilter [" + "fulfillmentTypes=" + fulfillmentTypes
+                + ", fulfillmentStates=" + fulfillmentStates + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersFulfillmentFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersFulfillmentFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .fulfillmentTypes(getFulfillmentTypes())
-            .fulfillmentStates(getFulfillmentStates());
+                .fulfillmentTypes(getFulfillmentTypes())
+                .fulfillmentStates(getFulfillmentStates());
         return builder;
     }
 
@@ -117,8 +125,7 @@ public class SearchOrdersFulfillmentFilter {
          * @return {@link SearchOrdersFulfillmentFilter}
          */
         public SearchOrdersFulfillmentFilter build() {
-            return new SearchOrdersFulfillmentFilter(fulfillmentTypes,
-                fulfillmentStates);
+            return new SearchOrdersFulfillmentFilter(fulfillmentTypes, fulfillmentStates);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Break type.
  */
@@ -119,7 +118,6 @@ public class Break {
         return this.isPaid;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, startAt, endAt, breakTypeId, name, expectedDuration, isPaid);
@@ -144,18 +142,25 @@ public class Break {
     }
 
     /**
+     * Converts this Break into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Break [" + "startAt=" + startAt + ", breakTypeId=" + breakTypeId + ", name=" + name
+                + ", expectedDuration=" + expectedDuration + ", isPaid=" + isPaid + ", id=" + id
+                + ", endAt=" + endAt + "]";
+    }
+
+    /**
      * Builds a new {@link Break.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Break.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(startAt,
-            breakTypeId,
-            name,
-            expectedDuration,
-            isPaid)
-            .id(getId())
-            .endAt(getEndAt());
+        Builder builder = new Builder(startAt, breakTypeId, name, expectedDuration, isPaid)
+                .id(getId())
+                .endAt(getEndAt());
         return builder;
     }
 
@@ -266,13 +271,7 @@ public class Break {
          * @return {@link Break}
          */
         public Break build() {
-            return new Break(startAt,
-                breakTypeId,
-                name,
-                expectedDuration,
-                isPaid,
-                id,
-                endAt);
+            return new Break(startAt, breakTypeId, name, expectedDuration, isPaid, id, endAt);
         }
     }
 }

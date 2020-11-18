@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateSubscriptionRequest type.
  */
@@ -64,7 +63,7 @@ public class CreateSubscriptionRequest {
      * A unique string that identifies this `CreateSubscription` request. If you do not provide a
      * unique string (or provide an empty string as the value), the endpoint treats each request as
      * independent. For more information, see [Idempotency
-     * keys](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * keys](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -85,7 +84,7 @@ public class CreateSubscriptionRequest {
     /**
      * Getter for PlanId.
      * The ID of the subscription plan. For more information, see [Subscription Plan
-     * Overview](https://developer.squareup.com/docs/docs/subscriptions/overview).
+     * Overview](https://developer.squareup.com/docs/subscriptions/overview).
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -158,7 +157,7 @@ public class CreateSubscriptionRequest {
      * The ID of the [customer](#type-customer) [card](#type-card) to charge. If not specified,
      * Square sends an invoice via email. For an example to create a customer and add a card on
      * file, see [Subscriptions
-     * Walkthrough](https://developer.squareup.com/docs/docs/subscriptions-api/walkthrough).
+     * Walkthrough](https://developer.squareup.com/docs/subscriptions-api/walkthrough).
      * @return Returns the String
      */
     @JsonGetter("card_id")
@@ -180,7 +179,6 @@ public class CreateSubscriptionRequest {
         return this.timezone;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, locationId, planId, customerId, startDate, canceledDate,
@@ -209,21 +207,31 @@ public class CreateSubscriptionRequest {
     }
 
     /**
+     * Converts this CreateSubscriptionRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateSubscriptionRequest [" + "idempotencyKey=" + idempotencyKey + ", locationId="
+                + locationId + ", planId=" + planId + ", customerId=" + customerId + ", startDate="
+                + startDate + ", canceledDate=" + canceledDate + ", taxPercentage=" + taxPercentage
+                + ", priceOverrideMoney=" + priceOverrideMoney + ", cardId=" + cardId
+                + ", timezone=" + timezone + "]";
+    }
+
+    /**
      * Builds a new {@link CreateSubscriptionRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateSubscriptionRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            locationId,
-            planId,
-            customerId)
-            .startDate(getStartDate())
-            .canceledDate(getCanceledDate())
-            .taxPercentage(getTaxPercentage())
-            .priceOverrideMoney(getPriceOverrideMoney())
-            .cardId(getCardId())
-            .timezone(getTimezone());
+        Builder builder = new Builder(idempotencyKey, locationId, planId, customerId)
+                .startDate(getStartDate())
+                .canceledDate(getCanceledDate())
+                .taxPercentage(getTaxPercentage())
+                .priceOverrideMoney(getPriceOverrideMoney())
+                .cardId(getCardId())
+                .timezone(getTimezone());
         return builder;
     }
 
@@ -364,16 +372,8 @@ public class CreateSubscriptionRequest {
          * @return {@link CreateSubscriptionRequest}
          */
         public CreateSubscriptionRequest build() {
-            return new CreateSubscriptionRequest(idempotencyKey,
-                locationId,
-                planId,
-                customerId,
-                startDate,
-                canceledDate,
-                taxPercentage,
-                priceOverrideMoney,
-                cardId,
-                timezone);
+            return new CreateSubscriptionRequest(idempotencyKey, locationId, planId, customerId,
+                    startDate, canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone);
         }
     }
 }

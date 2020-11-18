@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CalculateOrderRequest type.
  */
@@ -55,7 +54,6 @@ public class CalculateOrderRequest {
         return this.proposedRewards;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, proposedRewards);
@@ -75,13 +73,23 @@ public class CalculateOrderRequest {
     }
 
     /**
+     * Converts this CalculateOrderRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CalculateOrderRequest [" + "order=" + order + ", proposedRewards=" + proposedRewards
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CalculateOrderRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CalculateOrderRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(order)
-            .proposedRewards(getProposedRewards());
+                .proposedRewards(getProposedRewards());
         return builder;
     }
 
@@ -125,8 +133,7 @@ public class CalculateOrderRequest {
          * @return {@link CalculateOrderRequest}
          */
         public CalculateOrderRequest build() {
-            return new CalculateOrderRequest(order,
-                proposedRewards);
+            return new CalculateOrderRequest(order, proposedRewards);
         }
     }
 }

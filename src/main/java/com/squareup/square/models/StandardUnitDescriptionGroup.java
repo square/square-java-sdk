@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for StandardUnitDescriptionGroup type.
  */
@@ -48,7 +47,6 @@ public class StandardUnitDescriptionGroup {
         return this.languageCode;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(standardUnitDescriptions, languageCode);
@@ -68,14 +66,24 @@ public class StandardUnitDescriptionGroup {
     }
 
     /**
+     * Converts this StandardUnitDescriptionGroup into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "StandardUnitDescriptionGroup [" + "standardUnitDescriptions="
+                + standardUnitDescriptions + ", languageCode=" + languageCode + "]";
+    }
+
+    /**
      * Builds a new {@link StandardUnitDescriptionGroup.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link StandardUnitDescriptionGroup.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .standardUnitDescriptions(getStandardUnitDescriptions())
-            .languageCode(getLanguageCode());
+                .standardUnitDescriptions(getStandardUnitDescriptions())
+                .languageCode(getLanguageCode());
         return builder;
     }
 
@@ -113,8 +121,7 @@ public class StandardUnitDescriptionGroup {
          * @return {@link StandardUnitDescriptionGroup}
          */
         public StandardUnitDescriptionGroup build() {
-            return new StandardUnitDescriptionGroup(standardUnitDescriptions,
-                languageCode);
+            return new StandardUnitDescriptionGroup(standardUnitDescriptions, languageCode);
         }
     }
 }

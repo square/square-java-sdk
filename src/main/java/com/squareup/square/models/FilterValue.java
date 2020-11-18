@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for FilterValue type.
  */
@@ -62,7 +61,6 @@ public class FilterValue {
         return this.none;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(all, any, none);
@@ -83,15 +81,24 @@ public class FilterValue {
     }
 
     /**
+     * Converts this FilterValue into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "FilterValue [" + "all=" + all + ", any=" + any + ", none=" + none + "]";
+    }
+
+    /**
      * Builds a new {@link FilterValue.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link FilterValue.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .all(getAll())
-            .any(getAny())
-            .none(getNone());
+                .all(getAll())
+                .any(getAny())
+                .none(getNone());
         return builder;
     }
 
@@ -140,9 +147,7 @@ public class FilterValue {
          * @return {@link FilterValue}
          */
         public FilterValue build() {
-            return new FilterValue(all,
-                any,
-                none);
+            return new FilterValue(all, any, none);
         }
     }
 }

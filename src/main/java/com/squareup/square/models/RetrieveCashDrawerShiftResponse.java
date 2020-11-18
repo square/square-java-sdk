@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveCashDrawerShiftResponse type.
  */
@@ -56,7 +55,6 @@ public class RetrieveCashDrawerShiftResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cashDrawerShift, errors);
@@ -76,14 +74,24 @@ public class RetrieveCashDrawerShiftResponse {
     }
 
     /**
+     * Converts this RetrieveCashDrawerShiftResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveCashDrawerShiftResponse [" + "cashDrawerShift=" + cashDrawerShift
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveCashDrawerShiftResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveCashDrawerShiftResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cashDrawerShift(getCashDrawerShift())
-            .errors(getErrors());
+                .cashDrawerShift(getCashDrawerShift())
+                .errors(getErrors());
         return builder;
     }
 
@@ -133,8 +141,7 @@ public class RetrieveCashDrawerShiftResponse {
          */
         public RetrieveCashDrawerShiftResponse build() {
             RetrieveCashDrawerShiftResponse model =
-                    new RetrieveCashDrawerShiftResponse(cashDrawerShift,
-                            errors);
+                    new RetrieveCashDrawerShiftResponse(cashDrawerShift, errors);
             model.httpContext = httpContext;
             return model;
         }

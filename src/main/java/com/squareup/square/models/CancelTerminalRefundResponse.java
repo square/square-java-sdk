@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelTerminalRefundResponse type.
  */
@@ -53,7 +52,6 @@ public class CancelTerminalRefundResponse {
         return this.refund;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, refund);
@@ -73,14 +71,23 @@ public class CancelTerminalRefundResponse {
     }
 
     /**
+     * Converts this CancelTerminalRefundResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelTerminalRefundResponse [" + "errors=" + errors + ", refund=" + refund + "]";
+    }
+
+    /**
      * Builds a new {@link CancelTerminalRefundResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CancelTerminalRefundResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .refund(getRefund());
+                .errors(getErrors())
+                .refund(getRefund());
         return builder;
     }
 
@@ -130,8 +137,7 @@ public class CancelTerminalRefundResponse {
          */
         public CancelTerminalRefundResponse build() {
             CancelTerminalRefundResponse model =
-                    new CancelTerminalRefundResponse(errors,
-                            refund);
+                    new CancelTerminalRefundResponse(errors, refund);
             model.httpContext = httpContext;
             return model;
         }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchLoyaltyRewardsRequestLoyaltyRewardQuery type.
  */
@@ -47,7 +46,6 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyAccountId, status);
@@ -68,13 +66,23 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     }
 
     /**
+     * Converts this SearchLoyaltyRewardsRequestLoyaltyRewardQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchLoyaltyRewardsRequestLoyaltyRewardQuery [" + "loyaltyAccountId="
+                + loyaltyAccountId + ", status=" + status + "]";
+    }
+
+    /**
      * Builds a new {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(loyaltyAccountId)
-            .status(getStatus());
+                .status(getStatus());
         return builder;
     }
 
@@ -119,8 +127,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
          * @return {@link SearchLoyaltyRewardsRequestLoyaltyRewardQuery}
          */
         public SearchLoyaltyRewardsRequestLoyaltyRewardQuery build() {
-            return new SearchLoyaltyRewardsRequestLoyaltyRewardQuery(loyaltyAccountId,
-                status);
+            return new SearchLoyaltyRewardsRequestLoyaltyRewardQuery(loyaltyAccountId, status);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SubscriptionPhase type.
  */
@@ -97,7 +96,6 @@ public class SubscriptionPhase {
         return this.ordinal;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, cadence, periods, recurringPriceMoney, ordinal);
@@ -120,16 +118,26 @@ public class SubscriptionPhase {
     }
 
     /**
+     * Converts this SubscriptionPhase into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionPhase [" + "cadence=" + cadence + ", recurringPriceMoney="
+                + recurringPriceMoney + ", uid=" + uid + ", periods=" + periods + ", ordinal="
+                + ordinal + "]";
+    }
+
+    /**
      * Builds a new {@link SubscriptionPhase.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SubscriptionPhase.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(cadence,
-            recurringPriceMoney)
-            .uid(getUid())
-            .periods(getPeriods())
-            .ordinal(getOrdinal());
+        Builder builder = new Builder(cadence, recurringPriceMoney)
+                .uid(getUid())
+                .periods(getPeriods())
+                .ordinal(getOrdinal());
         return builder;
     }
 
@@ -209,11 +217,7 @@ public class SubscriptionPhase {
          * @return {@link SubscriptionPhase}
          */
         public SubscriptionPhase build() {
-            return new SubscriptionPhase(cadence,
-                recurringPriceMoney,
-                uid,
-                periods,
-                ordinal);
+            return new SubscriptionPhase(cadence, recurringPriceMoney, uid, periods, ordinal);
         }
     }
 }

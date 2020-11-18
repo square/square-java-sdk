@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ItemVariationLocationOverrides type.
  */
@@ -112,7 +111,6 @@ public class ItemVariationLocationOverrides {
         return this.inventoryAlertThreshold;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, priceMoney, pricingType, trackInventory, inventoryAlertType,
@@ -137,18 +135,30 @@ public class ItemVariationLocationOverrides {
     }
 
     /**
+     * Converts this ItemVariationLocationOverrides into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ItemVariationLocationOverrides [" + "locationId=" + locationId + ", priceMoney="
+                + priceMoney + ", pricingType=" + pricingType + ", trackInventory=" + trackInventory
+                + ", inventoryAlertType=" + inventoryAlertType + ", inventoryAlertThreshold="
+                + inventoryAlertThreshold + "]";
+    }
+
+    /**
      * Builds a new {@link ItemVariationLocationOverrides.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ItemVariationLocationOverrides.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationId(getLocationId())
-            .priceMoney(getPriceMoney())
-            .pricingType(getPricingType())
-            .trackInventory(getTrackInventory())
-            .inventoryAlertType(getInventoryAlertType())
-            .inventoryAlertThreshold(getInventoryAlertThreshold());
+                .locationId(getLocationId())
+                .priceMoney(getPriceMoney())
+                .pricingType(getPricingType())
+                .trackInventory(getTrackInventory())
+                .inventoryAlertType(getInventoryAlertType())
+                .inventoryAlertThreshold(getInventoryAlertThreshold());
         return builder;
     }
 
@@ -230,12 +240,8 @@ public class ItemVariationLocationOverrides {
          * @return {@link ItemVariationLocationOverrides}
          */
         public ItemVariationLocationOverrides build() {
-            return new ItemVariationLocationOverrides(locationId,
-                priceMoney,
-                pricingType,
-                trackInventory,
-                inventoryAlertType,
-                inventoryAlertThreshold);
+            return new ItemVariationLocationOverrides(locationId, priceMoney, pricingType,
+                    trackInventory, inventoryAlertType, inventoryAlertThreshold);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyReward type.
  */
@@ -147,7 +146,6 @@ public class LoyaltyReward {
         return this.redeemedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, status, loyaltyAccountId, rewardTierId, points, orderId, createdAt,
@@ -175,20 +173,31 @@ public class LoyaltyReward {
     }
 
     /**
+     * Converts this LoyaltyReward into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyReward [" + "loyaltyAccountId=" + loyaltyAccountId + ", rewardTierId="
+                + rewardTierId + ", id=" + id + ", status=" + status + ", points=" + points
+                + ", orderId=" + orderId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", redeemedAt=" + redeemedAt + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyReward.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyReward.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(loyaltyAccountId,
-            rewardTierId)
-            .id(getId())
-            .status(getStatus())
-            .points(getPoints())
-            .orderId(getOrderId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .redeemedAt(getRedeemedAt());
+        Builder builder = new Builder(loyaltyAccountId, rewardTierId)
+                .id(getId())
+                .status(getStatus())
+                .points(getPoints())
+                .orderId(getOrderId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .redeemedAt(getRedeemedAt());
         return builder;
     }
 
@@ -312,15 +321,8 @@ public class LoyaltyReward {
          * @return {@link LoyaltyReward}
          */
         public LoyaltyReward build() {
-            return new LoyaltyReward(loyaltyAccountId,
-                rewardTierId,
-                id,
-                status,
-                points,
-                orderId,
-                createdAt,
-                updatedAt,
-                redeemedAt);
+            return new LoyaltyReward(loyaltyAccountId, rewardTierId, id, status, points, orderId,
+                    createdAt, updatedAt, redeemedAt);
         }
     }
 }

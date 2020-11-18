@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogObject type.
  */
@@ -276,7 +275,7 @@ public class CatalogObject {
 
     /**
      * Getter for ItemData.
-     * An [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referred to as an
+     * A [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referred to as an
      * item, in the catalog.
      * @return Returns the CatalogItem
      */
@@ -408,7 +407,7 @@ public class CatalogObject {
     /**
      * Getter for SubscriptionPlanData.
      * Describes a subscription plan. For more information, see [Set Up and Manage a Subscription
-     * Plan](https://developer.squareup.com/docs/docs/subscriptions-api/setup-plan).
+     * Plan](https://developer.squareup.com/docs/subscriptions-api/setup-plan).
      * @return Returns the CatalogSubscriptionPlan
      */
     @JsonGetter("subscription_plan_data")
@@ -462,7 +461,6 @@ public class CatalogObject {
         return this.quickAmountsSettingsData;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(type, id, updatedAt, version, isDeleted, customAttributeValues,
@@ -513,39 +511,61 @@ public class CatalogObject {
     }
 
     /**
+     * Converts this CatalogObject into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogObject [" + "type=" + type + ", id=" + id + ", updatedAt=" + updatedAt
+                + ", version=" + version + ", isDeleted=" + isDeleted + ", customAttributeValues="
+                + customAttributeValues + ", catalogV1Ids=" + catalogV1Ids
+                + ", presentAtAllLocations=" + presentAtAllLocations + ", presentAtLocationIds="
+                + presentAtLocationIds + ", absentAtLocationIds=" + absentAtLocationIds
+                + ", imageId=" + imageId + ", itemData=" + itemData + ", categoryData="
+                + categoryData + ", itemVariationData=" + itemVariationData + ", taxData=" + taxData
+                + ", discountData=" + discountData + ", modifierListData=" + modifierListData
+                + ", modifierData=" + modifierData + ", timePeriodData=" + timePeriodData
+                + ", productSetData=" + productSetData + ", pricingRuleData=" + pricingRuleData
+                + ", imageData=" + imageData + ", measurementUnitData=" + measurementUnitData
+                + ", subscriptionPlanData=" + subscriptionPlanData + ", itemOptionData="
+                + itemOptionData + ", itemOptionValueData=" + itemOptionValueData
+                + ", customAttributeDefinitionData=" + customAttributeDefinitionData
+                + ", quickAmountsSettingsData=" + quickAmountsSettingsData + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogObject.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogObject.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type,
-            id)
-            .updatedAt(getUpdatedAt())
-            .version(getVersion())
-            .isDeleted(getIsDeleted())
-            .customAttributeValues(getCustomAttributeValues())
-            .catalogV1Ids(getCatalogV1Ids())
-            .presentAtAllLocations(getPresentAtAllLocations())
-            .presentAtLocationIds(getPresentAtLocationIds())
-            .absentAtLocationIds(getAbsentAtLocationIds())
-            .imageId(getImageId())
-            .itemData(getItemData())
-            .categoryData(getCategoryData())
-            .itemVariationData(getItemVariationData())
-            .taxData(getTaxData())
-            .discountData(getDiscountData())
-            .modifierListData(getModifierListData())
-            .modifierData(getModifierData())
-            .timePeriodData(getTimePeriodData())
-            .productSetData(getProductSetData())
-            .pricingRuleData(getPricingRuleData())
-            .imageData(getImageData())
-            .measurementUnitData(getMeasurementUnitData())
-            .subscriptionPlanData(getSubscriptionPlanData())
-            .itemOptionData(getItemOptionData())
-            .itemOptionValueData(getItemOptionValueData())
-            .customAttributeDefinitionData(getCustomAttributeDefinitionData())
-            .quickAmountsSettingsData(getQuickAmountsSettingsData());
+        Builder builder = new Builder(type, id)
+                .updatedAt(getUpdatedAt())
+                .version(getVersion())
+                .isDeleted(getIsDeleted())
+                .customAttributeValues(getCustomAttributeValues())
+                .catalogV1Ids(getCatalogV1Ids())
+                .presentAtAllLocations(getPresentAtAllLocations())
+                .presentAtLocationIds(getPresentAtLocationIds())
+                .absentAtLocationIds(getAbsentAtLocationIds())
+                .imageId(getImageId())
+                .itemData(getItemData())
+                .categoryData(getCategoryData())
+                .itemVariationData(getItemVariationData())
+                .taxData(getTaxData())
+                .discountData(getDiscountData())
+                .modifierListData(getModifierListData())
+                .modifierData(getModifierData())
+                .timePeriodData(getTimePeriodData())
+                .productSetData(getProductSetData())
+                .pricingRuleData(getPricingRuleData())
+                .imageData(getImageData())
+                .measurementUnitData(getMeasurementUnitData())
+                .subscriptionPlanData(getSubscriptionPlanData())
+                .itemOptionData(getItemOptionData())
+                .itemOptionValueData(getItemOptionValueData())
+                .customAttributeDefinitionData(getCustomAttributeDefinitionData())
+                .quickAmountsSettingsData(getQuickAmountsSettingsData());
         return builder;
     }
 
@@ -878,34 +898,12 @@ public class CatalogObject {
          * @return {@link CatalogObject}
          */
         public CatalogObject build() {
-            return new CatalogObject(type,
-                id,
-                updatedAt,
-                version,
-                isDeleted,
-                customAttributeValues,
-                catalogV1Ids,
-                presentAtAllLocations,
-                presentAtLocationIds,
-                absentAtLocationIds,
-                imageId,
-                itemData,
-                categoryData,
-                itemVariationData,
-                taxData,
-                discountData,
-                modifierListData,
-                modifierData,
-                timePeriodData,
-                productSetData,
-                pricingRuleData,
-                imageData,
-                measurementUnitData,
-                subscriptionPlanData,
-                itemOptionData,
-                itemOptionValueData,
-                customAttributeDefinitionData,
-                quickAmountsSettingsData);
+            return new CatalogObject(type, id, updatedAt, version, isDeleted, customAttributeValues,
+                    catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds,
+                    imageId, itemData, categoryData, itemVariationData, taxData, discountData,
+                    modifierListData, modifierData, timePeriodData, productSetData, pricingRuleData,
+                    imageData, measurementUnitData, subscriptionPlanData, itemOptionData,
+                    itemOptionValueData, customAttributeDefinitionData, quickAmountsSettingsData);
         }
     }
 }

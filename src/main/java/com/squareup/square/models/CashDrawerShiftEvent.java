@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CashDrawerShiftEvent type.
  */
@@ -109,7 +108,6 @@ public class CashDrawerShiftEvent {
         return this.description;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, eventType, eventMoney, createdAt, description);
@@ -133,18 +131,29 @@ public class CashDrawerShiftEvent {
     }
 
     /**
+     * Converts this CashDrawerShiftEvent into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CashDrawerShiftEvent [" + "id=" + id + ", employeeId=" + employeeId + ", eventType="
+                + eventType + ", eventMoney=" + eventMoney + ", createdAt=" + createdAt
+                + ", description=" + description + "]";
+    }
+
+    /**
      * Builds a new {@link CashDrawerShiftEvent.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CashDrawerShiftEvent.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .employeeId(getEmployeeId())
-            .eventType(getEventType())
-            .eventMoney(getEventMoney())
-            .createdAt(getCreatedAt())
-            .description(getDescription());
+                .id(getId())
+                .employeeId(getEmployeeId())
+                .eventType(getEventType())
+                .eventMoney(getEventMoney())
+                .createdAt(getCreatedAt())
+                .description(getDescription());
         return builder;
     }
 
@@ -226,12 +235,8 @@ public class CashDrawerShiftEvent {
          * @return {@link CashDrawerShiftEvent}
          */
         public CashDrawerShiftEvent build() {
-            return new CashDrawerShiftEvent(id,
-                employeeId,
-                eventType,
-                eventMoney,
-                createdAt,
-                description);
+            return new CashDrawerShiftEvent(id, employeeId, eventType, eventMoney, createdAt,
+                    description);
         }
     }
 }

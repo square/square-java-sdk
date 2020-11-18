@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InventoryCount type.
  */
@@ -107,7 +106,6 @@ public class InventoryCount {
         return this.calculatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(catalogObjectId, catalogObjectType, state, locationId, quantity,
@@ -132,18 +130,29 @@ public class InventoryCount {
     }
 
     /**
+     * Converts this InventoryCount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InventoryCount [" + "catalogObjectId=" + catalogObjectId + ", catalogObjectType="
+                + catalogObjectType + ", state=" + state + ", locationId=" + locationId
+                + ", quantity=" + quantity + ", calculatedAt=" + calculatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link InventoryCount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InventoryCount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .catalogObjectId(getCatalogObjectId())
-            .catalogObjectType(getCatalogObjectType())
-            .state(getState())
-            .locationId(getLocationId())
-            .quantity(getQuantity())
-            .calculatedAt(getCalculatedAt());
+                .catalogObjectId(getCatalogObjectId())
+                .catalogObjectType(getCatalogObjectType())
+                .state(getState())
+                .locationId(getLocationId())
+                .quantity(getQuantity())
+                .calculatedAt(getCalculatedAt());
         return builder;
     }
 
@@ -225,12 +234,8 @@ public class InventoryCount {
          * @return {@link InventoryCount}
          */
         public InventoryCount build() {
-            return new InventoryCount(catalogObjectId,
-                catalogObjectType,
-                state,
-                locationId,
-                quantity,
-                calculatedAt);
+            return new InventoryCount(catalogObjectId, catalogObjectType, state, locationId,
+                    quantity, calculatedAt);
         }
     }
 }

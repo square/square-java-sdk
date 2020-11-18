@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventLocationFilter type.
  */
@@ -35,7 +34,6 @@ public class LoyaltyEventLocationFilter {
         return this.locationIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds);
@@ -51,6 +49,15 @@ public class LoyaltyEventLocationFilter {
         }
         LoyaltyEventLocationFilter other = (LoyaltyEventLocationFilter) obj;
         return Objects.equals(locationIds, other.locationIds);
+    }
+
+    /**
+     * Converts this LoyaltyEventLocationFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventLocationFilter [" + "locationIds=" + locationIds + "]";
     }
 
     /**

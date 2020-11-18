@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchCatalogItemsResponse type.
  */
@@ -82,7 +81,6 @@ public class SearchCatalogItemsResponse {
         return this.matchedVariationIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, items, cursor, matchedVariationIds);
@@ -104,16 +102,26 @@ public class SearchCatalogItemsResponse {
     }
 
     /**
+     * Converts this SearchCatalogItemsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchCatalogItemsResponse [" + "errors=" + errors + ", items=" + items
+                + ", cursor=" + cursor + ", matchedVariationIds=" + matchedVariationIds + "]";
+    }
+
+    /**
      * Builds a new {@link SearchCatalogItemsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchCatalogItemsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .items(getItems())
-            .cursor(getCursor())
-            .matchedVariationIds(getMatchedVariationIds());
+                .errors(getErrors())
+                .items(getItems())
+                .cursor(getCursor())
+                .matchedVariationIds(getMatchedVariationIds());
         return builder;
     }
 
@@ -185,10 +193,7 @@ public class SearchCatalogItemsResponse {
          */
         public SearchCatalogItemsResponse build() {
             SearchCatalogItemsResponse model =
-                    new SearchCatalogItemsResponse(errors,
-                            items,
-                            cursor,
-                            matchedVariationIds);
+                    new SearchCatalogItemsResponse(errors, items, cursor, matchedVariationIds);
             model.httpContext = httpContext;
             return model;
         }

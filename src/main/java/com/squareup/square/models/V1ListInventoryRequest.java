@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListInventoryRequest type.
  */
@@ -49,7 +48,6 @@ public class V1ListInventoryRequest {
         return this.batchToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(limit, batchToken);
@@ -69,14 +67,23 @@ public class V1ListInventoryRequest {
     }
 
     /**
+     * Converts this V1ListInventoryRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListInventoryRequest [" + "limit=" + limit + ", batchToken=" + batchToken + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListInventoryRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListInventoryRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .limit(getLimit())
-            .batchToken(getBatchToken());
+                .limit(getLimit())
+                .batchToken(getBatchToken());
         return builder;
     }
 
@@ -114,8 +121,7 @@ public class V1ListInventoryRequest {
          * @return {@link V1ListInventoryRequest}
          */
         public V1ListInventoryRequest build() {
-            return new V1ListInventoryRequest(limit,
-                batchToken);
+            return new V1ListInventoryRequest(limit, batchToken);
         }
     }
 }

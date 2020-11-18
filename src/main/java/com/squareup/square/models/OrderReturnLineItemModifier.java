@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturnLineItemModifier type.
  */
@@ -114,7 +113,6 @@ public class OrderReturnLineItemModifier {
         return this.totalPriceMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceModifierUid, catalogObjectId, name, basePriceMoney,
@@ -139,18 +137,30 @@ public class OrderReturnLineItemModifier {
     }
 
     /**
+     * Converts this OrderReturnLineItemModifier into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturnLineItemModifier [" + "uid=" + uid + ", sourceModifierUid="
+                + sourceModifierUid + ", catalogObjectId=" + catalogObjectId + ", name=" + name
+                + ", basePriceMoney=" + basePriceMoney + ", totalPriceMoney=" + totalPriceMoney
+                + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturnLineItemModifier.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturnLineItemModifier.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .sourceModifierUid(getSourceModifierUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .basePriceMoney(getBasePriceMoney())
-            .totalPriceMoney(getTotalPriceMoney());
+                .uid(getUid())
+                .sourceModifierUid(getSourceModifierUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .basePriceMoney(getBasePriceMoney())
+                .totalPriceMoney(getTotalPriceMoney());
         return builder;
     }
 
@@ -232,12 +242,8 @@ public class OrderReturnLineItemModifier {
          * @return {@link OrderReturnLineItemModifier}
          */
         public OrderReturnLineItemModifier build() {
-            return new OrderReturnLineItemModifier(uid,
-                sourceModifierUid,
-                catalogObjectId,
-                name,
-                basePriceMoney,
-                totalPriceMoney);
+            return new OrderReturnLineItemModifier(uid, sourceModifierUid, catalogObjectId, name,
+                    basePriceMoney, totalPriceMoney);
         }
     }
 }

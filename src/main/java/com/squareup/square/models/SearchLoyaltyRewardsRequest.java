@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchLoyaltyRewardsRequest type.
  */
@@ -55,7 +54,7 @@ public class SearchLoyaltyRewardsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -63,7 +62,6 @@ public class SearchLoyaltyRewardsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(query, limit, cursor);
@@ -84,15 +82,25 @@ public class SearchLoyaltyRewardsRequest {
     }
 
     /**
+     * Converts this SearchLoyaltyRewardsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchLoyaltyRewardsRequest [" + "query=" + query + ", limit=" + limit + ", cursor="
+                + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchLoyaltyRewardsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchLoyaltyRewardsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .query(getQuery())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .query(getQuery())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class SearchLoyaltyRewardsRequest {
          * @return {@link SearchLoyaltyRewardsRequest}
          */
         public SearchLoyaltyRewardsRequest build() {
-            return new SearchLoyaltyRewardsRequest(query,
-                limit,
-                cursor);
+            return new SearchLoyaltyRewardsRequest(query, limit, cursor);
         }
     }
 }

@@ -18,7 +18,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
 
     /**
      * Getter for timeout.
-     * @return the timeout
+     * @return the timeout in seconds
      */
     public long getTimeout() {
         return timeout;
@@ -26,9 +26,18 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
 
     /**
      * Setter for timeout.
-     * @param timeout The timeout to set.
+     * @param timeout The timeout to set in seconds.
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
+    }
+
+    /**
+     * Converts this HttpClientConfiguration into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "HttpClientConfiguration [" + "timeout=" + timeout + "]";
     }
 }

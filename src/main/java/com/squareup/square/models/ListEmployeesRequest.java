@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListEmployeesRequest type.
  */
@@ -74,7 +73,6 @@ public class ListEmployeesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, status, limit, cursor);
@@ -96,16 +94,26 @@ public class ListEmployeesRequest {
     }
 
     /**
+     * Converts this ListEmployeesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListEmployeesRequest [" + "locationId=" + locationId + ", status=" + status
+                + ", limit=" + limit + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListEmployeesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListEmployeesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationId(getLocationId())
-            .status(getStatus())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .locationId(getLocationId())
+                .status(getStatus())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -165,10 +173,7 @@ public class ListEmployeesRequest {
          * @return {@link ListEmployeesRequest}
          */
         public ListEmployeesRequest build() {
-            return new ListEmployeesRequest(locationId,
-                status,
-                limit,
-                cursor);
+            return new ListEmployeesRequest(locationId, status, limit, cursor);
         }
     }
 }

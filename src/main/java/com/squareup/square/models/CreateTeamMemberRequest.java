@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateTeamMemberRequest type.
  */
@@ -50,7 +49,6 @@ public class CreateTeamMemberRequest {
         return this.teamMember;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, teamMember);
@@ -70,14 +68,24 @@ public class CreateTeamMemberRequest {
     }
 
     /**
+     * Converts this CreateTeamMemberRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateTeamMemberRequest [" + "idempotencyKey=" + idempotencyKey + ", teamMember="
+                + teamMember + "]";
+    }
+
+    /**
      * Builds a new {@link CreateTeamMemberRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateTeamMemberRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .idempotencyKey(getIdempotencyKey())
-            .teamMember(getTeamMember());
+                .idempotencyKey(getIdempotencyKey())
+                .teamMember(getTeamMember());
         return builder;
     }
 
@@ -115,8 +123,7 @@ public class CreateTeamMemberRequest {
          * @return {@link CreateTeamMemberRequest}
          */
         public CreateTeamMemberRequest build() {
-            return new CreateTeamMemberRequest(idempotencyKey,
-                teamMember);
+            return new CreateTeamMemberRequest(idempotencyKey, teamMember);
         }
     }
 }

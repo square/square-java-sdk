@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchCatalogObjectsResponse type.
  */
@@ -99,7 +98,6 @@ public class SearchCatalogObjectsResponse {
         return this.latestTime;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, cursor, objects, relatedObjects, latestTime);
@@ -122,17 +120,28 @@ public class SearchCatalogObjectsResponse {
     }
 
     /**
+     * Converts this SearchCatalogObjectsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchCatalogObjectsResponse [" + "errors=" + errors + ", cursor=" + cursor
+                + ", objects=" + objects + ", relatedObjects=" + relatedObjects + ", latestTime="
+                + latestTime + "]";
+    }
+
+    /**
      * Builds a new {@link SearchCatalogObjectsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchCatalogObjectsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .cursor(getCursor())
-            .objects(getObjects())
-            .relatedObjects(getRelatedObjects())
-            .latestTime(getLatestTime());
+                .errors(getErrors())
+                .cursor(getCursor())
+                .objects(getObjects())
+                .relatedObjects(getRelatedObjects())
+                .latestTime(getLatestTime());
         return builder;
     }
 
@@ -215,10 +224,7 @@ public class SearchCatalogObjectsResponse {
          */
         public SearchCatalogObjectsResponse build() {
             SearchCatalogObjectsResponse model =
-                    new SearchCatalogObjectsResponse(errors,
-                            cursor,
-                            objects,
-                            relatedObjects,
+                    new SearchCatalogObjectsResponse(errors, cursor, objects, relatedObjects,
                             latestTime);
             model.httpContext = httpContext;
             return model;

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateTerminalCheckoutRequest type.
  */
@@ -48,7 +47,6 @@ public class CreateTerminalCheckoutRequest {
         return this.checkout;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, checkout);
@@ -68,13 +66,22 @@ public class CreateTerminalCheckoutRequest {
     }
 
     /**
+     * Converts this CreateTerminalCheckoutRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateTerminalCheckoutRequest [" + "idempotencyKey=" + idempotencyKey
+                + ", checkout=" + checkout + "]";
+    }
+
+    /**
      * Builds a new {@link CreateTerminalCheckoutRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateTerminalCheckoutRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            checkout);
+        Builder builder = new Builder(idempotencyKey, checkout);
         return builder;
     }
 
@@ -121,8 +128,7 @@ public class CreateTerminalCheckoutRequest {
          * @return {@link CreateTerminalCheckoutRequest}
          */
         public CreateTerminalCheckoutRequest build() {
-            return new CreateTerminalCheckoutRequest(idempotencyKey,
-                checkout);
+            return new CreateTerminalCheckoutRequest(idempotencyKey, checkout);
         }
     }
 }

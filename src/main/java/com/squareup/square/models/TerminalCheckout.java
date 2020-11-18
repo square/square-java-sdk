@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalCheckout type.
  */
@@ -125,7 +124,7 @@ public class TerminalCheckout {
      * Getter for DeadlineDuration.
      * The duration as an RFC 3339 duration, after which the checkout will be automatically
      * canceled. TerminalCheckouts that are `PENDING` will be automatically `CANCELED` and have a
-     * cancellation reason of `TIMED\_OUT`. Default: 5 minutes from creation Maximum: 5 minutes
+     * cancellation reason of `TIMED_OUT`. Default: 5 minutes from creation Maximum: 5 minutes
      * @return Returns the String
      */
     @JsonGetter("deadline_duration")
@@ -135,8 +134,8 @@ public class TerminalCheckout {
 
     /**
      * Getter for Status.
-     * The status of the `TerminalCheckout`. Options: `PENDING`, `IN\_PROGRESS`,
-     * `CANCEL\_REQUESTED`, `CANCELED`, `COMPLETED`
+     * The status of the `TerminalCheckout`. Options: `PENDING`, `IN_PROGRESS`, `CANCEL_REQUESTED`,
+     * `CANCELED`, `COMPLETED`
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -183,7 +182,6 @@ public class TerminalCheckout {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, amountMoney, referenceId, note, deviceOptions, deadlineDuration,
@@ -213,22 +211,34 @@ public class TerminalCheckout {
     }
 
     /**
+     * Converts this TerminalCheckout into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalCheckout [" + "amountMoney=" + amountMoney + ", deviceOptions="
+                + deviceOptions + ", id=" + id + ", referenceId=" + referenceId + ", note=" + note
+                + ", deadlineDuration=" + deadlineDuration + ", status=" + status
+                + ", cancelReason=" + cancelReason + ", paymentIds=" + paymentIds + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalCheckout.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalCheckout.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(amountMoney,
-            deviceOptions)
-            .id(getId())
-            .referenceId(getReferenceId())
-            .note(getNote())
-            .deadlineDuration(getDeadlineDuration())
-            .status(getStatus())
-            .cancelReason(getCancelReason())
-            .paymentIds(getPaymentIds())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(amountMoney, deviceOptions)
+                .id(getId())
+                .referenceId(getReferenceId())
+                .note(getNote())
+                .deadlineDuration(getDeadlineDuration())
+                .status(getStatus())
+                .cancelReason(getCancelReason())
+                .paymentIds(getPaymentIds())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -374,17 +384,8 @@ public class TerminalCheckout {
          * @return {@link TerminalCheckout}
          */
         public TerminalCheckout build() {
-            return new TerminalCheckout(amountMoney,
-                deviceOptions,
-                id,
-                referenceId,
-                note,
-                deadlineDuration,
-                status,
-                cancelReason,
-                paymentIds,
-                createdAt,
-                updatedAt);
+            return new TerminalCheckout(amountMoney, deviceOptions, id, referenceId, note,
+                    deadlineDuration, status, cancelReason, paymentIds, createdAt, updatedAt);
         }
     }
 }

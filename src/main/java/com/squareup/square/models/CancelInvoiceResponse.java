@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelInvoiceResponse type.
  */
@@ -38,7 +37,7 @@ public class CancelInvoiceResponse {
      * Getter for Invoice.
      * Stores information about an invoice. You use the Invoices API to create and process invoices.
      * For more information, see [Manage Invoices Using the Invoices
-     * API](https://developer.squareup.com/docs/docs/invoices-api/overview).
+     * API](https://developer.squareup.com/docs/invoices-api/overview).
      * @return Returns the Invoice
      */
     @JsonGetter("invoice")
@@ -56,7 +55,6 @@ public class CancelInvoiceResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(invoice, errors);
@@ -76,14 +74,23 @@ public class CancelInvoiceResponse {
     }
 
     /**
+     * Converts this CancelInvoiceResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelInvoiceResponse [" + "invoice=" + invoice + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link CancelInvoiceResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CancelInvoiceResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .invoice(getInvoice())
-            .errors(getErrors());
+                .invoice(getInvoice())
+                .errors(getErrors());
         return builder;
     }
 
@@ -133,8 +140,7 @@ public class CancelInvoiceResponse {
          */
         public CancelInvoiceResponse build() {
             CancelInvoiceResponse model =
-                    new CancelInvoiceResponse(invoice,
-                            errors);
+                    new CancelInvoiceResponse(invoice, errors);
             model.httpContext = httpContext;
             return model;
         }

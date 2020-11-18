@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerFilter type.
  */
@@ -132,7 +131,6 @@ public class CustomerFilter {
         return this.groupIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(creationSource, createdAt, updatedAt, emailAddress, phoneNumber,
@@ -158,19 +156,30 @@ public class CustomerFilter {
     }
 
     /**
+     * Converts this CustomerFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerFilter [" + "creationSource=" + creationSource + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", emailAddress=" + emailAddress + ", phoneNumber="
+                + phoneNumber + ", referenceId=" + referenceId + ", groupIds=" + groupIds + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .creationSource(getCreationSource())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .emailAddress(getEmailAddress())
-            .phoneNumber(getPhoneNumber())
-            .referenceId(getReferenceId())
-            .groupIds(getGroupIds());
+                .creationSource(getCreationSource())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .emailAddress(getEmailAddress())
+                .phoneNumber(getPhoneNumber())
+                .referenceId(getReferenceId())
+                .groupIds(getGroupIds());
         return builder;
     }
 
@@ -263,13 +272,8 @@ public class CustomerFilter {
          * @return {@link CustomerFilter}
          */
         public CustomerFilter build() {
-            return new CustomerFilter(creationSource,
-                createdAt,
-                updatedAt,
-                emailAddress,
-                phoneNumber,
-                referenceId,
-                groupIds);
+            return new CustomerFilter(creationSource, createdAt, updatedAt, emailAddress,
+                    phoneNumber, referenceId, groupIds);
         }
     }
 }

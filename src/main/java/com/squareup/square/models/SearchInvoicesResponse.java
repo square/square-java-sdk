@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchInvoicesResponse type.
  */
@@ -53,7 +52,7 @@ public class SearchInvoicesResponse {
      * When a response is truncated, it includes a cursor that you can use in a subsequent request
      * to fetch the next set of invoices. If empty, this is the final response. For more
      * information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -71,7 +70,6 @@ public class SearchInvoicesResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(invoices, cursor, errors);
@@ -92,15 +90,25 @@ public class SearchInvoicesResponse {
     }
 
     /**
+     * Converts this SearchInvoicesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchInvoicesResponse [" + "invoices=" + invoices + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link SearchInvoicesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchInvoicesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .invoices(getInvoices())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .invoices(getInvoices())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class SearchInvoicesResponse {
          */
         public SearchInvoicesResponse build() {
             SearchInvoicesResponse model =
-                    new SearchInvoicesResponse(invoices,
-                            cursor,
-                            errors);
+                    new SearchInvoicesResponse(invoices, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

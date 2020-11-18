@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfig type.
  */
@@ -52,7 +51,6 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
         return this.allowedSelections;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(maxAllowedSelections, allowedSelections);
@@ -73,14 +71,24 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
     }
 
     /**
+     * Converts this CatalogCustomAttributeDefinitionSelectionConfig into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogCustomAttributeDefinitionSelectionConfig [" + "maxAllowedSelections="
+                + maxAllowedSelections + ", allowedSelections=" + allowedSelections + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogCustomAttributeDefinitionSelectionConfig.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogCustomAttributeDefinitionSelectionConfig.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .maxAllowedSelections(getMaxAllowedSelections())
-            .allowedSelections(getAllowedSelections());
+                .maxAllowedSelections(getMaxAllowedSelections())
+                .allowedSelections(getAllowedSelections());
         return builder;
     }
 
@@ -120,7 +128,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
          */
         public CatalogCustomAttributeDefinitionSelectionConfig build() {
             return new CatalogCustomAttributeDefinitionSelectionConfig(maxAllowedSelections,
-                allowedSelections);
+                    allowedSelections);
         }
     }
 }

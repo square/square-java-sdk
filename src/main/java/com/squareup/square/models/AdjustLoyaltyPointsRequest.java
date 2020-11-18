@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for AdjustLoyaltyPointsRequest type.
  */
@@ -48,7 +47,6 @@ public class AdjustLoyaltyPointsRequest {
         return this.adjustPoints;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, adjustPoints);
@@ -68,13 +66,22 @@ public class AdjustLoyaltyPointsRequest {
     }
 
     /**
+     * Converts this AdjustLoyaltyPointsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "AdjustLoyaltyPointsRequest [" + "idempotencyKey=" + idempotencyKey
+                + ", adjustPoints=" + adjustPoints + "]";
+    }
+
+    /**
      * Builds a new {@link AdjustLoyaltyPointsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link AdjustLoyaltyPointsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            adjustPoints);
+        Builder builder = new Builder(idempotencyKey, adjustPoints);
         return builder;
     }
 
@@ -121,8 +128,7 @@ public class AdjustLoyaltyPointsRequest {
          * @return {@link AdjustLoyaltyPointsRequest}
          */
         public AdjustLoyaltyPointsRequest build() {
-            return new AdjustLoyaltyPointsRequest(idempotencyKey,
-                adjustPoints);
+            return new AdjustLoyaltyPointsRequest(idempotencyKey, adjustPoints);
         }
     }
 }

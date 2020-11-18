@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogModifierOverride type.
  */
@@ -47,7 +46,6 @@ public class CatalogModifierOverride {
         return this.onByDefault;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(modifierId, onByDefault);
@@ -67,13 +65,23 @@ public class CatalogModifierOverride {
     }
 
     /**
+     * Converts this CatalogModifierOverride into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogModifierOverride [" + "modifierId=" + modifierId + ", onByDefault="
+                + onByDefault + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogModifierOverride.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogModifierOverride.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(modifierId)
-            .onByDefault(getOnByDefault());
+                .onByDefault(getOnByDefault());
         return builder;
     }
 
@@ -117,8 +125,7 @@ public class CatalogModifierOverride {
          * @return {@link CatalogModifierOverride}
          */
         public CatalogModifierOverride build() {
-            return new CatalogModifierOverride(modifierId,
-                onByDefault);
+            return new CatalogModifierOverride(modifierId, onByDefault);
         }
     }
 }

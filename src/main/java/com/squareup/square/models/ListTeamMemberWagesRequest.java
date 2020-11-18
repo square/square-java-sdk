@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListTeamMemberWagesRequest type.
  */
@@ -62,7 +61,6 @@ public class ListTeamMemberWagesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMemberId, limit, cursor);
@@ -83,15 +81,25 @@ public class ListTeamMemberWagesRequest {
     }
 
     /**
+     * Converts this ListTeamMemberWagesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListTeamMemberWagesRequest [" + "teamMemberId=" + teamMemberId + ", limit=" + limit
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListTeamMemberWagesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListTeamMemberWagesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMemberId(getTeamMemberId())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .teamMemberId(getTeamMemberId())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -140,9 +148,7 @@ public class ListTeamMemberWagesRequest {
          * @return {@link ListTeamMemberWagesRequest}
          */
         public ListTeamMemberWagesRequest build() {
-            return new ListTeamMemberWagesRequest(teamMemberId,
-                limit,
-                cursor);
+            return new ListTeamMemberWagesRequest(teamMemberId, limit, cursor);
         }
     }
 }

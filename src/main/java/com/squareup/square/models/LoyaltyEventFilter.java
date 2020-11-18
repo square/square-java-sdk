@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventFilter type.
  */
@@ -89,7 +88,6 @@ public class LoyaltyEventFilter {
         return this.orderFilter;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyAccountFilter, typeFilter, dateTimeFilter, locationFilter,
@@ -113,17 +111,28 @@ public class LoyaltyEventFilter {
     }
 
     /**
+     * Converts this LoyaltyEventFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventFilter [" + "loyaltyAccountFilter=" + loyaltyAccountFilter
+                + ", typeFilter=" + typeFilter + ", dateTimeFilter=" + dateTimeFilter
+                + ", locationFilter=" + locationFilter + ", orderFilter=" + orderFilter + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEventFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEventFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .loyaltyAccountFilter(getLoyaltyAccountFilter())
-            .typeFilter(getTypeFilter())
-            .dateTimeFilter(getDateTimeFilter())
-            .locationFilter(getLocationFilter())
-            .orderFilter(getOrderFilter());
+                .loyaltyAccountFilter(getLoyaltyAccountFilter())
+                .typeFilter(getTypeFilter())
+                .dateTimeFilter(getDateTimeFilter())
+                .locationFilter(getLocationFilter())
+                .orderFilter(getOrderFilter());
         return builder;
     }
 
@@ -194,11 +203,8 @@ public class LoyaltyEventFilter {
          * @return {@link LoyaltyEventFilter}
          */
         public LoyaltyEventFilter build() {
-            return new LoyaltyEventFilter(loyaltyAccountFilter,
-                typeFilter,
-                dateTimeFilter,
-                locationFilter,
-                orderFilter);
+            return new LoyaltyEventFilter(loyaltyAccountFilter, typeFilter, dateTimeFilter,
+                    locationFilter, orderFilter);
         }
     }
 }

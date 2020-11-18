@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Money type.
  */
@@ -49,7 +48,6 @@ public class V1Money {
         return this.currencyCode;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(amount, currencyCode);
@@ -69,14 +67,23 @@ public class V1Money {
     }
 
     /**
+     * Converts this V1Money into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Money [" + "amount=" + amount + ", currencyCode=" + currencyCode + "]";
+    }
+
+    /**
      * Builds a new {@link V1Money.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Money.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .amount(getAmount())
-            .currencyCode(getCurrencyCode());
+                .amount(getAmount())
+                .currencyCode(getCurrencyCode());
         return builder;
     }
 
@@ -114,8 +121,7 @@ public class V1Money {
          * @return {@link V1Money}
          */
         public V1Money build() {
-            return new V1Money(amount,
-                currencyCode);
+            return new V1Money(amount, currencyCode);
         }
     }
 }

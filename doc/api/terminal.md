@@ -46,10 +46,16 @@ Money bodyCheckoutAmountMoney = new Money.Builder()
     .amount(2610L)
     .currency("USD")
     .build();
+List<Integer> bodyCheckoutDeviceOptionsTipSettingsTipPercentages = new LinkedList<>();
+bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(148);
+bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(149);
+bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(150);
 TipSettings bodyCheckoutDeviceOptionsTipSettings = new TipSettings.Builder()
     .allowTipping(false)
     .separateTipScreen(false)
     .customTipField(false)
+    .tipPercentages(bodyCheckoutDeviceOptionsTipSettingsTipPercentages)
+    .smartTipping(false)
     .build();
 DeviceCheckoutOptions bodyCheckoutDeviceOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
@@ -221,20 +227,20 @@ CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
 
 ```java
 Money bodyRefundAmountMoney = new Money.Builder()
-    .amount(128L)
-    .currency("AWG")
+    .amount(111L)
+    .currency("CAD")
     .build();
 TerminalRefund bodyRefund = new TerminalRefund.Builder(
-        "payment_id4",
+        "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
         bodyRefundAmountMoney)
     .id("id4")
     .refundId("refund_id8")
     .orderId("order_id8")
-    .reason("reason0")
-    .deviceId("device_id0")
+    .reason("Returning items")
+    .deviceId("f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
     .build();
 CreateTerminalRefundRequest body = new CreateTerminalRefundRequest.Builder(
-        "idempotency_key2")
+        "402a640b-b26f-401f-b406-46f839590c04")
     .refund(bodyRefund)
     .build();
 
@@ -276,7 +282,7 @@ TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
 TerminalRefundQueryFilter bodyQueryFilter = new TerminalRefundQueryFilter.Builder()
     .deviceId("device_id8")
     .createdAt(bodyQueryFilterCreatedAt)
-    .status("status6")
+    .status("COMPLETED")
     .build();
 TerminalRefundQuerySort bodyQuerySort = new TerminalRefundQuerySort.Builder()
     .sortOrder("sort_order8")
@@ -288,7 +294,7 @@ TerminalRefundQuery bodyQuery = new TerminalRefundQuery.Builder()
 SearchTerminalRefundsRequest body = new SearchTerminalRefundsRequest.Builder()
     .query(bodyQuery)
     .cursor("cursor0")
-    .limit(164)
+    .limit(1)
     .build();
 
 terminalApi.searchTerminalRefundsAsync(body).thenAccept(result -> {

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogCustomAttributeDefinition type.
  */
@@ -200,7 +199,6 @@ public class CatalogCustomAttributeDefinition {
         return this.key;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(type, name, description, sourceApplication, allowedObjectTypes,
@@ -232,23 +230,36 @@ public class CatalogCustomAttributeDefinition {
     }
 
     /**
+     * Converts this CatalogCustomAttributeDefinition into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogCustomAttributeDefinition [" + "type=" + type + ", name=" + name
+                + ", allowedObjectTypes=" + allowedObjectTypes + ", description=" + description
+                + ", sourceApplication=" + sourceApplication + ", sellerVisibility="
+                + sellerVisibility + ", appVisibility=" + appVisibility + ", stringConfig="
+                + stringConfig + ", numberConfig=" + numberConfig + ", selectionConfig="
+                + selectionConfig + ", customAttributeUsageCount=" + customAttributeUsageCount
+                + ", key=" + key + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogCustomAttributeDefinition.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogCustomAttributeDefinition.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type,
-            name,
-            allowedObjectTypes)
-            .description(getDescription())
-            .sourceApplication(getSourceApplication())
-            .sellerVisibility(getSellerVisibility())
-            .appVisibility(getAppVisibility())
-            .stringConfig(getStringConfig())
-            .numberConfig(getNumberConfig())
-            .selectionConfig(getSelectionConfig())
-            .customAttributeUsageCount(getCustomAttributeUsageCount())
-            .key(getKey());
+        Builder builder = new Builder(type, name, allowedObjectTypes)
+                .description(getDescription())
+                .sourceApplication(getSourceApplication())
+                .sellerVisibility(getSellerVisibility())
+                .appVisibility(getAppVisibility())
+                .stringConfig(getStringConfig())
+                .numberConfig(getNumberConfig())
+                .selectionConfig(getSelectionConfig())
+                .customAttributeUsageCount(getCustomAttributeUsageCount())
+                .key(getKey());
         return builder;
     }
 
@@ -408,18 +419,9 @@ public class CatalogCustomAttributeDefinition {
          * @return {@link CatalogCustomAttributeDefinition}
          */
         public CatalogCustomAttributeDefinition build() {
-            return new CatalogCustomAttributeDefinition(type,
-                name,
-                allowedObjectTypes,
-                description,
-                sourceApplication,
-                sellerVisibility,
-                appVisibility,
-                stringConfig,
-                numberConfig,
-                selectionConfig,
-                customAttributeUsageCount,
-                key);
+            return new CatalogCustomAttributeDefinition(type, name, allowedObjectTypes, description,
+                    sourceApplication, sellerVisibility, appVisibility, stringConfig, numberConfig,
+                    selectionConfig, customAttributeUsageCount, key);
         }
     }
 }

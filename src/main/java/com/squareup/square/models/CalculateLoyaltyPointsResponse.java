@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CalculateLoyaltyPointsResponse type.
  */
@@ -54,7 +53,6 @@ public class CalculateLoyaltyPointsResponse {
         return this.points;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, points);
@@ -74,14 +72,23 @@ public class CalculateLoyaltyPointsResponse {
     }
 
     /**
+     * Converts this CalculateLoyaltyPointsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CalculateLoyaltyPointsResponse [" + "errors=" + errors + ", points=" + points + "]";
+    }
+
+    /**
      * Builds a new {@link CalculateLoyaltyPointsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CalculateLoyaltyPointsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .points(getPoints());
+                .errors(getErrors())
+                .points(getPoints());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class CalculateLoyaltyPointsResponse {
          */
         public CalculateLoyaltyPointsResponse build() {
             CalculateLoyaltyPointsResponse model =
-                    new CalculateLoyaltyPointsResponse(errors,
-                            points);
+                    new CalculateLoyaltyPointsResponse(errors, points);
             model.httpContext = httpContext;
             return model;
         }

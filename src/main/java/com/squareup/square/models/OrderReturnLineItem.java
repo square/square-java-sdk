@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturnLineItem type.
  */
@@ -296,7 +295,6 @@ public class OrderReturnLineItem {
         return this.totalMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceLineItemUid, name, quantity, quantityUnit, note,
@@ -334,28 +332,45 @@ public class OrderReturnLineItem {
     }
 
     /**
+     * Converts this OrderReturnLineItem into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturnLineItem [" + "quantity=" + quantity + ", uid=" + uid
+                + ", sourceLineItemUid=" + sourceLineItemUid + ", name=" + name + ", quantityUnit="
+                + quantityUnit + ", note=" + note + ", catalogObjectId=" + catalogObjectId
+                + ", variationName=" + variationName + ", returnModifiers=" + returnModifiers
+                + ", appliedTaxes=" + appliedTaxes + ", appliedDiscounts=" + appliedDiscounts
+                + ", basePriceMoney=" + basePriceMoney + ", variationTotalPriceMoney="
+                + variationTotalPriceMoney + ", grossReturnMoney=" + grossReturnMoney
+                + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney
+                + ", totalMoney=" + totalMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturnLineItem.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturnLineItem.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(quantity)
-            .uid(getUid())
-            .sourceLineItemUid(getSourceLineItemUid())
-            .name(getName())
-            .quantityUnit(getQuantityUnit())
-            .note(getNote())
-            .catalogObjectId(getCatalogObjectId())
-            .variationName(getVariationName())
-            .returnModifiers(getReturnModifiers())
-            .appliedTaxes(getAppliedTaxes())
-            .appliedDiscounts(getAppliedDiscounts())
-            .basePriceMoney(getBasePriceMoney())
-            .variationTotalPriceMoney(getVariationTotalPriceMoney())
-            .grossReturnMoney(getGrossReturnMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .totalDiscountMoney(getTotalDiscountMoney())
-            .totalMoney(getTotalMoney());
+                .uid(getUid())
+                .sourceLineItemUid(getSourceLineItemUid())
+                .name(getName())
+                .quantityUnit(getQuantityUnit())
+                .note(getNote())
+                .catalogObjectId(getCatalogObjectId())
+                .variationName(getVariationName())
+                .returnModifiers(getReturnModifiers())
+                .appliedTaxes(getAppliedTaxes())
+                .appliedDiscounts(getAppliedDiscounts())
+                .basePriceMoney(getBasePriceMoney())
+                .variationTotalPriceMoney(getVariationTotalPriceMoney())
+                .grossReturnMoney(getGrossReturnMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .totalDiscountMoney(getTotalDiscountMoney())
+                .totalMoney(getTotalMoney());
         return builder;
     }
 
@@ -564,23 +579,10 @@ public class OrderReturnLineItem {
          * @return {@link OrderReturnLineItem}
          */
         public OrderReturnLineItem build() {
-            return new OrderReturnLineItem(quantity,
-                uid,
-                sourceLineItemUid,
-                name,
-                quantityUnit,
-                note,
-                catalogObjectId,
-                variationName,
-                returnModifiers,
-                appliedTaxes,
-                appliedDiscounts,
-                basePriceMoney,
-                variationTotalPriceMoney,
-                grossReturnMoney,
-                totalTaxMoney,
-                totalDiscountMoney,
-                totalMoney);
+            return new OrderReturnLineItem(quantity, uid, sourceLineItemUid, name, quantityUnit,
+                    note, catalogObjectId, variationName, returnModifiers, appliedTaxes,
+                    appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossReturnMoney,
+                    totalTaxMoney, totalDiscountMoney, totalMoney);
         }
     }
 }

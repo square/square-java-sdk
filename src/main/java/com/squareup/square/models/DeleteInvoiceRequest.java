@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DeleteInvoiceRequest type.
  */
@@ -35,7 +34,6 @@ public class DeleteInvoiceRequest {
         return this.version;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(version);
@@ -54,13 +52,22 @@ public class DeleteInvoiceRequest {
     }
 
     /**
+     * Converts this DeleteInvoiceRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DeleteInvoiceRequest [" + "version=" + version + "]";
+    }
+
+    /**
      * Builds a new {@link DeleteInvoiceRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DeleteInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .version(getVersion());
+                .version(getVersion());
         return builder;
     }
 

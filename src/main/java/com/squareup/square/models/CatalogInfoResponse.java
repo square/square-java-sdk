@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogInfoResponse type.
  */
@@ -67,7 +66,6 @@ public class CatalogInfoResponse {
         return this.standardUnitDescriptionGroup;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, limits, standardUnitDescriptionGroup);
@@ -88,15 +86,25 @@ public class CatalogInfoResponse {
     }
 
     /**
+     * Converts this CatalogInfoResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogInfoResponse [" + "errors=" + errors + ", limits=" + limits
+                + ", standardUnitDescriptionGroup=" + standardUnitDescriptionGroup + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogInfoResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogInfoResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .limits(getLimits())
-            .standardUnitDescriptionGroup(getStandardUnitDescriptionGroup());
+                .errors(getErrors())
+                .limits(getLimits())
+                .standardUnitDescriptionGroup(getStandardUnitDescriptionGroup());
         return builder;
     }
 
@@ -157,9 +165,7 @@ public class CatalogInfoResponse {
          */
         public CatalogInfoResponse build() {
             CatalogInfoResponse model =
-                    new CatalogInfoResponse(errors,
-                            limits,
-                            standardUnitDescriptionGroup);
+                    new CatalogInfoResponse(errors, limits, standardUnitDescriptionGroup);
             model.httpContext = httpContext;
             return model;
         }

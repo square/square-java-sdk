@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreatePaymentRequest type.
  */
@@ -322,7 +321,6 @@ public class CreatePaymentRequest {
         return this.statementDescriptionIdentifier;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
@@ -362,29 +360,45 @@ public class CreatePaymentRequest {
     }
 
     /**
+     * Converts this CreatePaymentRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreatePaymentRequest [" + "sourceId=" + sourceId + ", idempotencyKey="
+                + idempotencyKey + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney
+                + ", appFeeMoney=" + appFeeMoney + ", delayDuration=" + delayDuration
+                + ", autocomplete=" + autocomplete + ", orderId=" + orderId + ", customerId="
+                + customerId + ", locationId=" + locationId + ", referenceId=" + referenceId
+                + ", verificationToken=" + verificationToken + ", acceptPartialAuthorization="
+                + acceptPartialAuthorization + ", buyerEmailAddress=" + buyerEmailAddress
+                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
+                + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + "]";
+    }
+
+    /**
      * Builds a new {@link CreatePaymentRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreatePaymentRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(sourceId,
-            idempotencyKey,
-            amountMoney)
-            .tipMoney(getTipMoney())
-            .appFeeMoney(getAppFeeMoney())
-            .delayDuration(getDelayDuration())
-            .autocomplete(getAutocomplete())
-            .orderId(getOrderId())
-            .customerId(getCustomerId())
-            .locationId(getLocationId())
-            .referenceId(getReferenceId())
-            .verificationToken(getVerificationToken())
-            .acceptPartialAuthorization(getAcceptPartialAuthorization())
-            .buyerEmailAddress(getBuyerEmailAddress())
-            .billingAddress(getBillingAddress())
-            .shippingAddress(getShippingAddress())
-            .note(getNote())
-            .statementDescriptionIdentifier(getStatementDescriptionIdentifier());
+        Builder builder = new Builder(sourceId, idempotencyKey, amountMoney)
+                .tipMoney(getTipMoney())
+                .appFeeMoney(getAppFeeMoney())
+                .delayDuration(getDelayDuration())
+                .autocomplete(getAutocomplete())
+                .orderId(getOrderId())
+                .customerId(getCustomerId())
+                .locationId(getLocationId())
+                .referenceId(getReferenceId())
+                .verificationToken(getVerificationToken())
+                .acceptPartialAuthorization(getAcceptPartialAuthorization())
+                .buyerEmailAddress(getBuyerEmailAddress())
+                .billingAddress(getBillingAddress())
+                .shippingAddress(getShippingAddress())
+                .note(getNote())
+                .statementDescriptionIdentifier(getStatementDescriptionIdentifier());
         return builder;
     }
 
@@ -610,24 +624,10 @@ public class CreatePaymentRequest {
          * @return {@link CreatePaymentRequest}
          */
         public CreatePaymentRequest build() {
-            return new CreatePaymentRequest(sourceId,
-                idempotencyKey,
-                amountMoney,
-                tipMoney,
-                appFeeMoney,
-                delayDuration,
-                autocomplete,
-                orderId,
-                customerId,
-                locationId,
-                referenceId,
-                verificationToken,
-                acceptPartialAuthorization,
-                buyerEmailAddress,
-                billingAddress,
-                shippingAddress,
-                note,
-                statementDescriptionIdentifier);
+            return new CreatePaymentRequest(sourceId, idempotencyKey, amountMoney, tipMoney,
+                    appFeeMoney, delayDuration, autocomplete, orderId, customerId, locationId,
+                    referenceId, verificationToken, acceptPartialAuthorization, buyerEmailAddress,
+                    billingAddress, shippingAddress, note, statementDescriptionIdentifier);
         }
     }
 }

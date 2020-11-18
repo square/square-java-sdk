@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ChargeResponse type.
  */
@@ -56,7 +55,6 @@ public class ChargeResponse {
         return this.transaction;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, transaction);
@@ -76,14 +74,23 @@ public class ChargeResponse {
     }
 
     /**
+     * Converts this ChargeResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ChargeResponse [" + "errors=" + errors + ", transaction=" + transaction + "]";
+    }
+
+    /**
      * Builds a new {@link ChargeResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ChargeResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .transaction(getTransaction());
+                .errors(getErrors())
+                .transaction(getTransaction());
         return builder;
     }
 
@@ -133,8 +140,7 @@ public class ChargeResponse {
          */
         public ChargeResponse build() {
             ChargeResponse model =
-                    new ChargeResponse(errors,
-                            transaction);
+                    new ChargeResponse(errors, transaction);
             model.httpContext = httpContext;
             return model;
         }
