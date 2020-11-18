@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DeviceDetails type.
  */
@@ -33,7 +32,7 @@ public class DeviceDetails {
 
     /**
      * Getter for DeviceId.
-     * Square-issued ID of the device.
+     * The Square-issued ID of the device.
      * @return Returns the String
      */
     @JsonGetter("device_id")
@@ -43,7 +42,7 @@ public class DeviceDetails {
 
     /**
      * Getter for DeviceInstallationId.
-     * Square-issued installation ID for the device.
+     * The Square-issued installation ID for the device.
      * @return Returns the String
      */
     @JsonGetter("device_installation_id")
@@ -53,7 +52,7 @@ public class DeviceDetails {
 
     /**
      * Getter for DeviceName.
-     * The name of the device set by the merchant.
+     * The name of the device set by the seller.
      * @return Returns the String
      */
     @JsonGetter("device_name")
@@ -61,7 +60,6 @@ public class DeviceDetails {
         return this.deviceName;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(deviceId, deviceInstallationId, deviceName);
@@ -82,15 +80,25 @@ public class DeviceDetails {
     }
 
     /**
+     * Converts this DeviceDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DeviceDetails [" + "deviceId=" + deviceId + ", deviceInstallationId="
+                + deviceInstallationId + ", deviceName=" + deviceName + "]";
+    }
+
+    /**
      * Builds a new {@link DeviceDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DeviceDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .deviceId(getDeviceId())
-            .deviceInstallationId(getDeviceInstallationId())
-            .deviceName(getDeviceName());
+                .deviceId(getDeviceId())
+                .deviceInstallationId(getDeviceInstallationId())
+                .deviceName(getDeviceName());
         return builder;
     }
 
@@ -139,9 +147,7 @@ public class DeviceDetails {
          * @return {@link DeviceDetails}
          */
         public DeviceDetails build() {
-            return new DeviceDetails(deviceId,
-                deviceInstallationId,
-                deviceName);
+            return new DeviceDetails(deviceId, deviceInstallationId, deviceName);
         }
     }
 }

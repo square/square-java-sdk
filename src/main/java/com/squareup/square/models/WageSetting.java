@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for WageSetting type.
  */
@@ -81,8 +80,8 @@ public class WageSetting {
      * Used for resolving concurrency issues; request will fail if version provided does not match
      * server version at time of request. If not provided, Square executes a blind write,
      * potentially overwriting data from another write. Read about [optimistic
-     * concurrency](https://developer.squareup.com/docs/docs/working-with-apis/optimistic-concurrency)
-     * in Square APIs for more information.
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency) in
+     * Square APIs for more information.
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -112,7 +111,6 @@ public class WageSetting {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMemberId, jobAssignments, isOvertimeExempt, version, createdAt,
@@ -137,18 +135,29 @@ public class WageSetting {
     }
 
     /**
+     * Converts this WageSetting into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "WageSetting [" + "teamMemberId=" + teamMemberId + ", jobAssignments="
+                + jobAssignments + ", isOvertimeExempt=" + isOvertimeExempt + ", version=" + version
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link WageSetting.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link WageSetting.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMemberId(getTeamMemberId())
-            .jobAssignments(getJobAssignments())
-            .isOvertimeExempt(getIsOvertimeExempt())
-            .version(getVersion())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+                .teamMemberId(getTeamMemberId())
+                .jobAssignments(getJobAssignments())
+                .isOvertimeExempt(getIsOvertimeExempt())
+                .version(getVersion())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -230,12 +239,8 @@ public class WageSetting {
          * @return {@link WageSetting}
          */
         public WageSetting build() {
-            return new WageSetting(teamMemberId,
-                jobAssignments,
-                isOvertimeExempt,
-                version,
-                createdAt,
-                updatedAt);
+            return new WageSetting(teamMemberId, jobAssignments, isOvertimeExempt, version,
+                    createdAt, updatedAt);
         }
     }
 }

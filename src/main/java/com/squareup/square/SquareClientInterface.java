@@ -3,6 +3,7 @@ package com.squareup.square;
 
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
+import com.squareup.square.api.BookingsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
@@ -86,6 +87,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the BankAccountsApi instance
      */
     BankAccountsApi getBankAccountsApi();
+
+    /**
+     * Provides access to Bookings controller.
+     * @return Returns the BookingsApi instance
+     */
+    BookingsApi getBookingsApi();
 
     /**
      * Provides access to CashDrawers controller.

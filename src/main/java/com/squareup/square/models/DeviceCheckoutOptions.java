@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DeviceCheckoutOptions type.
  */
@@ -62,7 +61,6 @@ public class DeviceCheckoutOptions {
         return this.tipSettings;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(deviceId, skipReceiptScreen, tipSettings);
@@ -83,14 +81,24 @@ public class DeviceCheckoutOptions {
     }
 
     /**
+     * Converts this DeviceCheckoutOptions into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DeviceCheckoutOptions [" + "deviceId=" + deviceId + ", skipReceiptScreen="
+                + skipReceiptScreen + ", tipSettings=" + tipSettings + "]";
+    }
+
+    /**
      * Builds a new {@link DeviceCheckoutOptions.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DeviceCheckoutOptions.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(deviceId)
-            .skipReceiptScreen(getSkipReceiptScreen())
-            .tipSettings(getTipSettings());
+                .skipReceiptScreen(getSkipReceiptScreen())
+                .tipSettings(getTipSettings());
         return builder;
     }
 
@@ -145,9 +153,7 @@ public class DeviceCheckoutOptions {
          * @return {@link DeviceCheckoutOptions}
          */
         public DeviceCheckoutOptions build() {
-            return new DeviceCheckoutOptions(deviceId,
-                skipReceiptScreen,
-                tipSettings);
+            return new DeviceCheckoutOptions(deviceId, skipReceiptScreen, tipSettings);
         }
     }
 }

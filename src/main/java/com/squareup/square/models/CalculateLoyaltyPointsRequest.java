@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CalculateLoyaltyPointsRequest type.
  */
@@ -54,7 +53,6 @@ public class CalculateLoyaltyPointsRequest {
         return this.transactionAmountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId, transactionAmountMoney);
@@ -74,14 +72,24 @@ public class CalculateLoyaltyPointsRequest {
     }
 
     /**
+     * Converts this CalculateLoyaltyPointsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CalculateLoyaltyPointsRequest [" + "orderId=" + orderId
+                + ", transactionAmountMoney=" + transactionAmountMoney + "]";
+    }
+
+    /**
      * Builds a new {@link CalculateLoyaltyPointsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CalculateLoyaltyPointsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderId(getOrderId())
-            .transactionAmountMoney(getTransactionAmountMoney());
+                .orderId(getOrderId())
+                .transactionAmountMoney(getTransactionAmountMoney());
         return builder;
     }
 
@@ -119,8 +127,7 @@ public class CalculateLoyaltyPointsRequest {
          * @return {@link CalculateLoyaltyPointsRequest}
          */
         public CalculateLoyaltyPointsRequest build() {
-            return new CalculateLoyaltyPointsRequest(orderId,
-                transactionAmountMoney);
+            return new CalculateLoyaltyPointsRequest(orderId, transactionAmountMoney);
         }
     }
 }

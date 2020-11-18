@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItemTax type.
  */
@@ -148,7 +147,6 @@ public class OrderLineItemTax {
         return this.scope;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, type, percentage, metadata, appliedMoney,
@@ -175,20 +173,31 @@ public class OrderLineItemTax {
     }
 
     /**
+     * Converts this OrderLineItemTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItemTax [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
+                + ", name=" + name + ", type=" + type + ", percentage=" + percentage + ", metadata="
+                + metadata + ", appliedMoney=" + appliedMoney + ", scope=" + scope + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItemTax.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItemTax.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .type(getType())
-            .percentage(getPercentage())
-            .metadata(getMetadata())
-            .appliedMoney(getAppliedMoney())
-            .scope(getScope());
+                .uid(getUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .type(getType())
+                .percentage(getPercentage())
+                .metadata(getMetadata())
+                .appliedMoney(getAppliedMoney())
+                .scope(getScope());
         return builder;
     }
 
@@ -292,14 +301,8 @@ public class OrderLineItemTax {
          * @return {@link OrderLineItemTax}
          */
         public OrderLineItemTax build() {
-            return new OrderLineItemTax(uid,
-                catalogObjectId,
-                name,
-                type,
-                percentage,
-                metadata,
-                appliedMoney,
-                scope);
+            return new OrderLineItemTax(uid, catalogObjectId, name, type, percentage, metadata,
+                    appliedMoney, scope);
         }
     }
 }

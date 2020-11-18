@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for DisputeEvidence type.
  */
@@ -75,7 +74,6 @@ public class DisputeEvidence {
         return this.evidenceType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(evidenceId, disputeId, uploadedAt, evidenceType);
@@ -97,16 +95,26 @@ public class DisputeEvidence {
     }
 
     /**
+     * Converts this DisputeEvidence into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "DisputeEvidence [" + "evidenceId=" + evidenceId + ", disputeId=" + disputeId
+                + ", uploadedAt=" + uploadedAt + ", evidenceType=" + evidenceType + "]";
+    }
+
+    /**
      * Builds a new {@link DisputeEvidence.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link DisputeEvidence.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .evidenceId(getEvidenceId())
-            .disputeId(getDisputeId())
-            .uploadedAt(getUploadedAt())
-            .evidenceType(getEvidenceType());
+                .evidenceId(getEvidenceId())
+                .disputeId(getDisputeId())
+                .uploadedAt(getUploadedAt())
+                .evidenceType(getEvidenceType());
         return builder;
     }
 
@@ -166,10 +174,7 @@ public class DisputeEvidence {
          * @return {@link DisputeEvidence}
          */
         public DisputeEvidence build() {
-            return new DisputeEvidence(evidenceId,
-                disputeId,
-                uploadedAt,
-                evidenceType);
+            return new DisputeEvidence(evidenceId, disputeId, uploadedAt, evidenceType);
         }
     }
 }

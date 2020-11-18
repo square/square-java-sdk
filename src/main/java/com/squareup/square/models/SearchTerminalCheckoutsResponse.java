@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTerminalCheckoutsResponse type.
  */
@@ -70,7 +69,6 @@ public class SearchTerminalCheckoutsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, checkouts, cursor);
@@ -91,15 +89,25 @@ public class SearchTerminalCheckoutsResponse {
     }
 
     /**
+     * Converts this SearchTerminalCheckoutsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTerminalCheckoutsResponse [" + "errors=" + errors + ", checkouts=" + checkouts
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTerminalCheckoutsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTerminalCheckoutsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .checkouts(getCheckouts())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .checkouts(getCheckouts())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchTerminalCheckoutsResponse {
          */
         public SearchTerminalCheckoutsResponse build() {
             SearchTerminalCheckoutsResponse model =
-                    new SearchTerminalCheckoutsResponse(errors,
-                            checkouts,
-                            cursor);
+                    new SearchTerminalCheckoutsResponse(errors, checkouts, cursor);
             model.httpContext = httpContext;
             return model;
         }

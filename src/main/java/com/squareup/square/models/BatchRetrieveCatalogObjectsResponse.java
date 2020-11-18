@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveCatalogObjectsResponse type.
  */
@@ -69,7 +68,6 @@ public class BatchRetrieveCatalogObjectsResponse {
         return this.relatedObjects;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, objects, relatedObjects);
@@ -90,15 +88,25 @@ public class BatchRetrieveCatalogObjectsResponse {
     }
 
     /**
+     * Converts this BatchRetrieveCatalogObjectsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveCatalogObjectsResponse [" + "errors=" + errors + ", objects=" + objects
+                + ", relatedObjects=" + relatedObjects + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveCatalogObjectsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveCatalogObjectsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .objects(getObjects())
-            .relatedObjects(getRelatedObjects());
+                .errors(getErrors())
+                .objects(getObjects())
+                .relatedObjects(getRelatedObjects());
         return builder;
     }
 
@@ -159,9 +167,7 @@ public class BatchRetrieveCatalogObjectsResponse {
          */
         public BatchRetrieveCatalogObjectsResponse build() {
             BatchRetrieveCatalogObjectsResponse model =
-                    new BatchRetrieveCatalogObjectsResponse(errors,
-                            objects,
-                            relatedObjects);
+                    new BatchRetrieveCatalogObjectsResponse(errors, objects, relatedObjects);
             model.httpContext = httpContext;
             return model;
         }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RegisterDomainResponse type.
  */
@@ -54,7 +53,6 @@ public class RegisterDomainResponse {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, status);
@@ -74,14 +72,23 @@ public class RegisterDomainResponse {
     }
 
     /**
+     * Converts this RegisterDomainResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RegisterDomainResponse [" + "errors=" + errors + ", status=" + status + "]";
+    }
+
+    /**
      * Builds a new {@link RegisterDomainResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RegisterDomainResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .status(getStatus());
+                .errors(getErrors())
+                .status(getStatus());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class RegisterDomainResponse {
          */
         public RegisterDomainResponse build() {
             RegisterDomainResponse model =
-                    new RegisterDomainResponse(errors,
-                            status);
+                    new RegisterDomainResponse(errors, status);
             model.httpContext = httpContext;
             return model;
         }

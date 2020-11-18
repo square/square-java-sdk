@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryItemVariationsForItemOptionValues type.
  */
@@ -36,7 +35,6 @@ public class CatalogQueryItemVariationsForItemOptionValues {
         return this.itemOptionValueIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(itemOptionValueIds);
@@ -56,13 +54,23 @@ public class CatalogQueryItemVariationsForItemOptionValues {
     }
 
     /**
+     * Converts this CatalogQueryItemVariationsForItemOptionValues into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryItemVariationsForItemOptionValues [" + "itemOptionValueIds="
+                + itemOptionValueIds + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQueryItemVariationsForItemOptionValues.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQueryItemVariationsForItemOptionValues.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .itemOptionValueIds(getItemOptionValueIds());
+                .itemOptionValueIds(getItemOptionValueIds());
         return builder;
     }
 

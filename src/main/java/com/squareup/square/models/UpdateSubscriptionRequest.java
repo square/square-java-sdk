@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateSubscriptionRequest type.
  */
@@ -27,7 +26,7 @@ public class UpdateSubscriptionRequest {
      * Getter for Subscription.
      * Represents a customer subscription to a subscription plan. For an overview of the
      * `Subscription` type, see [Subscription
-     * object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")
@@ -35,7 +34,6 @@ public class UpdateSubscriptionRequest {
         return this.subscription;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(subscription);
@@ -54,13 +52,22 @@ public class UpdateSubscriptionRequest {
     }
 
     /**
+     * Converts this UpdateSubscriptionRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateSubscriptionRequest [" + "subscription=" + subscription + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateSubscriptionRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateSubscriptionRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .subscription(getSubscription());
+                .subscription(getSubscription());
         return builder;
     }
 

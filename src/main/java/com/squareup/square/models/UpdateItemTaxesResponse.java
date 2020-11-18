@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateItemTaxesResponse type.
  */
@@ -55,7 +54,6 @@ public class UpdateItemTaxesResponse {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, updatedAt);
@@ -75,14 +73,23 @@ public class UpdateItemTaxesResponse {
     }
 
     /**
+     * Converts this UpdateItemTaxesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateItemTaxesResponse [" + "errors=" + errors + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateItemTaxesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateItemTaxesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .updatedAt(getUpdatedAt());
+                .errors(getErrors())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class UpdateItemTaxesResponse {
          */
         public UpdateItemTaxesResponse build() {
             UpdateItemTaxesResponse model =
-                    new UpdateItemTaxesResponse(errors,
-                            updatedAt);
+                    new UpdateItemTaxesResponse(errors, updatedAt);
             model.httpContext = httpContext;
             return model;
         }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveLoyaltyRewardResponse type.
  */
@@ -53,7 +52,6 @@ public class RetrieveLoyaltyRewardResponse {
         return this.reward;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, reward);
@@ -73,14 +71,23 @@ public class RetrieveLoyaltyRewardResponse {
     }
 
     /**
+     * Converts this RetrieveLoyaltyRewardResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveLoyaltyRewardResponse [" + "errors=" + errors + ", reward=" + reward + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveLoyaltyRewardResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveLoyaltyRewardResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .reward(getReward());
+                .errors(getErrors())
+                .reward(getReward());
         return builder;
     }
 
@@ -130,8 +137,7 @@ public class RetrieveLoyaltyRewardResponse {
          */
         public RetrieveLoyaltyRewardResponse build() {
             RetrieveLoyaltyRewardResponse model =
-                    new RetrieveLoyaltyRewardResponse(errors,
-                            reward);
+                    new RetrieveLoyaltyRewardResponse(errors, reward);
             model.httpContext = httpContext;
             return model;
         }

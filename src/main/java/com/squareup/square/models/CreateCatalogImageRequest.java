@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCatalogImageRequest type.
  */
@@ -90,7 +89,6 @@ public class CreateCatalogImageRequest {
         return this.image;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, objectId, image);
@@ -111,14 +109,24 @@ public class CreateCatalogImageRequest {
     }
 
     /**
+     * Converts this CreateCatalogImageRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCatalogImageRequest [" + "idempotencyKey=" + idempotencyKey + ", objectId="
+                + objectId + ", image=" + image + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCatalogImageRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCatalogImageRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
-            .objectId(getObjectId())
-            .image(getImage());
+                .objectId(getObjectId())
+                .image(getImage());
         return builder;
     }
 
@@ -173,9 +181,7 @@ public class CreateCatalogImageRequest {
          * @return {@link CreateCatalogImageRequest}
          */
         public CreateCatalogImageRequest build() {
-            return new CreateCatalogImageRequest(idempotencyKey,
-                objectId,
-                image);
+            return new CreateCatalogImageRequest(idempotencyKey, objectId, image);
         }
     }
 }

@@ -1,19 +1,18 @@
 
 # Client Class Documentation
 
-The following parameters are configurable for the API Client.
+The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2020-10-28"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2020-11-18"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `accessToken` | `String` | OAuth 2.0 Access Token |
 
-The API client can be initialized as following.
+The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2020-10-28")
+    .squareVersion("2020-11-18")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .build();
@@ -37,7 +36,7 @@ public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2020-10-28")
+            .squareVersion("2020-11-18")
             .accessToken("AccessToken")
             .build();
         
@@ -55,9 +54,9 @@ public class Program {
 
 ## SquareClient Class
 
-Gateway interface for the library, this acts as a factory for Apis, it holds the state of the SDK.
+The gateway for the SDK. This class acts as a factory for the Apis and also holds the configuration of the SDK.
 
-### Api
+### API
 
 | Name | Description | Return Type |
 |  --- | --- | --- |
@@ -69,6 +68,7 @@ Gateway interface for the library, this acts as a factory for Apis, it holds the
 | `getV1ItemsApi()` | Provides access to V1Items controller. | `V1ItemsApi` |
 | `getApplePayApi()` | Provides access to ApplePay controller. | `ApplePayApi` |
 | `getBankAccountsApi()` | Provides access to BankAccounts controller. | `BankAccountsApi` |
+| `getBookingsApi()` | Provides access to Bookings controller. | `BookingsApi` |
 | `getCashDrawersApi()` | Provides access to CashDrawers controller. | `CashDrawersApi` |
 | `getCatalogApi()` | Provides access to Catalog controller. | `CatalogApi` |
 | `getCustomersApi()` | Provides access to Customers controller. | `CustomersApi` |

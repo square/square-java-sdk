@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SourceApplication type.
  */
@@ -63,7 +62,6 @@ public class SourceApplication {
         return this.name;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(product, applicationId, name);
@@ -84,15 +82,25 @@ public class SourceApplication {
     }
 
     /**
+     * Converts this SourceApplication into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SourceApplication [" + "product=" + product + ", applicationId=" + applicationId
+                + ", name=" + name + "]";
+    }
+
+    /**
      * Builds a new {@link SourceApplication.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SourceApplication.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .product(getProduct())
-            .applicationId(getApplicationId())
-            .name(getName());
+                .product(getProduct())
+                .applicationId(getApplicationId())
+                .name(getName());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class SourceApplication {
          * @return {@link SourceApplication}
          */
         public SourceApplication build() {
-            return new SourceApplication(product,
-                applicationId,
-                name);
+            return new SourceApplication(product, applicationId, name);
         }
     }
 }

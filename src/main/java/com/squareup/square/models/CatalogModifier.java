@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogModifier type.
  */
@@ -81,7 +80,6 @@ public class CatalogModifier {
         return this.modifierListId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, priceMoney, ordinal, modifierListId);
@@ -103,16 +101,26 @@ public class CatalogModifier {
     }
 
     /**
+     * Converts this CatalogModifier into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogModifier [" + "name=" + name + ", priceMoney=" + priceMoney + ", ordinal="
+                + ordinal + ", modifierListId=" + modifierListId + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogModifier.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogModifier.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .priceMoney(getPriceMoney())
-            .ordinal(getOrdinal())
-            .modifierListId(getModifierListId());
+                .name(getName())
+                .priceMoney(getPriceMoney())
+                .ordinal(getOrdinal())
+                .modifierListId(getModifierListId());
         return builder;
     }
 
@@ -172,10 +180,7 @@ public class CatalogModifier {
          * @return {@link CatalogModifier}
          */
         public CatalogModifier build() {
-            return new CatalogModifier(name,
-                priceMoney,
-                ordinal,
-                modifierListId);
+            return new CatalogModifier(name, priceMoney, ordinal, modifierListId);
         }
     }
 }

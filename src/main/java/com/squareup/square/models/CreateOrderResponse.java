@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateOrderResponse type.
  */
@@ -57,7 +56,6 @@ public class CreateOrderResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, errors);
@@ -77,14 +75,23 @@ public class CreateOrderResponse {
     }
 
     /**
+     * Converts this CreateOrderResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateOrderResponse [" + "order=" + order + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link CreateOrderResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateOrderResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .errors(getErrors());
+                .order(getOrder())
+                .errors(getErrors());
         return builder;
     }
 
@@ -134,8 +141,7 @@ public class CreateOrderResponse {
          */
         public CreateOrderResponse build() {
             CreateOrderResponse model =
-                    new CreateOrderResponse(order,
-                            errors);
+                    new CreateOrderResponse(order, errors);
             model.httpContext = httpContext;
             return model;
         }

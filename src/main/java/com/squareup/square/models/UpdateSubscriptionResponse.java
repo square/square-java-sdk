@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateSubscriptionResponse type.
  */
@@ -48,7 +47,7 @@ public class UpdateSubscriptionResponse {
      * Getter for Subscription.
      * Represents a customer subscription to a subscription plan. For an overview of the
      * `Subscription` type, see [Subscription
-     * object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")
@@ -56,7 +55,6 @@ public class UpdateSubscriptionResponse {
         return this.subscription;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, subscription);
@@ -76,14 +74,24 @@ public class UpdateSubscriptionResponse {
     }
 
     /**
+     * Converts this UpdateSubscriptionResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateSubscriptionResponse [" + "errors=" + errors + ", subscription="
+                + subscription + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateSubscriptionResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateSubscriptionResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .subscription(getSubscription());
+                .errors(getErrors())
+                .subscription(getSubscription());
         return builder;
     }
 
@@ -133,8 +141,7 @@ public class UpdateSubscriptionResponse {
          */
         public UpdateSubscriptionResponse build() {
             UpdateSubscriptionResponse model =
-                    new UpdateSubscriptionResponse(errors,
-                            subscription);
+                    new UpdateSubscriptionResponse(errors, subscription);
             model.httpContext = httpContext;
             return model;
         }

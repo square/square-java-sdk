@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogImage type.
  */
@@ -63,7 +62,6 @@ public class CatalogImage {
         return this.caption;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, url, caption);
@@ -84,15 +82,24 @@ public class CatalogImage {
     }
 
     /**
+     * Converts this CatalogImage into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogImage [" + "name=" + name + ", url=" + url + ", caption=" + caption + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogImage.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogImage.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .url(getUrl())
-            .caption(getCaption());
+                .name(getName())
+                .url(getUrl())
+                .caption(getCaption());
         return builder;
     }
 
@@ -141,9 +148,7 @@ public class CatalogImage {
          * @return {@link CatalogImage}
          */
         public CatalogImage build() {
-            return new CatalogImage(name,
-                url,
-                caption);
+            return new CatalogImage(name, url, caption);
         }
     }
 }

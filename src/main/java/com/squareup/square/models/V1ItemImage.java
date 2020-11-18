@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ItemImage type.
  */
@@ -47,7 +46,6 @@ public class V1ItemImage {
         return this.url;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, url);
@@ -67,14 +65,23 @@ public class V1ItemImage {
     }
 
     /**
+     * Converts this V1ItemImage into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ItemImage [" + "id=" + id + ", url=" + url + "]";
+    }
+
+    /**
      * Builds a new {@link V1ItemImage.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ItemImage.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .url(getUrl());
+                .id(getId())
+                .url(getUrl());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class V1ItemImage {
          * @return {@link V1ItemImage}
          */
         public V1ItemImage build() {
-            return new V1ItemImage(id,
-                url);
+            return new V1ItemImage(id, url);
         }
     }
 }

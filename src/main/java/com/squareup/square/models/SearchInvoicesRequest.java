@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchInvoicesRequest type.
  */
@@ -56,7 +55,7 @@ public class SearchInvoicesRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for your original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -64,7 +63,6 @@ public class SearchInvoicesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(query, limit, cursor);
@@ -85,14 +83,24 @@ public class SearchInvoicesRequest {
     }
 
     /**
+     * Converts this SearchInvoicesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchInvoicesRequest [" + "query=" + query + ", limit=" + limit + ", cursor="
+                + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchInvoicesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchInvoicesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(query)
-            .limit(getLimit())
-            .cursor(getCursor());
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -147,9 +155,7 @@ public class SearchInvoicesRequest {
          * @return {@link SearchInvoicesRequest}
          */
         public SearchInvoicesRequest build() {
-            return new SearchInvoicesRequest(query,
-                limit,
-                cursor);
+            return new SearchInvoicesRequest(query, limit, cursor);
         }
     }
 }

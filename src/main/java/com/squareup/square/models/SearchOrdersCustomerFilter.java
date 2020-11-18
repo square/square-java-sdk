@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersCustomerFilter type.
  */
@@ -34,7 +33,6 @@ public class SearchOrdersCustomerFilter {
         return this.customerIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customerIds);
@@ -53,13 +51,22 @@ public class SearchOrdersCustomerFilter {
     }
 
     /**
+     * Converts this SearchOrdersCustomerFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersCustomerFilter [" + "customerIds=" + customerIds + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersCustomerFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersCustomerFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customerIds(getCustomerIds());
+                .customerIds(getCustomerIds());
         return builder;
     }
 

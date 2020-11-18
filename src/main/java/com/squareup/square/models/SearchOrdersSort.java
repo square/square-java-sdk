@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersSort type.
  */
@@ -47,7 +46,6 @@ public class SearchOrdersSort {
         return this.sortOrder;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sortField, sortOrder);
@@ -67,13 +65,22 @@ public class SearchOrdersSort {
     }
 
     /**
+     * Converts this SearchOrdersSort into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersSort [" + "sortField=" + sortField + ", sortOrder=" + sortOrder + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersSort.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersSort.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(sortField)
-            .sortOrder(getSortOrder());
+                .sortOrder(getSortOrder());
         return builder;
     }
 
@@ -117,8 +124,7 @@ public class SearchOrdersSort {
          * @return {@link SearchOrdersSort}
          */
         public SearchOrdersSort build() {
-            return new SearchOrdersSort(sortField,
-                sortOrder);
+            return new SearchOrdersSort(sortField, sortOrder);
         }
     }
 }

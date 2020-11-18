@@ -11,9 +11,9 @@ Details about the device that took the payment.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `DeviceId` | `String` | Optional | Square-issued ID of the device. | String getDeviceId() |
-| `DeviceInstallationId` | `String` | Optional | Square-issued installation ID for the device. | String getDeviceInstallationId() |
-| `DeviceName` | `String` | Optional | The name of the device set by the merchant. | String getDeviceName() |
+| `DeviceId` | `String` | Optional | The Square-issued ID of the device. | String getDeviceId() |
+| `DeviceInstallationId` | `String` | Optional | The Square-issued installation ID for the device. | String getDeviceInstallationId() |
+| `DeviceName` | `String` | Optional | The name of the device set by the seller. | String getDeviceName() |
 
 ## Example (as JSON)
 

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateWorkweekConfigResponse type.
  */
@@ -55,7 +54,6 @@ public class UpdateWorkweekConfigResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(workweekConfig, errors);
@@ -75,14 +73,24 @@ public class UpdateWorkweekConfigResponse {
     }
 
     /**
+     * Converts this UpdateWorkweekConfigResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateWorkweekConfigResponse [" + "workweekConfig=" + workweekConfig + ", errors="
+                + errors + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateWorkweekConfigResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateWorkweekConfigResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .workweekConfig(getWorkweekConfig())
-            .errors(getErrors());
+                .workweekConfig(getWorkweekConfig())
+                .errors(getErrors());
         return builder;
     }
 
@@ -132,8 +140,7 @@ public class UpdateWorkweekConfigResponse {
          */
         public UpdateWorkweekConfigResponse build() {
             UpdateWorkweekConfigResponse model =
-                    new UpdateWorkweekConfigResponse(workweekConfig,
-                            errors);
+                    new UpdateWorkweekConfigResponse(workweekConfig, errors);
             model.httpContext = httpContext;
             return model;
         }

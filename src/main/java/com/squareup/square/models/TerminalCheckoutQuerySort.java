@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalCheckoutQuerySort type.
  */
@@ -34,7 +33,6 @@ public class TerminalCheckoutQuerySort {
         return this.sortOrder;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sortOrder);
@@ -53,13 +51,22 @@ public class TerminalCheckoutQuerySort {
     }
 
     /**
+     * Converts this TerminalCheckoutQuerySort into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalCheckoutQuerySort [" + "sortOrder=" + sortOrder + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalCheckoutQuerySort.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalCheckoutQuerySort.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .sortOrder(getSortOrder());
+                .sortOrder(getSortOrder());
         return builder;
     }
 

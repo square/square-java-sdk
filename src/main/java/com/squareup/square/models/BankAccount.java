@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BankAccount type.
  */
@@ -153,7 +152,7 @@ public class BankAccount {
     /**
      * Getter for PrimaryBankIdentificationNumber.
      * Primary identifier for the bank. For more information, see [Bank Accounts
-     * API](https://developer.squareup.com/docs/docs/bank-accounts-api).
+     * API](https://developer.squareup.com/docs/bank-accounts-api).
      * @return Returns the String
      */
     @JsonGetter("primary_bank_identification_number")
@@ -164,7 +163,7 @@ public class BankAccount {
     /**
      * Getter for SecondaryBankIdentificationNumber.
      * Secondary identifier for the bank. For more information, see [Bank Accounts
-     * API](https://developer.squareup.com/docs/docs/bank-accounts-api).
+     * API](https://developer.squareup.com/docs/bank-accounts-api).
      * @return Returns the String
      */
     @JsonGetter("secondary_bank_identification_number")
@@ -266,7 +265,6 @@ public class BankAccount {
         return this.bankName;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, accountNumberSuffix, country, currency, accountType, holderName,
@@ -306,28 +304,37 @@ public class BankAccount {
     }
 
     /**
+     * Converts this BankAccount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BankAccount [" + "id=" + id + ", accountNumberSuffix=" + accountNumberSuffix
+                + ", country=" + country + ", currency=" + currency + ", accountType=" + accountType
+                + ", holderName=" + holderName + ", primaryBankIdentificationNumber="
+                + primaryBankIdentificationNumber + ", status=" + status + ", creditable="
+                + creditable + ", debitable=" + debitable + ", secondaryBankIdentificationNumber="
+                + secondaryBankIdentificationNumber + ", debitMandateReferenceId="
+                + debitMandateReferenceId + ", referenceId=" + referenceId + ", locationId="
+                + locationId + ", fingerprint=" + fingerprint + ", version=" + version
+                + ", bankName=" + bankName + "]";
+    }
+
+    /**
      * Builds a new {@link BankAccount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BankAccount.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            accountNumberSuffix,
-            country,
-            currency,
-            accountType,
-            holderName,
-            primaryBankIdentificationNumber,
-            status,
-            creditable,
-            debitable)
-            .secondaryBankIdentificationNumber(getSecondaryBankIdentificationNumber())
-            .debitMandateReferenceId(getDebitMandateReferenceId())
-            .referenceId(getReferenceId())
-            .locationId(getLocationId())
-            .fingerprint(getFingerprint())
-            .version(getVersion())
-            .bankName(getBankName());
+        Builder builder = new Builder(id, accountNumberSuffix, country, currency, accountType,
+                holderName, primaryBankIdentificationNumber, status, creditable, debitable)
+                .secondaryBankIdentificationNumber(getSecondaryBankIdentificationNumber())
+                .debitMandateReferenceId(getDebitMandateReferenceId())
+                .referenceId(getReferenceId())
+                .locationId(getLocationId())
+                .fingerprint(getFingerprint())
+                .version(getVersion())
+                .bankName(getBankName());
         return builder;
     }
 
@@ -563,23 +570,10 @@ public class BankAccount {
          * @return {@link BankAccount}
          */
         public BankAccount build() {
-            return new BankAccount(id,
-                accountNumberSuffix,
-                country,
-                currency,
-                accountType,
-                holderName,
-                primaryBankIdentificationNumber,
-                status,
-                creditable,
-                debitable,
-                secondaryBankIdentificationNumber,
-                debitMandateReferenceId,
-                referenceId,
-                locationId,
-                fingerprint,
-                version,
-                bankName);
+            return new BankAccount(id, accountNumberSuffix, country, currency, accountType,
+                    holderName, primaryBankIdentificationNumber, status, creditable, debitable,
+                    secondaryBankIdentificationNumber, debitMandateReferenceId, referenceId,
+                    locationId, fingerprint, version, bankName);
         }
     }
 }

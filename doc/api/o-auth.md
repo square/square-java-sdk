@@ -93,7 +93,7 @@ Authorization: Client APPLICATION_SECRET
 ```
 
 Replace `APPLICATION_SECRET` with the application secret on the Credentials
-page in the [application dashboard](https://connect.squareup.com/apps).
+page in the [Developer Dashboard](https://developer.squareup.com/apps).
 
 :information_source: **Note** This endpoint does not require authentication.
 
@@ -141,7 +141,6 @@ Returns an OAuth access token.
 The endpoint supports distinct methods of obtaining OAuth access tokens.
 Applications specify a method by adding the `grant_type` parameter
 in the request and also provide relevant information.
-For more information, see [OAuth access token management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
 
 __Note:__ Regardless of the method application specified,
 the endpoint always returns two items; an OAuth access token and
@@ -170,6 +169,10 @@ CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
 ## Example Usage
 
 ```java
+List<String> bodyScopes = new LinkedList<>();
+bodyScopes.add("scopes6");
+bodyScopes.add("scopes7");
+bodyScopes.add("scopes8");
 ObtainTokenRequest body = new ObtainTokenRequest.Builder(
         "APPLICATION_ID",
         "APPLICATION_SECRET",
@@ -178,6 +181,7 @@ ObtainTokenRequest body = new ObtainTokenRequest.Builder(
     .redirectUri("redirect_uri4")
     .refreshToken("refresh_token6")
     .migrationToken("migration_token4")
+    .scopes(bodyScopes)
     .build();
 
 oAuthApi.obtainTokenAsync(body).thenAccept(result -> {

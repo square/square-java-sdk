@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgramRewardTier type.
  */
@@ -89,7 +88,6 @@ public class LoyaltyProgramRewardTier {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, points, name, definition, createdAt);
@@ -112,16 +110,22 @@ public class LoyaltyProgramRewardTier {
     }
 
     /**
+     * Converts this LoyaltyProgramRewardTier into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgramRewardTier [" + "id=" + id + ", points=" + points + ", name=" + name
+                + ", definition=" + definition + ", createdAt=" + createdAt + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyProgramRewardTier.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyProgramRewardTier.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            points,
-            name,
-            definition,
-            createdAt);
+        Builder builder = new Builder(id, points, name, definition, createdAt);
         return builder;
     }
 
@@ -210,11 +214,7 @@ public class LoyaltyProgramRewardTier {
          * @return {@link LoyaltyProgramRewardTier}
          */
         public LoyaltyProgramRewardTier build() {
-            return new LoyaltyProgramRewardTier(id,
-                points,
-                name,
-                definition,
-                createdAt);
+            return new LoyaltyProgramRewardTier(id, points, name, definition, createdAt);
         }
     }
 }

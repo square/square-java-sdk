@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogTax type.
  */
@@ -107,7 +106,6 @@ public class CatalogTax {
         return this.enabled;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, calculationPhase, inclusionType, percentage,
@@ -132,18 +130,30 @@ public class CatalogTax {
     }
 
     /**
+     * Converts this CatalogTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogTax [" + "name=" + name + ", calculationPhase=" + calculationPhase
+                + ", inclusionType=" + inclusionType + ", percentage=" + percentage
+                + ", appliesToCustomAmounts=" + appliesToCustomAmounts + ", enabled=" + enabled
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogTax.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogTax.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .calculationPhase(getCalculationPhase())
-            .inclusionType(getInclusionType())
-            .percentage(getPercentage())
-            .appliesToCustomAmounts(getAppliesToCustomAmounts())
-            .enabled(getEnabled());
+                .name(getName())
+                .calculationPhase(getCalculationPhase())
+                .inclusionType(getInclusionType())
+                .percentage(getPercentage())
+                .appliesToCustomAmounts(getAppliesToCustomAmounts())
+                .enabled(getEnabled());
         return builder;
     }
 
@@ -225,12 +235,8 @@ public class CatalogTax {
          * @return {@link CatalogTax}
          */
         public CatalogTax build() {
-            return new CatalogTax(name,
-                calculationPhase,
-                inclusionType,
-                percentage,
-                appliesToCustomAmounts,
-                enabled);
+            return new CatalogTax(name, calculationPhase, inclusionType, percentage,
+                    appliesToCustomAmounts, enabled);
         }
     }
 }

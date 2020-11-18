@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InventoryTransfer type.
  */
@@ -195,7 +194,6 @@ public class InventoryTransfer {
         return this.employeeId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, state, fromLocationId, toLocationId, catalogObjectId,
@@ -226,24 +224,38 @@ public class InventoryTransfer {
     }
 
     /**
+     * Converts this InventoryTransfer into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InventoryTransfer [" + "id=" + id + ", referenceId=" + referenceId + ", state="
+                + state + ", fromLocationId=" + fromLocationId + ", toLocationId=" + toLocationId
+                + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
+                + catalogObjectType + ", quantity=" + quantity + ", occurredAt=" + occurredAt
+                + ", createdAt=" + createdAt + ", source=" + source + ", employeeId=" + employeeId
+                + "]";
+    }
+
+    /**
      * Builds a new {@link InventoryTransfer.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InventoryTransfer.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .referenceId(getReferenceId())
-            .state(getState())
-            .fromLocationId(getFromLocationId())
-            .toLocationId(getToLocationId())
-            .catalogObjectId(getCatalogObjectId())
-            .catalogObjectType(getCatalogObjectType())
-            .quantity(getQuantity())
-            .occurredAt(getOccurredAt())
-            .createdAt(getCreatedAt())
-            .source(getSource())
-            .employeeId(getEmployeeId());
+                .id(getId())
+                .referenceId(getReferenceId())
+                .state(getState())
+                .fromLocationId(getFromLocationId())
+                .toLocationId(getToLocationId())
+                .catalogObjectId(getCatalogObjectId())
+                .catalogObjectType(getCatalogObjectType())
+                .quantity(getQuantity())
+                .occurredAt(getOccurredAt())
+                .createdAt(getCreatedAt())
+                .source(getSource())
+                .employeeId(getEmployeeId());
         return builder;
     }
 
@@ -391,18 +403,9 @@ public class InventoryTransfer {
          * @return {@link InventoryTransfer}
          */
         public InventoryTransfer build() {
-            return new InventoryTransfer(id,
-                referenceId,
-                state,
-                fromLocationId,
-                toLocationId,
-                catalogObjectId,
-                catalogObjectType,
-                quantity,
-                occurredAt,
-                createdAt,
-                source,
-                employeeId);
+            return new InventoryTransfer(id, referenceId, state, fromLocationId, toLocationId,
+                    catalogObjectId, catalogObjectType, quantity, occurredAt, createdAt, source,
+                    employeeId);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItemModifierListInfo type.
  */
@@ -93,7 +92,6 @@ public class CatalogItemModifierListInfo {
         return this.enabled;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(modifierListId, modifierOverrides, minSelectedModifiers,
@@ -117,16 +115,28 @@ public class CatalogItemModifierListInfo {
     }
 
     /**
+     * Converts this CatalogItemModifierListInfo into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItemModifierListInfo [" + "modifierListId=" + modifierListId
+                + ", modifierOverrides=" + modifierOverrides + ", minSelectedModifiers="
+                + minSelectedModifiers + ", maxSelectedModifiers=" + maxSelectedModifiers
+                + ", enabled=" + enabled + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogItemModifierListInfo.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogItemModifierListInfo.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(modifierListId)
-            .modifierOverrides(getModifierOverrides())
-            .minSelectedModifiers(getMinSelectedModifiers())
-            .maxSelectedModifiers(getMaxSelectedModifiers())
-            .enabled(getEnabled());
+                .modifierOverrides(getModifierOverrides())
+                .minSelectedModifiers(getMinSelectedModifiers())
+                .maxSelectedModifiers(getMaxSelectedModifiers())
+                .enabled(getEnabled());
         return builder;
     }
 
@@ -203,11 +213,8 @@ public class CatalogItemModifierListInfo {
          * @return {@link CatalogItemModifierListInfo}
          */
         public CatalogItemModifierListInfo build() {
-            return new CatalogItemModifierListInfo(modifierListId,
-                modifierOverrides,
-                minSelectedModifiers,
-                maxSelectedModifiers,
-                enabled);
+            return new CatalogItemModifierListInfo(modifierListId, modifierOverrides,
+                    minSelectedModifiers, maxSelectedModifiers, enabled);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerCreationSourceFilter type.
  */
@@ -50,7 +49,6 @@ public class CustomerCreationSourceFilter {
         return this.rule;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(values, rule);
@@ -70,14 +68,23 @@ public class CustomerCreationSourceFilter {
     }
 
     /**
+     * Converts this CustomerCreationSourceFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerCreationSourceFilter [" + "values=" + values + ", rule=" + rule + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerCreationSourceFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerCreationSourceFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .values(getValues())
-            .rule(getRule());
+                .values(getValues())
+                .rule(getRule());
         return builder;
     }
 
@@ -115,8 +122,7 @@ public class CustomerCreationSourceFilter {
          * @return {@link CustomerCreationSourceFilter}
          */
         public CustomerCreationSourceFilter build() {
-            return new CustomerCreationSourceFilter(values,
-                rule);
+            return new CustomerCreationSourceFilter(values, rule);
         }
     }
 }

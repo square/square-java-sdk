@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCashDrawerShiftsRequest type.
  */
@@ -103,7 +102,6 @@ public class ListCashDrawerShiftsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, sortOrder, beginTime, endTime, limit, cursor);
@@ -127,17 +125,28 @@ public class ListCashDrawerShiftsRequest {
     }
 
     /**
+     * Converts this ListCashDrawerShiftsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCashDrawerShiftsRequest [" + "locationId=" + locationId + ", sortOrder="
+                + sortOrder + ", beginTime=" + beginTime + ", endTime=" + endTime + ", limit="
+                + limit + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListCashDrawerShiftsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCashDrawerShiftsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
-            .sortOrder(getSortOrder())
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .sortOrder(getSortOrder())
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -225,12 +234,8 @@ public class ListCashDrawerShiftsRequest {
          * @return {@link ListCashDrawerShiftsRequest}
          */
         public ListCashDrawerShiftsRequest build() {
-            return new ListCashDrawerShiftsRequest(locationId,
-                sortOrder,
-                beginTime,
-                endTime,
-                limit,
-                cursor);
+            return new ListCashDrawerShiftsRequest(locationId, sortOrder, beginTime, endTime, limit,
+                    cursor);
         }
     }
 }

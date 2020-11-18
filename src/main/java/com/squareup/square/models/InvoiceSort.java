@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InvoiceSort type.
  */
@@ -47,7 +46,6 @@ public class InvoiceSort {
         return this.order;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(field, order);
@@ -67,13 +65,22 @@ public class InvoiceSort {
     }
 
     /**
+     * Converts this InvoiceSort into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InvoiceSort [" + "field=" + field + ", order=" + order + "]";
+    }
+
+    /**
      * Builds a new {@link InvoiceSort.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InvoiceSort.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(field)
-            .order(getOrder());
+                .order(getOrder());
         return builder;
     }
 
@@ -117,8 +124,7 @@ public class InvoiceSort {
          * @return {@link InvoiceSort}
          */
         public InvoiceSort build() {
-            return new InvoiceSort(field,
-                order);
+            return new InvoiceSort(field, order);
         }
     }
 }

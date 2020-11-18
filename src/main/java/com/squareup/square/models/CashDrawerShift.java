@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CashDrawerShift type.
  */
@@ -308,7 +307,6 @@ public class CashDrawerShift {
         return this.device;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, state, openedAt, endedAt, closedAt, employeeIds, openingEmployeeId,
@@ -347,30 +345,47 @@ public class CashDrawerShift {
     }
 
     /**
+     * Converts this CashDrawerShift into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CashDrawerShift [" + "id=" + id + ", state=" + state + ", openedAt=" + openedAt
+                + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", employeeIds=" + employeeIds
+                + ", openingEmployeeId=" + openingEmployeeId + ", endingEmployeeId="
+                + endingEmployeeId + ", closingEmployeeId=" + closingEmployeeId + ", description="
+                + description + ", openedCashMoney=" + openedCashMoney + ", cashPaymentMoney="
+                + cashPaymentMoney + ", cashRefundsMoney=" + cashRefundsMoney + ", cashPaidInMoney="
+                + cashPaidInMoney + ", cashPaidOutMoney=" + cashPaidOutMoney
+                + ", expectedCashMoney=" + expectedCashMoney + ", closedCashMoney="
+                + closedCashMoney + ", device=" + device + "]";
+    }
+
+    /**
      * Builds a new {@link CashDrawerShift.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CashDrawerShift.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .state(getState())
-            .openedAt(getOpenedAt())
-            .endedAt(getEndedAt())
-            .closedAt(getClosedAt())
-            .employeeIds(getEmployeeIds())
-            .openingEmployeeId(getOpeningEmployeeId())
-            .endingEmployeeId(getEndingEmployeeId())
-            .closingEmployeeId(getClosingEmployeeId())
-            .description(getDescription())
-            .openedCashMoney(getOpenedCashMoney())
-            .cashPaymentMoney(getCashPaymentMoney())
-            .cashRefundsMoney(getCashRefundsMoney())
-            .cashPaidInMoney(getCashPaidInMoney())
-            .cashPaidOutMoney(getCashPaidOutMoney())
-            .expectedCashMoney(getExpectedCashMoney())
-            .closedCashMoney(getClosedCashMoney())
-            .device(getDevice());
+                .id(getId())
+                .state(getState())
+                .openedAt(getOpenedAt())
+                .endedAt(getEndedAt())
+                .closedAt(getClosedAt())
+                .employeeIds(getEmployeeIds())
+                .openingEmployeeId(getOpeningEmployeeId())
+                .endingEmployeeId(getEndingEmployeeId())
+                .closingEmployeeId(getClosingEmployeeId())
+                .description(getDescription())
+                .openedCashMoney(getOpenedCashMoney())
+                .cashPaymentMoney(getCashPaymentMoney())
+                .cashRefundsMoney(getCashRefundsMoney())
+                .cashPaidInMoney(getCashPaidInMoney())
+                .cashPaidOutMoney(getCashPaidOutMoney())
+                .expectedCashMoney(getExpectedCashMoney())
+                .closedCashMoney(getClosedCashMoney())
+                .device(getDevice());
         return builder;
     }
 
@@ -584,24 +599,10 @@ public class CashDrawerShift {
          * @return {@link CashDrawerShift}
          */
         public CashDrawerShift build() {
-            return new CashDrawerShift(id,
-                state,
-                openedAt,
-                endedAt,
-                closedAt,
-                employeeIds,
-                openingEmployeeId,
-                endingEmployeeId,
-                closingEmployeeId,
-                description,
-                openedCashMoney,
-                cashPaymentMoney,
-                cashRefundsMoney,
-                cashPaidInMoney,
-                cashPaidOutMoney,
-                expectedCashMoney,
-                closedCashMoney,
-                device);
+            return new CashDrawerShift(id, state, openedAt, endedAt, closedAt, employeeIds,
+                    openingEmployeeId, endingEmployeeId, closingEmployeeId, description,
+                    openedCashMoney, cashPaymentMoney, cashRefundsMoney, cashPaidInMoney,
+                    cashPaidOutMoney, expectedCashMoney, closedCashMoney, device);
         }
     }
 }

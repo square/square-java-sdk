@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpsertCatalogObjectResponse type.
  */
@@ -93,7 +92,6 @@ public class UpsertCatalogObjectResponse {
         return this.idMappings;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, catalogObject, idMappings);
@@ -114,15 +112,25 @@ public class UpsertCatalogObjectResponse {
     }
 
     /**
+     * Converts this UpsertCatalogObjectResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpsertCatalogObjectResponse [" + "errors=" + errors + ", catalogObject="
+                + catalogObject + ", idMappings=" + idMappings + "]";
+    }
+
+    /**
      * Builds a new {@link UpsertCatalogObjectResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpsertCatalogObjectResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .catalogObject(getCatalogObject())
-            .idMappings(getIdMappings());
+                .errors(getErrors())
+                .catalogObject(getCatalogObject())
+                .idMappings(getIdMappings());
         return builder;
     }
 
@@ -183,9 +191,7 @@ public class UpsertCatalogObjectResponse {
          */
         public UpsertCatalogObjectResponse build() {
             UpsertCatalogObjectResponse model =
-                    new UpsertCatalogObjectResponse(errors,
-                            catalogObject,
-                            idMappings);
+                    new UpsertCatalogObjectResponse(errors, catalogObject, idMappings);
             model.httpContext = httpContext;
             return model;
         }

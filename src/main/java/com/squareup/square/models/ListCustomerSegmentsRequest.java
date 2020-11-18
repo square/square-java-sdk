@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCustomerSegmentsRequest type.
  */
@@ -27,7 +26,7 @@ public class ListCustomerSegmentsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve
      * the next set of query results. See the [Pagination
-     * guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more
+     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
      * information.
      * @return Returns the String
      */
@@ -36,7 +35,6 @@ public class ListCustomerSegmentsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor);
@@ -55,13 +53,22 @@ public class ListCustomerSegmentsRequest {
     }
 
     /**
+     * Converts this ListCustomerSegmentsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCustomerSegmentsRequest [" + "cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListCustomerSegmentsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCustomerSegmentsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor());
+                .cursor(getCursor());
         return builder;
     }
 

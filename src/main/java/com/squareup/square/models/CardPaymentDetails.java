@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CardPaymentDetails type.
  */
@@ -82,8 +81,7 @@ public class CardPaymentDetails {
 
     /**
      * Getter for Status.
-     * The card payment's current state. It can be one of: `AUTHORIZED`, `CAPTURED`, `VOIDED`,
-     * `FAILED`.
+     * The card payment's current state. The state can be AUTHORIZED, CAPTURED, VOIDED, or FAILED.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -104,8 +102,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for EntryMethod.
-     * The method used to enter the card's details for the payment. Can be `KEYED`, `SWIPED`, `EMV`,
-     * `ON_FILE`, or `CONTACTLESS`.
+     * The method used to enter the card's details for the payment. The method can be `KEYED`,
+     * `SWIPED`, `EMV`, `ON_FILE`, or `CONTACTLESS`.
      * @return Returns the String
      */
     @JsonGetter("entry_method")
@@ -115,8 +113,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for CvvStatus.
-     * Status code returned from the Card Verification Value (CVV) check. Can be `CVV_ACCEPTED`,
-     * `CVV_REJECTED`, `CVV_NOT_CHECKED`.
+     * The status code returned from the Card Verification Value (CVV) check. The code can be
+     * `CVV_ACCEPTED`, `CVV_REJECTED`, or `CVV_NOT_CHECKED`.
      * @return Returns the String
      */
     @JsonGetter("cvv_status")
@@ -126,8 +124,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for AvsStatus.
-     * Status code returned from the Address Verification System (AVS) check. Can be `AVS_ACCEPTED`,
-     * `AVS_REJECTED`, `AVS_NOT_CHECKED`.
+     * The status code returned from the Address Verification System (AVS) check. The code can be
+     * `AVS_ACCEPTED`, `AVS_REJECTED`, or `AVS_NOT_CHECKED`.
      * @return Returns the String
      */
     @JsonGetter("avs_status")
@@ -137,7 +135,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for AuthResultCode.
-     * Status code returned by the card issuer that describes the payment's authorization status.
+     * The status code returned by the card issuer that describes the payment's authorization
+     * status.
      * @return Returns the String
      */
     @JsonGetter("auth_result_code")
@@ -147,7 +146,7 @@ public class CardPaymentDetails {
 
     /**
      * Getter for ApplicationIdentifier.
-     * For EMV payments, identifies the EMV application used for the payment.
+     * For EMV payments, the application ID identifies the EMV application used for the payment.
      * @return Returns the String
      */
     @JsonGetter("application_identifier")
@@ -177,8 +176,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for VerificationMethod.
-     * For EMV payments, method used to verify the cardholder's identity. Can be one of `PIN`,
-     * `SIGNATURE`, `PIN_AND_SIGNATURE`, `ON_DEVICE`, or `NONE`.
+     * For EMV payments, the method used to verify the cardholder's identity. The method can be
+     * `PIN`, `SIGNATURE`, `PIN_AND_SIGNATURE`, `ON_DEVICE`, or `NONE`.
      * @return Returns the String
      */
     @JsonGetter("verification_method")
@@ -188,7 +187,7 @@ public class CardPaymentDetails {
 
     /**
      * Getter for VerificationResults.
-     * For EMV payments, the results of the cardholder verification. Can be one of `SUCCESS`,
+     * For EMV payments, the results of the cardholder verification. The result can be `SUCCESS`,
      * `FAILURE`, or `UNKNOWN`.
      * @return Returns the String
      */
@@ -200,8 +199,8 @@ public class CardPaymentDetails {
     /**
      * Getter for StatementDescription.
      * The statement description sent to the card networks. Note: The actual statement description
-     * will vary and is likely to be truncated and appended with additional information on a per
-     * issuer basis.
+     * varies and is likely to be truncated and appended with additional information on a per issuer
+     * basis.
      * @return Returns the String
      */
     @JsonGetter("statement_description")
@@ -221,8 +220,8 @@ public class CardPaymentDetails {
 
     /**
      * Getter for RefundRequiresCardPresence.
-     * Whether or not the card is required to be physically present in order for the payment to be
-     * refunded. If true, the card is required to be present.
+     * Whether the card must be physically present for the payment to be refunded. If set to `true`,
+     * the card must be present.
      * @return Returns the Boolean
      */
     @JsonGetter("refund_requires_card_presence")
@@ -232,7 +231,7 @@ public class CardPaymentDetails {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -240,7 +239,6 @@ public class CardPaymentDetails {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(status, card, entryMethod, cvvStatus, avsStatus, authResultCode,
@@ -276,27 +274,44 @@ public class CardPaymentDetails {
     }
 
     /**
+     * Converts this CardPaymentDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CardPaymentDetails [" + "status=" + status + ", card=" + card + ", entryMethod="
+                + entryMethod + ", cvvStatus=" + cvvStatus + ", avsStatus=" + avsStatus
+                + ", authResultCode=" + authResultCode + ", applicationIdentifier="
+                + applicationIdentifier + ", applicationName=" + applicationName
+                + ", applicationCryptogram=" + applicationCryptogram + ", verificationMethod="
+                + verificationMethod + ", verificationResults=" + verificationResults
+                + ", statementDescription=" + statementDescription + ", deviceDetails="
+                + deviceDetails + ", refundRequiresCardPresence=" + refundRequiresCardPresence
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link CardPaymentDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CardPaymentDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .status(getStatus())
-            .card(getCard())
-            .entryMethod(getEntryMethod())
-            .cvvStatus(getCvvStatus())
-            .avsStatus(getAvsStatus())
-            .authResultCode(getAuthResultCode())
-            .applicationIdentifier(getApplicationIdentifier())
-            .applicationName(getApplicationName())
-            .applicationCryptogram(getApplicationCryptogram())
-            .verificationMethod(getVerificationMethod())
-            .verificationResults(getVerificationResults())
-            .statementDescription(getStatementDescription())
-            .deviceDetails(getDeviceDetails())
-            .refundRequiresCardPresence(getRefundRequiresCardPresence())
-            .errors(getErrors());
+                .status(getStatus())
+                .card(getCard())
+                .entryMethod(getEntryMethod())
+                .cvvStatus(getCvvStatus())
+                .avsStatus(getAvsStatus())
+                .authResultCode(getAuthResultCode())
+                .applicationIdentifier(getApplicationIdentifier())
+                .applicationName(getApplicationName())
+                .applicationCryptogram(getApplicationCryptogram())
+                .verificationMethod(getVerificationMethod())
+                .verificationResults(getVerificationResults())
+                .statementDescription(getStatementDescription())
+                .deviceDetails(getDeviceDetails())
+                .refundRequiresCardPresence(getRefundRequiresCardPresence())
+                .errors(getErrors());
         return builder;
     }
 
@@ -477,21 +492,10 @@ public class CardPaymentDetails {
          * @return {@link CardPaymentDetails}
          */
         public CardPaymentDetails build() {
-            return new CardPaymentDetails(status,
-                card,
-                entryMethod,
-                cvvStatus,
-                avsStatus,
-                authResultCode,
-                applicationIdentifier,
-                applicationName,
-                applicationCryptogram,
-                verificationMethod,
-                verificationResults,
-                statementDescription,
-                deviceDetails,
-                refundRequiresCardPresence,
-                errors);
+            return new CardPaymentDetails(status, card, entryMethod, cvvStatus, avsStatus,
+                    authResultCode, applicationIdentifier, applicationName, applicationCryptogram,
+                    verificationMethod, verificationResults, statementDescription, deviceDetails,
+                    refundRequiresCardPresence, errors);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCustomerSegmentsResponse type.
  */
@@ -63,7 +62,7 @@ public class ListCustomerSegmentsResponse {
      * A pagination cursor to be used in subsequent calls to __ListCustomerSegments__ to retrieve
      * the next set of query results. Only present only if the request succeeded and additional
      * results are available. See the [Pagination
-     * guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more
+     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
      * information.
      * @return Returns the String
      */
@@ -72,7 +71,6 @@ public class ListCustomerSegmentsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, segments, cursor);
@@ -93,15 +91,25 @@ public class ListCustomerSegmentsResponse {
     }
 
     /**
+     * Converts this ListCustomerSegmentsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCustomerSegmentsResponse [" + "errors=" + errors + ", segments=" + segments
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListCustomerSegmentsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCustomerSegmentsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .segments(getSegments())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .segments(getSegments())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -162,9 +170,7 @@ public class ListCustomerSegmentsResponse {
          */
         public ListCustomerSegmentsResponse build() {
             ListCustomerSegmentsResponse model =
-                    new ListCustomerSegmentsResponse(errors,
-                            segments,
-                            cursor);
+                    new ListCustomerSegmentsResponse(errors, segments, cursor);
             model.httpContext = httpContext;
             return model;
         }

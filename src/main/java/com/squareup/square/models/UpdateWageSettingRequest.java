@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateWageSettingRequest type.
  */
@@ -33,7 +32,6 @@ public class UpdateWageSettingRequest {
         return this.wageSetting;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(wageSetting);
@@ -49,6 +47,15 @@ public class UpdateWageSettingRequest {
         }
         UpdateWageSettingRequest other = (UpdateWageSettingRequest) obj;
         return Objects.equals(wageSetting, other.wageSetting);
+    }
+
+    /**
+     * Converts this UpdateWageSettingRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateWageSettingRequest [" + "wageSetting=" + wageSetting + "]";
     }
 
     /**

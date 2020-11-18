@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogMeasurementUnit type.
  */
@@ -52,7 +51,6 @@ public class CatalogMeasurementUnit {
         return this.precision;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(measurementUnit, precision);
@@ -72,14 +70,24 @@ public class CatalogMeasurementUnit {
     }
 
     /**
+     * Converts this CatalogMeasurementUnit into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogMeasurementUnit [" + "measurementUnit=" + measurementUnit + ", precision="
+                + precision + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogMeasurementUnit.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogMeasurementUnit.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .measurementUnit(getMeasurementUnit())
-            .precision(getPrecision());
+                .measurementUnit(getMeasurementUnit())
+                .precision(getPrecision());
         return builder;
     }
 
@@ -117,8 +125,7 @@ public class CatalogMeasurementUnit {
          * @return {@link CatalogMeasurementUnit}
          */
         public CatalogMeasurementUnit build() {
-            return new CatalogMeasurementUnit(measurementUnit,
-                precision);
+            return new CatalogMeasurementUnit(measurementUnit, precision);
         }
     }
 }

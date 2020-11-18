@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchChangeInventoryResponse type.
  */
@@ -54,7 +53,6 @@ public class BatchChangeInventoryResponse {
         return this.counts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, counts);
@@ -74,14 +72,23 @@ public class BatchChangeInventoryResponse {
     }
 
     /**
+     * Converts this BatchChangeInventoryResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchChangeInventoryResponse [" + "errors=" + errors + ", counts=" + counts + "]";
+    }
+
+    /**
      * Builds a new {@link BatchChangeInventoryResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchChangeInventoryResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .counts(getCounts());
+                .errors(getErrors())
+                .counts(getCounts());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class BatchChangeInventoryResponse {
          */
         public BatchChangeInventoryResponse build() {
             BatchChangeInventoryResponse model =
-                    new BatchChangeInventoryResponse(errors,
-                            counts);
+                    new BatchChangeInventoryResponse(errors, counts);
             model.httpContext = httpContext;
             return model;
         }

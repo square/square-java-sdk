@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TimeRange type.
  */
@@ -47,7 +46,6 @@ public class TimeRange {
         return this.endAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(startAt, endAt);
@@ -67,14 +65,23 @@ public class TimeRange {
     }
 
     /**
+     * Converts this TimeRange into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TimeRange [" + "startAt=" + startAt + ", endAt=" + endAt + "]";
+    }
+
+    /**
      * Builds a new {@link TimeRange.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TimeRange.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .startAt(getStartAt())
-            .endAt(getEndAt());
+                .startAt(getStartAt())
+                .endAt(getEndAt());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class TimeRange {
          * @return {@link TimeRange}
          */
         public TimeRange build() {
-            return new TimeRange(startAt,
-                endAt);
+            return new TimeRange(startAt, endAt);
         }
     }
 }

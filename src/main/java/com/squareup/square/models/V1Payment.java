@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Payment type.
  */
@@ -400,7 +399,6 @@ public class V1Payment {
         return this.isPartial;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, merchantId, createdAt, creatorId, device, paymentUrl, receiptUrl,
@@ -449,39 +447,60 @@ public class V1Payment {
     }
 
     /**
+     * Converts this V1Payment into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Payment [" + "id=" + id + ", merchantId=" + merchantId + ", createdAt="
+                + createdAt + ", creatorId=" + creatorId + ", device=" + device + ", paymentUrl="
+                + paymentUrl + ", receiptUrl=" + receiptUrl + ", inclusiveTaxMoney="
+                + inclusiveTaxMoney + ", additiveTaxMoney=" + additiveTaxMoney + ", taxMoney="
+                + taxMoney + ", tipMoney=" + tipMoney + ", discountMoney=" + discountMoney
+                + ", totalCollectedMoney=" + totalCollectedMoney + ", processingFeeMoney="
+                + processingFeeMoney + ", netTotalMoney=" + netTotalMoney + ", refundedMoney="
+                + refundedMoney + ", swedishRoundingMoney=" + swedishRoundingMoney
+                + ", grossSalesMoney=" + grossSalesMoney + ", netSalesMoney=" + netSalesMoney
+                + ", inclusiveTax=" + inclusiveTax + ", additiveTax=" + additiveTax + ", tender="
+                + tender + ", refunds=" + refunds + ", itemizations=" + itemizations
+                + ", surchargeMoney=" + surchargeMoney + ", surcharges=" + surcharges
+                + ", isPartial=" + isPartial + "]";
+    }
+
+    /**
      * Builds a new {@link V1Payment.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Payment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .merchantId(getMerchantId())
-            .createdAt(getCreatedAt())
-            .creatorId(getCreatorId())
-            .device(getDevice())
-            .paymentUrl(getPaymentUrl())
-            .receiptUrl(getReceiptUrl())
-            .inclusiveTaxMoney(getInclusiveTaxMoney())
-            .additiveTaxMoney(getAdditiveTaxMoney())
-            .taxMoney(getTaxMoney())
-            .tipMoney(getTipMoney())
-            .discountMoney(getDiscountMoney())
-            .totalCollectedMoney(getTotalCollectedMoney())
-            .processingFeeMoney(getProcessingFeeMoney())
-            .netTotalMoney(getNetTotalMoney())
-            .refundedMoney(getRefundedMoney())
-            .swedishRoundingMoney(getSwedishRoundingMoney())
-            .grossSalesMoney(getGrossSalesMoney())
-            .netSalesMoney(getNetSalesMoney())
-            .inclusiveTax(getInclusiveTax())
-            .additiveTax(getAdditiveTax())
-            .tender(getTender())
-            .refunds(getRefunds())
-            .itemizations(getItemizations())
-            .surchargeMoney(getSurchargeMoney())
-            .surcharges(getSurcharges())
-            .isPartial(getIsPartial());
+                .id(getId())
+                .merchantId(getMerchantId())
+                .createdAt(getCreatedAt())
+                .creatorId(getCreatorId())
+                .device(getDevice())
+                .paymentUrl(getPaymentUrl())
+                .receiptUrl(getReceiptUrl())
+                .inclusiveTaxMoney(getInclusiveTaxMoney())
+                .additiveTaxMoney(getAdditiveTaxMoney())
+                .taxMoney(getTaxMoney())
+                .tipMoney(getTipMoney())
+                .discountMoney(getDiscountMoney())
+                .totalCollectedMoney(getTotalCollectedMoney())
+                .processingFeeMoney(getProcessingFeeMoney())
+                .netTotalMoney(getNetTotalMoney())
+                .refundedMoney(getRefundedMoney())
+                .swedishRoundingMoney(getSwedishRoundingMoney())
+                .grossSalesMoney(getGrossSalesMoney())
+                .netSalesMoney(getNetSalesMoney())
+                .inclusiveTax(getInclusiveTax())
+                .additiveTax(getAdditiveTax())
+                .tender(getTender())
+                .refunds(getRefunds())
+                .itemizations(getItemizations())
+                .surchargeMoney(getSurchargeMoney())
+                .surcharges(getSurcharges())
+                .isPartial(getIsPartial());
         return builder;
     }
 
@@ -806,33 +825,12 @@ public class V1Payment {
          */
         public V1Payment build() {
             V1Payment model =
-                    new V1Payment(id,
-                            merchantId,
-                            createdAt,
-                            creatorId,
-                            device,
-                            paymentUrl,
-                            receiptUrl,
-                            inclusiveTaxMoney,
-                            additiveTaxMoney,
-                            taxMoney,
-                            tipMoney,
-                            discountMoney,
-                            totalCollectedMoney,
-                            processingFeeMoney,
-                            netTotalMoney,
-                            refundedMoney,
-                            swedishRoundingMoney,
-                            grossSalesMoney,
-                            netSalesMoney,
-                            inclusiveTax,
-                            additiveTax,
-                            tender,
-                            refunds,
-                            itemizations,
-                            surchargeMoney,
-                            surcharges,
-                            isPartial);
+                    new V1Payment(id, merchantId, createdAt, creatorId, device, paymentUrl,
+                            receiptUrl, inclusiveTaxMoney, additiveTaxMoney, taxMoney, tipMoney,
+                            discountMoney, totalCollectedMoney, processingFeeMoney, netTotalMoney,
+                            refundedMoney, swedishRoundingMoney, grossSalesMoney, netSalesMoney,
+                            inclusiveTax, additiveTax, tender, refunds, itemizations,
+                            surchargeMoney, surcharges, isPartial);
             model.httpContext = httpContext;
             return model;
         }

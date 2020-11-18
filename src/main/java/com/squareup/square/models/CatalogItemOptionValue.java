@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItemOptionValue type.
  */
@@ -93,7 +92,6 @@ public class CatalogItemOptionValue {
         return this.ordinal;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(itemOptionId, name, description, color, ordinal);
@@ -116,17 +114,28 @@ public class CatalogItemOptionValue {
     }
 
     /**
+     * Converts this CatalogItemOptionValue into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItemOptionValue [" + "itemOptionId=" + itemOptionId + ", name=" + name
+                + ", description=" + description + ", color=" + color + ", ordinal=" + ordinal
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogItemOptionValue.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogItemOptionValue.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .itemOptionId(getItemOptionId())
-            .name(getName())
-            .description(getDescription())
-            .color(getColor())
-            .ordinal(getOrdinal());
+                .itemOptionId(getItemOptionId())
+                .name(getName())
+                .description(getDescription())
+                .color(getColor())
+                .ordinal(getOrdinal());
         return builder;
     }
 
@@ -197,11 +206,7 @@ public class CatalogItemOptionValue {
          * @return {@link CatalogItemOptionValue}
          */
         public CatalogItemOptionValue build() {
-            return new CatalogItemOptionValue(itemOptionId,
-                name,
-                description,
-                color,
-                ordinal);
+            return new CatalogItemOptionValue(itemOptionId, name, description, color, ordinal);
         }
     }
 }

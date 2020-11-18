@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Settlement type.
  */
@@ -108,7 +107,6 @@ public class V1Settlement {
         return this.entries;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, status, totalMoney, initiatedAt, bankAccountId, entries);
@@ -132,18 +130,29 @@ public class V1Settlement {
     }
 
     /**
+     * Converts this V1Settlement into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Settlement [" + "id=" + id + ", status=" + status + ", totalMoney=" + totalMoney
+                + ", initiatedAt=" + initiatedAt + ", bankAccountId=" + bankAccountId + ", entries="
+                + entries + "]";
+    }
+
+    /**
      * Builds a new {@link V1Settlement.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Settlement.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .status(getStatus())
-            .totalMoney(getTotalMoney())
-            .initiatedAt(getInitiatedAt())
-            .bankAccountId(getBankAccountId())
-            .entries(getEntries());
+                .id(getId())
+                .status(getStatus())
+                .totalMoney(getTotalMoney())
+                .initiatedAt(getInitiatedAt())
+                .bankAccountId(getBankAccountId())
+                .entries(getEntries());
         return builder;
     }
 
@@ -237,12 +246,7 @@ public class V1Settlement {
          */
         public V1Settlement build() {
             V1Settlement model =
-                    new V1Settlement(id,
-                            status,
-                            totalMoney,
-                            initiatedAt,
-                            bankAccountId,
-                            entries);
+                    new V1Settlement(id, status, totalMoney, initiatedAt, bankAccountId, entries);
             model.httpContext = httpContext;
             return model;
         }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersRequest type.
  */
@@ -97,7 +96,6 @@ public class SearchOrdersRequest {
         return this.returnEntries;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, cursor, query, limit, returnEntries);
@@ -120,17 +118,28 @@ public class SearchOrdersRequest {
     }
 
     /**
+     * Converts this SearchOrdersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersRequest [" + "locationIds=" + locationIds + ", cursor=" + cursor
+                + ", query=" + query + ", limit=" + limit + ", returnEntries=" + returnEntries
+                + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationIds(getLocationIds())
-            .cursor(getCursor())
-            .query(getQuery())
-            .limit(getLimit())
-            .returnEntries(getReturnEntries());
+                .locationIds(getLocationIds())
+                .cursor(getCursor())
+                .query(getQuery())
+                .limit(getLimit())
+                .returnEntries(getReturnEntries());
         return builder;
     }
 
@@ -201,11 +210,7 @@ public class SearchOrdersRequest {
          * @return {@link SearchOrdersRequest}
          */
         public SearchOrdersRequest build() {
-            return new SearchOrdersRequest(locationIds,
-                cursor,
-                query,
-                limit,
-                returnEntries);
+            return new SearchOrdersRequest(locationIds, cursor, query, limit, returnEntries);
         }
     }
 }

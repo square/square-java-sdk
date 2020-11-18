@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BusinessHours type.
  */
@@ -35,7 +34,6 @@ public class BusinessHours {
         return this.periods;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(periods);
@@ -54,13 +52,22 @@ public class BusinessHours {
     }
 
     /**
+     * Converts this BusinessHours into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BusinessHours [" + "periods=" + periods + "]";
+    }
+
+    /**
      * Builds a new {@link BusinessHours.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BusinessHours.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .periods(getPeriods());
+                .periods(getPeriods());
         return builder;
     }
 

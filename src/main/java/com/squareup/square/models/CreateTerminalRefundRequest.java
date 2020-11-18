@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateTerminalRefundRequest type.
  */
@@ -48,7 +47,6 @@ public class CreateTerminalRefundRequest {
         return this.refund;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, refund);
@@ -68,13 +66,23 @@ public class CreateTerminalRefundRequest {
     }
 
     /**
+     * Converts this CreateTerminalRefundRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateTerminalRefundRequest [" + "idempotencyKey=" + idempotencyKey + ", refund="
+                + refund + "]";
+    }
+
+    /**
      * Builds a new {@link CreateTerminalRefundRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateTerminalRefundRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
-            .refund(getRefund());
+                .refund(getRefund());
         return builder;
     }
 
@@ -118,8 +126,7 @@ public class CreateTerminalRefundRequest {
          * @return {@link CreateTerminalRefundRequest}
          */
         public CreateTerminalRefundRequest build() {
-            return new CreateTerminalRefundRequest(idempotencyKey,
-                refund);
+            return new CreateTerminalRefundRequest(idempotencyKey, refund);
         }
     }
 }

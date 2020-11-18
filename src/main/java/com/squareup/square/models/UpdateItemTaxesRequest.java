@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateItemTaxesRequest type.
  */
@@ -62,7 +61,6 @@ public class UpdateItemTaxesRequest {
         return this.taxesToDisable;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(itemIds, taxesToEnable, taxesToDisable);
@@ -83,14 +81,24 @@ public class UpdateItemTaxesRequest {
     }
 
     /**
+     * Converts this UpdateItemTaxesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateItemTaxesRequest [" + "itemIds=" + itemIds + ", taxesToEnable="
+                + taxesToEnable + ", taxesToDisable=" + taxesToDisable + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateItemTaxesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateItemTaxesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(itemIds)
-            .taxesToEnable(getTaxesToEnable())
-            .taxesToDisable(getTaxesToDisable());
+                .taxesToEnable(getTaxesToEnable())
+                .taxesToDisable(getTaxesToDisable());
         return builder;
     }
 
@@ -145,9 +153,7 @@ public class UpdateItemTaxesRequest {
          * @return {@link UpdateItemTaxesRequest}
          */
         public UpdateItemTaxesRequest build() {
-            return new UpdateItemTaxesRequest(itemIds,
-                taxesToEnable,
-                taxesToDisable);
+            return new UpdateItemTaxesRequest(itemIds, taxesToEnable, taxesToDisable);
         }
     }
 }

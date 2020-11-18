@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerPreferences type.
  */
@@ -33,7 +32,6 @@ public class CustomerPreferences {
         return this.emailUnsubscribed;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(emailUnsubscribed);
@@ -52,13 +50,22 @@ public class CustomerPreferences {
     }
 
     /**
+     * Converts this CustomerPreferences into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerPreferences [" + "emailUnsubscribed=" + emailUnsubscribed + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerPreferences.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerPreferences.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .emailUnsubscribed(getEmailUnsubscribed());
+                .emailUnsubscribed(getEmailUnsubscribed());
         return builder;
     }
 

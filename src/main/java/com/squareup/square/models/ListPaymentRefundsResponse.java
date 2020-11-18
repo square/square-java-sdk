@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListPaymentRefundsResponse type.
  */
@@ -40,7 +39,7 @@ public class ListPaymentRefundsResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -61,8 +60,8 @@ public class ListPaymentRefundsResponse {
     /**
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If empty, this is the final
-     * response. See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for
-     * more information.
+     * response. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -70,7 +69,6 @@ public class ListPaymentRefundsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, refunds, cursor);
@@ -91,15 +89,25 @@ public class ListPaymentRefundsResponse {
     }
 
     /**
+     * Converts this ListPaymentRefundsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListPaymentRefundsResponse [" + "errors=" + errors + ", refunds=" + refunds
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListPaymentRefundsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListPaymentRefundsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .refunds(getRefunds())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .refunds(getRefunds())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class ListPaymentRefundsResponse {
          */
         public ListPaymentRefundsResponse build() {
             ListPaymentRefundsResponse model =
-                    new ListPaymentRefundsResponse(errors,
-                            refunds,
-                            cursor);
+                    new ListPaymentRefundsResponse(errors, refunds, cursor);
             model.httpContext = httpContext;
             return model;
         }

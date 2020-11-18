@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelInvoiceRequest type.
  */
@@ -35,7 +34,6 @@ public class CancelInvoiceRequest {
         return this.version;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(version);
@@ -51,6 +49,15 @@ public class CancelInvoiceRequest {
         }
         CancelInvoiceRequest other = (CancelInvoiceRequest) obj;
         return Objects.equals(version, other.version);
+    }
+
+    /**
+     * Converts this CancelInvoiceRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelInvoiceRequest [" + "version=" + version + "]";
     }
 
     /**

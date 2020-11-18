@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PaymentModifier type.
  */
@@ -61,7 +60,6 @@ public class V1PaymentModifier {
         return this.modifierOptionId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, appliedMoney, modifierOptionId);
@@ -82,15 +80,25 @@ public class V1PaymentModifier {
     }
 
     /**
+     * Converts this V1PaymentModifier into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PaymentModifier [" + "name=" + name + ", appliedMoney=" + appliedMoney
+                + ", modifierOptionId=" + modifierOptionId + "]";
+    }
+
+    /**
      * Builds a new {@link V1PaymentModifier.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PaymentModifier.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .appliedMoney(getAppliedMoney())
-            .modifierOptionId(getModifierOptionId());
+                .name(getName())
+                .appliedMoney(getAppliedMoney())
+                .modifierOptionId(getModifierOptionId());
         return builder;
     }
 
@@ -139,9 +147,7 @@ public class V1PaymentModifier {
          * @return {@link V1PaymentModifier}
          */
         public V1PaymentModifier build() {
-            return new V1PaymentModifier(name,
-                appliedMoney,
-                modifierOptionId);
+            return new V1PaymentModifier(name, appliedMoney, modifierOptionId);
         }
     }
 }

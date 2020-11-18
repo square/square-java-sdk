@@ -56,7 +56,7 @@ public interface SubscriptionsApi {
      * returned. If the request specifies customer IDs, the endpoint orders results first by
      * location, within location by customer ID, and within customer by subscription creation date.
      * For more information, see [Retrieve
-     * subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
+     * subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchSubscriptionsResponse response from the API call
@@ -75,7 +75,7 @@ public interface SubscriptionsApi {
      * returned. If the request specifies customer IDs, the endpoint orders results first by
      * location, within location by customer ID, and within customer by subscription creation date.
      * For more information, see [Retrieve
-     * subscriptions](https://developer.squareup.com/docs/docs/subscriptions-api/overview#retrieve-subscriptions).
+     * subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchSubscriptionsResponse response from the API call
@@ -154,7 +154,7 @@ public interface SubscriptionsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
      *         For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  limit  Optional parameter: The upper limit on the number of subscription events to
      *         return in the response. Default: `200`
      * @return    Returns the ListSubscriptionEventsResponse response from the API call
@@ -175,7 +175,7 @@ public interface SubscriptionsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
      *         For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  limit  Optional parameter: The upper limit on the number of subscription events to
      *         return in the response. Default: `200`
      * @return    Returns the ListSubscriptionEventsResponse response from the API call

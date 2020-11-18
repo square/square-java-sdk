@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchSubscriptionsRequest type.
  */
@@ -35,7 +34,7 @@ public class SearchSubscriptionsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -63,7 +62,6 @@ public class SearchSubscriptionsRequest {
         return this.query;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, limit, query);
@@ -84,15 +82,25 @@ public class SearchSubscriptionsRequest {
     }
 
     /**
+     * Converts this SearchSubscriptionsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchSubscriptionsRequest [" + "cursor=" + cursor + ", limit=" + limit + ", query="
+                + query + "]";
+    }
+
+    /**
      * Builds a new {@link SearchSubscriptionsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchSubscriptionsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .limit(getLimit())
-            .query(getQuery());
+                .cursor(getCursor())
+                .limit(getLimit())
+                .query(getQuery());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class SearchSubscriptionsRequest {
          * @return {@link SearchSubscriptionsRequest}
          */
         public SearchSubscriptionsRequest build() {
-            return new SearchSubscriptionsRequest(cursor,
-                limit,
-                query);
+            return new SearchSubscriptionsRequest(cursor, limit, query);
         }
     }
 }

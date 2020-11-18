@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgramRewardDefinition type.
  */
@@ -116,7 +115,6 @@ public class LoyaltyProgramRewardDefinition {
         return this.maxDiscountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(scope, discountType, percentageDiscount, catalogObjectIds,
@@ -141,17 +139,28 @@ public class LoyaltyProgramRewardDefinition {
     }
 
     /**
+     * Converts this LoyaltyProgramRewardDefinition into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgramRewardDefinition [" + "scope=" + scope + ", discountType="
+                + discountType + ", percentageDiscount=" + percentageDiscount
+                + ", catalogObjectIds=" + catalogObjectIds + ", fixedDiscountMoney="
+                + fixedDiscountMoney + ", maxDiscountMoney=" + maxDiscountMoney + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyProgramRewardDefinition.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyProgramRewardDefinition.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(scope,
-            discountType)
-            .percentageDiscount(getPercentageDiscount())
-            .catalogObjectIds(getCatalogObjectIds())
-            .fixedDiscountMoney(getFixedDiscountMoney())
-            .maxDiscountMoney(getMaxDiscountMoney());
+        Builder builder = new Builder(scope, discountType)
+                .percentageDiscount(getPercentageDiscount())
+                .catalogObjectIds(getCatalogObjectIds())
+                .fixedDiscountMoney(getFixedDiscountMoney())
+                .maxDiscountMoney(getMaxDiscountMoney());
         return builder;
     }
 
@@ -242,12 +251,8 @@ public class LoyaltyProgramRewardDefinition {
          * @return {@link LoyaltyProgramRewardDefinition}
          */
         public LoyaltyProgramRewardDefinition build() {
-            return new LoyaltyProgramRewardDefinition(scope,
-                discountType,
-                percentageDiscount,
-                catalogObjectIds,
-                fixedDiscountMoney,
-                maxDiscountMoney);
+            return new LoyaltyProgramRewardDefinition(scope, discountType, percentageDiscount,
+                    catalogObjectIds, fixedDiscountMoney, maxDiscountMoney);
         }
     }
 }

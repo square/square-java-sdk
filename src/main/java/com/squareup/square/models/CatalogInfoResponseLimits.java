@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogInfoResponseLimits type.
  */
@@ -183,7 +182,6 @@ public class CatalogInfoResponseLimits {
         return this.updateItemModifierListsMaxModifierListsToDisable;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(batchUpsertMaxObjectsPerBatch, batchUpsertMaxTotalObjects,
@@ -222,23 +220,44 @@ public class CatalogInfoResponseLimits {
     }
 
     /**
+     * Converts this CatalogInfoResponseLimits into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogInfoResponseLimits [" + "batchUpsertMaxObjectsPerBatch="
+                + batchUpsertMaxObjectsPerBatch + ", batchUpsertMaxTotalObjects="
+                + batchUpsertMaxTotalObjects + ", batchRetrieveMaxObjectIds="
+                + batchRetrieveMaxObjectIds + ", searchMaxPageLimit=" + searchMaxPageLimit
+                + ", batchDeleteMaxObjectIds=" + batchDeleteMaxObjectIds
+                + ", updateItemTaxesMaxItemIds=" + updateItemTaxesMaxItemIds
+                + ", updateItemTaxesMaxTaxesToEnable=" + updateItemTaxesMaxTaxesToEnable
+                + ", updateItemTaxesMaxTaxesToDisable=" + updateItemTaxesMaxTaxesToDisable
+                + ", updateItemModifierListsMaxItemIds=" + updateItemModifierListsMaxItemIds
+                + ", updateItemModifierListsMaxModifierListsToEnable="
+                + updateItemModifierListsMaxModifierListsToEnable
+                + ", updateItemModifierListsMaxModifierListsToDisable="
+                + updateItemModifierListsMaxModifierListsToDisable + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogInfoResponseLimits.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogInfoResponseLimits.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .batchUpsertMaxObjectsPerBatch(getBatchUpsertMaxObjectsPerBatch())
-            .batchUpsertMaxTotalObjects(getBatchUpsertMaxTotalObjects())
-            .batchRetrieveMaxObjectIds(getBatchRetrieveMaxObjectIds())
-            .searchMaxPageLimit(getSearchMaxPageLimit())
-            .batchDeleteMaxObjectIds(getBatchDeleteMaxObjectIds())
-            .updateItemTaxesMaxItemIds(getUpdateItemTaxesMaxItemIds())
-            .updateItemTaxesMaxTaxesToEnable(getUpdateItemTaxesMaxTaxesToEnable())
-            .updateItemTaxesMaxTaxesToDisable(getUpdateItemTaxesMaxTaxesToDisable())
-            .updateItemModifierListsMaxItemIds(getUpdateItemModifierListsMaxItemIds())
-            .updateItemModifierListsMaxModifierListsToEnable(getUpdateItemModifierListsMaxModifierListsToEnable())
-            .updateItemModifierListsMaxModifierListsToDisable(getUpdateItemModifierListsMaxModifierListsToDisable());
+                .batchUpsertMaxObjectsPerBatch(getBatchUpsertMaxObjectsPerBatch())
+                .batchUpsertMaxTotalObjects(getBatchUpsertMaxTotalObjects())
+                .batchRetrieveMaxObjectIds(getBatchRetrieveMaxObjectIds())
+                .searchMaxPageLimit(getSearchMaxPageLimit())
+                .batchDeleteMaxObjectIds(getBatchDeleteMaxObjectIds())
+                .updateItemTaxesMaxItemIds(getUpdateItemTaxesMaxItemIds())
+                .updateItemTaxesMaxTaxesToEnable(getUpdateItemTaxesMaxTaxesToEnable())
+                .updateItemTaxesMaxTaxesToDisable(getUpdateItemTaxesMaxTaxesToDisable())
+                .updateItemModifierListsMaxItemIds(getUpdateItemModifierListsMaxItemIds())
+                .updateItemModifierListsMaxModifierListsToEnable(getUpdateItemModifierListsMaxModifierListsToEnable())
+                .updateItemModifierListsMaxModifierListsToDisable(getUpdateItemModifierListsMaxModifierListsToDisable());
         return builder;
     }
 
@@ -376,16 +395,12 @@ public class CatalogInfoResponseLimits {
          */
         public CatalogInfoResponseLimits build() {
             return new CatalogInfoResponseLimits(batchUpsertMaxObjectsPerBatch,
-                batchUpsertMaxTotalObjects,
-                batchRetrieveMaxObjectIds,
-                searchMaxPageLimit,
-                batchDeleteMaxObjectIds,
-                updateItemTaxesMaxItemIds,
-                updateItemTaxesMaxTaxesToEnable,
-                updateItemTaxesMaxTaxesToDisable,
-                updateItemModifierListsMaxItemIds,
-                updateItemModifierListsMaxModifierListsToEnable,
-                updateItemModifierListsMaxModifierListsToDisable);
+                    batchUpsertMaxTotalObjects, batchRetrieveMaxObjectIds, searchMaxPageLimit,
+                    batchDeleteMaxObjectIds, updateItemTaxesMaxItemIds,
+                    updateItemTaxesMaxTaxesToEnable, updateItemTaxesMaxTaxesToDisable,
+                    updateItemModifierListsMaxItemIds,
+                    updateItemModifierListsMaxModifierListsToEnable,
+                    updateItemModifierListsMaxModifierListsToDisable);
         }
     }
 }

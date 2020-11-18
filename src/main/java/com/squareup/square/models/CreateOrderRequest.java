@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateOrderRequest type.
  */
@@ -68,7 +67,6 @@ public class CreateOrderRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, locationId, idempotencyKey);
@@ -89,15 +87,25 @@ public class CreateOrderRequest {
     }
 
     /**
+     * Converts this CreateOrderRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateOrderRequest [" + "order=" + order + ", locationId=" + locationId
+                + ", idempotencyKey=" + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link CreateOrderRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateOrderRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .locationId(getLocationId())
-            .idempotencyKey(getIdempotencyKey());
+                .order(getOrder())
+                .locationId(getLocationId())
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -146,9 +154,7 @@ public class CreateOrderRequest {
          * @return {@link CreateOrderRequest}
          */
         public CreateOrderRequest build() {
-            return new CreateOrderRequest(order,
-                locationId,
-                idempotencyKey);
+            return new CreateOrderRequest(order, locationId, idempotencyKey);
         }
     }
 }

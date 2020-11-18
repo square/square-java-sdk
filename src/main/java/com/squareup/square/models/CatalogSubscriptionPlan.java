@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogSubscriptionPlan type.
  */
@@ -49,7 +48,6 @@ public class CatalogSubscriptionPlan {
         return this.phases;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, phases);
@@ -69,14 +67,23 @@ public class CatalogSubscriptionPlan {
     }
 
     /**
+     * Converts this CatalogSubscriptionPlan into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogSubscriptionPlan [" + "name=" + name + ", phases=" + phases + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogSubscriptionPlan.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogSubscriptionPlan.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .phases(getPhases());
+                .name(getName())
+                .phases(getPhases());
         return builder;
     }
 
@@ -114,8 +121,7 @@ public class CatalogSubscriptionPlan {
          * @return {@link CatalogSubscriptionPlan}
          */
         public CatalogSubscriptionPlan build() {
-            return new CatalogSubscriptionPlan(name,
-                phases);
+            return new CatalogSubscriptionPlan(name, phases);
         }
     }
 }

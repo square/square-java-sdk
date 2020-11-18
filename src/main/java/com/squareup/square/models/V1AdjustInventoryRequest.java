@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1AdjustInventoryRequest type.
  */
@@ -60,7 +59,6 @@ public class V1AdjustInventoryRequest {
         return this.memo;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(quantityDelta, adjustmentType, memo);
@@ -81,15 +79,25 @@ public class V1AdjustInventoryRequest {
     }
 
     /**
+     * Converts this V1AdjustInventoryRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1AdjustInventoryRequest [" + "quantityDelta=" + quantityDelta + ", adjustmentType="
+                + adjustmentType + ", memo=" + memo + "]";
+    }
+
+    /**
      * Builds a new {@link V1AdjustInventoryRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1AdjustInventoryRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .quantityDelta(getQuantityDelta())
-            .adjustmentType(getAdjustmentType())
-            .memo(getMemo());
+                .quantityDelta(getQuantityDelta())
+                .adjustmentType(getAdjustmentType())
+                .memo(getMemo());
         return builder;
     }
 
@@ -138,9 +146,7 @@ public class V1AdjustInventoryRequest {
          * @return {@link V1AdjustInventoryRequest}
          */
         public V1AdjustInventoryRequest build() {
-            return new V1AdjustInventoryRequest(quantityDelta,
-                adjustmentType,
-                memo);
+            return new V1AdjustInventoryRequest(quantityDelta, adjustmentType, memo);
         }
     }
 }

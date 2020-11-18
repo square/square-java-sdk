@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderPricingOptions type.
  */
@@ -34,7 +33,6 @@ public class OrderPricingOptions {
         return this.autoApplyDiscounts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(autoApplyDiscounts);
@@ -53,13 +51,22 @@ public class OrderPricingOptions {
     }
 
     /**
+     * Converts this OrderPricingOptions into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderPricingOptions [" + "autoApplyDiscounts=" + autoApplyDiscounts + "]";
+    }
+
+    /**
      * Builds a new {@link OrderPricingOptions.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderPricingOptions.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .autoApplyDiscounts(getAutoApplyDiscounts());
+                .autoApplyDiscounts(getAutoApplyDiscounts());
         return builder;
     }
 

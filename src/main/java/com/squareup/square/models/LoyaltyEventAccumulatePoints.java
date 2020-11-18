@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventAccumulatePoints type.
  */
@@ -62,7 +61,6 @@ public class LoyaltyEventAccumulatePoints {
         return this.orderId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyProgramId, points, orderId);
@@ -83,15 +81,25 @@ public class LoyaltyEventAccumulatePoints {
     }
 
     /**
+     * Converts this LoyaltyEventAccumulatePoints into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventAccumulatePoints [" + "loyaltyProgramId=" + loyaltyProgramId
+                + ", points=" + points + ", orderId=" + orderId + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEventAccumulatePoints.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEventAccumulatePoints.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .loyaltyProgramId(getLoyaltyProgramId())
-            .points(getPoints())
-            .orderId(getOrderId());
+                .loyaltyProgramId(getLoyaltyProgramId())
+                .points(getPoints())
+                .orderId(getOrderId());
         return builder;
     }
 
@@ -140,9 +148,7 @@ public class LoyaltyEventAccumulatePoints {
          * @return {@link LoyaltyEventAccumulatePoints}
          */
         public LoyaltyEventAccumulatePoints build() {
-            return new LoyaltyEventAccumulatePoints(loyaltyProgramId,
-                points,
-                orderId);
+            return new LoyaltyEventAccumulatePoints(loyaltyProgramId, points, orderId);
         }
     }
 }

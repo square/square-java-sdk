@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTeamMembersResponse type.
  */
@@ -51,8 +50,8 @@ public class SearchTeamMembersResponse {
     /**
      * Getter for Cursor.
      * The opaque cursor for fetching the next page. Read about
-     * [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with
-     * Square APIs for more information.
+     * [pagination](https://developer.squareup.com/docs/working-with-apis/pagination) with Square
+     * APIs for more information.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -70,7 +69,6 @@ public class SearchTeamMembersResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMembers, cursor, errors);
@@ -91,15 +89,25 @@ public class SearchTeamMembersResponse {
     }
 
     /**
+     * Converts this SearchTeamMembersResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTeamMembersResponse [" + "teamMembers=" + teamMembers + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTeamMembersResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTeamMembersResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMembers(getTeamMembers())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .teamMembers(getTeamMembers())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchTeamMembersResponse {
          */
         public SearchTeamMembersResponse build() {
             SearchTeamMembersResponse model =
-                    new SearchTeamMembersResponse(teamMembers,
-                            cursor,
-                            errors);
+                    new SearchTeamMembersResponse(teamMembers, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

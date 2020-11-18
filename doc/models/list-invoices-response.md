@@ -12,7 +12,7 @@ Describes a `ListInvoice` response.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Invoices` | [`List<Invoice>`](/doc/models/invoice.md) | Optional | The invoices retrieved. | List<Invoice> getInvoices() |
-| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can use in a<br>subsequent request to fetch the next set of invoices. If empty, this is the final<br>response.<br>For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination). | String getCursor() |
+| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can use in a<br>subsequent request to fetch the next set of invoices. If empty, this is the final<br>response.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)

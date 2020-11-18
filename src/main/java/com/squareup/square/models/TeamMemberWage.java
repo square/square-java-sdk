@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TeamMemberWage type.
  */
@@ -80,7 +79,6 @@ public class TeamMemberWage {
         return this.hourlyRate;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, teamMemberId, title, hourlyRate);
@@ -102,16 +100,26 @@ public class TeamMemberWage {
     }
 
     /**
+     * Converts this TeamMemberWage into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TeamMemberWage [" + "id=" + id + ", teamMemberId=" + teamMemberId + ", title="
+                + title + ", hourlyRate=" + hourlyRate + "]";
+    }
+
+    /**
      * Builds a new {@link TeamMemberWage.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TeamMemberWage.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .teamMemberId(getTeamMemberId())
-            .title(getTitle())
-            .hourlyRate(getHourlyRate());
+                .id(getId())
+                .teamMemberId(getTeamMemberId())
+                .title(getTitle())
+                .hourlyRate(getHourlyRate());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class TeamMemberWage {
          * @return {@link TeamMemberWage}
          */
         public TeamMemberWage build() {
-            return new TeamMemberWage(id,
-                teamMemberId,
-                title,
-                hourlyRate);
+            return new TeamMemberWage(id, teamMemberId, title, hourlyRate);
         }
     }
 }

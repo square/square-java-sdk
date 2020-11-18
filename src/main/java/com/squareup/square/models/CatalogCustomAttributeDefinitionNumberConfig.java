@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogCustomAttributeDefinitionNumberConfig type.
  */
@@ -36,7 +35,6 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
         return this.precision;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(precision);
@@ -56,13 +54,22 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
     }
 
     /**
+     * Converts this CatalogCustomAttributeDefinitionNumberConfig into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogCustomAttributeDefinitionNumberConfig [" + "precision=" + precision + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogCustomAttributeDefinitionNumberConfig.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogCustomAttributeDefinitionNumberConfig.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .precision(getPrecision());
+                .precision(getPrecision());
         return builder;
     }
 

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CalculateOrderResponse type.
  */
@@ -57,7 +56,6 @@ public class CalculateOrderResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, errors);
@@ -77,14 +75,23 @@ public class CalculateOrderResponse {
     }
 
     /**
+     * Converts this CalculateOrderResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CalculateOrderResponse [" + "order=" + order + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link CalculateOrderResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CalculateOrderResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .errors(getErrors());
+                .order(getOrder())
+                .errors(getErrors());
         return builder;
     }
 
@@ -134,8 +141,7 @@ public class CalculateOrderResponse {
          */
         public CalculateOrderResponse build() {
             CalculateOrderResponse model =
-                    new CalculateOrderResponse(order,
-                            errors);
+                    new CalculateOrderResponse(order, errors);
             model.httpContext = httpContext;
             return model;
         }

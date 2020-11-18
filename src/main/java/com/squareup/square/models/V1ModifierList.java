@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ModifierList type.
  */
@@ -96,7 +95,6 @@ public class V1ModifierList {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, selectionType, modifierOptions, v2Id);
@@ -119,17 +117,27 @@ public class V1ModifierList {
     }
 
     /**
+     * Converts this V1ModifierList into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ModifierList [" + "id=" + id + ", name=" + name + ", selectionType="
+                + selectionType + ", modifierOptions=" + modifierOptions + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1ModifierList.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ModifierList.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .selectionType(getSelectionType())
-            .modifierOptions(getModifierOptions())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .selectionType(getSelectionType())
+                .modifierOptions(getModifierOptions())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -212,11 +220,7 @@ public class V1ModifierList {
          */
         public V1ModifierList build() {
             V1ModifierList model =
-                    new V1ModifierList(id,
-                            name,
-                            selectionType,
-                            modifierOptions,
-                            v2Id);
+                    new V1ModifierList(id, name, selectionType, modifierOptions, v2Id);
             model.httpContext = httpContext;
             return model;
         }

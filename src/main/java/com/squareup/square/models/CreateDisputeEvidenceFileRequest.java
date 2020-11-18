@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateDisputeEvidenceFileRequest type.
  */
@@ -34,7 +33,7 @@ public class CreateDisputeEvidenceFileRequest {
     /**
      * Getter for IdempotencyKey.
      * Unique ID. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -63,7 +62,6 @@ public class CreateDisputeEvidenceFileRequest {
         return this.contentType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, evidenceType, contentType);
@@ -84,14 +82,24 @@ public class CreateDisputeEvidenceFileRequest {
     }
 
     /**
+     * Converts this CreateDisputeEvidenceFileRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateDisputeEvidenceFileRequest [" + "idempotencyKey=" + idempotencyKey
+                + ", evidenceType=" + evidenceType + ", contentType=" + contentType + "]";
+    }
+
+    /**
      * Builds a new {@link CreateDisputeEvidenceFileRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateDisputeEvidenceFileRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
-            .evidenceType(getEvidenceType())
-            .contentType(getContentType());
+                .evidenceType(getEvidenceType())
+                .contentType(getContentType());
         return builder;
     }
 
@@ -146,9 +154,7 @@ public class CreateDisputeEvidenceFileRequest {
          * @return {@link CreateDisputeEvidenceFileRequest}
          */
         public CreateDisputeEvidenceFileRequest build() {
-            return new CreateDisputeEvidenceFileRequest(idempotencyKey,
-                evidenceType,
-                contentType);
+            return new CreateDisputeEvidenceFileRequest(idempotencyKey, evidenceType, contentType);
         }
     }
 }

@@ -4,8 +4,8 @@ package com.squareup.square.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
-
 
 /**
  * This is a model class for ObtainTokenRequest type.
@@ -18,6 +18,8 @@ public class ObtainTokenRequest {
     private final String grantType;
     private final String refreshToken;
     private final String migrationToken;
+    private final List<String> scopes;
+    private final Boolean shortLived;
 
     /**
      * Initialization constructor.
@@ -28,6 +30,8 @@ public class ObtainTokenRequest {
      * @param redirectUri String value for redirectUri.
      * @param refreshToken String value for refreshToken.
      * @param migrationToken String value for migrationToken.
+     * @param scopes List of String value for scopes.
+     * @param shortLived Boolean value for shortLived.
      */
     @JsonCreator
     public ObtainTokenRequest(
@@ -37,7 +41,9 @@ public class ObtainTokenRequest {
             @JsonProperty("code") String code,
             @JsonProperty("redirect_uri") String redirectUri,
             @JsonProperty("refresh_token") String refreshToken,
-            @JsonProperty("migration_token") String migrationToken) {
+            @JsonProperty("migration_token") String migrationToken,
+            @JsonProperty("scopes") List<String> scopes,
+            @JsonProperty("short_lived") Boolean shortLived) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.code = code;
@@ -45,6 +51,8 @@ public class ObtainTokenRequest {
         this.grantType = grantType;
         this.refreshToken = refreshToken;
         this.migrationToken = migrationToken;
+        this.scopes = scopes;
+        this.shortLived = shortLived;
     }
 
     /**
@@ -128,11 +136,35 @@ public class ObtainTokenRequest {
         return this.migrationToken;
     }
 
- 
+    /**
+     * Getter for Scopes.
+     * __OPTIONAL__ A JSON list of strings representing the permissions the application is
+     * requesting. For example: "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`"
+     * The access token returned in the response is granted the permissions that comprise the
+     * intersection between the requested list of permissions, and those that belong to the provided
+     * refresh token.
+     * @return Returns the List of String
+     */
+    @JsonGetter("scopes")
+    public List<String> getScopes() {
+        return this.scopes;
+    }
+
+    /**
+     * Getter for ShortLived.
+     * __OPTIONAL__ A boolean indicating a request for a short-lived access token. The short-lived
+     * access token returned in the response will expire in 24 hours.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("short_lived")
+    public Boolean getShortLived() {
+        return this.shortLived;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(clientId, clientSecret, code, redirectUri, grantType, refreshToken,
-                migrationToken);
+                migrationToken, scopes, shortLived);
     }
 
     @Override
@@ -150,7 +182,21 @@ public class ObtainTokenRequest {
             && Objects.equals(redirectUri, other.redirectUri)
             && Objects.equals(grantType, other.grantType)
             && Objects.equals(refreshToken, other.refreshToken)
-            && Objects.equals(migrationToken, other.migrationToken);
+            && Objects.equals(migrationToken, other.migrationToken)
+            && Objects.equals(scopes, other.scopes)
+            && Objects.equals(shortLived, other.shortLived);
+    }
+
+    /**
+     * Converts this ObtainTokenRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ObtainTokenRequest [" + "clientId=" + clientId + ", clientSecret=" + clientSecret
+                + ", grantType=" + grantType + ", code=" + code + ", redirectUri=" + redirectUri
+                + ", refreshToken=" + refreshToken + ", migrationToken=" + migrationToken
+                + ", scopes=" + scopes + ", shortLived=" + shortLived + "]";
     }
 
     /**
@@ -159,13 +205,13 @@ public class ObtainTokenRequest {
      * @return a new {@link ObtainTokenRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(clientId,
-            clientSecret,
-            grantType)
-            .code(getCode())
-            .redirectUri(getRedirectUri())
-            .refreshToken(getRefreshToken())
-            .migrationToken(getMigrationToken());
+        Builder builder = new Builder(clientId, clientSecret, grantType)
+                .code(getCode())
+                .redirectUri(getRedirectUri())
+                .refreshToken(getRefreshToken())
+                .migrationToken(getMigrationToken())
+                .scopes(getScopes())
+                .shortLived(getShortLived());
         return builder;
     }
 
@@ -180,6 +226,8 @@ public class ObtainTokenRequest {
         private String redirectUri;
         private String refreshToken;
         private String migrationToken;
+        private List<String> scopes;
+        private Boolean shortLived;
 
         /**
          * Initialization constructor.
@@ -266,17 +314,32 @@ public class ObtainTokenRequest {
         }
 
         /**
+         * Setter for scopes.
+         * @param scopes List of String value for scopes.
+         * @return Builder
+         */
+        public Builder scopes(List<String> scopes) {
+            this.scopes = scopes;
+            return this;
+        }
+
+        /**
+         * Setter for shortLived.
+         * @param shortLived Boolean value for shortLived.
+         * @return Builder
+         */
+        public Builder shortLived(Boolean shortLived) {
+            this.shortLived = shortLived;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ObtainTokenRequest} object using the set fields.
          * @return {@link ObtainTokenRequest}
          */
         public ObtainTokenRequest build() {
-            return new ObtainTokenRequest(clientId,
-                clientSecret,
-                grantType,
-                code,
-                redirectUri,
-                refreshToken,
-                migrationToken);
+            return new ObtainTokenRequest(clientId, clientSecret, grantType, code, redirectUri,
+                    refreshToken, migrationToken, scopes, shortLived);
         }
     }
 }

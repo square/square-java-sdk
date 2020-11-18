@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1UpdateOrderRequest type.
  */
@@ -90,7 +89,6 @@ public class V1UpdateOrderRequest {
         return this.canceledNote;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(action, shippedTrackingNumber, completedNote, refundedNote,
@@ -114,16 +112,27 @@ public class V1UpdateOrderRequest {
     }
 
     /**
+     * Converts this V1UpdateOrderRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1UpdateOrderRequest [" + "action=" + action + ", shippedTrackingNumber="
+                + shippedTrackingNumber + ", completedNote=" + completedNote + ", refundedNote="
+                + refundedNote + ", canceledNote=" + canceledNote + "]";
+    }
+
+    /**
      * Builds a new {@link V1UpdateOrderRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1UpdateOrderRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(action)
-            .shippedTrackingNumber(getShippedTrackingNumber())
-            .completedNote(getCompletedNote())
-            .refundedNote(getRefundedNote())
-            .canceledNote(getCanceledNote());
+                .shippedTrackingNumber(getShippedTrackingNumber())
+                .completedNote(getCompletedNote())
+                .refundedNote(getRefundedNote())
+                .canceledNote(getCanceledNote());
         return builder;
     }
 
@@ -200,11 +209,8 @@ public class V1UpdateOrderRequest {
          * @return {@link V1UpdateOrderRequest}
          */
         public V1UpdateOrderRequest build() {
-            return new V1UpdateOrderRequest(action,
-                shippedTrackingNumber,
-                completedNote,
-                refundedNote,
-                canceledNote);
+            return new V1UpdateOrderRequest(action, shippedTrackingNumber, completedNote,
+                    refundedNote, canceledNote);
         }
     }
 }

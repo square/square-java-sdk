@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListPaymentsRequest type.
  */
@@ -154,7 +153,6 @@ public class ListPaymentsRequest {
         return this.limit;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, total, last4,
@@ -182,21 +180,33 @@ public class ListPaymentsRequest {
     }
 
     /**
+     * Converts this ListPaymentsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListPaymentsRequest [" + "beginTime=" + beginTime + ", endTime=" + endTime
+                + ", sortOrder=" + sortOrder + ", cursor=" + cursor + ", locationId=" + locationId
+                + ", total=" + total + ", last4=" + last4 + ", cardBrand=" + cardBrand + ", limit="
+                + limit + "]";
+    }
+
+    /**
      * Builds a new {@link ListPaymentsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListPaymentsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .sortOrder(getSortOrder())
-            .cursor(getCursor())
-            .locationId(getLocationId())
-            .total(getTotal())
-            .last4(getLast4())
-            .cardBrand(getCardBrand())
-            .limit(getLimit());
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .sortOrder(getSortOrder())
+                .cursor(getCursor())
+                .locationId(getLocationId())
+                .total(getTotal())
+                .last4(getLast4())
+                .cardBrand(getCardBrand())
+                .limit(getLimit());
         return builder;
     }
 
@@ -311,15 +321,8 @@ public class ListPaymentsRequest {
          * @return {@link ListPaymentsRequest}
          */
         public ListPaymentsRequest build() {
-            return new ListPaymentsRequest(beginTime,
-                endTime,
-                sortOrder,
-                cursor,
-                locationId,
-                total,
-                last4,
-                cardBrand,
-                limit);
+            return new ListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
+                    last4, cardBrand, limit);
         }
     }
 }

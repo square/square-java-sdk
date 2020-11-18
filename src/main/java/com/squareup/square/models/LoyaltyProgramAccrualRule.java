@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyProgramAccrualRule type.
  */
@@ -101,7 +100,6 @@ public class LoyaltyProgramAccrualRule {
         return this.catalogObjectId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(accrualType, points, visitMinimumAmountMoney, spendAmountMoney,
@@ -125,16 +123,27 @@ public class LoyaltyProgramAccrualRule {
     }
 
     /**
+     * Converts this LoyaltyProgramAccrualRule into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyProgramAccrualRule [" + "accrualType=" + accrualType + ", points=" + points
+                + ", visitMinimumAmountMoney=" + visitMinimumAmountMoney + ", spendAmountMoney="
+                + spendAmountMoney + ", catalogObjectId=" + catalogObjectId + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyProgramAccrualRule.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyProgramAccrualRule.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(accrualType)
-            .points(getPoints())
-            .visitMinimumAmountMoney(getVisitMinimumAmountMoney())
-            .spendAmountMoney(getSpendAmountMoney())
-            .catalogObjectId(getCatalogObjectId());
+                .points(getPoints())
+                .visitMinimumAmountMoney(getVisitMinimumAmountMoney())
+                .spendAmountMoney(getSpendAmountMoney())
+                .catalogObjectId(getCatalogObjectId());
         return builder;
     }
 
@@ -211,11 +220,8 @@ public class LoyaltyProgramAccrualRule {
          * @return {@link LoyaltyProgramAccrualRule}
          */
         public LoyaltyProgramAccrualRule build() {
-            return new LoyaltyProgramAccrualRule(accrualType,
-                points,
-                visitMinimumAmountMoney,
-                spendAmountMoney,
-                catalogObjectId);
+            return new LoyaltyProgramAccrualRule(accrualType, points, visitMinimumAmountMoney,
+                    spendAmountMoney, catalogObjectId);
         }
     }
 }

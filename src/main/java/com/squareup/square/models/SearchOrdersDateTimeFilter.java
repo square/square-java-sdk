@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersDateTimeFilter type.
  */
@@ -70,7 +69,6 @@ public class SearchOrdersDateTimeFilter {
         return this.closedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(createdAt, updatedAt, closedAt);
@@ -91,15 +89,25 @@ public class SearchOrdersDateTimeFilter {
     }
 
     /**
+     * Converts this SearchOrdersDateTimeFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersDateTimeFilter [" + "createdAt=" + createdAt + ", updatedAt="
+                + updatedAt + ", closedAt=" + closedAt + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersDateTimeFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersDateTimeFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .closedAt(getClosedAt());
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .closedAt(getClosedAt());
         return builder;
     }
 
@@ -148,9 +156,7 @@ public class SearchOrdersDateTimeFilter {
          * @return {@link SearchOrdersDateTimeFilter}
          */
         public SearchOrdersDateTimeFilter build() {
-            return new SearchOrdersDateTimeFilter(createdAt,
-                updatedAt,
-                closedAt);
+            return new SearchOrdersDateTimeFilter(createdAt, updatedAt, closedAt);
         }
     }
 }

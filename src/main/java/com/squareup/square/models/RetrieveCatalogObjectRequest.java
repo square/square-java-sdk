@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveCatalogObjectRequest type.
  */
@@ -38,7 +37,6 @@ public class RetrieveCatalogObjectRequest {
         return this.includeRelatedObjects;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(includeRelatedObjects);
@@ -57,13 +55,23 @@ public class RetrieveCatalogObjectRequest {
     }
 
     /**
+     * Converts this RetrieveCatalogObjectRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveCatalogObjectRequest [" + "includeRelatedObjects=" + includeRelatedObjects
+                + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveCatalogObjectRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveCatalogObjectRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .includeRelatedObjects(getIncludeRelatedObjects());
+                .includeRelatedObjects(getIncludeRelatedObjects());
         return builder;
     }
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for PublishInvoiceRequest type.
  */
@@ -43,7 +42,7 @@ public class PublishInvoiceRequest {
      * A unique string that identifies the `PublishInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
      * as independent. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -51,7 +50,6 @@ public class PublishInvoiceRequest {
         return this.idempotencyKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(version, idempotencyKey);
@@ -71,13 +69,23 @@ public class PublishInvoiceRequest {
     }
 
     /**
+     * Converts this PublishInvoiceRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "PublishInvoiceRequest [" + "version=" + version + ", idempotencyKey="
+                + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link PublishInvoiceRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link PublishInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(version)
-            .idempotencyKey(getIdempotencyKey());
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -121,8 +129,7 @@ public class PublishInvoiceRequest {
          * @return {@link PublishInvoiceRequest}
          */
         public PublishInvoiceRequest build() {
-            return new PublishInvoiceRequest(version,
-                idempotencyKey);
+            return new PublishInvoiceRequest(version, idempotencyKey);
         }
     }
 }

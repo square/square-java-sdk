@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateRefundRequest type.
  */
@@ -85,7 +84,6 @@ public class CreateRefundRequest {
         return this.amountMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, tenderId, reason, amountMoney);
@@ -107,15 +105,23 @@ public class CreateRefundRequest {
     }
 
     /**
+     * Converts this CreateRefundRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateRefundRequest [" + "idempotencyKey=" + idempotencyKey + ", tenderId="
+                + tenderId + ", amountMoney=" + amountMoney + ", reason=" + reason + "]";
+    }
+
+    /**
      * Builds a new {@link CreateRefundRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateRefundRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            tenderId,
-            amountMoney)
-            .reason(getReason());
+        Builder builder = new Builder(idempotencyKey, tenderId, amountMoney)
+                .reason(getReason());
         return builder;
     }
 
@@ -187,10 +193,7 @@ public class CreateRefundRequest {
          * @return {@link CreateRefundRequest}
          */
         public CreateRefundRequest build() {
-            return new CreateRefundRequest(idempotencyKey,
-                tenderId,
-                amountMoney,
-                reason);
+            return new CreateRefundRequest(idempotencyKey, tenderId, amountMoney, reason);
         }
     }
 }

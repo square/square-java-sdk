@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for InventoryChange type.
  */
@@ -80,7 +79,6 @@ public class InventoryChange {
         return this.transfer;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(type, physicalCount, adjustment, transfer);
@@ -102,16 +100,26 @@ public class InventoryChange {
     }
 
     /**
+     * Converts this InventoryChange into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "InventoryChange [" + "type=" + type + ", physicalCount=" + physicalCount
+                + ", adjustment=" + adjustment + ", transfer=" + transfer + "]";
+    }
+
+    /**
      * Builds a new {@link InventoryChange.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link InventoryChange.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .type(getType())
-            .physicalCount(getPhysicalCount())
-            .adjustment(getAdjustment())
-            .transfer(getTransfer());
+                .type(getType())
+                .physicalCount(getPhysicalCount())
+                .adjustment(getAdjustment())
+                .transfer(getTransfer());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class InventoryChange {
          * @return {@link InventoryChange}
          */
         public InventoryChange build() {
-            return new InventoryChange(type,
-                physicalCount,
-                adjustment,
-                transfer);
+            return new InventoryChange(type, physicalCount, adjustment, transfer);
         }
     }
 }

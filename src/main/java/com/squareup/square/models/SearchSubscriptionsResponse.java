@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchSubscriptionsResponse type.
  */
@@ -63,7 +62,7 @@ public class SearchSubscriptionsResponse {
      * When a response is truncated, it includes a cursor that you can use in a subsequent request
      * to fetch the next set of subscriptions. If empty, this is the final response. For more
      * information, see
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -71,7 +70,6 @@ public class SearchSubscriptionsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, subscriptions, cursor);
@@ -92,15 +90,25 @@ public class SearchSubscriptionsResponse {
     }
 
     /**
+     * Converts this SearchSubscriptionsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchSubscriptionsResponse [" + "errors=" + errors + ", subscriptions="
+                + subscriptions + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchSubscriptionsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchSubscriptionsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .subscriptions(getSubscriptions())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .subscriptions(getSubscriptions())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class SearchSubscriptionsResponse {
          */
         public SearchSubscriptionsResponse build() {
             SearchSubscriptionsResponse model =
-                    new SearchSubscriptionsResponse(errors,
-                            subscriptions,
-                            cursor);
+                    new SearchSubscriptionsResponse(errors, subscriptions, cursor);
             model.httpContext = httpContext;
             return model;
         }

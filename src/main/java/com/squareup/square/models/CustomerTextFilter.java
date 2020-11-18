@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerTextFilter type.
  */
@@ -50,7 +49,6 @@ public class CustomerTextFilter {
         return this.fuzzy;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(exact, fuzzy);
@@ -70,14 +68,23 @@ public class CustomerTextFilter {
     }
 
     /**
+     * Converts this CustomerTextFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerTextFilter [" + "exact=" + exact + ", fuzzy=" + fuzzy + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerTextFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerTextFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .exact(getExact())
-            .fuzzy(getFuzzy());
+                .exact(getExact())
+                .fuzzy(getFuzzy());
         return builder;
     }
 
@@ -115,8 +122,7 @@ public class CustomerTextFilter {
          * @return {@link CustomerTextFilter}
          */
         public CustomerTextFilter build() {
-            return new CustomerTextFilter(exact,
-                fuzzy);
+            return new CustomerTextFilter(exact, fuzzy);
         }
     }
 }

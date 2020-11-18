@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyAccount type.
  */
@@ -151,7 +150,6 @@ public class LoyaltyAccount {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, mappings, programId, balance, lifetimePoints, customerId,
@@ -179,20 +177,31 @@ public class LoyaltyAccount {
     }
 
     /**
+     * Converts this LoyaltyAccount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyAccount [" + "mappings=" + mappings + ", programId=" + programId + ", id="
+                + id + ", balance=" + balance + ", lifetimePoints=" + lifetimePoints
+                + ", customerId=" + customerId + ", enrolledAt=" + enrolledAt + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyAccount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyAccount.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(mappings,
-            programId)
-            .id(getId())
-            .balance(getBalance())
-            .lifetimePoints(getLifetimePoints())
-            .customerId(getCustomerId())
-            .enrolledAt(getEnrolledAt())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(mappings, programId)
+                .id(getId())
+                .balance(getBalance())
+                .lifetimePoints(getLifetimePoints())
+                .customerId(getCustomerId())
+                .enrolledAt(getEnrolledAt())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -316,15 +325,8 @@ public class LoyaltyAccount {
          * @return {@link LoyaltyAccount}
          */
         public LoyaltyAccount build() {
-            return new LoyaltyAccount(mappings,
-                programId,
-                id,
-                balance,
-                lifetimePoints,
-                customerId,
-                enrolledAt,
-                createdAt,
-                updatedAt);
+            return new LoyaltyAccount(mappings, programId, id, balance, lifetimePoints, customerId,
+                    enrolledAt, createdAt, updatedAt);
         }
     }
 }

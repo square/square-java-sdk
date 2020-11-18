@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQuickAmountsSettings type.
  */
@@ -63,7 +62,6 @@ public class CatalogQuickAmountsSettings {
         return this.amounts;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(option, eligibleForAutoAmounts, amounts);
@@ -84,14 +82,24 @@ public class CatalogQuickAmountsSettings {
     }
 
     /**
+     * Converts this CatalogQuickAmountsSettings into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQuickAmountsSettings [" + "option=" + option + ", eligibleForAutoAmounts="
+                + eligibleForAutoAmounts + ", amounts=" + amounts + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQuickAmountsSettings.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQuickAmountsSettings.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(option)
-            .eligibleForAutoAmounts(getEligibleForAutoAmounts())
-            .amounts(getAmounts());
+                .eligibleForAutoAmounts(getEligibleForAutoAmounts())
+                .amounts(getAmounts());
         return builder;
     }
 
@@ -146,9 +154,7 @@ public class CatalogQuickAmountsSettings {
          * @return {@link CatalogQuickAmountsSettings}
          */
         public CatalogQuickAmountsSettings build() {
-            return new CatalogQuickAmountsSettings(option,
-                eligibleForAutoAmounts,
-                amounts);
+            return new CatalogQuickAmountsSettings(option, eligibleForAutoAmounts, amounts);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateBreakTypeRequest type.
  */
@@ -48,7 +47,6 @@ public class CreateBreakTypeRequest {
         return this.breakType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, breakType);
@@ -68,13 +66,23 @@ public class CreateBreakTypeRequest {
     }
 
     /**
+     * Converts this CreateBreakTypeRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateBreakTypeRequest [" + "breakType=" + breakType + ", idempotencyKey="
+                + idempotencyKey + "]";
+    }
+
+    /**
      * Builds a new {@link CreateBreakTypeRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateBreakTypeRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(breakType)
-            .idempotencyKey(getIdempotencyKey());
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -118,8 +126,7 @@ public class CreateBreakTypeRequest {
          * @return {@link CreateBreakTypeRequest}
          */
         public CreateBreakTypeRequest build() {
-            return new CreateBreakTypeRequest(breakType,
-                idempotencyKey);
+            return new CreateBreakTypeRequest(breakType, idempotencyKey);
         }
     }
 }

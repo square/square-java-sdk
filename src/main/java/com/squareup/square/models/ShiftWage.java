@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ShiftWage type.
  */
@@ -53,7 +52,6 @@ public class ShiftWage {
         return this.hourlyRate;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(title, hourlyRate);
@@ -73,14 +71,23 @@ public class ShiftWage {
     }
 
     /**
+     * Converts this ShiftWage into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ShiftWage [" + "title=" + title + ", hourlyRate=" + hourlyRate + "]";
+    }
+
+    /**
      * Builds a new {@link ShiftWage.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ShiftWage.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .title(getTitle())
-            .hourlyRate(getHourlyRate());
+                .title(getTitle())
+                .hourlyRate(getHourlyRate());
         return builder;
     }
 
@@ -118,8 +125,7 @@ public class ShiftWage {
          * @return {@link ShiftWage}
          */
         public ShiftWage build() {
-            return new ShiftWage(title,
-                hourlyRate);
+            return new ShiftWage(title, hourlyRate);
         }
     }
 }

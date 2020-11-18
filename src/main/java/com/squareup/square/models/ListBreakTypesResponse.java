@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListBreakTypesResponse type.
  */
@@ -68,7 +67,6 @@ public class ListBreakTypesResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(breakTypes, cursor, errors);
@@ -89,15 +87,25 @@ public class ListBreakTypesResponse {
     }
 
     /**
+     * Converts this ListBreakTypesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListBreakTypesResponse [" + "breakTypes=" + breakTypes + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListBreakTypesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListBreakTypesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .breakTypes(getBreakTypes())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .breakTypes(getBreakTypes())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -158,9 +166,7 @@ public class ListBreakTypesResponse {
          */
         public ListBreakTypesResponse build() {
             ListBreakTypesResponse model =
-                    new ListBreakTypesResponse(breakTypes,
-                            cursor,
-                            errors);
+                    new ListBreakTypesResponse(breakTypes, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

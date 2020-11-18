@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RefundPaymentResponse type.
  */
@@ -36,7 +35,7 @@ public class RefundPaymentResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -46,7 +45,7 @@ public class RefundPaymentResponse {
 
     /**
      * Getter for Refund.
-     * Represents a refund of a payment made using Square. Contains information on the original
+     * Represents a refund of a payment made using Square. Contains information about the original
      * payment and the amount of money refunded.
      * @return Returns the PaymentRefund
      */
@@ -55,7 +54,6 @@ public class RefundPaymentResponse {
         return this.refund;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, refund);
@@ -75,14 +73,23 @@ public class RefundPaymentResponse {
     }
 
     /**
+     * Converts this RefundPaymentResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RefundPaymentResponse [" + "errors=" + errors + ", refund=" + refund + "]";
+    }
+
+    /**
      * Builds a new {@link RefundPaymentResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RefundPaymentResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .refund(getRefund());
+                .errors(getErrors())
+                .refund(getRefund());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class RefundPaymentResponse {
          */
         public RefundPaymentResponse build() {
             RefundPaymentResponse model =
-                    new RefundPaymentResponse(errors,
-                            refund);
+                    new RefundPaymentResponse(errors, refund);
             model.httpContext = httpContext;
             return model;
         }

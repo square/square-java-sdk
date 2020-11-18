@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderUpdated type.
  */
@@ -58,7 +57,7 @@ public class OrderUpdated {
      * Version number which is incremented each time an update is committed to the order. Orders
      * that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with
-     * versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders)
+     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -106,7 +105,6 @@ public class OrderUpdated {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId, version, locationId, state, createdAt, updatedAt);
@@ -130,18 +128,29 @@ public class OrderUpdated {
     }
 
     /**
+     * Converts this OrderUpdated into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderUpdated [" + "orderId=" + orderId + ", version=" + version + ", locationId="
+                + locationId + ", state=" + state + ", createdAt=" + createdAt + ", updatedAt="
+                + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link OrderUpdated.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderUpdated.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderId(getOrderId())
-            .version(getVersion())
-            .locationId(getLocationId())
-            .state(getState())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+                .orderId(getOrderId())
+                .version(getVersion())
+                .locationId(getLocationId())
+                .state(getState())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -223,12 +232,7 @@ public class OrderUpdated {
          * @return {@link OrderUpdated}
          */
         public OrderUpdated build() {
-            return new OrderUpdated(orderId,
-                version,
-                locationId,
-                state,
-                createdAt,
-                updatedAt);
+            return new OrderUpdated(orderId, version, locationId, state, createdAt, updatedAt);
         }
     }
 }

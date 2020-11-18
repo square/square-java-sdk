@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ShiftQuery type.
  */
@@ -48,7 +47,6 @@ public class ShiftQuery {
         return this.sort;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filter, sort);
@@ -68,14 +66,23 @@ public class ShiftQuery {
     }
 
     /**
+     * Converts this ShiftQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ShiftQuery [" + "filter=" + filter + ", sort=" + sort + "]";
+    }
+
+    /**
      * Builds a new {@link ShiftQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ShiftQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .filter(getFilter())
-            .sort(getSort());
+                .filter(getFilter())
+                .sort(getSort());
         return builder;
     }
 
@@ -113,8 +120,7 @@ public class ShiftQuery {
          * @return {@link ShiftQuery}
          */
         public ShiftQuery build() {
-            return new ShiftQuery(filter,
-                sort);
+            return new ShiftQuery(filter, sort);
         }
     }
 }

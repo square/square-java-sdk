@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateCustomerRequest type.
  */
@@ -179,7 +178,6 @@ public class CreateCustomerRequest {
         return this.birthday;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, givenName, familyName, companyName, nickname,
@@ -209,23 +207,36 @@ public class CreateCustomerRequest {
     }
 
     /**
+     * Converts this CreateCustomerRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateCustomerRequest [" + "idempotencyKey=" + idempotencyKey + ", givenName="
+                + givenName + ", familyName=" + familyName + ", companyName=" + companyName
+                + ", nickname=" + nickname + ", emailAddress=" + emailAddress + ", address="
+                + address + ", phoneNumber=" + phoneNumber + ", referenceId=" + referenceId
+                + ", note=" + note + ", birthday=" + birthday + "]";
+    }
+
+    /**
      * Builds a new {@link CreateCustomerRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateCustomerRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .idempotencyKey(getIdempotencyKey())
-            .givenName(getGivenName())
-            .familyName(getFamilyName())
-            .companyName(getCompanyName())
-            .nickname(getNickname())
-            .emailAddress(getEmailAddress())
-            .address(getAddress())
-            .phoneNumber(getPhoneNumber())
-            .referenceId(getReferenceId())
-            .note(getNote())
-            .birthday(getBirthday());
+                .idempotencyKey(getIdempotencyKey())
+                .givenName(getGivenName())
+                .familyName(getFamilyName())
+                .companyName(getCompanyName())
+                .nickname(getNickname())
+                .emailAddress(getEmailAddress())
+                .address(getAddress())
+                .phoneNumber(getPhoneNumber())
+                .referenceId(getReferenceId())
+                .note(getNote())
+                .birthday(getBirthday());
         return builder;
     }
 
@@ -362,17 +373,8 @@ public class CreateCustomerRequest {
          * @return {@link CreateCustomerRequest}
          */
         public CreateCustomerRequest build() {
-            return new CreateCustomerRequest(idempotencyKey,
-                givenName,
-                familyName,
-                companyName,
-                nickname,
-                emailAddress,
-                address,
-                phoneNumber,
-                referenceId,
-                note,
-                birthday);
+            return new CreateCustomerRequest(idempotencyKey, givenName, familyName, companyName,
+                    nickname, emailAddress, address, phoneNumber, referenceId, note, birthday);
         }
     }
 }

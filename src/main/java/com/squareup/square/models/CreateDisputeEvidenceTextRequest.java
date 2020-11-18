@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateDisputeEvidenceTextRequest type.
  */
@@ -34,7 +33,7 @@ public class CreateDisputeEvidenceTextRequest {
     /**
      * Getter for IdempotencyKey.
      * Unique ID. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -62,7 +61,6 @@ public class CreateDisputeEvidenceTextRequest {
         return this.evidenceText;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, evidenceType, evidenceText);
@@ -83,14 +81,23 @@ public class CreateDisputeEvidenceTextRequest {
     }
 
     /**
+     * Converts this CreateDisputeEvidenceTextRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateDisputeEvidenceTextRequest [" + "idempotencyKey=" + idempotencyKey
+                + ", evidenceText=" + evidenceText + ", evidenceType=" + evidenceType + "]";
+    }
+
+    /**
      * Builds a new {@link CreateDisputeEvidenceTextRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateDisputeEvidenceTextRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            evidenceText)
-            .evidenceType(getEvidenceType());
+        Builder builder = new Builder(idempotencyKey, evidenceText)
+                .evidenceType(getEvidenceType());
         return builder;
     }
 
@@ -148,9 +155,7 @@ public class CreateDisputeEvidenceTextRequest {
          * @return {@link CreateDisputeEvidenceTextRequest}
          */
         public CreateDisputeEvidenceTextRequest build() {
-            return new CreateDisputeEvidenceTextRequest(idempotencyKey,
-                evidenceText,
-                evidenceType);
+            return new CreateDisputeEvidenceTextRequest(idempotencyKey, evidenceText, evidenceType);
         }
     }
 }

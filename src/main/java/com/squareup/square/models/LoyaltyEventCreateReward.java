@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventCreateReward type.
  */
@@ -62,7 +61,6 @@ public class LoyaltyEventCreateReward {
         return this.points;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyProgramId, rewardId, points);
@@ -83,14 +81,23 @@ public class LoyaltyEventCreateReward {
     }
 
     /**
+     * Converts this LoyaltyEventCreateReward into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventCreateReward [" + "loyaltyProgramId=" + loyaltyProgramId + ", points="
+                + points + ", rewardId=" + rewardId + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEventCreateReward.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEventCreateReward.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(loyaltyProgramId,
-            points)
-            .rewardId(getRewardId());
+        Builder builder = new Builder(loyaltyProgramId, points)
+                .rewardId(getRewardId());
         return builder;
     }
 
@@ -148,9 +155,7 @@ public class LoyaltyEventCreateReward {
          * @return {@link LoyaltyEventCreateReward}
          */
         public LoyaltyEventCreateReward build() {
-            return new LoyaltyEventCreateReward(loyaltyProgramId,
-                points,
-                rewardId);
+            return new LoyaltyEventCreateReward(loyaltyProgramId, points, rewardId);
         }
     }
 }

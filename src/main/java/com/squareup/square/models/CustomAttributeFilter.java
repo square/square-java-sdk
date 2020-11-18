@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomAttributeFilter type.
  */
@@ -109,7 +108,6 @@ public class CustomAttributeFilter {
         return this.boolFilter;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(customAttributeDefinitionId, key, stringFilter, numberFilter,
@@ -134,18 +132,30 @@ public class CustomAttributeFilter {
     }
 
     /**
+     * Converts this CustomAttributeFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomAttributeFilter [" + "customAttributeDefinitionId="
+                + customAttributeDefinitionId + ", key=" + key + ", stringFilter=" + stringFilter
+                + ", numberFilter=" + numberFilter + ", selectionUidsFilter=" + selectionUidsFilter
+                + ", boolFilter=" + boolFilter + "]";
+    }
+
+    /**
      * Builds a new {@link CustomAttributeFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomAttributeFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .customAttributeDefinitionId(getCustomAttributeDefinitionId())
-            .key(getKey())
-            .stringFilter(getStringFilter())
-            .numberFilter(getNumberFilter())
-            .selectionUidsFilter(getSelectionUidsFilter())
-            .boolFilter(getBoolFilter());
+                .customAttributeDefinitionId(getCustomAttributeDefinitionId())
+                .key(getKey())
+                .stringFilter(getStringFilter())
+                .numberFilter(getNumberFilter())
+                .selectionUidsFilter(getSelectionUidsFilter())
+                .boolFilter(getBoolFilter());
         return builder;
     }
 
@@ -227,12 +237,8 @@ public class CustomAttributeFilter {
          * @return {@link CustomAttributeFilter}
          */
         public CustomAttributeFilter build() {
-            return new CustomAttributeFilter(customAttributeDefinitionId,
-                key,
-                stringFilter,
-                numberFilter,
-                selectionUidsFilter,
-                boolFilter);
+            return new CustomAttributeFilter(customAttributeDefinitionId, key, stringFilter,
+                    numberFilter, selectionUidsFilter, boolFilter);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventDateTimeFilter type.
  */
@@ -36,7 +35,6 @@ public class LoyaltyEventDateTimeFilter {
         return this.createdAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(createdAt);
@@ -52,6 +50,15 @@ public class LoyaltyEventDateTimeFilter {
         }
         LoyaltyEventDateTimeFilter other = (LoyaltyEventDateTimeFilter) obj;
         return Objects.equals(createdAt, other.createdAt);
+    }
+
+    /**
+     * Converts this LoyaltyEventDateTimeFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventDateTimeFilter [" + "createdAt=" + createdAt + "]";
     }
 
     /**

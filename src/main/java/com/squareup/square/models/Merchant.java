@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Merchant type.
  */
@@ -118,7 +117,6 @@ public class Merchant {
         return this.mainLocationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, businessName, country, languageCode, currency, status,
@@ -144,18 +142,29 @@ public class Merchant {
     }
 
     /**
+     * Converts this Merchant into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Merchant [" + "country=" + country + ", id=" + id + ", businessName=" + businessName
+                + ", languageCode=" + languageCode + ", currency=" + currency + ", status=" + status
+                + ", mainLocationId=" + mainLocationId + "]";
+    }
+
+    /**
      * Builds a new {@link Merchant.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Merchant.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(country)
-            .id(getId())
-            .businessName(getBusinessName())
-            .languageCode(getLanguageCode())
-            .currency(getCurrency())
-            .status(getStatus())
-            .mainLocationId(getMainLocationId());
+                .id(getId())
+                .businessName(getBusinessName())
+                .languageCode(getLanguageCode())
+                .currency(getCurrency())
+                .status(getStatus())
+                .mainLocationId(getMainLocationId());
         return builder;
     }
 
@@ -254,13 +263,8 @@ public class Merchant {
          * @return {@link Merchant}
          */
         public Merchant build() {
-            return new Merchant(country,
-                id,
-                businessName,
-                languageCode,
-                currency,
-                status,
-                mainLocationId);
+            return new Merchant(country, id, businessName, languageCode, currency, status,
+                    mainLocationId);
         }
     }
 }

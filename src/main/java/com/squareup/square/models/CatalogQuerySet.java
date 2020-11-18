@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQuerySet type.
  */
@@ -49,7 +48,6 @@ public class CatalogQuerySet {
         return this.attributeValues;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(attributeName, attributeValues);
@@ -69,13 +67,22 @@ public class CatalogQuerySet {
     }
 
     /**
+     * Converts this CatalogQuerySet into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQuerySet [" + "attributeName=" + attributeName + ", attributeValues="
+                + attributeValues + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQuerySet.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQuerySet.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(attributeName,
-            attributeValues);
+        Builder builder = new Builder(attributeName, attributeValues);
         return builder;
     }
 
@@ -122,8 +129,7 @@ public class CatalogQuerySet {
          * @return {@link CatalogQuerySet}
          */
         public CatalogQuerySet build() {
-            return new CatalogQuerySet(attributeName,
-                attributeValues);
+            return new CatalogQuerySet(attributeName, attributeValues);
         }
     }
 }

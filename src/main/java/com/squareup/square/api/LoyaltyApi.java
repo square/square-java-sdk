@@ -105,8 +105,8 @@ public interface LoyaltyApi {
      * client-side computation to compute the points. For spend-based and visit-based programs, you
      * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
      * points. For more information, see [Loyalty Program
-     * Overview](https://developer.squareup.com/docs/docs/loyalty/overview). You then provide the
-     * points in a request to this endpoint.
+     * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
+     * in a request to this endpoint.
      * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
      *         which to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -126,8 +126,8 @@ public interface LoyaltyApi {
      * client-side computation to compute the points. For spend-based and visit-based programs, you
      * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
      * points. For more information, see [Loyalty Program
-     * Overview](https://developer.squareup.com/docs/docs/loyalty/overview). You then provide the
-     * points in a request to this endpoint.
+     * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
+     * in a request to this endpoint.
      * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
      *         which to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

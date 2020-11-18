@@ -3,7 +3,7 @@
 
 Represents a bank account. For more information about
 linking a bank account to a Square account, see
-[Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api).
+[Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api).
 
 ## Structure
 
@@ -19,8 +19,8 @@ linking a bank account to a Square account, see
 | `Currency` | [`String`](/doc/models/currency.md) |  | Indicates the associated currency for an amount of money. Values correspond<br>to [ISO 4217](https://wikipedia.org/wiki/ISO_4217). | String getCurrency() |
 | `AccountType` | [`String`](/doc/models/bank-account-type.md) |  | Indicates the financial purpose of the bank account. | String getAccountType() |
 | `HolderName` | `String` |  | Name of the account holder. This name must match the name<br>on the targeted bank account record. | String getHolderName() |
-| `PrimaryBankIdentificationNumber` | `String` |  | Primary identifier for the bank. For more information, see<br>[Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api). | String getPrimaryBankIdentificationNumber() |
-| `SecondaryBankIdentificationNumber` | `String` | Optional | Secondary identifier for the bank. For more information, see<br>[Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api). | String getSecondaryBankIdentificationNumber() |
+| `PrimaryBankIdentificationNumber` | `String` |  | Primary identifier for the bank. For more information, see<br>[Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api). | String getPrimaryBankIdentificationNumber() |
+| `SecondaryBankIdentificationNumber` | `String` | Optional | Secondary identifier for the bank. For more information, see<br>[Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api). | String getSecondaryBankIdentificationNumber() |
 | `DebitMandateReferenceId` | `String` | Optional | Reference identifier that will be displayed to UK bank account owners<br>when collecting direct debit authorization. Only required for UK bank accounts. | String getDebitMandateReferenceId() |
 | `ReferenceId` | `String` | Optional | Client-provided identifier for linking the banking account to an entity<br>in a third-party system (for example, a bank account number or a user identifier). | String getReferenceId() |
 | `LocationId` | `String` | Optional | The location to which the bank account belongs. | String getLocationId() |

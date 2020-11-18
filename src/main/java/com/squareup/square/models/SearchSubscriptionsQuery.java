@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchSubscriptionsQuery type.
  */
@@ -34,7 +33,6 @@ public class SearchSubscriptionsQuery {
         return this.filter;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filter);
@@ -53,13 +51,22 @@ public class SearchSubscriptionsQuery {
     }
 
     /**
+     * Converts this SearchSubscriptionsQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchSubscriptionsQuery [" + "filter=" + filter + "]";
+    }
+
+    /**
      * Builds a new {@link SearchSubscriptionsQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchSubscriptionsQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .filter(getFilter());
+                .filter(getFilter());
         return builder;
     }
 

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveInventoryCountResponse type.
  */
@@ -62,8 +61,8 @@ public class RetrieveInventoryCountResponse {
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If unset, this is the final
      * response. See the
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for
-     * more information.
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -71,7 +70,6 @@ public class RetrieveInventoryCountResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, counts, cursor);
@@ -92,15 +90,25 @@ public class RetrieveInventoryCountResponse {
     }
 
     /**
+     * Converts this RetrieveInventoryCountResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveInventoryCountResponse [" + "errors=" + errors + ", counts=" + counts
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveInventoryCountResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveInventoryCountResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .counts(getCounts())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .counts(getCounts())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class RetrieveInventoryCountResponse {
          */
         public RetrieveInventoryCountResponse build() {
             RetrieveInventoryCountResponse model =
-                    new RetrieveInventoryCountResponse(errors,
-                            counts,
-                            cursor);
+                    new RetrieveInventoryCountResponse(errors, counts, cursor);
             model.httpContext = httpContext;
             return model;
         }

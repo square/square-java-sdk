@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListBreakTypesRequest type.
  */
@@ -62,7 +61,6 @@ public class ListBreakTypesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationId, limit, cursor);
@@ -83,15 +81,25 @@ public class ListBreakTypesRequest {
     }
 
     /**
+     * Converts this ListBreakTypesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListBreakTypesRequest [" + "locationId=" + locationId + ", limit=" + limit
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListBreakTypesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListBreakTypesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationId(getLocationId())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .locationId(getLocationId())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -140,9 +148,7 @@ public class ListBreakTypesRequest {
          * @return {@link ListBreakTypesRequest}
          */
         public ListBreakTypesRequest build() {
-            return new ListBreakTypesRequest(locationId,
-                limit,
-                cursor);
+            return new ListBreakTypesRequest(locationId, limit, cursor);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelSubscriptionResponse type.
  */
@@ -48,7 +47,7 @@ public class CancelSubscriptionResponse {
      * Getter for Subscription.
      * Represents a customer subscription to a subscription plan. For an overview of the
      * `Subscription` type, see [Subscription
-     * object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object-overview).
+     * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")
@@ -56,7 +55,6 @@ public class CancelSubscriptionResponse {
         return this.subscription;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, subscription);
@@ -76,14 +74,24 @@ public class CancelSubscriptionResponse {
     }
 
     /**
+     * Converts this CancelSubscriptionResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelSubscriptionResponse [" + "errors=" + errors + ", subscription="
+                + subscription + "]";
+    }
+
+    /**
      * Builds a new {@link CancelSubscriptionResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CancelSubscriptionResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .subscription(getSubscription());
+                .errors(getErrors())
+                .subscription(getSubscription());
         return builder;
     }
 
@@ -133,8 +141,7 @@ public class CancelSubscriptionResponse {
          */
         public CancelSubscriptionResponse build() {
             CancelSubscriptionResponse model =
-                    new CancelSubscriptionResponse(errors,
-                            subscription);
+                    new CancelSubscriptionResponse(errors, subscription);
             model.httpContext = httpContext;
             return model;
         }

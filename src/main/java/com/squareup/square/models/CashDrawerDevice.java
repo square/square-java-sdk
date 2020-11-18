@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CashDrawerDevice type.
  */
@@ -47,7 +46,6 @@ public class CashDrawerDevice {
         return this.name;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
@@ -67,14 +65,23 @@ public class CashDrawerDevice {
     }
 
     /**
+     * Converts this CashDrawerDevice into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CashDrawerDevice [" + "id=" + id + ", name=" + name + "]";
+    }
+
+    /**
      * Builds a new {@link CashDrawerDevice.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CashDrawerDevice.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName());
+                .id(getId())
+                .name(getName());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class CashDrawerDevice {
          * @return {@link CashDrawerDevice}
          */
         public CashDrawerDevice build() {
-            return new CashDrawerDevice(id,
-                name);
+            return new CashDrawerDevice(id, name);
         }
     }
 }

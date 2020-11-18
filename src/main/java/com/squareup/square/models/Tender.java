@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Tender type.
  */
@@ -234,7 +233,6 @@ public class Tender {
         return this.paymentId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, transactionId, createdAt, note, amountMoney, tipMoney,
@@ -268,25 +266,40 @@ public class Tender {
     }
 
     /**
+     * Converts this Tender into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Tender [" + "type=" + type + ", id=" + id + ", locationId=" + locationId
+                + ", transactionId=" + transactionId + ", createdAt=" + createdAt + ", note=" + note
+                + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney
+                + ", processingFeeMoney=" + processingFeeMoney + ", customerId=" + customerId
+                + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
+                + ", additionalRecipients=" + additionalRecipients + ", paymentId=" + paymentId
+                + "]";
+    }
+
+    /**
      * Builds a new {@link Tender.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Tender.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(type)
-            .id(getId())
-            .locationId(getLocationId())
-            .transactionId(getTransactionId())
-            .createdAt(getCreatedAt())
-            .note(getNote())
-            .amountMoney(getAmountMoney())
-            .tipMoney(getTipMoney())
-            .processingFeeMoney(getProcessingFeeMoney())
-            .customerId(getCustomerId())
-            .cardDetails(getCardDetails())
-            .cashDetails(getCashDetails())
-            .additionalRecipients(getAdditionalRecipients())
-            .paymentId(getPaymentId());
+                .id(getId())
+                .locationId(getLocationId())
+                .transactionId(getTransactionId())
+                .createdAt(getCreatedAt())
+                .note(getNote())
+                .amountMoney(getAmountMoney())
+                .tipMoney(getTipMoney())
+                .processingFeeMoney(getProcessingFeeMoney())
+                .customerId(getCustomerId())
+                .cardDetails(getCardDetails())
+                .cashDetails(getCashDetails())
+                .additionalRecipients(getAdditionalRecipients())
+                .paymentId(getPaymentId());
         return builder;
     }
 
@@ -462,20 +475,9 @@ public class Tender {
          * @return {@link Tender}
          */
         public Tender build() {
-            return new Tender(type,
-                id,
-                locationId,
-                transactionId,
-                createdAt,
-                note,
-                amountMoney,
-                tipMoney,
-                processingFeeMoney,
-                customerId,
-                cardDetails,
-                cashDetails,
-                additionalRecipients,
-                paymentId);
+            return new Tender(type, id, locationId, transactionId, createdAt, note, amountMoney,
+                    tipMoney, processingFeeMoney, customerId, cardDetails, cashDetails,
+                    additionalRecipients, paymentId);
         }
     }
 }

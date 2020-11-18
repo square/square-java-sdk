@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveInventoryChangesResponse type.
  */
@@ -71,7 +70,6 @@ public class RetrieveInventoryChangesResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, changes, cursor);
@@ -92,15 +90,25 @@ public class RetrieveInventoryChangesResponse {
     }
 
     /**
+     * Converts this RetrieveInventoryChangesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveInventoryChangesResponse [" + "errors=" + errors + ", changes=" + changes
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveInventoryChangesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveInventoryChangesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .changes(getChanges())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .changes(getChanges())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class RetrieveInventoryChangesResponse {
          */
         public RetrieveInventoryChangesResponse build() {
             RetrieveInventoryChangesResponse model =
-                    new RetrieveInventoryChangesResponse(errors,
-                            changes,
-                            cursor);
+                    new RetrieveInventoryChangesResponse(errors, changes, cursor);
             model.httpContext = httpContext;
             return model;
         }

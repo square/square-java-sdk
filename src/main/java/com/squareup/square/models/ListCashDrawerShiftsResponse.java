@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCashDrawerShiftsResponse type.
  */
@@ -69,7 +68,6 @@ public class ListCashDrawerShiftsResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(items, cursor, errors);
@@ -90,15 +88,25 @@ public class ListCashDrawerShiftsResponse {
     }
 
     /**
+     * Converts this ListCashDrawerShiftsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCashDrawerShiftsResponse [" + "items=" + items + ", cursor=" + cursor
+                + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link ListCashDrawerShiftsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCashDrawerShiftsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .items(getItems())
-            .cursor(getCursor())
-            .errors(getErrors());
+                .items(getItems())
+                .cursor(getCursor())
+                .errors(getErrors());
         return builder;
     }
 
@@ -159,9 +167,7 @@ public class ListCashDrawerShiftsResponse {
          */
         public ListCashDrawerShiftsResponse build() {
             ListCashDrawerShiftsResponse model =
-                    new ListCashDrawerShiftsResponse(items,
-                            cursor,
-                            errors);
+                    new ListCashDrawerShiftsResponse(items, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

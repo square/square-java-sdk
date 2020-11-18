@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalRefund type.
  */
@@ -157,7 +156,7 @@ public class TerminalRefund {
 
     /**
      * Getter for Status.
-     * The status of the `TerminalRefund`. Options: `PENDING`, `IN\_PROGRESS`, `CANCELED`,
+     * The status of the `TerminalRefund`. Options: `PENDING`, `IN_PROGRESS`, `CANCELED`,
      * `COMPLETED`
      * @return Returns the String
      */
@@ -195,7 +194,6 @@ public class TerminalRefund {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, refundId, paymentId, orderId, amountMoney, reason, deviceId,
@@ -226,23 +224,35 @@ public class TerminalRefund {
     }
 
     /**
+     * Converts this TerminalRefund into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalRefund [" + "paymentId=" + paymentId + ", amountMoney=" + amountMoney
+                + ", id=" + id + ", refundId=" + refundId + ", orderId=" + orderId + ", reason="
+                + reason + ", deviceId=" + deviceId + ", deadlineDuration=" + deadlineDuration
+                + ", status=" + status + ", cancelReason=" + cancelReason + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalRefund.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalRefund.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(paymentId,
-            amountMoney)
-            .id(getId())
-            .refundId(getRefundId())
-            .orderId(getOrderId())
-            .reason(getReason())
-            .deviceId(getDeviceId())
-            .deadlineDuration(getDeadlineDuration())
-            .status(getStatus())
-            .cancelReason(getCancelReason())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(paymentId, amountMoney)
+                .id(getId())
+                .refundId(getRefundId())
+                .orderId(getOrderId())
+                .reason(getReason())
+                .deviceId(getDeviceId())
+                .deadlineDuration(getDeadlineDuration())
+                .status(getStatus())
+                .cancelReason(getCancelReason())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -399,18 +409,8 @@ public class TerminalRefund {
          * @return {@link TerminalRefund}
          */
         public TerminalRefund build() {
-            return new TerminalRefund(paymentId,
-                amountMoney,
-                id,
-                refundId,
-                orderId,
-                reason,
-                deviceId,
-                deadlineDuration,
-                status,
-                cancelReason,
-                createdAt,
-                updatedAt);
+            return new TerminalRefund(paymentId, amountMoney, id, refundId, orderId, reason,
+                    deviceId, deadlineDuration, status, cancelReason, createdAt, updatedAt);
         }
     }
 }

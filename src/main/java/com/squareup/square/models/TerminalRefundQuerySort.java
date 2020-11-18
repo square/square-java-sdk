@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalRefundQuerySort type.
  */
@@ -34,7 +33,6 @@ public class TerminalRefundQuerySort {
         return this.sortOrder;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sortOrder);
@@ -53,13 +51,22 @@ public class TerminalRefundQuerySort {
     }
 
     /**
+     * Converts this TerminalRefundQuerySort into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalRefundQuerySort [" + "sortOrder=" + sortOrder + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalRefundQuerySort.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalRefundQuerySort.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .sortOrder(getSortOrder());
+                .sortOrder(getSortOrder());
         return builder;
     }
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveInventoryChangesRequest type.
  */
@@ -51,7 +50,6 @@ public class RetrieveInventoryChangesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, cursor);
@@ -71,14 +69,24 @@ public class RetrieveInventoryChangesRequest {
     }
 
     /**
+     * Converts this RetrieveInventoryChangesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveInventoryChangesRequest [" + "locationIds=" + locationIds + ", cursor="
+                + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveInventoryChangesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveInventoryChangesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationIds(getLocationIds())
-            .cursor(getCursor());
+                .locationIds(getLocationIds())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -116,8 +124,7 @@ public class RetrieveInventoryChangesRequest {
          * @return {@link RetrieveInventoryChangesRequest}
          */
         public RetrieveInventoryChangesRequest build() {
-            return new RetrieveInventoryChangesRequest(locationIds,
-                cursor);
+            return new RetrieveInventoryChangesRequest(locationIds, cursor);
         }
     }
 }

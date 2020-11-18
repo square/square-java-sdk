@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateCustomerGroupRequest type.
  */
@@ -35,7 +34,6 @@ public class UpdateCustomerGroupRequest {
         return this.group;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(group);
@@ -51,6 +49,15 @@ public class UpdateCustomerGroupRequest {
         }
         UpdateCustomerGroupRequest other = (UpdateCustomerGroupRequest) obj;
         return Objects.equals(group, other.group);
+    }
+
+    /**
+     * Converts this UpdateCustomerGroupRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateCustomerGroupRequest [" + "group=" + group + "]";
     }
 
     /**

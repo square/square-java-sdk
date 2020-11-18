@@ -53,7 +53,7 @@ public final class DefaultMobileAuthorizationApi extends BaseApi implements Mobi
      * __Important:__ The `Authorization` header you provide to this endpoint must have the
      * following format: ``` Authorization: Bearer ACCESS_TOKEN ``` Replace `ACCESS_TOKEN` with a
      * [valid production authorization
-     * credential](https://developer.squareup.com/docs/docs/build-basics/access-tokens).
+     * credential](https://developer.squareup.com/docs/build-basics/access-tokens).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateMobileAuthorizationCodeResponse response from the API call
@@ -77,7 +77,7 @@ public final class DefaultMobileAuthorizationApi extends BaseApi implements Mobi
      * __Important:__ The `Authorization` header you provide to this endpoint must have the
      * following format: ``` Authorization: Bearer ACCESS_TOKEN ``` Replace `ACCESS_TOKEN` with a
      * [valid production authorization
-     * credential](https://developer.squareup.com/docs/docs/build-basics/access-tokens).
+     * credential](https://developer.squareup.com/docs/build-basics/access-tokens).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateMobileAuthorizationCodeResponse response from the API call

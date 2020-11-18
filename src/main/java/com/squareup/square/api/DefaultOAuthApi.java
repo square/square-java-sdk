@@ -191,7 +191,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
      * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * Credentials page in the [application dashboard](https://connect.squareup.com/apps).
+     * Credentials page in the [Developer Dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -216,7 +216,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
      * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * Credentials page in the [application dashboard](https://connect.squareup.com/apps).
+     * Credentials page in the [Developer Dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -293,12 +293,10 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     /**
      * Returns an OAuth access token. The endpoint supports distinct methods of obtaining OAuth
      * access tokens. Applications specify a method by adding the `grant_type` parameter in the
-     * request and also provide relevant information. For more information, see [OAuth access token
-     * management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
-     * __Note:__ Regardless of the method application specified, the endpoint always returns two
-     * items; an OAuth access token and a refresh token in the response. __OAuth tokens should only
-     * live on secure servers. Application clients should never interact directly with OAuth
-     * tokens__.
+     * request and also provide relevant information. __Note:__ Regardless of the method application
+     * specified, the endpoint always returns two items; an OAuth access token and a refresh token
+     * in the response. __OAuth tokens should only live on secure servers. Application clients
+     * should never interact directly with OAuth tokens__.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the ObtainTokenResponse response from the API call
@@ -317,12 +315,10 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     /**
      * Returns an OAuth access token. The endpoint supports distinct methods of obtaining OAuth
      * access tokens. Applications specify a method by adding the `grant_type` parameter in the
-     * request and also provide relevant information. For more information, see [OAuth access token
-     * management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
-     * __Note:__ Regardless of the method application specified, the endpoint always returns two
-     * items; an OAuth access token and a refresh token in the response. __OAuth tokens should only
-     * live on secure servers. Application clients should never interact directly with OAuth
-     * tokens__.
+     * request and also provide relevant information. __Note:__ Regardless of the method application
+     * specified, the endpoint always returns two items; an OAuth access token and a refresh token
+     * in the response. __OAuth tokens should only live on secure servers. Application clients
+     * should never interact directly with OAuth tokens__.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the ObtainTokenResponse response from the API call

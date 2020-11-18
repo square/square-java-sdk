@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturnServiceCharge type.
  */
@@ -185,7 +184,7 @@ public class OrderReturnServiceCharge {
      * Getter for CalculationPhase.
      * Represents a phase in the process of calculating order totals. Service charges are applied
      * __after__ the indicated phase. [Read more about how order totals are
-     * calculated.](https://developer.squareup.com/docs/docs/orders-api/how-it-works#how-totals-are-calculated)
+     * calculated.](https://developer.squareup.com/docs/orders-api/how-it-works#how-totals-are-calculated)
      * @return Returns the String
      */
     @JsonGetter("calculation_phase")
@@ -217,7 +216,6 @@ public class OrderReturnServiceCharge {
         return this.appliedTaxes;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, percentage,
@@ -249,24 +247,38 @@ public class OrderReturnServiceCharge {
     }
 
     /**
+     * Converts this OrderReturnServiceCharge into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturnServiceCharge [" + "uid=" + uid + ", sourceServiceChargeUid="
+                + sourceServiceChargeUid + ", name=" + name + ", catalogObjectId=" + catalogObjectId
+                + ", percentage=" + percentage + ", amountMoney=" + amountMoney + ", appliedMoney="
+                + appliedMoney + ", totalMoney=" + totalMoney + ", totalTaxMoney=" + totalTaxMoney
+                + ", calculationPhase=" + calculationPhase + ", taxable=" + taxable
+                + ", appliedTaxes=" + appliedTaxes + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturnServiceCharge.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturnServiceCharge.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .sourceServiceChargeUid(getSourceServiceChargeUid())
-            .name(getName())
-            .catalogObjectId(getCatalogObjectId())
-            .percentage(getPercentage())
-            .amountMoney(getAmountMoney())
-            .appliedMoney(getAppliedMoney())
-            .totalMoney(getTotalMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .calculationPhase(getCalculationPhase())
-            .taxable(getTaxable())
-            .appliedTaxes(getAppliedTaxes());
+                .uid(getUid())
+                .sourceServiceChargeUid(getSourceServiceChargeUid())
+                .name(getName())
+                .catalogObjectId(getCatalogObjectId())
+                .percentage(getPercentage())
+                .amountMoney(getAmountMoney())
+                .appliedMoney(getAppliedMoney())
+                .totalMoney(getTotalMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .calculationPhase(getCalculationPhase())
+                .taxable(getTaxable())
+                .appliedTaxes(getAppliedTaxes());
         return builder;
     }
 
@@ -414,18 +426,9 @@ public class OrderReturnServiceCharge {
          * @return {@link OrderReturnServiceCharge}
          */
         public OrderReturnServiceCharge build() {
-            return new OrderReturnServiceCharge(uid,
-                sourceServiceChargeUid,
-                name,
-                catalogObjectId,
-                percentage,
-                amountMoney,
-                appliedMoney,
-                totalMoney,
-                totalTaxMoney,
-                calculationPhase,
-                taxable,
-                appliedTaxes);
+            return new OrderReturnServiceCharge(uid, sourceServiceChargeUid, name, catalogObjectId,
+                    percentage, amountMoney, appliedMoney, totalMoney, totalTaxMoney,
+                    calculationPhase, taxable, appliedTaxes);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CustomerGroup type.
  */
@@ -75,7 +74,6 @@ public class CustomerGroup {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, createdAt, updatedAt);
@@ -97,15 +95,25 @@ public class CustomerGroup {
     }
 
     /**
+     * Converts this CustomerGroup into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerGroup [" + "name=" + name + ", id=" + id + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link CustomerGroup.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CustomerGroup.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(name)
-            .id(getId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+                .id(getId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class CustomerGroup {
          * @return {@link CustomerGroup}
          */
         public CustomerGroup build() {
-            return new CustomerGroup(name,
-                id,
-                createdAt,
-                updatedAt);
+            return new CustomerGroup(name, id, createdAt, updatedAt);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQuerySortedAttribute type.
  */
@@ -64,7 +63,6 @@ public class CatalogQuerySortedAttribute {
         return this.sortOrder;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(attributeName, initialAttributeValue, sortOrder);
@@ -85,14 +83,25 @@ public class CatalogQuerySortedAttribute {
     }
 
     /**
+     * Converts this CatalogQuerySortedAttribute into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQuerySortedAttribute [" + "attributeName=" + attributeName
+                + ", initialAttributeValue=" + initialAttributeValue + ", sortOrder=" + sortOrder
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQuerySortedAttribute.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQuerySortedAttribute.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(attributeName)
-            .initialAttributeValue(getInitialAttributeValue())
-            .sortOrder(getSortOrder());
+                .initialAttributeValue(getInitialAttributeValue())
+                .sortOrder(getSortOrder());
         return builder;
     }
 
@@ -147,9 +156,7 @@ public class CatalogQuerySortedAttribute {
          * @return {@link CatalogQuerySortedAttribute}
          */
         public CatalogQuerySortedAttribute build() {
-            return new CatalogQuerySortedAttribute(attributeName,
-                initialAttributeValue,
-                sortOrder);
+            return new CatalogQuerySortedAttribute(attributeName, initialAttributeValue, sortOrder);
         }
     }
 }

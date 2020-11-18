@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Merchant type.
  */
@@ -237,7 +236,6 @@ public class V1Merchant {
         return this.marketUrl;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, email, accountType, accountCapabilities, countryCode,
@@ -272,27 +270,42 @@ public class V1Merchant {
     }
 
     /**
+     * Converts this V1Merchant into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Merchant [" + "id=" + id + ", name=" + name + ", email=" + email
+                + ", accountType=" + accountType + ", accountCapabilities=" + accountCapabilities
+                + ", countryCode=" + countryCode + ", languageCode=" + languageCode
+                + ", currencyCode=" + currencyCode + ", businessName=" + businessName
+                + ", businessAddress=" + businessAddress + ", businessPhone=" + businessPhone
+                + ", businessType=" + businessType + ", shippingAddress=" + shippingAddress
+                + ", locationDetails=" + locationDetails + ", marketUrl=" + marketUrl + "]";
+    }
+
+    /**
      * Builds a new {@link V1Merchant.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Merchant.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .email(getEmail())
-            .accountType(getAccountType())
-            .accountCapabilities(getAccountCapabilities())
-            .countryCode(getCountryCode())
-            .languageCode(getLanguageCode())
-            .currencyCode(getCurrencyCode())
-            .businessName(getBusinessName())
-            .businessAddress(getBusinessAddress())
-            .businessPhone(getBusinessPhone())
-            .businessType(getBusinessType())
-            .shippingAddress(getShippingAddress())
-            .locationDetails(getLocationDetails())
-            .marketUrl(getMarketUrl());
+                .id(getId())
+                .name(getName())
+                .email(getEmail())
+                .accountType(getAccountType())
+                .accountCapabilities(getAccountCapabilities())
+                .countryCode(getCountryCode())
+                .languageCode(getLanguageCode())
+                .currencyCode(getCurrencyCode())
+                .businessName(getBusinessName())
+                .businessAddress(getBusinessAddress())
+                .businessPhone(getBusinessPhone())
+                .businessType(getBusinessType())
+                .shippingAddress(getShippingAddress())
+                .locationDetails(getLocationDetails())
+                .marketUrl(getMarketUrl());
         return builder;
     }
 
@@ -485,20 +498,9 @@ public class V1Merchant {
          */
         public V1Merchant build() {
             V1Merchant model =
-                    new V1Merchant(id,
-                            name,
-                            email,
-                            accountType,
-                            accountCapabilities,
-                            countryCode,
-                            languageCode,
-                            currencyCode,
-                            businessName,
-                            businessAddress,
-                            businessPhone,
-                            businessType,
-                            shippingAddress,
-                            locationDetails,
+                    new V1Merchant(id, name, email, accountType, accountCapabilities, countryCode,
+                            languageCode, currencyCode, businessName, businessAddress,
+                            businessPhone, businessType, shippingAddress, locationDetails,
                             marketUrl);
             model.httpContext = httpContext;
             return model;

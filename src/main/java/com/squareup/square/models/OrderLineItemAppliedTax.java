@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItemAppliedTax type.
  */
@@ -68,7 +67,6 @@ public class OrderLineItemAppliedTax {
         return this.appliedMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, taxUid, appliedMoney);
@@ -89,14 +87,24 @@ public class OrderLineItemAppliedTax {
     }
 
     /**
+     * Converts this OrderLineItemAppliedTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItemAppliedTax [" + "taxUid=" + taxUid + ", uid=" + uid + ", appliedMoney="
+                + appliedMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItemAppliedTax.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItemAppliedTax.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(taxUid)
-            .uid(getUid())
-            .appliedMoney(getAppliedMoney());
+                .uid(getUid())
+                .appliedMoney(getAppliedMoney());
         return builder;
     }
 
@@ -151,9 +159,7 @@ public class OrderLineItemAppliedTax {
          * @return {@link OrderLineItemAppliedTax}
          */
         public OrderLineItemAppliedTax build() {
-            return new OrderLineItemAppliedTax(taxUid,
-                uid,
-                appliedMoney);
+            return new OrderLineItemAppliedTax(taxUid, uid, appliedMoney);
         }
     }
 }

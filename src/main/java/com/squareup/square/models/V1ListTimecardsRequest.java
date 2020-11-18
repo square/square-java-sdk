@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListTimecardsRequest type.
  */
@@ -182,7 +181,6 @@ public class V1ListTimecardsRequest {
         return this.batchToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, employeeId, beginClockinTime, endClockinTime, beginClockoutTime,
@@ -212,23 +210,37 @@ public class V1ListTimecardsRequest {
     }
 
     /**
+     * Converts this V1ListTimecardsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListTimecardsRequest [" + "order=" + order + ", employeeId=" + employeeId
+                + ", beginClockinTime=" + beginClockinTime + ", endClockinTime=" + endClockinTime
+                + ", beginClockoutTime=" + beginClockoutTime + ", endClockoutTime="
+                + endClockoutTime + ", beginUpdatedAt=" + beginUpdatedAt + ", endUpdatedAt="
+                + endUpdatedAt + ", deleted=" + deleted + ", limit=" + limit + ", batchToken="
+                + batchToken + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListTimecardsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListTimecardsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .employeeId(getEmployeeId())
-            .beginClockinTime(getBeginClockinTime())
-            .endClockinTime(getEndClockinTime())
-            .beginClockoutTime(getBeginClockoutTime())
-            .endClockoutTime(getEndClockoutTime())
-            .beginUpdatedAt(getBeginUpdatedAt())
-            .endUpdatedAt(getEndUpdatedAt())
-            .deleted(getDeleted())
-            .limit(getLimit())
-            .batchToken(getBatchToken());
+                .order(getOrder())
+                .employeeId(getEmployeeId())
+                .beginClockinTime(getBeginClockinTime())
+                .endClockinTime(getEndClockinTime())
+                .beginClockoutTime(getBeginClockoutTime())
+                .endClockoutTime(getEndClockoutTime())
+                .beginUpdatedAt(getBeginUpdatedAt())
+                .endUpdatedAt(getEndUpdatedAt())
+                .deleted(getDeleted())
+                .limit(getLimit())
+                .batchToken(getBatchToken());
         return builder;
     }
 
@@ -365,17 +377,9 @@ public class V1ListTimecardsRequest {
          * @return {@link V1ListTimecardsRequest}
          */
         public V1ListTimecardsRequest build() {
-            return new V1ListTimecardsRequest(order,
-                employeeId,
-                beginClockinTime,
-                endClockinTime,
-                beginClockoutTime,
-                endClockoutTime,
-                beginUpdatedAt,
-                endUpdatedAt,
-                deleted,
-                limit,
-                batchToken);
+            return new V1ListTimecardsRequest(order, employeeId, beginClockinTime, endClockinTime,
+                    beginClockoutTime, endClockoutTime, beginUpdatedAt, endUpdatedAt, deleted,
+                    limit, batchToken);
         }
     }
 }

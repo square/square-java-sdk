@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1UpdateCategoryRequest type.
  */
@@ -33,7 +32,6 @@ public class V1UpdateCategoryRequest {
         return this.body;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(body);
@@ -49,6 +47,15 @@ public class V1UpdateCategoryRequest {
         }
         V1UpdateCategoryRequest other = (V1UpdateCategoryRequest) obj;
         return Objects.equals(body, other.body);
+    }
+
+    /**
+     * Converts this V1UpdateCategoryRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1UpdateCategoryRequest [" + "body=" + body + "]";
     }
 
     /**

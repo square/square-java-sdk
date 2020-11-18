@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateDeviceCodeRequest type.
  */
@@ -48,7 +47,6 @@ public class CreateDeviceCodeRequest {
         return this.deviceCode;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, deviceCode);
@@ -68,13 +66,22 @@ public class CreateDeviceCodeRequest {
     }
 
     /**
+     * Converts this CreateDeviceCodeRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateDeviceCodeRequest [" + "idempotencyKey=" + idempotencyKey + ", deviceCode="
+                + deviceCode + "]";
+    }
+
+    /**
      * Builds a new {@link CreateDeviceCodeRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateDeviceCodeRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey,
-            deviceCode);
+        Builder builder = new Builder(idempotencyKey, deviceCode);
         return builder;
     }
 
@@ -121,8 +128,7 @@ public class CreateDeviceCodeRequest {
          * @return {@link CreateDeviceCodeRequest}
          */
         public CreateDeviceCodeRequest build() {
-            return new CreateDeviceCodeRequest(idempotencyKey,
-                deviceCode);
+            return new CreateDeviceCodeRequest(idempotencyKey, deviceCode);
         }
     }
 }

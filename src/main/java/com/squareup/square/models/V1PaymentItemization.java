@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PaymentItemization type.
  */
@@ -210,7 +209,6 @@ public class V1PaymentItemization {
         return this.modifiers;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, quantity, itemizationType, itemDetail, notes, itemVariationName,
@@ -244,26 +242,41 @@ public class V1PaymentItemization {
     }
 
     /**
+     * Converts this V1PaymentItemization into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PaymentItemization [" + "name=" + name + ", quantity=" + quantity
+                + ", itemizationType=" + itemizationType + ", itemDetail=" + itemDetail + ", notes="
+                + notes + ", itemVariationName=" + itemVariationName + ", totalMoney=" + totalMoney
+                + ", singleQuantityMoney=" + singleQuantityMoney + ", grossSalesMoney="
+                + grossSalesMoney + ", discountMoney=" + discountMoney + ", netSalesMoney="
+                + netSalesMoney + ", taxes=" + taxes + ", discounts=" + discounts + ", modifiers="
+                + modifiers + "]";
+    }
+
+    /**
      * Builds a new {@link V1PaymentItemization.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PaymentItemization.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .quantity(getQuantity())
-            .itemizationType(getItemizationType())
-            .itemDetail(getItemDetail())
-            .notes(getNotes())
-            .itemVariationName(getItemVariationName())
-            .totalMoney(getTotalMoney())
-            .singleQuantityMoney(getSingleQuantityMoney())
-            .grossSalesMoney(getGrossSalesMoney())
-            .discountMoney(getDiscountMoney())
-            .netSalesMoney(getNetSalesMoney())
-            .taxes(getTaxes())
-            .discounts(getDiscounts())
-            .modifiers(getModifiers());
+                .name(getName())
+                .quantity(getQuantity())
+                .itemizationType(getItemizationType())
+                .itemDetail(getItemDetail())
+                .notes(getNotes())
+                .itemVariationName(getItemVariationName())
+                .totalMoney(getTotalMoney())
+                .singleQuantityMoney(getSingleQuantityMoney())
+                .grossSalesMoney(getGrossSalesMoney())
+                .discountMoney(getDiscountMoney())
+                .netSalesMoney(getNetSalesMoney())
+                .taxes(getTaxes())
+                .discounts(getDiscounts())
+                .modifiers(getModifiers());
         return builder;
     }
 
@@ -433,20 +446,9 @@ public class V1PaymentItemization {
          * @return {@link V1PaymentItemization}
          */
         public V1PaymentItemization build() {
-            return new V1PaymentItemization(name,
-                quantity,
-                itemizationType,
-                itemDetail,
-                notes,
-                itemVariationName,
-                totalMoney,
-                singleQuantityMoney,
-                grossSalesMoney,
-                discountMoney,
-                netSalesMoney,
-                taxes,
-                discounts,
-                modifiers);
+            return new V1PaymentItemization(name, quantity, itemizationType, itemDetail, notes,
+                    itemVariationName, totalMoney, singleQuantityMoney, grossSalesMoney,
+                    discountMoney, netSalesMoney, taxes, discounts, modifiers);
         }
     }
 }

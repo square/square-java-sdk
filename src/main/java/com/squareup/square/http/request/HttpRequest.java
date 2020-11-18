@@ -92,4 +92,15 @@ public class HttpRequest {
         }
         queryParameters.put(key, value);
     }
+
+    /**
+     * Converts this HttpRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "HttpRequest [httpMethod=" + httpMethod + ", headers=" + headers
+                + ", queryUrlBuilder=" + queryUrlBuilder + ", queryParameters=" + queryParameters
+                + ", parameters=" + parameters + "]";
+    }
 }

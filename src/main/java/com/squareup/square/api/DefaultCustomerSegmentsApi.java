@@ -52,9 +52,8 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
      *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination
-     *         guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for
-     *         more information.
+     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
+     *         for more information.
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -74,9 +73,8 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
      *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination
-     *         guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for
-     *         more information.
+     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
+     *         for more information.
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     public CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(

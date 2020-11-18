@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogItemVariation type.
  */
@@ -25,8 +24,10 @@ public class CatalogItemVariation {
     private final Long inventoryAlertThreshold;
     private final String userData;
     private final Long serviceDuration;
+    private final Boolean availableForBooking;
     private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
     private final String measurementUnitId;
+    private final List<String> teamMemberIds;
 
     /**
      * Initialization constructor.
@@ -43,8 +44,10 @@ public class CatalogItemVariation {
      * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
      * @param userData String value for userData.
      * @param serviceDuration Long value for serviceDuration.
+     * @param availableForBooking Boolean value for availableForBooking.
      * @param itemOptionValues List of CatalogItemOptionValueForItemVariation value for itemOptionValues.
      * @param measurementUnitId String value for measurementUnitId.
+     * @param teamMemberIds List of String value for teamMemberIds.
      */
     @JsonCreator
     public CatalogItemVariation(
@@ -61,8 +64,10 @@ public class CatalogItemVariation {
             @JsonProperty("inventory_alert_threshold") Long inventoryAlertThreshold,
             @JsonProperty("user_data") String userData,
             @JsonProperty("service_duration") Long serviceDuration,
+            @JsonProperty("available_for_booking") Boolean availableForBooking,
             @JsonProperty("item_option_values") List<CatalogItemOptionValueForItemVariation> itemOptionValues,
-            @JsonProperty("measurement_unit_id") String measurementUnitId) {
+            @JsonProperty("measurement_unit_id") String measurementUnitId,
+            @JsonProperty("team_member_ids") List<String> teamMemberIds) {
         this.itemId = itemId;
         this.name = name;
         this.sku = sku;
@@ -76,8 +81,10 @@ public class CatalogItemVariation {
         this.inventoryAlertThreshold = inventoryAlertThreshold;
         this.userData = userData;
         this.serviceDuration = serviceDuration;
+        this.availableForBooking = availableForBooking;
         this.itemOptionValues = itemOptionValues;
         this.measurementUnitId = measurementUnitId;
+        this.teamMemberIds = teamMemberIds;
     }
 
     /**
@@ -114,9 +121,13 @@ public class CatalogItemVariation {
 
     /**
      * Getter for Upc.
-     * The item variation's UPC, if any. This is a searchable attribute for use in applicable query
-     * filters. It is only accessible through the Square API, and not exposed in the Square Seller
-     * Dashboard, Square Point of Sale or Retail Point of Sale apps.
+     * The universal product code (UPC) of the item variation, if any. This is a searchable
+     * attribute for use in applicable query filters. The value of this attribute should be a number
+     * of 12-14 digits long. This restriction is enforced on the Square Seller Dashboard, Square
+     * Point of Sale or Retail Point of Sale apps, where this attribute shows in the GTIN field. If
+     * a non-compliant UPC value is assigned to this attribute using the API, the value is not
+     * editable on the Seller Dashboard, Square Point of Sale or Retail Point of Sale apps unless it
+     * is updated to fit the expected format.
      * @return Returns the String
      */
     @JsonGetter("upc")
@@ -231,6 +242,17 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Getter for AvailableForBooking.
+     * If the `CatalogItem` that owns this item variation is of type `APPOINTMENTS_SERVICE`, a bool
+     * representing whether this service is available for booking.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("available_for_booking")
+    public Boolean getAvailableForBooking() {
+        return this.availableForBooking;
+    }
+
+    /**
      * Getter for ItemOptionValues.
      * List of item option values associated with this item variation. Listed in the same order as
      * the item options of the parent item.
@@ -252,12 +274,23 @@ public class CatalogItemVariation {
         return this.measurementUnitId;
     }
 
- 
+    /**
+     * Getter for TeamMemberIds.
+     * Tokens of employees that can perform the service represented by this variation. Only valid
+     * for variations of type `APPOINTMENTS_SERVICE`.
+     * @return Returns the List of String
+     */
+    @JsonGetter("team_member_ids")
+    public List<String> getTeamMemberIds() {
+        return this.teamMemberIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
                 locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold,
-                userData, serviceDuration, itemOptionValues, measurementUnitId);
+                userData, serviceDuration, availableForBooking, itemOptionValues, measurementUnitId,
+                teamMemberIds);
     }
 
     @Override
@@ -282,8 +315,27 @@ public class CatalogItemVariation {
             && Objects.equals(inventoryAlertThreshold, other.inventoryAlertThreshold)
             && Objects.equals(userData, other.userData)
             && Objects.equals(serviceDuration, other.serviceDuration)
+            && Objects.equals(availableForBooking, other.availableForBooking)
             && Objects.equals(itemOptionValues, other.itemOptionValues)
-            && Objects.equals(measurementUnitId, other.measurementUnitId);
+            && Objects.equals(measurementUnitId, other.measurementUnitId)
+            && Objects.equals(teamMemberIds, other.teamMemberIds);
+    }
+
+    /**
+     * Converts this CatalogItemVariation into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogItemVariation [" + "itemId=" + itemId + ", name=" + name + ", sku=" + sku
+                + ", upc=" + upc + ", ordinal=" + ordinal + ", pricingType=" + pricingType
+                + ", priceMoney=" + priceMoney + ", locationOverrides=" + locationOverrides
+                + ", trackInventory=" + trackInventory + ", inventoryAlertType="
+                + inventoryAlertType + ", inventoryAlertThreshold=" + inventoryAlertThreshold
+                + ", userData=" + userData + ", serviceDuration=" + serviceDuration
+                + ", availableForBooking=" + availableForBooking + ", itemOptionValues="
+                + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", teamMemberIds="
+                + teamMemberIds + "]";
     }
 
     /**
@@ -293,21 +345,23 @@ public class CatalogItemVariation {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .itemId(getItemId())
-            .name(getName())
-            .sku(getSku())
-            .upc(getUpc())
-            .ordinal(getOrdinal())
-            .pricingType(getPricingType())
-            .priceMoney(getPriceMoney())
-            .locationOverrides(getLocationOverrides())
-            .trackInventory(getTrackInventory())
-            .inventoryAlertType(getInventoryAlertType())
-            .inventoryAlertThreshold(getInventoryAlertThreshold())
-            .userData(getUserData())
-            .serviceDuration(getServiceDuration())
-            .itemOptionValues(getItemOptionValues())
-            .measurementUnitId(getMeasurementUnitId());
+                .itemId(getItemId())
+                .name(getName())
+                .sku(getSku())
+                .upc(getUpc())
+                .ordinal(getOrdinal())
+                .pricingType(getPricingType())
+                .priceMoney(getPriceMoney())
+                .locationOverrides(getLocationOverrides())
+                .trackInventory(getTrackInventory())
+                .inventoryAlertType(getInventoryAlertType())
+                .inventoryAlertThreshold(getInventoryAlertThreshold())
+                .userData(getUserData())
+                .serviceDuration(getServiceDuration())
+                .availableForBooking(getAvailableForBooking())
+                .itemOptionValues(getItemOptionValues())
+                .measurementUnitId(getMeasurementUnitId())
+                .teamMemberIds(getTeamMemberIds());
         return builder;
     }
 
@@ -328,8 +382,10 @@ public class CatalogItemVariation {
         private Long inventoryAlertThreshold;
         private String userData;
         private Long serviceDuration;
+        private Boolean availableForBooking;
         private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
         private String measurementUnitId;
+        private List<String> teamMemberIds;
 
 
 
@@ -464,6 +520,16 @@ public class CatalogItemVariation {
         }
 
         /**
+         * Setter for availableForBooking.
+         * @param availableForBooking Boolean value for availableForBooking.
+         * @return Builder
+         */
+        public Builder availableForBooking(Boolean availableForBooking) {
+            this.availableForBooking = availableForBooking;
+            return this;
+        }
+
+        /**
          * Setter for itemOptionValues.
          * @param itemOptionValues List of CatalogItemOptionValueForItemVariation value for itemOptionValues.
          * @return Builder
@@ -484,25 +550,24 @@ public class CatalogItemVariation {
         }
 
         /**
+         * Setter for teamMemberIds.
+         * @param teamMemberIds List of String value for teamMemberIds.
+         * @return Builder
+         */
+        public Builder teamMemberIds(List<String> teamMemberIds) {
+            this.teamMemberIds = teamMemberIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogItemVariation} object using the set fields.
          * @return {@link CatalogItemVariation}
          */
         public CatalogItemVariation build() {
-            return new CatalogItemVariation(itemId,
-                name,
-                sku,
-                upc,
-                ordinal,
-                pricingType,
-                priceMoney,
-                locationOverrides,
-                trackInventory,
-                inventoryAlertType,
-                inventoryAlertThreshold,
-                userData,
-                serviceDuration,
-                itemOptionValues,
-                measurementUnitId);
+            return new CatalogItemVariation(itemId, name, sku, upc, ordinal, pricingType,
+                    priceMoney, locationOverrides, trackInventory, inventoryAlertType,
+                    inventoryAlertThreshold, userData, serviceDuration, availableForBooking,
+                    itemOptionValues, measurementUnitId, teamMemberIds);
         }
     }
 }

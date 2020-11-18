@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderReturnDiscount type.
  */
@@ -157,7 +156,6 @@ public class OrderReturnDiscount {
         return this.scope;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceDiscountUid, catalogObjectId, name, type, percentage,
@@ -185,21 +183,33 @@ public class OrderReturnDiscount {
     }
 
     /**
+     * Converts this OrderReturnDiscount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderReturnDiscount [" + "uid=" + uid + ", sourceDiscountUid=" + sourceDiscountUid
+                + ", catalogObjectId=" + catalogObjectId + ", name=" + name + ", type=" + type
+                + ", percentage=" + percentage + ", amountMoney=" + amountMoney + ", appliedMoney="
+                + appliedMoney + ", scope=" + scope + "]";
+    }
+
+    /**
      * Builds a new {@link OrderReturnDiscount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderReturnDiscount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .uid(getUid())
-            .sourceDiscountUid(getSourceDiscountUid())
-            .catalogObjectId(getCatalogObjectId())
-            .name(getName())
-            .type(getType())
-            .percentage(getPercentage())
-            .amountMoney(getAmountMoney())
-            .appliedMoney(getAppliedMoney())
-            .scope(getScope());
+                .uid(getUid())
+                .sourceDiscountUid(getSourceDiscountUid())
+                .catalogObjectId(getCatalogObjectId())
+                .name(getName())
+                .type(getType())
+                .percentage(getPercentage())
+                .amountMoney(getAmountMoney())
+                .appliedMoney(getAppliedMoney())
+                .scope(getScope());
         return builder;
     }
 
@@ -314,15 +324,8 @@ public class OrderReturnDiscount {
          * @return {@link OrderReturnDiscount}
          */
         public OrderReturnDiscount build() {
-            return new OrderReturnDiscount(uid,
-                sourceDiscountUid,
-                catalogObjectId,
-                name,
-                type,
-                percentage,
-                amountMoney,
-                appliedMoney,
-                scope);
+            return new OrderReturnDiscount(uid, sourceDiscountUid, catalogObjectId, name, type,
+                    percentage, amountMoney, appliedMoney, scope);
         }
     }
 }

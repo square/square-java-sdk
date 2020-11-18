@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RenewTokenResponse type.
  */
@@ -116,7 +115,6 @@ public class RenewTokenResponse {
         return this.planId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId,
@@ -141,18 +139,29 @@ public class RenewTokenResponse {
     }
 
     /**
+     * Converts this RenewTokenResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RenewTokenResponse [" + "accessToken=" + accessToken + ", tokenType=" + tokenType
+                + ", expiresAt=" + expiresAt + ", merchantId=" + merchantId + ", subscriptionId="
+                + subscriptionId + ", planId=" + planId + "]";
+    }
+
+    /**
      * Builds a new {@link RenewTokenResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RenewTokenResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .accessToken(getAccessToken())
-            .tokenType(getTokenType())
-            .expiresAt(getExpiresAt())
-            .merchantId(getMerchantId())
-            .subscriptionId(getSubscriptionId())
-            .planId(getPlanId());
+                .accessToken(getAccessToken())
+                .tokenType(getTokenType())
+                .expiresAt(getExpiresAt())
+                .merchantId(getMerchantId())
+                .subscriptionId(getSubscriptionId())
+                .planId(getPlanId());
         return builder;
     }
 
@@ -246,12 +255,8 @@ public class RenewTokenResponse {
          */
         public RenewTokenResponse build() {
             RenewTokenResponse model =
-                    new RenewTokenResponse(accessToken,
-                            tokenType,
-                            expiresAt,
-                            merchantId,
-                            subscriptionId,
-                            planId);
+                    new RenewTokenResponse(accessToken, tokenType, expiresAt, merchantId,
+                            subscriptionId, planId);
             model.httpContext = httpContext;
             return model;
         }

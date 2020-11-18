@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RenewTokenRequest type.
  */
@@ -33,7 +32,6 @@ public class RenewTokenRequest {
         return this.accessToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(accessToken);
@@ -52,13 +50,22 @@ public class RenewTokenRequest {
     }
 
     /**
+     * Converts this RenewTokenRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RenewTokenRequest [" + "accessToken=" + accessToken + "]";
+    }
+
+    /**
      * Builds a new {@link RenewTokenRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RenewTokenRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .accessToken(getAccessToken());
+                .accessToken(getAccessToken());
         return builder;
     }
 

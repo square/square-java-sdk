@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Refund type.
  */
@@ -272,7 +271,6 @@ public class V1Refund {
         return this.isExchange;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(type, reason, refundedMoney, refundedProcessingFeeMoney,
@@ -312,30 +310,49 @@ public class V1Refund {
     }
 
     /**
+     * Converts this V1Refund into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Refund [" + "type=" + type + ", reason=" + reason + ", refundedMoney="
+                + refundedMoney + ", refundedProcessingFeeMoney=" + refundedProcessingFeeMoney
+                + ", refundedTaxMoney=" + refundedTaxMoney + ", refundedAdditiveTaxMoney="
+                + refundedAdditiveTaxMoney + ", refundedAdditiveTax=" + refundedAdditiveTax
+                + ", refundedInclusiveTaxMoney=" + refundedInclusiveTaxMoney
+                + ", refundedInclusiveTax=" + refundedInclusiveTax + ", refundedTipMoney="
+                + refundedTipMoney + ", refundedDiscountMoney=" + refundedDiscountMoney
+                + ", refundedSurchargeMoney=" + refundedSurchargeMoney + ", refundedSurcharges="
+                + refundedSurcharges + ", createdAt=" + createdAt + ", processedAt=" + processedAt
+                + ", paymentId=" + paymentId + ", merchantId=" + merchantId + ", isExchange="
+                + isExchange + "]";
+    }
+
+    /**
      * Builds a new {@link V1Refund.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Refund.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .type(getType())
-            .reason(getReason())
-            .refundedMoney(getRefundedMoney())
-            .refundedProcessingFeeMoney(getRefundedProcessingFeeMoney())
-            .refundedTaxMoney(getRefundedTaxMoney())
-            .refundedAdditiveTaxMoney(getRefundedAdditiveTaxMoney())
-            .refundedAdditiveTax(getRefundedAdditiveTax())
-            .refundedInclusiveTaxMoney(getRefundedInclusiveTaxMoney())
-            .refundedInclusiveTax(getRefundedInclusiveTax())
-            .refundedTipMoney(getRefundedTipMoney())
-            .refundedDiscountMoney(getRefundedDiscountMoney())
-            .refundedSurchargeMoney(getRefundedSurchargeMoney())
-            .refundedSurcharges(getRefundedSurcharges())
-            .createdAt(getCreatedAt())
-            .processedAt(getProcessedAt())
-            .paymentId(getPaymentId())
-            .merchantId(getMerchantId())
-            .isExchange(getIsExchange());
+                .type(getType())
+                .reason(getReason())
+                .refundedMoney(getRefundedMoney())
+                .refundedProcessingFeeMoney(getRefundedProcessingFeeMoney())
+                .refundedTaxMoney(getRefundedTaxMoney())
+                .refundedAdditiveTaxMoney(getRefundedAdditiveTaxMoney())
+                .refundedAdditiveTax(getRefundedAdditiveTax())
+                .refundedInclusiveTaxMoney(getRefundedInclusiveTaxMoney())
+                .refundedInclusiveTax(getRefundedInclusiveTax())
+                .refundedTipMoney(getRefundedTipMoney())
+                .refundedDiscountMoney(getRefundedDiscountMoney())
+                .refundedSurchargeMoney(getRefundedSurchargeMoney())
+                .refundedSurcharges(getRefundedSurcharges())
+                .createdAt(getCreatedAt())
+                .processedAt(getProcessedAt())
+                .paymentId(getPaymentId())
+                .merchantId(getMerchantId())
+                .isExchange(getIsExchange());
         return builder;
     }
 
@@ -561,24 +578,11 @@ public class V1Refund {
          */
         public V1Refund build() {
             V1Refund model =
-                    new V1Refund(type,
-                            reason,
-                            refundedMoney,
-                            refundedProcessingFeeMoney,
-                            refundedTaxMoney,
-                            refundedAdditiveTaxMoney,
-                            refundedAdditiveTax,
-                            refundedInclusiveTaxMoney,
-                            refundedInclusiveTax,
-                            refundedTipMoney,
-                            refundedDiscountMoney,
-                            refundedSurchargeMoney,
-                            refundedSurcharges,
-                            createdAt,
-                            processedAt,
-                            paymentId,
-                            merchantId,
-                            isExchange);
+                    new V1Refund(type, reason, refundedMoney, refundedProcessingFeeMoney,
+                            refundedTaxMoney, refundedAdditiveTaxMoney, refundedAdditiveTax,
+                            refundedInclusiveTaxMoney, refundedInclusiveTax, refundedTipMoney,
+                            refundedDiscountMoney, refundedSurchargeMoney, refundedSurcharges,
+                            createdAt, processedAt, paymentId, merchantId, isExchange);
             model.httpContext = httpContext;
             return model;
         }

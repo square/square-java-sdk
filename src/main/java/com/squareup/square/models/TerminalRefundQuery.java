@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TerminalRefundQuery type.
  */
@@ -45,7 +44,6 @@ public class TerminalRefundQuery {
         return this.sort;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(filter, sort);
@@ -65,14 +63,23 @@ public class TerminalRefundQuery {
     }
 
     /**
+     * Converts this TerminalRefundQuery into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TerminalRefundQuery [" + "filter=" + filter + ", sort=" + sort + "]";
+    }
+
+    /**
      * Builds a new {@link TerminalRefundQuery.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TerminalRefundQuery.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .filter(getFilter())
-            .sort(getSort());
+                .filter(getFilter())
+                .sort(getSort());
         return builder;
     }
 
@@ -110,8 +117,7 @@ public class TerminalRefundQuery {
          * @return {@link TerminalRefundQuery}
          */
         public TerminalRefundQuery build() {
-            return new TerminalRefundQuery(filter,
-                sort);
+            return new TerminalRefundQuery(filter, sort);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateShiftRequest type.
  */
@@ -34,7 +33,6 @@ public class UpdateShiftRequest {
         return this.shift;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(shift);
@@ -50,6 +48,15 @@ public class UpdateShiftRequest {
         }
         UpdateShiftRequest other = (UpdateShiftRequest) obj;
         return Objects.equals(shift, other.shift);
+    }
+
+    /**
+     * Converts this UpdateShiftRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateShiftRequest [" + "shift=" + shift + "]";
     }
 
     /**

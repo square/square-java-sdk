@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateTeamMemberResponse type.
  */
@@ -54,7 +53,6 @@ public class UpdateTeamMemberResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMember, errors);
@@ -74,14 +72,24 @@ public class UpdateTeamMemberResponse {
     }
 
     /**
+     * Converts this UpdateTeamMemberResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateTeamMemberResponse [" + "teamMember=" + teamMember + ", errors=" + errors
+                + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateTeamMemberResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateTeamMemberResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMember(getTeamMember())
-            .errors(getErrors());
+                .teamMember(getTeamMember())
+                .errors(getErrors());
         return builder;
     }
 
@@ -131,8 +139,7 @@ public class UpdateTeamMemberResponse {
          */
         public UpdateTeamMemberResponse build() {
             UpdateTeamMemberResponse model =
-                    new UpdateTeamMemberResponse(teamMember,
-                            errors);
+                    new UpdateTeamMemberResponse(teamMember, errors);
             model.httpContext = httpContext;
             return model;
         }

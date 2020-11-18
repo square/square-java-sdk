@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for PayOrderResponse type.
  */
@@ -57,7 +56,6 @@ public class PayOrderResponse {
         return this.order;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, order);
@@ -77,14 +75,23 @@ public class PayOrderResponse {
     }
 
     /**
+     * Converts this PayOrderResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "PayOrderResponse [" + "errors=" + errors + ", order=" + order + "]";
+    }
+
+    /**
      * Builds a new {@link PayOrderResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link PayOrderResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .order(getOrder());
+                .errors(getErrors())
+                .order(getOrder());
         return builder;
     }
 
@@ -134,8 +141,7 @@ public class PayOrderResponse {
          */
         public PayOrderResponse build() {
             PayOrderResponse model =
-                    new PayOrderResponse(errors,
-                            order);
+                    new PayOrderResponse(errors, order);
             model.httpContext = httpContext;
             return model;
         }

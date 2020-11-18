@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1SettlementEntry type.
  */
@@ -72,7 +71,6 @@ public class V1SettlementEntry {
         return this.feeMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(paymentId, type, amountMoney, feeMoney);
@@ -94,16 +92,26 @@ public class V1SettlementEntry {
     }
 
     /**
+     * Converts this V1SettlementEntry into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1SettlementEntry [" + "paymentId=" + paymentId + ", type=" + type
+                + ", amountMoney=" + amountMoney + ", feeMoney=" + feeMoney + "]";
+    }
+
+    /**
      * Builds a new {@link V1SettlementEntry.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1SettlementEntry.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .paymentId(getPaymentId())
-            .type(getType())
-            .amountMoney(getAmountMoney())
-            .feeMoney(getFeeMoney());
+                .paymentId(getPaymentId())
+                .type(getType())
+                .amountMoney(getAmountMoney())
+                .feeMoney(getFeeMoney());
         return builder;
     }
 
@@ -163,10 +171,7 @@ public class V1SettlementEntry {
          * @return {@link V1SettlementEntry}
          */
         public V1SettlementEntry build() {
-            return new V1SettlementEntry(paymentId,
-                type,
-                amountMoney,
-                feeMoney);
+            return new V1SettlementEntry(paymentId, type, amountMoney, feeMoney);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Invoice type.
  */
@@ -265,7 +264,6 @@ public class Invoice {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
@@ -301,28 +299,43 @@ public class Invoice {
     }
 
     /**
+     * Converts this Invoice into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Invoice [" + "id=" + id + ", version=" + version + ", locationId=" + locationId
+                + ", orderId=" + orderId + ", primaryRecipient=" + primaryRecipient
+                + ", paymentRequests=" + paymentRequests + ", invoiceNumber=" + invoiceNumber
+                + ", title=" + title + ", description=" + description + ", scheduledAt="
+                + scheduledAt + ", publicUrl=" + publicUrl + ", nextPaymentAmountMoney="
+                + nextPaymentAmountMoney + ", status=" + status + ", timezone=" + timezone
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link Invoice.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Invoice.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .version(getVersion())
-            .locationId(getLocationId())
-            .orderId(getOrderId())
-            .primaryRecipient(getPrimaryRecipient())
-            .paymentRequests(getPaymentRequests())
-            .invoiceNumber(getInvoiceNumber())
-            .title(getTitle())
-            .description(getDescription())
-            .scheduledAt(getScheduledAt())
-            .publicUrl(getPublicUrl())
-            .nextPaymentAmountMoney(getNextPaymentAmountMoney())
-            .status(getStatus())
-            .timezone(getTimezone())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+                .id(getId())
+                .version(getVersion())
+                .locationId(getLocationId())
+                .orderId(getOrderId())
+                .primaryRecipient(getPrimaryRecipient())
+                .paymentRequests(getPaymentRequests())
+                .invoiceNumber(getInvoiceNumber())
+                .title(getTitle())
+                .description(getDescription())
+                .scheduledAt(getScheduledAt())
+                .publicUrl(getPublicUrl())
+                .nextPaymentAmountMoney(getNextPaymentAmountMoney())
+                .status(getStatus())
+                .timezone(getTimezone())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -514,22 +527,9 @@ public class Invoice {
          * @return {@link Invoice}
          */
         public Invoice build() {
-            return new Invoice(id,
-                version,
-                locationId,
-                orderId,
-                primaryRecipient,
-                paymentRequests,
-                invoiceNumber,
-                title,
-                description,
-                scheduledAt,
-                publicUrl,
-                nextPaymentAmountMoney,
-                status,
-                timezone,
-                createdAt,
-                updatedAt);
+            return new Invoice(id, version, locationId, orderId, primaryRecipient, paymentRequests,
+                    invoiceNumber, title, description, scheduledAt, publicUrl,
+                    nextPaymentAmountMoney, status, timezone, createdAt, updatedAt);
         }
     }
 }

@@ -4,8 +4,8 @@ package com.squareup.square.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
-
 
 /**
  * This is a model class for TipSettings type.
@@ -14,21 +14,29 @@ public class TipSettings {
     private final Boolean allowTipping;
     private final Boolean separateTipScreen;
     private final Boolean customTipField;
+    private final List<Integer> tipPercentages;
+    private final Boolean smartTipping;
 
     /**
      * Initialization constructor.
      * @param allowTipping Boolean value for allowTipping.
      * @param separateTipScreen Boolean value for separateTipScreen.
      * @param customTipField Boolean value for customTipField.
+     * @param tipPercentages List of Integer value for tipPercentages.
+     * @param smartTipping Boolean value for smartTipping.
      */
     @JsonCreator
     public TipSettings(
             @JsonProperty("allow_tipping") Boolean allowTipping,
             @JsonProperty("separate_tip_screen") Boolean separateTipScreen,
-            @JsonProperty("custom_tip_field") Boolean customTipField) {
+            @JsonProperty("custom_tip_field") Boolean customTipField,
+            @JsonProperty("tip_percentages") List<Integer> tipPercentages,
+            @JsonProperty("smart_tipping") Boolean smartTipping) {
         this.allowTipping = allowTipping;
         this.separateTipScreen = separateTipScreen;
         this.customTipField = customTipField;
+        this.tipPercentages = tipPercentages;
+        this.smartTipping = smartTipping;
     }
 
     /**
@@ -62,10 +70,35 @@ public class TipSettings {
         return this.customTipField;
     }
 
- 
+    /**
+     * Getter for TipPercentages.
+     * A list of tip percentages that should be presented during the checkout flow. Specified as up
+     * to 3 non-negative integers from 0 to 100 (inclusive). Defaults to [15, 20, 25]
+     * @return Returns the List of Integer
+     */
+    @JsonGetter("tip_percentages")
+    public List<Integer> getTipPercentages() {
+        return this.tipPercentages;
+    }
+
+    /**
+     * Getter for SmartTipping.
+     * Enables the "Smart Tip Amounts" behavior described in
+     * https://squareup.com/help/us/en/article/5069-accept-tips-with-the-square-app. Exact tipping
+     * options depend on the region the Square seller is active in. In the United States and Canada,
+     * tipping options will be presented in whole dollar amounts for payments under 10 USD/CAD
+     * respectively. If set to true, the tip_percentages settings is ignored. Defaults to false.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("smart_tipping")
+    public Boolean getSmartTipping() {
+        return this.smartTipping;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(allowTipping, separateTipScreen, customTipField);
+        return Objects.hash(allowTipping, separateTipScreen, customTipField, tipPercentages,
+                smartTipping);
     }
 
     @Override
@@ -79,7 +112,20 @@ public class TipSettings {
         TipSettings other = (TipSettings) obj;
         return Objects.equals(allowTipping, other.allowTipping)
             && Objects.equals(separateTipScreen, other.separateTipScreen)
-            && Objects.equals(customTipField, other.customTipField);
+            && Objects.equals(customTipField, other.customTipField)
+            && Objects.equals(tipPercentages, other.tipPercentages)
+            && Objects.equals(smartTipping, other.smartTipping);
+    }
+
+    /**
+     * Converts this TipSettings into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TipSettings [" + "allowTipping=" + allowTipping + ", separateTipScreen="
+                + separateTipScreen + ", customTipField=" + customTipField + ", tipPercentages="
+                + tipPercentages + ", smartTipping=" + smartTipping + "]";
     }
 
     /**
@@ -89,9 +135,11 @@ public class TipSettings {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .allowTipping(getAllowTipping())
-            .separateTipScreen(getSeparateTipScreen())
-            .customTipField(getCustomTipField());
+                .allowTipping(getAllowTipping())
+                .separateTipScreen(getSeparateTipScreen())
+                .customTipField(getCustomTipField())
+                .tipPercentages(getTipPercentages())
+                .smartTipping(getSmartTipping());
         return builder;
     }
 
@@ -102,6 +150,8 @@ public class TipSettings {
         private Boolean allowTipping;
         private Boolean separateTipScreen;
         private Boolean customTipField;
+        private List<Integer> tipPercentages;
+        private Boolean smartTipping;
 
 
 
@@ -136,13 +186,32 @@ public class TipSettings {
         }
 
         /**
+         * Setter for tipPercentages.
+         * @param tipPercentages List of Integer value for tipPercentages.
+         * @return Builder
+         */
+        public Builder tipPercentages(List<Integer> tipPercentages) {
+            this.tipPercentages = tipPercentages;
+            return this;
+        }
+
+        /**
+         * Setter for smartTipping.
+         * @param smartTipping Boolean value for smartTipping.
+         * @return Builder
+         */
+        public Builder smartTipping(Boolean smartTipping) {
+            this.smartTipping = smartTipping;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TipSettings} object using the set fields.
          * @return {@link TipSettings}
          */
         public TipSettings build() {
-            return new TipSettings(allowTipping,
-                separateTipScreen,
-                customTipField);
+            return new TipSettings(allowTipping, separateTipScreen, customTipField, tipPercentages,
+                    smartTipping);
         }
     }
 }

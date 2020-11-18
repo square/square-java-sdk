@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SubmitEvidenceResponse type.
  */
@@ -54,7 +53,6 @@ public class SubmitEvidenceResponse {
         return this.dispute;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, dispute);
@@ -74,14 +72,23 @@ public class SubmitEvidenceResponse {
     }
 
     /**
+     * Converts this SubmitEvidenceResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubmitEvidenceResponse [" + "errors=" + errors + ", dispute=" + dispute + "]";
+    }
+
+    /**
      * Builds a new {@link SubmitEvidenceResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SubmitEvidenceResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .dispute(getDispute());
+                .errors(getErrors())
+                .dispute(getDispute());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class SubmitEvidenceResponse {
          */
         public SubmitEvidenceResponse build() {
             SubmitEvidenceResponse model =
-                    new SubmitEvidenceResponse(errors,
-                            dispute);
+                    new SubmitEvidenceResponse(errors, dispute);
             model.httpContext = httpContext;
             return model;
         }

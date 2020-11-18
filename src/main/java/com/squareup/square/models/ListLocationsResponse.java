@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListLocationsResponse type.
  */
@@ -54,7 +53,6 @@ public class ListLocationsResponse {
         return this.locations;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, locations);
@@ -74,14 +72,23 @@ public class ListLocationsResponse {
     }
 
     /**
+     * Converts this ListLocationsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListLocationsResponse [" + "errors=" + errors + ", locations=" + locations + "]";
+    }
+
+    /**
      * Builds a new {@link ListLocationsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListLocationsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .locations(getLocations());
+                .errors(getErrors())
+                .locations(getLocations());
         return builder;
     }
 
@@ -131,8 +138,7 @@ public class ListLocationsResponse {
          */
         public ListLocationsResponse build() {
             ListLocationsResponse model =
-                    new ListLocationsResponse(errors,
-                            locations);
+                    new ListLocationsResponse(errors, locations);
             model.httpContext = httpContext;
             return model;
         }

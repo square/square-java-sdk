@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for TeamMember type.
  */
@@ -176,7 +175,6 @@ public class TeamMember {
         return this.assignedLocations;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, isOwner, status, givenName, familyName, emailAddress,
@@ -206,23 +204,36 @@ public class TeamMember {
     }
 
     /**
+     * Converts this TeamMember into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TeamMember [" + "id=" + id + ", referenceId=" + referenceId + ", isOwner=" + isOwner
+                + ", status=" + status + ", givenName=" + givenName + ", familyName=" + familyName
+                + ", emailAddress=" + emailAddress + ", phoneNumber=" + phoneNumber + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", assignedLocations="
+                + assignedLocations + "]";
+    }
+
+    /**
      * Builds a new {@link TeamMember.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link TeamMember.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .referenceId(getReferenceId())
-            .isOwner(getIsOwner())
-            .status(getStatus())
-            .givenName(getGivenName())
-            .familyName(getFamilyName())
-            .emailAddress(getEmailAddress())
-            .phoneNumber(getPhoneNumber())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .assignedLocations(getAssignedLocations());
+                .id(getId())
+                .referenceId(getReferenceId())
+                .isOwner(getIsOwner())
+                .status(getStatus())
+                .givenName(getGivenName())
+                .familyName(getFamilyName())
+                .emailAddress(getEmailAddress())
+                .phoneNumber(getPhoneNumber())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .assignedLocations(getAssignedLocations());
         return builder;
     }
 
@@ -359,17 +370,8 @@ public class TeamMember {
          * @return {@link TeamMember}
          */
         public TeamMember build() {
-            return new TeamMember(id,
-                referenceId,
-                isOwner,
-                status,
-                givenName,
-                familyName,
-                emailAddress,
-                phoneNumber,
-                createdAt,
-                updatedAt,
-                assignedLocations);
+            return new TeamMember(id, referenceId, isOwner, status, givenName, familyName,
+                    emailAddress, phoneNumber, createdAt, updatedAt, assignedLocations);
         }
     }
 }

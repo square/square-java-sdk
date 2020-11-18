@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Timecard type.
  */
@@ -197,7 +196,6 @@ public class V1Timecard {
         return this.doubletimeSecondsWorked;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, deleted, clockinTime, clockoutTime, clockinLocationId,
@@ -229,23 +227,38 @@ public class V1Timecard {
     }
 
     /**
+     * Converts this V1Timecard into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Timecard [" + "employeeId=" + employeeId + ", id=" + id + ", deleted=" + deleted
+                + ", clockinTime=" + clockinTime + ", clockoutTime=" + clockoutTime
+                + ", clockinLocationId=" + clockinLocationId + ", clockoutLocationId="
+                + clockoutLocationId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", regularSecondsWorked=" + regularSecondsWorked + ", overtimeSecondsWorked="
+                + overtimeSecondsWorked + ", doubletimeSecondsWorked=" + doubletimeSecondsWorked
+                + "]";
+    }
+
+    /**
      * Builds a new {@link V1Timecard.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Timecard.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(employeeId)
-            .id(getId())
-            .deleted(getDeleted())
-            .clockinTime(getClockinTime())
-            .clockoutTime(getClockoutTime())
-            .clockinLocationId(getClockinLocationId())
-            .clockoutLocationId(getClockoutLocationId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .regularSecondsWorked(getRegularSecondsWorked())
-            .overtimeSecondsWorked(getOvertimeSecondsWorked())
-            .doubletimeSecondsWorked(getDoubletimeSecondsWorked());
+                .id(getId())
+                .deleted(getDeleted())
+                .clockinTime(getClockinTime())
+                .clockoutTime(getClockoutTime())
+                .clockinLocationId(getClockinLocationId())
+                .clockoutLocationId(getClockoutLocationId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .regularSecondsWorked(getRegularSecondsWorked())
+                .overtimeSecondsWorked(getOvertimeSecondsWorked())
+                .doubletimeSecondsWorked(getDoubletimeSecondsWorked());
         return builder;
     }
 
@@ -411,18 +424,9 @@ public class V1Timecard {
          */
         public V1Timecard build() {
             V1Timecard model =
-                    new V1Timecard(employeeId,
-                            id,
-                            deleted,
-                            clockinTime,
-                            clockoutTime,
-                            clockinLocationId,
-                            clockoutLocationId,
-                            createdAt,
-                            updatedAt,
-                            regularSecondsWorked,
-                            overtimeSecondsWorked,
-                            doubletimeSecondsWorked);
+                    new V1Timecard(employeeId, id, deleted, clockinTime, clockoutTime,
+                            clockinLocationId, clockoutLocationId, createdAt, updatedAt,
+                            regularSecondsWorked, overtimeSecondsWorked, doubletimeSecondsWorked);
             model.httpContext = httpContext;
             return model;
         }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ObtainTokenResponse type.
  */
@@ -21,6 +20,7 @@ public class ObtainTokenResponse {
     private final String planId;
     private final String idToken;
     private final String refreshToken;
+    private final Boolean shortLived;
 
     /**
      * Initialization constructor.
@@ -32,6 +32,7 @@ public class ObtainTokenResponse {
      * @param planId String value for planId.
      * @param idToken String value for idToken.
      * @param refreshToken String value for refreshToken.
+     * @param shortLived Boolean value for shortLived.
      */
     @JsonCreator
     public ObtainTokenResponse(
@@ -42,7 +43,8 @@ public class ObtainTokenResponse {
             @JsonProperty("subscription_id") String subscriptionId,
             @JsonProperty("plan_id") String planId,
             @JsonProperty("id_token") String idToken,
-            @JsonProperty("refresh_token") String refreshToken) {
+            @JsonProperty("refresh_token") String refreshToken,
+            @JsonProperty("short_lived") Boolean shortLived) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresAt = expiresAt;
@@ -51,6 +53,7 @@ public class ObtainTokenResponse {
         this.planId = planId;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
+        this.shortLived = shortLived;
     }
 
     public HttpContext getContext() {
@@ -60,9 +63,8 @@ public class ObtainTokenResponse {
     /**
      * Getter for AccessToken.
      * A valid OAuth access token. OAuth access tokens are 64 bytes long. Provide the access token
-     * in a header with every request to Connect API endpoints. See the [Build with
-     * OAuth](https://developer.squareup.com/docs/authz/oauth/build-with-the-api) guide for more
-     * information.
+     * in a header with every request to Connect API endpoints. See [OAuth API:
+     * Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough) for more information.
      * @return Returns the String
      */
     @JsonGetter("access_token")
@@ -114,8 +116,8 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for PlanId.
-     * T__LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. Only present
-     * if the merchant signed up for a subscription during authorization.
+     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. Only present if
+     * the merchant signed up for a subscription during authorization.
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -146,11 +148,21 @@ public class ObtainTokenResponse {
         return this.refreshToken;
     }
 
- 
+    /**
+     * Getter for ShortLived.
+     * A boolean indicating the access token is a short-lived access token. The short-lived access
+     * token returned in the response will expire in 24 hours.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("short_lived")
+    public Boolean getShortLived() {
+        return this.shortLived;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId,
-                idToken, refreshToken);
+                idToken, refreshToken, shortLived);
     }
 
     @Override
@@ -169,7 +181,20 @@ public class ObtainTokenResponse {
             && Objects.equals(subscriptionId, other.subscriptionId)
             && Objects.equals(planId, other.planId)
             && Objects.equals(idToken, other.idToken)
-            && Objects.equals(refreshToken, other.refreshToken);
+            && Objects.equals(refreshToken, other.refreshToken)
+            && Objects.equals(shortLived, other.shortLived);
+    }
+
+    /**
+     * Converts this ObtainTokenResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ObtainTokenResponse [" + "accessToken=" + accessToken + ", tokenType=" + tokenType
+                + ", expiresAt=" + expiresAt + ", merchantId=" + merchantId + ", subscriptionId="
+                + subscriptionId + ", planId=" + planId + ", idToken=" + idToken + ", refreshToken="
+                + refreshToken + ", shortLived=" + shortLived + "]";
     }
 
     /**
@@ -179,14 +204,15 @@ public class ObtainTokenResponse {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .accessToken(getAccessToken())
-            .tokenType(getTokenType())
-            .expiresAt(getExpiresAt())
-            .merchantId(getMerchantId())
-            .subscriptionId(getSubscriptionId())
-            .planId(getPlanId())
-            .idToken(getIdToken())
-            .refreshToken(getRefreshToken());
+                .accessToken(getAccessToken())
+                .tokenType(getTokenType())
+                .expiresAt(getExpiresAt())
+                .merchantId(getMerchantId())
+                .subscriptionId(getSubscriptionId())
+                .planId(getPlanId())
+                .idToken(getIdToken())
+                .refreshToken(getRefreshToken())
+                .shortLived(getShortLived());
         return builder;
     }
 
@@ -203,6 +229,7 @@ public class ObtainTokenResponse {
         private String planId;
         private String idToken;
         private String refreshToken;
+        private Boolean shortLived;
 
 
 
@@ -297,19 +324,23 @@ public class ObtainTokenResponse {
         }
 
         /**
+         * Setter for shortLived.
+         * @param shortLived Boolean value for shortLived.
+         * @return Builder
+         */
+        public Builder shortLived(Boolean shortLived) {
+            this.shortLived = shortLived;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ObtainTokenResponse} object using the set fields.
          * @return {@link ObtainTokenResponse}
          */
         public ObtainTokenResponse build() {
             ObtainTokenResponse model =
-                    new ObtainTokenResponse(accessToken,
-                            tokenType,
-                            expiresAt,
-                            merchantId,
-                            subscriptionId,
-                            planId,
-                            idToken,
-                            refreshToken);
+                    new ObtainTokenResponse(accessToken, tokenType, expiresAt, merchantId,
+                            subscriptionId, planId, idToken, refreshToken, shortLived);
             model.httpContext = httpContext;
             return model;
         }

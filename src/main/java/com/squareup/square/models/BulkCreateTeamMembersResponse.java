@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BulkCreateTeamMembersResponse type.
  */
@@ -56,7 +55,6 @@ public class BulkCreateTeamMembersResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMembers, errors);
@@ -76,14 +74,24 @@ public class BulkCreateTeamMembersResponse {
     }
 
     /**
+     * Converts this BulkCreateTeamMembersResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BulkCreateTeamMembersResponse [" + "teamMembers=" + teamMembers + ", errors="
+                + errors + "]";
+    }
+
+    /**
      * Builds a new {@link BulkCreateTeamMembersResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BulkCreateTeamMembersResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMembers(getTeamMembers())
-            .errors(getErrors());
+                .teamMembers(getTeamMembers())
+                .errors(getErrors());
         return builder;
     }
 
@@ -133,8 +141,7 @@ public class BulkCreateTeamMembersResponse {
          */
         public BulkCreateTeamMembersResponse build() {
             BulkCreateTeamMembersResponse model =
-                    new BulkCreateTeamMembersResponse(teamMembers,
-                            errors);
+                    new BulkCreateTeamMembersResponse(teamMembers, errors);
             model.httpContext = httpContext;
             return model;
         }

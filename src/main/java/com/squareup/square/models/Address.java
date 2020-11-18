@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Address type.
  */
@@ -234,7 +233,6 @@ public class Address {
         return this.organization;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, addressLine3, locality, sublocality,
@@ -270,27 +268,43 @@ public class Address {
     }
 
     /**
+     * Converts this Address into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Address [" + "addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
+                + ", addressLine3=" + addressLine3 + ", locality=" + locality + ", sublocality="
+                + sublocality + ", sublocality2=" + sublocality2 + ", sublocality3=" + sublocality3
+                + ", administrativeDistrictLevel1=" + administrativeDistrictLevel1
+                + ", administrativeDistrictLevel2=" + administrativeDistrictLevel2
+                + ", administrativeDistrictLevel3=" + administrativeDistrictLevel3 + ", postalCode="
+                + postalCode + ", country=" + country + ", firstName=" + firstName + ", lastName="
+                + lastName + ", organization=" + organization + "]";
+    }
+
+    /**
      * Builds a new {@link Address.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Address.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .addressLine1(getAddressLine1())
-            .addressLine2(getAddressLine2())
-            .addressLine3(getAddressLine3())
-            .locality(getLocality())
-            .sublocality(getSublocality())
-            .sublocality2(getSublocality2())
-            .sublocality3(getSublocality3())
-            .administrativeDistrictLevel1(getAdministrativeDistrictLevel1())
-            .administrativeDistrictLevel2(getAdministrativeDistrictLevel2())
-            .administrativeDistrictLevel3(getAdministrativeDistrictLevel3())
-            .postalCode(getPostalCode())
-            .country(getCountry())
-            .firstName(getFirstName())
-            .lastName(getLastName())
-            .organization(getOrganization());
+                .addressLine1(getAddressLine1())
+                .addressLine2(getAddressLine2())
+                .addressLine3(getAddressLine3())
+                .locality(getLocality())
+                .sublocality(getSublocality())
+                .sublocality2(getSublocality2())
+                .sublocality3(getSublocality3())
+                .administrativeDistrictLevel1(getAdministrativeDistrictLevel1())
+                .administrativeDistrictLevel2(getAdministrativeDistrictLevel2())
+                .administrativeDistrictLevel3(getAdministrativeDistrictLevel3())
+                .postalCode(getPostalCode())
+                .country(getCountry())
+                .firstName(getFirstName())
+                .lastName(getLastName())
+                .organization(getOrganization());
         return builder;
     }
 
@@ -471,21 +485,10 @@ public class Address {
          * @return {@link Address}
          */
         public Address build() {
-            return new Address(addressLine1,
-                addressLine2,
-                addressLine3,
-                locality,
-                sublocality,
-                sublocality2,
-                sublocality3,
-                administrativeDistrictLevel1,
-                administrativeDistrictLevel2,
-                administrativeDistrictLevel3,
-                postalCode,
-                country,
-                firstName,
-                lastName,
-                organization);
+            return new Address(addressLine1, addressLine2, addressLine3, locality, sublocality,
+                    sublocality2, sublocality3, administrativeDistrictLevel1,
+                    administrativeDistrictLevel2, administrativeDistrictLevel3, postalCode, country,
+                    firstName, lastName, organization);
         }
     }
 }

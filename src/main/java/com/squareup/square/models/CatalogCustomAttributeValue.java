@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogCustomAttributeValue type.
  */
@@ -135,7 +134,6 @@ public class CatalogCustomAttributeValue {
         return this.key;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, stringValue, customAttributeDefinitionId, type, numberValue,
@@ -162,20 +160,32 @@ public class CatalogCustomAttributeValue {
     }
 
     /**
+     * Converts this CatalogCustomAttributeValue into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogCustomAttributeValue [" + "name=" + name + ", stringValue=" + stringValue
+                + ", customAttributeDefinitionId=" + customAttributeDefinitionId + ", type=" + type
+                + ", numberValue=" + numberValue + ", booleanValue=" + booleanValue
+                + ", selectionUidValues=" + selectionUidValues + ", key=" + key + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogCustomAttributeValue.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogCustomAttributeValue.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .stringValue(getStringValue())
-            .customAttributeDefinitionId(getCustomAttributeDefinitionId())
-            .type(getType())
-            .numberValue(getNumberValue())
-            .booleanValue(getBooleanValue())
-            .selectionUidValues(getSelectionUidValues())
-            .key(getKey());
+                .name(getName())
+                .stringValue(getStringValue())
+                .customAttributeDefinitionId(getCustomAttributeDefinitionId())
+                .type(getType())
+                .numberValue(getNumberValue())
+                .booleanValue(getBooleanValue())
+                .selectionUidValues(getSelectionUidValues())
+                .key(getKey());
         return builder;
     }
 
@@ -279,14 +289,8 @@ public class CatalogCustomAttributeValue {
          * @return {@link CatalogCustomAttributeValue}
          */
         public CatalogCustomAttributeValue build() {
-            return new CatalogCustomAttributeValue(name,
-                stringValue,
-                customAttributeDefinitionId,
-                type,
-                numberValue,
-                booleanValue,
-                selectionUidValues,
-                key);
+            return new CatalogCustomAttributeValue(name, stringValue, customAttributeDefinitionId,
+                    type, numberValue, booleanValue, selectionUidValues, key);
         }
     }
 }

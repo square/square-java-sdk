@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveCustomerResponse type.
  */
@@ -55,7 +54,6 @@ public class RetrieveCustomerResponse {
         return this.customer;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, customer);
@@ -75,14 +73,23 @@ public class RetrieveCustomerResponse {
     }
 
     /**
+     * Converts this RetrieveCustomerResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveCustomerResponse [" + "errors=" + errors + ", customer=" + customer + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveCustomerResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveCustomerResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .customer(getCustomer());
+                .errors(getErrors())
+                .customer(getCustomer());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class RetrieveCustomerResponse {
          */
         public RetrieveCustomerResponse build() {
             RetrieveCustomerResponse model =
-                    new RetrieveCustomerResponse(errors,
-                            customer);
+                    new RetrieveCustomerResponse(errors, customer);
             model.httpContext = httpContext;
             return model;
         }

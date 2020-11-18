@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListEmployeesRequest type.
  */
@@ -150,7 +149,6 @@ public class V1ListEmployeesRequest {
         return this.batchToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt, endCreatedAt,
@@ -178,21 +176,33 @@ public class V1ListEmployeesRequest {
     }
 
     /**
+     * Converts this V1ListEmployeesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListEmployeesRequest [" + "order=" + order + ", beginUpdatedAt=" + beginUpdatedAt
+                + ", endUpdatedAt=" + endUpdatedAt + ", beginCreatedAt=" + beginCreatedAt
+                + ", endCreatedAt=" + endCreatedAt + ", status=" + status + ", externalId="
+                + externalId + ", limit=" + limit + ", batchToken=" + batchToken + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListEmployeesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListEmployeesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .beginUpdatedAt(getBeginUpdatedAt())
-            .endUpdatedAt(getEndUpdatedAt())
-            .beginCreatedAt(getBeginCreatedAt())
-            .endCreatedAt(getEndCreatedAt())
-            .status(getStatus())
-            .externalId(getExternalId())
-            .limit(getLimit())
-            .batchToken(getBatchToken());
+                .order(getOrder())
+                .beginUpdatedAt(getBeginUpdatedAt())
+                .endUpdatedAt(getEndUpdatedAt())
+                .beginCreatedAt(getBeginCreatedAt())
+                .endCreatedAt(getEndCreatedAt())
+                .status(getStatus())
+                .externalId(getExternalId())
+                .limit(getLimit())
+                .batchToken(getBatchToken());
         return builder;
     }
 
@@ -307,15 +317,8 @@ public class V1ListEmployeesRequest {
          * @return {@link V1ListEmployeesRequest}
          */
         public V1ListEmployeesRequest build() {
-            return new V1ListEmployeesRequest(order,
-                beginUpdatedAt,
-                endUpdatedAt,
-                beginCreatedAt,
-                endCreatedAt,
-                status,
-                externalId,
-                limit,
-                batchToken);
+            return new V1ListEmployeesRequest(order, beginUpdatedAt, endUpdatedAt, beginCreatedAt,
+                    endCreatedAt, status, externalId, limit, batchToken);
         }
     }
 }

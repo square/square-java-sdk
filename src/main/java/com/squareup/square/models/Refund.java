@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Refund type.
  */
@@ -171,7 +170,6 @@ public class Refund {
         return this.additionalRecipients;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, transactionId, tenderId, createdAt, reason, amountMoney,
@@ -200,21 +198,29 @@ public class Refund {
     }
 
     /**
+     * Converts this Refund into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Refund [" + "id=" + id + ", locationId=" + locationId + ", transactionId="
+                + transactionId + ", tenderId=" + tenderId + ", reason=" + reason + ", amountMoney="
+                + amountMoney + ", status=" + status + ", createdAt=" + createdAt
+                + ", processingFeeMoney=" + processingFeeMoney + ", additionalRecipients="
+                + additionalRecipients + "]";
+    }
+
+    /**
      * Builds a new {@link Refund.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Refund.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id,
-            locationId,
-            transactionId,
-            tenderId,
-            reason,
-            amountMoney,
-            status)
-            .createdAt(getCreatedAt())
-            .processingFeeMoney(getProcessingFeeMoney())
-            .additionalRecipients(getAdditionalRecipients());
+        Builder builder = new Builder(id, locationId, transactionId, tenderId, reason, amountMoney,
+                status)
+                .createdAt(getCreatedAt())
+                .processingFeeMoney(getProcessingFeeMoney())
+                .additionalRecipients(getAdditionalRecipients());
         return builder;
     }
 
@@ -364,16 +370,8 @@ public class Refund {
          * @return {@link Refund}
          */
         public Refund build() {
-            return new Refund(id,
-                locationId,
-                transactionId,
-                tenderId,
-                reason,
-                amountMoney,
-                status,
-                createdAt,
-                processingFeeMoney,
-                additionalRecipients);
+            return new Refund(id, locationId, transactionId, tenderId, reason, amountMoney, status,
+                    createdAt, processingFeeMoney, additionalRecipients);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for GetBreakTypeResponse type.
  */
@@ -55,7 +54,6 @@ public class GetBreakTypeResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(breakType, errors);
@@ -75,14 +73,23 @@ public class GetBreakTypeResponse {
     }
 
     /**
+     * Converts this GetBreakTypeResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "GetBreakTypeResponse [" + "breakType=" + breakType + ", errors=" + errors + "]";
+    }
+
+    /**
      * Builds a new {@link GetBreakTypeResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link GetBreakTypeResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .breakType(getBreakType())
-            .errors(getErrors());
+                .breakType(getBreakType())
+                .errors(getErrors());
         return builder;
     }
 
@@ -132,8 +139,7 @@ public class GetBreakTypeResponse {
          */
         public GetBreakTypeResponse build() {
             GetBreakTypeResponse model =
-                    new GetBreakTypeResponse(breakType,
-                            errors);
+                    new GetBreakTypeResponse(breakType, errors);
             model.httpContext = httpContext;
             return model;
         }

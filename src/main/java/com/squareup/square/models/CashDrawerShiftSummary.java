@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CashDrawerShiftSummary type.
  */
@@ -160,7 +159,6 @@ public class CashDrawerShiftSummary {
         return this.closedCashMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, state, openedAt, endedAt, closedAt, description, openedCashMoney,
@@ -188,21 +186,33 @@ public class CashDrawerShiftSummary {
     }
 
     /**
+     * Converts this CashDrawerShiftSummary into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CashDrawerShiftSummary [" + "id=" + id + ", state=" + state + ", openedAt="
+                + openedAt + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", description="
+                + description + ", openedCashMoney=" + openedCashMoney + ", expectedCashMoney="
+                + expectedCashMoney + ", closedCashMoney=" + closedCashMoney + "]";
+    }
+
+    /**
      * Builds a new {@link CashDrawerShiftSummary.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CashDrawerShiftSummary.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .state(getState())
-            .openedAt(getOpenedAt())
-            .endedAt(getEndedAt())
-            .closedAt(getClosedAt())
-            .description(getDescription())
-            .openedCashMoney(getOpenedCashMoney())
-            .expectedCashMoney(getExpectedCashMoney())
-            .closedCashMoney(getClosedCashMoney());
+                .id(getId())
+                .state(getState())
+                .openedAt(getOpenedAt())
+                .endedAt(getEndedAt())
+                .closedAt(getClosedAt())
+                .description(getDescription())
+                .openedCashMoney(getOpenedCashMoney())
+                .expectedCashMoney(getExpectedCashMoney())
+                .closedCashMoney(getClosedCashMoney());
         return builder;
     }
 
@@ -317,15 +327,8 @@ public class CashDrawerShiftSummary {
          * @return {@link CashDrawerShiftSummary}
          */
         public CashDrawerShiftSummary build() {
-            return new CashDrawerShiftSummary(id,
-                state,
-                openedAt,
-                endedAt,
-                closedAt,
-                description,
-                openedCashMoney,
-                expectedCashMoney,
-                closedCashMoney);
+            return new CashDrawerShiftSummary(id, state, openedAt, endedAt, closedAt, description,
+                    openedCashMoney, expectedCashMoney, closedCashMoney);
         }
     }
 }

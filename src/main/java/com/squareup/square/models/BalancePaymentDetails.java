@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BalancePaymentDetails type.
  */
@@ -29,7 +28,7 @@ public class BalancePaymentDetails {
 
     /**
      * Getter for AccountId.
-     * ID for the account used to fund the payment.
+     * The ID of the account used to fund the payment.
      * @return Returns the String
      */
     @JsonGetter("account_id")
@@ -39,7 +38,7 @@ public class BalancePaymentDetails {
 
     /**
      * Getter for Status.
-     * The balance payment’s current state. Can be `COMPLETED` or `FAILED`.
+     * The balance payment’s current state. The state can be COMPLETED or FAILED.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -47,7 +46,6 @@ public class BalancePaymentDetails {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(accountId, status);
@@ -67,14 +65,23 @@ public class BalancePaymentDetails {
     }
 
     /**
+     * Converts this BalancePaymentDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BalancePaymentDetails [" + "accountId=" + accountId + ", status=" + status + "]";
+    }
+
+    /**
      * Builds a new {@link BalancePaymentDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BalancePaymentDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .accountId(getAccountId())
-            .status(getStatus());
+                .accountId(getAccountId())
+                .status(getStatus());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class BalancePaymentDetails {
          * @return {@link BalancePaymentDetails}
          */
         public BalancePaymentDetails build() {
-            return new BalancePaymentDetails(accountId,
-                status);
+            return new BalancePaymentDetails(accountId, status);
         }
     }
 }

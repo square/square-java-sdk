@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Variation type.
  */
@@ -195,7 +194,6 @@ public class V1Variation {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, itemId, ordinal, pricingType, priceMoney, sku, trackInventory,
@@ -226,24 +224,37 @@ public class V1Variation {
     }
 
     /**
+     * Converts this V1Variation into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Variation [" + "id=" + id + ", name=" + name + ", itemId=" + itemId + ", ordinal="
+                + ordinal + ", pricingType=" + pricingType + ", priceMoney=" + priceMoney + ", sku="
+                + sku + ", trackInventory=" + trackInventory + ", inventoryAlertType="
+                + inventoryAlertType + ", inventoryAlertThreshold=" + inventoryAlertThreshold
+                + ", userData=" + userData + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1Variation.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Variation.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .itemId(getItemId())
-            .ordinal(getOrdinal())
-            .pricingType(getPricingType())
-            .priceMoney(getPriceMoney())
-            .sku(getSku())
-            .trackInventory(getTrackInventory())
-            .inventoryAlertType(getInventoryAlertType())
-            .inventoryAlertThreshold(getInventoryAlertThreshold())
-            .userData(getUserData())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .itemId(getItemId())
+                .ordinal(getOrdinal())
+                .pricingType(getPricingType())
+                .priceMoney(getPriceMoney())
+                .sku(getSku())
+                .trackInventory(getTrackInventory())
+                .inventoryAlertType(getInventoryAlertType())
+                .inventoryAlertThreshold(getInventoryAlertThreshold())
+                .userData(getUserData())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -403,17 +414,8 @@ public class V1Variation {
          */
         public V1Variation build() {
             V1Variation model =
-                    new V1Variation(id,
-                            name,
-                            itemId,
-                            ordinal,
-                            pricingType,
-                            priceMoney,
-                            sku,
-                            trackInventory,
-                            inventoryAlertType,
-                            inventoryAlertThreshold,
-                            userData,
+                    new V1Variation(id, name, itemId, ordinal, pricingType, priceMoney, sku,
+                            trackInventory, inventoryAlertType, inventoryAlertThreshold, userData,
                             v2Id);
             model.httpContext = httpContext;
             return model;

@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Order type.
  */
@@ -383,7 +382,6 @@ public class V1Order {
         return this.btcPriceSatoshi;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, id, buyerEmail, recipientName, recipientPhoneNumber, state,
@@ -430,37 +428,57 @@ public class V1Order {
     }
 
     /**
+     * Converts this V1Order into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Order [" + "errors=" + errors + ", id=" + id + ", buyerEmail=" + buyerEmail
+                + ", recipientName=" + recipientName + ", recipientPhoneNumber="
+                + recipientPhoneNumber + ", state=" + state + ", shippingAddress=" + shippingAddress
+                + ", subtotalMoney=" + subtotalMoney + ", totalShippingMoney=" + totalShippingMoney
+                + ", totalTaxMoney=" + totalTaxMoney + ", totalPriceMoney=" + totalPriceMoney
+                + ", totalDiscountMoney=" + totalDiscountMoney + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", expiresAt=" + expiresAt + ", paymentId="
+                + paymentId + ", buyerNote=" + buyerNote + ", completedNote=" + completedNote
+                + ", refundedNote=" + refundedNote + ", canceledNote=" + canceledNote + ", tender="
+                + tender + ", orderHistory=" + orderHistory + ", promoCode=" + promoCode
+                + ", btcReceiveAddress=" + btcReceiveAddress + ", btcPriceSatoshi="
+                + btcPriceSatoshi + "]";
+    }
+
+    /**
      * Builds a new {@link V1Order.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Order.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .id(getId())
-            .buyerEmail(getBuyerEmail())
-            .recipientName(getRecipientName())
-            .recipientPhoneNumber(getRecipientPhoneNumber())
-            .state(getState())
-            .shippingAddress(getShippingAddress())
-            .subtotalMoney(getSubtotalMoney())
-            .totalShippingMoney(getTotalShippingMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .totalPriceMoney(getTotalPriceMoney())
-            .totalDiscountMoney(getTotalDiscountMoney())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .expiresAt(getExpiresAt())
-            .paymentId(getPaymentId())
-            .buyerNote(getBuyerNote())
-            .completedNote(getCompletedNote())
-            .refundedNote(getRefundedNote())
-            .canceledNote(getCanceledNote())
-            .tender(getTender())
-            .orderHistory(getOrderHistory())
-            .promoCode(getPromoCode())
-            .btcReceiveAddress(getBtcReceiveAddress())
-            .btcPriceSatoshi(getBtcPriceSatoshi());
+                .errors(getErrors())
+                .id(getId())
+                .buyerEmail(getBuyerEmail())
+                .recipientName(getRecipientName())
+                .recipientPhoneNumber(getRecipientPhoneNumber())
+                .state(getState())
+                .shippingAddress(getShippingAddress())
+                .subtotalMoney(getSubtotalMoney())
+                .totalShippingMoney(getTotalShippingMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .totalPriceMoney(getTotalPriceMoney())
+                .totalDiscountMoney(getTotalDiscountMoney())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .expiresAt(getExpiresAt())
+                .paymentId(getPaymentId())
+                .buyerNote(getBuyerNote())
+                .completedNote(getCompletedNote())
+                .refundedNote(getRefundedNote())
+                .canceledNote(getCanceledNote())
+                .tender(getTender())
+                .orderHistory(getOrderHistory())
+                .promoCode(getPromoCode())
+                .btcReceiveAddress(getBtcReceiveAddress())
+                .btcPriceSatoshi(getBtcPriceSatoshi());
         return builder;
     }
 
@@ -763,31 +781,11 @@ public class V1Order {
          */
         public V1Order build() {
             V1Order model =
-                    new V1Order(errors,
-                            id,
-                            buyerEmail,
-                            recipientName,
-                            recipientPhoneNumber,
-                            state,
-                            shippingAddress,
-                            subtotalMoney,
-                            totalShippingMoney,
-                            totalTaxMoney,
-                            totalPriceMoney,
-                            totalDiscountMoney,
-                            createdAt,
-                            updatedAt,
-                            expiresAt,
-                            paymentId,
-                            buyerNote,
-                            completedNote,
-                            refundedNote,
-                            canceledNote,
-                            tender,
-                            orderHistory,
-                            promoCode,
-                            btcReceiveAddress,
-                            btcPriceSatoshi);
+                    new V1Order(errors, id, buyerEmail, recipientName, recipientPhoneNumber, state,
+                            shippingAddress, subtotalMoney, totalShippingMoney, totalTaxMoney,
+                            totalPriceMoney, totalDiscountMoney, createdAt, updatedAt, expiresAt,
+                            paymentId, buyerNote, completedNote, refundedNote, canceledNote, tender,
+                            orderHistory, promoCode, btcReceiveAddress, btcPriceSatoshi);
             model.httpContext = httpContext;
             return model;
         }

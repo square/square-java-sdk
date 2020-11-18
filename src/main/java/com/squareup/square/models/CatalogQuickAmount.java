@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQuickAmount type.
  */
@@ -81,7 +80,6 @@ public class CatalogQuickAmount {
         return this.ordinal;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(type, amount, score, ordinal);
@@ -103,15 +101,24 @@ public class CatalogQuickAmount {
     }
 
     /**
+     * Converts this CatalogQuickAmount into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQuickAmount [" + "type=" + type + ", amount=" + amount + ", score=" + score
+                + ", ordinal=" + ordinal + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQuickAmount.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQuickAmount.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type,
-            amount)
-            .score(getScore())
-            .ordinal(getOrdinal());
+        Builder builder = new Builder(type, amount)
+                .score(getScore())
+                .ordinal(getOrdinal());
         return builder;
     }
 
@@ -180,10 +187,7 @@ public class CatalogQuickAmount {
          * @return {@link CatalogQuickAmount}
          */
         public CatalogQuickAmount build() {
-            return new CatalogQuickAmount(type,
-                amount,
-                score,
-                ordinal);
+            return new CatalogQuickAmount(type, amount, score, ordinal);
         }
     }
 }

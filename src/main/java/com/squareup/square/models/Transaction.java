@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Transaction type.
  */
@@ -167,7 +166,6 @@ public class Transaction {
         return this.orderId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, createdAt, tenders, refunds, referenceId, product,
@@ -196,22 +194,34 @@ public class Transaction {
     }
 
     /**
+     * Converts this Transaction into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Transaction [" + "id=" + id + ", locationId=" + locationId + ", createdAt="
+                + createdAt + ", tenders=" + tenders + ", refunds=" + refunds + ", referenceId="
+                + referenceId + ", product=" + product + ", clientId=" + clientId
+                + ", shippingAddress=" + shippingAddress + ", orderId=" + orderId + "]";
+    }
+
+    /**
      * Builds a new {@link Transaction.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Transaction.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .locationId(getLocationId())
-            .createdAt(getCreatedAt())
-            .tenders(getTenders())
-            .refunds(getRefunds())
-            .referenceId(getReferenceId())
-            .product(getProduct())
-            .clientId(getClientId())
-            .shippingAddress(getShippingAddress())
-            .orderId(getOrderId());
+                .id(getId())
+                .locationId(getLocationId())
+                .createdAt(getCreatedAt())
+                .tenders(getTenders())
+                .refunds(getRefunds())
+                .referenceId(getReferenceId())
+                .product(getProduct())
+                .clientId(getClientId())
+                .shippingAddress(getShippingAddress())
+                .orderId(getOrderId());
         return builder;
     }
 
@@ -337,16 +347,8 @@ public class Transaction {
          * @return {@link Transaction}
          */
         public Transaction build() {
-            return new Transaction(id,
-                locationId,
-                createdAt,
-                tenders,
-                refunds,
-                referenceId,
-                product,
-                clientId,
-                shippingAddress,
-                orderId);
+            return new Transaction(id, locationId, createdAt, tenders, refunds, referenceId,
+                    product, clientId, shippingAddress, orderId);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersSourceFilter type.
  */
@@ -35,7 +34,6 @@ public class SearchOrdersSourceFilter {
         return this.sourceNames;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(sourceNames);
@@ -54,13 +52,22 @@ public class SearchOrdersSourceFilter {
     }
 
     /**
+     * Converts this SearchOrdersSourceFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersSourceFilter [" + "sourceNames=" + sourceNames + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersSourceFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersSourceFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .sourceNames(getSourceNames());
+                .sourceNames(getSourceNames());
         return builder;
     }
 

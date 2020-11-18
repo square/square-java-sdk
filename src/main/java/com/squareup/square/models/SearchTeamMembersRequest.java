@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTeamMembersRequest type.
  */
@@ -54,8 +53,8 @@ public class SearchTeamMembersRequest {
     /**
      * Getter for Cursor.
      * The opaque cursor for fetching the next page. Read about
-     * [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with
-     * Square APIs for more information.
+     * [pagination](https://developer.squareup.com/docs/working-with-apis/pagination) with Square
+     * APIs for more information.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -63,7 +62,6 @@ public class SearchTeamMembersRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(query, limit, cursor);
@@ -84,15 +82,25 @@ public class SearchTeamMembersRequest {
     }
 
     /**
+     * Converts this SearchTeamMembersRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTeamMembersRequest [" + "query=" + query + ", limit=" + limit + ", cursor="
+                + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTeamMembersRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTeamMembersRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .query(getQuery())
-            .limit(getLimit())
-            .cursor(getCursor());
+                .query(getQuery())
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class SearchTeamMembersRequest {
          * @return {@link SearchTeamMembersRequest}
          */
         public SearchTeamMembersRequest build() {
-            return new SearchTeamMembersRequest(query,
-                limit,
-                cursor);
+            return new SearchTeamMembersRequest(query, limit, cursor);
         }
     }
 }

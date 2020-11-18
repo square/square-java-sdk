@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CreateShiftRequest type.
  */
@@ -48,7 +47,6 @@ public class CreateShiftRequest {
         return this.shift;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, shift);
@@ -68,13 +66,23 @@ public class CreateShiftRequest {
     }
 
     /**
+     * Converts this CreateShiftRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CreateShiftRequest [" + "shift=" + shift + ", idempotencyKey=" + idempotencyKey
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CreateShiftRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CreateShiftRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(shift)
-            .idempotencyKey(getIdempotencyKey());
+                .idempotencyKey(getIdempotencyKey());
         return builder;
     }
 
@@ -118,8 +126,7 @@ public class CreateShiftRequest {
          * @return {@link CreateShiftRequest}
          */
         public CreateShiftRequest build() {
-            return new CreateShiftRequest(shift,
-                idempotencyKey);
+            return new CreateShiftRequest(shift, idempotencyKey);
         }
     }
 }

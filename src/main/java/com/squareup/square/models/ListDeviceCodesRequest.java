@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListDeviceCodesRequest type.
  */
@@ -80,7 +79,6 @@ public class ListDeviceCodesRequest {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, locationId, productType, status);
@@ -102,16 +100,26 @@ public class ListDeviceCodesRequest {
     }
 
     /**
+     * Converts this ListDeviceCodesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListDeviceCodesRequest [" + "cursor=" + cursor + ", locationId=" + locationId
+                + ", productType=" + productType + ", status=" + status + "]";
+    }
+
+    /**
      * Builds a new {@link ListDeviceCodesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListDeviceCodesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .locationId(getLocationId())
-            .productType(getProductType())
-            .status(getStatus());
+                .cursor(getCursor())
+                .locationId(getLocationId())
+                .productType(getProductType())
+                .status(getStatus());
         return builder;
     }
 
@@ -171,10 +179,7 @@ public class ListDeviceCodesRequest {
          * @return {@link ListDeviceCodesRequest}
          */
         public ListDeviceCodesRequest build() {
-            return new ListDeviceCodesRequest(cursor,
-                locationId,
-                productType,
-                status);
+            return new ListDeviceCodesRequest(cursor, locationId, productType, status);
         }
     }
 }

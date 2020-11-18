@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PaymentItemDetail type.
  */
@@ -75,7 +74,6 @@ public class V1PaymentItemDetail {
         return this.itemVariationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(categoryName, sku, itemId, itemVariationId);
@@ -97,16 +95,26 @@ public class V1PaymentItemDetail {
     }
 
     /**
+     * Converts this V1PaymentItemDetail into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PaymentItemDetail [" + "categoryName=" + categoryName + ", sku=" + sku
+                + ", itemId=" + itemId + ", itemVariationId=" + itemVariationId + "]";
+    }
+
+    /**
      * Builds a new {@link V1PaymentItemDetail.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PaymentItemDetail.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .categoryName(getCategoryName())
-            .sku(getSku())
-            .itemId(getItemId())
-            .itemVariationId(getItemVariationId());
+                .categoryName(getCategoryName())
+                .sku(getSku())
+                .itemId(getItemId())
+                .itemVariationId(getItemVariationId());
         return builder;
     }
 
@@ -166,10 +174,7 @@ public class V1PaymentItemDetail {
          * @return {@link V1PaymentItemDetail}
          */
         public V1PaymentItemDetail build() {
-            return new V1PaymentItemDetail(categoryName,
-                sku,
-                itemId,
-                itemVariationId);
+            return new V1PaymentItemDetail(categoryName, sku, itemId, itemVariationId);
         }
     }
 }

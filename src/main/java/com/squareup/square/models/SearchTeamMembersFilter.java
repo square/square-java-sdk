@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchTeamMembersFilter type.
  */
@@ -49,7 +48,6 @@ public class SearchTeamMembersFilter {
         return this.status;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, status);
@@ -69,14 +67,24 @@ public class SearchTeamMembersFilter {
     }
 
     /**
+     * Converts this SearchTeamMembersFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchTeamMembersFilter [" + "locationIds=" + locationIds + ", status=" + status
+                + "]";
+    }
+
+    /**
      * Builds a new {@link SearchTeamMembersFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchTeamMembersFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationIds(getLocationIds())
-            .status(getStatus());
+                .locationIds(getLocationIds())
+                .status(getStatus());
         return builder;
     }
 
@@ -114,8 +122,7 @@ public class SearchTeamMembersFilter {
          * @return {@link SearchTeamMembersFilter}
          */
         public SearchTeamMembersFilter build() {
-            return new SearchTeamMembersFilter(locationIds,
-                status);
+            return new SearchTeamMembersFilter(locationIds, status);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryPrefix type.
  */
@@ -47,7 +46,6 @@ public class CatalogQueryPrefix {
         return this.attributePrefix;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(attributeName, attributePrefix);
@@ -67,13 +65,22 @@ public class CatalogQueryPrefix {
     }
 
     /**
+     * Converts this CatalogQueryPrefix into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryPrefix [" + "attributeName=" + attributeName + ", attributePrefix="
+                + attributePrefix + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogQueryPrefix.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogQueryPrefix.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(attributeName,
-            attributePrefix);
+        Builder builder = new Builder(attributeName, attributePrefix);
         return builder;
     }
 
@@ -120,8 +127,7 @@ public class CatalogQueryPrefix {
          * @return {@link CatalogQueryPrefix}
          */
         public CatalogQueryPrefix build() {
-            return new CatalogQueryPrefix(attributeName,
-                attributePrefix);
+            return new CatalogQueryPrefix(attributeName, attributePrefix);
         }
     }
 }

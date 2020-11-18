@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderFulfillmentPickupDetails type.
  */
@@ -290,7 +289,6 @@ public class OrderFulfillmentPickupDetails {
         return this.curbsidePickupDetails;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(recipient, expiresAt, autoCompleteDuration, scheduleType, pickupAt,
@@ -329,30 +327,47 @@ public class OrderFulfillmentPickupDetails {
     }
 
     /**
+     * Converts this OrderFulfillmentPickupDetails into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderFulfillmentPickupDetails [" + "recipient=" + recipient + ", expiresAt="
+                + expiresAt + ", autoCompleteDuration=" + autoCompleteDuration + ", scheduleType="
+                + scheduleType + ", pickupAt=" + pickupAt + ", pickupWindowDuration="
+                + pickupWindowDuration + ", prepTimeDuration=" + prepTimeDuration + ", note=" + note
+                + ", placedAt=" + placedAt + ", acceptedAt=" + acceptedAt + ", rejectedAt="
+                + rejectedAt + ", readyAt=" + readyAt + ", expiredAt=" + expiredAt + ", pickedUpAt="
+                + pickedUpAt + ", canceledAt=" + canceledAt + ", cancelReason=" + cancelReason
+                + ", isCurbsidePickup=" + isCurbsidePickup + ", curbsidePickupDetails="
+                + curbsidePickupDetails + "]";
+    }
+
+    /**
      * Builds a new {@link OrderFulfillmentPickupDetails.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderFulfillmentPickupDetails.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .recipient(getRecipient())
-            .expiresAt(getExpiresAt())
-            .autoCompleteDuration(getAutoCompleteDuration())
-            .scheduleType(getScheduleType())
-            .pickupAt(getPickupAt())
-            .pickupWindowDuration(getPickupWindowDuration())
-            .prepTimeDuration(getPrepTimeDuration())
-            .note(getNote())
-            .placedAt(getPlacedAt())
-            .acceptedAt(getAcceptedAt())
-            .rejectedAt(getRejectedAt())
-            .readyAt(getReadyAt())
-            .expiredAt(getExpiredAt())
-            .pickedUpAt(getPickedUpAt())
-            .canceledAt(getCanceledAt())
-            .cancelReason(getCancelReason())
-            .isCurbsidePickup(getIsCurbsidePickup())
-            .curbsidePickupDetails(getCurbsidePickupDetails());
+                .recipient(getRecipient())
+                .expiresAt(getExpiresAt())
+                .autoCompleteDuration(getAutoCompleteDuration())
+                .scheduleType(getScheduleType())
+                .pickupAt(getPickupAt())
+                .pickupWindowDuration(getPickupWindowDuration())
+                .prepTimeDuration(getPrepTimeDuration())
+                .note(getNote())
+                .placedAt(getPlacedAt())
+                .acceptedAt(getAcceptedAt())
+                .rejectedAt(getRejectedAt())
+                .readyAt(getReadyAt())
+                .expiredAt(getExpiredAt())
+                .pickedUpAt(getPickedUpAt())
+                .canceledAt(getCanceledAt())
+                .cancelReason(getCancelReason())
+                .isCurbsidePickup(getIsCurbsidePickup())
+                .curbsidePickupDetails(getCurbsidePickupDetails());
         return builder;
     }
 
@@ -566,24 +581,10 @@ public class OrderFulfillmentPickupDetails {
          * @return {@link OrderFulfillmentPickupDetails}
          */
         public OrderFulfillmentPickupDetails build() {
-            return new OrderFulfillmentPickupDetails(recipient,
-                expiresAt,
-                autoCompleteDuration,
-                scheduleType,
-                pickupAt,
-                pickupWindowDuration,
-                prepTimeDuration,
-                note,
-                placedAt,
-                acceptedAt,
-                rejectedAt,
-                readyAt,
-                expiredAt,
-                pickedUpAt,
-                canceledAt,
-                cancelReason,
-                isCurbsidePickup,
-                curbsidePickupDetails);
+            return new OrderFulfillmentPickupDetails(recipient, expiresAt, autoCompleteDuration,
+                    scheduleType, pickupAt, pickupWindowDuration, prepTimeDuration, note, placedAt,
+                    acceptedAt, rejectedAt, readyAt, expiredAt, pickedUpAt, canceledAt,
+                    cancelReason, isCurbsidePickup, curbsidePickupDetails);
         }
     }
 }

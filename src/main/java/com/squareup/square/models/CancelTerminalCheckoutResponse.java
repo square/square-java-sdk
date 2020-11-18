@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CancelTerminalCheckoutResponse type.
  */
@@ -53,7 +52,6 @@ public class CancelTerminalCheckoutResponse {
         return this.checkout;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, checkout);
@@ -73,14 +71,24 @@ public class CancelTerminalCheckoutResponse {
     }
 
     /**
+     * Converts this CancelTerminalCheckoutResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CancelTerminalCheckoutResponse [" + "errors=" + errors + ", checkout=" + checkout
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CancelTerminalCheckoutResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CancelTerminalCheckoutResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .checkout(getCheckout());
+                .errors(getErrors())
+                .checkout(getCheckout());
         return builder;
     }
 
@@ -130,8 +138,7 @@ public class CancelTerminalCheckoutResponse {
          */
         public CancelTerminalCheckoutResponse build() {
             CancelTerminalCheckoutResponse model =
-                    new CancelTerminalCheckoutResponse(errors,
-                            checkout);
+                    new CancelTerminalCheckoutResponse(errors, checkout);
             model.httpContext = httpContext;
             return model;
         }

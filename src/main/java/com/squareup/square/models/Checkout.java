@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Checkout type.
  */
@@ -177,7 +176,6 @@ public class Checkout {
         return this.additionalRecipients;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, checkoutPageUrl, askForShippingAddress, merchantSupportEmail,
@@ -207,22 +205,36 @@ public class Checkout {
     }
 
     /**
+     * Converts this Checkout into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Checkout [" + "id=" + id + ", checkoutPageUrl=" + checkoutPageUrl
+                + ", askForShippingAddress=" + askForShippingAddress + ", merchantSupportEmail="
+                + merchantSupportEmail + ", prePopulateBuyerEmail=" + prePopulateBuyerEmail
+                + ", prePopulateShippingAddress=" + prePopulateShippingAddress + ", redirectUrl="
+                + redirectUrl + ", order=" + order + ", createdAt=" + createdAt
+                + ", additionalRecipients=" + additionalRecipients + "]";
+    }
+
+    /**
      * Builds a new {@link Checkout.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Checkout.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .checkoutPageUrl(getCheckoutPageUrl())
-            .askForShippingAddress(getAskForShippingAddress())
-            .merchantSupportEmail(getMerchantSupportEmail())
-            .prePopulateBuyerEmail(getPrePopulateBuyerEmail())
-            .prePopulateShippingAddress(getPrePopulateShippingAddress())
-            .redirectUrl(getRedirectUrl())
-            .order(getOrder())
-            .createdAt(getCreatedAt())
-            .additionalRecipients(getAdditionalRecipients());
+                .id(getId())
+                .checkoutPageUrl(getCheckoutPageUrl())
+                .askForShippingAddress(getAskForShippingAddress())
+                .merchantSupportEmail(getMerchantSupportEmail())
+                .prePopulateBuyerEmail(getPrePopulateBuyerEmail())
+                .prePopulateShippingAddress(getPrePopulateShippingAddress())
+                .redirectUrl(getRedirectUrl())
+                .order(getOrder())
+                .createdAt(getCreatedAt())
+                .additionalRecipients(getAdditionalRecipients());
         return builder;
     }
 
@@ -348,16 +360,9 @@ public class Checkout {
          * @return {@link Checkout}
          */
         public Checkout build() {
-            return new Checkout(id,
-                checkoutPageUrl,
-                askForShippingAddress,
-                merchantSupportEmail,
-                prePopulateBuyerEmail,
-                prePopulateShippingAddress,
-                redirectUrl,
-                order,
-                createdAt,
-                additionalRecipients);
+            return new Checkout(id, checkoutPageUrl, askForShippingAddress, merchantSupportEmail,
+                    prePopulateBuyerEmail, prePopulateShippingAddress, redirectUrl, order,
+                    createdAt, additionalRecipients);
         }
     }
 }

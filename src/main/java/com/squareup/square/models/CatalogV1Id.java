@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogV1Id type.
  */
@@ -48,7 +47,6 @@ public class CatalogV1Id {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(catalogV1Id, locationId);
@@ -68,14 +66,23 @@ public class CatalogV1Id {
     }
 
     /**
+     * Converts this CatalogV1Id into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogV1Id [" + "catalogV1Id=" + catalogV1Id + ", locationId=" + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogV1Id.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogV1Id.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .catalogV1Id(getCatalogV1Id())
-            .locationId(getLocationId());
+                .catalogV1Id(getCatalogV1Id())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -113,8 +120,7 @@ public class CatalogV1Id {
          * @return {@link CatalogV1Id}
          */
         public CatalogV1Id build() {
-            return new CatalogV1Id(catalogV1Id,
-                locationId);
+            return new CatalogV1Id(catalogV1Id, locationId);
         }
     }
 }

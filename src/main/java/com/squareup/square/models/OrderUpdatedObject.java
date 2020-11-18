@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderUpdatedObject type.
  */
@@ -32,7 +31,6 @@ public class OrderUpdatedObject {
         return this.orderUpdated;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderUpdated);
@@ -51,13 +49,22 @@ public class OrderUpdatedObject {
     }
 
     /**
+     * Converts this OrderUpdatedObject into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderUpdatedObject [" + "orderUpdated=" + orderUpdated + "]";
+    }
+
+    /**
      * Builds a new {@link OrderUpdatedObject.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderUpdatedObject.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .orderUpdated(getOrderUpdated());
+                .orderUpdated(getOrderUpdated());
         return builder;
     }
 

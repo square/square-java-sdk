@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1PaymentSurcharge type.
  */
@@ -131,7 +130,6 @@ public class V1PaymentSurcharge {
         return this.surchargeId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, appliedMoney, rate, amountMoney, type, taxable, taxes,
@@ -158,20 +156,32 @@ public class V1PaymentSurcharge {
     }
 
     /**
+     * Converts this V1PaymentSurcharge into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1PaymentSurcharge [" + "name=" + name + ", appliedMoney=" + appliedMoney
+                + ", rate=" + rate + ", amountMoney=" + amountMoney + ", type=" + type
+                + ", taxable=" + taxable + ", taxes=" + taxes + ", surchargeId=" + surchargeId
+                + "]";
+    }
+
+    /**
      * Builds a new {@link V1PaymentSurcharge.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1PaymentSurcharge.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .appliedMoney(getAppliedMoney())
-            .rate(getRate())
-            .amountMoney(getAmountMoney())
-            .type(getType())
-            .taxable(getTaxable())
-            .taxes(getTaxes())
-            .surchargeId(getSurchargeId());
+                .name(getName())
+                .appliedMoney(getAppliedMoney())
+                .rate(getRate())
+                .amountMoney(getAmountMoney())
+                .type(getType())
+                .taxable(getTaxable())
+                .taxes(getTaxes())
+                .surchargeId(getSurchargeId());
         return builder;
     }
 
@@ -275,14 +285,8 @@ public class V1PaymentSurcharge {
          * @return {@link V1PaymentSurcharge}
          */
         public V1PaymentSurcharge build() {
-            return new V1PaymentSurcharge(name,
-                appliedMoney,
-                rate,
-                amountMoney,
-                type,
-                taxable,
-                taxes,
-                surchargeId);
+            return new V1PaymentSurcharge(name, appliedMoney, rate, amountMoney, type, taxable,
+                    taxes, surchargeId);
         }
     }
 }

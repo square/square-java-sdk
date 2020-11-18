@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListDisputesRequest type.
  */
@@ -68,7 +67,6 @@ public class ListDisputesRequest {
         return this.locationId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, states, locationId);
@@ -89,15 +87,25 @@ public class ListDisputesRequest {
     }
 
     /**
+     * Converts this ListDisputesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListDisputesRequest [" + "cursor=" + cursor + ", states=" + states + ", locationId="
+                + locationId + "]";
+    }
+
+    /**
      * Builds a new {@link ListDisputesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListDisputesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .states(getStates())
-            .locationId(getLocationId());
+                .cursor(getCursor())
+                .states(getStates())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -146,9 +154,7 @@ public class ListDisputesRequest {
          * @return {@link ListDisputesRequest}
          */
         public ListDisputesRequest build() {
-            return new ListDisputesRequest(cursor,
-                states,
-                locationId);
+            return new ListDisputesRequest(cursor, states, locationId);
         }
     }
 }

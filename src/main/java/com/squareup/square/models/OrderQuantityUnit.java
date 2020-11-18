@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderQuantityUnit type.
  */
@@ -51,7 +50,6 @@ public class OrderQuantityUnit {
         return this.precision;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(measurementUnit, precision);
@@ -71,14 +69,24 @@ public class OrderQuantityUnit {
     }
 
     /**
+     * Converts this OrderQuantityUnit into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderQuantityUnit [" + "measurementUnit=" + measurementUnit + ", precision="
+                + precision + "]";
+    }
+
+    /**
      * Builds a new {@link OrderQuantityUnit.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderQuantityUnit.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .measurementUnit(getMeasurementUnit())
-            .precision(getPrecision());
+                .measurementUnit(getMeasurementUnit())
+                .precision(getPrecision());
         return builder;
     }
 
@@ -116,8 +124,7 @@ public class OrderQuantityUnit {
          * @return {@link OrderQuantityUnit}
          */
         public OrderQuantityUnit build() {
-            return new OrderQuantityUnit(measurementUnit,
-                precision);
+            return new OrderQuantityUnit(measurementUnit, precision);
         }
     }
 }

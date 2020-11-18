@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchLoyaltyRewardsResponse type.
  */
@@ -70,7 +69,6 @@ public class SearchLoyaltyRewardsResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, rewards, cursor);
@@ -91,15 +89,25 @@ public class SearchLoyaltyRewardsResponse {
     }
 
     /**
+     * Converts this SearchLoyaltyRewardsResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchLoyaltyRewardsResponse [" + "errors=" + errors + ", rewards=" + rewards
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link SearchLoyaltyRewardsResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchLoyaltyRewardsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .rewards(getRewards())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .rewards(getRewards())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -160,9 +168,7 @@ public class SearchLoyaltyRewardsResponse {
          */
         public SearchLoyaltyRewardsResponse build() {
             SearchLoyaltyRewardsResponse model =
-                    new SearchLoyaltyRewardsResponse(errors,
-                            rewards,
-                            cursor);
+                    new SearchLoyaltyRewardsResponse(errors, rewards, cursor);
             model.httpContext = httpContext;
             return model;
         }

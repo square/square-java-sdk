@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Fee type.
  */
@@ -165,7 +164,6 @@ public class V1Fee {
         return this.v2Id;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, rate, calculationPhase, adjustmentType,
@@ -194,22 +192,34 @@ public class V1Fee {
     }
 
     /**
+     * Converts this V1Fee into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Fee [" + "id=" + id + ", name=" + name + ", rate=" + rate + ", calculationPhase="
+                + calculationPhase + ", adjustmentType=" + adjustmentType
+                + ", appliesToCustomAmounts=" + appliesToCustomAmounts + ", enabled=" + enabled
+                + ", inclusionType=" + inclusionType + ", type=" + type + ", v2Id=" + v2Id + "]";
+    }
+
+    /**
      * Builds a new {@link V1Fee.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Fee.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .name(getName())
-            .rate(getRate())
-            .calculationPhase(getCalculationPhase())
-            .adjustmentType(getAdjustmentType())
-            .appliesToCustomAmounts(getAppliesToCustomAmounts())
-            .enabled(getEnabled())
-            .inclusionType(getInclusionType())
-            .type(getType())
-            .v2Id(getV2Id());
+                .id(getId())
+                .name(getName())
+                .rate(getRate())
+                .calculationPhase(getCalculationPhase())
+                .adjustmentType(getAdjustmentType())
+                .appliesToCustomAmounts(getAppliesToCustomAmounts())
+                .enabled(getEnabled())
+                .inclusionType(getInclusionType())
+                .type(getType())
+                .v2Id(getV2Id());
         return builder;
     }
 
@@ -347,16 +357,8 @@ public class V1Fee {
          */
         public V1Fee build() {
             V1Fee model =
-                    new V1Fee(id,
-                            name,
-                            rate,
-                            calculationPhase,
-                            adjustmentType,
-                            appliesToCustomAmounts,
-                            enabled,
-                            inclusionType,
-                            type,
-                            v2Id);
+                    new V1Fee(id, name, rate, calculationPhase, adjustmentType,
+                            appliesToCustomAmounts, enabled, inclusionType, type, v2Id);
             model.httpContext = httpContext;
             return model;
         }

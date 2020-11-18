@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateBreakTypeRequest type.
  */
@@ -34,7 +33,6 @@ public class UpdateBreakTypeRequest {
         return this.breakType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(breakType);
@@ -50,6 +48,15 @@ public class UpdateBreakTypeRequest {
         }
         UpdateBreakTypeRequest other = (UpdateBreakTypeRequest) obj;
         return Objects.equals(breakType, other.breakType);
+    }
+
+    /**
+     * Converts this UpdateBreakTypeRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateBreakTypeRequest [" + "breakType=" + breakType + "]";
     }
 
     /**

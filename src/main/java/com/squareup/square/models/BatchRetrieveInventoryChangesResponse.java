@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveInventoryChangesResponse type.
  */
@@ -71,7 +70,6 @@ public class BatchRetrieveInventoryChangesResponse {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(errors, changes, cursor);
@@ -92,15 +90,25 @@ public class BatchRetrieveInventoryChangesResponse {
     }
 
     /**
+     * Converts this BatchRetrieveInventoryChangesResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveInventoryChangesResponse [" + "errors=" + errors + ", changes="
+                + changes + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveInventoryChangesResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveInventoryChangesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .errors(getErrors())
-            .changes(getChanges())
-            .cursor(getCursor());
+                .errors(getErrors())
+                .changes(getChanges())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -161,9 +169,7 @@ public class BatchRetrieveInventoryChangesResponse {
          */
         public BatchRetrieveInventoryChangesResponse build() {
             BatchRetrieveInventoryChangesResponse model =
-                    new BatchRetrieveInventoryChangesResponse(errors,
-                            changes,
-                            cursor);
+                    new BatchRetrieveInventoryChangesResponse(errors, changes, cursor);
             model.httpContext = httpContext;
             return model;
         }

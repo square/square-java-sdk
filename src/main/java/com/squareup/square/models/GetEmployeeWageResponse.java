@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for GetEmployeeWageResponse type.
  */
@@ -56,7 +55,6 @@ public class GetEmployeeWageResponse {
         return this.errors;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(employeeWage, errors);
@@ -76,14 +74,24 @@ public class GetEmployeeWageResponse {
     }
 
     /**
+     * Converts this GetEmployeeWageResponse into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "GetEmployeeWageResponse [" + "employeeWage=" + employeeWage + ", errors=" + errors
+                + "]";
+    }
+
+    /**
      * Builds a new {@link GetEmployeeWageResponse.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link GetEmployeeWageResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .employeeWage(getEmployeeWage())
-            .errors(getErrors());
+                .employeeWage(getEmployeeWage())
+                .errors(getErrors());
         return builder;
     }
 
@@ -133,8 +141,7 @@ public class GetEmployeeWageResponse {
          */
         public GetEmployeeWageResponse build() {
             GetEmployeeWageResponse model =
-                    new GetEmployeeWageResponse(employeeWage,
-                            errors);
+                    new GetEmployeeWageResponse(employeeWage, errors);
             model.httpContext = httpContext;
             return model;
         }

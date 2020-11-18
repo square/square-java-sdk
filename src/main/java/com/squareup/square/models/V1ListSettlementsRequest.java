@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListSettlementsRequest type.
  */
@@ -108,7 +107,6 @@ public class V1ListSettlementsRequest {
         return this.batchToken;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, beginTime, endTime, limit, status, batchToken);
@@ -132,18 +130,29 @@ public class V1ListSettlementsRequest {
     }
 
     /**
+     * Converts this V1ListSettlementsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListSettlementsRequest [" + "order=" + order + ", beginTime=" + beginTime
+                + ", endTime=" + endTime + ", limit=" + limit + ", status=" + status
+                + ", batchToken=" + batchToken + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListSettlementsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListSettlementsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .beginTime(getBeginTime())
-            .endTime(getEndTime())
-            .limit(getLimit())
-            .status(getStatus())
-            .batchToken(getBatchToken());
+                .order(getOrder())
+                .beginTime(getBeginTime())
+                .endTime(getEndTime())
+                .limit(getLimit())
+                .status(getStatus())
+                .batchToken(getBatchToken());
         return builder;
     }
 
@@ -225,12 +234,8 @@ public class V1ListSettlementsRequest {
          * @return {@link V1ListSettlementsRequest}
          */
         public V1ListSettlementsRequest build() {
-            return new V1ListSettlementsRequest(order,
-                beginTime,
-                endTime,
-                limit,
-                status,
-                batchToken);
+            return new V1ListSettlementsRequest(order, beginTime, endTime, limit, status,
+                    batchToken);
         }
     }
 }

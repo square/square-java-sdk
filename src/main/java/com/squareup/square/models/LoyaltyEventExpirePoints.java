@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventExpirePoints type.
  */
@@ -47,7 +46,6 @@ public class LoyaltyEventExpirePoints {
         return this.points;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(loyaltyProgramId, points);
@@ -67,13 +65,22 @@ public class LoyaltyEventExpirePoints {
     }
 
     /**
+     * Converts this LoyaltyEventExpirePoints into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventExpirePoints [" + "loyaltyProgramId=" + loyaltyProgramId + ", points="
+                + points + "]";
+    }
+
+    /**
      * Builds a new {@link LoyaltyEventExpirePoints.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link LoyaltyEventExpirePoints.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(loyaltyProgramId,
-            points);
+        Builder builder = new Builder(loyaltyProgramId, points);
         return builder;
     }
 
@@ -120,8 +127,7 @@ public class LoyaltyEventExpirePoints {
          * @return {@link LoyaltyEventExpirePoints}
          */
         public LoyaltyEventExpirePoints build() {
-            return new LoyaltyEventExpirePoints(loyaltyProgramId,
-                points);
+            return new LoyaltyEventExpirePoints(loyaltyProgramId, points);
         }
     }
 }

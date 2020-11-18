@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogIdMapping type.
  */
@@ -47,7 +46,6 @@ public class CatalogIdMapping {
         return this.objectId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(clientObjectId, objectId);
@@ -67,14 +65,24 @@ public class CatalogIdMapping {
     }
 
     /**
+     * Converts this CatalogIdMapping into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogIdMapping [" + "clientObjectId=" + clientObjectId + ", objectId=" + objectId
+                + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogIdMapping.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogIdMapping.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .clientObjectId(getClientObjectId())
-            .objectId(getObjectId());
+                .clientObjectId(getClientObjectId())
+                .objectId(getObjectId());
         return builder;
     }
 
@@ -112,8 +120,7 @@ public class CatalogIdMapping {
          * @return {@link CatalogIdMapping}
          */
         public CatalogIdMapping build() {
-            return new CatalogIdMapping(clientObjectId,
-                objectId);
+            return new CatalogIdMapping(clientObjectId, objectId);
         }
     }
 }

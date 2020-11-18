@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogPricingRule type.
  */
@@ -190,7 +189,6 @@ public class CatalogPricingRule {
         return this.excludeStrategy;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, timePeriodIds, discountId, matchProductsId, applyProductsId,
@@ -221,23 +219,38 @@ public class CatalogPricingRule {
     }
 
     /**
+     * Converts this CatalogPricingRule into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogPricingRule [" + "name=" + name + ", timePeriodIds=" + timePeriodIds
+                + ", discountId=" + discountId + ", matchProductsId=" + matchProductsId
+                + ", applyProductsId=" + applyProductsId + ", excludeProductsId="
+                + excludeProductsId + ", validFromDate=" + validFromDate + ", validFromLocalTime="
+                + validFromLocalTime + ", validUntilDate=" + validUntilDate
+                + ", validUntilLocalTime=" + validUntilLocalTime + ", excludeStrategy="
+                + excludeStrategy + "]";
+    }
+
+    /**
      * Builds a new {@link CatalogPricingRule.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link CatalogPricingRule.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .timePeriodIds(getTimePeriodIds())
-            .discountId(getDiscountId())
-            .matchProductsId(getMatchProductsId())
-            .applyProductsId(getApplyProductsId())
-            .excludeProductsId(getExcludeProductsId())
-            .validFromDate(getValidFromDate())
-            .validFromLocalTime(getValidFromLocalTime())
-            .validUntilDate(getValidUntilDate())
-            .validUntilLocalTime(getValidUntilLocalTime())
-            .excludeStrategy(getExcludeStrategy());
+                .name(getName())
+                .timePeriodIds(getTimePeriodIds())
+                .discountId(getDiscountId())
+                .matchProductsId(getMatchProductsId())
+                .applyProductsId(getApplyProductsId())
+                .excludeProductsId(getExcludeProductsId())
+                .validFromDate(getValidFromDate())
+                .validFromLocalTime(getValidFromLocalTime())
+                .validUntilDate(getValidUntilDate())
+                .validUntilLocalTime(getValidUntilLocalTime())
+                .excludeStrategy(getExcludeStrategy());
         return builder;
     }
 
@@ -374,17 +387,9 @@ public class CatalogPricingRule {
          * @return {@link CatalogPricingRule}
          */
         public CatalogPricingRule build() {
-            return new CatalogPricingRule(name,
-                timePeriodIds,
-                discountId,
-                matchProductsId,
-                applyProductsId,
-                excludeProductsId,
-                validFromDate,
-                validFromLocalTime,
-                validUntilDate,
-                validUntilLocalTime,
-                excludeStrategy);
+            return new CatalogPricingRule(name, timePeriodIds, discountId, matchProductsId,
+                    applyProductsId, excludeProductsId, validFromDate, validFromLocalTime,
+                    validUntilDate, validUntilLocalTime, excludeStrategy);
         }
     }
 }

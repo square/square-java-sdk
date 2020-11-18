@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for RetrieveInventoryCountRequest type.
  */
@@ -42,8 +41,8 @@ public class RetrieveInventoryCountRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for the original query. See the
-     * [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for
-     * more information.
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -51,7 +50,6 @@ public class RetrieveInventoryCountRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(locationIds, cursor);
@@ -71,14 +69,24 @@ public class RetrieveInventoryCountRequest {
     }
 
     /**
+     * Converts this RetrieveInventoryCountRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RetrieveInventoryCountRequest [" + "locationIds=" + locationIds + ", cursor="
+                + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link RetrieveInventoryCountRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link RetrieveInventoryCountRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .locationIds(getLocationIds())
-            .cursor(getCursor());
+                .locationIds(getLocationIds())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -116,8 +124,7 @@ public class RetrieveInventoryCountRequest {
          * @return {@link RetrieveInventoryCountRequest}
          */
         public RetrieveInventoryCountRequest build() {
-            return new RetrieveInventoryCountRequest(locationIds,
-                cursor);
+            return new RetrieveInventoryCountRequest(locationIds, cursor);
         }
     }
 }

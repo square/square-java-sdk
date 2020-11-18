@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for SearchOrdersFilter type.
  */
@@ -101,7 +100,6 @@ public class SearchOrdersFilter {
         return this.customerFilter;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(stateFilter, dateTimeFilter, fulfillmentFilter, sourceFilter,
@@ -125,17 +123,28 @@ public class SearchOrdersFilter {
     }
 
     /**
+     * Converts this SearchOrdersFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SearchOrdersFilter [" + "stateFilter=" + stateFilter + ", dateTimeFilter="
+                + dateTimeFilter + ", fulfillmentFilter=" + fulfillmentFilter + ", sourceFilter="
+                + sourceFilter + ", customerFilter=" + customerFilter + "]";
+    }
+
+    /**
      * Builds a new {@link SearchOrdersFilter.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link SearchOrdersFilter.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .stateFilter(getStateFilter())
-            .dateTimeFilter(getDateTimeFilter())
-            .fulfillmentFilter(getFulfillmentFilter())
-            .sourceFilter(getSourceFilter())
-            .customerFilter(getCustomerFilter());
+                .stateFilter(getStateFilter())
+                .dateTimeFilter(getDateTimeFilter())
+                .fulfillmentFilter(getFulfillmentFilter())
+                .sourceFilter(getSourceFilter())
+                .customerFilter(getCustomerFilter());
         return builder;
     }
 
@@ -206,11 +215,8 @@ public class SearchOrdersFilter {
          * @return {@link SearchOrdersFilter}
          */
         public SearchOrdersFilter build() {
-            return new SearchOrdersFilter(stateFilter,
-                dateTimeFilter,
-                fulfillmentFilter,
-                sourceFilter,
-                customerFilter);
+            return new SearchOrdersFilter(stateFilter, dateTimeFilter, fulfillmentFilter,
+                    sourceFilter, customerFilter);
         }
     }
 }

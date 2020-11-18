@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * This is a model class for OrderLineItem type.
  */
@@ -315,7 +314,6 @@ public class OrderLineItem {
         return this.totalMoney;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
@@ -353,28 +351,44 @@ public class OrderLineItem {
     }
 
     /**
+     * Converts this OrderLineItem into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "OrderLineItem [" + "quantity=" + quantity + ", uid=" + uid + ", name=" + name
+                + ", quantityUnit=" + quantityUnit + ", note=" + note + ", catalogObjectId="
+                + catalogObjectId + ", variationName=" + variationName + ", metadata=" + metadata
+                + ", modifiers=" + modifiers + ", appliedTaxes=" + appliedTaxes
+                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
+                + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossSalesMoney="
+                + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
+                + totalDiscountMoney + ", totalMoney=" + totalMoney + "]";
+    }
+
+    /**
      * Builds a new {@link OrderLineItem.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link OrderLineItem.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(quantity)
-            .uid(getUid())
-            .name(getName())
-            .quantityUnit(getQuantityUnit())
-            .note(getNote())
-            .catalogObjectId(getCatalogObjectId())
-            .variationName(getVariationName())
-            .metadata(getMetadata())
-            .modifiers(getModifiers())
-            .appliedTaxes(getAppliedTaxes())
-            .appliedDiscounts(getAppliedDiscounts())
-            .basePriceMoney(getBasePriceMoney())
-            .variationTotalPriceMoney(getVariationTotalPriceMoney())
-            .grossSalesMoney(getGrossSalesMoney())
-            .totalTaxMoney(getTotalTaxMoney())
-            .totalDiscountMoney(getTotalDiscountMoney())
-            .totalMoney(getTotalMoney());
+                .uid(getUid())
+                .name(getName())
+                .quantityUnit(getQuantityUnit())
+                .note(getNote())
+                .catalogObjectId(getCatalogObjectId())
+                .variationName(getVariationName())
+                .metadata(getMetadata())
+                .modifiers(getModifiers())
+                .appliedTaxes(getAppliedTaxes())
+                .appliedDiscounts(getAppliedDiscounts())
+                .basePriceMoney(getBasePriceMoney())
+                .variationTotalPriceMoney(getVariationTotalPriceMoney())
+                .grossSalesMoney(getGrossSalesMoney())
+                .totalTaxMoney(getTotalTaxMoney())
+                .totalDiscountMoney(getTotalDiscountMoney())
+                .totalMoney(getTotalMoney());
         return builder;
     }
 
@@ -583,23 +597,10 @@ public class OrderLineItem {
          * @return {@link OrderLineItem}
          */
         public OrderLineItem build() {
-            return new OrderLineItem(quantity,
-                uid,
-                name,
-                quantityUnit,
-                note,
-                catalogObjectId,
-                variationName,
-                metadata,
-                modifiers,
-                appliedTaxes,
-                appliedDiscounts,
-                basePriceMoney,
-                variationTotalPriceMoney,
-                grossSalesMoney,
-                totalTaxMoney,
-                totalDiscountMoney,
-                totalMoney);
+            return new OrderLineItem(quantity, uid, name, quantityUnit, note, catalogObjectId,
+                    variationName, metadata, modifiers, appliedTaxes, appliedDiscounts,
+                    basePriceMoney, variationTotalPriceMoney, grossSalesMoney, totalTaxMoney,
+                    totalDiscountMoney, totalMoney);
         }
     }
 }

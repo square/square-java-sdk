@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1ListCashDrawerShiftsRequest type.
  */
@@ -63,7 +62,6 @@ public class V1ListCashDrawerShiftsRequest {
         return this.endTime;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(order, beginTime, endTime);
@@ -84,15 +82,25 @@ public class V1ListCashDrawerShiftsRequest {
     }
 
     /**
+     * Converts this V1ListCashDrawerShiftsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1ListCashDrawerShiftsRequest [" + "order=" + order + ", beginTime=" + beginTime
+                + ", endTime=" + endTime + "]";
+    }
+
+    /**
      * Builds a new {@link V1ListCashDrawerShiftsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1ListCashDrawerShiftsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .order(getOrder())
-            .beginTime(getBeginTime())
-            .endTime(getEndTime());
+                .order(getOrder())
+                .beginTime(getBeginTime())
+                .endTime(getEndTime());
         return builder;
     }
 
@@ -141,9 +149,7 @@ public class V1ListCashDrawerShiftsRequest {
          * @return {@link V1ListCashDrawerShiftsRequest}
          */
         public V1ListCashDrawerShiftsRequest build() {
-            return new V1ListCashDrawerShiftsRequest(order,
-                beginTime,
-                endTime);
+            return new V1ListCashDrawerShiftsRequest(order, beginTime, endTime);
         }
     }
 }

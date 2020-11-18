@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1UpdateModifierListRequest type.
  */
@@ -46,7 +45,6 @@ public class V1UpdateModifierListRequest {
         return this.selectionType;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(name, selectionType);
@@ -66,14 +64,24 @@ public class V1UpdateModifierListRequest {
     }
 
     /**
+     * Converts this V1UpdateModifierListRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1UpdateModifierListRequest [" + "name=" + name + ", selectionType=" + selectionType
+                + "]";
+    }
+
+    /**
      * Builds a new {@link V1UpdateModifierListRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1UpdateModifierListRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .name(getName())
-            .selectionType(getSelectionType());
+                .name(getName())
+                .selectionType(getSelectionType());
         return builder;
     }
 
@@ -111,8 +119,7 @@ public class V1UpdateModifierListRequest {
          * @return {@link V1UpdateModifierListRequest}
          */
         public V1UpdateModifierListRequest build() {
-            return new V1UpdateModifierListRequest(name,
-                selectionType);
+            return new V1UpdateModifierListRequest(name, selectionType);
         }
     }
 }

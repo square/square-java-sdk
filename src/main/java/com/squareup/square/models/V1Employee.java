@@ -8,7 +8,6 @@ import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1Employee type.
  */
@@ -166,7 +165,6 @@ public class V1Employee {
         return this.updatedAt;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, roleIds, authorizedLocationIds, email, status,
@@ -195,21 +193,32 @@ public class V1Employee {
     }
 
     /**
+     * Converts this V1Employee into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1Employee [" + "firstName=" + firstName + ", lastName=" + lastName + ", id=" + id
+                + ", roleIds=" + roleIds + ", authorizedLocationIds=" + authorizedLocationIds
+                + ", email=" + email + ", status=" + status + ", externalId=" + externalId
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Builds a new {@link V1Employee.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1Employee.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(firstName,
-            lastName)
-            .id(getId())
-            .roleIds(getRoleIds())
-            .authorizedLocationIds(getAuthorizedLocationIds())
-            .email(getEmail())
-            .status(getStatus())
-            .externalId(getExternalId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt());
+        Builder builder = new Builder(firstName, lastName)
+                .id(getId())
+                .roleIds(getRoleIds())
+                .authorizedLocationIds(getAuthorizedLocationIds())
+                .email(getEmail())
+                .status(getStatus())
+                .externalId(getExternalId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         return builder;
     }
 
@@ -356,16 +365,8 @@ public class V1Employee {
          */
         public V1Employee build() {
             V1Employee model =
-                    new V1Employee(firstName,
-                            lastName,
-                            id,
-                            roleIds,
-                            authorizedLocationIds,
-                            email,
-                            status,
-                            externalId,
-                            createdAt,
-                            updatedAt);
+                    new V1Employee(firstName, lastName, id, roleIds, authorizedLocationIds, email,
+                            status, externalId, createdAt, updatedAt);
             model.httpContext = httpContext;
             return model;
         }

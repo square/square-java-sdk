@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for LoyaltyEventOrderFilter type.
  */
@@ -33,7 +32,6 @@ public class LoyaltyEventOrderFilter {
         return this.orderId;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(orderId);
@@ -49,6 +47,15 @@ public class LoyaltyEventOrderFilter {
         }
         LoyaltyEventOrderFilter other = (LoyaltyEventOrderFilter) obj;
         return Objects.equals(orderId, other.orderId);
+    }
+
+    /**
+     * Converts this LoyaltyEventOrderFilter into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "LoyaltyEventOrderFilter [" + "orderId=" + orderId + "]";
     }
 
     /**

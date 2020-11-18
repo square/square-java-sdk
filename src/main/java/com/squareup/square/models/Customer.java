@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for Customer type.
  */
@@ -293,7 +292,6 @@ public class Customer {
         return this.segmentIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
@@ -332,31 +330,46 @@ public class Customer {
     }
 
     /**
+     * Converts this Customer into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "Customer [" + "id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", cards=" + cards + ", givenName=" + givenName + ", familyName=" + familyName
+                + ", nickname=" + nickname + ", companyName=" + companyName + ", emailAddress="
+                + emailAddress + ", address=" + address + ", phoneNumber=" + phoneNumber
+                + ", birthday=" + birthday + ", referenceId=" + referenceId + ", note=" + note
+                + ", preferences=" + preferences + ", groups=" + groups + ", creationSource="
+                + creationSource + ", groupIds=" + groupIds + ", segmentIds=" + segmentIds + "]";
+    }
+
+    /**
      * Builds a new {@link Customer.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link Customer.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .id(getId())
-            .createdAt(getCreatedAt())
-            .updatedAt(getUpdatedAt())
-            .cards(getCards())
-            .givenName(getGivenName())
-            .familyName(getFamilyName())
-            .nickname(getNickname())
-            .companyName(getCompanyName())
-            .emailAddress(getEmailAddress())
-            .address(getAddress())
-            .phoneNumber(getPhoneNumber())
-            .birthday(getBirthday())
-            .referenceId(getReferenceId())
-            .note(getNote())
-            .preferences(getPreferences())
-            .groups(getGroups())
-            .creationSource(getCreationSource())
-            .groupIds(getGroupIds())
-            .segmentIds(getSegmentIds());
+                .id(getId())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .cards(getCards())
+                .givenName(getGivenName())
+                .familyName(getFamilyName())
+                .nickname(getNickname())
+                .companyName(getCompanyName())
+                .emailAddress(getEmailAddress())
+                .address(getAddress())
+                .phoneNumber(getPhoneNumber())
+                .birthday(getBirthday())
+                .referenceId(getReferenceId())
+                .note(getNote())
+                .preferences(getPreferences())
+                .groups(getGroups())
+                .creationSource(getCreationSource())
+                .groupIds(getGroupIds())
+                .segmentIds(getSegmentIds());
         return builder;
     }
 
@@ -581,25 +594,9 @@ public class Customer {
          * @return {@link Customer}
          */
         public Customer build() {
-            return new Customer(id,
-                createdAt,
-                updatedAt,
-                cards,
-                givenName,
-                familyName,
-                nickname,
-                companyName,
-                emailAddress,
-                address,
-                phoneNumber,
-                birthday,
-                referenceId,
-                note,
-                preferences,
-                groups,
-                creationSource,
-                groupIds,
-                segmentIds);
+            return new Customer(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
+                    companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
+                    preferences, groups, creationSource, groupIds, segmentIds);
         }
     }
 }

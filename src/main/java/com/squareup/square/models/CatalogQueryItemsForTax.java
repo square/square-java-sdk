@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for CatalogQueryItemsForTax type.
  */
@@ -34,7 +33,6 @@ public class CatalogQueryItemsForTax {
         return this.taxIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(taxIds);
@@ -50,6 +48,15 @@ public class CatalogQueryItemsForTax {
         }
         CatalogQueryItemsForTax other = (CatalogQueryItemsForTax) obj;
         return Objects.equals(taxIds, other.taxIds);
+    }
+
+    /**
+     * Converts this CatalogQueryItemsForTax into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogQueryItemsForTax [" + "taxIds=" + taxIds + "]";
     }
 
     /**

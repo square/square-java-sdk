@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for BatchRetrieveInventoryChangesRequest type.
  */
@@ -129,7 +128,6 @@ public class BatchRetrieveInventoryChangesRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(catalogObjectIds, locationIds, types, states, updatedAfter,
@@ -155,19 +153,31 @@ public class BatchRetrieveInventoryChangesRequest {
     }
 
     /**
+     * Converts this BatchRetrieveInventoryChangesRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "BatchRetrieveInventoryChangesRequest [" + "catalogObjectIds=" + catalogObjectIds
+                + ", locationIds=" + locationIds + ", types=" + types + ", states=" + states
+                + ", updatedAfter=" + updatedAfter + ", updatedBefore=" + updatedBefore
+                + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link BatchRetrieveInventoryChangesRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link BatchRetrieveInventoryChangesRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .catalogObjectIds(getCatalogObjectIds())
-            .locationIds(getLocationIds())
-            .types(getTypes())
-            .states(getStates())
-            .updatedAfter(getUpdatedAfter())
-            .updatedBefore(getUpdatedBefore())
-            .cursor(getCursor());
+                .catalogObjectIds(getCatalogObjectIds())
+                .locationIds(getLocationIds())
+                .types(getTypes())
+                .states(getStates())
+                .updatedAfter(getUpdatedAfter())
+                .updatedBefore(getUpdatedBefore())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -260,13 +270,8 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return {@link BatchRetrieveInventoryChangesRequest}
          */
         public BatchRetrieveInventoryChangesRequest build() {
-            return new BatchRetrieveInventoryChangesRequest(catalogObjectIds,
-                locationIds,
-                types,
-                states,
-                updatedAfter,
-                updatedBefore,
-                cursor);
+            return new BatchRetrieveInventoryChangesRequest(catalogObjectIds, locationIds, types,
+                    states, updatedAfter, updatedBefore, cursor);
         }
     }
 }

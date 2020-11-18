@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * This is a model class for PayOrderRequest type.
  */
@@ -67,7 +66,6 @@ public class PayOrderRequest {
         return this.paymentIds;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, orderVersion, paymentIds);
@@ -88,14 +86,24 @@ public class PayOrderRequest {
     }
 
     /**
+     * Converts this PayOrderRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "PayOrderRequest [" + "idempotencyKey=" + idempotencyKey + ", orderVersion="
+                + orderVersion + ", paymentIds=" + paymentIds + "]";
+    }
+
+    /**
      * Builds a new {@link PayOrderRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link PayOrderRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
-            .orderVersion(getOrderVersion())
-            .paymentIds(getPaymentIds());
+                .orderVersion(getOrderVersion())
+                .paymentIds(getPaymentIds());
         return builder;
     }
 
@@ -150,9 +158,7 @@ public class PayOrderRequest {
          * @return {@link PayOrderRequest}
          */
         public PayOrderRequest build() {
-            return new PayOrderRequest(idempotencyKey,
-                orderVersion,
-                paymentIds);
+            return new PayOrderRequest(idempotencyKey, orderVersion, paymentIds);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListWorkweekConfigsRequest type.
  */
@@ -47,7 +46,6 @@ public class ListWorkweekConfigsRequest {
         return this.cursor;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(limit, cursor);
@@ -67,14 +65,23 @@ public class ListWorkweekConfigsRequest {
     }
 
     /**
+     * Converts this ListWorkweekConfigsRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListWorkweekConfigsRequest [" + "limit=" + limit + ", cursor=" + cursor + "]";
+    }
+
+    /**
      * Builds a new {@link ListWorkweekConfigsRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListWorkweekConfigsRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .limit(getLimit())
-            .cursor(getCursor());
+                .limit(getLimit())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -112,8 +119,7 @@ public class ListWorkweekConfigsRequest {
          * @return {@link ListWorkweekConfigsRequest}
          */
         public ListWorkweekConfigsRequest build() {
-            return new ListWorkweekConfigsRequest(limit,
-                cursor);
+            return new ListWorkweekConfigsRequest(limit, cursor);
         }
     }
 }

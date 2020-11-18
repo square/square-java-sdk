@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for ListCatalogRequest type.
  */
@@ -52,7 +51,6 @@ public class ListCatalogRequest {
         return this.types;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(cursor, types);
@@ -72,14 +70,23 @@ public class ListCatalogRequest {
     }
 
     /**
+     * Converts this ListCatalogRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ListCatalogRequest [" + "cursor=" + cursor + ", types=" + types + "]";
+    }
+
+    /**
      * Builds a new {@link ListCatalogRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link ListCatalogRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .cursor(getCursor())
-            .types(getTypes());
+                .cursor(getCursor())
+                .types(getTypes());
         return builder;
     }
 
@@ -117,8 +124,7 @@ public class ListCatalogRequest {
          * @return {@link ListCatalogRequest}
          */
         public ListCatalogRequest build() {
-            return new ListCatalogRequest(cursor,
-                types);
+            return new ListCatalogRequest(cursor, types);
         }
     }
 }

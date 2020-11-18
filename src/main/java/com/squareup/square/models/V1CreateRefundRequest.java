@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for V1CreateRefundRequest type.
  */
@@ -89,7 +88,6 @@ public class V1CreateRefundRequest {
         return this.requestIdempotenceKey;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(paymentId, type, reason, refundedMoney, requestIdempotenceKey);
@@ -112,16 +110,25 @@ public class V1CreateRefundRequest {
     }
 
     /**
+     * Converts this V1CreateRefundRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "V1CreateRefundRequest [" + "paymentId=" + paymentId + ", type=" + type + ", reason="
+                + reason + ", refundedMoney=" + refundedMoney + ", requestIdempotenceKey="
+                + requestIdempotenceKey + "]";
+    }
+
+    /**
      * Builds a new {@link V1CreateRefundRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link V1CreateRefundRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(paymentId,
-            type,
-            reason)
-            .refundedMoney(getRefundedMoney())
-            .requestIdempotenceKey(getRequestIdempotenceKey());
+        Builder builder = new Builder(paymentId, type, reason)
+                .refundedMoney(getRefundedMoney())
+                .requestIdempotenceKey(getRequestIdempotenceKey());
         return builder;
     }
 
@@ -204,11 +211,8 @@ public class V1CreateRefundRequest {
          * @return {@link V1CreateRefundRequest}
          */
         public V1CreateRefundRequest build() {
-            return new V1CreateRefundRequest(paymentId,
-                type,
-                reason,
-                refundedMoney,
-                requestIdempotenceKey);
+            return new V1CreateRefundRequest(paymentId, type, reason, refundedMoney,
+                    requestIdempotenceKey);
         }
     }
 }

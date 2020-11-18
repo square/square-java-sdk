@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
  * This is a model class for UpdateTeamMemberRequest type.
  */
@@ -33,7 +32,6 @@ public class UpdateTeamMemberRequest {
         return this.teamMember;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(teamMember);
@@ -52,13 +50,22 @@ public class UpdateTeamMemberRequest {
     }
 
     /**
+     * Converts this UpdateTeamMemberRequest into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "UpdateTeamMemberRequest [" + "teamMember=" + teamMember + "]";
+    }
+
+    /**
      * Builds a new {@link UpdateTeamMemberRequest.Builder} object.
      * Creates the instance with the state of the current model.
      * @return a new {@link UpdateTeamMemberRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .teamMember(getTeamMember());
+                .teamMember(getTeamMember());
         return builder;
     }
 
