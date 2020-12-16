@@ -39,7 +39,6 @@ import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
 import com.squareup.square.api.DefaultV1EmployeesApi;
 import com.squareup.square.api.DefaultV1ItemsApi;
-import com.squareup.square.api.DefaultV1LocationsApi;
 import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
@@ -61,7 +60,6 @@ import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
 import com.squareup.square.api.V1ItemsApi;
-import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
@@ -85,7 +83,6 @@ public final class SquareClient implements SquareClientInterface {
      */
     private MobileAuthorizationApi mobileAuthorization;
     private OAuthApi oAuth;
-    private V1LocationsApi v1Locations;
     private V1EmployeesApi v1Employees;
     private V1TransactionsApi v1Transactions;
     private V1ItemsApi v1Items;
@@ -186,8 +183,6 @@ public final class SquareClient implements SquareClientInterface {
         mobileAuthorization = new DefaultMobileAuthorizationApi(this, this.httpClient,
                 this.authManagers, this.httpCallback);
         oAuth = new DefaultOAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Locations = new DefaultV1LocationsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
         v1Employees = new DefaultV1EmployeesApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         v1Transactions = new DefaultV1TransactionsApi(this, this.httpClient, this.authManagers,
@@ -264,14 +259,6 @@ public final class SquareClient implements SquareClientInterface {
      */
     public OAuthApi getOAuthApi() {
         return oAuth;
-    }
-
-    /**
-     * Get the instance of V1LocationsApi.
-     * @return v1Locations
-     */
-    public V1LocationsApi getV1LocationsApi() {
-        return v1Locations;
     }
 
     /**
@@ -567,7 +554,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "7.0.0.20201118";
+        return "8.0.0.20201216";
     }
 
     /**
@@ -645,7 +632,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2020-11-18";
+        private String squareVersion = "2020-12-16";
         private HttpClient httpClient;
         private long timeout = 60;
         private Headers additionalHeaders = new Headers();

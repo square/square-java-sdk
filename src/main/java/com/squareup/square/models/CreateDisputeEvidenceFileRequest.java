@@ -32,7 +32,7 @@ public class CreateDisputeEvidenceFileRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * Unique ID. For more information, see
+     * The Unique ID. For more information, see
      * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
@@ -43,7 +43,7 @@ public class CreateDisputeEvidenceFileRequest {
 
     /**
      * Getter for EvidenceType.
-     * Type of the dispute evidence.
+     * The type of the dispute evidence.
      * @return Returns the String
      */
     @JsonGetter("evidence_type")
@@ -53,8 +53,8 @@ public class CreateDisputeEvidenceFileRequest {
 
     /**
      * Getter for ContentType.
-     * The MIME type of the uploaded file. One of image/heic, image/heif, image/jpeg,
-     * application/pdf, image/png, image/tiff.
+     * The MIME type of the uploaded file. The type can be image/heic, image/heif, image/jpeg,
+     * application/pdf, image/png, or image/tiff.
      * @return Returns the String
      */
     @JsonGetter("content_type")

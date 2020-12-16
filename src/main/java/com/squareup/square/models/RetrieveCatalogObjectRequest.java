@@ -11,15 +11,19 @@ import java.util.Objects;
  */
 public class RetrieveCatalogObjectRequest {
     private final Boolean includeRelatedObjects;
+    private final Long catalogVersion;
 
     /**
      * Initialization constructor.
      * @param includeRelatedObjects Boolean value for includeRelatedObjects.
+     * @param catalogVersion Long value for catalogVersion.
      */
     @JsonCreator
     public RetrieveCatalogObjectRequest(
-            @JsonProperty("include_related_objects") Boolean includeRelatedObjects) {
+            @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
+            @JsonProperty("catalog_version") Long catalogVersion) {
         this.includeRelatedObjects = includeRelatedObjects;
+        this.catalogVersion = catalogVersion;
     }
 
     /**
@@ -37,9 +41,21 @@ public class RetrieveCatalogObjectRequest {
         return this.includeRelatedObjects;
     }
 
+    /**
+     * Getter for CatalogVersion.
+     * Requests objects as of a specific version of the catalog. This allows you to retrieve
+     * historical versions of objects. The value to retrieve a specific version of an object can be
+     * found in the version field of [CatalogObject](#type-catalogobject)s.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return this.catalogVersion;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(includeRelatedObjects);
+        return Objects.hash(includeRelatedObjects, catalogVersion);
     }
 
     @Override
@@ -51,7 +67,8 @@ public class RetrieveCatalogObjectRequest {
             return false;
         }
         RetrieveCatalogObjectRequest other = (RetrieveCatalogObjectRequest) obj;
-        return Objects.equals(includeRelatedObjects, other.includeRelatedObjects);
+        return Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
+            && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
     /**
@@ -61,7 +78,7 @@ public class RetrieveCatalogObjectRequest {
     @Override
     public String toString() {
         return "RetrieveCatalogObjectRequest [" + "includeRelatedObjects=" + includeRelatedObjects
-                + "]";
+                + ", catalogVersion=" + catalogVersion + "]";
     }
 
     /**
@@ -71,7 +88,8 @@ public class RetrieveCatalogObjectRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .includeRelatedObjects(getIncludeRelatedObjects());
+                .includeRelatedObjects(getIncludeRelatedObjects())
+                .catalogVersion(getCatalogVersion());
         return builder;
     }
 
@@ -80,6 +98,7 @@ public class RetrieveCatalogObjectRequest {
      */
     public static class Builder {
         private Boolean includeRelatedObjects;
+        private Long catalogVersion;
 
 
 
@@ -94,11 +113,21 @@ public class RetrieveCatalogObjectRequest {
         }
 
         /**
+         * Setter for catalogVersion.
+         * @param catalogVersion Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RetrieveCatalogObjectRequest} object using the set fields.
          * @return {@link RetrieveCatalogObjectRequest}
          */
         public RetrieveCatalogObjectRequest build() {
-            return new RetrieveCatalogObjectRequest(includeRelatedObjects);
+            return new RetrieveCatalogObjectRequest(includeRelatedObjects, catalogVersion);
         }
     }
 }

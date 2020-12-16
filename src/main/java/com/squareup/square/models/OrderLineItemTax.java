@@ -19,6 +19,7 @@ public class OrderLineItemTax {
     private final Map<String, String> metadata;
     private final Money appliedMoney;
     private final String scope;
+    private final Boolean autoApplied;
 
     /**
      * Initialization constructor.
@@ -30,6 +31,7 @@ public class OrderLineItemTax {
      * @param metadata Map of String, value for metadata.
      * @param appliedMoney Money value for appliedMoney.
      * @param scope String value for scope.
+     * @param autoApplied Boolean value for autoApplied.
      */
     @JsonCreator
     public OrderLineItemTax(
@@ -40,7 +42,8 @@ public class OrderLineItemTax {
             @JsonProperty("percentage") String percentage,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("applied_money") Money appliedMoney,
-            @JsonProperty("scope") String scope) {
+            @JsonProperty("scope") String scope,
+            @JsonProperty("auto_applied") Boolean autoApplied) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
         this.name = name;
@@ -49,6 +52,7 @@ public class OrderLineItemTax {
         this.metadata = metadata;
         this.appliedMoney = appliedMoney;
         this.scope = scope;
+        this.autoApplied = autoApplied;
     }
 
     /**
@@ -147,10 +151,22 @@ public class OrderLineItemTax {
         return this.scope;
     }
 
+    /**
+     * Getter for AutoApplied.
+     * Determines whether the tax was automatically applied to the order based on the catalog
+     * configuration. For an example, see [Automatically Apply Taxes to an
+     * Order](https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts/auto-apply-taxes).
+     * @return Returns the Boolean
+     */
+    @JsonGetter("auto_applied")
+    public Boolean getAutoApplied() {
+        return this.autoApplied;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, catalogObjectId, name, type, percentage, metadata, appliedMoney,
-                scope);
+                scope, autoApplied);
     }
 
     @Override
@@ -169,7 +185,8 @@ public class OrderLineItemTax {
             && Objects.equals(percentage, other.percentage)
             && Objects.equals(metadata, other.metadata)
             && Objects.equals(appliedMoney, other.appliedMoney)
-            && Objects.equals(scope, other.scope);
+            && Objects.equals(scope, other.scope)
+            && Objects.equals(autoApplied, other.autoApplied);
     }
 
     /**
@@ -180,7 +197,8 @@ public class OrderLineItemTax {
     public String toString() {
         return "OrderLineItemTax [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
                 + ", name=" + name + ", type=" + type + ", percentage=" + percentage + ", metadata="
-                + metadata + ", appliedMoney=" + appliedMoney + ", scope=" + scope + "]";
+                + metadata + ", appliedMoney=" + appliedMoney + ", scope=" + scope
+                + ", autoApplied=" + autoApplied + "]";
     }
 
     /**
@@ -197,7 +215,8 @@ public class OrderLineItemTax {
                 .percentage(getPercentage())
                 .metadata(getMetadata())
                 .appliedMoney(getAppliedMoney())
-                .scope(getScope());
+                .scope(getScope())
+                .autoApplied(getAutoApplied());
         return builder;
     }
 
@@ -213,6 +232,7 @@ public class OrderLineItemTax {
         private Map<String, String> metadata;
         private Money appliedMoney;
         private String scope;
+        private Boolean autoApplied;
 
 
 
@@ -297,12 +317,22 @@ public class OrderLineItemTax {
         }
 
         /**
+         * Setter for autoApplied.
+         * @param autoApplied Boolean value for autoApplied.
+         * @return Builder
+         */
+        public Builder autoApplied(Boolean autoApplied) {
+            this.autoApplied = autoApplied;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderLineItemTax} object using the set fields.
          * @return {@link OrderLineItemTax}
          */
         public OrderLineItemTax build() {
             return new OrderLineItemTax(uid, catalogObjectId, name, type, percentage, metadata,
-                    appliedMoney, scope);
+                    appliedMoney, scope, autoApplied);
         }
     }
 }

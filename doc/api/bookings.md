@@ -17,6 +17,7 @@ BookingsApi bookingsApi = client.getBookingsApi();
 * [Retrieve Team Member Booking Profile](/doc/api/bookings.md#retrieve-team-member-booking-profile)
 * [Retrieve Booking](/doc/api/bookings.md#retrieve-booking)
 * [Update Booking](/doc/api/bookings.md#update-booking)
+* [Cancel Booking](/doc/api/bookings.md#cancel-booking)
 
 
 # Create Booking
@@ -322,6 +323,45 @@ UpdateBookingRequest body = new UpdateBookingRequest.Builder(
     .build();
 
 bookingsApi.updateBookingAsync(bookingId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Cancel Booking
+
+Cancels an existing booking.
+
+```java
+CompletableFuture<CancelBookingResponse> cancelBookingAsync(
+    final String bookingId,
+    final CancelBookingRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](#type-booking) object representing the to-be-cancelled booking. |
+| `body` | [`CancelBookingRequest`](/doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`CancelBookingResponse`](/doc/models/cancel-booking-response.md)
+
+## Example Usage
+
+```java
+String bookingId = "booking_id4";
+CancelBookingRequest body = new CancelBookingRequest.Builder()
+    .idempotencyKey("idempotency_key2")
+    .bookingVersion(8)
+    .build();
+
+bookingsApi.cancelBookingAsync(bookingId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

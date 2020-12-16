@@ -2,6 +2,8 @@
 package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.models.CancelBookingRequest;
+import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
@@ -171,5 +173,31 @@ public interface BookingsApi {
     CompletableFuture<UpdateBookingResponse> updateBookingAsync(
             final String bookingId,
             final UpdateBookingRequest body);
+
+    /**
+     * Cancels an existing booking.
+     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     *         representing the to-be-cancelled booking.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CancelBookingResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CancelBookingResponse cancelBooking(
+            final String bookingId,
+            final CancelBookingRequest body) throws ApiException, IOException;
+
+    /**
+     * Cancels an existing booking.
+     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     *         representing the to-be-cancelled booking.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CancelBookingResponse response from the API call
+     */
+    CompletableFuture<CancelBookingResponse> cancelBookingAsync(
+            final String bookingId,
+            final CancelBookingRequest body);
 
 }

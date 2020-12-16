@@ -30,7 +30,6 @@ import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
 import com.squareup.square.api.V1ItemsApi;
-import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.api.V1TransactionsApi;
 
 /**
@@ -51,12 +50,6 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the OAuthApi instance
      */
     OAuthApi getOAuthApi();
-
-    /**
-     * Provides access to V1Locations controller.
-     * @return Returns the V1LocationsApi instance
-     */
-    V1LocationsApi getV1LocationsApi();
 
     /**
      * Provides access to V1Employees controller.

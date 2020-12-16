@@ -25,15 +25,15 @@ public interface DisputesApi {
     /**
      * Returns a list of disputes associated with a particular account.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for the original query.
-     *         For more information, see
-     *         [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @param  states  Optional parameter: The dispute states to filter the result. If not
-     *         specified, the endpoint returns all open disputes (dispute status is not
+     *         specified, the endpoint returns all open disputes (the dispute status is not
      *         `INQUIRY_CLOSED`, `WON`, or `LOST`).
      * @param  locationId  Optional parameter: The ID of the location for which to return a list of
-     *         disputes. If not specified, the endpoint returns all open disputes (dispute status is
-     *         not `INQUIRY_CLOSED`, `WON`, or `LOST`) associated with all locations.
+     *         disputes. If not specified, the endpoint returns all open disputes (the dispute
+     *         status is not `INQUIRY_CLOSED`, `WON`, or `LOST`) associated with all locations.
      * @return    Returns the ListDisputesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -46,15 +46,15 @@ public interface DisputesApi {
     /**
      * Returns a list of disputes associated with a particular account.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for the original query.
-     *         For more information, see
-     *         [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @param  states  Optional parameter: The dispute states to filter the result. If not
-     *         specified, the endpoint returns all open disputes (dispute status is not
+     *         specified, the endpoint returns all open disputes (the dispute status is not
      *         `INQUIRY_CLOSED`, `WON`, or `LOST`).
      * @param  locationId  Optional parameter: The ID of the location for which to return a list of
-     *         disputes. If not specified, the endpoint returns all open disputes (dispute status is
-     *         not `INQUIRY_CLOSED`, `WON`, or `LOST`) associated with all locations.
+     *         disputes. If not specified, the endpoint returns all open disputes (the dispute
+     *         status is not `INQUIRY_CLOSED`, `WON`, or `LOST`) associated with all locations.
      * @return    Returns the ListDisputesResponse response from the API call
      */
     CompletableFuture<ListDisputesResponse> listDisputesAsync(
@@ -63,7 +63,7 @@ public interface DisputesApi {
             final String locationId);
 
     /**
-     * Returns details of a specific dispute.
+     * Returns details about a specific dispute.
      * @param  disputeId  Required parameter: The ID of the dispute you want more details about.
      * @return    Returns the RetrieveDisputeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -73,7 +73,7 @@ public interface DisputesApi {
             final String disputeId) throws ApiException, IOException;
 
     /**
-     * Returns details of a specific dispute.
+     * Returns details about a specific dispute.
      * @param  disputeId  Required parameter: The ID of the dispute you want more details about.
      * @return    Returns the RetrieveDisputeResponse response from the API call
      */
@@ -81,11 +81,11 @@ public interface DisputesApi {
             final String disputeId);
 
     /**
-     * Accepts loss on a dispute. Square returns the disputed amount to the cardholder and updates
-     * the dispute state to ACCEPTED. Square debits the disputed amount from the seller’s Square
-     * account. If the Square account balance does not have sufficient funds, Square debits the
+     * Accepts the loss on a dispute. Square returns the disputed amount to the cardholder and
+     * updates the dispute state to ACCEPTED. Square debits the disputed amount from the seller’s
+     * Square account. If the Square account does not have sufficient funds, Square debits the
      * associated bank account.
-     * @param  disputeId  Required parameter: ID of the dispute you want to accept.
+     * @param  disputeId  Required parameter: The ID of the dispute you want to accept.
      * @return    Returns the AcceptDisputeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -94,11 +94,11 @@ public interface DisputesApi {
             final String disputeId) throws ApiException, IOException;
 
     /**
-     * Accepts loss on a dispute. Square returns the disputed amount to the cardholder and updates
-     * the dispute state to ACCEPTED. Square debits the disputed amount from the seller’s Square
-     * account. If the Square account balance does not have sufficient funds, Square debits the
+     * Accepts the loss on a dispute. Square returns the disputed amount to the cardholder and
+     * updates the dispute state to ACCEPTED. Square debits the disputed amount from the seller’s
+     * Square account. If the Square account does not have sufficient funds, Square debits the
      * associated bank account.
-     * @param  disputeId  Required parameter: ID of the dispute you want to accept.
+     * @param  disputeId  Required parameter: The ID of the dispute you want to accept.
      * @return    Returns the AcceptDisputeResponse response from the API call
      */
     CompletableFuture<AcceptDisputeResponse> acceptDisputeAsync(
@@ -181,8 +181,8 @@ public interface DisputesApi {
     /**
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts HTTP
      * multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG, and TIFF formats.
-     * @param  disputeId  Required parameter: ID of the dispute you want to upload evidence for.
-     * @param  request  Optional parameter: Defines parameters for a CreateDisputeEvidenceFile
+     * @param  disputeId  Required parameter: The ID of the dispute you want to upload evidence for.
+     * @param  request  Optional parameter: Defines the parameters for a `CreateDisputeEvidenceFile`
      *         request.
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateDisputeEvidenceFileResponse response from the API call
@@ -197,8 +197,8 @@ public interface DisputesApi {
     /**
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts HTTP
      * multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG, and TIFF formats.
-     * @param  disputeId  Required parameter: ID of the dispute you want to upload evidence for.
-     * @param  request  Optional parameter: Defines parameters for a CreateDisputeEvidenceFile
+     * @param  disputeId  Required parameter: The ID of the dispute you want to upload evidence for.
+     * @param  request  Optional parameter: Defines the parameters for a `CreateDisputeEvidenceFile`
      *         request.
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateDisputeEvidenceFileResponse response from the API call
@@ -238,8 +238,9 @@ public interface DisputesApi {
      * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
      * and
      * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints, and evidence automatically provided by Square, when available.
-     * @param  disputeId  Required parameter: The ID of the dispute you want to submit evidence for.
+     * endpoints and evidence automatically provided by Square, when available.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
+     *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -253,8 +254,9 @@ public interface DisputesApi {
      * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
      * and
      * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints, and evidence automatically provided by Square, when available.
-     * @param  disputeId  Required parameter: The ID of the dispute you want to submit evidence for.
+     * endpoints and evidence automatically provided by Square, when available.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
+     *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
      */
     CompletableFuture<SubmitEvidenceResponse> submitEvidenceAsync(

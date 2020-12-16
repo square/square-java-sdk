@@ -13,6 +13,8 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.models.CancelBookingRequest;
+import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
@@ -725,6 +727,110 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         UpdateBookingResponse result = ApiHelper.deserialize(responseBody,
                 UpdateBookingResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Cancels an existing booking.
+     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     *         representing the to-be-cancelled booking.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CancelBookingResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public CancelBookingResponse cancelBooking(
+            final String bookingId,
+            final CancelBookingRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCancelBookingRequest(bookingId, body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleCancelBookingResponse(context);
+    }
+
+    /**
+     * Cancels an existing booking.
+     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     *         representing the to-be-cancelled booking.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CancelBookingResponse response from the API call
+     */
+    public CompletableFuture<CancelBookingResponse> cancelBookingAsync(
+            final String bookingId,
+            final CancelBookingRequest body) {
+        return makeHttpCallAsync(() -> buildCancelBookingRequest(bookingId, body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsStringAsync(request)),
+            context -> handleCancelBookingResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for cancelBooking.
+     */
+    private HttpRequest buildCancelBookingRequest(
+            final String bookingId,
+            final CancelBookingRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/bookings/{booking_id}/cancel");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("booking_id",
+                new SimpleEntry<Object, Boolean>(bookingId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for cancelBooking.
+     * @return An object of type CancelBookingResponse
+     */
+    private CancelBookingResponse handleCancelBookingResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        CancelBookingResponse result = ApiHelper.deserialize(responseBody,
+                CancelBookingResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

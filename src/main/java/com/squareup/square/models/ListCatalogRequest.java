@@ -12,18 +12,22 @@ import java.util.Objects;
 public class ListCatalogRequest {
     private final String cursor;
     private final String types;
+    private final Long catalogVersion;
 
     /**
      * Initialization constructor.
      * @param cursor String value for cursor.
      * @param types String value for types.
+     * @param catalogVersion Long value for catalogVersion.
      */
     @JsonCreator
     public ListCatalogRequest(
             @JsonProperty("cursor") String cursor,
-            @JsonProperty("types") String types) {
+            @JsonProperty("types") String types,
+            @JsonProperty("catalog_version") Long catalogVersion) {
         this.cursor = cursor;
         this.types = types;
+        this.catalogVersion = catalogVersion;
     }
 
     /**
@@ -51,9 +55,21 @@ public class ListCatalogRequest {
         return this.types;
     }
 
+    /**
+     * Getter for CatalogVersion.
+     * The specific version of the catalog objects to be included in the response. This allows you
+     * to retrieve historical versions of objects. The specified version value is matched against
+     * the [CatalogObject](#type-catalogobject)s' `version` attribute.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return this.catalogVersion;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, types);
+        return Objects.hash(cursor, types, catalogVersion);
     }
 
     @Override
@@ -66,7 +82,8 @@ public class ListCatalogRequest {
         }
         ListCatalogRequest other = (ListCatalogRequest) obj;
         return Objects.equals(cursor, other.cursor)
-            && Objects.equals(types, other.types);
+            && Objects.equals(types, other.types)
+            && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
     /**
@@ -75,7 +92,8 @@ public class ListCatalogRequest {
      */
     @Override
     public String toString() {
-        return "ListCatalogRequest [" + "cursor=" + cursor + ", types=" + types + "]";
+        return "ListCatalogRequest [" + "cursor=" + cursor + ", types=" + types
+                + ", catalogVersion=" + catalogVersion + "]";
     }
 
     /**
@@ -86,7 +104,8 @@ public class ListCatalogRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .cursor(getCursor())
-                .types(getTypes());
+                .types(getTypes())
+                .catalogVersion(getCatalogVersion());
         return builder;
     }
 
@@ -96,6 +115,7 @@ public class ListCatalogRequest {
     public static class Builder {
         private String cursor;
         private String types;
+        private Long catalogVersion;
 
 
 
@@ -120,11 +140,21 @@ public class ListCatalogRequest {
         }
 
         /**
+         * Setter for catalogVersion.
+         * @param catalogVersion Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCatalogRequest} object using the set fields.
          * @return {@link ListCatalogRequest}
          */
         public ListCatalogRequest build() {
-            return new ListCatalogRequest(cursor, types);
+            return new ListCatalogRequest(cursor, types, catalogVersion);
         }
     }
 }

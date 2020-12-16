@@ -15,6 +15,7 @@ public class LoyaltyProgramRewardTier {
     private final String name;
     private final LoyaltyProgramRewardDefinition definition;
     private final String createdAt;
+    private final CatalogObjectReference pricingRuleReference;
 
     /**
      * Initialization constructor.
@@ -23,6 +24,7 @@ public class LoyaltyProgramRewardTier {
      * @param name String value for name.
      * @param definition LoyaltyProgramRewardDefinition value for definition.
      * @param createdAt String value for createdAt.
+     * @param pricingRuleReference CatalogObjectReference value for pricingRuleReference.
      */
     @JsonCreator
     public LoyaltyProgramRewardTier(
@@ -30,12 +32,14 @@ public class LoyaltyProgramRewardTier {
             @JsonProperty("points") int points,
             @JsonProperty("name") String name,
             @JsonProperty("definition") LoyaltyProgramRewardDefinition definition,
-            @JsonProperty("created_at") String createdAt) {
+            @JsonProperty("created_at") String createdAt,
+            @JsonProperty("pricing_rule_reference") CatalogObjectReference pricingRuleReference) {
         this.id = id;
         this.points = points;
         this.name = name;
         this.definition = definition;
         this.createdAt = createdAt;
+        this.pricingRuleReference = pricingRuleReference;
     }
 
     /**
@@ -70,7 +74,10 @@ public class LoyaltyProgramRewardTier {
 
     /**
      * Getter for Definition.
-     * Provides details about the loyalty program reward tier definition.
+     * Provides details about the reward tier discount. DEPRECATED at version 2020-12-16. Discount
+     * details are now defined using a catalog pricing rule and other catalog objects. For more
+     * information, see [Get discount details for the
+     * reward](https://developer.squareup.com/docs/loyalty-api/overview#get-discount-details).
      * @return Returns the LoyaltyProgramRewardDefinition
      */
     @JsonGetter("definition")
@@ -88,9 +95,20 @@ public class LoyaltyProgramRewardTier {
         return this.createdAt;
     }
 
+    /**
+     * Getter for PricingRuleReference.
+     * A reference to a Catalog object at a specific version. In general this is used as an entry
+     * point into a graph of catalog objects, where the objects exist at a specific version.
+     * @return Returns the CatalogObjectReference
+     */
+    @JsonGetter("pricing_rule_reference")
+    public CatalogObjectReference getPricingRuleReference() {
+        return this.pricingRuleReference;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, points, name, definition, createdAt);
+        return Objects.hash(id, points, name, definition, createdAt, pricingRuleReference);
     }
 
     @Override
@@ -106,7 +124,8 @@ public class LoyaltyProgramRewardTier {
             && Objects.equals(points, other.points)
             && Objects.equals(name, other.name)
             && Objects.equals(definition, other.definition)
-            && Objects.equals(createdAt, other.createdAt);
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(pricingRuleReference, other.pricingRuleReference);
     }
 
     /**
@@ -116,7 +135,8 @@ public class LoyaltyProgramRewardTier {
     @Override
     public String toString() {
         return "LoyaltyProgramRewardTier [" + "id=" + id + ", points=" + points + ", name=" + name
-                + ", definition=" + definition + ", createdAt=" + createdAt + "]";
+                + ", definition=" + definition + ", createdAt=" + createdAt
+                + ", pricingRuleReference=" + pricingRuleReference + "]";
     }
 
     /**
@@ -125,7 +145,8 @@ public class LoyaltyProgramRewardTier {
      * @return a new {@link LoyaltyProgramRewardTier.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, points, name, definition, createdAt);
+        Builder builder = new Builder(id, points, name, definition, createdAt)
+                .pricingRuleReference(getPricingRuleReference());
         return builder;
     }
 
@@ -138,6 +159,7 @@ public class LoyaltyProgramRewardTier {
         private String name;
         private LoyaltyProgramRewardDefinition definition;
         private String createdAt;
+        private CatalogObjectReference pricingRuleReference;
 
         /**
          * Initialization constructor.
@@ -210,11 +232,22 @@ public class LoyaltyProgramRewardTier {
         }
 
         /**
+         * Setter for pricingRuleReference.
+         * @param pricingRuleReference CatalogObjectReference value for pricingRuleReference.
+         * @return Builder
+         */
+        public Builder pricingRuleReference(CatalogObjectReference pricingRuleReference) {
+            this.pricingRuleReference = pricingRuleReference;
+            return this;
+        }
+
+        /**
          * Builds a new {@link LoyaltyProgramRewardTier} object using the set fields.
          * @return {@link LoyaltyProgramRewardTier}
          */
         public LoyaltyProgramRewardTier build() {
-            return new LoyaltyProgramRewardTier(id, points, name, definition, createdAt);
+            return new LoyaltyProgramRewardTier(id, points, name, definition, createdAt,
+                    pricingRuleReference);
         }
     }
 }

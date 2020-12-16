@@ -66,7 +66,7 @@ public class DisputeEvidence {
 
     /**
      * Getter for EvidenceType.
-     * Type of the dispute evidence.
+     * The type of the dispute evidence.
      * @return Returns the String
      */
     @JsonGetter("evidence_type")
