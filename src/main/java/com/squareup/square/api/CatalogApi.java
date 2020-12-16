@@ -186,13 +186,18 @@ public interface CatalogApi {
      *         object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`. The legal
      *         values are taken from the CatalogObjectType enum: `ITEM`, `ITEM_VARIATION`,
      *         `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.
+     * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
+     *         included in the response. This allows you to retrieve historical versions of objects.
+     *         The specified version value is matched against the
+     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     ListCatalogResponse listCatalog(
             final String cursor,
-            final String types) throws ApiException, IOException;
+            final String types,
+            final Long catalogVersion) throws ApiException, IOException;
 
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of
@@ -211,11 +216,16 @@ public interface CatalogApi {
      *         object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`. The legal
      *         values are taken from the CatalogObjectType enum: `ITEM`, `ITEM_VARIATION`,
      *         `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.
+     * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
+     *         included in the response. This allows you to retrieve historical versions of objects.
+     *         The specified version value is matched against the
+     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      */
     CompletableFuture<ListCatalogResponse> listCatalogAsync(
             final String cursor,
-            final String types);
+            final String types,
+            final Long catalogVersion);
 
     /**
      * Creates or updates the target [CatalogObject](#type-catalogobject).
@@ -286,13 +296,18 @@ public interface CatalogApi {
      *         field of the response contains a `CatalogItemVariation`, its parent `CatalogItem`
      *         will be returned in the `related_objects` field of the response. Default value:
      *         `false`
+     * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
+     *         catalog. This allows you to retrieve historical versions of objects. The value to
+     *         retrieve a specific version of an object can be found in the version field of
+     *         [CatalogObject](#type-catalogobject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     RetrieveCatalogObjectResponse retrieveCatalogObject(
             final String objectId,
-            final Boolean includeRelatedObjects) throws ApiException, IOException;
+            final Boolean includeRelatedObjects,
+            final Long catalogVersion) throws ApiException, IOException;
 
     /**
      * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject)
@@ -311,11 +326,16 @@ public interface CatalogApi {
      *         field of the response contains a `CatalogItemVariation`, its parent `CatalogItem`
      *         will be returned in the `related_objects` field of the response. Default value:
      *         `false`
+     * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
+     *         catalog. This allows you to retrieve historical versions of objects. The value to
+     *         retrieve a specific version of an object can be found in the version field of
+     *         [CatalogObject](#type-catalogobject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
             final String objectId,
-            final Boolean includeRelatedObjects);
+            final Boolean includeRelatedObjects,
+            final Long catalogVersion);
 
     /**
      * Searches for [CatalogObject](#type-CatalogObject) of any types against supported search

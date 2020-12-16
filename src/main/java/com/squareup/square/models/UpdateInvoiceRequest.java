@@ -58,7 +58,7 @@ public class UpdateInvoiceRequest {
 
     /**
      * Getter for FieldsToClear.
-     * List of fields to clear. For examples, see [Update an
+     * The list of fields to clear. For examples, see [Update an
      * invoice](https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice).
      * @return Returns the List of String
      */

@@ -13,18 +13,22 @@ import java.util.Objects;
 public class BatchRetrieveCatalogObjectsRequest {
     private final List<String> objectIds;
     private final Boolean includeRelatedObjects;
+    private final Long catalogVersion;
 
     /**
      * Initialization constructor.
      * @param objectIds List of String value for objectIds.
      * @param includeRelatedObjects Boolean value for includeRelatedObjects.
+     * @param catalogVersion Long value for catalogVersion.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsRequest(
             @JsonProperty("object_ids") List<String> objectIds,
-            @JsonProperty("include_related_objects") Boolean includeRelatedObjects) {
+            @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
+            @JsonProperty("catalog_version") Long catalogVersion) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = includeRelatedObjects;
+        this.catalogVersion = catalogVersion;
     }
 
     /**
@@ -52,9 +56,21 @@ public class BatchRetrieveCatalogObjectsRequest {
         return this.includeRelatedObjects;
     }
 
+    /**
+     * Getter for CatalogVersion.
+     * The specific version of the catalog objects to be included in the response. This allows you
+     * to retrieve historical versions of objects. The specified version value is matched against
+     * the [CatalogObject](#type-catalogobject)s' `version` attribute.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return this.catalogVersion;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(objectIds, includeRelatedObjects);
+        return Objects.hash(objectIds, includeRelatedObjects, catalogVersion);
     }
 
     @Override
@@ -67,7 +83,8 @@ public class BatchRetrieveCatalogObjectsRequest {
         }
         BatchRetrieveCatalogObjectsRequest other = (BatchRetrieveCatalogObjectsRequest) obj;
         return Objects.equals(objectIds, other.objectIds)
-            && Objects.equals(includeRelatedObjects, other.includeRelatedObjects);
+            && Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
+            && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
     /**
@@ -77,7 +94,8 @@ public class BatchRetrieveCatalogObjectsRequest {
     @Override
     public String toString() {
         return "BatchRetrieveCatalogObjectsRequest [" + "objectIds=" + objectIds
-                + ", includeRelatedObjects=" + includeRelatedObjects + "]";
+                + ", includeRelatedObjects=" + includeRelatedObjects + ", catalogVersion="
+                + catalogVersion + "]";
     }
 
     /**
@@ -87,7 +105,8 @@ public class BatchRetrieveCatalogObjectsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(objectIds)
-                .includeRelatedObjects(getIncludeRelatedObjects());
+                .includeRelatedObjects(getIncludeRelatedObjects())
+                .catalogVersion(getCatalogVersion());
         return builder;
     }
 
@@ -97,6 +116,7 @@ public class BatchRetrieveCatalogObjectsRequest {
     public static class Builder {
         private List<String> objectIds;
         private Boolean includeRelatedObjects;
+        private Long catalogVersion;
 
         /**
          * Initialization constructor.
@@ -127,11 +147,22 @@ public class BatchRetrieveCatalogObjectsRequest {
         }
 
         /**
+         * Setter for catalogVersion.
+         * @param catalogVersion Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchRetrieveCatalogObjectsRequest} object using the set fields.
          * @return {@link BatchRetrieveCatalogObjectsRequest}
          */
         public BatchRetrieveCatalogObjectsRequest build() {
-            return new BatchRetrieveCatalogObjectsRequest(objectIds, includeRelatedObjects);
+            return new BatchRetrieveCatalogObjectsRequest(objectIds, includeRelatedObjects,
+                    catalogVersion);
         }
     }
 }

@@ -39,7 +39,7 @@ public class ListDisputesResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -49,7 +49,7 @@ public class ListDisputesResponse {
 
     /**
      * Getter for Disputes.
-     * The list of Disputes.
+     * The list of disputes.
      * @return Returns the List of Dispute
      */
     @JsonGetter("disputes")
@@ -61,7 +61,7 @@ public class ListDisputesResponse {
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If unset, this is the final
      * response. For more information, see
-     * [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

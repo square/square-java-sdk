@@ -215,9 +215,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
      * Use the CreateEmployee endpoint to add an employee to a Square account. Employees created
      * with the Connect API have an initial status of `INACTIVE`. Inactive employees cannot sign in
      * to Square Point of Sale until they are activated from the Square Dashboard. Employee status
-     * cannot be changed with the Connect API. <aside class="important"> Employee entities cannot be
-     * deleted. To disable employee profiles, set the employee's status to <code>INACTIVE</code>
-     * </aside>.
+     * cannot be changed with the Connect API. Employee entities cannot be deleted. To disable
+     * employee profiles, set the employee's status to <code>INACTIVE</code>.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the V1Employee response from the API call
@@ -239,9 +238,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
      * Use the CreateEmployee endpoint to add an employee to a Square account. Employees created
      * with the Connect API have an initial status of `INACTIVE`. Inactive employees cannot sign in
      * to Square Point of Sale until they are activated from the Square Dashboard. Employee status
-     * cannot be changed with the Connect API. <aside class="important"> Employee entities cannot be
-     * deleted. To disable employee profiles, set the employee's status to <code>INACTIVE</code>
-     * </aside>.
+     * cannot be changed with the Connect API. Employee entities cannot be deleted. To disable
+     * employee profiles, set the employee's status to <code>INACTIVE</code>.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the V1Employee response from the API call
@@ -1533,9 +1531,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
     }
 
     /**
-     * Provides summary information for all events associated with a particular timecard. <aside>
-     * Only approved accounts can manage their employees with Square. Unapproved accounts cannot use
-     * employee management features with the API. </aside>.
+     * Provides summary information for all events associated with a particular timecard. Only
+     * approved accounts can manage their employees with Square. Unapproved accounts cannot use
+     * employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The ID of the timecard to list events for.
@@ -1556,9 +1554,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
     }
 
     /**
-     * Provides summary information for all events associated with a particular timecard. <aside>
-     * Only approved accounts can manage their employees with Square. Unapproved accounts cannot use
-     * employee management features with the API. </aside>.
+     * Provides summary information for all events associated with a particular timecard. Only
+     * approved accounts can manage their employees with Square. Unapproved accounts cannot use
+     * employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The ID of the timecard to list events for.

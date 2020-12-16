@@ -35,7 +35,7 @@ public class AcceptDisputeResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

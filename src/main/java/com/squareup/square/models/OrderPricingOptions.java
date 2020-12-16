@@ -11,21 +11,25 @@ import java.util.Objects;
  */
 public class OrderPricingOptions {
     private final Boolean autoApplyDiscounts;
+    private final Boolean autoApplyTaxes;
 
     /**
      * Initialization constructor.
      * @param autoApplyDiscounts Boolean value for autoApplyDiscounts.
+     * @param autoApplyTaxes Boolean value for autoApplyTaxes.
      */
     @JsonCreator
     public OrderPricingOptions(
-            @JsonProperty("auto_apply_discounts") Boolean autoApplyDiscounts) {
+            @JsonProperty("auto_apply_discounts") Boolean autoApplyDiscounts,
+            @JsonProperty("auto_apply_taxes") Boolean autoApplyTaxes) {
         this.autoApplyDiscounts = autoApplyDiscounts;
+        this.autoApplyTaxes = autoApplyTaxes;
     }
 
     /**
      * Getter for AutoApplyDiscounts.
-     * The option to determine whether or not pricing rule-based discounts are automatically applied
-     * to an order.
+     * The option to determine whether pricing rule-based discounts are automatically applied to an
+     * order.
      * @return Returns the Boolean
      */
     @JsonGetter("auto_apply_discounts")
@@ -33,9 +37,20 @@ public class OrderPricingOptions {
         return this.autoApplyDiscounts;
     }
 
+    /**
+     * Getter for AutoApplyTaxes.
+     * The option to determine whether rule-based taxes are automatically applied to an order when
+     * the criteria of the corresponding rules are met.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("auto_apply_taxes")
+    public Boolean getAutoApplyTaxes() {
+        return this.autoApplyTaxes;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(autoApplyDiscounts);
+        return Objects.hash(autoApplyDiscounts, autoApplyTaxes);
     }
 
     @Override
@@ -47,7 +62,8 @@ public class OrderPricingOptions {
             return false;
         }
         OrderPricingOptions other = (OrderPricingOptions) obj;
-        return Objects.equals(autoApplyDiscounts, other.autoApplyDiscounts);
+        return Objects.equals(autoApplyDiscounts, other.autoApplyDiscounts)
+            && Objects.equals(autoApplyTaxes, other.autoApplyTaxes);
     }
 
     /**
@@ -56,7 +72,8 @@ public class OrderPricingOptions {
      */
     @Override
     public String toString() {
-        return "OrderPricingOptions [" + "autoApplyDiscounts=" + autoApplyDiscounts + "]";
+        return "OrderPricingOptions [" + "autoApplyDiscounts=" + autoApplyDiscounts
+                + ", autoApplyTaxes=" + autoApplyTaxes + "]";
     }
 
     /**
@@ -66,7 +83,8 @@ public class OrderPricingOptions {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .autoApplyDiscounts(getAutoApplyDiscounts());
+                .autoApplyDiscounts(getAutoApplyDiscounts())
+                .autoApplyTaxes(getAutoApplyTaxes());
         return builder;
     }
 
@@ -75,6 +93,7 @@ public class OrderPricingOptions {
      */
     public static class Builder {
         private Boolean autoApplyDiscounts;
+        private Boolean autoApplyTaxes;
 
 
 
@@ -89,11 +108,21 @@ public class OrderPricingOptions {
         }
 
         /**
+         * Setter for autoApplyTaxes.
+         * @param autoApplyTaxes Boolean value for autoApplyTaxes.
+         * @return Builder
+         */
+        public Builder autoApplyTaxes(Boolean autoApplyTaxes) {
+            this.autoApplyTaxes = autoApplyTaxes;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderPricingOptions} object using the set fields.
          * @return {@link OrderPricingOptions}
          */
         public OrderPricingOptions build() {
-            return new OrderPricingOptions(autoApplyDiscounts);
+            return new OrderPricingOptions(autoApplyDiscounts, autoApplyTaxes);
         }
     }
 }

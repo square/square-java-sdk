@@ -5,14 +5,14 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2020-11-18"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2020-12-16"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 
 The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2020-11-18")
+    .squareVersion("2020-12-16")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .build();
@@ -36,7 +36,7 @@ public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2020-11-18")
+            .squareVersion("2020-12-16")
             .accessToken("AccessToken")
             .build();
         
@@ -62,7 +62,6 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 |  --- | --- | --- |
 | `getMobileAuthorizationApi()` | Provides access to MobileAuthorization controller. | `MobileAuthorizationApi` |
 | `getOAuthApi()` | Provides access to OAuth controller. | `OAuthApi` |
-| `getV1LocationsApi()` | Provides access to V1Locations controller. | `V1LocationsApi` |
 | `getV1EmployeesApi()` | Provides access to V1Employees controller. | `V1EmployeesApi` |
 | `getV1TransactionsApi()` | Provides access to V1Transactions controller. | `V1TransactionsApi` |
 | `getV1ItemsApi()` | Provides access to V1Items controller. | `V1ItemsApi` |

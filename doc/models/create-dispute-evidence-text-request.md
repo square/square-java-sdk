@@ -1,7 +1,7 @@
 
 # Create Dispute Evidence Text Request
 
-Defines parameters for a CreateDisputeEvidenceText request.
+Defines the parameters for a `CreateDisputeEvidenceText` request.
 
 ## Structure
 
@@ -11,8 +11,8 @@ Defines parameters for a CreateDisputeEvidenceText request.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `IdempotencyKey` | `String` |  | Unique ID. For more information,<br>see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency). | String getIdempotencyKey() |
-| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | Type of the dispute evidence. | String getEvidenceType() |
+| `IdempotencyKey` | `String` |  | The Unique ID. For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency). | String getIdempotencyKey() |
+| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | The type of the dispute evidence. | String getEvidenceType() |
 | `EvidenceText` | `String` |  | The evidence string. | String getEvidenceText() |
 
 ## Example (as JSON)

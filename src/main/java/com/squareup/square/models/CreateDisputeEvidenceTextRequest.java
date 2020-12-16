@@ -32,7 +32,7 @@ public class CreateDisputeEvidenceTextRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * Unique ID. For more information, see
+     * The Unique ID. For more information, see
      * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
@@ -43,7 +43,7 @@ public class CreateDisputeEvidenceTextRequest {
 
     /**
      * Getter for EvidenceType.
-     * Type of the dispute evidence.
+     * The type of the dispute evidence.
      * @return Returns the String
      */
     @JsonGetter("evidence_type")

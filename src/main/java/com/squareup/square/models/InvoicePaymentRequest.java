@@ -156,7 +156,10 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for CardId.
-     * If the request method is `CHARGE_CARD_ON_FILE`, this field provides the card to charge.
+     * The ID of the card on file to charge for the payment request. To get the customer’s card on
+     * file, use the `customer_id` of the invoice recipient to call
+     * [RetrieveCustomer](#endpoint-Customers-RetrieveCustomer) in the Customers API. Then, get the
+     * ID of the target card from the `cards` field in the response.
      * @return Returns the String
      */
     @JsonGetter("card_id")

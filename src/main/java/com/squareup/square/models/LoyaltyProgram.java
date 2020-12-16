@@ -68,7 +68,7 @@ public class LoyaltyProgram {
 
     /**
      * Getter for Status.
-     * Whether the program is currently active.
+     * Indicates whether the program is currently active.
      * @return Returns the String
      */
     @JsonGetter("status")

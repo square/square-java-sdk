@@ -594,14 +594,19 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`. The legal
      *         values are taken from the CatalogObjectType enum: `ITEM`, `ITEM_VARIATION`,
      *         `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.
+     * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
+     *         included in the response. This allows you to retrieve historical versions of objects.
+     *         The specified version value is matched against the
+     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCatalogResponse listCatalog(
             final String cursor,
-            final String types) throws ApiException, IOException {
-        HttpRequest request = buildListCatalogRequest(cursor, types);
+            final String types,
+            final Long catalogVersion) throws ApiException, IOException {
+        HttpRequest request = buildListCatalogRequest(cursor, types, catalogVersion);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -627,12 +632,17 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`. The legal
      *         values are taken from the CatalogObjectType enum: `ITEM`, `ITEM_VARIATION`,
      *         `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.
+     * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
+     *         included in the response. This allows you to retrieve historical versions of objects.
+     *         The specified version value is matched against the
+     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      */
     public CompletableFuture<ListCatalogResponse> listCatalogAsync(
             final String cursor,
-            final String types) {
-        return makeHttpCallAsync(() -> buildListCatalogRequest(cursor, types),
+            final String types,
+            final Long catalogVersion) {
+        return makeHttpCallAsync(() -> buildListCatalogRequest(cursor, types, catalogVersion),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsStringAsync(request)),
@@ -644,7 +654,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     private HttpRequest buildListCatalogRequest(
             final String cursor,
-            final String types) {
+            final String types,
+            final Long catalogVersion) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -656,6 +667,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
         queryParameters.put("types", types);
+        queryParameters.put("catalog_version", catalogVersion);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
@@ -916,14 +928,20 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         field of the response contains a `CatalogItemVariation`, its parent `CatalogItem`
      *         will be returned in the `related_objects` field of the response. Default value:
      *         `false`
+     * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
+     *         catalog. This allows you to retrieve historical versions of objects. The value to
+     *         retrieve a specific version of an object can be found in the version field of
+     *         [CatalogObject](#type-catalogobject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveCatalogObjectResponse retrieveCatalogObject(
             final String objectId,
-            final Boolean includeRelatedObjects) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCatalogObjectRequest(objectId, includeRelatedObjects);
+            final Boolean includeRelatedObjects,
+            final Long catalogVersion) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
+                catalogVersion);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().executeAsString(request);
@@ -949,13 +967,18 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         field of the response contains a `CatalogItemVariation`, its parent `CatalogItem`
      *         will be returned in the `related_objects` field of the response. Default value:
      *         `false`
+     * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
+     *         catalog. This allows you to retrieve historical versions of objects. The value to
+     *         retrieve a specific version of an object can be found in the version field of
+     *         [CatalogObject](#type-catalogobject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     public CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
             final String objectId,
-            final Boolean includeRelatedObjects) {
+            final Boolean includeRelatedObjects,
+            final Long catalogVersion) {
         return makeHttpCallAsync(() -> buildRetrieveCatalogObjectRequest(objectId,
-                includeRelatedObjects),
+                includeRelatedObjects, catalogVersion),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsStringAsync(request)),
@@ -967,7 +990,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     private HttpRequest buildRetrieveCatalogObjectRequest(
             final String objectId,
-            final Boolean includeRelatedObjects) {
+            final Boolean includeRelatedObjects,
+            final Long catalogVersion) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -985,6 +1009,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("include_related_objects",
                 (includeRelatedObjects != null) ? includeRelatedObjects : false);
+        queryParameters.put("catalog_version", catalogVersion);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();

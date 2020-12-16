@@ -40,7 +40,6 @@ import com.squareup.square.models.CatalogObject;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.LocationsApi;
-import com.squareup.square.api.V1LocationsApi;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.Error;
 import com.squareup.square.utilities.FileWrapper;
@@ -111,27 +110,6 @@ public class SanityTest {
             List<Error> errors =  e.getErrors();
             assertEquals(errors.get(0).getCategory(), "AUTHENTICATION_ERROR");
             assertEquals(errors.get(0).getCode(), "UNAUTHORIZED");
-        }
-    }
-
-    @Test
-    public void testV1Exception() throws IOException {
-        SquareClient badClient = new SquareClient.Builder()
-        .environment(Environment.PRODUCTION)
-        .accessToken("BAD_TOKEN")
-        .build();
-
-        V1LocationsApi api = badClient.getV1LocationsApi();
-
-        try {
-            api.listLocations();
-        }
-        catch(ApiException e) {
-            assertEquals(e.getResponseCode(), 401);
-            List<Error> errors =  e.getErrors();
-            assertEquals(errors.get(0).getCategory(), "V1_ERROR");
-            assertEquals(errors.get(0).getCode(), "service.not_authorized");
-            assertEquals(errors.get(0).getDetail(), "Not Authorized");
         }
     }
 

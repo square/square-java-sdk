@@ -29,6 +29,7 @@ public class OrderLineItem {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalMoney;
+    private final OrderLineItemPricingBlocklists pricingBlocklists;
 
     /**
      * Initialization constructor.
@@ -49,6 +50,7 @@ public class OrderLineItem {
      * @param totalTaxMoney Money value for totalTaxMoney.
      * @param totalDiscountMoney Money value for totalDiscountMoney.
      * @param totalMoney Money value for totalMoney.
+     * @param pricingBlocklists OrderLineItemPricingBlocklists value for pricingBlocklists.
      */
     @JsonCreator
     public OrderLineItem(
@@ -68,7 +70,8 @@ public class OrderLineItem {
             @JsonProperty("gross_sales_money") Money grossSalesMoney,
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
-            @JsonProperty("total_money") Money totalMoney) {
+            @JsonProperty("total_money") Money totalMoney,
+            @JsonProperty("pricing_blocklists") OrderLineItemPricingBlocklists pricingBlocklists) {
         this.uid = uid;
         this.name = name;
         this.quantity = quantity;
@@ -86,6 +89,7 @@ public class OrderLineItem {
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalMoney = totalMoney;
+        this.pricingBlocklists = pricingBlocklists;
     }
 
     /**
@@ -314,12 +318,24 @@ public class OrderLineItem {
         return this.totalMoney;
     }
 
+    /**
+     * Getter for PricingBlocklists.
+     * Describes pricing adjustments that are blocked from manual and automatic application to a
+     * line item. For more information, see [Apply Taxes and
+     * Discounts](https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts).
+     * @return Returns the OrderLineItemPricingBlocklists
+     */
+    @JsonGetter("pricing_blocklists")
+    public OrderLineItemPricingBlocklists getPricingBlocklists() {
+        return this.pricingBlocklists;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
                 metadata, modifiers, appliedTaxes, appliedDiscounts, basePriceMoney,
                 variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney,
-                totalMoney);
+                totalMoney, pricingBlocklists);
     }
 
     @Override
@@ -347,7 +363,8 @@ public class OrderLineItem {
             && Objects.equals(grossSalesMoney, other.grossSalesMoney)
             && Objects.equals(totalTaxMoney, other.totalTaxMoney)
             && Objects.equals(totalDiscountMoney, other.totalDiscountMoney)
-            && Objects.equals(totalMoney, other.totalMoney);
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(pricingBlocklists, other.pricingBlocklists);
     }
 
     /**
@@ -363,7 +380,8 @@ public class OrderLineItem {
                 + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
                 + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossSalesMoney="
                 + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
-                + totalDiscountMoney + ", totalMoney=" + totalMoney + "]";
+                + totalDiscountMoney + ", totalMoney=" + totalMoney + ", pricingBlocklists="
+                + pricingBlocklists + "]";
     }
 
     /**
@@ -388,7 +406,8 @@ public class OrderLineItem {
                 .grossSalesMoney(getGrossSalesMoney())
                 .totalTaxMoney(getTotalTaxMoney())
                 .totalDiscountMoney(getTotalDiscountMoney())
-                .totalMoney(getTotalMoney());
+                .totalMoney(getTotalMoney())
+                .pricingBlocklists(getPricingBlocklists());
         return builder;
     }
 
@@ -413,6 +432,7 @@ public class OrderLineItem {
         private Money totalTaxMoney;
         private Money totalDiscountMoney;
         private Money totalMoney;
+        private OrderLineItemPricingBlocklists pricingBlocklists;
 
         /**
          * Initialization constructor.
@@ -593,6 +613,16 @@ public class OrderLineItem {
         }
 
         /**
+         * Setter for pricingBlocklists.
+         * @param pricingBlocklists OrderLineItemPricingBlocklists value for pricingBlocklists.
+         * @return Builder
+         */
+        public Builder pricingBlocklists(OrderLineItemPricingBlocklists pricingBlocklists) {
+            this.pricingBlocklists = pricingBlocklists;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderLineItem} object using the set fields.
          * @return {@link OrderLineItem}
          */
@@ -600,7 +630,7 @@ public class OrderLineItem {
             return new OrderLineItem(quantity, uid, name, quantityUnit, note, catalogObjectId,
                     variationName, metadata, modifiers, appliedTaxes, appliedDiscounts,
                     basePriceMoney, variationTotalPriceMoney, grossSalesMoney, totalTaxMoney,
-                    totalDiscountMoney, totalMoney);
+                    totalDiscountMoney, totalMoney, pricingBlocklists);
         }
     }
 }

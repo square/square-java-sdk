@@ -12,7 +12,7 @@
 | `EvidenceId` | `String` | Optional | The Square-generated ID of the evidence. | String getEvidenceId() |
 | `DisputeId` | `String` | Optional | The ID of the dispute the evidence is associated with. | String getDisputeId() |
 | `UploadedAt` | `String` | Optional | The time when the next action is due, in RFC 3339 format. | String getUploadedAt() |
-| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | Type of the dispute evidence. | String getEvidenceType() |
+| `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | The type of the dispute evidence. | String getEvidenceType() |
 
 ## Example (as JSON)
 

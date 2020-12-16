@@ -6,11 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-
 /**
- * This is a model class for VersionedCatalogObject type.
+ * This is a model class for CatalogObjectReference type.
  */
-public class VersionedCatalogObject {
+public class CatalogObjectReference {
     private final String objectId;
     private final Long catalogVersion;
 
@@ -20,7 +19,7 @@ public class VersionedCatalogObject {
      * @param catalogVersion Long value for catalogVersion.
      */
     @JsonCreator
-    public VersionedCatalogObject(
+    public CatalogObjectReference(
             @JsonProperty("object_id") String objectId,
             @JsonProperty("catalog_version") Long catalogVersion) {
         this.objectId = objectId;
@@ -47,7 +46,6 @@ public class VersionedCatalogObject {
         return this.catalogVersion;
     }
 
- 
     @Override
     public int hashCode() {
         return Objects.hash(objectId, catalogVersion);
@@ -58,28 +56,38 @@ public class VersionedCatalogObject {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof VersionedCatalogObject)) {
+        if (!(obj instanceof CatalogObjectReference)) {
             return false;
         }
-        VersionedCatalogObject other = (VersionedCatalogObject) obj;
+        CatalogObjectReference other = (CatalogObjectReference) obj;
         return Objects.equals(objectId, other.objectId)
             && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
     /**
-     * Builds a new {@link VersionedCatalogObject.Builder} object.
+     * Converts this CatalogObjectReference into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CatalogObjectReference [" + "objectId=" + objectId + ", catalogVersion="
+                + catalogVersion + "]";
+    }
+
+    /**
+     * Builds a new {@link CatalogObjectReference.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link VersionedCatalogObject.Builder} object
+     * @return a new {@link CatalogObjectReference.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-            .objectId(getObjectId())
-            .catalogVersion(getCatalogVersion());
+                .objectId(getObjectId())
+                .catalogVersion(getCatalogVersion());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link VersionedCatalogObject}.
+     * Class to build instances of {@link CatalogObjectReference}.
      */
     public static class Builder {
         private String objectId;
@@ -108,12 +116,11 @@ public class VersionedCatalogObject {
         }
 
         /**
-         * Builds a new {@link VersionedCatalogObject} object using the set fields.
-         * @return {@link VersionedCatalogObject}
+         * Builds a new {@link CatalogObjectReference} object using the set fields.
+         * @return {@link CatalogObjectReference}
          */
-        public VersionedCatalogObject build() {
-            return new VersionedCatalogObject(objectId,
-                catalogVersion);
+        public CatalogObjectReference build() {
+            return new CatalogObjectReference(objectId, catalogVersion);
         }
     }
 }
