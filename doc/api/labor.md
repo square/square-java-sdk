@@ -244,6 +244,8 @@ laborApi.updateBreakTypeAsync(id, body).thenAccept(result -> {
 
 # List Employee Wages
 
+**This endpoint is deprecated. **
+
 Returns a paginated list of `EmployeeWage` instances for a business.
 
 ```java
@@ -282,6 +284,8 @@ laborApi.listEmployeeWagesAsync(employeeId, limit, cursor).thenAccept(result -> 
 
 
 # Get Employee Wage
+
+**This endpoint is deprecated. **
 
 Returns a single `EmployeeWage` specified by id.
 

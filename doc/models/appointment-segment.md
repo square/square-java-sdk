@@ -11,9 +11,9 @@ Defines an appointment segment of a booking.
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
-| `DurationMinutes` | `int` | The time span in minutes of an appointment segment. | int getDurationMinutes() |
-| `ServiceVariationId` | `String` | The ID of the [CatalogItemVariation](#type-CatalogItemVariation) object representing the service booked in this segment. | String getServiceVariationId() |
-| `TeamMemberId` | `String` | The ID of the [TeamMember](#type-TeamMember) object representing the team member booked in this segment. | String getTeamMemberId() |
+| `DurationMinutes` | `int` | The time span in minutes of an appointment segment.<br>**Constraints**: `<= 1500` | int getDurationMinutes() |
+| `ServiceVariationId` | `String` | The ID of the [CatalogItemVariation](#type-CatalogItemVariation) object representing the service booked in this segment.<br>**Constraints**: *Minimum Length*: `1` | String getServiceVariationId() |
+| `TeamMemberId` | `String` | The ID of the [TeamMember](#type-TeamMember) object representing the team member booked in this segment.<br>**Constraints**: *Minimum Length*: `1` | String getTeamMemberId() |
 | `ServiceVariationVersion` | `long` | The current version of the item variation representing the service booked in this segment. | long getServiceVariationVersion() |
 
 ## Example (as JSON)

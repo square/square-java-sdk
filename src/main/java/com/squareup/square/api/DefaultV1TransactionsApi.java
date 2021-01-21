@@ -153,6 +153,9 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1BankAccount> result = ApiHelper.deserializeArray(responseBody,
                 V1BankAccount[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -384,6 +387,9 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Order> result = ApiHelper.deserializeArray(responseBody,
                 V1Order[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -769,6 +775,9 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Payment> result = ApiHelper.deserializeArray(responseBody,
                 V1Payment[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1022,6 +1031,9 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Refund> result = ApiHelper.deserializeArray(responseBody,
                 V1Refund[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1291,6 +1303,9 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Settlement> result = ApiHelper.deserializeArray(responseBody,
                 V1Settlement[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 

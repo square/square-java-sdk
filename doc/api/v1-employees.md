@@ -399,6 +399,8 @@ v1EmployeesApi.updateEmployeeRoleAsync(roleId, body).thenAccept(result -> {
 
 # List Timecards
 
+**This endpoint is deprecated. **
+
 Provides summary information for all of a business's employee timecards.
 
 ```java
@@ -428,7 +430,7 @@ CompletableFuture<List<V1Timecard>> listTimecardsAsync(
 | `endClockoutTime` | `String` | Query, Optional | If filtering results by their clockout_time field, the end of the requested reporting period, in ISO 8601 format. |
 | `beginUpdatedAt` | `String` | Query, Optional | If filtering results by their updated_at field, the beginning of the requested reporting period, in ISO 8601 format. |
 | `endUpdatedAt` | `String` | Query, Optional | If filtering results by their updated_at field, the end of the requested reporting period, in ISO 8601 format. |
-| `deleted` | `Boolean` | Query, Optional | If true, only deleted timecards are returned. If false, only valid timecards are returned.If you don't provide this parameter, both valid and deleted timecards are returned. |
+| `deleted` | `Boolean` | Query, Optional | If true, only deleted timecards are returned. If false, only valid timecards are returned.If you don't provide this parameter, both valid and deleted timecards are returned.<br>**Default**: `false` |
 | `limit` | `Integer` | Query, Optional | The maximum integer number of employee entities to return in a single response. Default 100, maximum 200. |
 | `batchToken` | `String` | Query, Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. |
 
@@ -461,6 +463,8 @@ v1EmployeesApi.listTimecardsAsync(order, employeeId, beginClockinTime, endClocki
 
 
 # Create Timecard
+
+**This endpoint is deprecated. **
 
 Creates a timecard for an employee and clocks them in with an
 `API_CREATE` event and a `clockin_time` set to the current time unless
@@ -514,6 +518,8 @@ v1EmployeesApi.createTimecardAsync(body).thenAccept(result -> {
 
 # Delete Timecard
 
+**This endpoint is deprecated. **
+
 Deletes a timecard. Timecards can also be deleted through the
 Square Dashboard. Deleted timecards are still accessible through
 Connect API endpoints, but cannot be modified. The `deleted` field of
@@ -559,14 +565,13 @@ v1EmployeesApi.deleteTimecardAsync(timecardId).thenAccept(result -> {
 
 # Retrieve Timecard
 
+**This endpoint is deprecated. **
+
 Provides the details for a single timecard.
 
-<aside>
 Only approved accounts can manage their employees with Square.
 Unapproved accounts cannot use employee management features with the
 API.
-</aside>
-
 
 ```java
 CompletableFuture<V1Timecard> retrieveTimecardAsync(
@@ -598,6 +603,8 @@ v1EmployeesApi.retrieveTimecardAsync(timecardId).thenAccept(result -> {
 
 
 # Update Timecard
+
+**This endpoint is deprecated. **
 
 Modifies the details of a timecard with an `API_EDIT` event for
 the timecard. Updating an active timecard with a `clockout_time`
@@ -644,6 +651,8 @@ v1EmployeesApi.updateTimecardAsync(timecardId, body).thenAccept(result -> {
 
 # List Timecard Events
 
+**This endpoint is deprecated. **
+
 Provides summary information for all events associated with a
 particular timecard.
 
@@ -681,6 +690,8 @@ v1EmployeesApi.listTimecardEventsAsync(timecardId).thenAccept(result -> {
 
 
 # List Cash Drawer Shifts
+
+**This endpoint is deprecated. **
 
 Provides the details for all of a location's cash drawer shifts during a date range. The date range you specify cannot exceed 90 days.
 
@@ -723,6 +734,8 @@ v1EmployeesApi.listCashDrawerShiftsAsync(locationId, order, beginTime, endTime).
 
 
 # Retrieve Cash Drawer Shift
+
+**This endpoint is deprecated. **
 
 Provides the details for a single cash drawer shift, including all events that occurred during the shift.
 

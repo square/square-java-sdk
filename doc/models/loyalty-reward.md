@@ -9,11 +9,11 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | The Square-assigned ID of the loyalty reward. | String getId() |
+| `Id` | `String` | Optional | The Square-assigned ID of the loyalty reward.<br>**Constraints**: *Maximum Length*: `36` | String getId() |
 | `Status` | [`String`](/doc/models/loyalty-reward-status.md) | Optional | The status of the loyalty reward. | String getStatus() |
-| `LoyaltyAccountId` | `String` |  | The Square-assigned ID of the [loyalty account](#type-LoyaltyAccount) to which the reward belongs. | String getLoyaltyAccountId() |
-| `RewardTierId` | `String` |  | The Square-assigned ID of the [reward tier](#type-LoyaltyProgramRewardTier) used to create the reward. | String getRewardTierId() |
-| `Points` | `Integer` | Optional | The number of loyalty points used for the reward. | Integer getPoints() |
+| `LoyaltyAccountId` | `String` |  | The Square-assigned ID of the [loyalty account](#type-LoyaltyAccount) to which the reward belongs.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getLoyaltyAccountId() |
+| `RewardTierId` | `String` |  | The Square-assigned ID of the [reward tier](#type-LoyaltyProgramRewardTier) used to create the reward.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getRewardTierId() |
+| `Points` | `Integer` | Optional | The number of loyalty points used for the reward.<br>**Constraints**: `>= 1` | Integer getPoints() |
 | `OrderId` | `String` | Optional | The Square-assigned ID of the [order](#type-Order) to which the reward is attached. | String getOrderId() |
 | `CreatedAt` | `String` | Optional | The timestamp when the reward was created, in RFC 3339 format. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | The timestamp when the reward was last updated, in RFC 3339 format. | String getUpdatedAt() |

@@ -11,7 +11,7 @@ Filter events by the order associated with the event.
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
-| `OrderId` | `String` | The ID of the [order](#type-Order) associated with the event. | String getOrderId() |
+| `OrderId` | `String` | The ID of the [order](#type-Order) associated with the event.<br>**Constraints**: *Minimum Length*: `1` | String getOrderId() |
 
 ## Example (as JSON)
 

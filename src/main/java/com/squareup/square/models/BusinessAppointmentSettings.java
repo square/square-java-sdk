@@ -74,7 +74,8 @@ public class BusinessAppointmentSettings {
     /**
      * Getter for LocationTypes.
      * Types of the location allowed for bookings. See
-     * [BookingLocationType](#type-bookinglocationtype) for possible values
+     * [BusinessAppointmentSettingsBookingLocationType](#type-businessappointmentsettingsbookinglocationtype)
+     * for possible values
      * @return Returns the List of String
      */
     @JsonGetter("location_types")

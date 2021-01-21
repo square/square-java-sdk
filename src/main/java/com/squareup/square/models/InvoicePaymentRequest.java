@@ -18,6 +18,7 @@ public class InvoicePaymentRequest {
     private final Money fixedAmountRequestedMoney;
     private final String percentageRequested;
     private final Boolean tippingEnabled;
+    private final String automaticPaymentSource;
     private final String cardId;
     private final List<InvoicePaymentReminder> reminders;
     private final Money computedAmountMoney;
@@ -33,6 +34,7 @@ public class InvoicePaymentRequest {
      * @param fixedAmountRequestedMoney Money value for fixedAmountRequestedMoney.
      * @param percentageRequested String value for percentageRequested.
      * @param tippingEnabled Boolean value for tippingEnabled.
+     * @param automaticPaymentSource String value for automaticPaymentSource.
      * @param cardId String value for cardId.
      * @param reminders List of InvoicePaymentReminder value for reminders.
      * @param computedAmountMoney Money value for computedAmountMoney.
@@ -48,6 +50,7 @@ public class InvoicePaymentRequest {
             @JsonProperty("fixed_amount_requested_money") Money fixedAmountRequestedMoney,
             @JsonProperty("percentage_requested") String percentageRequested,
             @JsonProperty("tipping_enabled") Boolean tippingEnabled,
+            @JsonProperty("automatic_payment_source") String automaticPaymentSource,
             @JsonProperty("card_id") String cardId,
             @JsonProperty("reminders") List<InvoicePaymentReminder> reminders,
             @JsonProperty("computed_amount_money") Money computedAmountMoney,
@@ -60,6 +63,7 @@ public class InvoicePaymentRequest {
         this.fixedAmountRequestedMoney = fixedAmountRequestedMoney;
         this.percentageRequested = percentageRequested;
         this.tippingEnabled = tippingEnabled;
+        this.automaticPaymentSource = automaticPaymentSource;
         this.cardId = cardId;
         this.reminders = reminders;
         this.computedAmountMoney = computedAmountMoney;
@@ -80,7 +84,9 @@ public class InvoicePaymentRequest {
     /**
      * Getter for RequestMethod.
      * Specifies the action for Square to take for processing the invoice. For example, email the
-     * invoice, charge a customer's card on file, or do nothing.
+     * invoice, charge a customer's card on file, or do nothing. DEPRECATED at version 2021-01-21.
+     * The corresponding `request_method` field is replaced by the `Invoice.delivery_method` and
+     * `InvoicePaymentRequest.automatic_payment_source` fields.
      * @return Returns the String
      */
     @JsonGetter("request_method")
@@ -103,8 +109,9 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for DueDate.
-     * The due date (in the invoice location's time zone) for the payment request. After this date,
-     * the invoice becomes overdue.
+     * The due date (in the invoice location's time zone) for the payment request, in `YYYY-MM-DD`
+     * format. After this date, the invoice becomes overdue. This field is required to create a
+     * payment request.
      * @return Returns the String
      */
     @JsonGetter("due_date")
@@ -152,6 +159,17 @@ public class InvoicePaymentRequest {
     @JsonGetter("tipping_enabled")
     public Boolean getTippingEnabled() {
         return this.tippingEnabled;
+    }
+
+    /**
+     * Getter for AutomaticPaymentSource.
+     * Indicates the automatic payment method for an [invoice payment
+     * request](#type-InvoicePaymentRequest).
+     * @return Returns the String
+     */
+    @JsonGetter("automatic_payment_source")
+    public String getAutomaticPaymentSource() {
+        return this.automaticPaymentSource;
     }
 
     /**
@@ -225,8 +243,8 @@ public class InvoicePaymentRequest {
     @Override
     public int hashCode() {
         return Objects.hash(uid, requestMethod, requestType, dueDate, fixedAmountRequestedMoney,
-                percentageRequested, tippingEnabled, cardId, reminders, computedAmountMoney,
-                totalCompletedAmountMoney, roundingAdjustmentIncludedMoney);
+                percentageRequested, tippingEnabled, automaticPaymentSource, cardId, reminders,
+                computedAmountMoney, totalCompletedAmountMoney, roundingAdjustmentIncludedMoney);
     }
 
     @Override
@@ -245,6 +263,7 @@ public class InvoicePaymentRequest {
             && Objects.equals(fixedAmountRequestedMoney, other.fixedAmountRequestedMoney)
             && Objects.equals(percentageRequested, other.percentageRequested)
             && Objects.equals(tippingEnabled, other.tippingEnabled)
+            && Objects.equals(automaticPaymentSource, other.automaticPaymentSource)
             && Objects.equals(cardId, other.cardId)
             && Objects.equals(reminders, other.reminders)
             && Objects.equals(computedAmountMoney, other.computedAmountMoney)
@@ -263,10 +282,10 @@ public class InvoicePaymentRequest {
                 + ", requestType=" + requestType + ", dueDate=" + dueDate
                 + ", fixedAmountRequestedMoney=" + fixedAmountRequestedMoney
                 + ", percentageRequested=" + percentageRequested + ", tippingEnabled="
-                + tippingEnabled + ", cardId=" + cardId + ", reminders=" + reminders
-                + ", computedAmountMoney=" + computedAmountMoney + ", totalCompletedAmountMoney="
-                + totalCompletedAmountMoney + ", roundingAdjustmentIncludedMoney="
-                + roundingAdjustmentIncludedMoney + "]";
+                + tippingEnabled + ", automaticPaymentSource=" + automaticPaymentSource
+                + ", cardId=" + cardId + ", reminders=" + reminders + ", computedAmountMoney="
+                + computedAmountMoney + ", totalCompletedAmountMoney=" + totalCompletedAmountMoney
+                + ", roundingAdjustmentIncludedMoney=" + roundingAdjustmentIncludedMoney + "]";
     }
 
     /**
@@ -283,6 +302,7 @@ public class InvoicePaymentRequest {
                 .fixedAmountRequestedMoney(getFixedAmountRequestedMoney())
                 .percentageRequested(getPercentageRequested())
                 .tippingEnabled(getTippingEnabled())
+                .automaticPaymentSource(getAutomaticPaymentSource())
                 .cardId(getCardId())
                 .reminders(getReminders())
                 .computedAmountMoney(getComputedAmountMoney())
@@ -302,6 +322,7 @@ public class InvoicePaymentRequest {
         private Money fixedAmountRequestedMoney;
         private String percentageRequested;
         private Boolean tippingEnabled;
+        private String automaticPaymentSource;
         private String cardId;
         private List<InvoicePaymentReminder> reminders;
         private Money computedAmountMoney;
@@ -381,6 +402,16 @@ public class InvoicePaymentRequest {
         }
 
         /**
+         * Setter for automaticPaymentSource.
+         * @param automaticPaymentSource String value for automaticPaymentSource.
+         * @return Builder
+         */
+        public Builder automaticPaymentSource(String automaticPaymentSource) {
+            this.automaticPaymentSource = automaticPaymentSource;
+            return this;
+        }
+
+        /**
          * Setter for cardId.
          * @param cardId String value for cardId.
          * @return Builder
@@ -436,9 +467,9 @@ public class InvoicePaymentRequest {
          */
         public InvoicePaymentRequest build() {
             return new InvoicePaymentRequest(uid, requestMethod, requestType, dueDate,
-                    fixedAmountRequestedMoney, percentageRequested, tippingEnabled, cardId,
-                    reminders, computedAmountMoney, totalCompletedAmountMoney,
-                    roundingAdjustmentIncludedMoney);
+                    fixedAmountRequestedMoney, percentageRequested, tippingEnabled,
+                    automaticPaymentSource, cardId, reminders, computedAmountMoney,
+                    totalCompletedAmountMoney, roundingAdjustmentIncludedMoney);
         }
     }
 }

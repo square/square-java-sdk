@@ -35,7 +35,7 @@ public class UpdateInvoiceResponse {
 
     /**
      * Getter for Invoice.
-     * Stores information about an invoice. You use the Invoices API to create and process invoices.
+     * Stores information about an invoice. You use the Invoices API to create and manage invoices.
      * For more information, see [Manage Invoices Using the Invoices
      * API](https://developer.squareup.com/docs/invoices-api/overview).
      * @return Returns the Invoice

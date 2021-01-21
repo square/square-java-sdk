@@ -11,7 +11,7 @@ Filter events by loyalty account.
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
-| `LoyaltyAccountId` | `String` | The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events. | String getLoyaltyAccountId() |
+| `LoyaltyAccountId` | `String` | The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events.<br>**Constraints**: *Minimum Length*: `1` | String getLoyaltyAccountId() |
 
 ## Example (as JSON)
 

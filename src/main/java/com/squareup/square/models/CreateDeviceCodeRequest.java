@@ -28,8 +28,8 @@ public class CreateDeviceCodeRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string that identifies this CreateCheckout request. Keys can be any valid string but
-     * must be unique for every CreateCheckout request. See [Idempotency
+     * A unique string that identifies this CreateDeviceCode request. Keys can be any valid string
+     * but must be unique for every CreateDeviceCode request. See [Idempotency
      * keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      * @return Returns the String
      */

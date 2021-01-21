@@ -154,6 +154,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Category> result = ApiHelper.deserializeArray(responseBody,
                 V1Category[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -582,6 +585,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Discount> result = ApiHelper.deserializeArray(responseBody,
                 V1Discount[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1010,6 +1016,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Fee> result = ApiHelper.deserializeArray(responseBody,
                 V1Fee[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1458,6 +1467,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1InventoryEntry> result = ApiHelper.deserializeArray(responseBody,
                 V1InventoryEntry[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1684,6 +1696,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Item> result = ApiHelper.deserializeArray(responseBody,
                 V1Item[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -3049,6 +3064,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1ModifierList> result = ApiHelper.deserializeArray(responseBody,
                 V1ModifierList[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -3945,6 +3963,9 @@ public final class DefaultV1ItemsApi extends BaseApi implements V1ItemsApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Page> result = ApiHelper.deserializeArray(responseBody,
                 V1Page[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 

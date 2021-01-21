@@ -11,7 +11,7 @@ Options to control how to override the default behavior of the specified modifie
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `ModifierId` | `String` |  | The ID of the `CatalogModifier` whose default behavior is being overridden. | String getModifierId() |
+| `ModifierId` | `String` |  | The ID of the `CatalogModifier` whose default behavior is being overridden.<br>**Constraints**: *Minimum Length*: `1` | String getModifierId() |
 | `OnByDefault` | `Boolean` | Optional | If `true`, this `CatalogModifier` should be selected by default for this `CatalogItem`. | Boolean getOnByDefault() |
 
 ## Example (as JSON)

@@ -18,7 +18,7 @@ Contains details necessary to fulfill a pickup order.
 | `PickupAt` | `String` | Optional | The [timestamp](#workingwithdates) that represents the start of the pickup window.<br>Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".<br>For fulfillments with the schedule type `ASAP`, this is automatically set<br>to the current time plus the expected duration to prepare the fulfillment. | String getPickupAt() |
 | `PickupWindowDuration` | `String` | Optional | The window of time in which the order should be picked up after the `pickup_at` timestamp.<br>Must be in RFC3339 duration format, e.g., "P1W3D". Can be used as an<br>informational guideline for merchants. | String getPickupWindowDuration() |
 | `PrepTimeDuration` | `String` | Optional | The duration of time it takes to prepare this fulfillment.<br>Must be in RFC3339 duration format, e.g., "P1W3D". | String getPrepTimeDuration() |
-| `Note` | `String` | Optional | A note meant to provide additional instructions about the pickup<br>fulfillment displayed in the Square Point of Sale and set by the API. | String getNote() |
+| `Note` | `String` | Optional | A note meant to provide additional instructions about the pickup<br>fulfillment displayed in the Square Point of Sale and set by the API.<br>**Constraints**: *Maximum Length*: `500` | String getNote() |
 | `PlacedAt` | `String` | Optional | The [timestamp](#workingwithdates) indicating when the fulfillment<br>was placed. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". | String getPlacedAt() |
 | `AcceptedAt` | `String` | Optional | The [timestamp](#workingwithdates) indicating when the fulfillment<br>was accepted. In RFC3339 timestamp format,<br>e.g., "2016-09-04T23:59:33.123Z". | String getAcceptedAt() |
 | `RejectedAt` | `String` | Optional | The [timestamp](#workingwithdates) indicating when the fulfillment<br>was rejected. In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". | String getRejectedAt() |
@@ -26,7 +26,7 @@ Contains details necessary to fulfill a pickup order.
 | `ExpiredAt` | `String` | Optional | The [timestamp](#workingwithdates) indicating when the fulfillment expired.<br>In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". | String getExpiredAt() |
 | `PickedUpAt` | `String` | Optional | The [timestamp](#workingwithdates) indicating when the fulfillment<br>was picked up by the recipient. In RFC3339 timestamp format,<br>e.g., "2016-09-04T23:59:33.123Z". | String getPickedUpAt() |
 | `CanceledAt` | `String` | Optional | The [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z",<br>indicating when the fulfillment was canceled. | String getCanceledAt() |
-| `CancelReason` | `String` | Optional | A description of why the pickup was canceled. Max length: 100 characters. | String getCancelReason() |
+| `CancelReason` | `String` | Optional | A description of why the pickup was canceled. Max length: 100 characters.<br>**Constraints**: *Maximum Length*: `100` | String getCancelReason() |
 | `IsCurbsidePickup` | `Boolean` | Optional | If true, indicates this pickup order is for curbside pickup, not in-store pickup. | Boolean getIsCurbsidePickup() |
 | `CurbsidePickupDetails` | [`OrderFulfillmentPickupDetailsCurbsidePickupDetails`](/doc/models/order-fulfillment-pickup-details-curbside-pickup-details.md) | Optional | Specific details for curbside pickup. | OrderFulfillmentPickupDetailsCurbsidePickupDetails getCurbsidePickupDetails() |
 

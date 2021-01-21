@@ -136,7 +136,7 @@ public class PaymentRefund {
 
     /**
      * Getter for PaymentId.
-     * The ID of the payment assocated with this refund.
+     * The ID of the payment associated with this refund.
      * @return Returns the String
      */
     @JsonGetter("payment_id")

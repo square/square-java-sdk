@@ -424,9 +424,8 @@ public interface V1EmployeesApi {
             final String timecardId);
 
     /**
-     * Provides the details for a single timecard. <aside> Only approved accounts can manage their
-     * employees with Square. Unapproved accounts cannot use employee management features with the
-     * API. </aside>.
+     * Provides the details for a single timecard. Only approved accounts can manage their employees
+     * with Square. Unapproved accounts cannot use employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The timecard's ID.
@@ -438,9 +437,8 @@ public interface V1EmployeesApi {
             final String timecardId) throws ApiException, IOException;
 
     /**
-     * Provides the details for a single timecard. <aside> Only approved accounts can manage their
-     * employees with Square. Unapproved accounts cannot use employee management features with the
-     * API. </aside>.
+     * Provides the details for a single timecard. Only approved accounts can manage their employees
+     * with Square. Unapproved accounts cannot use employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The timecard's ID.

@@ -21,7 +21,7 @@ a product set will also include its item variations.
 | `QuantityExact` | `Long` | Optional | If set, there must be exactly this many items from `products_any` or `products_all`<br>in the cart for the discount to apply.<br><br>Cannot be combined with either `quantity_min` or `quantity_max`. | Long getQuantityExact() |
 | `QuantityMin` | `Long` | Optional | If set, there must be at least this many items from `products_any` or `products_all`<br>in a cart for the discount to apply. See `quantity_exact`. Defaults to 0 if<br>`quantity_exact`, `quantity_min` and `quantity_max` are all unspecified. | Long getQuantityMin() |
 | `QuantityMax` | `Long` | Optional | If set, the pricing rule will apply to a maximum of this many items from<br>`products_any` or `products_all`. | Long getQuantityMax() |
-| `AllProducts` | `Boolean` | Optional | If set to `true`, the product set will include every item in the catalog.<br><br>Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set. | Boolean getAllProducts() |
+| `AllProducts` | `Boolean` | Optional | If set to `true`, the product set will include every item in the catalog.<br>Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set. | Boolean getAllProducts() |
 
 ## Example (as JSON)
 

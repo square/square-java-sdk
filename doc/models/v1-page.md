@@ -13,7 +13,7 @@ V1Page
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The page's unique identifier. | String getId() |
 | `Name` | `String` | Optional | The page's name, if any. | String getName() |
-| `PageIndex` | `Integer` | Optional | The page's position in the merchant's list of pages. Always an integer between 0 and 6, inclusive. | Integer getPageIndex() |
+| `PageIndex` | `Integer` | Optional | The page's position in the merchant's list of pages. Always an integer between 0 and 6, inclusive.<br>**Constraints**: `<= 6` | Integer getPageIndex() |
 | `Cells` | [`List<V1PageCell>`](/doc/models/v1-page-cell.md) | Optional | The cells included on the page. | List<V1PageCell> getCells() |
 
 ## Example (as JSON)
