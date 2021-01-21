@@ -62,7 +62,7 @@ public class HttpResponse {
      */
     protected String getRawBodyString() {
         try {
-            if (rawBody.available() == 0 || !rawBody.markSupported()) {
+            if (rawBody == null || rawBody.available() == 0 || !rawBody.markSupported()) {
                 return null;
             }
             rawBody.mark(0);

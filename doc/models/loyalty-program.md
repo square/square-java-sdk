@@ -9,14 +9,14 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` |  | The Square-assigned ID of the loyalty program. Updates to<br>the loyalty program do not modify the identifier. | String getId() |
+| `Id` | `String` |  | The Square-assigned ID of the loyalty program. Updates to<br>the loyalty program do not modify the identifier.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getId() |
 | `Status` | [`String`](/doc/models/loyalty-program-status.md) |  | Indicates whether the program is currently active. | String getStatus() |
 | `RewardTiers` | [`List<LoyaltyProgramRewardTier>`](/doc/models/loyalty-program-reward-tier.md) |  | The list of rewards for buyers, sorted by ascending points. | List<LoyaltyProgramRewardTier> getRewardTiers() |
 | `ExpirationPolicy` | [`LoyaltyProgramExpirationPolicy`](/doc/models/loyalty-program-expiration-policy.md) | Optional | Describes when the loyalty program expires. | LoyaltyProgramExpirationPolicy getExpirationPolicy() |
 | `Terminology` | [`LoyaltyProgramTerminology`](/doc/models/loyalty-program-terminology.md) |  | - | LoyaltyProgramTerminology getTerminology() |
 | `LocationIds` | `List<String>` |  | The [locations](#type-Location) at which the program is active. | List<String> getLocationIds() |
-| `CreatedAt` | `String` |  | The timestamp when the program was created, in RFC 3339 format. | String getCreatedAt() |
-| `UpdatedAt` | `String` |  | The timestamp when the reward was last updated, in RFC 3339 format. | String getUpdatedAt() |
+| `CreatedAt` | `String` |  | The timestamp when the program was created, in RFC 3339 format.<br>**Constraints**: *Minimum Length*: `1` | String getCreatedAt() |
+| `UpdatedAt` | `String` |  | The timestamp when the reward was last updated, in RFC 3339 format.<br>**Constraints**: *Minimum Length*: `1` | String getUpdatedAt() |
 | `AccrualRules` | [`List<LoyaltyProgramAccrualRule>`](/doc/models/loyalty-program-accrual-rule.md) |  | Defines how buyers can earn loyalty points. | List<LoyaltyProgramAccrualRule> getAccrualRules() |
 
 ## Example (as JSON)

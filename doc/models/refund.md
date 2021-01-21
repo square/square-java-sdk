@@ -11,12 +11,12 @@ Represents a refund processed for a Square transaction.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` |  | The refund's unique ID. | String getId() |
-| `LocationId` | `String` |  | The ID of the refund's associated location. | String getLocationId() |
-| `TransactionId` | `String` |  | The ID of the transaction that the refunded tender is part of. | String getTransactionId() |
-| `TenderId` | `String` |  | The ID of the refunded tender. | String getTenderId() |
-| `CreatedAt` | `String` | Optional | The timestamp for when the refund was created, in RFC 3339 format. | String getCreatedAt() |
-| `Reason` | `String` |  | The reason for the refund being issued. | String getReason() |
+| `Id` | `String` |  | The refund's unique ID.<br>**Constraints**: *Maximum Length*: `255` | String getId() |
+| `LocationId` | `String` |  | The ID of the refund's associated location.<br>**Constraints**: *Maximum Length*: `50` | String getLocationId() |
+| `TransactionId` | `String` |  | The ID of the transaction that the refunded tender is part of.<br>**Constraints**: *Maximum Length*: `192` | String getTransactionId() |
+| `TenderId` | `String` |  | The ID of the refunded tender.<br>**Constraints**: *Maximum Length*: `192` | String getTenderId() |
+| `CreatedAt` | `String` | Optional | The timestamp for when the refund was created, in RFC 3339 format.<br>**Constraints**: *Maximum Length*: `32` | String getCreatedAt() |
+| `Reason` | `String` |  | The reason for the refund being issued.<br>**Constraints**: *Maximum Length*: `192` | String getReason() |
 | `AmountMoney` | [`Money`](/doc/models/money.md) |  | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getAmountMoney() |
 | `Status` | [`String`](/doc/models/refund-status.md) |  | Indicates a refund's current status. | String getStatus() |
 | `ProcessingFeeMoney` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getProcessingFeeMoney() |

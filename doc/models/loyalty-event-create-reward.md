@@ -11,8 +11,8 @@ Provides metadata when the event `type` is `CREATE_REWARD`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
-| `RewardId` | `String` | Optional | The Square-assigned ID of the created [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`. | String getRewardId() |
+| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram).<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getLoyaltyProgramId() |
+| `RewardId` | `String` | Optional | The Square-assigned ID of the created [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`.<br>**Constraints**: *Maximum Length*: `36` | String getRewardId() |
 | `Points` | `int` |  | The loyalty points used to create the reward. | int getPoints() |
 
 ## Example (as JSON)

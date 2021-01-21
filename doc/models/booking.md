@@ -20,8 +20,8 @@ at a given location to a requesting customer in one or more appointment segments
 | `StartAt` | `String` | Optional | The timestamp specifying the starting time of this booking. | String getStartAt() |
 | `LocationId` | `String` | Optional | The ID of the [Location](#type-location) object representing the location where the booked service is provided. | String getLocationId() |
 | `CustomerId` | `String` | Optional | The ID of the [Customer](#type-Customer) object representing the customer attending this booking | String getCustomerId() |
-| `CustomerNote` | `String` | Optional | The free-text field for the customer to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a relevant [CatalogObject](#type-CatalogObject) instance. | String getCustomerNote() |
-| `SellerNote` | `String` | Optional | The free-text field for the seller to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a specific [CatalogObject](#type-CatalogObject) instance.<br>This field should not be visible to customers. | String getSellerNote() |
+| `CustomerNote` | `String` | Optional | The free-text field for the customer to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a relevant [CatalogObject](#type-CatalogObject) instance.<br>**Constraints**: *Maximum Length*: `4096` | String getCustomerNote() |
+| `SellerNote` | `String` | Optional | The free-text field for the seller to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a specific [CatalogObject](#type-CatalogObject) instance.<br>This field should not be visible to customers.<br>**Constraints**: *Maximum Length*: `4096` | String getSellerNote() |
 | `AppointmentSegments` | [`List<AppointmentSegment>`](/doc/models/appointment-segment.md) | Optional | A list of appointment segments for this booking. | List<AppointmentSegment> getAppointmentSegments() |
 
 ## Example (as JSON)

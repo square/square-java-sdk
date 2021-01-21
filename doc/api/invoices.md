@@ -120,11 +120,12 @@ bodyInvoicePaymentRequests0Reminders.add(bodyInvoicePaymentRequests0Reminders0);
 
 InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
     .uid("uid4")
-    .requestMethod("EMAIL")
+    .requestMethod("SHARE_MANUALLY")
     .requestType("BALANCE")
     .dueDate("2030-01-24")
     .fixedAmountRequestedMoney(bodyInvoicePaymentRequests0FixedAmountRequestedMoney)
     .tippingEnabled(true)
+    .automaticPaymentSource("NONE")
     .reminders(bodyInvoicePaymentRequests0Reminders)
     .build();
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
@@ -136,6 +137,7 @@ Invoice bodyInvoice = new Invoice.Builder()
     .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
     .primaryRecipient(bodyInvoicePrimaryRecipient)
     .paymentRequests(bodyInvoicePaymentRequests)
+    .deliveryMethod("EMAIL")
     .invoiceNumber("inv-100")
     .title("Event Planning Services")
     .description("We appreciate your business!")
@@ -373,7 +375,7 @@ invoicesApi.updateInvoiceAsync(invoiceId, body).thenAccept(result -> {
 Cancels an invoice. The seller cannot collect payments for
 the canceled invoice.
 
-You cannot cancel an invoice in a terminal state: `PAID`, `REFUNDED`, `CANCELED`, or `FAILED`.
+You cannot cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`, `CANCELED`, or `FAILED`.
 
 ```java
 CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(

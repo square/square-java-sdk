@@ -193,7 +193,7 @@ CompletableFuture<ListTeamMemberBookingProfilesResponse> listTeamMemberBookingPr
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookableOnly` | `Boolean` | Query, Optional | Indicates whether to include only bookable team members in the returned result (`true`) or not (`false`). |
+| `bookableOnly` | `Boolean` | Query, Optional | Indicates whether to include only bookable team members in the returned result (`true`) or not (`false`).<br>**Default**: `false` |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return. |
 | `cursor` | `String` | Query, Optional | The cursor for paginating through the results. |
 | `locationId` | `String` | Query, Optional | Indicates whether to include only team members enabled at the given location in the returned result. |

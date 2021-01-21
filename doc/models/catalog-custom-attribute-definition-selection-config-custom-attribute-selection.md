@@ -12,7 +12,7 @@ A named selection for this `SELECTION`-type custom attribute definition.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | Unique ID set by Square. | String getUid() |
-| `Name` | `String` |  | Selection name, unique within `allowed_selections`. | String getName() |
+| `Name` | `String` |  | Selection name, unique within `allowed_selections`.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `255` | String getName() |
 
 ## Example (as JSON)
 

@@ -13,7 +13,7 @@ For an overview of the `Subscription` type, see
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | The Square-assigned ID of the subscription. | String getId() |
+| `Id` | `String` | Optional | The Square-assigned ID of the subscription.<br>**Constraints**: *Maximum Length*: `255` | String getId() |
 | `LocationId` | `String` | Optional | The ID of the location associated with the subscription. | String getLocationId() |
 | `PlanId` | `String` | Optional | The ID of the associated [subscription plan](#type-catalogsubscriptionplan). | String getPlanId() |
 | `CustomerId` | `String` | Optional | The ID of the associated [customer](#type-customer) profile. | String getCustomerId() |

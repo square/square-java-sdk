@@ -28,7 +28,7 @@ public class RiskEvaluation {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp when payment risk was evaluated, in RFC3339 format.
+     * The timestamp when payment risk was evaluated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")

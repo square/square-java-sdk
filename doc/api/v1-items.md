@@ -54,6 +54,8 @@ V1ItemsApi v1ItemsApi = client.getV1ItemsApi();
 
 # List Categories
 
+**This endpoint is deprecated. **
+
 Lists all the item categories for a given location.
 
 ```java
@@ -86,6 +88,8 @@ v1ItemsApi.listCategoriesAsync(locationId).thenAccept(result -> {
 
 
 # Create Category
+
+**This endpoint is deprecated. **
 
 Creates an item category.
 
@@ -127,6 +131,8 @@ v1ItemsApi.createCategoryAsync(locationId, body).thenAccept(result -> {
 
 # Delete Category
 
+**This endpoint is deprecated. **
+
 Deletes an existing item category.
 
 __DeleteCategory__ returns nothing on success but Connect SDKs
@@ -166,6 +172,8 @@ v1ItemsApi.deleteCategoryAsync(locationId, categoryId).thenAccept(result -> {
 
 
 # Update Category
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing item category.
 
@@ -210,6 +218,8 @@ v1ItemsApi.updateCategoryAsync(locationId, categoryId, body).thenAccept(result -
 
 # List Discounts
 
+**This endpoint is deprecated. **
+
 Lists all the discounts for a given location.
 
 ```java
@@ -242,6 +252,8 @@ v1ItemsApi.listDiscountsAsync(locationId).thenAccept(result -> {
 
 
 # Create Discount
+
+**This endpoint is deprecated. **
 
 Creates a discount.
 
@@ -289,6 +301,8 @@ v1ItemsApi.createDiscountAsync(locationId, body).thenAccept(result -> {
 
 # Delete Discount
 
+**This endpoint is deprecated. **
+
 Deletes an existing discount.
 
 __DeleteDiscount__ returns nothing on success but Connect SDKs
@@ -328,6 +342,8 @@ v1ItemsApi.deleteDiscountAsync(locationId, discountId).thenAccept(result -> {
 
 
 # Update Discount
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing discount.
 
@@ -378,6 +394,8 @@ v1ItemsApi.updateDiscountAsync(locationId, discountId, body).thenAccept(result -
 
 # List Fees
 
+**This endpoint is deprecated. **
+
 Lists all the fees (taxes) for a given location.
 
 ```java
@@ -410,6 +428,8 @@ v1ItemsApi.listFeesAsync(locationId).thenAccept(result -> {
 
 
 # Create Fee
+
+**This endpoint is deprecated. **
 
 Creates a fee (tax).
 
@@ -453,6 +473,8 @@ v1ItemsApi.createFeeAsync(locationId, body).thenAccept(result -> {
 
 # Delete Fee
 
+**This endpoint is deprecated. **
+
 Deletes an existing fee (tax).
 
 __DeleteFee__ returns nothing on success but Connect SDKs
@@ -492,6 +514,8 @@ v1ItemsApi.deleteFeeAsync(locationId, feeId).thenAccept(result -> {
 
 
 # Update Fee
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing fee (tax).
 
@@ -538,6 +562,8 @@ v1ItemsApi.updateFeeAsync(locationId, feeId, body).thenAccept(result -> {
 
 # List Inventory
 
+**This endpoint is deprecated. **
+
 Provides inventory information for all inventory-enabled item
 variations.
 
@@ -577,6 +603,8 @@ v1ItemsApi.listInventoryAsync(locationId, limit, batchToken).thenAccept(result -
 
 
 # Adjust Inventory
+
+**This endpoint is deprecated. **
 
 Adjusts the current available inventory of an item variation.
 
@@ -621,6 +649,8 @@ v1ItemsApi.adjustInventoryAsync(locationId, variationId, body).thenAccept(result
 
 # List Items
 
+**This endpoint is deprecated. **
+
 Provides summary information of all items for a given location.
 
 ```java
@@ -656,6 +686,8 @@ v1ItemsApi.listItemsAsync(locationId, batchToken).thenAccept(result -> {
 
 
 # Create Item
+
+**This endpoint is deprecated. **
 
 Creates an item and at least one variation for it.
 
@@ -710,6 +742,8 @@ v1ItemsApi.createItemAsync(locationId, body).thenAccept(result -> {
 
 # Delete Item
 
+**This endpoint is deprecated. **
+
 Deletes an existing item and all item variations associated with it.
 
 __DeleteItem__ returns nothing on success but Connect SDKs
@@ -750,6 +784,8 @@ v1ItemsApi.deleteItemAsync(locationId, itemId).thenAccept(result -> {
 
 # Retrieve Item
 
+**This endpoint is deprecated. **
+
 Provides the details for a single item, including associated modifier
 lists and fees.
 
@@ -786,6 +822,8 @@ v1ItemsApi.retrieveItemAsync(locationId, itemId).thenAccept(result -> {
 
 
 # Update Item
+
+**This endpoint is deprecated. **
 
 Modifies the core details of an existing item.
 
@@ -832,6 +870,8 @@ v1ItemsApi.updateItemAsync(locationId, itemId, body).thenAccept(result -> {
 
 # Remove Fee
 
+**This endpoint is deprecated. **
+
 Removes a fee assocation from an item so the fee is no longer
 automatically applied to the item in Square Point of Sale.
 
@@ -871,6 +911,8 @@ v1ItemsApi.removeFeeAsync(locationId, itemId, feeId).thenAccept(result -> {
 
 
 # Apply Fee
+
+**This endpoint is deprecated. **
 
 Associates a fee with an item so the fee is automatically applied to
 the item in Square Point of Sale.
@@ -912,6 +954,8 @@ v1ItemsApi.applyFeeAsync(locationId, itemId, feeId).thenAccept(result -> {
 
 # Remove Modifier List
 
+**This endpoint is deprecated. **
+
 Removes a modifier list association from an item so the modifier
 options from the list can no longer be applied to the item.
 
@@ -952,6 +996,8 @@ v1ItemsApi.removeModifierListAsync(locationId, modifierListId, itemId).thenAccep
 
 # Apply Modifier List
 
+**This endpoint is deprecated. **
+
 Associates a modifier list with an item so the associated modifier
 options can be applied to the item.
 
@@ -991,6 +1037,8 @@ v1ItemsApi.applyModifierListAsync(locationId, modifierListId, itemId).thenAccept
 
 
 # Create Variation
+
+**This endpoint is deprecated. **
 
 Creates an item variation for an existing item.
 
@@ -1037,6 +1085,8 @@ v1ItemsApi.createVariationAsync(locationId, itemId, body).thenAccept(result -> {
 
 # Delete Variation
 
+**This endpoint is deprecated. **
+
 Deletes an existing item variation from an item.
 
 __DeleteVariation__ returns nothing on success but Connect SDKs
@@ -1079,6 +1129,8 @@ v1ItemsApi.deleteVariationAsync(locationId, itemId, variationId).thenAccept(resu
 
 
 # Update Variation
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing item variation.
 
@@ -1128,6 +1180,8 @@ v1ItemsApi.updateVariationAsync(locationId, itemId, variationId, body).thenAccep
 
 # List Modifier Lists
 
+**This endpoint is deprecated. **
+
 Lists all the modifier lists for a given location.
 
 ```java
@@ -1160,6 +1214,8 @@ v1ItemsApi.listModifierListsAsync(locationId).thenAccept(result -> {
 
 
 # Create Modifier List
+
+**This endpoint is deprecated. **
 
 Creates an item modifier list and at least 1 modifier option for it.
 
@@ -1231,6 +1287,8 @@ v1ItemsApi.createModifierListAsync(locationId, body).thenAccept(result -> {
 
 # Delete Modifier List
 
+**This endpoint is deprecated. **
+
 Deletes an existing item modifier list and all modifier options
 associated with it.
 
@@ -1272,6 +1330,8 @@ v1ItemsApi.deleteModifierListAsync(locationId, modifierListId).thenAccept(result
 
 # Retrieve Modifier List
 
+**This endpoint is deprecated. **
+
 Provides the details for a single modifier list.
 
 ```java
@@ -1307,6 +1367,8 @@ v1ItemsApi.retrieveModifierListAsync(locationId, modifierListId).thenAccept(resu
 
 
 # Update Modifier List
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing item modifier list.
 
@@ -1349,6 +1411,8 @@ v1ItemsApi.updateModifierListAsync(locationId, modifierListId, body).thenAccept(
 
 
 # Create Modifier Option
+
+**This endpoint is deprecated. **
 
 Creates an item modifier option and adds it to a modifier list.
 
@@ -1399,6 +1463,8 @@ v1ItemsApi.createModifierOptionAsync(locationId, modifierListId, body).thenAccep
 
 # Delete Modifier Option
 
+**This endpoint is deprecated. **
+
 Deletes an existing item modifier option from a modifier list.
 
 __DeleteModifierOption__ returns nothing on success but Connect
@@ -1441,6 +1507,8 @@ v1ItemsApi.deleteModifierOptionAsync(locationId, modifierListId, modifierOptionI
 
 
 # Update Modifier Option
+
+**This endpoint is deprecated. **
 
 Modifies the details of an existing item modifier option.
 
@@ -1494,6 +1562,8 @@ v1ItemsApi.updateModifierOptionAsync(locationId, modifierListId, modifierOptionI
 
 # List Pages
 
+**This endpoint is deprecated. **
+
 Lists all Favorites pages (in Square Point of Sale) for a given
 location.
 
@@ -1527,6 +1597,8 @@ v1ItemsApi.listPagesAsync(locationId).thenAccept(result -> {
 
 
 # Create Page
+
+**This endpoint is deprecated. **
 
 Creates a Favorites page in Square Point of Sale.
 
@@ -1580,6 +1652,8 @@ v1ItemsApi.createPageAsync(locationId, body).thenAccept(result -> {
 
 # Delete Page
 
+**This endpoint is deprecated. **
+
 Deletes an existing Favorites page and all of its cells.
 
 __DeletePage__ returns nothing on success but Connect SDKs
@@ -1618,6 +1692,8 @@ v1ItemsApi.deletePageAsync(locationId, pageId).thenAccept(result -> {
 
 
 # Update Page
+
+**This endpoint is deprecated. **
 
 Modifies the details of a Favorites page in Square Point of Sale.
 
@@ -1674,6 +1750,8 @@ v1ItemsApi.updatePageAsync(locationId, pageId, body).thenAccept(result -> {
 
 # Delete Page Cell
 
+**This endpoint is deprecated. **
+
 Deletes a cell from a Favorites page in Square Point of Sale.
 
 __DeletePageCell__ returns nothing on success but Connect SDKs
@@ -1719,6 +1797,8 @@ v1ItemsApi.deletePageCellAsync(locationId, pageId, row, column).thenAccept(resul
 
 
 # Update Page Cell
+
+**This endpoint is deprecated. **
 
 Modifies a cell of a Favorites page in Square Point of Sale.
 

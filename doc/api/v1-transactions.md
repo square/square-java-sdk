@@ -25,6 +25,8 @@ V1TransactionsApi v1TransactionsApi = client.getV1TransactionsApi();
 
 # List Bank Accounts
 
+**This endpoint is deprecated. **
+
 Provides non-confidential details for all of a location's associated bank accounts. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
 
 ```java
@@ -57,6 +59,8 @@ v1TransactionsApi.listBankAccountsAsync(locationId).thenAccept(result -> {
 
 
 # Retrieve Bank Account
+
+**This endpoint is deprecated. **
 
 Provides non-confidential details for a merchant's associated bank account. This endpoint does not provide full bank account numbers, and there is no way to obtain a full bank account number with the Connect API.
 
@@ -250,7 +254,7 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
 | `endTime` | `String` | Query, Optional | The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time. |
 | `limit` | `Integer` | Query, Optional | The maximum number of payments to return in a single response. This value cannot exceed 200. |
 | `batchToken` | `String` | Query, Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. |
-| `includePartial` | `Boolean` | Query, Optional | Indicates whether or not to include partial payments in the response. Partial payments will have the tenders collected so far, but the itemizations will be empty until the payment is completed. |
+| `includePartial` | `Boolean` | Query, Optional | Indicates whether or not to include partial payments in the response. Partial payments will have the tenders collected so far, but the itemizations will be empty until the payment is completed.<br>**Default**: `false` |
 
 ## Response Type
 

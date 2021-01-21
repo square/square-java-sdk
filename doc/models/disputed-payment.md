@@ -11,7 +11,7 @@ The payment the cardholder disputed.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `PaymentId` | `String` | Optional | Square-generated unique ID of the payment being disputed. | String getPaymentId() |
+| `PaymentId` | `String` | Optional | Square-generated unique ID of the payment being disputed.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `192` | String getPaymentId() |
 
 ## Example (as JSON)
 

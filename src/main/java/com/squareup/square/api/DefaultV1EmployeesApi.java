@@ -208,6 +208,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Employee> result = ApiHelper.deserializeArray(responseBody,
                 V1Employee[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -610,6 +613,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1EmployeeRole> result = ApiHelper.deserializeArray(responseBody,
                 V1EmployeeRole[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1095,6 +1101,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1Timecard> result = ApiHelper.deserializeArray(responseBody,
                 V1Timecard[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1318,9 +1327,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
     }
 
     /**
-     * Provides the details for a single timecard. <aside> Only approved accounts can manage their
-     * employees with Square. Unapproved accounts cannot use employee management features with the
-     * API. </aside>.
+     * Provides the details for a single timecard. Only approved accounts can manage their employees
+     * with Square. Unapproved accounts cannot use employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The timecard's ID.
@@ -1341,9 +1349,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
     }
 
     /**
-     * Provides the details for a single timecard. <aside> Only approved accounts can manage their
-     * employees with Square. Unapproved accounts cannot use employee management features with the
-     * API. </aside>.
+     * Provides the details for a single timecard. Only approved accounts can manage their employees
+     * with Square. Unapproved accounts cannot use employee management features with the API.
      * @deprecated
      * 
      * @param  timecardId  Required parameter: The timecard's ID.
@@ -1628,6 +1635,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1TimecardEvent> result = ApiHelper.deserializeArray(responseBody,
                 V1TimecardEvent[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 
@@ -1759,6 +1769,9 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         String responseBody = ((HttpStringResponse) response).getBody();
         List<V1CashDrawerShift> result = ApiHelper.deserializeArray(responseBody,
                 V1CashDrawerShift[].class);
+        for (int i = 0; i < result.size(); i++) {
+            result.set(i, result.get(i).toBuilder().httpContext(context).build());
+        }
         return result;
     }
 

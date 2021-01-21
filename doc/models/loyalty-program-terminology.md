@@ -9,8 +9,8 @@
 
 | Name | Type | Description | Getter |
 |  --- | --- | --- | --- |
-| `One` | `String` | A singular unit for a point (for example, 1 point is called 1 star). | String getOne() |
-| `Other` | `String` | A plural unit for point (for example, 10 points is called 10 stars). | String getOther() |
+| `One` | `String` | A singular unit for a point (for example, 1 point is called 1 star).<br>**Constraints**: *Minimum Length*: `1` | String getOne() |
+| `Other` | `String` | A plural unit for point (for example, 10 points is called 10 stars).<br>**Constraints**: *Minimum Length*: `1` | String getOther() |
 
 ## Example (as JSON)
 

@@ -66,7 +66,7 @@ public class CustomerGroup {
 
     /**
      * Getter for UpdatedAt.
-     * The timesamp when the customer group was last updated, in RFC 3339 format.
+     * The timestamp when the customer group was last updated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")

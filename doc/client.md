@@ -5,14 +5,18 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2020-12-16"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-01-21"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
+| `timeout` | `long` | The timeout to use for making HTTP requests.<br>*Default*: `60L` |
+| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
+| `additionalHeaders` | `Headers` | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
+| `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
 
 The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2020-12-16")
+    .squareVersion("2021-01-21")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .build();
@@ -30,13 +34,12 @@ import com.squareup.square.*;
 import com.squareup.square.models.*;
 import com.squareup.square.api.*;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.client.*;
 
 public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2020-12-16")
+            .squareVersion("2021-01-21")
             .accessToken("AccessToken")
             .build();
         

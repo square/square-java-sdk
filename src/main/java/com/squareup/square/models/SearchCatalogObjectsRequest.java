@@ -121,10 +121,10 @@ public class SearchCatalogObjectsRequest {
      * attribute, the attribute must be searchable. Searchable attributes are listed as follows,
      * along their parent types that can be searched for with applicable query filters. * Searchable
      * attribute and objects queryable by searchable attributes ** - `name`: `CatalogItem`,
-     * `CatalogItemVariation`, `CatelogCatogry`, `CatalogTax`, `CatalogDiscount`, `CatalogModifier`,
-     * 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` - `description`:
-     * `CatalogItem`, `CatalogItemOptionValue` - `abbreviation`: `CatalogItem` - `upc`:
-     * `CatalogItemVariation` - `sku`: `CatalogItemVariation` - `caption`: `CatalogImage` -
+     * `CatalogItemVariation`, `CatalogCategory`, `CatalogTax`, `CatalogDiscount`,
+     * `CatalogModifier`, 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` -
+     * `description`: `CatalogItem`, `CatalogItemOptionValue` - `abbreviation`: `CatalogItem` -
+     * `upc`: `CatalogItemVariation` - `sku`: `CatalogItemVariation` - `caption`: `CatalogImage` -
      * `display_name`: `CatalogItemOption` For example, to search for
      * [CatalogItem](#type-CatalogItem) objects by searchable attributes, you can use the `"name"`,
      * `"description"`, or `"abbreviation"` attribute in an applicable query filter.

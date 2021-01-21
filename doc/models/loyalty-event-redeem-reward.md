@@ -11,8 +11,8 @@ Provides metadata when the event `type` is `REDEEM_REWARD`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
-| `RewardId` | `String` | Optional | The ID of the redeemed [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`. | String getRewardId() |
+| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram).<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getLoyaltyProgramId() |
+| `RewardId` | `String` | Optional | The ID of the redeemed [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`.<br>**Constraints**: *Maximum Length*: `36` | String getRewardId() |
 | `OrderId` | `String` | Optional | The ID of the [order](#type-Order) that redeemed the reward.<br>This field is returned only if the Orders API is used to process orders. | String getOrderId() |
 
 ## Example (as JSON)

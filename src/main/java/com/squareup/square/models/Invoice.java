@@ -17,6 +17,7 @@ public class Invoice {
     private final String orderId;
     private final InvoiceRecipient primaryRecipient;
     private final List<InvoicePaymentRequest> paymentRequests;
+    private final String deliveryMethod;
     private final String invoiceNumber;
     private final String title;
     private final String description;
@@ -37,6 +38,7 @@ public class Invoice {
      * @param orderId String value for orderId.
      * @param primaryRecipient InvoiceRecipient value for primaryRecipient.
      * @param paymentRequests List of InvoicePaymentRequest value for paymentRequests.
+     * @param deliveryMethod String value for deliveryMethod.
      * @param invoiceNumber String value for invoiceNumber.
      * @param title String value for title.
      * @param description String value for description.
@@ -57,6 +59,7 @@ public class Invoice {
             @JsonProperty("order_id") String orderId,
             @JsonProperty("primary_recipient") InvoiceRecipient primaryRecipient,
             @JsonProperty("payment_requests") List<InvoicePaymentRequest> paymentRequests,
+            @JsonProperty("delivery_method") String deliveryMethod,
             @JsonProperty("invoice_number") String invoiceNumber,
             @JsonProperty("title") String title,
             @JsonProperty("description") String description,
@@ -74,6 +77,7 @@ public class Invoice {
         this.orderId = orderId;
         this.primaryRecipient = primaryRecipient;
         this.paymentRequests = paymentRequests;
+        this.deliveryMethod = deliveryMethod;
         this.invoiceNumber = invoiceNumber;
         this.title = title;
         this.description = description;
@@ -156,6 +160,16 @@ public class Invoice {
     }
 
     /**
+     * Getter for DeliveryMethod.
+     * Indicates how Square delivers the [invoice](#type-Invoice) to the customer.
+     * @return Returns the String
+     */
+    @JsonGetter("delivery_method")
+    public String getDeliveryMethod() {
+        return this.deliveryMethod;
+    }
+
+    /**
      * Getter for InvoiceNumber.
      * A user-friendly invoice number. The value is unique within a location. If not provided when
      * creating an invoice, Square assigns a value. It increments from 1 and padded with zeros
@@ -190,8 +204,8 @@ public class Invoice {
     /**
      * Getter for ScheduledAt.
      * The timestamp when the invoice is scheduled for processing, in RFC 3339 format. After the
-     * invoice is published, Square processes the invoice on the specified date, based on the
-     * settings for the invoice payment requests. If the field is not set, Square processes the
+     * invoice is published, Square processes the invoice on the specified date, according to the
+     * delivery method and payment request settings. If the field is not set, Square processes the
      * invoice immediately after it is published.
      * @return Returns the String
      */
@@ -284,8 +298,8 @@ public class Invoice {
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
-                invoiceNumber, title, description, scheduledAt, publicUrl, nextPaymentAmountMoney,
-                status, timezone, createdAt, updatedAt, customFields);
+                deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
+                nextPaymentAmountMoney, status, timezone, createdAt, updatedAt, customFields);
     }
 
     @Override
@@ -303,6 +317,7 @@ public class Invoice {
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(primaryRecipient, other.primaryRecipient)
             && Objects.equals(paymentRequests, other.paymentRequests)
+            && Objects.equals(deliveryMethod, other.deliveryMethod)
             && Objects.equals(invoiceNumber, other.invoiceNumber)
             && Objects.equals(title, other.title)
             && Objects.equals(description, other.description)
@@ -324,12 +339,12 @@ public class Invoice {
     public String toString() {
         return "Invoice [" + "id=" + id + ", version=" + version + ", locationId=" + locationId
                 + ", orderId=" + orderId + ", primaryRecipient=" + primaryRecipient
-                + ", paymentRequests=" + paymentRequests + ", invoiceNumber=" + invoiceNumber
-                + ", title=" + title + ", description=" + description + ", scheduledAt="
-                + scheduledAt + ", publicUrl=" + publicUrl + ", nextPaymentAmountMoney="
-                + nextPaymentAmountMoney + ", status=" + status + ", timezone=" + timezone
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", customFields="
-                + customFields + "]";
+                + ", paymentRequests=" + paymentRequests + ", deliveryMethod=" + deliveryMethod
+                + ", invoiceNumber=" + invoiceNumber + ", title=" + title + ", description="
+                + description + ", scheduledAt=" + scheduledAt + ", publicUrl=" + publicUrl
+                + ", nextPaymentAmountMoney=" + nextPaymentAmountMoney + ", status=" + status
+                + ", timezone=" + timezone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", customFields=" + customFields + "]";
     }
 
     /**
@@ -345,6 +360,7 @@ public class Invoice {
                 .orderId(getOrderId())
                 .primaryRecipient(getPrimaryRecipient())
                 .paymentRequests(getPaymentRequests())
+                .deliveryMethod(getDeliveryMethod())
                 .invoiceNumber(getInvoiceNumber())
                 .title(getTitle())
                 .description(getDescription())
@@ -369,6 +385,7 @@ public class Invoice {
         private String orderId;
         private InvoiceRecipient primaryRecipient;
         private List<InvoicePaymentRequest> paymentRequests;
+        private String deliveryMethod;
         private String invoiceNumber;
         private String title;
         private String description;
@@ -440,6 +457,16 @@ public class Invoice {
          */
         public Builder paymentRequests(List<InvoicePaymentRequest> paymentRequests) {
             this.paymentRequests = paymentRequests;
+            return this;
+        }
+
+        /**
+         * Setter for deliveryMethod.
+         * @param deliveryMethod String value for deliveryMethod.
+         * @return Builder
+         */
+        public Builder deliveryMethod(String deliveryMethod) {
+            this.deliveryMethod = deliveryMethod;
             return this;
         }
 
@@ -559,7 +586,7 @@ public class Invoice {
          */
         public Invoice build() {
             return new Invoice(id, version, locationId, orderId, primaryRecipient, paymentRequests,
-                    invoiceNumber, title, description, scheduledAt, publicUrl,
+                    deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                     nextPaymentAmountMoney, status, timezone, createdAt, updatedAt, customFields);
         }
     }

@@ -1056,9 +1056,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any types against supported search
+     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
-     * or more of the specified query expressions, This (`SearchCatalogObjects`) endpoint differs
+     * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
      * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
@@ -1085,9 +1085,9 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any types against supported search
+     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
-     * or more of the specified query expressions, This (`SearchCatalogObjects`) endpoint differs
+     * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
      * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
@@ -1168,7 +1168,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
     /**
      * Searches for catalog items or item variations by matching supported search attribute values,
-     * including custom attribute values, against one or more of the specified query expressions,
+     * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
      * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
@@ -1197,7 +1197,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
     /**
      * Searches for catalog items or item variations by matching supported search attribute values,
-     * including custom attribute values, against one or more of the specified query expressions,
+     * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
      * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas

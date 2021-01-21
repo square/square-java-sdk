@@ -11,9 +11,9 @@ A [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referre
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Name` | `String` | Optional | The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points. | String getName() |
-| `Description` | `String` | Optional | The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points. | String getDescription() |
-| `Abbreviation` | `String` | Optional | The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.<br>This attribute is searchable, and its value length is of Unicode code points. | String getAbbreviation() |
+| `Name` | `String` | Optional | The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points.<br>**Constraints**: *Maximum Length*: `512` | String getName() |
+| `Description` | `String` | Optional | The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.<br>**Constraints**: *Maximum Length*: `4096` | String getDescription() |
+| `Abbreviation` | `String` | Optional | The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.<br>This attribute is searchable, and its value length is of Unicode code points.<br>**Constraints**: *Maximum Length*: `24` | String getAbbreviation() |
 | `LabelColor` | `String` | Optional | The color of the item's display label in the Square Point of Sale app. This must be a valid hex color code. | String getLabelColor() |
 | `AvailableOnline` | `Boolean` | Optional | If `true`, the item can be added to shipping orders from the merchant's online store. | Boolean getAvailableOnline() |
 | `AvailableForPickup` | `Boolean` | Optional | If `true`, the item can be added to pickup orders from the merchant's online store. | Boolean getAvailableForPickup() |

@@ -554,7 +554,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "8.0.0.20201216";
+        return "8.1.0.20210121";
     }
 
     /**
@@ -632,7 +632,7 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2020-12-16";
+        private String squareVersion = "2021-01-21";
         private HttpClient httpClient;
         private long timeout = 60;
         private Headers additionalHeaders = new Headers();

@@ -11,8 +11,8 @@ Provides metadata when the event `type` is `DELETE_REWARD`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram). | String getLoyaltyProgramId() |
-| `RewardId` | `String` | Optional | The ID of the deleted [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`. | String getRewardId() |
+| `LoyaltyProgramId` | `String` |  | The ID of the [loyalty program](#type-LoyaltyProgram).<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `36` | String getLoyaltyProgramId() |
+| `RewardId` | `String` | Optional | The ID of the deleted [loyalty reward](#type-LoyaltyReward).<br>This field is returned only if the event source is `LOYALTY_API`.<br>**Constraints**: *Maximum Length*: `36` | String getRewardId() |
 | `Points` | `int` |  | The number of points returned to the loyalty account. | int getPoints() |
 
 ## Example (as JSON)
