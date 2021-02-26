@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class GetTeamMemberWageResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMemberWage teamMemberWage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMemberWage TeamMemberWage value for teamMemberWage.
-     * @param errors List of Error value for errors.
+     * @param  teamMemberWage  TeamMemberWage value for teamMemberWage.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public GetTeamMemberWageResponse(
@@ -41,7 +44,7 @@ public class GetTeamMemberWageResponse {
      */
     @JsonGetter("team_member_wage")
     public TeamMemberWage getTeamMemberWage() {
-        return this.teamMemberWage;
+        return teamMemberWage;
     }
 
     /**
@@ -51,7 +54,7 @@ public class GetTeamMemberWageResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class GetTeamMemberWageResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class GetTeamMemberWageResponse {
 
         /**
          * Setter for teamMemberWage.
-         * @param teamMemberWage TeamMemberWage value for teamMemberWage.
+         * @param  teamMemberWage  TeamMemberWage value for teamMemberWage.
          * @return Builder
          */
         public Builder teamMemberWage(TeamMemberWage teamMemberWage) {
@@ -126,7 +129,7 @@ public class GetTeamMemberWageResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

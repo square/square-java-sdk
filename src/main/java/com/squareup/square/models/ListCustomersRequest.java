@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for ListCustomersRequest type.
  */
 public class ListCustomersRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortField;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param sortField String value for sortField.
-     * @param sortOrder String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  sortField  String value for sortField.
+     * @param  sortOrder  String value for sortOrder.
      */
     @JsonCreator
     public ListCustomersRequest(
@@ -40,7 +44,7 @@ public class ListCustomersRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -50,7 +54,7 @@ public class ListCustomersRequest {
      */
     @JsonGetter("sort_field")
     public String getSortField() {
-        return this.sortField;
+        return sortField;
     }
 
     /**
@@ -60,7 +64,7 @@ public class ListCustomersRequest {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class ListCustomersRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -127,7 +131,7 @@ public class ListCustomersRequest {
 
         /**
          * Setter for sortField.
-         * @param sortField String value for sortField.
+         * @param  sortField  String value for sortField.
          * @return Builder
          */
         public Builder sortField(String sortField) {
@@ -137,7 +141,7 @@ public class ListCustomersRequest {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {

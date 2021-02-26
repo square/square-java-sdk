@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchShiftsRequest type.
  */
 public class SearchShiftsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param query ShiftQuery value for query.
-     * @param limit Integer value for limit.
-     * @param cursor String value for cursor.
+     * @param  query  ShiftQuery value for query.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public SearchShiftsRequest(
@@ -37,7 +41,7 @@ public class SearchShiftsRequest {
      */
     @JsonGetter("query")
     public ShiftQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -47,7 +51,7 @@ public class SearchShiftsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -57,7 +61,7 @@ public class SearchShiftsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class SearchShiftsRequest {
 
         /**
          * Setter for query.
-         * @param query ShiftQuery value for query.
+         * @param  query  ShiftQuery value for query.
          * @return Builder
          */
         public Builder query(ShiftQuery query) {
@@ -124,7 +128,7 @@ public class SearchShiftsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -134,7 +138,7 @@ public class SearchShiftsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

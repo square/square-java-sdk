@@ -11,7 +11,7 @@ V1UpdateOrderRequest
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Action` | [`String`](/doc/models/v1-update-order-request-action.md) |  | - | String getAction() |
+| `Action` | [`String`](/doc/models/v1-update-order-request-action.md) | Required | - | String getAction() |
 | `ShippedTrackingNumber` | `String` | Optional | The tracking number of the shipment associated with the order. Only valid if action is COMPLETE. | String getShippedTrackingNumber() |
 | `CompletedNote` | `String` | Optional | A merchant-specified note about the completion of the order. Only valid if action is COMPLETE. | String getCompletedNote() |
 | `RefundedNote` | `String` | Optional | A merchant-specified note about the refunding of the order. Only valid if action is REFUND. | String getRefundedNote() |

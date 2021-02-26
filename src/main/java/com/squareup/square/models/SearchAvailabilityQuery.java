@@ -14,7 +14,7 @@ public class SearchAvailabilityQuery {
 
     /**
      * Initialization constructor.
-     * @param filter SearchAvailabilityFilter value for filter.
+     * @param  filter  SearchAvailabilityFilter value for filter.
      */
     @JsonCreator
     public SearchAvailabilityQuery(
@@ -29,7 +29,7 @@ public class SearchAvailabilityQuery {
      */
     @JsonGetter("filter")
     public SearchAvailabilityFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SearchAvailabilityQuery {
 
         /**
          * Initialization constructor.
-         * @param filter SearchAvailabilityFilter value for filter.
+         * @param  filter  SearchAvailabilityFilter value for filter.
          */
         public Builder(SearchAvailabilityFilter filter) {
             this.filter = filter;
@@ -84,7 +84,7 @@ public class SearchAvailabilityQuery {
 
         /**
          * Setter for filter.
-         * @param filter SearchAvailabilityFilter value for filter.
+         * @param  filter  SearchAvailabilityFilter value for filter.
          * @return Builder
          */
         public Builder filter(SearchAvailabilityFilter filter) {

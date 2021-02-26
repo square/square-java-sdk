@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for RevokeTokenRequest type.
  */
 public class RevokeTokenRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean revokeOnlyAccessToken;
 
     /**
      * Initialization constructor.
-     * @param clientId String value for clientId.
-     * @param accessToken String value for accessToken.
-     * @param merchantId String value for merchantId.
-     * @param revokeOnlyAccessToken Boolean value for revokeOnlyAccessToken.
+     * @param  clientId  String value for clientId.
+     * @param  accessToken  String value for accessToken.
+     * @param  merchantId  String value for merchantId.
+     * @param  revokeOnlyAccessToken  Boolean value for revokeOnlyAccessToken.
      */
     @JsonCreator
     public RevokeTokenRequest(
@@ -42,7 +47,7 @@ public class RevokeTokenRequest {
      */
     @JsonGetter("client_id")
     public String getClientId() {
-        return this.clientId;
+        return clientId;
     }
 
     /**
@@ -53,7 +58,7 @@ public class RevokeTokenRequest {
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
-        return this.accessToken;
+        return accessToken;
     }
 
     /**
@@ -64,7 +69,7 @@ public class RevokeTokenRequest {
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
-        return this.merchantId;
+        return merchantId;
     }
 
     /**
@@ -75,7 +80,7 @@ public class RevokeTokenRequest {
      */
     @JsonGetter("revoke_only_access_token")
     public Boolean getRevokeOnlyAccessToken() {
-        return this.revokeOnlyAccessToken;
+        return revokeOnlyAccessToken;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class RevokeTokenRequest {
 
         /**
          * Setter for clientId.
-         * @param clientId String value for clientId.
+         * @param  clientId  String value for clientId.
          * @return Builder
          */
         public Builder clientId(String clientId) {
@@ -146,7 +151,7 @@ public class RevokeTokenRequest {
 
         /**
          * Setter for accessToken.
-         * @param accessToken String value for accessToken.
+         * @param  accessToken  String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
@@ -156,7 +161,7 @@ public class RevokeTokenRequest {
 
         /**
          * Setter for merchantId.
-         * @param merchantId String value for merchantId.
+         * @param  merchantId  String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
@@ -166,7 +171,7 @@ public class RevokeTokenRequest {
 
         /**
          * Setter for revokeOnlyAccessToken.
-         * @param revokeOnlyAccessToken Boolean value for revokeOnlyAccessToken.
+         * @param  revokeOnlyAccessToken  Boolean value for revokeOnlyAccessToken.
          * @return Builder
          */
         public Builder revokeOnlyAccessToken(Boolean revokeOnlyAccessToken) {

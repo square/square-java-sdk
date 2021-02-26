@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,18 +13,22 @@ import java.util.Objects;
  */
 public class CatalogItemModifierListInfo {
     private final String modifierListId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogModifierOverride> modifierOverrides;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer minSelectedModifiers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxSelectedModifiers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
 
     /**
      * Initialization constructor.
-     * @param modifierListId String value for modifierListId.
-     * @param modifierOverrides List of CatalogModifierOverride value for modifierOverrides.
-     * @param minSelectedModifiers Integer value for minSelectedModifiers.
-     * @param maxSelectedModifiers Integer value for maxSelectedModifiers.
-     * @param enabled Boolean value for enabled.
+     * @param  modifierListId  String value for modifierListId.
+     * @param  modifierOverrides  List of CatalogModifierOverride value for modifierOverrides.
+     * @param  minSelectedModifiers  Integer value for minSelectedModifiers.
+     * @param  maxSelectedModifiers  Integer value for maxSelectedModifiers.
+     * @param  enabled  Boolean value for enabled.
      */
     @JsonCreator
     public CatalogItemModifierListInfo(
@@ -46,7 +51,7 @@ public class CatalogItemModifierListInfo {
      */
     @JsonGetter("modifier_list_id")
     public String getModifierListId() {
-        return this.modifierListId;
+        return modifierListId;
     }
 
     /**
@@ -57,7 +62,7 @@ public class CatalogItemModifierListInfo {
      */
     @JsonGetter("modifier_overrides")
     public List<CatalogModifierOverride> getModifierOverrides() {
-        return this.modifierOverrides;
+        return modifierOverrides;
     }
 
     /**
@@ -68,7 +73,7 @@ public class CatalogItemModifierListInfo {
      */
     @JsonGetter("min_selected_modifiers")
     public Integer getMinSelectedModifiers() {
-        return this.minSelectedModifiers;
+        return minSelectedModifiers;
     }
 
     /**
@@ -79,7 +84,7 @@ public class CatalogItemModifierListInfo {
      */
     @JsonGetter("max_selected_modifiers")
     public Integer getMaxSelectedModifiers() {
-        return this.maxSelectedModifiers;
+        return maxSelectedModifiers;
     }
 
     /**
@@ -89,7 +94,7 @@ public class CatalogItemModifierListInfo {
      */
     @JsonGetter("enabled")
     public Boolean getEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     @Override
@@ -152,7 +157,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Initialization constructor.
-         * @param modifierListId String value for modifierListId.
+         * @param  modifierListId  String value for modifierListId.
          */
         public Builder(String modifierListId) {
             this.modifierListId = modifierListId;
@@ -160,7 +165,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Setter for modifierListId.
-         * @param modifierListId String value for modifierListId.
+         * @param  modifierListId  String value for modifierListId.
          * @return Builder
          */
         public Builder modifierListId(String modifierListId) {
@@ -170,7 +175,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Setter for modifierOverrides.
-         * @param modifierOverrides List of CatalogModifierOverride value for modifierOverrides.
+         * @param  modifierOverrides  List of CatalogModifierOverride value for modifierOverrides.
          * @return Builder
          */
         public Builder modifierOverrides(List<CatalogModifierOverride> modifierOverrides) {
@@ -180,7 +185,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Setter for minSelectedModifiers.
-         * @param minSelectedModifiers Integer value for minSelectedModifiers.
+         * @param  minSelectedModifiers  Integer value for minSelectedModifiers.
          * @return Builder
          */
         public Builder minSelectedModifiers(Integer minSelectedModifiers) {
@@ -190,7 +195,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Setter for maxSelectedModifiers.
-         * @param maxSelectedModifiers Integer value for maxSelectedModifiers.
+         * @param  maxSelectedModifiers  Integer value for maxSelectedModifiers.
          * @return Builder
          */
         public Builder maxSelectedModifiers(Integer maxSelectedModifiers) {
@@ -200,7 +205,7 @@ public class CatalogItemModifierListInfo {
 
         /**
          * Setter for enabled.
-         * @param enabled Boolean value for enabled.
+         * @param  enabled  Boolean value for enabled.
          * @return Builder
          */
         public Builder enabled(Boolean enabled) {

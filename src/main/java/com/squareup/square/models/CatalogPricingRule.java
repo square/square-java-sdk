@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,31 +12,42 @@ import java.util.Objects;
  * This is a model class for CatalogPricingRule type.
  */
 public class CatalogPricingRule {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> timePeriodIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String matchProductsId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applyProductsId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String excludeProductsId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validFromDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validFromLocalTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validUntilDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validUntilLocalTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String excludeStrategy;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param timePeriodIds List of String value for timePeriodIds.
-     * @param discountId String value for discountId.
-     * @param matchProductsId String value for matchProductsId.
-     * @param applyProductsId String value for applyProductsId.
-     * @param excludeProductsId String value for excludeProductsId.
-     * @param validFromDate String value for validFromDate.
-     * @param validFromLocalTime String value for validFromLocalTime.
-     * @param validUntilDate String value for validUntilDate.
-     * @param validUntilLocalTime String value for validUntilLocalTime.
-     * @param excludeStrategy String value for excludeStrategy.
+     * @param  name  String value for name.
+     * @param  timePeriodIds  List of String value for timePeriodIds.
+     * @param  discountId  String value for discountId.
+     * @param  matchProductsId  String value for matchProductsId.
+     * @param  applyProductsId  String value for applyProductsId.
+     * @param  excludeProductsId  String value for excludeProductsId.
+     * @param  validFromDate  String value for validFromDate.
+     * @param  validFromLocalTime  String value for validFromLocalTime.
+     * @param  validUntilDate  String value for validUntilDate.
+     * @param  validUntilLocalTime  String value for validUntilLocalTime.
+     * @param  excludeStrategy  String value for excludeStrategy.
      */
     @JsonCreator
     public CatalogPricingRule(
@@ -70,7 +82,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -81,7 +93,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("time_period_ids")
     public List<String> getTimePeriodIds() {
-        return this.timePeriodIds;
+        return timePeriodIds;
     }
 
     /**
@@ -91,7 +103,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("discount_id")
     public String getDiscountId() {
-        return this.discountId;
+        return discountId;
     }
 
     /**
@@ -102,7 +114,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("match_products_id")
     public String getMatchProductsId() {
-        return this.matchProductsId;
+        return matchProductsId;
     }
 
     /**
@@ -118,7 +130,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("apply_products_id")
     public String getApplyProductsId() {
-        return this.applyProductsId;
+        return applyProductsId;
     }
 
     /**
@@ -131,7 +143,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("exclude_products_id")
     public String getExcludeProductsId() {
-        return this.excludeProductsId;
+        return excludeProductsId;
     }
 
     /**
@@ -142,7 +154,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("valid_from_date")
     public String getValidFromDate() {
-        return this.validFromDate;
+        return validFromDate;
     }
 
     /**
@@ -153,7 +165,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("valid_from_local_time")
     public String getValidFromLocalTime() {
-        return this.validFromLocalTime;
+        return validFromLocalTime;
     }
 
     /**
@@ -164,7 +176,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("valid_until_date")
     public String getValidUntilDate() {
-        return this.validUntilDate;
+        return validUntilDate;
     }
 
     /**
@@ -175,7 +187,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("valid_until_local_time")
     public String getValidUntilLocalTime() {
-        return this.validUntilLocalTime;
+        return validUntilLocalTime;
     }
 
     /**
@@ -186,7 +198,7 @@ public class CatalogPricingRule {
      */
     @JsonGetter("exclude_strategy")
     public String getExcludeStrategy() {
-        return this.excludeStrategy;
+        return excludeStrategy;
     }
 
     @Override
@@ -274,7 +286,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -284,7 +296,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for timePeriodIds.
-         * @param timePeriodIds List of String value for timePeriodIds.
+         * @param  timePeriodIds  List of String value for timePeriodIds.
          * @return Builder
          */
         public Builder timePeriodIds(List<String> timePeriodIds) {
@@ -294,7 +306,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for discountId.
-         * @param discountId String value for discountId.
+         * @param  discountId  String value for discountId.
          * @return Builder
          */
         public Builder discountId(String discountId) {
@@ -304,7 +316,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for matchProductsId.
-         * @param matchProductsId String value for matchProductsId.
+         * @param  matchProductsId  String value for matchProductsId.
          * @return Builder
          */
         public Builder matchProductsId(String matchProductsId) {
@@ -314,7 +326,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for applyProductsId.
-         * @param applyProductsId String value for applyProductsId.
+         * @param  applyProductsId  String value for applyProductsId.
          * @return Builder
          */
         public Builder applyProductsId(String applyProductsId) {
@@ -324,7 +336,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for excludeProductsId.
-         * @param excludeProductsId String value for excludeProductsId.
+         * @param  excludeProductsId  String value for excludeProductsId.
          * @return Builder
          */
         public Builder excludeProductsId(String excludeProductsId) {
@@ -334,7 +346,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for validFromDate.
-         * @param validFromDate String value for validFromDate.
+         * @param  validFromDate  String value for validFromDate.
          * @return Builder
          */
         public Builder validFromDate(String validFromDate) {
@@ -344,7 +356,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for validFromLocalTime.
-         * @param validFromLocalTime String value for validFromLocalTime.
+         * @param  validFromLocalTime  String value for validFromLocalTime.
          * @return Builder
          */
         public Builder validFromLocalTime(String validFromLocalTime) {
@@ -354,7 +366,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for validUntilDate.
-         * @param validUntilDate String value for validUntilDate.
+         * @param  validUntilDate  String value for validUntilDate.
          * @return Builder
          */
         public Builder validUntilDate(String validUntilDate) {
@@ -364,7 +376,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for validUntilLocalTime.
-         * @param validUntilLocalTime String value for validUntilLocalTime.
+         * @param  validUntilLocalTime  String value for validUntilLocalTime.
          * @return Builder
          */
         public Builder validUntilLocalTime(String validUntilLocalTime) {
@@ -374,7 +386,7 @@ public class CatalogPricingRule {
 
         /**
          * Setter for excludeStrategy.
-         * @param excludeStrategy String value for excludeStrategy.
+         * @param  excludeStrategy  String value for excludeStrategy.
          * @return Builder
          */
         public Builder excludeStrategy(String excludeStrategy) {

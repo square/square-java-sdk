@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for InventoryCount type.
  */
 public class InventoryCount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculatedAt;
 
     /**
      * Initialization constructor.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param catalogObjectType String value for catalogObjectType.
-     * @param state String value for state.
-     * @param locationId String value for locationId.
-     * @param quantity String value for quantity.
-     * @param calculatedAt String value for calculatedAt.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  state  String value for state.
+     * @param  locationId  String value for locationId.
+     * @param  quantity  String value for quantity.
+     * @param  calculatedAt  String value for calculatedAt.
      */
     @JsonCreator
     public InventoryCount(
@@ -49,7 +56,7 @@ public class InventoryCount {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -60,7 +67,7 @@ public class InventoryCount {
      */
     @JsonGetter("catalog_object_type")
     public String getCatalogObjectType() {
-        return this.catalogObjectType;
+        return catalogObjectType;
     }
 
     /**
@@ -70,7 +77,7 @@ public class InventoryCount {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -81,7 +88,7 @@ public class InventoryCount {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -92,7 +99,7 @@ public class InventoryCount {
      */
     @JsonGetter("quantity")
     public String getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 
     /**
@@ -103,7 +110,7 @@ public class InventoryCount {
      */
     @JsonGetter("calculated_at")
     public String getCalculatedAt() {
-        return this.calculatedAt;
+        return calculatedAt;
     }
 
     @Override
@@ -171,7 +178,7 @@ public class InventoryCount {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -181,7 +188,7 @@ public class InventoryCount {
 
         /**
          * Setter for catalogObjectType.
-         * @param catalogObjectType String value for catalogObjectType.
+         * @param  catalogObjectType  String value for catalogObjectType.
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
@@ -191,7 +198,7 @@ public class InventoryCount {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -201,7 +208,7 @@ public class InventoryCount {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -211,7 +218,7 @@ public class InventoryCount {
 
         /**
          * Setter for quantity.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          * @return Builder
          */
         public Builder quantity(String quantity) {
@@ -221,7 +228,7 @@ public class InventoryCount {
 
         /**
          * Setter for calculatedAt.
-         * @param calculatedAt String value for calculatedAt.
+         * @param  calculatedAt  String value for calculatedAt.
          * @return Builder
          */
         public Builder calculatedAt(String calculatedAt) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class CatalogQuickAmountsSettings {
     private final String option;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean eligibleForAutoAmounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogQuickAmount> amounts;
 
     /**
      * Initialization constructor.
-     * @param option String value for option.
-     * @param eligibleForAutoAmounts Boolean value for eligibleForAutoAmounts.
-     * @param amounts List of CatalogQuickAmount value for amounts.
+     * @param  option  String value for option.
+     * @param  eligibleForAutoAmounts  Boolean value for eligibleForAutoAmounts.
+     * @param  amounts  List of CatalogQuickAmount value for amounts.
      */
     @JsonCreator
     public CatalogQuickAmountsSettings(
@@ -38,7 +41,7 @@ public class CatalogQuickAmountsSettings {
      */
     @JsonGetter("option")
     public String getOption() {
-        return this.option;
+        return option;
     }
 
     /**
@@ -49,7 +52,7 @@ public class CatalogQuickAmountsSettings {
      */
     @JsonGetter("eligible_for_auto_amounts")
     public Boolean getEligibleForAutoAmounts() {
-        return this.eligibleForAutoAmounts;
+        return eligibleForAutoAmounts;
     }
 
     /**
@@ -59,7 +62,7 @@ public class CatalogQuickAmountsSettings {
      */
     @JsonGetter("amounts")
     public List<CatalogQuickAmount> getAmounts() {
-        return this.amounts;
+        return amounts;
     }
 
     @Override
@@ -113,7 +116,7 @@ public class CatalogQuickAmountsSettings {
 
         /**
          * Initialization constructor.
-         * @param option String value for option.
+         * @param  option  String value for option.
          */
         public Builder(String option) {
             this.option = option;
@@ -121,7 +124,7 @@ public class CatalogQuickAmountsSettings {
 
         /**
          * Setter for option.
-         * @param option String value for option.
+         * @param  option  String value for option.
          * @return Builder
          */
         public Builder option(String option) {
@@ -131,7 +134,7 @@ public class CatalogQuickAmountsSettings {
 
         /**
          * Setter for eligibleForAutoAmounts.
-         * @param eligibleForAutoAmounts Boolean value for eligibleForAutoAmounts.
+         * @param  eligibleForAutoAmounts  Boolean value for eligibleForAutoAmounts.
          * @return Builder
          */
         public Builder eligibleForAutoAmounts(Boolean eligibleForAutoAmounts) {
@@ -141,7 +144,7 @@ public class CatalogQuickAmountsSettings {
 
         /**
          * Setter for amounts.
-         * @param amounts List of CatalogQuickAmount value for amounts.
+         * @param  amounts  List of CatalogQuickAmount value for amounts.
          * @return Builder
          */
         public Builder amounts(List<CatalogQuickAmount> amounts) {

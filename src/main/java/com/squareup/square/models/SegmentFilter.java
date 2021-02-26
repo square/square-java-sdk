@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class SegmentFilter {
     private final String serviceVariationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final FilterValue teamMemberIdFilter;
 
     /**
      * Initialization constructor.
-     * @param serviceVariationId String value for serviceVariationId.
-     * @param teamMemberIdFilter FilterValue value for teamMemberIdFilter.
+     * @param  serviceVariationId  String value for serviceVariationId.
+     * @param  teamMemberIdFilter  FilterValue value for teamMemberIdFilter.
      */
     @JsonCreator
     public SegmentFilter(
@@ -34,7 +36,7 @@ public class SegmentFilter {
      */
     @JsonGetter("service_variation_id")
     public String getServiceVariationId() {
-        return this.serviceVariationId;
+        return serviceVariationId;
     }
 
     /**
@@ -46,7 +48,7 @@ public class SegmentFilter {
      */
     @JsonGetter("team_member_id_filter")
     public FilterValue getTeamMemberIdFilter() {
-        return this.teamMemberIdFilter;
+        return teamMemberIdFilter;
     }
 
     @Override
@@ -97,7 +99,7 @@ public class SegmentFilter {
 
         /**
          * Initialization constructor.
-         * @param serviceVariationId String value for serviceVariationId.
+         * @param  serviceVariationId  String value for serviceVariationId.
          */
         public Builder(String serviceVariationId) {
             this.serviceVariationId = serviceVariationId;
@@ -105,7 +107,7 @@ public class SegmentFilter {
 
         /**
          * Setter for serviceVariationId.
-         * @param serviceVariationId String value for serviceVariationId.
+         * @param  serviceVariationId  String value for serviceVariationId.
          * @return Builder
          */
         public Builder serviceVariationId(String serviceVariationId) {
@@ -115,7 +117,7 @@ public class SegmentFilter {
 
         /**
          * Setter for teamMemberIdFilter.
-         * @param teamMemberIdFilter FilterValue value for teamMemberIdFilter.
+         * @param  teamMemberIdFilter  FilterValue value for teamMemberIdFilter.
          * @return Builder
          */
         public Builder teamMemberIdFilter(FilterValue teamMemberIdFilter) {

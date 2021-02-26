@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CatalogTimePeriod type.
  */
 public class CatalogTimePeriod {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String event;
 
     /**
      * Initialization constructor.
-     * @param event String value for event.
+     * @param  event  String value for event.
      */
     @JsonCreator
     public CatalogTimePeriod(
@@ -34,7 +36,7 @@ public class CatalogTimePeriod {
      */
     @JsonGetter("event")
     public String getEvent() {
-        return this.event;
+        return event;
     }
 
     @Override
@@ -84,7 +86,7 @@ public class CatalogTimePeriod {
 
         /**
          * Setter for event.
-         * @param event String value for event.
+         * @param  event  String value for event.
          * @return Builder
          */
         public Builder event(String event) {

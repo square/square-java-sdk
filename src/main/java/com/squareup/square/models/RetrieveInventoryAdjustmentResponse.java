@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class RetrieveInventoryAdjustmentResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryAdjustment adjustment;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param adjustment InventoryAdjustment value for adjustment.
+     * @param  errors  List of Error value for errors.
+     * @param  adjustment  InventoryAdjustment value for adjustment.
      */
     @JsonCreator
     public RetrieveInventoryAdjustmentResponse(
@@ -40,7 +43,7 @@ public class RetrieveInventoryAdjustmentResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -51,7 +54,7 @@ public class RetrieveInventoryAdjustmentResponse {
      */
     @JsonGetter("adjustment")
     public InventoryAdjustment getAdjustment() {
-        return this.adjustment;
+        return adjustment;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class RetrieveInventoryAdjustmentResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class RetrieveInventoryAdjustmentResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -126,7 +129,7 @@ public class RetrieveInventoryAdjustmentResponse {
 
         /**
          * Setter for adjustment.
-         * @param adjustment InventoryAdjustment value for adjustment.
+         * @param  adjustment  InventoryAdjustment value for adjustment.
          * @return Builder
          */
         public Builder adjustment(InventoryAdjustment adjustment) {

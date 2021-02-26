@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,41 +11,57 @@ import java.util.Objects;
  * This is a model class for V1Tender type.
  */
 public class V1Tender {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String panSuffix;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money tenderedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tenderedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String settledAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money changeBackMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isExchange;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param type String value for type.
-     * @param name String value for name.
-     * @param employeeId String value for employeeId.
-     * @param receiptUrl String value for receiptUrl.
-     * @param cardBrand String value for cardBrand.
-     * @param panSuffix String value for panSuffix.
-     * @param entryMethod String value for entryMethod.
-     * @param paymentNote String value for paymentNote.
-     * @param totalMoney V1Money value for totalMoney.
-     * @param tenderedMoney V1Money value for tenderedMoney.
-     * @param tenderedAt String value for tenderedAt.
-     * @param settledAt String value for settledAt.
-     * @param changeBackMoney V1Money value for changeBackMoney.
-     * @param refundedMoney V1Money value for refundedMoney.
-     * @param isExchange Boolean value for isExchange.
+     * @param  id  String value for id.
+     * @param  type  String value for type.
+     * @param  name  String value for name.
+     * @param  employeeId  String value for employeeId.
+     * @param  receiptUrl  String value for receiptUrl.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  panSuffix  String value for panSuffix.
+     * @param  entryMethod  String value for entryMethod.
+     * @param  paymentNote  String value for paymentNote.
+     * @param  totalMoney  V1Money value for totalMoney.
+     * @param  tenderedMoney  V1Money value for tenderedMoney.
+     * @param  tenderedAt  String value for tenderedAt.
+     * @param  settledAt  String value for settledAt.
+     * @param  changeBackMoney  V1Money value for changeBackMoney.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  isExchange  Boolean value for isExchange.
      */
     @JsonCreator
     public V1Tender(
@@ -89,7 +106,7 @@ public class V1Tender {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -98,7 +115,7 @@ public class V1Tender {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -108,7 +125,7 @@ public class V1Tender {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -118,7 +135,7 @@ public class V1Tender {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -128,7 +145,7 @@ public class V1Tender {
      */
     @JsonGetter("receipt_url")
     public String getReceiptUrl() {
-        return this.receiptUrl;
+        return receiptUrl;
     }
 
     /**
@@ -138,7 +155,7 @@ public class V1Tender {
      */
     @JsonGetter("card_brand")
     public String getCardBrand() {
-        return this.cardBrand;
+        return cardBrand;
     }
 
     /**
@@ -148,7 +165,7 @@ public class V1Tender {
      */
     @JsonGetter("pan_suffix")
     public String getPanSuffix() {
-        return this.panSuffix;
+        return panSuffix;
     }
 
     /**
@@ -157,7 +174,7 @@ public class V1Tender {
      */
     @JsonGetter("entry_method")
     public String getEntryMethod() {
-        return this.entryMethod;
+        return entryMethod;
     }
 
     /**
@@ -168,7 +185,7 @@ public class V1Tender {
      */
     @JsonGetter("payment_note")
     public String getPaymentNote() {
-        return this.paymentNote;
+        return paymentNote;
     }
 
     /**
@@ -177,7 +194,7 @@ public class V1Tender {
      */
     @JsonGetter("total_money")
     public V1Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -186,7 +203,7 @@ public class V1Tender {
      */
     @JsonGetter("tendered_money")
     public V1Money getTenderedMoney() {
-        return this.tenderedMoney;
+        return tenderedMoney;
     }
 
     /**
@@ -196,7 +213,7 @@ public class V1Tender {
      */
     @JsonGetter("tendered_at")
     public String getTenderedAt() {
-        return this.tenderedAt;
+        return tenderedAt;
     }
 
     /**
@@ -206,7 +223,7 @@ public class V1Tender {
      */
     @JsonGetter("settled_at")
     public String getSettledAt() {
-        return this.settledAt;
+        return settledAt;
     }
 
     /**
@@ -215,7 +232,7 @@ public class V1Tender {
      */
     @JsonGetter("change_back_money")
     public V1Money getChangeBackMoney() {
-        return this.changeBackMoney;
+        return changeBackMoney;
     }
 
     /**
@@ -224,7 +241,7 @@ public class V1Tender {
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
-        return this.refundedMoney;
+        return refundedMoney;
     }
 
     /**
@@ -237,7 +254,7 @@ public class V1Tender {
      */
     @JsonGetter("is_exchange")
     public Boolean getIsExchange() {
-        return this.isExchange;
+        return isExchange;
     }
 
     @Override
@@ -340,7 +357,7 @@ public class V1Tender {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -350,7 +367,7 @@ public class V1Tender {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -360,7 +377,7 @@ public class V1Tender {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -370,7 +387,7 @@ public class V1Tender {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -380,7 +397,7 @@ public class V1Tender {
 
         /**
          * Setter for receiptUrl.
-         * @param receiptUrl String value for receiptUrl.
+         * @param  receiptUrl  String value for receiptUrl.
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {
@@ -390,7 +407,7 @@ public class V1Tender {
 
         /**
          * Setter for cardBrand.
-         * @param cardBrand String value for cardBrand.
+         * @param  cardBrand  String value for cardBrand.
          * @return Builder
          */
         public Builder cardBrand(String cardBrand) {
@@ -400,7 +417,7 @@ public class V1Tender {
 
         /**
          * Setter for panSuffix.
-         * @param panSuffix String value for panSuffix.
+         * @param  panSuffix  String value for panSuffix.
          * @return Builder
          */
         public Builder panSuffix(String panSuffix) {
@@ -410,7 +427,7 @@ public class V1Tender {
 
         /**
          * Setter for entryMethod.
-         * @param entryMethod String value for entryMethod.
+         * @param  entryMethod  String value for entryMethod.
          * @return Builder
          */
         public Builder entryMethod(String entryMethod) {
@@ -420,7 +437,7 @@ public class V1Tender {
 
         /**
          * Setter for paymentNote.
-         * @param paymentNote String value for paymentNote.
+         * @param  paymentNote  String value for paymentNote.
          * @return Builder
          */
         public Builder paymentNote(String paymentNote) {
@@ -430,7 +447,7 @@ public class V1Tender {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney V1Money value for totalMoney.
+         * @param  totalMoney  V1Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(V1Money totalMoney) {
@@ -440,7 +457,7 @@ public class V1Tender {
 
         /**
          * Setter for tenderedMoney.
-         * @param tenderedMoney V1Money value for tenderedMoney.
+         * @param  tenderedMoney  V1Money value for tenderedMoney.
          * @return Builder
          */
         public Builder tenderedMoney(V1Money tenderedMoney) {
@@ -450,7 +467,7 @@ public class V1Tender {
 
         /**
          * Setter for tenderedAt.
-         * @param tenderedAt String value for tenderedAt.
+         * @param  tenderedAt  String value for tenderedAt.
          * @return Builder
          */
         public Builder tenderedAt(String tenderedAt) {
@@ -460,7 +477,7 @@ public class V1Tender {
 
         /**
          * Setter for settledAt.
-         * @param settledAt String value for settledAt.
+         * @param  settledAt  String value for settledAt.
          * @return Builder
          */
         public Builder settledAt(String settledAt) {
@@ -470,7 +487,7 @@ public class V1Tender {
 
         /**
          * Setter for changeBackMoney.
-         * @param changeBackMoney V1Money value for changeBackMoney.
+         * @param  changeBackMoney  V1Money value for changeBackMoney.
          * @return Builder
          */
         public Builder changeBackMoney(V1Money changeBackMoney) {
@@ -480,7 +497,7 @@ public class V1Tender {
 
         /**
          * Setter for refundedMoney.
-         * @param refundedMoney V1Money value for refundedMoney.
+         * @param  refundedMoney  V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
@@ -490,7 +507,7 @@ public class V1Tender {
 
         /**
          * Setter for isExchange.
-         * @param isExchange Boolean value for isExchange.
+         * @param  isExchange  Boolean value for isExchange.
          * @return Builder
          */
         public Builder isExchange(Boolean isExchange) {

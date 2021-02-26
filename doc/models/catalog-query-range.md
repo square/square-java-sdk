@@ -11,7 +11,7 @@ The query filter to return the search result whose named attribute values fall b
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `AttributeName` | `String` |  | The name of the attribute to be searched.<br>**Constraints**: *Minimum Length*: `1` | String getAttributeName() |
+| `AttributeName` | `String` | Required | The name of the attribute to be searched.<br>**Constraints**: *Minimum Length*: `1` | String getAttributeName() |
 | `AttributeMinValue` | `Long` | Optional | The desired minimum value for the search attribute (inclusive). | Long getAttributeMinValue() |
 | `AttributeMaxValue` | `Long` | Optional | The desired maximum value for the search attribute (inclusive). | Long getAttributeMaxValue() |
 

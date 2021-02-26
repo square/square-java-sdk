@@ -14,7 +14,7 @@ public class LoyaltyProgramExpirationPolicy {
 
     /**
      * Initialization constructor.
-     * @param expirationDuration String value for expirationDuration.
+     * @param  expirationDuration  String value for expirationDuration.
      */
     @JsonCreator
     public LoyaltyProgramExpirationPolicy(
@@ -29,7 +29,7 @@ public class LoyaltyProgramExpirationPolicy {
      */
     @JsonGetter("expiration_duration")
     public String getExpirationDuration() {
-        return this.expirationDuration;
+        return expirationDuration;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class LoyaltyProgramExpirationPolicy {
 
         /**
          * Initialization constructor.
-         * @param expirationDuration String value for expirationDuration.
+         * @param  expirationDuration  String value for expirationDuration.
          */
         public Builder(String expirationDuration) {
             this.expirationDuration = expirationDuration;
@@ -85,7 +85,7 @@ public class LoyaltyProgramExpirationPolicy {
 
         /**
          * Setter for expirationDuration.
-         * @param expirationDuration String value for expirationDuration.
+         * @param  expirationDuration  String value for expirationDuration.
          * @return Builder
          */
         public Builder expirationDuration(String expirationDuration) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class CancelTerminalCheckoutResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckout checkout;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param checkout TerminalCheckout value for checkout.
+     * @param  errors  List of Error value for errors.
+     * @param  checkout  TerminalCheckout value for checkout.
      */
     @JsonCreator
     public CancelTerminalCheckoutResponse(
@@ -40,7 +43,7 @@ public class CancelTerminalCheckoutResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -49,7 +52,7 @@ public class CancelTerminalCheckoutResponse {
      */
     @JsonGetter("checkout")
     public TerminalCheckout getCheckout() {
-        return this.checkout;
+        return checkout;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class CancelTerminalCheckoutResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -114,7 +117,7 @@ public class CancelTerminalCheckoutResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -124,7 +127,7 @@ public class CancelTerminalCheckoutResponse {
 
         /**
          * Setter for checkout.
-         * @param checkout TerminalCheckout value for checkout.
+         * @param  checkout  TerminalCheckout value for checkout.
          * @return Builder
          */
         public Builder checkout(TerminalCheckout checkout) {

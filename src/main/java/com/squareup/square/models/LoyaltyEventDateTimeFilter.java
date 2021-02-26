@@ -14,7 +14,7 @@ public class LoyaltyEventDateTimeFilter {
 
     /**
      * Initialization constructor.
-     * @param createdAt TimeRange value for createdAt.
+     * @param  createdAt  TimeRange value for createdAt.
      */
     @JsonCreator
     public LoyaltyEventDateTimeFilter(
@@ -32,7 +32,7 @@ public class LoyaltyEventDateTimeFilter {
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class LoyaltyEventDateTimeFilter {
 
         /**
          * Initialization constructor.
-         * @param createdAt TimeRange value for createdAt.
+         * @param  createdAt  TimeRange value for createdAt.
          */
         public Builder(TimeRange createdAt) {
             this.createdAt = createdAt;
@@ -87,7 +87,7 @@ public class LoyaltyEventDateTimeFilter {
 
         /**
          * Setter for createdAt.
-         * @param createdAt TimeRange value for createdAt.
+         * @param  createdAt  TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {

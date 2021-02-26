@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for TeamMemberBookingProfile type.
  */
 public class TeamMemberBookingProfile {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isBookable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String profileImageUrl;
 
     /**
      * Initialization constructor.
-     * @param teamMemberId String value for teamMemberId.
-     * @param description String value for description.
-     * @param displayName String value for displayName.
-     * @param isBookable Boolean value for isBookable.
-     * @param profileImageUrl String value for profileImageUrl.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  description  String value for description.
+     * @param  displayName  String value for displayName.
+     * @param  isBookable  Boolean value for isBookable.
+     * @param  profileImageUrl  String value for profileImageUrl.
      */
     @JsonCreator
     public TeamMemberBookingProfile(
@@ -46,7 +52,7 @@ public class TeamMemberBookingProfile {
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
-        return this.teamMemberId;
+        return teamMemberId;
     }
 
     /**
@@ -56,7 +62,7 @@ public class TeamMemberBookingProfile {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -66,7 +72,7 @@ public class TeamMemberBookingProfile {
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     /**
@@ -77,7 +83,7 @@ public class TeamMemberBookingProfile {
      */
     @JsonGetter("is_bookable")
     public Boolean getIsBookable() {
-        return this.isBookable;
+        return isBookable;
     }
 
     /**
@@ -87,7 +93,7 @@ public class TeamMemberBookingProfile {
      */
     @JsonGetter("profile_image_url")
     public String getProfileImageUrl() {
-        return this.profileImageUrl;
+        return profileImageUrl;
     }
 
     @Override
@@ -151,7 +157,7 @@ public class TeamMemberBookingProfile {
 
         /**
          * Setter for teamMemberId.
-         * @param teamMemberId String value for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
@@ -161,7 +167,7 @@ public class TeamMemberBookingProfile {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -171,7 +177,7 @@ public class TeamMemberBookingProfile {
 
         /**
          * Setter for displayName.
-         * @param displayName String value for displayName.
+         * @param  displayName  String value for displayName.
          * @return Builder
          */
         public Builder displayName(String displayName) {
@@ -181,7 +187,7 @@ public class TeamMemberBookingProfile {
 
         /**
          * Setter for isBookable.
-         * @param isBookable Boolean value for isBookable.
+         * @param  isBookable  Boolean value for isBookable.
          * @return Builder
          */
         public Builder isBookable(Boolean isBookable) {
@@ -191,7 +197,7 @@ public class TeamMemberBookingProfile {
 
         /**
          * Setter for profileImageUrl.
-         * @param profileImageUrl String value for profileImageUrl.
+         * @param  profileImageUrl  String value for profileImageUrl.
          * @return Builder
          */
         public Builder profileImageUrl(String profileImageUrl) {

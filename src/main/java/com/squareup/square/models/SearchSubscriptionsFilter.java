@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsFilter type.
  */
 public class SearchSubscriptionsFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
 
     /**
      * Initialization constructor.
-     * @param customerIds List of String value for customerIds.
-     * @param locationIds List of String value for locationIds.
+     * @param  customerIds  List of String value for customerIds.
+     * @param  locationIds  List of String value for locationIds.
      */
     @JsonCreator
     public SearchSubscriptionsFilter(
@@ -34,7 +37,7 @@ public class SearchSubscriptionsFilter {
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
-        return this.customerIds;
+        return customerIds;
     }
 
     /**
@@ -44,7 +47,7 @@ public class SearchSubscriptionsFilter {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class SearchSubscriptionsFilter {
 
         /**
          * Setter for customerIds.
-         * @param customerIds List of String value for customerIds.
+         * @param  customerIds  List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {
@@ -108,7 +111,7 @@ public class SearchSubscriptionsFilter {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

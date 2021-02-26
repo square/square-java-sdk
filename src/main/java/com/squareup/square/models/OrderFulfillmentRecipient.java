@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentRecipient type.
  */
 public class OrderFulfillmentRecipient {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
 
     /**
      * Initialization constructor.
-     * @param customerId String value for customerId.
-     * @param displayName String value for displayName.
-     * @param emailAddress String value for emailAddress.
-     * @param phoneNumber String value for phoneNumber.
-     * @param address Address value for address.
+     * @param  customerId  String value for customerId.
+     * @param  displayName  String value for displayName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  address  Address value for address.
      */
     @JsonCreator
     public OrderFulfillmentRecipient(
@@ -50,7 +56,7 @@ public class OrderFulfillmentRecipient {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -61,7 +67,7 @@ public class OrderFulfillmentRecipient {
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     /**
@@ -72,7 +78,7 @@ public class OrderFulfillmentRecipient {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -83,7 +89,7 @@ public class OrderFulfillmentRecipient {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -93,7 +99,7 @@ public class OrderFulfillmentRecipient {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     @Override
@@ -157,7 +163,7 @@ public class OrderFulfillmentRecipient {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -167,7 +173,7 @@ public class OrderFulfillmentRecipient {
 
         /**
          * Setter for displayName.
-         * @param displayName String value for displayName.
+         * @param  displayName  String value for displayName.
          * @return Builder
          */
         public Builder displayName(String displayName) {
@@ -177,7 +183,7 @@ public class OrderFulfillmentRecipient {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -187,7 +193,7 @@ public class OrderFulfillmentRecipient {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -197,7 +203,7 @@ public class OrderFulfillmentRecipient {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {

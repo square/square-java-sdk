@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,32 +14,40 @@ public class LoyaltyEvent {
     private final String id;
     private final String type;
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventAccumulatePoints accumulatePoints;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventCreateReward createReward;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventRedeemReward redeemReward;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventDeleteReward deleteReward;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventAdjustPoints adjustPoints;
     private final String loyaltyAccountId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final String source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventExpirePoints expirePoints;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventOther otherEvent;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param type String value for type.
-     * @param createdAt String value for createdAt.
-     * @param loyaltyAccountId String value for loyaltyAccountId.
-     * @param source String value for source.
-     * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
-     * @param createReward LoyaltyEventCreateReward value for createReward.
-     * @param redeemReward LoyaltyEventRedeemReward value for redeemReward.
-     * @param deleteReward LoyaltyEventDeleteReward value for deleteReward.
-     * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
-     * @param locationId String value for locationId.
-     * @param expirePoints LoyaltyEventExpirePoints value for expirePoints.
-     * @param otherEvent LoyaltyEventOther value for otherEvent.
+     * @param  id  String value for id.
+     * @param  type  String value for type.
+     * @param  createdAt  String value for createdAt.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
+     * @param  source  String value for source.
+     * @param  accumulatePoints  LoyaltyEventAccumulatePoints value for accumulatePoints.
+     * @param  createReward  LoyaltyEventCreateReward value for createReward.
+     * @param  redeemReward  LoyaltyEventRedeemReward value for redeemReward.
+     * @param  deleteReward  LoyaltyEventDeleteReward value for deleteReward.
+     * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
+     * @param  locationId  String value for locationId.
+     * @param  expirePoints  LoyaltyEventExpirePoints value for expirePoints.
+     * @param  otherEvent  LoyaltyEventOther value for otherEvent.
      */
     @JsonCreator
     public LoyaltyEvent(
@@ -77,7 +86,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -87,7 +96,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -97,7 +106,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -107,7 +116,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("accumulate_points")
     public LoyaltyEventAccumulatePoints getAccumulatePoints() {
-        return this.accumulatePoints;
+        return accumulatePoints;
     }
 
     /**
@@ -117,7 +126,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("create_reward")
     public LoyaltyEventCreateReward getCreateReward() {
-        return this.createReward;
+        return createReward;
     }
 
     /**
@@ -127,7 +136,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("redeem_reward")
     public LoyaltyEventRedeemReward getRedeemReward() {
-        return this.redeemReward;
+        return redeemReward;
     }
 
     /**
@@ -137,7 +146,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("delete_reward")
     public LoyaltyEventDeleteReward getDeleteReward() {
-        return this.deleteReward;
+        return deleteReward;
     }
 
     /**
@@ -147,7 +156,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("adjust_points")
     public LoyaltyEventAdjustPoints getAdjustPoints() {
-        return this.adjustPoints;
+        return adjustPoints;
     }
 
     /**
@@ -157,7 +166,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
-        return this.loyaltyAccountId;
+        return loyaltyAccountId;
     }
 
     /**
@@ -167,7 +176,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -177,7 +186,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("source")
     public String getSource() {
-        return this.source;
+        return source;
     }
 
     /**
@@ -187,7 +196,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("expire_points")
     public LoyaltyEventExpirePoints getExpirePoints() {
-        return this.expirePoints;
+        return expirePoints;
     }
 
     /**
@@ -197,7 +206,7 @@ public class LoyaltyEvent {
      */
     @JsonGetter("other_event")
     public LoyaltyEventOther getOtherEvent() {
-        return this.otherEvent;
+        return otherEvent;
     }
 
     @Override
@@ -283,16 +292,13 @@ public class LoyaltyEvent {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param type String value for type.
-         * @param createdAt String value for createdAt.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
-         * @param source String value for source.
+         * @param  id  String value for id.
+         * @param  type  String value for type.
+         * @param  createdAt  String value for createdAt.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
+         * @param  source  String value for source.
          */
-        public Builder(String id,
-                String type,
-                String createdAt,
-                String loyaltyAccountId,
+        public Builder(String id, String type, String createdAt, String loyaltyAccountId,
                 String source) {
             this.id = id;
             this.type = type;
@@ -303,7 +309,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -313,7 +319,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -323,7 +329,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -333,7 +339,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for loyaltyAccountId.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
@@ -343,7 +349,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for source.
-         * @param source String value for source.
+         * @param  source  String value for source.
          * @return Builder
          */
         public Builder source(String source) {
@@ -353,7 +359,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for accumulatePoints.
-         * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
+         * @param  accumulatePoints  LoyaltyEventAccumulatePoints value for accumulatePoints.
          * @return Builder
          */
         public Builder accumulatePoints(LoyaltyEventAccumulatePoints accumulatePoints) {
@@ -363,7 +369,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for createReward.
-         * @param createReward LoyaltyEventCreateReward value for createReward.
+         * @param  createReward  LoyaltyEventCreateReward value for createReward.
          * @return Builder
          */
         public Builder createReward(LoyaltyEventCreateReward createReward) {
@@ -373,7 +379,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for redeemReward.
-         * @param redeemReward LoyaltyEventRedeemReward value for redeemReward.
+         * @param  redeemReward  LoyaltyEventRedeemReward value for redeemReward.
          * @return Builder
          */
         public Builder redeemReward(LoyaltyEventRedeemReward redeemReward) {
@@ -383,7 +389,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for deleteReward.
-         * @param deleteReward LoyaltyEventDeleteReward value for deleteReward.
+         * @param  deleteReward  LoyaltyEventDeleteReward value for deleteReward.
          * @return Builder
          */
         public Builder deleteReward(LoyaltyEventDeleteReward deleteReward) {
@@ -393,7 +399,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for adjustPoints.
-         * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
+         * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
          * @return Builder
          */
         public Builder adjustPoints(LoyaltyEventAdjustPoints adjustPoints) {
@@ -403,7 +409,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -413,7 +419,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for expirePoints.
-         * @param expirePoints LoyaltyEventExpirePoints value for expirePoints.
+         * @param  expirePoints  LoyaltyEventExpirePoints value for expirePoints.
          * @return Builder
          */
         public Builder expirePoints(LoyaltyEventExpirePoints expirePoints) {
@@ -423,7 +429,7 @@ public class LoyaltyEvent {
 
         /**
          * Setter for otherEvent.
-         * @param otherEvent LoyaltyEventOther value for otherEvent.
+         * @param  otherEvent  LoyaltyEventOther value for otherEvent.
          * @return Builder
          */
         public Builder otherEvent(LoyaltyEventOther otherEvent) {

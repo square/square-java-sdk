@@ -9,10 +9,10 @@ A request to redeem a loyalty reward.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `IdempotencyKey` | `String` | A unique string that identifies this `RedeemLoyaltyReward` request.<br>Keys can be any valid string, but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
-| `LocationId` | `String` | The ID of the [location](#type-Location) where the reward is redeemed.<br>**Constraints**: *Minimum Length*: `1` | String getLocationId() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `IdempotencyKey` | `String` | Required | A unique string that identifies this `RedeemLoyaltyReward` request.<br>Keys can be any valid string, but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
+| `LocationId` | `String` | Required | The ID of the [location](#type-Location) where the reward is redeemed.<br>**Constraints**: *Minimum Length*: `1` | String getLocationId() |
 
 ## Example (as JSON)
 

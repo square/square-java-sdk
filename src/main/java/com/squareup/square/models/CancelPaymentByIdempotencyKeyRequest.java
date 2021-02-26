@@ -14,7 +14,7 @@ public class CancelPaymentByIdempotencyKeyRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CancelPaymentByIdempotencyKeyRequest(
@@ -29,7 +29,7 @@ public class CancelPaymentByIdempotencyKeyRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class CancelPaymentByIdempotencyKeyRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -84,7 +84,7 @@ public class CancelPaymentByIdempotencyKeyRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

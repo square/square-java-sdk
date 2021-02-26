@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,17 @@ import java.util.Objects;
  * This is a model class for OrderLineItemAppliedDiscount type.
  */
 public class OrderLineItemAppliedDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String discountUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
 
     /**
      * Initialization constructor.
-     * @param discountUid String value for discountUid.
-     * @param uid String value for uid.
-     * @param appliedMoney Money value for appliedMoney.
+     * @param  discountUid  String value for discountUid.
+     * @param  uid  String value for uid.
+     * @param  appliedMoney  Money value for appliedMoney.
      */
     @JsonCreator
     public OrderLineItemAppliedDiscount(
@@ -37,7 +40,7 @@ public class OrderLineItemAppliedDiscount {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -50,7 +53,7 @@ public class OrderLineItemAppliedDiscount {
      */
     @JsonGetter("discount_uid")
     public String getDiscountUid() {
-        return this.discountUid;
+        return discountUid;
     }
 
     /**
@@ -65,7 +68,7 @@ public class OrderLineItemAppliedDiscount {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     @Override
@@ -119,7 +122,7 @@ public class OrderLineItemAppliedDiscount {
 
         /**
          * Initialization constructor.
-         * @param discountUid String value for discountUid.
+         * @param  discountUid  String value for discountUid.
          */
         public Builder(String discountUid) {
             this.discountUid = discountUid;
@@ -127,7 +130,7 @@ public class OrderLineItemAppliedDiscount {
 
         /**
          * Setter for discountUid.
-         * @param discountUid String value for discountUid.
+         * @param  discountUid  String value for discountUid.
          * @return Builder
          */
         public Builder discountUid(String discountUid) {
@@ -137,7 +140,7 @@ public class OrderLineItemAppliedDiscount {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -147,7 +150,7 @@ public class OrderLineItemAppliedDiscount {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {

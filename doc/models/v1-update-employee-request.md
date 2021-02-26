@@ -7,9 +7,9 @@
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Body` | [`V1Employee`](/doc/models/v1-employee.md) | Represents one of a business's employees. | V1Employee getBody() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Body` | [`V1Employee`](/doc/models/v1-employee.md) | Required | Represents one of a business's employees. | V1Employee getBody() |
 
 ## Example (as JSON)
 

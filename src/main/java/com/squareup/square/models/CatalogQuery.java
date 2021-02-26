@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,29 +11,42 @@ import java.util.Objects;
  * This is a model class for CatalogQuery type.
  */
 public class CatalogQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuerySortedAttribute sortedAttributeQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryExact exactQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuerySet setQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryPrefix prefixQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryRange rangeQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryText textQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForTax itemsForTaxQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForModifierList itemsForModifierListQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForItemOptions itemsForItemOptionsQuery;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery;
 
     /**
      * Initialization constructor.
-     * @param sortedAttributeQuery CatalogQuerySortedAttribute value for sortedAttributeQuery.
-     * @param exactQuery CatalogQueryExact value for exactQuery.
-     * @param setQuery CatalogQuerySet value for setQuery.
-     * @param prefixQuery CatalogQueryPrefix value for prefixQuery.
-     * @param rangeQuery CatalogQueryRange value for rangeQuery.
-     * @param textQuery CatalogQueryText value for textQuery.
-     * @param itemsForTaxQuery CatalogQueryItemsForTax value for itemsForTaxQuery.
-     * @param itemsForModifierListQuery CatalogQueryItemsForModifierList value for itemsForModifierListQuery.
-     * @param itemsForItemOptionsQuery CatalogQueryItemsForItemOptions value for itemsForItemOptionsQuery.
-     * @param itemVariationsForItemOptionValuesQuery CatalogQueryItemVariationsForItemOptionValues value for itemVariationsForItemOptionValuesQuery.
+     * @param  sortedAttributeQuery  CatalogQuerySortedAttribute value for sortedAttributeQuery.
+     * @param  exactQuery  CatalogQueryExact value for exactQuery.
+     * @param  setQuery  CatalogQuerySet value for setQuery.
+     * @param  prefixQuery  CatalogQueryPrefix value for prefixQuery.
+     * @param  rangeQuery  CatalogQueryRange value for rangeQuery.
+     * @param  textQuery  CatalogQueryText value for textQuery.
+     * @param  itemsForTaxQuery  CatalogQueryItemsForTax value for itemsForTaxQuery.
+     * @param  itemsForModifierListQuery  CatalogQueryItemsForModifierList value for
+     *         itemsForModifierListQuery.
+     * @param  itemsForItemOptionsQuery  CatalogQueryItemsForItemOptions value for
+     *         itemsForItemOptionsQuery.
+     * @param  itemVariationsForItemOptionValuesQuery  CatalogQueryItemVariationsForItemOptionValues
+     *         value for itemVariationsForItemOptionValuesQuery.
      */
     @JsonCreator
     public CatalogQuery(
@@ -65,7 +79,7 @@ public class CatalogQuery {
      */
     @JsonGetter("sorted_attribute_query")
     public CatalogQuerySortedAttribute getSortedAttributeQuery() {
-        return this.sortedAttributeQuery;
+        return sortedAttributeQuery;
     }
 
     /**
@@ -76,7 +90,7 @@ public class CatalogQuery {
      */
     @JsonGetter("exact_query")
     public CatalogQueryExact getExactQuery() {
-        return this.exactQuery;
+        return exactQuery;
     }
 
     /**
@@ -87,7 +101,7 @@ public class CatalogQuery {
      */
     @JsonGetter("set_query")
     public CatalogQuerySet getSetQuery() {
-        return this.setQuery;
+        return setQuery;
     }
 
     /**
@@ -98,7 +112,7 @@ public class CatalogQuery {
      */
     @JsonGetter("prefix_query")
     public CatalogQueryPrefix getPrefixQuery() {
-        return this.prefixQuery;
+        return prefixQuery;
     }
 
     /**
@@ -109,7 +123,7 @@ public class CatalogQuery {
      */
     @JsonGetter("range_query")
     public CatalogQueryRange getRangeQuery() {
-        return this.rangeQuery;
+        return rangeQuery;
     }
 
     /**
@@ -120,7 +134,7 @@ public class CatalogQuery {
      */
     @JsonGetter("text_query")
     public CatalogQueryText getTextQuery() {
-        return this.textQuery;
+        return textQuery;
     }
 
     /**
@@ -130,7 +144,7 @@ public class CatalogQuery {
      */
     @JsonGetter("items_for_tax_query")
     public CatalogQueryItemsForTax getItemsForTaxQuery() {
-        return this.itemsForTaxQuery;
+        return itemsForTaxQuery;
     }
 
     /**
@@ -140,7 +154,7 @@ public class CatalogQuery {
      */
     @JsonGetter("items_for_modifier_list_query")
     public CatalogQueryItemsForModifierList getItemsForModifierListQuery() {
-        return this.itemsForModifierListQuery;
+        return itemsForModifierListQuery;
     }
 
     /**
@@ -150,7 +164,7 @@ public class CatalogQuery {
      */
     @JsonGetter("items_for_item_options_query")
     public CatalogQueryItemsForItemOptions getItemsForItemOptionsQuery() {
-        return this.itemsForItemOptionsQuery;
+        return itemsForItemOptionsQuery;
     }
 
     /**
@@ -161,7 +175,7 @@ public class CatalogQuery {
      */
     @JsonGetter("item_variations_for_item_option_values_query")
     public CatalogQueryItemVariationsForItemOptionValues getItemVariationsForItemOptionValuesQuery() {
-        return this.itemVariationsForItemOptionValuesQuery;
+        return itemVariationsForItemOptionValuesQuery;
     }
 
     @Override
@@ -247,7 +261,7 @@ public class CatalogQuery {
 
         /**
          * Setter for sortedAttributeQuery.
-         * @param sortedAttributeQuery CatalogQuerySortedAttribute value for sortedAttributeQuery.
+         * @param  sortedAttributeQuery  CatalogQuerySortedAttribute value for sortedAttributeQuery.
          * @return Builder
          */
         public Builder sortedAttributeQuery(CatalogQuerySortedAttribute sortedAttributeQuery) {
@@ -257,7 +271,7 @@ public class CatalogQuery {
 
         /**
          * Setter for exactQuery.
-         * @param exactQuery CatalogQueryExact value for exactQuery.
+         * @param  exactQuery  CatalogQueryExact value for exactQuery.
          * @return Builder
          */
         public Builder exactQuery(CatalogQueryExact exactQuery) {
@@ -267,7 +281,7 @@ public class CatalogQuery {
 
         /**
          * Setter for setQuery.
-         * @param setQuery CatalogQuerySet value for setQuery.
+         * @param  setQuery  CatalogQuerySet value for setQuery.
          * @return Builder
          */
         public Builder setQuery(CatalogQuerySet setQuery) {
@@ -277,7 +291,7 @@ public class CatalogQuery {
 
         /**
          * Setter for prefixQuery.
-         * @param prefixQuery CatalogQueryPrefix value for prefixQuery.
+         * @param  prefixQuery  CatalogQueryPrefix value for prefixQuery.
          * @return Builder
          */
         public Builder prefixQuery(CatalogQueryPrefix prefixQuery) {
@@ -287,7 +301,7 @@ public class CatalogQuery {
 
         /**
          * Setter for rangeQuery.
-         * @param rangeQuery CatalogQueryRange value for rangeQuery.
+         * @param  rangeQuery  CatalogQueryRange value for rangeQuery.
          * @return Builder
          */
         public Builder rangeQuery(CatalogQueryRange rangeQuery) {
@@ -297,7 +311,7 @@ public class CatalogQuery {
 
         /**
          * Setter for textQuery.
-         * @param textQuery CatalogQueryText value for textQuery.
+         * @param  textQuery  CatalogQueryText value for textQuery.
          * @return Builder
          */
         public Builder textQuery(CatalogQueryText textQuery) {
@@ -307,7 +321,7 @@ public class CatalogQuery {
 
         /**
          * Setter for itemsForTaxQuery.
-         * @param itemsForTaxQuery CatalogQueryItemsForTax value for itemsForTaxQuery.
+         * @param  itemsForTaxQuery  CatalogQueryItemsForTax value for itemsForTaxQuery.
          * @return Builder
          */
         public Builder itemsForTaxQuery(CatalogQueryItemsForTax itemsForTaxQuery) {
@@ -317,30 +331,37 @@ public class CatalogQuery {
 
         /**
          * Setter for itemsForModifierListQuery.
-         * @param itemsForModifierListQuery CatalogQueryItemsForModifierList value for itemsForModifierListQuery.
+         * @param  itemsForModifierListQuery  CatalogQueryItemsForModifierList value for
+         *         itemsForModifierListQuery.
          * @return Builder
          */
-        public Builder itemsForModifierListQuery(CatalogQueryItemsForModifierList itemsForModifierListQuery) {
+        public Builder itemsForModifierListQuery(
+                CatalogQueryItemsForModifierList itemsForModifierListQuery) {
             this.itemsForModifierListQuery = itemsForModifierListQuery;
             return this;
         }
 
         /**
          * Setter for itemsForItemOptionsQuery.
-         * @param itemsForItemOptionsQuery CatalogQueryItemsForItemOptions value for itemsForItemOptionsQuery.
+         * @param  itemsForItemOptionsQuery  CatalogQueryItemsForItemOptions value for
+         *         itemsForItemOptionsQuery.
          * @return Builder
          */
-        public Builder itemsForItemOptionsQuery(CatalogQueryItemsForItemOptions itemsForItemOptionsQuery) {
+        public Builder itemsForItemOptionsQuery(
+                CatalogQueryItemsForItemOptions itemsForItemOptionsQuery) {
             this.itemsForItemOptionsQuery = itemsForItemOptionsQuery;
             return this;
         }
 
         /**
          * Setter for itemVariationsForItemOptionValuesQuery.
-         * @param itemVariationsForItemOptionValuesQuery CatalogQueryItemVariationsForItemOptionValues value for itemVariationsForItemOptionValuesQuery.
+         * @param  itemVariationsForItemOptionValuesQuery
+         *         CatalogQueryItemVariationsForItemOptionValues value for
+         *         itemVariationsForItemOptionValuesQuery.
          * @return Builder
          */
-        public Builder itemVariationsForItemOptionValuesQuery(CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery) {
+        public Builder itemVariationsForItemOptionValuesQuery(
+                CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery) {
             this.itemVariationsForItemOptionValuesQuery = itemVariationsForItemOptionValuesQuery;
             return this;
         }

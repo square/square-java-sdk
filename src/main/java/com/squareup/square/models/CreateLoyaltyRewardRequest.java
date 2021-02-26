@@ -15,8 +15,8 @@ public class CreateLoyaltyRewardRequest {
 
     /**
      * Initialization constructor.
-     * @param reward LoyaltyReward value for reward.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  reward  LoyaltyReward value for reward.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateLoyaltyRewardRequest(
@@ -32,7 +32,7 @@ public class CreateLoyaltyRewardRequest {
      */
     @JsonGetter("reward")
     public LoyaltyReward getReward() {
-        return this.reward;
+        return reward;
     }
 
     /**
@@ -43,7 +43,7 @@ public class CreateLoyaltyRewardRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
@@ -93,18 +93,17 @@ public class CreateLoyaltyRewardRequest {
 
         /**
          * Initialization constructor.
-         * @param reward LoyaltyReward value for reward.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  reward  LoyaltyReward value for reward.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
-        public Builder(LoyaltyReward reward,
-                String idempotencyKey) {
+        public Builder(LoyaltyReward reward, String idempotencyKey) {
             this.reward = reward;
             this.idempotencyKey = idempotencyKey;
         }
 
         /**
          * Setter for reward.
-         * @param reward LoyaltyReward value for reward.
+         * @param  reward  LoyaltyReward value for reward.
          * @return Builder
          */
         public Builder reward(LoyaltyReward reward) {
@@ -114,7 +113,7 @@ public class CreateLoyaltyRewardRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,29 +11,39 @@ import java.util.Objects;
  * This is a model class for UpdateCustomerRequest type.
  */
 public class UpdateCustomerRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nickname;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
 
     /**
      * Initialization constructor.
-     * @param givenName String value for givenName.
-     * @param familyName String value for familyName.
-     * @param companyName String value for companyName.
-     * @param nickname String value for nickname.
-     * @param emailAddress String value for emailAddress.
-     * @param address Address value for address.
-     * @param phoneNumber String value for phoneNumber.
-     * @param referenceId String value for referenceId.
-     * @param note String value for note.
-     * @param birthday String value for birthday.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  companyName  String value for companyName.
+     * @param  nickname  String value for nickname.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  birthday  String value for birthday.
      */
     @JsonCreator
     public UpdateCustomerRequest(
@@ -65,7 +76,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("given_name")
     public String getGivenName() {
-        return this.givenName;
+        return givenName;
     }
 
     /**
@@ -75,7 +86,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
-        return this.familyName;
+        return familyName;
     }
 
     /**
@@ -85,7 +96,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("company_name")
     public String getCompanyName() {
-        return this.companyName;
+        return companyName;
     }
 
     /**
@@ -95,7 +106,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("nickname")
     public String getNickname() {
-        return this.nickname;
+        return nickname;
     }
 
     /**
@@ -105,7 +116,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -115,7 +126,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     /**
@@ -125,7 +136,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -136,7 +147,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -146,7 +157,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -159,7 +170,7 @@ public class UpdateCustomerRequest {
      */
     @JsonGetter("birthday")
     public String getBirthday() {
-        return this.birthday;
+        return birthday;
     }
 
     @Override
@@ -241,7 +252,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for givenName.
-         * @param givenName String value for givenName.
+         * @param  givenName  String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
@@ -251,7 +262,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for familyName.
-         * @param familyName String value for familyName.
+         * @param  familyName  String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
@@ -261,7 +272,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for companyName.
-         * @param companyName String value for companyName.
+         * @param  companyName  String value for companyName.
          * @return Builder
          */
         public Builder companyName(String companyName) {
@@ -271,7 +282,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for nickname.
-         * @param nickname String value for nickname.
+         * @param  nickname  String value for nickname.
          * @return Builder
          */
         public Builder nickname(String nickname) {
@@ -281,7 +292,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -291,7 +302,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
@@ -301,7 +312,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -311,7 +322,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -321,7 +332,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -331,7 +342,7 @@ public class UpdateCustomerRequest {
 
         /**
          * Setter for birthday.
-         * @param birthday String value for birthday.
+         * @param  birthday  String value for birthday.
          * @return Builder
          */
         public Builder birthday(String birthday) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,23 +12,30 @@ import java.util.Objects;
  * This is a model class for SearchCatalogObjectsRequest type.
  */
 public class SearchCatalogObjectsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> objectTypes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeDeletedObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param objectTypes List of String value for objectTypes.
-     * @param includeDeletedObjects Boolean value for includeDeletedObjects.
-     * @param includeRelatedObjects Boolean value for includeRelatedObjects.
-     * @param beginTime String value for beginTime.
-     * @param query CatalogQuery value for query.
-     * @param limit Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  objectTypes  List of String value for objectTypes.
+     * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
+     * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
+     * @param  beginTime  String value for beginTime.
+     * @param  query  CatalogQuery value for query.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public SearchCatalogObjectsRequest(
@@ -56,7 +64,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -66,7 +74,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("object_types")
     public List<String> getObjectTypes() {
-        return this.objectTypes;
+        return objectTypes;
     }
 
     /**
@@ -77,7 +85,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("include_deleted_objects")
     public Boolean getIncludeDeletedObjects() {
-        return this.includeDeletedObjects;
+        return includeDeletedObjects;
     }
 
     /**
@@ -92,7 +100,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("include_related_objects")
     public Boolean getIncludeRelatedObjects() {
-        return this.includeRelatedObjects;
+        return includeRelatedObjects;
     }
 
     /**
@@ -105,7 +113,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
-        return this.beginTime;
+        return beginTime;
     }
 
     /**
@@ -132,7 +140,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("query")
     public CatalogQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -144,7 +152,7 @@ public class SearchCatalogObjectsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -216,7 +224,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -226,7 +234,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for objectTypes.
-         * @param objectTypes List of String value for objectTypes.
+         * @param  objectTypes  List of String value for objectTypes.
          * @return Builder
          */
         public Builder objectTypes(List<String> objectTypes) {
@@ -236,7 +244,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for includeDeletedObjects.
-         * @param includeDeletedObjects Boolean value for includeDeletedObjects.
+         * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
          * @return Builder
          */
         public Builder includeDeletedObjects(Boolean includeDeletedObjects) {
@@ -246,7 +254,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for includeRelatedObjects.
-         * @param includeRelatedObjects Boolean value for includeRelatedObjects.
+         * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
          * @return Builder
          */
         public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
@@ -256,7 +264,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for beginTime.
-         * @param beginTime String value for beginTime.
+         * @param  beginTime  String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
@@ -266,7 +274,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for query.
-         * @param query CatalogQuery value for query.
+         * @param  query  CatalogQuery value for query.
          * @return Builder
          */
         public Builder query(CatalogQuery query) {
@@ -276,7 +284,7 @@ public class SearchCatalogObjectsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

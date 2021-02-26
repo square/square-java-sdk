@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for CheckAppointmentsOnboardedResponse type.
  */
 public class CheckAppointmentsOnboardedResponse {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean appointmentsOnboarded;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param appointmentsOnboarded Boolean value for appointmentsOnboarded.
-     * @param errors List of Error value for errors.
+     * @param  appointmentsOnboarded  Boolean value for appointmentsOnboarded.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CheckAppointmentsOnboardedResponse(
@@ -35,7 +38,7 @@ public class CheckAppointmentsOnboardedResponse {
      */
     @JsonGetter("appointments_onboarded")
     public Boolean getAppointmentsOnboarded() {
-        return this.appointmentsOnboarded;
+        return appointmentsOnboarded;
     }
 
     /**
@@ -45,7 +48,7 @@ public class CheckAppointmentsOnboardedResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class CheckAppointmentsOnboardedResponse {
 
         /**
          * Setter for appointmentsOnboarded.
-         * @param appointmentsOnboarded Boolean value for appointmentsOnboarded.
+         * @param  appointmentsOnboarded  Boolean value for appointmentsOnboarded.
          * @return Builder
          */
         public Builder appointmentsOnboarded(Boolean appointmentsOnboarded) {
@@ -109,7 +112,7 @@ public class CheckAppointmentsOnboardedResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

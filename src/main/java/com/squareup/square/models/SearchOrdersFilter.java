@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for SearchOrdersFilter type.
  */
 public class SearchOrdersFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersStateFilter stateFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersDateTimeFilter dateTimeFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersFulfillmentFilter fulfillmentFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersSourceFilter sourceFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersCustomerFilter customerFilter;
 
     /**
      * Initialization constructor.
-     * @param stateFilter SearchOrdersStateFilter value for stateFilter.
-     * @param dateTimeFilter SearchOrdersDateTimeFilter value for dateTimeFilter.
-     * @param fulfillmentFilter SearchOrdersFulfillmentFilter value for fulfillmentFilter.
-     * @param sourceFilter SearchOrdersSourceFilter value for sourceFilter.
-     * @param customerFilter SearchOrdersCustomerFilter value for customerFilter.
+     * @param  stateFilter  SearchOrdersStateFilter value for stateFilter.
+     * @param  dateTimeFilter  SearchOrdersDateTimeFilter value for dateTimeFilter.
+     * @param  fulfillmentFilter  SearchOrdersFulfillmentFilter value for fulfillmentFilter.
+     * @param  sourceFilter  SearchOrdersSourceFilter value for sourceFilter.
+     * @param  customerFilter  SearchOrdersCustomerFilter value for customerFilter.
      */
     @JsonCreator
     public SearchOrdersFilter(
@@ -45,7 +51,7 @@ public class SearchOrdersFilter {
      */
     @JsonGetter("state_filter")
     public SearchOrdersStateFilter getStateFilter() {
-        return this.stateFilter;
+        return stateFilter;
     }
 
     /**
@@ -65,7 +71,7 @@ public class SearchOrdersFilter {
      */
     @JsonGetter("date_time_filter")
     public SearchOrdersDateTimeFilter getDateTimeFilter() {
-        return this.dateTimeFilter;
+        return dateTimeFilter;
     }
 
     /**
@@ -75,7 +81,7 @@ public class SearchOrdersFilter {
      */
     @JsonGetter("fulfillment_filter")
     public SearchOrdersFulfillmentFilter getFulfillmentFilter() {
-        return this.fulfillmentFilter;
+        return fulfillmentFilter;
     }
 
     /**
@@ -85,7 +91,7 @@ public class SearchOrdersFilter {
      */
     @JsonGetter("source_filter")
     public SearchOrdersSourceFilter getSourceFilter() {
-        return this.sourceFilter;
+        return sourceFilter;
     }
 
     /**
@@ -97,7 +103,7 @@ public class SearchOrdersFilter {
      */
     @JsonGetter("customer_filter")
     public SearchOrdersCustomerFilter getCustomerFilter() {
-        return this.customerFilter;
+        return customerFilter;
     }
 
     @Override
@@ -162,7 +168,7 @@ public class SearchOrdersFilter {
 
         /**
          * Setter for stateFilter.
-         * @param stateFilter SearchOrdersStateFilter value for stateFilter.
+         * @param  stateFilter  SearchOrdersStateFilter value for stateFilter.
          * @return Builder
          */
         public Builder stateFilter(SearchOrdersStateFilter stateFilter) {
@@ -172,7 +178,7 @@ public class SearchOrdersFilter {
 
         /**
          * Setter for dateTimeFilter.
-         * @param dateTimeFilter SearchOrdersDateTimeFilter value for dateTimeFilter.
+         * @param  dateTimeFilter  SearchOrdersDateTimeFilter value for dateTimeFilter.
          * @return Builder
          */
         public Builder dateTimeFilter(SearchOrdersDateTimeFilter dateTimeFilter) {
@@ -182,7 +188,7 @@ public class SearchOrdersFilter {
 
         /**
          * Setter for fulfillmentFilter.
-         * @param fulfillmentFilter SearchOrdersFulfillmentFilter value for fulfillmentFilter.
+         * @param  fulfillmentFilter  SearchOrdersFulfillmentFilter value for fulfillmentFilter.
          * @return Builder
          */
         public Builder fulfillmentFilter(SearchOrdersFulfillmentFilter fulfillmentFilter) {
@@ -192,7 +198,7 @@ public class SearchOrdersFilter {
 
         /**
          * Setter for sourceFilter.
-         * @param sourceFilter SearchOrdersSourceFilter value for sourceFilter.
+         * @param  sourceFilter  SearchOrdersSourceFilter value for sourceFilter.
          * @return Builder
          */
         public Builder sourceFilter(SearchOrdersSourceFilter sourceFilter) {
@@ -202,7 +208,7 @@ public class SearchOrdersFilter {
 
         /**
          * Setter for customerFilter.
-         * @param customerFilter SearchOrdersCustomerFilter value for customerFilter.
+         * @param  customerFilter  SearchOrdersCustomerFilter value for customerFilter.
          * @return Builder
          */
         public Builder customerFilter(SearchOrdersCustomerFilter customerFilter) {

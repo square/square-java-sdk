@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for TerminalRefundQuery type.
  */
 public class TerminalRefundQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQueryFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQuerySort sort;
 
     /**
      * Initialization constructor.
-     * @param filter TerminalRefundQueryFilter value for filter.
-     * @param sort TerminalRefundQuerySort value for sort.
+     * @param  filter  TerminalRefundQueryFilter value for filter.
+     * @param  sort  TerminalRefundQuerySort value for sort.
      */
     @JsonCreator
     public TerminalRefundQuery(
@@ -32,7 +35,7 @@ public class TerminalRefundQuery {
      */
     @JsonGetter("filter")
     public TerminalRefundQueryFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -41,7 +44,7 @@ public class TerminalRefundQuery {
      */
     @JsonGetter("sort")
     public TerminalRefundQuerySort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -94,7 +97,7 @@ public class TerminalRefundQuery {
 
         /**
          * Setter for filter.
-         * @param filter TerminalRefundQueryFilter value for filter.
+         * @param  filter  TerminalRefundQueryFilter value for filter.
          * @return Builder
          */
         public Builder filter(TerminalRefundQueryFilter filter) {
@@ -104,7 +107,7 @@ public class TerminalRefundQuery {
 
         /**
          * Setter for sort.
-         * @param sort TerminalRefundQuerySort value for sort.
+         * @param  sort  TerminalRefundQuerySort value for sort.
          * @return Builder
          */
         public Builder sort(TerminalRefundQuerySort sort) {

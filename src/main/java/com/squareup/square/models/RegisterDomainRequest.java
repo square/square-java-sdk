@@ -14,7 +14,7 @@ public class RegisterDomainRequest {
 
     /**
      * Initialization constructor.
-     * @param domainName String value for domainName.
+     * @param  domainName  String value for domainName.
      */
     @JsonCreator
     public RegisterDomainRequest(
@@ -29,7 +29,7 @@ public class RegisterDomainRequest {
      */
     @JsonGetter("domain_name")
     public String getDomainName() {
-        return this.domainName;
+        return domainName;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class RegisterDomainRequest {
 
         /**
          * Initialization constructor.
-         * @param domainName String value for domainName.
+         * @param  domainName  String value for domainName.
          */
         public Builder(String domainName) {
             this.domainName = domainName;
@@ -84,7 +84,7 @@ public class RegisterDomainRequest {
 
         /**
          * Setter for domainName.
-         * @param domainName String value for domainName.
+         * @param  domainName  String value for domainName.
          * @return Builder
          */
         public Builder domainName(String domainName) {

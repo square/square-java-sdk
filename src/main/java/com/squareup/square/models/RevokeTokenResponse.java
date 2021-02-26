@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
@@ -12,11 +13,12 @@ import java.util.Objects;
  */
 public class RevokeTokenResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean success;
 
     /**
      * Initialization constructor.
-     * @param success Boolean value for success.
+     * @param  success  Boolean value for success.
      */
     @JsonCreator
     public RevokeTokenResponse(
@@ -35,7 +37,7 @@ public class RevokeTokenResponse {
      */
     @JsonGetter("success")
     public Boolean getSuccess() {
-        return this.success;
+        return success;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class RevokeTokenResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -96,7 +98,7 @@ public class RevokeTokenResponse {
 
         /**
          * Setter for success.
-         * @param success Boolean value for success.
+         * @param  success  Boolean value for success.
          * @return Builder
          */
         public Builder success(Boolean success) {

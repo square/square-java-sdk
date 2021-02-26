@@ -17,10 +17,10 @@ public class AppointmentSegment {
 
     /**
      * Initialization constructor.
-     * @param durationMinutes int value for durationMinutes.
-     * @param serviceVariationId String value for serviceVariationId.
-     * @param teamMemberId String value for teamMemberId.
-     * @param serviceVariationVersion long value for serviceVariationVersion.
+     * @param  durationMinutes  int value for durationMinutes.
+     * @param  serviceVariationId  String value for serviceVariationId.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  serviceVariationVersion  long value for serviceVariationVersion.
      */
     @JsonCreator
     public AppointmentSegment(
@@ -41,7 +41,7 @@ public class AppointmentSegment {
      */
     @JsonGetter("duration_minutes")
     public int getDurationMinutes() {
-        return this.durationMinutes;
+        return durationMinutes;
     }
 
     /**
@@ -52,7 +52,7 @@ public class AppointmentSegment {
      */
     @JsonGetter("service_variation_id")
     public String getServiceVariationId() {
-        return this.serviceVariationId;
+        return serviceVariationId;
     }
 
     /**
@@ -63,7 +63,7 @@ public class AppointmentSegment {
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
-        return this.teamMemberId;
+        return teamMemberId;
     }
 
     /**
@@ -73,7 +73,7 @@ public class AppointmentSegment {
      */
     @JsonGetter("service_variation_version")
     public long getServiceVariationVersion() {
-        return this.serviceVariationVersion;
+        return serviceVariationVersion;
     }
 
     @Override
@@ -130,14 +130,12 @@ public class AppointmentSegment {
 
         /**
          * Initialization constructor.
-         * @param durationMinutes int value for durationMinutes.
-         * @param serviceVariationId String value for serviceVariationId.
-         * @param teamMemberId String value for teamMemberId.
-         * @param serviceVariationVersion long value for serviceVariationVersion.
+         * @param  durationMinutes  int value for durationMinutes.
+         * @param  serviceVariationId  String value for serviceVariationId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @param  serviceVariationVersion  long value for serviceVariationVersion.
          */
-        public Builder(int durationMinutes,
-                String serviceVariationId,
-                String teamMemberId,
+        public Builder(int durationMinutes, String serviceVariationId, String teamMemberId,
                 long serviceVariationVersion) {
             this.durationMinutes = durationMinutes;
             this.serviceVariationId = serviceVariationId;
@@ -147,7 +145,7 @@ public class AppointmentSegment {
 
         /**
          * Setter for durationMinutes.
-         * @param durationMinutes int value for durationMinutes.
+         * @param  durationMinutes  int value for durationMinutes.
          * @return Builder
          */
         public Builder durationMinutes(int durationMinutes) {
@@ -157,7 +155,7 @@ public class AppointmentSegment {
 
         /**
          * Setter for serviceVariationId.
-         * @param serviceVariationId String value for serviceVariationId.
+         * @param  serviceVariationId  String value for serviceVariationId.
          * @return Builder
          */
         public Builder serviceVariationId(String serviceVariationId) {
@@ -167,7 +165,7 @@ public class AppointmentSegment {
 
         /**
          * Setter for teamMemberId.
-         * @param teamMemberId String value for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
@@ -177,7 +175,7 @@ public class AppointmentSegment {
 
         /**
          * Setter for serviceVariationVersion.
-         * @param serviceVariationVersion long value for serviceVariationVersion.
+         * @param  serviceVariationVersion  long value for serviceVariationVersion.
          * @return Builder
          */
         public Builder serviceVariationVersion(long serviceVariationVersion) {

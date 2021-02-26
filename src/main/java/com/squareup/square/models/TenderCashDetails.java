@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for TenderCashDetails type.
  */
 public class TenderCashDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money buyerTenderedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money changeBackMoney;
 
     /**
      * Initialization constructor.
-     * @param buyerTenderedMoney Money value for buyerTenderedMoney.
-     * @param changeBackMoney Money value for changeBackMoney.
+     * @param  buyerTenderedMoney  Money value for buyerTenderedMoney.
+     * @param  changeBackMoney  Money value for changeBackMoney.
      */
     @JsonCreator
     public TenderCashDetails(
@@ -38,7 +41,7 @@ public class TenderCashDetails {
      */
     @JsonGetter("buyer_tendered_money")
     public Money getBuyerTenderedMoney() {
-        return this.buyerTenderedMoney;
+        return buyerTenderedMoney;
     }
 
     /**
@@ -53,7 +56,7 @@ public class TenderCashDetails {
      */
     @JsonGetter("change_back_money")
     public Money getChangeBackMoney() {
-        return this.changeBackMoney;
+        return changeBackMoney;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class TenderCashDetails {
 
         /**
          * Setter for buyerTenderedMoney.
-         * @param buyerTenderedMoney Money value for buyerTenderedMoney.
+         * @param  buyerTenderedMoney  Money value for buyerTenderedMoney.
          * @return Builder
          */
         public Builder buyerTenderedMoney(Money buyerTenderedMoney) {
@@ -117,7 +120,7 @@ public class TenderCashDetails {
 
         /**
          * Setter for changeBackMoney.
-         * @param changeBackMoney Money value for changeBackMoney.
+         * @param  changeBackMoney  Money value for changeBackMoney.
          * @return Builder
          */
         public Builder changeBackMoney(Money changeBackMoney) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for TerminalRefundQueryFilter type.
  */
 public class TerminalRefundQueryFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
      * Initialization constructor.
-     * @param deviceId String value for deviceId.
-     * @param createdAt TimeRange value for createdAt.
-     * @param status String value for status.
+     * @param  deviceId  String value for deviceId.
+     * @param  createdAt  TimeRange value for createdAt.
+     * @param  status  String value for status.
      */
     @JsonCreator
     public TerminalRefundQueryFilter(
@@ -38,7 +42,7 @@ public class TerminalRefundQueryFilter {
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     /**
@@ -51,7 +55,7 @@ public class TerminalRefundQueryFilter {
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -62,7 +66,7 @@ public class TerminalRefundQueryFilter {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class TerminalRefundQueryFilter {
 
         /**
          * Setter for deviceId.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
@@ -129,7 +133,7 @@ public class TerminalRefundQueryFilter {
 
         /**
          * Setter for createdAt.
-         * @param createdAt TimeRange value for createdAt.
+         * @param  createdAt  TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {
@@ -139,7 +143,7 @@ public class TerminalRefundQueryFilter {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {

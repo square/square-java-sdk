@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,59 +14,84 @@ import java.util.Objects;
  */
 public class V1Order {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String recipientName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String recipientPhoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money subtotalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalShippingMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalPriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalDiscountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String completedNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundedNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Tender tender;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1OrderHistoryEntry> orderHistory;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String promoCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String btcReceiveAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double btcPriceSatoshi;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param id String value for id.
-     * @param buyerEmail String value for buyerEmail.
-     * @param recipientName String value for recipientName.
-     * @param recipientPhoneNumber String value for recipientPhoneNumber.
-     * @param state String value for state.
-     * @param shippingAddress Address value for shippingAddress.
-     * @param subtotalMoney V1Money value for subtotalMoney.
-     * @param totalShippingMoney V1Money value for totalShippingMoney.
-     * @param totalTaxMoney V1Money value for totalTaxMoney.
-     * @param totalPriceMoney V1Money value for totalPriceMoney.
-     * @param totalDiscountMoney V1Money value for totalDiscountMoney.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param expiresAt String value for expiresAt.
-     * @param paymentId String value for paymentId.
-     * @param buyerNote String value for buyerNote.
-     * @param completedNote String value for completedNote.
-     * @param refundedNote String value for refundedNote.
-     * @param canceledNote String value for canceledNote.
-     * @param tender V1Tender value for tender.
-     * @param orderHistory List of V1OrderHistoryEntry value for orderHistory.
-     * @param promoCode String value for promoCode.
-     * @param btcReceiveAddress String value for btcReceiveAddress.
-     * @param btcPriceSatoshi Double value for btcPriceSatoshi.
+     * @param  errors  List of Error value for errors.
+     * @param  id  String value for id.
+     * @param  buyerEmail  String value for buyerEmail.
+     * @param  recipientName  String value for recipientName.
+     * @param  recipientPhoneNumber  String value for recipientPhoneNumber.
+     * @param  state  String value for state.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  subtotalMoney  V1Money value for subtotalMoney.
+     * @param  totalShippingMoney  V1Money value for totalShippingMoney.
+     * @param  totalTaxMoney  V1Money value for totalTaxMoney.
+     * @param  totalPriceMoney  V1Money value for totalPriceMoney.
+     * @param  totalDiscountMoney  V1Money value for totalDiscountMoney.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  paymentId  String value for paymentId.
+     * @param  buyerNote  String value for buyerNote.
+     * @param  completedNote  String value for completedNote.
+     * @param  refundedNote  String value for refundedNote.
+     * @param  canceledNote  String value for canceledNote.
+     * @param  tender  V1Tender value for tender.
+     * @param  orderHistory  List of V1OrderHistoryEntry value for orderHistory.
+     * @param  promoCode  String value for promoCode.
+     * @param  btcReceiveAddress  String value for btcReceiveAddress.
+     * @param  btcPriceSatoshi  Double value for btcPriceSatoshi.
      */
     @JsonCreator
     public V1Order(
@@ -132,7 +158,7 @@ public class V1Order {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -142,7 +168,7 @@ public class V1Order {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -152,7 +178,7 @@ public class V1Order {
      */
     @JsonGetter("buyer_email")
     public String getBuyerEmail() {
-        return this.buyerEmail;
+        return buyerEmail;
     }
 
     /**
@@ -162,7 +188,7 @@ public class V1Order {
      */
     @JsonGetter("recipient_name")
     public String getRecipientName() {
-        return this.recipientName;
+        return recipientName;
     }
 
     /**
@@ -172,7 +198,7 @@ public class V1Order {
      */
     @JsonGetter("recipient_phone_number")
     public String getRecipientPhoneNumber() {
-        return this.recipientPhoneNumber;
+        return recipientPhoneNumber;
     }
 
     /**
@@ -181,7 +207,7 @@ public class V1Order {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -191,7 +217,7 @@ public class V1Order {
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
-        return this.shippingAddress;
+        return shippingAddress;
     }
 
     /**
@@ -200,7 +226,7 @@ public class V1Order {
      */
     @JsonGetter("subtotal_money")
     public V1Money getSubtotalMoney() {
-        return this.subtotalMoney;
+        return subtotalMoney;
     }
 
     /**
@@ -209,7 +235,7 @@ public class V1Order {
      */
     @JsonGetter("total_shipping_money")
     public V1Money getTotalShippingMoney() {
-        return this.totalShippingMoney;
+        return totalShippingMoney;
     }
 
     /**
@@ -218,7 +244,7 @@ public class V1Order {
      */
     @JsonGetter("total_tax_money")
     public V1Money getTotalTaxMoney() {
-        return this.totalTaxMoney;
+        return totalTaxMoney;
     }
 
     /**
@@ -227,7 +253,7 @@ public class V1Order {
      */
     @JsonGetter("total_price_money")
     public V1Money getTotalPriceMoney() {
-        return this.totalPriceMoney;
+        return totalPriceMoney;
     }
 
     /**
@@ -236,7 +262,7 @@ public class V1Order {
      */
     @JsonGetter("total_discount_money")
     public V1Money getTotalDiscountMoney() {
-        return this.totalDiscountMoney;
+        return totalDiscountMoney;
     }
 
     /**
@@ -246,7 +272,7 @@ public class V1Order {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -256,7 +282,7 @@ public class V1Order {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -266,7 +292,7 @@ public class V1Order {
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
-        return this.expiresAt;
+        return expiresAt;
     }
 
     /**
@@ -276,7 +302,7 @@ public class V1Order {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -286,7 +312,7 @@ public class V1Order {
      */
     @JsonGetter("buyer_note")
     public String getBuyerNote() {
-        return this.buyerNote;
+        return buyerNote;
     }
 
     /**
@@ -296,7 +322,7 @@ public class V1Order {
      */
     @JsonGetter("completed_note")
     public String getCompletedNote() {
-        return this.completedNote;
+        return completedNote;
     }
 
     /**
@@ -306,7 +332,7 @@ public class V1Order {
      */
     @JsonGetter("refunded_note")
     public String getRefundedNote() {
-        return this.refundedNote;
+        return refundedNote;
     }
 
     /**
@@ -316,7 +342,7 @@ public class V1Order {
      */
     @JsonGetter("canceled_note")
     public String getCanceledNote() {
-        return this.canceledNote;
+        return canceledNote;
     }
 
     /**
@@ -338,7 +364,7 @@ public class V1Order {
      */
     @JsonGetter("tender")
     public V1Tender getTender() {
-        return this.tender;
+        return tender;
     }
 
     /**
@@ -348,7 +374,7 @@ public class V1Order {
      */
     @JsonGetter("order_history")
     public List<V1OrderHistoryEntry> getOrderHistory() {
-        return this.orderHistory;
+        return orderHistory;
     }
 
     /**
@@ -358,7 +384,7 @@ public class V1Order {
      */
     @JsonGetter("promo_code")
     public String getPromoCode() {
-        return this.promoCode;
+        return promoCode;
     }
 
     /**
@@ -368,7 +394,7 @@ public class V1Order {
      */
     @JsonGetter("btc_receive_address")
     public String getBtcReceiveAddress() {
-        return this.btcReceiveAddress;
+        return btcReceiveAddress;
     }
 
     /**
@@ -379,7 +405,7 @@ public class V1Order {
      */
     @JsonGetter("btc_price_satoshi")
     public Double getBtcPriceSatoshi() {
-        return this.btcPriceSatoshi;
+        return btcPriceSatoshi;
     }
 
     @Override
@@ -517,7 +543,7 @@ public class V1Order {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -527,7 +553,7 @@ public class V1Order {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -537,7 +563,7 @@ public class V1Order {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -547,7 +573,7 @@ public class V1Order {
 
         /**
          * Setter for buyerEmail.
-         * @param buyerEmail String value for buyerEmail.
+         * @param  buyerEmail  String value for buyerEmail.
          * @return Builder
          */
         public Builder buyerEmail(String buyerEmail) {
@@ -557,7 +583,7 @@ public class V1Order {
 
         /**
          * Setter for recipientName.
-         * @param recipientName String value for recipientName.
+         * @param  recipientName  String value for recipientName.
          * @return Builder
          */
         public Builder recipientName(String recipientName) {
@@ -567,7 +593,7 @@ public class V1Order {
 
         /**
          * Setter for recipientPhoneNumber.
-         * @param recipientPhoneNumber String value for recipientPhoneNumber.
+         * @param  recipientPhoneNumber  String value for recipientPhoneNumber.
          * @return Builder
          */
         public Builder recipientPhoneNumber(String recipientPhoneNumber) {
@@ -577,7 +603,7 @@ public class V1Order {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -587,7 +613,7 @@ public class V1Order {
 
         /**
          * Setter for shippingAddress.
-         * @param shippingAddress Address value for shippingAddress.
+         * @param  shippingAddress  Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
@@ -597,7 +623,7 @@ public class V1Order {
 
         /**
          * Setter for subtotalMoney.
-         * @param subtotalMoney V1Money value for subtotalMoney.
+         * @param  subtotalMoney  V1Money value for subtotalMoney.
          * @return Builder
          */
         public Builder subtotalMoney(V1Money subtotalMoney) {
@@ -607,7 +633,7 @@ public class V1Order {
 
         /**
          * Setter for totalShippingMoney.
-         * @param totalShippingMoney V1Money value for totalShippingMoney.
+         * @param  totalShippingMoney  V1Money value for totalShippingMoney.
          * @return Builder
          */
         public Builder totalShippingMoney(V1Money totalShippingMoney) {
@@ -617,7 +643,7 @@ public class V1Order {
 
         /**
          * Setter for totalTaxMoney.
-         * @param totalTaxMoney V1Money value for totalTaxMoney.
+         * @param  totalTaxMoney  V1Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(V1Money totalTaxMoney) {
@@ -627,7 +653,7 @@ public class V1Order {
 
         /**
          * Setter for totalPriceMoney.
-         * @param totalPriceMoney V1Money value for totalPriceMoney.
+         * @param  totalPriceMoney  V1Money value for totalPriceMoney.
          * @return Builder
          */
         public Builder totalPriceMoney(V1Money totalPriceMoney) {
@@ -637,7 +663,7 @@ public class V1Order {
 
         /**
          * Setter for totalDiscountMoney.
-         * @param totalDiscountMoney V1Money value for totalDiscountMoney.
+         * @param  totalDiscountMoney  V1Money value for totalDiscountMoney.
          * @return Builder
          */
         public Builder totalDiscountMoney(V1Money totalDiscountMoney) {
@@ -647,7 +673,7 @@ public class V1Order {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -657,7 +683,7 @@ public class V1Order {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -667,7 +693,7 @@ public class V1Order {
 
         /**
          * Setter for expiresAt.
-         * @param expiresAt String value for expiresAt.
+         * @param  expiresAt  String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
@@ -677,7 +703,7 @@ public class V1Order {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -687,7 +713,7 @@ public class V1Order {
 
         /**
          * Setter for buyerNote.
-         * @param buyerNote String value for buyerNote.
+         * @param  buyerNote  String value for buyerNote.
          * @return Builder
          */
         public Builder buyerNote(String buyerNote) {
@@ -697,7 +723,7 @@ public class V1Order {
 
         /**
          * Setter for completedNote.
-         * @param completedNote String value for completedNote.
+         * @param  completedNote  String value for completedNote.
          * @return Builder
          */
         public Builder completedNote(String completedNote) {
@@ -707,7 +733,7 @@ public class V1Order {
 
         /**
          * Setter for refundedNote.
-         * @param refundedNote String value for refundedNote.
+         * @param  refundedNote  String value for refundedNote.
          * @return Builder
          */
         public Builder refundedNote(String refundedNote) {
@@ -717,7 +743,7 @@ public class V1Order {
 
         /**
          * Setter for canceledNote.
-         * @param canceledNote String value for canceledNote.
+         * @param  canceledNote  String value for canceledNote.
          * @return Builder
          */
         public Builder canceledNote(String canceledNote) {
@@ -727,7 +753,7 @@ public class V1Order {
 
         /**
          * Setter for tender.
-         * @param tender V1Tender value for tender.
+         * @param  tender  V1Tender value for tender.
          * @return Builder
          */
         public Builder tender(V1Tender tender) {
@@ -737,7 +763,7 @@ public class V1Order {
 
         /**
          * Setter for orderHistory.
-         * @param orderHistory List of V1OrderHistoryEntry value for orderHistory.
+         * @param  orderHistory  List of V1OrderHistoryEntry value for orderHistory.
          * @return Builder
          */
         public Builder orderHistory(List<V1OrderHistoryEntry> orderHistory) {
@@ -747,7 +773,7 @@ public class V1Order {
 
         /**
          * Setter for promoCode.
-         * @param promoCode String value for promoCode.
+         * @param  promoCode  String value for promoCode.
          * @return Builder
          */
         public Builder promoCode(String promoCode) {
@@ -757,7 +783,7 @@ public class V1Order {
 
         /**
          * Setter for btcReceiveAddress.
-         * @param btcReceiveAddress String value for btcReceiveAddress.
+         * @param  btcReceiveAddress  String value for btcReceiveAddress.
          * @return Builder
          */
         public Builder btcReceiveAddress(String btcReceiveAddress) {
@@ -767,7 +793,7 @@ public class V1Order {
 
         /**
          * Setter for btcPriceSatoshi.
-         * @param btcPriceSatoshi Double value for btcPriceSatoshi.
+         * @param  btcPriceSatoshi  Double value for btcPriceSatoshi.
          * @return Builder
          */
         public Builder btcPriceSatoshi(Double btcPriceSatoshi) {

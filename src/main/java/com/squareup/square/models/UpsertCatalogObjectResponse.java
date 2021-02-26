@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class UpsertCatalogObjectResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject catalogObject;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogIdMapping> idMappings;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param catalogObject CatalogObject value for catalogObject.
-     * @param idMappings List of CatalogIdMapping value for idMappings.
+     * @param  errors  List of Error value for errors.
+     * @param  catalogObject  CatalogObject value for catalogObject.
+     * @param  idMappings  List of CatalogIdMapping value for idMappings.
      */
     @JsonCreator
     public UpsertCatalogObjectResponse(
@@ -44,7 +48,7 @@ public class UpsertCatalogObjectResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -79,7 +83,7 @@ public class UpsertCatalogObjectResponse {
      */
     @JsonGetter("catalog_object")
     public CatalogObject getCatalogObject() {
-        return this.catalogObject;
+        return catalogObject;
     }
 
     /**
@@ -89,7 +93,7 @@ public class UpsertCatalogObjectResponse {
      */
     @JsonGetter("id_mappings")
     public List<CatalogIdMapping> getIdMappings() {
-        return this.idMappings;
+        return idMappings;
     }
 
     @Override
@@ -147,7 +151,7 @@ public class UpsertCatalogObjectResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -157,7 +161,7 @@ public class UpsertCatalogObjectResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -167,7 +171,7 @@ public class UpsertCatalogObjectResponse {
 
         /**
          * Setter for catalogObject.
-         * @param catalogObject CatalogObject value for catalogObject.
+         * @param  catalogObject  CatalogObject value for catalogObject.
          * @return Builder
          */
         public Builder catalogObject(CatalogObject catalogObject) {
@@ -177,7 +181,7 @@ public class UpsertCatalogObjectResponse {
 
         /**
          * Setter for idMappings.
-         * @param idMappings List of CatalogIdMapping value for idMappings.
+         * @param  idMappings  List of CatalogIdMapping value for idMappings.
          * @return Builder
          */
         public Builder idMappings(List<CatalogIdMapping> idMappings) {

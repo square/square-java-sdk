@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,25 +12,34 @@ import java.util.Objects;
  * This is a model class for OrderReturn type.
  */
 public class OrderReturn {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceOrderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnLineItem> returnLineItems;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnServiceCharge> returnServiceCharges;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnTax> returnTaxes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnDiscount> returnDiscounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderRoundingAdjustment roundingAdjustment;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts returnAmounts;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param sourceOrderId String value for sourceOrderId.
-     * @param returnLineItems List of OrderReturnLineItem value for returnLineItems.
-     * @param returnServiceCharges List of OrderReturnServiceCharge value for returnServiceCharges.
-     * @param returnTaxes List of OrderReturnTax value for returnTaxes.
-     * @param returnDiscounts List of OrderReturnDiscount value for returnDiscounts.
-     * @param roundingAdjustment OrderRoundingAdjustment value for roundingAdjustment.
-     * @param returnAmounts OrderMoneyAmounts value for returnAmounts.
+     * @param  uid  String value for uid.
+     * @param  sourceOrderId  String value for sourceOrderId.
+     * @param  returnLineItems  List of OrderReturnLineItem value for returnLineItems.
+     * @param  returnServiceCharges  List of OrderReturnServiceCharge value for
+     *         returnServiceCharges.
+     * @param  returnTaxes  List of OrderReturnTax value for returnTaxes.
+     * @param  returnDiscounts  List of OrderReturnDiscount value for returnDiscounts.
+     * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
+     * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
      */
     @JsonCreator
     public OrderReturn(
@@ -58,7 +68,7 @@ public class OrderReturn {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -69,7 +79,7 @@ public class OrderReturn {
      */
     @JsonGetter("source_order_id")
     public String getSourceOrderId() {
-        return this.sourceOrderId;
+        return sourceOrderId;
     }
 
     /**
@@ -79,7 +89,7 @@ public class OrderReturn {
      */
     @JsonGetter("return_line_items")
     public List<OrderReturnLineItem> getReturnLineItems() {
-        return this.returnLineItems;
+        return returnLineItems;
     }
 
     /**
@@ -89,7 +99,7 @@ public class OrderReturn {
      */
     @JsonGetter("return_service_charges")
     public List<OrderReturnServiceCharge> getReturnServiceCharges() {
-        return this.returnServiceCharges;
+        return returnServiceCharges;
     }
 
     /**
@@ -100,7 +110,7 @@ public class OrderReturn {
      */
     @JsonGetter("return_taxes")
     public List<OrderReturnTax> getReturnTaxes() {
-        return this.returnTaxes;
+        return returnTaxes;
     }
 
     /**
@@ -112,7 +122,7 @@ public class OrderReturn {
      */
     @JsonGetter("return_discounts")
     public List<OrderReturnDiscount> getReturnDiscounts() {
-        return this.returnDiscounts;
+        return returnDiscounts;
     }
 
     /**
@@ -123,7 +133,7 @@ public class OrderReturn {
      */
     @JsonGetter("rounding_adjustment")
     public OrderRoundingAdjustment getRoundingAdjustment() {
-        return this.roundingAdjustment;
+        return roundingAdjustment;
     }
 
     /**
@@ -133,7 +143,7 @@ public class OrderReturn {
      */
     @JsonGetter("return_amounts")
     public OrderMoneyAmounts getReturnAmounts() {
-        return this.returnAmounts;
+        return returnAmounts;
     }
 
     @Override
@@ -209,7 +219,7 @@ public class OrderReturn {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -219,7 +229,7 @@ public class OrderReturn {
 
         /**
          * Setter for sourceOrderId.
-         * @param sourceOrderId String value for sourceOrderId.
+         * @param  sourceOrderId  String value for sourceOrderId.
          * @return Builder
          */
         public Builder sourceOrderId(String sourceOrderId) {
@@ -229,7 +239,7 @@ public class OrderReturn {
 
         /**
          * Setter for returnLineItems.
-         * @param returnLineItems List of OrderReturnLineItem value for returnLineItems.
+         * @param  returnLineItems  List of OrderReturnLineItem value for returnLineItems.
          * @return Builder
          */
         public Builder returnLineItems(List<OrderReturnLineItem> returnLineItems) {
@@ -239,7 +249,8 @@ public class OrderReturn {
 
         /**
          * Setter for returnServiceCharges.
-         * @param returnServiceCharges List of OrderReturnServiceCharge value for returnServiceCharges.
+         * @param  returnServiceCharges  List of OrderReturnServiceCharge value for
+         *         returnServiceCharges.
          * @return Builder
          */
         public Builder returnServiceCharges(List<OrderReturnServiceCharge> returnServiceCharges) {
@@ -249,7 +260,7 @@ public class OrderReturn {
 
         /**
          * Setter for returnTaxes.
-         * @param returnTaxes List of OrderReturnTax value for returnTaxes.
+         * @param  returnTaxes  List of OrderReturnTax value for returnTaxes.
          * @return Builder
          */
         public Builder returnTaxes(List<OrderReturnTax> returnTaxes) {
@@ -259,7 +270,7 @@ public class OrderReturn {
 
         /**
          * Setter for returnDiscounts.
-         * @param returnDiscounts List of OrderReturnDiscount value for returnDiscounts.
+         * @param  returnDiscounts  List of OrderReturnDiscount value for returnDiscounts.
          * @return Builder
          */
         public Builder returnDiscounts(List<OrderReturnDiscount> returnDiscounts) {
@@ -269,7 +280,7 @@ public class OrderReturn {
 
         /**
          * Setter for roundingAdjustment.
-         * @param roundingAdjustment OrderRoundingAdjustment value for roundingAdjustment.
+         * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
          * @return Builder
          */
         public Builder roundingAdjustment(OrderRoundingAdjustment roundingAdjustment) {
@@ -279,7 +290,7 @@ public class OrderReturn {
 
         /**
          * Setter for returnAmounts.
-         * @param returnAmounts OrderMoneyAmounts value for returnAmounts.
+         * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
          * @return Builder
          */
         public Builder returnAmounts(OrderMoneyAmounts returnAmounts) {

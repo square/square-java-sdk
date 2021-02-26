@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for CatalogSubscriptionPlan type.
  */
 public class CatalogSubscriptionPlan {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SubscriptionPhase> phases;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param phases List of SubscriptionPhase value for phases.
+     * @param  name  String value for name.
+     * @param  phases  List of SubscriptionPhase value for phases.
      */
     @JsonCreator
     public CatalogSubscriptionPlan(
@@ -34,7 +37,7 @@ public class CatalogSubscriptionPlan {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -45,7 +48,7 @@ public class CatalogSubscriptionPlan {
      */
     @JsonGetter("phases")
     public List<SubscriptionPhase> getPhases() {
-        return this.phases;
+        return phases;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class CatalogSubscriptionPlan {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -108,7 +111,7 @@ public class CatalogSubscriptionPlan {
 
         /**
          * Setter for phases.
-         * @param phases List of SubscriptionPhase value for phases.
+         * @param  phases  List of SubscriptionPhase value for phases.
          * @return Builder
          */
         public Builder phases(List<SubscriptionPhase> phases) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,45 +11,64 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentPickupDetails type.
  */
 public class OrderFulfillmentPickupDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentRecipient recipient;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String autoCompleteDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scheduleType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickupAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickupWindowDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prepTimeDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String acceptedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rejectedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String readyAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiredAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickedUpAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isCurbsidePickup;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
     /**
      * Initialization constructor.
-     * @param recipient OrderFulfillmentRecipient value for recipient.
-     * @param expiresAt String value for expiresAt.
-     * @param autoCompleteDuration String value for autoCompleteDuration.
-     * @param scheduleType String value for scheduleType.
-     * @param pickupAt String value for pickupAt.
-     * @param pickupWindowDuration String value for pickupWindowDuration.
-     * @param prepTimeDuration String value for prepTimeDuration.
-     * @param note String value for note.
-     * @param placedAt String value for placedAt.
-     * @param acceptedAt String value for acceptedAt.
-     * @param rejectedAt String value for rejectedAt.
-     * @param readyAt String value for readyAt.
-     * @param expiredAt String value for expiredAt.
-     * @param pickedUpAt String value for pickedUpAt.
-     * @param canceledAt String value for canceledAt.
-     * @param cancelReason String value for cancelReason.
-     * @param isCurbsidePickup Boolean value for isCurbsidePickup.
-     * @param curbsidePickupDetails OrderFulfillmentPickupDetailsCurbsidePickupDetails value for curbsidePickupDetails.
+     * @param  recipient  OrderFulfillmentRecipient value for recipient.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  autoCompleteDuration  String value for autoCompleteDuration.
+     * @param  scheduleType  String value for scheduleType.
+     * @param  pickupAt  String value for pickupAt.
+     * @param  pickupWindowDuration  String value for pickupWindowDuration.
+     * @param  prepTimeDuration  String value for prepTimeDuration.
+     * @param  note  String value for note.
+     * @param  placedAt  String value for placedAt.
+     * @param  acceptedAt  String value for acceptedAt.
+     * @param  rejectedAt  String value for rejectedAt.
+     * @param  readyAt  String value for readyAt.
+     * @param  expiredAt  String value for expiredAt.
+     * @param  pickedUpAt  String value for pickedUpAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  isCurbsidePickup  Boolean value for isCurbsidePickup.
+     * @param  curbsidePickupDetails  OrderFulfillmentPickupDetailsCurbsidePickupDetails value for
+     *         curbsidePickupDetails.
      */
     @JsonCreator
     public OrderFulfillmentPickupDetails(
@@ -97,7 +117,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("recipient")
     public OrderFulfillmentRecipient getRecipient() {
-        return this.recipient;
+        return recipient;
     }
 
     /**
@@ -110,7 +130,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
-        return this.expiresAt;
+        return expiresAt;
     }
 
     /**
@@ -122,7 +142,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("auto_complete_duration")
     public String getAutoCompleteDuration() {
-        return this.autoCompleteDuration;
+        return autoCompleteDuration;
     }
 
     /**
@@ -132,7 +152,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("schedule_type")
     public String getScheduleType() {
-        return this.scheduleType;
+        return scheduleType;
     }
 
     /**
@@ -145,7 +165,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("pickup_at")
     public String getPickupAt() {
-        return this.pickupAt;
+        return pickupAt;
     }
 
     /**
@@ -157,7 +177,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("pickup_window_duration")
     public String getPickupWindowDuration() {
-        return this.pickupWindowDuration;
+        return pickupWindowDuration;
     }
 
     /**
@@ -168,7 +188,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("prep_time_duration")
     public String getPrepTimeDuration() {
-        return this.prepTimeDuration;
+        return prepTimeDuration;
     }
 
     /**
@@ -179,7 +199,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -190,7 +210,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("placed_at")
     public String getPlacedAt() {
-        return this.placedAt;
+        return placedAt;
     }
 
     /**
@@ -201,7 +221,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("accepted_at")
     public String getAcceptedAt() {
-        return this.acceptedAt;
+        return acceptedAt;
     }
 
     /**
@@ -212,7 +232,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("rejected_at")
     public String getRejectedAt() {
-        return this.rejectedAt;
+        return rejectedAt;
     }
 
     /**
@@ -223,7 +243,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("ready_at")
     public String getReadyAt() {
-        return this.readyAt;
+        return readyAt;
     }
 
     /**
@@ -234,7 +254,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("expired_at")
     public String getExpiredAt() {
-        return this.expiredAt;
+        return expiredAt;
     }
 
     /**
@@ -245,7 +265,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("picked_up_at")
     public String getPickedUpAt() {
-        return this.pickedUpAt;
+        return pickedUpAt;
     }
 
     /**
@@ -256,7 +276,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("canceled_at")
     public String getCanceledAt() {
-        return this.canceledAt;
+        return canceledAt;
     }
 
     /**
@@ -266,7 +286,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("cancel_reason")
     public String getCancelReason() {
-        return this.cancelReason;
+        return cancelReason;
     }
 
     /**
@@ -276,7 +296,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("is_curbside_pickup")
     public Boolean getIsCurbsidePickup() {
-        return this.isCurbsidePickup;
+        return isCurbsidePickup;
     }
 
     /**
@@ -286,7 +306,7 @@ public class OrderFulfillmentPickupDetails {
      */
     @JsonGetter("curbside_pickup_details")
     public OrderFulfillmentPickupDetailsCurbsidePickupDetails getCurbsidePickupDetails() {
-        return this.curbsidePickupDetails;
+        return curbsidePickupDetails;
     }
 
     @Override
@@ -398,7 +418,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for recipient.
-         * @param recipient OrderFulfillmentRecipient value for recipient.
+         * @param  recipient  OrderFulfillmentRecipient value for recipient.
          * @return Builder
          */
         public Builder recipient(OrderFulfillmentRecipient recipient) {
@@ -408,7 +428,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for expiresAt.
-         * @param expiresAt String value for expiresAt.
+         * @param  expiresAt  String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
@@ -418,7 +438,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for autoCompleteDuration.
-         * @param autoCompleteDuration String value for autoCompleteDuration.
+         * @param  autoCompleteDuration  String value for autoCompleteDuration.
          * @return Builder
          */
         public Builder autoCompleteDuration(String autoCompleteDuration) {
@@ -428,7 +448,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for scheduleType.
-         * @param scheduleType String value for scheduleType.
+         * @param  scheduleType  String value for scheduleType.
          * @return Builder
          */
         public Builder scheduleType(String scheduleType) {
@@ -438,7 +458,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for pickupAt.
-         * @param pickupAt String value for pickupAt.
+         * @param  pickupAt  String value for pickupAt.
          * @return Builder
          */
         public Builder pickupAt(String pickupAt) {
@@ -448,7 +468,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for pickupWindowDuration.
-         * @param pickupWindowDuration String value for pickupWindowDuration.
+         * @param  pickupWindowDuration  String value for pickupWindowDuration.
          * @return Builder
          */
         public Builder pickupWindowDuration(String pickupWindowDuration) {
@@ -458,7 +478,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for prepTimeDuration.
-         * @param prepTimeDuration String value for prepTimeDuration.
+         * @param  prepTimeDuration  String value for prepTimeDuration.
          * @return Builder
          */
         public Builder prepTimeDuration(String prepTimeDuration) {
@@ -468,7 +488,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -478,7 +498,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for placedAt.
-         * @param placedAt String value for placedAt.
+         * @param  placedAt  String value for placedAt.
          * @return Builder
          */
         public Builder placedAt(String placedAt) {
@@ -488,7 +508,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for acceptedAt.
-         * @param acceptedAt String value for acceptedAt.
+         * @param  acceptedAt  String value for acceptedAt.
          * @return Builder
          */
         public Builder acceptedAt(String acceptedAt) {
@@ -498,7 +518,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for rejectedAt.
-         * @param rejectedAt String value for rejectedAt.
+         * @param  rejectedAt  String value for rejectedAt.
          * @return Builder
          */
         public Builder rejectedAt(String rejectedAt) {
@@ -508,7 +528,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for readyAt.
-         * @param readyAt String value for readyAt.
+         * @param  readyAt  String value for readyAt.
          * @return Builder
          */
         public Builder readyAt(String readyAt) {
@@ -518,7 +538,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for expiredAt.
-         * @param expiredAt String value for expiredAt.
+         * @param  expiredAt  String value for expiredAt.
          * @return Builder
          */
         public Builder expiredAt(String expiredAt) {
@@ -528,7 +548,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for pickedUpAt.
-         * @param pickedUpAt String value for pickedUpAt.
+         * @param  pickedUpAt  String value for pickedUpAt.
          * @return Builder
          */
         public Builder pickedUpAt(String pickedUpAt) {
@@ -538,7 +558,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for canceledAt.
-         * @param canceledAt String value for canceledAt.
+         * @param  canceledAt  String value for canceledAt.
          * @return Builder
          */
         public Builder canceledAt(String canceledAt) {
@@ -548,7 +568,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for cancelReason.
-         * @param cancelReason String value for cancelReason.
+         * @param  cancelReason  String value for cancelReason.
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
@@ -558,7 +578,7 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for isCurbsidePickup.
-         * @param isCurbsidePickup Boolean value for isCurbsidePickup.
+         * @param  isCurbsidePickup  Boolean value for isCurbsidePickup.
          * @return Builder
          */
         public Builder isCurbsidePickup(Boolean isCurbsidePickup) {
@@ -568,10 +588,12 @@ public class OrderFulfillmentPickupDetails {
 
         /**
          * Setter for curbsidePickupDetails.
-         * @param curbsidePickupDetails OrderFulfillmentPickupDetailsCurbsidePickupDetails value for curbsidePickupDetails.
+         * @param  curbsidePickupDetails  OrderFulfillmentPickupDetailsCurbsidePickupDetails value
+         *         for curbsidePickupDetails.
          * @return Builder
          */
-        public Builder curbsidePickupDetails(OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
+        public Builder curbsidePickupDetails(
+                OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
             this.curbsidePickupDetails = curbsidePickupDetails;
             return this;
         }

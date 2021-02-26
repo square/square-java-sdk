@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogItemOptionValueForItemVariation type.
  */
 public class CatalogItemOptionValueForItemVariation {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionValueId;
 
     /**
      * Initialization constructor.
-     * @param itemOptionId String value for itemOptionId.
-     * @param itemOptionValueId String value for itemOptionValueId.
+     * @param  itemOptionId  String value for itemOptionId.
+     * @param  itemOptionValueId  String value for itemOptionValueId.
      */
     @JsonCreator
     public CatalogItemOptionValueForItemVariation(
@@ -33,7 +36,7 @@ public class CatalogItemOptionValueForItemVariation {
      */
     @JsonGetter("item_option_id")
     public String getItemOptionId() {
-        return this.itemOptionId;
+        return itemOptionId;
     }
 
     /**
@@ -43,7 +46,7 @@ public class CatalogItemOptionValueForItemVariation {
      */
     @JsonGetter("item_option_value_id")
     public String getItemOptionValueId() {
-        return this.itemOptionValueId;
+        return itemOptionValueId;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CatalogItemOptionValueForItemVariation {
 
         /**
          * Setter for itemOptionId.
-         * @param itemOptionId String value for itemOptionId.
+         * @param  itemOptionId  String value for itemOptionId.
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {
@@ -107,7 +110,7 @@ public class CatalogItemOptionValueForItemVariation {
 
         /**
          * Setter for itemOptionValueId.
-         * @param itemOptionValueId String value for itemOptionValueId.
+         * @param  itemOptionValueId  String value for itemOptionValueId.
          * @return Builder
          */
         public Builder itemOptionValueId(String itemOptionValueId) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class InvoiceQuery {
     private final InvoiceFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter InvoiceFilter value for filter.
-     * @param sort InvoiceSort value for sort.
+     * @param  filter  InvoiceFilter value for filter.
+     * @param  sort  InvoiceSort value for sort.
      */
     @JsonCreator
     public InvoiceQuery(
@@ -33,7 +35,7 @@ public class InvoiceQuery {
      */
     @JsonGetter("filter")
     public InvoiceFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -43,7 +45,7 @@ public class InvoiceQuery {
      */
     @JsonGetter("sort")
     public InvoiceSort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class InvoiceQuery {
 
         /**
          * Initialization constructor.
-         * @param filter InvoiceFilter value for filter.
+         * @param  filter  InvoiceFilter value for filter.
          */
         public Builder(InvoiceFilter filter) {
             this.filter = filter;
@@ -101,7 +103,7 @@ public class InvoiceQuery {
 
         /**
          * Setter for filter.
-         * @param filter InvoiceFilter value for filter.
+         * @param  filter  InvoiceFilter value for filter.
          * @return Builder
          */
         public Builder filter(InvoiceFilter filter) {
@@ -111,7 +113,7 @@ public class InvoiceQuery {
 
         /**
          * Setter for sort.
-         * @param sort InvoiceSort value for sort.
+         * @param  sort  InvoiceSort value for sort.
          * @return Builder
          */
         public Builder sort(InvoiceSort sort) {

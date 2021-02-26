@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for RetrieveInventoryChangesRequest type.
  */
 public class RetrieveInventoryChangesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param locationIds String value for locationIds.
-     * @param cursor String value for cursor.
+     * @param  locationIds  String value for locationIds.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public RetrieveInventoryChangesRequest(
@@ -34,7 +37,7 @@ public class RetrieveInventoryChangesRequest {
      */
     @JsonGetter("location_ids")
     public String getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -47,7 +50,7 @@ public class RetrieveInventoryChangesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -101,7 +104,7 @@ public class RetrieveInventoryChangesRequest {
 
         /**
          * Setter for locationIds.
-         * @param locationIds String value for locationIds.
+         * @param  locationIds  String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(String locationIds) {
@@ -111,7 +114,7 @@ public class RetrieveInventoryChangesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

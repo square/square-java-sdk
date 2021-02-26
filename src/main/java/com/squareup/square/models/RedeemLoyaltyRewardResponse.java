@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class RedeemLoyaltyRewardResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEvent event;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param event LoyaltyEvent value for event.
+     * @param  errors  List of Error value for errors.
+     * @param  event  LoyaltyEvent value for event.
      */
     @JsonCreator
     public RedeemLoyaltyRewardResponse(
@@ -40,7 +43,7 @@ public class RedeemLoyaltyRewardResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -51,7 +54,7 @@ public class RedeemLoyaltyRewardResponse {
      */
     @JsonGetter("event")
     public LoyaltyEvent getEvent() {
-        return this.event;
+        return event;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class RedeemLoyaltyRewardResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class RedeemLoyaltyRewardResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -125,7 +128,7 @@ public class RedeemLoyaltyRewardResponse {
 
         /**
          * Setter for event.
-         * @param event LoyaltyEvent value for event.
+         * @param  event  LoyaltyEvent value for event.
          * @return Builder
          */
         public Builder event(LoyaltyEvent event) {

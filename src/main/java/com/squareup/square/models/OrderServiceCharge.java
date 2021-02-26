@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
@@ -12,33 +13,45 @@ import java.util.Objects;
  * This is a model class for OrderServiceCharge type.
  */
 public class OrderServiceCharge {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculationPhase;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean taxable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedTax> appliedTaxes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param name String value for name.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param percentage String value for percentage.
-     * @param amountMoney Money value for amountMoney.
-     * @param appliedMoney Money value for appliedMoney.
-     * @param totalMoney Money value for totalMoney.
-     * @param totalTaxMoney Money value for totalTaxMoney.
-     * @param calculationPhase String value for calculationPhase.
-     * @param taxable Boolean value for taxable.
-     * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
-     * @param metadata Map of String, value for metadata.
+     * @param  uid  String value for uid.
+     * @param  name  String value for name.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  calculationPhase  String value for calculationPhase.
+     * @param  taxable  Boolean value for taxable.
+     * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
+     * @param  metadata  Map of String, value for metadata.
      */
     @JsonCreator
     public OrderServiceCharge(
@@ -75,7 +88,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -85,7 +98,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -95,7 +108,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -107,7 +120,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -122,7 +135,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -137,7 +150,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -152,7 +165,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -167,7 +180,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("total_tax_money")
     public Money getTotalTaxMoney() {
-        return this.totalTaxMoney;
+        return totalTaxMoney;
     }
 
     /**
@@ -179,7 +192,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("calculation_phase")
     public String getCalculationPhase() {
-        return this.calculationPhase;
+        return calculationPhase;
     }
 
     /**
@@ -191,7 +204,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("taxable")
     public Boolean getTaxable() {
-        return this.taxable;
+        return taxable;
     }
 
     /**
@@ -209,7 +222,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("applied_taxes")
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
-        return this.appliedTaxes;
+        return appliedTaxes;
     }
 
     /**
@@ -229,7 +242,7 @@ public class OrderServiceCharge {
      */
     @JsonGetter("metadata")
     public Map<String, String> getMetadata() {
-        return this.metadata;
+        return metadata;
     }
 
     @Override
@@ -318,7 +331,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -328,7 +341,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -338,7 +351,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -348,7 +361,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -358,7 +371,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -368,7 +381,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
@@ -378,7 +391,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney Money value for totalMoney.
+         * @param  totalMoney  Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
@@ -388,7 +401,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for totalTaxMoney.
-         * @param totalTaxMoney Money value for totalTaxMoney.
+         * @param  totalTaxMoney  Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(Money totalTaxMoney) {
@@ -398,7 +411,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for calculationPhase.
-         * @param calculationPhase String value for calculationPhase.
+         * @param  calculationPhase  String value for calculationPhase.
          * @return Builder
          */
         public Builder calculationPhase(String calculationPhase) {
@@ -408,7 +421,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for taxable.
-         * @param taxable Boolean value for taxable.
+         * @param  taxable  Boolean value for taxable.
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
@@ -418,7 +431,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for appliedTaxes.
-         * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
+         * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
          * @return Builder
          */
         public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
@@ -428,7 +441,7 @@ public class OrderServiceCharge {
 
         /**
          * Setter for metadata.
-         * @param metadata Map of String, value for metadata.
+         * @param  metadata  Map of String, value for metadata.
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,67 +12,96 @@ import java.util.Objects;
  * This is a model class for Payment type.
  */
 public class Payment {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ProcessingFee> processingFee;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money refundedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayAction;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayedUntil;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CardPaymentDetails cardDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> refundIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final RiskEvaluation riskEvaluation;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescriptionIdentifier;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param amountMoney Money value for amountMoney.
-     * @param tipMoney Money value for tipMoney.
-     * @param totalMoney Money value for totalMoney.
-     * @param appFeeMoney Money value for appFeeMoney.
-     * @param processingFee List of ProcessingFee value for processingFee.
-     * @param refundedMoney Money value for refundedMoney.
-     * @param status String value for status.
-     * @param delayDuration String value for delayDuration.
-     * @param delayAction String value for delayAction.
-     * @param delayedUntil String value for delayedUntil.
-     * @param sourceType String value for sourceType.
-     * @param cardDetails CardPaymentDetails value for cardDetails.
-     * @param locationId String value for locationId.
-     * @param orderId String value for orderId.
-     * @param referenceId String value for referenceId.
-     * @param customerId String value for customerId.
-     * @param employeeId String value for employeeId.
-     * @param refundIds List of String value for refundIds.
-     * @param riskEvaluation RiskEvaluation value for riskEvaluation.
-     * @param buyerEmailAddress String value for buyerEmailAddress.
-     * @param billingAddress Address value for billingAddress.
-     * @param shippingAddress Address value for shippingAddress.
-     * @param note String value for note.
-     * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
-     * @param receiptNumber String value for receiptNumber.
-     * @param receiptUrl String value for receiptUrl.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  processingFee  List of ProcessingFee value for processingFee.
+     * @param  refundedMoney  Money value for refundedMoney.
+     * @param  status  String value for status.
+     * @param  delayDuration  String value for delayDuration.
+     * @param  delayAction  String value for delayAction.
+     * @param  delayedUntil  String value for delayedUntil.
+     * @param  sourceType  String value for sourceType.
+     * @param  cardDetails  CardPaymentDetails value for cardDetails.
+     * @param  locationId  String value for locationId.
+     * @param  orderId  String value for orderId.
+     * @param  referenceId  String value for referenceId.
+     * @param  customerId  String value for customerId.
+     * @param  employeeId  String value for employeeId.
+     * @param  refundIds  List of String value for refundIds.
+     * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
+     * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  note  String value for note.
+     * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+     * @param  receiptNumber  String value for receiptNumber.
+     * @param  receiptUrl  String value for receiptUrl.
      */
     @JsonCreator
     public Payment(
@@ -142,7 +172,7 @@ public class Payment {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -152,7 +182,7 @@ public class Payment {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -162,7 +192,7 @@ public class Payment {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -177,7 +207,7 @@ public class Payment {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -192,7 +222,7 @@ public class Payment {
      */
     @JsonGetter("tip_money")
     public Money getTipMoney() {
-        return this.tipMoney;
+        return tipMoney;
     }
 
     /**
@@ -207,7 +237,7 @@ public class Payment {
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -222,7 +252,7 @@ public class Payment {
      */
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
-        return this.appFeeMoney;
+        return appFeeMoney;
     }
 
     /**
@@ -232,7 +262,7 @@ public class Payment {
      */
     @JsonGetter("processing_fee")
     public List<ProcessingFee> getProcessingFee() {
-        return this.processingFee;
+        return processingFee;
     }
 
     /**
@@ -247,7 +277,7 @@ public class Payment {
      */
     @JsonGetter("refunded_money")
     public Money getRefundedMoney() {
-        return this.refundedMoney;
+        return refundedMoney;
     }
 
     /**
@@ -257,7 +287,7 @@ public class Payment {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -272,7 +302,7 @@ public class Payment {
      */
     @JsonGetter("delay_duration")
     public String getDelayDuration() {
-        return this.delayDuration;
+        return delayDuration;
     }
 
     /**
@@ -283,7 +313,7 @@ public class Payment {
      */
     @JsonGetter("delay_action")
     public String getDelayAction() {
-        return this.delayAction;
+        return delayAction;
     }
 
     /**
@@ -296,7 +326,7 @@ public class Payment {
      */
     @JsonGetter("delayed_until")
     public String getDelayedUntil() {
-        return this.delayedUntil;
+        return delayedUntil;
     }
 
     /**
@@ -306,7 +336,7 @@ public class Payment {
      */
     @JsonGetter("source_type")
     public String getSourceType() {
-        return this.sourceType;
+        return sourceType;
     }
 
     /**
@@ -316,7 +346,7 @@ public class Payment {
      */
     @JsonGetter("card_details")
     public CardPaymentDetails getCardDetails() {
-        return this.cardDetails;
+        return cardDetails;
     }
 
     /**
@@ -326,7 +356,7 @@ public class Payment {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -336,7 +366,7 @@ public class Payment {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -346,7 +376,7 @@ public class Payment {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -356,7 +386,7 @@ public class Payment {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -366,7 +396,7 @@ public class Payment {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -376,7 +406,7 @@ public class Payment {
      */
     @JsonGetter("refund_ids")
     public List<String> getRefundIds() {
-        return this.refundIds;
+        return refundIds;
     }
 
     /**
@@ -389,7 +419,7 @@ public class Payment {
      */
     @JsonGetter("risk_evaluation")
     public RiskEvaluation getRiskEvaluation() {
-        return this.riskEvaluation;
+        return riskEvaluation;
     }
 
     /**
@@ -399,7 +429,7 @@ public class Payment {
      */
     @JsonGetter("buyer_email_address")
     public String getBuyerEmailAddress() {
-        return this.buyerEmailAddress;
+        return buyerEmailAddress;
     }
 
     /**
@@ -409,7 +439,7 @@ public class Payment {
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
-        return this.billingAddress;
+        return billingAddress;
     }
 
     /**
@@ -419,7 +449,7 @@ public class Payment {
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
-        return this.shippingAddress;
+        return shippingAddress;
     }
 
     /**
@@ -429,7 +459,7 @@ public class Payment {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -442,7 +472,7 @@ public class Payment {
      */
     @JsonGetter("statement_description_identifier")
     public String getStatementDescriptionIdentifier() {
-        return this.statementDescriptionIdentifier;
+        return statementDescriptionIdentifier;
     }
 
     /**
@@ -452,7 +482,7 @@ public class Payment {
      */
     @JsonGetter("receipt_number")
     public String getReceiptNumber() {
-        return this.receiptNumber;
+        return receiptNumber;
     }
 
     /**
@@ -462,7 +492,7 @@ public class Payment {
      */
     @JsonGetter("receipt_url")
     public String getReceiptUrl() {
-        return this.receiptUrl;
+        return receiptUrl;
     }
 
     @Override
@@ -613,7 +643,7 @@ public class Payment {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -623,7 +653,7 @@ public class Payment {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -633,7 +663,7 @@ public class Payment {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -643,7 +673,7 @@ public class Payment {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -653,7 +683,7 @@ public class Payment {
 
         /**
          * Setter for tipMoney.
-         * @param tipMoney Money value for tipMoney.
+         * @param  tipMoney  Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(Money tipMoney) {
@@ -663,7 +693,7 @@ public class Payment {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney Money value for totalMoney.
+         * @param  totalMoney  Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
@@ -673,7 +703,7 @@ public class Payment {
 
         /**
          * Setter for appFeeMoney.
-         * @param appFeeMoney Money value for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
@@ -683,7 +713,7 @@ public class Payment {
 
         /**
          * Setter for processingFee.
-         * @param processingFee List of ProcessingFee value for processingFee.
+         * @param  processingFee  List of ProcessingFee value for processingFee.
          * @return Builder
          */
         public Builder processingFee(List<ProcessingFee> processingFee) {
@@ -693,7 +723,7 @@ public class Payment {
 
         /**
          * Setter for refundedMoney.
-         * @param refundedMoney Money value for refundedMoney.
+         * @param  refundedMoney  Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(Money refundedMoney) {
@@ -703,7 +733,7 @@ public class Payment {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -713,7 +743,7 @@ public class Payment {
 
         /**
          * Setter for delayDuration.
-         * @param delayDuration String value for delayDuration.
+         * @param  delayDuration  String value for delayDuration.
          * @return Builder
          */
         public Builder delayDuration(String delayDuration) {
@@ -723,7 +753,7 @@ public class Payment {
 
         /**
          * Setter for delayAction.
-         * @param delayAction String value for delayAction.
+         * @param  delayAction  String value for delayAction.
          * @return Builder
          */
         public Builder delayAction(String delayAction) {
@@ -733,7 +763,7 @@ public class Payment {
 
         /**
          * Setter for delayedUntil.
-         * @param delayedUntil String value for delayedUntil.
+         * @param  delayedUntil  String value for delayedUntil.
          * @return Builder
          */
         public Builder delayedUntil(String delayedUntil) {
@@ -743,7 +773,7 @@ public class Payment {
 
         /**
          * Setter for sourceType.
-         * @param sourceType String value for sourceType.
+         * @param  sourceType  String value for sourceType.
          * @return Builder
          */
         public Builder sourceType(String sourceType) {
@@ -753,7 +783,7 @@ public class Payment {
 
         /**
          * Setter for cardDetails.
-         * @param cardDetails CardPaymentDetails value for cardDetails.
+         * @param  cardDetails  CardPaymentDetails value for cardDetails.
          * @return Builder
          */
         public Builder cardDetails(CardPaymentDetails cardDetails) {
@@ -763,7 +793,7 @@ public class Payment {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -773,7 +803,7 @@ public class Payment {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -783,7 +813,7 @@ public class Payment {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -793,7 +823,7 @@ public class Payment {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -803,7 +833,7 @@ public class Payment {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -813,7 +843,7 @@ public class Payment {
 
         /**
          * Setter for refundIds.
-         * @param refundIds List of String value for refundIds.
+         * @param  refundIds  List of String value for refundIds.
          * @return Builder
          */
         public Builder refundIds(List<String> refundIds) {
@@ -823,7 +853,7 @@ public class Payment {
 
         /**
          * Setter for riskEvaluation.
-         * @param riskEvaluation RiskEvaluation value for riskEvaluation.
+         * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
          * @return Builder
          */
         public Builder riskEvaluation(RiskEvaluation riskEvaluation) {
@@ -833,7 +863,7 @@ public class Payment {
 
         /**
          * Setter for buyerEmailAddress.
-         * @param buyerEmailAddress String value for buyerEmailAddress.
+         * @param  buyerEmailAddress  String value for buyerEmailAddress.
          * @return Builder
          */
         public Builder buyerEmailAddress(String buyerEmailAddress) {
@@ -843,7 +873,7 @@ public class Payment {
 
         /**
          * Setter for billingAddress.
-         * @param billingAddress Address value for billingAddress.
+         * @param  billingAddress  Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
@@ -853,7 +883,7 @@ public class Payment {
 
         /**
          * Setter for shippingAddress.
-         * @param shippingAddress Address value for shippingAddress.
+         * @param  shippingAddress  Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
@@ -863,7 +893,7 @@ public class Payment {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -873,7 +903,7 @@ public class Payment {
 
         /**
          * Setter for statementDescriptionIdentifier.
-         * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
+         * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
          * @return Builder
          */
         public Builder statementDescriptionIdentifier(String statementDescriptionIdentifier) {
@@ -883,7 +913,7 @@ public class Payment {
 
         /**
          * Setter for receiptNumber.
-         * @param receiptNumber String value for receiptNumber.
+         * @param  receiptNumber  String value for receiptNumber.
          * @return Builder
          */
         public Builder receiptNumber(String receiptNumber) {
@@ -893,7 +923,7 @@ public class Payment {
 
         /**
          * Setter for receiptUrl.
-         * @param receiptUrl String value for receiptUrl.
+         * @param  receiptUrl  String value for receiptUrl.
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {

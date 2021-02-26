@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class DeleteCatalogObjectResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> deletedObjectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deletedAt;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param deletedObjectIds List of String value for deletedObjectIds.
-     * @param deletedAt String value for deletedAt.
+     * @param  errors  List of Error value for errors.
+     * @param  deletedObjectIds  List of String value for deletedObjectIds.
+     * @param  deletedAt  String value for deletedAt.
      */
     @JsonCreator
     public DeleteCatalogObjectResponse(
@@ -44,7 +48,7 @@ public class DeleteCatalogObjectResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -56,7 +60,7 @@ public class DeleteCatalogObjectResponse {
      */
     @JsonGetter("deleted_object_ids")
     public List<String> getDeletedObjectIds() {
-        return this.deletedObjectIds;
+        return deletedObjectIds;
     }
 
     /**
@@ -67,7 +71,7 @@ public class DeleteCatalogObjectResponse {
      */
     @JsonGetter("deleted_at")
     public String getDeletedAt() {
-        return this.deletedAt;
+        return deletedAt;
     }
 
     @Override
@@ -125,7 +129,7 @@ public class DeleteCatalogObjectResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -135,7 +139,7 @@ public class DeleteCatalogObjectResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -145,7 +149,7 @@ public class DeleteCatalogObjectResponse {
 
         /**
          * Setter for deletedObjectIds.
-         * @param deletedObjectIds List of String value for deletedObjectIds.
+         * @param  deletedObjectIds  List of String value for deletedObjectIds.
          * @return Builder
          */
         public Builder deletedObjectIds(List<String> deletedObjectIds) {
@@ -155,7 +159,7 @@ public class DeleteCatalogObjectResponse {
 
         /**
          * Setter for deletedAt.
-         * @param deletedAt String value for deletedAt.
+         * @param  deletedAt  String value for deletedAt.
          * @return Builder
          */
         public Builder deletedAt(String deletedAt) {

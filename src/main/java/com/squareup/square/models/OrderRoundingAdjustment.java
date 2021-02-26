@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for OrderRoundingAdjustment type.
  */
 public class OrderRoundingAdjustment {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param name String value for name.
-     * @param amountMoney Money value for amountMoney.
+     * @param  uid  String value for uid.
+     * @param  name  String value for name.
+     * @param  amountMoney  Money value for amountMoney.
      */
     @JsonCreator
     public OrderRoundingAdjustment(
@@ -37,7 +41,7 @@ public class OrderRoundingAdjustment {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -47,7 +51,7 @@ public class OrderRoundingAdjustment {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -62,7 +66,7 @@ public class OrderRoundingAdjustment {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class OrderRoundingAdjustment {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -129,7 +133,7 @@ public class OrderRoundingAdjustment {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -139,7 +143,7 @@ public class OrderRoundingAdjustment {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {

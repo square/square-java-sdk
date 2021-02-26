@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,25 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventFilter type.
  */
 public class LoyaltyEventFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventLoyaltyAccountFilter loyaltyAccountFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventTypeFilter typeFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventDateTimeFilter dateTimeFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventLocationFilter locationFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventOrderFilter orderFilter;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountFilter LoyaltyEventLoyaltyAccountFilter value for loyaltyAccountFilter.
-     * @param typeFilter LoyaltyEventTypeFilter value for typeFilter.
-     * @param dateTimeFilter LoyaltyEventDateTimeFilter value for dateTimeFilter.
-     * @param locationFilter LoyaltyEventLocationFilter value for locationFilter.
-     * @param orderFilter LoyaltyEventOrderFilter value for orderFilter.
+     * @param  loyaltyAccountFilter  LoyaltyEventLoyaltyAccountFilter value for
+     *         loyaltyAccountFilter.
+     * @param  typeFilter  LoyaltyEventTypeFilter value for typeFilter.
+     * @param  dateTimeFilter  LoyaltyEventDateTimeFilter value for dateTimeFilter.
+     * @param  locationFilter  LoyaltyEventLocationFilter value for locationFilter.
+     * @param  orderFilter  LoyaltyEventOrderFilter value for orderFilter.
      */
     @JsonCreator
     public LoyaltyEventFilter(
@@ -45,7 +52,7 @@ public class LoyaltyEventFilter {
      */
     @JsonGetter("loyalty_account_filter")
     public LoyaltyEventLoyaltyAccountFilter getLoyaltyAccountFilter() {
-        return this.loyaltyAccountFilter;
+        return loyaltyAccountFilter;
     }
 
     /**
@@ -55,7 +62,7 @@ public class LoyaltyEventFilter {
      */
     @JsonGetter("type_filter")
     public LoyaltyEventTypeFilter getTypeFilter() {
-        return this.typeFilter;
+        return typeFilter;
     }
 
     /**
@@ -65,7 +72,7 @@ public class LoyaltyEventFilter {
      */
     @JsonGetter("date_time_filter")
     public LoyaltyEventDateTimeFilter getDateTimeFilter() {
-        return this.dateTimeFilter;
+        return dateTimeFilter;
     }
 
     /**
@@ -75,7 +82,7 @@ public class LoyaltyEventFilter {
      */
     @JsonGetter("location_filter")
     public LoyaltyEventLocationFilter getLocationFilter() {
-        return this.locationFilter;
+        return locationFilter;
     }
 
     /**
@@ -85,7 +92,7 @@ public class LoyaltyEventFilter {
      */
     @JsonGetter("order_filter")
     public LoyaltyEventOrderFilter getOrderFilter() {
-        return this.orderFilter;
+        return orderFilter;
     }
 
     @Override
@@ -150,17 +157,19 @@ public class LoyaltyEventFilter {
 
         /**
          * Setter for loyaltyAccountFilter.
-         * @param loyaltyAccountFilter LoyaltyEventLoyaltyAccountFilter value for loyaltyAccountFilter.
+         * @param  loyaltyAccountFilter  LoyaltyEventLoyaltyAccountFilter value for
+         *         loyaltyAccountFilter.
          * @return Builder
          */
-        public Builder loyaltyAccountFilter(LoyaltyEventLoyaltyAccountFilter loyaltyAccountFilter) {
+        public Builder loyaltyAccountFilter(
+                LoyaltyEventLoyaltyAccountFilter loyaltyAccountFilter) {
             this.loyaltyAccountFilter = loyaltyAccountFilter;
             return this;
         }
 
         /**
          * Setter for typeFilter.
-         * @param typeFilter LoyaltyEventTypeFilter value for typeFilter.
+         * @param  typeFilter  LoyaltyEventTypeFilter value for typeFilter.
          * @return Builder
          */
         public Builder typeFilter(LoyaltyEventTypeFilter typeFilter) {
@@ -170,7 +179,7 @@ public class LoyaltyEventFilter {
 
         /**
          * Setter for dateTimeFilter.
-         * @param dateTimeFilter LoyaltyEventDateTimeFilter value for dateTimeFilter.
+         * @param  dateTimeFilter  LoyaltyEventDateTimeFilter value for dateTimeFilter.
          * @return Builder
          */
         public Builder dateTimeFilter(LoyaltyEventDateTimeFilter dateTimeFilter) {
@@ -180,7 +189,7 @@ public class LoyaltyEventFilter {
 
         /**
          * Setter for locationFilter.
-         * @param locationFilter LoyaltyEventLocationFilter value for locationFilter.
+         * @param  locationFilter  LoyaltyEventLocationFilter value for locationFilter.
          * @return Builder
          */
         public Builder locationFilter(LoyaltyEventLocationFilter locationFilter) {
@@ -190,7 +199,7 @@ public class LoyaltyEventFilter {
 
         /**
          * Setter for orderFilter.
-         * @param orderFilter LoyaltyEventOrderFilter value for orderFilter.
+         * @param  orderFilter  LoyaltyEventOrderFilter value for orderFilter.
          * @return Builder
          */
         public Builder orderFilter(LoyaltyEventOrderFilter orderFilter) {

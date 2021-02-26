@@ -15,7 +15,7 @@ public class CatalogQueryItemsForTax {
 
     /**
      * Initialization constructor.
-     * @param taxIds List of String value for taxIds.
+     * @param  taxIds  List of String value for taxIds.
      */
     @JsonCreator
     public CatalogQueryItemsForTax(
@@ -30,7 +30,7 @@ public class CatalogQueryItemsForTax {
      */
     @JsonGetter("tax_ids")
     public List<String> getTaxIds() {
-        return this.taxIds;
+        return taxIds;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CatalogQueryItemsForTax {
 
         /**
          * Initialization constructor.
-         * @param taxIds List of String value for taxIds.
+         * @param  taxIds  List of String value for taxIds.
          */
         public Builder(List<String> taxIds) {
             this.taxIds = taxIds;
@@ -85,7 +85,7 @@ public class CatalogQueryItemsForTax {
 
         /**
          * Setter for taxIds.
-         * @param taxIds List of String value for taxIds.
+         * @param  taxIds  List of String value for taxIds.
          * @return Builder
          */
         public Builder taxIds(List<String> taxIds) {

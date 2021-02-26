@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class CreateCatalogImageRequest {
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject image;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param objectId String value for objectId.
-     * @param image CatalogObject value for image.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  objectId  String value for objectId.
+     * @param  image  CatalogObject value for image.
      */
     @JsonCreator
     public CreateCatalogImageRequest(
@@ -39,7 +42,7 @@ public class CreateCatalogImageRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -51,7 +54,7 @@ public class CreateCatalogImageRequest {
      */
     @JsonGetter("object_id")
     public String getObjectId() {
-        return this.objectId;
+        return objectId;
     }
 
     /**
@@ -86,7 +89,7 @@ public class CreateCatalogImageRequest {
      */
     @JsonGetter("image")
     public CatalogObject getImage() {
-        return this.image;
+        return image;
     }
 
     @Override
@@ -140,7 +143,7 @@ public class CreateCatalogImageRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -148,7 +151,7 @@ public class CreateCatalogImageRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -158,7 +161,7 @@ public class CreateCatalogImageRequest {
 
         /**
          * Setter for objectId.
-         * @param objectId String value for objectId.
+         * @param  objectId  String value for objectId.
          * @return Builder
          */
         public Builder objectId(String objectId) {
@@ -168,7 +171,7 @@ public class CreateCatalogImageRequest {
 
         /**
          * Setter for image.
-         * @param image CatalogObject value for image.
+         * @param  image  CatalogObject value for image.
          * @return Builder
          */
         public Builder image(CatalogObject image) {

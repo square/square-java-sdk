@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for ListCatalogRequest type.
  */
 public class ListCatalogRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String types;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param types String value for types.
-     * @param catalogVersion Long value for catalogVersion.
+     * @param  cursor  String value for cursor.
+     * @param  types  String value for types.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public ListCatalogRequest(
@@ -39,7 +43,7 @@ public class ListCatalogRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -52,7 +56,7 @@ public class ListCatalogRequest {
      */
     @JsonGetter("types")
     public String getTypes() {
-        return this.types;
+        return types;
     }
 
     /**
@@ -64,7 +68,7 @@ public class ListCatalogRequest {
      */
     @JsonGetter("catalog_version")
     public Long getCatalogVersion() {
-        return this.catalogVersion;
+        return catalogVersion;
     }
 
     @Override
@@ -121,7 +125,7 @@ public class ListCatalogRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -131,7 +135,7 @@ public class ListCatalogRequest {
 
         /**
          * Setter for types.
-         * @param types String value for types.
+         * @param  types  String value for types.
          * @return Builder
          */
         public Builder types(String types) {
@@ -141,7 +145,7 @@ public class ListCatalogRequest {
 
         /**
          * Setter for catalogVersion.
-         * @param catalogVersion Long value for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {

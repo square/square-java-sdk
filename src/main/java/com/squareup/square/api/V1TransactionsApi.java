@@ -2,7 +2,6 @@
 package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.models.V1BankAccount;
 import com.squareup.square.models.V1CreateRefundRequest;
 import com.squareup.square.models.V1Order;
 import com.squareup.square.models.V1Payment;
@@ -19,70 +18,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface V1TransactionsApi {
     /**
-     * Provides non-confidential details for all of a location's associated bank accounts. This
-     * endpoint does not provide full bank account numbers, and there is no way to obtain a full
-     * bank account number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the location to list bank accounts for.
-     * @return    Returns the List of V1BankAccount response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated    List<V1BankAccount> listBankAccounts(
-            final String locationId) throws ApiException, IOException;
-
-    /**
-     * Provides non-confidential details for all of a location's associated bank accounts. This
-     * endpoint does not provide full bank account numbers, and there is no way to obtain a full
-     * bank account number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the location to list bank accounts for.
-     * @return    Returns the List of V1BankAccount response from the API call
-     */
-    @Deprecated
-    CompletableFuture<List<V1BankAccount>> listBankAccountsAsync(
-            final String locationId);
-
-    /**
-     * Provides non-confidential details for a merchant's associated bank account. This endpoint
-     * does not provide full bank account numbers, and there is no way to obtain a full bank account
-     * number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the bank account's associated location.
-     * @param  bankAccountId  Required parameter: The bank account's Square-issued ID. You obtain
-     *         this value from Settlement objects returned.
-     * @return    Returns the V1BankAccount response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated    V1BankAccount retrieveBankAccount(
-            final String locationId,
-            final String bankAccountId) throws ApiException, IOException;
-
-    /**
-     * Provides non-confidential details for a merchant's associated bank account. This endpoint
-     * does not provide full bank account numbers, and there is no way to obtain a full bank account
-     * number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the bank account's associated location.
-     * @param  bankAccountId  Required parameter: The bank account's Square-issued ID. You obtain
-     *         this value from Settlement objects returned.
-     * @return    Returns the V1BankAccount response from the API call
-     */
-    @Deprecated
-    CompletableFuture<V1BankAccount> retrieveBankAccountAsync(
-            final String locationId,
-            final String bankAccountId);
-
-    /**
      * Provides summary information for a merchant's online store orders.
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  limit  Optional parameter: The maximum number of payments to return in a single
      *         response. This value cannot exceed 200.
      * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
@@ -101,7 +40,7 @@ public interface V1TransactionsApi {
      * Provides summary information for a merchant's online store orders.
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  limit  Optional parameter: The maximum number of payments to return in a single
      *         response. This value cannot exceed 200.
      * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
@@ -280,7 +219,7 @@ public interface V1TransactionsApi {
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
      *         ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this
      *         endpoint returns an error. Default value: The current time minus one year.
@@ -310,7 +249,7 @@ public interface V1TransactionsApi {
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
      *         ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this
      *         endpoint returns an error. Default value: The current time minus one year.

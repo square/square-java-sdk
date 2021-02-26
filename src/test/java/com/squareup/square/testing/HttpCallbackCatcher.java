@@ -1,3 +1,4 @@
+
 package com.squareup.square.testing;
 
 import com.squareup.square.http.client.HttpCallback;
@@ -6,7 +7,7 @@ import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 
 /**
- * An HTTPCallback that captures the request and response for use later
+ * An HTTPCallback that captures the request and response for use later.
  */
 public class HttpCallbackCatcher implements HttpCallback {
 
@@ -14,7 +15,7 @@ public class HttpCallbackCatcher implements HttpCallback {
     private HttpResponse response;
     
     /**
-     * Call back executed before the HTTP request is sent
+     * Call back executed before the HTTP request is sent.
      */
     public void onBeforeRequest(HttpRequest request) {
         // Nothing to do here
@@ -22,7 +23,7 @@ public class HttpCallbackCatcher implements HttpCallback {
 
     /**
      * Call back executed after the HTTP response is received
-     * but before the APICallback's handler is called
+     * but before the APICallback's handler is called.
      */
     public void onAfterResponse(HttpContext context) {
         setRequest(context.getRequest());
@@ -30,7 +31,7 @@ public class HttpCallbackCatcher implements HttpCallback {
     }
 
     /**
-     * Get the HTTP Request object associated with this API call 
+     * Get the HTTP Request object associated with this API call.
      * @return the HTTP Request
      */
     public HttpRequest getRequest() {
@@ -38,15 +39,15 @@ public class HttpCallbackCatcher implements HttpCallback {
     }
 
     /**
-     * Set the HTTP Request object associated with this API call
-     * @param request
+     * Set the HTTP Request object associated with this API call.
+     * @param request the HTTP Request
      */
     private void setRequest(HttpRequest prequest) {
         this.request = prequest;
     }
 
     /**
-     * Get the HTTP Response object associated with this API call
+     * Get the HTTP Response object associated with this API call.
      * @return the HTTP Response
      */
     public HttpResponse getResponse() {
@@ -54,8 +55,8 @@ public class HttpCallbackCatcher implements HttpCallback {
     }
 
     /**
-     * Get the HTTP Response object associated with this API call
-     * @param httpResponse
+     * Get the HTTP Response object associated with this API call.
+     * @param httpResponse the HTTP Response
      */
     private void setResponse(HttpResponse httpResponse) {
         this.response = httpResponse;

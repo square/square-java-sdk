@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for ShiftWorkday type.
  */
 public class ShiftWorkday {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DateRange dateRange;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String matchShiftsBy;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String defaultTimezone;
 
     /**
      * Initialization constructor.
-     * @param dateRange DateRange value for dateRange.
-     * @param matchShiftsBy String value for matchShiftsBy.
-     * @param defaultTimezone String value for defaultTimezone.
+     * @param  dateRange  DateRange value for dateRange.
+     * @param  matchShiftsBy  String value for matchShiftsBy.
+     * @param  defaultTimezone  String value for defaultTimezone.
      */
     @JsonCreator
     public ShiftWorkday(
@@ -38,7 +42,7 @@ public class ShiftWorkday {
      */
     @JsonGetter("date_range")
     public DateRange getDateRange() {
-        return this.dateRange;
+        return dateRange;
     }
 
     /**
@@ -48,7 +52,7 @@ public class ShiftWorkday {
      */
     @JsonGetter("match_shifts_by")
     public String getMatchShiftsBy() {
-        return this.matchShiftsBy;
+        return matchShiftsBy;
     }
 
     /**
@@ -60,7 +64,7 @@ public class ShiftWorkday {
      */
     @JsonGetter("default_timezone")
     public String getDefaultTimezone() {
-        return this.defaultTimezone;
+        return defaultTimezone;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class ShiftWorkday {
 
         /**
          * Setter for dateRange.
-         * @param dateRange DateRange value for dateRange.
+         * @param  dateRange  DateRange value for dateRange.
          * @return Builder
          */
         public Builder dateRange(DateRange dateRange) {
@@ -127,7 +131,7 @@ public class ShiftWorkday {
 
         /**
          * Setter for matchShiftsBy.
-         * @param matchShiftsBy String value for matchShiftsBy.
+         * @param  matchShiftsBy  String value for matchShiftsBy.
          * @return Builder
          */
         public Builder matchShiftsBy(String matchShiftsBy) {
@@ -137,7 +141,7 @@ public class ShiftWorkday {
 
         /**
          * Setter for defaultTimezone.
-         * @param defaultTimezone String value for defaultTimezone.
+         * @param  defaultTimezone  String value for defaultTimezone.
          * @return Builder
          */
         public Builder defaultTimezone(String defaultTimezone) {

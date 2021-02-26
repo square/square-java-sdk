@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for SearchOrdersFulfillmentFilter type.
  */
 public class SearchOrdersFulfillmentFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fulfillmentTypes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fulfillmentStates;
 
     /**
      * Initialization constructor.
-     * @param fulfillmentTypes List of String value for fulfillmentTypes.
-     * @param fulfillmentStates List of String value for fulfillmentStates.
+     * @param  fulfillmentTypes  List of String value for fulfillmentTypes.
+     * @param  fulfillmentStates  List of String value for fulfillmentStates.
      */
     @JsonCreator
     public SearchOrdersFulfillmentFilter(
@@ -36,7 +39,7 @@ public class SearchOrdersFulfillmentFilter {
      */
     @JsonGetter("fulfillment_types")
     public List<String> getFulfillmentTypes() {
-        return this.fulfillmentTypes;
+        return fulfillmentTypes;
     }
 
     /**
@@ -48,7 +51,7 @@ public class SearchOrdersFulfillmentFilter {
      */
     @JsonGetter("fulfillment_states")
     public List<String> getFulfillmentStates() {
-        return this.fulfillmentStates;
+        return fulfillmentStates;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class SearchOrdersFulfillmentFilter {
 
         /**
          * Setter for fulfillmentTypes.
-         * @param fulfillmentTypes List of String value for fulfillmentTypes.
+         * @param  fulfillmentTypes  List of String value for fulfillmentTypes.
          * @return Builder
          */
         public Builder fulfillmentTypes(List<String> fulfillmentTypes) {
@@ -112,7 +115,7 @@ public class SearchOrdersFulfillmentFilter {
 
         /**
          * Setter for fulfillmentStates.
-         * @param fulfillmentStates List of String value for fulfillmentStates.
+         * @param  fulfillmentStates  List of String value for fulfillmentStates.
          * @return Builder
          */
         public Builder fulfillmentStates(List<String> fulfillmentStates) {

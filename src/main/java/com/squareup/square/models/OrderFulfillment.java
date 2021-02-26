@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
@@ -11,21 +12,27 @@ import java.util.Objects;
  * This is a model class for OrderFulfillment type.
  */
 public class OrderFulfillment {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentPickupDetails pickupDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentShipmentDetails shipmentDetails;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param type String value for type.
-     * @param state String value for state.
-     * @param metadata Map of String, value for metadata.
-     * @param pickupDetails OrderFulfillmentPickupDetails value for pickupDetails.
-     * @param shipmentDetails OrderFulfillmentShipmentDetails value for shipmentDetails.
+     * @param  uid  String value for uid.
+     * @param  type  String value for type.
+     * @param  state  String value for state.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  pickupDetails  OrderFulfillmentPickupDetails value for pickupDetails.
+     * @param  shipmentDetails  OrderFulfillmentShipmentDetails value for shipmentDetails.
      */
     @JsonCreator
     public OrderFulfillment(
@@ -50,7 +57,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -60,7 +67,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -70,7 +77,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -90,7 +97,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("metadata")
     public Map<String, String> getMetadata() {
-        return this.metadata;
+        return metadata;
     }
 
     /**
@@ -100,7 +107,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("pickup_details")
     public OrderFulfillmentPickupDetails getPickupDetails() {
-        return this.pickupDetails;
+        return pickupDetails;
     }
 
     /**
@@ -110,7 +117,7 @@ public class OrderFulfillment {
      */
     @JsonGetter("shipment_details")
     public OrderFulfillmentShipmentDetails getShipmentDetails() {
-        return this.shipmentDetails;
+        return shipmentDetails;
     }
 
     @Override
@@ -177,7 +184,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -187,7 +194,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -197,7 +204,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -207,7 +214,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for metadata.
-         * @param metadata Map of String, value for metadata.
+         * @param  metadata  Map of String, value for metadata.
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
@@ -217,7 +224,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for pickupDetails.
-         * @param pickupDetails OrderFulfillmentPickupDetails value for pickupDetails.
+         * @param  pickupDetails  OrderFulfillmentPickupDetails value for pickupDetails.
          * @return Builder
          */
         public Builder pickupDetails(OrderFulfillmentPickupDetails pickupDetails) {
@@ -227,7 +234,7 @@ public class OrderFulfillment {
 
         /**
          * Setter for shipmentDetails.
-         * @param shipmentDetails OrderFulfillmentShipmentDetails value for shipmentDetails.
+         * @param  shipmentDetails  OrderFulfillmentShipmentDetails value for shipmentDetails.
          * @return Builder
          */
         public Builder shipmentDetails(OrderFulfillmentShipmentDetails shipmentDetails) {

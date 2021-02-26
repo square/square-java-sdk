@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,14 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String name;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param uid String value for uid.
+     * @param  name  String value for name.
+     * @param  uid  String value for uid.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(
@@ -33,7 +35,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -43,7 +45,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
 
         /**
          * Initialization constructor.
-         * @param name String value for name.
+         * @param  name  String value for name.
          */
         public Builder(String name) {
             this.name = name;
@@ -103,7 +105,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -113,7 +115,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {

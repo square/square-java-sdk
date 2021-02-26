@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -15,25 +16,28 @@ public class Refund {
     private final String locationId;
     private final String transactionId;
     private final String tenderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
     private final String reason;
     private final Money amountMoney;
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money processingFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param locationId String value for locationId.
-     * @param transactionId String value for transactionId.
-     * @param tenderId String value for tenderId.
-     * @param reason String value for reason.
-     * @param amountMoney Money value for amountMoney.
-     * @param status String value for status.
-     * @param createdAt String value for createdAt.
-     * @param processingFeeMoney Money value for processingFeeMoney.
-     * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  transactionId  String value for transactionId.
+     * @param  tenderId  String value for tenderId.
+     * @param  reason  String value for reason.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  processingFeeMoney  Money value for processingFeeMoney.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      */
     @JsonCreator
     public Refund(
@@ -66,7 +70,7 @@ public class Refund {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -76,7 +80,7 @@ public class Refund {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -86,7 +90,7 @@ public class Refund {
      */
     @JsonGetter("transaction_id")
     public String getTransactionId() {
-        return this.transactionId;
+        return transactionId;
     }
 
     /**
@@ -96,7 +100,7 @@ public class Refund {
      */
     @JsonGetter("tender_id")
     public String getTenderId() {
-        return this.tenderId;
+        return tenderId;
     }
 
     /**
@@ -106,7 +110,7 @@ public class Refund {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -116,7 +120,7 @@ public class Refund {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -131,7 +135,7 @@ public class Refund {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -141,7 +145,7 @@ public class Refund {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -156,7 +160,7 @@ public class Refund {
      */
     @JsonGetter("processing_fee_money")
     public Money getProcessingFeeMoney() {
-        return this.processingFeeMoney;
+        return processingFeeMoney;
     }
 
     /**
@@ -167,7 +171,7 @@ public class Refund {
      */
     @JsonGetter("additional_recipients")
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return this.additionalRecipients;
+        return additionalRecipients;
     }
 
     @Override
@@ -241,21 +245,16 @@ public class Refund {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param locationId String value for locationId.
-         * @param transactionId String value for transactionId.
-         * @param tenderId String value for tenderId.
-         * @param reason String value for reason.
-         * @param amountMoney Money value for amountMoney.
-         * @param status String value for status.
+         * @param  id  String value for id.
+         * @param  locationId  String value for locationId.
+         * @param  transactionId  String value for transactionId.
+         * @param  tenderId  String value for tenderId.
+         * @param  reason  String value for reason.
+         * @param  amountMoney  Money value for amountMoney.
+         * @param  status  String value for status.
          */
-        public Builder(String id,
-                String locationId,
-                String transactionId,
-                String tenderId,
-                String reason,
-                Money amountMoney,
-                String status) {
+        public Builder(String id, String locationId, String transactionId, String tenderId,
+                String reason, Money amountMoney, String status) {
             this.id = id;
             this.locationId = locationId;
             this.transactionId = transactionId;
@@ -267,7 +266,7 @@ public class Refund {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -277,7 +276,7 @@ public class Refund {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -287,7 +286,7 @@ public class Refund {
 
         /**
          * Setter for transactionId.
-         * @param transactionId String value for transactionId.
+         * @param  transactionId  String value for transactionId.
          * @return Builder
          */
         public Builder transactionId(String transactionId) {
@@ -297,7 +296,7 @@ public class Refund {
 
         /**
          * Setter for tenderId.
-         * @param tenderId String value for tenderId.
+         * @param  tenderId  String value for tenderId.
          * @return Builder
          */
         public Builder tenderId(String tenderId) {
@@ -307,7 +306,7 @@ public class Refund {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -317,7 +316,7 @@ public class Refund {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -327,7 +326,7 @@ public class Refund {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -337,7 +336,7 @@ public class Refund {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -347,7 +346,7 @@ public class Refund {
 
         /**
          * Setter for processingFeeMoney.
-         * @param processingFeeMoney Money value for processingFeeMoney.
+         * @param  processingFeeMoney  Money value for processingFeeMoney.
          * @return Builder
          */
         public Builder processingFeeMoney(Money processingFeeMoney) {
@@ -357,7 +356,7 @@ public class Refund {
 
         /**
          * Setter for additionalRecipients.
-         * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
+         * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {

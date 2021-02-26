@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogObjectReference type.
  */
 public class CatalogObjectReference {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
      * Initialization constructor.
-     * @param objectId String value for objectId.
-     * @param catalogVersion Long value for catalogVersion.
+     * @param  objectId  String value for objectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public CatalogObjectReference(
@@ -33,7 +36,7 @@ public class CatalogObjectReference {
      */
     @JsonGetter("object_id")
     public String getObjectId() {
-        return this.objectId;
+        return objectId;
     }
 
     /**
@@ -43,7 +46,7 @@ public class CatalogObjectReference {
      */
     @JsonGetter("catalog_version")
     public Long getCatalogVersion() {
-        return this.catalogVersion;
+        return catalogVersion;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CatalogObjectReference {
 
         /**
          * Setter for objectId.
-         * @param objectId String value for objectId.
+         * @param  objectId  String value for objectId.
          * @return Builder
          */
         public Builder objectId(String objectId) {
@@ -107,7 +110,7 @@ public class CatalogObjectReference {
 
         /**
          * Setter for catalogVersion.
-         * @param catalogVersion Long value for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {

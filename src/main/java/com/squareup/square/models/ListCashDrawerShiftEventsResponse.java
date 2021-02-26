@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftEventsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CashDrawerShiftEvent> events;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param events List of CashDrawerShiftEvent value for events.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  events  List of CashDrawerShiftEvent value for events.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListCashDrawerShiftEventsResponse(
@@ -44,7 +48,7 @@ public class ListCashDrawerShiftEventsResponse {
      */
     @JsonGetter("events")
     public List<CashDrawerShiftEvent> getEvents() {
-        return this.events;
+        return events;
     }
 
     /**
@@ -54,7 +58,7 @@ public class ListCashDrawerShiftEventsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -64,7 +68,7 @@ public class ListCashDrawerShiftEventsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -122,7 +126,7 @@ public class ListCashDrawerShiftEventsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -132,7 +136,7 @@ public class ListCashDrawerShiftEventsResponse {
 
         /**
          * Setter for events.
-         * @param events List of CashDrawerShiftEvent value for events.
+         * @param  events  List of CashDrawerShiftEvent value for events.
          * @return Builder
          */
         public Builder events(List<CashDrawerShiftEvent> events) {
@@ -142,7 +146,7 @@ public class ListCashDrawerShiftEventsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -152,7 +156,7 @@ public class ListCashDrawerShiftEventsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

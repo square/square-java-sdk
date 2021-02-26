@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,15 +12,18 @@ import java.util.Objects;
  * This is a model class for ListDisputesRequest type.
  */
 public class ListDisputesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> states;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param states List of String value for states.
-     * @param locationId String value for locationId.
+     * @param  cursor  String value for cursor.
+     * @param  states  List of String value for states.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public ListDisputesRequest(
@@ -40,7 +44,7 @@ public class ListDisputesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -52,7 +56,7 @@ public class ListDisputesRequest {
      */
     @JsonGetter("states")
     public List<String> getStates() {
-        return this.states;
+        return states;
     }
 
     /**
@@ -64,7 +68,7 @@ public class ListDisputesRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -121,7 +125,7 @@ public class ListDisputesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -131,7 +135,7 @@ public class ListDisputesRequest {
 
         /**
          * Setter for states.
-         * @param states List of String value for states.
+         * @param  states  List of String value for states.
          * @return Builder
          */
         public Builder states(List<String> states) {
@@ -141,7 +145,7 @@ public class ListDisputesRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

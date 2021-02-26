@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchOrdersDateTimeFilter type.
  */
 public class SearchOrdersDateTimeFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange closedAt;
 
     /**
      * Initialization constructor.
-     * @param createdAt TimeRange value for createdAt.
-     * @param updatedAt TimeRange value for updatedAt.
-     * @param closedAt TimeRange value for closedAt.
+     * @param  createdAt  TimeRange value for createdAt.
+     * @param  updatedAt  TimeRange value for updatedAt.
+     * @param  closedAt  TimeRange value for closedAt.
      */
     @JsonCreator
     public SearchOrdersDateTimeFilter(
@@ -40,7 +44,7 @@ public class SearchOrdersDateTimeFilter {
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -53,7 +57,7 @@ public class SearchOrdersDateTimeFilter {
      */
     @JsonGetter("updated_at")
     public TimeRange getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -66,7 +70,7 @@ public class SearchOrdersDateTimeFilter {
      */
     @JsonGetter("closed_at")
     public TimeRange getClosedAt() {
-        return this.closedAt;
+        return closedAt;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class SearchOrdersDateTimeFilter {
 
         /**
          * Setter for createdAt.
-         * @param createdAt TimeRange value for createdAt.
+         * @param  createdAt  TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {
@@ -133,7 +137,7 @@ public class SearchOrdersDateTimeFilter {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt TimeRange value for updatedAt.
+         * @param  updatedAt  TimeRange value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(TimeRange updatedAt) {
@@ -143,7 +147,7 @@ public class SearchOrdersDateTimeFilter {
 
         /**
          * Setter for closedAt.
-         * @param closedAt TimeRange value for closedAt.
+         * @param  closedAt  TimeRange value for closedAt.
          * @return Builder
          */
         public Builder closedAt(TimeRange closedAt) {

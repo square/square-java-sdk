@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,30 @@ import java.util.Objects;
  * This is a model class for CustomerFilter type.
  */
 public class CustomerFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerCreationSourceFilter creationSource;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final FilterValue groupIds;
 
     /**
      * Initialization constructor.
-     * @param creationSource CustomerCreationSourceFilter value for creationSource.
-     * @param createdAt TimeRange value for createdAt.
-     * @param updatedAt TimeRange value for updatedAt.
-     * @param emailAddress CustomerTextFilter value for emailAddress.
-     * @param phoneNumber CustomerTextFilter value for phoneNumber.
-     * @param referenceId CustomerTextFilter value for referenceId.
-     * @param groupIds FilterValue value for groupIds.
+     * @param  creationSource  CustomerCreationSourceFilter value for creationSource.
+     * @param  createdAt  TimeRange value for createdAt.
+     * @param  updatedAt  TimeRange value for updatedAt.
+     * @param  emailAddress  CustomerTextFilter value for emailAddress.
+     * @param  phoneNumber  CustomerTextFilter value for phoneNumber.
+     * @param  referenceId  CustomerTextFilter value for referenceId.
+     * @param  groupIds  FilterValue value for groupIds.
      */
     @JsonCreator
     public CustomerFilter(
@@ -54,7 +62,7 @@ public class CustomerFilter {
      */
     @JsonGetter("creation_source")
     public CustomerCreationSourceFilter getCreationSource() {
-        return this.creationSource;
+        return creationSource;
     }
 
     /**
@@ -67,7 +75,7 @@ public class CustomerFilter {
      */
     @JsonGetter("created_at")
     public TimeRange getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -80,7 +88,7 @@ public class CustomerFilter {
      */
     @JsonGetter("updated_at")
     public TimeRange getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -92,7 +100,7 @@ public class CustomerFilter {
      */
     @JsonGetter("email_address")
     public CustomerTextFilter getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -104,7 +112,7 @@ public class CustomerFilter {
      */
     @JsonGetter("phone_number")
     public CustomerTextFilter getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -116,7 +124,7 @@ public class CustomerFilter {
      */
     @JsonGetter("reference_id")
     public CustomerTextFilter getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -128,7 +136,7 @@ public class CustomerFilter {
      */
     @JsonGetter("group_ids")
     public FilterValue getGroupIds() {
-        return this.groupIds;
+        return groupIds;
     }
 
     @Override
@@ -199,7 +207,7 @@ public class CustomerFilter {
 
         /**
          * Setter for creationSource.
-         * @param creationSource CustomerCreationSourceFilter value for creationSource.
+         * @param  creationSource  CustomerCreationSourceFilter value for creationSource.
          * @return Builder
          */
         public Builder creationSource(CustomerCreationSourceFilter creationSource) {
@@ -209,7 +217,7 @@ public class CustomerFilter {
 
         /**
          * Setter for createdAt.
-         * @param createdAt TimeRange value for createdAt.
+         * @param  createdAt  TimeRange value for createdAt.
          * @return Builder
          */
         public Builder createdAt(TimeRange createdAt) {
@@ -219,7 +227,7 @@ public class CustomerFilter {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt TimeRange value for updatedAt.
+         * @param  updatedAt  TimeRange value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(TimeRange updatedAt) {
@@ -229,7 +237,7 @@ public class CustomerFilter {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress CustomerTextFilter value for emailAddress.
+         * @param  emailAddress  CustomerTextFilter value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(CustomerTextFilter emailAddress) {
@@ -239,7 +247,7 @@ public class CustomerFilter {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber CustomerTextFilter value for phoneNumber.
+         * @param  phoneNumber  CustomerTextFilter value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(CustomerTextFilter phoneNumber) {
@@ -249,7 +257,7 @@ public class CustomerFilter {
 
         /**
          * Setter for referenceId.
-         * @param referenceId CustomerTextFilter value for referenceId.
+         * @param  referenceId  CustomerTextFilter value for referenceId.
          * @return Builder
          */
         public Builder referenceId(CustomerTextFilter referenceId) {
@@ -259,7 +267,7 @@ public class CustomerFilter {
 
         /**
          * Setter for groupIds.
-         * @param groupIds FilterValue value for groupIds.
+         * @param  groupIds  FilterValue value for groupIds.
          * @return Builder
          */
         public Builder groupIds(FilterValue groupIds) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CustomerPreferences type.
  */
 public class CustomerPreferences {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean emailUnsubscribed;
 
     /**
      * Initialization constructor.
-     * @param emailUnsubscribed Boolean value for emailUnsubscribed.
+     * @param  emailUnsubscribed  Boolean value for emailUnsubscribed.
      */
     @JsonCreator
     public CustomerPreferences(
@@ -29,7 +31,7 @@ public class CustomerPreferences {
      */
     @JsonGetter("email_unsubscribed")
     public Boolean getEmailUnsubscribed() {
-        return this.emailUnsubscribed;
+        return emailUnsubscribed;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class CustomerPreferences {
 
         /**
          * Setter for emailUnsubscribed.
-         * @param emailUnsubscribed Boolean value for emailUnsubscribed.
+         * @param  emailUnsubscribed  Boolean value for emailUnsubscribed.
          * @return Builder
          */
         public Builder emailUnsubscribed(Boolean emailUnsubscribed) {

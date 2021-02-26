@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,19 +12,24 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveInventoryCountsRequest type.
  */
 public class BatchRetrieveInventoryCountsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> catalogObjectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAfter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> states;
 
     /**
      * Initialization constructor.
-     * @param catalogObjectIds List of String value for catalogObjectIds.
-     * @param locationIds List of String value for locationIds.
-     * @param updatedAfter String value for updatedAfter.
-     * @param cursor String value for cursor.
-     * @param states List of String value for states.
+     * @param  catalogObjectIds  List of String value for catalogObjectIds.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  updatedAfter  String value for updatedAfter.
+     * @param  cursor  String value for cursor.
+     * @param  states  List of String value for states.
      */
     @JsonCreator
     public BatchRetrieveInventoryCountsRequest(
@@ -47,7 +53,7 @@ public class BatchRetrieveInventoryCountsRequest {
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {
-        return this.catalogObjectIds;
+        return catalogObjectIds;
     }
 
     /**
@@ -58,7 +64,7 @@ public class BatchRetrieveInventoryCountsRequest {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -70,7 +76,7 @@ public class BatchRetrieveInventoryCountsRequest {
      */
     @JsonGetter("updated_after")
     public String getUpdatedAfter() {
-        return this.updatedAfter;
+        return updatedAfter;
     }
 
     /**
@@ -83,7 +89,7 @@ public class BatchRetrieveInventoryCountsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -94,7 +100,7 @@ public class BatchRetrieveInventoryCountsRequest {
      */
     @JsonGetter("states")
     public List<String> getStates() {
-        return this.states;
+        return states;
     }
 
     @Override
@@ -158,7 +164,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
         /**
          * Setter for catalogObjectIds.
-         * @param catalogObjectIds List of String value for catalogObjectIds.
+         * @param  catalogObjectIds  List of String value for catalogObjectIds.
          * @return Builder
          */
         public Builder catalogObjectIds(List<String> catalogObjectIds) {
@@ -168,7 +174,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -178,7 +184,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
         /**
          * Setter for updatedAfter.
-         * @param updatedAfter String value for updatedAfter.
+         * @param  updatedAfter  String value for updatedAfter.
          * @return Builder
          */
         public Builder updatedAfter(String updatedAfter) {
@@ -188,7 +194,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -198,7 +204,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
         /**
          * Setter for states.
-         * @param states List of String value for states.
+         * @param  states  List of String value for states.
          * @return Builder
          */
         public Builder states(List<String> states) {

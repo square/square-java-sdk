@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CustomerSort type.
  */
 public class CustomerSort {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String field;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
 
     /**
      * Initialization constructor.
-     * @param field String value for field.
-     * @param order String value for order.
+     * @param  field  String value for field.
+     * @param  order  String value for order.
      */
     @JsonCreator
     public CustomerSort(
@@ -33,7 +36,7 @@ public class CustomerSort {
      */
     @JsonGetter("field")
     public String getField() {
-        return this.field;
+        return field;
     }
 
     /**
@@ -43,7 +46,7 @@ public class CustomerSort {
      */
     @JsonGetter("order")
     public String getOrder() {
-        return this.order;
+        return order;
     }
 
     @Override
@@ -96,7 +99,7 @@ public class CustomerSort {
 
         /**
          * Setter for field.
-         * @param field String value for field.
+         * @param  field  String value for field.
          * @return Builder
          */
         public Builder field(String field) {
@@ -106,7 +109,7 @@ public class CustomerSort {
 
         /**
          * Setter for order.
-         * @param order String value for order.
+         * @param  order  String value for order.
          * @return Builder
          */
         public Builder order(String order) {

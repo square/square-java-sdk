@@ -9,11 +9,11 @@ A request to accumulate points for a purchase.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `AccumulatePoints` | [`LoyaltyEventAccumulatePoints`](/doc/models/loyalty-event-accumulate-points.md) | Provides metadata when the event `type` is `ACCUMULATE_POINTS`. | LoyaltyEventAccumulatePoints getAccumulatePoints() |
-| `IdempotencyKey` | `String` | A unique string that identifies the `AccumulateLoyaltyPoints` request.<br>Keys can be any valid string but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
-| `LocationId` | `String` | The [location](#type-Location) where the purchase was made. | String getLocationId() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `AccumulatePoints` | [`LoyaltyEventAccumulatePoints`](/doc/models/loyalty-event-accumulate-points.md) | Required | Provides metadata when the event `type` is `ACCUMULATE_POINTS`. | LoyaltyEventAccumulatePoints getAccumulatePoints() |
+| `IdempotencyKey` | `String` | Required | A unique string that identifies the `AccumulateLoyaltyPoints` request.<br>Keys can be any valid string but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
+| `LocationId` | `String` | Required | The [location](#type-Location) where the purchase was made. | String getLocationId() |
 
 ## Example (as JSON)
 

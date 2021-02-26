@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class CreateDisputeEvidenceFileRequest {
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String contentType;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param evidenceType String value for evidenceType.
-     * @param contentType String value for contentType.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  evidenceType  String value for evidenceType.
+     * @param  contentType  String value for contentType.
      */
     @JsonCreator
     public CreateDisputeEvidenceFileRequest(
@@ -38,7 +41,7 @@ public class CreateDisputeEvidenceFileRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -48,7 +51,7 @@ public class CreateDisputeEvidenceFileRequest {
      */
     @JsonGetter("evidence_type")
     public String getEvidenceType() {
-        return this.evidenceType;
+        return evidenceType;
     }
 
     /**
@@ -59,7 +62,7 @@ public class CreateDisputeEvidenceFileRequest {
      */
     @JsonGetter("content_type")
     public String getContentType() {
-        return this.contentType;
+        return contentType;
     }
 
     @Override
@@ -113,7 +116,7 @@ public class CreateDisputeEvidenceFileRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -121,7 +124,7 @@ public class CreateDisputeEvidenceFileRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -131,7 +134,7 @@ public class CreateDisputeEvidenceFileRequest {
 
         /**
          * Setter for evidenceType.
-         * @param evidenceType String value for evidenceType.
+         * @param  evidenceType  String value for evidenceType.
          * @return Builder
          */
         public Builder evidenceType(String evidenceType) {
@@ -141,7 +144,7 @@ public class CreateDisputeEvidenceFileRequest {
 
         /**
          * Setter for contentType.
-         * @param contentType String value for contentType.
+         * @param  contentType  String value for contentType.
          * @return Builder
          */
         public Builder contentType(String contentType) {

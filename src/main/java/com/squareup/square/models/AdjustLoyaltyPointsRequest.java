@@ -15,8 +15,8 @@ public class AdjustLoyaltyPointsRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
      */
     @JsonCreator
     public AdjustLoyaltyPointsRequest(
@@ -34,7 +34,7 @@ public class AdjustLoyaltyPointsRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +44,7 @@ public class AdjustLoyaltyPointsRequest {
      */
     @JsonGetter("adjust_points")
     public LoyaltyEventAdjustPoints getAdjustPoints() {
-        return this.adjustPoints;
+        return adjustPoints;
     }
 
     @Override
@@ -94,18 +94,17 @@ public class AdjustLoyaltyPointsRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
          */
-        public Builder(String idempotencyKey,
-                LoyaltyEventAdjustPoints adjustPoints) {
+        public Builder(String idempotencyKey, LoyaltyEventAdjustPoints adjustPoints) {
             this.idempotencyKey = idempotencyKey;
             this.adjustPoints = adjustPoints;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -115,7 +114,7 @@ public class AdjustLoyaltyPointsRequest {
 
         /**
          * Setter for adjustPoints.
-         * @param adjustPoints LoyaltyEventAdjustPoints value for adjustPoints.
+         * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
          * @return Builder
          */
         public Builder adjustPoints(LoyaltyEventAdjustPoints adjustPoints) {

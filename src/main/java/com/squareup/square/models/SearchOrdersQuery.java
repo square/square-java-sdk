@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for SearchOrdersQuery type.
  */
 public class SearchOrdersQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter SearchOrdersFilter value for filter.
-     * @param sort SearchOrdersSort value for sort.
+     * @param  filter  SearchOrdersFilter value for filter.
+     * @param  sort  SearchOrdersSort value for sort.
      */
     @JsonCreator
     public SearchOrdersQuery(
@@ -34,7 +37,7 @@ public class SearchOrdersQuery {
      */
     @JsonGetter("filter")
     public SearchOrdersFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -44,7 +47,7 @@ public class SearchOrdersQuery {
      */
     @JsonGetter("sort")
     public SearchOrdersSort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class SearchOrdersQuery {
 
         /**
          * Setter for filter.
-         * @param filter SearchOrdersFilter value for filter.
+         * @param  filter  SearchOrdersFilter value for filter.
          * @return Builder
          */
         public Builder filter(SearchOrdersFilter filter) {
@@ -107,7 +110,7 @@ public class SearchOrdersQuery {
 
         /**
          * Setter for sort.
-         * @param sort SearchOrdersSort value for sort.
+         * @param  sort  SearchOrdersSort value for sort.
          * @return Builder
          */
         public Builder sort(SearchOrdersSort sort) {

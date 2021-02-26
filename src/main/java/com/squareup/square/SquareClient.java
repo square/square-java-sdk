@@ -38,7 +38,6 @@ import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
 import com.squareup.square.api.DefaultV1EmployeesApi;
-import com.squareup.square.api.DefaultV1ItemsApi;
 import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
@@ -59,7 +58,6 @@ import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
-import com.squareup.square.api.V1ItemsApi;
 import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
@@ -85,7 +83,6 @@ public final class SquareClient implements SquareClientInterface {
     private OAuthApi oAuth;
     private V1EmployeesApi v1Employees;
     private V1TransactionsApi v1Transactions;
-    private V1ItemsApi v1Items;
     private ApplePayApi applePay;
     private BankAccountsApi bankAccounts;
     private BookingsApi bookings;
@@ -116,6 +113,11 @@ public final class SquareClient implements SquareClientInterface {
      * Current API environment.
      */
     private final Environment environment;
+
+    /**
+     * Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`
+     */
+    private final String customUrl;
 
     /**
      * Square Connect API versions.
@@ -157,11 +159,12 @@ public final class SquareClient implements SquareClientInterface {
      */
     private final HttpCallback httpCallback;
 
-    private SquareClient(Environment environment, String squareVersion, HttpClient httpClient,
-            long timeout, ReadonlyHttpClientConfiguration httpClientConfig,
+    private SquareClient(Environment environment, String customUrl, String squareVersion,
+            HttpClient httpClient, long timeout, ReadonlyHttpClientConfiguration httpClientConfig,
             Headers additionalHeaders, String accessToken, Map<String, AuthManager> authManagers,
             HttpCallback httpCallback) {
         this.environment = environment;
+        this.customUrl = customUrl;
         this.squareVersion = squareVersion;
         this.httpClient = httpClient;
         this.timeout = timeout;
@@ -186,8 +189,6 @@ public final class SquareClient implements SquareClientInterface {
         v1Employees = new DefaultV1EmployeesApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         v1Transactions = new DefaultV1TransactionsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        v1Items = new DefaultV1ItemsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         applePay = new DefaultApplePayApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
@@ -275,14 +276,6 @@ public final class SquareClient implements SquareClientInterface {
      */
     public V1TransactionsApi getV1TransactionsApi() {
         return v1Transactions;
-    }
-
-    /**
-     * Get the instance of V1ItemsApi.
-     * @return v1Items
-     */
-    public V1ItemsApi getV1ItemsApi() {
-        return v1Items;
     }
 
     /**
@@ -494,6 +487,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`
+     * @return customUrl
+     */
+    public String getCustomUrl() {
+        return customUrl;
+    }
+
+    /**
      * Square Connect API versions.
      * @return squareVersion
      */
@@ -554,7 +555,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "8.1.0.20210121";
+        return "9.0.0.20210226";
     }
 
     /**
@@ -564,6 +565,8 @@ public final class SquareClient implements SquareClientInterface {
      */
     public String getBaseUri(Server server) {
         Map<String, SimpleEntry<Object, Boolean>> parameters = new HashMap<>();
+        parameters.put("custom_url",
+                new SimpleEntry<Object, Boolean>(this.customUrl, false));
         StringBuilder baseUrl = new StringBuilder(environmentMapper(environment, server));
         ApiHelper.appendUrlWithTemplateParameters(baseUrl, parameters);
         return baseUrl.toString();
@@ -594,6 +597,11 @@ public final class SquareClient implements SquareClientInterface {
                 return "https://connect.squareupsandbox.com";
             }
         }
+        if (environment.equals(Environment.CUSTOM)) {
+            if (server.equals(Server.ENUM_DEFAULT)) {
+                return "{custom_url}";
+            }
+        }
         return "https://connect.squareup.com";
     }
 
@@ -603,9 +611,10 @@ public final class SquareClient implements SquareClientInterface {
      */
     @Override
     public String toString() {
-        return "SquareClient [" + "environment=" + environment + ", squareVersion=" + squareVersion
-                + ", httpClientConfig=" + httpClientConfig + ", additionalHeaders="
-                + additionalHeaders + ", authManagers=" + authManagers + "]";
+        return "SquareClient [" + "environment=" + environment + ", customUrl=" + customUrl
+                + ", squareVersion=" + squareVersion + ", httpClientConfig=" + httpClientConfig
+                + ", additionalHeaders=" + additionalHeaders + ", authManagers=" + authManagers
+                + "]";
     }
 
     /**
@@ -616,6 +625,7 @@ public final class SquareClient implements SquareClientInterface {
     public Builder newBuilder() {
         Builder builder = new Builder();
         builder.environment = getEnvironment();
+        builder.customUrl = getCustomUrl();
         builder.squareVersion = getSquareVersion();
         builder.httpClient = getHttpClient();
         builder.timeout = getTimeout();
@@ -632,7 +642,8 @@ public final class SquareClient implements SquareClientInterface {
      */
     public static class Builder {
         private Environment environment = Environment.PRODUCTION;
-        private String squareVersion = "2021-01-21";
+        private String customUrl = "https://connect.squareup.com";
+        private String squareVersion = "2021-02-26";
         private HttpClient httpClient;
         private long timeout = 60;
         private Headers additionalHeaders = new Headers();
@@ -661,6 +672,16 @@ public final class SquareClient implements SquareClientInterface {
          */
         public Builder environment(Environment environment) {
             this.environment = environment;
+            return this;
+        }
+
+        /**
+         * Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`
+         * @param customUrl The customUrl for client.
+         * @return Builder
+         */
+        public Builder customUrl(String customUrl) {
+            this.customUrl = customUrl;
             return this;
         }
 
@@ -726,7 +747,7 @@ public final class SquareClient implements SquareClientInterface {
             httpClientConfig.setTimeout(timeout);
             httpClient = new OkClient(httpClientConfig);
 
-            return new SquareClient(environment, squareVersion, httpClient, timeout,
+            return new SquareClient(environment, customUrl, squareVersion, httpClient, timeout,
                     httpClientConfig, additionalHeaders, accessToken, authManagers, httpCallback);
         }
     }

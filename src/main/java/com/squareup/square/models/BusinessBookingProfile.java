@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,31 @@ import java.util.Objects;
  * This is a model class for BusinessBookingProfile type.
  */
 public class BusinessBookingProfile {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean bookingEnabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerTimezoneChoice;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bookingPolicy;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allowUserCancel;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessAppointmentSettings businessAppointmentSettings;
 
     /**
      * Initialization constructor.
-     * @param sellerId String value for sellerId.
-     * @param createdAt String value for createdAt.
-     * @param bookingEnabled Boolean value for bookingEnabled.
-     * @param customerTimezoneChoice String value for customerTimezoneChoice.
-     * @param bookingPolicy String value for bookingPolicy.
-     * @param allowUserCancel Boolean value for allowUserCancel.
-     * @param businessAppointmentSettings BusinessAppointmentSettings value for businessAppointmentSettings.
+     * @param  sellerId  String value for sellerId.
+     * @param  createdAt  String value for createdAt.
+     * @param  bookingEnabled  Boolean value for bookingEnabled.
+     * @param  customerTimezoneChoice  String value for customerTimezoneChoice.
+     * @param  bookingPolicy  String value for bookingPolicy.
+     * @param  allowUserCancel  Boolean value for allowUserCancel.
+     * @param  businessAppointmentSettings  BusinessAppointmentSettings value for
+     *         businessAppointmentSettings.
      */
     @JsonCreator
     public BusinessBookingProfile(
@@ -53,7 +62,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("seller_id")
     public String getSellerId() {
-        return this.sellerId;
+        return sellerId;
     }
 
     /**
@@ -63,7 +72,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -73,7 +82,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("booking_enabled")
     public Boolean getBookingEnabled() {
-        return this.bookingEnabled;
+        return bookingEnabled;
     }
 
     /**
@@ -83,7 +92,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("customer_timezone_choice")
     public String getCustomerTimezoneChoice() {
-        return this.customerTimezoneChoice;
+        return customerTimezoneChoice;
     }
 
     /**
@@ -93,7 +102,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("booking_policy")
     public String getBookingPolicy() {
-        return this.bookingPolicy;
+        return bookingPolicy;
     }
 
     /**
@@ -104,7 +113,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("allow_user_cancel")
     public Boolean getAllowUserCancel() {
-        return this.allowUserCancel;
+        return allowUserCancel;
     }
 
     /**
@@ -114,7 +123,7 @@ public class BusinessBookingProfile {
      */
     @JsonGetter("business_appointment_settings")
     public BusinessAppointmentSettings getBusinessAppointmentSettings() {
-        return this.businessAppointmentSettings;
+        return businessAppointmentSettings;
     }
 
     @Override
@@ -187,7 +196,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for sellerId.
-         * @param sellerId String value for sellerId.
+         * @param  sellerId  String value for sellerId.
          * @return Builder
          */
         public Builder sellerId(String sellerId) {
@@ -197,7 +206,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -207,7 +216,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for bookingEnabled.
-         * @param bookingEnabled Boolean value for bookingEnabled.
+         * @param  bookingEnabled  Boolean value for bookingEnabled.
          * @return Builder
          */
         public Builder bookingEnabled(Boolean bookingEnabled) {
@@ -217,7 +226,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for customerTimezoneChoice.
-         * @param customerTimezoneChoice String value for customerTimezoneChoice.
+         * @param  customerTimezoneChoice  String value for customerTimezoneChoice.
          * @return Builder
          */
         public Builder customerTimezoneChoice(String customerTimezoneChoice) {
@@ -227,7 +236,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for bookingPolicy.
-         * @param bookingPolicy String value for bookingPolicy.
+         * @param  bookingPolicy  String value for bookingPolicy.
          * @return Builder
          */
         public Builder bookingPolicy(String bookingPolicy) {
@@ -237,7 +246,7 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for allowUserCancel.
-         * @param allowUserCancel Boolean value for allowUserCancel.
+         * @param  allowUserCancel  Boolean value for allowUserCancel.
          * @return Builder
          */
         public Builder allowUserCancel(Boolean allowUserCancel) {
@@ -247,10 +256,12 @@ public class BusinessBookingProfile {
 
         /**
          * Setter for businessAppointmentSettings.
-         * @param businessAppointmentSettings BusinessAppointmentSettings value for businessAppointmentSettings.
+         * @param  businessAppointmentSettings  BusinessAppointmentSettings value for
+         *         businessAppointmentSettings.
          * @return Builder
          */
-        public Builder businessAppointmentSettings(BusinessAppointmentSettings businessAppointmentSettings) {
+        public Builder businessAppointmentSettings(
+                BusinessAppointmentSettings businessAppointmentSettings) {
             this.businessAppointmentSettings = businessAppointmentSettings;
             return this;
         }

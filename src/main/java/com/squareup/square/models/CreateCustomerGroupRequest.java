@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,14 @@ import java.util.Objects;
  * This is a model class for CreateCustomerGroupRequest type.
  */
 public class CreateCustomerGroupRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final CustomerGroup group;
 
     /**
      * Initialization constructor.
-     * @param group CustomerGroup value for group.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  group  CustomerGroup value for group.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateCustomerGroupRequest(
@@ -35,7 +37,7 @@ public class CreateCustomerGroupRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -47,7 +49,7 @@ public class CreateCustomerGroupRequest {
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
-        return this.group;
+        return group;
     }
 
     @Override
@@ -98,7 +100,7 @@ public class CreateCustomerGroupRequest {
 
         /**
          * Initialization constructor.
-         * @param group CustomerGroup value for group.
+         * @param  group  CustomerGroup value for group.
          */
         public Builder(CustomerGroup group) {
             this.group = group;
@@ -106,7 +108,7 @@ public class CreateCustomerGroupRequest {
 
         /**
          * Setter for group.
-         * @param group CustomerGroup value for group.
+         * @param  group  CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {
@@ -116,7 +118,7 @@ public class CreateCustomerGroupRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

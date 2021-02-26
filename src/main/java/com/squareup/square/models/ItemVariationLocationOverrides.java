@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for ItemVariationLocationOverrides type.
  */
 public class ItemVariationLocationOverrides {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean trackInventory;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inventoryAlertType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long inventoryAlertThreshold;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param priceMoney Money value for priceMoney.
-     * @param pricingType String value for pricingType.
-     * @param trackInventory Boolean value for trackInventory.
-     * @param inventoryAlertType String value for inventoryAlertType.
-     * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
+     * @param  locationId  String value for locationId.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  pricingType  String value for pricingType.
+     * @param  trackInventory  Boolean value for trackInventory.
+     * @param  inventoryAlertType  String value for inventoryAlertType.
+     * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
      */
     @JsonCreator
     public ItemVariationLocationOverrides(
@@ -49,7 +56,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -64,7 +71,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("price_money")
     public Money getPriceMoney() {
-        return this.priceMoney;
+        return priceMoney;
     }
 
     /**
@@ -75,7 +82,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("pricing_type")
     public String getPricingType() {
-        return this.pricingType;
+        return pricingType;
     }
 
     /**
@@ -85,7 +92,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("track_inventory")
     public Boolean getTrackInventory() {
-        return this.trackInventory;
+        return trackInventory;
     }
 
     /**
@@ -96,7 +103,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("inventory_alert_type")
     public String getInventoryAlertType() {
-        return this.inventoryAlertType;
+        return inventoryAlertType;
     }
 
     /**
@@ -108,7 +115,7 @@ public class ItemVariationLocationOverrides {
      */
     @JsonGetter("inventory_alert_threshold")
     public Long getInventoryAlertThreshold() {
-        return this.inventoryAlertThreshold;
+        return inventoryAlertThreshold;
     }
 
     @Override
@@ -177,7 +184,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -187,7 +194,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for priceMoney.
-         * @param priceMoney Money value for priceMoney.
+         * @param  priceMoney  Money value for priceMoney.
          * @return Builder
          */
         public Builder priceMoney(Money priceMoney) {
@@ -197,7 +204,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for pricingType.
-         * @param pricingType String value for pricingType.
+         * @param  pricingType  String value for pricingType.
          * @return Builder
          */
         public Builder pricingType(String pricingType) {
@@ -207,7 +214,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for trackInventory.
-         * @param trackInventory Boolean value for trackInventory.
+         * @param  trackInventory  Boolean value for trackInventory.
          * @return Builder
          */
         public Builder trackInventory(Boolean trackInventory) {
@@ -217,7 +224,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for inventoryAlertType.
-         * @param inventoryAlertType String value for inventoryAlertType.
+         * @param  inventoryAlertType  String value for inventoryAlertType.
          * @return Builder
          */
         public Builder inventoryAlertType(String inventoryAlertType) {
@@ -227,7 +234,7 @@ public class ItemVariationLocationOverrides {
 
         /**
          * Setter for inventoryAlertThreshold.
-         * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
+         * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
          * @return Builder
          */
         public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {

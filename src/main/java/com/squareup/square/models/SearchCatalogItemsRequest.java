@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,27 +12,37 @@ import java.util.Objects;
  * This is a model class for SearchCatalogItemsRequest type.
  */
 public class SearchCatalogItemsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String textFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> categoryIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> stockLevels;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> enabledLocationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productTypes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CustomAttributeFilter> customAttributeFilters;
 
     /**
      * Initialization constructor.
-     * @param textFilter String value for textFilter.
-     * @param categoryIds List of String value for categoryIds.
-     * @param stockLevels List of String value for stockLevels.
-     * @param enabledLocationIds List of String value for enabledLocationIds.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
-     * @param sortOrder String value for sortOrder.
-     * @param productTypes List of String value for productTypes.
-     * @param customAttributeFilters List of CustomAttributeFilter value for customAttributeFilters.
+     * @param  textFilter  String value for textFilter.
+     * @param  categoryIds  List of String value for categoryIds.
+     * @param  stockLevels  List of String value for stockLevels.
+     * @param  enabledLocationIds  List of String value for enabledLocationIds.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  productTypes  List of String value for productTypes.
+     * @param  customAttributeFilters  List of CustomAttributeFilter value for
+     *         customAttributeFilters.
      */
     @JsonCreator
     public SearchCatalogItemsRequest(
@@ -64,7 +75,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("text_filter")
     public String getTextFilter() {
-        return this.textFilter;
+        return textFilter;
     }
 
     /**
@@ -74,7 +85,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("category_ids")
     public List<String> getCategoryIds() {
-        return this.categoryIds;
+        return categoryIds;
     }
 
     /**
@@ -86,7 +97,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("stock_levels")
     public List<String> getStockLevels() {
-        return this.stockLevels;
+        return stockLevels;
     }
 
     /**
@@ -97,7 +108,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("enabled_location_ids")
     public List<String> getEnabledLocationIds() {
-        return this.enabledLocationIds;
+        return enabledLocationIds;
     }
 
     /**
@@ -108,7 +119,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -118,7 +129,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -128,7 +139,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     /**
@@ -139,7 +150,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("product_types")
     public List<String> getProductTypes() {
-        return this.productTypes;
+        return productTypes;
     }
 
     /**
@@ -152,7 +163,7 @@ public class SearchCatalogItemsRequest {
      */
     @JsonGetter("custom_attribute_filters")
     public List<CustomAttributeFilter> getCustomAttributeFilters() {
-        return this.customAttributeFilters;
+        return customAttributeFilters;
     }
 
     @Override
@@ -231,7 +242,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for textFilter.
-         * @param textFilter String value for textFilter.
+         * @param  textFilter  String value for textFilter.
          * @return Builder
          */
         public Builder textFilter(String textFilter) {
@@ -241,7 +252,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for categoryIds.
-         * @param categoryIds List of String value for categoryIds.
+         * @param  categoryIds  List of String value for categoryIds.
          * @return Builder
          */
         public Builder categoryIds(List<String> categoryIds) {
@@ -251,7 +262,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for stockLevels.
-         * @param stockLevels List of String value for stockLevels.
+         * @param  stockLevels  List of String value for stockLevels.
          * @return Builder
          */
         public Builder stockLevels(List<String> stockLevels) {
@@ -261,7 +272,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for enabledLocationIds.
-         * @param enabledLocationIds List of String value for enabledLocationIds.
+         * @param  enabledLocationIds  List of String value for enabledLocationIds.
          * @return Builder
          */
         public Builder enabledLocationIds(List<String> enabledLocationIds) {
@@ -271,7 +282,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -281,7 +292,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -291,7 +302,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
@@ -301,7 +312,7 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for productTypes.
-         * @param productTypes List of String value for productTypes.
+         * @param  productTypes  List of String value for productTypes.
          * @return Builder
          */
         public Builder productTypes(List<String> productTypes) {
@@ -311,10 +322,12 @@ public class SearchCatalogItemsRequest {
 
         /**
          * Setter for customAttributeFilters.
-         * @param customAttributeFilters List of CustomAttributeFilter value for customAttributeFilters.
+         * @param  customAttributeFilters  List of CustomAttributeFilter value for
+         *         customAttributeFilters.
          * @return Builder
          */
-        public Builder customAttributeFilters(List<CustomAttributeFilter> customAttributeFilters) {
+        public Builder customAttributeFilters(
+                List<CustomAttributeFilter> customAttributeFilters) {
             this.customAttributeFilters = customAttributeFilters;
             return this;
         }

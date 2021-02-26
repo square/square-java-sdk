@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,30 @@ import java.util.Objects;
  * This is a model class for CatalogDiscount type.
  */
 public class CatalogDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean pinRequired;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String labelColor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifyTaxBasis;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param discountType String value for discountType.
-     * @param percentage String value for percentage.
-     * @param amountMoney Money value for amountMoney.
-     * @param pinRequired Boolean value for pinRequired.
-     * @param labelColor String value for labelColor.
-     * @param modifyTaxBasis String value for modifyTaxBasis.
+     * @param  name  String value for name.
+     * @param  discountType  String value for discountType.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  pinRequired  Boolean value for pinRequired.
+     * @param  labelColor  String value for labelColor.
+     * @param  modifyTaxBasis  String value for modifyTaxBasis.
      */
     @JsonCreator
     public CatalogDiscount(
@@ -54,7 +62,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -64,7 +72,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("discount_type")
     public String getDiscountType() {
-        return this.discountType;
+        return discountType;
     }
 
     /**
@@ -77,7 +85,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -92,7 +100,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -103,7 +111,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("pin_required")
     public Boolean getPinRequired() {
-        return this.pinRequired;
+        return pinRequired;
     }
 
     /**
@@ -114,7 +122,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("label_color")
     public String getLabelColor() {
-        return this.labelColor;
+        return labelColor;
     }
 
     /**
@@ -123,7 +131,7 @@ public class CatalogDiscount {
      */
     @JsonGetter("modify_tax_basis")
     public String getModifyTaxBasis() {
-        return this.modifyTaxBasis;
+        return modifyTaxBasis;
     }
 
     @Override
@@ -195,7 +203,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -205,7 +213,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for discountType.
-         * @param discountType String value for discountType.
+         * @param  discountType  String value for discountType.
          * @return Builder
          */
         public Builder discountType(String discountType) {
@@ -215,7 +223,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -225,7 +233,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -235,7 +243,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for pinRequired.
-         * @param pinRequired Boolean value for pinRequired.
+         * @param  pinRequired  Boolean value for pinRequired.
          * @return Builder
          */
         public Builder pinRequired(Boolean pinRequired) {
@@ -245,7 +253,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for labelColor.
-         * @param labelColor String value for labelColor.
+         * @param  labelColor  String value for labelColor.
          * @return Builder
          */
         public Builder labelColor(String labelColor) {
@@ -255,7 +263,7 @@ public class CatalogDiscount {
 
         /**
          * Setter for modifyTaxBasis.
-         * @param modifyTaxBasis String value for modifyTaxBasis.
+         * @param  modifyTaxBasis  String value for modifyTaxBasis.
          * @return Builder
          */
         public Builder modifyTaxBasis(String modifyTaxBasis) {

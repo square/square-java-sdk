@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SourceApplication type.
  */
 public class SourceApplication {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String product;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
 
     /**
      * Initialization constructor.
-     * @param product String value for product.
-     * @param applicationId String value for applicationId.
-     * @param name String value for name.
+     * @param  product  String value for product.
+     * @param  applicationId  String value for applicationId.
+     * @param  name  String value for name.
      */
     @JsonCreator
     public SourceApplication(
@@ -37,7 +41,7 @@ public class SourceApplication {
      */
     @JsonGetter("product")
     public String getProduct() {
-        return this.product;
+        return product;
     }
 
     /**
@@ -48,7 +52,7 @@ public class SourceApplication {
      */
     @JsonGetter("application_id")
     public String getApplicationId() {
-        return this.applicationId;
+        return applicationId;
     }
 
     /**
@@ -59,7 +63,7 @@ public class SourceApplication {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class SourceApplication {
 
         /**
          * Setter for product.
-         * @param product String value for product.
+         * @param  product  String value for product.
          * @return Builder
          */
         public Builder product(String product) {
@@ -126,7 +130,7 @@ public class SourceApplication {
 
         /**
          * Setter for applicationId.
-         * @param applicationId String value for applicationId.
+         * @param  applicationId  String value for applicationId.
          * @return Builder
          */
         public Builder applicationId(String applicationId) {
@@ -136,7 +140,7 @@ public class SourceApplication {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {

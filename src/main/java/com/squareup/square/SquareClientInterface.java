@@ -29,7 +29,6 @@ import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1EmployeesApi;
-import com.squareup.square.api.V1ItemsApi;
 import com.squareup.square.api.V1TransactionsApi;
 
 /**
@@ -62,12 +61,6 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the V1TransactionsApi instance
      */
     V1TransactionsApi getV1TransactionsApi();
-
-    /**
-     * Provides access to V1Items controller.
-     * @return Returns the V1ItemsApi instance
-     */
-    V1ItemsApi getV1ItemsApi();
 
     /**
      * Provides access to ApplePay controller.

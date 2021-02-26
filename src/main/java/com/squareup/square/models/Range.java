@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for Range type.
  */
 public class Range {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String min;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String max;
 
     /**
      * Initialization constructor.
-     * @param min String value for min.
-     * @param max String value for max.
+     * @param  min  String value for min.
+     * @param  max  String value for max.
      */
     @JsonCreator
     public Range(
@@ -33,7 +36,7 @@ public class Range {
      */
     @JsonGetter("min")
     public String getMin() {
-        return this.min;
+        return min;
     }
 
     /**
@@ -43,7 +46,7 @@ public class Range {
      */
     @JsonGetter("max")
     public String getMax() {
-        return this.max;
+        return max;
     }
 
     @Override
@@ -96,7 +99,7 @@ public class Range {
 
         /**
          * Setter for min.
-         * @param min String value for min.
+         * @param  min  String value for min.
          * @return Builder
          */
         public Builder min(String min) {
@@ -106,7 +109,7 @@ public class Range {
 
         /**
          * Setter for max.
-         * @param max String value for max.
+         * @param  max  String value for max.
          * @return Builder
          */
         public Builder max(String max) {

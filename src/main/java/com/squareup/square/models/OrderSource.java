@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for OrderSource type.
  */
 public class OrderSource {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
+     * @param  name  String value for name.
      */
     @JsonCreator
     public OrderSource(
@@ -30,7 +32,7 @@ public class OrderSource {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class OrderSource {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogIdMapping type.
  */
 public class CatalogIdMapping {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
 
     /**
      * Initialization constructor.
-     * @param clientObjectId String value for clientObjectId.
-     * @param objectId String value for objectId.
+     * @param  clientObjectId  String value for clientObjectId.
+     * @param  objectId  String value for objectId.
      */
     @JsonCreator
     public CatalogIdMapping(
@@ -33,7 +36,7 @@ public class CatalogIdMapping {
      */
     @JsonGetter("client_object_id")
     public String getClientObjectId() {
-        return this.clientObjectId;
+        return clientObjectId;
     }
 
     /**
@@ -43,7 +46,7 @@ public class CatalogIdMapping {
      */
     @JsonGetter("object_id")
     public String getObjectId() {
-        return this.objectId;
+        return objectId;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CatalogIdMapping {
 
         /**
          * Setter for clientObjectId.
-         * @param clientObjectId String value for clientObjectId.
+         * @param  clientObjectId  String value for clientObjectId.
          * @return Builder
          */
         public Builder clientObjectId(String clientObjectId) {
@@ -107,7 +110,7 @@ public class CatalogIdMapping {
 
         /**
          * Setter for objectId.
-         * @param objectId String value for objectId.
+         * @param  objectId  String value for objectId.
          * @return Builder
          */
         public Builder objectId(String objectId) {

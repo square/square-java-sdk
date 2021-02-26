@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for V1PaymentItemDetail type.
  */
 public class V1PaymentItemDetail {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String categoryName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sku;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemVariationId;
 
     /**
      * Initialization constructor.
-     * @param categoryName String value for categoryName.
-     * @param sku String value for sku.
-     * @param itemId String value for itemId.
-     * @param itemVariationId String value for itemVariationId.
+     * @param  categoryName  String value for categoryName.
+     * @param  sku  String value for sku.
+     * @param  itemId  String value for itemId.
+     * @param  itemVariationId  String value for itemVariationId.
      */
     @JsonCreator
     public V1PaymentItemDetail(
@@ -41,7 +46,7 @@ public class V1PaymentItemDetail {
      */
     @JsonGetter("category_name")
     public String getCategoryName() {
-        return this.categoryName;
+        return categoryName;
     }
 
     /**
@@ -51,7 +56,7 @@ public class V1PaymentItemDetail {
      */
     @JsonGetter("sku")
     public String getSku() {
-        return this.sku;
+        return sku;
     }
 
     /**
@@ -61,7 +66,7 @@ public class V1PaymentItemDetail {
      */
     @JsonGetter("item_id")
     public String getItemId() {
-        return this.itemId;
+        return itemId;
     }
 
     /**
@@ -71,7 +76,7 @@ public class V1PaymentItemDetail {
      */
     @JsonGetter("item_variation_id")
     public String getItemVariationId() {
-        return this.itemVariationId;
+        return itemVariationId;
     }
 
     @Override
@@ -131,7 +136,7 @@ public class V1PaymentItemDetail {
 
         /**
          * Setter for categoryName.
-         * @param categoryName String value for categoryName.
+         * @param  categoryName  String value for categoryName.
          * @return Builder
          */
         public Builder categoryName(String categoryName) {
@@ -141,7 +146,7 @@ public class V1PaymentItemDetail {
 
         /**
          * Setter for sku.
-         * @param sku String value for sku.
+         * @param  sku  String value for sku.
          * @return Builder
          */
         public Builder sku(String sku) {
@@ -151,7 +156,7 @@ public class V1PaymentItemDetail {
 
         /**
          * Setter for itemId.
-         * @param itemId String value for itemId.
+         * @param  itemId  String value for itemId.
          * @return Builder
          */
         public Builder itemId(String itemId) {
@@ -161,7 +166,7 @@ public class V1PaymentItemDetail {
 
         /**
          * Setter for itemVariationId.
-         * @param itemVariationId String value for itemVariationId.
+         * @param  itemVariationId  String value for itemVariationId.
          * @return Builder
          */
         public Builder itemVariationId(String itemVariationId) {

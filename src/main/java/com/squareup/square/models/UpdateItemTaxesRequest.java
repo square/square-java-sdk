@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class UpdateItemTaxesRequest {
     private final List<String> itemIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxesToEnable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxesToDisable;
 
     /**
      * Initialization constructor.
-     * @param itemIds List of String value for itemIds.
-     * @param taxesToEnable List of String value for taxesToEnable.
-     * @param taxesToDisable List of String value for taxesToDisable.
+     * @param  itemIds  List of String value for itemIds.
+     * @param  taxesToEnable  List of String value for taxesToEnable.
+     * @param  taxesToDisable  List of String value for taxesToDisable.
      */
     @JsonCreator
     public UpdateItemTaxesRequest(
@@ -38,7 +41,7 @@ public class UpdateItemTaxesRequest {
      */
     @JsonGetter("item_ids")
     public List<String> getItemIds() {
-        return this.itemIds;
+        return itemIds;
     }
 
     /**
@@ -48,7 +51,7 @@ public class UpdateItemTaxesRequest {
      */
     @JsonGetter("taxes_to_enable")
     public List<String> getTaxesToEnable() {
-        return this.taxesToEnable;
+        return taxesToEnable;
     }
 
     /**
@@ -58,7 +61,7 @@ public class UpdateItemTaxesRequest {
      */
     @JsonGetter("taxes_to_disable")
     public List<String> getTaxesToDisable() {
-        return this.taxesToDisable;
+        return taxesToDisable;
     }
 
     @Override
@@ -112,7 +115,7 @@ public class UpdateItemTaxesRequest {
 
         /**
          * Initialization constructor.
-         * @param itemIds List of String value for itemIds.
+         * @param  itemIds  List of String value for itemIds.
          */
         public Builder(List<String> itemIds) {
             this.itemIds = itemIds;
@@ -120,7 +123,7 @@ public class UpdateItemTaxesRequest {
 
         /**
          * Setter for itemIds.
-         * @param itemIds List of String value for itemIds.
+         * @param  itemIds  List of String value for itemIds.
          * @return Builder
          */
         public Builder itemIds(List<String> itemIds) {
@@ -130,7 +133,7 @@ public class UpdateItemTaxesRequest {
 
         /**
          * Setter for taxesToEnable.
-         * @param taxesToEnable List of String value for taxesToEnable.
+         * @param  taxesToEnable  List of String value for taxesToEnable.
          * @return Builder
          */
         public Builder taxesToEnable(List<String> taxesToEnable) {
@@ -140,7 +143,7 @@ public class UpdateItemTaxesRequest {
 
         /**
          * Setter for taxesToDisable.
-         * @param taxesToDisable List of String value for taxesToDisable.
+         * @param  taxesToDisable  List of String value for taxesToDisable.
          * @return Builder
          */
         public Builder taxesToDisable(List<String> taxesToDisable) {

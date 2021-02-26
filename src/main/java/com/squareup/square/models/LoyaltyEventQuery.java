@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventQuery type.
  */
 public class LoyaltyEventQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventFilter filter;
 
     /**
      * Initialization constructor.
-     * @param filter LoyaltyEventFilter value for filter.
+     * @param  filter  LoyaltyEventFilter value for filter.
      */
     @JsonCreator
     public LoyaltyEventQuery(
@@ -30,7 +32,7 @@ public class LoyaltyEventQuery {
      */
     @JsonGetter("filter")
     public LoyaltyEventFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class LoyaltyEventQuery {
 
         /**
          * Setter for filter.
-         * @param filter LoyaltyEventFilter value for filter.
+         * @param  filter  LoyaltyEventFilter value for filter.
          * @return Builder
          */
         public Builder filter(LoyaltyEventFilter filter) {

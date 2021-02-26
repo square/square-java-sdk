@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for V1SettlementEntry type.
  */
 public class V1SettlementEntry {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money feeMoney;
 
     /**
      * Initialization constructor.
-     * @param paymentId String value for paymentId.
-     * @param type String value for type.
-     * @param amountMoney V1Money value for amountMoney.
-     * @param feeMoney V1Money value for feeMoney.
+     * @param  paymentId  String value for paymentId.
+     * @param  type  String value for type.
+     * @param  amountMoney  V1Money value for amountMoney.
+     * @param  feeMoney  V1Money value for feeMoney.
      */
     @JsonCreator
     public V1SettlementEntry(
@@ -41,7 +46,7 @@ public class V1SettlementEntry {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -50,7 +55,7 @@ public class V1SettlementEntry {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -59,7 +64,7 @@ public class V1SettlementEntry {
      */
     @JsonGetter("amount_money")
     public V1Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -68,7 +73,7 @@ public class V1SettlementEntry {
      */
     @JsonGetter("fee_money")
     public V1Money getFeeMoney() {
-        return this.feeMoney;
+        return feeMoney;
     }
 
     @Override
@@ -128,7 +133,7 @@ public class V1SettlementEntry {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -138,7 +143,7 @@ public class V1SettlementEntry {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -148,7 +153,7 @@ public class V1SettlementEntry {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney V1Money value for amountMoney.
+         * @param  amountMoney  V1Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(V1Money amountMoney) {
@@ -158,7 +163,7 @@ public class V1SettlementEntry {
 
         /**
          * Setter for feeMoney.
-         * @param feeMoney V1Money value for feeMoney.
+         * @param  feeMoney  V1Money value for feeMoney.
          * @return Builder
          */
         public Builder feeMoney(V1Money feeMoney) {

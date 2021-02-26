@@ -12,8 +12,8 @@ V1EmployeeRole
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The role's unique ID, Can only be set by Square. | String getId() |
-| `Name` | `String` |  | The role's merchant-defined name. | String getName() |
-| `Permissions` | [`List<String>`](/doc/models/v1-employee-role-permissions.md) |  | The role's permissions.<br>See [V1EmployeeRolePermissions](#type-v1employeerolepermissions) for possible values | List<String> getPermissions() |
+| `Name` | `String` | Required | The role's merchant-defined name. | String getName() |
+| `Permissions` | [`List<String>`](/doc/models/v1-employee-role-permissions.md) | Required | The role's permissions.<br>See [V1EmployeeRolePermissions](#type-v1employeerolepermissions) for possible values | List<String> getPermissions() |
 | `IsOwner` | `Boolean` | Optional | If true, employees with this role have all permissions, regardless of the values indicated in permissions. | Boolean getIsOwner() |
 | `CreatedAt` | `String` | Optional | The time when the employee entity was created, in ISO 8601 format. Is set by Square when the Role is created. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | The time when the employee entity was most recently updated, in ISO 8601 format. Is set by Square when the Role updated. | String getUpdatedAt() |

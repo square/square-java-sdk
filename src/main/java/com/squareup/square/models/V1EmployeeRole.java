@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,21 +14,25 @@ import java.util.Objects;
  */
 public class V1EmployeeRole {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String name;
     private final List<String> permissions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param permissions List of String value for permissions.
-     * @param id String value for id.
-     * @param isOwner Boolean value for isOwner.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  name  String value for name.
+     * @param  permissions  List of String value for permissions.
+     * @param  id  String value for id.
+     * @param  isOwner  Boolean value for isOwner.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public V1EmployeeRole(
@@ -56,7 +61,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -66,7 +71,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -77,7 +82,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("permissions")
     public List<String> getPermissions() {
-        return this.permissions;
+        return permissions;
     }
 
     /**
@@ -88,7 +93,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("is_owner")
     public Boolean getIsOwner() {
-        return this.isOwner;
+        return isOwner;
     }
 
     /**
@@ -99,7 +104,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -110,7 +115,7 @@ public class V1EmployeeRole {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -174,18 +179,17 @@ public class V1EmployeeRole {
 
         /**
          * Initialization constructor.
-         * @param name String value for name.
-         * @param permissions List of String value for permissions.
+         * @param  name  String value for name.
+         * @param  permissions  List of String value for permissions.
          */
-        public Builder(String name,
-                List<String> permissions) {
+        public Builder(String name, List<String> permissions) {
             this.name = name;
             this.permissions = permissions;
         }
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -195,7 +199,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -205,7 +209,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for permissions.
-         * @param permissions List of String value for permissions.
+         * @param  permissions  List of String value for permissions.
          * @return Builder
          */
         public Builder permissions(List<String> permissions) {
@@ -215,7 +219,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -225,7 +229,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for isOwner.
-         * @param isOwner Boolean value for isOwner.
+         * @param  isOwner  Boolean value for isOwner.
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
@@ -235,7 +239,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -245,7 +249,7 @@ public class V1EmployeeRole {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

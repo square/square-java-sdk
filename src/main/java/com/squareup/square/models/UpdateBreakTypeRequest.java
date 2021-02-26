@@ -14,7 +14,7 @@ public class UpdateBreakTypeRequest {
 
     /**
      * Initialization constructor.
-     * @param breakType BreakType value for breakType.
+     * @param  breakType  BreakType value for breakType.
      */
     @JsonCreator
     public UpdateBreakTypeRequest(
@@ -30,7 +30,7 @@ public class UpdateBreakTypeRequest {
      */
     @JsonGetter("break_type")
     public BreakType getBreakType() {
-        return this.breakType;
+        return breakType;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UpdateBreakTypeRequest {
 
         /**
          * Initialization constructor.
-         * @param breakType BreakType value for breakType.
+         * @param  breakType  BreakType value for breakType.
          */
         public Builder(BreakType breakType) {
             this.breakType = breakType;
@@ -85,7 +85,7 @@ public class UpdateBreakTypeRequest {
 
         /**
          * Setter for breakType.
-         * @param breakType BreakType value for breakType.
+         * @param  breakType  BreakType value for breakType.
          * @return Builder
          */
         public Builder breakType(BreakType breakType) {

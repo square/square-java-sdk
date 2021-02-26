@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentPickupDetailsCurbsidePickupDetails type.
  */
 public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String curbsideDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerArrivedAt;
 
     /**
      * Initialization constructor.
-     * @param curbsideDetails String value for curbsideDetails.
-     * @param buyerArrivedAt String value for buyerArrivedAt.
+     * @param  curbsideDetails  String value for curbsideDetails.
+     * @param  buyerArrivedAt  String value for buyerArrivedAt.
      */
     @JsonCreator
     public OrderFulfillmentPickupDetailsCurbsidePickupDetails(
@@ -33,7 +36,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
      */
     @JsonGetter("curbside_details")
     public String getCurbsideDetails() {
-        return this.curbsideDetails;
+        return curbsideDetails;
     }
 
     /**
@@ -44,7 +47,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
      */
     @JsonGetter("buyer_arrived_at")
     public String getBuyerArrivedAt() {
-        return this.buyerArrivedAt;
+        return buyerArrivedAt;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
 
         /**
          * Setter for curbsideDetails.
-         * @param curbsideDetails String value for curbsideDetails.
+         * @param  curbsideDetails  String value for curbsideDetails.
          * @return Builder
          */
         public Builder curbsideDetails(String curbsideDetails) {
@@ -109,7 +112,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
 
         /**
          * Setter for buyerArrivedAt.
-         * @param buyerArrivedAt String value for buyerArrivedAt.
+         * @param  buyerArrivedAt  String value for buyerArrivedAt.
          * @return Builder
          */
         public Builder buyerArrivedAt(String buyerArrivedAt) {

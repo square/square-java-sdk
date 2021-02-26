@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,16 +14,18 @@ public class V1CreateRefundRequest {
     private final String paymentId;
     private final String type;
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestIdempotenceKey;
 
     /**
      * Initialization constructor.
-     * @param paymentId String value for paymentId.
-     * @param type String value for type.
-     * @param reason String value for reason.
-     * @param refundedMoney V1Money value for refundedMoney.
-     * @param requestIdempotenceKey String value for requestIdempotenceKey.
+     * @param  paymentId  String value for paymentId.
+     * @param  type  String value for type.
+     * @param  reason  String value for reason.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  requestIdempotenceKey  String value for requestIdempotenceKey.
      */
     @JsonCreator
     public V1CreateRefundRequest(
@@ -46,7 +49,7 @@ public class V1CreateRefundRequest {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -55,7 +58,7 @@ public class V1CreateRefundRequest {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -65,7 +68,7 @@ public class V1CreateRefundRequest {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -74,7 +77,7 @@ public class V1CreateRefundRequest {
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
-        return this.refundedMoney;
+        return refundedMoney;
     }
 
     /**
@@ -85,7 +88,7 @@ public class V1CreateRefundRequest {
      */
     @JsonGetter("request_idempotence_key")
     public String getRequestIdempotenceKey() {
-        return this.requestIdempotenceKey;
+        return requestIdempotenceKey;
     }
 
     @Override
@@ -144,13 +147,11 @@ public class V1CreateRefundRequest {
 
         /**
          * Initialization constructor.
-         * @param paymentId String value for paymentId.
-         * @param type String value for type.
-         * @param reason String value for reason.
+         * @param  paymentId  String value for paymentId.
+         * @param  type  String value for type.
+         * @param  reason  String value for reason.
          */
-        public Builder(String paymentId,
-                String type,
-                String reason) {
+        public Builder(String paymentId, String type, String reason) {
             this.paymentId = paymentId;
             this.type = type;
             this.reason = reason;
@@ -158,7 +159,7 @@ public class V1CreateRefundRequest {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -168,7 +169,7 @@ public class V1CreateRefundRequest {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -178,7 +179,7 @@ public class V1CreateRefundRequest {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -188,7 +189,7 @@ public class V1CreateRefundRequest {
 
         /**
          * Setter for refundedMoney.
-         * @param refundedMoney V1Money value for refundedMoney.
+         * @param  refundedMoney  V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
@@ -198,7 +199,7 @@ public class V1CreateRefundRequest {
 
         /**
          * Setter for requestIdempotenceKey.
-         * @param requestIdempotenceKey String value for requestIdempotenceKey.
+         * @param  requestIdempotenceKey  String value for requestIdempotenceKey.
          * @return Builder
          */
         public Builder requestIdempotenceKey(String requestIdempotenceKey) {

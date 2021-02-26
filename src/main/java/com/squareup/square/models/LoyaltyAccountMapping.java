@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,19 @@ import java.util.Objects;
  * This is a model class for LoyaltyAccountMapping type.
  */
 public class LoyaltyAccountMapping {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String type;
     private final String value;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param value String value for value.
-     * @param id String value for id.
-     * @param createdAt String value for createdAt.
+     * @param  type  String value for type.
+     * @param  value  String value for value.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
      */
     @JsonCreator
     public LoyaltyAccountMapping(
@@ -41,7 +44,7 @@ public class LoyaltyAccountMapping {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -51,7 +54,7 @@ public class LoyaltyAccountMapping {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -61,7 +64,7 @@ public class LoyaltyAccountMapping {
      */
     @JsonGetter("value")
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     /**
@@ -71,7 +74,7 @@ public class LoyaltyAccountMapping {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     @Override
@@ -127,18 +130,17 @@ public class LoyaltyAccountMapping {
 
         /**
          * Initialization constructor.
-         * @param type String value for type.
-         * @param value String value for value.
+         * @param  type  String value for type.
+         * @param  value  String value for value.
          */
-        public Builder(String type,
-                String value) {
+        public Builder(String type, String value) {
             this.type = type;
             this.value = value;
         }
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -148,7 +150,7 @@ public class LoyaltyAccountMapping {
 
         /**
          * Setter for value.
-         * @param value String value for value.
+         * @param  value  String value for value.
          * @return Builder
          */
         public Builder value(String value) {
@@ -158,7 +160,7 @@ public class LoyaltyAccountMapping {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -168,7 +170,7 @@ public class LoyaltyAccountMapping {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

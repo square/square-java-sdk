@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for TeamMemberAssignedLocations type.
  */
 public class TeamMemberAssignedLocations {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String assignmentType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
 
     /**
      * Initialization constructor.
-     * @param assignmentType String value for assignmentType.
-     * @param locationIds List of String value for locationIds.
+     * @param  assignmentType  String value for assignmentType.
+     * @param  locationIds  List of String value for locationIds.
      */
     @JsonCreator
     public TeamMemberAssignedLocations(
@@ -34,7 +37,7 @@ public class TeamMemberAssignedLocations {
      */
     @JsonGetter("assignment_type")
     public String getAssignmentType() {
-        return this.assignmentType;
+        return assignmentType;
     }
 
     /**
@@ -44,7 +47,7 @@ public class TeamMemberAssignedLocations {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class TeamMemberAssignedLocations {
 
         /**
          * Setter for assignmentType.
-         * @param assignmentType String value for assignmentType.
+         * @param  assignmentType  String value for assignmentType.
          * @return Builder
          */
         public Builder assignmentType(String assignmentType) {
@@ -108,7 +111,7 @@ public class TeamMemberAssignedLocations {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class CatalogQueryRange {
     private final String attributeName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long attributeMinValue;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long attributeMaxValue;
 
     /**
      * Initialization constructor.
-     * @param attributeName String value for attributeName.
-     * @param attributeMinValue Long value for attributeMinValue.
-     * @param attributeMaxValue Long value for attributeMaxValue.
+     * @param  attributeName  String value for attributeName.
+     * @param  attributeMinValue  Long value for attributeMinValue.
+     * @param  attributeMaxValue  Long value for attributeMaxValue.
      */
     @JsonCreator
     public CatalogQueryRange(
@@ -37,7 +40,7 @@ public class CatalogQueryRange {
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
-        return this.attributeName;
+        return attributeName;
     }
 
     /**
@@ -47,7 +50,7 @@ public class CatalogQueryRange {
      */
     @JsonGetter("attribute_min_value")
     public Long getAttributeMinValue() {
-        return this.attributeMinValue;
+        return attributeMinValue;
     }
 
     /**
@@ -57,7 +60,7 @@ public class CatalogQueryRange {
      */
     @JsonGetter("attribute_max_value")
     public Long getAttributeMaxValue() {
-        return this.attributeMaxValue;
+        return attributeMaxValue;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class CatalogQueryRange {
 
         /**
          * Initialization constructor.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          */
         public Builder(String attributeName) {
             this.attributeName = attributeName;
@@ -119,7 +122,7 @@ public class CatalogQueryRange {
 
         /**
          * Setter for attributeName.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
@@ -129,7 +132,7 @@ public class CatalogQueryRange {
 
         /**
          * Setter for attributeMinValue.
-         * @param attributeMinValue Long value for attributeMinValue.
+         * @param  attributeMinValue  Long value for attributeMinValue.
          * @return Builder
          */
         public Builder attributeMinValue(Long attributeMinValue) {
@@ -139,7 +142,7 @@ public class CatalogQueryRange {
 
         /**
          * Setter for attributeMaxValue.
-         * @param attributeMaxValue Long value for attributeMaxValue.
+         * @param  attributeMaxValue  Long value for attributeMaxValue.
          * @return Builder
          */
         public Builder attributeMaxValue(Long attributeMaxValue) {

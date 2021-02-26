@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for Money type.
  */
 public class Money {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long amount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
 
     /**
      * Initialization constructor.
-     * @param amount Long value for amount.
-     * @param currency String value for currency.
+     * @param  amount  Long value for amount.
+     * @param  currency  String value for currency.
      */
     @JsonCreator
     public Money(
@@ -36,7 +39,7 @@ public class Money {
      */
     @JsonGetter("amount")
     public Long getAmount() {
-        return this.amount;
+        return amount;
     }
 
     /**
@@ -47,7 +50,7 @@ public class Money {
      */
     @JsonGetter("currency")
     public String getCurrency() {
-        return this.currency;
+        return currency;
     }
 
     @Override
@@ -100,7 +103,7 @@ public class Money {
 
         /**
          * Setter for amount.
-         * @param amount Long value for amount.
+         * @param  amount  Long value for amount.
          * @return Builder
          */
         public Builder amount(Long amount) {
@@ -110,7 +113,7 @@ public class Money {
 
         /**
          * Setter for currency.
-         * @param currency String value for currency.
+         * @param  currency  String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {

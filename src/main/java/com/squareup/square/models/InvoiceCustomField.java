@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for InvoiceCustomField type.
  */
 public class InvoiceCustomField {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String label;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String value;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placement;
 
     /**
      * Initialization constructor.
-     * @param label String value for label.
-     * @param value String value for value.
-     * @param placement String value for placement.
+     * @param  label  String value for label.
+     * @param  value  String value for value.
+     * @param  placement  String value for placement.
      */
     @JsonCreator
     public InvoiceCustomField(
@@ -37,7 +41,7 @@ public class InvoiceCustomField {
      */
     @JsonGetter("label")
     public String getLabel() {
-        return this.label;
+        return label;
     }
 
     /**
@@ -47,7 +51,7 @@ public class InvoiceCustomField {
      */
     @JsonGetter("value")
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     /**
@@ -58,7 +62,7 @@ public class InvoiceCustomField {
      */
     @JsonGetter("placement")
     public String getPlacement() {
-        return this.placement;
+        return placement;
     }
 
     @Override
@@ -115,7 +119,7 @@ public class InvoiceCustomField {
 
         /**
          * Setter for label.
-         * @param label String value for label.
+         * @param  label  String value for label.
          * @return Builder
          */
         public Builder label(String label) {
@@ -125,7 +129,7 @@ public class InvoiceCustomField {
 
         /**
          * Setter for value.
-         * @param value String value for value.
+         * @param  value  String value for value.
          * @return Builder
          */
         public Builder value(String value) {
@@ -135,7 +139,7 @@ public class InvoiceCustomField {
 
         /**
          * Setter for placement.
-         * @param placement String value for placement.
+         * @param  placement  String value for placement.
          * @return Builder
          */
         public Builder placement(String placement) {

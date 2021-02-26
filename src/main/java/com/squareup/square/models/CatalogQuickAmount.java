@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -12,15 +13,17 @@ import java.util.Objects;
 public class CatalogQuickAmount {
     private final String type;
     private final Money amount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long score;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long ordinal;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param amount Money value for amount.
-     * @param score Long value for score.
-     * @param ordinal Long value for ordinal.
+     * @param  type  String value for type.
+     * @param  amount  Money value for amount.
+     * @param  score  Long value for score.
+     * @param  ordinal  Long value for ordinal.
      */
     @JsonCreator
     public CatalogQuickAmount(
@@ -41,7 +44,7 @@ public class CatalogQuickAmount {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -56,7 +59,7 @@ public class CatalogQuickAmount {
      */
     @JsonGetter("amount")
     public Money getAmount() {
-        return this.amount;
+        return amount;
     }
 
     /**
@@ -67,7 +70,7 @@ public class CatalogQuickAmount {
      */
     @JsonGetter("score")
     public Long getScore() {
-        return this.score;
+        return score;
     }
 
     /**
@@ -77,7 +80,7 @@ public class CatalogQuickAmount {
      */
     @JsonGetter("ordinal")
     public Long getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     @Override
@@ -133,18 +136,17 @@ public class CatalogQuickAmount {
 
         /**
          * Initialization constructor.
-         * @param type String value for type.
-         * @param amount Money value for amount.
+         * @param  type  String value for type.
+         * @param  amount  Money value for amount.
          */
-        public Builder(String type,
-                Money amount) {
+        public Builder(String type, Money amount) {
             this.type = type;
             this.amount = amount;
         }
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -154,7 +156,7 @@ public class CatalogQuickAmount {
 
         /**
          * Setter for amount.
-         * @param amount Money value for amount.
+         * @param  amount  Money value for amount.
          * @return Builder
          */
         public Builder amount(Money amount) {
@@ -164,7 +166,7 @@ public class CatalogQuickAmount {
 
         /**
          * Setter for score.
-         * @param score Long value for score.
+         * @param  score  Long value for score.
          * @return Builder
          */
         public Builder score(Long score) {
@@ -174,7 +176,7 @@ public class CatalogQuickAmount {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Long value for ordinal.
+         * @param  ordinal  Long value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Long ordinal) {

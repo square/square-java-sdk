@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CatalogItemOptionForItem type.
  */
 public class CatalogItemOptionForItem {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionId;
 
     /**
      * Initialization constructor.
-     * @param itemOptionId String value for itemOptionId.
+     * @param  itemOptionId  String value for itemOptionId.
      */
     @JsonCreator
     public CatalogItemOptionForItem(
@@ -30,7 +32,7 @@ public class CatalogItemOptionForItem {
      */
     @JsonGetter("item_option_id")
     public String getItemOptionId() {
-        return this.itemOptionId;
+        return itemOptionId;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class CatalogItemOptionForItem {
 
         /**
          * Setter for itemOptionId.
-         * @param itemOptionId String value for itemOptionId.
+         * @param  itemOptionId  String value for itemOptionId.
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {

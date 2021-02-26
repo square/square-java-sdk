@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -13,35 +14,48 @@ import java.util.Objects;
 public class ChargeRequest {
     private final String idempotencyKey;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardNonce;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerCardId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean delayCapture;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param amountMoney Money value for amountMoney.
-     * @param cardNonce String value for cardNonce.
-     * @param customerCardId String value for customerCardId.
-     * @param delayCapture Boolean value for delayCapture.
-     * @param referenceId String value for referenceId.
-     * @param note String value for note.
-     * @param customerId String value for customerId.
-     * @param billingAddress Address value for billingAddress.
-     * @param shippingAddress Address value for shippingAddress.
-     * @param buyerEmailAddress String value for buyerEmailAddress.
-     * @param orderId String value for orderId.
-     * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
-     * @param verificationToken String value for verificationToken.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  cardNonce  String value for cardNonce.
+     * @param  customerCardId  String value for customerCardId.
+     * @param  delayCapture  Boolean value for delayCapture.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  customerId  String value for customerId.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  orderId  String value for orderId.
+     * @param  additionalRecipients  List of ChargeRequestAdditionalRecipient value for
+     *         additionalRecipients.
+     * @param  verificationToken  String value for verificationToken.
      */
     @JsonCreator
     public ChargeRequest(
@@ -85,7 +99,7 @@ public class ChargeRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -100,7 +114,7 @@ public class ChargeRequest {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -113,7 +127,7 @@ public class ChargeRequest {
      */
     @JsonGetter("card_nonce")
     public String getCardNonce() {
-        return this.cardNonce;
+        return cardNonce;
     }
 
     /**
@@ -125,7 +139,7 @@ public class ChargeRequest {
      */
     @JsonGetter("customer_card_id")
     public String getCustomerCardId() {
-        return this.customerCardId;
+        return customerCardId;
     }
 
     /**
@@ -138,7 +152,7 @@ public class ChargeRequest {
      */
     @JsonGetter("delay_capture")
     public Boolean getDelayCapture() {
-        return this.delayCapture;
+        return delayCapture;
     }
 
     /**
@@ -150,7 +164,7 @@ public class ChargeRequest {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -160,7 +174,7 @@ public class ChargeRequest {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -171,7 +185,7 @@ public class ChargeRequest {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -181,7 +195,7 @@ public class ChargeRequest {
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
-        return this.billingAddress;
+        return billingAddress;
     }
 
     /**
@@ -191,7 +205,7 @@ public class ChargeRequest {
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
-        return this.shippingAddress;
+        return shippingAddress;
     }
 
     /**
@@ -202,7 +216,7 @@ public class ChargeRequest {
      */
     @JsonGetter("buyer_email_address")
     public String getBuyerEmailAddress() {
-        return this.buyerEmailAddress;
+        return buyerEmailAddress;
     }
 
     /**
@@ -214,7 +228,7 @@ public class ChargeRequest {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -229,7 +243,7 @@ public class ChargeRequest {
      */
     @JsonGetter("additional_recipients")
     public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
-        return this.additionalRecipients;
+        return additionalRecipients;
     }
 
     /**
@@ -240,7 +254,7 @@ public class ChargeRequest {
      */
     @JsonGetter("verification_token")
     public String getVerificationToken() {
-        return this.verificationToken;
+        return verificationToken;
     }
 
     @Override
@@ -333,18 +347,17 @@ public class ChargeRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param amountMoney Money value for amountMoney.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String idempotencyKey,
-                Money amountMoney) {
+        public Builder(String idempotencyKey, Money amountMoney) {
             this.idempotencyKey = idempotencyKey;
             this.amountMoney = amountMoney;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -354,7 +367,7 @@ public class ChargeRequest {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -364,7 +377,7 @@ public class ChargeRequest {
 
         /**
          * Setter for cardNonce.
-         * @param cardNonce String value for cardNonce.
+         * @param  cardNonce  String value for cardNonce.
          * @return Builder
          */
         public Builder cardNonce(String cardNonce) {
@@ -374,7 +387,7 @@ public class ChargeRequest {
 
         /**
          * Setter for customerCardId.
-         * @param customerCardId String value for customerCardId.
+         * @param  customerCardId  String value for customerCardId.
          * @return Builder
          */
         public Builder customerCardId(String customerCardId) {
@@ -384,7 +397,7 @@ public class ChargeRequest {
 
         /**
          * Setter for delayCapture.
-         * @param delayCapture Boolean value for delayCapture.
+         * @param  delayCapture  Boolean value for delayCapture.
          * @return Builder
          */
         public Builder delayCapture(Boolean delayCapture) {
@@ -394,7 +407,7 @@ public class ChargeRequest {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -404,7 +417,7 @@ public class ChargeRequest {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -414,7 +427,7 @@ public class ChargeRequest {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -424,7 +437,7 @@ public class ChargeRequest {
 
         /**
          * Setter for billingAddress.
-         * @param billingAddress Address value for billingAddress.
+         * @param  billingAddress  Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
@@ -434,7 +447,7 @@ public class ChargeRequest {
 
         /**
          * Setter for shippingAddress.
-         * @param shippingAddress Address value for shippingAddress.
+         * @param  shippingAddress  Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
@@ -444,7 +457,7 @@ public class ChargeRequest {
 
         /**
          * Setter for buyerEmailAddress.
-         * @param buyerEmailAddress String value for buyerEmailAddress.
+         * @param  buyerEmailAddress  String value for buyerEmailAddress.
          * @return Builder
          */
         public Builder buyerEmailAddress(String buyerEmailAddress) {
@@ -454,7 +467,7 @@ public class ChargeRequest {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -464,17 +477,19 @@ public class ChargeRequest {
 
         /**
          * Setter for additionalRecipients.
-         * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
+         * @param  additionalRecipients  List of ChargeRequestAdditionalRecipient value for
+         *         additionalRecipients.
          * @return Builder
          */
-        public Builder additionalRecipients(List<ChargeRequestAdditionalRecipient> additionalRecipients) {
+        public Builder additionalRecipients(
+                List<ChargeRequestAdditionalRecipient> additionalRecipients) {
             this.additionalRecipients = additionalRecipients;
             return this;
         }
 
         /**
          * Setter for verificationToken.
-         * @param verificationToken String value for verificationToken.
+         * @param  verificationToken  String value for verificationToken.
          * @return Builder
          */
         public Builder verificationToken(String verificationToken) {

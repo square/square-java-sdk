@@ -9,9 +9,9 @@ A batch of catalog objects.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | A list of CatalogObjects belonging to this batch. | List<CatalogObject> getObjects() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Required | A list of CatalogObjects belonging to this batch. | List<CatalogObject> getObjects() |
 
 ## Example (as JSON)
 

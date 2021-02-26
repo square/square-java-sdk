@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -13,31 +14,41 @@ import java.util.Objects;
 public class CatalogCustomAttributeDefinition {
     private final String type;
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication sourceApplication;
     private final List<String> allowedObjectTypes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerVisibility;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String appVisibility;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionStringConfig stringConfig;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer customAttributeUsageCount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param name String value for name.
-     * @param allowedObjectTypes List of String value for allowedObjectTypes.
-     * @param description String value for description.
-     * @param sourceApplication SourceApplication value for sourceApplication.
-     * @param sellerVisibility String value for sellerVisibility.
-     * @param appVisibility String value for appVisibility.
-     * @param stringConfig CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
-     * @param numberConfig CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
-     * @param selectionConfig CatalogCustomAttributeDefinitionSelectionConfig value for selectionConfig.
-     * @param customAttributeUsageCount Integer value for customAttributeUsageCount.
-     * @param key String value for key.
+     * @param  type  String value for type.
+     * @param  name  String value for name.
+     * @param  allowedObjectTypes  List of String value for allowedObjectTypes.
+     * @param  description  String value for description.
+     * @param  sourceApplication  SourceApplication value for sourceApplication.
+     * @param  sellerVisibility  String value for sellerVisibility.
+     * @param  appVisibility  String value for appVisibility.
+     * @param  stringConfig  CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
+     * @param  numberConfig  CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
+     * @param  selectionConfig  CatalogCustomAttributeDefinitionSelectionConfig value for
+     *         selectionConfig.
+     * @param  customAttributeUsageCount  Integer value for customAttributeUsageCount.
+     * @param  key  String value for key.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinition(
@@ -74,7 +85,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -86,7 +97,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -97,7 +108,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -107,7 +118,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("source_application")
     public SourceApplication getSourceApplication() {
-        return this.sourceApplication;
+        return sourceApplication;
     }
 
     /**
@@ -119,7 +130,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("allowed_object_types")
     public List<String> getAllowedObjectTypes() {
-        return this.allowedObjectTypes;
+        return allowedObjectTypes;
     }
 
     /**
@@ -130,7 +141,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("seller_visibility")
     public String getSellerVisibility() {
-        return this.sellerVisibility;
+        return sellerVisibility;
     }
 
     /**
@@ -141,7 +152,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("app_visibility")
     public String getAppVisibility() {
-        return this.appVisibility;
+        return appVisibility;
     }
 
     /**
@@ -151,7 +162,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("string_config")
     public CatalogCustomAttributeDefinitionStringConfig getStringConfig() {
-        return this.stringConfig;
+        return stringConfig;
     }
 
     /**
@@ -160,7 +171,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("number_config")
     public CatalogCustomAttributeDefinitionNumberConfig getNumberConfig() {
-        return this.numberConfig;
+        return numberConfig;
     }
 
     /**
@@ -170,7 +181,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("selection_config")
     public CatalogCustomAttributeDefinitionSelectionConfig getSelectionConfig() {
-        return this.selectionConfig;
+        return selectionConfig;
     }
 
     /**
@@ -183,7 +194,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("custom_attribute_usage_count")
     public Integer getCustomAttributeUsageCount() {
-        return this.customAttributeUsageCount;
+        return customAttributeUsageCount;
     }
 
     /**
@@ -196,7 +207,7 @@ public class CatalogCustomAttributeDefinition {
      */
     @JsonGetter("key")
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     @Override
@@ -282,13 +293,11 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Initialization constructor.
-         * @param type String value for type.
-         * @param name String value for name.
-         * @param allowedObjectTypes List of String value for allowedObjectTypes.
+         * @param  type  String value for type.
+         * @param  name  String value for name.
+         * @param  allowedObjectTypes  List of String value for allowedObjectTypes.
          */
-        public Builder(String type,
-                String name,
-                List<String> allowedObjectTypes) {
+        public Builder(String type, String name, List<String> allowedObjectTypes) {
             this.type = type;
             this.name = name;
             this.allowedObjectTypes = allowedObjectTypes;
@@ -296,7 +305,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -306,7 +315,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -316,7 +325,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for allowedObjectTypes.
-         * @param allowedObjectTypes List of String value for allowedObjectTypes.
+         * @param  allowedObjectTypes  List of String value for allowedObjectTypes.
          * @return Builder
          */
         public Builder allowedObjectTypes(List<String> allowedObjectTypes) {
@@ -326,7 +335,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -336,7 +345,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for sourceApplication.
-         * @param sourceApplication SourceApplication value for sourceApplication.
+         * @param  sourceApplication  SourceApplication value for sourceApplication.
          * @return Builder
          */
         public Builder sourceApplication(SourceApplication sourceApplication) {
@@ -346,7 +355,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for sellerVisibility.
-         * @param sellerVisibility String value for sellerVisibility.
+         * @param  sellerVisibility  String value for sellerVisibility.
          * @return Builder
          */
         public Builder sellerVisibility(String sellerVisibility) {
@@ -356,7 +365,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for appVisibility.
-         * @param appVisibility String value for appVisibility.
+         * @param  appVisibility  String value for appVisibility.
          * @return Builder
          */
         public Builder appVisibility(String appVisibility) {
@@ -366,7 +375,8 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for stringConfig.
-         * @param stringConfig CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
+         * @param  stringConfig  CatalogCustomAttributeDefinitionStringConfig value for
+         *         stringConfig.
          * @return Builder
          */
         public Builder stringConfig(CatalogCustomAttributeDefinitionStringConfig stringConfig) {
@@ -376,7 +386,8 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for numberConfig.
-         * @param numberConfig CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
+         * @param  numberConfig  CatalogCustomAttributeDefinitionNumberConfig value for
+         *         numberConfig.
          * @return Builder
          */
         public Builder numberConfig(CatalogCustomAttributeDefinitionNumberConfig numberConfig) {
@@ -386,17 +397,19 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for selectionConfig.
-         * @param selectionConfig CatalogCustomAttributeDefinitionSelectionConfig value for selectionConfig.
+         * @param  selectionConfig  CatalogCustomAttributeDefinitionSelectionConfig value for
+         *         selectionConfig.
          * @return Builder
          */
-        public Builder selectionConfig(CatalogCustomAttributeDefinitionSelectionConfig selectionConfig) {
+        public Builder selectionConfig(
+                CatalogCustomAttributeDefinitionSelectionConfig selectionConfig) {
             this.selectionConfig = selectionConfig;
             return this;
         }
 
         /**
          * Setter for customAttributeUsageCount.
-         * @param customAttributeUsageCount Integer value for customAttributeUsageCount.
+         * @param  customAttributeUsageCount  Integer value for customAttributeUsageCount.
          * @return Builder
          */
         public Builder customAttributeUsageCount(Integer customAttributeUsageCount) {
@@ -406,7 +419,7 @@ public class CatalogCustomAttributeDefinition {
 
         /**
          * Setter for key.
-         * @param key String value for key.
+         * @param  key  String value for key.
          * @return Builder
          */
         public Builder key(String key) {

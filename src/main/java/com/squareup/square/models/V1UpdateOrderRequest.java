@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,18 +12,22 @@ import java.util.Objects;
  */
 public class V1UpdateOrderRequest {
     private final String action;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippedTrackingNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String completedNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundedNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledNote;
 
     /**
      * Initialization constructor.
-     * @param action String value for action.
-     * @param shippedTrackingNumber String value for shippedTrackingNumber.
-     * @param completedNote String value for completedNote.
-     * @param refundedNote String value for refundedNote.
-     * @param canceledNote String value for canceledNote.
+     * @param  action  String value for action.
+     * @param  shippedTrackingNumber  String value for shippedTrackingNumber.
+     * @param  completedNote  String value for completedNote.
+     * @param  refundedNote  String value for refundedNote.
+     * @param  canceledNote  String value for canceledNote.
      */
     @JsonCreator
     public V1UpdateOrderRequest(
@@ -44,7 +49,7 @@ public class V1UpdateOrderRequest {
      */
     @JsonGetter("action")
     public String getAction() {
-        return this.action;
+        return action;
     }
 
     /**
@@ -55,7 +60,7 @@ public class V1UpdateOrderRequest {
      */
     @JsonGetter("shipped_tracking_number")
     public String getShippedTrackingNumber() {
-        return this.shippedTrackingNumber;
+        return shippedTrackingNumber;
     }
 
     /**
@@ -66,7 +71,7 @@ public class V1UpdateOrderRequest {
      */
     @JsonGetter("completed_note")
     public String getCompletedNote() {
-        return this.completedNote;
+        return completedNote;
     }
 
     /**
@@ -76,7 +81,7 @@ public class V1UpdateOrderRequest {
      */
     @JsonGetter("refunded_note")
     public String getRefundedNote() {
-        return this.refundedNote;
+        return refundedNote;
     }
 
     /**
@@ -86,7 +91,7 @@ public class V1UpdateOrderRequest {
      */
     @JsonGetter("canceled_note")
     public String getCanceledNote() {
-        return this.canceledNote;
+        return canceledNote;
     }
 
     @Override
@@ -148,7 +153,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Initialization constructor.
-         * @param action String value for action.
+         * @param  action  String value for action.
          */
         public Builder(String action) {
             this.action = action;
@@ -156,7 +161,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Setter for action.
-         * @param action String value for action.
+         * @param  action  String value for action.
          * @return Builder
          */
         public Builder action(String action) {
@@ -166,7 +171,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Setter for shippedTrackingNumber.
-         * @param shippedTrackingNumber String value for shippedTrackingNumber.
+         * @param  shippedTrackingNumber  String value for shippedTrackingNumber.
          * @return Builder
          */
         public Builder shippedTrackingNumber(String shippedTrackingNumber) {
@@ -176,7 +181,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Setter for completedNote.
-         * @param completedNote String value for completedNote.
+         * @param  completedNote  String value for completedNote.
          * @return Builder
          */
         public Builder completedNote(String completedNote) {
@@ -186,7 +191,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Setter for refundedNote.
-         * @param refundedNote String value for refundedNote.
+         * @param  refundedNote  String value for refundedNote.
          * @return Builder
          */
         public Builder refundedNote(String refundedNote) {
@@ -196,7 +201,7 @@ public class V1UpdateOrderRequest {
 
         /**
          * Setter for canceledNote.
-         * @param canceledNote String value for canceledNote.
+         * @param  canceledNote  String value for canceledNote.
          * @return Builder
          */
         public Builder canceledNote(String canceledNote) {

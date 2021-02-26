@@ -11,7 +11,7 @@ The set of search requirements.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `LoyaltyAccountId` | `String` |  | The ID of the [loyalty account](#type-LoyaltyAccount) to which the loyalty reward belongs. | String getLoyaltyAccountId() |
+| `LoyaltyAccountId` | `String` | Required | The ID of the [loyalty account](#type-LoyaltyAccount) to which the loyalty reward belongs. | String getLoyaltyAccountId() |
 | `Status` | [`String`](/doc/models/loyalty-reward-status.md) | Optional | The status of the loyalty reward. | String getStatus() |
 
 ## Example (as JSON)

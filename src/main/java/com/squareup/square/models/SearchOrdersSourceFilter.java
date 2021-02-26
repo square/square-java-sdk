@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for SearchOrdersSourceFilter type.
  */
 public class SearchOrdersSourceFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> sourceNames;
 
     /**
      * Initialization constructor.
-     * @param sourceNames List of String value for sourceNames.
+     * @param  sourceNames  List of String value for sourceNames.
      */
     @JsonCreator
     public SearchOrdersSourceFilter(
@@ -31,7 +33,7 @@ public class SearchOrdersSourceFilter {
      */
     @JsonGetter("source_names")
     public List<String> getSourceNames() {
-        return this.sourceNames;
+        return sourceNames;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class SearchOrdersSourceFilter {
 
         /**
          * Setter for sourceNames.
-         * @param sourceNames List of String value for sourceNames.
+         * @param  sourceNames  List of String value for sourceNames.
          * @return Builder
          */
         public Builder sourceNames(List<String> sourceNames) {

@@ -14,7 +14,7 @@ public class LoyaltyEventLoyaltyAccountFilter {
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId String value for loyaltyAccountId.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
      */
     @JsonCreator
     public LoyaltyEventLoyaltyAccountFilter(
@@ -29,7 +29,7 @@ public class LoyaltyEventLoyaltyAccountFilter {
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
-        return this.loyaltyAccountId;
+        return loyaltyAccountId;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LoyaltyEventLoyaltyAccountFilter {
 
         /**
          * Initialization constructor.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          */
         public Builder(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
@@ -84,7 +84,7 @@ public class LoyaltyEventLoyaltyAccountFilter {
 
         /**
          * Setter for loyaltyAccountId.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {

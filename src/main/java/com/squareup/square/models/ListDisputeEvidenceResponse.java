@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class ListDisputeEvidenceResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<DisputeEvidence> evidence;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param evidence List of DisputeEvidence value for evidence.
-     * @param errors List of Error value for errors.
+     * @param  evidence  List of DisputeEvidence value for evidence.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListDisputeEvidenceResponse(
@@ -40,7 +43,7 @@ public class ListDisputeEvidenceResponse {
      */
     @JsonGetter("evidence")
     public List<DisputeEvidence> getEvidence() {
-        return this.evidence;
+        return evidence;
     }
 
     /**
@@ -50,7 +53,7 @@ public class ListDisputeEvidenceResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class ListDisputeEvidenceResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class ListDisputeEvidenceResponse {
 
         /**
          * Setter for evidence.
-         * @param evidence List of DisputeEvidence value for evidence.
+         * @param  evidence  List of DisputeEvidence value for evidence.
          * @return Builder
          */
         public Builder evidence(List<DisputeEvidence> evidence) {
@@ -125,7 +128,7 @@ public class ListDisputeEvidenceResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

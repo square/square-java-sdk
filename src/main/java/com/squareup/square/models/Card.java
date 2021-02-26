@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,42 @@ import java.util.Objects;
  * This is a model class for Card type.
  */
 public class Card {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String last4;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long expMonth;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long expYear;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardholderName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prepaidType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bin;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param cardBrand String value for cardBrand.
-     * @param last4 String value for last4.
-     * @param expMonth Long value for expMonth.
-     * @param expYear Long value for expYear.
-     * @param cardholderName String value for cardholderName.
-     * @param billingAddress Address value for billingAddress.
-     * @param fingerprint String value for fingerprint.
-     * @param cardType String value for cardType.
-     * @param prepaidType String value for prepaidType.
-     * @param bin String value for bin.
+     * @param  id  String value for id.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  last4  String value for last4.
+     * @param  expMonth  Long value for expMonth.
+     * @param  expYear  Long value for expYear.
+     * @param  cardholderName  String value for cardholderName.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  fingerprint  String value for fingerprint.
+     * @param  cardType  String value for cardType.
+     * @param  prepaidType  String value for prepaidType.
+     * @param  bin  String value for bin.
      */
     @JsonCreator
     public Card(
@@ -69,7 +81,7 @@ public class Card {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -79,7 +91,7 @@ public class Card {
      */
     @JsonGetter("card_brand")
     public String getCardBrand() {
-        return this.cardBrand;
+        return cardBrand;
     }
 
     /**
@@ -89,7 +101,7 @@ public class Card {
      */
     @JsonGetter("last_4")
     public String getLast4() {
-        return this.last4;
+        return last4;
     }
 
     /**
@@ -99,7 +111,7 @@ public class Card {
      */
     @JsonGetter("exp_month")
     public Long getExpMonth() {
-        return this.expMonth;
+        return expMonth;
     }
 
     /**
@@ -109,7 +121,7 @@ public class Card {
      */
     @JsonGetter("exp_year")
     public Long getExpYear() {
-        return this.expYear;
+        return expYear;
     }
 
     /**
@@ -119,7 +131,7 @@ public class Card {
      */
     @JsonGetter("cardholder_name")
     public String getCardholderName() {
-        return this.cardholderName;
+        return cardholderName;
     }
 
     /**
@@ -129,7 +141,7 @@ public class Card {
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
-        return this.billingAddress;
+        return billingAddress;
     }
 
     /**
@@ -140,7 +152,7 @@ public class Card {
      */
     @JsonGetter("fingerprint")
     public String getFingerprint() {
-        return this.fingerprint;
+        return fingerprint;
     }
 
     /**
@@ -150,7 +162,7 @@ public class Card {
      */
     @JsonGetter("card_type")
     public String getCardType() {
-        return this.cardType;
+        return cardType;
     }
 
     /**
@@ -160,7 +172,7 @@ public class Card {
      */
     @JsonGetter("prepaid_type")
     public String getPrepaidType() {
-        return this.prepaidType;
+        return prepaidType;
     }
 
     /**
@@ -171,7 +183,7 @@ public class Card {
      */
     @JsonGetter("bin")
     public String getBin() {
-        return this.bin;
+        return bin;
     }
 
     @Override
@@ -256,7 +268,7 @@ public class Card {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -266,7 +278,7 @@ public class Card {
 
         /**
          * Setter for cardBrand.
-         * @param cardBrand String value for cardBrand.
+         * @param  cardBrand  String value for cardBrand.
          * @return Builder
          */
         public Builder cardBrand(String cardBrand) {
@@ -276,7 +288,7 @@ public class Card {
 
         /**
          * Setter for last4.
-         * @param last4 String value for last4.
+         * @param  last4  String value for last4.
          * @return Builder
          */
         public Builder last4(String last4) {
@@ -286,7 +298,7 @@ public class Card {
 
         /**
          * Setter for expMonth.
-         * @param expMonth Long value for expMonth.
+         * @param  expMonth  Long value for expMonth.
          * @return Builder
          */
         public Builder expMonth(Long expMonth) {
@@ -296,7 +308,7 @@ public class Card {
 
         /**
          * Setter for expYear.
-         * @param expYear Long value for expYear.
+         * @param  expYear  Long value for expYear.
          * @return Builder
          */
         public Builder expYear(Long expYear) {
@@ -306,7 +318,7 @@ public class Card {
 
         /**
          * Setter for cardholderName.
-         * @param cardholderName String value for cardholderName.
+         * @param  cardholderName  String value for cardholderName.
          * @return Builder
          */
         public Builder cardholderName(String cardholderName) {
@@ -316,7 +328,7 @@ public class Card {
 
         /**
          * Setter for billingAddress.
-         * @param billingAddress Address value for billingAddress.
+         * @param  billingAddress  Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
@@ -326,7 +338,7 @@ public class Card {
 
         /**
          * Setter for fingerprint.
-         * @param fingerprint String value for fingerprint.
+         * @param  fingerprint  String value for fingerprint.
          * @return Builder
          */
         public Builder fingerprint(String fingerprint) {
@@ -336,7 +348,7 @@ public class Card {
 
         /**
          * Setter for cardType.
-         * @param cardType String value for cardType.
+         * @param  cardType  String value for cardType.
          * @return Builder
          */
         public Builder cardType(String cardType) {
@@ -346,7 +358,7 @@ public class Card {
 
         /**
          * Setter for prepaidType.
-         * @param prepaidType String value for prepaidType.
+         * @param  prepaidType  String value for prepaidType.
          * @return Builder
          */
         public Builder prepaidType(String prepaidType) {
@@ -356,7 +368,7 @@ public class Card {
 
         /**
          * Setter for bin.
-         * @param bin String value for bin.
+         * @param  bin  String value for bin.
          * @return Builder
          */
         public Builder bin(String bin) {

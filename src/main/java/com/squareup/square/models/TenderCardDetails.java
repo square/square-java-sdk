@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for TenderCardDetails type.
  */
 public class TenderCardDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Card card;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
 
     /**
      * Initialization constructor.
-     * @param status String value for status.
-     * @param card Card value for card.
-     * @param entryMethod String value for entryMethod.
+     * @param  status  String value for status.
+     * @param  card  Card value for card.
+     * @param  entryMethod  String value for entryMethod.
      */
     @JsonCreator
     public TenderCardDetails(
@@ -37,7 +41,7 @@ public class TenderCardDetails {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -48,7 +52,7 @@ public class TenderCardDetails {
      */
     @JsonGetter("card")
     public Card getCard() {
-        return this.card;
+        return card;
     }
 
     /**
@@ -58,7 +62,7 @@ public class TenderCardDetails {
      */
     @JsonGetter("entry_method")
     public String getEntryMethod() {
-        return this.entryMethod;
+        return entryMethod;
     }
 
     @Override
@@ -115,7 +119,7 @@ public class TenderCardDetails {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -125,7 +129,7 @@ public class TenderCardDetails {
 
         /**
          * Setter for card.
-         * @param card Card value for card.
+         * @param  card  Card value for card.
          * @return Builder
          */
         public Builder card(Card card) {
@@ -135,7 +139,7 @@ public class TenderCardDetails {
 
         /**
          * Setter for entryMethod.
-         * @param entryMethod String value for entryMethod.
+         * @param  entryMethod  String value for entryMethod.
          * @return Builder
          */
         public Builder entryMethod(String entryMethod) {

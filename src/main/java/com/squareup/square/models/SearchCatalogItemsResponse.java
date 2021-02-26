@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,17 +14,21 @@ import java.util.Objects;
  */
 public class SearchCatalogItemsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> items;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> matchedVariationIds;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param items List of CatalogObject value for items.
-     * @param cursor String value for cursor.
-     * @param matchedVariationIds List of String value for matchedVariationIds.
+     * @param  errors  List of Error value for errors.
+     * @param  items  List of CatalogObject value for items.
+     * @param  cursor  String value for cursor.
+     * @param  matchedVariationIds  List of String value for matchedVariationIds.
      */
     @JsonCreator
     public SearchCatalogItemsResponse(
@@ -48,7 +53,7 @@ public class SearchCatalogItemsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -58,7 +63,7 @@ public class SearchCatalogItemsResponse {
      */
     @JsonGetter("items")
     public List<CatalogObject> getItems() {
-        return this.items;
+        return items;
     }
 
     /**
@@ -68,7 +73,7 @@ public class SearchCatalogItemsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -78,7 +83,7 @@ public class SearchCatalogItemsResponse {
      */
     @JsonGetter("matched_variation_ids")
     public List<String> getMatchedVariationIds() {
-        return this.matchedVariationIds;
+        return matchedVariationIds;
     }
 
     @Override
@@ -139,7 +144,7 @@ public class SearchCatalogItemsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -149,7 +154,7 @@ public class SearchCatalogItemsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -159,7 +164,7 @@ public class SearchCatalogItemsResponse {
 
         /**
          * Setter for items.
-         * @param items List of CatalogObject value for items.
+         * @param  items  List of CatalogObject value for items.
          * @return Builder
          */
         public Builder items(List<CatalogObject> items) {
@@ -169,7 +174,7 @@ public class SearchCatalogItemsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -179,7 +184,7 @@ public class SearchCatalogItemsResponse {
 
         /**
          * Setter for matchedVariationIds.
-         * @param matchedVariationIds List of String value for matchedVariationIds.
+         * @param  matchedVariationIds  List of String value for matchedVariationIds.
          * @return Builder
          */
         public Builder matchedVariationIds(List<String> matchedVariationIds) {

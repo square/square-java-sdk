@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for Coordinates type.
  */
 public class Coordinates {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double latitude;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double longitude;
 
     /**
      * Initialization constructor.
-     * @param latitude Double value for latitude.
-     * @param longitude Double value for longitude.
+     * @param  latitude  Double value for latitude.
+     * @param  longitude  Double value for longitude.
      */
     @JsonCreator
     public Coordinates(
@@ -33,7 +36,7 @@ public class Coordinates {
      */
     @JsonGetter("latitude")
     public Double getLatitude() {
-        return this.latitude;
+        return latitude;
     }
 
     /**
@@ -43,7 +46,7 @@ public class Coordinates {
      */
     @JsonGetter("longitude")
     public Double getLongitude() {
-        return this.longitude;
+        return longitude;
     }
 
     @Override
@@ -96,7 +99,7 @@ public class Coordinates {
 
         /**
          * Setter for latitude.
-         * @param latitude Double value for latitude.
+         * @param  latitude  Double value for latitude.
          * @return Builder
          */
         public Builder latitude(Double latitude) {
@@ -106,7 +109,7 @@ public class Coordinates {
 
         /**
          * Setter for longitude.
-         * @param longitude Double value for longitude.
+         * @param  longitude  Double value for longitude.
          * @return Builder
          */
         public Builder longitude(Double longitude) {

@@ -202,7 +202,6 @@ Order bodyOrder = new Order.Builder(
     .build();
 CreateOrderRequest body = new CreateOrderRequest.Builder()
     .order(bodyOrder)
-    .locationId("location_id0")
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
     .build();
 

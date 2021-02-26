@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
@@ -12,27 +13,36 @@ import java.util.Objects;
  */
 public class ObtainTokenResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tokenType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refreshToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean shortLived;
 
     /**
      * Initialization constructor.
-     * @param accessToken String value for accessToken.
-     * @param tokenType String value for tokenType.
-     * @param expiresAt String value for expiresAt.
-     * @param merchantId String value for merchantId.
-     * @param subscriptionId String value for subscriptionId.
-     * @param planId String value for planId.
-     * @param idToken String value for idToken.
-     * @param refreshToken String value for refreshToken.
-     * @param shortLived Boolean value for shortLived.
+     * @param  accessToken  String value for accessToken.
+     * @param  tokenType  String value for tokenType.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  merchantId  String value for merchantId.
+     * @param  subscriptionId  String value for subscriptionId.
+     * @param  planId  String value for planId.
+     * @param  idToken  String value for idToken.
+     * @param  refreshToken  String value for refreshToken.
+     * @param  shortLived  Boolean value for shortLived.
      */
     @JsonCreator
     public ObtainTokenResponse(
@@ -69,7 +79,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
-        return this.accessToken;
+        return accessToken;
     }
 
     /**
@@ -79,7 +89,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("token_type")
     public String getTokenType() {
-        return this.tokenType;
+        return tokenType;
     }
 
     /**
@@ -90,7 +100,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
-        return this.expiresAt;
+        return expiresAt;
     }
 
     /**
@@ -100,7 +110,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
-        return this.merchantId;
+        return merchantId;
     }
 
     /**
@@ -111,7 +121,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("subscription_id")
     public String getSubscriptionId() {
-        return this.subscriptionId;
+        return subscriptionId;
     }
 
     /**
@@ -122,7 +132,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
-        return this.planId;
+        return planId;
     }
 
     /**
@@ -133,7 +143,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("id_token")
     public String getIdToken() {
-        return this.idToken;
+        return idToken;
     }
 
     /**
@@ -145,7 +155,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("refresh_token")
     public String getRefreshToken() {
-        return this.refreshToken;
+        return refreshToken;
     }
 
     /**
@@ -156,7 +166,7 @@ public class ObtainTokenResponse {
      */
     @JsonGetter("short_lived")
     public Boolean getShortLived() {
-        return this.shortLived;
+        return shortLived;
     }
 
     @Override
@@ -235,7 +245,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -245,7 +255,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for accessToken.
-         * @param accessToken String value for accessToken.
+         * @param  accessToken  String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
@@ -255,7 +265,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for tokenType.
-         * @param tokenType String value for tokenType.
+         * @param  tokenType  String value for tokenType.
          * @return Builder
          */
         public Builder tokenType(String tokenType) {
@@ -265,7 +275,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for expiresAt.
-         * @param expiresAt String value for expiresAt.
+         * @param  expiresAt  String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
@@ -275,7 +285,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for merchantId.
-         * @param merchantId String value for merchantId.
+         * @param  merchantId  String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
@@ -285,7 +295,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for subscriptionId.
-         * @param subscriptionId String value for subscriptionId.
+         * @param  subscriptionId  String value for subscriptionId.
          * @return Builder
          */
         public Builder subscriptionId(String subscriptionId) {
@@ -295,7 +305,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for planId.
-         * @param planId String value for planId.
+         * @param  planId  String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {
@@ -305,7 +315,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for idToken.
-         * @param idToken String value for idToken.
+         * @param  idToken  String value for idToken.
          * @return Builder
          */
         public Builder idToken(String idToken) {
@@ -315,7 +325,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for refreshToken.
-         * @param refreshToken String value for refreshToken.
+         * @param  refreshToken  String value for refreshToken.
          * @return Builder
          */
         public Builder refreshToken(String refreshToken) {
@@ -325,7 +335,7 @@ public class ObtainTokenResponse {
 
         /**
          * Setter for shortLived.
-         * @param shortLived Boolean value for shortLived.
+         * @param  shortLived  Boolean value for shortLived.
          * @return Builder
          */
         public Builder shortLived(Boolean shortLived) {

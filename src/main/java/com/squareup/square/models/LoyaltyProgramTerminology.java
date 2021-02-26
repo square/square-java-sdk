@@ -15,8 +15,8 @@ public class LoyaltyProgramTerminology {
 
     /**
      * Initialization constructor.
-     * @param one String value for one.
-     * @param other String value for other.
+     * @param  one  String value for one.
+     * @param  other  String value for other.
      */
     @JsonCreator
     public LoyaltyProgramTerminology(
@@ -33,7 +33,7 @@ public class LoyaltyProgramTerminology {
      */
     @JsonGetter("one")
     public String getOne() {
-        return this.one;
+        return one;
     }
 
     /**
@@ -43,7 +43,7 @@ public class LoyaltyProgramTerminology {
      */
     @JsonGetter("other")
     public String getOther() {
-        return this.other;
+        return other;
     }
 
     @Override
@@ -59,9 +59,9 @@ public class LoyaltyProgramTerminology {
         if (!(obj instanceof LoyaltyProgramTerminology)) {
             return false;
         }
-        LoyaltyProgramTerminology internalOther = (LoyaltyProgramTerminology) obj;
-        return Objects.equals(one, internalOther.one)
-            && Objects.equals(other, internalOther.other);
+        LoyaltyProgramTerminology other1 = (LoyaltyProgramTerminology) obj;
+        return Objects.equals(one, other1.one)
+            && Objects.equals(other, other1.other);
     }
 
     /**
@@ -92,18 +92,17 @@ public class LoyaltyProgramTerminology {
 
         /**
          * Initialization constructor.
-         * @param one String value for one.
-         * @param other String value for other.
+         * @param  one  String value for one.
+         * @param  other  String value for other.
          */
-        public Builder(String one,
-                String other) {
+        public Builder(String one, String other) {
             this.one = one;
             this.other = other;
         }
 
         /**
          * Setter for one.
-         * @param one String value for one.
+         * @param  one  String value for one.
          * @return Builder
          */
         public Builder one(String one) {
@@ -113,7 +112,7 @@ public class LoyaltyProgramTerminology {
 
         /**
          * Setter for other.
-         * @param other String value for other.
+         * @param  other  String value for other.
          * @return Builder
          */
         public Builder other(String other) {

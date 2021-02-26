@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,17 +12,21 @@ import java.util.Objects;
  * This is a model class for CatalogModifierList type.
  */
 public class CatalogModifierList {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String selectionType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> modifiers;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param ordinal Integer value for ordinal.
-     * @param selectionType String value for selectionType.
-     * @param modifiers List of CatalogObject value for modifiers.
+     * @param  name  String value for name.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  selectionType  String value for selectionType.
+     * @param  modifiers  List of CatalogObject value for modifiers.
      */
     @JsonCreator
     public CatalogModifierList(
@@ -43,7 +48,7 @@ public class CatalogModifierList {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -53,7 +58,7 @@ public class CatalogModifierList {
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     /**
@@ -63,7 +68,7 @@ public class CatalogModifierList {
      */
     @JsonGetter("selection_type")
     public String getSelectionType() {
-        return this.selectionType;
+        return selectionType;
     }
 
     /**
@@ -75,7 +80,7 @@ public class CatalogModifierList {
      */
     @JsonGetter("modifiers")
     public List<CatalogObject> getModifiers() {
-        return this.modifiers;
+        return modifiers;
     }
 
     @Override
@@ -135,7 +140,7 @@ public class CatalogModifierList {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -145,7 +150,7 @@ public class CatalogModifierList {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Integer value for ordinal.
+         * @param  ordinal  Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
@@ -155,7 +160,7 @@ public class CatalogModifierList {
 
         /**
          * Setter for selectionType.
-         * @param selectionType String value for selectionType.
+         * @param  selectionType  String value for selectionType.
          * @return Builder
          */
         public Builder selectionType(String selectionType) {
@@ -165,7 +170,7 @@ public class CatalogModifierList {
 
         /**
          * Setter for modifiers.
-         * @param modifiers List of CatalogObject value for modifiers.
+         * @param  modifiers  List of CatalogObject value for modifiers.
          * @return Builder
          */
         public Builder modifiers(List<CatalogObject> modifiers) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for UpdateLocationRequest type.
  */
 public class UpdateLocationRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Location location;
 
     /**
      * Initialization constructor.
-     * @param location Location value for location.
+     * @param  location  Location value for location.
      */
     @JsonCreator
     public UpdateLocationRequest(
@@ -28,7 +30,7 @@ public class UpdateLocationRequest {
      */
     @JsonGetter("location")
     public Location getLocation() {
-        return this.location;
+        return location;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class UpdateLocationRequest {
 
         /**
          * Setter for location.
-         * @param location Location value for location.
+         * @param  location  Location value for location.
          * @return Builder
          */
         public Builder location(Location location) {

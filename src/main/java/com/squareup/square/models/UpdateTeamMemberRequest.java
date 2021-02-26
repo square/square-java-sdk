@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for UpdateTeamMemberRequest type.
  */
 public class UpdateTeamMemberRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMember teamMember;
 
     /**
      * Initialization constructor.
-     * @param teamMember TeamMember value for teamMember.
+     * @param  teamMember  TeamMember value for teamMember.
      */
     @JsonCreator
     public UpdateTeamMemberRequest(
@@ -29,7 +31,7 @@ public class UpdateTeamMemberRequest {
      */
     @JsonGetter("team_member")
     public TeamMember getTeamMember() {
-        return this.teamMember;
+        return teamMember;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class UpdateTeamMemberRequest {
 
         /**
          * Setter for teamMember.
-         * @param teamMember TeamMember value for teamMember.
+         * @param  teamMember  TeamMember value for teamMember.
          * @return Builder
          */
         public Builder teamMember(TeamMember teamMember) {

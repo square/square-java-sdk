@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class ListLocationsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Location> locations;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param locations List of Location value for locations.
+     * @param  errors  List of Error value for errors.
+     * @param  locations  List of Location value for locations.
      */
     @JsonCreator
     public ListLocationsResponse(
@@ -40,7 +43,7 @@ public class ListLocationsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -50,7 +53,7 @@ public class ListLocationsResponse {
      */
     @JsonGetter("locations")
     public List<Location> getLocations() {
-        return this.locations;
+        return locations;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class ListLocationsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -114,7 +117,7 @@ public class ListLocationsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -124,7 +127,7 @@ public class ListLocationsResponse {
 
         /**
          * Setter for locations.
-         * @param locations List of Location value for locations.
+         * @param  locations  List of Location value for locations.
          * @return Builder
          */
         public Builder locations(List<Location> locations) {

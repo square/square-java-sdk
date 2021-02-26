@@ -9,9 +9,9 @@ A request to update a `WorkweekConfig` object
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `WorkweekConfig` | [`WorkweekConfig`](/doc/models/workweek-config.md) | Sets the Day of the week and hour of the day that a business starts a<br>work week. Used for the calculation of overtime pay. | WorkweekConfig getWorkweekConfig() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `WorkweekConfig` | [`WorkweekConfig`](/doc/models/workweek-config.md) | Required | Sets the Day of the week and hour of the day that a business starts a<br>work week. Used for the calculation of overtime pay. | WorkweekConfig getWorkweekConfig() |
 
 ## Example (as JSON)
 

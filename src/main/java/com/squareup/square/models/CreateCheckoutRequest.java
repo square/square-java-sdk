@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -13,25 +14,33 @@ import java.util.Objects;
 public class CreateCheckoutRequest {
     private final String idempotencyKey;
     private final CreateOrderRequest order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean askForShippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantSupportEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prePopulateBuyerEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address prePopulateShippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param order CreateOrderRequest value for order.
-     * @param askForShippingAddress Boolean value for askForShippingAddress.
-     * @param merchantSupportEmail String value for merchantSupportEmail.
-     * @param prePopulateBuyerEmail String value for prePopulateBuyerEmail.
-     * @param prePopulateShippingAddress Address value for prePopulateShippingAddress.
-     * @param redirectUrl String value for redirectUrl.
-     * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
-     * @param note String value for note.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  order  CreateOrderRequest value for order.
+     * @param  askForShippingAddress  Boolean value for askForShippingAddress.
+     * @param  merchantSupportEmail  String value for merchantSupportEmail.
+     * @param  prePopulateBuyerEmail  String value for prePopulateBuyerEmail.
+     * @param  prePopulateShippingAddress  Address value for prePopulateShippingAddress.
+     * @param  redirectUrl  String value for redirectUrl.
+     * @param  additionalRecipients  List of ChargeRequestAdditionalRecipient value for
+     *         additionalRecipients.
+     * @param  note  String value for note.
      */
     @JsonCreator
     public CreateCheckoutRequest(
@@ -70,7 +79,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -79,7 +88,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("order")
     public CreateOrderRequest getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -90,7 +99,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("ask_for_shipping_address")
     public Boolean getAskForShippingAddress() {
-        return this.askForShippingAddress;
+        return askForShippingAddress;
     }
 
     /**
@@ -103,7 +112,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("merchant_support_email")
     public String getMerchantSupportEmail() {
-        return this.merchantSupportEmail;
+        return merchantSupportEmail;
     }
 
     /**
@@ -114,7 +123,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("pre_populate_buyer_email")
     public String getPrePopulateBuyerEmail() {
-        return this.prePopulateBuyerEmail;
+        return prePopulateBuyerEmail;
     }
 
     /**
@@ -124,7 +133,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("pre_populate_shipping_address")
     public Address getPrePopulateShippingAddress() {
-        return this.prePopulateShippingAddress;
+        return prePopulateShippingAddress;
     }
 
     /**
@@ -142,7 +151,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("redirect_url")
     public String getRedirectUrl() {
-        return this.redirectUrl;
+        return redirectUrl;
     }
 
     /**
@@ -157,7 +166,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("additional_recipients")
     public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
-        return this.additionalRecipients;
+        return additionalRecipients;
     }
 
     /**
@@ -168,7 +177,7 @@ public class CreateCheckoutRequest {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     @Override
@@ -245,18 +254,17 @@ public class CreateCheckoutRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param order CreateOrderRequest value for order.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  order  CreateOrderRequest value for order.
          */
-        public Builder(String idempotencyKey,
-                CreateOrderRequest order) {
+        public Builder(String idempotencyKey, CreateOrderRequest order) {
             this.idempotencyKey = idempotencyKey;
             this.order = order;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -266,7 +274,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for order.
-         * @param order CreateOrderRequest value for order.
+         * @param  order  CreateOrderRequest value for order.
          * @return Builder
          */
         public Builder order(CreateOrderRequest order) {
@@ -276,7 +284,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for askForShippingAddress.
-         * @param askForShippingAddress Boolean value for askForShippingAddress.
+         * @param  askForShippingAddress  Boolean value for askForShippingAddress.
          * @return Builder
          */
         public Builder askForShippingAddress(Boolean askForShippingAddress) {
@@ -286,7 +294,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for merchantSupportEmail.
-         * @param merchantSupportEmail String value for merchantSupportEmail.
+         * @param  merchantSupportEmail  String value for merchantSupportEmail.
          * @return Builder
          */
         public Builder merchantSupportEmail(String merchantSupportEmail) {
@@ -296,7 +304,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for prePopulateBuyerEmail.
-         * @param prePopulateBuyerEmail String value for prePopulateBuyerEmail.
+         * @param  prePopulateBuyerEmail  String value for prePopulateBuyerEmail.
          * @return Builder
          */
         public Builder prePopulateBuyerEmail(String prePopulateBuyerEmail) {
@@ -306,7 +314,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for prePopulateShippingAddress.
-         * @param prePopulateShippingAddress Address value for prePopulateShippingAddress.
+         * @param  prePopulateShippingAddress  Address value for prePopulateShippingAddress.
          * @return Builder
          */
         public Builder prePopulateShippingAddress(Address prePopulateShippingAddress) {
@@ -316,7 +324,7 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for redirectUrl.
-         * @param redirectUrl String value for redirectUrl.
+         * @param  redirectUrl  String value for redirectUrl.
          * @return Builder
          */
         public Builder redirectUrl(String redirectUrl) {
@@ -326,17 +334,19 @@ public class CreateCheckoutRequest {
 
         /**
          * Setter for additionalRecipients.
-         * @param additionalRecipients List of ChargeRequestAdditionalRecipient value for additionalRecipients.
+         * @param  additionalRecipients  List of ChargeRequestAdditionalRecipient value for
+         *         additionalRecipients.
          * @return Builder
          */
-        public Builder additionalRecipients(List<ChargeRequestAdditionalRecipient> additionalRecipients) {
+        public Builder additionalRecipients(
+                List<ChargeRequestAdditionalRecipient> additionalRecipients) {
             this.additionalRecipients = additionalRecipients;
             return this;
         }
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {

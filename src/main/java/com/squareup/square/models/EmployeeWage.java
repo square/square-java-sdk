@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for EmployeeWage type.
  */
 public class EmployeeWage {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param employeeId String value for employeeId.
-     * @param title String value for title.
-     * @param hourlyRate Money value for hourlyRate.
+     * @param  id  String value for id.
+     * @param  employeeId  String value for employeeId.
+     * @param  title  String value for title.
+     * @param  hourlyRate  Money value for hourlyRate.
      */
     @JsonCreator
     public EmployeeWage(
@@ -41,7 +46,7 @@ public class EmployeeWage {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -51,7 +56,7 @@ public class EmployeeWage {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -61,7 +66,7 @@ public class EmployeeWage {
      */
     @JsonGetter("title")
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     /**
@@ -76,7 +81,7 @@ public class EmployeeWage {
      */
     @JsonGetter("hourly_rate")
     public Money getHourlyRate() {
-        return this.hourlyRate;
+        return hourlyRate;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class EmployeeWage {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -146,7 +151,7 @@ public class EmployeeWage {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -156,7 +161,7 @@ public class EmployeeWage {
 
         /**
          * Setter for title.
-         * @param title String value for title.
+         * @param  title  String value for title.
          * @return Builder
          */
         public Builder title(String title) {
@@ -166,7 +171,7 @@ public class EmployeeWage {
 
         /**
          * Setter for hourlyRate.
-         * @param hourlyRate Money value for hourlyRate.
+         * @param  hourlyRate  Money value for hourlyRate.
          * @return Builder
          */
         public Builder hourlyRate(Money hourlyRate) {

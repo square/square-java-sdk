@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for DateRange type.
  */
 public class DateRange {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endDate;
 
     /**
      * Initialization constructor.
-     * @param startDate String value for startDate.
-     * @param endDate String value for endDate.
+     * @param  startDate  String value for startDate.
+     * @param  endDate  String value for endDate.
      */
     @JsonCreator
     public DateRange(
@@ -34,7 +37,7 @@ public class DateRange {
      */
     @JsonGetter("start_date")
     public String getStartDate() {
-        return this.startDate;
+        return startDate;
     }
 
     /**
@@ -45,7 +48,7 @@ public class DateRange {
      */
     @JsonGetter("end_date")
     public String getEndDate() {
-        return this.endDate;
+        return endDate;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class DateRange {
 
         /**
          * Setter for startDate.
-         * @param startDate String value for startDate.
+         * @param  startDate  String value for startDate.
          * @return Builder
          */
         public Builder startDate(String startDate) {
@@ -108,7 +111,7 @@ public class DateRange {
 
         /**
          * Setter for endDate.
-         * @param endDate String value for endDate.
+         * @param  endDate  String value for endDate.
          * @return Builder
          */
         public Builder endDate(String endDate) {

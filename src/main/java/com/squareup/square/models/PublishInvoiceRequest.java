@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class PublishInvoiceRequest {
     private final int version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param version int value for version.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  version  int value for version.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public PublishInvoiceRequest(
@@ -34,7 +36,7 @@ public class PublishInvoiceRequest {
      */
     @JsonGetter("version")
     public int getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -47,7 +49,7 @@ public class PublishInvoiceRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
@@ -98,7 +100,7 @@ public class PublishInvoiceRequest {
 
         /**
          * Initialization constructor.
-         * @param version int value for version.
+         * @param  version  int value for version.
          */
         public Builder(int version) {
             this.version = version;
@@ -106,7 +108,7 @@ public class PublishInvoiceRequest {
 
         /**
          * Setter for version.
-         * @param version int value for version.
+         * @param  version  int value for version.
          * @return Builder
          */
         public Builder version(int version) {
@@ -116,7 +118,7 @@ public class PublishInvoiceRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

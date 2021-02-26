@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,39 +11,54 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentShipmentDetails type.
  */
 public class OrderFulfillmentShipmentDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentRecipient recipient;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String carrier;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippingNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippingType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String trackingNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String trackingUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inProgressAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String packagedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expectedShippedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String failedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String failureReason;
 
     /**
      * Initialization constructor.
-     * @param recipient OrderFulfillmentRecipient value for recipient.
-     * @param carrier String value for carrier.
-     * @param shippingNote String value for shippingNote.
-     * @param shippingType String value for shippingType.
-     * @param trackingNumber String value for trackingNumber.
-     * @param trackingUrl String value for trackingUrl.
-     * @param placedAt String value for placedAt.
-     * @param inProgressAt String value for inProgressAt.
-     * @param packagedAt String value for packagedAt.
-     * @param expectedShippedAt String value for expectedShippedAt.
-     * @param shippedAt String value for shippedAt.
-     * @param canceledAt String value for canceledAt.
-     * @param cancelReason String value for cancelReason.
-     * @param failedAt String value for failedAt.
-     * @param failureReason String value for failureReason.
+     * @param  recipient  OrderFulfillmentRecipient value for recipient.
+     * @param  carrier  String value for carrier.
+     * @param  shippingNote  String value for shippingNote.
+     * @param  shippingType  String value for shippingType.
+     * @param  trackingNumber  String value for trackingNumber.
+     * @param  trackingUrl  String value for trackingUrl.
+     * @param  placedAt  String value for placedAt.
+     * @param  inProgressAt  String value for inProgressAt.
+     * @param  packagedAt  String value for packagedAt.
+     * @param  expectedShippedAt  String value for expectedShippedAt.
+     * @param  shippedAt  String value for shippedAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  failedAt  String value for failedAt.
+     * @param  failureReason  String value for failureReason.
      */
     @JsonCreator
     public OrderFulfillmentShipmentDetails(
@@ -85,7 +101,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("recipient")
     public OrderFulfillmentRecipient getRecipient() {
-        return this.recipient;
+        return recipient;
     }
 
     /**
@@ -95,7 +111,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("carrier")
     public String getCarrier() {
-        return this.carrier;
+        return carrier;
     }
 
     /**
@@ -105,7 +121,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("shipping_note")
     public String getShippingNote() {
-        return this.shippingNote;
+        return shippingNote;
     }
 
     /**
@@ -116,7 +132,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("shipping_type")
     public String getShippingType() {
-        return this.shippingType;
+        return shippingType;
     }
 
     /**
@@ -126,7 +142,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("tracking_number")
     public String getTrackingNumber() {
-        return this.trackingNumber;
+        return trackingNumber;
     }
 
     /**
@@ -136,7 +152,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("tracking_url")
     public String getTrackingUrl() {
-        return this.trackingUrl;
+        return trackingUrl;
     }
 
     /**
@@ -147,7 +163,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("placed_at")
     public String getPlacedAt() {
-        return this.placedAt;
+        return placedAt;
     }
 
     /**
@@ -159,7 +175,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("in_progress_at")
     public String getInProgressAt() {
-        return this.inProgressAt;
+        return inProgressAt;
     }
 
     /**
@@ -171,7 +187,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("packaged_at")
     public String getPackagedAt() {
-        return this.packagedAt;
+        return packagedAt;
     }
 
     /**
@@ -183,7 +199,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("expected_shipped_at")
     public String getExpectedShippedAt() {
-        return this.expectedShippedAt;
+        return expectedShippedAt;
     }
 
     /**
@@ -195,7 +211,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("shipped_at")
     public String getShippedAt() {
-        return this.shippedAt;
+        return shippedAt;
     }
 
     /**
@@ -206,7 +222,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("canceled_at")
     public String getCanceledAt() {
-        return this.canceledAt;
+        return canceledAt;
     }
 
     /**
@@ -216,7 +232,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("cancel_reason")
     public String getCancelReason() {
-        return this.cancelReason;
+        return cancelReason;
     }
 
     /**
@@ -227,7 +243,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("failed_at")
     public String getFailedAt() {
-        return this.failedAt;
+        return failedAt;
     }
 
     /**
@@ -237,7 +253,7 @@ public class OrderFulfillmentShipmentDetails {
      */
     @JsonGetter("failure_reason")
     public String getFailureReason() {
-        return this.failureReason;
+        return failureReason;
     }
 
     @Override
@@ -337,7 +353,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for recipient.
-         * @param recipient OrderFulfillmentRecipient value for recipient.
+         * @param  recipient  OrderFulfillmentRecipient value for recipient.
          * @return Builder
          */
         public Builder recipient(OrderFulfillmentRecipient recipient) {
@@ -347,7 +363,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for carrier.
-         * @param carrier String value for carrier.
+         * @param  carrier  String value for carrier.
          * @return Builder
          */
         public Builder carrier(String carrier) {
@@ -357,7 +373,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for shippingNote.
-         * @param shippingNote String value for shippingNote.
+         * @param  shippingNote  String value for shippingNote.
          * @return Builder
          */
         public Builder shippingNote(String shippingNote) {
@@ -367,7 +383,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for shippingType.
-         * @param shippingType String value for shippingType.
+         * @param  shippingType  String value for shippingType.
          * @return Builder
          */
         public Builder shippingType(String shippingType) {
@@ -377,7 +393,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for trackingNumber.
-         * @param trackingNumber String value for trackingNumber.
+         * @param  trackingNumber  String value for trackingNumber.
          * @return Builder
          */
         public Builder trackingNumber(String trackingNumber) {
@@ -387,7 +403,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for trackingUrl.
-         * @param trackingUrl String value for trackingUrl.
+         * @param  trackingUrl  String value for trackingUrl.
          * @return Builder
          */
         public Builder trackingUrl(String trackingUrl) {
@@ -397,7 +413,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for placedAt.
-         * @param placedAt String value for placedAt.
+         * @param  placedAt  String value for placedAt.
          * @return Builder
          */
         public Builder placedAt(String placedAt) {
@@ -407,7 +423,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for inProgressAt.
-         * @param inProgressAt String value for inProgressAt.
+         * @param  inProgressAt  String value for inProgressAt.
          * @return Builder
          */
         public Builder inProgressAt(String inProgressAt) {
@@ -417,7 +433,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for packagedAt.
-         * @param packagedAt String value for packagedAt.
+         * @param  packagedAt  String value for packagedAt.
          * @return Builder
          */
         public Builder packagedAt(String packagedAt) {
@@ -427,7 +443,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for expectedShippedAt.
-         * @param expectedShippedAt String value for expectedShippedAt.
+         * @param  expectedShippedAt  String value for expectedShippedAt.
          * @return Builder
          */
         public Builder expectedShippedAt(String expectedShippedAt) {
@@ -437,7 +453,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for shippedAt.
-         * @param shippedAt String value for shippedAt.
+         * @param  shippedAt  String value for shippedAt.
          * @return Builder
          */
         public Builder shippedAt(String shippedAt) {
@@ -447,7 +463,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for canceledAt.
-         * @param canceledAt String value for canceledAt.
+         * @param  canceledAt  String value for canceledAt.
          * @return Builder
          */
         public Builder canceledAt(String canceledAt) {
@@ -457,7 +473,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for cancelReason.
-         * @param cancelReason String value for cancelReason.
+         * @param  cancelReason  String value for cancelReason.
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
@@ -467,7 +483,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for failedAt.
-         * @param failedAt String value for failedAt.
+         * @param  failedAt  String value for failedAt.
          * @return Builder
          */
         public Builder failedAt(String failedAt) {
@@ -477,7 +493,7 @@ public class OrderFulfillmentShipmentDetails {
 
         /**
          * Setter for failureReason.
-         * @param failureReason String value for failureReason.
+         * @param  failureReason  String value for failureReason.
          * @return Builder
          */
         public Builder failureReason(String failureReason) {

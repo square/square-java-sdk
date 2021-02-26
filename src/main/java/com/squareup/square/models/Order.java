@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
@@ -12,67 +13,95 @@ import java.util.Objects;
  * This is a model class for Order type.
  */
 public class Order {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderSource source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItem> lineItems;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemTax> taxes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemDiscount> discounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderServiceCharge> serviceCharges;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderFulfillment> fulfillments;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturn> returns;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts returnAmounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts netAmounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderRoundingAdjustment roundingAdjustment;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Tender> tenders;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Refund> refunds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalDiscountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalServiceChargeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderPricingOptions pricingOptions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReward> rewards;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param source OrderSource value for source.
-     * @param customerId String value for customerId.
-     * @param lineItems List of OrderLineItem value for lineItems.
-     * @param taxes List of OrderLineItemTax value for taxes.
-     * @param discounts List of OrderLineItemDiscount value for discounts.
-     * @param serviceCharges List of OrderServiceCharge value for serviceCharges.
-     * @param fulfillments List of OrderFulfillment value for fulfillments.
-     * @param returns List of OrderReturn value for returns.
-     * @param returnAmounts OrderMoneyAmounts value for returnAmounts.
-     * @param netAmounts OrderMoneyAmounts value for netAmounts.
-     * @param roundingAdjustment OrderRoundingAdjustment value for roundingAdjustment.
-     * @param tenders List of Tender value for tenders.
-     * @param refunds List of Refund value for refunds.
-     * @param metadata Map of String, value for metadata.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param closedAt String value for closedAt.
-     * @param state String value for state.
-     * @param version Integer value for version.
-     * @param totalMoney Money value for totalMoney.
-     * @param totalTaxMoney Money value for totalTaxMoney.
-     * @param totalDiscountMoney Money value for totalDiscountMoney.
-     * @param totalTipMoney Money value for totalTipMoney.
-     * @param totalServiceChargeMoney Money value for totalServiceChargeMoney.
-     * @param pricingOptions OrderPricingOptions value for pricingOptions.
-     * @param rewards List of OrderReward value for rewards.
+     * @param  locationId  String value for locationId.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  source  OrderSource value for source.
+     * @param  customerId  String value for customerId.
+     * @param  lineItems  List of OrderLineItem value for lineItems.
+     * @param  taxes  List of OrderLineItemTax value for taxes.
+     * @param  discounts  List of OrderLineItemDiscount value for discounts.
+     * @param  serviceCharges  List of OrderServiceCharge value for serviceCharges.
+     * @param  fulfillments  List of OrderFulfillment value for fulfillments.
+     * @param  returns  List of OrderReturn value for returns.
+     * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
+     * @param  netAmounts  OrderMoneyAmounts value for netAmounts.
+     * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
+     * @param  tenders  List of Tender value for tenders.
+     * @param  refunds  List of Refund value for refunds.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  closedAt  String value for closedAt.
+     * @param  state  String value for state.
+     * @param  version  Integer value for version.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  totalDiscountMoney  Money value for totalDiscountMoney.
+     * @param  totalTipMoney  Money value for totalTipMoney.
+     * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
+     * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
+     * @param  rewards  List of OrderReward value for rewards.
      */
     @JsonCreator
     public Order(
@@ -143,7 +172,7 @@ public class Order {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -153,7 +182,7 @@ public class Order {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -163,7 +192,7 @@ public class Order {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -173,7 +202,7 @@ public class Order {
      */
     @JsonGetter("source")
     public OrderSource getSource() {
-        return this.source;
+        return source;
     }
 
     /**
@@ -183,7 +212,7 @@ public class Order {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -193,7 +222,7 @@ public class Order {
      */
     @JsonGetter("line_items")
     public List<OrderLineItem> getLineItems() {
-        return this.lineItems;
+        return lineItems;
     }
 
     /**
@@ -209,7 +238,7 @@ public class Order {
      */
     @JsonGetter("taxes")
     public List<OrderLineItemTax> getTaxes() {
-        return this.taxes;
+        return taxes;
     }
 
     /**
@@ -225,7 +254,7 @@ public class Order {
      */
     @JsonGetter("discounts")
     public List<OrderLineItemDiscount> getDiscounts() {
-        return this.discounts;
+        return discounts;
     }
 
     /**
@@ -235,7 +264,7 @@ public class Order {
      */
     @JsonGetter("service_charges")
     public List<OrderServiceCharge> getServiceCharges() {
-        return this.serviceCharges;
+        return serviceCharges;
     }
 
     /**
@@ -246,7 +275,7 @@ public class Order {
      */
     @JsonGetter("fulfillments")
     public List<OrderFulfillment> getFulfillments() {
-        return this.fulfillments;
+        return fulfillments;
     }
 
     /**
@@ -258,7 +287,7 @@ public class Order {
      */
     @JsonGetter("returns")
     public List<OrderReturn> getReturns() {
-        return this.returns;
+        return returns;
     }
 
     /**
@@ -268,7 +297,7 @@ public class Order {
      */
     @JsonGetter("return_amounts")
     public OrderMoneyAmounts getReturnAmounts() {
-        return this.returnAmounts;
+        return returnAmounts;
     }
 
     /**
@@ -278,7 +307,7 @@ public class Order {
      */
     @JsonGetter("net_amounts")
     public OrderMoneyAmounts getNetAmounts() {
-        return this.netAmounts;
+        return netAmounts;
     }
 
     /**
@@ -289,7 +318,7 @@ public class Order {
      */
     @JsonGetter("rounding_adjustment")
     public OrderRoundingAdjustment getRoundingAdjustment() {
-        return this.roundingAdjustment;
+        return roundingAdjustment;
     }
 
     /**
@@ -299,7 +328,7 @@ public class Order {
      */
     @JsonGetter("tenders")
     public List<Tender> getTenders() {
-        return this.tenders;
+        return tenders;
     }
 
     /**
@@ -309,7 +338,7 @@ public class Order {
      */
     @JsonGetter("refunds")
     public List<Refund> getRefunds() {
-        return this.refunds;
+        return refunds;
     }
 
     /**
@@ -329,7 +358,7 @@ public class Order {
      */
     @JsonGetter("metadata")
     public Map<String, String> getMetadata() {
-        return this.metadata;
+        return metadata;
     }
 
     /**
@@ -340,7 +369,7 @@ public class Order {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -351,7 +380,7 @@ public class Order {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -362,7 +391,7 @@ public class Order {
      */
     @JsonGetter("closed_at")
     public String getClosedAt() {
-        return this.closedAt;
+        return closedAt;
     }
 
     /**
@@ -372,7 +401,7 @@ public class Order {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -385,7 +414,7 @@ public class Order {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -400,7 +429,7 @@ public class Order {
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -415,7 +444,7 @@ public class Order {
      */
     @JsonGetter("total_tax_money")
     public Money getTotalTaxMoney() {
-        return this.totalTaxMoney;
+        return totalTaxMoney;
     }
 
     /**
@@ -430,7 +459,7 @@ public class Order {
      */
     @JsonGetter("total_discount_money")
     public Money getTotalDiscountMoney() {
-        return this.totalDiscountMoney;
+        return totalDiscountMoney;
     }
 
     /**
@@ -445,7 +474,7 @@ public class Order {
      */
     @JsonGetter("total_tip_money")
     public Money getTotalTipMoney() {
-        return this.totalTipMoney;
+        return totalTipMoney;
     }
 
     /**
@@ -460,7 +489,7 @@ public class Order {
      */
     @JsonGetter("total_service_charge_money")
     public Money getTotalServiceChargeMoney() {
-        return this.totalServiceChargeMoney;
+        return totalServiceChargeMoney;
     }
 
     /**
@@ -473,7 +502,7 @@ public class Order {
      */
     @JsonGetter("pricing_options")
     public OrderPricingOptions getPricingOptions() {
-        return this.pricingOptions;
+        return pricingOptions;
     }
 
     /**
@@ -483,7 +512,7 @@ public class Order {
      */
     @JsonGetter("rewards")
     public List<OrderReward> getRewards() {
-        return this.rewards;
+        return rewards;
     }
 
     @Override
@@ -629,7 +658,7 @@ public class Order {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          */
         public Builder(String locationId) {
             this.locationId = locationId;
@@ -637,7 +666,7 @@ public class Order {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -647,7 +676,7 @@ public class Order {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -657,7 +686,7 @@ public class Order {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -667,7 +696,7 @@ public class Order {
 
         /**
          * Setter for source.
-         * @param source OrderSource value for source.
+         * @param  source  OrderSource value for source.
          * @return Builder
          */
         public Builder source(OrderSource source) {
@@ -677,7 +706,7 @@ public class Order {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -687,7 +716,7 @@ public class Order {
 
         /**
          * Setter for lineItems.
-         * @param lineItems List of OrderLineItem value for lineItems.
+         * @param  lineItems  List of OrderLineItem value for lineItems.
          * @return Builder
          */
         public Builder lineItems(List<OrderLineItem> lineItems) {
@@ -697,7 +726,7 @@ public class Order {
 
         /**
          * Setter for taxes.
-         * @param taxes List of OrderLineItemTax value for taxes.
+         * @param  taxes  List of OrderLineItemTax value for taxes.
          * @return Builder
          */
         public Builder taxes(List<OrderLineItemTax> taxes) {
@@ -707,7 +736,7 @@ public class Order {
 
         /**
          * Setter for discounts.
-         * @param discounts List of OrderLineItemDiscount value for discounts.
+         * @param  discounts  List of OrderLineItemDiscount value for discounts.
          * @return Builder
          */
         public Builder discounts(List<OrderLineItemDiscount> discounts) {
@@ -717,7 +746,7 @@ public class Order {
 
         /**
          * Setter for serviceCharges.
-         * @param serviceCharges List of OrderServiceCharge value for serviceCharges.
+         * @param  serviceCharges  List of OrderServiceCharge value for serviceCharges.
          * @return Builder
          */
         public Builder serviceCharges(List<OrderServiceCharge> serviceCharges) {
@@ -727,7 +756,7 @@ public class Order {
 
         /**
          * Setter for fulfillments.
-         * @param fulfillments List of OrderFulfillment value for fulfillments.
+         * @param  fulfillments  List of OrderFulfillment value for fulfillments.
          * @return Builder
          */
         public Builder fulfillments(List<OrderFulfillment> fulfillments) {
@@ -737,7 +766,7 @@ public class Order {
 
         /**
          * Setter for returns.
-         * @param returns List of OrderReturn value for returns.
+         * @param  returns  List of OrderReturn value for returns.
          * @return Builder
          */
         public Builder returns(List<OrderReturn> returns) {
@@ -747,7 +776,7 @@ public class Order {
 
         /**
          * Setter for returnAmounts.
-         * @param returnAmounts OrderMoneyAmounts value for returnAmounts.
+         * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
          * @return Builder
          */
         public Builder returnAmounts(OrderMoneyAmounts returnAmounts) {
@@ -757,7 +786,7 @@ public class Order {
 
         /**
          * Setter for netAmounts.
-         * @param netAmounts OrderMoneyAmounts value for netAmounts.
+         * @param  netAmounts  OrderMoneyAmounts value for netAmounts.
          * @return Builder
          */
         public Builder netAmounts(OrderMoneyAmounts netAmounts) {
@@ -767,7 +796,7 @@ public class Order {
 
         /**
          * Setter for roundingAdjustment.
-         * @param roundingAdjustment OrderRoundingAdjustment value for roundingAdjustment.
+         * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
          * @return Builder
          */
         public Builder roundingAdjustment(OrderRoundingAdjustment roundingAdjustment) {
@@ -777,7 +806,7 @@ public class Order {
 
         /**
          * Setter for tenders.
-         * @param tenders List of Tender value for tenders.
+         * @param  tenders  List of Tender value for tenders.
          * @return Builder
          */
         public Builder tenders(List<Tender> tenders) {
@@ -787,7 +816,7 @@ public class Order {
 
         /**
          * Setter for refunds.
-         * @param refunds List of Refund value for refunds.
+         * @param  refunds  List of Refund value for refunds.
          * @return Builder
          */
         public Builder refunds(List<Refund> refunds) {
@@ -797,7 +826,7 @@ public class Order {
 
         /**
          * Setter for metadata.
-         * @param metadata Map of String, value for metadata.
+         * @param  metadata  Map of String, value for metadata.
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
@@ -807,7 +836,7 @@ public class Order {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -817,7 +846,7 @@ public class Order {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -827,7 +856,7 @@ public class Order {
 
         /**
          * Setter for closedAt.
-         * @param closedAt String value for closedAt.
+         * @param  closedAt  String value for closedAt.
          * @return Builder
          */
         public Builder closedAt(String closedAt) {
@@ -837,7 +866,7 @@ public class Order {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -847,7 +876,7 @@ public class Order {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -857,7 +886,7 @@ public class Order {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney Money value for totalMoney.
+         * @param  totalMoney  Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
@@ -867,7 +896,7 @@ public class Order {
 
         /**
          * Setter for totalTaxMoney.
-         * @param totalTaxMoney Money value for totalTaxMoney.
+         * @param  totalTaxMoney  Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(Money totalTaxMoney) {
@@ -877,7 +906,7 @@ public class Order {
 
         /**
          * Setter for totalDiscountMoney.
-         * @param totalDiscountMoney Money value for totalDiscountMoney.
+         * @param  totalDiscountMoney  Money value for totalDiscountMoney.
          * @return Builder
          */
         public Builder totalDiscountMoney(Money totalDiscountMoney) {
@@ -887,7 +916,7 @@ public class Order {
 
         /**
          * Setter for totalTipMoney.
-         * @param totalTipMoney Money value for totalTipMoney.
+         * @param  totalTipMoney  Money value for totalTipMoney.
          * @return Builder
          */
         public Builder totalTipMoney(Money totalTipMoney) {
@@ -897,7 +926,7 @@ public class Order {
 
         /**
          * Setter for totalServiceChargeMoney.
-         * @param totalServiceChargeMoney Money value for totalServiceChargeMoney.
+         * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
          * @return Builder
          */
         public Builder totalServiceChargeMoney(Money totalServiceChargeMoney) {
@@ -907,7 +936,7 @@ public class Order {
 
         /**
          * Setter for pricingOptions.
-         * @param pricingOptions OrderPricingOptions value for pricingOptions.
+         * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
          * @return Builder
          */
         public Builder pricingOptions(OrderPricingOptions pricingOptions) {
@@ -917,7 +946,7 @@ public class Order {
 
         /**
          * Setter for rewards.
-         * @param rewards List of OrderReward value for rewards.
+         * @param  rewards  List of OrderReward value for rewards.
          * @return Builder
          */
         public Builder rewards(List<OrderReward> rewards) {

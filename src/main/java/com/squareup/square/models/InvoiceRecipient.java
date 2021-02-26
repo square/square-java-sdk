@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,30 @@ import java.util.Objects;
  * This is a model class for InvoiceRecipient type.
  */
 public class InvoiceRecipient {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
 
     /**
      * Initialization constructor.
-     * @param customerId String value for customerId.
-     * @param givenName String value for givenName.
-     * @param familyName String value for familyName.
-     * @param emailAddress String value for emailAddress.
-     * @param address Address value for address.
-     * @param phoneNumber String value for phoneNumber.
-     * @param companyName String value for companyName.
+     * @param  customerId  String value for customerId.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  companyName  String value for companyName.
      */
     @JsonCreator
     public InvoiceRecipient(
@@ -54,7 +62,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -64,7 +72,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("given_name")
     public String getGivenName() {
-        return this.givenName;
+        return givenName;
     }
 
     /**
@@ -74,7 +82,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
-        return this.familyName;
+        return familyName;
     }
 
     /**
@@ -84,7 +92,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -94,7 +102,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     /**
@@ -104,7 +112,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -114,7 +122,7 @@ public class InvoiceRecipient {
      */
     @JsonGetter("company_name")
     public String getCompanyName() {
-        return this.companyName;
+        return companyName;
     }
 
     @Override
@@ -185,7 +193,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -195,7 +203,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for givenName.
-         * @param givenName String value for givenName.
+         * @param  givenName  String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
@@ -205,7 +213,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for familyName.
-         * @param familyName String value for familyName.
+         * @param  familyName  String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
@@ -215,7 +223,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -225,7 +233,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
@@ -235,7 +243,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -245,7 +253,7 @@ public class InvoiceRecipient {
 
         /**
          * Setter for companyName.
-         * @param companyName String value for companyName.
+         * @param  companyName  String value for companyName.
          * @return Builder
          */
         public Builder companyName(String companyName) {

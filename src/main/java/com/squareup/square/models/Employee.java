@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,29 +12,39 @@ import java.util.Objects;
  * This is a model class for Employee type.
  */
 public class Employee {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String firstName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lastName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String email;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param firstName String value for firstName.
-     * @param lastName String value for lastName.
-     * @param email String value for email.
-     * @param phoneNumber String value for phoneNumber.
-     * @param locationIds List of String value for locationIds.
-     * @param status String value for status.
-     * @param isOwner Boolean value for isOwner.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  id  String value for id.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  email  String value for email.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  status  String value for status.
+     * @param  isOwner  Boolean value for isOwner.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public Employee(
@@ -66,7 +77,7 @@ public class Employee {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -76,7 +87,7 @@ public class Employee {
      */
     @JsonGetter("first_name")
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     /**
@@ -86,7 +97,7 @@ public class Employee {
      */
     @JsonGetter("last_name")
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     /**
@@ -96,7 +107,7 @@ public class Employee {
      */
     @JsonGetter("email")
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     /**
@@ -106,7 +117,7 @@ public class Employee {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -116,7 +127,7 @@ public class Employee {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -126,7 +137,7 @@ public class Employee {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -137,7 +148,7 @@ public class Employee {
      */
     @JsonGetter("is_owner")
     public Boolean getIsOwner() {
-        return this.isOwner;
+        return isOwner;
     }
 
     /**
@@ -147,7 +158,7 @@ public class Employee {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -157,7 +168,7 @@ public class Employee {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -238,7 +249,7 @@ public class Employee {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -248,7 +259,7 @@ public class Employee {
 
         /**
          * Setter for firstName.
-         * @param firstName String value for firstName.
+         * @param  firstName  String value for firstName.
          * @return Builder
          */
         public Builder firstName(String firstName) {
@@ -258,7 +269,7 @@ public class Employee {
 
         /**
          * Setter for lastName.
-         * @param lastName String value for lastName.
+         * @param  lastName  String value for lastName.
          * @return Builder
          */
         public Builder lastName(String lastName) {
@@ -268,7 +279,7 @@ public class Employee {
 
         /**
          * Setter for email.
-         * @param email String value for email.
+         * @param  email  String value for email.
          * @return Builder
          */
         public Builder email(String email) {
@@ -278,7 +289,7 @@ public class Employee {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -288,7 +299,7 @@ public class Employee {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -298,7 +309,7 @@ public class Employee {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -308,7 +319,7 @@ public class Employee {
 
         /**
          * Setter for isOwner.
-         * @param isOwner Boolean value for isOwner.
+         * @param  isOwner  Boolean value for isOwner.
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
@@ -318,7 +329,7 @@ public class Employee {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -328,7 +339,7 @@ public class Employee {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

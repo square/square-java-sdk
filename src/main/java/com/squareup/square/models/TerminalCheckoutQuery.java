@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for TerminalCheckoutQuery type.
  */
 public class TerminalCheckoutQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQueryFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQuerySort sort;
 
     /**
      * Initialization constructor.
-     * @param filter TerminalCheckoutQueryFilter value for filter.
-     * @param sort TerminalCheckoutQuerySort value for sort.
+     * @param  filter  TerminalCheckoutQueryFilter value for filter.
+     * @param  sort  TerminalCheckoutQuerySort value for sort.
      */
     @JsonCreator
     public TerminalCheckoutQuery(
@@ -32,7 +35,7 @@ public class TerminalCheckoutQuery {
      */
     @JsonGetter("filter")
     public TerminalCheckoutQueryFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -41,7 +44,7 @@ public class TerminalCheckoutQuery {
      */
     @JsonGetter("sort")
     public TerminalCheckoutQuerySort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -94,7 +97,7 @@ public class TerminalCheckoutQuery {
 
         /**
          * Setter for filter.
-         * @param filter TerminalCheckoutQueryFilter value for filter.
+         * @param  filter  TerminalCheckoutQueryFilter value for filter.
          * @return Builder
          */
         public Builder filter(TerminalCheckoutQueryFilter filter) {
@@ -104,7 +107,7 @@ public class TerminalCheckoutQuery {
 
         /**
          * Setter for sort.
-         * @param sort TerminalCheckoutQuerySort value for sort.
+         * @param  sort  TerminalCheckoutQuerySort value for sort.
          * @return Builder
          */
         public Builder sort(TerminalCheckoutQuerySort sort) {

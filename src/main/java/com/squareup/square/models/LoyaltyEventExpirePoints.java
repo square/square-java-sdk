@@ -15,8 +15,8 @@ public class LoyaltyEventExpirePoints {
 
     /**
      * Initialization constructor.
-     * @param loyaltyProgramId String value for loyaltyProgramId.
-     * @param points int value for points.
+     * @param  loyaltyProgramId  String value for loyaltyProgramId.
+     * @param  points  int value for points.
      */
     @JsonCreator
     public LoyaltyEventExpirePoints(
@@ -33,7 +33,7 @@ public class LoyaltyEventExpirePoints {
      */
     @JsonGetter("loyalty_program_id")
     public String getLoyaltyProgramId() {
-        return this.loyaltyProgramId;
+        return loyaltyProgramId;
     }
 
     /**
@@ -43,7 +43,7 @@ public class LoyaltyEventExpirePoints {
      */
     @JsonGetter("points")
     public int getPoints() {
-        return this.points;
+        return points;
     }
 
     @Override
@@ -93,18 +93,17 @@ public class LoyaltyEventExpirePoints {
 
         /**
          * Initialization constructor.
-         * @param loyaltyProgramId String value for loyaltyProgramId.
-         * @param points int value for points.
+         * @param  loyaltyProgramId  String value for loyaltyProgramId.
+         * @param  points  int value for points.
          */
-        public Builder(String loyaltyProgramId,
-                int points) {
+        public Builder(String loyaltyProgramId, int points) {
             this.loyaltyProgramId = loyaltyProgramId;
             this.points = points;
         }
 
         /**
          * Setter for loyaltyProgramId.
-         * @param loyaltyProgramId String value for loyaltyProgramId.
+         * @param  loyaltyProgramId  String value for loyaltyProgramId.
          * @return Builder
          */
         public Builder loyaltyProgramId(String loyaltyProgramId) {
@@ -114,7 +113,7 @@ public class LoyaltyEventExpirePoints {
 
         /**
          * Setter for points.
-         * @param points int value for points.
+         * @param  points  int value for points.
          * @return Builder
          */
         public Builder points(int points) {

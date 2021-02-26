@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,17 +12,21 @@ import java.util.Objects;
  * This is a model class for ListDeviceCodesRequest type.
  */
 public class ListDeviceCodesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String productType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> status;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param locationId String value for locationId.
-     * @param productType String value for productType.
-     * @param status List of String value for status.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  productType  String value for productType.
+     * @param  status  List of String value for status.
      */
     @JsonCreator
     public ListDeviceCodesRequest(
@@ -44,7 +49,7 @@ public class ListDeviceCodesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -55,7 +60,7 @@ public class ListDeviceCodesRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -64,7 +69,7 @@ public class ListDeviceCodesRequest {
      */
     @JsonGetter("product_type")
     public String getProductType() {
-        return this.productType;
+        return productType;
     }
 
     /**
@@ -76,7 +81,7 @@ public class ListDeviceCodesRequest {
      */
     @JsonGetter("status")
     public List<String> getStatus() {
-        return this.status;
+        return status;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class ListDeviceCodesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -146,7 +151,7 @@ public class ListDeviceCodesRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -156,7 +161,7 @@ public class ListDeviceCodesRequest {
 
         /**
          * Setter for productType.
-         * @param productType String value for productType.
+         * @param  productType  String value for productType.
          * @return Builder
          */
         public Builder productType(String productType) {
@@ -166,7 +171,7 @@ public class ListDeviceCodesRequest {
 
         /**
          * Setter for status.
-         * @param status List of String value for status.
+         * @param  status  List of String value for status.
          * @return Builder
          */
         public Builder status(List<String> status) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogMeasurementUnit type.
  */
 public class CatalogMeasurementUnit {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnit measurementUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
 
     /**
      * Initialization constructor.
-     * @param measurementUnit MeasurementUnit value for measurementUnit.
-     * @param precision Integer value for precision.
+     * @param  measurementUnit  MeasurementUnit value for measurementUnit.
+     * @param  precision  Integer value for precision.
      */
     @JsonCreator
     public CatalogMeasurementUnit(
@@ -35,7 +38,7 @@ public class CatalogMeasurementUnit {
      */
     @JsonGetter("measurement_unit")
     public MeasurementUnit getMeasurementUnit() {
-        return this.measurementUnit;
+        return measurementUnit;
     }
 
     /**
@@ -48,7 +51,7 @@ public class CatalogMeasurementUnit {
      */
     @JsonGetter("precision")
     public Integer getPrecision() {
-        return this.precision;
+        return precision;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class CatalogMeasurementUnit {
 
         /**
          * Setter for measurementUnit.
-         * @param measurementUnit MeasurementUnit value for measurementUnit.
+         * @param  measurementUnit  MeasurementUnit value for measurementUnit.
          * @return Builder
          */
         public Builder measurementUnit(MeasurementUnit measurementUnit) {
@@ -112,7 +115,7 @@ public class CatalogMeasurementUnit {
 
         /**
          * Setter for precision.
-         * @param precision Integer value for precision.
+         * @param  precision  Integer value for precision.
          * @return Builder
          */
         public Builder precision(Integer precision) {

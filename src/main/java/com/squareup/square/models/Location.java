@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,61 +12,87 @@ import java.util.Objects;
  * This is a model class for Location type.
  */
 public class Location {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> capabilities;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String websiteUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessHours businessHours;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String twitterUsername;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String instagramUsername;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String facebookUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Coordinates coordinates;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String logoUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String posBackgroundUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String mcc;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fullFormatLogoUrl;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param name String value for name.
-     * @param address Address value for address.
-     * @param timezone String value for timezone.
-     * @param capabilities List of String value for capabilities.
-     * @param status String value for status.
-     * @param createdAt String value for createdAt.
-     * @param merchantId String value for merchantId.
-     * @param country String value for country.
-     * @param languageCode String value for languageCode.
-     * @param currency String value for currency.
-     * @param phoneNumber String value for phoneNumber.
-     * @param businessName String value for businessName.
-     * @param type String value for type.
-     * @param websiteUrl String value for websiteUrl.
-     * @param businessHours BusinessHours value for businessHours.
-     * @param businessEmail String value for businessEmail.
-     * @param description String value for description.
-     * @param twitterUsername String value for twitterUsername.
-     * @param instagramUsername String value for instagramUsername.
-     * @param facebookUrl String value for facebookUrl.
-     * @param coordinates Coordinates value for coordinates.
-     * @param logoUrl String value for logoUrl.
-     * @param posBackgroundUrl String value for posBackgroundUrl.
-     * @param mcc String value for mcc.
-     * @param fullFormatLogoUrl String value for fullFormatLogoUrl.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  address  Address value for address.
+     * @param  timezone  String value for timezone.
+     * @param  capabilities  List of String value for capabilities.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  merchantId  String value for merchantId.
+     * @param  country  String value for country.
+     * @param  languageCode  String value for languageCode.
+     * @param  currency  String value for currency.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  businessName  String value for businessName.
+     * @param  type  String value for type.
+     * @param  websiteUrl  String value for websiteUrl.
+     * @param  businessHours  BusinessHours value for businessHours.
+     * @param  businessEmail  String value for businessEmail.
+     * @param  description  String value for description.
+     * @param  twitterUsername  String value for twitterUsername.
+     * @param  instagramUsername  String value for instagramUsername.
+     * @param  facebookUrl  String value for facebookUrl.
+     * @param  coordinates  Coordinates value for coordinates.
+     * @param  logoUrl  String value for logoUrl.
+     * @param  posBackgroundUrl  String value for posBackgroundUrl.
+     * @param  mcc  String value for mcc.
+     * @param  fullFormatLogoUrl  String value for fullFormatLogoUrl.
      */
     @JsonCreator
     public Location(
@@ -130,17 +157,18 @@ public class Location {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
      * Getter for Name.
-     * The name of the location. This information appears in the dashboard as the nickname.
+     * The name of the location. This information appears in the dashboard as the nickname. A
+     * location name must be unique within a seller account.
      * @return Returns the String
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -150,7 +178,7 @@ public class Location {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     /**
@@ -161,7 +189,7 @@ public class Location {
      */
     @JsonGetter("timezone")
     public String getTimezone() {
-        return this.timezone;
+        return timezone;
     }
 
     /**
@@ -173,7 +201,7 @@ public class Location {
      */
     @JsonGetter("capabilities")
     public List<String> getCapabilities() {
-        return this.capabilities;
+        return capabilities;
     }
 
     /**
@@ -183,7 +211,7 @@ public class Location {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -193,7 +221,7 @@ public class Location {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -203,7 +231,7 @@ public class Location {
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
-        return this.merchantId;
+        return merchantId;
     }
 
     /**
@@ -214,7 +242,7 @@ public class Location {
      */
     @JsonGetter("country")
     public String getCountry() {
-        return this.country;
+        return country;
     }
 
     /**
@@ -225,7 +253,7 @@ public class Location {
      */
     @JsonGetter("language_code")
     public String getLanguageCode() {
-        return this.languageCode;
+        return languageCode;
     }
 
     /**
@@ -236,7 +264,7 @@ public class Location {
      */
     @JsonGetter("currency")
     public String getCurrency() {
-        return this.currency;
+        return currency;
     }
 
     /**
@@ -246,7 +274,7 @@ public class Location {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -257,7 +285,7 @@ public class Location {
      */
     @JsonGetter("business_name")
     public String getBusinessName() {
-        return this.businessName;
+        return businessName;
     }
 
     /**
@@ -267,7 +295,7 @@ public class Location {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -277,7 +305,7 @@ public class Location {
      */
     @JsonGetter("website_url")
     public String getWebsiteUrl() {
-        return this.websiteUrl;
+        return websiteUrl;
     }
 
     /**
@@ -287,7 +315,7 @@ public class Location {
      */
     @JsonGetter("business_hours")
     public BusinessHours getBusinessHours() {
-        return this.businessHours;
+        return businessHours;
     }
 
     /**
@@ -298,7 +326,7 @@ public class Location {
      */
     @JsonGetter("business_email")
     public String getBusinessEmail() {
-        return this.businessEmail;
+        return businessEmail;
     }
 
     /**
@@ -308,7 +336,7 @@ public class Location {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -318,7 +346,7 @@ public class Location {
      */
     @JsonGetter("twitter_username")
     public String getTwitterUsername() {
-        return this.twitterUsername;
+        return twitterUsername;
     }
 
     /**
@@ -328,7 +356,7 @@ public class Location {
      */
     @JsonGetter("instagram_username")
     public String getInstagramUsername() {
-        return this.instagramUsername;
+        return instagramUsername;
     }
 
     /**
@@ -338,7 +366,7 @@ public class Location {
      */
     @JsonGetter("facebook_url")
     public String getFacebookUrl() {
-        return this.facebookUrl;
+        return facebookUrl;
     }
 
     /**
@@ -348,7 +376,7 @@ public class Location {
      */
     @JsonGetter("coordinates")
     public Coordinates getCoordinates() {
-        return this.coordinates;
+        return coordinates;
     }
 
     /**
@@ -361,7 +389,7 @@ public class Location {
      */
     @JsonGetter("logo_url")
     public String getLogoUrl() {
-        return this.logoUrl;
+        return logoUrl;
     }
 
     /**
@@ -371,7 +399,7 @@ public class Location {
      */
     @JsonGetter("pos_background_url")
     public String getPosBackgroundUrl() {
-        return this.posBackgroundUrl;
+        return posBackgroundUrl;
     }
 
     /**
@@ -382,7 +410,7 @@ public class Location {
      */
     @JsonGetter("mcc")
     public String getMcc() {
-        return this.mcc;
+        return mcc;
     }
 
     /**
@@ -395,7 +423,7 @@ public class Location {
      */
     @JsonGetter("full_format_logo_url")
     public String getFullFormatLogoUrl() {
-        return this.fullFormatLogoUrl;
+        return fullFormatLogoUrl;
     }
 
     @Override
@@ -534,7 +562,7 @@ public class Location {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -544,7 +572,7 @@ public class Location {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -554,7 +582,7 @@ public class Location {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
@@ -564,7 +592,7 @@ public class Location {
 
         /**
          * Setter for timezone.
-         * @param timezone String value for timezone.
+         * @param  timezone  String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {
@@ -574,7 +602,7 @@ public class Location {
 
         /**
          * Setter for capabilities.
-         * @param capabilities List of String value for capabilities.
+         * @param  capabilities  List of String value for capabilities.
          * @return Builder
          */
         public Builder capabilities(List<String> capabilities) {
@@ -584,7 +612,7 @@ public class Location {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -594,7 +622,7 @@ public class Location {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -604,7 +632,7 @@ public class Location {
 
         /**
          * Setter for merchantId.
-         * @param merchantId String value for merchantId.
+         * @param  merchantId  String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
@@ -614,7 +642,7 @@ public class Location {
 
         /**
          * Setter for country.
-         * @param country String value for country.
+         * @param  country  String value for country.
          * @return Builder
          */
         public Builder country(String country) {
@@ -624,7 +652,7 @@ public class Location {
 
         /**
          * Setter for languageCode.
-         * @param languageCode String value for languageCode.
+         * @param  languageCode  String value for languageCode.
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
@@ -634,7 +662,7 @@ public class Location {
 
         /**
          * Setter for currency.
-         * @param currency String value for currency.
+         * @param  currency  String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {
@@ -644,7 +672,7 @@ public class Location {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -654,7 +682,7 @@ public class Location {
 
         /**
          * Setter for businessName.
-         * @param businessName String value for businessName.
+         * @param  businessName  String value for businessName.
          * @return Builder
          */
         public Builder businessName(String businessName) {
@@ -664,7 +692,7 @@ public class Location {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -674,7 +702,7 @@ public class Location {
 
         /**
          * Setter for websiteUrl.
-         * @param websiteUrl String value for websiteUrl.
+         * @param  websiteUrl  String value for websiteUrl.
          * @return Builder
          */
         public Builder websiteUrl(String websiteUrl) {
@@ -684,7 +712,7 @@ public class Location {
 
         /**
          * Setter for businessHours.
-         * @param businessHours BusinessHours value for businessHours.
+         * @param  businessHours  BusinessHours value for businessHours.
          * @return Builder
          */
         public Builder businessHours(BusinessHours businessHours) {
@@ -694,7 +722,7 @@ public class Location {
 
         /**
          * Setter for businessEmail.
-         * @param businessEmail String value for businessEmail.
+         * @param  businessEmail  String value for businessEmail.
          * @return Builder
          */
         public Builder businessEmail(String businessEmail) {
@@ -704,7 +732,7 @@ public class Location {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -714,7 +742,7 @@ public class Location {
 
         /**
          * Setter for twitterUsername.
-         * @param twitterUsername String value for twitterUsername.
+         * @param  twitterUsername  String value for twitterUsername.
          * @return Builder
          */
         public Builder twitterUsername(String twitterUsername) {
@@ -724,7 +752,7 @@ public class Location {
 
         /**
          * Setter for instagramUsername.
-         * @param instagramUsername String value for instagramUsername.
+         * @param  instagramUsername  String value for instagramUsername.
          * @return Builder
          */
         public Builder instagramUsername(String instagramUsername) {
@@ -734,7 +762,7 @@ public class Location {
 
         /**
          * Setter for facebookUrl.
-         * @param facebookUrl String value for facebookUrl.
+         * @param  facebookUrl  String value for facebookUrl.
          * @return Builder
          */
         public Builder facebookUrl(String facebookUrl) {
@@ -744,7 +772,7 @@ public class Location {
 
         /**
          * Setter for coordinates.
-         * @param coordinates Coordinates value for coordinates.
+         * @param  coordinates  Coordinates value for coordinates.
          * @return Builder
          */
         public Builder coordinates(Coordinates coordinates) {
@@ -754,7 +782,7 @@ public class Location {
 
         /**
          * Setter for logoUrl.
-         * @param logoUrl String value for logoUrl.
+         * @param  logoUrl  String value for logoUrl.
          * @return Builder
          */
         public Builder logoUrl(String logoUrl) {
@@ -764,7 +792,7 @@ public class Location {
 
         /**
          * Setter for posBackgroundUrl.
-         * @param posBackgroundUrl String value for posBackgroundUrl.
+         * @param  posBackgroundUrl  String value for posBackgroundUrl.
          * @return Builder
          */
         public Builder posBackgroundUrl(String posBackgroundUrl) {
@@ -774,7 +802,7 @@ public class Location {
 
         /**
          * Setter for mcc.
-         * @param mcc String value for mcc.
+         * @param  mcc  String value for mcc.
          * @return Builder
          */
         public Builder mcc(String mcc) {
@@ -784,7 +812,7 @@ public class Location {
 
         /**
          * Setter for fullFormatLogoUrl.
-         * @param fullFormatLogoUrl String value for fullFormatLogoUrl.
+         * @param  fullFormatLogoUrl  String value for fullFormatLogoUrl.
          * @return Builder
          */
         public Builder fullFormatLogoUrl(String fullFormatLogoUrl) {

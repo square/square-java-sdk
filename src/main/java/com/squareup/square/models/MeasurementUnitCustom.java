@@ -15,8 +15,8 @@ public class MeasurementUnitCustom {
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param abbreviation String value for abbreviation.
+     * @param  name  String value for name.
+     * @param  abbreviation  String value for abbreviation.
      */
     @JsonCreator
     public MeasurementUnitCustom(
@@ -33,7 +33,7 @@ public class MeasurementUnitCustom {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -44,7 +44,7 @@ public class MeasurementUnitCustom {
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {
-        return this.abbreviation;
+        return abbreviation;
     }
 
     @Override
@@ -93,18 +93,17 @@ public class MeasurementUnitCustom {
 
         /**
          * Initialization constructor.
-         * @param name String value for name.
-         * @param abbreviation String value for abbreviation.
+         * @param  name  String value for name.
+         * @param  abbreviation  String value for abbreviation.
          */
-        public Builder(String name,
-                String abbreviation) {
+        public Builder(String name, String abbreviation) {
             this.name = name;
             this.abbreviation = abbreviation;
         }
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -114,7 +113,7 @@ public class MeasurementUnitCustom {
 
         /**
          * Setter for abbreviation.
-         * @param abbreviation String value for abbreviation.
+         * @param  abbreviation  String value for abbreviation.
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {

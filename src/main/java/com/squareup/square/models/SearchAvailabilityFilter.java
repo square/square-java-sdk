@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,16 +13,19 @@ import java.util.Objects;
  */
 public class SearchAvailabilityFilter {
     private final TimeRange startAtRange;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SegmentFilter> segmentFilters;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bookingId;
 
     /**
      * Initialization constructor.
-     * @param startAtRange TimeRange value for startAtRange.
-     * @param locationId String value for locationId.
-     * @param segmentFilters List of SegmentFilter value for segmentFilters.
-     * @param bookingId String value for bookingId.
+     * @param  startAtRange  TimeRange value for startAtRange.
+     * @param  locationId  String value for locationId.
+     * @param  segmentFilters  List of SegmentFilter value for segmentFilters.
+     * @param  bookingId  String value for bookingId.
      */
     @JsonCreator
     public SearchAvailabilityFilter(
@@ -45,7 +49,7 @@ public class SearchAvailabilityFilter {
      */
     @JsonGetter("start_at_range")
     public TimeRange getStartAtRange() {
-        return this.startAtRange;
+        return startAtRange;
     }
 
     /**
@@ -56,7 +60,7 @@ public class SearchAvailabilityFilter {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -67,7 +71,7 @@ public class SearchAvailabilityFilter {
      */
     @JsonGetter("segment_filters")
     public List<SegmentFilter> getSegmentFilters() {
-        return this.segmentFilters;
+        return segmentFilters;
     }
 
     /**
@@ -79,7 +83,7 @@ public class SearchAvailabilityFilter {
      */
     @JsonGetter("booking_id")
     public String getBookingId() {
-        return this.bookingId;
+        return bookingId;
     }
 
     @Override
@@ -137,7 +141,7 @@ public class SearchAvailabilityFilter {
 
         /**
          * Initialization constructor.
-         * @param startAtRange TimeRange value for startAtRange.
+         * @param  startAtRange  TimeRange value for startAtRange.
          */
         public Builder(TimeRange startAtRange) {
             this.startAtRange = startAtRange;
@@ -145,7 +149,7 @@ public class SearchAvailabilityFilter {
 
         /**
          * Setter for startAtRange.
-         * @param startAtRange TimeRange value for startAtRange.
+         * @param  startAtRange  TimeRange value for startAtRange.
          * @return Builder
          */
         public Builder startAtRange(TimeRange startAtRange) {
@@ -155,7 +159,7 @@ public class SearchAvailabilityFilter {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -165,7 +169,7 @@ public class SearchAvailabilityFilter {
 
         /**
          * Setter for segmentFilters.
-         * @param segmentFilters List of SegmentFilter value for segmentFilters.
+         * @param  segmentFilters  List of SegmentFilter value for segmentFilters.
          * @return Builder
          */
         public Builder segmentFilters(List<SegmentFilter> segmentFilters) {
@@ -175,7 +179,7 @@ public class SearchAvailabilityFilter {
 
         /**
          * Setter for bookingId.
-         * @param bookingId String value for bookingId.
+         * @param  bookingId  String value for bookingId.
          * @return Builder
          */
         public Builder bookingId(String bookingId) {

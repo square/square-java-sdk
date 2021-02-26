@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,15 +12,18 @@ import java.util.Objects;
  * This is a model class for FilterValue type.
  */
 public class FilterValue {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> all;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> any;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> none;
 
     /**
      * Initialization constructor.
-     * @param all List of String value for all.
-     * @param any List of String value for any.
-     * @param none List of String value for none.
+     * @param  all  List of String value for all.
+     * @param  any  List of String value for any.
+     * @param  none  List of String value for none.
      */
     @JsonCreator
     public FilterValue(
@@ -38,7 +42,7 @@ public class FilterValue {
      */
     @JsonGetter("all")
     public List<String> getAll() {
-        return this.all;
+        return all;
     }
 
     /**
@@ -48,7 +52,7 @@ public class FilterValue {
      */
     @JsonGetter("any")
     public List<String> getAny() {
-        return this.any;
+        return any;
     }
 
     /**
@@ -58,7 +62,7 @@ public class FilterValue {
      */
     @JsonGetter("none")
     public List<String> getNone() {
-        return this.none;
+        return none;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class FilterValue {
 
         /**
          * Setter for all.
-         * @param all List of String value for all.
+         * @param  all  List of String value for all.
          * @return Builder
          */
         public Builder all(List<String> all) {
@@ -124,7 +128,7 @@ public class FilterValue {
 
         /**
          * Setter for any.
-         * @param any List of String value for any.
+         * @param  any  List of String value for any.
          * @return Builder
          */
         public Builder any(List<String> any) {
@@ -134,7 +138,7 @@ public class FilterValue {
 
         /**
          * Setter for none.
-         * @param none List of String value for none.
+         * @param  none  List of String value for none.
          * @return Builder
          */
         public Builder none(List<String> none) {

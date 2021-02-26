@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for CatalogItemOptionValue type.
  */
 public class CatalogItemOptionValue {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String color;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
 
     /**
      * Initialization constructor.
-     * @param itemOptionId String value for itemOptionId.
-     * @param name String value for name.
-     * @param description String value for description.
-     * @param color String value for color.
-     * @param ordinal Integer value for ordinal.
+     * @param  itemOptionId  String value for itemOptionId.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  color  String value for color.
+     * @param  ordinal  Integer value for ordinal.
      */
     @JsonCreator
     public CatalogItemOptionValue(
@@ -45,7 +51,7 @@ public class CatalogItemOptionValue {
      */
     @JsonGetter("item_option_id")
     public String getItemOptionId() {
-        return this.itemOptionId;
+        return itemOptionId;
     }
 
     /**
@@ -56,7 +62,7 @@ public class CatalogItemOptionValue {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -67,7 +73,7 @@ public class CatalogItemOptionValue {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -79,7 +85,7 @@ public class CatalogItemOptionValue {
      */
     @JsonGetter("color")
     public String getColor() {
-        return this.color;
+        return color;
     }
 
     /**
@@ -89,7 +95,7 @@ public class CatalogItemOptionValue {
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     @Override
@@ -153,7 +159,7 @@ public class CatalogItemOptionValue {
 
         /**
          * Setter for itemOptionId.
-         * @param itemOptionId String value for itemOptionId.
+         * @param  itemOptionId  String value for itemOptionId.
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {
@@ -163,7 +169,7 @@ public class CatalogItemOptionValue {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -173,7 +179,7 @@ public class CatalogItemOptionValue {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -183,7 +189,7 @@ public class CatalogItemOptionValue {
 
         /**
          * Setter for color.
-         * @param color String value for color.
+         * @param  color  String value for color.
          * @return Builder
          */
         public Builder color(String color) {
@@ -193,7 +199,7 @@ public class CatalogItemOptionValue {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Integer value for ordinal.
+         * @param  ordinal  Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {

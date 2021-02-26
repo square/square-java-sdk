@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,17 +14,21 @@ import java.util.Objects;
  */
 public class SearchOrdersResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderEntry> orderEntries;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Order> orders;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param orderEntries List of OrderEntry value for orderEntries.
-     * @param orders List of Order value for orders.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  orderEntries  List of OrderEntry value for orderEntries.
+     * @param  orders  List of Order value for orders.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public SearchOrdersResponse(
@@ -49,7 +54,7 @@ public class SearchOrdersResponse {
      */
     @JsonGetter("order_entries")
     public List<OrderEntry> getOrderEntries() {
-        return this.orderEntries;
+        return orderEntries;
     }
 
     /**
@@ -60,7 +65,7 @@ public class SearchOrdersResponse {
      */
     @JsonGetter("orders")
     public List<Order> getOrders() {
-        return this.orders;
+        return orders;
     }
 
     /**
@@ -72,7 +77,7 @@ public class SearchOrdersResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -82,7 +87,7 @@ public class SearchOrdersResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -143,7 +148,7 @@ public class SearchOrdersResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -153,7 +158,7 @@ public class SearchOrdersResponse {
 
         /**
          * Setter for orderEntries.
-         * @param orderEntries List of OrderEntry value for orderEntries.
+         * @param  orderEntries  List of OrderEntry value for orderEntries.
          * @return Builder
          */
         public Builder orderEntries(List<OrderEntry> orderEntries) {
@@ -163,7 +168,7 @@ public class SearchOrdersResponse {
 
         /**
          * Setter for orders.
-         * @param orders List of Order value for orders.
+         * @param  orders  List of Order value for orders.
          * @return Builder
          */
         public Builder orders(List<Order> orders) {
@@ -173,7 +178,7 @@ public class SearchOrdersResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -183,7 +188,7 @@ public class SearchOrdersResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

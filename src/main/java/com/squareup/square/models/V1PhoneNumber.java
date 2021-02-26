@@ -15,8 +15,8 @@ public class V1PhoneNumber {
 
     /**
      * Initialization constructor.
-     * @param callingCode String value for callingCode.
-     * @param number String value for number.
+     * @param  callingCode  String value for callingCode.
+     * @param  number  String value for number.
      */
     @JsonCreator
     public V1PhoneNumber(
@@ -33,7 +33,7 @@ public class V1PhoneNumber {
      */
     @JsonGetter("calling_code")
     public String getCallingCode() {
-        return this.callingCode;
+        return callingCode;
     }
 
     /**
@@ -43,7 +43,7 @@ public class V1PhoneNumber {
      */
     @JsonGetter("number")
     public String getNumber() {
-        return this.number;
+        return number;
     }
 
     @Override
@@ -92,18 +92,17 @@ public class V1PhoneNumber {
 
         /**
          * Initialization constructor.
-         * @param callingCode String value for callingCode.
-         * @param number String value for number.
+         * @param  callingCode  String value for callingCode.
+         * @param  number  String value for number.
          */
-        public Builder(String callingCode,
-                String number) {
+        public Builder(String callingCode, String number) {
             this.callingCode = callingCode;
             this.number = number;
         }
 
         /**
          * Setter for callingCode.
-         * @param callingCode String value for callingCode.
+         * @param  callingCode  String value for callingCode.
          * @return Builder
          */
         public Builder callingCode(String callingCode) {
@@ -113,7 +112,7 @@ public class V1PhoneNumber {
 
         /**
          * Setter for number.
-         * @param number String value for number.
+         * @param  number  String value for number.
          * @return Builder
          */
         public Builder number(String number) {

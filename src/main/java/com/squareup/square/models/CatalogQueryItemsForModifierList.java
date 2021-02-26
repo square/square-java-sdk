@@ -15,7 +15,7 @@ public class CatalogQueryItemsForModifierList {
 
     /**
      * Initialization constructor.
-     * @param modifierListIds List of String value for modifierListIds.
+     * @param  modifierListIds  List of String value for modifierListIds.
      */
     @JsonCreator
     public CatalogQueryItemsForModifierList(
@@ -30,7 +30,7 @@ public class CatalogQueryItemsForModifierList {
      */
     @JsonGetter("modifier_list_ids")
     public List<String> getModifierListIds() {
-        return this.modifierListIds;
+        return modifierListIds;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CatalogQueryItemsForModifierList {
 
         /**
          * Initialization constructor.
-         * @param modifierListIds List of String value for modifierListIds.
+         * @param  modifierListIds  List of String value for modifierListIds.
          */
         public Builder(List<String> modifierListIds) {
             this.modifierListIds = modifierListIds;
@@ -85,7 +85,7 @@ public class CatalogQueryItemsForModifierList {
 
         /**
          * Setter for modifierListIds.
-         * @param modifierListIds List of String value for modifierListIds.
+         * @param  modifierListIds  List of String value for modifierListIds.
          * @return Builder
          */
         public Builder modifierListIds(List<String> modifierListIds) {

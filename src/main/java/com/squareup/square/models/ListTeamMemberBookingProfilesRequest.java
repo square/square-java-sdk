@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for ListTeamMemberBookingProfilesRequest type.
  */
 public class ListTeamMemberBookingProfilesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean bookableOnly;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param bookableOnly Boolean value for bookableOnly.
-     * @param limit Integer value for limit.
-     * @param cursor String value for cursor.
-     * @param locationId String value for locationId.
+     * @param  bookableOnly  Boolean value for bookableOnly.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public ListTeamMemberBookingProfilesRequest(
@@ -42,7 +47,7 @@ public class ListTeamMemberBookingProfilesRequest {
      */
     @JsonGetter("bookable_only")
     public Boolean getBookableOnly() {
-        return this.bookableOnly;
+        return bookableOnly;
     }
 
     /**
@@ -52,7 +57,7 @@ public class ListTeamMemberBookingProfilesRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -62,7 +67,7 @@ public class ListTeamMemberBookingProfilesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -73,7 +78,7 @@ public class ListTeamMemberBookingProfilesRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -133,7 +138,7 @@ public class ListTeamMemberBookingProfilesRequest {
 
         /**
          * Setter for bookableOnly.
-         * @param bookableOnly Boolean value for bookableOnly.
+         * @param  bookableOnly  Boolean value for bookableOnly.
          * @return Builder
          */
         public Builder bookableOnly(Boolean bookableOnly) {
@@ -143,7 +148,7 @@ public class ListTeamMemberBookingProfilesRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -153,7 +158,7 @@ public class ListTeamMemberBookingProfilesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -163,7 +168,7 @@ public class ListTeamMemberBookingProfilesRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

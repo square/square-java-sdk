@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for TerminalCheckoutQuerySort type.
  */
 public class TerminalCheckoutQuerySort {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
      * Initialization constructor.
-     * @param sortOrder String value for sortOrder.
+     * @param  sortOrder  String value for sortOrder.
      */
     @JsonCreator
     public TerminalCheckoutQuerySort(
@@ -30,7 +32,7 @@ public class TerminalCheckoutQuerySort {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class TerminalCheckoutQuerySort {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {

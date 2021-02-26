@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for BatchDeleteCatalogObjectsRequest type.
  */
 public class BatchDeleteCatalogObjectsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> objectIds;
 
     /**
      * Initialization constructor.
-     * @param objectIds List of String value for objectIds.
+     * @param  objectIds  List of String value for objectIds.
      */
     @JsonCreator
     public BatchDeleteCatalogObjectsRequest(
@@ -32,7 +34,7 @@ public class BatchDeleteCatalogObjectsRequest {
      */
     @JsonGetter("object_ids")
     public List<String> getObjectIds() {
-        return this.objectIds;
+        return objectIds;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class BatchDeleteCatalogObjectsRequest {
 
         /**
          * Setter for objectIds.
-         * @param objectIds List of String value for objectIds.
+         * @param  objectIds  List of String value for objectIds.
          * @return Builder
          */
         public Builder objectIds(List<String> objectIds) {

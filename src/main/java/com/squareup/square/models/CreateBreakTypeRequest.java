@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,14 @@ import java.util.Objects;
  * This is a model class for CreateBreakTypeRequest type.
  */
 public class CreateBreakTypeRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final BreakType breakType;
 
     /**
      * Initialization constructor.
-     * @param breakType BreakType value for breakType.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  breakType  BreakType value for breakType.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateBreakTypeRequest(
@@ -33,7 +35,7 @@ public class CreateBreakTypeRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +46,7 @@ public class CreateBreakTypeRequest {
      */
     @JsonGetter("break_type")
     public BreakType getBreakType() {
-        return this.breakType;
+        return breakType;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class CreateBreakTypeRequest {
 
         /**
          * Initialization constructor.
-         * @param breakType BreakType value for breakType.
+         * @param  breakType  BreakType value for breakType.
          */
         public Builder(BreakType breakType) {
             this.breakType = breakType;
@@ -103,7 +105,7 @@ public class CreateBreakTypeRequest {
 
         /**
          * Setter for breakType.
-         * @param breakType BreakType value for breakType.
+         * @param  breakType  BreakType value for breakType.
          * @return Builder
          */
         public Builder breakType(BreakType breakType) {
@@ -113,7 +115,7 @@ public class CreateBreakTypeRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,39 +12,54 @@ import java.util.Objects;
  * This is a model class for Subscription type.
  */
 public class Subscription {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxPercentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> invoiceIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceOverrideMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paidUntilDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param locationId String value for locationId.
-     * @param planId String value for planId.
-     * @param customerId String value for customerId.
-     * @param startDate String value for startDate.
-     * @param canceledDate String value for canceledDate.
-     * @param status String value for status.
-     * @param taxPercentage String value for taxPercentage.
-     * @param invoiceIds List of String value for invoiceIds.
-     * @param priceOverrideMoney Money value for priceOverrideMoney.
-     * @param version Long value for version.
-     * @param createdAt String value for createdAt.
-     * @param cardId String value for cardId.
-     * @param paidUntilDate String value for paidUntilDate.
-     * @param timezone String value for timezone.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  planId  String value for planId.
+     * @param  customerId  String value for customerId.
+     * @param  startDate  String value for startDate.
+     * @param  canceledDate  String value for canceledDate.
+     * @param  status  String value for status.
+     * @param  taxPercentage  String value for taxPercentage.
+     * @param  invoiceIds  List of String value for invoiceIds.
+     * @param  priceOverrideMoney  Money value for priceOverrideMoney.
+     * @param  version  Long value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  cardId  String value for cardId.
+     * @param  paidUntilDate  String value for paidUntilDate.
+     * @param  timezone  String value for timezone.
      */
     @JsonCreator
     public Subscription(
@@ -86,7 +102,7 @@ public class Subscription {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -96,7 +112,7 @@ public class Subscription {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -106,7 +122,7 @@ public class Subscription {
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
-        return this.planId;
+        return planId;
     }
 
     /**
@@ -116,7 +132,7 @@ public class Subscription {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -126,7 +142,7 @@ public class Subscription {
      */
     @JsonGetter("start_date")
     public String getStartDate() {
-        return this.startDate;
+        return startDate;
     }
 
     /**
@@ -139,7 +155,7 @@ public class Subscription {
      */
     @JsonGetter("canceled_date")
     public String getCanceledDate() {
-        return this.canceledDate;
+        return canceledDate;
     }
 
     /**
@@ -149,7 +165,7 @@ public class Subscription {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -161,7 +177,7 @@ public class Subscription {
      */
     @JsonGetter("tax_percentage")
     public String getTaxPercentage() {
-        return this.taxPercentage;
+        return taxPercentage;
     }
 
     /**
@@ -172,7 +188,7 @@ public class Subscription {
      */
     @JsonGetter("invoice_ids")
     public List<String> getInvoiceIds() {
-        return this.invoiceIds;
+        return invoiceIds;
     }
 
     /**
@@ -187,7 +203,7 @@ public class Subscription {
      */
     @JsonGetter("price_override_money")
     public Money getPriceOverrideMoney() {
-        return this.priceOverrideMoney;
+        return priceOverrideMoney;
     }
 
     /**
@@ -198,7 +214,7 @@ public class Subscription {
      */
     @JsonGetter("version")
     public Long getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -208,7 +224,7 @@ public class Subscription {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -219,7 +235,7 @@ public class Subscription {
      */
     @JsonGetter("card_id")
     public String getCardId() {
-        return this.cardId;
+        return cardId;
     }
 
     /**
@@ -233,7 +249,7 @@ public class Subscription {
      */
     @JsonGetter("paid_until_date")
     public String getPaidUntilDate() {
-        return this.paidUntilDate;
+        return paidUntilDate;
     }
 
     /**
@@ -245,7 +261,7 @@ public class Subscription {
      */
     @JsonGetter("timezone")
     public String getTimezone() {
-        return this.timezone;
+        return timezone;
     }
 
     @Override
@@ -344,7 +360,7 @@ public class Subscription {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -354,7 +370,7 @@ public class Subscription {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -364,7 +380,7 @@ public class Subscription {
 
         /**
          * Setter for planId.
-         * @param planId String value for planId.
+         * @param  planId  String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {
@@ -374,7 +390,7 @@ public class Subscription {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -384,7 +400,7 @@ public class Subscription {
 
         /**
          * Setter for startDate.
-         * @param startDate String value for startDate.
+         * @param  startDate  String value for startDate.
          * @return Builder
          */
         public Builder startDate(String startDate) {
@@ -394,7 +410,7 @@ public class Subscription {
 
         /**
          * Setter for canceledDate.
-         * @param canceledDate String value for canceledDate.
+         * @param  canceledDate  String value for canceledDate.
          * @return Builder
          */
         public Builder canceledDate(String canceledDate) {
@@ -404,7 +420,7 @@ public class Subscription {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -414,7 +430,7 @@ public class Subscription {
 
         /**
          * Setter for taxPercentage.
-         * @param taxPercentage String value for taxPercentage.
+         * @param  taxPercentage  String value for taxPercentage.
          * @return Builder
          */
         public Builder taxPercentage(String taxPercentage) {
@@ -424,7 +440,7 @@ public class Subscription {
 
         /**
          * Setter for invoiceIds.
-         * @param invoiceIds List of String value for invoiceIds.
+         * @param  invoiceIds  List of String value for invoiceIds.
          * @return Builder
          */
         public Builder invoiceIds(List<String> invoiceIds) {
@@ -434,7 +450,7 @@ public class Subscription {
 
         /**
          * Setter for priceOverrideMoney.
-         * @param priceOverrideMoney Money value for priceOverrideMoney.
+         * @param  priceOverrideMoney  Money value for priceOverrideMoney.
          * @return Builder
          */
         public Builder priceOverrideMoney(Money priceOverrideMoney) {
@@ -444,7 +460,7 @@ public class Subscription {
 
         /**
          * Setter for version.
-         * @param version Long value for version.
+         * @param  version  Long value for version.
          * @return Builder
          */
         public Builder version(Long version) {
@@ -454,7 +470,7 @@ public class Subscription {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -464,7 +480,7 @@ public class Subscription {
 
         /**
          * Setter for cardId.
-         * @param cardId String value for cardId.
+         * @param  cardId  String value for cardId.
          * @return Builder
          */
         public Builder cardId(String cardId) {
@@ -474,7 +490,7 @@ public class Subscription {
 
         /**
          * Setter for paidUntilDate.
-         * @param paidUntilDate String value for paidUntilDate.
+         * @param  paidUntilDate  String value for paidUntilDate.
          * @return Builder
          */
         public Builder paidUntilDate(String paidUntilDate) {
@@ -484,7 +500,7 @@ public class Subscription {
 
         /**
          * Setter for timezone.
-         * @param timezone String value for timezone.
+         * @param  timezone  String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {

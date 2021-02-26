@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for RetrieveCatalogObjectRequest type.
  */
 public class RetrieveCatalogObjectRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
      * Initialization constructor.
-     * @param includeRelatedObjects Boolean value for includeRelatedObjects.
-     * @param catalogVersion Long value for catalogVersion.
+     * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public RetrieveCatalogObjectRequest(
@@ -38,7 +41,7 @@ public class RetrieveCatalogObjectRequest {
      */
     @JsonGetter("include_related_objects")
     public Boolean getIncludeRelatedObjects() {
-        return this.includeRelatedObjects;
+        return includeRelatedObjects;
     }
 
     /**
@@ -50,7 +53,7 @@ public class RetrieveCatalogObjectRequest {
      */
     @JsonGetter("catalog_version")
     public Long getCatalogVersion() {
-        return this.catalogVersion;
+        return catalogVersion;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class RetrieveCatalogObjectRequest {
 
         /**
          * Setter for includeRelatedObjects.
-         * @param includeRelatedObjects Boolean value for includeRelatedObjects.
+         * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
          * @return Builder
          */
         public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
@@ -114,7 +117,7 @@ public class RetrieveCatalogObjectRequest {
 
         /**
          * Setter for catalogVersion.
-         * @param catalogVersion Long value for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {

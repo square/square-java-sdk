@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdatedUpdate type.
  */
 public class OrderFulfillmentUpdatedUpdate {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fulfillmentUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String oldState;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String newState;
 
     /**
      * Initialization constructor.
-     * @param fulfillmentUid String value for fulfillmentUid.
-     * @param oldState String value for oldState.
-     * @param newState String value for newState.
+     * @param  fulfillmentUid  String value for fulfillmentUid.
+     * @param  oldState  String value for oldState.
+     * @param  newState  String value for newState.
      */
     @JsonCreator
     public OrderFulfillmentUpdatedUpdate(
@@ -37,7 +41,7 @@ public class OrderFulfillmentUpdatedUpdate {
      */
     @JsonGetter("fulfillment_uid")
     public String getFulfillmentUid() {
-        return this.fulfillmentUid;
+        return fulfillmentUid;
     }
 
     /**
@@ -47,7 +51,7 @@ public class OrderFulfillmentUpdatedUpdate {
      */
     @JsonGetter("old_state")
     public String getOldState() {
-        return this.oldState;
+        return oldState;
     }
 
     /**
@@ -57,7 +61,7 @@ public class OrderFulfillmentUpdatedUpdate {
      */
     @JsonGetter("new_state")
     public String getNewState() {
-        return this.newState;
+        return newState;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class OrderFulfillmentUpdatedUpdate {
 
         /**
          * Setter for fulfillmentUid.
-         * @param fulfillmentUid String value for fulfillmentUid.
+         * @param  fulfillmentUid  String value for fulfillmentUid.
          * @return Builder
          */
         public Builder fulfillmentUid(String fulfillmentUid) {
@@ -124,7 +128,7 @@ public class OrderFulfillmentUpdatedUpdate {
 
         /**
          * Setter for oldState.
-         * @param oldState String value for oldState.
+         * @param  oldState  String value for oldState.
          * @return Builder
          */
         public Builder oldState(String oldState) {
@@ -134,7 +138,7 @@ public class OrderFulfillmentUpdatedUpdate {
 
         /**
          * Setter for newState.
-         * @param newState String value for newState.
+         * @param  newState  String value for newState.
          * @return Builder
          */
         public Builder newState(String newState) {

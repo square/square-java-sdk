@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyAccountsRequestLoyaltyAccountQuery type.
  */
 public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LoyaltyAccountMapping> mappings;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
      * Initialization constructor.
-     * @param mappings List of LoyaltyAccountMapping value for mappings.
-     * @param customerIds List of String value for customerIds.
+     * @param  mappings  List of LoyaltyAccountMapping value for mappings.
+     * @param  customerIds  List of String value for customerIds.
      */
     @JsonCreator
     public SearchLoyaltyAccountsRequestLoyaltyAccountQuery(
@@ -35,7 +38,7 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      */
     @JsonGetter("mappings")
     public List<LoyaltyAccountMapping> getMappings() {
-        return this.mappings;
+        return mappings;
     }
 
     /**
@@ -46,7 +49,7 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
-        return this.customerIds;
+        return customerIds;
     }
 
     @Override
@@ -101,7 +104,7 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
 
         /**
          * Setter for mappings.
-         * @param mappings List of LoyaltyAccountMapping value for mappings.
+         * @param  mappings  List of LoyaltyAccountMapping value for mappings.
          * @return Builder
          */
         public Builder mappings(List<LoyaltyAccountMapping> mappings) {
@@ -111,7 +114,7 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
 
         /**
          * Setter for customerIds.
-         * @param customerIds List of String value for customerIds.
+         * @param  customerIds  List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {

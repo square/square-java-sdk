@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,42 @@ import java.util.Objects;
  * This is a model class for CreateCustomerRequest type.
  */
 public class CreateCustomerRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nickname;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param givenName String value for givenName.
-     * @param familyName String value for familyName.
-     * @param companyName String value for companyName.
-     * @param nickname String value for nickname.
-     * @param emailAddress String value for emailAddress.
-     * @param address Address value for address.
-     * @param phoneNumber String value for phoneNumber.
-     * @param referenceId String value for referenceId.
-     * @param note String value for note.
-     * @param birthday String value for birthday.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  companyName  String value for companyName.
+     * @param  nickname  String value for nickname.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  birthday  String value for birthday.
      */
     @JsonCreator
     public CreateCustomerRequest(
@@ -71,7 +83,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -81,7 +93,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("given_name")
     public String getGivenName() {
-        return this.givenName;
+        return givenName;
     }
 
     /**
@@ -91,7 +103,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
-        return this.familyName;
+        return familyName;
     }
 
     /**
@@ -101,7 +113,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("company_name")
     public String getCompanyName() {
-        return this.companyName;
+        return companyName;
     }
 
     /**
@@ -111,7 +123,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("nickname")
     public String getNickname() {
-        return this.nickname;
+        return nickname;
     }
 
     /**
@@ -121,7 +133,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -131,7 +143,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     /**
@@ -141,7 +153,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -152,7 +164,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -162,7 +174,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -175,7 +187,7 @@ public class CreateCustomerRequest {
      */
     @JsonGetter("birthday")
     public String getBirthday() {
-        return this.birthday;
+        return birthday;
     }
 
     @Override
@@ -260,7 +272,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -270,7 +282,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for givenName.
-         * @param givenName String value for givenName.
+         * @param  givenName  String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
@@ -280,7 +292,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for familyName.
-         * @param familyName String value for familyName.
+         * @param  familyName  String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
@@ -290,7 +302,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for companyName.
-         * @param companyName String value for companyName.
+         * @param  companyName  String value for companyName.
          * @return Builder
          */
         public Builder companyName(String companyName) {
@@ -300,7 +312,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for nickname.
-         * @param nickname String value for nickname.
+         * @param  nickname  String value for nickname.
          * @return Builder
          */
         public Builder nickname(String nickname) {
@@ -310,7 +322,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -320,7 +332,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
@@ -330,7 +342,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -340,7 +352,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -350,7 +362,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -360,7 +372,7 @@ public class CreateCustomerRequest {
 
         /**
          * Setter for birthday.
-         * @param birthday String value for birthday.
+         * @param  birthday  String value for birthday.
          * @return Builder
          */
         public Builder birthday(String birthday) {

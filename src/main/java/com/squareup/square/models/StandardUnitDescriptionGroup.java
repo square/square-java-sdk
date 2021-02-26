@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,16 @@ import java.util.Objects;
  * This is a model class for StandardUnitDescriptionGroup type.
  */
 public class StandardUnitDescriptionGroup {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<StandardUnitDescription> standardUnitDescriptions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
 
     /**
      * Initialization constructor.
-     * @param standardUnitDescriptions List of StandardUnitDescription value for standardUnitDescriptions.
-     * @param languageCode String value for languageCode.
+     * @param  standardUnitDescriptions  List of StandardUnitDescription value for
+     *         standardUnitDescriptions.
+     * @param  languageCode  String value for languageCode.
      */
     @JsonCreator
     public StandardUnitDescriptionGroup(
@@ -34,7 +38,7 @@ public class StandardUnitDescriptionGroup {
      */
     @JsonGetter("standard_unit_descriptions")
     public List<StandardUnitDescription> getStandardUnitDescriptions() {
-        return this.standardUnitDescriptions;
+        return standardUnitDescriptions;
     }
 
     /**
@@ -44,7 +48,7 @@ public class StandardUnitDescriptionGroup {
      */
     @JsonGetter("language_code")
     public String getLanguageCode() {
-        return this.languageCode;
+        return languageCode;
     }
 
     @Override
@@ -98,17 +102,19 @@ public class StandardUnitDescriptionGroup {
 
         /**
          * Setter for standardUnitDescriptions.
-         * @param standardUnitDescriptions List of StandardUnitDescription value for standardUnitDescriptions.
+         * @param  standardUnitDescriptions  List of StandardUnitDescription value for
+         *         standardUnitDescriptions.
          * @return Builder
          */
-        public Builder standardUnitDescriptions(List<StandardUnitDescription> standardUnitDescriptions) {
+        public Builder standardUnitDescriptions(
+                List<StandardUnitDescription> standardUnitDescriptions) {
             this.standardUnitDescriptions = standardUnitDescriptions;
             return this;
         }
 
         /**
          * Setter for languageCode.
-         * @param languageCode String value for languageCode.
+         * @param  languageCode  String value for languageCode.
          * @return Builder
          */
         public Builder languageCode(String languageCode) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklistsBlockedDiscount type.
  */
 public class OrderLineItemPricingBlocklistsBlockedDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountCatalogObjectId;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param discountUid String value for discountUid.
-     * @param discountCatalogObjectId String value for discountCatalogObjectId.
+     * @param  uid  String value for uid.
+     * @param  discountUid  String value for discountUid.
+     * @param  discountCatalogObjectId  String value for discountCatalogObjectId.
      */
     @JsonCreator
     public OrderLineItemPricingBlocklistsBlockedDiscount(
@@ -37,7 +41,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -48,7 +52,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      */
     @JsonGetter("discount_uid")
     public String getDiscountUid() {
-        return this.discountUid;
+        return discountUid;
     }
 
     /**
@@ -59,7 +63,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      */
     @JsonGetter("discount_catalog_object_id")
     public String getDiscountCatalogObjectId() {
-        return this.discountCatalogObjectId;
+        return discountCatalogObjectId;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -127,7 +131,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
 
         /**
          * Setter for discountUid.
-         * @param discountUid String value for discountUid.
+         * @param  discountUid  String value for discountUid.
          * @return Builder
          */
         public Builder discountUid(String discountUid) {
@@ -137,7 +141,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
 
         /**
          * Setter for discountCatalogObjectId.
-         * @param discountCatalogObjectId String value for discountCatalogObjectId.
+         * @param  discountCatalogObjectId  String value for discountCatalogObjectId.
          * @return Builder
          */
         public Builder discountCatalogObjectId(String discountCatalogObjectId) {

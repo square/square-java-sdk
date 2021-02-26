@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,45 +14,63 @@ import java.util.Objects;
  */
 public class V1Refund {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedProcessingFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedAdditiveTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> refundedAdditiveTax;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedInclusiveTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> refundedInclusiveTax;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedTipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedDiscountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedSurchargeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentSurcharge> refundedSurcharges;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String processedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isExchange;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param reason String value for reason.
-     * @param refundedMoney V1Money value for refundedMoney.
-     * @param refundedProcessingFeeMoney V1Money value for refundedProcessingFeeMoney.
-     * @param refundedTaxMoney V1Money value for refundedTaxMoney.
-     * @param refundedAdditiveTaxMoney V1Money value for refundedAdditiveTaxMoney.
-     * @param refundedAdditiveTax List of V1PaymentTax value for refundedAdditiveTax.
-     * @param refundedInclusiveTaxMoney V1Money value for refundedInclusiveTaxMoney.
-     * @param refundedInclusiveTax List of V1PaymentTax value for refundedInclusiveTax.
-     * @param refundedTipMoney V1Money value for refundedTipMoney.
-     * @param refundedDiscountMoney V1Money value for refundedDiscountMoney.
-     * @param refundedSurchargeMoney V1Money value for refundedSurchargeMoney.
-     * @param refundedSurcharges List of V1PaymentSurcharge value for refundedSurcharges.
-     * @param createdAt String value for createdAt.
-     * @param processedAt String value for processedAt.
-     * @param paymentId String value for paymentId.
-     * @param merchantId String value for merchantId.
-     * @param isExchange Boolean value for isExchange.
+     * @param  type  String value for type.
+     * @param  reason  String value for reason.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  refundedProcessingFeeMoney  V1Money value for refundedProcessingFeeMoney.
+     * @param  refundedTaxMoney  V1Money value for refundedTaxMoney.
+     * @param  refundedAdditiveTaxMoney  V1Money value for refundedAdditiveTaxMoney.
+     * @param  refundedAdditiveTax  List of V1PaymentTax value for refundedAdditiveTax.
+     * @param  refundedInclusiveTaxMoney  V1Money value for refundedInclusiveTaxMoney.
+     * @param  refundedInclusiveTax  List of V1PaymentTax value for refundedInclusiveTax.
+     * @param  refundedTipMoney  V1Money value for refundedTipMoney.
+     * @param  refundedDiscountMoney  V1Money value for refundedDiscountMoney.
+     * @param  refundedSurchargeMoney  V1Money value for refundedSurchargeMoney.
+     * @param  refundedSurcharges  List of V1PaymentSurcharge value for refundedSurcharges.
+     * @param  createdAt  String value for createdAt.
+     * @param  processedAt  String value for processedAt.
+     * @param  paymentId  String value for paymentId.
+     * @param  merchantId  String value for merchantId.
+     * @param  isExchange  Boolean value for isExchange.
      */
     @JsonCreator
     public V1Refund(
@@ -103,7 +122,7 @@ public class V1Refund {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -113,7 +132,7 @@ public class V1Refund {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -122,7 +141,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_money")
     public V1Money getRefundedMoney() {
-        return this.refundedMoney;
+        return refundedMoney;
     }
 
     /**
@@ -131,7 +150,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_processing_fee_money")
     public V1Money getRefundedProcessingFeeMoney() {
-        return this.refundedProcessingFeeMoney;
+        return refundedProcessingFeeMoney;
     }
 
     /**
@@ -140,7 +159,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_tax_money")
     public V1Money getRefundedTaxMoney() {
-        return this.refundedTaxMoney;
+        return refundedTaxMoney;
     }
 
     /**
@@ -149,7 +168,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_additive_tax_money")
     public V1Money getRefundedAdditiveTaxMoney() {
-        return this.refundedAdditiveTaxMoney;
+        return refundedAdditiveTaxMoney;
     }
 
     /**
@@ -159,7 +178,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_additive_tax")
     public List<V1PaymentTax> getRefundedAdditiveTax() {
-        return this.refundedAdditiveTax;
+        return refundedAdditiveTax;
     }
 
     /**
@@ -168,7 +187,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_inclusive_tax_money")
     public V1Money getRefundedInclusiveTaxMoney() {
-        return this.refundedInclusiveTaxMoney;
+        return refundedInclusiveTaxMoney;
     }
 
     /**
@@ -178,7 +197,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_inclusive_tax")
     public List<V1PaymentTax> getRefundedInclusiveTax() {
-        return this.refundedInclusiveTax;
+        return refundedInclusiveTax;
     }
 
     /**
@@ -187,7 +206,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_tip_money")
     public V1Money getRefundedTipMoney() {
-        return this.refundedTipMoney;
+        return refundedTipMoney;
     }
 
     /**
@@ -196,7 +215,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_discount_money")
     public V1Money getRefundedDiscountMoney() {
-        return this.refundedDiscountMoney;
+        return refundedDiscountMoney;
     }
 
     /**
@@ -205,7 +224,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_surcharge_money")
     public V1Money getRefundedSurchargeMoney() {
-        return this.refundedSurchargeMoney;
+        return refundedSurchargeMoney;
     }
 
     /**
@@ -215,7 +234,7 @@ public class V1Refund {
      */
     @JsonGetter("refunded_surcharges")
     public List<V1PaymentSurcharge> getRefundedSurcharges() {
-        return this.refundedSurcharges;
+        return refundedSurcharges;
     }
 
     /**
@@ -225,7 +244,7 @@ public class V1Refund {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -235,7 +254,7 @@ public class V1Refund {
      */
     @JsonGetter("processed_at")
     public String getProcessedAt() {
-        return this.processedAt;
+        return processedAt;
     }
 
     /**
@@ -248,7 +267,7 @@ public class V1Refund {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -257,7 +276,7 @@ public class V1Refund {
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
-        return this.merchantId;
+        return merchantId;
     }
 
     /**
@@ -268,7 +287,7 @@ public class V1Refund {
      */
     @JsonGetter("is_exchange")
     public Boolean getIsExchange() {
-        return this.isExchange;
+        return isExchange;
     }
 
     @Override
@@ -384,7 +403,7 @@ public class V1Refund {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -394,7 +413,7 @@ public class V1Refund {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -404,7 +423,7 @@ public class V1Refund {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -414,7 +433,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedMoney.
-         * @param refundedMoney V1Money value for refundedMoney.
+         * @param  refundedMoney  V1Money value for refundedMoney.
          * @return Builder
          */
         public Builder refundedMoney(V1Money refundedMoney) {
@@ -424,7 +443,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedProcessingFeeMoney.
-         * @param refundedProcessingFeeMoney V1Money value for refundedProcessingFeeMoney.
+         * @param  refundedProcessingFeeMoney  V1Money value for refundedProcessingFeeMoney.
          * @return Builder
          */
         public Builder refundedProcessingFeeMoney(V1Money refundedProcessingFeeMoney) {
@@ -434,7 +453,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedTaxMoney.
-         * @param refundedTaxMoney V1Money value for refundedTaxMoney.
+         * @param  refundedTaxMoney  V1Money value for refundedTaxMoney.
          * @return Builder
          */
         public Builder refundedTaxMoney(V1Money refundedTaxMoney) {
@@ -444,7 +463,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedAdditiveTaxMoney.
-         * @param refundedAdditiveTaxMoney V1Money value for refundedAdditiveTaxMoney.
+         * @param  refundedAdditiveTaxMoney  V1Money value for refundedAdditiveTaxMoney.
          * @return Builder
          */
         public Builder refundedAdditiveTaxMoney(V1Money refundedAdditiveTaxMoney) {
@@ -454,7 +473,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedAdditiveTax.
-         * @param refundedAdditiveTax List of V1PaymentTax value for refundedAdditiveTax.
+         * @param  refundedAdditiveTax  List of V1PaymentTax value for refundedAdditiveTax.
          * @return Builder
          */
         public Builder refundedAdditiveTax(List<V1PaymentTax> refundedAdditiveTax) {
@@ -464,7 +483,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedInclusiveTaxMoney.
-         * @param refundedInclusiveTaxMoney V1Money value for refundedInclusiveTaxMoney.
+         * @param  refundedInclusiveTaxMoney  V1Money value for refundedInclusiveTaxMoney.
          * @return Builder
          */
         public Builder refundedInclusiveTaxMoney(V1Money refundedInclusiveTaxMoney) {
@@ -474,7 +493,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedInclusiveTax.
-         * @param refundedInclusiveTax List of V1PaymentTax value for refundedInclusiveTax.
+         * @param  refundedInclusiveTax  List of V1PaymentTax value for refundedInclusiveTax.
          * @return Builder
          */
         public Builder refundedInclusiveTax(List<V1PaymentTax> refundedInclusiveTax) {
@@ -484,7 +503,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedTipMoney.
-         * @param refundedTipMoney V1Money value for refundedTipMoney.
+         * @param  refundedTipMoney  V1Money value for refundedTipMoney.
          * @return Builder
          */
         public Builder refundedTipMoney(V1Money refundedTipMoney) {
@@ -494,7 +513,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedDiscountMoney.
-         * @param refundedDiscountMoney V1Money value for refundedDiscountMoney.
+         * @param  refundedDiscountMoney  V1Money value for refundedDiscountMoney.
          * @return Builder
          */
         public Builder refundedDiscountMoney(V1Money refundedDiscountMoney) {
@@ -504,7 +523,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedSurchargeMoney.
-         * @param refundedSurchargeMoney V1Money value for refundedSurchargeMoney.
+         * @param  refundedSurchargeMoney  V1Money value for refundedSurchargeMoney.
          * @return Builder
          */
         public Builder refundedSurchargeMoney(V1Money refundedSurchargeMoney) {
@@ -514,7 +533,7 @@ public class V1Refund {
 
         /**
          * Setter for refundedSurcharges.
-         * @param refundedSurcharges List of V1PaymentSurcharge value for refundedSurcharges.
+         * @param  refundedSurcharges  List of V1PaymentSurcharge value for refundedSurcharges.
          * @return Builder
          */
         public Builder refundedSurcharges(List<V1PaymentSurcharge> refundedSurcharges) {
@@ -524,7 +543,7 @@ public class V1Refund {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -534,7 +553,7 @@ public class V1Refund {
 
         /**
          * Setter for processedAt.
-         * @param processedAt String value for processedAt.
+         * @param  processedAt  String value for processedAt.
          * @return Builder
          */
         public Builder processedAt(String processedAt) {
@@ -544,7 +563,7 @@ public class V1Refund {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -554,7 +573,7 @@ public class V1Refund {
 
         /**
          * Setter for merchantId.
-         * @param merchantId String value for merchantId.
+         * @param  merchantId  String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
@@ -564,7 +583,7 @@ public class V1Refund {
 
         /**
          * Setter for isExchange.
-         * @param isExchange Boolean value for isExchange.
+         * @param  isExchange  Boolean value for isExchange.
          * @return Builder
          */
         public Builder isExchange(Boolean isExchange) {

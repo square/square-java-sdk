@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     private final String loyaltyAccountId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId String value for loyaltyAccountId.
-     * @param status String value for status.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
+     * @param  status  String value for status.
      */
     @JsonCreator
     public SearchLoyaltyRewardsRequestLoyaltyRewardQuery(
@@ -33,7 +35,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
-        return this.loyaltyAccountId;
+        return loyaltyAccountId;
     }
 
     /**
@@ -43,7 +45,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
         /**
          * Initialization constructor.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          */
         public Builder(String loyaltyAccountId) {
             this.loyaltyAccountId = loyaltyAccountId;
@@ -103,7 +105,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
         /**
          * Setter for loyaltyAccountId.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
@@ -113,7 +115,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {

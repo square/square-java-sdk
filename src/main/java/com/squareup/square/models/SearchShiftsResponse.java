@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class SearchShiftsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Shift> shifts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param shifts List of Shift value for shifts.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  shifts  List of Shift value for shifts.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public SearchShiftsResponse(
@@ -44,7 +48,7 @@ public class SearchShiftsResponse {
      */
     @JsonGetter("shifts")
     public List<Shift> getShifts() {
-        return this.shifts;
+        return shifts;
     }
 
     /**
@@ -54,7 +58,7 @@ public class SearchShiftsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -64,7 +68,7 @@ public class SearchShiftsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -122,7 +126,7 @@ public class SearchShiftsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -132,7 +136,7 @@ public class SearchShiftsResponse {
 
         /**
          * Setter for shifts.
-         * @param shifts List of Shift value for shifts.
+         * @param  shifts  List of Shift value for shifts.
          * @return Builder
          */
         public Builder shifts(List<Shift> shifts) {
@@ -142,7 +146,7 @@ public class SearchShiftsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -152,7 +156,7 @@ public class SearchShiftsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

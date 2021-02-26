@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,12 +13,13 @@ import java.util.Objects;
  */
 public class InvoiceFilter {
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
      * Initialization constructor.
-     * @param locationIds List of String value for locationIds.
-     * @param customerIds List of String value for customerIds.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  customerIds  List of String value for customerIds.
      */
     @JsonCreator
     public InvoiceFilter(
@@ -35,7 +37,7 @@ public class InvoiceFilter {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -47,7 +49,7 @@ public class InvoiceFilter {
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
-        return this.customerIds;
+        return customerIds;
     }
 
     @Override
@@ -98,7 +100,7 @@ public class InvoiceFilter {
 
         /**
          * Initialization constructor.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          */
         public Builder(List<String> locationIds) {
             this.locationIds = locationIds;
@@ -106,7 +108,7 @@ public class InvoiceFilter {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -116,7 +118,7 @@ public class InvoiceFilter {
 
         /**
          * Setter for customerIds.
-         * @param customerIds List of String value for customerIds.
+         * @param  customerIds  List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {

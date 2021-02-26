@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class CreateBookingResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Booking booking;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param booking Booking value for booking.
-     * @param errors List of Error value for errors.
+     * @param  booking  Booking value for booking.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CreateBookingResponse(
@@ -42,7 +45,7 @@ public class CreateBookingResponse {
      */
     @JsonGetter("booking")
     public Booking getBooking() {
-        return this.booking;
+        return booking;
     }
 
     /**
@@ -52,7 +55,7 @@ public class CreateBookingResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class CreateBookingResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class CreateBookingResponse {
 
         /**
          * Setter for booking.
-         * @param booking Booking value for booking.
+         * @param  booking  Booking value for booking.
          * @return Builder
          */
         public Builder booking(Booking booking) {
@@ -126,7 +129,7 @@ public class CreateBookingResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

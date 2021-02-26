@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CalculateLoyaltyPointsRequest type.
  */
 public class CalculateLoyaltyPointsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money transactionAmountMoney;
 
     /**
      * Initialization constructor.
-     * @param orderId String value for orderId.
-     * @param transactionAmountMoney Money value for transactionAmountMoney.
+     * @param  orderId  String value for orderId.
+     * @param  transactionAmountMoney  Money value for transactionAmountMoney.
      */
     @JsonCreator
     public CalculateLoyaltyPointsRequest(
@@ -35,7 +38,7 @@ public class CalculateLoyaltyPointsRequest {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -50,7 +53,7 @@ public class CalculateLoyaltyPointsRequest {
      */
     @JsonGetter("transaction_amount_money")
     public Money getTransactionAmountMoney() {
-        return this.transactionAmountMoney;
+        return transactionAmountMoney;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class CalculateLoyaltyPointsRequest {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -114,7 +117,7 @@ public class CalculateLoyaltyPointsRequest {
 
         /**
          * Setter for transactionAmountMoney.
-         * @param transactionAmountMoney Money value for transactionAmountMoney.
+         * @param  transactionAmountMoney  Money value for transactionAmountMoney.
          * @return Builder
          */
         public Builder transactionAmountMoney(Money transactionAmountMoney) {

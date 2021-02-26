@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchTerminalCheckoutsRequest type.
  */
 public class SearchTerminalCheckoutsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param query TerminalCheckoutQuery value for query.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
+     * @param  query  TerminalCheckoutQuery value for query.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public SearchTerminalCheckoutsRequest(
@@ -36,7 +40,7 @@ public class SearchTerminalCheckoutsRequest {
      */
     @JsonGetter("query")
     public TerminalCheckoutQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -49,7 +53,7 @@ public class SearchTerminalCheckoutsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -59,7 +63,7 @@ public class SearchTerminalCheckoutsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class SearchTerminalCheckoutsRequest {
 
         /**
          * Setter for query.
-         * @param query TerminalCheckoutQuery value for query.
+         * @param  query  TerminalCheckoutQuery value for query.
          * @return Builder
          */
         public Builder query(TerminalCheckoutQuery query) {
@@ -126,7 +130,7 @@ public class SearchTerminalCheckoutsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -136,7 +140,7 @@ public class SearchTerminalCheckoutsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

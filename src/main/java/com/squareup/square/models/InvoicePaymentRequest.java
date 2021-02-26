@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,35 +12,48 @@ import java.util.Objects;
  * This is a model class for InvoicePaymentRequest type.
  */
 public class InvoicePaymentRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestMethod;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dueDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money fixedAmountRequestedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentageRequested;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean tippingEnabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String automaticPaymentSource;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoicePaymentReminder> reminders;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money computedAmountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalCompletedAmountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money roundingAdjustmentIncludedMoney;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param requestMethod String value for requestMethod.
-     * @param requestType String value for requestType.
-     * @param dueDate String value for dueDate.
-     * @param fixedAmountRequestedMoney Money value for fixedAmountRequestedMoney.
-     * @param percentageRequested String value for percentageRequested.
-     * @param tippingEnabled Boolean value for tippingEnabled.
-     * @param automaticPaymentSource String value for automaticPaymentSource.
-     * @param cardId String value for cardId.
-     * @param reminders List of InvoicePaymentReminder value for reminders.
-     * @param computedAmountMoney Money value for computedAmountMoney.
-     * @param totalCompletedAmountMoney Money value for totalCompletedAmountMoney.
-     * @param roundingAdjustmentIncludedMoney Money value for roundingAdjustmentIncludedMoney.
+     * @param  uid  String value for uid.
+     * @param  requestMethod  String value for requestMethod.
+     * @param  requestType  String value for requestType.
+     * @param  dueDate  String value for dueDate.
+     * @param  fixedAmountRequestedMoney  Money value for fixedAmountRequestedMoney.
+     * @param  percentageRequested  String value for percentageRequested.
+     * @param  tippingEnabled  Boolean value for tippingEnabled.
+     * @param  automaticPaymentSource  String value for automaticPaymentSource.
+     * @param  cardId  String value for cardId.
+     * @param  reminders  List of InvoicePaymentReminder value for reminders.
+     * @param  computedAmountMoney  Money value for computedAmountMoney.
+     * @param  totalCompletedAmountMoney  Money value for totalCompletedAmountMoney.
+     * @param  roundingAdjustmentIncludedMoney  Money value for roundingAdjustmentIncludedMoney.
      */
     @JsonCreator
     public InvoicePaymentRequest(
@@ -78,7 +92,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -91,7 +105,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("request_method")
     public String getRequestMethod() {
-        return this.requestMethod;
+        return requestMethod;
     }
 
     /**
@@ -104,7 +118,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("request_type")
     public String getRequestType() {
-        return this.requestType;
+        return requestType;
     }
 
     /**
@@ -116,7 +130,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("due_date")
     public String getDueDate() {
-        return this.dueDate;
+        return dueDate;
     }
 
     /**
@@ -131,7 +145,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("fixed_amount_requested_money")
     public Money getFixedAmountRequestedMoney() {
-        return this.fixedAmountRequestedMoney;
+        return fixedAmountRequestedMoney;
     }
 
     /**
@@ -146,7 +160,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("percentage_requested")
     public String getPercentageRequested() {
-        return this.percentageRequested;
+        return percentageRequested;
     }
 
     /**
@@ -158,7 +172,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("tipping_enabled")
     public Boolean getTippingEnabled() {
-        return this.tippingEnabled;
+        return tippingEnabled;
     }
 
     /**
@@ -169,7 +183,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("automatic_payment_source")
     public String getAutomaticPaymentSource() {
-        return this.automaticPaymentSource;
+        return automaticPaymentSource;
     }
 
     /**
@@ -182,7 +196,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("card_id")
     public String getCardId() {
-        return this.cardId;
+        return cardId;
     }
 
     /**
@@ -192,7 +206,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("reminders")
     public List<InvoicePaymentReminder> getReminders() {
-        return this.reminders;
+        return reminders;
     }
 
     /**
@@ -207,7 +221,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("computed_amount_money")
     public Money getComputedAmountMoney() {
-        return this.computedAmountMoney;
+        return computedAmountMoney;
     }
 
     /**
@@ -222,7 +236,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("total_completed_amount_money")
     public Money getTotalCompletedAmountMoney() {
-        return this.totalCompletedAmountMoney;
+        return totalCompletedAmountMoney;
     }
 
     /**
@@ -237,7 +251,7 @@ public class InvoicePaymentRequest {
      */
     @JsonGetter("rounding_adjustment_included_money")
     public Money getRoundingAdjustmentIncludedMoney() {
-        return this.roundingAdjustmentIncludedMoney;
+        return roundingAdjustmentIncludedMoney;
     }
 
     @Override
@@ -333,7 +347,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -343,7 +357,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for requestMethod.
-         * @param requestMethod String value for requestMethod.
+         * @param  requestMethod  String value for requestMethod.
          * @return Builder
          */
         public Builder requestMethod(String requestMethod) {
@@ -353,7 +367,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for requestType.
-         * @param requestType String value for requestType.
+         * @param  requestType  String value for requestType.
          * @return Builder
          */
         public Builder requestType(String requestType) {
@@ -363,7 +377,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for dueDate.
-         * @param dueDate String value for dueDate.
+         * @param  dueDate  String value for dueDate.
          * @return Builder
          */
         public Builder dueDate(String dueDate) {
@@ -373,7 +387,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for fixedAmountRequestedMoney.
-         * @param fixedAmountRequestedMoney Money value for fixedAmountRequestedMoney.
+         * @param  fixedAmountRequestedMoney  Money value for fixedAmountRequestedMoney.
          * @return Builder
          */
         public Builder fixedAmountRequestedMoney(Money fixedAmountRequestedMoney) {
@@ -383,7 +397,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for percentageRequested.
-         * @param percentageRequested String value for percentageRequested.
+         * @param  percentageRequested  String value for percentageRequested.
          * @return Builder
          */
         public Builder percentageRequested(String percentageRequested) {
@@ -393,7 +407,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for tippingEnabled.
-         * @param tippingEnabled Boolean value for tippingEnabled.
+         * @param  tippingEnabled  Boolean value for tippingEnabled.
          * @return Builder
          */
         public Builder tippingEnabled(Boolean tippingEnabled) {
@@ -403,7 +417,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for automaticPaymentSource.
-         * @param automaticPaymentSource String value for automaticPaymentSource.
+         * @param  automaticPaymentSource  String value for automaticPaymentSource.
          * @return Builder
          */
         public Builder automaticPaymentSource(String automaticPaymentSource) {
@@ -413,7 +427,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for cardId.
-         * @param cardId String value for cardId.
+         * @param  cardId  String value for cardId.
          * @return Builder
          */
         public Builder cardId(String cardId) {
@@ -423,7 +437,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for reminders.
-         * @param reminders List of InvoicePaymentReminder value for reminders.
+         * @param  reminders  List of InvoicePaymentReminder value for reminders.
          * @return Builder
          */
         public Builder reminders(List<InvoicePaymentReminder> reminders) {
@@ -433,7 +447,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for computedAmountMoney.
-         * @param computedAmountMoney Money value for computedAmountMoney.
+         * @param  computedAmountMoney  Money value for computedAmountMoney.
          * @return Builder
          */
         public Builder computedAmountMoney(Money computedAmountMoney) {
@@ -443,7 +457,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for totalCompletedAmountMoney.
-         * @param totalCompletedAmountMoney Money value for totalCompletedAmountMoney.
+         * @param  totalCompletedAmountMoney  Money value for totalCompletedAmountMoney.
          * @return Builder
          */
         public Builder totalCompletedAmountMoney(Money totalCompletedAmountMoney) {
@@ -453,7 +467,7 @@ public class InvoicePaymentRequest {
 
         /**
          * Setter for roundingAdjustmentIncludedMoney.
-         * @param roundingAdjustmentIncludedMoney Money value for roundingAdjustmentIncludedMoney.
+         * @param  roundingAdjustmentIncludedMoney  Money value for roundingAdjustmentIncludedMoney.
          * @return Builder
          */
         public Builder roundingAdjustmentIncludedMoney(Money roundingAdjustmentIncludedMoney) {

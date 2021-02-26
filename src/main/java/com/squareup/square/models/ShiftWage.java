@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for ShiftWage type.
  */
 public class ShiftWage {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
 
     /**
      * Initialization constructor.
-     * @param title String value for title.
-     * @param hourlyRate Money value for hourlyRate.
+     * @param  title  String value for title.
+     * @param  hourlyRate  Money value for hourlyRate.
      */
     @JsonCreator
     public ShiftWage(
@@ -34,7 +37,7 @@ public class ShiftWage {
      */
     @JsonGetter("title")
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     /**
@@ -49,7 +52,7 @@ public class ShiftWage {
      */
     @JsonGetter("hourly_rate")
     public Money getHourlyRate() {
-        return this.hourlyRate;
+        return hourlyRate;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class ShiftWage {
 
         /**
          * Setter for title.
-         * @param title String value for title.
+         * @param  title  String value for title.
          * @return Builder
          */
         public Builder title(String title) {
@@ -112,7 +115,7 @@ public class ShiftWage {
 
         /**
          * Setter for hourlyRate.
-         * @param hourlyRate Money value for hourlyRate.
+         * @param  hourlyRate  Money value for hourlyRate.
          * @return Builder
          */
         public Builder hourlyRate(Money hourlyRate) {

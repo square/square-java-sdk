@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,19 +12,24 @@ import java.util.Objects;
  * This is a model class for SearchOrdersRequest type.
  */
 public class SearchOrdersRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean returnEntries;
 
     /**
      * Initialization constructor.
-     * @param locationIds List of String value for locationIds.
-     * @param cursor String value for cursor.
-     * @param query SearchOrdersQuery value for query.
-     * @param limit Integer value for limit.
-     * @param returnEntries Boolean value for returnEntries.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  cursor  String value for cursor.
+     * @param  query  SearchOrdersQuery value for query.
+     * @param  limit  Integer value for limit.
+     * @param  returnEntries  Boolean value for returnEntries.
      */
     @JsonCreator
     public SearchOrdersRequest(
@@ -47,7 +53,7 @@ public class SearchOrdersRequest {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -60,7 +66,7 @@ public class SearchOrdersRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -70,7 +76,7 @@ public class SearchOrdersRequest {
      */
     @JsonGetter("query")
     public SearchOrdersQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -81,7 +87,7 @@ public class SearchOrdersRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -93,7 +99,7 @@ public class SearchOrdersRequest {
      */
     @JsonGetter("return_entries")
     public Boolean getReturnEntries() {
-        return this.returnEntries;
+        return returnEntries;
     }
 
     @Override
@@ -157,7 +163,7 @@ public class SearchOrdersRequest {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -167,7 +173,7 @@ public class SearchOrdersRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -177,7 +183,7 @@ public class SearchOrdersRequest {
 
         /**
          * Setter for query.
-         * @param query SearchOrdersQuery value for query.
+         * @param  query  SearchOrdersQuery value for query.
          * @return Builder
          */
         public Builder query(SearchOrdersQuery query) {
@@ -187,7 +193,7 @@ public class SearchOrdersRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -197,7 +203,7 @@ public class SearchOrdersRequest {
 
         /**
          * Setter for returnEntries.
-         * @param returnEntries Boolean value for returnEntries.
+         * @param  returnEntries  Boolean value for returnEntries.
          * @return Builder
          */
         public Builder returnEntries(Boolean returnEntries) {

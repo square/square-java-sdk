@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class ListInvoicesResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Invoice> invoices;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param invoices List of Invoice value for invoices.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  invoices  List of Invoice value for invoices.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListInvoicesResponse(
@@ -44,7 +48,7 @@ public class ListInvoicesResponse {
      */
     @JsonGetter("invoices")
     public List<Invoice> getInvoices() {
-        return this.invoices;
+        return invoices;
     }
 
     /**
@@ -57,7 +61,7 @@ public class ListInvoicesResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -67,7 +71,7 @@ public class ListInvoicesResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -125,7 +129,7 @@ public class ListInvoicesResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -135,7 +139,7 @@ public class ListInvoicesResponse {
 
         /**
          * Setter for invoices.
-         * @param invoices List of Invoice value for invoices.
+         * @param  invoices  List of Invoice value for invoices.
          * @return Builder
          */
         public Builder invoices(List<Invoice> invoices) {
@@ -145,7 +149,7 @@ public class ListInvoicesResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -155,7 +159,7 @@ public class ListInvoicesResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

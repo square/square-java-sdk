@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class CatalogQuerySortedAttribute {
     private final String attributeName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String initialAttributeValue;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
      * Initialization constructor.
-     * @param attributeName String value for attributeName.
-     * @param initialAttributeValue String value for initialAttributeValue.
-     * @param sortOrder String value for sortOrder.
+     * @param  attributeName  String value for attributeName.
+     * @param  initialAttributeValue  String value for initialAttributeValue.
+     * @param  sortOrder  String value for sortOrder.
      */
     @JsonCreator
     public CatalogQuerySortedAttribute(
@@ -37,7 +40,7 @@ public class CatalogQuerySortedAttribute {
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
-        return this.attributeName;
+        return attributeName;
     }
 
     /**
@@ -50,7 +53,7 @@ public class CatalogQuerySortedAttribute {
      */
     @JsonGetter("initial_attribute_value")
     public String getInitialAttributeValue() {
-        return this.initialAttributeValue;
+        return initialAttributeValue;
     }
 
     /**
@@ -60,7 +63,7 @@ public class CatalogQuerySortedAttribute {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     @Override
@@ -115,7 +118,7 @@ public class CatalogQuerySortedAttribute {
 
         /**
          * Initialization constructor.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          */
         public Builder(String attributeName) {
             this.attributeName = attributeName;
@@ -123,7 +126,7 @@ public class CatalogQuerySortedAttribute {
 
         /**
          * Setter for attributeName.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
@@ -133,7 +136,7 @@ public class CatalogQuerySortedAttribute {
 
         /**
          * Setter for initialAttributeValue.
-         * @param initialAttributeValue String value for initialAttributeValue.
+         * @param  initialAttributeValue  String value for initialAttributeValue.
          * @return Builder
          */
         public Builder initialAttributeValue(String initialAttributeValue) {
@@ -143,7 +146,7 @@ public class CatalogQuerySortedAttribute {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {

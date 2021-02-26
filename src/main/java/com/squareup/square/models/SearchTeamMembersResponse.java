@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class SearchTeamMembersResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<TeamMember> teamMembers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMembers List of TeamMember value for teamMembers.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  teamMembers  List of TeamMember value for teamMembers.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public SearchTeamMembersResponse(
@@ -44,7 +48,7 @@ public class SearchTeamMembersResponse {
      */
     @JsonGetter("team_members")
     public List<TeamMember> getTeamMembers() {
-        return this.teamMembers;
+        return teamMembers;
     }
 
     /**
@@ -56,7 +60,7 @@ public class SearchTeamMembersResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -66,7 +70,7 @@ public class SearchTeamMembersResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -124,7 +128,7 @@ public class SearchTeamMembersResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -134,7 +138,7 @@ public class SearchTeamMembersResponse {
 
         /**
          * Setter for teamMembers.
-         * @param teamMembers List of TeamMember value for teamMembers.
+         * @param  teamMembers  List of TeamMember value for teamMembers.
          * @return Builder
          */
         public Builder teamMembers(List<TeamMember> teamMembers) {
@@ -144,7 +148,7 @@ public class SearchTeamMembersResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -154,7 +158,7 @@ public class SearchTeamMembersResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

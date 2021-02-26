@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for DisputeEvidenceFile type.
  */
 public class DisputeEvidenceFile {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String filename;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String filetype;
 
     /**
      * Initialization constructor.
-     * @param filename String value for filename.
-     * @param filetype String value for filetype.
+     * @param  filename  String value for filename.
+     * @param  filetype  String value for filetype.
      */
     @JsonCreator
     public DisputeEvidenceFile(
@@ -33,7 +36,7 @@ public class DisputeEvidenceFile {
      */
     @JsonGetter("filename")
     public String getFilename() {
-        return this.filename;
+        return filename;
     }
 
     /**
@@ -44,7 +47,7 @@ public class DisputeEvidenceFile {
      */
     @JsonGetter("filetype")
     public String getFiletype() {
-        return this.filetype;
+        return filetype;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class DisputeEvidenceFile {
 
         /**
          * Setter for filename.
-         * @param filename String value for filename.
+         * @param  filename  String value for filename.
          * @return Builder
          */
         public Builder filename(String filename) {
@@ -107,7 +110,7 @@ public class DisputeEvidenceFile {
 
         /**
          * Setter for filetype.
-         * @param filetype String value for filetype.
+         * @param  filetype  String value for filetype.
          * @return Builder
          */
         public Builder filetype(String filetype) {

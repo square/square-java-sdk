@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class ListLoyaltyProgramsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LoyaltyProgram> programs;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param programs List of LoyaltyProgram value for programs.
+     * @param  errors  List of Error value for errors.
+     * @param  programs  List of LoyaltyProgram value for programs.
      */
     @JsonCreator
     public ListLoyaltyProgramsResponse(
@@ -40,7 +43,7 @@ public class ListLoyaltyProgramsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -50,7 +53,7 @@ public class ListLoyaltyProgramsResponse {
      */
     @JsonGetter("programs")
     public List<LoyaltyProgram> getPrograms() {
-        return this.programs;
+        return programs;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class ListLoyaltyProgramsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class ListLoyaltyProgramsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -125,7 +128,7 @@ public class ListLoyaltyProgramsResponse {
 
         /**
          * Setter for programs.
-         * @param programs List of LoyaltyProgram value for programs.
+         * @param  programs  List of LoyaltyProgram value for programs.
          * @return Builder
          */
         public Builder programs(List<LoyaltyProgram> programs) {

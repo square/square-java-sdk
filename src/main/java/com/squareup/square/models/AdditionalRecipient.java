@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,14 +14,15 @@ public class AdditionalRecipient {
     private final String locationId;
     private final String description;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receivableId;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param description String value for description.
-     * @param amountMoney Money value for amountMoney.
-     * @param receivableId String value for receivableId.
+     * @param  locationId  String value for locationId.
+     * @param  description  String value for description.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  receivableId  String value for receivableId.
      */
     @JsonCreator
     public AdditionalRecipient(
@@ -41,7 +43,7 @@ public class AdditionalRecipient {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -51,7 +53,7 @@ public class AdditionalRecipient {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -66,7 +68,7 @@ public class AdditionalRecipient {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -77,7 +79,7 @@ public class AdditionalRecipient {
      */
     @JsonGetter("receivable_id")
     public String getReceivableId() {
-        return this.receivableId;
+        return receivableId;
     }
 
     @Override
@@ -132,13 +134,11 @@ public class AdditionalRecipient {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
-         * @param description String value for description.
-         * @param amountMoney Money value for amountMoney.
+         * @param  locationId  String value for locationId.
+         * @param  description  String value for description.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String locationId,
-                String description,
-                Money amountMoney) {
+        public Builder(String locationId, String description, Money amountMoney) {
             this.locationId = locationId;
             this.description = description;
             this.amountMoney = amountMoney;
@@ -146,7 +146,7 @@ public class AdditionalRecipient {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -156,7 +156,7 @@ public class AdditionalRecipient {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -166,7 +166,7 @@ public class AdditionalRecipient {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -176,7 +176,7 @@ public class AdditionalRecipient {
 
         /**
          * Setter for receivableId.
-         * @param receivableId String value for receivableId.
+         * @param  receivableId  String value for receivableId.
          * @return Builder
          */
         public Builder receivableId(String receivableId) {

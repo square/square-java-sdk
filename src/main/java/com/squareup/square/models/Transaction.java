@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,29 +12,39 @@ import java.util.Objects;
  * This is a model class for Transaction type.
  */
 public class Transaction {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Tender> tenders;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Refund> refunds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String product;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param locationId String value for locationId.
-     * @param createdAt String value for createdAt.
-     * @param tenders List of Tender value for tenders.
-     * @param refunds List of Refund value for refunds.
-     * @param referenceId String value for referenceId.
-     * @param product String value for product.
-     * @param clientId String value for clientId.
-     * @param shippingAddress Address value for shippingAddress.
-     * @param orderId String value for orderId.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  createdAt  String value for createdAt.
+     * @param  tenders  List of Tender value for tenders.
+     * @param  refunds  List of Refund value for refunds.
+     * @param  referenceId  String value for referenceId.
+     * @param  product  String value for product.
+     * @param  clientId  String value for clientId.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  orderId  String value for orderId.
      */
     @JsonCreator
     public Transaction(
@@ -66,7 +77,7 @@ public class Transaction {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -76,7 +87,7 @@ public class Transaction {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -86,7 +97,7 @@ public class Transaction {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -96,7 +107,7 @@ public class Transaction {
      */
     @JsonGetter("tenders")
     public List<Tender> getTenders() {
-        return this.tenders;
+        return tenders;
     }
 
     /**
@@ -106,7 +117,7 @@ public class Transaction {
      */
     @JsonGetter("refunds")
     public List<Refund> getRefunds() {
-        return this.refunds;
+        return refunds;
     }
 
     /**
@@ -118,7 +129,7 @@ public class Transaction {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -128,7 +139,7 @@ public class Transaction {
      */
     @JsonGetter("product")
     public String getProduct() {
-        return this.product;
+        return product;
     }
 
     /**
@@ -143,7 +154,7 @@ public class Transaction {
      */
     @JsonGetter("client_id")
     public String getClientId() {
-        return this.clientId;
+        return clientId;
     }
 
     /**
@@ -153,7 +164,7 @@ public class Transaction {
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
-        return this.shippingAddress;
+        return shippingAddress;
     }
 
     /**
@@ -163,7 +174,7 @@ public class Transaction {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     @Override
@@ -244,7 +255,7 @@ public class Transaction {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -254,7 +265,7 @@ public class Transaction {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -264,7 +275,7 @@ public class Transaction {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -274,7 +285,7 @@ public class Transaction {
 
         /**
          * Setter for tenders.
-         * @param tenders List of Tender value for tenders.
+         * @param  tenders  List of Tender value for tenders.
          * @return Builder
          */
         public Builder tenders(List<Tender> tenders) {
@@ -284,7 +295,7 @@ public class Transaction {
 
         /**
          * Setter for refunds.
-         * @param refunds List of Refund value for refunds.
+         * @param  refunds  List of Refund value for refunds.
          * @return Builder
          */
         public Builder refunds(List<Refund> refunds) {
@@ -294,7 +305,7 @@ public class Transaction {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -304,7 +315,7 @@ public class Transaction {
 
         /**
          * Setter for product.
-         * @param product String value for product.
+         * @param  product  String value for product.
          * @return Builder
          */
         public Builder product(String product) {
@@ -314,7 +325,7 @@ public class Transaction {
 
         /**
          * Setter for clientId.
-         * @param clientId String value for clientId.
+         * @param  clientId  String value for clientId.
          * @return Builder
          */
         public Builder clientId(String clientId) {
@@ -324,7 +335,7 @@ public class Transaction {
 
         /**
          * Setter for shippingAddress.
-         * @param shippingAddress Address value for shippingAddress.
+         * @param  shippingAddress  Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
@@ -334,7 +345,7 @@ public class Transaction {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {

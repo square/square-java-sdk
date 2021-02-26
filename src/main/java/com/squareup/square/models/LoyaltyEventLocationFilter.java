@@ -15,7 +15,7 @@ public class LoyaltyEventLocationFilter {
 
     /**
      * Initialization constructor.
-     * @param locationIds List of String value for locationIds.
+     * @param  locationIds  List of String value for locationIds.
      */
     @JsonCreator
     public LoyaltyEventLocationFilter(
@@ -31,7 +31,7 @@ public class LoyaltyEventLocationFilter {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class LoyaltyEventLocationFilter {
 
         /**
          * Initialization constructor.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          */
         public Builder(List<String> locationIds) {
             this.locationIds = locationIds;
@@ -86,7 +86,7 @@ public class LoyaltyEventLocationFilter {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {

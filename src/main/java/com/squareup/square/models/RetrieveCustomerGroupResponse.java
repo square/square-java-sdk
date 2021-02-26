@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class RetrieveCustomerGroupResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerGroup group;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param group CustomerGroup value for group.
+     * @param  errors  List of Error value for errors.
+     * @param  group  CustomerGroup value for group.
      */
     @JsonCreator
     public RetrieveCustomerGroupResponse(
@@ -40,7 +43,7 @@ public class RetrieveCustomerGroupResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -52,7 +55,7 @@ public class RetrieveCustomerGroupResponse {
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
-        return this.group;
+        return group;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class RetrieveCustomerGroupResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class RetrieveCustomerGroupResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -126,7 +129,7 @@ public class RetrieveCustomerGroupResponse {
 
         /**
          * Setter for group.
-         * @param group CustomerGroup value for group.
+         * @param  group  CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,37 +12,51 @@ import java.util.Objects;
  * This is a model class for CatalogItem type.
  */
 public class CatalogItem {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String abbreviation;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String labelColor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableOnline;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableForPickup;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableElectronically;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String categoryId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemModifierListInfo> modifierListInfo;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> variations;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String productType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipModifierScreen;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionForItem> itemOptions;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param description String value for description.
-     * @param abbreviation String value for abbreviation.
-     * @param labelColor String value for labelColor.
-     * @param availableOnline Boolean value for availableOnline.
-     * @param availableForPickup Boolean value for availableForPickup.
-     * @param availableElectronically Boolean value for availableElectronically.
-     * @param categoryId String value for categoryId.
-     * @param taxIds List of String value for taxIds.
-     * @param modifierListInfo List of CatalogItemModifierListInfo value for modifierListInfo.
-     * @param variations List of CatalogObject value for variations.
-     * @param productType String value for productType.
-     * @param skipModifierScreen Boolean value for skipModifierScreen.
-     * @param itemOptions List of CatalogItemOptionForItem value for itemOptions.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  abbreviation  String value for abbreviation.
+     * @param  labelColor  String value for labelColor.
+     * @param  availableOnline  Boolean value for availableOnline.
+     * @param  availableForPickup  Boolean value for availableForPickup.
+     * @param  availableElectronically  Boolean value for availableElectronically.
+     * @param  categoryId  String value for categoryId.
+     * @param  taxIds  List of String value for taxIds.
+     * @param  modifierListInfo  List of CatalogItemModifierListInfo value for modifierListInfo.
+     * @param  variations  List of CatalogObject value for variations.
+     * @param  productType  String value for productType.
+     * @param  skipModifierScreen  Boolean value for skipModifierScreen.
+     * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
      */
     @JsonCreator
     public CatalogItem(
@@ -83,7 +98,7 @@ public class CatalogItem {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -94,7 +109,7 @@ public class CatalogItem {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -106,7 +121,7 @@ public class CatalogItem {
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {
-        return this.abbreviation;
+        return abbreviation;
     }
 
     /**
@@ -117,7 +132,7 @@ public class CatalogItem {
      */
     @JsonGetter("label_color")
     public String getLabelColor() {
-        return this.labelColor;
+        return labelColor;
     }
 
     /**
@@ -127,7 +142,7 @@ public class CatalogItem {
      */
     @JsonGetter("available_online")
     public Boolean getAvailableOnline() {
-        return this.availableOnline;
+        return availableOnline;
     }
 
     /**
@@ -137,7 +152,7 @@ public class CatalogItem {
      */
     @JsonGetter("available_for_pickup")
     public Boolean getAvailableForPickup() {
-        return this.availableForPickup;
+        return availableForPickup;
     }
 
     /**
@@ -148,7 +163,7 @@ public class CatalogItem {
      */
     @JsonGetter("available_electronically")
     public Boolean getAvailableElectronically() {
-        return this.availableElectronically;
+        return availableElectronically;
     }
 
     /**
@@ -158,7 +173,7 @@ public class CatalogItem {
      */
     @JsonGetter("category_id")
     public String getCategoryId() {
-        return this.categoryId;
+        return categoryId;
     }
 
     /**
@@ -170,7 +185,7 @@ public class CatalogItem {
      */
     @JsonGetter("tax_ids")
     public List<String> getTaxIds() {
-        return this.taxIds;
+        return taxIds;
     }
 
     /**
@@ -182,7 +197,7 @@ public class CatalogItem {
      */
     @JsonGetter("modifier_list_info")
     public List<CatalogItemModifierListInfo> getModifierListInfo() {
-        return this.modifierListInfo;
+        return modifierListInfo;
     }
 
     /**
@@ -192,7 +207,7 @@ public class CatalogItem {
      */
     @JsonGetter("variations")
     public List<CatalogObject> getVariations() {
-        return this.variations;
+        return variations;
     }
 
     /**
@@ -203,7 +218,7 @@ public class CatalogItem {
      */
     @JsonGetter("product_type")
     public String getProductType() {
-        return this.productType;
+        return productType;
     }
 
     /**
@@ -218,7 +233,7 @@ public class CatalogItem {
      */
     @JsonGetter("skip_modifier_screen")
     public Boolean getSkipModifierScreen() {
-        return this.skipModifierScreen;
+        return skipModifierScreen;
     }
 
     /**
@@ -229,7 +244,7 @@ public class CatalogItem {
      */
     @JsonGetter("item_options")
     public List<CatalogItemOptionForItem> getItemOptions() {
-        return this.itemOptions;
+        return itemOptions;
     }
 
     @Override
@@ -327,7 +342,7 @@ public class CatalogItem {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -337,7 +352,7 @@ public class CatalogItem {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -347,7 +362,7 @@ public class CatalogItem {
 
         /**
          * Setter for abbreviation.
-         * @param abbreviation String value for abbreviation.
+         * @param  abbreviation  String value for abbreviation.
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {
@@ -357,7 +372,7 @@ public class CatalogItem {
 
         /**
          * Setter for labelColor.
-         * @param labelColor String value for labelColor.
+         * @param  labelColor  String value for labelColor.
          * @return Builder
          */
         public Builder labelColor(String labelColor) {
@@ -367,7 +382,7 @@ public class CatalogItem {
 
         /**
          * Setter for availableOnline.
-         * @param availableOnline Boolean value for availableOnline.
+         * @param  availableOnline  Boolean value for availableOnline.
          * @return Builder
          */
         public Builder availableOnline(Boolean availableOnline) {
@@ -377,7 +392,7 @@ public class CatalogItem {
 
         /**
          * Setter for availableForPickup.
-         * @param availableForPickup Boolean value for availableForPickup.
+         * @param  availableForPickup  Boolean value for availableForPickup.
          * @return Builder
          */
         public Builder availableForPickup(Boolean availableForPickup) {
@@ -387,7 +402,7 @@ public class CatalogItem {
 
         /**
          * Setter for availableElectronically.
-         * @param availableElectronically Boolean value for availableElectronically.
+         * @param  availableElectronically  Boolean value for availableElectronically.
          * @return Builder
          */
         public Builder availableElectronically(Boolean availableElectronically) {
@@ -397,7 +412,7 @@ public class CatalogItem {
 
         /**
          * Setter for categoryId.
-         * @param categoryId String value for categoryId.
+         * @param  categoryId  String value for categoryId.
          * @return Builder
          */
         public Builder categoryId(String categoryId) {
@@ -407,7 +422,7 @@ public class CatalogItem {
 
         /**
          * Setter for taxIds.
-         * @param taxIds List of String value for taxIds.
+         * @param  taxIds  List of String value for taxIds.
          * @return Builder
          */
         public Builder taxIds(List<String> taxIds) {
@@ -417,7 +432,7 @@ public class CatalogItem {
 
         /**
          * Setter for modifierListInfo.
-         * @param modifierListInfo List of CatalogItemModifierListInfo value for modifierListInfo.
+         * @param  modifierListInfo  List of CatalogItemModifierListInfo value for modifierListInfo.
          * @return Builder
          */
         public Builder modifierListInfo(List<CatalogItemModifierListInfo> modifierListInfo) {
@@ -427,7 +442,7 @@ public class CatalogItem {
 
         /**
          * Setter for variations.
-         * @param variations List of CatalogObject value for variations.
+         * @param  variations  List of CatalogObject value for variations.
          * @return Builder
          */
         public Builder variations(List<CatalogObject> variations) {
@@ -437,7 +452,7 @@ public class CatalogItem {
 
         /**
          * Setter for productType.
-         * @param productType String value for productType.
+         * @param  productType  String value for productType.
          * @return Builder
          */
         public Builder productType(String productType) {
@@ -447,7 +462,7 @@ public class CatalogItem {
 
         /**
          * Setter for skipModifierScreen.
-         * @param skipModifierScreen Boolean value for skipModifierScreen.
+         * @param  skipModifierScreen  Boolean value for skipModifierScreen.
          * @return Builder
          */
         public Builder skipModifierScreen(Boolean skipModifierScreen) {
@@ -457,7 +472,7 @@ public class CatalogItem {
 
         /**
          * Setter for itemOptions.
-         * @param itemOptions List of CatalogItemOptionForItem value for itemOptions.
+         * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
          * @return Builder
          */
         public Builder itemOptions(List<CatalogItemOptionForItem> itemOptions) {

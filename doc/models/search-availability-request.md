@@ -7,9 +7,9 @@
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Query` | [`SearchAvailabilityQuery`](/doc/models/search-availability-query.md) | Query conditions to search for availabilities of bookings. | SearchAvailabilityQuery getQuery() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Query` | [`SearchAvailabilityQuery`](/doc/models/search-availability-query.md) | Required | Query conditions to search for availabilities of bookings. | SearchAvailabilityQuery getQuery() |
 
 ## Example (as JSON)
 

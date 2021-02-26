@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class CancelInvoiceResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Invoice invoice;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param invoice Invoice value for invoice.
-     * @param errors List of Error value for errors.
+     * @param  invoice  Invoice value for invoice.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CancelInvoiceResponse(
@@ -42,7 +45,7 @@ public class CancelInvoiceResponse {
      */
     @JsonGetter("invoice")
     public Invoice getInvoice() {
-        return this.invoice;
+        return invoice;
     }
 
     /**
@@ -52,7 +55,7 @@ public class CancelInvoiceResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class CancelInvoiceResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class CancelInvoiceResponse {
 
         /**
          * Setter for invoice.
-         * @param invoice Invoice value for invoice.
+         * @param  invoice  Invoice value for invoice.
          * @return Builder
          */
         public Builder invoice(Invoice invoice) {
@@ -126,7 +129,7 @@ public class CancelInvoiceResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

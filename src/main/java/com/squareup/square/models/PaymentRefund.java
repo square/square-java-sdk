@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,30 +13,39 @@ import java.util.Objects;
  */
 public class PaymentRefund {
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ProcessingFee> processingFee;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param amountMoney Money value for amountMoney.
-     * @param status String value for status.
-     * @param locationId String value for locationId.
-     * @param appFeeMoney Money value for appFeeMoney.
-     * @param processingFee List of ProcessingFee value for processingFee.
-     * @param paymentId String value for paymentId.
-     * @param orderId String value for orderId.
-     * @param reason String value for reason.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  id  String value for id.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  status  String value for status.
+     * @param  locationId  String value for locationId.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  processingFee  List of ProcessingFee value for processingFee.
+     * @param  paymentId  String value for paymentId.
+     * @param  orderId  String value for orderId.
+     * @param  reason  String value for reason.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public PaymentRefund(
@@ -70,7 +80,7 @@ public class PaymentRefund {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -81,7 +91,7 @@ public class PaymentRefund {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -91,7 +101,7 @@ public class PaymentRefund {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -106,7 +116,7 @@ public class PaymentRefund {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -121,7 +131,7 @@ public class PaymentRefund {
      */
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
-        return this.appFeeMoney;
+        return appFeeMoney;
     }
 
     /**
@@ -131,7 +141,7 @@ public class PaymentRefund {
      */
     @JsonGetter("processing_fee")
     public List<ProcessingFee> getProcessingFee() {
-        return this.processingFee;
+        return processingFee;
     }
 
     /**
@@ -141,7 +151,7 @@ public class PaymentRefund {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -151,7 +161,7 @@ public class PaymentRefund {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -161,7 +171,7 @@ public class PaymentRefund {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -171,7 +181,7 @@ public class PaymentRefund {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -181,7 +191,7 @@ public class PaymentRefund {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -262,18 +272,17 @@ public class PaymentRefund {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param amountMoney Money value for amountMoney.
+         * @param  id  String value for id.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String id,
-                Money amountMoney) {
+        public Builder(String id, Money amountMoney) {
             this.id = id;
             this.amountMoney = amountMoney;
         }
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -283,7 +292,7 @@ public class PaymentRefund {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -293,7 +302,7 @@ public class PaymentRefund {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -303,7 +312,7 @@ public class PaymentRefund {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -313,7 +322,7 @@ public class PaymentRefund {
 
         /**
          * Setter for appFeeMoney.
-         * @param appFeeMoney Money value for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
@@ -323,7 +332,7 @@ public class PaymentRefund {
 
         /**
          * Setter for processingFee.
-         * @param processingFee List of ProcessingFee value for processingFee.
+         * @param  processingFee  List of ProcessingFee value for processingFee.
          * @return Builder
          */
         public Builder processingFee(List<ProcessingFee> processingFee) {
@@ -333,7 +342,7 @@ public class PaymentRefund {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -343,7 +352,7 @@ public class PaymentRefund {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -353,7 +362,7 @@ public class PaymentRefund {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -363,7 +372,7 @@ public class PaymentRefund {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -373,7 +382,7 @@ public class PaymentRefund {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

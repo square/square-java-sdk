@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,31 +12,42 @@ import java.util.Objects;
  * This is a model class for Booking type.
  */
 public class Booking {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerNote;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AppointmentSegment> appointmentSegments;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param version Integer value for version.
-     * @param status String value for status.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param startAt String value for startAt.
-     * @param locationId String value for locationId.
-     * @param customerId String value for customerId.
-     * @param customerNote String value for customerNote.
-     * @param sellerNote String value for sellerNote.
-     * @param appointmentSegments List of AppointmentSegment value for appointmentSegments.
+     * @param  id  String value for id.
+     * @param  version  Integer value for version.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  startAt  String value for startAt.
+     * @param  locationId  String value for locationId.
+     * @param  customerId  String value for customerId.
+     * @param  customerNote  String value for customerNote.
+     * @param  sellerNote  String value for sellerNote.
+     * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
      */
     @JsonCreator
     public Booking(
@@ -70,7 +82,7 @@ public class Booking {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -80,7 +92,7 @@ public class Booking {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -90,7 +102,7 @@ public class Booking {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -100,7 +112,7 @@ public class Booking {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -110,7 +122,7 @@ public class Booking {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -120,7 +132,7 @@ public class Booking {
      */
     @JsonGetter("start_at")
     public String getStartAt() {
-        return this.startAt;
+        return startAt;
     }
 
     /**
@@ -131,7 +143,7 @@ public class Booking {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -142,7 +154,7 @@ public class Booking {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -154,7 +166,7 @@ public class Booking {
      */
     @JsonGetter("customer_note")
     public String getCustomerNote() {
-        return this.customerNote;
+        return customerNote;
     }
 
     /**
@@ -166,7 +178,7 @@ public class Booking {
      */
     @JsonGetter("seller_note")
     public String getSellerNote() {
-        return this.sellerNote;
+        return sellerNote;
     }
 
     /**
@@ -176,7 +188,7 @@ public class Booking {
      */
     @JsonGetter("appointment_segments")
     public List<AppointmentSegment> getAppointmentSegments() {
-        return this.appointmentSegments;
+        return appointmentSegments;
     }
 
     @Override
@@ -261,7 +273,7 @@ public class Booking {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -271,7 +283,7 @@ public class Booking {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -281,7 +293,7 @@ public class Booking {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -291,7 +303,7 @@ public class Booking {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -301,7 +313,7 @@ public class Booking {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -311,7 +323,7 @@ public class Booking {
 
         /**
          * Setter for startAt.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
@@ -321,7 +333,7 @@ public class Booking {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -331,7 +343,7 @@ public class Booking {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -341,7 +353,7 @@ public class Booking {
 
         /**
          * Setter for customerNote.
-         * @param customerNote String value for customerNote.
+         * @param  customerNote  String value for customerNote.
          * @return Builder
          */
         public Builder customerNote(String customerNote) {
@@ -351,7 +363,7 @@ public class Booking {
 
         /**
          * Setter for sellerNote.
-         * @param sellerNote String value for sellerNote.
+         * @param  sellerNote  String value for sellerNote.
          * @return Builder
          */
         public Builder sellerNote(String sellerNote) {
@@ -361,7 +373,7 @@ public class Booking {
 
         /**
          * Setter for appointmentSegments.
-         * @param appointmentSegments List of AppointmentSegment value for appointmentSegments.
+         * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
          * @return Builder
          */
         public Builder appointmentSegments(List<AppointmentSegment> appointmentSegments) {

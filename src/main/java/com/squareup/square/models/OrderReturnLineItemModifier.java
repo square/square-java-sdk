@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for OrderReturnLineItemModifier type.
  */
 public class OrderReturnLineItemModifier {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceModifierUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalPriceMoney;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param sourceModifierUid String value for sourceModifierUid.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param name String value for name.
-     * @param basePriceMoney Money value for basePriceMoney.
-     * @param totalPriceMoney Money value for totalPriceMoney.
+     * @param  uid  String value for uid.
+     * @param  sourceModifierUid  String value for sourceModifierUid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  name  String value for name.
+     * @param  basePriceMoney  Money value for basePriceMoney.
+     * @param  totalPriceMoney  Money value for totalPriceMoney.
      */
     @JsonCreator
     public OrderReturnLineItemModifier(
@@ -49,7 +56,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -60,7 +67,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("source_modifier_uid")
     public String getSourceModifierUid() {
-        return this.sourceModifierUid;
+        return sourceModifierUid;
     }
 
     /**
@@ -70,7 +77,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -80,7 +87,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -95,7 +102,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("base_price_money")
     public Money getBasePriceMoney() {
-        return this.basePriceMoney;
+        return basePriceMoney;
     }
 
     /**
@@ -110,7 +117,7 @@ public class OrderReturnLineItemModifier {
      */
     @JsonGetter("total_price_money")
     public Money getTotalPriceMoney() {
-        return this.totalPriceMoney;
+        return totalPriceMoney;
     }
 
     @Override
@@ -179,7 +186,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -189,7 +196,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for sourceModifierUid.
-         * @param sourceModifierUid String value for sourceModifierUid.
+         * @param  sourceModifierUid  String value for sourceModifierUid.
          * @return Builder
          */
         public Builder sourceModifierUid(String sourceModifierUid) {
@@ -199,7 +206,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -209,7 +216,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -219,7 +226,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for basePriceMoney.
-         * @param basePriceMoney Money value for basePriceMoney.
+         * @param  basePriceMoney  Money value for basePriceMoney.
          * @return Builder
          */
         public Builder basePriceMoney(Money basePriceMoney) {
@@ -229,7 +236,7 @@ public class OrderReturnLineItemModifier {
 
         /**
          * Setter for totalPriceMoney.
-         * @param totalPriceMoney Money value for totalPriceMoney.
+         * @param  totalPriceMoney  Money value for totalPriceMoney.
          * @return Builder
          */
         public Builder totalPriceMoney(Money totalPriceMoney) {

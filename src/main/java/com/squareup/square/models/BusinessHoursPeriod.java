@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for BusinessHoursPeriod type.
  */
 public class BusinessHoursPeriod {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dayOfWeek;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startLocalTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endLocalTime;
 
     /**
      * Initialization constructor.
-     * @param dayOfWeek String value for dayOfWeek.
-     * @param startLocalTime String value for startLocalTime.
-     * @param endLocalTime String value for endLocalTime.
+     * @param  dayOfWeek  String value for dayOfWeek.
+     * @param  startLocalTime  String value for startLocalTime.
+     * @param  endLocalTime  String value for endLocalTime.
      */
     @JsonCreator
     public BusinessHoursPeriod(
@@ -37,7 +41,7 @@ public class BusinessHoursPeriod {
      */
     @JsonGetter("day_of_week")
     public String getDayOfWeek() {
-        return this.dayOfWeek;
+        return dayOfWeek;
     }
 
     /**
@@ -48,7 +52,7 @@ public class BusinessHoursPeriod {
      */
     @JsonGetter("start_local_time")
     public String getStartLocalTime() {
-        return this.startLocalTime;
+        return startLocalTime;
     }
 
     /**
@@ -59,7 +63,7 @@ public class BusinessHoursPeriod {
      */
     @JsonGetter("end_local_time")
     public String getEndLocalTime() {
-        return this.endLocalTime;
+        return endLocalTime;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class BusinessHoursPeriod {
 
         /**
          * Setter for dayOfWeek.
-         * @param dayOfWeek String value for dayOfWeek.
+         * @param  dayOfWeek  String value for dayOfWeek.
          * @return Builder
          */
         public Builder dayOfWeek(String dayOfWeek) {
@@ -126,7 +130,7 @@ public class BusinessHoursPeriod {
 
         /**
          * Setter for startLocalTime.
-         * @param startLocalTime String value for startLocalTime.
+         * @param  startLocalTime  String value for startLocalTime.
          * @return Builder
          */
         public Builder startLocalTime(String startLocalTime) {
@@ -136,7 +140,7 @@ public class BusinessHoursPeriod {
 
         /**
          * Setter for endLocalTime.
-         * @param endLocalTime String value for endLocalTime.
+         * @param  endLocalTime  String value for endLocalTime.
          * @return Builder
          */
         public Builder endLocalTime(String endLocalTime) {

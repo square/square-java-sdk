@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for UpdateSubscriptionRequest type.
  */
 public class UpdateSubscriptionRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Subscription subscription;
 
     /**
      * Initialization constructor.
-     * @param subscription Subscription value for subscription.
+     * @param  subscription  Subscription value for subscription.
      */
     @JsonCreator
     public UpdateSubscriptionRequest(
@@ -31,7 +33,7 @@ public class UpdateSubscriptionRequest {
      */
     @JsonGetter("subscription")
     public Subscription getSubscription() {
-        return this.subscription;
+        return subscription;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class UpdateSubscriptionRequest {
 
         /**
          * Setter for subscription.
-         * @param subscription Subscription value for subscription.
+         * @param  subscription  Subscription value for subscription.
          * @return Builder
          */
         public Builder subscription(Subscription subscription) {

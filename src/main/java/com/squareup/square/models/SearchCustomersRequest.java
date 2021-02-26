@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchCustomersRequest type.
  */
 public class SearchCustomersRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerQuery query;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param limit Long value for limit.
-     * @param query CustomerQuery value for query.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Long value for limit.
+     * @param  query  CustomerQuery value for query.
      */
     @JsonCreator
     public SearchCustomersRequest(
@@ -40,7 +44,7 @@ public class SearchCustomersRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -52,7 +56,7 @@ public class SearchCustomersRequest {
      */
     @JsonGetter("limit")
     public Long getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -63,7 +67,7 @@ public class SearchCustomersRequest {
      */
     @JsonGetter("query")
     public CustomerQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     @Override
@@ -120,7 +124,7 @@ public class SearchCustomersRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -130,7 +134,7 @@ public class SearchCustomersRequest {
 
         /**
          * Setter for limit.
-         * @param limit Long value for limit.
+         * @param  limit  Long value for limit.
          * @return Builder
          */
         public Builder limit(Long limit) {
@@ -140,7 +144,7 @@ public class SearchCustomersRequest {
 
         /**
          * Setter for query.
-         * @param query CustomerQuery value for query.
+         * @param  query  CustomerQuery value for query.
          * @return Builder
          */
         public Builder query(CustomerQuery query) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for ListRefundsRequest type.
  */
 public class ListRefundsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param beginTime String value for beginTime.
-     * @param endTime String value for endTime.
-     * @param sortOrder String value for sortOrder.
-     * @param cursor String value for cursor.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public ListRefundsRequest(
@@ -43,7 +48,7 @@ public class ListRefundsRequest {
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
-        return this.beginTime;
+        return beginTime;
     }
 
     /**
@@ -54,7 +59,7 @@ public class ListRefundsRequest {
      */
     @JsonGetter("end_time")
     public String getEndTime() {
-        return this.endTime;
+        return endTime;
     }
 
     /**
@@ -64,7 +69,7 @@ public class ListRefundsRequest {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     /**
@@ -76,7 +81,7 @@ public class ListRefundsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class ListRefundsRequest {
 
         /**
          * Setter for beginTime.
-         * @param beginTime String value for beginTime.
+         * @param  beginTime  String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
@@ -146,7 +151,7 @@ public class ListRefundsRequest {
 
         /**
          * Setter for endTime.
-         * @param endTime String value for endTime.
+         * @param  endTime  String value for endTime.
          * @return Builder
          */
         public Builder endTime(String endTime) {
@@ -156,7 +161,7 @@ public class ListRefundsRequest {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
@@ -166,7 +171,7 @@ public class ListRefundsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

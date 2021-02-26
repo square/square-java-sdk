@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for DisputeEvidence type.
  */
 public class DisputeEvidence {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uploadedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
 
     /**
      * Initialization constructor.
-     * @param evidenceId String value for evidenceId.
-     * @param disputeId String value for disputeId.
-     * @param uploadedAt String value for uploadedAt.
-     * @param evidenceType String value for evidenceType.
+     * @param  evidenceId  String value for evidenceId.
+     * @param  disputeId  String value for disputeId.
+     * @param  uploadedAt  String value for uploadedAt.
+     * @param  evidenceType  String value for evidenceType.
      */
     @JsonCreator
     public DisputeEvidence(
@@ -41,7 +46,7 @@ public class DisputeEvidence {
      */
     @JsonGetter("evidence_id")
     public String getEvidenceId() {
-        return this.evidenceId;
+        return evidenceId;
     }
 
     /**
@@ -51,7 +56,7 @@ public class DisputeEvidence {
      */
     @JsonGetter("dispute_id")
     public String getDisputeId() {
-        return this.disputeId;
+        return disputeId;
     }
 
     /**
@@ -61,7 +66,7 @@ public class DisputeEvidence {
      */
     @JsonGetter("uploaded_at")
     public String getUploadedAt() {
-        return this.uploadedAt;
+        return uploadedAt;
     }
 
     /**
@@ -71,7 +76,7 @@ public class DisputeEvidence {
      */
     @JsonGetter("evidence_type")
     public String getEvidenceType() {
-        return this.evidenceType;
+        return evidenceType;
     }
 
     @Override
@@ -131,7 +136,7 @@ public class DisputeEvidence {
 
         /**
          * Setter for evidenceId.
-         * @param evidenceId String value for evidenceId.
+         * @param  evidenceId  String value for evidenceId.
          * @return Builder
          */
         public Builder evidenceId(String evidenceId) {
@@ -141,7 +146,7 @@ public class DisputeEvidence {
 
         /**
          * Setter for disputeId.
-         * @param disputeId String value for disputeId.
+         * @param  disputeId  String value for disputeId.
          * @return Builder
          */
         public Builder disputeId(String disputeId) {
@@ -151,7 +156,7 @@ public class DisputeEvidence {
 
         /**
          * Setter for uploadedAt.
-         * @param uploadedAt String value for uploadedAt.
+         * @param  uploadedAt  String value for uploadedAt.
          * @return Builder
          */
         public Builder uploadedAt(String uploadedAt) {
@@ -161,7 +166,7 @@ public class DisputeEvidence {
 
         /**
          * Setter for evidenceType.
-         * @param evidenceType String value for evidenceType.
+         * @param  evidenceType  String value for evidenceType.
          * @return Builder
          */
         public Builder evidenceType(String evidenceType) {

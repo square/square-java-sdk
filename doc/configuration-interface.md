@@ -8,6 +8,7 @@ This is the base class for all exceptions that represent an error response from 
 | Name | Description | Return Type |
 |  --- | --- | --- |
 | `getEnvironment()` | Current API environment. | `Environment` |
+| `getCustomUrl()` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com` | `String` |
 | `getSquareVersion()` | Square Connect API versions. | `String` |
 | `getTimeout()` | The timeout to use for making HTTP requests. | `long` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | `ReadonlyHttpClientConfiguration` |

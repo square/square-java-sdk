@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>8.1.0.20210121</version>
+    <version>9.0.0.20210226</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:8.1.0.20210121"
+implementation "com.squareup:square:9.0.0.20210226"
 ```
 
 ## API documentation
@@ -195,6 +195,16 @@ SquareClient client = new SquareClient.Builder()
 ```java
 SquareClient client = new SquareClient.Builder()
     .environment(Environment.PRODUCTION)
+    .accessToken("ACCESS TOKEN HERE")
+    .build();
+```
+
+- To set a custom environment provide a `customUrl`, and set the environment to `Environment.CUSTOM`:
+
+```java
+SquareClient client = new SquareClient.Builder()
+    .environment(Environment.CUSTOM)
+    .customUrl("https://your.customdomain.com")
     .accessToken("ACCESS TOKEN HERE")
     .build();
 ```

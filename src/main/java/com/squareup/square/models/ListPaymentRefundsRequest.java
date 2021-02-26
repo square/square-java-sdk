@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,25 +11,33 @@ import java.util.Objects;
  * This is a model class for ListPaymentRefundsRequest type.
  */
 public class ListPaymentRefundsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param beginTime String value for beginTime.
-     * @param endTime String value for endTime.
-     * @param sortOrder String value for sortOrder.
-     * @param cursor String value for cursor.
-     * @param locationId String value for locationId.
-     * @param status String value for status.
-     * @param sourceType String value for sourceType.
-     * @param limit Integer value for limit.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  sourceType  String value for sourceType.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public ListPaymentRefundsRequest(
@@ -58,7 +67,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
-        return this.beginTime;
+        return beginTime;
     }
 
     /**
@@ -69,7 +78,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("end_time")
     public String getEndTime() {
-        return this.endTime;
+        return endTime;
     }
 
     /**
@@ -80,7 +89,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     /**
@@ -92,7 +101,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -103,7 +112,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -115,7 +124,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -127,7 +136,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("source_type")
     public String getSourceType() {
-        return this.sourceType;
+        return sourceType;
     }
 
     /**
@@ -139,7 +148,7 @@ public class ListPaymentRefundsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -213,7 +222,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for beginTime.
-         * @param beginTime String value for beginTime.
+         * @param  beginTime  String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
@@ -223,7 +232,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for endTime.
-         * @param endTime String value for endTime.
+         * @param  endTime  String value for endTime.
          * @return Builder
          */
         public Builder endTime(String endTime) {
@@ -233,7 +242,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
@@ -243,7 +252,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -253,7 +262,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -263,7 +272,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -273,7 +282,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for sourceType.
-         * @param sourceType String value for sourceType.
+         * @param  sourceType  String value for sourceType.
          * @return Builder
          */
         public Builder sourceType(String sourceType) {
@@ -283,7 +292,7 @@ public class ListPaymentRefundsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

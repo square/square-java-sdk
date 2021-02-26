@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,42 @@ import java.util.Objects;
  * This is a model class for TeamMember type.
  */
 public class TeamMember {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMemberAssignedLocations assignedLocations;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param isOwner Boolean value for isOwner.
-     * @param status String value for status.
-     * @param givenName String value for givenName.
-     * @param familyName String value for familyName.
-     * @param emailAddress String value for emailAddress.
-     * @param phoneNumber String value for phoneNumber.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param assignedLocations TeamMemberAssignedLocations value for assignedLocations.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  isOwner  Boolean value for isOwner.
+     * @param  status  String value for status.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  assignedLocations  TeamMemberAssignedLocations value for assignedLocations.
      */
     @JsonCreator
     public TeamMember(
@@ -69,7 +81,7 @@ public class TeamMember {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -79,7 +91,7 @@ public class TeamMember {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -89,7 +101,7 @@ public class TeamMember {
      */
     @JsonGetter("is_owner")
     public Boolean getIsOwner() {
-        return this.isOwner;
+        return isOwner;
     }
 
     /**
@@ -99,7 +111,7 @@ public class TeamMember {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -109,7 +121,7 @@ public class TeamMember {
      */
     @JsonGetter("given_name")
     public String getGivenName() {
-        return this.givenName;
+        return givenName;
     }
 
     /**
@@ -119,7 +131,7 @@ public class TeamMember {
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
-        return this.familyName;
+        return familyName;
     }
 
     /**
@@ -129,7 +141,7 @@ public class TeamMember {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -140,7 +152,7 @@ public class TeamMember {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -151,7 +163,7 @@ public class TeamMember {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -162,7 +174,7 @@ public class TeamMember {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -172,7 +184,7 @@ public class TeamMember {
      */
     @JsonGetter("assigned_locations")
     public TeamMemberAssignedLocations getAssignedLocations() {
-        return this.assignedLocations;
+        return assignedLocations;
     }
 
     @Override
@@ -257,7 +269,7 @@ public class TeamMember {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -267,7 +279,7 @@ public class TeamMember {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -277,7 +289,7 @@ public class TeamMember {
 
         /**
          * Setter for isOwner.
-         * @param isOwner Boolean value for isOwner.
+         * @param  isOwner  Boolean value for isOwner.
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
@@ -287,7 +299,7 @@ public class TeamMember {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -297,7 +309,7 @@ public class TeamMember {
 
         /**
          * Setter for givenName.
-         * @param givenName String value for givenName.
+         * @param  givenName  String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
@@ -307,7 +319,7 @@ public class TeamMember {
 
         /**
          * Setter for familyName.
-         * @param familyName String value for familyName.
+         * @param  familyName  String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
@@ -317,7 +329,7 @@ public class TeamMember {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -327,7 +339,7 @@ public class TeamMember {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -337,7 +349,7 @@ public class TeamMember {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -347,7 +359,7 @@ public class TeamMember {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -357,7 +369,7 @@ public class TeamMember {
 
         /**
          * Setter for assignedLocations.
-         * @param assignedLocations TeamMemberAssignedLocations value for assignedLocations.
+         * @param  assignedLocations  TeamMemberAssignedLocations value for assignedLocations.
          * @return Builder
          */
         public Builder assignedLocations(TeamMemberAssignedLocations assignedLocations) {

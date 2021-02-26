@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,8 +11,10 @@ import java.util.Objects;
  * This is a model class for Break type.
  */
 public class Break {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String startAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
     private final String breakTypeId;
     private final String name;
@@ -20,13 +23,13 @@ public class Break {
 
     /**
      * Initialization constructor.
-     * @param startAt String value for startAt.
-     * @param breakTypeId String value for breakTypeId.
-     * @param name String value for name.
-     * @param expectedDuration String value for expectedDuration.
-     * @param isPaid boolean value for isPaid.
-     * @param id String value for id.
-     * @param endAt String value for endAt.
+     * @param  startAt  String value for startAt.
+     * @param  breakTypeId  String value for breakTypeId.
+     * @param  name  String value for name.
+     * @param  expectedDuration  String value for expectedDuration.
+     * @param  isPaid  boolean value for isPaid.
+     * @param  id  String value for id.
+     * @param  endAt  String value for endAt.
      */
     @JsonCreator
     public Break(
@@ -53,7 +56,7 @@ public class Break {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -64,7 +67,7 @@ public class Break {
      */
     @JsonGetter("start_at")
     public String getStartAt() {
-        return this.startAt;
+        return startAt;
     }
 
     /**
@@ -75,7 +78,7 @@ public class Break {
      */
     @JsonGetter("end_at")
     public String getEndAt() {
-        return this.endAt;
+        return endAt;
     }
 
     /**
@@ -85,7 +88,7 @@ public class Break {
      */
     @JsonGetter("break_type_id")
     public String getBreakTypeId() {
-        return this.breakTypeId;
+        return breakTypeId;
     }
 
     /**
@@ -95,7 +98,7 @@ public class Break {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -105,7 +108,7 @@ public class Break {
      */
     @JsonGetter("expected_duration")
     public String getExpectedDuration() {
-        return this.expectedDuration;
+        return expectedDuration;
     }
 
     /**
@@ -115,7 +118,7 @@ public class Break {
      */
     @JsonGetter("is_paid")
     public boolean getIsPaid() {
-        return this.isPaid;
+        return isPaid;
     }
 
     @Override
@@ -178,16 +181,13 @@ public class Break {
 
         /**
          * Initialization constructor.
-         * @param startAt String value for startAt.
-         * @param breakTypeId String value for breakTypeId.
-         * @param name String value for name.
-         * @param expectedDuration String value for expectedDuration.
-         * @param isPaid boolean value for isPaid.
+         * @param  startAt  String value for startAt.
+         * @param  breakTypeId  String value for breakTypeId.
+         * @param  name  String value for name.
+         * @param  expectedDuration  String value for expectedDuration.
+         * @param  isPaid  boolean value for isPaid.
          */
-        public Builder(String startAt,
-                String breakTypeId,
-                String name,
-                String expectedDuration,
+        public Builder(String startAt, String breakTypeId, String name, String expectedDuration,
                 boolean isPaid) {
             this.startAt = startAt;
             this.breakTypeId = breakTypeId;
@@ -198,7 +198,7 @@ public class Break {
 
         /**
          * Setter for startAt.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
@@ -208,7 +208,7 @@ public class Break {
 
         /**
          * Setter for breakTypeId.
-         * @param breakTypeId String value for breakTypeId.
+         * @param  breakTypeId  String value for breakTypeId.
          * @return Builder
          */
         public Builder breakTypeId(String breakTypeId) {
@@ -218,7 +218,7 @@ public class Break {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -228,7 +228,7 @@ public class Break {
 
         /**
          * Setter for expectedDuration.
-         * @param expectedDuration String value for expectedDuration.
+         * @param  expectedDuration  String value for expectedDuration.
          * @return Builder
          */
         public Builder expectedDuration(String expectedDuration) {
@@ -238,7 +238,7 @@ public class Break {
 
         /**
          * Setter for isPaid.
-         * @param isPaid boolean value for isPaid.
+         * @param  isPaid  boolean value for isPaid.
          * @return Builder
          */
         public Builder isPaid(boolean isPaid) {
@@ -248,7 +248,7 @@ public class Break {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -258,7 +258,7 @@ public class Break {
 
         /**
          * Setter for endAt.
-         * @param endAt String value for endAt.
+         * @param  endAt  String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {

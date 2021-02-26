@@ -1,6 +1,7 @@
 
 package com.squareup.square.http.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.squareup.square.http.Headers;
 
 /**
@@ -8,7 +9,9 @@ import com.squareup.square.http.Headers;
  */
 public class MultipartWrapper {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private byte[] byteArray;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Headers headers;
 
     /**

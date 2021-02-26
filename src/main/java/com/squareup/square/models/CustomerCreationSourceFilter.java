@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for CustomerCreationSourceFilter type.
  */
 public class CustomerCreationSourceFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> values;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rule;
 
     /**
      * Initialization constructor.
-     * @param values List of String value for values.
-     * @param rule String value for rule.
+     * @param  values  List of String value for values.
+     * @param  rule  String value for rule.
      */
     @JsonCreator
     public CustomerCreationSourceFilter(
@@ -35,7 +38,7 @@ public class CustomerCreationSourceFilter {
      */
     @JsonGetter("values")
     public List<String> getValues() {
-        return this.values;
+        return values;
     }
 
     /**
@@ -46,7 +49,7 @@ public class CustomerCreationSourceFilter {
      */
     @JsonGetter("rule")
     public String getRule() {
-        return this.rule;
+        return rule;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class CustomerCreationSourceFilter {
 
         /**
          * Setter for values.
-         * @param values List of String value for values.
+         * @param  values  List of String value for values.
          * @return Builder
          */
         public Builder values(List<String> values) {
@@ -109,7 +112,7 @@ public class CustomerCreationSourceFilter {
 
         /**
          * Setter for rule.
-         * @param rule String value for rule.
+         * @param  rule  String value for rule.
          * @return Builder
          */
         public Builder rule(String rule) {

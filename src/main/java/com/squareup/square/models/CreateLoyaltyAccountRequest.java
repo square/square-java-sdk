@@ -15,8 +15,8 @@ public class CreateLoyaltyAccountRequest {
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccount LoyaltyAccount value for loyaltyAccount.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  loyaltyAccount  LoyaltyAccount value for loyaltyAccount.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateLoyaltyAccountRequest(
@@ -34,7 +34,7 @@ public class CreateLoyaltyAccountRequest {
      */
     @JsonGetter("loyalty_account")
     public LoyaltyAccount getLoyaltyAccount() {
-        return this.loyaltyAccount;
+        return loyaltyAccount;
     }
 
     /**
@@ -45,7 +45,7 @@ public class CreateLoyaltyAccountRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
@@ -95,18 +95,17 @@ public class CreateLoyaltyAccountRequest {
 
         /**
          * Initialization constructor.
-         * @param loyaltyAccount LoyaltyAccount value for loyaltyAccount.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  loyaltyAccount  LoyaltyAccount value for loyaltyAccount.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
-        public Builder(LoyaltyAccount loyaltyAccount,
-                String idempotencyKey) {
+        public Builder(LoyaltyAccount loyaltyAccount, String idempotencyKey) {
             this.loyaltyAccount = loyaltyAccount;
             this.idempotencyKey = idempotencyKey;
         }
 
         /**
          * Setter for loyaltyAccount.
-         * @param loyaltyAccount LoyaltyAccount value for loyaltyAccount.
+         * @param  loyaltyAccount  LoyaltyAccount value for loyaltyAccount.
          * @return Builder
          */
         public Builder loyaltyAccount(LoyaltyAccount loyaltyAccount) {
@@ -116,7 +115,7 @@ public class CreateLoyaltyAccountRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for RiskEvaluation type.
  */
 public class RiskEvaluation {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String riskLevel;
 
     /**
      * Initialization constructor.
-     * @param createdAt String value for createdAt.
-     * @param riskLevel String value for riskLevel.
+     * @param  createdAt  String value for createdAt.
+     * @param  riskLevel  String value for riskLevel.
      */
     @JsonCreator
     public RiskEvaluation(
@@ -33,7 +36,7 @@ public class RiskEvaluation {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -42,7 +45,7 @@ public class RiskEvaluation {
      */
     @JsonGetter("risk_level")
     public String getRiskLevel() {
-        return this.riskLevel;
+        return riskLevel;
     }
 
     @Override
@@ -95,7 +98,7 @@ public class RiskEvaluation {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -105,7 +108,7 @@ public class RiskEvaluation {
 
         /**
          * Setter for riskLevel.
-         * @param riskLevel String value for riskLevel.
+         * @param  riskLevel  String value for riskLevel.
          * @return Builder
          */
         public Builder riskLevel(String riskLevel) {
