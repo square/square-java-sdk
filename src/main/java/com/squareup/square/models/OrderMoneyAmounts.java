@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for OrderMoneyAmounts type.
  */
 public class OrderMoneyAmounts {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money taxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money discountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money serviceChargeMoney;
 
     /**
      * Initialization constructor.
-     * @param totalMoney Money value for totalMoney.
-     * @param taxMoney Money value for taxMoney.
-     * @param discountMoney Money value for discountMoney.
-     * @param tipMoney Money value for tipMoney.
-     * @param serviceChargeMoney Money value for serviceChargeMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  taxMoney  Money value for taxMoney.
+     * @param  discountMoney  Money value for discountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  serviceChargeMoney  Money value for serviceChargeMoney.
      */
     @JsonCreator
     public OrderMoneyAmounts(
@@ -50,7 +56,7 @@ public class OrderMoneyAmounts {
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -65,7 +71,7 @@ public class OrderMoneyAmounts {
      */
     @JsonGetter("tax_money")
     public Money getTaxMoney() {
-        return this.taxMoney;
+        return taxMoney;
     }
 
     /**
@@ -80,7 +86,7 @@ public class OrderMoneyAmounts {
      */
     @JsonGetter("discount_money")
     public Money getDiscountMoney() {
-        return this.discountMoney;
+        return discountMoney;
     }
 
     /**
@@ -95,7 +101,7 @@ public class OrderMoneyAmounts {
      */
     @JsonGetter("tip_money")
     public Money getTipMoney() {
-        return this.tipMoney;
+        return tipMoney;
     }
 
     /**
@@ -110,7 +116,7 @@ public class OrderMoneyAmounts {
      */
     @JsonGetter("service_charge_money")
     public Money getServiceChargeMoney() {
-        return this.serviceChargeMoney;
+        return serviceChargeMoney;
     }
 
     @Override
@@ -174,7 +180,7 @@ public class OrderMoneyAmounts {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney Money value for totalMoney.
+         * @param  totalMoney  Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {
@@ -184,7 +190,7 @@ public class OrderMoneyAmounts {
 
         /**
          * Setter for taxMoney.
-         * @param taxMoney Money value for taxMoney.
+         * @param  taxMoney  Money value for taxMoney.
          * @return Builder
          */
         public Builder taxMoney(Money taxMoney) {
@@ -194,7 +200,7 @@ public class OrderMoneyAmounts {
 
         /**
          * Setter for discountMoney.
-         * @param discountMoney Money value for discountMoney.
+         * @param  discountMoney  Money value for discountMoney.
          * @return Builder
          */
         public Builder discountMoney(Money discountMoney) {
@@ -204,7 +210,7 @@ public class OrderMoneyAmounts {
 
         /**
          * Setter for tipMoney.
-         * @param tipMoney Money value for tipMoney.
+         * @param  tipMoney  Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(Money tipMoney) {
@@ -214,7 +220,7 @@ public class OrderMoneyAmounts {
 
         /**
          * Setter for serviceChargeMoney.
-         * @param serviceChargeMoney Money value for serviceChargeMoney.
+         * @param  serviceChargeMoney  Money value for serviceChargeMoney.
          * @return Builder
          */
         public Builder serviceChargeMoney(Money serviceChargeMoney) {

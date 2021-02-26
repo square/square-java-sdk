@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,29 +14,37 @@ import java.util.Objects;
  */
 public class V1Employee {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String firstName;
     private final String lastName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> roleIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> authorizedLocationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String email;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String externalId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param firstName String value for firstName.
-     * @param lastName String value for lastName.
-     * @param id String value for id.
-     * @param roleIds List of String value for roleIds.
-     * @param authorizedLocationIds List of String value for authorizedLocationIds.
-     * @param email String value for email.
-     * @param status String value for status.
-     * @param externalId String value for externalId.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  id  String value for id.
+     * @param  roleIds  List of String value for roleIds.
+     * @param  authorizedLocationIds  List of String value for authorizedLocationIds.
+     * @param  email  String value for email.
+     * @param  status  String value for status.
+     * @param  externalId  String value for externalId.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public V1Employee(
@@ -72,7 +81,7 @@ public class V1Employee {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -82,7 +91,7 @@ public class V1Employee {
      */
     @JsonGetter("first_name")
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     /**
@@ -92,7 +101,7 @@ public class V1Employee {
      */
     @JsonGetter("last_name")
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     /**
@@ -103,7 +112,7 @@ public class V1Employee {
      */
     @JsonGetter("role_ids")
     public List<String> getRoleIds() {
-        return this.roleIds;
+        return roleIds;
     }
 
     /**
@@ -113,7 +122,7 @@ public class V1Employee {
      */
     @JsonGetter("authorized_location_ids")
     public List<String> getAuthorizedLocationIds() {
-        return this.authorizedLocationIds;
+        return authorizedLocationIds;
     }
 
     /**
@@ -123,7 +132,7 @@ public class V1Employee {
      */
     @JsonGetter("email")
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     /**
@@ -132,7 +141,7 @@ public class V1Employee {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -142,7 +151,7 @@ public class V1Employee {
      */
     @JsonGetter("external_id")
     public String getExternalId() {
-        return this.externalId;
+        return externalId;
     }
 
     /**
@@ -152,7 +161,7 @@ public class V1Employee {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -162,7 +171,7 @@ public class V1Employee {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -240,18 +249,17 @@ public class V1Employee {
 
         /**
          * Initialization constructor.
-         * @param firstName String value for firstName.
-         * @param lastName String value for lastName.
+         * @param  firstName  String value for firstName.
+         * @param  lastName  String value for lastName.
          */
-        public Builder(String firstName,
-                String lastName) {
+        public Builder(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -261,7 +269,7 @@ public class V1Employee {
 
         /**
          * Setter for firstName.
-         * @param firstName String value for firstName.
+         * @param  firstName  String value for firstName.
          * @return Builder
          */
         public Builder firstName(String firstName) {
@@ -271,7 +279,7 @@ public class V1Employee {
 
         /**
          * Setter for lastName.
-         * @param lastName String value for lastName.
+         * @param  lastName  String value for lastName.
          * @return Builder
          */
         public Builder lastName(String lastName) {
@@ -281,7 +289,7 @@ public class V1Employee {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -291,7 +299,7 @@ public class V1Employee {
 
         /**
          * Setter for roleIds.
-         * @param roleIds List of String value for roleIds.
+         * @param  roleIds  List of String value for roleIds.
          * @return Builder
          */
         public Builder roleIds(List<String> roleIds) {
@@ -301,7 +309,7 @@ public class V1Employee {
 
         /**
          * Setter for authorizedLocationIds.
-         * @param authorizedLocationIds List of String value for authorizedLocationIds.
+         * @param  authorizedLocationIds  List of String value for authorizedLocationIds.
          * @return Builder
          */
         public Builder authorizedLocationIds(List<String> authorizedLocationIds) {
@@ -311,7 +319,7 @@ public class V1Employee {
 
         /**
          * Setter for email.
-         * @param email String value for email.
+         * @param  email  String value for email.
          * @return Builder
          */
         public Builder email(String email) {
@@ -321,7 +329,7 @@ public class V1Employee {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -331,7 +339,7 @@ public class V1Employee {
 
         /**
          * Setter for externalId.
-         * @param externalId String value for externalId.
+         * @param  externalId  String value for externalId.
          * @return Builder
          */
         public Builder externalId(String externalId) {
@@ -341,7 +349,7 @@ public class V1Employee {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -351,7 +359,7 @@ public class V1Employee {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

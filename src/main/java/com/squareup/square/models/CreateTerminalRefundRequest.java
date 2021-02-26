@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class CreateTerminalRefundRequest {
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefund refund;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param refund TerminalRefund value for refund.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  refund  TerminalRefund value for refund.
      */
     @JsonCreator
     public CreateTerminalRefundRequest(
@@ -35,7 +37,7 @@ public class CreateTerminalRefundRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +46,7 @@ public class CreateTerminalRefundRequest {
      */
     @JsonGetter("refund")
     public TerminalRefund getRefund() {
-        return this.refund;
+        return refund;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class CreateTerminalRefundRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -103,7 +105,7 @@ public class CreateTerminalRefundRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -113,7 +115,7 @@ public class CreateTerminalRefundRequest {
 
         /**
          * Setter for refund.
-         * @param refund TerminalRefund value for refund.
+         * @param  refund  TerminalRefund value for refund.
          * @return Builder
          */
         public Builder refund(TerminalRefund refund) {

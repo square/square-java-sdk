@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class PayOrderRequest {
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer orderVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> paymentIds;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param orderVersion Integer value for orderVersion.
-     * @param paymentIds List of String value for paymentIds.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  orderVersion  Integer value for orderVersion.
+     * @param  paymentIds  List of String value for paymentIds.
      */
     @JsonCreator
     public PayOrderRequest(
@@ -42,7 +45,7 @@ public class PayOrderRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -52,7 +55,7 @@ public class PayOrderRequest {
      */
     @JsonGetter("order_version")
     public Integer getOrderVersion() {
-        return this.orderVersion;
+        return orderVersion;
     }
 
     /**
@@ -63,7 +66,7 @@ public class PayOrderRequest {
      */
     @JsonGetter("payment_ids")
     public List<String> getPaymentIds() {
-        return this.paymentIds;
+        return paymentIds;
     }
 
     @Override
@@ -117,7 +120,7 @@ public class PayOrderRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          */
         public Builder(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -125,7 +128,7 @@ public class PayOrderRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -135,7 +138,7 @@ public class PayOrderRequest {
 
         /**
          * Setter for orderVersion.
-         * @param orderVersion Integer value for orderVersion.
+         * @param  orderVersion  Integer value for orderVersion.
          * @return Builder
          */
         public Builder orderVersion(Integer orderVersion) {
@@ -145,7 +148,7 @@ public class PayOrderRequest {
 
         /**
          * Setter for paymentIds.
-         * @param paymentIds List of String value for paymentIds.
+         * @param  paymentIds  List of String value for paymentIds.
          * @return Builder
          */
         public Builder paymentIds(List<String> paymentIds) {

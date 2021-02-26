@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,27 +11,36 @@ import java.util.Objects;
  * This is a model class for ListPaymentsRequest type.
  */
 public class ListPaymentsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long total;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String last4;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param beginTime String value for beginTime.
-     * @param endTime String value for endTime.
-     * @param sortOrder String value for sortOrder.
-     * @param cursor String value for cursor.
-     * @param locationId String value for locationId.
-     * @param total Long value for total.
-     * @param last4 String value for last4.
-     * @param cardBrand String value for cardBrand.
-     * @param limit Integer value for limit.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  total  Long value for total.
+     * @param  last4  String value for last4.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public ListPaymentsRequest(
@@ -62,7 +72,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
-        return this.beginTime;
+        return beginTime;
     }
 
     /**
@@ -73,7 +83,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("end_time")
     public String getEndTime() {
-        return this.endTime;
+        return endTime;
     }
 
     /**
@@ -84,7 +94,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     /**
@@ -96,7 +106,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -107,7 +117,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -117,7 +127,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("total")
     public Long getTotal() {
-        return this.total;
+        return total;
     }
 
     /**
@@ -127,7 +137,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("last_4")
     public String getLast4() {
-        return this.last4;
+        return last4;
     }
 
     /**
@@ -137,7 +147,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("card_brand")
     public String getCardBrand() {
-        return this.cardBrand;
+        return cardBrand;
     }
 
     /**
@@ -150,7 +160,7 @@ public class ListPaymentsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -228,7 +238,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for beginTime.
-         * @param beginTime String value for beginTime.
+         * @param  beginTime  String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
@@ -238,7 +248,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for endTime.
-         * @param endTime String value for endTime.
+         * @param  endTime  String value for endTime.
          * @return Builder
          */
         public Builder endTime(String endTime) {
@@ -248,7 +258,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
@@ -258,7 +268,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -268,7 +278,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -278,7 +288,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for total.
-         * @param total Long value for total.
+         * @param  total  Long value for total.
          * @return Builder
          */
         public Builder total(Long total) {
@@ -288,7 +298,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for last4.
-         * @param last4 String value for last4.
+         * @param  last4  String value for last4.
          * @return Builder
          */
         public Builder last4(String last4) {
@@ -298,7 +308,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for cardBrand.
-         * @param cardBrand String value for cardBrand.
+         * @param  cardBrand  String value for cardBrand.
          * @return Builder
          */
         public Builder cardBrand(String cardBrand) {
@@ -308,7 +318,7 @@ public class ListPaymentsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

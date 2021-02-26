@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -15,16 +16,17 @@ public class LoyaltyProgramRewardTier {
     private final String name;
     private final LoyaltyProgramRewardDefinition definition;
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObjectReference pricingRuleReference;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param points int value for points.
-     * @param name String value for name.
-     * @param definition LoyaltyProgramRewardDefinition value for definition.
-     * @param createdAt String value for createdAt.
-     * @param pricingRuleReference CatalogObjectReference value for pricingRuleReference.
+     * @param  id  String value for id.
+     * @param  points  int value for points.
+     * @param  name  String value for name.
+     * @param  definition  LoyaltyProgramRewardDefinition value for definition.
+     * @param  createdAt  String value for createdAt.
+     * @param  pricingRuleReference  CatalogObjectReference value for pricingRuleReference.
      */
     @JsonCreator
     public LoyaltyProgramRewardTier(
@@ -49,7 +51,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -59,7 +61,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("points")
     public int getPoints() {
-        return this.points;
+        return points;
     }
 
     /**
@@ -69,7 +71,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -82,7 +84,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("definition")
     public LoyaltyProgramRewardDefinition getDefinition() {
-        return this.definition;
+        return definition;
     }
 
     /**
@@ -92,7 +94,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -103,7 +105,7 @@ public class LoyaltyProgramRewardTier {
      */
     @JsonGetter("pricing_rule_reference")
     public CatalogObjectReference getPricingRuleReference() {
-        return this.pricingRuleReference;
+        return pricingRuleReference;
     }
 
     @Override
@@ -163,17 +165,14 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param points int value for points.
-         * @param name String value for name.
-         * @param definition LoyaltyProgramRewardDefinition value for definition.
-         * @param createdAt String value for createdAt.
+         * @param  id  String value for id.
+         * @param  points  int value for points.
+         * @param  name  String value for name.
+         * @param  definition  LoyaltyProgramRewardDefinition value for definition.
+         * @param  createdAt  String value for createdAt.
          */
-        public Builder(String id,
-                int points,
-                String name,
-                LoyaltyProgramRewardDefinition definition,
-                String createdAt) {
+        public Builder(String id, int points, String name,
+                LoyaltyProgramRewardDefinition definition, String createdAt) {
             this.id = id;
             this.points = points;
             this.name = name;
@@ -183,7 +182,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -193,7 +192,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for points.
-         * @param points int value for points.
+         * @param  points  int value for points.
          * @return Builder
          */
         public Builder points(int points) {
@@ -203,7 +202,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -213,7 +212,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for definition.
-         * @param definition LoyaltyProgramRewardDefinition value for definition.
+         * @param  definition  LoyaltyProgramRewardDefinition value for definition.
          * @return Builder
          */
         public Builder definition(LoyaltyProgramRewardDefinition definition) {
@@ -223,7 +222,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -233,7 +232,7 @@ public class LoyaltyProgramRewardTier {
 
         /**
          * Setter for pricingRuleReference.
-         * @param pricingRuleReference CatalogObjectReference value for pricingRuleReference.
+         * @param  pricingRuleReference  CatalogObjectReference value for pricingRuleReference.
          * @return Builder
          */
         public Builder pricingRuleReference(CatalogObjectReference pricingRuleReference) {

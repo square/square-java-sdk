@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionNumberConfig type.
  */
 public class CatalogCustomAttributeDefinitionNumberConfig {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
 
     /**
      * Initialization constructor.
-     * @param precision Integer value for precision.
+     * @param  precision  Integer value for precision.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionNumberConfig(
@@ -32,7 +34,7 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
      */
     @JsonGetter("precision")
     public Integer getPrecision() {
-        return this.precision;
+        return precision;
     }
 
     @Override
@@ -83,7 +85,7 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
 
         /**
          * Setter for precision.
-         * @param precision Integer value for precision.
+         * @param  precision  Integer value for precision.
          * @return Builder
          */
         public Builder precision(Integer precision) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class SearchOrdersSort {
     private final String sortField;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
      * Initialization constructor.
-     * @param sortField String value for sortField.
-     * @param sortOrder String value for sortOrder.
+     * @param  sortField  String value for sortField.
+     * @param  sortOrder  String value for sortOrder.
      */
     @JsonCreator
     public SearchOrdersSort(
@@ -33,7 +35,7 @@ public class SearchOrdersSort {
      */
     @JsonGetter("sort_field")
     public String getSortField() {
-        return this.sortField;
+        return sortField;
     }
 
     /**
@@ -43,7 +45,7 @@ public class SearchOrdersSort {
      */
     @JsonGetter("sort_order")
     public String getSortOrder() {
-        return this.sortOrder;
+        return sortOrder;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class SearchOrdersSort {
 
         /**
          * Initialization constructor.
-         * @param sortField String value for sortField.
+         * @param  sortField  String value for sortField.
          */
         public Builder(String sortField) {
             this.sortField = sortField;
@@ -101,7 +103,7 @@ public class SearchOrdersSort {
 
         /**
          * Setter for sortField.
-         * @param sortField String value for sortField.
+         * @param  sortField  String value for sortField.
          * @return Builder
          */
         public Builder sortField(String sortField) {
@@ -111,7 +113,7 @@ public class SearchOrdersSort {
 
         /**
          * Setter for sortOrder.
-         * @param sortOrder String value for sortOrder.
+         * @param  sortOrder  String value for sortOrder.
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {

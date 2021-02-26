@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CustomerQuery type.
  */
 public class CustomerQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter CustomerFilter value for filter.
-     * @param sort CustomerSort value for sort.
+     * @param  filter  CustomerFilter value for filter.
+     * @param  sort  CustomerSort value for sort.
      */
     @JsonCreator
     public CustomerQuery(
@@ -34,7 +37,7 @@ public class CustomerQuery {
      */
     @JsonGetter("filter")
     public CustomerFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -44,7 +47,7 @@ public class CustomerQuery {
      */
     @JsonGetter("sort")
     public CustomerSort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CustomerQuery {
 
         /**
          * Setter for filter.
-         * @param filter CustomerFilter value for filter.
+         * @param  filter  CustomerFilter value for filter.
          * @return Builder
          */
         public Builder filter(CustomerFilter filter) {
@@ -107,7 +110,7 @@ public class CustomerQuery {
 
         /**
          * Setter for sort.
-         * @param sort CustomerSort value for sort.
+         * @param  sort  CustomerSort value for sort.
          * @return Builder
          */
         public Builder sort(CustomerSort sort) {

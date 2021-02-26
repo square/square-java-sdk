@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,12 +13,13 @@ import java.util.Objects;
  */
 public class CalculateOrderRequest {
     private final Order order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReward> proposedRewards;
 
     /**
      * Initialization constructor.
-     * @param order Order value for order.
-     * @param proposedRewards List of OrderReward value for proposedRewards.
+     * @param  order  Order value for order.
+     * @param  proposedRewards  List of OrderReward value for proposedRewards.
      */
     @JsonCreator
     public CalculateOrderRequest(
@@ -37,7 +39,7 @@ public class CalculateOrderRequest {
      */
     @JsonGetter("order")
     public Order getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -51,7 +53,7 @@ public class CalculateOrderRequest {
      */
     @JsonGetter("proposed_rewards")
     public List<OrderReward> getProposedRewards() {
-        return this.proposedRewards;
+        return proposedRewards;
     }
 
     @Override
@@ -102,7 +104,7 @@ public class CalculateOrderRequest {
 
         /**
          * Initialization constructor.
-         * @param order Order value for order.
+         * @param  order  Order value for order.
          */
         public Builder(Order order) {
             this.order = order;
@@ -110,7 +112,7 @@ public class CalculateOrderRequest {
 
         /**
          * Setter for order.
-         * @param order Order value for order.
+         * @param  order  Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
@@ -120,7 +122,7 @@ public class CalculateOrderRequest {
 
         /**
          * Setter for proposedRewards.
-         * @param proposedRewards List of OrderReward value for proposedRewards.
+         * @param  proposedRewards  List of OrderReward value for proposedRewards.
          * @return Builder
          */
         public Builder proposedRewards(List<OrderReward> proposedRewards) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,19 @@ import java.util.Objects;
  */
 public class ListTeamMemberBookingProfilesResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<TeamMemberBookingProfile> teamMemberBookingProfiles;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMemberBookingProfiles List of TeamMemberBookingProfile value for teamMemberBookingProfiles.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  teamMemberBookingProfiles  List of TeamMemberBookingProfile value for
+     *         teamMemberBookingProfiles.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListTeamMemberBookingProfilesResponse(
@@ -44,7 +49,7 @@ public class ListTeamMemberBookingProfilesResponse {
      */
     @JsonGetter("team_member_booking_profiles")
     public List<TeamMemberBookingProfile> getTeamMemberBookingProfiles() {
-        return this.teamMemberBookingProfiles;
+        return teamMemberBookingProfiles;
     }
 
     /**
@@ -54,7 +59,7 @@ public class ListTeamMemberBookingProfilesResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -64,7 +69,7 @@ public class ListTeamMemberBookingProfilesResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -122,7 +127,7 @@ public class ListTeamMemberBookingProfilesResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -132,17 +137,19 @@ public class ListTeamMemberBookingProfilesResponse {
 
         /**
          * Setter for teamMemberBookingProfiles.
-         * @param teamMemberBookingProfiles List of TeamMemberBookingProfile value for teamMemberBookingProfiles.
+         * @param  teamMemberBookingProfiles  List of TeamMemberBookingProfile value for
+         *         teamMemberBookingProfiles.
          * @return Builder
          */
-        public Builder teamMemberBookingProfiles(List<TeamMemberBookingProfile> teamMemberBookingProfiles) {
+        public Builder teamMemberBookingProfiles(
+                List<TeamMemberBookingProfile> teamMemberBookingProfiles) {
             this.teamMemberBookingProfiles = teamMemberBookingProfiles;
             return this;
         }
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -152,7 +159,7 @@ public class ListTeamMemberBookingProfilesResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

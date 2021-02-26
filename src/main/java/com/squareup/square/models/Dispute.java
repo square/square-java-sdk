@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,37 +12,51 @@ import java.util.Objects;
  * This is a model class for Dispute type.
  */
 public class Dispute {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dueAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputedPayment disputedPayment;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> evidenceIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String brandDisputeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reportedDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param disputeId String value for disputeId.
-     * @param amountMoney Money value for amountMoney.
-     * @param reason String value for reason.
-     * @param state String value for state.
-     * @param dueAt String value for dueAt.
-     * @param disputedPayment DisputedPayment value for disputedPayment.
-     * @param evidenceIds List of String value for evidenceIds.
-     * @param cardBrand String value for cardBrand.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param brandDisputeId String value for brandDisputeId.
-     * @param reportedDate String value for reportedDate.
-     * @param version Integer value for version.
-     * @param locationId String value for locationId.
+     * @param  disputeId  String value for disputeId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  reason  String value for reason.
+     * @param  state  String value for state.
+     * @param  dueAt  String value for dueAt.
+     * @param  disputedPayment  DisputedPayment value for disputedPayment.
+     * @param  evidenceIds  List of String value for evidenceIds.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  brandDisputeId  String value for brandDisputeId.
+     * @param  reportedDate  String value for reportedDate.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public Dispute(
@@ -82,7 +97,7 @@ public class Dispute {
      */
     @JsonGetter("dispute_id")
     public String getDisputeId() {
-        return this.disputeId;
+        return disputeId;
     }
 
     /**
@@ -97,7 +112,7 @@ public class Dispute {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -107,7 +122,7 @@ public class Dispute {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -117,7 +132,7 @@ public class Dispute {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -127,7 +142,7 @@ public class Dispute {
      */
     @JsonGetter("due_at")
     public String getDueAt() {
-        return this.dueAt;
+        return dueAt;
     }
 
     /**
@@ -137,7 +152,7 @@ public class Dispute {
      */
     @JsonGetter("disputed_payment")
     public DisputedPayment getDisputedPayment() {
-        return this.disputedPayment;
+        return disputedPayment;
     }
 
     /**
@@ -147,7 +162,7 @@ public class Dispute {
      */
     @JsonGetter("evidence_ids")
     public List<String> getEvidenceIds() {
-        return this.evidenceIds;
+        return evidenceIds;
     }
 
     /**
@@ -157,7 +172,7 @@ public class Dispute {
      */
     @JsonGetter("card_brand")
     public String getCardBrand() {
-        return this.cardBrand;
+        return cardBrand;
     }
 
     /**
@@ -167,7 +182,7 @@ public class Dispute {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -177,7 +192,7 @@ public class Dispute {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -187,7 +202,7 @@ public class Dispute {
      */
     @JsonGetter("brand_dispute_id")
     public String getBrandDisputeId() {
-        return this.brandDisputeId;
+        return brandDisputeId;
     }
 
     /**
@@ -197,7 +212,7 @@ public class Dispute {
      */
     @JsonGetter("reported_date")
     public String getReportedDate() {
-        return this.reportedDate;
+        return reportedDate;
     }
 
     /**
@@ -207,7 +222,7 @@ public class Dispute {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -217,7 +232,7 @@ public class Dispute {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -313,7 +328,7 @@ public class Dispute {
 
         /**
          * Setter for disputeId.
-         * @param disputeId String value for disputeId.
+         * @param  disputeId  String value for disputeId.
          * @return Builder
          */
         public Builder disputeId(String disputeId) {
@@ -323,7 +338,7 @@ public class Dispute {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -333,7 +348,7 @@ public class Dispute {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -343,7 +358,7 @@ public class Dispute {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -353,7 +368,7 @@ public class Dispute {
 
         /**
          * Setter for dueAt.
-         * @param dueAt String value for dueAt.
+         * @param  dueAt  String value for dueAt.
          * @return Builder
          */
         public Builder dueAt(String dueAt) {
@@ -363,7 +378,7 @@ public class Dispute {
 
         /**
          * Setter for disputedPayment.
-         * @param disputedPayment DisputedPayment value for disputedPayment.
+         * @param  disputedPayment  DisputedPayment value for disputedPayment.
          * @return Builder
          */
         public Builder disputedPayment(DisputedPayment disputedPayment) {
@@ -373,7 +388,7 @@ public class Dispute {
 
         /**
          * Setter for evidenceIds.
-         * @param evidenceIds List of String value for evidenceIds.
+         * @param  evidenceIds  List of String value for evidenceIds.
          * @return Builder
          */
         public Builder evidenceIds(List<String> evidenceIds) {
@@ -383,7 +398,7 @@ public class Dispute {
 
         /**
          * Setter for cardBrand.
-         * @param cardBrand String value for cardBrand.
+         * @param  cardBrand  String value for cardBrand.
          * @return Builder
          */
         public Builder cardBrand(String cardBrand) {
@@ -393,7 +408,7 @@ public class Dispute {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -403,7 +418,7 @@ public class Dispute {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -413,7 +428,7 @@ public class Dispute {
 
         /**
          * Setter for brandDisputeId.
-         * @param brandDisputeId String value for brandDisputeId.
+         * @param  brandDisputeId  String value for brandDisputeId.
          * @return Builder
          */
         public Builder brandDisputeId(String brandDisputeId) {
@@ -423,7 +438,7 @@ public class Dispute {
 
         /**
          * Setter for reportedDate.
-         * @param reportedDate String value for reportedDate.
+         * @param  reportedDate  String value for reportedDate.
          * @return Builder
          */
         public Builder reportedDate(String reportedDate) {
@@ -433,7 +448,7 @@ public class Dispute {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -443,7 +458,7 @@ public class Dispute {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

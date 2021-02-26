@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for V1PaymentModifier type.
  */
 public class V1PaymentModifier {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifierOptionId;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param appliedMoney V1Money value for appliedMoney.
-     * @param modifierOptionId String value for modifierOptionId.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  modifierOptionId  String value for modifierOptionId.
      */
     @JsonCreator
     public V1PaymentModifier(
@@ -37,7 +41,7 @@ public class V1PaymentModifier {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -46,18 +50,18 @@ public class V1PaymentModifier {
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
      * Getter for ModifierOptionId.
-     * TThe ID of the applied modifier option, if available. Modifier options applied in older
+     * The ID of the applied modifier option, if available. Modifier options applied in older
      * versions of Square Register might not have an ID.
      * @return Returns the String
      */
     @JsonGetter("modifier_option_id")
     public String getModifierOptionId() {
-        return this.modifierOptionId;
+        return modifierOptionId;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class V1PaymentModifier {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -124,7 +128,7 @@ public class V1PaymentModifier {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney V1Money value for appliedMoney.
+         * @param  appliedMoney  V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
@@ -134,7 +138,7 @@ public class V1PaymentModifier {
 
         /**
          * Setter for modifierOptionId.
-         * @param modifierOptionId String value for modifierOptionId.
+         * @param  modifierOptionId  String value for modifierOptionId.
          * @return Builder
          */
         public Builder modifierOptionId(String modifierOptionId) {

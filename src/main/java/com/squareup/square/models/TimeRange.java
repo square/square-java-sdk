@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for TimeRange type.
  */
 public class TimeRange {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
 
     /**
      * Initialization constructor.
-     * @param startAt String value for startAt.
-     * @param endAt String value for endAt.
+     * @param  startAt  String value for startAt.
+     * @param  endAt  String value for endAt.
      */
     @JsonCreator
     public TimeRange(
@@ -33,7 +36,7 @@ public class TimeRange {
      */
     @JsonGetter("start_at")
     public String getStartAt() {
-        return this.startAt;
+        return startAt;
     }
 
     /**
@@ -43,7 +46,7 @@ public class TimeRange {
      */
     @JsonGetter("end_at")
     public String getEndAt() {
-        return this.endAt;
+        return endAt;
     }
 
     @Override
@@ -96,7 +99,7 @@ public class TimeRange {
 
         /**
          * Setter for startAt.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
@@ -106,7 +109,7 @@ public class TimeRange {
 
         /**
          * Setter for endAt.
-         * @param endAt String value for endAt.
+         * @param  endAt  String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {

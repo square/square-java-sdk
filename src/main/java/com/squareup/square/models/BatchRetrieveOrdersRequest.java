@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,14 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveOrdersRequest type.
  */
 public class BatchRetrieveOrdersRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final List<String> orderIds;
 
     /**
      * Initialization constructor.
-     * @param orderIds List of String value for orderIds.
-     * @param locationId String value for locationId.
+     * @param  orderIds  List of String value for orderIds.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public BatchRetrieveOrdersRequest(
@@ -35,7 +37,7 @@ public class BatchRetrieveOrdersRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -45,7 +47,7 @@ public class BatchRetrieveOrdersRequest {
      */
     @JsonGetter("order_ids")
     public List<String> getOrderIds() {
-        return this.orderIds;
+        return orderIds;
     }
 
     @Override
@@ -96,7 +98,7 @@ public class BatchRetrieveOrdersRequest {
 
         /**
          * Initialization constructor.
-         * @param orderIds List of String value for orderIds.
+         * @param  orderIds  List of String value for orderIds.
          */
         public Builder(List<String> orderIds) {
             this.orderIds = orderIds;
@@ -104,7 +106,7 @@ public class BatchRetrieveOrdersRequest {
 
         /**
          * Setter for orderIds.
-         * @param orderIds List of String value for orderIds.
+         * @param  orderIds  List of String value for orderIds.
          * @return Builder
          */
         public Builder orderIds(List<String> orderIds) {
@@ -114,7 +116,7 @@ public class BatchRetrieveOrdersRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

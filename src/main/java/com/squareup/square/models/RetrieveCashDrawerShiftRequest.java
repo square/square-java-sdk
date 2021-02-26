@@ -14,7 +14,7 @@ public class RetrieveCashDrawerShiftRequest {
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public RetrieveCashDrawerShiftRequest(
@@ -29,7 +29,7 @@ public class RetrieveCashDrawerShiftRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class RetrieveCashDrawerShiftRequest {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          */
         public Builder(String locationId) {
             this.locationId = locationId;
@@ -84,7 +84,7 @@ public class RetrieveCashDrawerShiftRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

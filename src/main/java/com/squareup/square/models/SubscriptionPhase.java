@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,22 @@ import java.util.Objects;
  * This is a model class for SubscriptionPhase type.
  */
 public class SubscriptionPhase {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String cadence;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer periods;
     private final Money recurringPriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long ordinal;
 
     /**
      * Initialization constructor.
-     * @param cadence String value for cadence.
-     * @param recurringPriceMoney Money value for recurringPriceMoney.
-     * @param uid String value for uid.
-     * @param periods Integer value for periods.
-     * @param ordinal Long value for ordinal.
+     * @param  cadence  String value for cadence.
+     * @param  recurringPriceMoney  Money value for recurringPriceMoney.
+     * @param  uid  String value for uid.
+     * @param  periods  Integer value for periods.
+     * @param  ordinal  Long value for ordinal.
      */
     @JsonCreator
     public SubscriptionPhase(
@@ -46,7 +50,7 @@ public class SubscriptionPhase {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -56,7 +60,7 @@ public class SubscriptionPhase {
      */
     @JsonGetter("cadence")
     public String getCadence() {
-        return this.cadence;
+        return cadence;
     }
 
     /**
@@ -67,7 +71,7 @@ public class SubscriptionPhase {
      */
     @JsonGetter("periods")
     public Integer getPeriods() {
-        return this.periods;
+        return periods;
     }
 
     /**
@@ -82,7 +86,7 @@ public class SubscriptionPhase {
      */
     @JsonGetter("recurring_price_money")
     public Money getRecurringPriceMoney() {
-        return this.recurringPriceMoney;
+        return recurringPriceMoney;
     }
 
     /**
@@ -93,7 +97,7 @@ public class SubscriptionPhase {
      */
     @JsonGetter("ordinal")
     public Long getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     @Override
@@ -153,18 +157,17 @@ public class SubscriptionPhase {
 
         /**
          * Initialization constructor.
-         * @param cadence String value for cadence.
-         * @param recurringPriceMoney Money value for recurringPriceMoney.
+         * @param  cadence  String value for cadence.
+         * @param  recurringPriceMoney  Money value for recurringPriceMoney.
          */
-        public Builder(String cadence,
-                Money recurringPriceMoney) {
+        public Builder(String cadence, Money recurringPriceMoney) {
             this.cadence = cadence;
             this.recurringPriceMoney = recurringPriceMoney;
         }
 
         /**
          * Setter for cadence.
-         * @param cadence String value for cadence.
+         * @param  cadence  String value for cadence.
          * @return Builder
          */
         public Builder cadence(String cadence) {
@@ -174,7 +177,7 @@ public class SubscriptionPhase {
 
         /**
          * Setter for recurringPriceMoney.
-         * @param recurringPriceMoney Money value for recurringPriceMoney.
+         * @param  recurringPriceMoney  Money value for recurringPriceMoney.
          * @return Builder
          */
         public Builder recurringPriceMoney(Money recurringPriceMoney) {
@@ -184,7 +187,7 @@ public class SubscriptionPhase {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -194,7 +197,7 @@ public class SubscriptionPhase {
 
         /**
          * Setter for periods.
-         * @param periods Integer value for periods.
+         * @param  periods  Integer value for periods.
          * @return Builder
          */
         public Builder periods(Integer periods) {
@@ -204,7 +207,7 @@ public class SubscriptionPhase {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Long value for ordinal.
+         * @param  ordinal  Long value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Long ordinal) {

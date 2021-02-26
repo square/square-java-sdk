@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>8.1.0.20210121</version>
+  <version>9.0.0.20210226</version>
   <packaging>jar</packaging>
 
   <name>Square</name>
@@ -184,7 +184,7 @@
                                     <arg>--pinentry-mode</arg>
                                     <arg>loopback</arg>
                                 </gpgArguments>
-                            </configuration>                            
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>

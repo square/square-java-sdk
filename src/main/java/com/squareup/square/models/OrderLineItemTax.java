@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
@@ -11,27 +12,36 @@ import java.util.Objects;
  * This is a model class for OrderLineItemTax type.
  */
 public class OrderLineItemTax {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scope;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autoApplied;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param name String value for name.
-     * @param type String value for type.
-     * @param percentage String value for percentage.
-     * @param metadata Map of String, value for metadata.
-     * @param appliedMoney Money value for appliedMoney.
-     * @param scope String value for scope.
-     * @param autoApplied Boolean value for autoApplied.
+     * @param  uid  String value for uid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  scope  String value for scope.
+     * @param  autoApplied  Boolean value for autoApplied.
      */
     @JsonCreator
     public OrderLineItemTax(
@@ -62,7 +72,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -72,7 +82,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -82,7 +92,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -92,7 +102,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -103,7 +113,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -123,7 +133,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("metadata")
     public Map<String, String> getMetadata() {
-        return this.metadata;
+        return metadata;
     }
 
     /**
@@ -138,7 +148,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -148,7 +158,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("scope")
     public String getScope() {
-        return this.scope;
+        return scope;
     }
 
     /**
@@ -160,7 +170,7 @@ public class OrderLineItemTax {
      */
     @JsonGetter("auto_applied")
     public Boolean getAutoApplied() {
-        return this.autoApplied;
+        return autoApplied;
     }
 
     @Override
@@ -238,7 +248,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -248,7 +258,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -258,7 +268,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -268,7 +278,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -278,7 +288,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -288,7 +298,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for metadata.
-         * @param metadata Map of String, value for metadata.
+         * @param  metadata  Map of String, value for metadata.
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
@@ -298,7 +308,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
@@ -308,7 +318,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for scope.
-         * @param scope String value for scope.
+         * @param  scope  String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {
@@ -318,7 +328,7 @@ public class OrderLineItemTax {
 
         /**
          * Setter for autoApplied.
-         * @param autoApplied Boolean value for autoApplied.
+         * @param  autoApplied  Boolean value for autoApplied.
          * @return Builder
          */
         public Builder autoApplied(Boolean autoApplied) {

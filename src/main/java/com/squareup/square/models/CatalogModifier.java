@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for CatalogModifier type.
  */
 public class CatalogModifier {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifierListId;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param priceMoney Money value for priceMoney.
-     * @param ordinal Integer value for ordinal.
-     * @param modifierListId String value for modifierListId.
+     * @param  name  String value for name.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  modifierListId  String value for modifierListId.
      */
     @JsonCreator
     public CatalogModifier(
@@ -42,7 +47,7 @@ public class CatalogModifier {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -57,7 +62,7 @@ public class CatalogModifier {
      */
     @JsonGetter("price_money")
     public Money getPriceMoney() {
-        return this.priceMoney;
+        return priceMoney;
     }
 
     /**
@@ -67,7 +72,7 @@ public class CatalogModifier {
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     /**
@@ -77,7 +82,7 @@ public class CatalogModifier {
      */
     @JsonGetter("modifier_list_id")
     public String getModifierListId() {
-        return this.modifierListId;
+        return modifierListId;
     }
 
     @Override
@@ -137,7 +142,7 @@ public class CatalogModifier {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -147,7 +152,7 @@ public class CatalogModifier {
 
         /**
          * Setter for priceMoney.
-         * @param priceMoney Money value for priceMoney.
+         * @param  priceMoney  Money value for priceMoney.
          * @return Builder
          */
         public Builder priceMoney(Money priceMoney) {
@@ -157,7 +162,7 @@ public class CatalogModifier {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Integer value for ordinal.
+         * @param  ordinal  Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
@@ -167,7 +172,7 @@ public class CatalogModifier {
 
         /**
          * Setter for modifierListId.
-         * @param modifierListId String value for modifierListId.
+         * @param  modifierListId  String value for modifierListId.
          * @return Builder
          */
         public Builder modifierListId(String modifierListId) {

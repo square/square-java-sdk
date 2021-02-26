@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,27 +12,34 @@ import java.util.Objects;
  * This is a model class for LoyaltyAccount type.
  */
 public class LoyaltyAccount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final List<LoyaltyAccountMapping> mappings;
     private final String programId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer balance;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer lifetimePoints;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String enrolledAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param mappings List of LoyaltyAccountMapping value for mappings.
-     * @param programId String value for programId.
-     * @param id String value for id.
-     * @param balance Integer value for balance.
-     * @param lifetimePoints Integer value for lifetimePoints.
-     * @param customerId String value for customerId.
-     * @param enrolledAt String value for enrolledAt.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  mappings  List of LoyaltyAccountMapping value for mappings.
+     * @param  programId  String value for programId.
+     * @param  id  String value for id.
+     * @param  balance  Integer value for balance.
+     * @param  lifetimePoints  Integer value for lifetimePoints.
+     * @param  customerId  String value for customerId.
+     * @param  enrolledAt  String value for enrolledAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public LoyaltyAccount(
@@ -62,7 +70,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -74,7 +82,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("mappings")
     public List<LoyaltyAccountMapping> getMappings() {
-        return this.mappings;
+        return mappings;
     }
 
     /**
@@ -85,7 +93,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("program_id")
     public String getProgramId() {
-        return this.programId;
+        return programId;
     }
 
     /**
@@ -97,7 +105,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("balance")
     public Integer getBalance() {
-        return this.balance;
+        return balance;
     }
 
     /**
@@ -107,7 +115,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("lifetime_points")
     public Integer getLifetimePoints() {
-        return this.lifetimePoints;
+        return lifetimePoints;
     }
 
     /**
@@ -117,7 +125,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -127,7 +135,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("enrolled_at")
     public String getEnrolledAt() {
-        return this.enrolledAt;
+        return enrolledAt;
     }
 
     /**
@@ -137,7 +145,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -147,7 +155,7 @@ public class LoyaltyAccount {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -221,18 +229,17 @@ public class LoyaltyAccount {
 
         /**
          * Initialization constructor.
-         * @param mappings List of LoyaltyAccountMapping value for mappings.
-         * @param programId String value for programId.
+         * @param  mappings  List of LoyaltyAccountMapping value for mappings.
+         * @param  programId  String value for programId.
          */
-        public Builder(List<LoyaltyAccountMapping> mappings,
-                String programId) {
+        public Builder(List<LoyaltyAccountMapping> mappings, String programId) {
             this.mappings = mappings;
             this.programId = programId;
         }
 
         /**
          * Setter for mappings.
-         * @param mappings List of LoyaltyAccountMapping value for mappings.
+         * @param  mappings  List of LoyaltyAccountMapping value for mappings.
          * @return Builder
          */
         public Builder mappings(List<LoyaltyAccountMapping> mappings) {
@@ -242,7 +249,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for programId.
-         * @param programId String value for programId.
+         * @param  programId  String value for programId.
          * @return Builder
          */
         public Builder programId(String programId) {
@@ -252,7 +259,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -262,7 +269,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for balance.
-         * @param balance Integer value for balance.
+         * @param  balance  Integer value for balance.
          * @return Builder
          */
         public Builder balance(Integer balance) {
@@ -272,7 +279,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for lifetimePoints.
-         * @param lifetimePoints Integer value for lifetimePoints.
+         * @param  lifetimePoints  Integer value for lifetimePoints.
          * @return Builder
          */
         public Builder lifetimePoints(Integer lifetimePoints) {
@@ -282,7 +289,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -292,7 +299,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for enrolledAt.
-         * @param enrolledAt String value for enrolledAt.
+         * @param  enrolledAt  String value for enrolledAt.
          * @return Builder
          */
         public Builder enrolledAt(String enrolledAt) {
@@ -302,7 +309,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -312,7 +319,7 @@ public class LoyaltyAccount {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

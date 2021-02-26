@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,15 +12,18 @@ import java.util.Objects;
  * This is a model class for UpdateOrderRequest type.
  */
 public class UpdateOrderRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fieldsToClear;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param order Order value for order.
-     * @param fieldsToClear List of String value for fieldsToClear.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  order  Order value for order.
+     * @param  fieldsToClear  List of String value for fieldsToClear.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public UpdateOrderRequest(
@@ -41,7 +45,7 @@ public class UpdateOrderRequest {
      */
     @JsonGetter("order")
     public Order getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -54,7 +58,7 @@ public class UpdateOrderRequest {
      */
     @JsonGetter("fields_to_clear")
     public List<String> getFieldsToClear() {
-        return this.fieldsToClear;
+        return fieldsToClear;
     }
 
     /**
@@ -69,7 +73,7 @@ public class UpdateOrderRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
@@ -126,7 +130,7 @@ public class UpdateOrderRequest {
 
         /**
          * Setter for order.
-         * @param order Order value for order.
+         * @param  order  Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
@@ -136,7 +140,7 @@ public class UpdateOrderRequest {
 
         /**
          * Setter for fieldsToClear.
-         * @param fieldsToClear List of String value for fieldsToClear.
+         * @param  fieldsToClear  List of String value for fieldsToClear.
          * @return Builder
          */
         public Builder fieldsToClear(List<String> fieldsToClear) {
@@ -146,7 +150,7 @@ public class UpdateOrderRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

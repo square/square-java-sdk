@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,25 +12,33 @@ import java.util.Objects;
  * This is a model class for V1PaymentSurcharge type.
  */
 public class V1PaymentSurcharge {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean taxable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> taxes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String surchargeId;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param appliedMoney V1Money value for appliedMoney.
-     * @param rate String value for rate.
-     * @param amountMoney V1Money value for amountMoney.
-     * @param type String value for type.
-     * @param taxable Boolean value for taxable.
-     * @param taxes List of V1PaymentTax value for taxes.
-     * @param surchargeId String value for surchargeId.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  rate  String value for rate.
+     * @param  amountMoney  V1Money value for amountMoney.
+     * @param  type  String value for type.
+     * @param  taxable  Boolean value for taxable.
+     * @param  taxes  List of V1PaymentTax value for taxes.
+     * @param  surchargeId  String value for surchargeId.
      */
     @JsonCreator
     public V1PaymentSurcharge(
@@ -58,7 +67,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -67,7 +76,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -79,7 +88,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("rate")
     public String getRate() {
-        return this.rate;
+        return rate;
     }
 
     /**
@@ -88,7 +97,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("amount_money")
     public V1Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -97,7 +106,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -107,7 +116,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("taxable")
     public Boolean getTaxable() {
-        return this.taxable;
+        return taxable;
     }
 
     /**
@@ -117,7 +126,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("taxes")
     public List<V1PaymentTax> getTaxes() {
-        return this.taxes;
+        return taxes;
     }
 
     /**
@@ -127,7 +136,7 @@ public class V1PaymentSurcharge {
      */
     @JsonGetter("surcharge_id")
     public String getSurchargeId() {
-        return this.surchargeId;
+        return surchargeId;
     }
 
     @Override
@@ -202,7 +211,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -212,7 +221,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney V1Money value for appliedMoney.
+         * @param  appliedMoney  V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
@@ -222,7 +231,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for rate.
-         * @param rate String value for rate.
+         * @param  rate  String value for rate.
          * @return Builder
          */
         public Builder rate(String rate) {
@@ -232,7 +241,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney V1Money value for amountMoney.
+         * @param  amountMoney  V1Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(V1Money amountMoney) {
@@ -242,7 +251,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -252,7 +261,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for taxable.
-         * @param taxable Boolean value for taxable.
+         * @param  taxable  Boolean value for taxable.
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
@@ -262,7 +271,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for taxes.
-         * @param taxes List of V1PaymentTax value for taxes.
+         * @param  taxes  List of V1PaymentTax value for taxes.
          * @return Builder
          */
         public Builder taxes(List<V1PaymentTax> taxes) {
@@ -272,7 +281,7 @@ public class V1PaymentSurcharge {
 
         /**
          * Setter for surchargeId.
-         * @param surchargeId String value for surchargeId.
+         * @param  surchargeId  String value for surchargeId.
          * @return Builder
          */
         public Builder surchargeId(String surchargeId) {

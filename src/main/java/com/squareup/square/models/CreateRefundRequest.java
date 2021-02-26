@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -12,15 +13,16 @@ import java.util.Objects;
 public class CreateRefundRequest {
     private final String idempotencyKey;
     private final String tenderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
     private final Money amountMoney;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param tenderId String value for tenderId.
-     * @param amountMoney Money value for amountMoney.
-     * @param reason String value for reason.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  tenderId  String value for tenderId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  reason  String value for reason.
      */
     @JsonCreator
     public CreateRefundRequest(
@@ -44,7 +46,7 @@ public class CreateRefundRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -56,7 +58,7 @@ public class CreateRefundRequest {
      */
     @JsonGetter("tender_id")
     public String getTenderId() {
-        return this.tenderId;
+        return tenderId;
     }
 
     /**
@@ -66,7 +68,7 @@ public class CreateRefundRequest {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -81,7 +83,7 @@ public class CreateRefundRequest {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     @Override
@@ -136,13 +138,11 @@ public class CreateRefundRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param tenderId String value for tenderId.
-         * @param amountMoney Money value for amountMoney.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  tenderId  String value for tenderId.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String idempotencyKey,
-                String tenderId,
-                Money amountMoney) {
+        public Builder(String idempotencyKey, String tenderId, Money amountMoney) {
             this.idempotencyKey = idempotencyKey;
             this.tenderId = tenderId;
             this.amountMoney = amountMoney;
@@ -150,7 +150,7 @@ public class CreateRefundRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -160,7 +160,7 @@ public class CreateRefundRequest {
 
         /**
          * Setter for tenderId.
-         * @param tenderId String value for tenderId.
+         * @param  tenderId  String value for tenderId.
          * @return Builder
          */
         public Builder tenderId(String tenderId) {
@@ -170,7 +170,7 @@ public class CreateRefundRequest {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -180,7 +180,7 @@ public class CreateRefundRequest {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {

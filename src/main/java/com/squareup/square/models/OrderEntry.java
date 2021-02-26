@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for OrderEntry type.
  */
 public class OrderEntry {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param orderId String value for orderId.
-     * @param version Integer value for version.
-     * @param locationId String value for locationId.
+     * @param  orderId  String value for orderId.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public OrderEntry(
@@ -37,7 +41,7 @@ public class OrderEntry {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -50,7 +54,7 @@ public class OrderEntry {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -60,7 +64,7 @@ public class OrderEntry {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class OrderEntry {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -127,7 +131,7 @@ public class OrderEntry {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -137,7 +141,7 @@ public class OrderEntry {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

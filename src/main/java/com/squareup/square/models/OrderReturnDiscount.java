@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,27 +11,36 @@ import java.util.Objects;
  * This is a model class for OrderReturnDiscount type.
  */
 public class OrderReturnDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceDiscountUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scope;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param sourceDiscountUid String value for sourceDiscountUid.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param name String value for name.
-     * @param type String value for type.
-     * @param percentage String value for percentage.
-     * @param amountMoney Money value for amountMoney.
-     * @param appliedMoney Money value for appliedMoney.
-     * @param scope String value for scope.
+     * @param  uid  String value for uid.
+     * @param  sourceDiscountUid  String value for sourceDiscountUid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  scope  String value for scope.
      */
     @JsonCreator
     public OrderReturnDiscount(
@@ -61,7 +71,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -72,7 +82,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("source_discount_uid")
     public String getSourceDiscountUid() {
-        return this.sourceDiscountUid;
+        return sourceDiscountUid;
     }
 
     /**
@@ -82,7 +92,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -92,7 +102,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -102,7 +112,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -113,7 +123,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -128,7 +138,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -143,7 +153,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -153,7 +163,7 @@ public class OrderReturnDiscount {
      */
     @JsonGetter("scope")
     public String getScope() {
-        return this.scope;
+        return scope;
     }
 
     @Override
@@ -231,7 +241,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -241,7 +251,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for sourceDiscountUid.
-         * @param sourceDiscountUid String value for sourceDiscountUid.
+         * @param  sourceDiscountUid  String value for sourceDiscountUid.
          * @return Builder
          */
         public Builder sourceDiscountUid(String sourceDiscountUid) {
@@ -251,7 +261,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -261,7 +271,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -271,7 +281,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -281,7 +291,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -291,7 +301,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -301,7 +311,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
@@ -311,7 +321,7 @@ public class OrderReturnDiscount {
 
         /**
          * Setter for scope.
-         * @param scope String value for scope.
+         * @param  scope  String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {

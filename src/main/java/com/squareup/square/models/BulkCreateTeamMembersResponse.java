@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -14,13 +15,15 @@ import java.util.Objects;
  */
 public class BulkCreateTeamMembersResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, CreateTeamMemberResponse> teamMembers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMembers Map of String, value for teamMembers.
-     * @param errors List of Error value for errors.
+     * @param  teamMembers  Map of String, value for teamMembers.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public BulkCreateTeamMembersResponse(
@@ -42,7 +45,7 @@ public class BulkCreateTeamMembersResponse {
      */
     @JsonGetter("team_members")
     public Map<String, CreateTeamMemberResponse> getTeamMembers() {
-        return this.teamMembers;
+        return teamMembers;
     }
 
     /**
@@ -52,7 +55,7 @@ public class BulkCreateTeamMembersResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class BulkCreateTeamMembersResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -117,7 +120,7 @@ public class BulkCreateTeamMembersResponse {
 
         /**
          * Setter for teamMembers.
-         * @param teamMembers Map of String, value for teamMembers.
+         * @param  teamMembers  Map of String, value for teamMembers.
          * @return Builder
          */
         public Builder teamMembers(Map<String, CreateTeamMemberResponse> teamMembers) {
@@ -127,7 +130,7 @@ public class BulkCreateTeamMembersResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

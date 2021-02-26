@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +15,7 @@ public class LoyaltyProgram {
     private final String id;
     private final String status;
     private final List<LoyaltyProgramRewardTier> rewardTiers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramExpirationPolicy expirationPolicy;
     private final LoyaltyProgramTerminology terminology;
     private final List<String> locationIds;
@@ -23,15 +25,15 @@ public class LoyaltyProgram {
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param status String value for status.
-     * @param rewardTiers List of LoyaltyProgramRewardTier value for rewardTiers.
-     * @param terminology LoyaltyProgramTerminology value for terminology.
-     * @param locationIds List of String value for locationIds.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param accrualRules List of LoyaltyProgramAccrualRule value for accrualRules.
-     * @param expirationPolicy LoyaltyProgramExpirationPolicy value for expirationPolicy.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
+     * @param  terminology  LoyaltyProgramTerminology value for terminology.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
+     * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
      */
     @JsonCreator
     public LoyaltyProgram(
@@ -63,7 +65,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -73,7 +75,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -83,7 +85,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("reward_tiers")
     public List<LoyaltyProgramRewardTier> getRewardTiers() {
-        return this.rewardTiers;
+        return rewardTiers;
     }
 
     /**
@@ -93,7 +95,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("expiration_policy")
     public LoyaltyProgramExpirationPolicy getExpirationPolicy() {
-        return this.expirationPolicy;
+        return expirationPolicy;
     }
 
     /**
@@ -102,7 +104,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("terminology")
     public LoyaltyProgramTerminology getTerminology() {
-        return this.terminology;
+        return terminology;
     }
 
     /**
@@ -112,7 +114,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -122,7 +124,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -132,7 +134,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -142,7 +144,7 @@ public class LoyaltyProgram {
      */
     @JsonGetter("accrual_rules")
     public List<LoyaltyProgramAccrualRule> getAccrualRules() {
-        return this.accrualRules;
+        return accrualRules;
     }
 
     @Override
@@ -211,23 +213,18 @@ public class LoyaltyProgram {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param status String value for status.
-         * @param rewardTiers List of LoyaltyProgramRewardTier value for rewardTiers.
-         * @param terminology LoyaltyProgramTerminology value for terminology.
-         * @param locationIds List of String value for locationIds.
-         * @param createdAt String value for createdAt.
-         * @param updatedAt String value for updatedAt.
-         * @param accrualRules List of LoyaltyProgramAccrualRule value for accrualRules.
+         * @param  id  String value for id.
+         * @param  status  String value for status.
+         * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
+         * @param  terminology  LoyaltyProgramTerminology value for terminology.
+         * @param  locationIds  List of String value for locationIds.
+         * @param  createdAt  String value for createdAt.
+         * @param  updatedAt  String value for updatedAt.
+         * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
          */
-        public Builder(String id,
-                String status,
-                List<LoyaltyProgramRewardTier> rewardTiers,
-                LoyaltyProgramTerminology terminology,
-                List<String> locationIds,
-                String createdAt,
-                String updatedAt,
-                List<LoyaltyProgramAccrualRule> accrualRules) {
+        public Builder(String id, String status, List<LoyaltyProgramRewardTier> rewardTiers,
+                LoyaltyProgramTerminology terminology, List<String> locationIds, String createdAt,
+                String updatedAt, List<LoyaltyProgramAccrualRule> accrualRules) {
             this.id = id;
             this.status = status;
             this.rewardTiers = rewardTiers;
@@ -240,7 +237,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -250,7 +247,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -260,7 +257,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for rewardTiers.
-         * @param rewardTiers List of LoyaltyProgramRewardTier value for rewardTiers.
+         * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
          * @return Builder
          */
         public Builder rewardTiers(List<LoyaltyProgramRewardTier> rewardTiers) {
@@ -270,7 +267,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for terminology.
-         * @param terminology LoyaltyProgramTerminology value for terminology.
+         * @param  terminology  LoyaltyProgramTerminology value for terminology.
          * @return Builder
          */
         public Builder terminology(LoyaltyProgramTerminology terminology) {
@@ -280,7 +277,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -290,7 +287,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -300,7 +297,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -310,7 +307,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for accrualRules.
-         * @param accrualRules List of LoyaltyProgramAccrualRule value for accrualRules.
+         * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
          * @return Builder
          */
         public Builder accrualRules(List<LoyaltyProgramAccrualRule> accrualRules) {
@@ -320,7 +317,7 @@ public class LoyaltyProgram {
 
         /**
          * Setter for expirationPolicy.
-         * @param expirationPolicy LoyaltyProgramExpirationPolicy value for expirationPolicy.
+         * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
          * @return Builder
          */
         public Builder expirationPolicy(LoyaltyProgramExpirationPolicy expirationPolicy) {

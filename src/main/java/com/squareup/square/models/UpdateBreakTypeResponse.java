@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class UpdateBreakTypeResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BreakType breakType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param breakType BreakType value for breakType.
-     * @param errors List of Error value for errors.
+     * @param  breakType  BreakType value for breakType.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public UpdateBreakTypeResponse(
@@ -41,7 +44,7 @@ public class UpdateBreakTypeResponse {
      */
     @JsonGetter("break_type")
     public BreakType getBreakType() {
-        return this.breakType;
+        return breakType;
     }
 
     /**
@@ -51,7 +54,7 @@ public class UpdateBreakTypeResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class UpdateBreakTypeResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class UpdateBreakTypeResponse {
 
         /**
          * Setter for breakType.
-         * @param breakType BreakType value for breakType.
+         * @param  breakType  BreakType value for breakType.
          * @return Builder
          */
         public Builder breakType(BreakType breakType) {
@@ -125,7 +128,7 @@ public class UpdateBreakTypeResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

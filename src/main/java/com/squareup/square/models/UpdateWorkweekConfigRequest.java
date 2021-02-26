@@ -14,7 +14,7 @@ public class UpdateWorkweekConfigRequest {
 
     /**
      * Initialization constructor.
-     * @param workweekConfig WorkweekConfig value for workweekConfig.
+     * @param  workweekConfig  WorkweekConfig value for workweekConfig.
      */
     @JsonCreator
     public UpdateWorkweekConfigRequest(
@@ -30,7 +30,7 @@ public class UpdateWorkweekConfigRequest {
      */
     @JsonGetter("workweek_config")
     public WorkweekConfig getWorkweekConfig() {
-        return this.workweekConfig;
+        return workweekConfig;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UpdateWorkweekConfigRequest {
 
         /**
          * Initialization constructor.
-         * @param workweekConfig WorkweekConfig value for workweekConfig.
+         * @param  workweekConfig  WorkweekConfig value for workweekConfig.
          */
         public Builder(WorkweekConfig workweekConfig) {
             this.workweekConfig = workweekConfig;
@@ -85,7 +85,7 @@ public class UpdateWorkweekConfigRequest {
 
         /**
          * Setter for workweekConfig.
-         * @param workweekConfig WorkweekConfig value for workweekConfig.
+         * @param  workweekConfig  WorkweekConfig value for workweekConfig.
          * @return Builder
          */
         public Builder workweekConfig(WorkweekConfig workweekConfig) {

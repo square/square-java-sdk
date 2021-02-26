@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -12,15 +13,17 @@ import java.util.Objects;
 public class Error {
     private final String category;
     private final String code;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String detail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String field;
 
     /**
      * Initialization constructor.
-     * @param category String value for category.
-     * @param code String value for code.
-     * @param detail String value for detail.
-     * @param field String value for field.
+     * @param  category  String value for category.
+     * @param  code  String value for code.
+     * @param  detail  String value for detail.
+     * @param  field  String value for field.
      */
     @JsonCreator
     public Error(
@@ -42,7 +45,7 @@ public class Error {
      */
     @JsonGetter("category")
     public String getCategory() {
-        return this.category;
+        return category;
     }
 
     /**
@@ -52,7 +55,7 @@ public class Error {
      */
     @JsonGetter("code")
     public String getCode() {
-        return this.code;
+        return code;
     }
 
     /**
@@ -62,7 +65,7 @@ public class Error {
      */
     @JsonGetter("detail")
     public String getDetail() {
-        return this.detail;
+        return detail;
     }
 
     /**
@@ -72,7 +75,7 @@ public class Error {
      */
     @JsonGetter("field")
     public String getField() {
-        return this.field;
+        return field;
     }
 
     @Override
@@ -128,18 +131,17 @@ public class Error {
 
         /**
          * Initialization constructor.
-         * @param category String value for category.
-         * @param code String value for code.
+         * @param  category  String value for category.
+         * @param  code  String value for code.
          */
-        public Builder(String category,
-                String code) {
+        public Builder(String category, String code) {
             this.category = category;
             this.code = code;
         }
 
         /**
          * Setter for category.
-         * @param category String value for category.
+         * @param  category  String value for category.
          * @return Builder
          */
         public Builder category(String category) {
@@ -149,7 +151,7 @@ public class Error {
 
         /**
          * Setter for code.
-         * @param code String value for code.
+         * @param  code  String value for code.
          * @return Builder
          */
         public Builder code(String code) {
@@ -159,7 +161,7 @@ public class Error {
 
         /**
          * Setter for detail.
-         * @param detail String value for detail.
+         * @param  detail  String value for detail.
          * @return Builder
          */
         public Builder detail(String detail) {
@@ -169,7 +171,7 @@ public class Error {
 
         /**
          * Setter for field.
-         * @param field String value for field.
+         * @param  field  String value for field.
          * @return Builder
          */
         public Builder field(String field) {

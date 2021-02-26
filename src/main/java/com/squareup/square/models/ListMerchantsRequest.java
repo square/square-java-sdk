@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for ListMerchantsRequest type.
  */
 public class ListMerchantsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer cursor;
 
     /**
      * Initialization constructor.
-     * @param cursor Integer value for cursor.
+     * @param  cursor  Integer value for cursor.
      */
     @JsonCreator
     public ListMerchantsRequest(
@@ -29,7 +31,7 @@ public class ListMerchantsRequest {
      */
     @JsonGetter("cursor")
     public Integer getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class ListMerchantsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor Integer value for cursor.
+         * @param  cursor  Integer value for cursor.
          * @return Builder
          */
         public Builder cursor(Integer cursor) {

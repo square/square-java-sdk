@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class RetrieveBusinessBookingProfileResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessBookingProfile businessBookingProfile;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param businessBookingProfile BusinessBookingProfile value for businessBookingProfile.
-     * @param errors List of Error value for errors.
+     * @param  businessBookingProfile  BusinessBookingProfile value for businessBookingProfile.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public RetrieveBusinessBookingProfileResponse(
@@ -39,7 +42,7 @@ public class RetrieveBusinessBookingProfileResponse {
      */
     @JsonGetter("business_booking_profile")
     public BusinessBookingProfile getBusinessBookingProfile() {
-        return this.businessBookingProfile;
+        return businessBookingProfile;
     }
 
     /**
@@ -49,7 +52,7 @@ public class RetrieveBusinessBookingProfileResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class RetrieveBusinessBookingProfileResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -114,7 +117,7 @@ public class RetrieveBusinessBookingProfileResponse {
 
         /**
          * Setter for businessBookingProfile.
-         * @param businessBookingProfile BusinessBookingProfile value for businessBookingProfile.
+         * @param  businessBookingProfile  BusinessBookingProfile value for businessBookingProfile.
          * @return Builder
          */
         public Builder businessBookingProfile(BusinessBookingProfile businessBookingProfile) {
@@ -124,7 +127,7 @@ public class RetrieveBusinessBookingProfileResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

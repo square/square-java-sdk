@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class UpdateItemModifierListsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param updatedAt String value for updatedAt.
+     * @param  errors  List of Error value for errors.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public UpdateItemModifierListsResponse(
@@ -40,7 +43,7 @@ public class UpdateItemModifierListsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -51,7 +54,7 @@ public class UpdateItemModifierListsResponse {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class UpdateItemModifierListsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class UpdateItemModifierListsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -126,7 +129,7 @@ public class UpdateItemModifierListsResponse {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

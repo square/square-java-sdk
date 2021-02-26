@@ -13,8 +13,8 @@ work week. Used for the calculation of overtime pay.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | UUID for this object | String getId() |
-| `StartOfWeek` | [`String`](/doc/models/weekday.md) |  | The days of the week. | String getStartOfWeek() |
-| `StartOfDayLocalTime` | `String` |  | The local time at which a business week cuts over. Represented as a<br>string in `HH:MM` format (`HH:MM:SS` is also accepted, but seconds are<br>truncated).<br>**Constraints**: *Minimum Length*: `1` | String getStartOfDayLocalTime() |
+| `StartOfWeek` | [`String`](/doc/models/weekday.md) | Required | The days of the week. | String getStartOfWeek() |
+| `StartOfDayLocalTime` | `String` | Required | The local time at which a business week cuts over. Represented as a<br>string in `HH:MM` format (`HH:MM:SS` is also accepted, but seconds are<br>truncated).<br>**Constraints**: *Minimum Length*: `1` | String getStartOfDayLocalTime() |
 | `Version` | `Integer` | Optional | Used for resolving concurrency issues; request will fail if version<br>provided does not match server version at time of request. If not provided,<br>Square executes a blind write; potentially overwriting data from another<br>write. | Integer getVersion() |
 | `CreatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC | String getUpdatedAt() |

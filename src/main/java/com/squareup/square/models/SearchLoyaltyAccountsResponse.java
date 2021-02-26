@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class SearchLoyaltyAccountsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LoyaltyAccount> loyaltyAccounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param loyaltyAccounts List of LoyaltyAccount value for loyaltyAccounts.
-     * @param cursor String value for cursor.
+     * @param  errors  List of Error value for errors.
+     * @param  loyaltyAccounts  List of LoyaltyAccount value for loyaltyAccounts.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyAccountsResponse(
@@ -44,7 +48,7 @@ public class SearchLoyaltyAccountsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -54,7 +58,7 @@ public class SearchLoyaltyAccountsResponse {
      */
     @JsonGetter("loyalty_accounts")
     public List<LoyaltyAccount> getLoyaltyAccounts() {
-        return this.loyaltyAccounts;
+        return loyaltyAccounts;
     }
 
     /**
@@ -66,7 +70,7 @@ public class SearchLoyaltyAccountsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -124,7 +128,7 @@ public class SearchLoyaltyAccountsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -134,7 +138,7 @@ public class SearchLoyaltyAccountsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -144,7 +148,7 @@ public class SearchLoyaltyAccountsResponse {
 
         /**
          * Setter for loyaltyAccounts.
-         * @param loyaltyAccounts List of LoyaltyAccount value for loyaltyAccounts.
+         * @param  loyaltyAccounts  List of LoyaltyAccount value for loyaltyAccounts.
          * @return Builder
          */
         public Builder loyaltyAccounts(List<LoyaltyAccount> loyaltyAccounts) {
@@ -154,7 +158,7 @@ public class SearchLoyaltyAccountsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

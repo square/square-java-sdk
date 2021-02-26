@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `DeviceId` | `String` |  | The unique ID of the device intended for this `TerminalCheckout`.<br>A list of `DeviceCode` objects can be retrieved from the /v2/devices/codes endpoint.<br>Match a `DeviceCode.device_id` value with `device_id` to get the associated device code. | String getDeviceId() |
+| `DeviceId` | `String` | Required | The unique ID of the device intended for this `TerminalCheckout`.<br>A list of `DeviceCode` objects can be retrieved from the /v2/devices/codes endpoint.<br>Match a `DeviceCode.device_id` value with `device_id` to get the associated device code. | String getDeviceId() |
 | `SkipReceiptScreen` | `Boolean` | Optional | Instruct the device to skip the receipt screen. Defaults to false. | Boolean getSkipReceiptScreen() |
 | `TipSettings` | [`TipSettings`](/doc/models/tip-settings.md) | Optional | - | TipSettings getTipSettings() |
 

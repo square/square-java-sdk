@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for ListBankAccountsRequest type.
  */
 public class ListBankAccountsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
-     * @param locationId String value for locationId.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public ListBankAccountsRequest(
@@ -40,7 +44,7 @@ public class ListBankAccountsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -52,7 +56,7 @@ public class ListBankAccountsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -63,7 +67,7 @@ public class ListBankAccountsRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -120,7 +124,7 @@ public class ListBankAccountsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -130,7 +134,7 @@ public class ListBankAccountsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -140,7 +144,7 @@ public class ListBankAccountsRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

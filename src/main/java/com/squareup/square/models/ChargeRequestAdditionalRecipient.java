@@ -16,9 +16,9 @@ public class ChargeRequestAdditionalRecipient {
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param description String value for description.
-     * @param amountMoney Money value for amountMoney.
+     * @param  locationId  String value for locationId.
+     * @param  description  String value for description.
+     * @param  amountMoney  Money value for amountMoney.
      */
     @JsonCreator
     public ChargeRequestAdditionalRecipient(
@@ -37,7 +37,7 @@ public class ChargeRequestAdditionalRecipient {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -47,7 +47,7 @@ public class ChargeRequestAdditionalRecipient {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -62,7 +62,7 @@ public class ChargeRequestAdditionalRecipient {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     @Override
@@ -114,13 +114,11 @@ public class ChargeRequestAdditionalRecipient {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
-         * @param description String value for description.
-         * @param amountMoney Money value for amountMoney.
+         * @param  locationId  String value for locationId.
+         * @param  description  String value for description.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String locationId,
-                String description,
-                Money amountMoney) {
+        public Builder(String locationId, String description, Money amountMoney) {
             this.locationId = locationId;
             this.description = description;
             this.amountMoney = amountMoney;
@@ -128,7 +126,7 @@ public class ChargeRequestAdditionalRecipient {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -138,7 +136,7 @@ public class ChargeRequestAdditionalRecipient {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -148,7 +146,7 @@ public class ChargeRequestAdditionalRecipient {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {

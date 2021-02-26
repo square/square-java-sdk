@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,35 +12,47 @@ import java.util.Objects;
  * This is a model class for Shift type.
  */
 public class Shift {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
     private final String startAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftWage wage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Break> breaks;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
 
     /**
      * Initialization constructor.
-     * @param startAt String value for startAt.
-     * @param id String value for id.
-     * @param employeeId String value for employeeId.
-     * @param locationId String value for locationId.
-     * @param timezone String value for timezone.
-     * @param endAt String value for endAt.
-     * @param wage ShiftWage value for wage.
-     * @param breaks List of Break value for breaks.
-     * @param status String value for status.
-     * @param version Integer value for version.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param teamMemberId String value for teamMemberId.
+     * @param  startAt  String value for startAt.
+     * @param  id  String value for id.
+     * @param  employeeId  String value for employeeId.
+     * @param  locationId  String value for locationId.
+     * @param  timezone  String value for timezone.
+     * @param  endAt  String value for endAt.
+     * @param  wage  ShiftWage value for wage.
+     * @param  breaks  List of Break value for breaks.
+     * @param  status  String value for status.
+     * @param  version  Integer value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  teamMemberId  String value for teamMemberId.
      */
     @JsonCreator
     public Shift(
@@ -78,7 +91,7 @@ public class Shift {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -89,7 +102,7 @@ public class Shift {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -100,7 +113,7 @@ public class Shift {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -111,7 +124,7 @@ public class Shift {
      */
     @JsonGetter("timezone")
     public String getTimezone() {
-        return this.timezone;
+        return timezone;
     }
 
     /**
@@ -122,7 +135,7 @@ public class Shift {
      */
     @JsonGetter("start_at")
     public String getStartAt() {
-        return this.startAt;
+        return startAt;
     }
 
     /**
@@ -133,7 +146,7 @@ public class Shift {
      */
     @JsonGetter("end_at")
     public String getEndAt() {
-        return this.endAt;
+        return endAt;
     }
 
     /**
@@ -143,7 +156,7 @@ public class Shift {
      */
     @JsonGetter("wage")
     public ShiftWage getWage() {
-        return this.wage;
+        return wage;
     }
 
     /**
@@ -153,7 +166,7 @@ public class Shift {
      */
     @JsonGetter("breaks")
     public List<Break> getBreaks() {
-        return this.breaks;
+        return breaks;
     }
 
     /**
@@ -163,7 +176,7 @@ public class Shift {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -175,7 +188,7 @@ public class Shift {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -185,7 +198,7 @@ public class Shift {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -195,7 +208,7 @@ public class Shift {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -206,7 +219,7 @@ public class Shift {
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
-        return this.teamMemberId;
+        return teamMemberId;
     }
 
     @Override
@@ -294,7 +307,7 @@ public class Shift {
 
         /**
          * Initialization constructor.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          */
         public Builder(String startAt) {
             this.startAt = startAt;
@@ -302,7 +315,7 @@ public class Shift {
 
         /**
          * Setter for startAt.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
@@ -312,7 +325,7 @@ public class Shift {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -322,7 +335,7 @@ public class Shift {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -332,7 +345,7 @@ public class Shift {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -342,7 +355,7 @@ public class Shift {
 
         /**
          * Setter for timezone.
-         * @param timezone String value for timezone.
+         * @param  timezone  String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {
@@ -352,7 +365,7 @@ public class Shift {
 
         /**
          * Setter for endAt.
-         * @param endAt String value for endAt.
+         * @param  endAt  String value for endAt.
          * @return Builder
          */
         public Builder endAt(String endAt) {
@@ -362,7 +375,7 @@ public class Shift {
 
         /**
          * Setter for wage.
-         * @param wage ShiftWage value for wage.
+         * @param  wage  ShiftWage value for wage.
          * @return Builder
          */
         public Builder wage(ShiftWage wage) {
@@ -372,7 +385,7 @@ public class Shift {
 
         /**
          * Setter for breaks.
-         * @param breaks List of Break value for breaks.
+         * @param  breaks  List of Break value for breaks.
          * @return Builder
          */
         public Builder breaks(List<Break> breaks) {
@@ -382,7 +395,7 @@ public class Shift {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -392,7 +405,7 @@ public class Shift {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -402,7 +415,7 @@ public class Shift {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -412,7 +425,7 @@ public class Shift {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -422,7 +435,7 @@ public class Shift {
 
         /**
          * Setter for teamMemberId.
-         * @param teamMemberId String value for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {

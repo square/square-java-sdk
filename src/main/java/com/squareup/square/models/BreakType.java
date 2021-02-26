@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,25 +11,29 @@ import java.util.Objects;
  * This is a model class for BreakType type.
  */
 public class BreakType {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String locationId;
     private final String breakName;
     private final String expectedDuration;
     private final boolean isPaid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param breakName String value for breakName.
-     * @param expectedDuration String value for expectedDuration.
-     * @param isPaid boolean value for isPaid.
-     * @param id String value for id.
-     * @param version Integer value for version.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  locationId  String value for locationId.
+     * @param  breakName  String value for breakName.
+     * @param  expectedDuration  String value for expectedDuration.
+     * @param  isPaid  boolean value for isPaid.
+     * @param  id  String value for id.
+     * @param  version  Integer value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public BreakType(
@@ -57,7 +62,7 @@ public class BreakType {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -67,7 +72,7 @@ public class BreakType {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -78,7 +83,7 @@ public class BreakType {
      */
     @JsonGetter("break_name")
     public String getBreakName() {
-        return this.breakName;
+        return breakName;
     }
 
     /**
@@ -89,7 +94,7 @@ public class BreakType {
      */
     @JsonGetter("expected_duration")
     public String getExpectedDuration() {
-        return this.expectedDuration;
+        return expectedDuration;
     }
 
     /**
@@ -99,7 +104,7 @@ public class BreakType {
      */
     @JsonGetter("is_paid")
     public boolean getIsPaid() {
-        return this.isPaid;
+        return isPaid;
     }
 
     /**
@@ -111,7 +116,7 @@ public class BreakType {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -121,7 +126,7 @@ public class BreakType {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -131,7 +136,7 @@ public class BreakType {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -200,14 +205,12 @@ public class BreakType {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
-         * @param breakName String value for breakName.
-         * @param expectedDuration String value for expectedDuration.
-         * @param isPaid boolean value for isPaid.
+         * @param  locationId  String value for locationId.
+         * @param  breakName  String value for breakName.
+         * @param  expectedDuration  String value for expectedDuration.
+         * @param  isPaid  boolean value for isPaid.
          */
-        public Builder(String locationId,
-                String breakName,
-                String expectedDuration,
+        public Builder(String locationId, String breakName, String expectedDuration,
                 boolean isPaid) {
             this.locationId = locationId;
             this.breakName = breakName;
@@ -217,7 +220,7 @@ public class BreakType {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -227,7 +230,7 @@ public class BreakType {
 
         /**
          * Setter for breakName.
-         * @param breakName String value for breakName.
+         * @param  breakName  String value for breakName.
          * @return Builder
          */
         public Builder breakName(String breakName) {
@@ -237,7 +240,7 @@ public class BreakType {
 
         /**
          * Setter for expectedDuration.
-         * @param expectedDuration String value for expectedDuration.
+         * @param  expectedDuration  String value for expectedDuration.
          * @return Builder
          */
         public Builder expectedDuration(String expectedDuration) {
@@ -247,7 +250,7 @@ public class BreakType {
 
         /**
          * Setter for isPaid.
-         * @param isPaid boolean value for isPaid.
+         * @param  isPaid  boolean value for isPaid.
          * @return Builder
          */
         public Builder isPaid(boolean isPaid) {
@@ -257,7 +260,7 @@ public class BreakType {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -267,7 +270,7 @@ public class BreakType {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -277,7 +280,7 @@ public class BreakType {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -287,7 +290,7 @@ public class BreakType {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

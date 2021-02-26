@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for DisputedPayment type.
  */
 public class DisputedPayment {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
 
     /**
      * Initialization constructor.
-     * @param paymentId String value for paymentId.
+     * @param  paymentId  String value for paymentId.
      */
     @JsonCreator
     public DisputedPayment(
@@ -29,7 +31,7 @@ public class DisputedPayment {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class DisputedPayment {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {

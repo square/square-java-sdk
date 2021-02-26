@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class ListEmployeeWagesResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<EmployeeWage> employeeWages;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param employeeWages List of EmployeeWage value for employeeWages.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  employeeWages  List of EmployeeWage value for employeeWages.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListEmployeeWagesResponse(
@@ -44,7 +48,7 @@ public class ListEmployeeWagesResponse {
      */
     @JsonGetter("employee_wages")
     public List<EmployeeWage> getEmployeeWages() {
-        return this.employeeWages;
+        return employeeWages;
     }
 
     /**
@@ -55,7 +59,7 @@ public class ListEmployeeWagesResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -65,7 +69,7 @@ public class ListEmployeeWagesResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class ListEmployeeWagesResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -133,7 +137,7 @@ public class ListEmployeeWagesResponse {
 
         /**
          * Setter for employeeWages.
-         * @param employeeWages List of EmployeeWage value for employeeWages.
+         * @param  employeeWages  List of EmployeeWage value for employeeWages.
          * @return Builder
          */
         public Builder employeeWages(List<EmployeeWage> employeeWages) {
@@ -143,7 +147,7 @@ public class ListEmployeeWagesResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -153,7 +157,7 @@ public class ListEmployeeWagesResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

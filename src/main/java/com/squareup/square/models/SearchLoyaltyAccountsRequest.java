@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyAccountsRequest type.
  */
 public class SearchLoyaltyAccountsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchLoyaltyAccountsRequestLoyaltyAccountQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param query SearchLoyaltyAccountsRequestLoyaltyAccountQuery value for query.
-     * @param limit Integer value for limit.
-     * @param cursor String value for cursor.
+     * @param  query  SearchLoyaltyAccountsRequestLoyaltyAccountQuery value for query.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyAccountsRequest(
@@ -37,7 +41,7 @@ public class SearchLoyaltyAccountsRequest {
      */
     @JsonGetter("query")
     public SearchLoyaltyAccountsRequestLoyaltyAccountQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -47,7 +51,7 @@ public class SearchLoyaltyAccountsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -59,7 +63,7 @@ public class SearchLoyaltyAccountsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class SearchLoyaltyAccountsRequest {
 
         /**
          * Setter for query.
-         * @param query SearchLoyaltyAccountsRequestLoyaltyAccountQuery value for query.
+         * @param  query  SearchLoyaltyAccountsRequestLoyaltyAccountQuery value for query.
          * @return Builder
          */
         public Builder query(SearchLoyaltyAccountsRequestLoyaltyAccountQuery query) {
@@ -126,7 +130,7 @@ public class SearchLoyaltyAccountsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -136,7 +140,7 @@ public class SearchLoyaltyAccountsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

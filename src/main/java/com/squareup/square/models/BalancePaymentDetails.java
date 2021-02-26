@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for BalancePaymentDetails type.
  */
 public class BalancePaymentDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accountId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
      * Initialization constructor.
-     * @param accountId String value for accountId.
-     * @param status String value for status.
+     * @param  accountId  String value for accountId.
+     * @param  status  String value for status.
      */
     @JsonCreator
     public BalancePaymentDetails(
@@ -33,7 +36,7 @@ public class BalancePaymentDetails {
      */
     @JsonGetter("account_id")
     public String getAccountId() {
-        return this.accountId;
+        return accountId;
     }
 
     /**
@@ -43,7 +46,7 @@ public class BalancePaymentDetails {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     @Override
@@ -96,7 +99,7 @@ public class BalancePaymentDetails {
 
         /**
          * Setter for accountId.
-         * @param accountId String value for accountId.
+         * @param  accountId  String value for accountId.
          * @return Builder
          */
         public Builder accountId(String accountId) {
@@ -106,7 +109,7 @@ public class BalancePaymentDetails {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {

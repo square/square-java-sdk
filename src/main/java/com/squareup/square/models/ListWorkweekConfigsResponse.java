@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class ListWorkweekConfigsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<WorkweekConfig> workweekConfigs;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param workweekConfigs List of WorkweekConfig value for workweekConfigs.
-     * @param cursor String value for cursor.
-     * @param errors List of Error value for errors.
+     * @param  workweekConfigs  List of WorkweekConfig value for workweekConfigs.
+     * @param  cursor  String value for cursor.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ListWorkweekConfigsResponse(
@@ -44,7 +48,7 @@ public class ListWorkweekConfigsResponse {
      */
     @JsonGetter("workweek_configs")
     public List<WorkweekConfig> getWorkweekConfigs() {
-        return this.workweekConfigs;
+        return workweekConfigs;
     }
 
     /**
@@ -54,7 +58,7 @@ public class ListWorkweekConfigsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -64,7 +68,7 @@ public class ListWorkweekConfigsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -122,7 +126,7 @@ public class ListWorkweekConfigsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -132,7 +136,7 @@ public class ListWorkweekConfigsResponse {
 
         /**
          * Setter for workweekConfigs.
-         * @param workweekConfigs List of WorkweekConfig value for workweekConfigs.
+         * @param  workweekConfigs  List of WorkweekConfig value for workweekConfigs.
          * @return Builder
          */
         public Builder workweekConfigs(List<WorkweekConfig> workweekConfigs) {
@@ -142,7 +146,7 @@ public class ListWorkweekConfigsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -152,7 +156,7 @@ public class ListWorkweekConfigsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

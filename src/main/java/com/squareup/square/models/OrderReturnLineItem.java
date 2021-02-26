@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,43 +12,59 @@ import java.util.Objects;
  * This is a model class for OrderReturnLineItem type.
  */
 public class OrderReturnLineItem {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceLineItemUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     private final String quantity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderQuantityUnit quantityUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnLineItemModifier> returnModifiers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedTax> appliedTaxes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedDiscount> appliedDiscounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money variationTotalPriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money grossReturnMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalDiscountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
 
     /**
      * Initialization constructor.
-     * @param quantity String value for quantity.
-     * @param uid String value for uid.
-     * @param sourceLineItemUid String value for sourceLineItemUid.
-     * @param name String value for name.
-     * @param quantityUnit OrderQuantityUnit value for quantityUnit.
-     * @param note String value for note.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param variationName String value for variationName.
-     * @param returnModifiers List of OrderReturnLineItemModifier value for returnModifiers.
-     * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
-     * @param appliedDiscounts List of OrderLineItemAppliedDiscount value for appliedDiscounts.
-     * @param basePriceMoney Money value for basePriceMoney.
-     * @param variationTotalPriceMoney Money value for variationTotalPriceMoney.
-     * @param grossReturnMoney Money value for grossReturnMoney.
-     * @param totalTaxMoney Money value for totalTaxMoney.
-     * @param totalDiscountMoney Money value for totalDiscountMoney.
-     * @param totalMoney Money value for totalMoney.
+     * @param  quantity  String value for quantity.
+     * @param  uid  String value for uid.
+     * @param  sourceLineItemUid  String value for sourceLineItemUid.
+     * @param  name  String value for name.
+     * @param  quantityUnit  OrderQuantityUnit value for quantityUnit.
+     * @param  note  String value for note.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  variationName  String value for variationName.
+     * @param  returnModifiers  List of OrderReturnLineItemModifier value for returnModifiers.
+     * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
+     * @param  appliedDiscounts  List of OrderLineItemAppliedDiscount value for appliedDiscounts.
+     * @param  basePriceMoney  Money value for basePriceMoney.
+     * @param  variationTotalPriceMoney  Money value for variationTotalPriceMoney.
+     * @param  grossReturnMoney  Money value for grossReturnMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  totalDiscountMoney  Money value for totalDiscountMoney.
+     * @param  totalMoney  Money value for totalMoney.
      */
     @JsonCreator
     public OrderReturnLineItem(
@@ -94,7 +111,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -104,7 +121,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("source_line_item_uid")
     public String getSourceLineItemUid() {
-        return this.sourceLineItemUid;
+        return sourceLineItemUid;
     }
 
     /**
@@ -114,7 +131,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -125,7 +142,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("quantity")
     public String getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 
     /**
@@ -136,7 +153,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("quantity_unit")
     public OrderQuantityUnit getQuantityUnit() {
-        return this.quantityUnit;
+        return quantityUnit;
     }
 
     /**
@@ -146,7 +163,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -156,7 +173,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -166,7 +183,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("variation_name")
     public String getVariationName() {
-        return this.variationName;
+        return variationName;
     }
 
     /**
@@ -176,7 +193,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("return_modifiers")
     public List<OrderReturnLineItemModifier> getReturnModifiers() {
-        return this.returnModifiers;
+        return returnModifiers;
     }
 
     /**
@@ -189,7 +206,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("applied_taxes")
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
-        return this.appliedTaxes;
+        return appliedTaxes;
     }
 
     /**
@@ -202,7 +219,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("applied_discounts")
     public List<OrderLineItemAppliedDiscount> getAppliedDiscounts() {
-        return this.appliedDiscounts;
+        return appliedDiscounts;
     }
 
     /**
@@ -217,7 +234,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("base_price_money")
     public Money getBasePriceMoney() {
-        return this.basePriceMoney;
+        return basePriceMoney;
     }
 
     /**
@@ -232,7 +249,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("variation_total_price_money")
     public Money getVariationTotalPriceMoney() {
-        return this.variationTotalPriceMoney;
+        return variationTotalPriceMoney;
     }
 
     /**
@@ -247,7 +264,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("gross_return_money")
     public Money getGrossReturnMoney() {
-        return this.grossReturnMoney;
+        return grossReturnMoney;
     }
 
     /**
@@ -262,7 +279,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("total_tax_money")
     public Money getTotalTaxMoney() {
-        return this.totalTaxMoney;
+        return totalTaxMoney;
     }
 
     /**
@@ -277,7 +294,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("total_discount_money")
     public Money getTotalDiscountMoney() {
-        return this.totalDiscountMoney;
+        return totalDiscountMoney;
     }
 
     /**
@@ -292,7 +309,7 @@ public class OrderReturnLineItem {
      */
     @JsonGetter("total_money")
     public Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     @Override
@@ -398,7 +415,7 @@ public class OrderReturnLineItem {
 
         /**
          * Initialization constructor.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          */
         public Builder(String quantity) {
             this.quantity = quantity;
@@ -406,7 +423,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for quantity.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          * @return Builder
          */
         public Builder quantity(String quantity) {
@@ -416,7 +433,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -426,7 +443,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for sourceLineItemUid.
-         * @param sourceLineItemUid String value for sourceLineItemUid.
+         * @param  sourceLineItemUid  String value for sourceLineItemUid.
          * @return Builder
          */
         public Builder sourceLineItemUid(String sourceLineItemUid) {
@@ -436,7 +453,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -446,7 +463,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for quantityUnit.
-         * @param quantityUnit OrderQuantityUnit value for quantityUnit.
+         * @param  quantityUnit  OrderQuantityUnit value for quantityUnit.
          * @return Builder
          */
         public Builder quantityUnit(OrderQuantityUnit quantityUnit) {
@@ -456,7 +473,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -466,7 +483,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -476,7 +493,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for variationName.
-         * @param variationName String value for variationName.
+         * @param  variationName  String value for variationName.
          * @return Builder
          */
         public Builder variationName(String variationName) {
@@ -486,7 +503,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for returnModifiers.
-         * @param returnModifiers List of OrderReturnLineItemModifier value for returnModifiers.
+         * @param  returnModifiers  List of OrderReturnLineItemModifier value for returnModifiers.
          * @return Builder
          */
         public Builder returnModifiers(List<OrderReturnLineItemModifier> returnModifiers) {
@@ -496,7 +513,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for appliedTaxes.
-         * @param appliedTaxes List of OrderLineItemAppliedTax value for appliedTaxes.
+         * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
          * @return Builder
          */
         public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
@@ -506,7 +523,8 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for appliedDiscounts.
-         * @param appliedDiscounts List of OrderLineItemAppliedDiscount value for appliedDiscounts.
+         * @param  appliedDiscounts  List of OrderLineItemAppliedDiscount value for
+         *         appliedDiscounts.
          * @return Builder
          */
         public Builder appliedDiscounts(List<OrderLineItemAppliedDiscount> appliedDiscounts) {
@@ -516,7 +534,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for basePriceMoney.
-         * @param basePriceMoney Money value for basePriceMoney.
+         * @param  basePriceMoney  Money value for basePriceMoney.
          * @return Builder
          */
         public Builder basePriceMoney(Money basePriceMoney) {
@@ -526,7 +544,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for variationTotalPriceMoney.
-         * @param variationTotalPriceMoney Money value for variationTotalPriceMoney.
+         * @param  variationTotalPriceMoney  Money value for variationTotalPriceMoney.
          * @return Builder
          */
         public Builder variationTotalPriceMoney(Money variationTotalPriceMoney) {
@@ -536,7 +554,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for grossReturnMoney.
-         * @param grossReturnMoney Money value for grossReturnMoney.
+         * @param  grossReturnMoney  Money value for grossReturnMoney.
          * @return Builder
          */
         public Builder grossReturnMoney(Money grossReturnMoney) {
@@ -546,7 +564,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for totalTaxMoney.
-         * @param totalTaxMoney Money value for totalTaxMoney.
+         * @param  totalTaxMoney  Money value for totalTaxMoney.
          * @return Builder
          */
         public Builder totalTaxMoney(Money totalTaxMoney) {
@@ -556,7 +574,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for totalDiscountMoney.
-         * @param totalDiscountMoney Money value for totalDiscountMoney.
+         * @param  totalDiscountMoney  Money value for totalDiscountMoney.
          * @return Builder
          */
         public Builder totalDiscountMoney(Money totalDiscountMoney) {
@@ -566,7 +584,7 @@ public class OrderReturnLineItem {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney Money value for totalMoney.
+         * @param  totalMoney  Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(Money totalMoney) {

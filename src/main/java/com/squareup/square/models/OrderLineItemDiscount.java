@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
@@ -12,31 +13,42 @@ import java.util.Objects;
  * This is a model class for OrderLineItemDiscount type.
  */
 public class OrderLineItemDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scope;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> rewardIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingRuleId;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param name String value for name.
-     * @param type String value for type.
-     * @param percentage String value for percentage.
-     * @param amountMoney Money value for amountMoney.
-     * @param appliedMoney Money value for appliedMoney.
-     * @param metadata Map of String, value for metadata.
-     * @param scope String value for scope.
-     * @param rewardIds List of String value for rewardIds.
-     * @param pricingRuleId String value for pricingRuleId.
+     * @param  uid  String value for uid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  scope  String value for scope.
+     * @param  rewardIds  List of String value for rewardIds.
+     * @param  pricingRuleId  String value for pricingRuleId.
      */
     @JsonCreator
     public OrderLineItemDiscount(
@@ -71,7 +83,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -81,7 +93,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -91,7 +103,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -101,7 +113,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -113,7 +125,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -128,7 +140,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -143,7 +155,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -163,7 +175,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("metadata")
     public Map<String, String> getMetadata() {
-        return this.metadata;
+        return metadata;
     }
 
     /**
@@ -173,7 +185,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("scope")
     public String getScope() {
-        return this.scope;
+        return scope;
     }
 
     /**
@@ -187,7 +199,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("reward_ids")
     public List<String> getRewardIds() {
-        return this.rewardIds;
+        return rewardIds;
     }
 
     /**
@@ -199,7 +211,7 @@ public class OrderLineItemDiscount {
      */
     @JsonGetter("pricing_rule_id")
     public String getPricingRuleId() {
-        return this.pricingRuleId;
+        return pricingRuleId;
     }
 
     @Override
@@ -284,7 +296,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -294,7 +306,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -304,7 +316,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -314,7 +326,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -324,7 +336,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -334,7 +346,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -344,7 +356,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {
@@ -354,7 +366,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for metadata.
-         * @param metadata Map of String, value for metadata.
+         * @param  metadata  Map of String, value for metadata.
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
@@ -364,7 +376,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for scope.
-         * @param scope String value for scope.
+         * @param  scope  String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {
@@ -374,7 +386,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for rewardIds.
-         * @param rewardIds List of String value for rewardIds.
+         * @param  rewardIds  List of String value for rewardIds.
          * @return Builder
          */
         public Builder rewardIds(List<String> rewardIds) {
@@ -384,7 +396,7 @@ public class OrderLineItemDiscount {
 
         /**
          * Setter for pricingRuleId.
-         * @param pricingRuleId String value for pricingRuleId.
+         * @param  pricingRuleId  String value for pricingRuleId.
          * @return Builder
          */
         public Builder pricingRuleId(String pricingRuleId) {

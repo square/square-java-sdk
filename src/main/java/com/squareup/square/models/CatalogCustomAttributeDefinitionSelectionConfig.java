@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,17 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfig type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfig {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxAllowedSelections;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
 
     /**
      * Initialization constructor.
-     * @param maxAllowedSelections Integer value for maxAllowedSelections.
-     * @param allowedSelections List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for allowedSelections.
+     * @param  maxAllowedSelections  Integer value for maxAllowedSelections.
+     * @param  allowedSelections  List of
+     *         CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for
+     *         allowedSelections.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionSelectionConfig(
@@ -37,7 +42,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      */
     @JsonGetter("max_allowed_selections")
     public Integer getMaxAllowedSelections() {
-        return this.maxAllowedSelections;
+        return maxAllowedSelections;
     }
 
     /**
@@ -48,7 +53,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      */
     @JsonGetter("allowed_selections")
     public List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> getAllowedSelections() {
-        return this.allowedSelections;
+        return allowedSelections;
     }
 
     @Override
@@ -103,7 +108,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
 
         /**
          * Setter for maxAllowedSelections.
-         * @param maxAllowedSelections Integer value for maxAllowedSelections.
+         * @param  maxAllowedSelections  Integer value for maxAllowedSelections.
          * @return Builder
          */
         public Builder maxAllowedSelections(Integer maxAllowedSelections) {
@@ -113,10 +118,13 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
 
         /**
          * Setter for allowedSelections.
-         * @param allowedSelections List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for allowedSelections.
+         * @param  allowedSelections  List of
+         *         CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for
+         *         allowedSelections.
          * @return Builder
          */
-        public Builder allowedSelections(List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections) {
+        public Builder allowedSelections(
+                List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections) {
             this.allowedSelections = allowedSelections;
             return this;
         }

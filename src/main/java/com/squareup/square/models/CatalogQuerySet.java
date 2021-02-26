@@ -16,8 +16,8 @@ public class CatalogQuerySet {
 
     /**
      * Initialization constructor.
-     * @param attributeName String value for attributeName.
-     * @param attributeValues List of String value for attributeValues.
+     * @param  attributeName  String value for attributeName.
+     * @param  attributeValues  List of String value for attributeValues.
      */
     @JsonCreator
     public CatalogQuerySet(
@@ -34,7 +34,7 @@ public class CatalogQuerySet {
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
-        return this.attributeName;
+        return attributeName;
     }
 
     /**
@@ -45,7 +45,7 @@ public class CatalogQuerySet {
      */
     @JsonGetter("attribute_values")
     public List<String> getAttributeValues() {
-        return this.attributeValues;
+        return attributeValues;
     }
 
     @Override
@@ -95,18 +95,17 @@ public class CatalogQuerySet {
 
         /**
          * Initialization constructor.
-         * @param attributeName String value for attributeName.
-         * @param attributeValues List of String value for attributeValues.
+         * @param  attributeName  String value for attributeName.
+         * @param  attributeValues  List of String value for attributeValues.
          */
-        public Builder(String attributeName,
-                List<String> attributeValues) {
+        public Builder(String attributeName, List<String> attributeValues) {
             this.attributeName = attributeName;
             this.attributeValues = attributeValues;
         }
 
         /**
          * Setter for attributeName.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
@@ -116,7 +115,7 @@ public class CatalogQuerySet {
 
         /**
          * Setter for attributeValues.
-         * @param attributeValues List of String value for attributeValues.
+         * @param  attributeValues  List of String value for attributeValues.
          * @return Builder
          */
         public Builder attributeValues(List<String> attributeValues) {

@@ -15,8 +15,8 @@ public class CatalogQueryExact {
 
     /**
      * Initialization constructor.
-     * @param attributeName String value for attributeName.
-     * @param attributeValue String value for attributeValue.
+     * @param  attributeName  String value for attributeName.
+     * @param  attributeValue  String value for attributeValue.
      */
     @JsonCreator
     public CatalogQueryExact(
@@ -33,7 +33,7 @@ public class CatalogQueryExact {
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
-        return this.attributeName;
+        return attributeName;
     }
 
     /**
@@ -45,7 +45,7 @@ public class CatalogQueryExact {
      */
     @JsonGetter("attribute_value")
     public String getAttributeValue() {
-        return this.attributeValue;
+        return attributeValue;
     }
 
     @Override
@@ -95,18 +95,17 @@ public class CatalogQueryExact {
 
         /**
          * Initialization constructor.
-         * @param attributeName String value for attributeName.
-         * @param attributeValue String value for attributeValue.
+         * @param  attributeName  String value for attributeName.
+         * @param  attributeValue  String value for attributeValue.
          */
-        public Builder(String attributeName,
-                String attributeValue) {
+        public Builder(String attributeName, String attributeValue) {
             this.attributeName = attributeName;
             this.attributeValue = attributeValue;
         }
 
         /**
          * Setter for attributeName.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
@@ -116,7 +115,7 @@ public class CatalogQueryExact {
 
         /**
          * Setter for attributeValue.
-         * @param attributeValue String value for attributeValue.
+         * @param  attributeValue  String value for attributeValue.
          * @return Builder
          */
         public Builder attributeValue(String attributeValue) {

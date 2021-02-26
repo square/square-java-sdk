@@ -2,13 +2,16 @@
 package com.squareup.square.utilities;
 
 import java.io.File;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Class to wrap file and contentType to be sent as part of a HTTP request.
  */
 public class FileWrapper {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private File file;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String contentType;
 
     /**

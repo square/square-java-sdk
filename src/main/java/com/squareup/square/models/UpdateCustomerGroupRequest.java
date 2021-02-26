@@ -14,7 +14,7 @@ public class UpdateCustomerGroupRequest {
 
     /**
      * Initialization constructor.
-     * @param group CustomerGroup value for group.
+     * @param  group  CustomerGroup value for group.
      */
     @JsonCreator
     public UpdateCustomerGroupRequest(
@@ -31,7 +31,7 @@ public class UpdateCustomerGroupRequest {
      */
     @JsonGetter("group")
     public CustomerGroup getGroup() {
-        return this.group;
+        return group;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class UpdateCustomerGroupRequest {
 
         /**
          * Initialization constructor.
-         * @param group CustomerGroup value for group.
+         * @param  group  CustomerGroup value for group.
          */
         public Builder(CustomerGroup group) {
             this.group = group;
@@ -86,7 +86,7 @@ public class UpdateCustomerGroupRequest {
 
         /**
          * Setter for group.
-         * @param group CustomerGroup value for group.
+         * @param  group  CustomerGroup value for group.
          * @return Builder
          */
         public Builder group(CustomerGroup group) {

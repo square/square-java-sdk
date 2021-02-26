@@ -11,9 +11,9 @@ Defines the parameters for a `CreateDisputeEvidenceText` request.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `IdempotencyKey` | `String` |  | The Unique ID. For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `45` | String getIdempotencyKey() |
+| `IdempotencyKey` | `String` | Required | The Unique ID. For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `45` | String getIdempotencyKey() |
 | `EvidenceType` | [`String`](/doc/models/dispute-evidence-type.md) | Optional | The type of the dispute evidence. | String getEvidenceType() |
-| `EvidenceText` | `String` |  | The evidence string.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `500` | String getEvidenceText() |
+| `EvidenceText` | `String` | Required | The evidence string.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `500` | String getEvidenceText() |
 
 ## Example (as JSON)
 

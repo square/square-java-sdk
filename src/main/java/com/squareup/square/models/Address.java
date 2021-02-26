@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,39 +11,54 @@ import java.util.Objects;
  * This is a model class for Address type.
  */
 public class Address {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine1;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine2;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine3;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locality;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sublocality;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sublocality2;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sublocality3;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String administrativeDistrictLevel1;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String administrativeDistrictLevel2;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String administrativeDistrictLevel3;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String postalCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String firstName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lastName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String organization;
 
     /**
      * Initialization constructor.
-     * @param addressLine1 String value for addressLine1.
-     * @param addressLine2 String value for addressLine2.
-     * @param addressLine3 String value for addressLine3.
-     * @param locality String value for locality.
-     * @param sublocality String value for sublocality.
-     * @param sublocality2 String value for sublocality2.
-     * @param sublocality3 String value for sublocality3.
-     * @param administrativeDistrictLevel1 String value for administrativeDistrictLevel1.
-     * @param administrativeDistrictLevel2 String value for administrativeDistrictLevel2.
-     * @param administrativeDistrictLevel3 String value for administrativeDistrictLevel3.
-     * @param postalCode String value for postalCode.
-     * @param country String value for country.
-     * @param firstName String value for firstName.
-     * @param lastName String value for lastName.
-     * @param organization String value for organization.
+     * @param  addressLine1  String value for addressLine1.
+     * @param  addressLine2  String value for addressLine2.
+     * @param  addressLine3  String value for addressLine3.
+     * @param  locality  String value for locality.
+     * @param  sublocality  String value for sublocality.
+     * @param  sublocality2  String value for sublocality2.
+     * @param  sublocality3  String value for sublocality3.
+     * @param  administrativeDistrictLevel1  String value for administrativeDistrictLevel1.
+     * @param  administrativeDistrictLevel2  String value for administrativeDistrictLevel2.
+     * @param  administrativeDistrictLevel3  String value for administrativeDistrictLevel3.
+     * @param  postalCode  String value for postalCode.
+     * @param  country  String value for country.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  organization  String value for organization.
      */
     @JsonCreator
     public Address(
@@ -88,7 +104,7 @@ public class Address {
      */
     @JsonGetter("address_line_1")
     public String getAddressLine1() {
-        return this.addressLine1;
+        return addressLine1;
     }
 
     /**
@@ -98,7 +114,7 @@ public class Address {
      */
     @JsonGetter("address_line_2")
     public String getAddressLine2() {
-        return this.addressLine2;
+        return addressLine2;
     }
 
     /**
@@ -108,7 +124,7 @@ public class Address {
      */
     @JsonGetter("address_line_3")
     public String getAddressLine3() {
-        return this.addressLine3;
+        return addressLine3;
     }
 
     /**
@@ -118,7 +134,7 @@ public class Address {
      */
     @JsonGetter("locality")
     public String getLocality() {
-        return this.locality;
+        return locality;
     }
 
     /**
@@ -128,7 +144,7 @@ public class Address {
      */
     @JsonGetter("sublocality")
     public String getSublocality() {
-        return this.sublocality;
+        return sublocality;
     }
 
     /**
@@ -138,7 +154,7 @@ public class Address {
      */
     @JsonGetter("sublocality_2")
     public String getSublocality2() {
-        return this.sublocality2;
+        return sublocality2;
     }
 
     /**
@@ -148,7 +164,7 @@ public class Address {
      */
     @JsonGetter("sublocality_3")
     public String getSublocality3() {
-        return this.sublocality3;
+        return sublocality3;
     }
 
     /**
@@ -158,7 +174,7 @@ public class Address {
      */
     @JsonGetter("administrative_district_level_1")
     public String getAdministrativeDistrictLevel1() {
-        return this.administrativeDistrictLevel1;
+        return administrativeDistrictLevel1;
     }
 
     /**
@@ -169,7 +185,7 @@ public class Address {
      */
     @JsonGetter("administrative_district_level_2")
     public String getAdministrativeDistrictLevel2() {
-        return this.administrativeDistrictLevel2;
+        return administrativeDistrictLevel2;
     }
 
     /**
@@ -179,7 +195,7 @@ public class Address {
      */
     @JsonGetter("administrative_district_level_3")
     public String getAdministrativeDistrictLevel3() {
-        return this.administrativeDistrictLevel3;
+        return administrativeDistrictLevel3;
     }
 
     /**
@@ -189,7 +205,7 @@ public class Address {
      */
     @JsonGetter("postal_code")
     public String getPostalCode() {
-        return this.postalCode;
+        return postalCode;
     }
 
     /**
@@ -200,7 +216,7 @@ public class Address {
      */
     @JsonGetter("country")
     public String getCountry() {
-        return this.country;
+        return country;
     }
 
     /**
@@ -210,7 +226,7 @@ public class Address {
      */
     @JsonGetter("first_name")
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     /**
@@ -220,7 +236,7 @@ public class Address {
      */
     @JsonGetter("last_name")
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     /**
@@ -230,7 +246,7 @@ public class Address {
      */
     @JsonGetter("organization")
     public String getOrganization() {
-        return this.organization;
+        return organization;
     }
 
     @Override
@@ -332,7 +348,7 @@ public class Address {
 
         /**
          * Setter for addressLine1.
-         * @param addressLine1 String value for addressLine1.
+         * @param  addressLine1  String value for addressLine1.
          * @return Builder
          */
         public Builder addressLine1(String addressLine1) {
@@ -342,7 +358,7 @@ public class Address {
 
         /**
          * Setter for addressLine2.
-         * @param addressLine2 String value for addressLine2.
+         * @param  addressLine2  String value for addressLine2.
          * @return Builder
          */
         public Builder addressLine2(String addressLine2) {
@@ -352,7 +368,7 @@ public class Address {
 
         /**
          * Setter for addressLine3.
-         * @param addressLine3 String value for addressLine3.
+         * @param  addressLine3  String value for addressLine3.
          * @return Builder
          */
         public Builder addressLine3(String addressLine3) {
@@ -362,7 +378,7 @@ public class Address {
 
         /**
          * Setter for locality.
-         * @param locality String value for locality.
+         * @param  locality  String value for locality.
          * @return Builder
          */
         public Builder locality(String locality) {
@@ -372,7 +388,7 @@ public class Address {
 
         /**
          * Setter for sublocality.
-         * @param sublocality String value for sublocality.
+         * @param  sublocality  String value for sublocality.
          * @return Builder
          */
         public Builder sublocality(String sublocality) {
@@ -382,7 +398,7 @@ public class Address {
 
         /**
          * Setter for sublocality2.
-         * @param sublocality2 String value for sublocality2.
+         * @param  sublocality2  String value for sublocality2.
          * @return Builder
          */
         public Builder sublocality2(String sublocality2) {
@@ -392,7 +408,7 @@ public class Address {
 
         /**
          * Setter for sublocality3.
-         * @param sublocality3 String value for sublocality3.
+         * @param  sublocality3  String value for sublocality3.
          * @return Builder
          */
         public Builder sublocality3(String sublocality3) {
@@ -402,7 +418,7 @@ public class Address {
 
         /**
          * Setter for administrativeDistrictLevel1.
-         * @param administrativeDistrictLevel1 String value for administrativeDistrictLevel1.
+         * @param  administrativeDistrictLevel1  String value for administrativeDistrictLevel1.
          * @return Builder
          */
         public Builder administrativeDistrictLevel1(String administrativeDistrictLevel1) {
@@ -412,7 +428,7 @@ public class Address {
 
         /**
          * Setter for administrativeDistrictLevel2.
-         * @param administrativeDistrictLevel2 String value for administrativeDistrictLevel2.
+         * @param  administrativeDistrictLevel2  String value for administrativeDistrictLevel2.
          * @return Builder
          */
         public Builder administrativeDistrictLevel2(String administrativeDistrictLevel2) {
@@ -422,7 +438,7 @@ public class Address {
 
         /**
          * Setter for administrativeDistrictLevel3.
-         * @param administrativeDistrictLevel3 String value for administrativeDistrictLevel3.
+         * @param  administrativeDistrictLevel3  String value for administrativeDistrictLevel3.
          * @return Builder
          */
         public Builder administrativeDistrictLevel3(String administrativeDistrictLevel3) {
@@ -432,7 +448,7 @@ public class Address {
 
         /**
          * Setter for postalCode.
-         * @param postalCode String value for postalCode.
+         * @param  postalCode  String value for postalCode.
          * @return Builder
          */
         public Builder postalCode(String postalCode) {
@@ -442,7 +458,7 @@ public class Address {
 
         /**
          * Setter for country.
-         * @param country String value for country.
+         * @param  country  String value for country.
          * @return Builder
          */
         public Builder country(String country) {
@@ -452,7 +468,7 @@ public class Address {
 
         /**
          * Setter for firstName.
-         * @param firstName String value for firstName.
+         * @param  firstName  String value for firstName.
          * @return Builder
          */
         public Builder firstName(String firstName) {
@@ -462,7 +478,7 @@ public class Address {
 
         /**
          * Setter for lastName.
-         * @param lastName String value for lastName.
+         * @param  lastName  String value for lastName.
          * @return Builder
          */
         public Builder lastName(String lastName) {
@@ -472,7 +488,7 @@ public class Address {
 
         /**
          * Setter for organization.
-         * @param organization String value for organization.
+         * @param  organization  String value for organization.
          * @return Builder
          */
         public Builder organization(String organization) {

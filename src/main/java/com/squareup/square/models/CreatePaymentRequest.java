@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,42 +14,57 @@ public class CreatePaymentRequest {
     private final String sourceId;
     private final String idempotencyKey;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autocomplete;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean acceptPartialAuthorization;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescriptionIdentifier;
 
     /**
      * Initialization constructor.
-     * @param sourceId String value for sourceId.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param amountMoney Money value for amountMoney.
-     * @param tipMoney Money value for tipMoney.
-     * @param appFeeMoney Money value for appFeeMoney.
-     * @param delayDuration String value for delayDuration.
-     * @param autocomplete Boolean value for autocomplete.
-     * @param orderId String value for orderId.
-     * @param customerId String value for customerId.
-     * @param locationId String value for locationId.
-     * @param referenceId String value for referenceId.
-     * @param verificationToken String value for verificationToken.
-     * @param acceptPartialAuthorization Boolean value for acceptPartialAuthorization.
-     * @param buyerEmailAddress String value for buyerEmailAddress.
-     * @param billingAddress Address value for billingAddress.
-     * @param shippingAddress Address value for shippingAddress.
-     * @param note String value for note.
-     * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
+     * @param  sourceId  String value for sourceId.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  delayDuration  String value for delayDuration.
+     * @param  autocomplete  Boolean value for autocomplete.
+     * @param  orderId  String value for orderId.
+     * @param  customerId  String value for customerId.
+     * @param  locationId  String value for locationId.
+     * @param  referenceId  String value for referenceId.
+     * @param  verificationToken  String value for verificationToken.
+     * @param  acceptPartialAuthorization  Boolean value for acceptPartialAuthorization.
+     * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  note  String value for note.
+     * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
      */
     @JsonCreator
     public CreatePaymentRequest(
@@ -98,7 +114,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("source_id")
     public String getSourceId() {
-        return this.sourceId;
+        return sourceId;
     }
 
     /**
@@ -112,7 +128,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -127,7 +143,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -142,7 +158,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("tip_money")
     public Money getTipMoney() {
-        return this.tipMoney;
+        return tipMoney;
     }
 
     /**
@@ -157,7 +173,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
-        return this.appFeeMoney;
+        return appFeeMoney;
     }
 
     /**
@@ -174,7 +190,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("delay_duration")
     public String getDelayDuration() {
-        return this.delayDuration;
+        return delayDuration;
     }
 
     /**
@@ -188,7 +204,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("autocomplete")
     public Boolean getAutocomplete() {
-        return this.autocomplete;
+        return autocomplete;
     }
 
     /**
@@ -198,7 +214,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -209,7 +225,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -220,7 +236,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -232,7 +248,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -245,7 +261,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("verification_token")
     public String getVerificationToken() {
-        return this.verificationToken;
+        return verificationToken;
     }
 
     /**
@@ -262,7 +278,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("accept_partial_authorization")
     public Boolean getAcceptPartialAuthorization() {
-        return this.acceptPartialAuthorization;
+        return acceptPartialAuthorization;
     }
 
     /**
@@ -272,7 +288,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("buyer_email_address")
     public String getBuyerEmailAddress() {
-        return this.buyerEmailAddress;
+        return buyerEmailAddress;
     }
 
     /**
@@ -282,7 +298,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
-        return this.billingAddress;
+        return billingAddress;
     }
 
     /**
@@ -292,7 +308,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("shipping_address")
     public Address getShippingAddress() {
-        return this.shippingAddress;
+        return shippingAddress;
     }
 
     /**
@@ -303,7 +319,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -318,7 +334,7 @@ public class CreatePaymentRequest {
      */
     @JsonGetter("statement_description_identifier")
     public String getStatementDescriptionIdentifier() {
-        return this.statementDescriptionIdentifier;
+        return statementDescriptionIdentifier;
     }
 
     @Override
@@ -427,13 +443,11 @@ public class CreatePaymentRequest {
 
         /**
          * Initialization constructor.
-         * @param sourceId String value for sourceId.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param amountMoney Money value for amountMoney.
+         * @param  sourceId  String value for sourceId.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String sourceId,
-                String idempotencyKey,
-                Money amountMoney) {
+        public Builder(String sourceId, String idempotencyKey, Money amountMoney) {
             this.sourceId = sourceId;
             this.idempotencyKey = idempotencyKey;
             this.amountMoney = amountMoney;
@@ -441,7 +455,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for sourceId.
-         * @param sourceId String value for sourceId.
+         * @param  sourceId  String value for sourceId.
          * @return Builder
          */
         public Builder sourceId(String sourceId) {
@@ -451,7 +465,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -461,7 +475,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -471,7 +485,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for tipMoney.
-         * @param tipMoney Money value for tipMoney.
+         * @param  tipMoney  Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(Money tipMoney) {
@@ -481,7 +495,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for appFeeMoney.
-         * @param appFeeMoney Money value for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
@@ -491,7 +505,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for delayDuration.
-         * @param delayDuration String value for delayDuration.
+         * @param  delayDuration  String value for delayDuration.
          * @return Builder
          */
         public Builder delayDuration(String delayDuration) {
@@ -501,7 +515,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for autocomplete.
-         * @param autocomplete Boolean value for autocomplete.
+         * @param  autocomplete  Boolean value for autocomplete.
          * @return Builder
          */
         public Builder autocomplete(Boolean autocomplete) {
@@ -511,7 +525,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -521,7 +535,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -531,7 +545,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -541,7 +555,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -551,7 +565,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for verificationToken.
-         * @param verificationToken String value for verificationToken.
+         * @param  verificationToken  String value for verificationToken.
          * @return Builder
          */
         public Builder verificationToken(String verificationToken) {
@@ -561,7 +575,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for acceptPartialAuthorization.
-         * @param acceptPartialAuthorization Boolean value for acceptPartialAuthorization.
+         * @param  acceptPartialAuthorization  Boolean value for acceptPartialAuthorization.
          * @return Builder
          */
         public Builder acceptPartialAuthorization(Boolean acceptPartialAuthorization) {
@@ -571,7 +585,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for buyerEmailAddress.
-         * @param buyerEmailAddress String value for buyerEmailAddress.
+         * @param  buyerEmailAddress  String value for buyerEmailAddress.
          * @return Builder
          */
         public Builder buyerEmailAddress(String buyerEmailAddress) {
@@ -581,7 +595,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for billingAddress.
-         * @param billingAddress Address value for billingAddress.
+         * @param  billingAddress  Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
@@ -591,7 +605,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for shippingAddress.
-         * @param shippingAddress Address value for shippingAddress.
+         * @param  shippingAddress  Address value for shippingAddress.
          * @return Builder
          */
         public Builder shippingAddress(Address shippingAddress) {
@@ -601,7 +615,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -611,7 +625,7 @@ public class CreatePaymentRequest {
 
         /**
          * Setter for statementDescriptionIdentifier.
-         * @param statementDescriptionIdentifier String value for statementDescriptionIdentifier.
+         * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
          * @return Builder
          */
         public Builder statementDescriptionIdentifier(String statementDescriptionIdentifier) {

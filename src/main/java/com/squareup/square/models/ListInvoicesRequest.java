@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class ListInvoicesRequest {
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
+     * @param  locationId  String value for locationId.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public ListInvoicesRequest(
@@ -37,7 +40,7 @@ public class ListInvoicesRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -49,7 +52,7 @@ public class ListInvoicesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -60,7 +63,7 @@ public class ListInvoicesRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -114,7 +117,7 @@ public class ListInvoicesRequest {
 
         /**
          * Initialization constructor.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          */
         public Builder(String locationId) {
             this.locationId = locationId;
@@ -122,7 +125,7 @@ public class ListInvoicesRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -132,7 +135,7 @@ public class ListInvoicesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -142,7 +145,7 @@ public class ListInvoicesRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

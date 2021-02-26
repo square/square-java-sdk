@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for V1ListPaymentsRequest type.
  */
 public class V1ListPaymentsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String batchToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includePartial;
 
     /**
      * Initialization constructor.
-     * @param order String value for order.
-     * @param beginTime String value for beginTime.
-     * @param endTime String value for endTime.
-     * @param limit Integer value for limit.
-     * @param batchToken String value for batchToken.
-     * @param includePartial Boolean value for includePartial.
+     * @param  order  String value for order.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  batchToken  String value for batchToken.
+     * @param  includePartial  Boolean value for includePartial.
      */
     @JsonCreator
     public V1ListPaymentsRequest(
@@ -49,7 +56,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("order")
     public String getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -61,7 +68,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("begin_time")
     public String getBeginTime() {
-        return this.beginTime;
+        return beginTime;
     }
 
     /**
@@ -73,7 +80,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("end_time")
     public String getEndTime() {
-        return this.endTime;
+        return endTime;
     }
 
     /**
@@ -83,7 +90,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -94,7 +101,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
-        return this.batchToken;
+        return batchToken;
     }
 
     /**
@@ -106,7 +113,7 @@ public class V1ListPaymentsRequest {
      */
     @JsonGetter("include_partial")
     public Boolean getIncludePartial() {
-        return this.includePartial;
+        return includePartial;
     }
 
     @Override
@@ -173,7 +180,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for order.
-         * @param order String value for order.
+         * @param  order  String value for order.
          * @return Builder
          */
         public Builder order(String order) {
@@ -183,7 +190,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for beginTime.
-         * @param beginTime String value for beginTime.
+         * @param  beginTime  String value for beginTime.
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
@@ -193,7 +200,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for endTime.
-         * @param endTime String value for endTime.
+         * @param  endTime  String value for endTime.
          * @return Builder
          */
         public Builder endTime(String endTime) {
@@ -203,7 +210,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -213,7 +220,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for batchToken.
-         * @param batchToken String value for batchToken.
+         * @param  batchToken  String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {
@@ -223,7 +230,7 @@ public class V1ListPaymentsRequest {
 
         /**
          * Setter for includePartial.
-         * @param includePartial Boolean value for includePartial.
+         * @param  includePartial  Boolean value for includePartial.
          * @return Builder
          */
         public Builder includePartial(Boolean includePartial) {

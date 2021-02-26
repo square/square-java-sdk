@@ -16,6 +16,12 @@ public interface Configuration {
     Environment getEnvironment();
 
     /**
+     * Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`
+     * @return a copy of customUrl
+     */
+    String getCustomUrl();
+
+    /**
      * Square Connect API versions.
      * @return a copy of squareVersion
      */

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,29 @@ import java.util.Objects;
  * This is a model class for Merchant type.
  */
 public class Merchant {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessName;
     private final String country;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String mainLocationId;
 
     /**
      * Initialization constructor.
-     * @param country String value for country.
-     * @param id String value for id.
-     * @param businessName String value for businessName.
-     * @param languageCode String value for languageCode.
-     * @param currency String value for currency.
-     * @param status String value for status.
-     * @param mainLocationId String value for mainLocationId.
+     * @param  country  String value for country.
+     * @param  id  String value for id.
+     * @param  businessName  String value for businessName.
+     * @param  languageCode  String value for languageCode.
+     * @param  currency  String value for currency.
+     * @param  status  String value for status.
+     * @param  mainLocationId  String value for mainLocationId.
      */
     @JsonCreator
     public Merchant(
@@ -53,7 +60,7 @@ public class Merchant {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -63,7 +70,7 @@ public class Merchant {
      */
     @JsonGetter("business_name")
     public String getBusinessName() {
-        return this.businessName;
+        return businessName;
     }
 
     /**
@@ -74,7 +81,7 @@ public class Merchant {
      */
     @JsonGetter("country")
     public String getCountry() {
-        return this.country;
+        return country;
     }
 
     /**
@@ -84,7 +91,7 @@ public class Merchant {
      */
     @JsonGetter("language_code")
     public String getLanguageCode() {
-        return this.languageCode;
+        return languageCode;
     }
 
     /**
@@ -95,7 +102,7 @@ public class Merchant {
      */
     @JsonGetter("currency")
     public String getCurrency() {
-        return this.currency;
+        return currency;
     }
 
     /**
@@ -104,7 +111,7 @@ public class Merchant {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -114,7 +121,7 @@ public class Merchant {
      */
     @JsonGetter("main_location_id")
     public String getMainLocationId() {
-        return this.mainLocationId;
+        return mainLocationId;
     }
 
     @Override
@@ -182,7 +189,7 @@ public class Merchant {
 
         /**
          * Initialization constructor.
-         * @param country String value for country.
+         * @param  country  String value for country.
          */
         public Builder(String country) {
             this.country = country;
@@ -190,7 +197,7 @@ public class Merchant {
 
         /**
          * Setter for country.
-         * @param country String value for country.
+         * @param  country  String value for country.
          * @return Builder
          */
         public Builder country(String country) {
@@ -200,7 +207,7 @@ public class Merchant {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -210,7 +217,7 @@ public class Merchant {
 
         /**
          * Setter for businessName.
-         * @param businessName String value for businessName.
+         * @param  businessName  String value for businessName.
          * @return Builder
          */
         public Builder businessName(String businessName) {
@@ -220,7 +227,7 @@ public class Merchant {
 
         /**
          * Setter for languageCode.
-         * @param languageCode String value for languageCode.
+         * @param  languageCode  String value for languageCode.
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
@@ -230,7 +237,7 @@ public class Merchant {
 
         /**
          * Setter for currency.
-         * @param currency String value for currency.
+         * @param  currency  String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {
@@ -240,7 +247,7 @@ public class Merchant {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -250,7 +257,7 @@ public class Merchant {
 
         /**
          * Setter for mainLocationId.
-         * @param mainLocationId String value for mainLocationId.
+         * @param  mainLocationId  String value for mainLocationId.
          * @return Builder
          */
         public Builder mainLocationId(String mainLocationId) {

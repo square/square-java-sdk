@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class RetrieveCatalogObjectResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject object;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> relatedObjects;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param object CatalogObject value for object.
-     * @param relatedObjects List of CatalogObject value for relatedObjects.
+     * @param  errors  List of Error value for errors.
+     * @param  object  CatalogObject value for object.
+     * @param  relatedObjects  List of CatalogObject value for relatedObjects.
      */
     @JsonCreator
     public RetrieveCatalogObjectResponse(
@@ -44,7 +48,7 @@ public class RetrieveCatalogObjectResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -79,7 +83,7 @@ public class RetrieveCatalogObjectResponse {
      */
     @JsonGetter("object")
     public CatalogObject getObject() {
-        return this.object;
+        return object;
     }
 
     /**
@@ -89,7 +93,7 @@ public class RetrieveCatalogObjectResponse {
      */
     @JsonGetter("related_objects")
     public List<CatalogObject> getRelatedObjects() {
-        return this.relatedObjects;
+        return relatedObjects;
     }
 
     @Override
@@ -147,7 +151,7 @@ public class RetrieveCatalogObjectResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -157,7 +161,7 @@ public class RetrieveCatalogObjectResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -167,7 +171,7 @@ public class RetrieveCatalogObjectResponse {
 
         /**
          * Setter for object.
-         * @param object CatalogObject value for object.
+         * @param  object  CatalogObject value for object.
          * @return Builder
          */
         public Builder object(CatalogObject object) {
@@ -177,7 +181,7 @@ public class RetrieveCatalogObjectResponse {
 
         /**
          * Setter for relatedObjects.
-         * @param relatedObjects List of CatalogObject value for relatedObjects.
+         * @param  relatedObjects  List of CatalogObject value for relatedObjects.
          * @return Builder
          */
         public Builder relatedObjects(List<CatalogObject> relatedObjects) {

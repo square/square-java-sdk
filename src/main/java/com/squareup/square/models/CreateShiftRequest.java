@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,14 @@ import java.util.Objects;
  * This is a model class for CreateShiftRequest type.
  */
 public class CreateShiftRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final Shift shift;
 
     /**
      * Initialization constructor.
-     * @param shift Shift value for shift.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  shift  Shift value for shift.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateShiftRequest(
@@ -33,7 +35,7 @@ public class CreateShiftRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +46,7 @@ public class CreateShiftRequest {
      */
     @JsonGetter("shift")
     public Shift getShift() {
-        return this.shift;
+        return shift;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class CreateShiftRequest {
 
         /**
          * Initialization constructor.
-         * @param shift Shift value for shift.
+         * @param  shift  Shift value for shift.
          */
         public Builder(Shift shift) {
             this.shift = shift;
@@ -103,7 +105,7 @@ public class CreateShiftRequest {
 
         /**
          * Setter for shift.
-         * @param shift Shift value for shift.
+         * @param  shift  Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {
@@ -113,7 +115,7 @@ public class CreateShiftRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {

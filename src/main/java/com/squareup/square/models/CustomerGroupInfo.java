@@ -15,8 +15,8 @@ public class CustomerGroupInfo {
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param name String value for name.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
      */
     @JsonCreator
     public CustomerGroupInfo(
@@ -33,7 +33,7 @@ public class CustomerGroupInfo {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -43,7 +43,7 @@ public class CustomerGroupInfo {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -92,18 +92,17 @@ public class CustomerGroupInfo {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param name String value for name.
+         * @param  id  String value for id.
+         * @param  name  String value for name.
          */
-        public Builder(String id,
-                String name) {
+        public Builder(String id, String name) {
             this.id = id;
             this.name = name;
         }
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -113,7 +112,7 @@ public class CustomerGroupInfo {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {

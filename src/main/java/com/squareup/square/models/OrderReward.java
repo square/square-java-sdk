@@ -15,8 +15,8 @@ public class OrderReward {
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param rewardTierId String value for rewardTierId.
+     * @param  id  String value for id.
+     * @param  rewardTierId  String value for rewardTierId.
      */
     @JsonCreator
     public OrderReward(
@@ -33,7 +33,7 @@ public class OrderReward {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -43,7 +43,7 @@ public class OrderReward {
      */
     @JsonGetter("reward_tier_id")
     public String getRewardTierId() {
-        return this.rewardTierId;
+        return rewardTierId;
     }
 
     @Override
@@ -92,18 +92,17 @@ public class OrderReward {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param rewardTierId String value for rewardTierId.
+         * @param  id  String value for id.
+         * @param  rewardTierId  String value for rewardTierId.
          */
-        public Builder(String id,
-                String rewardTierId) {
+        public Builder(String id, String rewardTierId) {
             this.id = id;
             this.rewardTierId = rewardTierId;
         }
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -113,7 +112,7 @@ public class OrderReward {
 
         /**
          * Setter for rewardTierId.
-         * @param rewardTierId String value for rewardTierId.
+         * @param  rewardTierId  String value for rewardTierId.
          * @return Builder
          */
         public Builder rewardTierId(String rewardTierId) {

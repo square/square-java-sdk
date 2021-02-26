@@ -16,9 +16,9 @@ public class AccumulateLoyaltyPointsRequest {
 
     /**
      * Initialization constructor.
-     * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param locationId String value for locationId.
+     * @param  accumulatePoints  LoyaltyEventAccumulatePoints value for accumulatePoints.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public AccumulateLoyaltyPointsRequest(
@@ -37,7 +37,7 @@ public class AccumulateLoyaltyPointsRequest {
      */
     @JsonGetter("accumulate_points")
     public LoyaltyEventAccumulatePoints getAccumulatePoints() {
-        return this.accumulatePoints;
+        return accumulatePoints;
     }
 
     /**
@@ -48,7 +48,7 @@ public class AccumulateLoyaltyPointsRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -58,7 +58,7 @@ public class AccumulateLoyaltyPointsRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -110,12 +110,11 @@ public class AccumulateLoyaltyPointsRequest {
 
         /**
          * Initialization constructor.
-         * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param locationId String value for locationId.
+         * @param  accumulatePoints  LoyaltyEventAccumulatePoints value for accumulatePoints.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  locationId  String value for locationId.
          */
-        public Builder(LoyaltyEventAccumulatePoints accumulatePoints,
-                String idempotencyKey,
+        public Builder(LoyaltyEventAccumulatePoints accumulatePoints, String idempotencyKey,
                 String locationId) {
             this.accumulatePoints = accumulatePoints;
             this.idempotencyKey = idempotencyKey;
@@ -124,7 +123,7 @@ public class AccumulateLoyaltyPointsRequest {
 
         /**
          * Setter for accumulatePoints.
-         * @param accumulatePoints LoyaltyEventAccumulatePoints value for accumulatePoints.
+         * @param  accumulatePoints  LoyaltyEventAccumulatePoints value for accumulatePoints.
          * @return Builder
          */
         public Builder accumulatePoints(LoyaltyEventAccumulatePoints accumulatePoints) {
@@ -134,7 +133,7 @@ public class AccumulateLoyaltyPointsRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -144,7 +143,7 @@ public class AccumulateLoyaltyPointsRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for CatalogTax type.
  */
 public class CatalogTax {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculationPhase;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inclusionType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean appliesToCustomAmounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param calculationPhase String value for calculationPhase.
-     * @param inclusionType String value for inclusionType.
-     * @param percentage String value for percentage.
-     * @param appliesToCustomAmounts Boolean value for appliesToCustomAmounts.
-     * @param enabled Boolean value for enabled.
+     * @param  name  String value for name.
+     * @param  calculationPhase  String value for calculationPhase.
+     * @param  inclusionType  String value for inclusionType.
+     * @param  percentage  String value for percentage.
+     * @param  appliesToCustomAmounts  Boolean value for appliesToCustomAmounts.
+     * @param  enabled  Boolean value for enabled.
      */
     @JsonCreator
     public CatalogTax(
@@ -50,7 +57,7 @@ public class CatalogTax {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -60,7 +67,7 @@ public class CatalogTax {
      */
     @JsonGetter("calculation_phase")
     public String getCalculationPhase() {
-        return this.calculationPhase;
+        return calculationPhase;
     }
 
     /**
@@ -70,7 +77,7 @@ public class CatalogTax {
      */
     @JsonGetter("inclusion_type")
     public String getInclusionType() {
-        return this.inclusionType;
+        return inclusionType;
     }
 
     /**
@@ -81,7 +88,7 @@ public class CatalogTax {
      */
     @JsonGetter("percentage")
     public String getPercentage() {
-        return this.percentage;
+        return percentage;
     }
 
     /**
@@ -92,7 +99,7 @@ public class CatalogTax {
      */
     @JsonGetter("applies_to_custom_amounts")
     public Boolean getAppliesToCustomAmounts() {
-        return this.appliesToCustomAmounts;
+        return appliesToCustomAmounts;
     }
 
     /**
@@ -103,7 +110,7 @@ public class CatalogTax {
      */
     @JsonGetter("enabled")
     public Boolean getEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     @Override
@@ -172,7 +179,7 @@ public class CatalogTax {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -182,7 +189,7 @@ public class CatalogTax {
 
         /**
          * Setter for calculationPhase.
-         * @param calculationPhase String value for calculationPhase.
+         * @param  calculationPhase  String value for calculationPhase.
          * @return Builder
          */
         public Builder calculationPhase(String calculationPhase) {
@@ -192,7 +199,7 @@ public class CatalogTax {
 
         /**
          * Setter for inclusionType.
-         * @param inclusionType String value for inclusionType.
+         * @param  inclusionType  String value for inclusionType.
          * @return Builder
          */
         public Builder inclusionType(String inclusionType) {
@@ -202,7 +209,7 @@ public class CatalogTax {
 
         /**
          * Setter for percentage.
-         * @param percentage String value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
         public Builder percentage(String percentage) {
@@ -212,7 +219,7 @@ public class CatalogTax {
 
         /**
          * Setter for appliesToCustomAmounts.
-         * @param appliesToCustomAmounts Boolean value for appliesToCustomAmounts.
+         * @param  appliesToCustomAmounts  Boolean value for appliesToCustomAmounts.
          * @return Builder
          */
         public Builder appliesToCustomAmounts(Boolean appliesToCustomAmounts) {
@@ -222,7 +229,7 @@ public class CatalogTax {
 
         /**
          * Setter for enabled.
-         * @param enabled Boolean value for enabled.
+         * @param  enabled  Boolean value for enabled.
          * @return Builder
          */
         public Builder enabled(Boolean enabled) {

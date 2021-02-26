@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,37 +12,50 @@ import java.util.Objects;
  * This is a model class for Tender type.
  */
 public class Tender {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String transactionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money processingFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TenderCardDetails cardDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TenderCashDetails cashDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param id String value for id.
-     * @param locationId String value for locationId.
-     * @param transactionId String value for transactionId.
-     * @param createdAt String value for createdAt.
-     * @param note String value for note.
-     * @param amountMoney Money value for amountMoney.
-     * @param tipMoney Money value for tipMoney.
-     * @param processingFeeMoney Money value for processingFeeMoney.
-     * @param customerId String value for customerId.
-     * @param cardDetails TenderCardDetails value for cardDetails.
-     * @param cashDetails TenderCashDetails value for cashDetails.
-     * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
-     * @param paymentId String value for paymentId.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  transactionId  String value for transactionId.
+     * @param  createdAt  String value for createdAt.
+     * @param  note  String value for note.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  processingFeeMoney  Money value for processingFeeMoney.
+     * @param  customerId  String value for customerId.
+     * @param  cardDetails  TenderCardDetails value for cardDetails.
+     * @param  cashDetails  TenderCashDetails value for cashDetails.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
+     * @param  paymentId  String value for paymentId.
      */
     @JsonCreator
     public Tender(
@@ -82,7 +96,7 @@ public class Tender {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -92,7 +106,7 @@ public class Tender {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -102,7 +116,7 @@ public class Tender {
      */
     @JsonGetter("transaction_id")
     public String getTransactionId() {
-        return this.transactionId;
+        return transactionId;
     }
 
     /**
@@ -112,7 +126,7 @@ public class Tender {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -122,7 +136,7 @@ public class Tender {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -137,7 +151,7 @@ public class Tender {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -152,7 +166,7 @@ public class Tender {
      */
     @JsonGetter("tip_money")
     public Money getTipMoney() {
-        return this.tipMoney;
+        return tipMoney;
     }
 
     /**
@@ -167,7 +181,7 @@ public class Tender {
      */
     @JsonGetter("processing_fee_money")
     public Money getProcessingFeeMoney() {
-        return this.processingFeeMoney;
+        return processingFeeMoney;
     }
 
     /**
@@ -178,7 +192,7 @@ public class Tender {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -188,7 +202,7 @@ public class Tender {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -198,7 +212,7 @@ public class Tender {
      */
     @JsonGetter("card_details")
     public TenderCardDetails getCardDetails() {
-        return this.cardDetails;
+        return cardDetails;
     }
 
     /**
@@ -208,7 +222,7 @@ public class Tender {
      */
     @JsonGetter("cash_details")
     public TenderCashDetails getCashDetails() {
-        return this.cashDetails;
+        return cashDetails;
     }
 
     /**
@@ -219,7 +233,7 @@ public class Tender {
      */
     @JsonGetter("additional_recipients")
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return this.additionalRecipients;
+        return additionalRecipients;
     }
 
     /**
@@ -230,7 +244,7 @@ public class Tender {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     @Override
@@ -324,7 +338,7 @@ public class Tender {
 
         /**
          * Initialization constructor.
-         * @param type String value for type.
+         * @param  type  String value for type.
          */
         public Builder(String type) {
             this.type = type;
@@ -332,7 +346,7 @@ public class Tender {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -342,7 +356,7 @@ public class Tender {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -352,7 +366,7 @@ public class Tender {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -362,7 +376,7 @@ public class Tender {
 
         /**
          * Setter for transactionId.
-         * @param transactionId String value for transactionId.
+         * @param  transactionId  String value for transactionId.
          * @return Builder
          */
         public Builder transactionId(String transactionId) {
@@ -372,7 +386,7 @@ public class Tender {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -382,7 +396,7 @@ public class Tender {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -392,7 +406,7 @@ public class Tender {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -402,7 +416,7 @@ public class Tender {
 
         /**
          * Setter for tipMoney.
-         * @param tipMoney Money value for tipMoney.
+         * @param  tipMoney  Money value for tipMoney.
          * @return Builder
          */
         public Builder tipMoney(Money tipMoney) {
@@ -412,7 +426,7 @@ public class Tender {
 
         /**
          * Setter for processingFeeMoney.
-         * @param processingFeeMoney Money value for processingFeeMoney.
+         * @param  processingFeeMoney  Money value for processingFeeMoney.
          * @return Builder
          */
         public Builder processingFeeMoney(Money processingFeeMoney) {
@@ -422,7 +436,7 @@ public class Tender {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -432,7 +446,7 @@ public class Tender {
 
         /**
          * Setter for cardDetails.
-         * @param cardDetails TenderCardDetails value for cardDetails.
+         * @param  cardDetails  TenderCardDetails value for cardDetails.
          * @return Builder
          */
         public Builder cardDetails(TenderCardDetails cardDetails) {
@@ -442,7 +456,7 @@ public class Tender {
 
         /**
          * Setter for cashDetails.
-         * @param cashDetails TenderCashDetails value for cashDetails.
+         * @param  cashDetails  TenderCashDetails value for cashDetails.
          * @return Builder
          */
         public Builder cashDetails(TenderCashDetails cashDetails) {
@@ -452,7 +466,7 @@ public class Tender {
 
         /**
          * Setter for additionalRecipients.
-         * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
+         * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
@@ -462,7 +476,7 @@ public class Tender {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {

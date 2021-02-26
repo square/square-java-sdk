@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import java.util.Objects;
  */
 public class DeviceCheckoutOptions {
     private final String deviceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipReceiptScreen;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TipSettings tipSettings;
 
     /**
      * Initialization constructor.
-     * @param deviceId String value for deviceId.
-     * @param skipReceiptScreen Boolean value for skipReceiptScreen.
-     * @param tipSettings TipSettings value for tipSettings.
+     * @param  deviceId  String value for deviceId.
+     * @param  skipReceiptScreen  Boolean value for skipReceiptScreen.
+     * @param  tipSettings  TipSettings value for tipSettings.
      */
     @JsonCreator
     public DeviceCheckoutOptions(
@@ -39,7 +42,7 @@ public class DeviceCheckoutOptions {
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     /**
@@ -49,7 +52,7 @@ public class DeviceCheckoutOptions {
      */
     @JsonGetter("skip_receipt_screen")
     public Boolean getSkipReceiptScreen() {
-        return this.skipReceiptScreen;
+        return skipReceiptScreen;
     }
 
     /**
@@ -58,7 +61,7 @@ public class DeviceCheckoutOptions {
      */
     @JsonGetter("tip_settings")
     public TipSettings getTipSettings() {
-        return this.tipSettings;
+        return tipSettings;
     }
 
     @Override
@@ -112,7 +115,7 @@ public class DeviceCheckoutOptions {
 
         /**
          * Initialization constructor.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          */
         public Builder(String deviceId) {
             this.deviceId = deviceId;
@@ -120,7 +123,7 @@ public class DeviceCheckoutOptions {
 
         /**
          * Setter for deviceId.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
@@ -130,7 +133,7 @@ public class DeviceCheckoutOptions {
 
         /**
          * Setter for skipReceiptScreen.
-         * @param skipReceiptScreen Boolean value for skipReceiptScreen.
+         * @param  skipReceiptScreen  Boolean value for skipReceiptScreen.
          * @return Builder
          */
         public Builder skipReceiptScreen(Boolean skipReceiptScreen) {
@@ -140,7 +143,7 @@ public class DeviceCheckoutOptions {
 
         /**
          * Setter for tipSettings.
-         * @param tipSettings TipSettings value for tipSettings.
+         * @param  tipSettings  TipSettings value for tipSettings.
          * @return Builder
          */
         public Builder tipSettings(TipSettings tipSettings) {

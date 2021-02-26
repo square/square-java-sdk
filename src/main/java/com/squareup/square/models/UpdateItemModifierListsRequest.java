@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class UpdateItemModifierListsRequest {
     private final List<String> itemIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> modifierListsToEnable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> modifierListsToDisable;
 
     /**
      * Initialization constructor.
-     * @param itemIds List of String value for itemIds.
-     * @param modifierListsToEnable List of String value for modifierListsToEnable.
-     * @param modifierListsToDisable List of String value for modifierListsToDisable.
+     * @param  itemIds  List of String value for itemIds.
+     * @param  modifierListsToEnable  List of String value for modifierListsToEnable.
+     * @param  modifierListsToDisable  List of String value for modifierListsToDisable.
      */
     @JsonCreator
     public UpdateItemModifierListsRequest(
@@ -38,7 +41,7 @@ public class UpdateItemModifierListsRequest {
      */
     @JsonGetter("item_ids")
     public List<String> getItemIds() {
-        return this.itemIds;
+        return itemIds;
     }
 
     /**
@@ -48,7 +51,7 @@ public class UpdateItemModifierListsRequest {
      */
     @JsonGetter("modifier_lists_to_enable")
     public List<String> getModifierListsToEnable() {
-        return this.modifierListsToEnable;
+        return modifierListsToEnable;
     }
 
     /**
@@ -58,7 +61,7 @@ public class UpdateItemModifierListsRequest {
      */
     @JsonGetter("modifier_lists_to_disable")
     public List<String> getModifierListsToDisable() {
-        return this.modifierListsToDisable;
+        return modifierListsToDisable;
     }
 
     @Override
@@ -113,7 +116,7 @@ public class UpdateItemModifierListsRequest {
 
         /**
          * Initialization constructor.
-         * @param itemIds List of String value for itemIds.
+         * @param  itemIds  List of String value for itemIds.
          */
         public Builder(List<String> itemIds) {
             this.itemIds = itemIds;
@@ -121,7 +124,7 @@ public class UpdateItemModifierListsRequest {
 
         /**
          * Setter for itemIds.
-         * @param itemIds List of String value for itemIds.
+         * @param  itemIds  List of String value for itemIds.
          * @return Builder
          */
         public Builder itemIds(List<String> itemIds) {
@@ -131,7 +134,7 @@ public class UpdateItemModifierListsRequest {
 
         /**
          * Setter for modifierListsToEnable.
-         * @param modifierListsToEnable List of String value for modifierListsToEnable.
+         * @param  modifierListsToEnable  List of String value for modifierListsToEnable.
          * @return Builder
          */
         public Builder modifierListsToEnable(List<String> modifierListsToEnable) {
@@ -141,7 +144,7 @@ public class UpdateItemModifierListsRequest {
 
         /**
          * Setter for modifierListsToDisable.
-         * @param modifierListsToDisable List of String value for modifierListsToDisable.
+         * @param  modifierListsToDisable  List of String value for modifierListsToDisable.
          * @return Builder
          */
         public Builder modifierListsToDisable(List<String> modifierListsToDisable) {

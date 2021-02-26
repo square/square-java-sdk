@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,19 +11,24 @@ import java.util.Objects;
  * This is a model class for InvoicePaymentReminder type.
  */
 public class InvoicePaymentReminder {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer relativeScheduledDays;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sentAt;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param relativeScheduledDays Integer value for relativeScheduledDays.
-     * @param message String value for message.
-     * @param status String value for status.
-     * @param sentAt String value for sentAt.
+     * @param  uid  String value for uid.
+     * @param  relativeScheduledDays  Integer value for relativeScheduledDays.
+     * @param  message  String value for message.
+     * @param  status  String value for status.
+     * @param  sentAt  String value for sentAt.
      */
     @JsonCreator
     public InvoicePaymentReminder(
@@ -46,7 +52,7 @@ public class InvoicePaymentReminder {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -58,7 +64,7 @@ public class InvoicePaymentReminder {
      */
     @JsonGetter("relative_scheduled_days")
     public Integer getRelativeScheduledDays() {
-        return this.relativeScheduledDays;
+        return relativeScheduledDays;
     }
 
     /**
@@ -68,7 +74,7 @@ public class InvoicePaymentReminder {
      */
     @JsonGetter("message")
     public String getMessage() {
-        return this.message;
+        return message;
     }
 
     /**
@@ -78,7 +84,7 @@ public class InvoicePaymentReminder {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -88,7 +94,7 @@ public class InvoicePaymentReminder {
      */
     @JsonGetter("sent_at")
     public String getSentAt() {
-        return this.sentAt;
+        return sentAt;
     }
 
     @Override
@@ -152,7 +158,7 @@ public class InvoicePaymentReminder {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -162,7 +168,7 @@ public class InvoicePaymentReminder {
 
         /**
          * Setter for relativeScheduledDays.
-         * @param relativeScheduledDays Integer value for relativeScheduledDays.
+         * @param  relativeScheduledDays  Integer value for relativeScheduledDays.
          * @return Builder
          */
         public Builder relativeScheduledDays(Integer relativeScheduledDays) {
@@ -172,7 +178,7 @@ public class InvoicePaymentReminder {
 
         /**
          * Setter for message.
-         * @param message String value for message.
+         * @param  message  String value for message.
          * @return Builder
          */
         public Builder message(String message) {
@@ -182,7 +188,7 @@ public class InvoicePaymentReminder {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -192,7 +198,7 @@ public class InvoicePaymentReminder {
 
         /**
          * Setter for sentAt.
-         * @param sentAt String value for sentAt.
+         * @param  sentAt  String value for sentAt.
          * @return Builder
          */
         public Builder sentAt(String sentAt) {

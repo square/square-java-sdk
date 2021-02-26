@@ -9,10 +9,10 @@ Represents a phone number.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `CallingCode` | `String` | The phone number's international calling code. For US phone numbers, this value is +1. | String getCallingCode() |
-| `Number` | `String` | The phone number. | String getNumber() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `CallingCode` | `String` | Required | The phone number's international calling code. For US phone numbers, this value is +1. | String getCallingCode() |
+| `Number` | `String` | Required | The phone number. | String getNumber() |
 
 ## Example (as JSON)
 

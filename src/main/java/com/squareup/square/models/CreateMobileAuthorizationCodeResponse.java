@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
@@ -12,15 +13,18 @@ import java.util.Objects;
  */
 public class CreateMobileAuthorizationCodeResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String authorizationCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Error error;
 
     /**
      * Initialization constructor.
-     * @param authorizationCode String value for authorizationCode.
-     * @param expiresAt String value for expiresAt.
-     * @param error Error value for error.
+     * @param  authorizationCode  String value for authorizationCode.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  error  Error value for error.
      */
     @JsonCreator
     public CreateMobileAuthorizationCodeResponse(
@@ -43,7 +47,7 @@ public class CreateMobileAuthorizationCodeResponse {
      */
     @JsonGetter("authorization_code")
     public String getAuthorizationCode() {
-        return this.authorizationCode;
+        return authorizationCode;
     }
 
     /**
@@ -54,7 +58,7 @@ public class CreateMobileAuthorizationCodeResponse {
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
-        return this.expiresAt;
+        return expiresAt;
     }
 
     /**
@@ -65,7 +69,7 @@ public class CreateMobileAuthorizationCodeResponse {
      */
     @JsonGetter("error")
     public Error getError() {
-        return this.error;
+        return error;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class CreateMobileAuthorizationCodeResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -133,7 +137,7 @@ public class CreateMobileAuthorizationCodeResponse {
 
         /**
          * Setter for authorizationCode.
-         * @param authorizationCode String value for authorizationCode.
+         * @param  authorizationCode  String value for authorizationCode.
          * @return Builder
          */
         public Builder authorizationCode(String authorizationCode) {
@@ -143,7 +147,7 @@ public class CreateMobileAuthorizationCodeResponse {
 
         /**
          * Setter for expiresAt.
-         * @param expiresAt String value for expiresAt.
+         * @param  expiresAt  String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
@@ -153,7 +157,7 @@ public class CreateMobileAuthorizationCodeResponse {
 
         /**
          * Setter for error.
-         * @param error Error value for error.
+         * @param  error  Error value for error.
          * @return Builder
          */
         public Builder error(Error error) {

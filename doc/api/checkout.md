@@ -185,7 +185,6 @@ Order bodyOrderOrder = new Order.Builder(
     .build();
 CreateOrderRequest bodyOrder = new CreateOrderRequest.Builder()
     .order(bodyOrderOrder)
-    .locationId("location_id4")
     .idempotencyKey("12ae1696-z1e3-4328-af6d-f1e04d947gd4")
     .build();
 Address bodyPrePopulateShippingAddress = new Address.Builder()

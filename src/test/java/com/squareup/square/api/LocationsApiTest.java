@@ -1,40 +1,29 @@
+
 package com.squareup.square.api;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-
+import com.squareup.square.SquareClient;
+import com.squareup.square.exceptions.ApiException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.squareup.square.ApiHelper;
-import com.squareup.square.SquareClient;
-import com.squareup.square.exceptions.*;
-import com.squareup.square.utilities.FileWrapper;
-import com.squareup.square.models.ListLocationsResponse;
-import com.squareup.square.models.CreateLocationResponse;
-import com.squareup.square.models.CreateLocationRequest;
-import com.squareup.square.models.RetrieveLocationResponse;
-import com.squareup.square.models.UpdateLocationResponse;
-import com.squareup.square.models.UpdateLocationRequest;
-import com.squareup.square.testing.TestHelper;
-
-
 public class LocationsApiTest extends BaseApiTest {
 
     /**
-     * Client instance
+     * Client instance.
      */
     private static SquareClient client;
     
     /**
-     * Controller instance (for all tests)
+     * Controller instance (for all tests).
      */
     private static LocationsApi controller;
 
     /**
-     * Setup test class
+     * Setup test class.
      */
     @BeforeClass
     public static void setUpClass() {
@@ -43,29 +32,28 @@ public class LocationsApiTest extends BaseApiTest {
     }
 
     /**
-     * Tear down test class
-     * @throws IOException
+     * Tear down test class.
      */
     @AfterClass
-    public static void tearDownClass() throws IOException {
+    public static void tearDownClass() {
         controller = null;
     }
 
     /**
-     * Provides information of all locations of a business.
-     * Many Square API endpoints require a `location_id` parameter.
-     * The `id` field of the [`Location`](#type-location) objects returned by this
-     * endpoint correspond to that `location_id` parameter.
-     * @throws Throwable
+     * Provides information of all locations of a business. Many Square API endpoints require a
+     * `location_id` parameter. The `id` field of the [`Location`](#type-location) objects returned
+     * by this endpoint correspond to that `location_id` parameter.
+     * @throws Throwable exception if occurs.
      */
     @Test
     public void testListLocations() throws Exception {
 
         // Set callback and perform API call
-        ListLocationsResponse result = null;
         try {
-            result = controller.listLocations();
-        } catch(ApiException e) {};
+            controller.listLocations();
+        } catch (ApiException e) {
+            // Empty block
+        }
 
         // Test whether the response is null
         assertNotNull("Response is null", 

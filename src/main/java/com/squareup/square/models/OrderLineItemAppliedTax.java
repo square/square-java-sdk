@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,17 @@ import java.util.Objects;
  * This is a model class for OrderLineItemAppliedTax type.
  */
 public class OrderLineItemAppliedTax {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String taxUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
 
     /**
      * Initialization constructor.
-     * @param taxUid String value for taxUid.
-     * @param uid String value for uid.
-     * @param appliedMoney Money value for appliedMoney.
+     * @param  taxUid  String value for taxUid.
+     * @param  uid  String value for uid.
+     * @param  appliedMoney  Money value for appliedMoney.
      */
     @JsonCreator
     public OrderLineItemAppliedTax(
@@ -37,7 +40,7 @@ public class OrderLineItemAppliedTax {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -49,7 +52,7 @@ public class OrderLineItemAppliedTax {
      */
     @JsonGetter("tax_uid")
     public String getTaxUid() {
-        return this.taxUid;
+        return taxUid;
     }
 
     /**
@@ -64,7 +67,7 @@ public class OrderLineItemAppliedTax {
      */
     @JsonGetter("applied_money")
     public Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     @Override
@@ -118,7 +121,7 @@ public class OrderLineItemAppliedTax {
 
         /**
          * Initialization constructor.
-         * @param taxUid String value for taxUid.
+         * @param  taxUid  String value for taxUid.
          */
         public Builder(String taxUid) {
             this.taxUid = taxUid;
@@ -126,7 +129,7 @@ public class OrderLineItemAppliedTax {
 
         /**
          * Setter for taxUid.
-         * @param taxUid String value for taxUid.
+         * @param  taxUid  String value for taxUid.
          * @return Builder
          */
         public Builder taxUid(String taxUid) {
@@ -136,7 +139,7 @@ public class OrderLineItemAppliedTax {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -146,7 +149,7 @@ public class OrderLineItemAppliedTax {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney Money value for appliedMoney.
+         * @param  appliedMoney  Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(Money appliedMoney) {

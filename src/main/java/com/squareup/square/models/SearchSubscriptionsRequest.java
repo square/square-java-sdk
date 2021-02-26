@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsRequest type.
  */
 public class SearchSubscriptionsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchSubscriptionsQuery query;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
-     * @param query SearchSubscriptionsQuery value for query.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  query  SearchSubscriptionsQuery value for query.
      */
     @JsonCreator
     public SearchSubscriptionsRequest(
@@ -39,7 +43,7 @@ public class SearchSubscriptionsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -49,7 +53,7 @@ public class SearchSubscriptionsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -59,7 +63,7 @@ public class SearchSubscriptionsRequest {
      */
     @JsonGetter("query")
     public SearchSubscriptionsQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class SearchSubscriptionsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -126,7 +130,7 @@ public class SearchSubscriptionsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -136,7 +140,7 @@ public class SearchSubscriptionsRequest {
 
         /**
          * Setter for query.
-         * @param query SearchSubscriptionsQuery value for query.
+         * @param  query  SearchSubscriptionsQuery value for query.
          * @return Builder
          */
         public Builder query(SearchSubscriptionsQuery query) {

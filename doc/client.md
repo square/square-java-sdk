@@ -5,7 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-01-21"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-02-26"` |
+| `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `timeout` | `long` | The timeout to use for making HTTP requests.<br>*Default*: `60L` |
 | `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
@@ -16,9 +17,10 @@ The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2021-01-21")
+    .squareVersion("2021-02-26")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
+    .customUrl("https://connect.squareup.com")
     .build();
 ```
 
@@ -39,7 +41,7 @@ public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2021-01-21")
+            .squareVersion("2021-02-26")
             .accessToken("AccessToken")
             .build();
         
@@ -67,7 +69,6 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getOAuthApi()` | Provides access to OAuth controller. | `OAuthApi` |
 | `getV1EmployeesApi()` | Provides access to V1Employees controller. | `V1EmployeesApi` |
 | `getV1TransactionsApi()` | Provides access to V1Transactions controller. | `V1TransactionsApi` |
-| `getV1ItemsApi()` | Provides access to V1Items controller. | `V1ItemsApi` |
 | `getApplePayApi()` | Provides access to ApplePay controller. | `ApplePayApi` |
 | `getBankAccountsApi()` | Provides access to BankAccounts controller. | `BankAccountsApi` |
 | `getBookingsApi()` | Provides access to Bookings controller. | `BookingsApi` |
@@ -100,6 +101,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 |  --- | --- | --- |
 | `shutdown()` | Shutdown the underlying HttpClient instance. | `void` |
 | `getEnvironment()` | Current API environment. | `Environment` |
+| `getCustomUrl()` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com` | `String` |
 | `getSquareVersion()` | Square Connect API versions. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
 | `getTimeout()` | The timeout to use for making HTTP requests. | `long` |

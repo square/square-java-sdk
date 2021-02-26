@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,27 +11,34 @@ import java.util.Objects;
  * This is a model class for LoyaltyReward type.
  */
 public class LoyaltyReward {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
     private final String loyaltyAccountId;
     private final String rewardTierId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redeemedAt;
 
     /**
      * Initialization constructor.
-     * @param loyaltyAccountId String value for loyaltyAccountId.
-     * @param rewardTierId String value for rewardTierId.
-     * @param id String value for id.
-     * @param status String value for status.
-     * @param points Integer value for points.
-     * @param orderId String value for orderId.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param redeemedAt String value for redeemedAt.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
+     * @param  rewardTierId  String value for rewardTierId.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  points  Integer value for points.
+     * @param  orderId  String value for orderId.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  redeemedAt  String value for redeemedAt.
      */
     @JsonCreator
     public LoyaltyReward(
@@ -61,7 +69,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -71,7 +79,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -82,7 +90,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("loyalty_account_id")
     public String getLoyaltyAccountId() {
-        return this.loyaltyAccountId;
+        return loyaltyAccountId;
     }
 
     /**
@@ -93,7 +101,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("reward_tier_id")
     public String getRewardTierId() {
-        return this.rewardTierId;
+        return rewardTierId;
     }
 
     /**
@@ -103,7 +111,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("points")
     public Integer getPoints() {
-        return this.points;
+        return points;
     }
 
     /**
@@ -113,7 +121,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -123,7 +131,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -133,7 +141,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -143,7 +151,7 @@ public class LoyaltyReward {
      */
     @JsonGetter("redeemed_at")
     public String getRedeemedAt() {
-        return this.redeemedAt;
+        return redeemedAt;
     }
 
     @Override
@@ -217,18 +225,17 @@ public class LoyaltyReward {
 
         /**
          * Initialization constructor.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
-         * @param rewardTierId String value for rewardTierId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
+         * @param  rewardTierId  String value for rewardTierId.
          */
-        public Builder(String loyaltyAccountId,
-                String rewardTierId) {
+        public Builder(String loyaltyAccountId, String rewardTierId) {
             this.loyaltyAccountId = loyaltyAccountId;
             this.rewardTierId = rewardTierId;
         }
 
         /**
          * Setter for loyaltyAccountId.
-         * @param loyaltyAccountId String value for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
@@ -238,7 +245,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for rewardTierId.
-         * @param rewardTierId String value for rewardTierId.
+         * @param  rewardTierId  String value for rewardTierId.
          * @return Builder
          */
         public Builder rewardTierId(String rewardTierId) {
@@ -248,7 +255,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -258,7 +265,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -268,7 +275,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for points.
-         * @param points Integer value for points.
+         * @param  points  Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
@@ -278,7 +285,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -288,7 +295,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -298,7 +305,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -308,7 +315,7 @@ public class LoyaltyReward {
 
         /**
          * Setter for redeemedAt.
-         * @param redeemedAt String value for redeemedAt.
+         * @param  redeemedAt  String value for redeemedAt.
          * @return Builder
          */
         public Builder redeemedAt(String redeemedAt) {

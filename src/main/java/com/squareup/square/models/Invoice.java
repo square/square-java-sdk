@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,45 +12,63 @@ import java.util.Objects;
  * This is a model class for Invoice type.
  */
 public class Invoice {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceRecipient primaryRecipient;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoicePaymentRequest> paymentRequests;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deliveryMethod;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String invoiceNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scheduledAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String publicUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money nextPaymentAmountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoiceCustomField> customFields;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param version Integer value for version.
-     * @param locationId String value for locationId.
-     * @param orderId String value for orderId.
-     * @param primaryRecipient InvoiceRecipient value for primaryRecipient.
-     * @param paymentRequests List of InvoicePaymentRequest value for paymentRequests.
-     * @param deliveryMethod String value for deliveryMethod.
-     * @param invoiceNumber String value for invoiceNumber.
-     * @param title String value for title.
-     * @param description String value for description.
-     * @param scheduledAt String value for scheduledAt.
-     * @param publicUrl String value for publicUrl.
-     * @param nextPaymentAmountMoney Money value for nextPaymentAmountMoney.
-     * @param status String value for status.
-     * @param timezone String value for timezone.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param customFields List of InvoiceCustomField value for customFields.
+     * @param  id  String value for id.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
+     * @param  orderId  String value for orderId.
+     * @param  primaryRecipient  InvoiceRecipient value for primaryRecipient.
+     * @param  paymentRequests  List of InvoicePaymentRequest value for paymentRequests.
+     * @param  deliveryMethod  String value for deliveryMethod.
+     * @param  invoiceNumber  String value for invoiceNumber.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  scheduledAt  String value for scheduledAt.
+     * @param  publicUrl  String value for publicUrl.
+     * @param  nextPaymentAmountMoney  Money value for nextPaymentAmountMoney.
+     * @param  status  String value for status.
+     * @param  timezone  String value for timezone.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  customFields  List of InvoiceCustomField value for customFields.
      */
     @JsonCreator
     public Invoice(
@@ -98,7 +117,7 @@ public class Invoice {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -109,7 +128,7 @@ public class Invoice {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -120,7 +139,7 @@ public class Invoice {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -132,7 +151,7 @@ public class Invoice {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -142,7 +161,7 @@ public class Invoice {
      */
     @JsonGetter("primary_recipient")
     public InvoiceRecipient getPrimaryRecipient() {
-        return this.primaryRecipient;
+        return primaryRecipient;
     }
 
     /**
@@ -156,7 +175,7 @@ public class Invoice {
      */
     @JsonGetter("payment_requests")
     public List<InvoicePaymentRequest> getPaymentRequests() {
-        return this.paymentRequests;
+        return paymentRequests;
     }
 
     /**
@@ -166,7 +185,7 @@ public class Invoice {
      */
     @JsonGetter("delivery_method")
     public String getDeliveryMethod() {
-        return this.deliveryMethod;
+        return deliveryMethod;
     }
 
     /**
@@ -178,7 +197,7 @@ public class Invoice {
      */
     @JsonGetter("invoice_number")
     public String getInvoiceNumber() {
-        return this.invoiceNumber;
+        return invoiceNumber;
     }
 
     /**
@@ -188,7 +207,7 @@ public class Invoice {
      */
     @JsonGetter("title")
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     /**
@@ -198,7 +217,7 @@ public class Invoice {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -211,7 +230,7 @@ public class Invoice {
      */
     @JsonGetter("scheduled_at")
     public String getScheduledAt() {
-        return this.scheduledAt;
+        return scheduledAt;
     }
 
     /**
@@ -223,7 +242,7 @@ public class Invoice {
      */
     @JsonGetter("public_url")
     public String getPublicUrl() {
-        return this.publicUrl;
+        return publicUrl;
     }
 
     /**
@@ -238,7 +257,7 @@ public class Invoice {
      */
     @JsonGetter("next_payment_amount_money")
     public Money getNextPaymentAmountMoney() {
-        return this.nextPaymentAmountMoney;
+        return nextPaymentAmountMoney;
     }
 
     /**
@@ -248,7 +267,7 @@ public class Invoice {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -258,7 +277,7 @@ public class Invoice {
      */
     @JsonGetter("timezone")
     public String getTimezone() {
-        return this.timezone;
+        return timezone;
     }
 
     /**
@@ -268,7 +287,7 @@ public class Invoice {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -278,7 +297,7 @@ public class Invoice {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -292,7 +311,7 @@ public class Invoice {
      */
     @JsonGetter("custom_fields")
     public List<InvoiceCustomField> getCustomFields() {
-        return this.customFields;
+        return customFields;
     }
 
     @Override
@@ -402,7 +421,7 @@ public class Invoice {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -412,7 +431,7 @@ public class Invoice {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -422,7 +441,7 @@ public class Invoice {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -432,7 +451,7 @@ public class Invoice {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -442,7 +461,7 @@ public class Invoice {
 
         /**
          * Setter for primaryRecipient.
-         * @param primaryRecipient InvoiceRecipient value for primaryRecipient.
+         * @param  primaryRecipient  InvoiceRecipient value for primaryRecipient.
          * @return Builder
          */
         public Builder primaryRecipient(InvoiceRecipient primaryRecipient) {
@@ -452,7 +471,7 @@ public class Invoice {
 
         /**
          * Setter for paymentRequests.
-         * @param paymentRequests List of InvoicePaymentRequest value for paymentRequests.
+         * @param  paymentRequests  List of InvoicePaymentRequest value for paymentRequests.
          * @return Builder
          */
         public Builder paymentRequests(List<InvoicePaymentRequest> paymentRequests) {
@@ -462,7 +481,7 @@ public class Invoice {
 
         /**
          * Setter for deliveryMethod.
-         * @param deliveryMethod String value for deliveryMethod.
+         * @param  deliveryMethod  String value for deliveryMethod.
          * @return Builder
          */
         public Builder deliveryMethod(String deliveryMethod) {
@@ -472,7 +491,7 @@ public class Invoice {
 
         /**
          * Setter for invoiceNumber.
-         * @param invoiceNumber String value for invoiceNumber.
+         * @param  invoiceNumber  String value for invoiceNumber.
          * @return Builder
          */
         public Builder invoiceNumber(String invoiceNumber) {
@@ -482,7 +501,7 @@ public class Invoice {
 
         /**
          * Setter for title.
-         * @param title String value for title.
+         * @param  title  String value for title.
          * @return Builder
          */
         public Builder title(String title) {
@@ -492,7 +511,7 @@ public class Invoice {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -502,7 +521,7 @@ public class Invoice {
 
         /**
          * Setter for scheduledAt.
-         * @param scheduledAt String value for scheduledAt.
+         * @param  scheduledAt  String value for scheduledAt.
          * @return Builder
          */
         public Builder scheduledAt(String scheduledAt) {
@@ -512,7 +531,7 @@ public class Invoice {
 
         /**
          * Setter for publicUrl.
-         * @param publicUrl String value for publicUrl.
+         * @param  publicUrl  String value for publicUrl.
          * @return Builder
          */
         public Builder publicUrl(String publicUrl) {
@@ -522,7 +541,7 @@ public class Invoice {
 
         /**
          * Setter for nextPaymentAmountMoney.
-         * @param nextPaymentAmountMoney Money value for nextPaymentAmountMoney.
+         * @param  nextPaymentAmountMoney  Money value for nextPaymentAmountMoney.
          * @return Builder
          */
         public Builder nextPaymentAmountMoney(Money nextPaymentAmountMoney) {
@@ -532,7 +551,7 @@ public class Invoice {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -542,7 +561,7 @@ public class Invoice {
 
         /**
          * Setter for timezone.
-         * @param timezone String value for timezone.
+         * @param  timezone  String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {
@@ -552,7 +571,7 @@ public class Invoice {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -562,7 +581,7 @@ public class Invoice {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -572,7 +591,7 @@ public class Invoice {
 
         /**
          * Setter for customFields.
-         * @param customFields List of InvoiceCustomField value for customFields.
+         * @param  customFields  List of InvoiceCustomField value for customFields.
          * @return Builder
          */
         public Builder customFields(List<InvoiceCustomField> customFields) {

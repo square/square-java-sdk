@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for ListEmployeesRequest type.
  */
 public class ListEmployeesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
-     * @param status String value for status.
-     * @param limit Integer value for limit.
-     * @param cursor String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public ListEmployeesRequest(
@@ -40,7 +45,7 @@ public class ListEmployeesRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -50,7 +55,7 @@ public class ListEmployeesRequest {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -60,7 +65,7 @@ public class ListEmployeesRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -70,7 +75,7 @@ public class ListEmployeesRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -130,7 +135,7 @@ public class ListEmployeesRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -140,7 +145,7 @@ public class ListEmployeesRequest {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -150,7 +155,7 @@ public class ListEmployeesRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -160,7 +165,7 @@ public class ListEmployeesRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

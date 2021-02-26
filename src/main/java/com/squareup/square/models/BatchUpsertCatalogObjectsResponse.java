@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,17 +14,21 @@ import java.util.Objects;
  */
 public class BatchUpsertCatalogObjectsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> objects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogIdMapping> idMappings;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param objects List of CatalogObject value for objects.
-     * @param updatedAt String value for updatedAt.
-     * @param idMappings List of CatalogIdMapping value for idMappings.
+     * @param  errors  List of Error value for errors.
+     * @param  objects  List of CatalogObject value for objects.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  idMappings  List of CatalogIdMapping value for idMappings.
      */
     @JsonCreator
     public BatchUpsertCatalogObjectsResponse(
@@ -48,7 +53,7 @@ public class BatchUpsertCatalogObjectsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -58,7 +63,7 @@ public class BatchUpsertCatalogObjectsResponse {
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
-        return this.objects;
+        return objects;
     }
 
     /**
@@ -69,7 +74,7 @@ public class BatchUpsertCatalogObjectsResponse {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -79,7 +84,7 @@ public class BatchUpsertCatalogObjectsResponse {
      */
     @JsonGetter("id_mappings")
     public List<CatalogIdMapping> getIdMappings() {
-        return this.idMappings;
+        return idMappings;
     }
 
     @Override
@@ -140,7 +145,7 @@ public class BatchUpsertCatalogObjectsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -150,7 +155,7 @@ public class BatchUpsertCatalogObjectsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -160,7 +165,7 @@ public class BatchUpsertCatalogObjectsResponse {
 
         /**
          * Setter for objects.
-         * @param objects List of CatalogObject value for objects.
+         * @param  objects  List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
@@ -170,7 +175,7 @@ public class BatchUpsertCatalogObjectsResponse {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -180,7 +185,7 @@ public class BatchUpsertCatalogObjectsResponse {
 
         /**
          * Setter for idMappings.
-         * @param idMappings List of CatalogIdMapping value for idMappings.
+         * @param  idMappings  List of CatalogIdMapping value for idMappings.
          * @return Builder
          */
         public Builder idMappings(List<CatalogIdMapping> idMappings) {

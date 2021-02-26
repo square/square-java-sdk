@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for V1ListEmployeeRolesResponse type.
  */
 public class V1ListEmployeeRolesResponse {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1EmployeeRole> items;
 
     /**
      * Initialization constructor.
-     * @param items List of V1EmployeeRole value for items.
+     * @param  items  List of V1EmployeeRole value for items.
      */
     @JsonCreator
     public V1ListEmployeeRolesResponse(
@@ -29,7 +31,7 @@ public class V1ListEmployeeRolesResponse {
      */
     @JsonGetter("items")
     public List<V1EmployeeRole> getItems() {
-        return this.items;
+        return items;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class V1ListEmployeeRolesResponse {
 
         /**
          * Setter for items.
-         * @param items List of V1EmployeeRole value for items.
+         * @param  items  List of V1EmployeeRole value for items.
          * @return Builder
          */
         public Builder items(List<V1EmployeeRole> items) {

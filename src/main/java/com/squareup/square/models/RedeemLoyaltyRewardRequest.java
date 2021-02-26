@@ -15,8 +15,8 @@ public class RedeemLoyaltyRewardRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param locationId String value for locationId.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public RedeemLoyaltyRewardRequest(
@@ -34,7 +34,7 @@ public class RedeemLoyaltyRewardRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +44,7 @@ public class RedeemLoyaltyRewardRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -94,18 +94,17 @@ public class RedeemLoyaltyRewardRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param locationId String value for locationId.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  locationId  String value for locationId.
          */
-        public Builder(String idempotencyKey,
-                String locationId) {
+        public Builder(String idempotencyKey, String locationId) {
             this.idempotencyKey = idempotencyKey;
             this.locationId = locationId;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -115,7 +114,7 @@ public class RedeemLoyaltyRewardRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

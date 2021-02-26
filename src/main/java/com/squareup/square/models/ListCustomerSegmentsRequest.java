@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for ListCustomerSegmentsRequest type.
  */
 public class ListCustomerSegmentsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param cursor String value for cursor.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public ListCustomerSegmentsRequest(
@@ -32,7 +34,7 @@ public class ListCustomerSegmentsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class ListCustomerSegmentsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

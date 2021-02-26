@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for ShiftQuery type.
  */
 public class ShiftQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftFilter filter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftSort sort;
 
     /**
      * Initialization constructor.
-     * @param filter ShiftFilter value for filter.
-     * @param sort ShiftSort value for sort.
+     * @param  filter  ShiftFilter value for filter.
+     * @param  sort  ShiftSort value for sort.
      */
     @JsonCreator
     public ShiftQuery(
@@ -34,7 +37,7 @@ public class ShiftQuery {
      */
     @JsonGetter("filter")
     public ShiftFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     /**
@@ -44,7 +47,7 @@ public class ShiftQuery {
      */
     @JsonGetter("sort")
     public ShiftSort getSort() {
-        return this.sort;
+        return sort;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class ShiftQuery {
 
         /**
          * Setter for filter.
-         * @param filter ShiftFilter value for filter.
+         * @param  filter  ShiftFilter value for filter.
          * @return Builder
          */
         public Builder filter(ShiftFilter filter) {
@@ -107,7 +110,7 @@ public class ShiftQuery {
 
         /**
          * Setter for sort.
-         * @param sort ShiftSort value for sort.
+         * @param  sort  ShiftSort value for sort.
          * @return Builder
          */
         public Builder sort(ShiftSort sort) {

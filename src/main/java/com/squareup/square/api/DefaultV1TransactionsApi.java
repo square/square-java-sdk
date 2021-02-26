@@ -13,7 +13,6 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
-import com.squareup.square.models.V1BankAccount;
 import com.squareup.square.models.V1CreateRefundRequest;
 import com.squareup.square.models.V1Order;
 import com.squareup.square.models.V1Payment;
@@ -56,226 +55,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Provides non-confidential details for all of a location's associated bank accounts. This
-     * endpoint does not provide full bank account numbers, and there is no way to obtain a full
-     * bank account number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the location to list bank accounts for.
-     * @return    Returns the List of V1BankAccount response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated
-    public List<V1BankAccount> listBankAccounts(
-            final String locationId) throws ApiException, IOException {
-        HttpRequest request = buildListBankAccountsRequest(locationId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListBankAccountsResponse(context);
-    }
-
-    /**
-     * Provides non-confidential details for all of a location's associated bank accounts. This
-     * endpoint does not provide full bank account numbers, and there is no way to obtain a full
-     * bank account number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the location to list bank accounts for.
-     * @return    Returns the List of V1BankAccount response from the API call
-     */
-    @Deprecated
-    public CompletableFuture<List<V1BankAccount>> listBankAccountsAsync(
-            final String locationId) {
-        return makeHttpCallAsync(() -> buildListBankAccountsRequest(locationId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
-            context -> handleListBankAccountsResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for listBankAccounts.
-     */
-    private HttpRequest buildListBankAccountsRequest(
-            final String locationId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/bank-accounts");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listBankAccounts.
-     * @return An object of type List of V1BankAccount
-     */
-    private List<V1BankAccount> handleListBankAccountsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        List<V1BankAccount> result = ApiHelper.deserializeArray(responseBody,
-                V1BankAccount[].class);
-        for (int i = 0; i < result.size(); i++) {
-            result.set(i, result.get(i).toBuilder().httpContext(context).build());
-        }
-        return result;
-    }
-
-    /**
-     * Provides non-confidential details for a merchant's associated bank account. This endpoint
-     * does not provide full bank account numbers, and there is no way to obtain a full bank account
-     * number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the bank account's associated location.
-     * @param  bankAccountId  Required parameter: The bank account's Square-issued ID. You obtain
-     *         this value from Settlement objects returned.
-     * @return    Returns the V1BankAccount response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated
-    public V1BankAccount retrieveBankAccount(
-            final String locationId,
-            final String bankAccountId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveBankAccountRequest(locationId, bankAccountId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().executeAsString(request);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveBankAccountResponse(context);
-    }
-
-    /**
-     * Provides non-confidential details for a merchant's associated bank account. This endpoint
-     * does not provide full bank account numbers, and there is no way to obtain a full bank account
-     * number with the Connect API.
-     * @deprecated
-     * 
-     * @param  locationId  Required parameter: The ID of the bank account's associated location.
-     * @param  bankAccountId  Required parameter: The bank account's Square-issued ID. You obtain
-     *         this value from Settlement objects returned.
-     * @return    Returns the V1BankAccount response from the API call
-     */
-    @Deprecated
-    public CompletableFuture<V1BankAccount> retrieveBankAccountAsync(
-            final String locationId,
-            final String bankAccountId) {
-        return makeHttpCallAsync(() -> buildRetrieveBankAccountRequest(locationId, bankAccountId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
-            context -> handleRetrieveBankAccountResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveBankAccount.
-     */
-    private HttpRequest buildRetrieveBankAccountRequest(
-            final String locationId,
-            final String bankAccountId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/bank-accounts/{bank_account_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        templateParameters.put("bank_account_id",
-                new SimpleEntry<Object, Boolean>(bankAccountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveBankAccount.
-     * @return An object of type V1BankAccount
-     */
-    private V1BankAccount handleRetrieveBankAccountResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1BankAccount result = ApiHelper.deserialize(responseBody,
-                V1BankAccount.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
-    /**
      * Provides summary information for a merchant's online store orders.
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  limit  Optional parameter: The maximum number of payments to return in a single
      *         response. This value cannot exceed 200.
      * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
@@ -302,7 +85,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Provides summary information for a merchant's online store orders.
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  limit  Optional parameter: The maximum number of payments to return in a single
      *         response. This value cannot exceed 200.
      * @param  batchToken  Optional parameter: A pagination cursor to retrieve the next set of
@@ -891,7 +674,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
      *         ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this
      *         endpoint returns an error. Default value: The current time minus one year.
@@ -930,7 +713,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
-     * @param  order  Optional parameter: TThe order in which payments are listed in the response.
+     * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
      *         ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this
      *         endpoint returns an error. Default value: The current time minus one year.

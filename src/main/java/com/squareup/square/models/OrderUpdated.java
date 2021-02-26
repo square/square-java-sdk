@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for OrderUpdated type.
  */
 public class OrderUpdated {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param orderId String value for orderId.
-     * @param version Integer value for version.
-     * @param locationId String value for locationId.
-     * @param state String value for state.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  orderId  String value for orderId.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
+     * @param  state  String value for state.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public OrderUpdated(
@@ -49,7 +56,7 @@ public class OrderUpdated {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -62,7 +69,7 @@ public class OrderUpdated {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -72,7 +79,7 @@ public class OrderUpdated {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -82,7 +89,7 @@ public class OrderUpdated {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -92,7 +99,7 @@ public class OrderUpdated {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -102,7 +109,7 @@ public class OrderUpdated {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -169,7 +176,7 @@ public class OrderUpdated {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -179,7 +186,7 @@ public class OrderUpdated {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -189,7 +196,7 @@ public class OrderUpdated {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -199,7 +206,7 @@ public class OrderUpdated {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -209,7 +216,7 @@ public class OrderUpdated {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -219,7 +226,7 @@ public class OrderUpdated {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

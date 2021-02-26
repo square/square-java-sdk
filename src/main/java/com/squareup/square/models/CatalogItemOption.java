@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,19 +12,24 @@ import java.util.Objects;
  * This is a model class for CatalogItemOption type.
  */
 public class CatalogItemOption {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean showColors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> values;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param displayName String value for displayName.
-     * @param description String value for description.
-     * @param showColors Boolean value for showColors.
-     * @param values List of CatalogObject value for values.
+     * @param  name  String value for name.
+     * @param  displayName  String value for displayName.
+     * @param  description  String value for description.
+     * @param  showColors  Boolean value for showColors.
+     * @param  values  List of CatalogObject value for values.
      */
     @JsonCreator
     public CatalogItemOption(
@@ -47,7 +53,7 @@ public class CatalogItemOption {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -58,7 +64,7 @@ public class CatalogItemOption {
      */
     @JsonGetter("display_name")
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     /**
@@ -70,7 +76,7 @@ public class CatalogItemOption {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -80,7 +86,7 @@ public class CatalogItemOption {
      */
     @JsonGetter("show_colors")
     public Boolean getShowColors() {
-        return this.showColors;
+        return showColors;
     }
 
     /**
@@ -90,7 +96,7 @@ public class CatalogItemOption {
      */
     @JsonGetter("values")
     public List<CatalogObject> getValues() {
-        return this.values;
+        return values;
     }
 
     @Override
@@ -154,7 +160,7 @@ public class CatalogItemOption {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -164,7 +170,7 @@ public class CatalogItemOption {
 
         /**
          * Setter for displayName.
-         * @param displayName String value for displayName.
+         * @param  displayName  String value for displayName.
          * @return Builder
          */
         public Builder displayName(String displayName) {
@@ -174,7 +180,7 @@ public class CatalogItemOption {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -184,7 +190,7 @@ public class CatalogItemOption {
 
         /**
          * Setter for showColors.
-         * @param showColors Boolean value for showColors.
+         * @param  showColors  Boolean value for showColors.
          * @return Builder
          */
         public Builder showColors(Boolean showColors) {
@@ -194,7 +200,7 @@ public class CatalogItemOption {
 
         /**
          * Setter for values.
-         * @param values List of CatalogObject value for values.
+         * @param  values  List of CatalogObject value for values.
          * @return Builder
          */
         public Builder values(List<CatalogObject> values) {

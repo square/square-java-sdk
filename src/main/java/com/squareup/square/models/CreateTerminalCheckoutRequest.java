@@ -15,8 +15,8 @@ public class CreateTerminalCheckoutRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param checkout TerminalCheckout value for checkout.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  checkout  TerminalCheckout value for checkout.
      */
     @JsonCreator
     public CreateTerminalCheckoutRequest(
@@ -35,7 +35,7 @@ public class CreateTerminalCheckoutRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CreateTerminalCheckoutRequest {
      */
     @JsonGetter("checkout")
     public TerminalCheckout getCheckout() {
-        return this.checkout;
+        return checkout;
     }
 
     @Override
@@ -94,18 +94,17 @@ public class CreateTerminalCheckoutRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param checkout TerminalCheckout value for checkout.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  checkout  TerminalCheckout value for checkout.
          */
-        public Builder(String idempotencyKey,
-                TerminalCheckout checkout) {
+        public Builder(String idempotencyKey, TerminalCheckout checkout) {
             this.idempotencyKey = idempotencyKey;
             this.checkout = checkout;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -115,7 +114,7 @@ public class CreateTerminalCheckoutRequest {
 
         /**
          * Setter for checkout.
-         * @param checkout TerminalCheckout value for checkout.
+         * @param  checkout  TerminalCheckout value for checkout.
          * @return Builder
          */
         public Builder checkout(TerminalCheckout checkout) {

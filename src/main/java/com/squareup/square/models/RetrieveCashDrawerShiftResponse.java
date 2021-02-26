@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class RetrieveCashDrawerShiftResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashDrawerShift cashDrawerShift;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param cashDrawerShift CashDrawerShift value for cashDrawerShift.
-     * @param errors List of Error value for errors.
+     * @param  cashDrawerShift  CashDrawerShift value for cashDrawerShift.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public RetrieveCashDrawerShiftResponse(
@@ -42,7 +45,7 @@ public class RetrieveCashDrawerShiftResponse {
      */
     @JsonGetter("cash_drawer_shift")
     public CashDrawerShift getCashDrawerShift() {
-        return this.cashDrawerShift;
+        return cashDrawerShift;
     }
 
     /**
@@ -52,7 +55,7 @@ public class RetrieveCashDrawerShiftResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class RetrieveCashDrawerShiftResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -117,7 +120,7 @@ public class RetrieveCashDrawerShiftResponse {
 
         /**
          * Setter for cashDrawerShift.
-         * @param cashDrawerShift CashDrawerShift value for cashDrawerShift.
+         * @param  cashDrawerShift  CashDrawerShift value for cashDrawerShift.
          * @return Builder
          */
         public Builder cashDrawerShift(CashDrawerShift cashDrawerShift) {
@@ -127,7 +130,7 @@ public class RetrieveCashDrawerShiftResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

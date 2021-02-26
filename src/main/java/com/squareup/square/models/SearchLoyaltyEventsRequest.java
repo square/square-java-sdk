@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyEventsRequest type.
  */
 public class SearchLoyaltyEventsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param query LoyaltyEventQuery value for query.
-     * @param limit Integer value for limit.
-     * @param cursor String value for cursor.
+     * @param  query  LoyaltyEventQuery value for query.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public SearchLoyaltyEventsRequest(
@@ -37,7 +41,7 @@ public class SearchLoyaltyEventsRequest {
      */
     @JsonGetter("query")
     public LoyaltyEventQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -48,7 +52,7 @@ public class SearchLoyaltyEventsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -60,7 +64,7 @@ public class SearchLoyaltyEventsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class SearchLoyaltyEventsRequest {
 
         /**
          * Setter for query.
-         * @param query LoyaltyEventQuery value for query.
+         * @param  query  LoyaltyEventQuery value for query.
          * @return Builder
          */
         public Builder query(LoyaltyEventQuery query) {
@@ -127,7 +131,7 @@ public class SearchLoyaltyEventsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -137,7 +141,7 @@ public class SearchLoyaltyEventsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

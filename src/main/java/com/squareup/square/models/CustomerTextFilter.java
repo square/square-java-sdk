@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CustomerTextFilter type.
  */
 public class CustomerTextFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String exact;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fuzzy;
 
     /**
      * Initialization constructor.
-     * @param exact String value for exact.
-     * @param fuzzy String value for fuzzy.
+     * @param  exact  String value for exact.
+     * @param  fuzzy  String value for fuzzy.
      */
     @JsonCreator
     public CustomerTextFilter(
@@ -33,7 +36,7 @@ public class CustomerTextFilter {
      */
     @JsonGetter("exact")
     public String getExact() {
-        return this.exact;
+        return exact;
     }
 
     /**
@@ -46,7 +49,7 @@ public class CustomerTextFilter {
      */
     @JsonGetter("fuzzy")
     public String getFuzzy() {
-        return this.fuzzy;
+        return fuzzy;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class CustomerTextFilter {
 
         /**
          * Setter for exact.
-         * @param exact String value for exact.
+         * @param  exact  String value for exact.
          * @return Builder
          */
         public Builder exact(String exact) {
@@ -109,7 +112,7 @@ public class CustomerTextFilter {
 
         /**
          * Setter for fuzzy.
-         * @param fuzzy String value for fuzzy.
+         * @param  fuzzy  String value for fuzzy.
          * @return Builder
          */
         public Builder fuzzy(String fuzzy) {

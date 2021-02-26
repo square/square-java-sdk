@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -13,19 +14,23 @@ import java.util.Objects;
 public class LoyaltyProgramRewardDefinition {
     private final String scope;
     private final String discountType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentageDiscount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> catalogObjectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money fixedDiscountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money maxDiscountMoney;
 
     /**
      * Initialization constructor.
-     * @param scope String value for scope.
-     * @param discountType String value for discountType.
-     * @param percentageDiscount String value for percentageDiscount.
-     * @param catalogObjectIds List of String value for catalogObjectIds.
-     * @param fixedDiscountMoney Money value for fixedDiscountMoney.
-     * @param maxDiscountMoney Money value for maxDiscountMoney.
+     * @param  scope  String value for scope.
+     * @param  discountType  String value for discountType.
+     * @param  percentageDiscount  String value for percentageDiscount.
+     * @param  catalogObjectIds  List of String value for catalogObjectIds.
+     * @param  fixedDiscountMoney  Money value for fixedDiscountMoney.
+     * @param  maxDiscountMoney  Money value for maxDiscountMoney.
      */
     @JsonCreator
     public LoyaltyProgramRewardDefinition(
@@ -53,7 +58,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("scope")
     public String getScope() {
-        return this.scope;
+        return scope;
     }
 
     /**
@@ -66,7 +71,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("discount_type")
     public String getDiscountType() {
-        return this.discountType;
+        return discountType;
     }
 
     /**
@@ -79,7 +84,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("percentage_discount")
     public String getPercentageDiscount() {
-        return this.percentageDiscount;
+        return percentageDiscount;
     }
 
     /**
@@ -92,7 +97,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("catalog_object_ids")
     public List<String> getCatalogObjectIds() {
-        return this.catalogObjectIds;
+        return catalogObjectIds;
     }
 
     /**
@@ -107,7 +112,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("fixed_discount_money")
     public Money getFixedDiscountMoney() {
-        return this.fixedDiscountMoney;
+        return fixedDiscountMoney;
     }
 
     /**
@@ -122,7 +127,7 @@ public class LoyaltyProgramRewardDefinition {
      */
     @JsonGetter("max_discount_money")
     public Money getMaxDiscountMoney() {
-        return this.maxDiscountMoney;
+        return maxDiscountMoney;
     }
 
     @Override
@@ -187,18 +192,17 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Initialization constructor.
-         * @param scope String value for scope.
-         * @param discountType String value for discountType.
+         * @param  scope  String value for scope.
+         * @param  discountType  String value for discountType.
          */
-        public Builder(String scope,
-                String discountType) {
+        public Builder(String scope, String discountType) {
             this.scope = scope;
             this.discountType = discountType;
         }
 
         /**
          * Setter for scope.
-         * @param scope String value for scope.
+         * @param  scope  String value for scope.
          * @return Builder
          */
         public Builder scope(String scope) {
@@ -208,7 +212,7 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Setter for discountType.
-         * @param discountType String value for discountType.
+         * @param  discountType  String value for discountType.
          * @return Builder
          */
         public Builder discountType(String discountType) {
@@ -218,7 +222,7 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Setter for percentageDiscount.
-         * @param percentageDiscount String value for percentageDiscount.
+         * @param  percentageDiscount  String value for percentageDiscount.
          * @return Builder
          */
         public Builder percentageDiscount(String percentageDiscount) {
@@ -228,7 +232,7 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Setter for catalogObjectIds.
-         * @param catalogObjectIds List of String value for catalogObjectIds.
+         * @param  catalogObjectIds  List of String value for catalogObjectIds.
          * @return Builder
          */
         public Builder catalogObjectIds(List<String> catalogObjectIds) {
@@ -238,7 +242,7 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Setter for fixedDiscountMoney.
-         * @param fixedDiscountMoney Money value for fixedDiscountMoney.
+         * @param  fixedDiscountMoney  Money value for fixedDiscountMoney.
          * @return Builder
          */
         public Builder fixedDiscountMoney(Money fixedDiscountMoney) {
@@ -248,7 +252,7 @@ public class LoyaltyProgramRewardDefinition {
 
         /**
          * Setter for maxDiscountMoney.
-         * @param maxDiscountMoney Money value for maxDiscountMoney.
+         * @param  maxDiscountMoney  Money value for maxDiscountMoney.
          * @return Builder
          */
         public Builder maxDiscountMoney(Money maxDiscountMoney) {

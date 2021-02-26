@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for V1PaymentDiscount type.
  */
 public class V1PaymentDiscount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountId;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param appliedMoney V1Money value for appliedMoney.
-     * @param discountId String value for discountId.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  discountId  String value for discountId.
      */
     @JsonCreator
     public V1PaymentDiscount(
@@ -37,7 +41,7 @@ public class V1PaymentDiscount {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -46,7 +50,7 @@ public class V1PaymentDiscount {
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -57,7 +61,7 @@ public class V1PaymentDiscount {
      */
     @JsonGetter("discount_id")
     public String getDiscountId() {
-        return this.discountId;
+        return discountId;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class V1PaymentDiscount {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -124,7 +128,7 @@ public class V1PaymentDiscount {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney V1Money value for appliedMoney.
+         * @param  appliedMoney  V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
@@ -134,7 +138,7 @@ public class V1PaymentDiscount {
 
         /**
          * Setter for discountId.
-         * @param discountId String value for discountId.
+         * @param  discountId  String value for discountId.
          * @return Builder
          */
         public Builder discountId(String discountId) {

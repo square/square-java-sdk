@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class CreateTeamMemberResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMember teamMember;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param teamMember TeamMember value for teamMember.
-     * @param errors List of Error value for errors.
+     * @param  teamMember  TeamMember value for teamMember.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CreateTeamMemberResponse(
@@ -40,7 +43,7 @@ public class CreateTeamMemberResponse {
      */
     @JsonGetter("team_member")
     public TeamMember getTeamMember() {
-        return this.teamMember;
+        return teamMember;
     }
 
     /**
@@ -50,7 +53,7 @@ public class CreateTeamMemberResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class CreateTeamMemberResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class CreateTeamMemberResponse {
 
         /**
          * Setter for teamMember.
-         * @param teamMember TeamMember value for teamMember.
+         * @param  teamMember  TeamMember value for teamMember.
          * @return Builder
          */
         public Builder teamMember(TeamMember teamMember) {
@@ -125,7 +128,7 @@ public class CreateTeamMemberResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdatedObject type.
  */
 public class OrderFulfillmentUpdatedObject {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentUpdated orderFulfillmentUpdated;
 
     /**
      * Initialization constructor.
-     * @param orderFulfillmentUpdated OrderFulfillmentUpdated value for orderFulfillmentUpdated.
+     * @param  orderFulfillmentUpdated  OrderFulfillmentUpdated value for orderFulfillmentUpdated.
      */
     @JsonCreator
     public OrderFulfillmentUpdatedObject(
@@ -28,7 +30,7 @@ public class OrderFulfillmentUpdatedObject {
      */
     @JsonGetter("order_fulfillment_updated")
     public OrderFulfillmentUpdated getOrderFulfillmentUpdated() {
-        return this.orderFulfillmentUpdated;
+        return orderFulfillmentUpdated;
     }
 
     @Override
@@ -79,7 +81,8 @@ public class OrderFulfillmentUpdatedObject {
 
         /**
          * Setter for orderFulfillmentUpdated.
-         * @param orderFulfillmentUpdated OrderFulfillmentUpdated value for orderFulfillmentUpdated.
+         * @param  orderFulfillmentUpdated  OrderFulfillmentUpdated value for
+         *         orderFulfillmentUpdated.
          * @return Builder
          */
         public Builder orderFulfillmentUpdated(OrderFulfillmentUpdated orderFulfillmentUpdated) {

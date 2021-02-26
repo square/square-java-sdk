@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class BatchRetrieveCatalogObjectsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> objects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> relatedObjects;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param objects List of CatalogObject value for objects.
-     * @param relatedObjects List of CatalogObject value for relatedObjects.
+     * @param  errors  List of Error value for errors.
+     * @param  objects  List of CatalogObject value for objects.
+     * @param  relatedObjects  List of CatalogObject value for relatedObjects.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsResponse(
@@ -44,7 +48,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -54,7 +58,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
-        return this.objects;
+        return objects;
     }
 
     /**
@@ -65,7 +69,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      */
     @JsonGetter("related_objects")
     public List<CatalogObject> getRelatedObjects() {
-        return this.relatedObjects;
+        return relatedObjects;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class BatchRetrieveCatalogObjectsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -133,7 +137,7 @@ public class BatchRetrieveCatalogObjectsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -143,7 +147,7 @@ public class BatchRetrieveCatalogObjectsResponse {
 
         /**
          * Setter for objects.
-         * @param objects List of CatalogObject value for objects.
+         * @param  objects  List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
@@ -153,7 +157,7 @@ public class BatchRetrieveCatalogObjectsResponse {
 
         /**
          * Setter for relatedObjects.
-         * @param relatedObjects List of CatalogObject value for relatedObjects.
+         * @param  relatedObjects  List of CatalogObject value for relatedObjects.
          * @return Builder
          */
         public Builder relatedObjects(List<CatalogObject> relatedObjects) {

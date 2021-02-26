@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionStringConfig type.
  */
 public class CatalogCustomAttributeDefinitionStringConfig {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enforceUniqueness;
 
     /**
      * Initialization constructor.
-     * @param enforceUniqueness Boolean value for enforceUniqueness.
+     * @param  enforceUniqueness  Boolean value for enforceUniqueness.
      */
     @JsonCreator
     public CatalogCustomAttributeDefinitionStringConfig(
@@ -32,7 +34,7 @@ public class CatalogCustomAttributeDefinitionStringConfig {
      */
     @JsonGetter("enforce_uniqueness")
     public Boolean getEnforceUniqueness() {
-        return this.enforceUniqueness;
+        return enforceUniqueness;
     }
 
     @Override
@@ -84,7 +86,7 @@ public class CatalogCustomAttributeDefinitionStringConfig {
 
         /**
          * Setter for enforceUniqueness.
-         * @param enforceUniqueness Boolean value for enforceUniqueness.
+         * @param  enforceUniqueness  Boolean value for enforceUniqueness.
          * @return Builder
          */
         public Builder enforceUniqueness(Boolean enforceUniqueness) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for V1Money type.
  */
 public class V1Money {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer amount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currencyCode;
 
     /**
      * Initialization constructor.
-     * @param amount Integer value for amount.
-     * @param currencyCode String value for currencyCode.
+     * @param  amount  Integer value for amount.
+     * @param  currencyCode  String value for currencyCode.
      */
     @JsonCreator
     public V1Money(
@@ -34,7 +37,7 @@ public class V1Money {
      */
     @JsonGetter("amount")
     public Integer getAmount() {
-        return this.amount;
+        return amount;
     }
 
     /**
@@ -45,7 +48,7 @@ public class V1Money {
      */
     @JsonGetter("currency_code")
     public String getCurrencyCode() {
-        return this.currencyCode;
+        return currencyCode;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class V1Money {
 
         /**
          * Setter for amount.
-         * @param amount Integer value for amount.
+         * @param  amount  Integer value for amount.
          * @return Builder
          */
         public Builder amount(Integer amount) {
@@ -108,7 +111,7 @@ public class V1Money {
 
         /**
          * Setter for currencyCode.
-         * @param currencyCode String value for currencyCode.
+         * @param  currencyCode  String value for currencyCode.
          * @return Builder
          */
         public Builder currencyCode(String currencyCode) {

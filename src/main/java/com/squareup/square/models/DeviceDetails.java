@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for DeviceDetails type.
  */
 public class DeviceDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceInstallationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceName;
 
     /**
      * Initialization constructor.
-     * @param deviceId String value for deviceId.
-     * @param deviceInstallationId String value for deviceInstallationId.
-     * @param deviceName String value for deviceName.
+     * @param  deviceId  String value for deviceId.
+     * @param  deviceInstallationId  String value for deviceInstallationId.
+     * @param  deviceName  String value for deviceName.
      */
     @JsonCreator
     public DeviceDetails(
@@ -37,7 +41,7 @@ public class DeviceDetails {
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     /**
@@ -47,7 +51,7 @@ public class DeviceDetails {
      */
     @JsonGetter("device_installation_id")
     public String getDeviceInstallationId() {
-        return this.deviceInstallationId;
+        return deviceInstallationId;
     }
 
     /**
@@ -57,7 +61,7 @@ public class DeviceDetails {
      */
     @JsonGetter("device_name")
     public String getDeviceName() {
-        return this.deviceName;
+        return deviceName;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class DeviceDetails {
 
         /**
          * Setter for deviceId.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
@@ -124,7 +128,7 @@ public class DeviceDetails {
 
         /**
          * Setter for deviceInstallationId.
-         * @param deviceInstallationId String value for deviceInstallationId.
+         * @param  deviceInstallationId  String value for deviceInstallationId.
          * @return Builder
          */
         public Builder deviceInstallationId(String deviceInstallationId) {
@@ -134,7 +138,7 @@ public class DeviceDetails {
 
         /**
          * Setter for deviceName.
-         * @param deviceName String value for deviceName.
+         * @param  deviceName  String value for deviceName.
          * @return Builder
          */
         public Builder deviceName(String deviceName) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,29 +12,39 @@ import java.util.Objects;
  * This is a model class for Checkout type.
  */
 public class Checkout {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String checkoutPageUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean askForShippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantSupportEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prePopulateBuyerEmail;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address prePopulateShippingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param checkoutPageUrl String value for checkoutPageUrl.
-     * @param askForShippingAddress Boolean value for askForShippingAddress.
-     * @param merchantSupportEmail String value for merchantSupportEmail.
-     * @param prePopulateBuyerEmail String value for prePopulateBuyerEmail.
-     * @param prePopulateShippingAddress Address value for prePopulateShippingAddress.
-     * @param redirectUrl String value for redirectUrl.
-     * @param order Order value for order.
-     * @param createdAt String value for createdAt.
-     * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
+     * @param  id  String value for id.
+     * @param  checkoutPageUrl  String value for checkoutPageUrl.
+     * @param  askForShippingAddress  Boolean value for askForShippingAddress.
+     * @param  merchantSupportEmail  String value for merchantSupportEmail.
+     * @param  prePopulateBuyerEmail  String value for prePopulateBuyerEmail.
+     * @param  prePopulateShippingAddress  Address value for prePopulateShippingAddress.
+     * @param  redirectUrl  String value for redirectUrl.
+     * @param  order  Order value for order.
+     * @param  createdAt  String value for createdAt.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      */
     @JsonCreator
     public Checkout(
@@ -66,7 +77,7 @@ public class Checkout {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -76,7 +87,7 @@ public class Checkout {
      */
     @JsonGetter("checkout_page_url")
     public String getCheckoutPageUrl() {
-        return this.checkoutPageUrl;
+        return checkoutPageUrl;
     }
 
     /**
@@ -87,7 +98,7 @@ public class Checkout {
      */
     @JsonGetter("ask_for_shipping_address")
     public Boolean getAskForShippingAddress() {
-        return this.askForShippingAddress;
+        return askForShippingAddress;
     }
 
     /**
@@ -100,7 +111,7 @@ public class Checkout {
      */
     @JsonGetter("merchant_support_email")
     public String getMerchantSupportEmail() {
-        return this.merchantSupportEmail;
+        return merchantSupportEmail;
     }
 
     /**
@@ -111,7 +122,7 @@ public class Checkout {
      */
     @JsonGetter("pre_populate_buyer_email")
     public String getPrePopulateBuyerEmail() {
-        return this.prePopulateBuyerEmail;
+        return prePopulateBuyerEmail;
     }
 
     /**
@@ -121,7 +132,7 @@ public class Checkout {
      */
     @JsonGetter("pre_populate_shipping_address")
     public Address getPrePopulateShippingAddress() {
-        return this.prePopulateShippingAddress;
+        return prePopulateShippingAddress;
     }
 
     /**
@@ -139,7 +150,7 @@ public class Checkout {
      */
     @JsonGetter("redirect_url")
     public String getRedirectUrl() {
-        return this.redirectUrl;
+        return redirectUrl;
     }
 
     /**
@@ -152,7 +163,7 @@ public class Checkout {
      */
     @JsonGetter("order")
     public Order getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -162,7 +173,7 @@ public class Checkout {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -173,7 +184,7 @@ public class Checkout {
      */
     @JsonGetter("additional_recipients")
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return this.additionalRecipients;
+        return additionalRecipients;
     }
 
     @Override
@@ -257,7 +268,7 @@ public class Checkout {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -267,7 +278,7 @@ public class Checkout {
 
         /**
          * Setter for checkoutPageUrl.
-         * @param checkoutPageUrl String value for checkoutPageUrl.
+         * @param  checkoutPageUrl  String value for checkoutPageUrl.
          * @return Builder
          */
         public Builder checkoutPageUrl(String checkoutPageUrl) {
@@ -277,7 +288,7 @@ public class Checkout {
 
         /**
          * Setter for askForShippingAddress.
-         * @param askForShippingAddress Boolean value for askForShippingAddress.
+         * @param  askForShippingAddress  Boolean value for askForShippingAddress.
          * @return Builder
          */
         public Builder askForShippingAddress(Boolean askForShippingAddress) {
@@ -287,7 +298,7 @@ public class Checkout {
 
         /**
          * Setter for merchantSupportEmail.
-         * @param merchantSupportEmail String value for merchantSupportEmail.
+         * @param  merchantSupportEmail  String value for merchantSupportEmail.
          * @return Builder
          */
         public Builder merchantSupportEmail(String merchantSupportEmail) {
@@ -297,7 +308,7 @@ public class Checkout {
 
         /**
          * Setter for prePopulateBuyerEmail.
-         * @param prePopulateBuyerEmail String value for prePopulateBuyerEmail.
+         * @param  prePopulateBuyerEmail  String value for prePopulateBuyerEmail.
          * @return Builder
          */
         public Builder prePopulateBuyerEmail(String prePopulateBuyerEmail) {
@@ -307,7 +318,7 @@ public class Checkout {
 
         /**
          * Setter for prePopulateShippingAddress.
-         * @param prePopulateShippingAddress Address value for prePopulateShippingAddress.
+         * @param  prePopulateShippingAddress  Address value for prePopulateShippingAddress.
          * @return Builder
          */
         public Builder prePopulateShippingAddress(Address prePopulateShippingAddress) {
@@ -317,7 +328,7 @@ public class Checkout {
 
         /**
          * Setter for redirectUrl.
-         * @param redirectUrl String value for redirectUrl.
+         * @param  redirectUrl  String value for redirectUrl.
          * @return Builder
          */
         public Builder redirectUrl(String redirectUrl) {
@@ -327,7 +338,7 @@ public class Checkout {
 
         /**
          * Setter for order.
-         * @param order Order value for order.
+         * @param  order  Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
@@ -337,7 +348,7 @@ public class Checkout {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -347,7 +358,7 @@ public class Checkout {
 
         /**
          * Setter for additionalRecipients.
-         * @param additionalRecipients List of AdditionalRecipient value for additionalRecipients.
+         * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {

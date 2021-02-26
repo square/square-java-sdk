@@ -14,7 +14,7 @@ public class CancelInvoiceRequest {
 
     /**
      * Initialization constructor.
-     * @param version int value for version.
+     * @param  version  int value for version.
      */
     @JsonCreator
     public CancelInvoiceRequest(
@@ -31,7 +31,7 @@ public class CancelInvoiceRequest {
      */
     @JsonGetter("version")
     public int getVersion() {
-        return this.version;
+        return version;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class CancelInvoiceRequest {
 
         /**
          * Initialization constructor.
-         * @param version int value for version.
+         * @param  version  int value for version.
          */
         public Builder(int version) {
             this.version = version;
@@ -86,7 +86,7 @@ public class CancelInvoiceRequest {
 
         /**
          * Setter for version.
-         * @param version int value for version.
+         * @param  version  int value for version.
          * @return Builder
          */
         public Builder version(int version) {

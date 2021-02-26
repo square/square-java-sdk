@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,35 +12,48 @@ import java.util.Objects;
  * This is a model class for BusinessAppointmentSettings type.
  */
 public class BusinessAppointmentSettings {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationTypes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String alignmentTime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer minBookingLeadTimeSeconds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxBookingLeadTimeSeconds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean anyTeamMemberBookingEnabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean multipleServiceBookingEnabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String maxAppointmentsPerDayLimitType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxAppointmentsPerDayLimit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer cancellationWindowSeconds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cancellationFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancellationPolicy;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancellationPolicyText;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipBookingFlowStaffSelection;
 
     /**
      * Initialization constructor.
-     * @param locationTypes List of String value for locationTypes.
-     * @param alignmentTime String value for alignmentTime.
-     * @param minBookingLeadTimeSeconds Integer value for minBookingLeadTimeSeconds.
-     * @param maxBookingLeadTimeSeconds Integer value for maxBookingLeadTimeSeconds.
-     * @param anyTeamMemberBookingEnabled Boolean value for anyTeamMemberBookingEnabled.
-     * @param multipleServiceBookingEnabled Boolean value for multipleServiceBookingEnabled.
-     * @param maxAppointmentsPerDayLimitType String value for maxAppointmentsPerDayLimitType.
-     * @param maxAppointmentsPerDayLimit Integer value for maxAppointmentsPerDayLimit.
-     * @param cancellationWindowSeconds Integer value for cancellationWindowSeconds.
-     * @param cancellationFeeMoney Money value for cancellationFeeMoney.
-     * @param cancellationPolicy String value for cancellationPolicy.
-     * @param cancellationPolicyText String value for cancellationPolicyText.
-     * @param skipBookingFlowStaffSelection Boolean value for skipBookingFlowStaffSelection.
+     * @param  locationTypes  List of String value for locationTypes.
+     * @param  alignmentTime  String value for alignmentTime.
+     * @param  minBookingLeadTimeSeconds  Integer value for minBookingLeadTimeSeconds.
+     * @param  maxBookingLeadTimeSeconds  Integer value for maxBookingLeadTimeSeconds.
+     * @param  anyTeamMemberBookingEnabled  Boolean value for anyTeamMemberBookingEnabled.
+     * @param  multipleServiceBookingEnabled  Boolean value for multipleServiceBookingEnabled.
+     * @param  maxAppointmentsPerDayLimitType  String value for maxAppointmentsPerDayLimitType.
+     * @param  maxAppointmentsPerDayLimit  Integer value for maxAppointmentsPerDayLimit.
+     * @param  cancellationWindowSeconds  Integer value for cancellationWindowSeconds.
+     * @param  cancellationFeeMoney  Money value for cancellationFeeMoney.
+     * @param  cancellationPolicy  String value for cancellationPolicy.
+     * @param  cancellationPolicyText  String value for cancellationPolicyText.
+     * @param  skipBookingFlowStaffSelection  Boolean value for skipBookingFlowStaffSelection.
      */
     @JsonCreator
     public BusinessAppointmentSettings(
@@ -80,7 +94,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("location_types")
     public List<String> getLocationTypes() {
-        return this.locationTypes;
+        return locationTypes;
     }
 
     /**
@@ -90,7 +104,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("alignment_time")
     public String getAlignmentTime() {
-        return this.alignmentTime;
+        return alignmentTime;
     }
 
     /**
@@ -101,7 +115,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("min_booking_lead_time_seconds")
     public Integer getMinBookingLeadTimeSeconds() {
-        return this.minBookingLeadTimeSeconds;
+        return minBookingLeadTimeSeconds;
     }
 
     /**
@@ -112,7 +126,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("max_booking_lead_time_seconds")
     public Integer getMaxBookingLeadTimeSeconds() {
-        return this.maxBookingLeadTimeSeconds;
+        return maxBookingLeadTimeSeconds;
     }
 
     /**
@@ -123,7 +137,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("any_team_member_booking_enabled")
     public Boolean getAnyTeamMemberBookingEnabled() {
-        return this.anyTeamMemberBookingEnabled;
+        return anyTeamMemberBookingEnabled;
     }
 
     /**
@@ -133,7 +147,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("multiple_service_booking_enabled")
     public Boolean getMultipleServiceBookingEnabled() {
-        return this.multipleServiceBookingEnabled;
+        return multipleServiceBookingEnabled;
     }
 
     /**
@@ -143,7 +157,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("max_appointments_per_day_limit_type")
     public String getMaxAppointmentsPerDayLimitType() {
-        return this.maxAppointmentsPerDayLimitType;
+        return maxAppointmentsPerDayLimitType;
     }
 
     /**
@@ -153,7 +167,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("max_appointments_per_day_limit")
     public Integer getMaxAppointmentsPerDayLimit() {
-        return this.maxAppointmentsPerDayLimit;
+        return maxAppointmentsPerDayLimit;
     }
 
     /**
@@ -163,7 +177,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("cancellation_window_seconds")
     public Integer getCancellationWindowSeconds() {
-        return this.cancellationWindowSeconds;
+        return cancellationWindowSeconds;
     }
 
     /**
@@ -178,7 +192,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("cancellation_fee_money")
     public Money getCancellationFeeMoney() {
-        return this.cancellationFeeMoney;
+        return cancellationFeeMoney;
     }
 
     /**
@@ -188,7 +202,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("cancellation_policy")
     public String getCancellationPolicy() {
-        return this.cancellationPolicy;
+        return cancellationPolicy;
     }
 
     /**
@@ -198,7 +212,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("cancellation_policy_text")
     public String getCancellationPolicyText() {
-        return this.cancellationPolicyText;
+        return cancellationPolicyText;
     }
 
     /**
@@ -209,7 +223,7 @@ public class BusinessAppointmentSettings {
      */
     @JsonGetter("skip_booking_flow_staff_selection")
     public Boolean getSkipBookingFlowStaffSelection() {
-        return this.skipBookingFlowStaffSelection;
+        return skipBookingFlowStaffSelection;
     }
 
     @Override
@@ -311,7 +325,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for locationTypes.
-         * @param locationTypes List of String value for locationTypes.
+         * @param  locationTypes  List of String value for locationTypes.
          * @return Builder
          */
         public Builder locationTypes(List<String> locationTypes) {
@@ -321,7 +335,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for alignmentTime.
-         * @param alignmentTime String value for alignmentTime.
+         * @param  alignmentTime  String value for alignmentTime.
          * @return Builder
          */
         public Builder alignmentTime(String alignmentTime) {
@@ -331,7 +345,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for minBookingLeadTimeSeconds.
-         * @param minBookingLeadTimeSeconds Integer value for minBookingLeadTimeSeconds.
+         * @param  minBookingLeadTimeSeconds  Integer value for minBookingLeadTimeSeconds.
          * @return Builder
          */
         public Builder minBookingLeadTimeSeconds(Integer minBookingLeadTimeSeconds) {
@@ -341,7 +355,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for maxBookingLeadTimeSeconds.
-         * @param maxBookingLeadTimeSeconds Integer value for maxBookingLeadTimeSeconds.
+         * @param  maxBookingLeadTimeSeconds  Integer value for maxBookingLeadTimeSeconds.
          * @return Builder
          */
         public Builder maxBookingLeadTimeSeconds(Integer maxBookingLeadTimeSeconds) {
@@ -351,7 +365,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for anyTeamMemberBookingEnabled.
-         * @param anyTeamMemberBookingEnabled Boolean value for anyTeamMemberBookingEnabled.
+         * @param  anyTeamMemberBookingEnabled  Boolean value for anyTeamMemberBookingEnabled.
          * @return Builder
          */
         public Builder anyTeamMemberBookingEnabled(Boolean anyTeamMemberBookingEnabled) {
@@ -361,7 +375,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for multipleServiceBookingEnabled.
-         * @param multipleServiceBookingEnabled Boolean value for multipleServiceBookingEnabled.
+         * @param  multipleServiceBookingEnabled  Boolean value for multipleServiceBookingEnabled.
          * @return Builder
          */
         public Builder multipleServiceBookingEnabled(Boolean multipleServiceBookingEnabled) {
@@ -371,7 +385,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for maxAppointmentsPerDayLimitType.
-         * @param maxAppointmentsPerDayLimitType String value for maxAppointmentsPerDayLimitType.
+         * @param  maxAppointmentsPerDayLimitType  String value for maxAppointmentsPerDayLimitType.
          * @return Builder
          */
         public Builder maxAppointmentsPerDayLimitType(String maxAppointmentsPerDayLimitType) {
@@ -381,7 +395,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for maxAppointmentsPerDayLimit.
-         * @param maxAppointmentsPerDayLimit Integer value for maxAppointmentsPerDayLimit.
+         * @param  maxAppointmentsPerDayLimit  Integer value for maxAppointmentsPerDayLimit.
          * @return Builder
          */
         public Builder maxAppointmentsPerDayLimit(Integer maxAppointmentsPerDayLimit) {
@@ -391,7 +405,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for cancellationWindowSeconds.
-         * @param cancellationWindowSeconds Integer value for cancellationWindowSeconds.
+         * @param  cancellationWindowSeconds  Integer value for cancellationWindowSeconds.
          * @return Builder
          */
         public Builder cancellationWindowSeconds(Integer cancellationWindowSeconds) {
@@ -401,7 +415,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for cancellationFeeMoney.
-         * @param cancellationFeeMoney Money value for cancellationFeeMoney.
+         * @param  cancellationFeeMoney  Money value for cancellationFeeMoney.
          * @return Builder
          */
         public Builder cancellationFeeMoney(Money cancellationFeeMoney) {
@@ -411,7 +425,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for cancellationPolicy.
-         * @param cancellationPolicy String value for cancellationPolicy.
+         * @param  cancellationPolicy  String value for cancellationPolicy.
          * @return Builder
          */
         public Builder cancellationPolicy(String cancellationPolicy) {
@@ -421,7 +435,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for cancellationPolicyText.
-         * @param cancellationPolicyText String value for cancellationPolicyText.
+         * @param  cancellationPolicyText  String value for cancellationPolicyText.
          * @return Builder
          */
         public Builder cancellationPolicyText(String cancellationPolicyText) {
@@ -431,7 +445,7 @@ public class BusinessAppointmentSettings {
 
         /**
          * Setter for skipBookingFlowStaffSelection.
-         * @param skipBookingFlowStaffSelection Boolean value for skipBookingFlowStaffSelection.
+         * @param  skipBookingFlowStaffSelection  Boolean value for skipBookingFlowStaffSelection.
          * @return Builder
          */
         public Builder skipBookingFlowStaffSelection(Boolean skipBookingFlowStaffSelection) {

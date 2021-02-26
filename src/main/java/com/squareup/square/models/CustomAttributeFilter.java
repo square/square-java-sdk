@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,21 +12,27 @@ import java.util.Objects;
  * This is a model class for CustomAttributeFilter type.
  */
 public class CustomAttributeFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customAttributeDefinitionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String stringFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Range numberFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> selectionUidsFilter;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean boolFilter;
 
     /**
      * Initialization constructor.
-     * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
-     * @param key String value for key.
-     * @param stringFilter String value for stringFilter.
-     * @param numberFilter Range value for numberFilter.
-     * @param selectionUidsFilter List of String value for selectionUidsFilter.
-     * @param boolFilter Boolean value for boolFilter.
+     * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
+     * @param  key  String value for key.
+     * @param  stringFilter  String value for stringFilter.
+     * @param  numberFilter  Range value for numberFilter.
+     * @param  selectionUidsFilter  List of String value for selectionUidsFilter.
+     * @param  boolFilter  Boolean value for boolFilter.
      */
     @JsonCreator
     public CustomAttributeFilter(
@@ -51,7 +58,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("custom_attribute_definition_id")
     public String getCustomAttributeDefinitionId() {
-        return this.customAttributeDefinitionId;
+        return customAttributeDefinitionId;
     }
 
     /**
@@ -62,7 +69,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("key")
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     /**
@@ -73,7 +80,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("string_filter")
     public String getStringFilter() {
-        return this.stringFilter;
+        return stringFilter;
     }
 
     /**
@@ -83,7 +90,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("number_filter")
     public Range getNumberFilter() {
-        return this.numberFilter;
+        return numberFilter;
     }
 
     /**
@@ -94,7 +101,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("selection_uids_filter")
     public List<String> getSelectionUidsFilter() {
-        return this.selectionUidsFilter;
+        return selectionUidsFilter;
     }
 
     /**
@@ -105,7 +112,7 @@ public class CustomAttributeFilter {
      */
     @JsonGetter("bool_filter")
     public Boolean getBoolFilter() {
-        return this.boolFilter;
+        return boolFilter;
     }
 
     @Override
@@ -174,7 +181,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for customAttributeDefinitionId.
-         * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
+         * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
          * @return Builder
          */
         public Builder customAttributeDefinitionId(String customAttributeDefinitionId) {
@@ -184,7 +191,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for key.
-         * @param key String value for key.
+         * @param  key  String value for key.
          * @return Builder
          */
         public Builder key(String key) {
@@ -194,7 +201,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for stringFilter.
-         * @param stringFilter String value for stringFilter.
+         * @param  stringFilter  String value for stringFilter.
          * @return Builder
          */
         public Builder stringFilter(String stringFilter) {
@@ -204,7 +211,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for numberFilter.
-         * @param numberFilter Range value for numberFilter.
+         * @param  numberFilter  Range value for numberFilter.
          * @return Builder
          */
         public Builder numberFilter(Range numberFilter) {
@@ -214,7 +221,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for selectionUidsFilter.
-         * @param selectionUidsFilter List of String value for selectionUidsFilter.
+         * @param  selectionUidsFilter  List of String value for selectionUidsFilter.
          * @return Builder
          */
         public Builder selectionUidsFilter(List<String> selectionUidsFilter) {
@@ -224,7 +231,7 @@ public class CustomAttributeFilter {
 
         /**
          * Setter for boolFilter.
-         * @param boolFilter Boolean value for boolFilter.
+         * @param  boolFilter  Boolean value for boolFilter.
          * @return Builder
          */
         public Builder boolFilter(Boolean boolFilter) {

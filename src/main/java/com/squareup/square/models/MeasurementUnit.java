@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,25 +11,33 @@ import java.util.Objects;
  * This is a model class for MeasurementUnit type.
  */
 public class MeasurementUnit {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnitCustom customUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String areaUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lengthUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String volumeUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String weightUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String genericUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timeUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
 
     /**
      * Initialization constructor.
-     * @param customUnit MeasurementUnitCustom value for customUnit.
-     * @param areaUnit String value for areaUnit.
-     * @param lengthUnit String value for lengthUnit.
-     * @param volumeUnit String value for volumeUnit.
-     * @param weightUnit String value for weightUnit.
-     * @param genericUnit String value for genericUnit.
-     * @param timeUnit String value for timeUnit.
-     * @param type String value for type.
+     * @param  customUnit  MeasurementUnitCustom value for customUnit.
+     * @param  areaUnit  String value for areaUnit.
+     * @param  lengthUnit  String value for lengthUnit.
+     * @param  volumeUnit  String value for volumeUnit.
+     * @param  weightUnit  String value for weightUnit.
+     * @param  genericUnit  String value for genericUnit.
+     * @param  timeUnit  String value for timeUnit.
+     * @param  type  String value for type.
      */
     @JsonCreator
     public MeasurementUnit(
@@ -57,7 +66,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("custom_unit")
     public MeasurementUnitCustom getCustomUnit() {
-        return this.customUnit;
+        return customUnit;
     }
 
     /**
@@ -67,7 +76,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("area_unit")
     public String getAreaUnit() {
-        return this.areaUnit;
+        return areaUnit;
     }
 
     /**
@@ -77,7 +86,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("length_unit")
     public String getLengthUnit() {
-        return this.lengthUnit;
+        return lengthUnit;
     }
 
     /**
@@ -87,7 +96,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("volume_unit")
     public String getVolumeUnit() {
-        return this.volumeUnit;
+        return volumeUnit;
     }
 
     /**
@@ -97,7 +106,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("weight_unit")
     public String getWeightUnit() {
-        return this.weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -106,7 +115,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("generic_unit")
     public String getGenericUnit() {
-        return this.genericUnit;
+        return genericUnit;
     }
 
     /**
@@ -116,7 +125,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("time_unit")
     public String getTimeUnit() {
-        return this.timeUnit;
+        return timeUnit;
     }
 
     /**
@@ -127,7 +136,7 @@ public class MeasurementUnit {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     @Override
@@ -202,7 +211,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for customUnit.
-         * @param customUnit MeasurementUnitCustom value for customUnit.
+         * @param  customUnit  MeasurementUnitCustom value for customUnit.
          * @return Builder
          */
         public Builder customUnit(MeasurementUnitCustom customUnit) {
@@ -212,7 +221,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for areaUnit.
-         * @param areaUnit String value for areaUnit.
+         * @param  areaUnit  String value for areaUnit.
          * @return Builder
          */
         public Builder areaUnit(String areaUnit) {
@@ -222,7 +231,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for lengthUnit.
-         * @param lengthUnit String value for lengthUnit.
+         * @param  lengthUnit  String value for lengthUnit.
          * @return Builder
          */
         public Builder lengthUnit(String lengthUnit) {
@@ -232,7 +241,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for volumeUnit.
-         * @param volumeUnit String value for volumeUnit.
+         * @param  volumeUnit  String value for volumeUnit.
          * @return Builder
          */
         public Builder volumeUnit(String volumeUnit) {
@@ -242,7 +251,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for weightUnit.
-         * @param weightUnit String value for weightUnit.
+         * @param  weightUnit  String value for weightUnit.
          * @return Builder
          */
         public Builder weightUnit(String weightUnit) {
@@ -252,7 +261,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for genericUnit.
-         * @param genericUnit String value for genericUnit.
+         * @param  genericUnit  String value for genericUnit.
          * @return Builder
          */
         public Builder genericUnit(String genericUnit) {
@@ -262,7 +271,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for timeUnit.
-         * @param timeUnit String value for timeUnit.
+         * @param  timeUnit  String value for timeUnit.
          * @return Builder
          */
         public Builder timeUnit(String timeUnit) {
@@ -272,7 +281,7 @@ public class MeasurementUnit {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {

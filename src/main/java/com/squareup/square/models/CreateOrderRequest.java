@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,23 +11,21 @@ import java.util.Objects;
  * This is a model class for CreateOrderRequest type.
  */
 public class CreateOrderRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
-    private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
      * Initialization constructor.
-     * @param order Order value for order.
-     * @param locationId String value for locationId.
-     * @param idempotencyKey String value for idempotencyKey.
+     * @param  order  Order value for order.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
     @JsonCreator
     public CreateOrderRequest(
             @JsonProperty("order") Order order,
-            @JsonProperty("location_id") String locationId,
             @JsonProperty("idempotency_key") String idempotencyKey) {
         this.order = order;
-        this.locationId = locationId;
         this.idempotencyKey = idempotencyKey;
     }
 
@@ -40,17 +39,7 @@ public class CreateOrderRequest {
      */
     @JsonGetter("order")
     public Order getOrder() {
-        return this.order;
-    }
-
-    /**
-     * Getter for LocationId.
-     * The ID of the business location to associate the order with.
-     * @return Returns the String
-     */
-    @JsonGetter("location_id")
-    public String getLocationId() {
-        return this.locationId;
+        return order;
     }
 
     /**
@@ -64,12 +53,12 @@ public class CreateOrderRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, locationId, idempotencyKey);
+        return Objects.hash(order, idempotencyKey);
     }
 
     @Override
@@ -82,7 +71,6 @@ public class CreateOrderRequest {
         }
         CreateOrderRequest other = (CreateOrderRequest) obj;
         return Objects.equals(order, other.order)
-            && Objects.equals(locationId, other.locationId)
             && Objects.equals(idempotencyKey, other.idempotencyKey);
     }
 
@@ -92,8 +80,8 @@ public class CreateOrderRequest {
      */
     @Override
     public String toString() {
-        return "CreateOrderRequest [" + "order=" + order + ", locationId=" + locationId
-                + ", idempotencyKey=" + idempotencyKey + "]";
+        return "CreateOrderRequest [" + "order=" + order + ", idempotencyKey=" + idempotencyKey
+                + "]";
     }
 
     /**
@@ -104,7 +92,6 @@ public class CreateOrderRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .order(getOrder())
-                .locationId(getLocationId())
                 .idempotencyKey(getIdempotencyKey());
         return builder;
     }
@@ -114,14 +101,13 @@ public class CreateOrderRequest {
      */
     public static class Builder {
         private Order order;
-        private String locationId;
         private String idempotencyKey;
 
 
 
         /**
          * Setter for order.
-         * @param order Order value for order.
+         * @param  order  Order value for order.
          * @return Builder
          */
         public Builder order(Order order) {
@@ -130,18 +116,8 @@ public class CreateOrderRequest {
         }
 
         /**
-         * Setter for locationId.
-         * @param locationId String value for locationId.
-         * @return Builder
-         */
-        public Builder locationId(String locationId) {
-            this.locationId = locationId;
-            return this;
-        }
-
-        /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -154,7 +130,7 @@ public class CreateOrderRequest {
          * @return {@link CreateOrderRequest}
          */
         public CreateOrderRequest build() {
-            return new CreateOrderRequest(order, locationId, idempotencyKey);
+            return new CreateOrderRequest(order, idempotencyKey);
         }
     }
 }

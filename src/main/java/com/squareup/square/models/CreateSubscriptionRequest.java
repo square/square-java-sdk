@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,25 +15,31 @@ public class CreateSubscriptionRequest {
     private final String locationId;
     private final String planId;
     private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxPercentage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceOverrideMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param locationId String value for locationId.
-     * @param planId String value for planId.
-     * @param customerId String value for customerId.
-     * @param startDate String value for startDate.
-     * @param canceledDate String value for canceledDate.
-     * @param taxPercentage String value for taxPercentage.
-     * @param priceOverrideMoney Money value for priceOverrideMoney.
-     * @param cardId String value for cardId.
-     * @param timezone String value for timezone.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  locationId  String value for locationId.
+     * @param  planId  String value for planId.
+     * @param  customerId  String value for customerId.
+     * @param  startDate  String value for startDate.
+     * @param  canceledDate  String value for canceledDate.
+     * @param  taxPercentage  String value for taxPercentage.
+     * @param  priceOverrideMoney  Money value for priceOverrideMoney.
+     * @param  cardId  String value for cardId.
+     * @param  timezone  String value for timezone.
      */
     @JsonCreator
     public CreateSubscriptionRequest(
@@ -68,7 +75,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -78,7 +85,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -89,7 +96,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
-        return this.planId;
+        return planId;
     }
 
     /**
@@ -99,7 +106,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("customer_id")
     public String getCustomerId() {
-        return this.customerId;
+        return customerId;
     }
 
     /**
@@ -110,7 +117,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("start_date")
     public String getStartDate() {
-        return this.startDate;
+        return startDate;
     }
 
     /**
@@ -122,7 +129,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("canceled_date")
     public String getCanceledDate() {
-        return this.canceledDate;
+        return canceledDate;
     }
 
     /**
@@ -134,7 +141,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("tax_percentage")
     public String getTaxPercentage() {
-        return this.taxPercentage;
+        return taxPercentage;
     }
 
     /**
@@ -149,7 +156,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("price_override_money")
     public Money getPriceOverrideMoney() {
-        return this.priceOverrideMoney;
+        return priceOverrideMoney;
     }
 
     /**
@@ -162,7 +169,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("card_id")
     public String getCardId() {
-        return this.cardId;
+        return cardId;
     }
 
     /**
@@ -176,7 +183,7 @@ public class CreateSubscriptionRequest {
      */
     @JsonGetter("timezone")
     public String getTimezone() {
-        return this.timezone;
+        return timezone;
     }
 
     @Override
@@ -252,15 +259,12 @@ public class CreateSubscriptionRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param locationId String value for locationId.
-         * @param planId String value for planId.
-         * @param customerId String value for customerId.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  locationId  String value for locationId.
+         * @param  planId  String value for planId.
+         * @param  customerId  String value for customerId.
          */
-        public Builder(String idempotencyKey,
-                String locationId,
-                String planId,
-                String customerId) {
+        public Builder(String idempotencyKey, String locationId, String planId, String customerId) {
             this.idempotencyKey = idempotencyKey;
             this.locationId = locationId;
             this.planId = planId;
@@ -269,7 +273,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -279,7 +283,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -289,7 +293,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for planId.
-         * @param planId String value for planId.
+         * @param  planId  String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {
@@ -299,7 +303,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for customerId.
-         * @param customerId String value for customerId.
+         * @param  customerId  String value for customerId.
          * @return Builder
          */
         public Builder customerId(String customerId) {
@@ -309,7 +313,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for startDate.
-         * @param startDate String value for startDate.
+         * @param  startDate  String value for startDate.
          * @return Builder
          */
         public Builder startDate(String startDate) {
@@ -319,7 +323,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for canceledDate.
-         * @param canceledDate String value for canceledDate.
+         * @param  canceledDate  String value for canceledDate.
          * @return Builder
          */
         public Builder canceledDate(String canceledDate) {
@@ -329,7 +333,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for taxPercentage.
-         * @param taxPercentage String value for taxPercentage.
+         * @param  taxPercentage  String value for taxPercentage.
          * @return Builder
          */
         public Builder taxPercentage(String taxPercentage) {
@@ -339,7 +343,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for priceOverrideMoney.
-         * @param priceOverrideMoney Money value for priceOverrideMoney.
+         * @param  priceOverrideMoney  Money value for priceOverrideMoney.
          * @return Builder
          */
         public Builder priceOverrideMoney(Money priceOverrideMoney) {
@@ -349,7 +353,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for cardId.
-         * @param cardId String value for cardId.
+         * @param  cardId  String value for cardId.
          * @return Builder
          */
         public Builder cardId(String cardId) {
@@ -359,7 +363,7 @@ public class CreateSubscriptionRequest {
 
         /**
          * Setter for timezone.
-         * @param timezone String value for timezone.
+         * @param  timezone  String value for timezone.
          * @return Builder
          */
         public Builder timezone(String timezone) {

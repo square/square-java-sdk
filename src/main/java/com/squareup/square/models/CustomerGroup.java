@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,20 @@ import java.util.Objects;
  * This is a model class for CustomerGroup type.
  */
 public class CustomerGroup {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param id String value for id.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  name  String value for name.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public CustomerGroup(
@@ -41,7 +45,7 @@ public class CustomerGroup {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -51,7 +55,7 @@ public class CustomerGroup {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -61,7 +65,7 @@ public class CustomerGroup {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -71,7 +75,7 @@ public class CustomerGroup {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -128,7 +132,7 @@ public class CustomerGroup {
 
         /**
          * Initialization constructor.
-         * @param name String value for name.
+         * @param  name  String value for name.
          */
         public Builder(String name) {
             this.name = name;
@@ -136,7 +140,7 @@ public class CustomerGroup {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -146,7 +150,7 @@ public class CustomerGroup {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -156,7 +160,7 @@ public class CustomerGroup {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -166,7 +170,7 @@ public class CustomerGroup {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

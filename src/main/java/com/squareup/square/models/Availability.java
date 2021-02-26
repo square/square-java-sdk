@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,15 +12,18 @@ import java.util.Objects;
  * This is a model class for Availability type.
  */
 public class Availability {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AppointmentSegment> appointmentSegments;
 
     /**
      * Initialization constructor.
-     * @param startAt String value for startAt.
-     * @param locationId String value for locationId.
-     * @param appointmentSegments List of AppointmentSegment value for appointmentSegments.
+     * @param  startAt  String value for startAt.
+     * @param  locationId  String value for locationId.
+     * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
      */
     @JsonCreator
     public Availability(
@@ -38,7 +42,7 @@ public class Availability {
      */
     @JsonGetter("start_at")
     public String getStartAt() {
-        return this.startAt;
+        return startAt;
     }
 
     /**
@@ -48,7 +52,7 @@ public class Availability {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -58,7 +62,7 @@ public class Availability {
      */
     @JsonGetter("appointment_segments")
     public List<AppointmentSegment> getAppointmentSegments() {
-        return this.appointmentSegments;
+        return appointmentSegments;
     }
 
     @Override
@@ -115,7 +119,7 @@ public class Availability {
 
         /**
          * Setter for startAt.
-         * @param startAt String value for startAt.
+         * @param  startAt  String value for startAt.
          * @return Builder
          */
         public Builder startAt(String startAt) {
@@ -125,7 +129,7 @@ public class Availability {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -135,7 +139,7 @@ public class Availability {
 
         /**
          * Setter for appointmentSegments.
-         * @param appointmentSegments List of AppointmentSegment value for appointmentSegments.
+         * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
          * @return Builder
          */
         public Builder appointmentSegments(List<AppointmentSegment> appointmentSegments) {

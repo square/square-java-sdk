@@ -14,7 +14,7 @@ public class LoyaltyEventOrderFilter {
 
     /**
      * Initialization constructor.
-     * @param orderId String value for orderId.
+     * @param  orderId  String value for orderId.
      */
     @JsonCreator
     public LoyaltyEventOrderFilter(
@@ -29,7 +29,7 @@ public class LoyaltyEventOrderFilter {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LoyaltyEventOrderFilter {
 
         /**
          * Initialization constructor.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          */
         public Builder(String orderId) {
             this.orderId = orderId;
@@ -84,7 +84,7 @@ public class LoyaltyEventOrderFilter {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {

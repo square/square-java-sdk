@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,33 +11,45 @@ import java.util.Objects;
  * This is a model class for InventoryTransfer type.
  */
 public class InventoryTransfer {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fromLocationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String toLocationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String occurredAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param state String value for state.
-     * @param fromLocationId String value for fromLocationId.
-     * @param toLocationId String value for toLocationId.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param catalogObjectType String value for catalogObjectType.
-     * @param quantity String value for quantity.
-     * @param occurredAt String value for occurredAt.
-     * @param createdAt String value for createdAt.
-     * @param source SourceApplication value for source.
-     * @param employeeId String value for employeeId.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  state  String value for state.
+     * @param  fromLocationId  String value for fromLocationId.
+     * @param  toLocationId  String value for toLocationId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  quantity  String value for quantity.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
      */
     @JsonCreator
     public InventoryTransfer(
@@ -73,7 +86,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -84,7 +97,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -94,7 +107,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -105,7 +118,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("from_location_id")
     public String getFromLocationId() {
-        return this.fromLocationId;
+        return fromLocationId;
     }
 
     /**
@@ -116,7 +129,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("to_location_id")
     public String getToLocationId() {
-        return this.toLocationId;
+        return toLocationId;
     }
 
     /**
@@ -126,7 +139,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -137,7 +150,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("catalog_object_type")
     public String getCatalogObjectType() {
-        return this.catalogObjectType;
+        return catalogObjectType;
     }
 
     /**
@@ -148,7 +161,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("quantity")
     public String getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 
     /**
@@ -160,7 +173,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("occurred_at")
     public String getOccurredAt() {
-        return this.occurredAt;
+        return occurredAt;
     }
 
     /**
@@ -171,7 +184,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -181,7 +194,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("source")
     public SourceApplication getSource() {
-        return this.source;
+        return source;
     }
 
     /**
@@ -191,7 +204,7 @@ public class InventoryTransfer {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     @Override
@@ -280,7 +293,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -290,7 +303,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -300,7 +313,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -310,7 +323,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for fromLocationId.
-         * @param fromLocationId String value for fromLocationId.
+         * @param  fromLocationId  String value for fromLocationId.
          * @return Builder
          */
         public Builder fromLocationId(String fromLocationId) {
@@ -320,7 +333,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for toLocationId.
-         * @param toLocationId String value for toLocationId.
+         * @param  toLocationId  String value for toLocationId.
          * @return Builder
          */
         public Builder toLocationId(String toLocationId) {
@@ -330,7 +343,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -340,7 +353,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for catalogObjectType.
-         * @param catalogObjectType String value for catalogObjectType.
+         * @param  catalogObjectType  String value for catalogObjectType.
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
@@ -350,7 +363,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for quantity.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          * @return Builder
          */
         public Builder quantity(String quantity) {
@@ -360,7 +373,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for occurredAt.
-         * @param occurredAt String value for occurredAt.
+         * @param  occurredAt  String value for occurredAt.
          * @return Builder
          */
         public Builder occurredAt(String occurredAt) {
@@ -370,7 +383,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -380,7 +393,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for source.
-         * @param source SourceApplication value for source.
+         * @param  source  SourceApplication value for source.
          * @return Builder
          */
         public Builder source(SourceApplication source) {
@@ -390,7 +403,7 @@ public class InventoryTransfer {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {

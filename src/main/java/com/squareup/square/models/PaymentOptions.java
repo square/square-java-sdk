@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for PaymentOptions type.
  */
 public class PaymentOptions {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autocomplete;
 
     /**
      * Initialization constructor.
-     * @param autocomplete Boolean value for autocomplete.
+     * @param  autocomplete  Boolean value for autocomplete.
      */
     @JsonCreator
     public PaymentOptions(
@@ -30,7 +32,7 @@ public class PaymentOptions {
      */
     @JsonGetter("autocomplete")
     public Boolean getAutocomplete() {
-        return this.autocomplete;
+        return autocomplete;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class PaymentOptions {
 
         /**
          * Setter for autocomplete.
-         * @param autocomplete Boolean value for autocomplete.
+         * @param  autocomplete  Boolean value for autocomplete.
          * @return Builder
          */
         public Builder autocomplete(Boolean autocomplete) {

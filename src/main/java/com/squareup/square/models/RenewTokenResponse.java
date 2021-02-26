@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.Objects;
@@ -12,21 +13,27 @@ import java.util.Objects;
  */
 public class RenewTokenResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tokenType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
 
     /**
      * Initialization constructor.
-     * @param accessToken String value for accessToken.
-     * @param tokenType String value for tokenType.
-     * @param expiresAt String value for expiresAt.
-     * @param merchantId String value for merchantId.
-     * @param subscriptionId String value for subscriptionId.
-     * @param planId String value for planId.
+     * @param  accessToken  String value for accessToken.
+     * @param  tokenType  String value for tokenType.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  merchantId  String value for merchantId.
+     * @param  subscriptionId  String value for subscriptionId.
+     * @param  planId  String value for planId.
      */
     @JsonCreator
     public RenewTokenResponse(
@@ -59,7 +66,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
-        return this.accessToken;
+        return accessToken;
     }
 
     /**
@@ -69,7 +76,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("token_type")
     public String getTokenType() {
-        return this.tokenType;
+        return tokenType;
     }
 
     /**
@@ -80,7 +87,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("expires_at")
     public String getExpiresAt() {
-        return this.expiresAt;
+        return expiresAt;
     }
 
     /**
@@ -90,7 +97,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("merchant_id")
     public String getMerchantId() {
-        return this.merchantId;
+        return merchantId;
     }
 
     /**
@@ -101,7 +108,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("subscription_id")
     public String getSubscriptionId() {
-        return this.subscriptionId;
+        return subscriptionId;
     }
 
     /**
@@ -112,7 +119,7 @@ public class RenewTokenResponse {
      */
     @JsonGetter("plan_id")
     public String getPlanId() {
-        return this.planId;
+        return planId;
     }
 
     @Override
@@ -181,7 +188,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -191,7 +198,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for accessToken.
-         * @param accessToken String value for accessToken.
+         * @param  accessToken  String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
@@ -201,7 +208,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for tokenType.
-         * @param tokenType String value for tokenType.
+         * @param  tokenType  String value for tokenType.
          * @return Builder
          */
         public Builder tokenType(String tokenType) {
@@ -211,7 +218,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for expiresAt.
-         * @param expiresAt String value for expiresAt.
+         * @param  expiresAt  String value for expiresAt.
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
@@ -221,7 +228,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for merchantId.
-         * @param merchantId String value for merchantId.
+         * @param  merchantId  String value for merchantId.
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
@@ -231,7 +238,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for subscriptionId.
-         * @param subscriptionId String value for subscriptionId.
+         * @param  subscriptionId  String value for subscriptionId.
          * @return Builder
          */
         public Builder subscriptionId(String subscriptionId) {
@@ -241,7 +248,7 @@ public class RenewTokenResponse {
 
         /**
          * Setter for planId.
-         * @param planId String value for planId.
+         * @param  planId  String value for planId.
          * @return Builder
          */
         public Builder planId(String planId) {

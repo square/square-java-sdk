@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CancelBookingRequest type.
  */
 public class CancelBookingRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer bookingVersion;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param bookingVersion Integer value for bookingVersion.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  bookingVersion  Integer value for bookingVersion.
      */
     @JsonCreator
     public CancelBookingRequest(
@@ -33,7 +36,7 @@ public class CancelBookingRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -43,7 +46,7 @@ public class CancelBookingRequest {
      */
     @JsonGetter("booking_version")
     public Integer getBookingVersion() {
-        return this.bookingVersion;
+        return bookingVersion;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CancelBookingRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -107,7 +110,7 @@ public class CancelBookingRequest {
 
         /**
          * Setter for bookingVersion.
-         * @param bookingVersion Integer value for bookingVersion.
+         * @param  bookingVersion  Integer value for bookingVersion.
          * @return Builder
          */
         public Builder bookingVersion(Integer bookingVersion) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,39 +12,57 @@ import java.util.Objects;
  * This is a model class for CardPaymentDetails type.
  */
 public class CardPaymentDetails {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Card card;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cvvStatus;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String avsStatus;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String authResultCode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationIdentifier;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationCryptogram;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationMethod;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationResults;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescription;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DeviceDetails deviceDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CardPaymentTimeline cardPaymentTimeline;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean refundRequiresCardPresence;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param status String value for status.
-     * @param card Card value for card.
-     * @param entryMethod String value for entryMethod.
-     * @param cvvStatus String value for cvvStatus.
-     * @param avsStatus String value for avsStatus.
-     * @param authResultCode String value for authResultCode.
-     * @param applicationIdentifier String value for applicationIdentifier.
-     * @param applicationName String value for applicationName.
-     * @param applicationCryptogram String value for applicationCryptogram.
-     * @param verificationMethod String value for verificationMethod.
-     * @param verificationResults String value for verificationResults.
-     * @param statementDescription String value for statementDescription.
-     * @param deviceDetails DeviceDetails value for deviceDetails.
-     * @param refundRequiresCardPresence Boolean value for refundRequiresCardPresence.
-     * @param errors List of Error value for errors.
+     * @param  status  String value for status.
+     * @param  card  Card value for card.
+     * @param  entryMethod  String value for entryMethod.
+     * @param  cvvStatus  String value for cvvStatus.
+     * @param  avsStatus  String value for avsStatus.
+     * @param  authResultCode  String value for authResultCode.
+     * @param  applicationIdentifier  String value for applicationIdentifier.
+     * @param  applicationName  String value for applicationName.
+     * @param  applicationCryptogram  String value for applicationCryptogram.
+     * @param  verificationMethod  String value for verificationMethod.
+     * @param  verificationResults  String value for verificationResults.
+     * @param  statementDescription  String value for statementDescription.
+     * @param  deviceDetails  DeviceDetails value for deviceDetails.
+     * @param  cardPaymentTimeline  CardPaymentTimeline value for cardPaymentTimeline.
+     * @param  refundRequiresCardPresence  Boolean value for refundRequiresCardPresence.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CardPaymentDetails(
@@ -60,6 +79,7 @@ public class CardPaymentDetails {
             @JsonProperty("verification_results") String verificationResults,
             @JsonProperty("statement_description") String statementDescription,
             @JsonProperty("device_details") DeviceDetails deviceDetails,
+            @JsonProperty("card_payment_timeline") CardPaymentTimeline cardPaymentTimeline,
             @JsonProperty("refund_requires_card_presence") Boolean refundRequiresCardPresence,
             @JsonProperty("errors") List<Error> errors) {
         this.status = status;
@@ -75,6 +95,7 @@ public class CardPaymentDetails {
         this.verificationResults = verificationResults;
         this.statementDescription = statementDescription;
         this.deviceDetails = deviceDetails;
+        this.cardPaymentTimeline = cardPaymentTimeline;
         this.refundRequiresCardPresence = refundRequiresCardPresence;
         this.errors = errors;
     }
@@ -86,7 +107,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -97,7 +118,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("card")
     public Card getCard() {
-        return this.card;
+        return card;
     }
 
     /**
@@ -108,7 +129,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("entry_method")
     public String getEntryMethod() {
-        return this.entryMethod;
+        return entryMethod;
     }
 
     /**
@@ -119,7 +140,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("cvv_status")
     public String getCvvStatus() {
-        return this.cvvStatus;
+        return cvvStatus;
     }
 
     /**
@@ -130,7 +151,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("avs_status")
     public String getAvsStatus() {
-        return this.avsStatus;
+        return avsStatus;
     }
 
     /**
@@ -141,7 +162,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("auth_result_code")
     public String getAuthResultCode() {
-        return this.authResultCode;
+        return authResultCode;
     }
 
     /**
@@ -151,7 +172,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("application_identifier")
     public String getApplicationIdentifier() {
-        return this.applicationIdentifier;
+        return applicationIdentifier;
     }
 
     /**
@@ -161,7 +182,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("application_name")
     public String getApplicationName() {
-        return this.applicationName;
+        return applicationName;
     }
 
     /**
@@ -171,7 +192,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("application_cryptogram")
     public String getApplicationCryptogram() {
-        return this.applicationCryptogram;
+        return applicationCryptogram;
     }
 
     /**
@@ -182,7 +203,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("verification_method")
     public String getVerificationMethod() {
-        return this.verificationMethod;
+        return verificationMethod;
     }
 
     /**
@@ -193,7 +214,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("verification_results")
     public String getVerificationResults() {
-        return this.verificationResults;
+        return verificationResults;
     }
 
     /**
@@ -205,7 +226,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("statement_description")
     public String getStatementDescription() {
-        return this.statementDescription;
+        return statementDescription;
     }
 
     /**
@@ -215,7 +236,17 @@ public class CardPaymentDetails {
      */
     @JsonGetter("device_details")
     public DeviceDetails getDeviceDetails() {
-        return this.deviceDetails;
+        return deviceDetails;
+    }
+
+    /**
+     * Getter for CardPaymentTimeline.
+     * The timeline for card payments.
+     * @return Returns the CardPaymentTimeline
+     */
+    @JsonGetter("card_payment_timeline")
+    public CardPaymentTimeline getCardPaymentTimeline() {
+        return cardPaymentTimeline;
     }
 
     /**
@@ -226,7 +257,7 @@ public class CardPaymentDetails {
      */
     @JsonGetter("refund_requires_card_presence")
     public Boolean getRefundRequiresCardPresence() {
-        return this.refundRequiresCardPresence;
+        return refundRequiresCardPresence;
     }
 
     /**
@@ -236,14 +267,14 @@ public class CardPaymentDetails {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(status, card, entryMethod, cvvStatus, avsStatus, authResultCode,
                 applicationIdentifier, applicationName, applicationCryptogram, verificationMethod,
-                verificationResults, statementDescription, deviceDetails,
+                verificationResults, statementDescription, deviceDetails, cardPaymentTimeline,
                 refundRequiresCardPresence, errors);
     }
 
@@ -269,6 +300,7 @@ public class CardPaymentDetails {
             && Objects.equals(verificationResults, other.verificationResults)
             && Objects.equals(statementDescription, other.statementDescription)
             && Objects.equals(deviceDetails, other.deviceDetails)
+            && Objects.equals(cardPaymentTimeline, other.cardPaymentTimeline)
             && Objects.equals(refundRequiresCardPresence, other.refundRequiresCardPresence)
             && Objects.equals(errors, other.errors);
     }
@@ -286,8 +318,9 @@ public class CardPaymentDetails {
                 + ", applicationCryptogram=" + applicationCryptogram + ", verificationMethod="
                 + verificationMethod + ", verificationResults=" + verificationResults
                 + ", statementDescription=" + statementDescription + ", deviceDetails="
-                + deviceDetails + ", refundRequiresCardPresence=" + refundRequiresCardPresence
-                + ", errors=" + errors + "]";
+                + deviceDetails + ", cardPaymentTimeline=" + cardPaymentTimeline
+                + ", refundRequiresCardPresence=" + refundRequiresCardPresence + ", errors="
+                + errors + "]";
     }
 
     /**
@@ -310,6 +343,7 @@ public class CardPaymentDetails {
                 .verificationResults(getVerificationResults())
                 .statementDescription(getStatementDescription())
                 .deviceDetails(getDeviceDetails())
+                .cardPaymentTimeline(getCardPaymentTimeline())
                 .refundRequiresCardPresence(getRefundRequiresCardPresence())
                 .errors(getErrors());
         return builder;
@@ -332,6 +366,7 @@ public class CardPaymentDetails {
         private String verificationResults;
         private String statementDescription;
         private DeviceDetails deviceDetails;
+        private CardPaymentTimeline cardPaymentTimeline;
         private Boolean refundRequiresCardPresence;
         private List<Error> errors;
 
@@ -339,7 +374,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -349,7 +384,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for card.
-         * @param card Card value for card.
+         * @param  card  Card value for card.
          * @return Builder
          */
         public Builder card(Card card) {
@@ -359,7 +394,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for entryMethod.
-         * @param entryMethod String value for entryMethod.
+         * @param  entryMethod  String value for entryMethod.
          * @return Builder
          */
         public Builder entryMethod(String entryMethod) {
@@ -369,7 +404,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for cvvStatus.
-         * @param cvvStatus String value for cvvStatus.
+         * @param  cvvStatus  String value for cvvStatus.
          * @return Builder
          */
         public Builder cvvStatus(String cvvStatus) {
@@ -379,7 +414,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for avsStatus.
-         * @param avsStatus String value for avsStatus.
+         * @param  avsStatus  String value for avsStatus.
          * @return Builder
          */
         public Builder avsStatus(String avsStatus) {
@@ -389,7 +424,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for authResultCode.
-         * @param authResultCode String value for authResultCode.
+         * @param  authResultCode  String value for authResultCode.
          * @return Builder
          */
         public Builder authResultCode(String authResultCode) {
@@ -399,7 +434,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for applicationIdentifier.
-         * @param applicationIdentifier String value for applicationIdentifier.
+         * @param  applicationIdentifier  String value for applicationIdentifier.
          * @return Builder
          */
         public Builder applicationIdentifier(String applicationIdentifier) {
@@ -409,7 +444,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for applicationName.
-         * @param applicationName String value for applicationName.
+         * @param  applicationName  String value for applicationName.
          * @return Builder
          */
         public Builder applicationName(String applicationName) {
@@ -419,7 +454,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for applicationCryptogram.
-         * @param applicationCryptogram String value for applicationCryptogram.
+         * @param  applicationCryptogram  String value for applicationCryptogram.
          * @return Builder
          */
         public Builder applicationCryptogram(String applicationCryptogram) {
@@ -429,7 +464,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for verificationMethod.
-         * @param verificationMethod String value for verificationMethod.
+         * @param  verificationMethod  String value for verificationMethod.
          * @return Builder
          */
         public Builder verificationMethod(String verificationMethod) {
@@ -439,7 +474,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for verificationResults.
-         * @param verificationResults String value for verificationResults.
+         * @param  verificationResults  String value for verificationResults.
          * @return Builder
          */
         public Builder verificationResults(String verificationResults) {
@@ -449,7 +484,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for statementDescription.
-         * @param statementDescription String value for statementDescription.
+         * @param  statementDescription  String value for statementDescription.
          * @return Builder
          */
         public Builder statementDescription(String statementDescription) {
@@ -459,7 +494,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for deviceDetails.
-         * @param deviceDetails DeviceDetails value for deviceDetails.
+         * @param  deviceDetails  DeviceDetails value for deviceDetails.
          * @return Builder
          */
         public Builder deviceDetails(DeviceDetails deviceDetails) {
@@ -468,8 +503,18 @@ public class CardPaymentDetails {
         }
 
         /**
+         * Setter for cardPaymentTimeline.
+         * @param  cardPaymentTimeline  CardPaymentTimeline value for cardPaymentTimeline.
+         * @return Builder
+         */
+        public Builder cardPaymentTimeline(CardPaymentTimeline cardPaymentTimeline) {
+            this.cardPaymentTimeline = cardPaymentTimeline;
+            return this;
+        }
+
+        /**
          * Setter for refundRequiresCardPresence.
-         * @param refundRequiresCardPresence Boolean value for refundRequiresCardPresence.
+         * @param  refundRequiresCardPresence  Boolean value for refundRequiresCardPresence.
          * @return Builder
          */
         public Builder refundRequiresCardPresence(Boolean refundRequiresCardPresence) {
@@ -479,7 +524,7 @@ public class CardPaymentDetails {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -495,7 +540,7 @@ public class CardPaymentDetails {
             return new CardPaymentDetails(status, card, entryMethod, cvvStatus, avsStatus,
                     authResultCode, applicationIdentifier, applicationName, applicationCryptogram,
                     verificationMethod, verificationResults, statementDescription, deviceDetails,
-                    refundRequiresCardPresence, errors);
+                    cardPaymentTimeline, refundRequiresCardPresence, errors);
         }
     }
 }

@@ -15,7 +15,7 @@ public class CatalogObjectBatch {
 
     /**
      * Initialization constructor.
-     * @param objects List of CatalogObject value for objects.
+     * @param  objects  List of CatalogObject value for objects.
      */
     @JsonCreator
     public CatalogObjectBatch(
@@ -30,7 +30,7 @@ public class CatalogObjectBatch {
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
-        return this.objects;
+        return objects;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CatalogObjectBatch {
 
         /**
          * Initialization constructor.
-         * @param objects List of CatalogObject value for objects.
+         * @param  objects  List of CatalogObject value for objects.
          */
         public Builder(List<CatalogObject> objects) {
             this.objects = objects;
@@ -85,7 +85,7 @@ public class CatalogObjectBatch {
 
         /**
          * Setter for objects.
-         * @param objects List of CatalogObject value for objects.
+         * @param  objects  List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {

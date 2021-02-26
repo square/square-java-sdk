@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for RenewTokenRequest type.
  */
 public class RenewTokenRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
 
     /**
      * Initialization constructor.
-     * @param accessToken String value for accessToken.
+     * @param  accessToken  String value for accessToken.
      */
     @JsonCreator
     public RenewTokenRequest(
@@ -29,7 +31,7 @@ public class RenewTokenRequest {
      */
     @JsonGetter("access_token")
     public String getAccessToken() {
-        return this.accessToken;
+        return accessToken;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class RenewTokenRequest {
 
         /**
          * Setter for accessToken.
-         * @param accessToken String value for accessToken.
+         * @param  accessToken  String value for accessToken.
          * @return Builder
          */
         public Builder accessToken(String accessToken) {

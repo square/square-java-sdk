@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventAccumulatePoints type.
  */
 public class LoyaltyEventAccumulatePoints {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String loyaltyProgramId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
 
     /**
      * Initialization constructor.
-     * @param loyaltyProgramId String value for loyaltyProgramId.
-     * @param points Integer value for points.
-     * @param orderId String value for orderId.
+     * @param  loyaltyProgramId  String value for loyaltyProgramId.
+     * @param  points  Integer value for points.
+     * @param  orderId  String value for orderId.
      */
     @JsonCreator
     public LoyaltyEventAccumulatePoints(
@@ -37,7 +41,7 @@ public class LoyaltyEventAccumulatePoints {
      */
     @JsonGetter("loyalty_program_id")
     public String getLoyaltyProgramId() {
-        return this.loyaltyProgramId;
+        return loyaltyProgramId;
     }
 
     /**
@@ -47,7 +51,7 @@ public class LoyaltyEventAccumulatePoints {
      */
     @JsonGetter("points")
     public Integer getPoints() {
-        return this.points;
+        return points;
     }
 
     /**
@@ -58,7 +62,7 @@ public class LoyaltyEventAccumulatePoints {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     @Override
@@ -115,7 +119,7 @@ public class LoyaltyEventAccumulatePoints {
 
         /**
          * Setter for loyaltyProgramId.
-         * @param loyaltyProgramId String value for loyaltyProgramId.
+         * @param  loyaltyProgramId  String value for loyaltyProgramId.
          * @return Builder
          */
         public Builder loyaltyProgramId(String loyaltyProgramId) {
@@ -125,7 +129,7 @@ public class LoyaltyEventAccumulatePoints {
 
         /**
          * Setter for points.
-         * @param points Integer value for points.
+         * @param  points  Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
@@ -135,7 +139,7 @@ public class LoyaltyEventAccumulatePoints {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,33 +11,43 @@ import java.util.Objects;
  * This is a model class for TerminalRefund type.
  */
 public class TerminalRefund {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundId;
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deadlineDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param paymentId String value for paymentId.
-     * @param amountMoney Money value for amountMoney.
-     * @param id String value for id.
-     * @param refundId String value for refundId.
-     * @param orderId String value for orderId.
-     * @param reason String value for reason.
-     * @param deviceId String value for deviceId.
-     * @param deadlineDuration String value for deadlineDuration.
-     * @param status String value for status.
-     * @param cancelReason String value for cancelReason.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  paymentId  String value for paymentId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  id  String value for id.
+     * @param  refundId  String value for refundId.
+     * @param  orderId  String value for orderId.
+     * @param  reason  String value for reason.
+     * @param  deviceId  String value for deviceId.
+     * @param  deadlineDuration  String value for deadlineDuration.
+     * @param  status  String value for status.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public TerminalRefund(
@@ -73,7 +84,7 @@ public class TerminalRefund {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -83,7 +94,7 @@ public class TerminalRefund {
      */
     @JsonGetter("refund_id")
     public String getRefundId() {
-        return this.refundId;
+        return refundId;
     }
 
     /**
@@ -93,7 +104,7 @@ public class TerminalRefund {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -103,7 +114,7 @@ public class TerminalRefund {
      */
     @JsonGetter("order_id")
     public String getOrderId() {
-        return this.orderId;
+        return orderId;
     }
 
     /**
@@ -118,7 +129,7 @@ public class TerminalRefund {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -128,7 +139,7 @@ public class TerminalRefund {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     /**
@@ -139,7 +150,7 @@ public class TerminalRefund {
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     /**
@@ -151,7 +162,7 @@ public class TerminalRefund {
      */
     @JsonGetter("deadline_duration")
     public String getDeadlineDuration() {
-        return this.deadlineDuration;
+        return deadlineDuration;
     }
 
     /**
@@ -162,7 +173,7 @@ public class TerminalRefund {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -171,7 +182,7 @@ public class TerminalRefund {
      */
     @JsonGetter("cancel_reason")
     public String getCancelReason() {
-        return this.cancelReason;
+        return cancelReason;
     }
 
     /**
@@ -181,7 +192,7 @@ public class TerminalRefund {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -191,7 +202,7 @@ public class TerminalRefund {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -275,18 +286,17 @@ public class TerminalRefund {
 
         /**
          * Initialization constructor.
-         * @param paymentId String value for paymentId.
-         * @param amountMoney Money value for amountMoney.
+         * @param  paymentId  String value for paymentId.
+         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String paymentId,
-                Money amountMoney) {
+        public Builder(String paymentId, Money amountMoney) {
             this.paymentId = paymentId;
             this.amountMoney = amountMoney;
         }
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -296,7 +306,7 @@ public class TerminalRefund {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -306,7 +316,7 @@ public class TerminalRefund {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -316,7 +326,7 @@ public class TerminalRefund {
 
         /**
          * Setter for refundId.
-         * @param refundId String value for refundId.
+         * @param  refundId  String value for refundId.
          * @return Builder
          */
         public Builder refundId(String refundId) {
@@ -326,7 +336,7 @@ public class TerminalRefund {
 
         /**
          * Setter for orderId.
-         * @param orderId String value for orderId.
+         * @param  orderId  String value for orderId.
          * @return Builder
          */
         public Builder orderId(String orderId) {
@@ -336,7 +346,7 @@ public class TerminalRefund {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {
@@ -346,7 +356,7 @@ public class TerminalRefund {
 
         /**
          * Setter for deviceId.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
@@ -356,7 +366,7 @@ public class TerminalRefund {
 
         /**
          * Setter for deadlineDuration.
-         * @param deadlineDuration String value for deadlineDuration.
+         * @param  deadlineDuration  String value for deadlineDuration.
          * @return Builder
          */
         public Builder deadlineDuration(String deadlineDuration) {
@@ -366,7 +376,7 @@ public class TerminalRefund {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -376,7 +386,7 @@ public class TerminalRefund {
 
         /**
          * Setter for cancelReason.
-         * @param cancelReason String value for cancelReason.
+         * @param  cancelReason  String value for cancelReason.
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
@@ -386,7 +396,7 @@ public class TerminalRefund {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -396,7 +406,7 @@ public class TerminalRefund {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

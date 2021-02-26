@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,17 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventAdjustPoints type.
  */
 public class LoyaltyEventAdjustPoints {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String loyaltyProgramId;
     private final int points;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
 
     /**
      * Initialization constructor.
-     * @param points int value for points.
-     * @param loyaltyProgramId String value for loyaltyProgramId.
-     * @param reason String value for reason.
+     * @param  points  int value for points.
+     * @param  loyaltyProgramId  String value for loyaltyProgramId.
+     * @param  reason  String value for reason.
      */
     @JsonCreator
     public LoyaltyEventAdjustPoints(
@@ -37,7 +40,7 @@ public class LoyaltyEventAdjustPoints {
      */
     @JsonGetter("loyalty_program_id")
     public String getLoyaltyProgramId() {
-        return this.loyaltyProgramId;
+        return loyaltyProgramId;
     }
 
     /**
@@ -47,7 +50,7 @@ public class LoyaltyEventAdjustPoints {
      */
     @JsonGetter("points")
     public int getPoints() {
-        return this.points;
+        return points;
     }
 
     /**
@@ -57,7 +60,7 @@ public class LoyaltyEventAdjustPoints {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class LoyaltyEventAdjustPoints {
 
         /**
          * Initialization constructor.
-         * @param points int value for points.
+         * @param  points  int value for points.
          */
         public Builder(int points) {
             this.points = points;
@@ -119,7 +122,7 @@ public class LoyaltyEventAdjustPoints {
 
         /**
          * Setter for points.
-         * @param points int value for points.
+         * @param  points  int value for points.
          * @return Builder
          */
         public Builder points(int points) {
@@ -129,7 +132,7 @@ public class LoyaltyEventAdjustPoints {
 
         /**
          * Setter for loyaltyProgramId.
-         * @param loyaltyProgramId String value for loyaltyProgramId.
+         * @param  loyaltyProgramId  String value for loyaltyProgramId.
          * @return Builder
          */
         public Builder loyaltyProgramId(String loyaltyProgramId) {
@@ -139,7 +142,7 @@ public class LoyaltyEventAdjustPoints {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {

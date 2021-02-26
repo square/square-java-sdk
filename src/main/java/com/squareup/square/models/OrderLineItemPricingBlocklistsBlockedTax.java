@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklistsBlockedTax type.
  */
 public class OrderLineItemPricingBlocklistsBlockedTax {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxUid;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxCatalogObjectId;
 
     /**
      * Initialization constructor.
-     * @param uid String value for uid.
-     * @param taxUid String value for taxUid.
-     * @param taxCatalogObjectId String value for taxCatalogObjectId.
+     * @param  uid  String value for uid.
+     * @param  taxUid  String value for taxUid.
+     * @param  taxCatalogObjectId  String value for taxCatalogObjectId.
      */
     @JsonCreator
     public OrderLineItemPricingBlocklistsBlockedTax(
@@ -37,7 +41,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      */
     @JsonGetter("uid")
     public String getUid() {
-        return this.uid;
+        return uid;
     }
 
     /**
@@ -48,7 +52,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      */
     @JsonGetter("tax_uid")
     public String getTaxUid() {
-        return this.taxUid;
+        return taxUid;
     }
 
     /**
@@ -59,7 +63,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      */
     @JsonGetter("tax_catalog_object_id")
     public String getTaxCatalogObjectId() {
-        return this.taxCatalogObjectId;
+        return taxCatalogObjectId;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
 
         /**
          * Setter for uid.
-         * @param uid String value for uid.
+         * @param  uid  String value for uid.
          * @return Builder
          */
         public Builder uid(String uid) {
@@ -127,7 +131,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
 
         /**
          * Setter for taxUid.
-         * @param taxUid String value for taxUid.
+         * @param  taxUid  String value for taxUid.
          * @return Builder
          */
         public Builder taxUid(String taxUid) {
@@ -137,7 +141,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
 
         /**
          * Setter for taxCatalogObjectId.
-         * @param taxCatalogObjectId String value for taxCatalogObjectId.
+         * @param  taxCatalogObjectId  String value for taxCatalogObjectId.
          * @return Builder
          */
         public Builder taxCatalogObjectId(String taxCatalogObjectId) {

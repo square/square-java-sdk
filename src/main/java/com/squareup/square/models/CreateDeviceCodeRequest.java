@@ -15,8 +15,8 @@ public class CreateDeviceCodeRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param deviceCode DeviceCode value for deviceCode.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  deviceCode  DeviceCode value for deviceCode.
      */
     @JsonCreator
     public CreateDeviceCodeRequest(
@@ -35,7 +35,7 @@ public class CreateDeviceCodeRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CreateDeviceCodeRequest {
      */
     @JsonGetter("device_code")
     public DeviceCode getDeviceCode() {
-        return this.deviceCode;
+        return deviceCode;
     }
 
     @Override
@@ -94,18 +94,17 @@ public class CreateDeviceCodeRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param deviceCode DeviceCode value for deviceCode.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  deviceCode  DeviceCode value for deviceCode.
          */
-        public Builder(String idempotencyKey,
-                DeviceCode deviceCode) {
+        public Builder(String idempotencyKey, DeviceCode deviceCode) {
             this.idempotencyKey = idempotencyKey;
             this.deviceCode = deviceCode;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -115,7 +114,7 @@ public class CreateDeviceCodeRequest {
 
         /**
          * Setter for deviceCode.
-         * @param deviceCode DeviceCode value for deviceCode.
+         * @param  deviceCode  DeviceCode value for deviceCode.
          * @return Builder
          */
         public Builder deviceCode(DeviceCode deviceCode) {

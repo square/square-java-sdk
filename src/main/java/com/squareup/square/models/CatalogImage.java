@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for CatalogImage type.
  */
 public class CatalogImage {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String url;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String caption;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param url String value for url.
-     * @param caption String value for caption.
+     * @param  name  String value for name.
+     * @param  url  String value for url.
+     * @param  caption  String value for caption.
      */
     @JsonCreator
     public CatalogImage(
@@ -37,7 +41,7 @@ public class CatalogImage {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -48,7 +52,7 @@ public class CatalogImage {
      */
     @JsonGetter("url")
     public String getUrl() {
-        return this.url;
+        return url;
     }
 
     /**
@@ -59,7 +63,7 @@ public class CatalogImage {
      */
     @JsonGetter("caption")
     public String getCaption() {
-        return this.caption;
+        return caption;
     }
 
     @Override
@@ -115,7 +119,7 @@ public class CatalogImage {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -125,7 +129,7 @@ public class CatalogImage {
 
         /**
          * Setter for url.
-         * @param url String value for url.
+         * @param  url  String value for url.
          * @return Builder
          */
         public Builder url(String url) {
@@ -135,7 +139,7 @@ public class CatalogImage {
 
         /**
          * Setter for caption.
-         * @param caption String value for caption.
+         * @param  caption  String value for caption.
          * @return Builder
          */
         public Builder caption(String caption) {

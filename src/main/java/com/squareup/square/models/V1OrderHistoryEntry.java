@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for V1OrderHistoryEntry type.
  */
 public class V1OrderHistoryEntry {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String action;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param action String value for action.
-     * @param createdAt String value for createdAt.
+     * @param  action  String value for action.
+     * @param  createdAt  String value for createdAt.
      */
     @JsonCreator
     public V1OrderHistoryEntry(
@@ -32,7 +35,7 @@ public class V1OrderHistoryEntry {
      */
     @JsonGetter("action")
     public String getAction() {
-        return this.action;
+        return action;
     }
 
     /**
@@ -42,7 +45,7 @@ public class V1OrderHistoryEntry {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     @Override
@@ -95,7 +98,7 @@ public class V1OrderHistoryEntry {
 
         /**
          * Setter for action.
-         * @param action String value for action.
+         * @param  action  String value for action.
          * @return Builder
          */
         public Builder action(String action) {
@@ -105,7 +108,7 @@ public class V1OrderHistoryEntry {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

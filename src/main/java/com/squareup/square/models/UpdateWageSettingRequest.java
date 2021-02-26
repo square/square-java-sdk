@@ -14,7 +14,7 @@ public class UpdateWageSettingRequest {
 
     /**
      * Initialization constructor.
-     * @param wageSetting WageSetting value for wageSetting.
+     * @param  wageSetting  WageSetting value for wageSetting.
      */
     @JsonCreator
     public UpdateWageSettingRequest(
@@ -29,7 +29,7 @@ public class UpdateWageSettingRequest {
      */
     @JsonGetter("wage_setting")
     public WageSetting getWageSetting() {
-        return this.wageSetting;
+        return wageSetting;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UpdateWageSettingRequest {
 
         /**
          * Initialization constructor.
-         * @param wageSetting WageSetting value for wageSetting.
+         * @param  wageSetting  WageSetting value for wageSetting.
          */
         public Builder(WageSetting wageSetting) {
             this.wageSetting = wageSetting;
@@ -84,7 +84,7 @@ public class UpdateWageSettingRequest {
 
         /**
          * Setter for wageSetting.
-         * @param wageSetting WageSetting value for wageSetting.
+         * @param  wageSetting  WageSetting value for wageSetting.
          * @return Builder
          */
         public Builder wageSetting(WageSetting wageSetting) {

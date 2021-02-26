@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,18 +12,22 @@ import java.util.Objects;
  */
 public class LoyaltyProgramAccrualRule {
     private final String accrualType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money visitMinimumAmountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money spendAmountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
 
     /**
      * Initialization constructor.
-     * @param accrualType String value for accrualType.
-     * @param points Integer value for points.
-     * @param visitMinimumAmountMoney Money value for visitMinimumAmountMoney.
-     * @param spendAmountMoney Money value for spendAmountMoney.
-     * @param catalogObjectId String value for catalogObjectId.
+     * @param  accrualType  String value for accrualType.
+     * @param  points  Integer value for points.
+     * @param  visitMinimumAmountMoney  Money value for visitMinimumAmountMoney.
+     * @param  spendAmountMoney  Money value for spendAmountMoney.
+     * @param  catalogObjectId  String value for catalogObjectId.
      */
     @JsonCreator
     public LoyaltyProgramAccrualRule(
@@ -45,7 +50,7 @@ public class LoyaltyProgramAccrualRule {
      */
     @JsonGetter("accrual_type")
     public String getAccrualType() {
-        return this.accrualType;
+        return accrualType;
     }
 
     /**
@@ -55,7 +60,7 @@ public class LoyaltyProgramAccrualRule {
      */
     @JsonGetter("points")
     public Integer getPoints() {
-        return this.points;
+        return points;
     }
 
     /**
@@ -70,7 +75,7 @@ public class LoyaltyProgramAccrualRule {
      */
     @JsonGetter("visit_minimum_amount_money")
     public Money getVisitMinimumAmountMoney() {
-        return this.visitMinimumAmountMoney;
+        return visitMinimumAmountMoney;
     }
 
     /**
@@ -85,7 +90,7 @@ public class LoyaltyProgramAccrualRule {
      */
     @JsonGetter("spend_amount_money")
     public Money getSpendAmountMoney() {
-        return this.spendAmountMoney;
+        return spendAmountMoney;
     }
 
     /**
@@ -97,7 +102,7 @@ public class LoyaltyProgramAccrualRule {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     @Override
@@ -159,7 +164,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Initialization constructor.
-         * @param accrualType String value for accrualType.
+         * @param  accrualType  String value for accrualType.
          */
         public Builder(String accrualType) {
             this.accrualType = accrualType;
@@ -167,7 +172,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Setter for accrualType.
-         * @param accrualType String value for accrualType.
+         * @param  accrualType  String value for accrualType.
          * @return Builder
          */
         public Builder accrualType(String accrualType) {
@@ -177,7 +182,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Setter for points.
-         * @param points Integer value for points.
+         * @param  points  Integer value for points.
          * @return Builder
          */
         public Builder points(Integer points) {
@@ -187,7 +192,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Setter for visitMinimumAmountMoney.
-         * @param visitMinimumAmountMoney Money value for visitMinimumAmountMoney.
+         * @param  visitMinimumAmountMoney  Money value for visitMinimumAmountMoney.
          * @return Builder
          */
         public Builder visitMinimumAmountMoney(Money visitMinimumAmountMoney) {
@@ -197,7 +202,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Setter for spendAmountMoney.
-         * @param spendAmountMoney Money value for spendAmountMoney.
+         * @param  spendAmountMoney  Money value for spendAmountMoney.
          * @return Builder
          */
         public Builder spendAmountMoney(Money spendAmountMoney) {
@@ -207,7 +212,7 @@ public class LoyaltyProgramAccrualRule {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {

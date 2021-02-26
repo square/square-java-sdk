@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class CreateCatalogImageResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject image;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param image CatalogObject value for image.
+     * @param  errors  List of Error value for errors.
+     * @param  image  CatalogObject value for image.
      */
     @JsonCreator
     public CreateCatalogImageResponse(
@@ -40,7 +43,7 @@ public class CreateCatalogImageResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -75,7 +78,7 @@ public class CreateCatalogImageResponse {
      */
     @JsonGetter("image")
     public CatalogObject getImage() {
-        return this.image;
+        return image;
     }
 
     @Override
@@ -129,7 +132,7 @@ public class CreateCatalogImageResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -139,7 +142,7 @@ public class CreateCatalogImageResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -149,7 +152,7 @@ public class CreateCatalogImageResponse {
 
         /**
          * Setter for image.
-         * @param image CatalogObject value for image.
+         * @param  image  CatalogObject value for image.
          * @return Builder
          */
         public Builder image(CatalogObject image) {

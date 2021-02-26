@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogV1Id type.
  */
 public class CatalogV1Id {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogV1Id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param catalogV1Id String value for catalogV1Id.
-     * @param locationId String value for locationId.
+     * @param  catalogV1Id  String value for catalogV1Id.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public CatalogV1Id(
@@ -34,7 +37,7 @@ public class CatalogV1Id {
      */
     @JsonGetter("catalog_v1_id")
     public String getCatalogV1Id() {
-        return this.catalogV1Id;
+        return catalogV1Id;
     }
 
     /**
@@ -44,7 +47,7 @@ public class CatalogV1Id {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class CatalogV1Id {
 
         /**
          * Setter for catalogV1Id.
-         * @param catalogV1Id String value for catalogV1Id.
+         * @param  catalogV1Id  String value for catalogV1Id.
          * @return Builder
          */
         public Builder catalogV1Id(String catalogV1Id) {
@@ -107,7 +110,7 @@ public class CatalogV1Id {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

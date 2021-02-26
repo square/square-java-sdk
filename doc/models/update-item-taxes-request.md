@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `ItemIds` | `List<String>` |  | IDs for the CatalogItems associated with the CatalogTax objects being updated. | List<String> getItemIds() |
+| `ItemIds` | `List<String>` | Required | IDs for the CatalogItems associated with the CatalogTax objects being updated. | List<String> getItemIds() |
 | `TaxesToEnable` | `List<String>` | Optional | IDs of the CatalogTax objects to enable. | List<String> getTaxesToEnable() |
 | `TaxesToDisable` | `List<String>` | Optional | IDs of the CatalogTax objects to disable. | List<String> getTaxesToDisable() |
 

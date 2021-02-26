@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,23 +12,30 @@ import java.util.Objects;
  * This is a model class for CatalogProductSet type.
  */
 public class CatalogProductSet {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productIdsAny;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productIdsAll;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityExact;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityMin;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityMax;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allProducts;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param productIdsAny List of String value for productIdsAny.
-     * @param productIdsAll List of String value for productIdsAll.
-     * @param quantityExact Long value for quantityExact.
-     * @param quantityMin Long value for quantityMin.
-     * @param quantityMax Long value for quantityMax.
-     * @param allProducts Boolean value for allProducts.
+     * @param  name  String value for name.
+     * @param  productIdsAny  List of String value for productIdsAny.
+     * @param  productIdsAll  List of String value for productIdsAll.
+     * @param  quantityExact  Long value for quantityExact.
+     * @param  quantityMin  Long value for quantityMin.
+     * @param  quantityMax  Long value for quantityMax.
+     * @param  allProducts  Boolean value for allProducts.
      */
     @JsonCreator
     public CatalogProductSet(
@@ -54,7 +62,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -68,7 +76,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("product_ids_any")
     public List<String> getProductIdsAny() {
-        return this.productIdsAny;
+        return productIdsAny;
     }
 
     /**
@@ -80,7 +88,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("product_ids_all")
     public List<String> getProductIdsAll() {
-        return this.productIdsAll;
+        return productIdsAll;
     }
 
     /**
@@ -92,7 +100,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("quantity_exact")
     public Long getQuantityExact() {
-        return this.quantityExact;
+        return quantityExact;
     }
 
     /**
@@ -104,7 +112,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("quantity_min")
     public Long getQuantityMin() {
-        return this.quantityMin;
+        return quantityMin;
     }
 
     /**
@@ -115,7 +123,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("quantity_max")
     public Long getQuantityMax() {
-        return this.quantityMax;
+        return quantityMax;
     }
 
     /**
@@ -126,7 +134,7 @@ public class CatalogProductSet {
      */
     @JsonGetter("all_products")
     public Boolean getAllProducts() {
-        return this.allProducts;
+        return allProducts;
     }
 
     @Override
@@ -198,7 +206,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -208,7 +216,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for productIdsAny.
-         * @param productIdsAny List of String value for productIdsAny.
+         * @param  productIdsAny  List of String value for productIdsAny.
          * @return Builder
          */
         public Builder productIdsAny(List<String> productIdsAny) {
@@ -218,7 +226,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for productIdsAll.
-         * @param productIdsAll List of String value for productIdsAll.
+         * @param  productIdsAll  List of String value for productIdsAll.
          * @return Builder
          */
         public Builder productIdsAll(List<String> productIdsAll) {
@@ -228,7 +236,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for quantityExact.
-         * @param quantityExact Long value for quantityExact.
+         * @param  quantityExact  Long value for quantityExact.
          * @return Builder
          */
         public Builder quantityExact(Long quantityExact) {
@@ -238,7 +246,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for quantityMin.
-         * @param quantityMin Long value for quantityMin.
+         * @param  quantityMin  Long value for quantityMin.
          * @return Builder
          */
         public Builder quantityMin(Long quantityMin) {
@@ -248,7 +256,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for quantityMax.
-         * @param quantityMax Long value for quantityMax.
+         * @param  quantityMax  Long value for quantityMax.
          * @return Builder
          */
         public Builder quantityMax(Long quantityMax) {
@@ -258,7 +266,7 @@ public class CatalogProductSet {
 
         /**
          * Setter for allProducts.
-         * @param allProducts Boolean value for allProducts.
+         * @param  allProducts  Boolean value for allProducts.
          * @return Builder
          */
         public Builder allProducts(Boolean allProducts) {

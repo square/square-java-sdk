@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -13,25 +14,31 @@ import java.util.Objects;
 public class ObtainTokenRequest {
     private final String clientId;
     private final String clientSecret;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String code;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUri;
     private final String grantType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refreshToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String migrationToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> scopes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean shortLived;
 
     /**
      * Initialization constructor.
-     * @param clientId String value for clientId.
-     * @param clientSecret String value for clientSecret.
-     * @param grantType String value for grantType.
-     * @param code String value for code.
-     * @param redirectUri String value for redirectUri.
-     * @param refreshToken String value for refreshToken.
-     * @param migrationToken String value for migrationToken.
-     * @param scopes List of String value for scopes.
-     * @param shortLived Boolean value for shortLived.
+     * @param  clientId  String value for clientId.
+     * @param  clientSecret  String value for clientSecret.
+     * @param  grantType  String value for grantType.
+     * @param  code  String value for code.
+     * @param  redirectUri  String value for redirectUri.
+     * @param  refreshToken  String value for refreshToken.
+     * @param  migrationToken  String value for migrationToken.
+     * @param  scopes  List of String value for scopes.
+     * @param  shortLived  Boolean value for shortLived.
      */
     @JsonCreator
     public ObtainTokenRequest(
@@ -63,7 +70,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("client_id")
     public String getClientId() {
-        return this.clientId;
+        return clientId;
     }
 
     /**
@@ -74,7 +81,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("client_secret")
     public String getClientSecret() {
-        return this.clientSecret;
+        return clientSecret;
     }
 
     /**
@@ -86,7 +93,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("code")
     public String getCode() {
-        return this.code;
+        return code;
     }
 
     /**
@@ -96,7 +103,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("redirect_uri")
     public String getRedirectUri() {
-        return this.redirectUri;
+        return redirectUri;
     }
 
     /**
@@ -107,7 +114,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("grant_type")
     public String getGrantType() {
-        return this.grantType;
+        return grantType;
     }
 
     /**
@@ -119,7 +126,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("refresh_token")
     public String getRefreshToken() {
-        return this.refreshToken;
+        return refreshToken;
     }
 
     /**
@@ -133,7 +140,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("migration_token")
     public String getMigrationToken() {
-        return this.migrationToken;
+        return migrationToken;
     }
 
     /**
@@ -147,7 +154,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("scopes")
     public List<String> getScopes() {
-        return this.scopes;
+        return scopes;
     }
 
     /**
@@ -158,7 +165,7 @@ public class ObtainTokenRequest {
      */
     @JsonGetter("short_lived")
     public Boolean getShortLived() {
-        return this.shortLived;
+        return shortLived;
     }
 
     @Override
@@ -231,13 +238,11 @@ public class ObtainTokenRequest {
 
         /**
          * Initialization constructor.
-         * @param clientId String value for clientId.
-         * @param clientSecret String value for clientSecret.
-         * @param grantType String value for grantType.
+         * @param  clientId  String value for clientId.
+         * @param  clientSecret  String value for clientSecret.
+         * @param  grantType  String value for grantType.
          */
-        public Builder(String clientId,
-                String clientSecret,
-                String grantType) {
+        public Builder(String clientId, String clientSecret, String grantType) {
             this.clientId = clientId;
             this.clientSecret = clientSecret;
             this.grantType = grantType;
@@ -245,7 +250,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for clientId.
-         * @param clientId String value for clientId.
+         * @param  clientId  String value for clientId.
          * @return Builder
          */
         public Builder clientId(String clientId) {
@@ -255,7 +260,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for clientSecret.
-         * @param clientSecret String value for clientSecret.
+         * @param  clientSecret  String value for clientSecret.
          * @return Builder
          */
         public Builder clientSecret(String clientSecret) {
@@ -265,7 +270,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for grantType.
-         * @param grantType String value for grantType.
+         * @param  grantType  String value for grantType.
          * @return Builder
          */
         public Builder grantType(String grantType) {
@@ -275,7 +280,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for code.
-         * @param code String value for code.
+         * @param  code  String value for code.
          * @return Builder
          */
         public Builder code(String code) {
@@ -285,7 +290,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for redirectUri.
-         * @param redirectUri String value for redirectUri.
+         * @param  redirectUri  String value for redirectUri.
          * @return Builder
          */
         public Builder redirectUri(String redirectUri) {
@@ -295,7 +300,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for refreshToken.
-         * @param refreshToken String value for refreshToken.
+         * @param  refreshToken  String value for refreshToken.
          * @return Builder
          */
         public Builder refreshToken(String refreshToken) {
@@ -305,7 +310,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for migrationToken.
-         * @param migrationToken String value for migrationToken.
+         * @param  migrationToken  String value for migrationToken.
          * @return Builder
          */
         public Builder migrationToken(String migrationToken) {
@@ -315,7 +320,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for scopes.
-         * @param scopes List of String value for scopes.
+         * @param  scopes  List of String value for scopes.
          * @return Builder
          */
         public Builder scopes(List<String> scopes) {
@@ -325,7 +330,7 @@ public class ObtainTokenRequest {
 
         /**
          * Setter for shortLived.
-         * @param shortLived Boolean value for shortLived.
+         * @param  shortLived  Boolean value for shortLived.
          * @return Builder
          */
         public Builder shortLived(Boolean shortLived) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for OnboardAppointmentsResponse type.
  */
 public class OnboardAppointmentsResponse {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public OnboardAppointmentsResponse(
@@ -30,7 +32,7 @@ public class OnboardAppointmentsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class OnboardAppointmentsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

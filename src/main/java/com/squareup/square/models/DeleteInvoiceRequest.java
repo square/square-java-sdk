@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for DeleteInvoiceRequest type.
  */
 public class DeleteInvoiceRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
 
     /**
      * Initialization constructor.
-     * @param version Integer value for version.
+     * @param  version  Integer value for version.
      */
     @JsonCreator
     public DeleteInvoiceRequest(
@@ -31,7 +33,7 @@ public class DeleteInvoiceRequest {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class DeleteInvoiceRequest {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {

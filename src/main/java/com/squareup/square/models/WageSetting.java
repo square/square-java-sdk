@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,21 +12,27 @@ import java.util.Objects;
  * This is a model class for WageSetting type.
  */
 public class WageSetting {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<JobAssignment> jobAssignments;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOvertimeExempt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param teamMemberId String value for teamMemberId.
-     * @param jobAssignments List of JobAssignment value for jobAssignments.
-     * @param isOvertimeExempt Boolean value for isOvertimeExempt.
-     * @param version Integer value for version.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  jobAssignments  List of JobAssignment value for jobAssignments.
+     * @param  isOvertimeExempt  Boolean value for isOvertimeExempt.
+     * @param  version  Integer value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public WageSetting(
@@ -50,7 +57,7 @@ public class WageSetting {
      */
     @JsonGetter("team_member_id")
     public String getTeamMemberId() {
-        return this.teamMemberId;
+        return teamMemberId;
     }
 
     /**
@@ -62,7 +69,7 @@ public class WageSetting {
      */
     @JsonGetter("job_assignments")
     public List<JobAssignment> getJobAssignments() {
-        return this.jobAssignments;
+        return jobAssignments;
     }
 
     /**
@@ -72,7 +79,7 @@ public class WageSetting {
      */
     @JsonGetter("is_overtime_exempt")
     public Boolean getIsOvertimeExempt() {
-        return this.isOvertimeExempt;
+        return isOvertimeExempt;
     }
 
     /**
@@ -86,7 +93,7 @@ public class WageSetting {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -97,7 +104,7 @@ public class WageSetting {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -108,7 +115,7 @@ public class WageSetting {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -176,7 +183,7 @@ public class WageSetting {
 
         /**
          * Setter for teamMemberId.
-         * @param teamMemberId String value for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
@@ -186,7 +193,7 @@ public class WageSetting {
 
         /**
          * Setter for jobAssignments.
-         * @param jobAssignments List of JobAssignment value for jobAssignments.
+         * @param  jobAssignments  List of JobAssignment value for jobAssignments.
          * @return Builder
          */
         public Builder jobAssignments(List<JobAssignment> jobAssignments) {
@@ -196,7 +203,7 @@ public class WageSetting {
 
         /**
          * Setter for isOvertimeExempt.
-         * @param isOvertimeExempt Boolean value for isOvertimeExempt.
+         * @param  isOvertimeExempt  Boolean value for isOvertimeExempt.
          * @return Builder
          */
         public Builder isOvertimeExempt(Boolean isOvertimeExempt) {
@@ -206,7 +213,7 @@ public class WageSetting {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -216,7 +223,7 @@ public class WageSetting {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -226,7 +233,7 @@ public class WageSetting {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,31 +12,40 @@ import java.util.Objects;
  * This is a model class for TerminalCheckout type.
  */
 public class TerminalCheckout {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
     private final DeviceCheckoutOptions deviceOptions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deadlineDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> paymentIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
      * Initialization constructor.
-     * @param amountMoney Money value for amountMoney.
-     * @param deviceOptions DeviceCheckoutOptions value for deviceOptions.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param note String value for note.
-     * @param deadlineDuration String value for deadlineDuration.
-     * @param status String value for status.
-     * @param cancelReason String value for cancelReason.
-     * @param paymentIds List of String value for paymentIds.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  deviceOptions  DeviceCheckoutOptions value for deviceOptions.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  deadlineDuration  String value for deadlineDuration.
+     * @param  status  String value for status.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  paymentIds  List of String value for paymentIds.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public TerminalCheckout(
@@ -70,7 +80,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -85,7 +95,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -97,7 +107,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -108,7 +118,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -117,7 +127,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("device_options")
     public DeviceCheckoutOptions getDeviceOptions() {
-        return this.deviceOptions;
+        return deviceOptions;
     }
 
     /**
@@ -129,7 +139,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("deadline_duration")
     public String getDeadlineDuration() {
-        return this.deadlineDuration;
+        return deadlineDuration;
     }
 
     /**
@@ -140,7 +150,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -149,7 +159,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("cancel_reason")
     public String getCancelReason() {
-        return this.cancelReason;
+        return cancelReason;
     }
 
     /**
@@ -159,7 +169,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("payment_ids")
     public List<String> getPaymentIds() {
-        return this.paymentIds;
+        return paymentIds;
     }
 
     /**
@@ -169,7 +179,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -179,7 +189,7 @@ public class TerminalCheckout {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     @Override
@@ -260,18 +270,17 @@ public class TerminalCheckout {
 
         /**
          * Initialization constructor.
-         * @param amountMoney Money value for amountMoney.
-         * @param deviceOptions DeviceCheckoutOptions value for deviceOptions.
+         * @param  amountMoney  Money value for amountMoney.
+         * @param  deviceOptions  DeviceCheckoutOptions value for deviceOptions.
          */
-        public Builder(Money amountMoney,
-                DeviceCheckoutOptions deviceOptions) {
+        public Builder(Money amountMoney, DeviceCheckoutOptions deviceOptions) {
             this.amountMoney = amountMoney;
             this.deviceOptions = deviceOptions;
         }
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -281,7 +290,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for deviceOptions.
-         * @param deviceOptions DeviceCheckoutOptions value for deviceOptions.
+         * @param  deviceOptions  DeviceCheckoutOptions value for deviceOptions.
          * @return Builder
          */
         public Builder deviceOptions(DeviceCheckoutOptions deviceOptions) {
@@ -291,7 +300,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -301,7 +310,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -311,7 +320,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -321,7 +330,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for deadlineDuration.
-         * @param deadlineDuration String value for deadlineDuration.
+         * @param  deadlineDuration  String value for deadlineDuration.
          * @return Builder
          */
         public Builder deadlineDuration(String deadlineDuration) {
@@ -331,7 +340,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -341,7 +350,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for cancelReason.
-         * @param cancelReason String value for cancelReason.
+         * @param  cancelReason  String value for cancelReason.
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
@@ -351,7 +360,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for paymentIds.
-         * @param paymentIds List of String value for paymentIds.
+         * @param  paymentIds  List of String value for paymentIds.
          * @return Builder
          */
         public Builder paymentIds(List<String> paymentIds) {
@@ -361,7 +370,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -371,7 +380,7 @@ public class TerminalCheckout {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {

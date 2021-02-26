@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,45 +12,63 @@ import java.util.Objects;
  * This is a model class for CashDrawerShift type.
  */
 public class CashDrawerShift {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String openedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> employeeIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String openingEmployeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endingEmployeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closingEmployeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money openedCashMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaymentMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashRefundsMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaidInMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaidOutMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money expectedCashMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money closedCashMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashDrawerDevice device;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param state String value for state.
-     * @param openedAt String value for openedAt.
-     * @param endedAt String value for endedAt.
-     * @param closedAt String value for closedAt.
-     * @param employeeIds List of String value for employeeIds.
-     * @param openingEmployeeId String value for openingEmployeeId.
-     * @param endingEmployeeId String value for endingEmployeeId.
-     * @param closingEmployeeId String value for closingEmployeeId.
-     * @param description String value for description.
-     * @param openedCashMoney Money value for openedCashMoney.
-     * @param cashPaymentMoney Money value for cashPaymentMoney.
-     * @param cashRefundsMoney Money value for cashRefundsMoney.
-     * @param cashPaidInMoney Money value for cashPaidInMoney.
-     * @param cashPaidOutMoney Money value for cashPaidOutMoney.
-     * @param expectedCashMoney Money value for expectedCashMoney.
-     * @param closedCashMoney Money value for closedCashMoney.
-     * @param device CashDrawerDevice value for device.
+     * @param  id  String value for id.
+     * @param  state  String value for state.
+     * @param  openedAt  String value for openedAt.
+     * @param  endedAt  String value for endedAt.
+     * @param  closedAt  String value for closedAt.
+     * @param  employeeIds  List of String value for employeeIds.
+     * @param  openingEmployeeId  String value for openingEmployeeId.
+     * @param  endingEmployeeId  String value for endingEmployeeId.
+     * @param  closingEmployeeId  String value for closingEmployeeId.
+     * @param  description  String value for description.
+     * @param  openedCashMoney  Money value for openedCashMoney.
+     * @param  cashPaymentMoney  Money value for cashPaymentMoney.
+     * @param  cashRefundsMoney  Money value for cashRefundsMoney.
+     * @param  cashPaidInMoney  Money value for cashPaidInMoney.
+     * @param  cashPaidOutMoney  Money value for cashPaidOutMoney.
+     * @param  expectedCashMoney  Money value for expectedCashMoney.
+     * @param  closedCashMoney  Money value for closedCashMoney.
+     * @param  device  CashDrawerDevice value for device.
      */
     @JsonCreator
     public CashDrawerShift(
@@ -98,7 +117,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -108,7 +127,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -118,7 +137,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("opened_at")
     public String getOpenedAt() {
-        return this.openedAt;
+        return openedAt;
     }
 
     /**
@@ -128,7 +147,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("ended_at")
     public String getEndedAt() {
-        return this.endedAt;
+        return endedAt;
     }
 
     /**
@@ -138,7 +157,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("closed_at")
     public String getClosedAt() {
-        return this.closedAt;
+        return closedAt;
     }
 
     /**
@@ -149,7 +168,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("employee_ids")
     public List<String> getEmployeeIds() {
-        return this.employeeIds;
+        return employeeIds;
     }
 
     /**
@@ -159,7 +178,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("opening_employee_id")
     public String getOpeningEmployeeId() {
-        return this.openingEmployeeId;
+        return openingEmployeeId;
     }
 
     /**
@@ -169,7 +188,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("ending_employee_id")
     public String getEndingEmployeeId() {
-        return this.endingEmployeeId;
+        return endingEmployeeId;
     }
 
     /**
@@ -180,7 +199,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("closing_employee_id")
     public String getClosingEmployeeId() {
-        return this.closingEmployeeId;
+        return closingEmployeeId;
     }
 
     /**
@@ -190,7 +209,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -205,7 +224,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("opened_cash_money")
     public Money getOpenedCashMoney() {
-        return this.openedCashMoney;
+        return openedCashMoney;
     }
 
     /**
@@ -220,7 +239,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("cash_payment_money")
     public Money getCashPaymentMoney() {
-        return this.cashPaymentMoney;
+        return cashPaymentMoney;
     }
 
     /**
@@ -235,7 +254,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("cash_refunds_money")
     public Money getCashRefundsMoney() {
-        return this.cashRefundsMoney;
+        return cashRefundsMoney;
     }
 
     /**
@@ -250,7 +269,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("cash_paid_in_money")
     public Money getCashPaidInMoney() {
-        return this.cashPaidInMoney;
+        return cashPaidInMoney;
     }
 
     /**
@@ -265,7 +284,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("cash_paid_out_money")
     public Money getCashPaidOutMoney() {
-        return this.cashPaidOutMoney;
+        return cashPaidOutMoney;
     }
 
     /**
@@ -280,7 +299,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("expected_cash_money")
     public Money getExpectedCashMoney() {
-        return this.expectedCashMoney;
+        return expectedCashMoney;
     }
 
     /**
@@ -295,7 +314,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("closed_cash_money")
     public Money getClosedCashMoney() {
-        return this.closedCashMoney;
+        return closedCashMoney;
     }
 
     /**
@@ -304,7 +323,7 @@ public class CashDrawerShift {
      */
     @JsonGetter("device")
     public CashDrawerDevice getDevice() {
-        return this.device;
+        return device;
     }
 
     @Override
@@ -416,7 +435,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -426,7 +445,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -436,7 +455,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for openedAt.
-         * @param openedAt String value for openedAt.
+         * @param  openedAt  String value for openedAt.
          * @return Builder
          */
         public Builder openedAt(String openedAt) {
@@ -446,7 +465,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for endedAt.
-         * @param endedAt String value for endedAt.
+         * @param  endedAt  String value for endedAt.
          * @return Builder
          */
         public Builder endedAt(String endedAt) {
@@ -456,7 +475,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for closedAt.
-         * @param closedAt String value for closedAt.
+         * @param  closedAt  String value for closedAt.
          * @return Builder
          */
         public Builder closedAt(String closedAt) {
@@ -466,7 +485,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for employeeIds.
-         * @param employeeIds List of String value for employeeIds.
+         * @param  employeeIds  List of String value for employeeIds.
          * @return Builder
          */
         public Builder employeeIds(List<String> employeeIds) {
@@ -476,7 +495,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for openingEmployeeId.
-         * @param openingEmployeeId String value for openingEmployeeId.
+         * @param  openingEmployeeId  String value for openingEmployeeId.
          * @return Builder
          */
         public Builder openingEmployeeId(String openingEmployeeId) {
@@ -486,7 +505,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for endingEmployeeId.
-         * @param endingEmployeeId String value for endingEmployeeId.
+         * @param  endingEmployeeId  String value for endingEmployeeId.
          * @return Builder
          */
         public Builder endingEmployeeId(String endingEmployeeId) {
@@ -496,7 +515,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for closingEmployeeId.
-         * @param closingEmployeeId String value for closingEmployeeId.
+         * @param  closingEmployeeId  String value for closingEmployeeId.
          * @return Builder
          */
         public Builder closingEmployeeId(String closingEmployeeId) {
@@ -506,7 +525,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
@@ -516,7 +535,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for openedCashMoney.
-         * @param openedCashMoney Money value for openedCashMoney.
+         * @param  openedCashMoney  Money value for openedCashMoney.
          * @return Builder
          */
         public Builder openedCashMoney(Money openedCashMoney) {
@@ -526,7 +545,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for cashPaymentMoney.
-         * @param cashPaymentMoney Money value for cashPaymentMoney.
+         * @param  cashPaymentMoney  Money value for cashPaymentMoney.
          * @return Builder
          */
         public Builder cashPaymentMoney(Money cashPaymentMoney) {
@@ -536,7 +555,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for cashRefundsMoney.
-         * @param cashRefundsMoney Money value for cashRefundsMoney.
+         * @param  cashRefundsMoney  Money value for cashRefundsMoney.
          * @return Builder
          */
         public Builder cashRefundsMoney(Money cashRefundsMoney) {
@@ -546,7 +565,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for cashPaidInMoney.
-         * @param cashPaidInMoney Money value for cashPaidInMoney.
+         * @param  cashPaidInMoney  Money value for cashPaidInMoney.
          * @return Builder
          */
         public Builder cashPaidInMoney(Money cashPaidInMoney) {
@@ -556,7 +575,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for cashPaidOutMoney.
-         * @param cashPaidOutMoney Money value for cashPaidOutMoney.
+         * @param  cashPaidOutMoney  Money value for cashPaidOutMoney.
          * @return Builder
          */
         public Builder cashPaidOutMoney(Money cashPaidOutMoney) {
@@ -566,7 +585,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for expectedCashMoney.
-         * @param expectedCashMoney Money value for expectedCashMoney.
+         * @param  expectedCashMoney  Money value for expectedCashMoney.
          * @return Builder
          */
         public Builder expectedCashMoney(Money expectedCashMoney) {
@@ -576,7 +595,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for closedCashMoney.
-         * @param closedCashMoney Money value for closedCashMoney.
+         * @param  closedCashMoney  Money value for closedCashMoney.
          * @return Builder
          */
         public Builder closedCashMoney(Money closedCashMoney) {
@@ -586,7 +605,7 @@ public class CashDrawerShift {
 
         /**
          * Setter for device.
-         * @param device CashDrawerDevice value for device.
+         * @param  device  CashDrawerDevice value for device.
          * @return Builder
          */
         public Builder device(CashDrawerDevice device) {

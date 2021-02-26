@@ -14,7 +14,7 @@ public class UpdateShiftRequest {
 
     /**
      * Initialization constructor.
-     * @param shift Shift value for shift.
+     * @param  shift  Shift value for shift.
      */
     @JsonCreator
     public UpdateShiftRequest(
@@ -30,7 +30,7 @@ public class UpdateShiftRequest {
      */
     @JsonGetter("shift")
     public Shift getShift() {
-        return this.shift;
+        return shift;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UpdateShiftRequest {
 
         /**
          * Initialization constructor.
-         * @param shift Shift value for shift.
+         * @param  shift  Shift value for shift.
          */
         public Builder(Shift shift) {
             this.shift = shift;
@@ -85,7 +85,7 @@ public class UpdateShiftRequest {
 
         /**
          * Setter for shift.
-         * @param shift Shift value for shift.
+         * @param  shift  Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {

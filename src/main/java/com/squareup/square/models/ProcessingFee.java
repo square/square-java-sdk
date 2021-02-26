@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for ProcessingFee type.
  */
 public class ProcessingFee {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String effectiveAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
 
     /**
      * Initialization constructor.
-     * @param effectiveAt String value for effectiveAt.
-     * @param type String value for type.
-     * @param amountMoney Money value for amountMoney.
+     * @param  effectiveAt  String value for effectiveAt.
+     * @param  type  String value for type.
+     * @param  amountMoney  Money value for amountMoney.
      */
     @JsonCreator
     public ProcessingFee(
@@ -37,7 +41,7 @@ public class ProcessingFee {
      */
     @JsonGetter("effective_at")
     public String getEffectiveAt() {
-        return this.effectiveAt;
+        return effectiveAt;
     }
 
     /**
@@ -47,7 +51,7 @@ public class ProcessingFee {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -62,7 +66,7 @@ public class ProcessingFee {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class ProcessingFee {
 
         /**
          * Setter for effectiveAt.
-         * @param effectiveAt String value for effectiveAt.
+         * @param  effectiveAt  String value for effectiveAt.
          * @return Builder
          */
         public Builder effectiveAt(String effectiveAt) {
@@ -129,7 +133,7 @@ public class ProcessingFee {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -139,7 +143,7 @@ public class ProcessingFee {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {

@@ -17,7 +17,7 @@ itemization data.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The order's unique ID. | String getId() |
-| `LocationId` | `String` |  | The ID of the merchant location this order is associated with.<br>**Constraints**: *Minimum Length*: `1` | String getLocationId() |
+| `LocationId` | `String` | Required | The ID of the merchant location this order is associated with.<br>**Constraints**: *Minimum Length*: `1` | String getLocationId() |
 | `ReferenceId` | `String` | Optional | A client specified identifier to associate an entity in another system<br>with this order.<br>**Constraints**: *Maximum Length*: `40` | String getReferenceId() |
 | `Source` | [`OrderSource`](/doc/models/order-source.md) | Optional | Represents the origination details of an order. | OrderSource getSource() |
 | `CustomerId` | `String` | Optional | The [Customer](#type-customer) ID of the customer associated with the order.<br>**Constraints**: *Maximum Length*: `191` | String getCustomerId() |

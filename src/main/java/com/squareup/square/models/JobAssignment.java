@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -12,17 +13,20 @@ import java.util.Objects;
 public class JobAssignment {
     private final String jobTitle;
     private final String payType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money annualRate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer weeklyHours;
 
     /**
      * Initialization constructor.
-     * @param jobTitle String value for jobTitle.
-     * @param payType String value for payType.
-     * @param hourlyRate Money value for hourlyRate.
-     * @param annualRate Money value for annualRate.
-     * @param weeklyHours Integer value for weeklyHours.
+     * @param  jobTitle  String value for jobTitle.
+     * @param  payType  String value for payType.
+     * @param  hourlyRate  Money value for hourlyRate.
+     * @param  annualRate  Money value for annualRate.
+     * @param  weeklyHours  Integer value for weeklyHours.
      */
     @JsonCreator
     public JobAssignment(
@@ -45,7 +49,7 @@ public class JobAssignment {
      */
     @JsonGetter("job_title")
     public String getJobTitle() {
-        return this.jobTitle;
+        return jobTitle;
     }
 
     /**
@@ -55,7 +59,7 @@ public class JobAssignment {
      */
     @JsonGetter("pay_type")
     public String getPayType() {
-        return this.payType;
+        return payType;
     }
 
     /**
@@ -70,7 +74,7 @@ public class JobAssignment {
      */
     @JsonGetter("hourly_rate")
     public Money getHourlyRate() {
-        return this.hourlyRate;
+        return hourlyRate;
     }
 
     /**
@@ -85,7 +89,7 @@ public class JobAssignment {
      */
     @JsonGetter("annual_rate")
     public Money getAnnualRate() {
-        return this.annualRate;
+        return annualRate;
     }
 
     /**
@@ -95,7 +99,7 @@ public class JobAssignment {
      */
     @JsonGetter("weekly_hours")
     public Integer getWeeklyHours() {
-        return this.weeklyHours;
+        return weeklyHours;
     }
 
     @Override
@@ -154,18 +158,17 @@ public class JobAssignment {
 
         /**
          * Initialization constructor.
-         * @param jobTitle String value for jobTitle.
-         * @param payType String value for payType.
+         * @param  jobTitle  String value for jobTitle.
+         * @param  payType  String value for payType.
          */
-        public Builder(String jobTitle,
-                String payType) {
+        public Builder(String jobTitle, String payType) {
             this.jobTitle = jobTitle;
             this.payType = payType;
         }
 
         /**
          * Setter for jobTitle.
-         * @param jobTitle String value for jobTitle.
+         * @param  jobTitle  String value for jobTitle.
          * @return Builder
          */
         public Builder jobTitle(String jobTitle) {
@@ -175,7 +178,7 @@ public class JobAssignment {
 
         /**
          * Setter for payType.
-         * @param payType String value for payType.
+         * @param  payType  String value for payType.
          * @return Builder
          */
         public Builder payType(String payType) {
@@ -185,7 +188,7 @@ public class JobAssignment {
 
         /**
          * Setter for hourlyRate.
-         * @param hourlyRate Money value for hourlyRate.
+         * @param  hourlyRate  Money value for hourlyRate.
          * @return Builder
          */
         public Builder hourlyRate(Money hourlyRate) {
@@ -195,7 +198,7 @@ public class JobAssignment {
 
         /**
          * Setter for annualRate.
-         * @param annualRate Money value for annualRate.
+         * @param  annualRate  Money value for annualRate.
          * @return Builder
          */
         public Builder annualRate(Money annualRate) {
@@ -205,7 +208,7 @@ public class JobAssignment {
 
         /**
          * Setter for weeklyHours.
-         * @param weeklyHours Integer value for weeklyHours.
+         * @param  weeklyHours  Integer value for weeklyHours.
          * @return Builder
          */
         public Builder weeklyHours(Integer weeklyHours) {

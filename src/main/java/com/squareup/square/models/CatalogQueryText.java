@@ -15,7 +15,7 @@ public class CatalogQueryText {
 
     /**
      * Initialization constructor.
-     * @param keywords List of String value for keywords.
+     * @param  keywords  List of String value for keywords.
      */
     @JsonCreator
     public CatalogQueryText(
@@ -30,7 +30,7 @@ public class CatalogQueryText {
      */
     @JsonGetter("keywords")
     public List<String> getKeywords() {
-        return this.keywords;
+        return keywords;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CatalogQueryText {
 
         /**
          * Initialization constructor.
-         * @param keywords List of String value for keywords.
+         * @param  keywords  List of String value for keywords.
          */
         public Builder(List<String> keywords) {
             this.keywords = keywords;
@@ -85,7 +85,7 @@ public class CatalogQueryText {
 
         /**
          * Setter for keywords.
-         * @param keywords List of String value for keywords.
+         * @param  keywords  List of String value for keywords.
          * @return Builder
          */
         public Builder keywords(List<String> keywords) {

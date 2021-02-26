@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for BusinessHours type.
  */
 public class BusinessHours {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<BusinessHoursPeriod> periods;
 
     /**
      * Initialization constructor.
-     * @param periods List of BusinessHoursPeriod value for periods.
+     * @param  periods  List of BusinessHoursPeriod value for periods.
      */
     @JsonCreator
     public BusinessHours(
@@ -31,7 +33,7 @@ public class BusinessHours {
      */
     @JsonGetter("periods")
     public List<BusinessHoursPeriod> getPeriods() {
-        return this.periods;
+        return periods;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class BusinessHours {
 
         /**
          * Setter for periods.
-         * @param periods List of BusinessHoursPeriod value for periods.
+         * @param  periods  List of BusinessHoursPeriod value for periods.
          * @return Builder
          */
         public Builder periods(List<BusinessHoursPeriod> periods) {

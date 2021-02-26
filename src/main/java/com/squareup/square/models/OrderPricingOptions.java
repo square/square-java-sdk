@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,13 +11,15 @@ import java.util.Objects;
  * This is a model class for OrderPricingOptions type.
  */
 public class OrderPricingOptions {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autoApplyDiscounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autoApplyTaxes;
 
     /**
      * Initialization constructor.
-     * @param autoApplyDiscounts Boolean value for autoApplyDiscounts.
-     * @param autoApplyTaxes Boolean value for autoApplyTaxes.
+     * @param  autoApplyDiscounts  Boolean value for autoApplyDiscounts.
+     * @param  autoApplyTaxes  Boolean value for autoApplyTaxes.
      */
     @JsonCreator
     public OrderPricingOptions(
@@ -34,7 +37,7 @@ public class OrderPricingOptions {
      */
     @JsonGetter("auto_apply_discounts")
     public Boolean getAutoApplyDiscounts() {
-        return this.autoApplyDiscounts;
+        return autoApplyDiscounts;
     }
 
     /**
@@ -45,7 +48,7 @@ public class OrderPricingOptions {
      */
     @JsonGetter("auto_apply_taxes")
     public Boolean getAutoApplyTaxes() {
-        return this.autoApplyTaxes;
+        return autoApplyTaxes;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class OrderPricingOptions {
 
         /**
          * Setter for autoApplyDiscounts.
-         * @param autoApplyDiscounts Boolean value for autoApplyDiscounts.
+         * @param  autoApplyDiscounts  Boolean value for autoApplyDiscounts.
          * @return Builder
          */
         public Builder autoApplyDiscounts(Boolean autoApplyDiscounts) {
@@ -109,7 +112,7 @@ public class OrderPricingOptions {
 
         /**
          * Setter for autoApplyTaxes.
-         * @param autoApplyTaxes Boolean value for autoApplyTaxes.
+         * @param  autoApplyTaxes  Boolean value for autoApplyTaxes.
          * @return Builder
          */
         public Builder autoApplyTaxes(Boolean autoApplyTaxes) {

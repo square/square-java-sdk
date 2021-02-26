@@ -15,7 +15,7 @@ public class LoyaltyEventTypeFilter {
 
     /**
      * Initialization constructor.
-     * @param types List of String value for types.
+     * @param  types  List of String value for types.
      */
     @JsonCreator
     public LoyaltyEventTypeFilter(
@@ -32,7 +32,7 @@ public class LoyaltyEventTypeFilter {
      */
     @JsonGetter("types")
     public List<String> getTypes() {
-        return this.types;
+        return types;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class LoyaltyEventTypeFilter {
 
         /**
          * Initialization constructor.
-         * @param types List of String value for types.
+         * @param  types  List of String value for types.
          */
         public Builder(List<String> types) {
             this.types = types;
@@ -87,7 +87,7 @@ public class LoyaltyEventTypeFilter {
 
         /**
          * Setter for types.
-         * @param types List of String value for types.
+         * @param  types  List of String value for types.
          * @return Builder
          */
         public Builder types(List<String> types) {

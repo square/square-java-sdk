@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,12 +12,13 @@ import java.util.Objects;
  */
 public class CatalogModifierOverride {
     private final String modifierId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean onByDefault;
 
     /**
      * Initialization constructor.
-     * @param modifierId String value for modifierId.
-     * @param onByDefault Boolean value for onByDefault.
+     * @param  modifierId  String value for modifierId.
+     * @param  onByDefault  Boolean value for onByDefault.
      */
     @JsonCreator
     public CatalogModifierOverride(
@@ -33,7 +35,7 @@ public class CatalogModifierOverride {
      */
     @JsonGetter("modifier_id")
     public String getModifierId() {
-        return this.modifierId;
+        return modifierId;
     }
 
     /**
@@ -43,7 +45,7 @@ public class CatalogModifierOverride {
      */
     @JsonGetter("on_by_default")
     public Boolean getOnByDefault() {
-        return this.onByDefault;
+        return onByDefault;
     }
 
     @Override
@@ -94,7 +96,7 @@ public class CatalogModifierOverride {
 
         /**
          * Initialization constructor.
-         * @param modifierId String value for modifierId.
+         * @param  modifierId  String value for modifierId.
          */
         public Builder(String modifierId) {
             this.modifierId = modifierId;
@@ -102,7 +104,7 @@ public class CatalogModifierOverride {
 
         /**
          * Setter for modifierId.
-         * @param modifierId String value for modifierId.
+         * @param  modifierId  String value for modifierId.
          * @return Builder
          */
         public Builder modifierId(String modifierId) {
@@ -112,7 +114,7 @@ public class CatalogModifierOverride {
 
         /**
          * Setter for onByDefault.
-         * @param onByDefault Boolean value for onByDefault.
+         * @param  onByDefault  Boolean value for onByDefault.
          * @return Builder
          */
         public Builder onByDefault(Boolean onByDefault) {

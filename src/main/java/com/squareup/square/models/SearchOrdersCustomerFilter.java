@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,11 +12,12 @@ import java.util.Objects;
  * This is a model class for SearchOrdersCustomerFilter type.
  */
 public class SearchOrdersCustomerFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
      * Initialization constructor.
-     * @param customerIds List of String value for customerIds.
+     * @param  customerIds  List of String value for customerIds.
      */
     @JsonCreator
     public SearchOrdersCustomerFilter(
@@ -30,7 +32,7 @@ public class SearchOrdersCustomerFilter {
      */
     @JsonGetter("customer_ids")
     public List<String> getCustomerIds() {
-        return this.customerIds;
+        return customerIds;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class SearchOrdersCustomerFilter {
 
         /**
          * Setter for customerIds.
-         * @param customerIds List of String value for customerIds.
+         * @param  customerIds  List of String value for customerIds.
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {

@@ -14,7 +14,7 @@ public class V1UpdateEmployeeRequest {
 
     /**
      * Initialization constructor.
-     * @param body V1Employee value for body.
+     * @param  body  V1Employee value for body.
      */
     @JsonCreator
     public V1UpdateEmployeeRequest(
@@ -29,7 +29,7 @@ public class V1UpdateEmployeeRequest {
      */
     @JsonGetter("body")
     public V1Employee getBody() {
-        return this.body;
+        return body;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class V1UpdateEmployeeRequest {
 
         /**
          * Initialization constructor.
-         * @param body V1Employee value for body.
+         * @param  body  V1Employee value for body.
          */
         public Builder(V1Employee body) {
             this.body = body;
@@ -84,7 +84,7 @@ public class V1UpdateEmployeeRequest {
 
         /**
          * Setter for body.
-         * @param body V1Employee value for body.
+         * @param  body  V1Employee value for body.
          * @return Builder
          */
         public Builder body(V1Employee body) {

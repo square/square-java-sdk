@@ -15,7 +15,7 @@ public class BulkCreateTeamMembersRequest {
 
     /**
      * Initialization constructor.
-     * @param teamMembers Map of String, value for teamMembers.
+     * @param  teamMembers  Map of String, value for teamMembers.
      */
     @JsonCreator
     public BulkCreateTeamMembersRequest(
@@ -31,7 +31,7 @@ public class BulkCreateTeamMembersRequest {
      */
     @JsonGetter("team_members")
     public Map<String, CreateTeamMemberRequest> getTeamMembers() {
-        return this.teamMembers;
+        return teamMembers;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class BulkCreateTeamMembersRequest {
 
         /**
          * Initialization constructor.
-         * @param teamMembers Map of String, value for teamMembers.
+         * @param  teamMembers  Map of String, value for teamMembers.
          */
         public Builder(Map<String, CreateTeamMemberRequest> teamMembers) {
             this.teamMembers = teamMembers;
@@ -86,7 +86,7 @@ public class BulkCreateTeamMembersRequest {
 
         /**
          * Setter for teamMembers.
-         * @param teamMembers Map of String, value for teamMembers.
+         * @param  teamMembers  Map of String, value for teamMembers.
          * @return Builder
          */
         public Builder teamMembers(Map<String, CreateTeamMemberRequest> teamMembers) {

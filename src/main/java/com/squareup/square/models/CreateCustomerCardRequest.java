@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,16 +12,19 @@ import java.util.Objects;
  */
 public class CreateCustomerCardRequest {
     private final String cardNonce;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardholderName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
 
     /**
      * Initialization constructor.
-     * @param cardNonce String value for cardNonce.
-     * @param billingAddress Address value for billingAddress.
-     * @param cardholderName String value for cardholderName.
-     * @param verificationToken String value for verificationToken.
+     * @param  cardNonce  String value for cardNonce.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  cardholderName  String value for cardholderName.
+     * @param  verificationToken  String value for verificationToken.
      */
     @JsonCreator
     public CreateCustomerCardRequest(
@@ -45,7 +49,7 @@ public class CreateCustomerCardRequest {
      */
     @JsonGetter("card_nonce")
     public String getCardNonce() {
-        return this.cardNonce;
+        return cardNonce;
     }
 
     /**
@@ -55,7 +59,7 @@ public class CreateCustomerCardRequest {
      */
     @JsonGetter("billing_address")
     public Address getBillingAddress() {
-        return this.billingAddress;
+        return billingAddress;
     }
 
     /**
@@ -65,7 +69,7 @@ public class CreateCustomerCardRequest {
      */
     @JsonGetter("cardholder_name")
     public String getCardholderName() {
-        return this.cardholderName;
+        return cardholderName;
     }
 
     /**
@@ -77,7 +81,7 @@ public class CreateCustomerCardRequest {
      */
     @JsonGetter("verification_token")
     public String getVerificationToken() {
-        return this.verificationToken;
+        return verificationToken;
     }
 
     @Override
@@ -135,7 +139,7 @@ public class CreateCustomerCardRequest {
 
         /**
          * Initialization constructor.
-         * @param cardNonce String value for cardNonce.
+         * @param  cardNonce  String value for cardNonce.
          */
         public Builder(String cardNonce) {
             this.cardNonce = cardNonce;
@@ -143,7 +147,7 @@ public class CreateCustomerCardRequest {
 
         /**
          * Setter for cardNonce.
-         * @param cardNonce String value for cardNonce.
+         * @param  cardNonce  String value for cardNonce.
          * @return Builder
          */
         public Builder cardNonce(String cardNonce) {
@@ -153,7 +157,7 @@ public class CreateCustomerCardRequest {
 
         /**
          * Setter for billingAddress.
-         * @param billingAddress Address value for billingAddress.
+         * @param  billingAddress  Address value for billingAddress.
          * @return Builder
          */
         public Builder billingAddress(Address billingAddress) {
@@ -163,7 +167,7 @@ public class CreateCustomerCardRequest {
 
         /**
          * Setter for cardholderName.
-         * @param cardholderName String value for cardholderName.
+         * @param  cardholderName  String value for cardholderName.
          * @return Builder
          */
         public Builder cardholderName(String cardholderName) {
@@ -173,7 +177,7 @@ public class CreateCustomerCardRequest {
 
         /**
          * Setter for verificationToken.
-         * @param verificationToken String value for verificationToken.
+         * @param  verificationToken  String value for verificationToken.
          * @return Builder
          */
         public Builder verificationToken(String verificationToken) {

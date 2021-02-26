@@ -15,8 +15,8 @@ public class CatalogQueryPrefix {
 
     /**
      * Initialization constructor.
-     * @param attributeName String value for attributeName.
-     * @param attributePrefix String value for attributePrefix.
+     * @param  attributeName  String value for attributeName.
+     * @param  attributePrefix  String value for attributePrefix.
      */
     @JsonCreator
     public CatalogQueryPrefix(
@@ -33,7 +33,7 @@ public class CatalogQueryPrefix {
      */
     @JsonGetter("attribute_name")
     public String getAttributeName() {
-        return this.attributeName;
+        return attributeName;
     }
 
     /**
@@ -43,7 +43,7 @@ public class CatalogQueryPrefix {
      */
     @JsonGetter("attribute_prefix")
     public String getAttributePrefix() {
-        return this.attributePrefix;
+        return attributePrefix;
     }
 
     @Override
@@ -93,18 +93,17 @@ public class CatalogQueryPrefix {
 
         /**
          * Initialization constructor.
-         * @param attributeName String value for attributeName.
-         * @param attributePrefix String value for attributePrefix.
+         * @param  attributeName  String value for attributeName.
+         * @param  attributePrefix  String value for attributePrefix.
          */
-        public Builder(String attributeName,
-                String attributePrefix) {
+        public Builder(String attributeName, String attributePrefix) {
             this.attributeName = attributeName;
             this.attributePrefix = attributePrefix;
         }
 
         /**
          * Setter for attributeName.
-         * @param attributeName String value for attributeName.
+         * @param  attributeName  String value for attributeName.
          * @return Builder
          */
         public Builder attributeName(String attributeName) {
@@ -114,7 +113,7 @@ public class CatalogQueryPrefix {
 
         /**
          * Setter for attributePrefix.
-         * @param attributePrefix String value for attributePrefix.
+         * @param  attributePrefix  String value for attributePrefix.
          * @return Builder
          */
         public Builder attributePrefix(String attributePrefix) {

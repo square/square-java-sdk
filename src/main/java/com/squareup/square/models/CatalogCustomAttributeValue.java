@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,25 +12,33 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeValue type.
  */
 public class CatalogCustomAttributeValue {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String stringValue;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customAttributeDefinitionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String numberValue;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean booleanValue;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> selectionUidValues;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
 
     /**
      * Initialization constructor.
-     * @param name String value for name.
-     * @param stringValue String value for stringValue.
-     * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
-     * @param type String value for type.
-     * @param numberValue String value for numberValue.
-     * @param booleanValue Boolean value for booleanValue.
-     * @param selectionUidValues List of String value for selectionUidValues.
-     * @param key String value for key.
+     * @param  name  String value for name.
+     * @param  stringValue  String value for stringValue.
+     * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
+     * @param  type  String value for type.
+     * @param  numberValue  String value for numberValue.
+     * @param  booleanValue  Boolean value for booleanValue.
+     * @param  selectionUidValues  List of String value for selectionUidValues.
+     * @param  key  String value for key.
      */
     @JsonCreator
     public CatalogCustomAttributeValue(
@@ -58,7 +67,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -68,7 +77,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("string_value")
     public String getStringValue() {
-        return this.stringValue;
+        return stringValue;
     }
 
     /**
@@ -80,7 +89,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("custom_attribute_definition_id")
     public String getCustomAttributeDefinitionId() {
-        return this.customAttributeDefinitionId;
+        return customAttributeDefinitionId;
     }
 
     /**
@@ -90,7 +99,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -101,7 +110,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("number_value")
     public String getNumberValue() {
-        return this.numberValue;
+        return numberValue;
     }
 
     /**
@@ -111,7 +120,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("boolean_value")
     public Boolean getBooleanValue() {
-        return this.booleanValue;
+        return booleanValue;
     }
 
     /**
@@ -121,7 +130,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("selection_uid_values")
     public List<String> getSelectionUidValues() {
-        return this.selectionUidValues;
+        return selectionUidValues;
     }
 
     /**
@@ -131,7 +140,7 @@ public class CatalogCustomAttributeValue {
      */
     @JsonGetter("key")
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     @Override
@@ -206,7 +215,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -216,7 +225,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for stringValue.
-         * @param stringValue String value for stringValue.
+         * @param  stringValue  String value for stringValue.
          * @return Builder
          */
         public Builder stringValue(String stringValue) {
@@ -226,7 +235,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for customAttributeDefinitionId.
-         * @param customAttributeDefinitionId String value for customAttributeDefinitionId.
+         * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
          * @return Builder
          */
         public Builder customAttributeDefinitionId(String customAttributeDefinitionId) {
@@ -236,7 +245,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -246,7 +255,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for numberValue.
-         * @param numberValue String value for numberValue.
+         * @param  numberValue  String value for numberValue.
          * @return Builder
          */
         public Builder numberValue(String numberValue) {
@@ -256,7 +265,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for booleanValue.
-         * @param booleanValue Boolean value for booleanValue.
+         * @param  booleanValue  Boolean value for booleanValue.
          * @return Builder
          */
         public Builder booleanValue(Boolean booleanValue) {
@@ -266,7 +275,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for selectionUidValues.
-         * @param selectionUidValues List of String value for selectionUidValues.
+         * @param  selectionUidValues  List of String value for selectionUidValues.
          * @return Builder
          */
         public Builder selectionUidValues(List<String> selectionUidValues) {
@@ -276,7 +285,7 @@ public class CatalogCustomAttributeValue {
 
         /**
          * Setter for key.
-         * @param key String value for key.
+         * @param  key  String value for key.
          * @return Builder
          */
         public Builder key(String key) {

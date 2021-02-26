@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,21 +11,27 @@ import java.util.Objects;
  * This is a model class for CashDrawerShiftEvent type.
  */
 public class CashDrawerShiftEvent {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String eventType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money eventMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param employeeId String value for employeeId.
-     * @param eventType String value for eventType.
-     * @param eventMoney Money value for eventMoney.
-     * @param createdAt String value for createdAt.
-     * @param description String value for description.
+     * @param  id  String value for id.
+     * @param  employeeId  String value for employeeId.
+     * @param  eventType  String value for eventType.
+     * @param  eventMoney  Money value for eventMoney.
+     * @param  createdAt  String value for createdAt.
+     * @param  description  String value for description.
      */
     @JsonCreator
     public CashDrawerShiftEvent(
@@ -49,7 +56,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -59,7 +66,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -70,7 +77,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("event_type")
     public String getEventType() {
-        return this.eventType;
+        return eventType;
     }
 
     /**
@@ -85,7 +92,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("event_money")
     public Money getEventMoney() {
-        return this.eventMoney;
+        return eventMoney;
     }
 
     /**
@@ -95,7 +102,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -105,7 +112,7 @@ public class CashDrawerShiftEvent {
      */
     @JsonGetter("description")
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     @Override
@@ -172,7 +179,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -182,7 +189,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -192,7 +199,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for eventType.
-         * @param eventType String value for eventType.
+         * @param  eventType  String value for eventType.
          * @return Builder
          */
         public Builder eventType(String eventType) {
@@ -202,7 +209,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for eventMoney.
-         * @param eventMoney Money value for eventMoney.
+         * @param  eventMoney  Money value for eventMoney.
          * @return Builder
          */
         public Builder eventMoney(Money eventMoney) {
@@ -212,7 +219,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -222,7 +229,7 @@ public class CashDrawerShiftEvent {
 
         /**
          * Setter for description.
-         * @param description String value for description.
+         * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {

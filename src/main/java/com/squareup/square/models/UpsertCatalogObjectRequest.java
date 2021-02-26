@@ -15,8 +15,8 @@ public class UpsertCatalogObjectRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param object CatalogObject value for object.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  object  CatalogObject value for object.
      */
     @JsonCreator
     public UpsertCatalogObjectRequest(
@@ -38,7 +38,7 @@ public class UpsertCatalogObjectRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -73,7 +73,7 @@ public class UpsertCatalogObjectRequest {
      */
     @JsonGetter("object")
     public CatalogObject getObject() {
-        return this.object;
+        return object;
     }
 
     @Override
@@ -123,18 +123,17 @@ public class UpsertCatalogObjectRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param object CatalogObject value for object.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  object  CatalogObject value for object.
          */
-        public Builder(String idempotencyKey,
-                CatalogObject object) {
+        public Builder(String idempotencyKey, CatalogObject object) {
             this.idempotencyKey = idempotencyKey;
             this.object = object;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -144,7 +143,7 @@ public class UpsertCatalogObjectRequest {
 
         /**
          * Setter for object.
-         * @param object CatalogObject value for object.
+         * @param  object  CatalogObject value for object.
          * @return Builder
          */
         public Builder object(CatalogObject object) {

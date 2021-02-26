@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,19 @@ import java.util.Objects;
  */
 public class CatalogInfoResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogInfoResponseLimits limits;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final StandardUnitDescriptionGroup standardUnitDescriptionGroup;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param limits CatalogInfoResponseLimits value for limits.
-     * @param standardUnitDescriptionGroup StandardUnitDescriptionGroup value for standardUnitDescriptionGroup.
+     * @param  errors  List of Error value for errors.
+     * @param  limits  CatalogInfoResponseLimits value for limits.
+     * @param  standardUnitDescriptionGroup  StandardUnitDescriptionGroup value for
+     *         standardUnitDescriptionGroup.
      */
     @JsonCreator
     public CatalogInfoResponse(
@@ -44,7 +49,7 @@ public class CatalogInfoResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -53,7 +58,7 @@ public class CatalogInfoResponse {
      */
     @JsonGetter("limits")
     public CatalogInfoResponseLimits getLimits() {
-        return this.limits;
+        return limits;
     }
 
     /**
@@ -63,7 +68,7 @@ public class CatalogInfoResponse {
      */
     @JsonGetter("standard_unit_description_group")
     public StandardUnitDescriptionGroup getStandardUnitDescriptionGroup() {
-        return this.standardUnitDescriptionGroup;
+        return standardUnitDescriptionGroup;
     }
 
     @Override
@@ -121,7 +126,7 @@ public class CatalogInfoResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -131,7 +136,7 @@ public class CatalogInfoResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -141,7 +146,7 @@ public class CatalogInfoResponse {
 
         /**
          * Setter for limits.
-         * @param limits CatalogInfoResponseLimits value for limits.
+         * @param  limits  CatalogInfoResponseLimits value for limits.
          * @return Builder
          */
         public Builder limits(CatalogInfoResponseLimits limits) {
@@ -151,10 +156,12 @@ public class CatalogInfoResponse {
 
         /**
          * Setter for standardUnitDescriptionGroup.
-         * @param standardUnitDescriptionGroup StandardUnitDescriptionGroup value for standardUnitDescriptionGroup.
+         * @param  standardUnitDescriptionGroup  StandardUnitDescriptionGroup value for
+         *         standardUnitDescriptionGroup.
          * @return Builder
          */
-        public Builder standardUnitDescriptionGroup(StandardUnitDescriptionGroup standardUnitDescriptionGroup) {
+        public Builder standardUnitDescriptionGroup(
+                StandardUnitDescriptionGroup standardUnitDescriptionGroup) {
             this.standardUnitDescriptionGroup = standardUnitDescriptionGroup;
             return this;
         }

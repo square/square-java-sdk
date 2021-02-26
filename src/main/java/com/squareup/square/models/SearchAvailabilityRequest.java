@@ -14,7 +14,7 @@ public class SearchAvailabilityRequest {
 
     /**
      * Initialization constructor.
-     * @param query SearchAvailabilityQuery value for query.
+     * @param  query  SearchAvailabilityQuery value for query.
      */
     @JsonCreator
     public SearchAvailabilityRequest(
@@ -29,7 +29,7 @@ public class SearchAvailabilityRequest {
      */
     @JsonGetter("query")
     public SearchAvailabilityQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SearchAvailabilityRequest {
 
         /**
          * Initialization constructor.
-         * @param query SearchAvailabilityQuery value for query.
+         * @param  query  SearchAvailabilityQuery value for query.
          */
         public Builder(SearchAvailabilityQuery query) {
             this.query = query;
@@ -84,7 +84,7 @@ public class SearchAvailabilityRequest {
 
         /**
          * Setter for query.
-         * @param query SearchAvailabilityQuery value for query.
+         * @param  query  SearchAvailabilityQuery value for query.
          * @return Builder
          */
         public Builder query(SearchAvailabilityQuery query) {

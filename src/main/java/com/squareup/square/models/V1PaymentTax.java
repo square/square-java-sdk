@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,21 +12,27 @@ import java.util.Objects;
  * This is a model class for V1PaymentTax type.
  */
 public class V1PaymentTax {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inclusionType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String feeId;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param name String value for name.
-     * @param appliedMoney V1Money value for appliedMoney.
-     * @param rate String value for rate.
-     * @param inclusionType String value for inclusionType.
-     * @param feeId String value for feeId.
+     * @param  errors  List of Error value for errors.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  rate  String value for rate.
+     * @param  inclusionType  String value for inclusionType.
+     * @param  feeId  String value for feeId.
      */
     @JsonCreator
     public V1PaymentTax(
@@ -50,7 +57,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -60,7 +67,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -69,7 +76,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("applied_money")
     public V1Money getAppliedMoney() {
-        return this.appliedMoney;
+        return appliedMoney;
     }
 
     /**
@@ -80,7 +87,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("rate")
     public String getRate() {
-        return this.rate;
+        return rate;
     }
 
     /**
@@ -89,7 +96,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("inclusion_type")
     public String getInclusionType() {
-        return this.inclusionType;
+        return inclusionType;
     }
 
     /**
@@ -100,7 +107,7 @@ public class V1PaymentTax {
      */
     @JsonGetter("fee_id")
     public String getFeeId() {
-        return this.feeId;
+        return feeId;
     }
 
     @Override
@@ -167,7 +174,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -177,7 +184,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -187,7 +194,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for appliedMoney.
-         * @param appliedMoney V1Money value for appliedMoney.
+         * @param  appliedMoney  V1Money value for appliedMoney.
          * @return Builder
          */
         public Builder appliedMoney(V1Money appliedMoney) {
@@ -197,7 +204,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for rate.
-         * @param rate String value for rate.
+         * @param  rate  String value for rate.
          * @return Builder
          */
         public Builder rate(String rate) {
@@ -207,7 +214,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for inclusionType.
-         * @param inclusionType String value for inclusionType.
+         * @param  inclusionType  String value for inclusionType.
          * @return Builder
          */
         public Builder inclusionType(String inclusionType) {
@@ -217,7 +224,7 @@ public class V1PaymentTax {
 
         /**
          * Setter for feeId.
-         * @param feeId String value for feeId.
+         * @param  feeId  String value for feeId.
          * @return Builder
          */
         public Builder feeId(String feeId) {

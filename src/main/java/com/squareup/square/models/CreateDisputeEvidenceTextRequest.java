@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,14 +12,15 @@ import java.util.Objects;
  */
 public class CreateDisputeEvidenceTextRequest {
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
     private final String evidenceText;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param evidenceText String value for evidenceText.
-     * @param evidenceType String value for evidenceType.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  evidenceText  String value for evidenceText.
+     * @param  evidenceType  String value for evidenceType.
      */
     @JsonCreator
     public CreateDisputeEvidenceTextRequest(
@@ -38,7 +40,7 @@ public class CreateDisputeEvidenceTextRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -48,7 +50,7 @@ public class CreateDisputeEvidenceTextRequest {
      */
     @JsonGetter("evidence_type")
     public String getEvidenceType() {
-        return this.evidenceType;
+        return evidenceType;
     }
 
     /**
@@ -58,7 +60,7 @@ public class CreateDisputeEvidenceTextRequest {
      */
     @JsonGetter("evidence_text")
     public String getEvidenceText() {
-        return this.evidenceText;
+        return evidenceText;
     }
 
     @Override
@@ -111,18 +113,17 @@ public class CreateDisputeEvidenceTextRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param evidenceText String value for evidenceText.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  evidenceText  String value for evidenceText.
          */
-        public Builder(String idempotencyKey,
-                String evidenceText) {
+        public Builder(String idempotencyKey, String evidenceText) {
             this.idempotencyKey = idempotencyKey;
             this.evidenceText = evidenceText;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -132,7 +133,7 @@ public class CreateDisputeEvidenceTextRequest {
 
         /**
          * Setter for evidenceText.
-         * @param evidenceText String value for evidenceText.
+         * @param  evidenceText  String value for evidenceText.
          * @return Builder
          */
         public Builder evidenceText(String evidenceText) {
@@ -142,7 +143,7 @@ public class CreateDisputeEvidenceTextRequest {
 
         /**
          * Setter for evidenceType.
-         * @param evidenceType String value for evidenceType.
+         * @param  evidenceType  String value for evidenceType.
          * @return Builder
          */
         public Builder evidenceType(String evidenceType) {

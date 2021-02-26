@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The Square-issued ID of the location. | String getId() |
-| `Name` | `String` | Optional | The name of the location.<br>This information appears in the dashboard as the nickname. | String getName() |
+| `Name` | `String` | Optional | The name of the location.<br>This information appears in the dashboard as the nickname.<br>A location name must be unique within a seller account. | String getName() |
 | `Address` | [`Address`](/doc/models/address.md) | Optional | Represents a physical address. | Address getAddress() |
 | `Timezone` | `String` | Optional | The [IANA Timezone](https://www.iana.org/time-zones) identifier for<br>the timezone of the location. | String getTimezone() |
 | `Capabilities` | [`List<String>`](/doc/models/location-capability.md) | Optional | The Square features that are enabled for the location.<br>See [LocationCapability](#type-locationcapability) for possible values.<br>See [LocationCapability](#type-locationcapability) for possible values | List<String> getCapabilities() |

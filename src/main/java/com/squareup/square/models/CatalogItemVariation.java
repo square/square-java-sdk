@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,43 +12,62 @@ import java.util.Objects;
  * This is a model class for CatalogItemVariation type.
  */
 public class CatalogItemVariation {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sku;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String upc;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ItemVariationLocationOverrides> locationOverrides;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean trackInventory;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inventoryAlertType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long inventoryAlertThreshold;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String userData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long serviceDuration;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableForBooking;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String measurementUnitId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> teamMemberIds;
 
     /**
      * Initialization constructor.
-     * @param itemId String value for itemId.
-     * @param name String value for name.
-     * @param sku String value for sku.
-     * @param upc String value for upc.
-     * @param ordinal Integer value for ordinal.
-     * @param pricingType String value for pricingType.
-     * @param priceMoney Money value for priceMoney.
-     * @param locationOverrides List of ItemVariationLocationOverrides value for locationOverrides.
-     * @param trackInventory Boolean value for trackInventory.
-     * @param inventoryAlertType String value for inventoryAlertType.
-     * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
-     * @param userData String value for userData.
-     * @param serviceDuration Long value for serviceDuration.
-     * @param availableForBooking Boolean value for availableForBooking.
-     * @param itemOptionValues List of CatalogItemOptionValueForItemVariation value for itemOptionValues.
-     * @param measurementUnitId String value for measurementUnitId.
-     * @param teamMemberIds List of String value for teamMemberIds.
+     * @param  itemId  String value for itemId.
+     * @param  name  String value for name.
+     * @param  sku  String value for sku.
+     * @param  upc  String value for upc.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  pricingType  String value for pricingType.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  locationOverrides  List of ItemVariationLocationOverrides value for
+     *         locationOverrides.
+     * @param  trackInventory  Boolean value for trackInventory.
+     * @param  inventoryAlertType  String value for inventoryAlertType.
+     * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
+     * @param  userData  String value for userData.
+     * @param  serviceDuration  Long value for serviceDuration.
+     * @param  availableForBooking  Boolean value for availableForBooking.
+     * @param  itemOptionValues  List of CatalogItemOptionValueForItemVariation value for
+     *         itemOptionValues.
+     * @param  measurementUnitId  String value for measurementUnitId.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
      */
     @JsonCreator
     public CatalogItemVariation(
@@ -94,7 +114,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("item_id")
     public String getItemId() {
-        return this.itemId;
+        return itemId;
     }
 
     /**
@@ -105,7 +125,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -116,7 +136,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("sku")
     public String getSku() {
-        return this.sku;
+        return sku;
     }
 
     /**
@@ -132,7 +152,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("upc")
     public String getUpc() {
-        return this.upc;
+        return upc;
     }
 
     /**
@@ -145,7 +165,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("ordinal")
     public Integer getOrdinal() {
-        return this.ordinal;
+        return ordinal;
     }
 
     /**
@@ -156,7 +176,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("pricing_type")
     public String getPricingType() {
-        return this.pricingType;
+        return pricingType;
     }
 
     /**
@@ -171,7 +191,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("price_money")
     public Money getPriceMoney() {
-        return this.priceMoney;
+        return priceMoney;
     }
 
     /**
@@ -181,7 +201,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("location_overrides")
     public List<ItemVariationLocationOverrides> getLocationOverrides() {
-        return this.locationOverrides;
+        return locationOverrides;
     }
 
     /**
@@ -191,7 +211,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("track_inventory")
     public Boolean getTrackInventory() {
-        return this.trackInventory;
+        return trackInventory;
     }
 
     /**
@@ -202,7 +222,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("inventory_alert_type")
     public String getInventoryAlertType() {
-        return this.inventoryAlertType;
+        return inventoryAlertType;
     }
 
     /**
@@ -214,7 +234,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("inventory_alert_threshold")
     public Long getInventoryAlertThreshold() {
-        return this.inventoryAlertThreshold;
+        return inventoryAlertThreshold;
     }
 
     /**
@@ -225,7 +245,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("user_data")
     public String getUserData() {
-        return this.userData;
+        return userData;
     }
 
     /**
@@ -238,7 +258,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("service_duration")
     public Long getServiceDuration() {
-        return this.serviceDuration;
+        return serviceDuration;
     }
 
     /**
@@ -249,7 +269,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("available_for_booking")
     public Boolean getAvailableForBooking() {
-        return this.availableForBooking;
+        return availableForBooking;
     }
 
     /**
@@ -260,7 +280,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("item_option_values")
     public List<CatalogItemOptionValueForItemVariation> getItemOptionValues() {
-        return this.itemOptionValues;
+        return itemOptionValues;
     }
 
     /**
@@ -271,7 +291,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("measurement_unit_id")
     public String getMeasurementUnitId() {
-        return this.measurementUnitId;
+        return measurementUnitId;
     }
 
     /**
@@ -282,7 +302,7 @@ public class CatalogItemVariation {
      */
     @JsonGetter("team_member_ids")
     public List<String> getTeamMemberIds() {
-        return this.teamMemberIds;
+        return teamMemberIds;
     }
 
     @Override
@@ -391,7 +411,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for itemId.
-         * @param itemId String value for itemId.
+         * @param  itemId  String value for itemId.
          * @return Builder
          */
         public Builder itemId(String itemId) {
@@ -401,7 +421,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -411,7 +431,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for sku.
-         * @param sku String value for sku.
+         * @param  sku  String value for sku.
          * @return Builder
          */
         public Builder sku(String sku) {
@@ -421,7 +441,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for upc.
-         * @param upc String value for upc.
+         * @param  upc  String value for upc.
          * @return Builder
          */
         public Builder upc(String upc) {
@@ -431,7 +451,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for ordinal.
-         * @param ordinal Integer value for ordinal.
+         * @param  ordinal  Integer value for ordinal.
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
@@ -441,7 +461,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for pricingType.
-         * @param pricingType String value for pricingType.
+         * @param  pricingType  String value for pricingType.
          * @return Builder
          */
         public Builder pricingType(String pricingType) {
@@ -451,7 +471,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for priceMoney.
-         * @param priceMoney Money value for priceMoney.
+         * @param  priceMoney  Money value for priceMoney.
          * @return Builder
          */
         public Builder priceMoney(Money priceMoney) {
@@ -461,7 +481,8 @@ public class CatalogItemVariation {
 
         /**
          * Setter for locationOverrides.
-         * @param locationOverrides List of ItemVariationLocationOverrides value for locationOverrides.
+         * @param  locationOverrides  List of ItemVariationLocationOverrides value for
+         *         locationOverrides.
          * @return Builder
          */
         public Builder locationOverrides(List<ItemVariationLocationOverrides> locationOverrides) {
@@ -471,7 +492,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for trackInventory.
-         * @param trackInventory Boolean value for trackInventory.
+         * @param  trackInventory  Boolean value for trackInventory.
          * @return Builder
          */
         public Builder trackInventory(Boolean trackInventory) {
@@ -481,7 +502,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for inventoryAlertType.
-         * @param inventoryAlertType String value for inventoryAlertType.
+         * @param  inventoryAlertType  String value for inventoryAlertType.
          * @return Builder
          */
         public Builder inventoryAlertType(String inventoryAlertType) {
@@ -491,7 +512,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for inventoryAlertThreshold.
-         * @param inventoryAlertThreshold Long value for inventoryAlertThreshold.
+         * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
          * @return Builder
          */
         public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {
@@ -501,7 +522,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for userData.
-         * @param userData String value for userData.
+         * @param  userData  String value for userData.
          * @return Builder
          */
         public Builder userData(String userData) {
@@ -511,7 +532,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for serviceDuration.
-         * @param serviceDuration Long value for serviceDuration.
+         * @param  serviceDuration  Long value for serviceDuration.
          * @return Builder
          */
         public Builder serviceDuration(Long serviceDuration) {
@@ -521,7 +542,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for availableForBooking.
-         * @param availableForBooking Boolean value for availableForBooking.
+         * @param  availableForBooking  Boolean value for availableForBooking.
          * @return Builder
          */
         public Builder availableForBooking(Boolean availableForBooking) {
@@ -531,17 +552,19 @@ public class CatalogItemVariation {
 
         /**
          * Setter for itemOptionValues.
-         * @param itemOptionValues List of CatalogItemOptionValueForItemVariation value for itemOptionValues.
+         * @param  itemOptionValues  List of CatalogItemOptionValueForItemVariation value for
+         *         itemOptionValues.
          * @return Builder
          */
-        public Builder itemOptionValues(List<CatalogItemOptionValueForItemVariation> itemOptionValues) {
+        public Builder itemOptionValues(
+                List<CatalogItemOptionValueForItemVariation> itemOptionValues) {
             this.itemOptionValues = itemOptionValues;
             return this;
         }
 
         /**
          * Setter for measurementUnitId.
-         * @param measurementUnitId String value for measurementUnitId.
+         * @param  measurementUnitId  String value for measurementUnitId.
          * @return Builder
          */
         public Builder measurementUnitId(String measurementUnitId) {
@@ -551,7 +574,7 @@ public class CatalogItemVariation {
 
         /**
          * Setter for teamMemberIds.
-         * @param teamMemberIds List of String value for teamMemberIds.
+         * @param  teamMemberIds  List of String value for teamMemberIds.
          * @return Builder
          */
         public Builder teamMemberIds(List<String> teamMemberIds) {

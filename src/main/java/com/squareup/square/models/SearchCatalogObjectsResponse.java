@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,19 +14,24 @@ import java.util.Objects;
  */
 public class SearchCatalogObjectsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> objects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> relatedObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String latestTime;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param cursor String value for cursor.
-     * @param objects List of CatalogObject value for objects.
-     * @param relatedObjects List of CatalogObject value for relatedObjects.
-     * @param latestTime String value for latestTime.
+     * @param  errors  List of Error value for errors.
+     * @param  cursor  String value for cursor.
+     * @param  objects  List of CatalogObject value for objects.
+     * @param  relatedObjects  List of CatalogObject value for relatedObjects.
+     * @param  latestTime  String value for latestTime.
      */
     @JsonCreator
     public SearchCatalogObjectsResponse(
@@ -52,7 +58,7 @@ public class SearchCatalogObjectsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -64,7 +70,7 @@ public class SearchCatalogObjectsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -74,7 +80,7 @@ public class SearchCatalogObjectsResponse {
      */
     @JsonGetter("objects")
     public List<CatalogObject> getObjects() {
-        return this.objects;
+        return objects;
     }
 
     /**
@@ -84,7 +90,7 @@ public class SearchCatalogObjectsResponse {
      */
     @JsonGetter("related_objects")
     public List<CatalogObject> getRelatedObjects() {
-        return this.relatedObjects;
+        return relatedObjects;
     }
 
     /**
@@ -95,7 +101,7 @@ public class SearchCatalogObjectsResponse {
      */
     @JsonGetter("latest_time")
     public String getLatestTime() {
-        return this.latestTime;
+        return latestTime;
     }
 
     @Override
@@ -160,7 +166,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -170,7 +176,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -180,7 +186,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -190,7 +196,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for objects.
-         * @param objects List of CatalogObject value for objects.
+         * @param  objects  List of CatalogObject value for objects.
          * @return Builder
          */
         public Builder objects(List<CatalogObject> objects) {
@@ -200,7 +206,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for relatedObjects.
-         * @param relatedObjects List of CatalogObject value for relatedObjects.
+         * @param  relatedObjects  List of CatalogObject value for relatedObjects.
          * @return Builder
          */
         public Builder relatedObjects(List<CatalogObject> relatedObjects) {
@@ -210,7 +216,7 @@ public class SearchCatalogObjectsResponse {
 
         /**
          * Setter for latestTime.
-         * @param latestTime String value for latestTime.
+         * @param  latestTime  String value for latestTime.
          * @return Builder
          */
         public Builder latestTime(String latestTime) {

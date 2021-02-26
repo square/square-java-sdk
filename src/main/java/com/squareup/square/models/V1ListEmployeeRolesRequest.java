@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for V1ListEmployeeRolesRequest type.
  */
 public class V1ListEmployeeRolesRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String batchToken;
 
     /**
      * Initialization constructor.
-     * @param order String value for order.
-     * @param limit Integer value for limit.
-     * @param batchToken String value for batchToken.
+     * @param  order  String value for order.
+     * @param  limit  Integer value for limit.
+     * @param  batchToken  String value for batchToken.
      */
     @JsonCreator
     public V1ListEmployeeRolesRequest(
@@ -37,7 +41,7 @@ public class V1ListEmployeeRolesRequest {
      */
     @JsonGetter("order")
     public String getOrder() {
-        return this.order;
+        return order;
     }
 
     /**
@@ -48,7 +52,7 @@ public class V1ListEmployeeRolesRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     /**
@@ -59,7 +63,7 @@ public class V1ListEmployeeRolesRequest {
      */
     @JsonGetter("batch_token")
     public String getBatchToken() {
-        return this.batchToken;
+        return batchToken;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class V1ListEmployeeRolesRequest {
 
         /**
          * Setter for order.
-         * @param order String value for order.
+         * @param  order  String value for order.
          * @return Builder
          */
         public Builder order(String order) {
@@ -126,7 +130,7 @@ public class V1ListEmployeeRolesRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {
@@ -136,7 +140,7 @@ public class V1ListEmployeeRolesRequest {
 
         /**
          * Setter for batchToken.
-         * @param batchToken String value for batchToken.
+         * @param  batchToken  String value for batchToken.
          * @return Builder
          */
         public Builder batchToken(String batchToken) {

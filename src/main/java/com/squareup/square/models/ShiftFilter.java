@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,22 +13,27 @@ import java.util.Objects;
  */
 public class ShiftFilter {
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> employeeIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange start;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange end;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftWorkday workday;
     private final List<String> teamMemberIds;
 
     /**
      * Initialization constructor.
-     * @param locationIds List of String value for locationIds.
-     * @param teamMemberIds List of String value for teamMemberIds.
-     * @param employeeIds List of String value for employeeIds.
-     * @param status String value for status.
-     * @param start TimeRange value for start.
-     * @param end TimeRange value for end.
-     * @param workday ShiftWorkday value for workday.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
+     * @param  employeeIds  List of String value for employeeIds.
+     * @param  status  String value for status.
+     * @param  start  TimeRange value for start.
+     * @param  end  TimeRange value for end.
+     * @param  workday  ShiftWorkday value for workday.
      */
     @JsonCreator
     public ShiftFilter(
@@ -54,7 +60,7 @@ public class ShiftFilter {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -65,7 +71,7 @@ public class ShiftFilter {
      */
     @JsonGetter("employee_ids")
     public List<String> getEmployeeIds() {
-        return this.employeeIds;
+        return employeeIds;
     }
 
     /**
@@ -75,7 +81,7 @@ public class ShiftFilter {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -88,7 +94,7 @@ public class ShiftFilter {
      */
     @JsonGetter("start")
     public TimeRange getStart() {
-        return this.start;
+        return start;
     }
 
     /**
@@ -101,7 +107,7 @@ public class ShiftFilter {
      */
     @JsonGetter("end")
     public TimeRange getEnd() {
-        return this.end;
+        return end;
     }
 
     /**
@@ -112,7 +118,7 @@ public class ShiftFilter {
      */
     @JsonGetter("workday")
     public ShiftWorkday getWorkday() {
-        return this.workday;
+        return workday;
     }
 
     /**
@@ -122,7 +128,7 @@ public class ShiftFilter {
      */
     @JsonGetter("team_member_ids")
     public List<String> getTeamMemberIds() {
-        return this.teamMemberIds;
+        return teamMemberIds;
     }
 
     @Override
@@ -188,18 +194,17 @@ public class ShiftFilter {
 
         /**
          * Initialization constructor.
-         * @param locationIds List of String value for locationIds.
-         * @param teamMemberIds List of String value for teamMemberIds.
+         * @param  locationIds  List of String value for locationIds.
+         * @param  teamMemberIds  List of String value for teamMemberIds.
          */
-        public Builder(List<String> locationIds,
-                List<String> teamMemberIds) {
+        public Builder(List<String> locationIds, List<String> teamMemberIds) {
             this.locationIds = locationIds;
             this.teamMemberIds = teamMemberIds;
         }
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -209,7 +214,7 @@ public class ShiftFilter {
 
         /**
          * Setter for teamMemberIds.
-         * @param teamMemberIds List of String value for teamMemberIds.
+         * @param  teamMemberIds  List of String value for teamMemberIds.
          * @return Builder
          */
         public Builder teamMemberIds(List<String> teamMemberIds) {
@@ -219,7 +224,7 @@ public class ShiftFilter {
 
         /**
          * Setter for employeeIds.
-         * @param employeeIds List of String value for employeeIds.
+         * @param  employeeIds  List of String value for employeeIds.
          * @return Builder
          */
         public Builder employeeIds(List<String> employeeIds) {
@@ -229,7 +234,7 @@ public class ShiftFilter {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -239,7 +244,7 @@ public class ShiftFilter {
 
         /**
          * Setter for start.
-         * @param start TimeRange value for start.
+         * @param  start  TimeRange value for start.
          * @return Builder
          */
         public Builder start(TimeRange start) {
@@ -249,7 +254,7 @@ public class ShiftFilter {
 
         /**
          * Setter for end.
-         * @param end TimeRange value for end.
+         * @param  end  TimeRange value for end.
          * @return Builder
          */
         public Builder end(TimeRange end) {
@@ -259,7 +264,7 @@ public class ShiftFilter {
 
         /**
          * Setter for workday.
-         * @param workday ShiftWorkday value for workday.
+         * @param  workday  ShiftWorkday value for workday.
          * @return Builder
          */
         public Builder workday(ShiftWorkday workday) {

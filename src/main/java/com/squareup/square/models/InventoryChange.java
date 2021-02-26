@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,17 +11,21 @@ import java.util.Objects;
  * This is a model class for InventoryChange type.
  */
 public class InventoryChange {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryPhysicalCount physicalCount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryAdjustment adjustment;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryTransfer transfer;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param physicalCount InventoryPhysicalCount value for physicalCount.
-     * @param adjustment InventoryAdjustment value for adjustment.
-     * @param transfer InventoryTransfer value for transfer.
+     * @param  type  String value for type.
+     * @param  physicalCount  InventoryPhysicalCount value for physicalCount.
+     * @param  adjustment  InventoryAdjustment value for adjustment.
+     * @param  transfer  InventoryTransfer value for transfer.
      */
     @JsonCreator
     public InventoryChange(
@@ -41,7 +46,7 @@ public class InventoryChange {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -54,7 +59,7 @@ public class InventoryChange {
      */
     @JsonGetter("physical_count")
     public InventoryPhysicalCount getPhysicalCount() {
-        return this.physicalCount;
+        return physicalCount;
     }
 
     /**
@@ -65,7 +70,7 @@ public class InventoryChange {
      */
     @JsonGetter("adjustment")
     public InventoryAdjustment getAdjustment() {
-        return this.adjustment;
+        return adjustment;
     }
 
     /**
@@ -76,7 +81,7 @@ public class InventoryChange {
      */
     @JsonGetter("transfer")
     public InventoryTransfer getTransfer() {
-        return this.transfer;
+        return transfer;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class InventoryChange {
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -146,7 +151,7 @@ public class InventoryChange {
 
         /**
          * Setter for physicalCount.
-         * @param physicalCount InventoryPhysicalCount value for physicalCount.
+         * @param  physicalCount  InventoryPhysicalCount value for physicalCount.
          * @return Builder
          */
         public Builder physicalCount(InventoryPhysicalCount physicalCount) {
@@ -156,7 +161,7 @@ public class InventoryChange {
 
         /**
          * Setter for adjustment.
-         * @param adjustment InventoryAdjustment value for adjustment.
+         * @param  adjustment  InventoryAdjustment value for adjustment.
          * @return Builder
          */
         public Builder adjustment(InventoryAdjustment adjustment) {
@@ -166,7 +171,7 @@ public class InventoryChange {
 
         /**
          * Setter for transfer.
-         * @param transfer InventoryTransfer value for transfer.
+         * @param  transfer  InventoryTransfer value for transfer.
          * @return Builder
          */
         public Builder transfer(InventoryTransfer transfer) {

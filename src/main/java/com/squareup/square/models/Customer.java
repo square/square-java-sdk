@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,47 +12,66 @@ import java.util.Objects;
  * This is a model class for Customer type.
  */
 public class Customer {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Card> cards;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nickname;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerPreferences preferences;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CustomerGroupInfo> groups;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String creationSource;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> groupIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> segmentIds;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param createdAt String value for createdAt.
-     * @param updatedAt String value for updatedAt.
-     * @param cards List of Card value for cards.
-     * @param givenName String value for givenName.
-     * @param familyName String value for familyName.
-     * @param nickname String value for nickname.
-     * @param companyName String value for companyName.
-     * @param emailAddress String value for emailAddress.
-     * @param address Address value for address.
-     * @param phoneNumber String value for phoneNumber.
-     * @param birthday String value for birthday.
-     * @param referenceId String value for referenceId.
-     * @param note String value for note.
-     * @param preferences CustomerPreferences value for preferences.
-     * @param groups List of CustomerGroupInfo value for groups.
-     * @param creationSource String value for creationSource.
-     * @param groupIds List of String value for groupIds.
-     * @param segmentIds List of String value for segmentIds.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  cards  List of Card value for cards.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  nickname  String value for nickname.
+     * @param  companyName  String value for companyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  birthday  String value for birthday.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  preferences  CustomerPreferences value for preferences.
+     * @param  groups  List of CustomerGroupInfo value for groups.
+     * @param  creationSource  String value for creationSource.
+     * @param  groupIds  List of String value for groupIds.
+     * @param  segmentIds  List of String value for segmentIds.
      */
     @JsonCreator
     public Customer(
@@ -102,7 +122,7 @@ public class Customer {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -112,7 +132,7 @@ public class Customer {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -122,7 +142,7 @@ public class Customer {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -132,7 +152,7 @@ public class Customer {
      */
     @JsonGetter("cards")
     public List<Card> getCards() {
-        return this.cards;
+        return cards;
     }
 
     /**
@@ -142,7 +162,7 @@ public class Customer {
      */
     @JsonGetter("given_name")
     public String getGivenName() {
-        return this.givenName;
+        return givenName;
     }
 
     /**
@@ -152,7 +172,7 @@ public class Customer {
      */
     @JsonGetter("family_name")
     public String getFamilyName() {
-        return this.familyName;
+        return familyName;
     }
 
     /**
@@ -162,7 +182,7 @@ public class Customer {
      */
     @JsonGetter("nickname")
     public String getNickname() {
-        return this.nickname;
+        return nickname;
     }
 
     /**
@@ -172,7 +192,7 @@ public class Customer {
      */
     @JsonGetter("company_name")
     public String getCompanyName() {
-        return this.companyName;
+        return companyName;
     }
 
     /**
@@ -182,7 +202,7 @@ public class Customer {
      */
     @JsonGetter("email_address")
     public String getEmailAddress() {
-        return this.emailAddress;
+        return emailAddress;
     }
 
     /**
@@ -192,7 +212,7 @@ public class Customer {
      */
     @JsonGetter("address")
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
     /**
@@ -202,7 +222,7 @@ public class Customer {
      */
     @JsonGetter("phone_number")
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -215,7 +235,7 @@ public class Customer {
      */
     @JsonGetter("birthday")
     public String getBirthday() {
-        return this.birthday;
+        return birthday;
     }
 
     /**
@@ -226,7 +246,7 @@ public class Customer {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -236,7 +256,7 @@ public class Customer {
      */
     @JsonGetter("note")
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     /**
@@ -246,7 +266,7 @@ public class Customer {
      */
     @JsonGetter("preferences")
     public CustomerPreferences getPreferences() {
-        return this.preferences;
+        return preferences;
     }
 
     /**
@@ -259,7 +279,7 @@ public class Customer {
      */
     @JsonGetter("groups")
     public List<CustomerGroupInfo> getGroups() {
-        return this.groups;
+        return groups;
     }
 
     /**
@@ -269,7 +289,7 @@ public class Customer {
      */
     @JsonGetter("creation_source")
     public String getCreationSource() {
-        return this.creationSource;
+        return creationSource;
     }
 
     /**
@@ -279,7 +299,7 @@ public class Customer {
      */
     @JsonGetter("group_ids")
     public List<String> getGroupIds() {
-        return this.groupIds;
+        return groupIds;
     }
 
     /**
@@ -289,7 +309,7 @@ public class Customer {
      */
     @JsonGetter("segment_ids")
     public List<String> getSegmentIds() {
-        return this.segmentIds;
+        return segmentIds;
     }
 
     @Override
@@ -401,7 +421,7 @@ public class Customer {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -411,7 +431,7 @@ public class Customer {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -421,7 +441,7 @@ public class Customer {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -431,7 +451,7 @@ public class Customer {
 
         /**
          * Setter for cards.
-         * @param cards List of Card value for cards.
+         * @param  cards  List of Card value for cards.
          * @return Builder
          */
         public Builder cards(List<Card> cards) {
@@ -441,7 +461,7 @@ public class Customer {
 
         /**
          * Setter for givenName.
-         * @param givenName String value for givenName.
+         * @param  givenName  String value for givenName.
          * @return Builder
          */
         public Builder givenName(String givenName) {
@@ -451,7 +471,7 @@ public class Customer {
 
         /**
          * Setter for familyName.
-         * @param familyName String value for familyName.
+         * @param  familyName  String value for familyName.
          * @return Builder
          */
         public Builder familyName(String familyName) {
@@ -461,7 +481,7 @@ public class Customer {
 
         /**
          * Setter for nickname.
-         * @param nickname String value for nickname.
+         * @param  nickname  String value for nickname.
          * @return Builder
          */
         public Builder nickname(String nickname) {
@@ -471,7 +491,7 @@ public class Customer {
 
         /**
          * Setter for companyName.
-         * @param companyName String value for companyName.
+         * @param  companyName  String value for companyName.
          * @return Builder
          */
         public Builder companyName(String companyName) {
@@ -481,7 +501,7 @@ public class Customer {
 
         /**
          * Setter for emailAddress.
-         * @param emailAddress String value for emailAddress.
+         * @param  emailAddress  String value for emailAddress.
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
@@ -491,7 +511,7 @@ public class Customer {
 
         /**
          * Setter for address.
-         * @param address Address value for address.
+         * @param  address  Address value for address.
          * @return Builder
          */
         public Builder address(Address address) {
@@ -501,7 +521,7 @@ public class Customer {
 
         /**
          * Setter for phoneNumber.
-         * @param phoneNumber String value for phoneNumber.
+         * @param  phoneNumber  String value for phoneNumber.
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
@@ -511,7 +531,7 @@ public class Customer {
 
         /**
          * Setter for birthday.
-         * @param birthday String value for birthday.
+         * @param  birthday  String value for birthday.
          * @return Builder
          */
         public Builder birthday(String birthday) {
@@ -521,7 +541,7 @@ public class Customer {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -531,7 +551,7 @@ public class Customer {
 
         /**
          * Setter for note.
-         * @param note String value for note.
+         * @param  note  String value for note.
          * @return Builder
          */
         public Builder note(String note) {
@@ -541,7 +561,7 @@ public class Customer {
 
         /**
          * Setter for preferences.
-         * @param preferences CustomerPreferences value for preferences.
+         * @param  preferences  CustomerPreferences value for preferences.
          * @return Builder
          */
         public Builder preferences(CustomerPreferences preferences) {
@@ -551,7 +571,7 @@ public class Customer {
 
         /**
          * Setter for groups.
-         * @param groups List of CustomerGroupInfo value for groups.
+         * @param  groups  List of CustomerGroupInfo value for groups.
          * @return Builder
          */
         public Builder groups(List<CustomerGroupInfo> groups) {
@@ -561,7 +581,7 @@ public class Customer {
 
         /**
          * Setter for creationSource.
-         * @param creationSource String value for creationSource.
+         * @param  creationSource  String value for creationSource.
          * @return Builder
          */
         public Builder creationSource(String creationSource) {
@@ -571,7 +591,7 @@ public class Customer {
 
         /**
          * Setter for groupIds.
-         * @param groupIds List of String value for groupIds.
+         * @param  groupIds  List of String value for groupIds.
          * @return Builder
          */
         public Builder groupIds(List<String> groupIds) {
@@ -581,7 +601,7 @@ public class Customer {
 
         /**
          * Setter for segmentIds.
-         * @param segmentIds List of String value for segmentIds.
+         * @param  segmentIds  List of String value for segmentIds.
          * @return Builder
          */
         public Builder segmentIds(List<String> segmentIds) {

@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for StandardUnitDescription type.
  */
 public class StandardUnitDescription {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnit unit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String abbreviation;
 
     /**
      * Initialization constructor.
-     * @param unit MeasurementUnit value for unit.
-     * @param name String value for name.
-     * @param abbreviation String value for abbreviation.
+     * @param  unit  MeasurementUnit value for unit.
+     * @param  name  String value for name.
+     * @param  abbreviation  String value for abbreviation.
      */
     @JsonCreator
     public StandardUnitDescription(
@@ -39,7 +43,7 @@ public class StandardUnitDescription {
      */
     @JsonGetter("unit")
     public MeasurementUnit getUnit() {
-        return this.unit;
+        return unit;
     }
 
     /**
@@ -49,7 +53,7 @@ public class StandardUnitDescription {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -59,7 +63,7 @@ public class StandardUnitDescription {
      */
     @JsonGetter("abbreviation")
     public String getAbbreviation() {
-        return this.abbreviation;
+        return abbreviation;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class StandardUnitDescription {
 
         /**
          * Setter for unit.
-         * @param unit MeasurementUnit value for unit.
+         * @param  unit  MeasurementUnit value for unit.
          * @return Builder
          */
         public Builder unit(MeasurementUnit unit) {
@@ -126,7 +130,7 @@ public class StandardUnitDescription {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -136,7 +140,7 @@ public class StandardUnitDescription {
 
         /**
          * Setter for abbreviation.
-         * @param abbreviation String value for abbreviation.
+         * @param  abbreviation  String value for abbreviation.
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {

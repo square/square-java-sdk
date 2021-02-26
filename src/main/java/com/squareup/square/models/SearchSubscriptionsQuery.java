@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsQuery type.
  */
 public class SearchSubscriptionsQuery {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchSubscriptionsFilter filter;
 
     /**
      * Initialization constructor.
-     * @param filter SearchSubscriptionsFilter value for filter.
+     * @param  filter  SearchSubscriptionsFilter value for filter.
      */
     @JsonCreator
     public SearchSubscriptionsQuery(
@@ -30,7 +32,7 @@ public class SearchSubscriptionsQuery {
      */
     @JsonGetter("filter")
     public SearchSubscriptionsFilter getFilter() {
-        return this.filter;
+        return filter;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class SearchSubscriptionsQuery {
 
         /**
          * Setter for filter.
-         * @param filter SearchSubscriptionsFilter value for filter.
+         * @param  filter  SearchSubscriptionsFilter value for filter.
          * @return Builder
          */
         public Builder filter(SearchSubscriptionsFilter filter) {

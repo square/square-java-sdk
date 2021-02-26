@@ -7,9 +7,9 @@
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Body` | [`V1EmployeeRole`](/doc/models/v1-employee-role.md) | V1EmployeeRole | V1EmployeeRole getBody() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Body` | [`V1EmployeeRole`](/doc/models/v1-employee-role.md) | Required | V1EmployeeRole | V1EmployeeRole getBody() |
 
 ## Example (as JSON)
 

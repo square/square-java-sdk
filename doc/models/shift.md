@@ -17,7 +17,7 @@ taken during the shift.
 | `EmployeeId` | `String` | Optional | The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use `team_member_id` instead | String getEmployeeId() |
 | `LocationId` | `String` | Optional | The ID of the location this shift occurred at. Should be based on<br>where the employee clocked in. | String getLocationId() |
 | `Timezone` | `String` | Optional | Read-only convenience value that is calculated from the location based<br>on `location_id`. Format: the IANA Timezone Database identifier for the<br>location timezone. | String getTimezone() |
-| `StartAt` | `String` |  | RFC 3339; shifted to location timezone + offset. Precision up to the<br>minute is respected; seconds are truncated.<br>**Constraints**: *Minimum Length*: `1` | String getStartAt() |
+| `StartAt` | `String` | Required | RFC 3339; shifted to location timezone + offset. Precision up to the<br>minute is respected; seconds are truncated.<br>**Constraints**: *Minimum Length*: `1` | String getStartAt() |
 | `EndAt` | `String` | Optional | RFC 3339; shifted to timezone + offset. Precision up to the minute is<br>respected; seconds are truncated. | String getEndAt() |
 | `Wage` | [`ShiftWage`](/doc/models/shift-wage.md) | Optional | The hourly wage rate used to compensate an employee for this shift. | ShiftWage getWage() |
 | `Breaks` | [`List<Break>`](/doc/models/break.md) | Optional | A list of any paid or unpaid breaks that were taken during this shift. | List<Break> getBreaks() |

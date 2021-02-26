@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class GetShiftResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Shift shift;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param shift Shift value for shift.
-     * @param errors List of Error value for errors.
+     * @param  shift  Shift value for shift.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public GetShiftResponse(
@@ -41,7 +44,7 @@ public class GetShiftResponse {
      */
     @JsonGetter("shift")
     public Shift getShift() {
-        return this.shift;
+        return shift;
     }
 
     /**
@@ -51,7 +54,7 @@ public class GetShiftResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class GetShiftResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -115,7 +118,7 @@ public class GetShiftResponse {
 
         /**
          * Setter for shift.
-         * @param shift Shift value for shift.
+         * @param  shift  Shift value for shift.
          * @return Builder
          */
         public Builder shift(Shift shift) {
@@ -125,7 +128,7 @@ public class GetShiftResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

@@ -12,8 +12,8 @@ Represents one of a business's employees.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Id` | `String` | Optional | The employee's unique ID. | String getId() |
-| `FirstName` | `String` |  | The employee's first name. | String getFirstName() |
-| `LastName` | `String` |  | The employee's last name. | String getLastName() |
+| `FirstName` | `String` | Required | The employee's first name. | String getFirstName() |
+| `LastName` | `String` | Required | The employee's last name. | String getLastName() |
 | `RoleIds` | `List<String>` | Optional | The ids of the employee's associated roles. Currently, you can specify only one or zero roles per employee. | List<String> getRoleIds() |
 | `AuthorizedLocationIds` | `List<String>` | Optional | The IDs of the locations the employee is allowed to clock in at. | List<String> getAuthorizedLocationIds() |
 | `Email` | `String` | Optional | The employee's email address. | String getEmail() |

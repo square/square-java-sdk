@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for OrderCreatedObject type.
  */
 public class OrderCreatedObject {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderCreated orderCreated;
 
     /**
      * Initialization constructor.
-     * @param orderCreated OrderCreated value for orderCreated.
+     * @param  orderCreated  OrderCreated value for orderCreated.
      */
     @JsonCreator
     public OrderCreatedObject(
@@ -28,7 +30,7 @@ public class OrderCreatedObject {
      */
     @JsonGetter("order_created")
     public OrderCreated getOrderCreated() {
-        return this.orderCreated;
+        return orderCreated;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class OrderCreatedObject {
 
         /**
          * Setter for orderCreated.
-         * @param orderCreated OrderCreated value for orderCreated.
+         * @param  orderCreated  OrderCreated value for orderCreated.
          * @return Builder
          */
         public Builder orderCreated(OrderCreated orderCreated) {

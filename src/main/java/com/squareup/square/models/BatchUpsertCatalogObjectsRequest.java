@@ -16,8 +16,8 @@ public class BatchUpsertCatalogObjectsRequest {
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param batches List of CatalogObjectBatch value for batches.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  batches  List of CatalogObjectBatch value for batches.
      */
     @JsonCreator
     public BatchUpsertCatalogObjectsRequest(
@@ -39,7 +39,7 @@ public class BatchUpsertCatalogObjectsRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -64,7 +64,7 @@ public class BatchUpsertCatalogObjectsRequest {
      */
     @JsonGetter("batches")
     public List<CatalogObjectBatch> getBatches() {
-        return this.batches;
+        return batches;
     }
 
     @Override
@@ -114,18 +114,17 @@ public class BatchUpsertCatalogObjectsRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param batches List of CatalogObjectBatch value for batches.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  batches  List of CatalogObjectBatch value for batches.
          */
-        public Builder(String idempotencyKey,
-                List<CatalogObjectBatch> batches) {
+        public Builder(String idempotencyKey, List<CatalogObjectBatch> batches) {
             this.idempotencyKey = idempotencyKey;
             this.batches = batches;
         }
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -135,7 +134,7 @@ public class BatchUpsertCatalogObjectsRequest {
 
         /**
          * Setter for batches.
-         * @param batches List of CatalogObjectBatch value for batches.
+         * @param  batches  List of CatalogObjectBatch value for batches.
          * @return Builder
          */
         public Builder batches(List<CatalogObjectBatch> batches) {

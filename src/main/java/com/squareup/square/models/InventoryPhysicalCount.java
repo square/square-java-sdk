@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,42 @@ import java.util.Objects;
  * This is a model class for InventoryPhysicalCount type.
  */
 public class InventoryPhysicalCount {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String occurredAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param catalogObjectType String value for catalogObjectType.
-     * @param state String value for state.
-     * @param locationId String value for locationId.
-     * @param quantity String value for quantity.
-     * @param source SourceApplication value for source.
-     * @param employeeId String value for employeeId.
-     * @param occurredAt String value for occurredAt.
-     * @param createdAt String value for createdAt.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  state  String value for state.
+     * @param  locationId  String value for locationId.
+     * @param  quantity  String value for quantity.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
      */
     @JsonCreator
     public InventoryPhysicalCount(
@@ -70,7 +82,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -81,7 +93,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -91,7 +103,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -102,7 +114,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("catalog_object_type")
     public String getCatalogObjectType() {
-        return this.catalogObjectType;
+        return catalogObjectType;
     }
 
     /**
@@ -112,7 +124,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("state")
     public String getState() {
-        return this.state;
+        return state;
     }
 
     /**
@@ -123,7 +135,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -134,7 +146,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("quantity")
     public String getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 
     /**
@@ -144,7 +156,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("source")
     public SourceApplication getSource() {
-        return this.source;
+        return source;
     }
 
     /**
@@ -154,7 +166,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -166,7 +178,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("occurred_at")
     public String getOccurredAt() {
-        return this.occurredAt;
+        return occurredAt;
     }
 
     /**
@@ -177,7 +189,7 @@ public class InventoryPhysicalCount {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     @Override
@@ -262,7 +274,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -272,7 +284,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -282,7 +294,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -292,7 +304,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for catalogObjectType.
-         * @param catalogObjectType String value for catalogObjectType.
+         * @param  catalogObjectType  String value for catalogObjectType.
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
@@ -302,7 +314,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for state.
-         * @param state String value for state.
+         * @param  state  String value for state.
          * @return Builder
          */
         public Builder state(String state) {
@@ -312,7 +324,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -322,7 +334,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for quantity.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          * @return Builder
          */
         public Builder quantity(String quantity) {
@@ -332,7 +344,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for source.
-         * @param source SourceApplication value for source.
+         * @param  source  SourceApplication value for source.
          * @return Builder
          */
         public Builder source(SourceApplication source) {
@@ -342,7 +354,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -352,7 +364,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for occurredAt.
-         * @param occurredAt String value for occurredAt.
+         * @param  occurredAt  String value for occurredAt.
          * @return Builder
          */
         public Builder occurredAt(String occurredAt) {
@@ -362,7 +374,7 @@ public class InventoryPhysicalCount {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {

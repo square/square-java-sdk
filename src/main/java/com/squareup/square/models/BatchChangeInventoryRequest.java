@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,15 +12,18 @@ import java.util.Objects;
  * This is a model class for BatchChangeInventoryRequest type.
  */
 public class BatchChangeInventoryRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InventoryChange> changes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean ignoreUnchangedCounts;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param changes List of InventoryChange value for changes.
-     * @param ignoreUnchangedCounts Boolean value for ignoreUnchangedCounts.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  changes  List of InventoryChange value for changes.
+     * @param  ignoreUnchangedCounts  Boolean value for ignoreUnchangedCounts.
      */
     @JsonCreator
     public BatchChangeInventoryRequest(
@@ -41,7 +45,7 @@ public class BatchChangeInventoryRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -52,7 +56,7 @@ public class BatchChangeInventoryRequest {
      */
     @JsonGetter("changes")
     public List<InventoryChange> getChanges() {
-        return this.changes;
+        return changes;
     }
 
     /**
@@ -63,7 +67,7 @@ public class BatchChangeInventoryRequest {
      */
     @JsonGetter("ignore_unchanged_counts")
     public Boolean getIgnoreUnchangedCounts() {
-        return this.ignoreUnchangedCounts;
+        return ignoreUnchangedCounts;
     }
 
     @Override
@@ -120,7 +124,7 @@ public class BatchChangeInventoryRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -130,7 +134,7 @@ public class BatchChangeInventoryRequest {
 
         /**
          * Setter for changes.
-         * @param changes List of InventoryChange value for changes.
+         * @param  changes  List of InventoryChange value for changes.
          * @return Builder
          */
         public Builder changes(List<InventoryChange> changes) {
@@ -140,7 +144,7 @@ public class BatchChangeInventoryRequest {
 
         /**
          * Setter for ignoreUnchangedCounts.
-         * @param ignoreUnchangedCounts Boolean value for ignoreUnchangedCounts.
+         * @param  ignoreUnchangedCounts  Boolean value for ignoreUnchangedCounts.
          * @return Builder
          */
         public Builder ignoreUnchangedCounts(Boolean ignoreUnchangedCounts) {

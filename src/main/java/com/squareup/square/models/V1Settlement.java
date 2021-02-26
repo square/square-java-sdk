@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,21 +14,27 @@ import java.util.Objects;
  */
 public class V1Settlement {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String initiatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bankAccountId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1SettlementEntry> entries;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param status String value for status.
-     * @param totalMoney V1Money value for totalMoney.
-     * @param initiatedAt String value for initiatedAt.
-     * @param bankAccountId String value for bankAccountId.
-     * @param entries List of V1SettlementEntry value for entries.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  totalMoney  V1Money value for totalMoney.
+     * @param  initiatedAt  String value for initiatedAt.
+     * @param  bankAccountId  String value for bankAccountId.
+     * @param  entries  List of V1SettlementEntry value for entries.
      */
     @JsonCreator
     public V1Settlement(
@@ -56,7 +63,7 @@ public class V1Settlement {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -65,7 +72,7 @@ public class V1Settlement {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -74,7 +81,7 @@ public class V1Settlement {
      */
     @JsonGetter("total_money")
     public V1Money getTotalMoney() {
-        return this.totalMoney;
+        return totalMoney;
     }
 
     /**
@@ -84,7 +91,7 @@ public class V1Settlement {
      */
     @JsonGetter("initiated_at")
     public String getInitiatedAt() {
-        return this.initiatedAt;
+        return initiatedAt;
     }
 
     /**
@@ -94,7 +101,7 @@ public class V1Settlement {
      */
     @JsonGetter("bank_account_id")
     public String getBankAccountId() {
-        return this.bankAccountId;
+        return bankAccountId;
     }
 
     /**
@@ -104,7 +111,7 @@ public class V1Settlement {
      */
     @JsonGetter("entries")
     public List<V1SettlementEntry> getEntries() {
-        return this.entries;
+        return entries;
     }
 
     @Override
@@ -172,7 +179,7 @@ public class V1Settlement {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -182,7 +189,7 @@ public class V1Settlement {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -192,7 +199,7 @@ public class V1Settlement {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -202,7 +209,7 @@ public class V1Settlement {
 
         /**
          * Setter for totalMoney.
-         * @param totalMoney V1Money value for totalMoney.
+         * @param  totalMoney  V1Money value for totalMoney.
          * @return Builder
          */
         public Builder totalMoney(V1Money totalMoney) {
@@ -212,7 +219,7 @@ public class V1Settlement {
 
         /**
          * Setter for initiatedAt.
-         * @param initiatedAt String value for initiatedAt.
+         * @param  initiatedAt  String value for initiatedAt.
          * @return Builder
          */
         public Builder initiatedAt(String initiatedAt) {
@@ -222,7 +229,7 @@ public class V1Settlement {
 
         /**
          * Setter for bankAccountId.
-         * @param bankAccountId String value for bankAccountId.
+         * @param  bankAccountId  String value for bankAccountId.
          * @return Builder
          */
         public Builder bankAccountId(String bankAccountId) {
@@ -232,7 +239,7 @@ public class V1Settlement {
 
         /**
          * Setter for entries.
-         * @param entries List of V1SettlementEntry value for entries.
+         * @param  entries  List of V1SettlementEntry value for entries.
          * @return Builder
          */
         public Builder entries(List<V1SettlementEntry> entries) {

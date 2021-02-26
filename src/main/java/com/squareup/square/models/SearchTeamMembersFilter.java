@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,15 @@ import java.util.Objects;
  * This is a model class for SearchTeamMembersFilter type.
  */
 public class SearchTeamMembersFilter {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
      * Initialization constructor.
-     * @param locationIds List of String value for locationIds.
-     * @param status String value for status.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  status  String value for status.
      */
     @JsonCreator
     public SearchTeamMembersFilter(
@@ -35,7 +38,7 @@ public class SearchTeamMembersFilter {
      */
     @JsonGetter("location_ids")
     public List<String> getLocationIds() {
-        return this.locationIds;
+        return locationIds;
     }
 
     /**
@@ -45,7 +48,7 @@ public class SearchTeamMembersFilter {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class SearchTeamMembersFilter {
 
         /**
          * Setter for locationIds.
-         * @param locationIds List of String value for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
@@ -109,7 +112,7 @@ public class SearchTeamMembersFilter {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {

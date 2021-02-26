@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,19 +12,24 @@ import java.util.Objects;
  * This is a model class for RetrieveObsMigrationProfileResponse type.
  */
 public class RetrieveObsMigrationProfileResponse {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean bannerEnabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bannerText;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bannerCtaText;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bannerCtaUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param bannerEnabled Boolean value for bannerEnabled.
-     * @param bannerText String value for bannerText.
-     * @param bannerCtaText String value for bannerCtaText.
-     * @param bannerCtaUrl String value for bannerCtaUrl.
-     * @param errors List of Error value for errors.
+     * @param  bannerEnabled  Boolean value for bannerEnabled.
+     * @param  bannerText  String value for bannerText.
+     * @param  bannerCtaText  String value for bannerCtaText.
+     * @param  bannerCtaUrl  String value for bannerCtaUrl.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public RetrieveObsMigrationProfileResponse(
@@ -46,7 +52,7 @@ public class RetrieveObsMigrationProfileResponse {
      */
     @JsonGetter("banner_enabled")
     public Boolean getBannerEnabled() {
-        return this.bannerEnabled;
+        return bannerEnabled;
     }
 
     /**
@@ -56,7 +62,7 @@ public class RetrieveObsMigrationProfileResponse {
      */
     @JsonGetter("banner_text")
     public String getBannerText() {
-        return this.bannerText;
+        return bannerText;
     }
 
     /**
@@ -66,7 +72,7 @@ public class RetrieveObsMigrationProfileResponse {
      */
     @JsonGetter("banner_cta_text")
     public String getBannerCtaText() {
-        return this.bannerCtaText;
+        return bannerCtaText;
     }
 
     /**
@@ -76,7 +82,7 @@ public class RetrieveObsMigrationProfileResponse {
      */
     @JsonGetter("banner_cta_url")
     public String getBannerCtaUrl() {
-        return this.bannerCtaUrl;
+        return bannerCtaUrl;
     }
 
     /**
@@ -86,7 +92,7 @@ public class RetrieveObsMigrationProfileResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -150,7 +156,7 @@ public class RetrieveObsMigrationProfileResponse {
 
         /**
          * Setter for bannerEnabled.
-         * @param bannerEnabled Boolean value for bannerEnabled.
+         * @param  bannerEnabled  Boolean value for bannerEnabled.
          * @return Builder
          */
         public Builder bannerEnabled(Boolean bannerEnabled) {
@@ -160,7 +166,7 @@ public class RetrieveObsMigrationProfileResponse {
 
         /**
          * Setter for bannerText.
-         * @param bannerText String value for bannerText.
+         * @param  bannerText  String value for bannerText.
          * @return Builder
          */
         public Builder bannerText(String bannerText) {
@@ -170,7 +176,7 @@ public class RetrieveObsMigrationProfileResponse {
 
         /**
          * Setter for bannerCtaText.
-         * @param bannerCtaText String value for bannerCtaText.
+         * @param  bannerCtaText  String value for bannerCtaText.
          * @return Builder
          */
         public Builder bannerCtaText(String bannerCtaText) {
@@ -180,7 +186,7 @@ public class RetrieveObsMigrationProfileResponse {
 
         /**
          * Setter for bannerCtaUrl.
-         * @param bannerCtaUrl String value for bannerCtaUrl.
+         * @param  bannerCtaUrl  String value for bannerCtaUrl.
          * @return Builder
          */
         public Builder bannerCtaUrl(String bannerCtaUrl) {
@@ -190,7 +196,7 @@ public class RetrieveObsMigrationProfileResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

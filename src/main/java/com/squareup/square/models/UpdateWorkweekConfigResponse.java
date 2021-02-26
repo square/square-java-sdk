@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.Objects;
  */
 public class UpdateWorkweekConfigResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final WorkweekConfig workweekConfig;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param workweekConfig WorkweekConfig value for workweekConfig.
-     * @param errors List of Error value for errors.
+     * @param  workweekConfig  WorkweekConfig value for workweekConfig.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public UpdateWorkweekConfigResponse(
@@ -41,7 +44,7 @@ public class UpdateWorkweekConfigResponse {
      */
     @JsonGetter("workweek_config")
     public WorkweekConfig getWorkweekConfig() {
-        return this.workweekConfig;
+        return workweekConfig;
     }
 
     /**
@@ -51,7 +54,7 @@ public class UpdateWorkweekConfigResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class UpdateWorkweekConfigResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -116,7 +119,7 @@ public class UpdateWorkweekConfigResponse {
 
         /**
          * Setter for workweekConfig.
-         * @param workweekConfig WorkweekConfig value for workweekConfig.
+         * @param  workweekConfig  WorkweekConfig value for workweekConfig.
          * @return Builder
          */
         public Builder workweekConfig(WorkweekConfig workweekConfig) {
@@ -126,7 +129,7 @@ public class UpdateWorkweekConfigResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {

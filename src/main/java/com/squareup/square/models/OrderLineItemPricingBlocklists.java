@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,17 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklists type.
  */
 public class OrderLineItemPricingBlocklists {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes;
 
     /**
      * Initialization constructor.
-     * @param blockedDiscounts List of OrderLineItemPricingBlocklistsBlockedDiscount value for blockedDiscounts.
-     * @param blockedTaxes List of OrderLineItemPricingBlocklistsBlockedTax value for blockedTaxes.
+     * @param  blockedDiscounts  List of OrderLineItemPricingBlocklistsBlockedDiscount value for
+     *         blockedDiscounts.
+     * @param  blockedTaxes  List of OrderLineItemPricingBlocklistsBlockedTax value for
+     *         blockedTaxes.
      */
     @JsonCreator
     public OrderLineItemPricingBlocklists(
@@ -36,7 +41,7 @@ public class OrderLineItemPricingBlocklists {
      */
     @JsonGetter("blocked_discounts")
     public List<OrderLineItemPricingBlocklistsBlockedDiscount> getBlockedDiscounts() {
-        return this.blockedDiscounts;
+        return blockedDiscounts;
     }
 
     /**
@@ -47,7 +52,7 @@ public class OrderLineItemPricingBlocklists {
      */
     @JsonGetter("blocked_taxes")
     public List<OrderLineItemPricingBlocklistsBlockedTax> getBlockedTaxes() {
-        return this.blockedTaxes;
+        return blockedTaxes;
     }
 
     @Override
@@ -101,17 +106,20 @@ public class OrderLineItemPricingBlocklists {
 
         /**
          * Setter for blockedDiscounts.
-         * @param blockedDiscounts List of OrderLineItemPricingBlocklistsBlockedDiscount value for blockedDiscounts.
+         * @param  blockedDiscounts  List of OrderLineItemPricingBlocklistsBlockedDiscount value for
+         *         blockedDiscounts.
          * @return Builder
          */
-        public Builder blockedDiscounts(List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts) {
+        public Builder blockedDiscounts(
+                List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts) {
             this.blockedDiscounts = blockedDiscounts;
             return this;
         }
 
         /**
          * Setter for blockedTaxes.
-         * @param blockedTaxes List of OrderLineItemPricingBlocklistsBlockedTax value for blockedTaxes.
+         * @param  blockedTaxes  List of OrderLineItemPricingBlocklistsBlockedTax value for
+         *         blockedTaxes.
          * @return Builder
          */
         public Builder blockedTaxes(List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes) {

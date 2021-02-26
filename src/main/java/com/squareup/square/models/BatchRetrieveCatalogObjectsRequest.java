@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class BatchRetrieveCatalogObjectsRequest {
     private final List<String> objectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
      * Initialization constructor.
-     * @param objectIds List of String value for objectIds.
-     * @param includeRelatedObjects Boolean value for includeRelatedObjects.
-     * @param catalogVersion Long value for catalogVersion.
+     * @param  objectIds  List of String value for objectIds.
+     * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsRequest(
@@ -38,7 +41,7 @@ public class BatchRetrieveCatalogObjectsRequest {
      */
     @JsonGetter("object_ids")
     public List<String> getObjectIds() {
-        return this.objectIds;
+        return objectIds;
     }
 
     /**
@@ -53,7 +56,7 @@ public class BatchRetrieveCatalogObjectsRequest {
      */
     @JsonGetter("include_related_objects")
     public Boolean getIncludeRelatedObjects() {
-        return this.includeRelatedObjects;
+        return includeRelatedObjects;
     }
 
     /**
@@ -65,7 +68,7 @@ public class BatchRetrieveCatalogObjectsRequest {
      */
     @JsonGetter("catalog_version")
     public Long getCatalogVersion() {
-        return this.catalogVersion;
+        return catalogVersion;
     }
 
     @Override
@@ -120,7 +123,7 @@ public class BatchRetrieveCatalogObjectsRequest {
 
         /**
          * Initialization constructor.
-         * @param objectIds List of String value for objectIds.
+         * @param  objectIds  List of String value for objectIds.
          */
         public Builder(List<String> objectIds) {
             this.objectIds = objectIds;
@@ -128,7 +131,7 @@ public class BatchRetrieveCatalogObjectsRequest {
 
         /**
          * Setter for objectIds.
-         * @param objectIds List of String value for objectIds.
+         * @param  objectIds  List of String value for objectIds.
          * @return Builder
          */
         public Builder objectIds(List<String> objectIds) {
@@ -138,7 +141,7 @@ public class BatchRetrieveCatalogObjectsRequest {
 
         /**
          * Setter for includeRelatedObjects.
-         * @param includeRelatedObjects Boolean value for includeRelatedObjects.
+         * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
          * @return Builder
          */
         public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
@@ -148,7 +151,7 @@ public class BatchRetrieveCatalogObjectsRequest {
 
         /**
          * Setter for catalogVersion.
-         * @param catalogVersion Long value for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {

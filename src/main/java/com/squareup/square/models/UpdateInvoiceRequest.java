@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,16 @@ import java.util.Objects;
  */
 public class UpdateInvoiceRequest {
     private final Invoice invoice;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fieldsToClear;
 
     /**
      * Initialization constructor.
-     * @param invoice Invoice value for invoice.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param fieldsToClear List of String value for fieldsToClear.
+     * @param  invoice  Invoice value for invoice.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  fieldsToClear  List of String value for fieldsToClear.
      */
     @JsonCreator
     public UpdateInvoiceRequest(
@@ -40,7 +43,7 @@ public class UpdateInvoiceRequest {
      */
     @JsonGetter("invoice")
     public Invoice getInvoice() {
-        return this.invoice;
+        return invoice;
     }
 
     /**
@@ -53,7 +56,7 @@ public class UpdateInvoiceRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -64,7 +67,7 @@ public class UpdateInvoiceRequest {
      */
     @JsonGetter("fields_to_clear")
     public List<String> getFieldsToClear() {
-        return this.fieldsToClear;
+        return fieldsToClear;
     }
 
     @Override
@@ -118,7 +121,7 @@ public class UpdateInvoiceRequest {
 
         /**
          * Initialization constructor.
-         * @param invoice Invoice value for invoice.
+         * @param  invoice  Invoice value for invoice.
          */
         public Builder(Invoice invoice) {
             this.invoice = invoice;
@@ -126,7 +129,7 @@ public class UpdateInvoiceRequest {
 
         /**
          * Setter for invoice.
-         * @param invoice Invoice value for invoice.
+         * @param  invoice  Invoice value for invoice.
          * @return Builder
          */
         public Builder invoice(Invoice invoice) {
@@ -136,7 +139,7 @@ public class UpdateInvoiceRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -146,7 +149,7 @@ public class UpdateInvoiceRequest {
 
         /**
          * Setter for fieldsToClear.
-         * @param fieldsToClear List of String value for fieldsToClear.
+         * @param  fieldsToClear  List of String value for fieldsToClear.
          * @return Builder
          */
         public Builder fieldsToClear(List<String> fieldsToClear) {

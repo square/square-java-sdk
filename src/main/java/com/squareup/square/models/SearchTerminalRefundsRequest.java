@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,15 +11,18 @@ import java.util.Objects;
  * This is a model class for SearchTerminalRefundsRequest type.
  */
 public class SearchTerminalRefundsRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
      * Initialization constructor.
-     * @param query TerminalRefundQuery value for query.
-     * @param cursor String value for cursor.
-     * @param limit Integer value for limit.
+     * @param  query  TerminalRefundQuery value for query.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public SearchTerminalRefundsRequest(
@@ -36,7 +40,7 @@ public class SearchTerminalRefundsRequest {
      */
     @JsonGetter("query")
     public TerminalRefundQuery getQuery() {
-        return this.query;
+        return query;
     }
 
     /**
@@ -47,7 +51,7 @@ public class SearchTerminalRefundsRequest {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     /**
@@ -57,7 +61,7 @@ public class SearchTerminalRefundsRequest {
      */
     @JsonGetter("limit")
     public Integer getLimit() {
-        return this.limit;
+        return limit;
     }
 
     @Override
@@ -114,7 +118,7 @@ public class SearchTerminalRefundsRequest {
 
         /**
          * Setter for query.
-         * @param query TerminalRefundQuery value for query.
+         * @param  query  TerminalRefundQuery value for query.
          * @return Builder
          */
         public Builder query(TerminalRefundQuery query) {
@@ -124,7 +128,7 @@ public class SearchTerminalRefundsRequest {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {
@@ -134,7 +138,7 @@ public class SearchTerminalRefundsRequest {
 
         /**
          * Setter for limit.
-         * @param limit Integer value for limit.
+         * @param  limit  Integer value for limit.
          * @return Builder
          */
         public Builder limit(Integer limit) {

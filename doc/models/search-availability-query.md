@@ -9,9 +9,9 @@ Query conditions to search for availabilities of bookings.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Filter` | [`SearchAvailabilityFilter`](/doc/models/search-availability-filter.md) | A query filter to search for availabilities by. | SearchAvailabilityFilter getFilter() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Filter` | [`SearchAvailabilityFilter`](/doc/models/search-availability-filter.md) | Required | A query filter to search for availabilities by. | SearchAvailabilityFilter getFilter() |
 
 ## Example (as JSON)
 

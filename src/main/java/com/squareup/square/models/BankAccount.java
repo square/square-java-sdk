@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -17,36 +18,44 @@ public class BankAccount {
     private final String accountType;
     private final String holderName;
     private final String primaryBankIdentificationNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String secondaryBankIdentificationNumber;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String debitMandateReferenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final String status;
     private final boolean creditable;
     private final boolean debitable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bankName;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param accountNumberSuffix String value for accountNumberSuffix.
-     * @param country String value for country.
-     * @param currency String value for currency.
-     * @param accountType String value for accountType.
-     * @param holderName String value for holderName.
-     * @param primaryBankIdentificationNumber String value for primaryBankIdentificationNumber.
-     * @param status String value for status.
-     * @param creditable boolean value for creditable.
-     * @param debitable boolean value for debitable.
-     * @param secondaryBankIdentificationNumber String value for secondaryBankIdentificationNumber.
-     * @param debitMandateReferenceId String value for debitMandateReferenceId.
-     * @param referenceId String value for referenceId.
-     * @param locationId String value for locationId.
-     * @param fingerprint String value for fingerprint.
-     * @param version Integer value for version.
-     * @param bankName String value for bankName.
+     * @param  id  String value for id.
+     * @param  accountNumberSuffix  String value for accountNumberSuffix.
+     * @param  country  String value for country.
+     * @param  currency  String value for currency.
+     * @param  accountType  String value for accountType.
+     * @param  holderName  String value for holderName.
+     * @param  primaryBankIdentificationNumber  String value for primaryBankIdentificationNumber.
+     * @param  status  String value for status.
+     * @param  creditable  boolean value for creditable.
+     * @param  debitable  boolean value for debitable.
+     * @param  secondaryBankIdentificationNumber  String value for
+     *         secondaryBankIdentificationNumber.
+     * @param  debitMandateReferenceId  String value for debitMandateReferenceId.
+     * @param  referenceId  String value for referenceId.
+     * @param  locationId  String value for locationId.
+     * @param  fingerprint  String value for fingerprint.
+     * @param  version  Integer value for version.
+     * @param  bankName  String value for bankName.
      */
     @JsonCreator
     public BankAccount(
@@ -93,7 +102,7 @@ public class BankAccount {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -103,7 +112,7 @@ public class BankAccount {
      */
     @JsonGetter("account_number_suffix")
     public String getAccountNumberSuffix() {
-        return this.accountNumberSuffix;
+        return accountNumberSuffix;
     }
 
     /**
@@ -114,7 +123,7 @@ public class BankAccount {
      */
     @JsonGetter("country")
     public String getCountry() {
-        return this.country;
+        return country;
     }
 
     /**
@@ -125,7 +134,7 @@ public class BankAccount {
      */
     @JsonGetter("currency")
     public String getCurrency() {
-        return this.currency;
+        return currency;
     }
 
     /**
@@ -135,7 +144,7 @@ public class BankAccount {
      */
     @JsonGetter("account_type")
     public String getAccountType() {
-        return this.accountType;
+        return accountType;
     }
 
     /**
@@ -146,7 +155,7 @@ public class BankAccount {
      */
     @JsonGetter("holder_name")
     public String getHolderName() {
-        return this.holderName;
+        return holderName;
     }
 
     /**
@@ -157,7 +166,7 @@ public class BankAccount {
      */
     @JsonGetter("primary_bank_identification_number")
     public String getPrimaryBankIdentificationNumber() {
-        return this.primaryBankIdentificationNumber;
+        return primaryBankIdentificationNumber;
     }
 
     /**
@@ -168,7 +177,7 @@ public class BankAccount {
      */
     @JsonGetter("secondary_bank_identification_number")
     public String getSecondaryBankIdentificationNumber() {
-        return this.secondaryBankIdentificationNumber;
+        return secondaryBankIdentificationNumber;
     }
 
     /**
@@ -179,7 +188,7 @@ public class BankAccount {
      */
     @JsonGetter("debit_mandate_reference_id")
     public String getDebitMandateReferenceId() {
-        return this.debitMandateReferenceId;
+        return debitMandateReferenceId;
     }
 
     /**
@@ -190,7 +199,7 @@ public class BankAccount {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -200,7 +209,7 @@ public class BankAccount {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -210,7 +219,7 @@ public class BankAccount {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -220,7 +229,7 @@ public class BankAccount {
      */
     @JsonGetter("creditable")
     public boolean getCreditable() {
-        return this.creditable;
+        return creditable;
     }
 
     /**
@@ -230,7 +239,7 @@ public class BankAccount {
      */
     @JsonGetter("debitable")
     public boolean getDebitable() {
-        return this.debitable;
+        return debitable;
     }
 
     /**
@@ -242,7 +251,7 @@ public class BankAccount {
      */
     @JsonGetter("fingerprint")
     public String getFingerprint() {
-        return this.fingerprint;
+        return fingerprint;
     }
 
     /**
@@ -252,7 +261,7 @@ public class BankAccount {
      */
     @JsonGetter("version")
     public Integer getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -262,7 +271,7 @@ public class BankAccount {
      */
     @JsonGetter("bank_name")
     public String getBankName() {
-        return this.bankName;
+        return bankName;
     }
 
     @Override
@@ -362,27 +371,21 @@ public class BankAccount {
 
         /**
          * Initialization constructor.
-         * @param id String value for id.
-         * @param accountNumberSuffix String value for accountNumberSuffix.
-         * @param country String value for country.
-         * @param currency String value for currency.
-         * @param accountType String value for accountType.
-         * @param holderName String value for holderName.
-         * @param primaryBankIdentificationNumber String value for primaryBankIdentificationNumber.
-         * @param status String value for status.
-         * @param creditable boolean value for creditable.
-         * @param debitable boolean value for debitable.
+         * @param  id  String value for id.
+         * @param  accountNumberSuffix  String value for accountNumberSuffix.
+         * @param  country  String value for country.
+         * @param  currency  String value for currency.
+         * @param  accountType  String value for accountType.
+         * @param  holderName  String value for holderName.
+         * @param  primaryBankIdentificationNumber  String value for
+         *         primaryBankIdentificationNumber.
+         * @param  status  String value for status.
+         * @param  creditable  boolean value for creditable.
+         * @param  debitable  boolean value for debitable.
          */
-        public Builder(String id,
-                String accountNumberSuffix,
-                String country,
-                String currency,
-                String accountType,
-                String holderName,
-                String primaryBankIdentificationNumber,
-                String status,
-                boolean creditable,
-                boolean debitable) {
+        public Builder(String id, String accountNumberSuffix, String country, String currency,
+                String accountType, String holderName, String primaryBankIdentificationNumber,
+                String status, boolean creditable, boolean debitable) {
             this.id = id;
             this.accountNumberSuffix = accountNumberSuffix;
             this.country = country;
@@ -397,7 +400,7 @@ public class BankAccount {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -407,7 +410,7 @@ public class BankAccount {
 
         /**
          * Setter for accountNumberSuffix.
-         * @param accountNumberSuffix String value for accountNumberSuffix.
+         * @param  accountNumberSuffix  String value for accountNumberSuffix.
          * @return Builder
          */
         public Builder accountNumberSuffix(String accountNumberSuffix) {
@@ -417,7 +420,7 @@ public class BankAccount {
 
         /**
          * Setter for country.
-         * @param country String value for country.
+         * @param  country  String value for country.
          * @return Builder
          */
         public Builder country(String country) {
@@ -427,7 +430,7 @@ public class BankAccount {
 
         /**
          * Setter for currency.
-         * @param currency String value for currency.
+         * @param  currency  String value for currency.
          * @return Builder
          */
         public Builder currency(String currency) {
@@ -437,7 +440,7 @@ public class BankAccount {
 
         /**
          * Setter for accountType.
-         * @param accountType String value for accountType.
+         * @param  accountType  String value for accountType.
          * @return Builder
          */
         public Builder accountType(String accountType) {
@@ -447,7 +450,7 @@ public class BankAccount {
 
         /**
          * Setter for holderName.
-         * @param holderName String value for holderName.
+         * @param  holderName  String value for holderName.
          * @return Builder
          */
         public Builder holderName(String holderName) {
@@ -457,7 +460,8 @@ public class BankAccount {
 
         /**
          * Setter for primaryBankIdentificationNumber.
-         * @param primaryBankIdentificationNumber String value for primaryBankIdentificationNumber.
+         * @param  primaryBankIdentificationNumber  String value for
+         *         primaryBankIdentificationNumber.
          * @return Builder
          */
         public Builder primaryBankIdentificationNumber(String primaryBankIdentificationNumber) {
@@ -467,7 +471,7 @@ public class BankAccount {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -477,7 +481,7 @@ public class BankAccount {
 
         /**
          * Setter for creditable.
-         * @param creditable boolean value for creditable.
+         * @param  creditable  boolean value for creditable.
          * @return Builder
          */
         public Builder creditable(boolean creditable) {
@@ -487,7 +491,7 @@ public class BankAccount {
 
         /**
          * Setter for debitable.
-         * @param debitable boolean value for debitable.
+         * @param  debitable  boolean value for debitable.
          * @return Builder
          */
         public Builder debitable(boolean debitable) {
@@ -497,17 +501,19 @@ public class BankAccount {
 
         /**
          * Setter for secondaryBankIdentificationNumber.
-         * @param secondaryBankIdentificationNumber String value for secondaryBankIdentificationNumber.
+         * @param  secondaryBankIdentificationNumber  String value for
+         *         secondaryBankIdentificationNumber.
          * @return Builder
          */
-        public Builder secondaryBankIdentificationNumber(String secondaryBankIdentificationNumber) {
+        public Builder secondaryBankIdentificationNumber(
+                String secondaryBankIdentificationNumber) {
             this.secondaryBankIdentificationNumber = secondaryBankIdentificationNumber;
             return this;
         }
 
         /**
          * Setter for debitMandateReferenceId.
-         * @param debitMandateReferenceId String value for debitMandateReferenceId.
+         * @param  debitMandateReferenceId  String value for debitMandateReferenceId.
          * @return Builder
          */
         public Builder debitMandateReferenceId(String debitMandateReferenceId) {
@@ -517,7 +523,7 @@ public class BankAccount {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -527,7 +533,7 @@ public class BankAccount {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -537,7 +543,7 @@ public class BankAccount {
 
         /**
          * Setter for fingerprint.
-         * @param fingerprint String value for fingerprint.
+         * @param  fingerprint  String value for fingerprint.
          * @return Builder
          */
         public Builder fingerprint(String fingerprint) {
@@ -547,7 +553,7 @@ public class BankAccount {
 
         /**
          * Setter for version.
-         * @param version Integer value for version.
+         * @param  version  Integer value for version.
          * @return Builder
          */
         public Builder version(Integer version) {
@@ -557,7 +563,7 @@ public class BankAccount {
 
         /**
          * Setter for bankName.
-         * @param bankName String value for bankName.
+         * @param  bankName  String value for bankName.
          * @return Builder
          */
         public Builder bankName(String bankName) {

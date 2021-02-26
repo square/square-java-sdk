@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.Objects;
  */
 public class ListCustomerGroupsResponse {
     private HttpContext httpContext;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CustomerGroup> groups;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
      * Initialization constructor.
-     * @param errors List of Error value for errors.
-     * @param groups List of CustomerGroup value for groups.
-     * @param cursor String value for cursor.
+     * @param  errors  List of Error value for errors.
+     * @param  groups  List of CustomerGroup value for groups.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public ListCustomerGroupsResponse(
@@ -44,7 +48,7 @@ public class ListCustomerGroupsResponse {
      */
     @JsonGetter("errors")
     public List<Error> getErrors() {
-        return this.errors;
+        return errors;
     }
 
     /**
@@ -54,7 +58,7 @@ public class ListCustomerGroupsResponse {
      */
     @JsonGetter("groups")
     public List<CustomerGroup> getGroups() {
-        return this.groups;
+        return groups;
     }
 
     /**
@@ -68,7 +72,7 @@ public class ListCustomerGroupsResponse {
      */
     @JsonGetter("cursor")
     public String getCursor() {
-        return this.cursor;
+        return cursor;
     }
 
     @Override
@@ -126,7 +130,7 @@ public class ListCustomerGroupsResponse {
 
         /**
          * Setter for httpContext.
-         * @param httpContext HttpContext value for httpContext.
+         * @param  httpContext  HttpContext value for httpContext.
          * @return Builder
          */
         public Builder httpContext(HttpContext httpContext) {
@@ -136,7 +140,7 @@ public class ListCustomerGroupsResponse {
 
         /**
          * Setter for errors.
-         * @param errors List of Error value for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
@@ -146,7 +150,7 @@ public class ListCustomerGroupsResponse {
 
         /**
          * Setter for groups.
-         * @param groups List of CustomerGroup value for groups.
+         * @param  groups  List of CustomerGroup value for groups.
          * @return Builder
          */
         public Builder groups(List<CustomerGroup> groups) {
@@ -156,7 +160,7 @@ public class ListCustomerGroupsResponse {
 
         /**
          * Setter for cursor.
-         * @param cursor String value for cursor.
+         * @param  cursor  String value for cursor.
          * @return Builder
          */
         public Builder cursor(String cursor) {

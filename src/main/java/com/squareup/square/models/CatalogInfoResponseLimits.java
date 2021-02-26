@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,45 @@ import java.util.Objects;
  * This is a model class for CatalogInfoResponseLimits type.
  */
 public class CatalogInfoResponseLimits {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchUpsertMaxObjectsPerBatch;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchUpsertMaxTotalObjects;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchRetrieveMaxObjectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer searchMaxPageLimit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchDeleteMaxObjectIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxItemIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxTaxesToEnable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxTaxesToDisable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxItemIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxModifierListsToEnable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxModifierListsToDisable;
 
     /**
      * Initialization constructor.
-     * @param batchUpsertMaxObjectsPerBatch Integer value for batchUpsertMaxObjectsPerBatch.
-     * @param batchUpsertMaxTotalObjects Integer value for batchUpsertMaxTotalObjects.
-     * @param batchRetrieveMaxObjectIds Integer value for batchRetrieveMaxObjectIds.
-     * @param searchMaxPageLimit Integer value for searchMaxPageLimit.
-     * @param batchDeleteMaxObjectIds Integer value for batchDeleteMaxObjectIds.
-     * @param updateItemTaxesMaxItemIds Integer value for updateItemTaxesMaxItemIds.
-     * @param updateItemTaxesMaxTaxesToEnable Integer value for updateItemTaxesMaxTaxesToEnable.
-     * @param updateItemTaxesMaxTaxesToDisable Integer value for updateItemTaxesMaxTaxesToDisable.
-     * @param updateItemModifierListsMaxItemIds Integer value for updateItemModifierListsMaxItemIds.
-     * @param updateItemModifierListsMaxModifierListsToEnable Integer value for updateItemModifierListsMaxModifierListsToEnable.
-     * @param updateItemModifierListsMaxModifierListsToDisable Integer value for updateItemModifierListsMaxModifierListsToDisable.
+     * @param  batchUpsertMaxObjectsPerBatch  Integer value for batchUpsertMaxObjectsPerBatch.
+     * @param  batchUpsertMaxTotalObjects  Integer value for batchUpsertMaxTotalObjects.
+     * @param  batchRetrieveMaxObjectIds  Integer value for batchRetrieveMaxObjectIds.
+     * @param  searchMaxPageLimit  Integer value for searchMaxPageLimit.
+     * @param  batchDeleteMaxObjectIds  Integer value for batchDeleteMaxObjectIds.
+     * @param  updateItemTaxesMaxItemIds  Integer value for updateItemTaxesMaxItemIds.
+     * @param  updateItemTaxesMaxTaxesToEnable  Integer value for updateItemTaxesMaxTaxesToEnable.
+     * @param  updateItemTaxesMaxTaxesToDisable  Integer value for updateItemTaxesMaxTaxesToDisable.
+     * @param  updateItemModifierListsMaxItemIds  Integer value for
+     *         updateItemModifierListsMaxItemIds.
+     * @param  updateItemModifierListsMaxModifierListsToEnable  Integer value for
+     *         updateItemModifierListsMaxModifierListsToEnable.
+     * @param  updateItemModifierListsMaxModifierListsToDisable  Integer value for
+     *         updateItemModifierListsMaxModifierListsToDisable.
      */
     @JsonCreator
     public CatalogInfoResponseLimits(
@@ -58,8 +73,10 @@ public class CatalogInfoResponseLimits {
         this.updateItemTaxesMaxTaxesToEnable = updateItemTaxesMaxTaxesToEnable;
         this.updateItemTaxesMaxTaxesToDisable = updateItemTaxesMaxTaxesToDisable;
         this.updateItemModifierListsMaxItemIds = updateItemModifierListsMaxItemIds;
-        this.updateItemModifierListsMaxModifierListsToEnable = updateItemModifierListsMaxModifierListsToEnable;
-        this.updateItemModifierListsMaxModifierListsToDisable = updateItemModifierListsMaxModifierListsToDisable;
+        this.updateItemModifierListsMaxModifierListsToEnable =
+                updateItemModifierListsMaxModifierListsToEnable;
+        this.updateItemModifierListsMaxModifierListsToDisable =
+                updateItemModifierListsMaxModifierListsToDisable;
     }
 
     /**
@@ -70,7 +87,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("batch_upsert_max_objects_per_batch")
     public Integer getBatchUpsertMaxObjectsPerBatch() {
-        return this.batchUpsertMaxObjectsPerBatch;
+        return batchUpsertMaxObjectsPerBatch;
     }
 
     /**
@@ -81,7 +98,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("batch_upsert_max_total_objects")
     public Integer getBatchUpsertMaxTotalObjects() {
-        return this.batchUpsertMaxTotalObjects;
+        return batchUpsertMaxTotalObjects;
     }
 
     /**
@@ -91,7 +108,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("batch_retrieve_max_object_ids")
     public Integer getBatchRetrieveMaxObjectIds() {
-        return this.batchRetrieveMaxObjectIds;
+        return batchRetrieveMaxObjectIds;
     }
 
     /**
@@ -102,7 +119,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("search_max_page_limit")
     public Integer getSearchMaxPageLimit() {
-        return this.searchMaxPageLimit;
+        return searchMaxPageLimit;
     }
 
     /**
@@ -113,7 +130,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("batch_delete_max_object_ids")
     public Integer getBatchDeleteMaxObjectIds() {
-        return this.batchDeleteMaxObjectIds;
+        return batchDeleteMaxObjectIds;
     }
 
     /**
@@ -124,7 +141,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_taxes_max_item_ids")
     public Integer getUpdateItemTaxesMaxItemIds() {
-        return this.updateItemTaxesMaxItemIds;
+        return updateItemTaxesMaxItemIds;
     }
 
     /**
@@ -135,7 +152,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_taxes_max_taxes_to_enable")
     public Integer getUpdateItemTaxesMaxTaxesToEnable() {
-        return this.updateItemTaxesMaxTaxesToEnable;
+        return updateItemTaxesMaxTaxesToEnable;
     }
 
     /**
@@ -146,7 +163,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_taxes_max_taxes_to_disable")
     public Integer getUpdateItemTaxesMaxTaxesToDisable() {
-        return this.updateItemTaxesMaxTaxesToDisable;
+        return updateItemTaxesMaxTaxesToDisable;
     }
 
     /**
@@ -157,7 +174,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_modifier_lists_max_item_ids")
     public Integer getUpdateItemModifierListsMaxItemIds() {
-        return this.updateItemModifierListsMaxItemIds;
+        return updateItemModifierListsMaxItemIds;
     }
 
     /**
@@ -168,7 +185,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_modifier_lists_max_modifier_lists_to_enable")
     public Integer getUpdateItemModifierListsMaxModifierListsToEnable() {
-        return this.updateItemModifierListsMaxModifierListsToEnable;
+        return updateItemModifierListsMaxModifierListsToEnable;
     }
 
     /**
@@ -179,7 +196,7 @@ public class CatalogInfoResponseLimits {
      */
     @JsonGetter("update_item_modifier_lists_max_modifier_lists_to_disable")
     public Integer getUpdateItemModifierListsMaxModifierListsToDisable() {
-        return this.updateItemModifierListsMaxModifierListsToDisable;
+        return updateItemModifierListsMaxModifierListsToDisable;
     }
 
     @Override
@@ -281,7 +298,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for batchUpsertMaxObjectsPerBatch.
-         * @param batchUpsertMaxObjectsPerBatch Integer value for batchUpsertMaxObjectsPerBatch.
+         * @param  batchUpsertMaxObjectsPerBatch  Integer value for batchUpsertMaxObjectsPerBatch.
          * @return Builder
          */
         public Builder batchUpsertMaxObjectsPerBatch(Integer batchUpsertMaxObjectsPerBatch) {
@@ -291,7 +308,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for batchUpsertMaxTotalObjects.
-         * @param batchUpsertMaxTotalObjects Integer value for batchUpsertMaxTotalObjects.
+         * @param  batchUpsertMaxTotalObjects  Integer value for batchUpsertMaxTotalObjects.
          * @return Builder
          */
         public Builder batchUpsertMaxTotalObjects(Integer batchUpsertMaxTotalObjects) {
@@ -301,7 +318,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for batchRetrieveMaxObjectIds.
-         * @param batchRetrieveMaxObjectIds Integer value for batchRetrieveMaxObjectIds.
+         * @param  batchRetrieveMaxObjectIds  Integer value for batchRetrieveMaxObjectIds.
          * @return Builder
          */
         public Builder batchRetrieveMaxObjectIds(Integer batchRetrieveMaxObjectIds) {
@@ -311,7 +328,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for searchMaxPageLimit.
-         * @param searchMaxPageLimit Integer value for searchMaxPageLimit.
+         * @param  searchMaxPageLimit  Integer value for searchMaxPageLimit.
          * @return Builder
          */
         public Builder searchMaxPageLimit(Integer searchMaxPageLimit) {
@@ -321,7 +338,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for batchDeleteMaxObjectIds.
-         * @param batchDeleteMaxObjectIds Integer value for batchDeleteMaxObjectIds.
+         * @param  batchDeleteMaxObjectIds  Integer value for batchDeleteMaxObjectIds.
          * @return Builder
          */
         public Builder batchDeleteMaxObjectIds(Integer batchDeleteMaxObjectIds) {
@@ -331,7 +348,7 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for updateItemTaxesMaxItemIds.
-         * @param updateItemTaxesMaxItemIds Integer value for updateItemTaxesMaxItemIds.
+         * @param  updateItemTaxesMaxItemIds  Integer value for updateItemTaxesMaxItemIds.
          * @return Builder
          */
         public Builder updateItemTaxesMaxItemIds(Integer updateItemTaxesMaxItemIds) {
@@ -341,7 +358,8 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for updateItemTaxesMaxTaxesToEnable.
-         * @param updateItemTaxesMaxTaxesToEnable Integer value for updateItemTaxesMaxTaxesToEnable.
+         * @param  updateItemTaxesMaxTaxesToEnable  Integer value for
+         *         updateItemTaxesMaxTaxesToEnable.
          * @return Builder
          */
         public Builder updateItemTaxesMaxTaxesToEnable(Integer updateItemTaxesMaxTaxesToEnable) {
@@ -351,41 +369,51 @@ public class CatalogInfoResponseLimits {
 
         /**
          * Setter for updateItemTaxesMaxTaxesToDisable.
-         * @param updateItemTaxesMaxTaxesToDisable Integer value for updateItemTaxesMaxTaxesToDisable.
+         * @param  updateItemTaxesMaxTaxesToDisable  Integer value for
+         *         updateItemTaxesMaxTaxesToDisable.
          * @return Builder
          */
-        public Builder updateItemTaxesMaxTaxesToDisable(Integer updateItemTaxesMaxTaxesToDisable) {
+        public Builder updateItemTaxesMaxTaxesToDisable(
+                Integer updateItemTaxesMaxTaxesToDisable) {
             this.updateItemTaxesMaxTaxesToDisable = updateItemTaxesMaxTaxesToDisable;
             return this;
         }
 
         /**
          * Setter for updateItemModifierListsMaxItemIds.
-         * @param updateItemModifierListsMaxItemIds Integer value for updateItemModifierListsMaxItemIds.
+         * @param  updateItemModifierListsMaxItemIds  Integer value for
+         *         updateItemModifierListsMaxItemIds.
          * @return Builder
          */
-        public Builder updateItemModifierListsMaxItemIds(Integer updateItemModifierListsMaxItemIds) {
+        public Builder updateItemModifierListsMaxItemIds(
+                Integer updateItemModifierListsMaxItemIds) {
             this.updateItemModifierListsMaxItemIds = updateItemModifierListsMaxItemIds;
             return this;
         }
 
         /**
          * Setter for updateItemModifierListsMaxModifierListsToEnable.
-         * @param updateItemModifierListsMaxModifierListsToEnable Integer value for updateItemModifierListsMaxModifierListsToEnable.
+         * @param  updateItemModifierListsMaxModifierListsToEnable  Integer value for
+         *         updateItemModifierListsMaxModifierListsToEnable.
          * @return Builder
          */
-        public Builder updateItemModifierListsMaxModifierListsToEnable(Integer updateItemModifierListsMaxModifierListsToEnable) {
-            this.updateItemModifierListsMaxModifierListsToEnable = updateItemModifierListsMaxModifierListsToEnable;
+        public Builder updateItemModifierListsMaxModifierListsToEnable(
+                Integer updateItemModifierListsMaxModifierListsToEnable) {
+            this.updateItemModifierListsMaxModifierListsToEnable =
+                    updateItemModifierListsMaxModifierListsToEnable;
             return this;
         }
 
         /**
          * Setter for updateItemModifierListsMaxModifierListsToDisable.
-         * @param updateItemModifierListsMaxModifierListsToDisable Integer value for updateItemModifierListsMaxModifierListsToDisable.
+         * @param  updateItemModifierListsMaxModifierListsToDisable  Integer value for
+         *         updateItemModifierListsMaxModifierListsToDisable.
          * @return Builder
          */
-        public Builder updateItemModifierListsMaxModifierListsToDisable(Integer updateItemModifierListsMaxModifierListsToDisable) {
-            this.updateItemModifierListsMaxModifierListsToDisable = updateItemModifierListsMaxModifierListsToDisable;
+        public Builder updateItemModifierListsMaxModifierListsToDisable(
+                Integer updateItemModifierListsMaxModifierListsToDisable) {
+            this.updateItemModifierListsMaxModifierListsToDisable =
+                    updateItemModifierListsMaxModifierListsToDisable;
             return this;
         }
 

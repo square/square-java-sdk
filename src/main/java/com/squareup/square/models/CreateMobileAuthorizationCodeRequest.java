@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,11 +11,12 @@ import java.util.Objects;
  * This is a model class for CreateMobileAuthorizationCodeRequest type.
  */
 public class CreateMobileAuthorizationCodeRequest {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
      * Initialization constructor.
-     * @param locationId String value for locationId.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public CreateMobileAuthorizationCodeRequest(
@@ -29,7 +31,7 @@ public class CreateMobileAuthorizationCodeRequest {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class CreateMobileAuthorizationCodeRequest {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {

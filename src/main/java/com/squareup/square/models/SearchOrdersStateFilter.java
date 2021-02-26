@@ -15,7 +15,7 @@ public class SearchOrdersStateFilter {
 
     /**
      * Initialization constructor.
-     * @param states List of String value for states.
+     * @param  states  List of String value for states.
      */
     @JsonCreator
     public SearchOrdersStateFilter(
@@ -30,7 +30,7 @@ public class SearchOrdersStateFilter {
      */
     @JsonGetter("states")
     public List<String> getStates() {
-        return this.states;
+        return states;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SearchOrdersStateFilter {
 
         /**
          * Initialization constructor.
-         * @param states List of String value for states.
+         * @param  states  List of String value for states.
          */
         public Builder(List<String> states) {
             this.states = states;
@@ -85,7 +85,7 @@ public class SearchOrdersStateFilter {
 
         /**
          * Setter for states.
-         * @param states List of String value for states.
+         * @param  states  List of String value for states.
          * @return Builder
          */
         public Builder states(List<String> states) {

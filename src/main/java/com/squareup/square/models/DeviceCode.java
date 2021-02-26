@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,31 +11,41 @@ import java.util.Objects;
  * This is a model class for DeviceCode type.
  */
 public class DeviceCode {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String code;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
     private final String productType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pairBy;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statusChangedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pairedAt;
 
     /**
      * Initialization constructor.
-     * @param productType String value for productType.
-     * @param id String value for id.
-     * @param name String value for name.
-     * @param code String value for code.
-     * @param deviceId String value for deviceId.
-     * @param locationId String value for locationId.
-     * @param status String value for status.
-     * @param pairBy String value for pairBy.
-     * @param createdAt String value for createdAt.
-     * @param statusChangedAt String value for statusChangedAt.
-     * @param pairedAt String value for pairedAt.
+     * @param  productType  String value for productType.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  code  String value for code.
+     * @param  deviceId  String value for deviceId.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  pairBy  String value for pairBy.
+     * @param  createdAt  String value for createdAt.
+     * @param  statusChangedAt  String value for statusChangedAt.
+     * @param  pairedAt  String value for pairedAt.
      */
     @JsonCreator
     public DeviceCode(
@@ -69,7 +80,7 @@ public class DeviceCode {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -79,7 +90,7 @@ public class DeviceCode {
      */
     @JsonGetter("name")
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -89,7 +100,7 @@ public class DeviceCode {
      */
     @JsonGetter("code")
     public String getCode() {
-        return this.code;
+        return code;
     }
 
     /**
@@ -99,7 +110,7 @@ public class DeviceCode {
      */
     @JsonGetter("device_id")
     public String getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     /**
@@ -108,7 +119,7 @@ public class DeviceCode {
      */
     @JsonGetter("product_type")
     public String getProductType() {
-        return this.productType;
+        return productType;
     }
 
     /**
@@ -118,7 +129,7 @@ public class DeviceCode {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -128,7 +139,7 @@ public class DeviceCode {
      */
     @JsonGetter("status")
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -138,7 +149,7 @@ public class DeviceCode {
      */
     @JsonGetter("pair_by")
     public String getPairBy() {
-        return this.pairBy;
+        return pairBy;
     }
 
     /**
@@ -148,7 +159,7 @@ public class DeviceCode {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -158,7 +169,7 @@ public class DeviceCode {
      */
     @JsonGetter("status_changed_at")
     public String getStatusChangedAt() {
-        return this.statusChangedAt;
+        return statusChangedAt;
     }
 
     /**
@@ -168,7 +179,7 @@ public class DeviceCode {
      */
     @JsonGetter("paired_at")
     public String getPairedAt() {
-        return this.pairedAt;
+        return pairedAt;
     }
 
     @Override
@@ -249,7 +260,7 @@ public class DeviceCode {
 
         /**
          * Initialization constructor.
-         * @param productType String value for productType.
+         * @param  productType  String value for productType.
          */
         public Builder(String productType) {
             this.productType = productType;
@@ -257,7 +268,7 @@ public class DeviceCode {
 
         /**
          * Setter for productType.
-         * @param productType String value for productType.
+         * @param  productType  String value for productType.
          * @return Builder
          */
         public Builder productType(String productType) {
@@ -267,7 +278,7 @@ public class DeviceCode {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -277,7 +288,7 @@ public class DeviceCode {
 
         /**
          * Setter for name.
-         * @param name String value for name.
+         * @param  name  String value for name.
          * @return Builder
          */
         public Builder name(String name) {
@@ -287,7 +298,7 @@ public class DeviceCode {
 
         /**
          * Setter for code.
-         * @param code String value for code.
+         * @param  code  String value for code.
          * @return Builder
          */
         public Builder code(String code) {
@@ -297,7 +308,7 @@ public class DeviceCode {
 
         /**
          * Setter for deviceId.
-         * @param deviceId String value for deviceId.
+         * @param  deviceId  String value for deviceId.
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
@@ -307,7 +318,7 @@ public class DeviceCode {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -317,7 +328,7 @@ public class DeviceCode {
 
         /**
          * Setter for status.
-         * @param status String value for status.
+         * @param  status  String value for status.
          * @return Builder
          */
         public Builder status(String status) {
@@ -327,7 +338,7 @@ public class DeviceCode {
 
         /**
          * Setter for pairBy.
-         * @param pairBy String value for pairBy.
+         * @param  pairBy  String value for pairBy.
          * @return Builder
          */
         public Builder pairBy(String pairBy) {
@@ -337,7 +348,7 @@ public class DeviceCode {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -347,7 +358,7 @@ public class DeviceCode {
 
         /**
          * Setter for statusChangedAt.
-         * @param statusChangedAt String value for statusChangedAt.
+         * @param  statusChangedAt  String value for statusChangedAt.
          * @return Builder
          */
         public Builder statusChangedAt(String statusChangedAt) {
@@ -357,7 +368,7 @@ public class DeviceCode {
 
         /**
          * Setter for pairedAt.
-         * @param pairedAt String value for pairedAt.
+         * @param  pairedAt  String value for pairedAt.
          * @return Builder
          */
         public Builder pairedAt(String pairedAt) {

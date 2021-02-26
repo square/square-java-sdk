@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -10,43 +11,60 @@ import java.util.Objects;
  * This is a model class for InventoryAdjustment type.
  */
 public class InventoryAdjustment {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fromState;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String toState;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalPriceMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String occurredAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String transactionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String purchaseOrderId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String goodsReceiptId;
 
     /**
      * Initialization constructor.
-     * @param id String value for id.
-     * @param referenceId String value for referenceId.
-     * @param fromState String value for fromState.
-     * @param toState String value for toState.
-     * @param locationId String value for locationId.
-     * @param catalogObjectId String value for catalogObjectId.
-     * @param catalogObjectType String value for catalogObjectType.
-     * @param quantity String value for quantity.
-     * @param totalPriceMoney Money value for totalPriceMoney.
-     * @param occurredAt String value for occurredAt.
-     * @param createdAt String value for createdAt.
-     * @param source SourceApplication value for source.
-     * @param employeeId String value for employeeId.
-     * @param transactionId String value for transactionId.
-     * @param refundId String value for refundId.
-     * @param purchaseOrderId String value for purchaseOrderId.
-     * @param goodsReceiptId String value for goodsReceiptId.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  fromState  String value for fromState.
+     * @param  toState  String value for toState.
+     * @param  locationId  String value for locationId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  quantity  String value for quantity.
+     * @param  totalPriceMoney  Money value for totalPriceMoney.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
+     * @param  transactionId  String value for transactionId.
+     * @param  refundId  String value for refundId.
+     * @param  purchaseOrderId  String value for purchaseOrderId.
+     * @param  goodsReceiptId  String value for goodsReceiptId.
      */
     @JsonCreator
     public InventoryAdjustment(
@@ -93,7 +111,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -104,7 +122,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("reference_id")
     public String getReferenceId() {
-        return this.referenceId;
+        return referenceId;
     }
 
     /**
@@ -114,7 +132,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("from_state")
     public String getFromState() {
-        return this.fromState;
+        return fromState;
     }
 
     /**
@@ -124,7 +142,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("to_state")
     public String getToState() {
-        return this.toState;
+        return toState;
     }
 
     /**
@@ -135,7 +153,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("location_id")
     public String getLocationId() {
-        return this.locationId;
+        return locationId;
     }
 
     /**
@@ -145,7 +163,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
-        return this.catalogObjectId;
+        return catalogObjectId;
     }
 
     /**
@@ -156,7 +174,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("catalog_object_type")
     public String getCatalogObjectType() {
-        return this.catalogObjectType;
+        return catalogObjectType;
     }
 
     /**
@@ -167,7 +185,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("quantity")
     public String getQuantity() {
-        return this.quantity;
+        return quantity;
     }
 
     /**
@@ -182,7 +200,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("total_price_money")
     public Money getTotalPriceMoney() {
-        return this.totalPriceMoney;
+        return totalPriceMoney;
     }
 
     /**
@@ -194,7 +212,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("occurred_at")
     public String getOccurredAt() {
-        return this.occurredAt;
+        return occurredAt;
     }
 
     /**
@@ -204,7 +222,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("created_at")
     public String getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     /**
@@ -214,7 +232,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("source")
     public SourceApplication getSource() {
-        return this.source;
+        return source;
     }
 
     /**
@@ -224,7 +242,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
-        return this.employeeId;
+        return employeeId;
     }
 
     /**
@@ -235,7 +253,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("transaction_id")
     public String getTransactionId() {
-        return this.transactionId;
+        return transactionId;
     }
 
     /**
@@ -246,7 +264,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("refund_id")
     public String getRefundId() {
-        return this.refundId;
+        return refundId;
     }
 
     /**
@@ -257,7 +275,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("purchase_order_id")
     public String getPurchaseOrderId() {
-        return this.purchaseOrderId;
+        return purchaseOrderId;
     }
 
     /**
@@ -268,7 +286,7 @@ public class InventoryAdjustment {
      */
     @JsonGetter("goods_receipt_id")
     public String getGoodsReceiptId() {
-        return this.goodsReceiptId;
+        return goodsReceiptId;
     }
 
     @Override
@@ -375,7 +393,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -385,7 +403,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for referenceId.
-         * @param referenceId String value for referenceId.
+         * @param  referenceId  String value for referenceId.
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
@@ -395,7 +413,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for fromState.
-         * @param fromState String value for fromState.
+         * @param  fromState  String value for fromState.
          * @return Builder
          */
         public Builder fromState(String fromState) {
@@ -405,7 +423,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for toState.
-         * @param toState String value for toState.
+         * @param  toState  String value for toState.
          * @return Builder
          */
         public Builder toState(String toState) {
@@ -415,7 +433,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for locationId.
-         * @param locationId String value for locationId.
+         * @param  locationId  String value for locationId.
          * @return Builder
          */
         public Builder locationId(String locationId) {
@@ -425,7 +443,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for catalogObjectId.
-         * @param catalogObjectId String value for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
@@ -435,7 +453,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for catalogObjectType.
-         * @param catalogObjectType String value for catalogObjectType.
+         * @param  catalogObjectType  String value for catalogObjectType.
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
@@ -445,7 +463,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for quantity.
-         * @param quantity String value for quantity.
+         * @param  quantity  String value for quantity.
          * @return Builder
          */
         public Builder quantity(String quantity) {
@@ -455,7 +473,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for totalPriceMoney.
-         * @param totalPriceMoney Money value for totalPriceMoney.
+         * @param  totalPriceMoney  Money value for totalPriceMoney.
          * @return Builder
          */
         public Builder totalPriceMoney(Money totalPriceMoney) {
@@ -465,7 +483,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for occurredAt.
-         * @param occurredAt String value for occurredAt.
+         * @param  occurredAt  String value for occurredAt.
          * @return Builder
          */
         public Builder occurredAt(String occurredAt) {
@@ -475,7 +493,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for createdAt.
-         * @param createdAt String value for createdAt.
+         * @param  createdAt  String value for createdAt.
          * @return Builder
          */
         public Builder createdAt(String createdAt) {
@@ -485,7 +503,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for source.
-         * @param source SourceApplication value for source.
+         * @param  source  SourceApplication value for source.
          * @return Builder
          */
         public Builder source(SourceApplication source) {
@@ -495,7 +513,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for employeeId.
-         * @param employeeId String value for employeeId.
+         * @param  employeeId  String value for employeeId.
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
@@ -505,7 +523,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for transactionId.
-         * @param transactionId String value for transactionId.
+         * @param  transactionId  String value for transactionId.
          * @return Builder
          */
         public Builder transactionId(String transactionId) {
@@ -515,7 +533,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for refundId.
-         * @param refundId String value for refundId.
+         * @param  refundId  String value for refundId.
          * @return Builder
          */
         public Builder refundId(String refundId) {
@@ -525,7 +543,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for purchaseOrderId.
-         * @param purchaseOrderId String value for purchaseOrderId.
+         * @param  purchaseOrderId  String value for purchaseOrderId.
          * @return Builder
          */
         public Builder purchaseOrderId(String purchaseOrderId) {
@@ -535,7 +553,7 @@ public class InventoryAdjustment {
 
         /**
          * Setter for goodsReceiptId.
-         * @param goodsReceiptId String value for goodsReceiptId.
+         * @param  goodsReceiptId  String value for goodsReceiptId.
          * @return Builder
          */
         public Builder goodsReceiptId(String goodsReceiptId) {

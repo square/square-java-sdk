@@ -9,9 +9,9 @@ A request to update a `Shift` object.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Shift` | [`Shift`](/doc/models/shift.md) | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. May include a record of the start and end times for breaks<br>taken during the shift. | Shift getShift() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Shift` | [`Shift`](/doc/models/shift.md) | Required | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. May include a record of the start and end times for breaks<br>taken during the shift. | Shift getShift() |
 
 ## Example (as JSON)
 

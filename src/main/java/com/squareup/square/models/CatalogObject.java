@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
@@ -14,63 +15,91 @@ import java.util.Objects;
 public class CatalogObject {
     private final String type;
     private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isDeleted;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, CatalogCustomAttributeValue> customAttributeValues;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogV1Id> catalogV1Ids;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean presentAtAllLocations;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> presentAtLocationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> absentAtLocationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String imageId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItem itemData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCategory categoryData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemVariation itemVariationData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogTax taxData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogDiscount discountData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogModifierList modifierListData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogModifier modifierData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogTimePeriod timePeriodData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogProductSet productSetData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogPricingRule pricingRuleData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogImage imageData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogMeasurementUnit measurementUnitData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogSubscriptionPlan subscriptionPlanData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemOption itemOptionData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemOptionValue itemOptionValueData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuickAmountsSettings quickAmountsSettingsData;
 
     /**
      * Initialization constructor.
-     * @param type String value for type.
-     * @param id String value for id.
-     * @param updatedAt String value for updatedAt.
-     * @param version Long value for version.
-     * @param isDeleted Boolean value for isDeleted.
-     * @param customAttributeValues Map of String, value for customAttributeValues.
-     * @param catalogV1Ids List of CatalogV1Id value for catalogV1Ids.
-     * @param presentAtAllLocations Boolean value for presentAtAllLocations.
-     * @param presentAtLocationIds List of String value for presentAtLocationIds.
-     * @param absentAtLocationIds List of String value for absentAtLocationIds.
-     * @param imageId String value for imageId.
-     * @param itemData CatalogItem value for itemData.
-     * @param categoryData CatalogCategory value for categoryData.
-     * @param itemVariationData CatalogItemVariation value for itemVariationData.
-     * @param taxData CatalogTax value for taxData.
-     * @param discountData CatalogDiscount value for discountData.
-     * @param modifierListData CatalogModifierList value for modifierListData.
-     * @param modifierData CatalogModifier value for modifierData.
-     * @param timePeriodData CatalogTimePeriod value for timePeriodData.
-     * @param productSetData CatalogProductSet value for productSetData.
-     * @param pricingRuleData CatalogPricingRule value for pricingRuleData.
-     * @param imageData CatalogImage value for imageData.
-     * @param measurementUnitData CatalogMeasurementUnit value for measurementUnitData.
-     * @param subscriptionPlanData CatalogSubscriptionPlan value for subscriptionPlanData.
-     * @param itemOptionData CatalogItemOption value for itemOptionData.
-     * @param itemOptionValueData CatalogItemOptionValue value for itemOptionValueData.
-     * @param customAttributeDefinitionData CatalogCustomAttributeDefinition value for customAttributeDefinitionData.
-     * @param quickAmountsSettingsData CatalogQuickAmountsSettings value for quickAmountsSettingsData.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  version  Long value for version.
+     * @param  isDeleted  Boolean value for isDeleted.
+     * @param  customAttributeValues  Map of String, value for customAttributeValues.
+     * @param  catalogV1Ids  List of CatalogV1Id value for catalogV1Ids.
+     * @param  presentAtAllLocations  Boolean value for presentAtAllLocations.
+     * @param  presentAtLocationIds  List of String value for presentAtLocationIds.
+     * @param  absentAtLocationIds  List of String value for absentAtLocationIds.
+     * @param  imageId  String value for imageId.
+     * @param  itemData  CatalogItem value for itemData.
+     * @param  categoryData  CatalogCategory value for categoryData.
+     * @param  itemVariationData  CatalogItemVariation value for itemVariationData.
+     * @param  taxData  CatalogTax value for taxData.
+     * @param  discountData  CatalogDiscount value for discountData.
+     * @param  modifierListData  CatalogModifierList value for modifierListData.
+     * @param  modifierData  CatalogModifier value for modifierData.
+     * @param  timePeriodData  CatalogTimePeriod value for timePeriodData.
+     * @param  productSetData  CatalogProductSet value for productSetData.
+     * @param  pricingRuleData  CatalogPricingRule value for pricingRuleData.
+     * @param  imageData  CatalogImage value for imageData.
+     * @param  measurementUnitData  CatalogMeasurementUnit value for measurementUnitData.
+     * @param  subscriptionPlanData  CatalogSubscriptionPlan value for subscriptionPlanData.
+     * @param  itemOptionData  CatalogItemOption value for itemOptionData.
+     * @param  itemOptionValueData  CatalogItemOptionValue value for itemOptionValueData.
+     * @param  customAttributeDefinitionData  CatalogCustomAttributeDefinition value for
+     *         customAttributeDefinitionData.
+     * @param  quickAmountsSettingsData  CatalogQuickAmountsSettings value for
+     *         quickAmountsSettingsData.
      */
     @JsonCreator
     public CatalogObject(
@@ -140,7 +169,7 @@ public class CatalogObject {
      */
     @JsonGetter("type")
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -154,7 +183,7 @@ public class CatalogObject {
      */
     @JsonGetter("id")
     public String getId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -167,7 +196,7 @@ public class CatalogObject {
      */
     @JsonGetter("updated_at")
     public String getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     /**
@@ -178,7 +207,7 @@ public class CatalogObject {
      */
     @JsonGetter("version")
     public Long getVersion() {
-        return this.version;
+        return version;
     }
 
     /**
@@ -189,7 +218,7 @@ public class CatalogObject {
      */
     @JsonGetter("is_deleted")
     public Boolean getIsDeleted() {
-        return this.isDeleted;
+        return isDeleted;
     }
 
     /**
@@ -213,7 +242,7 @@ public class CatalogObject {
      */
     @JsonGetter("custom_attribute_values")
     public Map<String, CatalogCustomAttributeValue> getCustomAttributeValues() {
-        return this.customAttributeValues;
+        return customAttributeValues;
     }
 
     /**
@@ -225,7 +254,7 @@ public class CatalogObject {
      */
     @JsonGetter("catalog_v1_ids")
     public List<CatalogV1Id> getCatalogV1Ids() {
-        return this.catalogV1Ids;
+        return catalogV1Ids;
     }
 
     /**
@@ -238,7 +267,7 @@ public class CatalogObject {
      */
     @JsonGetter("present_at_all_locations")
     public Boolean getPresentAtAllLocations() {
-        return this.presentAtAllLocations;
+        return presentAtAllLocations;
     }
 
     /**
@@ -249,7 +278,7 @@ public class CatalogObject {
      */
     @JsonGetter("present_at_location_ids")
     public List<String> getPresentAtLocationIds() {
-        return this.presentAtLocationIds;
+        return presentAtLocationIds;
     }
 
     /**
@@ -260,7 +289,7 @@ public class CatalogObject {
      */
     @JsonGetter("absent_at_location_ids")
     public List<String> getAbsentAtLocationIds() {
-        return this.absentAtLocationIds;
+        return absentAtLocationIds;
     }
 
     /**
@@ -270,7 +299,7 @@ public class CatalogObject {
      */
     @JsonGetter("image_id")
     public String getImageId() {
-        return this.imageId;
+        return imageId;
     }
 
     /**
@@ -281,7 +310,7 @@ public class CatalogObject {
      */
     @JsonGetter("item_data")
     public CatalogItem getItemData() {
-        return this.itemData;
+        return itemData;
     }
 
     /**
@@ -291,7 +320,7 @@ public class CatalogObject {
      */
     @JsonGetter("category_data")
     public CatalogCategory getCategoryData() {
-        return this.categoryData;
+        return categoryData;
     }
 
     /**
@@ -302,7 +331,7 @@ public class CatalogObject {
      */
     @JsonGetter("item_variation_data")
     public CatalogItemVariation getItemVariationData() {
-        return this.itemVariationData;
+        return itemVariationData;
     }
 
     /**
@@ -312,7 +341,7 @@ public class CatalogObject {
      */
     @JsonGetter("tax_data")
     public CatalogTax getTaxData() {
-        return this.taxData;
+        return taxData;
     }
 
     /**
@@ -322,7 +351,7 @@ public class CatalogObject {
      */
     @JsonGetter("discount_data")
     public CatalogDiscount getDiscountData() {
-        return this.discountData;
+        return discountData;
     }
 
     /**
@@ -335,7 +364,7 @@ public class CatalogObject {
      */
     @JsonGetter("modifier_list_data")
     public CatalogModifierList getModifierListData() {
-        return this.modifierListData;
+        return modifierListData;
     }
 
     /**
@@ -345,7 +374,7 @@ public class CatalogObject {
      */
     @JsonGetter("modifier_data")
     public CatalogModifier getModifierData() {
-        return this.modifierData;
+        return modifierData;
     }
 
     /**
@@ -355,7 +384,7 @@ public class CatalogObject {
      */
     @JsonGetter("time_period_data")
     public CatalogTimePeriod getTimePeriodData() {
-        return this.timePeriodData;
+        return timePeriodData;
     }
 
     /**
@@ -368,7 +397,7 @@ public class CatalogObject {
      */
     @JsonGetter("product_set_data")
     public CatalogProductSet getProductSetData() {
-        return this.productSetData;
+        return productSetData;
     }
 
     /**
@@ -379,7 +408,7 @@ public class CatalogObject {
      */
     @JsonGetter("pricing_rule_data")
     public CatalogPricingRule getPricingRuleData() {
-        return this.pricingRuleData;
+        return pricingRuleData;
     }
 
     /**
@@ -390,7 +419,7 @@ public class CatalogObject {
      */
     @JsonGetter("image_data")
     public CatalogImage getImageData() {
-        return this.imageData;
+        return imageData;
     }
 
     /**
@@ -401,7 +430,7 @@ public class CatalogObject {
      */
     @JsonGetter("measurement_unit_data")
     public CatalogMeasurementUnit getMeasurementUnitData() {
-        return this.measurementUnitData;
+        return measurementUnitData;
     }
 
     /**
@@ -412,7 +441,7 @@ public class CatalogObject {
      */
     @JsonGetter("subscription_plan_data")
     public CatalogSubscriptionPlan getSubscriptionPlanData() {
-        return this.subscriptionPlanData;
+        return subscriptionPlanData;
     }
 
     /**
@@ -422,7 +451,7 @@ public class CatalogObject {
      */
     @JsonGetter("item_option_data")
     public CatalogItemOption getItemOptionData() {
-        return this.itemOptionData;
+        return itemOptionData;
     }
 
     /**
@@ -433,7 +462,7 @@ public class CatalogObject {
      */
     @JsonGetter("item_option_value_data")
     public CatalogItemOptionValue getItemOptionValueData() {
-        return this.itemOptionValueData;
+        return itemOptionValueData;
     }
 
     /**
@@ -447,7 +476,7 @@ public class CatalogObject {
      */
     @JsonGetter("custom_attribute_definition_data")
     public CatalogCustomAttributeDefinition getCustomAttributeDefinitionData() {
-        return this.customAttributeDefinitionData;
+        return customAttributeDefinitionData;
     }
 
     /**
@@ -458,7 +487,7 @@ public class CatalogObject {
      */
     @JsonGetter("quick_amounts_settings_data")
     public CatalogQuickAmountsSettings getQuickAmountsSettingsData() {
-        return this.quickAmountsSettingsData;
+        return quickAmountsSettingsData;
     }
 
     @Override
@@ -604,18 +633,17 @@ public class CatalogObject {
 
         /**
          * Initialization constructor.
-         * @param type String value for type.
-         * @param id String value for id.
+         * @param  type  String value for type.
+         * @param  id  String value for id.
          */
-        public Builder(String type,
-                String id) {
+        public Builder(String type, String id) {
             this.type = type;
             this.id = id;
         }
 
         /**
          * Setter for type.
-         * @param type String value for type.
+         * @param  type  String value for type.
          * @return Builder
          */
         public Builder type(String type) {
@@ -625,7 +653,7 @@ public class CatalogObject {
 
         /**
          * Setter for id.
-         * @param id String value for id.
+         * @param  id  String value for id.
          * @return Builder
          */
         public Builder id(String id) {
@@ -635,7 +663,7 @@ public class CatalogObject {
 
         /**
          * Setter for updatedAt.
-         * @param updatedAt String value for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
          * @return Builder
          */
         public Builder updatedAt(String updatedAt) {
@@ -645,7 +673,7 @@ public class CatalogObject {
 
         /**
          * Setter for version.
-         * @param version Long value for version.
+         * @param  version  Long value for version.
          * @return Builder
          */
         public Builder version(Long version) {
@@ -655,7 +683,7 @@ public class CatalogObject {
 
         /**
          * Setter for isDeleted.
-         * @param isDeleted Boolean value for isDeleted.
+         * @param  isDeleted  Boolean value for isDeleted.
          * @return Builder
          */
         public Builder isDeleted(Boolean isDeleted) {
@@ -665,17 +693,18 @@ public class CatalogObject {
 
         /**
          * Setter for customAttributeValues.
-         * @param customAttributeValues Map of String, value for customAttributeValues.
+         * @param  customAttributeValues  Map of String, value for customAttributeValues.
          * @return Builder
          */
-        public Builder customAttributeValues(Map<String, CatalogCustomAttributeValue> customAttributeValues) {
+        public Builder customAttributeValues(
+                Map<String, CatalogCustomAttributeValue> customAttributeValues) {
             this.customAttributeValues = customAttributeValues;
             return this;
         }
 
         /**
          * Setter for catalogV1Ids.
-         * @param catalogV1Ids List of CatalogV1Id value for catalogV1Ids.
+         * @param  catalogV1Ids  List of CatalogV1Id value for catalogV1Ids.
          * @return Builder
          */
         public Builder catalogV1Ids(List<CatalogV1Id> catalogV1Ids) {
@@ -685,7 +714,7 @@ public class CatalogObject {
 
         /**
          * Setter for presentAtAllLocations.
-         * @param presentAtAllLocations Boolean value for presentAtAllLocations.
+         * @param  presentAtAllLocations  Boolean value for presentAtAllLocations.
          * @return Builder
          */
         public Builder presentAtAllLocations(Boolean presentAtAllLocations) {
@@ -695,7 +724,7 @@ public class CatalogObject {
 
         /**
          * Setter for presentAtLocationIds.
-         * @param presentAtLocationIds List of String value for presentAtLocationIds.
+         * @param  presentAtLocationIds  List of String value for presentAtLocationIds.
          * @return Builder
          */
         public Builder presentAtLocationIds(List<String> presentAtLocationIds) {
@@ -705,7 +734,7 @@ public class CatalogObject {
 
         /**
          * Setter for absentAtLocationIds.
-         * @param absentAtLocationIds List of String value for absentAtLocationIds.
+         * @param  absentAtLocationIds  List of String value for absentAtLocationIds.
          * @return Builder
          */
         public Builder absentAtLocationIds(List<String> absentAtLocationIds) {
@@ -715,7 +744,7 @@ public class CatalogObject {
 
         /**
          * Setter for imageId.
-         * @param imageId String value for imageId.
+         * @param  imageId  String value for imageId.
          * @return Builder
          */
         public Builder imageId(String imageId) {
@@ -725,7 +754,7 @@ public class CatalogObject {
 
         /**
          * Setter for itemData.
-         * @param itemData CatalogItem value for itemData.
+         * @param  itemData  CatalogItem value for itemData.
          * @return Builder
          */
         public Builder itemData(CatalogItem itemData) {
@@ -735,7 +764,7 @@ public class CatalogObject {
 
         /**
          * Setter for categoryData.
-         * @param categoryData CatalogCategory value for categoryData.
+         * @param  categoryData  CatalogCategory value for categoryData.
          * @return Builder
          */
         public Builder categoryData(CatalogCategory categoryData) {
@@ -745,7 +774,7 @@ public class CatalogObject {
 
         /**
          * Setter for itemVariationData.
-         * @param itemVariationData CatalogItemVariation value for itemVariationData.
+         * @param  itemVariationData  CatalogItemVariation value for itemVariationData.
          * @return Builder
          */
         public Builder itemVariationData(CatalogItemVariation itemVariationData) {
@@ -755,7 +784,7 @@ public class CatalogObject {
 
         /**
          * Setter for taxData.
-         * @param taxData CatalogTax value for taxData.
+         * @param  taxData  CatalogTax value for taxData.
          * @return Builder
          */
         public Builder taxData(CatalogTax taxData) {
@@ -765,7 +794,7 @@ public class CatalogObject {
 
         /**
          * Setter for discountData.
-         * @param discountData CatalogDiscount value for discountData.
+         * @param  discountData  CatalogDiscount value for discountData.
          * @return Builder
          */
         public Builder discountData(CatalogDiscount discountData) {
@@ -775,7 +804,7 @@ public class CatalogObject {
 
         /**
          * Setter for modifierListData.
-         * @param modifierListData CatalogModifierList value for modifierListData.
+         * @param  modifierListData  CatalogModifierList value for modifierListData.
          * @return Builder
          */
         public Builder modifierListData(CatalogModifierList modifierListData) {
@@ -785,7 +814,7 @@ public class CatalogObject {
 
         /**
          * Setter for modifierData.
-         * @param modifierData CatalogModifier value for modifierData.
+         * @param  modifierData  CatalogModifier value for modifierData.
          * @return Builder
          */
         public Builder modifierData(CatalogModifier modifierData) {
@@ -795,7 +824,7 @@ public class CatalogObject {
 
         /**
          * Setter for timePeriodData.
-         * @param timePeriodData CatalogTimePeriod value for timePeriodData.
+         * @param  timePeriodData  CatalogTimePeriod value for timePeriodData.
          * @return Builder
          */
         public Builder timePeriodData(CatalogTimePeriod timePeriodData) {
@@ -805,7 +834,7 @@ public class CatalogObject {
 
         /**
          * Setter for productSetData.
-         * @param productSetData CatalogProductSet value for productSetData.
+         * @param  productSetData  CatalogProductSet value for productSetData.
          * @return Builder
          */
         public Builder productSetData(CatalogProductSet productSetData) {
@@ -815,7 +844,7 @@ public class CatalogObject {
 
         /**
          * Setter for pricingRuleData.
-         * @param pricingRuleData CatalogPricingRule value for pricingRuleData.
+         * @param  pricingRuleData  CatalogPricingRule value for pricingRuleData.
          * @return Builder
          */
         public Builder pricingRuleData(CatalogPricingRule pricingRuleData) {
@@ -825,7 +854,7 @@ public class CatalogObject {
 
         /**
          * Setter for imageData.
-         * @param imageData CatalogImage value for imageData.
+         * @param  imageData  CatalogImage value for imageData.
          * @return Builder
          */
         public Builder imageData(CatalogImage imageData) {
@@ -835,7 +864,7 @@ public class CatalogObject {
 
         /**
          * Setter for measurementUnitData.
-         * @param measurementUnitData CatalogMeasurementUnit value for measurementUnitData.
+         * @param  measurementUnitData  CatalogMeasurementUnit value for measurementUnitData.
          * @return Builder
          */
         public Builder measurementUnitData(CatalogMeasurementUnit measurementUnitData) {
@@ -845,7 +874,7 @@ public class CatalogObject {
 
         /**
          * Setter for subscriptionPlanData.
-         * @param subscriptionPlanData CatalogSubscriptionPlan value for subscriptionPlanData.
+         * @param  subscriptionPlanData  CatalogSubscriptionPlan value for subscriptionPlanData.
          * @return Builder
          */
         public Builder subscriptionPlanData(CatalogSubscriptionPlan subscriptionPlanData) {
@@ -855,7 +884,7 @@ public class CatalogObject {
 
         /**
          * Setter for itemOptionData.
-         * @param itemOptionData CatalogItemOption value for itemOptionData.
+         * @param  itemOptionData  CatalogItemOption value for itemOptionData.
          * @return Builder
          */
         public Builder itemOptionData(CatalogItemOption itemOptionData) {
@@ -865,7 +894,7 @@ public class CatalogObject {
 
         /**
          * Setter for itemOptionValueData.
-         * @param itemOptionValueData CatalogItemOptionValue value for itemOptionValueData.
+         * @param  itemOptionValueData  CatalogItemOptionValue value for itemOptionValueData.
          * @return Builder
          */
         public Builder itemOptionValueData(CatalogItemOptionValue itemOptionValueData) {
@@ -875,20 +904,24 @@ public class CatalogObject {
 
         /**
          * Setter for customAttributeDefinitionData.
-         * @param customAttributeDefinitionData CatalogCustomAttributeDefinition value for customAttributeDefinitionData.
+         * @param  customAttributeDefinitionData  CatalogCustomAttributeDefinition value for
+         *         customAttributeDefinitionData.
          * @return Builder
          */
-        public Builder customAttributeDefinitionData(CatalogCustomAttributeDefinition customAttributeDefinitionData) {
+        public Builder customAttributeDefinitionData(
+                CatalogCustomAttributeDefinition customAttributeDefinitionData) {
             this.customAttributeDefinitionData = customAttributeDefinitionData;
             return this;
         }
 
         /**
          * Setter for quickAmountsSettingsData.
-         * @param quickAmountsSettingsData CatalogQuickAmountsSettings value for quickAmountsSettingsData.
+         * @param  quickAmountsSettingsData  CatalogQuickAmountsSettings value for
+         *         quickAmountsSettingsData.
          * @return Builder
          */
-        public Builder quickAmountsSettingsData(CatalogQuickAmountsSettings quickAmountsSettingsData) {
+        public Builder quickAmountsSettingsData(
+                CatalogQuickAmountsSettings quickAmountsSettingsData) {
             this.quickAmountsSettingsData = quickAmountsSettingsData;
             return this;
         }

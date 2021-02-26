@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -12,17 +13,19 @@ import java.util.Objects;
 public class RefundPaymentRequest {
     private final String idempotencyKey;
     private final Money amountMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
     private final String paymentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
 
     /**
      * Initialization constructor.
-     * @param idempotencyKey String value for idempotencyKey.
-     * @param amountMoney Money value for amountMoney.
-     * @param paymentId String value for paymentId.
-     * @param appFeeMoney Money value for appFeeMoney.
-     * @param reason String value for reason.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  paymentId  String value for paymentId.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  reason  String value for reason.
      */
     @JsonCreator
     public RefundPaymentRequest(
@@ -47,7 +50,7 @@ public class RefundPaymentRequest {
      */
     @JsonGetter("idempotency_key")
     public String getIdempotencyKey() {
-        return this.idempotencyKey;
+        return idempotencyKey;
     }
 
     /**
@@ -62,7 +65,7 @@ public class RefundPaymentRequest {
      */
     @JsonGetter("amount_money")
     public Money getAmountMoney() {
-        return this.amountMoney;
+        return amountMoney;
     }
 
     /**
@@ -77,7 +80,7 @@ public class RefundPaymentRequest {
      */
     @JsonGetter("app_fee_money")
     public Money getAppFeeMoney() {
-        return this.appFeeMoney;
+        return appFeeMoney;
     }
 
     /**
@@ -87,7 +90,7 @@ public class RefundPaymentRequest {
      */
     @JsonGetter("payment_id")
     public String getPaymentId() {
-        return this.paymentId;
+        return paymentId;
     }
 
     /**
@@ -97,7 +100,7 @@ public class RefundPaymentRequest {
      */
     @JsonGetter("reason")
     public String getReason() {
-        return this.reason;
+        return reason;
     }
 
     @Override
@@ -156,13 +159,11 @@ public class RefundPaymentRequest {
 
         /**
          * Initialization constructor.
-         * @param idempotencyKey String value for idempotencyKey.
-         * @param amountMoney Money value for amountMoney.
-         * @param paymentId String value for paymentId.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  amountMoney  Money value for amountMoney.
+         * @param  paymentId  String value for paymentId.
          */
-        public Builder(String idempotencyKey,
-                Money amountMoney,
-                String paymentId) {
+        public Builder(String idempotencyKey, Money amountMoney, String paymentId) {
             this.idempotencyKey = idempotencyKey;
             this.amountMoney = amountMoney;
             this.paymentId = paymentId;
@@ -170,7 +171,7 @@ public class RefundPaymentRequest {
 
         /**
          * Setter for idempotencyKey.
-         * @param idempotencyKey String value for idempotencyKey.
+         * @param  idempotencyKey  String value for idempotencyKey.
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
@@ -180,7 +181,7 @@ public class RefundPaymentRequest {
 
         /**
          * Setter for amountMoney.
-         * @param amountMoney Money value for amountMoney.
+         * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
@@ -190,7 +191,7 @@ public class RefundPaymentRequest {
 
         /**
          * Setter for paymentId.
-         * @param paymentId String value for paymentId.
+         * @param  paymentId  String value for paymentId.
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
@@ -200,7 +201,7 @@ public class RefundPaymentRequest {
 
         /**
          * Setter for appFeeMoney.
-         * @param appFeeMoney Money value for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
@@ -210,7 +211,7 @@ public class RefundPaymentRequest {
 
         /**
          * Setter for reason.
-         * @param reason String value for reason.
+         * @param  reason  String value for reason.
          * @return Builder
          */
         public Builder reason(String reason) {

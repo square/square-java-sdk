@@ -9,10 +9,10 @@ A request to create a loyalty reward.
 
 ## Fields
 
-| Name | Type | Description | Getter |
-|  --- | --- | --- | --- |
-| `Reward` | [`LoyaltyReward`](/doc/models/loyalty-reward.md) | - | LoyaltyReward getReward() |
-| `IdempotencyKey` | `String` | A unique string that identifies this `CreateLoyaltyReward` request.<br>Keys can be any valid string, but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
+| Name | Type | Tags | Description | Getter |
+|  --- | --- | --- | --- | --- |
+| `Reward` | [`LoyaltyReward`](/doc/models/loyalty-reward.md) | Required | - | LoyaltyReward getReward() |
+| `IdempotencyKey` | `String` | Required | A unique string that identifies this `CreateLoyaltyReward` request.<br>Keys can be any valid string, but must be unique for every request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
 
 ## Example (as JSON)
 
