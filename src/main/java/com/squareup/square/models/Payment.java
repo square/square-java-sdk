@@ -27,6 +27,8 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Money approvedMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ProcessingFee> processingFee;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money refundedMoney;
@@ -42,6 +44,10 @@ public class Payment {
     private final String sourceType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CardPaymentDetails cardDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CashPaymentDetails cashDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final ExternalPaymentDetails externalDetails;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -67,9 +73,13 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescriptionIdentifier;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> capabilities;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptNumber;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String versionToken;
 
     /**
      * Initialization constructor.
@@ -80,6 +90,7 @@ public class Payment {
      * @param  tipMoney  Money value for tipMoney.
      * @param  totalMoney  Money value for totalMoney.
      * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  approvedMoney  Money value for approvedMoney.
      * @param  processingFee  List of ProcessingFee value for processingFee.
      * @param  refundedMoney  Money value for refundedMoney.
      * @param  status  String value for status.
@@ -88,6 +99,8 @@ public class Payment {
      * @param  delayedUntil  String value for delayedUntil.
      * @param  sourceType  String value for sourceType.
      * @param  cardDetails  CardPaymentDetails value for cardDetails.
+     * @param  cashDetails  CashPaymentDetails value for cashDetails.
+     * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
      * @param  locationId  String value for locationId.
      * @param  orderId  String value for orderId.
      * @param  referenceId  String value for referenceId.
@@ -100,8 +113,10 @@ public class Payment {
      * @param  shippingAddress  Address value for shippingAddress.
      * @param  note  String value for note.
      * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+     * @param  capabilities  List of String value for capabilities.
      * @param  receiptNumber  String value for receiptNumber.
      * @param  receiptUrl  String value for receiptUrl.
+     * @param  versionToken  String value for versionToken.
      */
     @JsonCreator
     public Payment(
@@ -112,6 +127,7 @@ public class Payment {
             @JsonProperty("tip_money") Money tipMoney,
             @JsonProperty("total_money") Money totalMoney,
             @JsonProperty("app_fee_money") Money appFeeMoney,
+            @JsonProperty("approved_money") Money approvedMoney,
             @JsonProperty("processing_fee") List<ProcessingFee> processingFee,
             @JsonProperty("refunded_money") Money refundedMoney,
             @JsonProperty("status") String status,
@@ -120,6 +136,8 @@ public class Payment {
             @JsonProperty("delayed_until") String delayedUntil,
             @JsonProperty("source_type") String sourceType,
             @JsonProperty("card_details") CardPaymentDetails cardDetails,
+            @JsonProperty("cash_details") CashPaymentDetails cashDetails,
+            @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("reference_id") String referenceId,
@@ -132,8 +150,10 @@ public class Payment {
             @JsonProperty("shipping_address") Address shippingAddress,
             @JsonProperty("note") String note,
             @JsonProperty("statement_description_identifier") String statementDescriptionIdentifier,
+            @JsonProperty("capabilities") List<String> capabilities,
             @JsonProperty("receipt_number") String receiptNumber,
-            @JsonProperty("receipt_url") String receiptUrl) {
+            @JsonProperty("receipt_url") String receiptUrl,
+            @JsonProperty("version_token") String versionToken) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -141,6 +161,7 @@ public class Payment {
         this.tipMoney = tipMoney;
         this.totalMoney = totalMoney;
         this.appFeeMoney = appFeeMoney;
+        this.approvedMoney = approvedMoney;
         this.processingFee = processingFee;
         this.refundedMoney = refundedMoney;
         this.status = status;
@@ -149,6 +170,8 @@ public class Payment {
         this.delayedUntil = delayedUntil;
         this.sourceType = sourceType;
         this.cardDetails = cardDetails;
+        this.cashDetails = cashDetails;
+        this.externalDetails = externalDetails;
         this.locationId = locationId;
         this.orderId = orderId;
         this.referenceId = referenceId;
@@ -161,8 +184,10 @@ public class Payment {
         this.shippingAddress = shippingAddress;
         this.note = note;
         this.statementDescriptionIdentifier = statementDescriptionIdentifier;
+        this.capabilities = capabilities;
         this.receiptNumber = receiptNumber;
         this.receiptUrl = receiptUrl;
+        this.versionToken = versionToken;
     }
 
     /**
@@ -256,6 +281,21 @@ public class Payment {
     }
 
     /**
+     * Getter for ApprovedMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("approved_money")
+    public Money getApprovedMoney() {
+        return approvedMoney;
+    }
+
+    /**
      * Getter for ProcessingFee.
      * The processing fees and fee adjustments assessed by Square for this payment.
      * @return Returns the List of ProcessingFee
@@ -331,7 +371,7 @@ public class Payment {
 
     /**
      * Getter for SourceType.
-     * The source type for this payment. Current values include `CARD`.
+     * The source type for this payment. Current values include `CARD`, `CASH`, or `EXTERNAL`.
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -341,12 +381,36 @@ public class Payment {
 
     /**
      * Getter for CardDetails.
-     * Reflects the current status of a card payment.
+     * Reflects the current status of a card payment. Contains only non-confidential information.
      * @return Returns the CardPaymentDetails
      */
     @JsonGetter("card_details")
     public CardPaymentDetails getCardDetails() {
         return cardDetails;
+    }
+
+    /**
+     * Getter for CashDetails.
+     * Stores details about a cash payment. Contains only non-confidential information. For more
+     * information, see [Take Cash
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments/cash-payments).
+     * @return Returns the CashPaymentDetails
+     */
+    @JsonGetter("cash_details")
+    public CashPaymentDetails getCashDetails() {
+        return cashDetails;
+    }
+
+    /**
+     * Getter for ExternalDetails.
+     * Stores details about an external payment. Contains only non-confidential information. For
+     * more information, see [Take External
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments/external-payments).
+     * @return Returns the ExternalPaymentDetails
+     */
+    @JsonGetter("external_details")
+    public ExternalPaymentDetails getExternalDetails() {
+        return externalDetails;
     }
 
     /**
@@ -476,6 +540,19 @@ public class Payment {
     }
 
     /**
+     * Getter for Capabilities.
+     * Actions that can be performed on this payment: - `EDIT_AMOUNT_UP` - The payment amount can be
+     * edited up. - `EDIT_AMOUNT_DOWN` - The payment amount can be edited down. -
+     * `EDIT_TIP_AMOUNT_UP` - The tip amount can be edited up. - `EDIT_TIP_AMOUNT_DOWN` - The tip
+     * amount can be edited down.
+     * @return Returns the List of String
+     */
+    @JsonGetter("capabilities")
+    public List<String> getCapabilities() {
+        return capabilities;
+    }
+
+    /**
      * Getter for ReceiptNumber.
      * The payment's receipt number. The field is missing if a payment is canceled.
      * @return Returns the String
@@ -495,13 +572,26 @@ public class Payment {
         return receiptUrl;
     }
 
+    /**
+     * Getter for VersionToken.
+     * Used for optimistic concurrency. This opaque token identifies a specific version of the
+     * `Payment` object.
+     * @return Returns the String
+     */
+    @JsonGetter("version_token")
+    public String getVersionToken() {
+        return versionToken;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
-                appFeeMoney, processingFee, refundedMoney, status, delayDuration, delayAction,
-                delayedUntil, sourceType, cardDetails, locationId, orderId, referenceId, customerId,
-                employeeId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
-                shippingAddress, note, statementDescriptionIdentifier, receiptNumber, receiptUrl);
+                appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
+                delayAction, delayedUntil, sourceType, cardDetails, cashDetails, externalDetails,
+                locationId, orderId, referenceId, customerId, employeeId, refundIds, riskEvaluation,
+                buyerEmailAddress, billingAddress, shippingAddress, note,
+                statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
+                versionToken);
     }
 
     @Override
@@ -520,6 +610,7 @@ public class Payment {
             && Objects.equals(tipMoney, other.tipMoney)
             && Objects.equals(totalMoney, other.totalMoney)
             && Objects.equals(appFeeMoney, other.appFeeMoney)
+            && Objects.equals(approvedMoney, other.approvedMoney)
             && Objects.equals(processingFee, other.processingFee)
             && Objects.equals(refundedMoney, other.refundedMoney)
             && Objects.equals(status, other.status)
@@ -528,6 +619,8 @@ public class Payment {
             && Objects.equals(delayedUntil, other.delayedUntil)
             && Objects.equals(sourceType, other.sourceType)
             && Objects.equals(cardDetails, other.cardDetails)
+            && Objects.equals(cashDetails, other.cashDetails)
+            && Objects.equals(externalDetails, other.externalDetails)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(referenceId, other.referenceId)
@@ -541,8 +634,10 @@ public class Payment {
             && Objects.equals(note, other.note)
             && Objects.equals(statementDescriptionIdentifier,
                     other.statementDescriptionIdentifier)
+            && Objects.equals(capabilities, other.capabilities)
             && Objects.equals(receiptNumber, other.receiptNumber)
-            && Objects.equals(receiptUrl, other.receiptUrl);
+            && Objects.equals(receiptUrl, other.receiptUrl)
+            && Objects.equals(versionToken, other.versionToken);
     }
 
     /**
@@ -553,17 +648,20 @@ public class Payment {
     public String toString() {
         return "Payment [" + "id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney + ", totalMoney="
-                + totalMoney + ", appFeeMoney=" + appFeeMoney + ", processingFee=" + processingFee
-                + ", refundedMoney=" + refundedMoney + ", status=" + status + ", delayDuration="
-                + delayDuration + ", delayAction=" + delayAction + ", delayedUntil=" + delayedUntil
-                + ", sourceType=" + sourceType + ", cardDetails=" + cardDetails + ", locationId="
-                + locationId + ", orderId=" + orderId + ", referenceId=" + referenceId
-                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", refundIds="
-                + refundIds + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress="
-                + buyerEmailAddress + ", billingAddress=" + billingAddress + ", shippingAddress="
-                + shippingAddress + ", note=" + note + ", statementDescriptionIdentifier="
-                + statementDescriptionIdentifier + ", receiptNumber=" + receiptNumber
-                + ", receiptUrl=" + receiptUrl + "]";
+                + totalMoney + ", appFeeMoney=" + appFeeMoney + ", approvedMoney=" + approvedMoney
+                + ", processingFee=" + processingFee + ", refundedMoney=" + refundedMoney
+                + ", status=" + status + ", delayDuration=" + delayDuration + ", delayAction="
+                + delayAction + ", delayedUntil=" + delayedUntil + ", sourceType=" + sourceType
+                + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
+                + ", externalDetails=" + externalDetails + ", locationId=" + locationId
+                + ", orderId=" + orderId + ", referenceId=" + referenceId + ", customerId="
+                + customerId + ", employeeId=" + employeeId + ", refundIds=" + refundIds
+                + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress=" + buyerEmailAddress
+                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
+                + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + ", capabilities=" + capabilities
+                + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
+                + ", versionToken=" + versionToken + "]";
     }
 
     /**
@@ -580,6 +678,7 @@ public class Payment {
                 .tipMoney(getTipMoney())
                 .totalMoney(getTotalMoney())
                 .appFeeMoney(getAppFeeMoney())
+                .approvedMoney(getApprovedMoney())
                 .processingFee(getProcessingFee())
                 .refundedMoney(getRefundedMoney())
                 .status(getStatus())
@@ -588,6 +687,8 @@ public class Payment {
                 .delayedUntil(getDelayedUntil())
                 .sourceType(getSourceType())
                 .cardDetails(getCardDetails())
+                .cashDetails(getCashDetails())
+                .externalDetails(getExternalDetails())
                 .locationId(getLocationId())
                 .orderId(getOrderId())
                 .referenceId(getReferenceId())
@@ -600,8 +701,10 @@ public class Payment {
                 .shippingAddress(getShippingAddress())
                 .note(getNote())
                 .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
+                .capabilities(getCapabilities())
                 .receiptNumber(getReceiptNumber())
-                .receiptUrl(getReceiptUrl());
+                .receiptUrl(getReceiptUrl())
+                .versionToken(getVersionToken());
         return builder;
     }
 
@@ -616,6 +719,7 @@ public class Payment {
         private Money tipMoney;
         private Money totalMoney;
         private Money appFeeMoney;
+        private Money approvedMoney;
         private List<ProcessingFee> processingFee;
         private Money refundedMoney;
         private String status;
@@ -624,6 +728,8 @@ public class Payment {
         private String delayedUntil;
         private String sourceType;
         private CardPaymentDetails cardDetails;
+        private CashPaymentDetails cashDetails;
+        private ExternalPaymentDetails externalDetails;
         private String locationId;
         private String orderId;
         private String referenceId;
@@ -636,8 +742,10 @@ public class Payment {
         private Address shippingAddress;
         private String note;
         private String statementDescriptionIdentifier;
+        private List<String> capabilities;
         private String receiptNumber;
         private String receiptUrl;
+        private String versionToken;
 
 
 
@@ -708,6 +816,16 @@ public class Payment {
          */
         public Builder appFeeMoney(Money appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
+            return this;
+        }
+
+        /**
+         * Setter for approvedMoney.
+         * @param  approvedMoney  Money value for approvedMoney.
+         * @return Builder
+         */
+        public Builder approvedMoney(Money approvedMoney) {
+            this.approvedMoney = approvedMoney;
             return this;
         }
 
@@ -788,6 +906,26 @@ public class Payment {
          */
         public Builder cardDetails(CardPaymentDetails cardDetails) {
             this.cardDetails = cardDetails;
+            return this;
+        }
+
+        /**
+         * Setter for cashDetails.
+         * @param  cashDetails  CashPaymentDetails value for cashDetails.
+         * @return Builder
+         */
+        public Builder cashDetails(CashPaymentDetails cashDetails) {
+            this.cashDetails = cashDetails;
+            return this;
+        }
+
+        /**
+         * Setter for externalDetails.
+         * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
+         * @return Builder
+         */
+        public Builder externalDetails(ExternalPaymentDetails externalDetails) {
+            this.externalDetails = externalDetails;
             return this;
         }
 
@@ -912,6 +1050,16 @@ public class Payment {
         }
 
         /**
+         * Setter for capabilities.
+         * @param  capabilities  List of String value for capabilities.
+         * @return Builder
+         */
+        public Builder capabilities(List<String> capabilities) {
+            this.capabilities = capabilities;
+            return this;
+        }
+
+        /**
          * Setter for receiptNumber.
          * @param  receiptNumber  String value for receiptNumber.
          * @return Builder
@@ -932,16 +1080,27 @@ public class Payment {
         }
 
         /**
+         * Setter for versionToken.
+         * @param  versionToken  String value for versionToken.
+         * @return Builder
+         */
+        public Builder versionToken(String versionToken) {
+            this.versionToken = versionToken;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Payment} object using the set fields.
          * @return {@link Payment}
          */
         public Payment build() {
             return new Payment(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
-                    appFeeMoney, processingFee, refundedMoney, status, delayDuration, delayAction,
-                    delayedUntil, sourceType, cardDetails, locationId, orderId, referenceId,
-                    customerId, employeeId, refundIds, riskEvaluation, buyerEmailAddress,
-                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
-                    receiptNumber, receiptUrl);
+                    appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
+                    delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
+                    externalDetails, locationId, orderId, referenceId, customerId, employeeId,
+                    refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress,
+                    note, statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
+                    versionToken);
         }
     }
 }

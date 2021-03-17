@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>9.0.0.20210226</version>
+  <version>9.1.0.20210317</version>
   <packaging>jar</packaging>
 
   <name>Square</name>
@@ -75,6 +75,14 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <rulesUri>file://${project.basedir}/version-rules.xml</rulesUri>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -197,7 +205,7 @@
     <dependency>
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
-        <version>3.12.1</version>
+        <version>[3.12, 4.9.1]</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

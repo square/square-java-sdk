@@ -26,8 +26,8 @@ public class TerminalRefundQuerySort {
 
     /**
      * Getter for SortOrder.
-     * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest
-     * (default).
+     * The order in which results are listed. - `ASC` - Oldest to newest. - `DESC` - Newest to
+     * oldest (default).
      * @return Returns the String
      */
     @JsonGetter("sort_order")

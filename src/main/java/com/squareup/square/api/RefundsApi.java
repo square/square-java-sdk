@@ -95,7 +95,10 @@ public interface RefundsApi {
             final Integer limit);
 
     /**
-     * Refunds a payment. You can refund the entire payment amount or a portion of it.
+     * Refunds a payment. You can refund the entire payment amount or a portion of it. You can use
+     * this endpoint to refund a card payment or record a refund of a cash or external payment. For
+     * more information, see [Refund
+     * Payment](https://developer.squareup.com/docs/payments-api/refund-payments).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the RefundPaymentResponse response from the API call
@@ -106,7 +109,10 @@ public interface RefundsApi {
             final RefundPaymentRequest body) throws ApiException, IOException;
 
     /**
-     * Refunds a payment. You can refund the entire payment amount or a portion of it.
+     * Refunds a payment. You can refund the entire payment amount or a portion of it. You can use
+     * this endpoint to refund a card payment or record a refund of a cash or external payment. For
+     * more information, see [Refund
+     * Payment](https://developer.squareup.com/docs/payments-api/refund-payments).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the RefundPaymentResponse response from the API call

@@ -26,8 +26,8 @@ public class PaymentOptions {
 
     /**
      * Getter for Autocomplete.
-     * Indicates whether the Payment objects created from this `TerminalCheckout` will automatically
-     * be `COMPLETED` or left in an `APPROVED` state for later modification.
+     * Indicates whether the `Payment` objects created from this `TerminalCheckout` are
+     * automatically `COMPLETED` or left in an `APPROVED` state for later modification.
      * @return Returns the Boolean
      */
     @JsonGetter("autocomplete")

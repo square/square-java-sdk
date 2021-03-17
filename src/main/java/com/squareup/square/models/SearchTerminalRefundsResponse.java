@@ -43,7 +43,7 @@ public class SearchTerminalRefundsResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -53,7 +53,7 @@ public class SearchTerminalRefundsResponse {
 
     /**
      * Getter for Refunds.
-     * The requested search result of `TerminalRefund`s.
+     * The requested search result of `TerminalRefund` objects.
      * @return Returns the List of TerminalRefund
      */
     @JsonGetter("refunds")

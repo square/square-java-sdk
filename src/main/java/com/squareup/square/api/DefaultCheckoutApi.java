@@ -50,7 +50,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     }
 
     /**
-     * Links a `checkoutId` to a `checkout_page_url` that customers will be directed to in order to
+     * Links a `checkoutId` to a `checkout_page_url` that customers are directed to in order to
      * provide their payment information using a payment processing workflow hosted on
      * connect.squareup.com.
      * @param  locationId  Required parameter: The ID of the business location to associate the
@@ -74,7 +74,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     }
 
     /**
-     * Links a `checkoutId` to a `checkout_page_url` that customers will be directed to in order to
+     * Links a `checkoutId` to a `checkout_page_url` that customers are directed to in order to
      * provide their payment information using a payment processing workflow hosted on
      * connect.squareup.com.
      * @param  locationId  Required parameter: The ID of the business location to associate the

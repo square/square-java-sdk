@@ -36,8 +36,8 @@ public class TerminalCheckoutQueryFilter {
 
     /**
      * Getter for DeviceId.
-     * `TerminalCheckout`s associated with a specific device. If no device is specified then all
-     * `TerminalCheckout`s for the merchant will be displayed.
+     * The `TerminalCheckout` objects associated with a specific device. If no device is specified,
+     * then all `TerminalCheckout` objects for the merchant are displayed.
      * @return Returns the String
      */
     @JsonGetter("device_id")
@@ -60,7 +60,7 @@ public class TerminalCheckoutQueryFilter {
 
     /**
      * Getter for Status.
-     * Filtered results with the desired status of the `TerminalCheckout` Options: PENDING,
+     * Filtered results with the desired status of the `TerminalCheckout`. Options: PENDING,
      * IN_PROGRESS, CANCELED, COMPLETED
      * @return Returns the String
      */

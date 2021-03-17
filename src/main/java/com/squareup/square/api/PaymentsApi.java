@@ -10,6 +10,8 @@ import com.squareup.square.models.CreatePaymentRequest;
 import com.squareup.square.models.CreatePaymentResponse;
 import com.squareup.square.models.GetPaymentResponse;
 import com.squareup.square.models.ListPaymentsResponse;
+import com.squareup.square.models.UpdatePaymentRequest;
+import com.squareup.square.models.UpdatePaymentResponse;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
@@ -93,12 +95,10 @@ public interface PaymentsApi {
             final Integer limit);
 
     /**
-     * Charges a payment source (for example, a card represented by customer's card on file or a
-     * card nonce). In addition to the payment source, the request must include the amount to accept
-     * for the payment. There are several optional parameters that you can include in the request
-     * (for example, tip money, whether to autocomplete the payment, or a reference ID to correlate
-     * this payment with another system). The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth
-     * permission is required to enable application fees.
+     * Creates a payment using the provided source. You can use this endpoint to charge a card
+     * (credit/debit card or Square gift card) or record a payment that the seller received outside
+     * of Square (cash payment from a buyer or a payment that an external entity procesed on behalf
+     * of the seller). The endpoint creates a `Payment` object and returns it in the response.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreatePaymentResponse response from the API call
@@ -109,12 +109,10 @@ public interface PaymentsApi {
             final CreatePaymentRequest body) throws ApiException, IOException;
 
     /**
-     * Charges a payment source (for example, a card represented by customer's card on file or a
-     * card nonce). In addition to the payment source, the request must include the amount to accept
-     * for the payment. There are several optional parameters that you can include in the request
-     * (for example, tip money, whether to autocomplete the payment, or a reference ID to correlate
-     * this payment with another system). The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth
-     * permission is required to enable application fees.
+     * Creates a payment using the provided source. You can use this endpoint to charge a card
+     * (credit/debit card or Square gift card) or record a payment that the seller received outside
+     * of Square (cash payment from a buyer or a payment that an external entity procesed on behalf
+     * of the seller). The endpoint creates a `Payment` object and returns it in the response.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreatePaymentResponse response from the API call
@@ -175,10 +173,35 @@ public interface PaymentsApi {
             final String paymentId);
 
     /**
-     * Cancels (voids) a payment. If you set `autocomplete` to `false` when creating a payment, you
-     * can cancel the payment using this endpoint.
-     * @param  paymentId  Required parameter: The `payment_id` identifying the payment to be
-     *         canceled.
+     * Updates a payment with the APPROVED status. You can update the `amount_money` and `tip_money`
+     * using this endpoint.
+     * @param  paymentId  Required parameter: The ID of the payment to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdatePaymentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    UpdatePaymentResponse updatePayment(
+            final String paymentId,
+            final UpdatePaymentRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates a payment with the APPROVED status. You can update the `amount_money` and `tip_money`
+     * using this endpoint.
+     * @param  paymentId  Required parameter: The ID of the payment to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdatePaymentResponse response from the API call
+     */
+    CompletableFuture<UpdatePaymentResponse> updatePaymentAsync(
+            final String paymentId,
+            final UpdatePaymentRequest body);
+
+    /**
+     * Cancels (voids) a payment. You can use this endpoint to cancel a payment with the APPROVED
+     * `status`.
+     * @param  paymentId  Required parameter: The ID of the payment to cancel.
      * @return    Returns the CancelPaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -187,10 +210,9 @@ public interface PaymentsApi {
             final String paymentId) throws ApiException, IOException;
 
     /**
-     * Cancels (voids) a payment. If you set `autocomplete` to `false` when creating a payment, you
-     * can cancel the payment using this endpoint.
-     * @param  paymentId  Required parameter: The `payment_id` identifying the payment to be
-     *         canceled.
+     * Cancels (voids) a payment. You can use this endpoint to cancel a payment with the APPROVED
+     * `status`.
+     * @param  paymentId  Required parameter: The ID of the payment to cancel.
      * @return    Returns the CancelPaymentResponse response from the API call
      */
     CompletableFuture<CancelPaymentResponse> cancelPaymentAsync(
@@ -198,8 +220,7 @@ public interface PaymentsApi {
 
     /**
      * Completes (captures) a payment. By default, payments are set to complete immediately after
-     * they are created. If you set `autocomplete` to `false` when creating a payment, you can
-     * complete (capture) the payment using this endpoint.
+     * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
      * @return    Returns the CompletePaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -210,8 +231,7 @@ public interface PaymentsApi {
 
     /**
      * Completes (captures) a payment. By default, payments are set to complete immediately after
-     * they are created. If you set `autocomplete` to `false` when creating a payment, you can
-     * complete (capture) the payment using this endpoint.
+     * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
      * @return    Returns the CompletePaymentResponse response from the API call
      */

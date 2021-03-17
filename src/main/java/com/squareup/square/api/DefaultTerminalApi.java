@@ -60,8 +60,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Creates a new Terminal checkout request and sends it to the specified device to take a
-     * payment for the requested amount.
+     * Creates a Terminal checkout request and sends it to the specified device to take a payment
+     * for the requested amount.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalCheckoutResponse response from the API call
@@ -80,8 +80,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Creates a new Terminal checkout request and sends it to the specified device to take a
-     * payment for the requested amount.
+     * Creates a Terminal checkout request and sends it to the specified device to take a payment
+     * for the requested amount.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalCheckoutResponse response from the API call
@@ -246,8 +246,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves a Terminal checkout request by checkout_id.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * Retrieves a Terminal checkout request by `checkout_id`.
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -264,8 +264,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves a Terminal checkout request by checkout_id.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * Retrieves a Terminal checkout request by `checkout_id`.
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      */
     public CompletableFuture<GetTerminalCheckoutResponse> getTerminalCheckoutAsync(
@@ -340,7 +340,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
 
     /**
      * Cancels a Terminal checkout request if the status of the request permits it.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the CancelTerminalCheckoutResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -358,7 +358,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
 
     /**
      * Cancels a Terminal checkout request if the status of the request permits it.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the CancelTerminalCheckoutResponse response from the API call
      */
     public CompletableFuture<CancelTerminalCheckoutResponse> cancelTerminalCheckoutAsync(
@@ -523,7 +523,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves a filtered list of Terminal Interac refund requests created by the seller making
+     * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
      * the request.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -543,7 +543,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves a filtered list of Terminal Interac refund requests created by the seller making
+     * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
      * the request.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -616,8 +616,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves an Interac terminal refund object by ID.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * Retrieves an Interac Terminal refund object by ID.
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -634,8 +634,8 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Retrieves an Interac terminal refund object by ID.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * Retrieves an Interac Terminal refund object by ID.
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      */
     public CompletableFuture<GetTerminalRefundResponse> getTerminalRefundAsync(
@@ -709,9 +709,9 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Cancels an Interac terminal refund request by refund request ID if the status of the request
+     * Cancels an Interac Terminal refund request by refund request ID if the status of the request
      * permits it.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the CancelTerminalRefundResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -728,9 +728,9 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Cancels an Interac terminal refund request by refund request ID if the status of the request
+     * Cancels an Interac Terminal refund request by refund request ID if the status of the request
      * permits it.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the CancelTerminalRefundResponse response from the API call
      */
     public CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(

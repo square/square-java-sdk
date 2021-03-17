@@ -33,6 +33,10 @@ public class TerminalRefund {
     private final String createdAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String appId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String locationId;
 
     /**
      * Initialization constructor.
@@ -48,6 +52,8 @@ public class TerminalRefund {
      * @param  cancelReason  String value for cancelReason.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
+     * @param  appId  String value for appId.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public TerminalRefund(
@@ -62,7 +68,9 @@ public class TerminalRefund {
             @JsonProperty("status") String status,
             @JsonProperty("cancel_reason") String cancelReason,
             @JsonProperty("created_at") String createdAt,
-            @JsonProperty("updated_at") String updatedAt) {
+            @JsonProperty("updated_at") String updatedAt,
+            @JsonProperty("app_id") String appId,
+            @JsonProperty("location_id") String locationId) {
         this.id = id;
         this.refundId = refundId;
         this.paymentId = paymentId;
@@ -75,11 +83,13 @@ public class TerminalRefund {
         this.cancelReason = cancelReason;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.appId = appId;
+        this.locationId = locationId;
     }
 
     /**
      * Getter for Id.
-     * A unique ID for this `TerminalRefund`
+     * A unique ID for this `TerminalRefund`.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -99,7 +109,7 @@ public class TerminalRefund {
 
     /**
      * Getter for PaymentId.
-     * Unique ID of the payment being refunded.
+     * The unique ID of the payment being refunded.
      * @return Returns the String
      */
     @JsonGetter("payment_id")
@@ -109,7 +119,7 @@ public class TerminalRefund {
 
     /**
      * Getter for OrderId.
-     * The reference to the Square order id for the payment identified by the `payment_id`.
+     * The reference to the Square order ID for the payment identified by the `payment_id`.
      * @return Returns the String
      */
     @JsonGetter("order_id")
@@ -144,7 +154,7 @@ public class TerminalRefund {
 
     /**
      * Getter for DeviceId.
-     * The unique Id of the device intended for this `TerminalRefund`. The Id can be retrieved from
+     * The unique ID of the device intended for this `TerminalRefund`. The Id can be retrieved from
      * /v2/devices api.
      * @return Returns the String
      */
@@ -155,9 +165,9 @@ public class TerminalRefund {
 
     /**
      * Getter for DeadlineDuration.
-     * The duration as an RFC 3339 duration, after which the refund will be automatically canceled.
-     * TerminalRefunds that are `PENDING` will be automatically `CANCELED` and have a cancellation
-     * reason of `TIMED_OUT` Default: 5 minutes from creation Maximum: 5 minutes
+     * The RFC 3339 duration, after which the refund is automatically canceled. A `TerminalRefund`
+     * that is `PENDING` is automatically `CANCELED` and has a cancellation reason of `TIMED_OUT`.
+     * Default: 5 minutes from creation. Maximum: 5 minutes
      * @return Returns the String
      */
     @JsonGetter("deadline_duration")
@@ -167,8 +177,8 @@ public class TerminalRefund {
 
     /**
      * Getter for Status.
-     * The status of the `TerminalRefund`. Options: `PENDING`, `IN_PROGRESS`, `CANCELED`,
-     * `COMPLETED`
+     * The status of the `TerminalRefund`. Options: `PENDING`, `IN_PROGRESS`, `CANCELED`, or
+     * `COMPLETED`.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -187,7 +197,7 @@ public class TerminalRefund {
 
     /**
      * Getter for CreatedAt.
-     * The time when the `TerminalRefund` was created as an RFC 3339 timestamp.
+     * The time when the `TerminalRefund` was created, as an RFC 3339 timestamp.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -197,7 +207,7 @@ public class TerminalRefund {
 
     /**
      * Getter for UpdatedAt.
-     * The time when the `TerminalRefund` was last updated as an RFC 3339 timestamp.
+     * The time when the `TerminalRefund` was last updated, as an RFC 3339 timestamp.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -205,10 +215,30 @@ public class TerminalRefund {
         return updatedAt;
     }
 
+    /**
+     * Getter for AppId.
+     * The ID of the application that created the refund.
+     * @return Returns the String
+     */
+    @JsonGetter("app_id")
+    public String getAppId() {
+        return appId;
+    }
+
+    /**
+     * Getter for LocationId.
+     * The location of the device where the `TerminalRefund` was directed.
+     * @return Returns the String
+     */
+    @JsonGetter("location_id")
+    public String getLocationId() {
+        return locationId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, refundId, paymentId, orderId, amountMoney, reason, deviceId,
-                deadlineDuration, status, cancelReason, createdAt, updatedAt);
+                deadlineDuration, status, cancelReason, createdAt, updatedAt, appId, locationId);
     }
 
     @Override
@@ -231,7 +261,9 @@ public class TerminalRefund {
             && Objects.equals(status, other.status)
             && Objects.equals(cancelReason, other.cancelReason)
             && Objects.equals(createdAt, other.createdAt)
-            && Objects.equals(updatedAt, other.updatedAt);
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(appId, other.appId)
+            && Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -244,7 +276,8 @@ public class TerminalRefund {
                 + ", id=" + id + ", refundId=" + refundId + ", orderId=" + orderId + ", reason="
                 + reason + ", deviceId=" + deviceId + ", deadlineDuration=" + deadlineDuration
                 + ", status=" + status + ", cancelReason=" + cancelReason + ", createdAt="
-                + createdAt + ", updatedAt=" + updatedAt + "]";
+                + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId + ", locationId="
+                + locationId + "]";
     }
 
     /**
@@ -263,7 +296,9 @@ public class TerminalRefund {
                 .status(getStatus())
                 .cancelReason(getCancelReason())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt());
+                .updatedAt(getUpdatedAt())
+                .appId(getAppId())
+                .locationId(getLocationId());
         return builder;
     }
 
@@ -283,6 +318,8 @@ public class TerminalRefund {
         private String cancelReason;
         private String createdAt;
         private String updatedAt;
+        private String appId;
+        private String locationId;
 
         /**
          * Initialization constructor.
@@ -415,12 +452,33 @@ public class TerminalRefund {
         }
 
         /**
+         * Setter for appId.
+         * @param  appId  String value for appId.
+         * @return Builder
+         */
+        public Builder appId(String appId) {
+            this.appId = appId;
+            return this;
+        }
+
+        /**
+         * Setter for locationId.
+         * @param  locationId  String value for locationId.
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalRefund} object using the set fields.
          * @return {@link TerminalRefund}
          */
         public TerminalRefund build() {
             return new TerminalRefund(paymentId, amountMoney, id, refundId, orderId, reason,
-                    deviceId, deadlineDuration, status, cancelReason, createdAt, updatedAt);
+                    deviceId, deadlineDuration, status, cancelReason, createdAt, updatedAt, appId,
+                    locationId);
         }
     }
 }

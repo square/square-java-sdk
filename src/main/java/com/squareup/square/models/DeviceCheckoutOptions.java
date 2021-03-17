@@ -47,7 +47,7 @@ public class DeviceCheckoutOptions {
 
     /**
      * Getter for SkipReceiptScreen.
-     * Instruct the device to skip the receipt screen. Defaults to false.
+     * Instructs the device to skip the receipt screen. Defaults to false.
      * @return Returns the Boolean
      */
     @JsonGetter("skip_receipt_screen")
