@@ -58,7 +58,7 @@ public class ApiException extends Exception {
             } else {
                 errors = new ArrayList<>();
                 Error.Builder v1ErrorBuilder = new Error.Builder("V1_ERROR",
-                        jsonNode.get("type").asText());
+                        jsonNode.hasNonNull("type") ? jsonNode.get("type").asText() : null);
                 if (jsonNode.hasNonNull("message")) {
                     v1ErrorBuilder.detail(jsonNode.get("message").asText());
                 }

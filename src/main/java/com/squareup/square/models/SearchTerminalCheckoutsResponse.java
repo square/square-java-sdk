@@ -43,7 +43,7 @@ public class SearchTerminalCheckoutsResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -53,7 +53,7 @@ public class SearchTerminalCheckoutsResponse {
 
     /**
      * Getter for Checkouts.
-     * The requested search result of `TerminalCheckout`s.
+     * The requested search result of `TerminalCheckout` objects.
      * @return Returns the List of TerminalCheckout
      */
     @JsonGetter("checkouts")

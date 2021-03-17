@@ -120,7 +120,7 @@ bodyInvoicePaymentRequests0Reminders.add(bodyInvoicePaymentRequests0Reminders0);
 
 InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
     .uid("uid4")
-    .requestMethod("SHARE_MANUALLY")
+    .requestMethod("SMS_CHARGE_CARD_ON_FILE")
     .requestType("BALANCE")
     .dueDate("2030-01-24")
     .fixedAmountRequestedMoney(bodyInvoicePaymentRequests0FixedAmountRequestedMoney)
@@ -129,6 +129,22 @@ InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Bu
     .reminders(bodyInvoicePaymentRequests0Reminders)
     .build();
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
+
+List<InvoiceCustomField> bodyInvoiceCustomFields = new LinkedList<>();
+
+InvoiceCustomField bodyInvoiceCustomFields0 = new InvoiceCustomField.Builder()
+    .label("Event Reference Number")
+    .value("Ref. #1234")
+    .placement("ABOVE_LINE_ITEMS")
+    .build();
+bodyInvoiceCustomFields.add(bodyInvoiceCustomFields0);
+
+InvoiceCustomField bodyInvoiceCustomFields1 = new InvoiceCustomField.Builder()
+    .label("Terms of Service")
+    .value("The terms of service are...")
+    .placement("BELOW_LINE_ITEMS")
+    .build();
+bodyInvoiceCustomFields.add(bodyInvoiceCustomFields1);
 
 Invoice bodyInvoice = new Invoice.Builder()
     .id("id0")
@@ -142,6 +158,7 @@ Invoice bodyInvoice = new Invoice.Builder()
     .title("Event Planning Services")
     .description("We appreciate your business!")
     .scheduledAt("2030-01-13T10:00:00Z")
+    .customFields(bodyInvoiceCustomFields)
     .build();
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
         bodyInvoice)
@@ -337,7 +354,7 @@ Money bodyInvoicePaymentRequests0FixedAmountRequestedMoney = new Money.Builder()
     .build();
 InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
     .uid("2da7964f-f3d2-4f43-81e8-5aa220bf3355")
-    .requestMethod("SHARE_MANUALLY")
+    .requestMethod("SMS_CHARGE_CARD_ON_FILE")
     .requestType("DEPOSIT")
     .dueDate("due_date2")
     .fixedAmountRequestedMoney(bodyInvoicePaymentRequests0FixedAmountRequestedMoney)

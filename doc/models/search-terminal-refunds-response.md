@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
-| `Refunds` | [`List<TerminalRefund>`](/doc/models/terminal-refund.md) | Optional | The requested search result of `TerminalRefund`s. | List<TerminalRefund> getRefunds() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Refunds` | [`List<TerminalRefund>`](/doc/models/terminal-refund.md) | Optional | The requested search result of `TerminalRefund` objects. | List<TerminalRefund> getRefunds() |
 | `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
 
 ## Example (as JSON)

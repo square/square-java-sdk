@@ -14,6 +14,7 @@ PaymentsApi paymentsApi = client.getPaymentsApi();
 * [Create Payment](/doc/api/payments.md#create-payment)
 * [Cancel Payment by Idempotency Key](/doc/api/payments.md#cancel-payment-by-idempotency-key)
 * [Get Payment](/doc/api/payments.md#get-payment)
+* [Update Payment](/doc/api/payments.md#update-payment)
 * [Cancel Payment](/doc/api/payments.md#cancel-payment)
 * [Complete Payment](/doc/api/payments.md#complete-payment)
 
@@ -79,17 +80,14 @@ paymentsApi.listPaymentsAsync(beginTime, endTime, sortOrder, cursor, locationId,
 
 # Create Payment
 
-Charges a payment source (for example, a card
-represented by customer's card on file or a card nonce). In addition
-to the payment source, the request must include the
-amount to accept for the payment.
+Creates a payment using the provided source. You can use this endpoint
+to charge a card (credit/debit card or  
+Square gift card) or record a payment that the seller received outside of Square
+(cash payment from a buyer or a payment that an external entity
+procesed on behalf of the seller).
 
-There are several optional parameters that you can include in the request
-(for example, tip money, whether to autocomplete the payment, or a reference ID
-to correlate this payment with another system).
-
-The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission is required
-to enable application fees.
+The endpoint creates a
+`Payment` object and returns it in the response.
 
 ```java
 CompletableFuture<CreatePaymentResponse> createPaymentAsync(
@@ -223,10 +221,66 @@ paymentsApi.getPaymentAsync(paymentId).thenAccept(result -> {
 ```
 
 
+# Update Payment
+
+Updates a payment with the APPROVED status.
+You can update the `amount_money` and `tip_money` using this endpoint.
+
+```java
+CompletableFuture<UpdatePaymentResponse> updatePaymentAsync(
+    final String paymentId,
+    final UpdatePaymentRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `paymentId` | `String` | Template, Required | The ID of the payment to update. |
+| `body` | [`UpdatePaymentRequest`](/doc/models/update-payment-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`UpdatePaymentResponse`](/doc/models/update-payment-response.md)
+
+## Example Usage
+
+```java
+String paymentId = "payment_id0";
+Money bodyPaymentAmountMoney = new Money.Builder()
+    .amount(1000L)
+    .currency("USD")
+    .build();
+Money bodyPaymentTipMoney = new Money.Builder()
+    .amount(300L)
+    .currency("USD")
+    .build();
+Payment bodyPayment = new Payment.Builder()
+    .id("id2")
+    .createdAt("created_at0")
+    .updatedAt("updated_at8")
+    .amountMoney(bodyPaymentAmountMoney)
+    .tipMoney(bodyPaymentTipMoney)
+    .versionToken("Z3okDzm2VRv5m5nE3WGx381ItTNhvjkB4VapByyz54h6o")
+    .build();
+UpdatePaymentRequest body = new UpdatePaymentRequest.Builder(
+        "3d3c3b22-9572-4fc6-1111-e4d2f41b4122")
+    .payment(bodyPayment)
+    .build();
+
+paymentsApi.updatePaymentAsync(paymentId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
 # Cancel Payment
 
-Cancels (voids) a payment. If you set `autocomplete` to `false` when creating a payment,
-you can cancel the payment using this endpoint.
+Cancels (voids) a payment. You can use this endpoint to cancel a payment with
+the APPROVED `status`.
 
 ```java
 CompletableFuture<CancelPaymentResponse> cancelPaymentAsync(
@@ -237,7 +291,7 @@ CompletableFuture<CancelPaymentResponse> cancelPaymentAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `paymentId` | `String` | Template, Required | The `payment_id` identifying the payment to be canceled. |
+| `paymentId` | `String` | Template, Required | The ID of the payment to cancel. |
 
 ## Response Type
 
@@ -260,10 +314,9 @@ paymentsApi.cancelPaymentAsync(paymentId).thenAccept(result -> {
 # Complete Payment
 
 Completes (captures) a payment.
-
 By default, payments are set to complete immediately after they are created.
-If you set `autocomplete` to `false` when creating a payment, you can complete (capture)
-the payment using this endpoint.
+
+You can use this endpoint to complete a payment with the APPROVED `status`.
 
 ```java
 CompletableFuture<CompletePaymentResponse> completePaymentAsync(

@@ -10,26 +10,26 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RegisterDomainResponse type.
+ * This is a model class for UpdatePaymentResponse type.
  */
-public class RegisterDomainResponse {
+public class UpdatePaymentResponse {
     private HttpContext httpContext;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String status;
+    private final Payment payment;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
-     * @param  status  String value for status.
+     * @param  payment  Payment value for payment.
      */
     @JsonCreator
-    public RegisterDomainResponse(
+    public UpdatePaymentResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("status") String status) {
+            @JsonProperty("payment") Payment payment) {
         this.errors = errors;
-        this.status = status;
+        this.payment = payment;
     }
 
     public HttpContext getContext() {
@@ -47,18 +47,18 @@ public class RegisterDomainResponse {
     }
 
     /**
-     * Getter for Status.
-     * The status of the domain registration.
-     * @return Returns the String
+     * Getter for Payment.
+     * Represents a payment processed by the Square API.
+     * @return Returns the Payment
      */
-    @JsonGetter("status")
-    public String getStatus() {
-        return status;
+    @JsonGetter("payment")
+    public Payment getPayment() {
+        return payment;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(errors, status);
+        return Objects.hash(errors, payment);
     }
 
     @Override
@@ -66,42 +66,42 @@ public class RegisterDomainResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RegisterDomainResponse)) {
+        if (!(obj instanceof UpdatePaymentResponse)) {
             return false;
         }
-        RegisterDomainResponse other = (RegisterDomainResponse) obj;
+        UpdatePaymentResponse other = (UpdatePaymentResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(status, other.status);
+            && Objects.equals(payment, other.payment);
     }
 
     /**
-     * Converts this RegisterDomainResponse into string format.
+     * Converts this UpdatePaymentResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RegisterDomainResponse [" + "errors=" + errors + ", status=" + status + "]";
+        return "UpdatePaymentResponse [" + "errors=" + errors + ", payment=" + payment + "]";
     }
 
     /**
-     * Builds a new {@link RegisterDomainResponse.Builder} object.
+     * Builds a new {@link UpdatePaymentResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RegisterDomainResponse.Builder} object
+     * @return a new {@link UpdatePaymentResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .status(getStatus());
+                .payment(getPayment());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RegisterDomainResponse}.
+     * Class to build instances of {@link UpdatePaymentResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
-        private String status;
+        private Payment payment;
 
 
 
@@ -126,22 +126,22 @@ public class RegisterDomainResponse {
         }
 
         /**
-         * Setter for status.
-         * @param  status  String value for status.
+         * Setter for payment.
+         * @param  payment  Payment value for payment.
          * @return Builder
          */
-        public Builder status(String status) {
-            this.status = status;
+        public Builder payment(Payment payment) {
+            this.payment = payment;
             return this;
         }
 
         /**
-         * Builds a new {@link RegisterDomainResponse} object using the set fields.
-         * @return {@link RegisterDomainResponse}
+         * Builds a new {@link UpdatePaymentResponse} object using the set fields.
+         * @return {@link UpdatePaymentResponse}
          */
-        public RegisterDomainResponse build() {
-            RegisterDomainResponse model =
-                    new RegisterDomainResponse(errors, status);
+        public UpdatePaymentResponse build() {
+            UpdatePaymentResponse model =
+                    new UpdatePaymentResponse(errors, payment);
             model.httpContext = httpContext;
             return model;
         }

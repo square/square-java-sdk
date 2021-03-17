@@ -23,8 +23,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface TerminalApi {
     /**
-     * Creates a new Terminal checkout request and sends it to the specified device to take a
-     * payment for the requested amount.
+     * Creates a Terminal checkout request and sends it to the specified device to take a payment
+     * for the requested amount.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalCheckoutResponse response from the API call
@@ -35,8 +35,8 @@ public interface TerminalApi {
             final CreateTerminalCheckoutRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a new Terminal checkout request and sends it to the specified device to take a
-     * payment for the requested amount.
+     * Creates a Terminal checkout request and sends it to the specified device to take a payment
+     * for the requested amount.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalCheckoutResponse response from the API call
@@ -67,8 +67,8 @@ public interface TerminalApi {
             final SearchTerminalCheckoutsRequest body);
 
     /**
-     * Retrieves a Terminal checkout request by checkout_id.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * Retrieves a Terminal checkout request by `checkout_id`.
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -77,8 +77,8 @@ public interface TerminalApi {
             final String checkoutId) throws ApiException, IOException;
 
     /**
-     * Retrieves a Terminal checkout request by checkout_id.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * Retrieves a Terminal checkout request by `checkout_id`.
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      */
     CompletableFuture<GetTerminalCheckoutResponse> getTerminalCheckoutAsync(
@@ -86,7 +86,7 @@ public interface TerminalApi {
 
     /**
      * Cancels a Terminal checkout request if the status of the request permits it.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the CancelTerminalCheckoutResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -96,7 +96,7 @@ public interface TerminalApi {
 
     /**
      * Cancels a Terminal checkout request if the status of the request permits it.
-     * @param  checkoutId  Required parameter: Unique ID for the desired `TerminalCheckout`
+     * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the CancelTerminalCheckoutResponse response from the API call
      */
     CompletableFuture<CancelTerminalCheckoutResponse> cancelTerminalCheckoutAsync(
@@ -123,7 +123,7 @@ public interface TerminalApi {
             final CreateTerminalRefundRequest body);
 
     /**
-     * Retrieves a filtered list of Terminal Interac refund requests created by the seller making
+     * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
      * the request.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -135,7 +135,7 @@ public interface TerminalApi {
             final SearchTerminalRefundsRequest body) throws ApiException, IOException;
 
     /**
-     * Retrieves a filtered list of Terminal Interac refund requests created by the seller making
+     * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
      * the request.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -145,8 +145,8 @@ public interface TerminalApi {
             final SearchTerminalRefundsRequest body);
 
     /**
-     * Retrieves an Interac terminal refund object by ID.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * Retrieves an Interac Terminal refund object by ID.
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -155,17 +155,17 @@ public interface TerminalApi {
             final String terminalRefundId) throws ApiException, IOException;
 
     /**
-     * Retrieves an Interac terminal refund object by ID.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * Retrieves an Interac Terminal refund object by ID.
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      */
     CompletableFuture<GetTerminalRefundResponse> getTerminalRefundAsync(
             final String terminalRefundId);
 
     /**
-     * Cancels an Interac terminal refund request by refund request ID if the status of the request
+     * Cancels an Interac Terminal refund request by refund request ID if the status of the request
      * permits it.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the CancelTerminalRefundResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -174,9 +174,9 @@ public interface TerminalApi {
             final String terminalRefundId) throws ApiException, IOException;
 
     /**
-     * Cancels an Interac terminal refund request by refund request ID if the status of the request
+     * Cancels an Interac Terminal refund request by refund request ID if the status of the request
      * permits it.
-     * @param  terminalRefundId  Required parameter: Unique ID for the desired `TerminalRefund`
+     * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the CancelTerminalRefundResponse response from the API call
      */
     CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(

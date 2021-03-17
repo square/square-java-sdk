@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-02-26"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-03-17"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `timeout` | `long` | The timeout to use for making HTTP requests.<br>*Default*: `60L` |
@@ -17,7 +17,7 @@ The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2021-02-26")
+    .squareVersion("2021-03-17")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -41,7 +41,7 @@ public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2021-02-26")
+            .squareVersion("2021-03-17")
             .accessToken("AccessToken")
             .build();
         
