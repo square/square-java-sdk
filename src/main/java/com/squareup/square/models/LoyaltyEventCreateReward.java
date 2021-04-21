@@ -34,7 +34,7 @@ public class LoyaltyEventCreateReward {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The ID of the [loyalty program](#type-LoyaltyProgram).
+     * The ID of the [loyalty program]($m/LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -44,7 +44,7 @@ public class LoyaltyEventCreateReward {
 
     /**
      * Getter for RewardId.
-     * The Square-assigned ID of the created [loyalty reward](#type-LoyaltyReward). This field is
+     * The Square-assigned ID of the created [loyalty reward]($m/LoyaltyReward). This field is
      * returned only if the event source is `LOYALTY_API`.
      * @return Returns the String
      */

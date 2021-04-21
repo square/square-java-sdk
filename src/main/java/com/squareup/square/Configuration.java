@@ -28,13 +28,7 @@ public interface Configuration {
     String getSquareVersion();
 
     /**
-     * The timeout to use for making HTTP requests.
-     * @return a copy of timeout
-     */
-    long getTimeout();
-
-    /**
-     * Http Client Configuration instance.
+     * Http Client Configuration instance. See available [builder methods here](#httpclientconfiguration.builder-class).
      * @return a copy of httpClientConfig
      */
     ReadonlyHttpClientConfiguration getHttpClientConfig();
@@ -44,6 +38,12 @@ public interface Configuration {
      * @return a copy of additionalHeaders
      */
     Headers getAdditionalHeaders();
+
+    /**
+     * The timeout to use for making HTTP requests. The timeout to use for making HTTP requests.
+     * @return a copy of timeout
+     */
+    long timeout();
 
     /**
      * OAuth 2.0 Access Token.

@@ -13,7 +13,7 @@
 | `Name` | `String` | Optional | The name of the location.<br>This information appears in the dashboard as the nickname.<br>A location name must be unique within a seller account. | String getName() |
 | `Address` | [`Address`](/doc/models/address.md) | Optional | Represents a physical address. | Address getAddress() |
 | `Timezone` | `String` | Optional | The [IANA Timezone](https://www.iana.org/time-zones) identifier for<br>the timezone of the location. | String getTimezone() |
-| `Capabilities` | [`List<String>`](/doc/models/location-capability.md) | Optional | The Square features that are enabled for the location.<br>See [LocationCapability](#type-locationcapability) for possible values.<br>See [LocationCapability](#type-locationcapability) for possible values | List<String> getCapabilities() |
+| `Capabilities` | [`List<String>`](/doc/models/location-capability.md) | Optional | The Square features that are enabled for the location.<br>See [LocationCapability](/doc/models/location-capability.md) for possible values.<br>See [LocationCapability](#type-locationcapability) for possible values | List<String> getCapabilities() |
 | `Status` | [`String`](/doc/models/location-status.md) | Optional | The status of the location, whether a location is active or inactive. | String getStatus() |
 | `CreatedAt` | `String` | Optional | The time when the location was created, in RFC 3339 format. | String getCreatedAt() |
 | `MerchantId` | `String` | Optional | The ID of the merchant that owns the location. | String getMerchantId() |
@@ -51,7 +51,7 @@
   },
   "timezone": "timezone0",
   "capabilities": [
-    "CREDIT_CARD_PROCESSING"
+    "AUTOMATIC_TRANSFERS"
   ]
 }
 ```

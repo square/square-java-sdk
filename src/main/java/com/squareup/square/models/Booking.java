@@ -107,7 +107,7 @@ public class Booking {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp specifying the creation time of this booking.
+     * The timestamp specifying the creation time of this booking, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -117,7 +117,7 @@ public class Booking {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp specifying the most recent update time of this booking.
+     * The timestamp specifying the most recent update time of this booking, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -127,7 +127,7 @@ public class Booking {
 
     /**
      * Getter for StartAt.
-     * The timestamp specifying the starting time of this booking.
+     * The timestamp specifying the starting time of this booking, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("start_at")
@@ -137,7 +137,7 @@ public class Booking {
 
     /**
      * Getter for LocationId.
-     * The ID of the [Location](#type-location) object representing the location where the booked
+     * The ID of the [Location]($m/Location) object representing the location where the booked
      * service is provided.
      * @return Returns the String
      */
@@ -148,8 +148,7 @@ public class Booking {
 
     /**
      * Getter for CustomerId.
-     * The ID of the [Customer](#type-Customer) object representing the customer attending this
-     * booking
+     * The ID of the [Customer]($m/Customer) object representing the customer attending this booking
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -161,7 +160,7 @@ public class Booking {
      * Getter for CustomerNote.
      * The free-text field for the customer to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a relevant
-     * [CatalogObject](#type-CatalogObject) instance.
+     * [CatalogObject]($m/CatalogObject) instance.
      * @return Returns the String
      */
     @JsonGetter("customer_note")
@@ -173,7 +172,7 @@ public class Booking {
      * Getter for SellerNote.
      * The free-text field for the seller to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a specific
-     * [CatalogObject](#type-CatalogObject) instance. This field should not be visible to customers.
+     * [CatalogObject]($m/CatalogObject) instance. This field should not be visible to customers.
      * @return Returns the String
      */
     @JsonGetter("seller_note")

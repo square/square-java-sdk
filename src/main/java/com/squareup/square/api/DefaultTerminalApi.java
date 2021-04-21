@@ -73,7 +73,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildCreateTerminalCheckoutRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateTerminalCheckoutResponse(context);
@@ -91,7 +91,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildCreateTerminalCheckoutRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateTerminalCheckoutResponse(context));
     }
 
@@ -166,7 +166,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildSearchTerminalCheckoutsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchTerminalCheckoutsResponse(context);
@@ -184,7 +184,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildSearchTerminalCheckoutsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchTerminalCheckoutsResponse(context));
     }
 
@@ -257,7 +257,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildGetTerminalCheckoutRequest(checkoutId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetTerminalCheckoutResponse(context);
@@ -273,7 +273,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildGetTerminalCheckoutRequest(checkoutId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetTerminalCheckoutResponse(context));
     }
 
@@ -350,7 +350,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildCancelTerminalCheckoutRequest(checkoutId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCancelTerminalCheckoutResponse(context);
@@ -366,7 +366,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildCancelTerminalCheckoutRequest(checkoutId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCancelTerminalCheckoutResponse(context));
     }
 
@@ -444,7 +444,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildCreateTerminalRefundRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateTerminalRefundResponse(context);
@@ -461,7 +461,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildCreateTerminalRefundRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateTerminalRefundResponse(context));
     }
 
@@ -536,7 +536,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildSearchTerminalRefundsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchTerminalRefundsResponse(context);
@@ -554,7 +554,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildSearchTerminalRefundsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchTerminalRefundsResponse(context));
     }
 
@@ -627,7 +627,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildGetTerminalRefundRequest(terminalRefundId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetTerminalRefundResponse(context);
@@ -643,7 +643,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildGetTerminalRefundRequest(terminalRefundId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetTerminalRefundResponse(context));
     }
 
@@ -721,7 +721,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         HttpRequest request = buildCancelTerminalRefundRequest(terminalRefundId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCancelTerminalRefundResponse(context);
@@ -738,7 +738,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
         return makeHttpCallAsync(() -> buildCancelTerminalRefundRequest(terminalRefundId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCancelTerminalRefundResponse(context));
     }
 

@@ -103,7 +103,7 @@ public class OrderServiceCharge {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing the service charge [CatalogObject](#type-catalogobject).
+     * The catalog object ID referencing the service charge [CatalogObject]($m/CatalogObject).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

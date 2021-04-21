@@ -77,7 +77,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                 endTime, limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListCashDrawerShiftsResponse(context);
@@ -109,7 +109,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                 beginTime, endTime, limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListCashDrawerShiftsResponse(context));
     }
 
@@ -185,8 +185,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Provides the summary details for a single cash drawer shift. See
-     * [ListCashDrawerShiftEvents](#endpoint-CashDrawers-ListCashDrawerShiftEvents) for a list of
-     * cash drawer shift events.
+     * [ListCashDrawerShiftEvents]($e/CashDrawers/ListCashDrawerShiftEvents) for a list of cash
+     * drawer shift events.
      * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
      *         from.
      * @param  shiftId  Required parameter: The shift ID.
@@ -200,7 +200,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         HttpRequest request = buildRetrieveCashDrawerShiftRequest(locationId, shiftId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveCashDrawerShiftResponse(context);
@@ -208,8 +208,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Provides the summary details for a single cash drawer shift. See
-     * [ListCashDrawerShiftEvents](#endpoint-CashDrawers-ListCashDrawerShiftEvents) for a list of
-     * cash drawer shift events.
+     * [ListCashDrawerShiftEvents]($e/CashDrawers/ListCashDrawerShiftEvents) for a list of cash
+     * drawer shift events.
      * @param  locationId  Required parameter: The ID of the location to retrieve cash drawer shifts
      *         from.
      * @param  shiftId  Required parameter: The shift ID.
@@ -221,7 +221,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
         return makeHttpCallAsync(() -> buildRetrieveCashDrawerShiftRequest(locationId, shiftId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveCashDrawerShiftResponse(context));
     }
 
@@ -313,7 +313,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                 cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListCashDrawerShiftEventsResponse(context);
@@ -338,7 +338,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                 limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListCashDrawerShiftEventsResponse(context));
     }
 

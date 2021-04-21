@@ -53,7 +53,7 @@ public class ListCustomerGroupsResponse {
 
     /**
      * Getter for Groups.
-     * A list of customer groups belonging to the current merchant.
+     * A list of customer groups belonging to the current seller.
      * @return Returns the List of CustomerGroup
      */
     @JsonGetter("groups")
@@ -65,9 +65,8 @@ public class ListCustomerGroupsResponse {
      * Getter for Cursor.
      * A pagination cursor to retrieve the next set of results for your original query to the
      * endpoint. This value is present only if the request succeeded and additional results are
-     * available. See the [Pagination
-     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     * information.
+     * available. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

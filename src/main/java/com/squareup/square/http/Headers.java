@@ -110,7 +110,7 @@ public class Headers {
      * @param headerMap A Map containing header names and values as Entry pairs.
      * @return A Map of header names and values.
      */
-    private static Map<String, List<String>> cloneHeaderMap(Map<String, List<String>> headerMap) {
+    private Map<String, List<String>> cloneHeaderMap(Map<String, List<String>> headerMap) {
         Map<String, List<String>> copy = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Map.Entry<String, List<String>> kv : headerMap.entrySet()) {
             if (kv.getValue() != null) {

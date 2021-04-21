@@ -67,7 +67,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
         HttpRequest request = buildCreateCheckoutRequest(locationId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateCheckoutResponse(context);
@@ -89,7 +89,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
         return makeHttpCallAsync(() -> buildCreateCheckoutRequest(locationId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateCheckoutResponse(context));
     }
 

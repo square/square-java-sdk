@@ -30,13 +30,12 @@ public interface CustomersApi {
      * under 30 seconds. Occasionally, propagation of the new or updated profiles can take closer to
      * one minute or longer, especially during network incidents and outages.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
-     * @param  sortField  Optional parameter: Indicates how Customers should be sorted. Default:
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
      *         `DEFAULT`.
-     * @param  sortOrder  Optional parameter: Indicates whether Customers should be sorted in
+     * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -53,13 +52,12 @@ public interface CustomersApi {
      * under 30 seconds. Occasionally, propagation of the new or updated profiles can take closer to
      * one minute or longer, especially during network incidents and outages.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
-     * @param  sortField  Optional parameter: Indicates how Customers should be sorted. Default:
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
      *         `DEFAULT`.
-     * @param  sortOrder  Optional parameter: Indicates whether Customers should be sorted in
+     * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      */
@@ -70,8 +68,8 @@ public interface CustomersApi {
 
     /**
      * Creates a new customer for a business, which can have associated cards on file. You must
-     * provide __at least one__ of the following values in your request to this endpoint: -
-     * `given_name` - `family_name` - `company_name` - `email_address` - `phone_number`.
+     * provide at least one of the following values in your request to this endpoint: - `given_name`
+     * - `family_name` - `company_name` - `email_address` - `phone_number`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerResponse response from the API call
@@ -83,8 +81,8 @@ public interface CustomersApi {
 
     /**
      * Creates a new customer for a business, which can have associated cards on file. You must
-     * provide __at least one__ of the following values in your request to this endpoint: -
-     * `given_name` - `family_name` - `company_name` - `email_address` - `phone_number`.
+     * provide at least one of the following values in your request to this endpoint: - `given_name`
+     * - `family_name` - `company_name` - `email_address` - `phone_number`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerResponse response from the API call
@@ -125,26 +123,44 @@ public interface CustomersApi {
             final SearchCustomersRequest body);
 
     /**
-     * Deletes a customer from a business, along with any linked cards on file. When two profiles
-     * are merged into a single profile, that profile is assigned a new `customer_id`. You must use
-     * the new `customer_id` to delete merged profiles.
+     * Deletes a customer profile from a business, including any linked cards on file. As a best
+     * practice, you should include the `version` field in the request to enable [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * control. The value must be set to the current version of the customer profile. To delete a
+     * customer profile that was created by merging existing profiles, you must use the ID of the
+     * newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
+     * @param  version  Optional parameter: The current version of the customer profile. As a best
+     *         practice, you should include this parameter to enable [optimistic
+     *         concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     *         control. For more information, see [Delete a customer
+     *         profile](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#delete-customer-profile).
      * @return    Returns the DeleteCustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     DeleteCustomerResponse deleteCustomer(
-            final String customerId) throws ApiException, IOException;
+            final String customerId,
+            final Long version) throws ApiException, IOException;
 
     /**
-     * Deletes a customer from a business, along with any linked cards on file. When two profiles
-     * are merged into a single profile, that profile is assigned a new `customer_id`. You must use
-     * the new `customer_id` to delete merged profiles.
+     * Deletes a customer profile from a business, including any linked cards on file. As a best
+     * practice, you should include the `version` field in the request to enable [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * control. The value must be set to the current version of the customer profile. To delete a
+     * customer profile that was created by merging existing profiles, you must use the ID of the
+     * newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
+     * @param  version  Optional parameter: The current version of the customer profile. As a best
+     *         practice, you should include this parameter to enable [optimistic
+     *         concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     *         control. For more information, see [Delete a customer
+     *         profile](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#delete-customer-profile).
      * @return    Returns the DeleteCustomerResponse response from the API call
      */
     CompletableFuture<DeleteCustomerResponse> deleteCustomerAsync(
-            final String customerId);
+            final String customerId,
+            final Long version);
 
     /**
      * Returns details for a single customer.
@@ -165,12 +181,16 @@ public interface CustomersApi {
             final String customerId);
 
     /**
-     * Updates the details of an existing customer. When two profiles are merged into a single
-     * profile, that profile is assigned a new `customer_id`. You must use the new `customer_id` to
-     * update merged profiles. You cannot edit a customer's cards on file with this endpoint. To
-     * make changes to a card on file, you must delete the existing card on file with the
-     * [DeleteCustomerCard](#endpoint-Customers-deletecustomercard) endpoint, then create a new one
-     * with the [CreateCustomerCard](#endpoint-Customers-createcustomercard) endpoint.
+     * Updates a customer profile. To change an attribute, specify the new value. To remove an
+     * attribute, specify the value as an empty string or empty object. As a best practice, you
+     * should include the `version` field in the request to enable [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * control. The value must be set to the current version of the customer profile. To update a
+     * customer profile that was created by merging existing profiles, you must use the ID of the
+     * newly created profile. You cannot use this endpoint to change cards on file. To change a card
+     * on file, call [DeleteCustomerCard]($e/Customers/DeleteCustomerCard) to delete the existing
+     * card and then call [CreateCustomerCard]($e/Customers/CreateCustomerCard) to create a new
+     * card.
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -183,12 +203,16 @@ public interface CustomersApi {
             final UpdateCustomerRequest body) throws ApiException, IOException;
 
     /**
-     * Updates the details of an existing customer. When two profiles are merged into a single
-     * profile, that profile is assigned a new `customer_id`. You must use the new `customer_id` to
-     * update merged profiles. You cannot edit a customer's cards on file with this endpoint. To
-     * make changes to a card on file, you must delete the existing card on file with the
-     * [DeleteCustomerCard](#endpoint-Customers-deletecustomercard) endpoint, then create a new one
-     * with the [CreateCustomerCard](#endpoint-Customers-createcustomercard) endpoint.
+     * Updates a customer profile. To change an attribute, specify the new value. To remove an
+     * attribute, specify the value as an empty string or empty object. As a best practice, you
+     * should include the `version` field in the request to enable [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * control. The value must be set to the current version of the customer profile. To update a
+     * customer profile that was created by merging existing profiles, you must use the ID of the
+     * newly created profile. You cannot use this endpoint to change cards on file. To change a card
+     * on file, call [DeleteCustomerCard]($e/Customers/DeleteCustomerCard) to delete the existing
+     * card and then call [CreateCustomerCard]($e/Customers/CreateCustomerCard) to create a new
+     * card.
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

@@ -63,11 +63,10 @@ public class ListCustomerSegmentsResponse {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor to be used in subsequent calls to __ListCustomerSegments__ to retrieve
-     * the next set of query results. Only present only if the request succeeded and additional
-     * results are available. See the [Pagination
-     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     * information.
+     * A pagination cursor to be used in subsequent calls to `ListCustomerSegments` to retrieve the
+     * next set of query results. The cursor is only present if the request succeeded and additional
+     * results are available. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

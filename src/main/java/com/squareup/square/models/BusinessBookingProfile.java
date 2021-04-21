@@ -67,7 +67,7 @@ public class BusinessBookingProfile {
 
     /**
      * Getter for CreatedAt.
-     * The RFC-3339 timestamp specifying the booking's creation time.
+     * The RFC 3339 timestamp specifying the booking's creation time.
      * @return Returns the String
      */
     @JsonGetter("created_at")

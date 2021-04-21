@@ -189,8 +189,8 @@ public interface V1EmployeesApi {
      * permissions granted to an employee with that role. For example, an employee with a "Shift
      * Manager" role might be able to issue refunds in Square Point of Sale, whereas an employee
      * with a "Clerk" role might not. Roles are assigned with the
-     * [V1UpdateEmployee](#endpoint-v1updateemployee) endpoint. An employee can have only one role
-     * at a time. If an employee has no role, they have none of the permissions associated with
+     * [V1UpdateEmployee]($e/V1Employees/UpdateEmployeeRole) endpoint. An employee can have only one
+     * role at a time. If an employee has no role, they have none of the permissions associated with
      * roles. All employees can accept payments with Square Point of Sale.
      * @param  body  Required parameter: An EmployeeRole object with a name and permissions, and an
      *         optional owner flag.
@@ -207,8 +207,8 @@ public interface V1EmployeesApi {
      * permissions granted to an employee with that role. For example, an employee with a "Shift
      * Manager" role might be able to issue refunds in Square Point of Sale, whereas an employee
      * with a "Clerk" role might not. Roles are assigned with the
-     * [V1UpdateEmployee](#endpoint-v1updateemployee) endpoint. An employee can have only one role
-     * at a time. If an employee has no role, they have none of the permissions associated with
+     * [V1UpdateEmployee]($e/V1Employees/UpdateEmployeeRole) endpoint. An employee can have only one
+     * role at a time. If an employee has no role, they have none of the permissions associated with
      * roles. All employees can accept payments with Square Point of Sale.
      * @param  body  Required parameter: An EmployeeRole object with a name and permissions, and an
      *         optional owner flag.

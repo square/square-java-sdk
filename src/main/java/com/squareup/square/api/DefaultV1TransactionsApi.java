@@ -75,7 +75,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildListOrdersRequest(locationId, order, limit, batchToken);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListOrdersResponse(context);
@@ -100,7 +100,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildListOrdersRequest(locationId, order, limit, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListOrdersResponse(context));
     }
 
@@ -192,7 +192,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildRetrieveOrderRequest(locationId, orderId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveOrderResponse(context);
@@ -212,7 +212,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildRetrieveOrderRequest(locationId, orderId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveOrderResponse(context));
     }
 
@@ -299,7 +299,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildUpdateOrderRequest(locationId, orderId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateOrderResponse(context);
@@ -322,7 +322,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildUpdateOrderRequest(locationId, orderId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateOrderResponse(context));
     }
 
@@ -435,7 +435,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 batchToken, includePartial);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListPaymentsResponse(context);
@@ -481,7 +481,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 endTime, limit, batchToken, includePartial),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListPaymentsResponse(context));
     }
 
@@ -581,7 +581,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildRetrievePaymentRequest(locationId, paymentId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrievePaymentResponse(context);
@@ -602,7 +602,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildRetrievePaymentRequest(locationId, paymentId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrievePaymentResponse(context));
     }
 
@@ -703,7 +703,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 batchToken);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListRefundsResponse(context);
@@ -740,7 +740,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 endTime, limit, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListRefundsResponse(context));
     }
 
@@ -841,7 +841,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildCreateRefundRequest(locationId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateRefundResponse(context);
@@ -866,7 +866,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildCreateRefundRequest(locationId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateRefundResponse(context));
     }
 
@@ -970,7 +970,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 limit, status, batchToken);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListSettlementsResponse(context);
@@ -1010,7 +1010,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                 endTime, limit, status, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListSettlementsResponse(context));
     }
 
@@ -1116,7 +1116,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         HttpRequest request = buildRetrieveSettlementRequest(locationId, settlementId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveSettlementResponse(context);
@@ -1144,7 +1144,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
         return makeHttpCallAsync(() -> buildRetrieveSettlementRequest(locationId, settlementId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveSettlementResponse(context));
     }
 

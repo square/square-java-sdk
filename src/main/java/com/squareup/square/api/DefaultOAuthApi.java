@@ -81,7 +81,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
             final RenewTokenRequest body,
             final String authorization) throws ApiException, IOException {
         HttpRequest request = buildRenewTokenRequest(clientId, body, authorization);
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRenewTokenResponse(context);
@@ -113,7 +113,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
             final RenewTokenRequest body,
             final String authorization) {
         return makeHttpCallAsync(() -> buildRenewTokenRequest(clientId, body, authorization),
-            request -> getClientInstance().executeAsStringAsync(request),
+            request -> getClientInstance().executeAsync(request, false),
             context -> handleRenewTokenResponse(context));
     }
 
@@ -203,7 +203,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
             final RevokeTokenRequest body,
             final String authorization) throws ApiException, IOException {
         HttpRequest request = buildRevokeTokenRequest(body, authorization);
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRevokeTokenResponse(context);
@@ -226,7 +226,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
             final RevokeTokenRequest body,
             final String authorization) {
         return makeHttpCallAsync(() -> buildRevokeTokenRequest(body, authorization),
-            request -> getClientInstance().executeAsStringAsync(request),
+            request -> getClientInstance().executeAsync(request, false),
             context -> handleRevokeTokenResponse(context));
     }
 
@@ -306,7 +306,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     public ObtainTokenResponse obtainToken(
             final ObtainTokenRequest body) throws ApiException, IOException {
         HttpRequest request = buildObtainTokenRequest(body);
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleObtainTokenResponse(context);
@@ -326,7 +326,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     public CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
             final ObtainTokenRequest body) {
         return makeHttpCallAsync(() -> buildObtainTokenRequest(body),
-            request -> getClientInstance().executeAsStringAsync(request),
+            request -> getClientInstance().executeAsync(request, false),
             context -> handleObtainTokenResponse(context));
     }
 

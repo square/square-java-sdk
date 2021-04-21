@@ -40,7 +40,7 @@ public class CustomerSegment {
 
     /**
      * Getter for Id.
-     * Unique Square-generated ID for the segment.
+     * A unique Square-generated ID for the segment.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -50,7 +50,7 @@ public class CustomerSegment {
 
     /**
      * Getter for Name.
-     * Name of the segment.
+     * The name of the segment.
      * @return Returns the String
      */
     @JsonGetter("name")

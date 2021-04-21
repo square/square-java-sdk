@@ -35,7 +35,7 @@ public class LoyaltyEventRedeemReward {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The ID of the [loyalty program](#type-LoyaltyProgram).
+     * The ID of the [loyalty program]($m/LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -45,8 +45,8 @@ public class LoyaltyEventRedeemReward {
 
     /**
      * Getter for RewardId.
-     * The ID of the redeemed [loyalty reward](#type-LoyaltyReward). This field is returned only if
-     * the event source is `LOYALTY_API`.
+     * The ID of the redeemed [loyalty reward]($m/LoyaltyReward). This field is returned only if the
+     * event source is `LOYALTY_API`.
      * @return Returns the String
      */
     @JsonGetter("reward_id")
@@ -56,8 +56,8 @@ public class LoyaltyEventRedeemReward {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order](#type-Order) that redeemed the reward. This field is returned only if
-     * the Orders API is used to process orders.
+     * The ID of the [order]($m/Order) that redeemed the reward. This field is returned only if the
+     * Orders API is used to process orders.
      * @return Returns the String
      */
     @JsonGetter("order_id")

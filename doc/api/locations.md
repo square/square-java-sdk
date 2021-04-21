@@ -21,7 +21,7 @@ LocationsApi locationsApi = client.getLocationsApi();
 Provides information of all locations of a business.
 
 Many Square API endpoints require a `location_id` parameter.
-The `id` field of the [`Location`](#type-location) objects returned by this
+The `id` field of the [`Location`](/doc/models/location.md) objects returned by this
 endpoint correspond to that `location_id` parameter.
 
 ```java
@@ -76,9 +76,9 @@ Address bodyLocationAddress = new Address.Builder()
     .postalCode("30309")
     .build();
 List<String> bodyLocationCapabilities = new LinkedList<>();
+bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 Location bodyLocation = new Location.Builder()
     .id("id0")
     .name("New location name")
@@ -171,9 +171,9 @@ Address bodyLocationAddress = new Address.Builder()
     .postalCode("30309")
     .build();
 List<String> bodyLocationCapabilities = new LinkedList<>();
+bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
+bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 List<BusinessHoursPeriod> bodyLocationBusinessHoursPeriods = new LinkedList<>();
 
 BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.Builder()

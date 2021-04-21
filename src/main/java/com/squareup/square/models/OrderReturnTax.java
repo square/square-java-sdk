@@ -81,7 +81,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogTax](#type-catalogtax).
+     * The catalog object id referencing [CatalogTax]($m/CatalogTax).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

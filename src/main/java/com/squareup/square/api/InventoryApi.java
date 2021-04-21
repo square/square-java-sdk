@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface InventoryApi {
     /**
-     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided
+     * Returns the [InventoryAdjustment]($m/InventoryAdjustment) object with the provided
      * `adjustment_id`.
      * @param  adjustmentId  Required parameter: ID of the
-     *         [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
+     *         [InventoryAdjustment]($m/InventoryAdjustment) to retrieve.
      * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -33,10 +33,10 @@ public interface InventoryApi {
             final String adjustmentId) throws ApiException, IOException;
 
     /**
-     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided
+     * Returns the [InventoryAdjustment]($m/InventoryAdjustment) object with the provided
      * `adjustment_id`.
      * @param  adjustmentId  Required parameter: ID of the
-     *         [InventoryAdjustment](#type-inventoryadjustment) to retrieve.
+     *         [InventoryAdjustment]($m/InventoryAdjustment) to retrieve.
      * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
      */
     CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustmentAsync(
@@ -93,12 +93,12 @@ public interface InventoryApi {
             final BatchRetrieveInventoryChangesRequest body);
 
     /**
-     * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the
-     * requested [Location](#type-location)s. Results are paginated and sorted in descending order
-     * according to their `calculated_at` timestamp (newest first). When `updated_after` is
-     * specified, only counts that have changed since that time (based on the server timestamp for
-     * the most recent change) are returned. This allows clients to perform a "sync" operation, for
-     * example in response to receiving a Webhook notification.
+     * Returns current counts for the provided [CatalogObject]($m/CatalogObject)s at the requested
+     * [Location]($m/Location)s. Results are paginated and sorted in descending order according to
+     * their `calculated_at` timestamp (newest first). When `updated_after` is specified, only
+     * counts that have changed since that time (based on the server timestamp for the most recent
+     * change) are returned. This allows clients to perform a "sync" operation, for example in
+     * response to receiving a Webhook notification.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
@@ -109,12 +109,12 @@ public interface InventoryApi {
             final BatchRetrieveInventoryCountsRequest body) throws ApiException, IOException;
 
     /**
-     * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the
-     * requested [Location](#type-location)s. Results are paginated and sorted in descending order
-     * according to their `calculated_at` timestamp (newest first). When `updated_after` is
-     * specified, only counts that have changed since that time (based on the server timestamp for
-     * the most recent change) are returned. This allows clients to perform a "sync" operation, for
-     * example in response to receiving a Webhook notification.
+     * Returns current counts for the provided [CatalogObject]($m/CatalogObject)s at the requested
+     * [Location]($m/Location)s. Results are paginated and sorted in descending order according to
+     * their `calculated_at` timestamp (newest first). When `updated_after` is specified, only
+     * counts that have changed since that time (based on the server timestamp for the most recent
+     * change) are returned. This allows clients to perform a "sync" operation, for example in
+     * response to receiving a Webhook notification.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
@@ -123,10 +123,10 @@ public interface InventoryApi {
             final BatchRetrieveInventoryCountsRequest body);
 
     /**
-     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided
+     * Returns the [InventoryPhysicalCount]($m/InventoryPhysicalCount) object with the provided
      * `physical_count_id`.
      * @param  physicalCountId  Required parameter: ID of the
-     *         [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
+     *         [InventoryPhysicalCount]($m/InventoryPhysicalCount) to retrieve.
      * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -135,22 +135,22 @@ public interface InventoryApi {
             final String physicalCountId) throws ApiException, IOException;
 
     /**
-     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided
+     * Returns the [InventoryPhysicalCount]($m/InventoryPhysicalCount) object with the provided
      * `physical_count_id`.
      * @param  physicalCountId  Required parameter: ID of the
-     *         [InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve.
+     *         [InventoryPhysicalCount]($m/InventoryPhysicalCount) to retrieve.
      * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
      */
     CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysicalCountAsync(
             final String physicalCountId);
 
     /**
-     * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject)
-     * at a given set of [Location](#type-location)s. Responses are paginated and unsorted. For more
+     * Retrieves the current calculated stock count for a given [CatalogObject]($m/CatalogObject) at
+     * a given set of [Location]($m/Location)s. Responses are paginated and unsorted. For more
      * sophisticated queries, use a batch endpoint.
-     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
-     *         to retrieve.
-     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
+     *         retrieve.
+     * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
      *         comma-separated list. An empty list queries all locations.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
@@ -167,12 +167,12 @@ public interface InventoryApi {
             final String cursor) throws ApiException, IOException;
 
     /**
-     * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject)
-     * at a given set of [Location](#type-location)s. Responses are paginated and unsorted. For more
+     * Retrieves the current calculated stock count for a given [CatalogObject]($m/CatalogObject) at
+     * a given set of [Location]($m/Location)s. Responses are paginated and unsorted. For more
      * sophisticated queries, use a batch endpoint.
-     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
-     *         to retrieve.
-     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
+     *         retrieve.
+     * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
      *         comma-separated list. An empty list queries all locations.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
@@ -188,14 +188,14 @@ public interface InventoryApi {
 
     /**
      * Returns a set of physical counts and inventory adjustments for the provided
-     * [CatalogObject](#type-catalogobject) at the requested [Location](#type-location)s. Results
-     * are paginated and sorted in descending order according to their `occurred_at` timestamp
-     * (newest first). There are no limits on how far back the caller can page. This endpoint can be
-     * used to display recent changes for a specific item. For more sophisticated queries, use a
-     * batch endpoint.
-     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
-     *         to retrieve.
-     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. Results are
+     * paginated and sorted in descending order according to their `occurred_at` timestamp (newest
+     * first). There are no limits on how far back the caller can page. This endpoint can be used to
+     * display recent changes for a specific item. For more sophisticated queries, use a batch
+     * endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
+     *         retrieve.
+     * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
      *         comma-separated list. An empty list queries all locations.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.
@@ -213,14 +213,14 @@ public interface InventoryApi {
 
     /**
      * Returns a set of physical counts and inventory adjustments for the provided
-     * [CatalogObject](#type-catalogobject) at the requested [Location](#type-location)s. Results
-     * are paginated and sorted in descending order according to their `occurred_at` timestamp
-     * (newest first). There are no limits on how far back the caller can page. This endpoint can be
-     * used to display recent changes for a specific item. For more sophisticated queries, use a
-     * batch endpoint.
-     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject](#type-catalogobject)
-     *         to retrieve.
-     * @param  locationIds  Optional parameter: The [Location](#type-location) IDs to look up as a
+     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. Results are
+     * paginated and sorted in descending order according to their `occurred_at` timestamp (newest
+     * first). There are no limits on how far back the caller can page. This endpoint can be used to
+     * display recent changes for a specific item. For more sophisticated queries, use a batch
+     * endpoint.
+     * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
+     *         retrieve.
+     * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
      *         comma-separated list. An empty list queries all locations.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for the original query.

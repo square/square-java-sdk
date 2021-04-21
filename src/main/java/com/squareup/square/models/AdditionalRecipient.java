@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public class AdditionalRecipient {
     private final String locationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
     private final Money amountMoney;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,15 +21,15 @@ public class AdditionalRecipient {
     /**
      * Initialization constructor.
      * @param  locationId  String value for locationId.
-     * @param  description  String value for description.
      * @param  amountMoney  Money value for amountMoney.
+     * @param  description  String value for description.
      * @param  receivableId  String value for receivableId.
      */
     @JsonCreator
     public AdditionalRecipient(
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("description") String description,
             @JsonProperty("amount_money") Money amountMoney,
+            @JsonProperty("description") String description,
             @JsonProperty("receivable_id") String receivableId) {
         this.locationId = locationId;
         this.description = description;
@@ -73,7 +74,7 @@ public class AdditionalRecipient {
 
     /**
      * Getter for ReceivableId.
-     * The unique ID for this [AdditionalRecipientReceivable](#type-additionalrecipientreceivable),
+     * The unique ID for this [AdditionalRecipientReceivable]($m/AdditionalRecipientReceivable),
      * assigned by the server.
      * @return Returns the String
      */
@@ -108,8 +109,8 @@ public class AdditionalRecipient {
      */
     @Override
     public String toString() {
-        return "AdditionalRecipient [" + "locationId=" + locationId + ", description=" + description
-                + ", amountMoney=" + amountMoney + ", receivableId=" + receivableId + "]";
+        return "AdditionalRecipient [" + "locationId=" + locationId + ", amountMoney=" + amountMoney
+                + ", description=" + description + ", receivableId=" + receivableId + "]";
     }
 
     /**
@@ -118,7 +119,8 @@ public class AdditionalRecipient {
      * @return a new {@link AdditionalRecipient.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId, description, amountMoney)
+        Builder builder = new Builder(locationId, amountMoney)
+                .description(getDescription())
                 .receivableId(getReceivableId());
         return builder;
     }
@@ -128,19 +130,17 @@ public class AdditionalRecipient {
      */
     public static class Builder {
         private String locationId;
-        private String description;
         private Money amountMoney;
+        private String description;
         private String receivableId;
 
         /**
          * Initialization constructor.
          * @param  locationId  String value for locationId.
-         * @param  description  String value for description.
          * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String locationId, String description, Money amountMoney) {
+        public Builder(String locationId, Money amountMoney) {
             this.locationId = locationId;
-            this.description = description;
             this.amountMoney = amountMoney;
         }
 
@@ -155,22 +155,22 @@ public class AdditionalRecipient {
         }
 
         /**
-         * Setter for description.
-         * @param  description  String value for description.
-         * @return Builder
-         */
-        public Builder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        /**
          * Setter for amountMoney.
          * @param  amountMoney  Money value for amountMoney.
          * @return Builder
          */
         public Builder amountMoney(Money amountMoney) {
             this.amountMoney = amountMoney;
+            return this;
+        }
+
+        /**
+         * Setter for description.
+         * @param  description  String value for description.
+         * @return Builder
+         */
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
 
@@ -189,7 +189,7 @@ public class AdditionalRecipient {
          * @return {@link AdditionalRecipient}
          */
         public AdditionalRecipient build() {
-            return new AdditionalRecipient(locationId, description, amountMoney, receivableId);
+            return new AdditionalRecipient(locationId, amountMoney, description, receivableId);
         }
     }
 }

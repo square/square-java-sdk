@@ -51,9 +51,9 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
     /**
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
-     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
-     *         for more information.
+     *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
+     *         results. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -63,7 +63,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         HttpRequest request = buildListCustomerSegmentsRequest(cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListCustomerSegmentsResponse(context);
@@ -72,9 +72,9 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
     /**
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
-     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
-     *         for more information.
+     *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
+     *         results. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     public CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
@@ -82,7 +82,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListCustomerSegmentsResponse(context));
     }
 
@@ -158,7 +158,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         HttpRequest request = buildRetrieveCustomerSegmentRequest(segmentId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveCustomerSegmentResponse(context);
@@ -174,7 +174,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         return makeHttpCallAsync(() -> buildRetrieveCustomerSegmentRequest(segmentId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveCustomerSegmentResponse(context));
     }
 

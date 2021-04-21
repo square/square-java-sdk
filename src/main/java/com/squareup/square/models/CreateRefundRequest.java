@@ -41,7 +41,8 @@ public class CreateRefundRequest {
      * A value you specify that uniquely identifies this refund among refunds you've created for the
      * tender. If you're unsure whether a particular refund succeeded, you can reattempt it with the
      * same idempotency key without worrying about duplicating the refund. See [Idempotency
-     * keys](#idempotencykeys) for more information.
+     * keys](https://developer.squareup.com/docs/working-with-apis/idempotency) for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -51,9 +52,9 @@ public class CreateRefundRequest {
 
     /**
      * Getter for TenderId.
-     * The ID of the tender to refund. A [`Transaction`](#type-transaction) has one or more
-     * `tenders` (i.e., methods of payment) associated with it, and you refund each tender
-     * separately with the Connect API.
+     * The ID of the tender to refund. A [`Transaction`]($m/Transaction) has one or more `tenders`
+     * (i.e., methods of payment) associated with it, and you refund each tender separately with the
+     * Connect API.
      * @return Returns the String
      */
     @JsonGetter("tender_id")

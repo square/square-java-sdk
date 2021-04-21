@@ -64,7 +64,8 @@ public class CreateMobileAuthorizationCodeResponse {
     /**
      * Getter for Error.
      * Represents an error encountered during a request to the Connect API. See [Handling
-     * errors](#handlingerrors) for more information.
+     * errors](https://developer.squareup.com/docs/build-basics/handling-errors) for more
+     * information.
      * @return Returns the Error
      */
     @JsonGetter("error")

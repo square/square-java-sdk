@@ -42,8 +42,8 @@ public class ListTransactionsRequest {
     /**
      * Getter for BeginTime.
      * The beginning of the requested reporting period, in RFC 3339 format. See [Date
-     * ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current
-     * time minus one year.
+     * ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on
+     * date inclusivity/exclusivity. Default value: The current time minus one year.
      * @return Returns the String
      */
     @JsonGetter("begin_time")
@@ -53,8 +53,9 @@ public class ListTransactionsRequest {
 
     /**
      * Getter for EndTime.
-     * The end of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges)
-     * for details on date inclusivity/exclusivity. Default value: The current time.
+     * The end of the requested reporting period, in RFC 3339 format. See [Date
+     * ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on
+     * date inclusivity/exclusivity. Default value: The current time.
      * @return Returns the String
      */
     @JsonGetter("end_time")
@@ -75,8 +76,9 @@ public class ListTransactionsRequest {
     /**
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
-     * the next set of results for your original query. See [Paginating results](#paginatingresults)
-     * for more information.
+     * the next set of results for your original query. See [Paginating
+     * results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")

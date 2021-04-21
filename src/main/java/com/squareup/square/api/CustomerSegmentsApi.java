@@ -15,9 +15,9 @@ public interface CustomerSegmentsApi {
     /**
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
-     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
-     *         for more information.
+     *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
+     *         results. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -28,9 +28,9 @@ public interface CustomerSegmentsApi {
     /**
      * Retrieves the list of customer segments of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by previous calls to
-     *         __ListCustomerSegments__. Used to retrieve the next set of query results. See the
-     *         [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination)
-     *         for more information.
+     *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
+     *         results. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(

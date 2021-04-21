@@ -84,7 +84,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildListDisputesRequest(cursor, states, locationId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListDisputesResponse(context);
@@ -111,7 +111,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildListDisputesRequest(cursor, states, locationId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListDisputesResponse(context));
     }
 
@@ -191,7 +191,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildRetrieveDisputeRequest(disputeId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveDisputeResponse(context);
@@ -207,7 +207,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildRetrieveDisputeRequest(disputeId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveDisputeResponse(context));
     }
 
@@ -287,7 +287,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildAcceptDisputeRequest(disputeId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleAcceptDisputeResponse(context);
@@ -306,7 +306,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildAcceptDisputeRequest(disputeId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleAcceptDisputeResponse(context));
     }
 
@@ -383,7 +383,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildListDisputeEvidenceRequest(disputeId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListDisputeEvidenceResponse(context);
@@ -399,7 +399,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildListDisputeEvidenceRequest(disputeId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListDisputeEvidenceResponse(context));
     }
 
@@ -467,7 +467,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
      * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence](https://developer.squareup.com/docs/reference/square/disputes-api/submit-evidence).
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
      * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
      *         from.
      * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
@@ -481,7 +481,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildRemoveDisputeEvidenceRequest(disputeId, evidenceId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRemoveDisputeEvidenceResponse(context);
@@ -490,7 +490,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
      * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence](https://developer.squareup.com/docs/reference/square/disputes-api/submit-evidence).
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
      * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
      *         from.
      * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
@@ -502,7 +502,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildRemoveDisputeEvidenceRequest(disputeId, evidenceId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRemoveDisputeEvidenceResponse(context));
     }
 
@@ -587,7 +587,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveDisputeEvidenceResponse(context);
@@ -608,7 +608,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveDisputeEvidenceResponse(context));
     }
 
@@ -695,7 +695,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                 imageFile);
         authManagers.get("global").apply(internalRequest);
 
-        HttpResponse response = getClientInstance().executeAsString(internalRequest);
+        HttpResponse response = getClientInstance().execute(internalRequest, false);
         HttpContext context = new HttpContext(internalRequest, response);
 
         return handleCreateDisputeEvidenceFileResponse(context);
@@ -718,7 +718,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                 imageFile),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(internalRequest -> getClientInstance()
-                        .executeAsStringAsync(internalRequest)),
+                        .executeAsync(internalRequest, false)),
             context -> handleCreateDisputeEvidenceFileResponse(context));
     }
 
@@ -751,7 +751,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
         MultipartWrapper requestWrapper = new MultipartWrapper(
-                ApiHelper.serialize(request).getBytes(), requestHeaders);
+                ApiHelper.serialize(request), requestHeaders);
         Headers imageFileHeaders = new Headers();
         imageFileHeaders.add("Content-Type", "image/jpeg");
         MultipartFileWrapper imageFileWrapper =
@@ -818,7 +818,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildCreateDisputeEvidenceTextRequest(disputeId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateDisputeEvidenceTextResponse(context);
@@ -837,7 +837,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildCreateDisputeEvidenceTextRequest(disputeId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateDisputeEvidenceTextResponse(context));
     }
 
@@ -908,10 +908,9 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Submits evidence to the cardholder's bank. Before submitting evidence, Square compiles all
      * available evidence. This includes evidence uploaded using the
-     * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
-     * and
-     * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints and evidence automatically provided by Square, when available.
+     * [CreateDisputeEvidenceFile]($e/Disputes/CreateDisputeEvidenceFile) and
+     * [CreateDisputeEvidenceText]($e/Disputes/CreateDisputeEvidenceText) endpoints and evidence
+     * automatically provided by Square, when available.
      * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
      *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
@@ -923,7 +922,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         HttpRequest request = buildSubmitEvidenceRequest(disputeId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSubmitEvidenceResponse(context);
@@ -932,10 +931,9 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Submits evidence to the cardholder's bank. Before submitting evidence, Square compiles all
      * available evidence. This includes evidence uploaded using the
-     * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
-     * and
-     * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints and evidence automatically provided by Square, when available.
+     * [CreateDisputeEvidenceFile]($e/Disputes/CreateDisputeEvidenceFile) and
+     * [CreateDisputeEvidenceText]($e/Disputes/CreateDisputeEvidenceText) endpoints and evidence
+     * automatically provided by Square, when available.
      * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
      *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
@@ -945,7 +943,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         return makeHttpCallAsync(() -> buildSubmitEvidenceRequest(disputeId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSubmitEvidenceResponse(context));
     }
 

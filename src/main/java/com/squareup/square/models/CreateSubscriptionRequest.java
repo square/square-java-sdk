@@ -101,7 +101,7 @@ public class CreateSubscriptionRequest {
 
     /**
      * Getter for CustomerId.
-     * The ID of the [customer](#type-customer) profile.
+     * The ID of the [customer]($m/Customer) profile.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -161,9 +161,9 @@ public class CreateSubscriptionRequest {
 
     /**
      * Getter for CardId.
-     * The ID of the [customer](#type-customer) [card](#type-card) to charge. If not specified,
-     * Square sends an invoice via email. For an example to create a customer and add a card on
-     * file, see [Subscriptions
+     * The ID of the [customer]($m/Customer) [card]($m/Card) to charge. If not specified, Square
+     * sends an invoice via email. For an example to create a customer and add a card on file, see
+     * [Subscriptions
      * Walkthrough](https://developer.squareup.com/docs/subscriptions-api/walkthrough).
      * @return Returns the String
      */

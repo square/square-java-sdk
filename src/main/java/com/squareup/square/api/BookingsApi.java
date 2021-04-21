@@ -130,7 +130,7 @@ public interface BookingsApi {
 
     /**
      * Retrieves a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -141,7 +141,7 @@ public interface BookingsApi {
 
     /**
      * Retrieves a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
      */
@@ -150,7 +150,7 @@ public interface BookingsApi {
 
     /**
      * Updates a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -164,7 +164,7 @@ public interface BookingsApi {
 
     /**
      * Updates a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -176,7 +176,7 @@ public interface BookingsApi {
 
     /**
      * Cancels an existing booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -190,7 +190,7 @@ public interface BookingsApi {
 
     /**
      * Cancels an existing booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

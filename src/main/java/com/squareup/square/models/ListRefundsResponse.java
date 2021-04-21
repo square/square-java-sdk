@@ -65,7 +65,8 @@ public class ListRefundsResponse {
      * Getter for Cursor.
      * A pagination cursor for retrieving the next set of results, if any remain. Provide this value
      * as the `cursor` parameter in a subsequent request to this endpoint. See [Paginating
-     * results](#paginatingresults) for more information.
+     * results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")

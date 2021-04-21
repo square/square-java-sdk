@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,6 +15,8 @@ public class SubscriptionEvent {
     private final String subscriptionEventType;
     private final String effectiveDate;
     private final String planId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final SubscriptionEventInfo info;
 
     /**
      * Initialization constructor.
@@ -21,17 +24,20 @@ public class SubscriptionEvent {
      * @param  subscriptionEventType  String value for subscriptionEventType.
      * @param  effectiveDate  String value for effectiveDate.
      * @param  planId  String value for planId.
+     * @param  info  SubscriptionEventInfo value for info.
      */
     @JsonCreator
     public SubscriptionEvent(
             @JsonProperty("id") String id,
             @JsonProperty("subscription_event_type") String subscriptionEventType,
             @JsonProperty("effective_date") String effectiveDate,
-            @JsonProperty("plan_id") String planId) {
+            @JsonProperty("plan_id") String planId,
+            @JsonProperty("info") SubscriptionEventInfo info) {
         this.id = id;
         this.subscriptionEventType = subscriptionEventType;
         this.effectiveDate = effectiveDate;
         this.planId = planId;
+        this.info = info;
     }
 
     /**
@@ -75,9 +81,19 @@ public class SubscriptionEvent {
         return planId;
     }
 
+    /**
+     * Getter for Info.
+     * Provides information about the subscription event.
+     * @return Returns the SubscriptionEventInfo
+     */
+    @JsonGetter("info")
+    public SubscriptionEventInfo getInfo() {
+        return info;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, subscriptionEventType, effectiveDate, planId);
+        return Objects.hash(id, subscriptionEventType, effectiveDate, planId, info);
     }
 
     @Override
@@ -92,7 +108,8 @@ public class SubscriptionEvent {
         return Objects.equals(id, other.id)
             && Objects.equals(subscriptionEventType, other.subscriptionEventType)
             && Objects.equals(effectiveDate, other.effectiveDate)
-            && Objects.equals(planId, other.planId);
+            && Objects.equals(planId, other.planId)
+            && Objects.equals(info, other.info);
     }
 
     /**
@@ -103,7 +120,7 @@ public class SubscriptionEvent {
     public String toString() {
         return "SubscriptionEvent [" + "id=" + id + ", subscriptionEventType="
                 + subscriptionEventType + ", effectiveDate=" + effectiveDate + ", planId=" + planId
-                + "]";
+                + ", info=" + info + "]";
     }
 
     /**
@@ -112,7 +129,8 @@ public class SubscriptionEvent {
      * @return a new {@link SubscriptionEvent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planId);
+        Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planId)
+                .info(getInfo());
         return builder;
     }
 
@@ -124,6 +142,7 @@ public class SubscriptionEvent {
         private String subscriptionEventType;
         private String effectiveDate;
         private String planId;
+        private SubscriptionEventInfo info;
 
         /**
          * Initialization constructor.
@@ -181,11 +200,21 @@ public class SubscriptionEvent {
         }
 
         /**
+         * Setter for info.
+         * @param  info  SubscriptionEventInfo value for info.
+         * @return Builder
+         */
+        public Builder info(SubscriptionEventInfo info) {
+            this.info = info;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionEvent} object using the set fields.
          * @return {@link SubscriptionEvent}
          */
         public SubscriptionEvent build() {
-            return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planId);
+            return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planId, info);
         }
     }
 }

@@ -21,8 +21,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface PaymentsApi {
     /**
-     * Retrieves a list of payments taken by the account making the request. The maximum results per
-     * page is 100.
+     * Retrieves a list of payments taken by the account making the request. Results are eventually
+     * consistent, and new payments or changes to payments might take several seconds to appear. The
+     * maximum results per page is 100.
      * @param  beginTime  Optional parameter: The timestamp for the beginning of the reporting
      *         period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
      * @param  endTime  Optional parameter: The timestamp for the end of the reporting period, in
@@ -59,8 +60,9 @@ public interface PaymentsApi {
             final Integer limit) throws ApiException, IOException;
 
     /**
-     * Retrieves a list of payments taken by the account making the request. The maximum results per
-     * page is 100.
+     * Retrieves a list of payments taken by the account making the request. Results are eventually
+     * consistent, and new payments or changes to payments might take several seconds to appear. The
+     * maximum results per page is 100.
      * @param  beginTime  Optional parameter: The timestamp for the beginning of the reporting
      *         period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
      * @param  endTime  Optional parameter: The timestamp for the end of the reporting period, in
@@ -97,7 +99,7 @@ public interface PaymentsApi {
     /**
      * Creates a payment using the provided source. You can use this endpoint to charge a card
      * (credit/debit card or Square gift card) or record a payment that the seller received outside
-     * of Square (cash payment from a buyer or a payment that an external entity procesed on behalf
+     * of Square (cash payment from a buyer or a payment that an external entity processed on behalf
      * of the seller). The endpoint creates a `Payment` object and returns it in the response.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -111,7 +113,7 @@ public interface PaymentsApi {
     /**
      * Creates a payment using the provided source. You can use this endpoint to charge a card
      * (credit/debit card or Square gift card) or record a payment that the seller received outside
-     * of Square (cash payment from a buyer or a payment that an external entity procesed on behalf
+     * of Square (cash payment from a buyer or a payment that an external entity processed on behalf
      * of the seller). The endpoint creates a `Payment` object and returns it in the response.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

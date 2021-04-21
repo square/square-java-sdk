@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.request.MultipartFileWrapper;
 import com.squareup.square.http.request.MultipartWrapper;
@@ -16,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.AbstractMap.SimpleEntry;
@@ -57,6 +61,21 @@ public class ApiHelper {
             Void.class, File.class, MultipartWrapper.class, MultipartFileWrapper.class));
 
     /**
+     * Get a JsonSerializer instance from the provided annotation.
+     * @param serializerAnnotation The Annotation containing information about the serializer.
+     * @return The JsonSerializer instance of the required type.
+     */
+    @SuppressWarnings("rawtypes")
+    private static JsonSerializer getSerializer(JsonSerialize serializerAnnotation) {
+        try {
+            return serializerAnnotation.using().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Json Serialization of a given object.
      * @param  obj The object to serialize into Json.
      * @return The serialized Json String representation of the given object.
@@ -71,6 +90,44 @@ public class ApiHelper {
         return mapper.writeValueAsString(obj);
     }
 
+    /**
+     * Json Serialization of a given object using a specified JsonSerializer.
+     * @param  obj The object to serialize into Json.
+     * @param  serializer The instance of JsonSerializer to use.
+     * @return The serialized Json string representation of the given object.
+     * @throws JsonProcessingException Signals that a Json Processing Exception has occurred.
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static String serialize(Object obj, final JsonSerializer serializer)
+            throws JsonProcessingException {
+        if (obj == null || serializer == null) {
+            return null;
+        }
+        
+        if (obj.getClass().getName().equals("java.util.ArrayList")) {
+            // need to find the generic type if it's an ArrayList
+            final Class<? extends Object> cls = ((ArrayList) obj).get(0).getClass();
+
+            return new ObjectMapper() {
+                private static final long serialVersionUID = -1639089569991988232L;
+                {
+                    SimpleModule module = new SimpleModule();
+                    module.addSerializer(cls, serializer);
+                    this.registerModule(module);
+                }
+            }.writeValueAsString(obj);
+        }
+
+        final Class<? extends Object> cls = obj.getClass();
+        return new ObjectMapper() {
+            private static final long serialVersionUID = -1639089569991988232L;
+            {
+                SimpleModule module = new SimpleModule();
+                module.addSerializer(cls, serializer);
+                this.registerModule(module);
+            }
+        }.writeValueAsString(obj);
+    }
 
     /**
      * Json deserialization of the given Json string.
@@ -121,6 +178,24 @@ public class ApiHelper {
         }
 
         return mapper.readValue(json, typeReference);
+    }
+
+    /**
+     * Json deserialization of the given Json string.
+     * @param   json The Json string to deserialize
+     * @return  The deserialized Json as an Object
+     */
+    public static Object deserializeAsObject(String json) {
+        if (isNullOrWhiteSpace(json)) {
+            return null;
+        }
+        try {
+            return ApiHelper.deserialize(json, new TypeReference<Object>() {});
+        } catch (IOException e) {
+            // Failed to deserialize when json is not representing a JSON object.
+            // i.e. either its string or any primitive type.
+            return json;
+        }
     }
 
     /**
@@ -466,36 +541,52 @@ public class ApiHelper {
         } else {
             // Process objects
             // Invoke getter methods
-            Method[] methods = obj.getClass().getMethods();
-            for (Method method : methods) {
-                // Is a getter?
-                if (method.getParameterTypes().length != 0 || !method.getName().startsWith("get")) {
-                    continue;
-                }
+            Class<?> clazz = obj.getClass();
+            while (clazz != null) {
+                for (Method method : clazz.getDeclaredMethods()) {
 
-                // Get Json attribute name
-                Annotation getterAnnotation = method.getAnnotation(JsonGetter.class);
-                if (getterAnnotation == null) {
-                    continue;
-                }
+                    // Is a public/protected getter or internalGetter?
+                    if (method.getParameterTypes().length != 0
+                            || Modifier.isPrivate(method.getModifiers())
+                            || (!method.getName().startsWith("get")
+                                    && !method.getName().startsWith("internalGet"))) {
+                        continue;
+                    }
 
-                // Load key name
-                String attribName = ((JsonGetter) getterAnnotation).value();
-                if ((objName != null) && (!objName.isEmpty())) {
-                    attribName = String.format("%s[%s]", objName, attribName);
-                }
+                    // Get JsonGetter annotation
+                    Annotation getterAnnotation = method.getAnnotation(JsonGetter.class);
+                    if (getterAnnotation == null) {
+                        continue;
+                    }
 
-                try {
-                    // Load key value pair
-                    Object value = method.invoke(obj);
-                    loadKeyValuePairForEncoding(attribName, value, objectList, processed);
-                } catch (IllegalAccessException | IllegalArgumentException
-                        | InvocationTargetException e) {
-                    // This block only calls getter methods.
-                    // These getters don't throw any exception except invocationTargetException.
-                    // The getters are public so there is no chance of an IllegalAccessException
-                    // Steps we've followed ensure that the object has the specified method.
+                    // Load key name from getter attribute name
+                    String attribName = ((JsonGetter) getterAnnotation).value();
+                    if ((objName != null) && (!objName.isEmpty())) {
+                        attribName = String.format("%s[%s]", objName, attribName);
+                    }
+
+                    try {
+                        // Load value by invoking getter method
+                        method.setAccessible(true);
+                        Object value = method.invoke(obj);
+                        JsonSerialize serializerAnnotation = method
+                                .getAnnotation(JsonSerialize.class);
+                        // Load key value pair into objectList
+                        if (serializerAnnotation != null) {
+                            loadKeyValuePairForEncoding(attribName, value, objectList, processed,
+                                    serializerAnnotation);
+                        } else {
+                            loadKeyValuePairForEncoding(attribName, value, objectList, processed);
+                        }
+                    } catch (IllegalAccessException | IllegalArgumentException
+                            | InvocationTargetException e) {
+                        // This block only calls getter methods.
+                        // These getters don't throw any exception except invocationTargetException.
+                        // The getters are public so there is no chance of an IllegalAccessException
+                        // Steps we've followed ensure that the object has the specified method.
+                    }
                 }
+                clazz = clazz.getSuperclass();
             }
         }
     }
@@ -519,6 +610,33 @@ public class ApiHelper {
             objectList.add(new SimpleEntry<String, Object>(key, value.toString()));
         } else {
             objectToList(key, value, objectList, processed);
+        }
+    }
+
+    /**
+     * While processing objects to map, loads value after serializing.
+     * @param key The key to used for creation of key value pair.
+     * @param value The value to process against the given key.
+     * @param objectList The object list to process with key value pair.
+     * @param processed List of processed objects hashCodes.
+     * @param serializerAnnotation Annotation for serializer
+     */
+    @SuppressWarnings("unused")
+    private static void loadKeyValuePairForEncoding(String key, Object value,
+            List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed,
+            JsonSerialize serializerAnnotation) {
+        if (value == null) {
+            return;
+        }
+
+        try {
+            value = serialize(value, getSerializer(serializerAnnotation));
+            if (value.toString().startsWith("\"")) {
+                value = value.toString().substring(1, value.toString().length() - 1);
+            }
+            objectList.add(new SimpleEntry<String, Object>(key, value));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
     }
 

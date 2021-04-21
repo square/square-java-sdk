@@ -46,7 +46,7 @@ public class TeamMemberBookingProfile {
 
     /**
      * Getter for TeamMemberId.
-     * The ID of the [TeamMember](#type-TeamMember) object for the team member associated with the
+     * The ID of the [TeamMember]($m/TeamMember) object for the team member associated with the
      * booking profile.
      * @return Returns the String
      */

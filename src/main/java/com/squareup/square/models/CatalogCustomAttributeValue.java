@@ -83,7 +83,7 @@ public class CatalogCustomAttributeValue {
     /**
      * Getter for CustomAttributeDefinitionId.
      * __Read-only.__ The id of the
-     * [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) this value belongs
+     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) this value belongs
      * to.
      * @return Returns the String
      */

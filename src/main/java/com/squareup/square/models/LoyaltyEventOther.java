@@ -28,7 +28,7 @@ public class LoyaltyEventOther {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The Square-assigned ID of the [loyalty program](#type-LoyaltyProgram).
+     * The Square-assigned ID of the [loyalty program]($m/LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")

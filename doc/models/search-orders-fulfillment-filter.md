@@ -1,7 +1,7 @@
 
 # Search Orders Fulfillment Filter
 
-Filter based on [Order Fulfillment](#type-orderfulfillment) information.
+Filter based on [Order Fulfillment](/doc/models/order-fulfillment.md) information.
 
 ## Structure
 
@@ -11,8 +11,8 @@ Filter based on [Order Fulfillment](#type-orderfulfillment) information.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `FulfillmentTypes` | [`List<String>`](/doc/models/order-fulfillment-type.md) | Optional | List of [fulfillment types](#type-orderfulfillmenttype) to filter<br>for. Will return orders if any of its fulfillments match any of the fulfillment types<br>listed in this field.<br>See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values | List<String> getFulfillmentTypes() |
-| `FulfillmentStates` | [`List<String>`](/doc/models/order-fulfillment-state.md) | Optional | List of [fulfillment states](#type-orderfulfillmentstate) to filter<br>for. Will return orders if any of its fulfillments match any of the<br>fulfillment states listed in this field.<br>See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values | List<String> getFulfillmentStates() |
+| `FulfillmentTypes` | [`List<String>`](/doc/models/order-fulfillment-type.md) | Optional | List of [fulfillment types](/doc/models/order-fulfillment-type.md) to filter<br>for. Will return orders if any of its fulfillments match any of the fulfillment types<br>listed in this field.<br>See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values | List<String> getFulfillmentTypes() |
+| `FulfillmentStates` | [`List<String>`](/doc/models/order-fulfillment-state.md) | Optional | List of [fulfillment states](/doc/models/order-fulfillment-state.md) to filter<br>for. Will return orders if any of its fulfillments match any of the<br>fulfillment states listed in this field.<br>See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values | List<String> getFulfillmentStates() |
 
 ## Example (as JSON)
 

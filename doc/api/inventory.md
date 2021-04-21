@@ -21,7 +21,7 @@ InventoryApi inventoryApi = client.getInventoryApi();
 
 # Retrieve Inventory Adjustment
 
-Returns the [InventoryAdjustment](#type-inventoryadjustment) object
+Returns the [InventoryAdjustment](/doc/models/inventory-adjustment.md) object
 with the provided `adjustment_id`.
 
 ```java
@@ -33,7 +33,7 @@ CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustme
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](#type-inventoryadjustment) to retrieve. |
+| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](/doc/models/inventory-adjustment.md) to retrieve. |
 
 ## Response Type
 
@@ -106,11 +106,27 @@ InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
     .fromLocationId("from_location_id2")
     .toLocationId("to_location_id2")
     .build();
+MeasurementUnitCustom bodyChanges0MeasurementUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+        "name0",
+        "abbreviation2")
+    .build();
+MeasurementUnit bodyChanges0MeasurementUnitMeasurementUnit = new MeasurementUnit.Builder()
+    .customUnit(bodyChanges0MeasurementUnitMeasurementUnitCustomUnit)
+    .areaUnit("IMPERIAL_SQUARE_FOOT")
+    .lengthUnit("METRIC_METER")
+    .volumeUnit("METRIC_MILLILITER")
+    .weightUnit("IMPERIAL_WEIGHT_OUNCE")
+    .build();
+CatalogMeasurementUnit bodyChanges0MeasurementUnit = new CatalogMeasurementUnit.Builder()
+    .measurementUnit(bodyChanges0MeasurementUnitMeasurementUnit)
+    .precision(26)
+    .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
     .physicalCount(bodyChanges0PhysicalCount)
     .adjustment(bodyChanges0Adjustment)
     .transfer(bodyChanges0Transfer)
+    .measurementUnit(bodyChanges0MeasurementUnit)
     .build();
 bodyChanges.add(bodyChanges0);
 
@@ -187,8 +203,8 @@ inventoryApi.batchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
 # Batch Retrieve Inventory Counts
 
 Returns current counts for the provided
-[CatalogObject](#type-catalogobject)s at the requested
-[Location](#type-location)s.
+[CatalogObject](/doc/models/catalog-object.md)s at the requested
+[Location](/doc/models/location.md)s.
 
 Results are paginated and sorted in descending order according to their
 `calculated_at` timestamp (newest first).
@@ -241,7 +257,7 @@ inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
 
 # Retrieve Inventory Physical Count
 
-Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount)
+Returns the [InventoryPhysicalCount](/doc/models/inventory-physical-count.md)
 object with the provided `physical_count_id`.
 
 ```java
@@ -253,7 +269,7 @@ CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysi
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](#type-inventoryphysicalcount) to retrieve. |
+| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](/doc/models/inventory-physical-count.md) to retrieve. |
 
 ## Response Type
 
@@ -276,8 +292,8 @@ inventoryApi.retrieveInventoryPhysicalCountAsync(physicalCountId).thenAccept(res
 # Retrieve Inventory Count
 
 Retrieves the current calculated stock count for a given
-[CatalogObject](#type-catalogobject) at a given set of
-[Location](#type-location)s. Responses are paginated and unsorted.
+[CatalogObject](/doc/models/catalog-object.md) at a given set of
+[Location](/doc/models/location.md)s. Responses are paginated and unsorted.
 For more sophisticated queries, use a batch endpoint.
 
 ```java
@@ -291,8 +307,8 @@ CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](#type-catalogobject) to retrieve. |
-| `locationIds` | `String` | Query, Optional | The [Location](#type-location) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
+| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](/doc/models/catalog-object.md) to retrieve. |
+| `locationIds` | `String` | Query, Optional | The [Location](/doc/models/location.md) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
 
 ## Response Type
@@ -318,8 +334,8 @@ inventoryApi.retrieveInventoryCountAsync(catalogObjectId, locationIds, cursor).t
 # Retrieve Inventory Changes
 
 Returns a set of physical counts and inventory adjustments for the
-provided [CatalogObject](#type-catalogobject) at the requested
-[Location](#type-location)s.
+provided [CatalogObject](/doc/models/catalog-object.md) at the requested
+[Location](/doc/models/location.md)s.
 
 Results are paginated and sorted in descending order according to their
 `occurred_at` timestamp (newest first).
@@ -339,8 +355,8 @@ CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsyn
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](#type-catalogobject) to retrieve. |
-| `locationIds` | `String` | Query, Optional | The [Location](#type-location) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
+| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](/doc/models/catalog-object.md) to retrieve. |
+| `locationIds` | `String` | Query, Optional | The [Location](/doc/models/location.md) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
 
 ## Response Type

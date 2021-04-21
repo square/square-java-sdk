@@ -60,22 +60,27 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
      * Lists refunds for one of a business's locations. In addition to full or partial tender
      * refunds processed through Square APIs, refunds may result from itemized returns or exchanges
      * through Square's Point of Sale applications. Refunds with a `status` of `PENDING` are not
-     * currently included in this endpoint's response. Max results per [page](#paginatingresults):
-     * 50.
+     * currently included in this endpoint's response. Max results per
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListRefundsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -91,7 +96,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                 cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListRefundsResponse(context);
@@ -101,22 +106,27 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
      * Lists refunds for one of a business's locations. In addition to full or partial tender
      * refunds processed through Square APIs, refunds may result from itemized returns or exchanges
      * through Square's Point of Sale applications. Refunds with a `status` of `PENDING` are not
-     * currently included in this endpoint's response. Max results per [page](#paginatingresults):
-     * 50.
+     * currently included in this endpoint's response. Max results per
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListRefundsResponse response from the API call
      */
     @Deprecated
@@ -130,7 +140,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                 sortOrder, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListRefundsResponse(context));
     }
 
@@ -210,21 +220,26 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     /**
      * Lists transactions for a particular location. Transactions include payment information from
      * sales and exchanges and refund information from returns and exchanges. Max results per
-     * [page](#paginatingresults): 50.
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list transactions for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListTransactionsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -240,7 +255,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                 sortOrder, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListTransactionsResponse(context);
@@ -249,21 +264,26 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     /**
      * Lists transactions for a particular location. Transactions include payment information from
      * sales and exchanges and refund information from returns and exchanges. Max results per
-     * [page](#paginatingresults): 50.
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list transactions for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListTransactionsResponse response from the API call
      */
     @Deprecated
@@ -277,7 +297,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                 sortOrder, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListTransactionsResponse(context));
     }
 
@@ -364,8 +384,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
      * following parameters in your request: - `buyer_email_address` - At least one of
      * `billing_address` or `shipping_address` When this response is returned, the amount of
      * Square's processing fee might not yet be calculated. To obtain the processing fee, wait about
-     * ten seconds and call [RetrieveTransaction](#endpoint-retrievetransaction). See the
-     * `processing_fee_money` field of each [Tender included](#type-tender) in the transaction.
+     * ten seconds and call [RetrieveTransaction]($e/Transactions/RetrieveTransaction). See the
+     * `processing_fee_money` field of each [Tender included]($m/Tender) in the transaction.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to associate the created
@@ -383,7 +403,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         HttpRequest request = buildChargeRequest(locationId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleChargeResponse(context);
@@ -399,8 +419,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
      * following parameters in your request: - `buyer_email_address` - At least one of
      * `billing_address` or `shipping_address` When this response is returned, the amount of
      * Square's processing fee might not yet be calculated. To obtain the processing fee, wait about
-     * ten seconds and call [RetrieveTransaction](#endpoint-retrievetransaction). See the
-     * `processing_fee_money` field of each [Tender included](#type-tender) in the transaction.
+     * ten seconds and call [RetrieveTransaction]($e/Transactions/RetrieveTransaction). See the
+     * `processing_fee_money` field of each [Tender included]($m/Tender) in the transaction.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to associate the created
@@ -416,7 +436,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         return makeHttpCallAsync(() -> buildChargeRequest(locationId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleChargeResponse(context));
     }
 
@@ -501,7 +521,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         HttpRequest request = buildRetrieveTransactionRequest(locationId, transactionId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveTransactionResponse(context);
@@ -522,7 +542,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         return makeHttpCallAsync(() -> buildRetrieveTransactionRequest(locationId, transactionId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveTransactionResponse(context));
     }
 
@@ -591,8 +611,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     }
 
     /**
-     * Captures a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -610,15 +630,15 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         HttpRequest request = buildCaptureTransactionRequest(locationId, transactionId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCaptureTransactionResponse(context);
     }
 
     /**
-     * Captures a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -634,7 +654,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         return makeHttpCallAsync(() -> buildCaptureTransactionRequest(locationId, transactionId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCaptureTransactionResponse(context));
     }
 
@@ -728,7 +748,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         HttpRequest request = buildCreateRefundRequest(locationId, transactionId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateRefundResponse(context);
@@ -758,7 +778,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         return makeHttpCallAsync(() -> buildCreateRefundRequest(locationId, transactionId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateRefundResponse(context));
     }
 
@@ -830,8 +850,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     }
 
     /**
-     * Cancels a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -849,15 +869,15 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         HttpRequest request = buildVoidTransactionRequest(locationId, transactionId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleVoidTransactionResponse(context);
     }
 
     /**
-     * Cancels a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -873,7 +893,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
         return makeHttpCallAsync(() -> buildVoidTransactionRequest(locationId, transactionId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleVoidTransactionResponse(context));
     }
 

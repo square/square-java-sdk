@@ -47,7 +47,11 @@ public class Invoice {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final InvoiceAcceptedPaymentMethods acceptedPaymentMethods;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoiceCustomField> customFields;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String subscriptionId;
 
     /**
      * Initialization constructor.
@@ -68,7 +72,10 @@ public class Invoice {
      * @param  timezone  String value for timezone.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
+     * @param  acceptedPaymentMethods  InvoiceAcceptedPaymentMethods value for
+     *         acceptedPaymentMethods.
      * @param  customFields  List of InvoiceCustomField value for customFields.
+     * @param  subscriptionId  String value for subscriptionId.
      */
     @JsonCreator
     public Invoice(
@@ -89,7 +96,9 @@ public class Invoice {
             @JsonProperty("timezone") String timezone,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
-            @JsonProperty("custom_fields") List<InvoiceCustomField> customFields) {
+            @JsonProperty("accepted_payment_methods") InvoiceAcceptedPaymentMethods acceptedPaymentMethods,
+            @JsonProperty("custom_fields") List<InvoiceCustomField> customFields,
+            @JsonProperty("subscription_id") String subscriptionId) {
         this.id = id;
         this.version = version;
         this.locationId = locationId;
@@ -107,7 +116,9 @@ public class Invoice {
         this.timezone = timezone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.acceptedPaymentMethods = acceptedPaymentMethods;
         this.customFields = customFields;
+        this.subscriptionId = subscriptionId;
     }
 
     /**
@@ -144,9 +155,9 @@ public class Invoice {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order](#type-order) for which the invoice is created. This order must be in
-     * the `OPEN` state and must belong to the `location_id` specified for this invoice. This field
-     * is required when creating an invoice.
+     * The ID of the [order]($m/Order) for which the invoice is created. This order must be in the
+     * `OPEN` state and must belong to the `location_id` specified for this invoice. This field is
+     * required when creating an invoice.
      * @return Returns the String
      */
     @JsonGetter("order_id")
@@ -180,7 +191,7 @@ public class Invoice {
 
     /**
      * Getter for DeliveryMethod.
-     * Indicates how Square delivers the [invoice](#type-Invoice) to the customer.
+     * Indicates how Square delivers the [invoice]($m/Invoice) to the customer.
      * @return Returns the String
      */
     @JsonGetter("delivery_method")
@@ -192,7 +203,7 @@ public class Invoice {
      * Getter for InvoiceNumber.
      * A user-friendly invoice number. The value is unique within a location. If not provided when
      * creating an invoice, Square assigns a value. It increments from 1 and padded with zeros
-     * making it 7 characters long for example, 0000001, 0000002.
+     * making it 7 characters long (for example, 0000001 and 0000002).
      * @return Returns the String
      */
     @JsonGetter("invoice_number")
@@ -305,6 +316,17 @@ public class Invoice {
     }
 
     /**
+     * Getter for AcceptedPaymentMethods.
+     * The payment methods that customers can use to pay an invoice on the Square-hosted invoice
+     * page.
+     * @return Returns the InvoiceAcceptedPaymentMethods
+     */
+    @JsonGetter("accepted_payment_methods")
+    public InvoiceAcceptedPaymentMethods getAcceptedPaymentMethods() {
+        return acceptedPaymentMethods;
+    }
+
+    /**
      * Getter for CustomFields.
      * Additional seller-defined fields to render on the invoice. These fields are visible to
      * sellers and buyers on the Square-hosted invoice page and in emailed or PDF copies of
@@ -318,11 +340,23 @@ public class Invoice {
         return customFields;
     }
 
+    /**
+     * Getter for SubscriptionId.
+     * The ID of the [subscription]($m/Subscription) associated with the invoice. This field is
+     * present only on subscription billing invoices.
+     * @return Returns the String
+     */
+    @JsonGetter("subscription_id")
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                 deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
-                nextPaymentAmountMoney, status, timezone, createdAt, updatedAt, customFields);
+                nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
+                acceptedPaymentMethods, customFields, subscriptionId);
     }
 
     @Override
@@ -351,7 +385,9 @@ public class Invoice {
             && Objects.equals(timezone, other.timezone)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
-            && Objects.equals(customFields, other.customFields);
+            && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods)
+            && Objects.equals(customFields, other.customFields)
+            && Objects.equals(subscriptionId, other.subscriptionId);
     }
 
     /**
@@ -367,7 +403,8 @@ public class Invoice {
                 + description + ", scheduledAt=" + scheduledAt + ", publicUrl=" + publicUrl
                 + ", nextPaymentAmountMoney=" + nextPaymentAmountMoney + ", status=" + status
                 + ", timezone=" + timezone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", customFields=" + customFields + "]";
+                + ", acceptedPaymentMethods=" + acceptedPaymentMethods + ", customFields="
+                + customFields + ", subscriptionId=" + subscriptionId + "]";
     }
 
     /**
@@ -394,7 +431,9 @@ public class Invoice {
                 .timezone(getTimezone())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .customFields(getCustomFields());
+                .acceptedPaymentMethods(getAcceptedPaymentMethods())
+                .customFields(getCustomFields())
+                .subscriptionId(getSubscriptionId());
         return builder;
     }
 
@@ -419,7 +458,9 @@ public class Invoice {
         private String timezone;
         private String createdAt;
         private String updatedAt;
+        private InvoiceAcceptedPaymentMethods acceptedPaymentMethods;
         private List<InvoiceCustomField> customFields;
+        private String subscriptionId;
 
 
 
@@ -594,6 +635,18 @@ public class Invoice {
         }
 
         /**
+         * Setter for acceptedPaymentMethods.
+         * @param  acceptedPaymentMethods  InvoiceAcceptedPaymentMethods value for
+         *         acceptedPaymentMethods.
+         * @return Builder
+         */
+        public Builder acceptedPaymentMethods(
+                InvoiceAcceptedPaymentMethods acceptedPaymentMethods) {
+            this.acceptedPaymentMethods = acceptedPaymentMethods;
+            return this;
+        }
+
+        /**
          * Setter for customFields.
          * @param  customFields  List of InvoiceCustomField value for customFields.
          * @return Builder
@@ -604,13 +657,24 @@ public class Invoice {
         }
 
         /**
+         * Setter for subscriptionId.
+         * @param  subscriptionId  String value for subscriptionId.
+         * @return Builder
+         */
+        public Builder subscriptionId(String subscriptionId) {
+            this.subscriptionId = subscriptionId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
         public Invoice build() {
             return new Invoice(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                     deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
-                    nextPaymentAmountMoney, status, timezone, createdAt, updatedAt, customFields);
+                    nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
+                    acceptedPaymentMethods, customFields, subscriptionId);
         }
     }
 }

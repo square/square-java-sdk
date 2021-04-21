@@ -17,6 +17,7 @@ LoyaltyApi loyaltyApi = client.getLoyaltyApi();
 * [Adjust Loyalty Points](/doc/api/loyalty.md#adjust-loyalty-points)
 * [Search Loyalty Events](/doc/api/loyalty.md#search-loyalty-events)
 * [List Loyalty Programs](/doc/api/loyalty.md#list-loyalty-programs)
+* [Retrieve Loyalty Program](/doc/api/loyalty.md#retrieve-loyalty-program)
 * [Calculate Loyalty Points](/doc/api/loyalty.md#calculate-loyalty-points)
 * [Create Loyalty Reward](/doc/api/loyalty.md#create-loyalty-reward)
 * [Search Loyalty Rewards](/doc/api/loyalty.md#search-loyalty-rewards)
@@ -27,7 +28,7 @@ LoyaltyApi loyaltyApi = client.getLoyaltyApi();
 
 # Create Loyalty Account
 
-Creates a loyalty account.
+Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and either the `mapping` field (preferred) or the `mappings` field.
 
 ```java
 CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
@@ -49,22 +50,30 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 ```java
 List<LoyaltyAccountMapping> bodyLoyaltyAccountMappings = new LinkedList<>();
 
-LoyaltyAccountMapping bodyLoyaltyAccountMappings0 = new LoyaltyAccountMapping.Builder(
-        "PHONE",
-        "+14155551234")
+LoyaltyAccountMapping bodyLoyaltyAccountMappings0 = new LoyaltyAccountMapping.Builder()
     .id("id0")
+    .type("PHONE")
+    .value("value2")
     .createdAt("created_at8")
+    .phoneNumber("phone_number8")
     .build();
 bodyLoyaltyAccountMappings.add(bodyLoyaltyAccountMappings0);
 
+LoyaltyAccountMapping bodyLoyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
+    .id("id6")
+    .type("PHONE")
+    .value("value8")
+    .createdAt("created_at4")
+    .phoneNumber("+14155551234")
+    .build();
 LoyaltyAccount bodyLoyaltyAccount = new LoyaltyAccount.Builder(
-        bodyLoyaltyAccountMappings,
         "d619f755-2d17-41f3-990d-c04ecedd64dd")
     .id("id2")
+    .mappings(bodyLoyaltyAccountMappings)
     .balance(14)
     .lifetimePoints(38)
     .customerId("customer_id0")
-    .enrolledAt("enrolled_at2")
+    .mapping(bodyLoyaltyAccountMapping)
     .build();
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
         bodyLoyaltyAccount,
@@ -108,11 +117,12 @@ CompletableFuture<SearchLoyaltyAccountsResponse> searchLoyaltyAccountsAsync(
 ```java
 List<LoyaltyAccountMapping> bodyQueryMappings = new LinkedList<>();
 
-LoyaltyAccountMapping bodyQueryMappings0 = new LoyaltyAccountMapping.Builder(
-        "PHONE",
-        "+14155551234")
+LoyaltyAccountMapping bodyQueryMappings0 = new LoyaltyAccountMapping.Builder()
     .id("id4")
+    .type("PHONE")
+    .value("value6")
     .createdAt("created_at8")
+    .phoneNumber("+14155551234")
     .build();
 bodyQueryMappings.add(bodyQueryMappings0);
 
@@ -151,7 +161,7 @@ CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The ID of the [loyalty account](#type-LoyaltyAccount) to retrieve. |
+| `accountId` | `String` | Template, Required | The ID of the [loyalty account](/doc/models/loyalty-account.md) to retrieve. |
 
 ## Response Type
 
@@ -180,7 +190,7 @@ Adds points to a loyalty account.
 - If you are not using the Orders API to manage orders,
   you first perform a client-side computation to compute the points.  
   For spend-based and visit-based programs, you can call
-  [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the points. For more information,
+  [CalculateLoyaltyPoints](/doc/api/loyalty.md#calculate-loyalty-points) to compute the points. For more information,
   see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
   You then provide the points in a request to this endpoint.
 
@@ -194,7 +204,7 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The [loyalty account](#type-LoyaltyAccount) ID to which to add the points. |
+| `accountId` | `String` | Template, Required | The [loyalty account](/doc/models/loyalty-account.md) ID to which to add the points. |
 | `body` | [`AccumulateLoyaltyPointsRequest`](/doc/models/accumulate-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -230,7 +240,7 @@ loyaltyApi.accumulateLoyaltyPointsAsync(accountId, body).thenAccept(result -> {
 Adds points to or subtracts points from a buyer's account.
 
 Use this endpoint only when you need to manually adjust points. Otherwise, in your application flow, you call
-[AccumulateLoyaltyPoints](#endpoint-Loyalty-AccumulateLoyaltyPoints)
+[AccumulateLoyaltyPoints](/doc/api/loyalty.md#accumulate-loyalty-points)
 to add points when a buyer pays for the purchase.
 
 ```java
@@ -243,7 +253,7 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The ID of the [loyalty account](#type-LoyaltyAccount) in which to adjust the points. |
+| `accountId` | `String` | Template, Required | The ID of the [loyalty account](/doc/models/loyalty-account.md) in which to adjust the points. |
 | `body` | [`AdjustLoyaltyPointsRequest`](/doc/models/adjust-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -255,12 +265,12 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 ```java
 String accountId = "account_id2";
 LoyaltyEventAdjustPoints bodyAdjustPoints = new LoyaltyEventAdjustPoints.Builder(
-        112)
+        10)
     .loyaltyProgramId("loyalty_program_id4")
-    .reason("reason0")
+    .reason("Complimentary points")
     .build();
 AdjustLoyaltyPointsRequest body = new AdjustLoyaltyPointsRequest.Builder(
-        "idempotency_key2",
+        "bc29a517-3dc9-450e-aa76-fae39ee849d1",
         bodyAdjustPoints)
     .build();
 
@@ -281,6 +291,8 @@ A Square loyalty program maintains a ledger of events that occur during the life
 buyer's loyalty account. Each change in the point balance
 (for example, points earned, points redeemed, and points expired) is
 recorded in the ledger. Using this endpoint, you can search the ledger for events.
+
+Search results are sorted by `created_at` in descending order.
 
 ```java
 CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
@@ -377,6 +389,41 @@ loyaltyApi.listLoyaltyProgramsAsync().thenAccept(result -> {
 ```
 
 
+# Retrieve Loyalty Program
+
+Retrieves the loyalty program in a seller's account, specified by the program ID or the keyword `main`.
+
+Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
+
+```java
+CompletableFuture<RetrieveLoyaltyProgramResponse> retrieveLoyaltyProgramAsync(
+    final String programId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `programId` | `String` | Template, Required | The ID of the loyalty program or the keyword `main`. Either value can be used to retrieve the single loyalty program that belongs to the seller. |
+
+## Response Type
+
+[`RetrieveLoyaltyProgramResponse`](/doc/models/retrieve-loyalty-program-response.md)
+
+## Example Usage
+
+```java
+String programId = "program_id0";
+
+loyaltyApi.retrieveLoyaltyProgramAsync(programId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
 # Calculate Loyalty Points
 
 Calculates the points a purchase earns.
@@ -399,7 +446,7 @@ CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `programId` | `String` | Template, Required | The [loyalty program](#type-LoyaltyProgram) ID, which defines the rules for accruing points. |
+| `programId` | `String` | Template, Required | The [loyalty program](/doc/models/loyalty-program.md) ID, which defines the rules for accruing points. |
 | `body` | [`CalculateLoyaltyPointsRequest`](/doc/models/calculate-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -487,7 +534,9 @@ Searches for loyalty rewards in a loyalty account.
 In the current implementation, the endpoint supports search by the reward `status`.
 
 If you know a reward ID, use the
-[RetrieveLoyaltyReward](#endpoint-Loyalty-RetrieveLoyaltyReward) endpoint.
+[RetrieveLoyaltyReward](/doc/api/loyalty.md#retrieve-loyalty-reward) endpoint.
+
+Search results are sorted by `updated_at` in descending order.
 
 ```java
 CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
@@ -532,7 +581,7 @@ Deletes a loyalty reward by doing the following:
 
 - Returns the loyalty points back to the loyalty account.
 - If an order ID was specified when the reward was created
-  (see [CreateLoyaltyReward](#endpoint-Loyalty-CreateLoyaltyReward)),
+  (see [CreateLoyaltyReward](/doc/api/loyalty.md#create-loyalty-reward)),
   it updates the order by removing the reward and related
   discounts.
 
@@ -547,7 +596,7 @@ CompletableFuture<DeleteLoyaltyRewardResponse> deleteLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](#type-LoyaltyReward) to delete. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](/doc/models/loyalty-reward.md) to delete. |
 
 ## Response Type
 
@@ -580,7 +629,7 @@ CompletableFuture<RetrieveLoyaltyRewardResponse> retrieveLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](#type-LoyaltyReward) to retrieve. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](/doc/models/loyalty-reward.md) to retrieve. |
 
 ## Response Type
 
@@ -624,7 +673,7 @@ CompletableFuture<RedeemLoyaltyRewardResponse> redeemLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](#type-LoyaltyReward) to redeem. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](/doc/models/loyalty-reward.md) to redeem. |
 | `body` | [`RedeemLoyaltyRewardRequest`](/doc/models/redeem-loyalty-reward-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type

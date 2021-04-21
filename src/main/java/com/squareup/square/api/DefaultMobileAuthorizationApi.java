@@ -65,7 +65,7 @@ public final class DefaultMobileAuthorizationApi extends BaseApi implements Mobi
         HttpRequest request = buildCreateMobileAuthorizationCodeRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateMobileAuthorizationCodeResponse(context);
@@ -87,7 +87,7 @@ public final class DefaultMobileAuthorizationApi extends BaseApi implements Mobi
         return makeHttpCallAsync(() -> buildCreateMobileAuthorizationCodeRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateMobileAuthorizationCodeResponse(context));
     }
 

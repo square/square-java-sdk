@@ -28,6 +28,7 @@ import com.squareup.square.models.ListLoyaltyProgramsResponse;
 import com.squareup.square.models.RedeemLoyaltyRewardRequest;
 import com.squareup.square.models.RedeemLoyaltyRewardResponse;
 import com.squareup.square.models.RetrieveLoyaltyAccountResponse;
+import com.squareup.square.models.RetrieveLoyaltyProgramResponse;
 import com.squareup.square.models.RetrieveLoyaltyRewardResponse;
 import com.squareup.square.models.SearchLoyaltyAccountsRequest;
 import com.squareup.square.models.SearchLoyaltyAccountsResponse;
@@ -70,7 +71,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     }
 
     /**
-     * Creates a loyalty account.
+     * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
+     * either the `mapping` field (preferred) or the `mappings` field.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -82,14 +84,15 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildCreateLoyaltyAccountRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateLoyaltyAccountResponse(context);
     }
 
     /**
-     * Creates a loyalty account.
+     * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
+     * either the `mapping` field (preferred) or the `mappings` field.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -99,7 +102,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildCreateLoyaltyAccountRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateLoyaltyAccountResponse(context));
     }
 
@@ -176,7 +179,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildSearchLoyaltyAccountsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchLoyaltyAccountsResponse(context);
@@ -196,7 +199,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildSearchLoyaltyAccountsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchLoyaltyAccountsResponse(context));
     }
 
@@ -259,8 +262,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         to retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
+     *         retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -270,7 +273,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildRetrieveLoyaltyAccountRequest(accountId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveLoyaltyAccountResponse(context);
@@ -278,8 +281,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         to retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
+     *         retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      */
     public CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
@@ -287,7 +290,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildRetrieveLoyaltyAccountRequest(accountId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveLoyaltyAccountResponse(context));
     }
 
@@ -357,12 +360,12 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * only provide the `order_id`. The endpoint reads the order to compute points to add to the
      * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
      * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
-     * points. For more information, see [Loyalty Program
+     * can call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points.
+     * For more information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
      * in a request to this endpoint.
-     * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
-     *         which to add the points.
+     * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
+     *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -375,7 +378,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildAccumulateLoyaltyPointsRequest(accountId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleAccumulateLoyaltyPointsResponse(context);
@@ -386,12 +389,12 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * only provide the `order_id`. The endpoint reads the order to compute points to add to the
      * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
      * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
-     * points. For more information, see [Loyalty Program
+     * can call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points.
+     * For more information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
      * in a request to this endpoint.
-     * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
-     *         which to add the points.
+     * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
+     *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -402,7 +405,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildAccumulateLoyaltyPointsRequest(accountId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleAccumulateLoyaltyPointsResponse(context));
     }
 
@@ -473,10 +476,10 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Adds points to or subtracts points from a buyer's account. Use this endpoint only when you
      * need to manually adjust points. Otherwise, in your application flow, you call
-     * [AccumulateLoyaltyPoints](#endpoint-Loyalty-AccumulateLoyaltyPoints) to add points when a
-     * buyer pays for the purchase.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         in which to adjust the points.
+     * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
+     * for the purchase.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) in
+     *         which to adjust the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -489,7 +492,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildAdjustLoyaltyPointsRequest(accountId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleAdjustLoyaltyPointsResponse(context);
@@ -498,10 +501,10 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Adds points to or subtracts points from a buyer's account. Use this endpoint only when you
      * need to manually adjust points. Otherwise, in your application flow, you call
-     * [AccumulateLoyaltyPoints](#endpoint-Loyalty-AccumulateLoyaltyPoints) to add points when a
-     * buyer pays for the purchase.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         in which to adjust the points.
+     * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
+     * for the purchase.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) in
+     *         which to adjust the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -512,7 +515,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildAdjustLoyaltyPointsRequest(accountId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleAdjustLoyaltyPointsResponse(context));
     }
 
@@ -584,7 +587,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * Searches for loyalty events. A Square loyalty program maintains a ledger of events that occur
      * during the lifetime of a buyer's loyalty account. Each change in the point balance (for
      * example, points earned, points redeemed, and points expired) is recorded in the ledger. Using
-     * this endpoint, you can search the ledger for events.
+     * this endpoint, you can search the ledger for events. Search results are sorted by
+     * `created_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyEventsResponse response from the API call
@@ -596,7 +600,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildSearchLoyaltyEventsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchLoyaltyEventsResponse(context);
@@ -606,7 +610,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * Searches for loyalty events. A Square loyalty program maintains a ledger of events that occur
      * during the lifetime of a buyer's loyalty account. Each change in the point balance (for
      * example, points earned, points redeemed, and points expired) is recorded in the ledger. Using
-     * this endpoint, you can search the ledger for events.
+     * this endpoint, you can search the ledger for events. Search results are sorted by
+     * `created_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyEventsResponse response from the API call
@@ -616,7 +621,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildSearchLoyaltyEventsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchLoyaltyEventsResponse(context));
     }
 
@@ -688,7 +693,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildListLoyaltyProgramsRequest();
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListLoyaltyProgramsResponse(context);
@@ -703,7 +708,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildListLoyaltyProgramsRequest(),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListLoyaltyProgramsResponse(context));
     }
 
@@ -762,12 +767,117 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     }
 
     /**
+     * Retrieves the loyalty program in a seller's account, specified by the program ID or the
+     * keyword `main`. Loyalty programs define how buyers can earn points and redeem points for
+     * rewards. Square sellers can have only one loyalty program, which is created and managed from
+     * the Seller Dashboard. For more information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
+     * @param  programId  Required parameter: The ID of the loyalty program or the keyword `main`.
+     *         Either value can be used to retrieve the single loyalty program that belongs to the
+     *         seller.
+     * @return    Returns the RetrieveLoyaltyProgramResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public RetrieveLoyaltyProgramResponse retrieveLoyaltyProgram(
+            final String programId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveLoyaltyProgramRequest(programId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleRetrieveLoyaltyProgramResponse(context);
+    }
+
+    /**
+     * Retrieves the loyalty program in a seller's account, specified by the program ID or the
+     * keyword `main`. Loyalty programs define how buyers can earn points and redeem points for
+     * rewards. Square sellers can have only one loyalty program, which is created and managed from
+     * the Seller Dashboard. For more information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
+     * @param  programId  Required parameter: The ID of the loyalty program or the keyword `main`.
+     *         Either value can be used to retrieve the single loyalty program that belongs to the
+     *         seller.
+     * @return    Returns the RetrieveLoyaltyProgramResponse response from the API call
+     */
+    public CompletableFuture<RetrieveLoyaltyProgramResponse> retrieveLoyaltyProgramAsync(
+            final String programId) {
+        return makeHttpCallAsync(() -> buildRetrieveLoyaltyProgramRequest(programId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleRetrieveLoyaltyProgramResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for retrieveLoyaltyProgram.
+     */
+    private HttpRequest buildRetrieveLoyaltyProgramRequest(
+            final String programId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/loyalty/programs/{program_id}");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("program_id",
+                new SimpleEntry<Object, Boolean>(programId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for retrieveLoyaltyProgram.
+     * @return An object of type RetrieveLoyaltyProgramResponse
+     */
+    private RetrieveLoyaltyProgramResponse handleRetrieveLoyaltyProgramResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        RetrieveLoyaltyProgramResponse result = ApiHelper.deserialize(responseBody,
+                RetrieveLoyaltyProgramResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
      * Calculates the points a purchase earns. - If you are using the Orders API to manage orders,
      * you provide `order_id` in the request. The endpoint calculates the points by reading the
      * order. - If you are not using the Orders API to manage orders, you provide the purchase
      * amount in the request for the endpoint to calculate the points. An application might call
      * this endpoint to show the points that a buyer can earn with the specific purchase.
-     * @param  programId  Required parameter: The [loyalty program](#type-LoyaltyProgram) ID, which
+     * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -781,7 +891,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildCalculateLoyaltyPointsRequest(programId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCalculateLoyaltyPointsResponse(context);
@@ -793,7 +903,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * order. - If you are not using the Orders API to manage orders, you provide the purchase
      * amount in the request for the endpoint to calculate the points. An application might call
      * this endpoint to show the points that a buyer can earn with the specific purchase.
-     * @param  programId  Required parameter: The [loyalty program](#type-LoyaltyProgram) ID, which
+     * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -805,7 +915,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildCalculateLoyaltyPointsRequest(programId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCalculateLoyaltyPointsResponse(context));
     }
 
@@ -890,7 +1000,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildCreateLoyaltyRewardRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateLoyaltyRewardResponse(context);
@@ -911,7 +1021,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildCreateLoyaltyRewardRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateLoyaltyRewardResponse(context));
     }
 
@@ -975,7 +1085,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Searches for loyalty rewards in a loyalty account. In the current implementation, the
      * endpoint supports search by the reward `status`. If you know a reward ID, use the
-     * [RetrieveLoyaltyReward](#endpoint-Loyalty-RetrieveLoyaltyReward) endpoint.
+     * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
+     * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyRewardsResponse response from the API call
@@ -987,7 +1098,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildSearchLoyaltyRewardsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchLoyaltyRewardsResponse(context);
@@ -996,7 +1107,8 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Searches for loyalty rewards in a loyalty account. In the current implementation, the
      * endpoint supports search by the reward `status`. If you know a reward ID, use the
-     * [RetrieveLoyaltyReward](#endpoint-Loyalty-RetrieveLoyaltyReward) endpoint.
+     * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
+     * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyRewardsResponse response from the API call
@@ -1006,7 +1118,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildSearchLoyaltyRewardsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchLoyaltyRewardsResponse(context));
     }
 
@@ -1070,10 +1182,10 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Deletes a loyalty reward by doing the following: - Returns the loyalty points back to the
      * loyalty account. - If an order ID was specified when the reward was created (see
-     * [CreateLoyaltyReward](#endpoint-Loyalty-CreateLoyaltyReward)), it updates the order by
-     * removing the reward and related discounts. You cannot delete a reward that has reached the
-     * terminal state (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
+     * reward and related discounts. You cannot delete a reward that has reached the terminal state
+     * (REDEEMED).
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -1084,7 +1196,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildDeleteLoyaltyRewardRequest(rewardId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteLoyaltyRewardResponse(context);
@@ -1093,10 +1205,10 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     /**
      * Deletes a loyalty reward by doing the following: - Returns the loyalty points back to the
      * loyalty account. - If an order ID was specified when the reward was created (see
-     * [CreateLoyaltyReward](#endpoint-Loyalty-CreateLoyaltyReward)), it updates the order by
-     * removing the reward and related discounts. You cannot delete a reward that has reached the
-     * terminal state (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
+     * reward and related discounts. You cannot delete a reward that has reached the terminal state
+     * (REDEEMED).
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      */
@@ -1105,7 +1217,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildDeleteLoyaltyRewardRequest(rewardId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteLoyaltyRewardResponse(context));
     }
 
@@ -1172,7 +1284,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -1183,7 +1295,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildRetrieveLoyaltyRewardRequest(rewardId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveLoyaltyRewardResponse(context);
@@ -1191,7 +1303,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      */
@@ -1200,7 +1312,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildRetrieveLoyaltyRewardRequest(rewardId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveLoyaltyRewardResponse(context));
     }
 
@@ -1271,7 +1383,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -1285,7 +1397,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         HttpRequest request = buildRedeemLoyaltyRewardRequest(rewardId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRedeemLoyaltyRewardResponse(context);
@@ -1297,7 +1409,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -1309,7 +1421,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
         return makeHttpCallAsync(() -> buildRedeemLoyaltyRewardRequest(rewardId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRedeemLoyaltyRewardResponse(context));
     }
 

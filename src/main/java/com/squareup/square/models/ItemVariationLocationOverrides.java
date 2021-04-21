@@ -51,7 +51,7 @@ public class ItemVariationLocationOverrides {
 
     /**
      * Getter for LocationId.
-     * The ID of the `Location`.
+     * The ID of the `Location`. This can include locations that are deactivated.
      * @return Returns the String
      */
     @JsonGetter("location_id")

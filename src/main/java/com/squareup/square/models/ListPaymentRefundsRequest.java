@@ -118,7 +118,7 @@ public class ListPaymentRefundsRequest {
     /**
      * Getter for Status.
      * If provided, only refunds with the given status are returned. For a list of refund status
-     * values, see [PaymentRefund](#type-paymentrefund). Default: If omitted, refunds are returned
+     * values, see [PaymentRefund]($m/PaymentRefund). Default: If omitted, refunds are returned
      * regardless of their status.
      * @return Returns the String
      */

@@ -87,7 +87,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildListBreakTypesRequest(locationId, limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListBreakTypesResponse(context);
@@ -109,7 +109,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildListBreakTypesRequest(locationId, limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListBreakTypesResponse(context));
     }
 
@@ -194,7 +194,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildCreateBreakTypeRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateBreakTypeResponse(context);
@@ -215,7 +215,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildCreateBreakTypeRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateBreakTypeResponse(context));
     }
 
@@ -289,7 +289,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildDeleteBreakTypeRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteBreakTypeResponse(context);
@@ -306,7 +306,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildDeleteBreakTypeRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteBreakTypeResponse(context));
     }
 
@@ -383,7 +383,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildGetBreakTypeRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetBreakTypeResponse(context);
@@ -399,7 +399,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildGetBreakTypeRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetBreakTypeResponse(context));
     }
 
@@ -479,7 +479,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildUpdateBreakTypeRequest(id, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateBreakTypeResponse(context);
@@ -498,7 +498,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildUpdateBreakTypeRequest(id, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateBreakTypeResponse(context));
     }
 
@@ -588,7 +588,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildListEmployeeWagesRequest(employeeId, limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListEmployeeWagesResponse(context);
@@ -614,7 +614,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildListEmployeeWagesRequest(employeeId, limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListEmployeeWagesResponse(context));
     }
 
@@ -697,7 +697,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildGetEmployeeWageRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetEmployeeWageResponse(context);
@@ -716,7 +716,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildGetEmployeeWageRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetEmployeeWageResponse(context));
     }
 
@@ -801,7 +801,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildCreateShiftRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateShiftResponse(context);
@@ -825,7 +825,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildCreateShiftRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateShiftResponse(context));
     }
 
@@ -902,7 +902,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildSearchShiftsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchShiftsResponse(context);
@@ -922,7 +922,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildSearchShiftsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchShiftsResponse(context));
     }
 
@@ -995,7 +995,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildDeleteShiftRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteShiftResponse(context);
@@ -1011,7 +1011,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildDeleteShiftRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteShiftResponse(context));
     }
 
@@ -1088,7 +1088,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildGetShiftRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetShiftResponse(context);
@@ -1104,7 +1104,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildGetShiftRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetShiftResponse(context));
     }
 
@@ -1187,7 +1187,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildUpdateShiftRequest(id, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateShiftResponse(context);
@@ -1209,7 +1209,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildUpdateShiftRequest(id, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateShiftResponse(context));
     }
 
@@ -1296,7 +1296,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildListTeamMemberWagesRequest(teamMemberId, limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListTeamMemberWagesResponse(context);
@@ -1319,7 +1319,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildListTeamMemberWagesRequest(teamMemberId, limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListTeamMemberWagesResponse(context));
     }
 
@@ -1399,7 +1399,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildGetTeamMemberWageRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetTeamMemberWageResponse(context);
@@ -1415,7 +1415,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildGetTeamMemberWageRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetTeamMemberWageResponse(context));
     }
 
@@ -1495,7 +1495,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildListWorkweekConfigsRequest(limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListWorkweekConfigsResponse(context);
@@ -1514,7 +1514,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildListWorkweekConfigsRequest(limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListWorkweekConfigsResponse(context));
     }
 
@@ -1595,7 +1595,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         HttpRequest request = buildUpdateWorkweekConfigRequest(id, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateWorkweekConfigResponse(context);
@@ -1614,7 +1614,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
         return makeHttpCallAsync(() -> buildUpdateWorkweekConfigRequest(id, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateWorkweekConfigResponse(context));
     }
 

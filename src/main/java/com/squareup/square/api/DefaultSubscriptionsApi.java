@@ -17,6 +17,7 @@ import com.squareup.square.models.CancelSubscriptionResponse;
 import com.squareup.square.models.CreateSubscriptionRequest;
 import com.squareup.square.models.CreateSubscriptionResponse;
 import com.squareup.square.models.ListSubscriptionEventsResponse;
+import com.squareup.square.models.ResumeSubscriptionResponse;
 import com.squareup.square.models.RetrieveSubscriptionResponse;
 import com.squareup.square.models.SearchSubscriptionsRequest;
 import com.squareup.square.models.SearchSubscriptionsResponse;
@@ -73,7 +74,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildCreateSubscriptionRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateSubscriptionResponse(context);
@@ -94,7 +95,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         return makeHttpCallAsync(() -> buildCreateSubscriptionRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateSubscriptionResponse(context));
     }
 
@@ -176,7 +177,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildSearchSubscriptionsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchSubscriptionsResponse(context);
@@ -201,7 +202,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         return makeHttpCallAsync(() -> buildSearchSubscriptionsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchSubscriptionsResponse(context));
     }
 
@@ -274,7 +275,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildRetrieveSubscriptionRequest(subscriptionId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveSubscriptionResponse(context);
@@ -290,7 +291,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         return makeHttpCallAsync(() -> buildRetrieveSubscriptionRequest(subscriptionId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveSubscriptionResponse(context));
     }
 
@@ -370,7 +371,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildUpdateSubscriptionRequest(subscriptionId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateSubscriptionResponse(context);
@@ -389,7 +390,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         return makeHttpCallAsync(() -> buildUpdateSubscriptionRequest(subscriptionId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateSubscriptionResponse(context));
     }
 
@@ -470,7 +471,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildCancelSubscriptionRequest(subscriptionId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCancelSubscriptionResponse(context);
@@ -487,7 +488,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         return makeHttpCallAsync(() -> buildCancelSubscriptionRequest(subscriptionId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCancelSubscriptionResponse(context));
     }
 
@@ -575,7 +576,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         HttpRequest request = buildListSubscriptionEventsRequest(subscriptionId, cursor, limit);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListSubscriptionEventsResponse(context);
@@ -603,7 +604,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                 limit),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListSubscriptionEventsResponse(context));
     }
 
@@ -671,6 +672,99 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String responseBody = ((HttpStringResponse) response).getBody();
         ListSubscriptionEventsResponse result = ApiHelper.deserialize(responseBody,
                 ListSubscriptionEventsResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Resumes a deactivated subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @return    Returns the ResumeSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ResumeSubscriptionResponse resumeSubscription(
+            final String subscriptionId) throws ApiException, IOException {
+        HttpRequest request = buildResumeSubscriptionRequest(subscriptionId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleResumeSubscriptionResponse(context);
+    }
+
+    /**
+     * Resumes a deactivated subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @return    Returns the ResumeSubscriptionResponse response from the API call
+     */
+    public CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
+            final String subscriptionId) {
+        return makeHttpCallAsync(() -> buildResumeSubscriptionRequest(subscriptionId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleResumeSubscriptionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for resumeSubscription.
+     */
+    private HttpRequest buildResumeSubscriptionRequest(
+            final String subscriptionId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/resume");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for resumeSubscription.
+     * @return An object of type ResumeSubscriptionResponse
+     */
+    private ResumeSubscriptionResponse handleResumeSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        ResumeSubscriptionResponse result = ApiHelper.deserialize(responseBody,
+                ResumeSubscriptionResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

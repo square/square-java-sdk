@@ -32,7 +32,7 @@ Point of Sale applications.
 Refunds with a `status` of `PENDING` are not currently included in this
 endpoint's response.
 
-Max results per [page](#paginatingresults): 50
+Max results per [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50
 
 ```java
 CompletableFuture<ListRefundsResponse> listRefundsAsync(
@@ -48,10 +48,10 @@ CompletableFuture<ListRefundsResponse> listRefundsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list refunds for. |
-| `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. |
-| `endTime` | `String` | Query, Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. |
+| `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. |
+| `endTime` | `String` | Query, Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. |
 | `sortOrder` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which results are listed in the response (`ASC` for<br>oldest first, `DESC` for newest first).<br><br>Default value: `DESC` |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](#paginatingresults) for more information. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. |
 
 ## Response Type
 
@@ -84,7 +84,7 @@ Lists transactions for a particular location.
 Transactions include payment information from sales and exchanges and refund
 information from returns and exchanges.
 
-Max results per [page](#paginatingresults): 50
+Max results per [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50
 
 ```java
 CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
@@ -100,10 +100,10 @@ CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list transactions for. |
-| `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. |
-| `endTime` | `String` | Query, Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. |
+| `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.<br><br>Default value: The current time minus one year. |
+| `endTime` | `String` | Query, Optional | The end of the requested reporting period, in RFC 3339 format.<br><br>See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.<br><br>Default value: The current time. |
 | `sortOrder` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which results are listed in the response (`ASC` for<br>oldest first, `DESC` for newest first).<br><br>Default value: `DESC` |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](#paginatingresults) for more information. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. |
 
 ## Response Type
 
@@ -149,8 +149,8 @@ _must_ provide values for the following parameters in your request:
 
 When this response is returned, the amount of Square's processing fee might not yet be
 calculated. To obtain the processing fee, wait about ten seconds and call
-[RetrieveTransaction](#endpoint-retrievetransaction). See the `processing_fee_money`
-field of each [Tender included](#type-tender) in the transaction.
+[RetrieveTransaction](/doc/api/transactions.md#retrieve-transaction). See the `processing_fee_money`
+field of each [Tender included](/doc/models/tender.md) in the transaction.
 
 ```java
 CompletableFuture<ChargeResponse> chargeAsync(
@@ -274,7 +274,7 @@ transactionsApi.retrieveTransactionAsync(locationId, transactionId).thenAccept(r
 
 **This endpoint is deprecated. **
 
-Captures a transaction that was created with the [Charge](#endpoint-charge)
+Captures a transaction that was created with the [Charge](/doc/api/transactions.md#charge)
 endpoint with a `delay_capture` value of `true`.
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
@@ -374,7 +374,7 @@ transactionsApi.createRefundAsync(locationId, transactionId, body).thenAccept(re
 
 **This endpoint is deprecated. **
 
-Cancels a transaction that was created with the [Charge](#endpoint-charge)
+Cancels a transaction that was created with the [Charge](/doc/api/transactions.md#charge)
 endpoint with a `delay_capture` value of `true`.
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)

@@ -72,7 +72,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildCreateBookingRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateBookingResponse(context);
@@ -89,7 +89,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildCreateBookingRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateBookingResponse(context));
     }
 
@@ -163,7 +163,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildSearchAvailabilityRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchAvailabilityResponse(context);
@@ -180,7 +180,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildSearchAvailabilityRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchAvailabilityResponse(context));
     }
 
@@ -251,7 +251,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildRetrieveBusinessBookingProfileRequest();
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveBusinessBookingProfileResponse(context);
@@ -265,7 +265,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildRetrieveBusinessBookingProfileRequest(),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveBusinessBookingProfileResponse(context));
     }
 
@@ -344,7 +344,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                 locationId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListTeamMemberBookingProfilesResponse(context);
@@ -369,7 +369,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                 limit, cursor, locationId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListTeamMemberBookingProfilesResponse(context));
     }
 
@@ -452,7 +452,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildRetrieveTeamMemberBookingProfileRequest(teamMemberId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveTeamMemberBookingProfileResponse(context);
@@ -468,7 +468,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildRetrieveTeamMemberBookingProfileRequest(teamMemberId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveTeamMemberBookingProfileResponse(context));
     }
 
@@ -535,7 +535,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Retrieves a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -546,7 +546,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildRetrieveBookingRequest(bookingId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveBookingResponse(context);
@@ -554,7 +554,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Retrieves a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
      */
@@ -563,7 +563,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildRetrieveBookingRequest(bookingId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveBookingResponse(context));
     }
 
@@ -630,7 +630,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Updates a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -644,7 +644,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildUpdateBookingRequest(bookingId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateBookingResponse(context);
@@ -652,7 +652,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Updates a booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -664,7 +664,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildUpdateBookingRequest(bookingId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateBookingResponse(context));
     }
 
@@ -734,7 +734,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Cancels an existing booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -748,7 +748,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         HttpRequest request = buildCancelBookingRequest(bookingId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCancelBookingResponse(context);
@@ -756,7 +756,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
     /**
      * Cancels an existing booking.
-     * @param  bookingId  Required parameter: The ID of the [Booking](#type-booking) object
+     * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -768,7 +768,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         return makeHttpCallAsync(() -> buildCancelBookingRequest(bookingId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCancelBookingResponse(context));
     }
 

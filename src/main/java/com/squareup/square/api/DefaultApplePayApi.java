@@ -65,7 +65,7 @@ public final class DefaultApplePayApi extends BaseApi implements ApplePayApi {
         HttpRequest request = buildRegisterDomainRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRegisterDomainResponse(context);
@@ -87,7 +87,7 @@ public final class DefaultApplePayApi extends BaseApi implements ApplePayApi {
         return makeHttpCallAsync(() -> buildRegisterDomainRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRegisterDomainResponse(context));
     }
 

@@ -93,7 +93,7 @@ public class SearchOrdersRequest {
     /**
      * Getter for ReturnEntries.
      * Boolean that controls the format of the search results. If `true`, SearchOrders will return
-     * [`OrderEntry`](#type-orderentry) objects. If `false`, SearchOrders will return complete Order
+     * [`OrderEntry`]($m/OrderEntry) objects. If `false`, SearchOrders will return complete Order
      * objects. Default: `false`.
      * @return Returns the Boolean
      */

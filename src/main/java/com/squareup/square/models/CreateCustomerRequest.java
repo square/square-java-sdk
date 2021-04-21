@@ -76,9 +76,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * The idempotency key for the request.	See the
-     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) guide for
-     * more information.
+     * The idempotency key for the request.	For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -88,7 +87,7 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for GivenName.
-     * The given (i.e., first) name associated with the customer profile.
+     * The given name (that is, the first name) associated with the customer profile.
      * @return Returns the String
      */
     @JsonGetter("given_name")
@@ -98,7 +97,7 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for FamilyName.
-     * The family (i.e., last) name associated with the customer profile.
+     * The family name (that is, the last name) associated with the customer profile.
      * @return Returns the String
      */
     @JsonGetter("family_name")
@@ -158,7 +157,7 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for ReferenceId.
-     * An optional, second ID used to associate the customer profile with an entity in another
+     * An optional second ID used to associate the customer profile with an entity in another
      * system.
      * @return Returns the String
      */
@@ -179,10 +178,10 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional,
-     * timezone and times are not allowed. For example: `0000-09-01T00:00:00-00:00` indicates a
-     * birthday on September 1st. `1998-09-01T00:00:00-00:00` indications a birthday on September
-     * 1st __1998__.
+     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional.
+     * The timezone and time are not allowed. For example, `0000-09-21T00:00:00-00:00` represents a
+     * birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September
+     * 21, 1998. You can also specify this value in `YYYY-MM-DD` format.
      * @return Returns the String
      */
     @JsonGetter("birthday")

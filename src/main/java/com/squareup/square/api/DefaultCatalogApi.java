@@ -73,10 +73,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Deletes a set of [CatalogItem](#type-catalogitem)s based on the provided list of target IDs
-     * and returns a set of successfully deleted IDs in the response. Deletion is a cascading event
-     * such that all children of the targeted object are also deleted. For example, deleting a
-     * CatalogItem will also delete all of its [CatalogItemVariation](#type-catalogitemvariation)
+     * Deletes a set of [CatalogItem]($m/CatalogItem)s based on the provided list of target IDs and
+     * returns a set of successfully deleted IDs in the response. Deletion is a cascading event such
+     * that all children of the targeted object are also deleted. For example, deleting a
+     * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
      * be deleted. The response will only include IDs that were actually deleted.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -90,17 +90,17 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildBatchDeleteCatalogObjectsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleBatchDeleteCatalogObjectsResponse(context);
     }
 
     /**
-     * Deletes a set of [CatalogItem](#type-catalogitem)s based on the provided list of target IDs
-     * and returns a set of successfully deleted IDs in the response. Deletion is a cascading event
-     * such that all children of the targeted object are also deleted. For example, deleting a
-     * CatalogItem will also delete all of its [CatalogItemVariation](#type-catalogitemvariation)
+     * Deletes a set of [CatalogItem]($m/CatalogItem)s based on the provided list of target IDs and
+     * returns a set of successfully deleted IDs in the response. Deletion is a cascading event such
+     * that all children of the targeted object are also deleted. For example, deleting a
+     * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
      * be deleted. The response will only include IDs that were actually deleted.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -112,7 +112,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildBatchDeleteCatalogObjectsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleBatchDeleteCatalogObjectsResponse(context));
     }
 
@@ -174,11 +174,11 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem)
+     * Returns a set of objects based on the provided ID. Each [CatalogItem]($m/CatalogItem)
      * returned in the set includes all of its child information including: all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * [CatalogItemVariation]($m/CatalogItemVariation) objects, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveCatalogObjectsResponse response from the API call
@@ -190,18 +190,18 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildBatchRetrieveCatalogObjectsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleBatchRetrieveCatalogObjectsResponse(context);
     }
 
     /**
-     * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem)
+     * Returns a set of objects based on the provided ID. Each [CatalogItem]($m/CatalogItem)
      * returned in the set includes all of its child information including: all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * [CatalogItemVariation]($m/CatalogItemVariation) objects, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveCatalogObjectsResponse response from the API call
@@ -211,7 +211,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildBatchRetrieveCatalogObjectsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleBatchRetrieveCatalogObjectsResponse(context));
     }
 
@@ -291,7 +291,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildBatchUpsertCatalogObjectsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleBatchUpsertCatalogObjectsResponse(context);
@@ -314,7 +314,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildBatchUpsertCatalogObjectsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleBatchUpsertCatalogObjectsResponse(context));
     }
 
@@ -376,11 +376,11 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Uploads an image file to be represented by a [CatalogImage](#type-catalogimage) object linked
-     * to an existing [CatalogObject](#type-catalogobject) instance. A call to this endpoint can
-     * upload an image, link an image to a catalog object, or do both. This `CreateCatalogImage`
-     * endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+     * Uploads an image file to be represented by a [CatalogImage]($m/CatalogImage) object linked to
+     * an existing [CatalogObject]($m/CatalogObject) instance. A call to this endpoint can upload an
+     * image, link an image to a catalog object, or do both. This `CreateCatalogImage` endpoint
+     * accepts HTTP multipart/form-data requests with a JSON part and an image file part in JPEG,
+     * PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * @param  request  Optional parameter: Example:
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateCatalogImageResponse response from the API call
@@ -393,18 +393,18 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest internalRequest = buildCreateCatalogImageRequest(request, imageFile);
         authManagers.get("global").apply(internalRequest);
 
-        HttpResponse response = getClientInstance().executeAsString(internalRequest);
+        HttpResponse response = getClientInstance().execute(internalRequest, false);
         HttpContext context = new HttpContext(internalRequest, response);
 
         return handleCreateCatalogImageResponse(context);
     }
 
     /**
-     * Uploads an image file to be represented by a [CatalogImage](#type-catalogimage) object linked
-     * to an existing [CatalogObject](#type-catalogobject) instance. A call to this endpoint can
-     * upload an image, link an image to a catalog object, or do both. This `CreateCatalogImage`
-     * endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+     * Uploads an image file to be represented by a [CatalogImage]($m/CatalogImage) object linked to
+     * an existing [CatalogObject]($m/CatalogObject) instance. A call to this endpoint can upload an
+     * image, link an image to a catalog object, or do both. This `CreateCatalogImage` endpoint
+     * accepts HTTP multipart/form-data requests with a JSON part and an image file part in JPEG,
+     * PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * @param  request  Optional parameter: Example:
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateCatalogImageResponse response from the API call
@@ -415,7 +415,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildCreateCatalogImageRequest(request, imageFile),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(internalRequest -> getClientInstance()
-                        .executeAsStringAsync(internalRequest)),
+                        .executeAsync(internalRequest, false)),
             context -> handleCreateCatalogImageResponse(context));
     }
 
@@ -441,7 +441,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         Headers requestHeaders = new Headers();
         requestHeaders.add("Content-Type", "application/json; charset=utf-8");
         MultipartWrapper requestWrapper = new MultipartWrapper(
-                ApiHelper.serialize(request).getBytes(), requestHeaders);
+                ApiHelper.serialize(request), requestHeaders);
         Headers imageFileHeaders = new Headers();
         imageFileHeaders.add("Content-Type", "image/jpeg");
         MultipartFileWrapper imageFileWrapper =
@@ -504,7 +504,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildCatalogInfoRequest();
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCatalogInfoResponse(context);
@@ -519,7 +519,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildCatalogInfoRequest(),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCatalogInfoResponse(context));
     }
 
@@ -578,14 +578,14 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of
-     * desired types (for example, all [CatalogItem](#type-catalogitem) and
-     * [CatalogTax](#type-catalogtax) objects) in the catalog. The `types` parameter is specified as
-     * a comma-separated list of valid [CatalogObject](#type-catalogobject) types: `ITEM`,
-     * `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`.
-     * __Important:__ ListCatalog does not return deleted catalog items. To retrieve deleted catalog
-     * items, use [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) and set the
-     * `include_deleted_objects` attribute value to `true`.
+     * Returns a list of [CatalogObject]($m/CatalogObject)s that includes all objects of a set of
+     * desired types (for example, all [CatalogItem]($m/CatalogItem) and [CatalogTax]($m/CatalogTax)
+     * objects) in the catalog. The `types` parameter is specified as a comma-separated list of
+     * valid [CatalogObject]($m/CatalogObject) types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`,
+     * `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`. __Important:__ ListCatalog does not
+     * return deleted catalog items. To retrieve deleted catalog items, use
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
+     * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
      *         Leave unset for an initial request. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
@@ -597,7 +597,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
      *         included in the response. This allows you to retrieve historical versions of objects.
      *         The specified version value is matched against the
-     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
+     *         [CatalogObject]($m/CatalogObject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -609,21 +609,21 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildListCatalogRequest(cursor, types, catalogVersion);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListCatalogResponse(context);
     }
 
     /**
-     * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of
-     * desired types (for example, all [CatalogItem](#type-catalogitem) and
-     * [CatalogTax](#type-catalogtax) objects) in the catalog. The `types` parameter is specified as
-     * a comma-separated list of valid [CatalogObject](#type-catalogobject) types: `ITEM`,
-     * `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`.
-     * __Important:__ ListCatalog does not return deleted catalog items. To retrieve deleted catalog
-     * items, use [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) and set the
-     * `include_deleted_objects` attribute value to `true`.
+     * Returns a list of [CatalogObject]($m/CatalogObject)s that includes all objects of a set of
+     * desired types (for example, all [CatalogItem]($m/CatalogItem) and [CatalogTax]($m/CatalogTax)
+     * objects) in the catalog. The `types` parameter is specified as a comma-separated list of
+     * valid [CatalogObject]($m/CatalogObject) types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`,
+     * `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`. __Important:__ ListCatalog does not
+     * return deleted catalog items. To retrieve deleted catalog items, use
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
+     * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
      *         Leave unset for an initial request. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
@@ -635,7 +635,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
      *         included in the response. This allows you to retrieve historical versions of objects.
      *         The specified version value is matched against the
-     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
+     *         [CatalogObject]($m/CatalogObject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      */
     public CompletableFuture<ListCatalogResponse> listCatalogAsync(
@@ -645,7 +645,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildListCatalogRequest(cursor, types, catalogVersion),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListCatalogResponse(context));
     }
 
@@ -714,7 +714,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Creates or updates the target [CatalogObject](#type-catalogobject).
+     * Creates or updates the target [CatalogObject]($m/CatalogObject).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -726,14 +726,14 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildUpsertCatalogObjectRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpsertCatalogObjectResponse(context);
     }
 
     /**
-     * Creates or updates the target [CatalogObject](#type-catalogobject).
+     * Creates or updates the target [CatalogObject]($m/CatalogObject).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -743,7 +743,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildUpsertCatalogObjectRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpsertCatalogObjectResponse(context));
     }
 
@@ -805,11 +805,11 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns
-     * the set of successfully deleted IDs in the response. Deletion is a cascading event such that
-     * all children of the targeted object are also deleted. For example, deleting a
-     * [CatalogItem](#type-catalogitem) will also delete all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) children.
+     * Deletes a single [CatalogObject]($m/CatalogObject) based on the provided ID and returns the
+     * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
+     * children of the targeted object are also deleted. For example, deleting a
+     * [CatalogItem]($m/CatalogItem) will also delete all of its
+     * [CatalogItemVariation]($m/CatalogItemVariation) children.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item
@@ -823,18 +823,18 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildDeleteCatalogObjectRequest(objectId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteCatalogObjectResponse(context);
     }
 
     /**
-     * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns
-     * the set of successfully deleted IDs in the response. Deletion is a cascading event such that
-     * all children of the targeted object are also deleted. For example, deleting a
-     * [CatalogItem](#type-catalogitem) will also delete all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) children.
+     * Deletes a single [CatalogObject]($m/CatalogObject) based on the provided ID and returns the
+     * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
+     * children of the targeted object are also deleted. For example, deleting a
+     * [CatalogItem]($m/CatalogItem) will also delete all of its
+     * [CatalogItemVariation]($m/CatalogItemVariation) children.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item
@@ -846,7 +846,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildDeleteCatalogObjectRequest(objectId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteCatalogObjectResponse(context));
     }
 
@@ -912,12 +912,12 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject)
-     * based on the provided ID. The returned object includes all of the relevant
-     * [CatalogItem](#type-catalogitem) information including:
-     * [CatalogItemVariation](#type-catalogitemvariation) children, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * Returns a single [CatalogItem]($m/CatalogItem) as a [CatalogObject]($m/CatalogObject) based
+     * on the provided ID. The returned object includes all of the relevant
+     * [CatalogItem]($m/CatalogItem) information including:
+     * [CatalogItemVariation]($m/CatalogItemVariation) children, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  objectId  Required parameter: The object ID of any type of catalog objects to be
      *         retrieved.
      * @param  includeRelatedObjects  Optional parameter: If `true`, the response will include
@@ -931,7 +931,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
      *         catalog. This allows you to retrieve historical versions of objects. The value to
      *         retrieve a specific version of an object can be found in the version field of
-     *         [CatalogObject](#type-catalogobject)s.
+     *         [CatalogObject]($m/CatalogObject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -944,19 +944,19 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                 catalogVersion);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveCatalogObjectResponse(context);
     }
 
     /**
-     * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject)
-     * based on the provided ID. The returned object includes all of the relevant
-     * [CatalogItem](#type-catalogitem) information including:
-     * [CatalogItemVariation](#type-catalogitemvariation) children, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * Returns a single [CatalogItem]($m/CatalogItem) as a [CatalogObject]($m/CatalogObject) based
+     * on the provided ID. The returned object includes all of the relevant
+     * [CatalogItem]($m/CatalogItem) information including:
+     * [CatalogItemVariation]($m/CatalogItemVariation) children, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  objectId  Required parameter: The object ID of any type of catalog objects to be
      *         retrieved.
      * @param  includeRelatedObjects  Optional parameter: If `true`, the response will include
@@ -970,7 +970,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
      *         catalog. This allows you to retrieve historical versions of objects. The value to
      *         retrieve a specific version of an object can be found in the version field of
-     *         [CatalogObject](#type-catalogobject)s.
+     *         [CatalogObject]($m/CatalogObject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     public CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
@@ -981,7 +981,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                 includeRelatedObjects, catalogVersion),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveCatalogObjectResponse(context));
     }
 
@@ -1056,10 +1056,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
+     * Searches for [CatalogObject]($m/CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
      * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
-     * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
+     * from the [SearchCatalogItems]($e/Catalog/SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
@@ -1078,17 +1078,17 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildSearchCatalogObjectsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchCatalogObjectsResponse(context);
     }
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
+     * Searches for [CatalogObject]($m/CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
      * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
-     * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
+     * from the [SearchCatalogItems]($e/Catalog/SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
@@ -1105,7 +1105,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildSearchCatalogObjectsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchCatalogObjectsResponse(context));
     }
 
@@ -1170,8 +1170,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * Searches for catalog items or item variations by matching supported search attribute values,
      * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
-     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
-     * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) endpoint in the following aspects: -
+     * `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
      * custom attribute values, where `SearchCatalogObjects` does not. - `SearchCatalogItems` does
@@ -1189,7 +1189,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildSearchCatalogItemsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchCatalogItemsResponse(context);
@@ -1199,8 +1199,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * Searches for catalog items or item variations by matching supported search attribute values,
      * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
-     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
-     * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) endpoint in the following aspects: -
+     * `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
      * custom attribute values, where `SearchCatalogObjects` does not. - `SearchCatalogItems` does
@@ -1216,7 +1216,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildSearchCatalogItemsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchCatalogItemsResponse(context));
     }
 
@@ -1278,9 +1278,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the
-     * targeted [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire
-     * item.
+     * Updates the [CatalogModifierList]($m/CatalogModifierList) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemModifierListsResponse response from the API call
@@ -1292,16 +1291,15 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildUpdateItemModifierListsRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateItemModifierListsResponse(context);
     }
 
     /**
-     * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the
-     * targeted [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire
-     * item.
+     * Updates the [CatalogModifierList]($m/CatalogModifierList) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemModifierListsResponse response from the API call
@@ -1311,7 +1309,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildUpdateItemModifierListsRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateItemModifierListsResponse(context));
     }
 
@@ -1373,8 +1371,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted
-     * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
+     * Updates the [CatalogTax]($m/CatalogTax) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemTaxesResponse response from the API call
@@ -1386,15 +1384,15 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         HttpRequest request = buildUpdateItemTaxesRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateItemTaxesResponse(context);
     }
 
     /**
-     * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted
-     * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
+     * Updates the [CatalogTax]($m/CatalogTax) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemTaxesResponse response from the API call
@@ -1404,7 +1402,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
         return makeHttpCallAsync(() -> buildUpdateItemTaxesRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateItemTaxesResponse(context));
     }
 

@@ -37,7 +37,7 @@ public class Availability {
 
     /**
      * Getter for StartAt.
-     * The RFC-3339 timestamp specifying the beginning time of the slot available for booking.
+     * The RFC 3339 timestamp specifying the beginning time of the slot available for booking.
      * @return Returns the String
      */
     @JsonGetter("start_at")

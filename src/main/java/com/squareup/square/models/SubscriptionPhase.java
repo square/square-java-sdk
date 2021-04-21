@@ -55,7 +55,7 @@ public class SubscriptionPhase {
 
     /**
      * Getter for Cadence.
-     * Determines the billing cadence of a [Subscription](#type-Subscription)
+     * Determines the billing cadence of a [Subscription]($m/Subscription)
      * @return Returns the String
      */
     @JsonGetter("cadence")

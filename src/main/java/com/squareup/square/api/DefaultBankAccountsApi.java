@@ -50,7 +50,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
     }
 
     /**
-     * Returns a list of [BankAccount](#type-bankaccount) objects linked to a Square account.
+     * Returns a list of [BankAccount]($m/BankAccount) objects linked to a Square account.
      * @param  cursor  Optional parameter: The pagination cursor returned by a previous call to this
      *         endpoint. Use it in the next `ListBankAccounts` request to retrieve the next set of
      *         results. See the
@@ -72,14 +72,14 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         HttpRequest request = buildListBankAccountsRequest(cursor, limit, locationId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListBankAccountsResponse(context);
     }
 
     /**
-     * Returns a list of [BankAccount](#type-bankaccount) objects linked to a Square account.
+     * Returns a list of [BankAccount]($m/BankAccount) objects linked to a Square account.
      * @param  cursor  Optional parameter: The pagination cursor returned by a previous call to this
      *         endpoint. Use it in the next `ListBankAccounts` request to retrieve the next set of
      *         results. See the
@@ -99,7 +99,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         return makeHttpCallAsync(() -> buildListBankAccountsRequest(cursor, limit, locationId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListBankAccountsResponse(context));
     }
 
@@ -168,7 +168,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
     }
 
     /**
-     * Returns details of a [BankAccount](#type-bankaccount) identified by V1 bank account ID.
+     * Returns details of a [BankAccount]($m/BankAccount) identified by V1 bank account ID.
      * @param  v1BankAccountId  Required parameter: Connect V1 ID of the desired `BankAccount`. For
      *         more information, see [Retrieve a bank account by using an ID issued by V1 Bank
      *         Accounts
@@ -182,14 +182,14 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         HttpRequest request = buildGetBankAccountByV1IdRequest(v1BankAccountId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetBankAccountByV1IdResponse(context);
     }
 
     /**
-     * Returns details of a [BankAccount](#type-bankaccount) identified by V1 bank account ID.
+     * Returns details of a [BankAccount]($m/BankAccount) identified by V1 bank account ID.
      * @param  v1BankAccountId  Required parameter: Connect V1 ID of the desired `BankAccount`. For
      *         more information, see [Retrieve a bank account by using an ID issued by V1 Bank
      *         Accounts
@@ -201,7 +201,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         return makeHttpCallAsync(() -> buildGetBankAccountByV1IdRequest(v1BankAccountId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetBankAccountByV1IdResponse(context));
     }
 
@@ -267,7 +267,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
     }
 
     /**
-     * Returns details of a [BankAccount](#type-bankaccount) linked to a Square account.
+     * Returns details of a [BankAccount]($m/BankAccount) linked to a Square account.
      * @param  bankAccountId  Required parameter: Square-issued ID of the desired `BankAccount`.
      * @return    Returns the GetBankAccountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -278,14 +278,14 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         HttpRequest request = buildGetBankAccountRequest(bankAccountId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetBankAccountResponse(context);
     }
 
     /**
-     * Returns details of a [BankAccount](#type-bankaccount) linked to a Square account.
+     * Returns details of a [BankAccount]($m/BankAccount) linked to a Square account.
      * @param  bankAccountId  Required parameter: Square-issued ID of the desired `BankAccount`.
      * @return    Returns the GetBankAccountResponse response from the API call
      */
@@ -294,7 +294,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
         return makeHttpCallAsync(() -> buildGetBankAccountRequest(bankAccountId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetBankAccountResponse(context));
     }
 

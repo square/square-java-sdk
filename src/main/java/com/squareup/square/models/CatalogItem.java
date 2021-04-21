@@ -40,6 +40,8 @@ public class CatalogItem {
     private final Boolean skipModifierScreen;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionForItem> itemOptions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String sortName;
 
     /**
      * Initialization constructor.
@@ -57,6 +59,7 @@ public class CatalogItem {
      * @param  productType  String value for productType.
      * @param  skipModifierScreen  Boolean value for skipModifierScreen.
      * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
+     * @param  sortName  String value for sortName.
      */
     @JsonCreator
     public CatalogItem(
@@ -73,7 +76,8 @@ public class CatalogItem {
             @JsonProperty("variations") List<CatalogObject> variations,
             @JsonProperty("product_type") String productType,
             @JsonProperty("skip_modifier_screen") Boolean skipModifierScreen,
-            @JsonProperty("item_options") List<CatalogItemOptionForItem> itemOptions) {
+            @JsonProperty("item_options") List<CatalogItemOptionForItem> itemOptions,
+            @JsonProperty("sort_name") String sortName) {
         this.name = name;
         this.description = description;
         this.abbreviation = abbreviation;
@@ -88,6 +92,7 @@ public class CatalogItem {
         this.productType = productType;
         this.skipModifierScreen = skipModifierScreen;
         this.itemOptions = itemOptions;
+        this.sortName = sortName;
     }
 
     /**
@@ -247,11 +252,23 @@ public class CatalogItem {
         return itemOptions;
     }
 
+    /**
+     * Getter for SortName.
+     * A name to sort the item by. If this name is unspecified, namely, the `sort_name` field is
+     * absent, the regular `name` field is used for sorting. It is currently supported for sellers
+     * of the Japanese locale only.
+     * @return Returns the String
+     */
+    @JsonGetter("sort_name")
+    public String getSortName() {
+        return sortName;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
-                variations, productType, skipModifierScreen, itemOptions);
+                variations, productType, skipModifierScreen, itemOptions, sortName);
     }
 
     @Override
@@ -276,7 +293,8 @@ public class CatalogItem {
             && Objects.equals(variations, other.variations)
             && Objects.equals(productType, other.productType)
             && Objects.equals(skipModifierScreen, other.skipModifierScreen)
-            && Objects.equals(itemOptions, other.itemOptions);
+            && Objects.equals(itemOptions, other.itemOptions)
+            && Objects.equals(sortName, other.sortName);
     }
 
     /**
@@ -292,7 +310,7 @@ public class CatalogItem {
                 + categoryId + ", taxIds=" + taxIds + ", modifierListInfo=" + modifierListInfo
                 + ", variations=" + variations + ", productType=" + productType
                 + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
-                + "]";
+                + ", sortName=" + sortName + "]";
     }
 
     /**
@@ -315,7 +333,8 @@ public class CatalogItem {
                 .variations(getVariations())
                 .productType(getProductType())
                 .skipModifierScreen(getSkipModifierScreen())
-                .itemOptions(getItemOptions());
+                .itemOptions(getItemOptions())
+                .sortName(getSortName());
         return builder;
     }
 
@@ -337,6 +356,7 @@ public class CatalogItem {
         private String productType;
         private Boolean skipModifierScreen;
         private List<CatalogItemOptionForItem> itemOptions;
+        private String sortName;
 
 
 
@@ -481,13 +501,24 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for sortName.
+         * @param  sortName  String value for sortName.
+         * @return Builder
+         */
+        public Builder sortName(String sortName) {
+            this.sortName = sortName;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogItem} object using the set fields.
          * @return {@link CatalogItem}
          */
         public CatalogItem build() {
             return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
                     availableForPickup, availableElectronically, categoryId, taxIds,
-                    modifierListInfo, variations, productType, skipModifierScreen, itemOptions);
+                    modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
+                    sortName);
         }
     }
 }

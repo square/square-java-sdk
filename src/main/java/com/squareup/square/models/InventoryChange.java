@@ -19,6 +19,10 @@ public class InventoryChange {
     private final InventoryAdjustment adjustment;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryTransfer transfer;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CatalogMeasurementUnit measurementUnit;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String measurementUnitId;
 
     /**
      * Initialization constructor.
@@ -26,17 +30,23 @@ public class InventoryChange {
      * @param  physicalCount  InventoryPhysicalCount value for physicalCount.
      * @param  adjustment  InventoryAdjustment value for adjustment.
      * @param  transfer  InventoryTransfer value for transfer.
+     * @param  measurementUnit  CatalogMeasurementUnit value for measurementUnit.
+     * @param  measurementUnitId  String value for measurementUnitId.
      */
     @JsonCreator
     public InventoryChange(
             @JsonProperty("type") String type,
             @JsonProperty("physical_count") InventoryPhysicalCount physicalCount,
             @JsonProperty("adjustment") InventoryAdjustment adjustment,
-            @JsonProperty("transfer") InventoryTransfer transfer) {
+            @JsonProperty("transfer") InventoryTransfer transfer,
+            @JsonProperty("measurement_unit") CatalogMeasurementUnit measurementUnit,
+            @JsonProperty("measurement_unit_id") String measurementUnitId) {
         this.type = type;
         this.physicalCount = physicalCount;
         this.adjustment = adjustment;
         this.transfer = transfer;
+        this.measurementUnit = measurementUnit;
+        this.measurementUnitId = measurementUnitId;
     }
 
     /**
@@ -84,9 +94,32 @@ public class InventoryChange {
         return transfer;
     }
 
+    /**
+     * Getter for MeasurementUnit.
+     * Represents the unit used to measure a `CatalogItemVariation` and specifies the precision for
+     * decimal quantities.
+     * @return Returns the CatalogMeasurementUnit
+     */
+    @JsonGetter("measurement_unit")
+    public CatalogMeasurementUnit getMeasurementUnit() {
+        return measurementUnit;
+    }
+
+    /**
+     * Getter for MeasurementUnitId.
+     * The ID of the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit) object representing the
+     * catalog measurement unit associated with the inventory change.
+     * @return Returns the String
+     */
+    @JsonGetter("measurement_unit_id")
+    public String getMeasurementUnitId() {
+        return measurementUnitId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(type, physicalCount, adjustment, transfer);
+        return Objects.hash(type, physicalCount, adjustment, transfer, measurementUnit,
+                measurementUnitId);
     }
 
     @Override
@@ -101,7 +134,9 @@ public class InventoryChange {
         return Objects.equals(type, other.type)
             && Objects.equals(physicalCount, other.physicalCount)
             && Objects.equals(adjustment, other.adjustment)
-            && Objects.equals(transfer, other.transfer);
+            && Objects.equals(transfer, other.transfer)
+            && Objects.equals(measurementUnit, other.measurementUnit)
+            && Objects.equals(measurementUnitId, other.measurementUnitId);
     }
 
     /**
@@ -111,7 +146,8 @@ public class InventoryChange {
     @Override
     public String toString() {
         return "InventoryChange [" + "type=" + type + ", physicalCount=" + physicalCount
-                + ", adjustment=" + adjustment + ", transfer=" + transfer + "]";
+                + ", adjustment=" + adjustment + ", transfer=" + transfer + ", measurementUnit="
+                + measurementUnit + ", measurementUnitId=" + measurementUnitId + "]";
     }
 
     /**
@@ -124,7 +160,9 @@ public class InventoryChange {
                 .type(getType())
                 .physicalCount(getPhysicalCount())
                 .adjustment(getAdjustment())
-                .transfer(getTransfer());
+                .transfer(getTransfer())
+                .measurementUnit(getMeasurementUnit())
+                .measurementUnitId(getMeasurementUnitId());
         return builder;
     }
 
@@ -136,6 +174,8 @@ public class InventoryChange {
         private InventoryPhysicalCount physicalCount;
         private InventoryAdjustment adjustment;
         private InventoryTransfer transfer;
+        private CatalogMeasurementUnit measurementUnit;
+        private String measurementUnitId;
 
 
 
@@ -180,11 +220,32 @@ public class InventoryChange {
         }
 
         /**
+         * Setter for measurementUnit.
+         * @param  measurementUnit  CatalogMeasurementUnit value for measurementUnit.
+         * @return Builder
+         */
+        public Builder measurementUnit(CatalogMeasurementUnit measurementUnit) {
+            this.measurementUnit = measurementUnit;
+            return this;
+        }
+
+        /**
+         * Setter for measurementUnitId.
+         * @param  measurementUnitId  String value for measurementUnitId.
+         * @return Builder
+         */
+        public Builder measurementUnitId(String measurementUnitId) {
+            this.measurementUnitId = measurementUnitId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InventoryChange} object using the set fields.
          * @return {@link InventoryChange}
          */
         public InventoryChange build() {
-            return new InventoryChange(type, physicalCount, adjustment, transfer);
+            return new InventoryChange(type, physicalCount, adjustment, transfer, measurementUnit,
+                    measurementUnitId);
         }
     }
 }

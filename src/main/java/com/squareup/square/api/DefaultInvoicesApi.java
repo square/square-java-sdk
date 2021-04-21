@@ -62,7 +62,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Returns a list of invoices for a given location. The response is paginated. If truncated, the
-     * response includes a `cursor` that you use in a subsequent request to fetch the next set of
+     * response includes a `cursor` that you use in a subsequent request to retrieve the next set of
      * invoices.
      * @param  locationId  Required parameter: The ID of the location for which to list invoices.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
@@ -82,7 +82,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildListInvoicesRequest(locationId, cursor, limit);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListInvoicesResponse(context);
@@ -90,7 +90,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Returns a list of invoices for a given location. The response is paginated. If truncated, the
-     * response includes a `cursor` that you use in a subsequent request to fetch the next set of
+     * response includes a `cursor` that you use in a subsequent request to retrieve the next set of
      * invoices.
      * @param  locationId  Required parameter: The ID of the location for which to list invoices.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
@@ -108,7 +108,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildListInvoicesRequest(locationId, cursor, limit),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListInvoicesResponse(context));
     }
 
@@ -177,7 +177,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     }
 
     /**
-     * Creates a draft [invoice](#type-invoice) for an order created using the Orders API. A draft
+     * Creates a draft [invoice]($m/Invoice) for an order created using the Orders API. A draft
      * invoice remains in your account and no action is taken. You must publish the invoice before
      * Square can process it (send it to the customer's email address or charge the customer’s card
      * on file).
@@ -192,14 +192,14 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildCreateInvoiceRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateInvoiceResponse(context);
     }
 
     /**
-     * Creates a draft [invoice](#type-invoice) for an order created using the Orders API. A draft
+     * Creates a draft [invoice]($m/Invoice) for an order created using the Orders API. A draft
      * invoice remains in your account and no action is taken. You must publish the invoice before
      * Square can process it (send it to the customer's email address or charge the customer’s card
      * on file).
@@ -212,7 +212,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildCreateInvoiceRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateInvoiceResponse(context));
     }
 
@@ -277,8 +277,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Searches for invoices from a location specified in the filter. You can optionally specify
      * customers in the filter for whom to retrieve invoices. In the current implementation, you can
      * only specify one location and optionally one customer. The response is paginated. If
-     * truncated, the response includes a `cursor` that you use in a subsequent request to fetch the
-     * next set of invoices.
+     * truncated, the response includes a `cursor` that you use in a subsequent request to retrieve
+     * the next set of invoices.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchInvoicesResponse response from the API call
@@ -290,7 +290,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildSearchInvoicesRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchInvoicesResponse(context);
@@ -300,8 +300,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Searches for invoices from a location specified in the filter. You can optionally specify
      * customers in the filter for whom to retrieve invoices. In the current implementation, you can
      * only specify one location and optionally one customer. The response is paginated. If
-     * truncated, the response includes a `cursor` that you use in a subsequent request to fetch the
-     * next set of invoices.
+     * truncated, the response includes a `cursor` that you use in a subsequent request to retrieve
+     * the next set of invoices.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchInvoicesResponse response from the API call
@@ -311,7 +311,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildSearchInvoicesRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchInvoicesResponse(context));
     }
 
@@ -373,14 +373,13 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     }
 
     /**
-     * Deletes the specified invoice. When an invoice is deleted, the associated Order status
+     * Deletes the specified invoice. When an invoice is deleted, the associated order status
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice](#type-invoice) to delete.
-     *         If you do not know the version, you can call
-     *         [GetInvoice](#endpoint-Invoices-GetInvoice) or
-     *         [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
+     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
+     *         [ListInvoices]($e/Invoices/ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -391,21 +390,20 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildDeleteInvoiceRequest(invoiceId, version);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteInvoiceResponse(context);
     }
 
     /**
-     * Deletes the specified invoice. When an invoice is deleted, the associated Order status
+     * Deletes the specified invoice. When an invoice is deleted, the associated order status
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice](#type-invoice) to delete.
-     *         If you do not know the version, you can call
-     *         [GetInvoice](#endpoint-Invoices-GetInvoice) or
-     *         [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
+     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
+     *         [ListInvoices]($e/Invoices/ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      */
     public CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
@@ -414,7 +412,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildDeleteInvoiceRequest(invoiceId, version),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteInvoiceResponse(context));
     }
 
@@ -487,7 +485,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Retrieves an invoice by invoice ID.
-     * @param  invoiceId  Required parameter: The id of the invoice to retrieve.
+     * @param  invoiceId  Required parameter: The ID of the invoice to retrieve.
      * @return    Returns the GetInvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -497,7 +495,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildGetInvoiceRequest(invoiceId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetInvoiceResponse(context);
@@ -505,7 +503,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Retrieves an invoice by invoice ID.
-     * @param  invoiceId  Required parameter: The id of the invoice to retrieve.
+     * @param  invoiceId  Required parameter: The ID of the invoice to retrieve.
      * @return    Returns the GetInvoiceResponse response from the API call
      */
     public CompletableFuture<GetInvoiceResponse> getInvoiceAsync(
@@ -513,7 +511,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildGetInvoiceRequest(invoiceId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetInvoiceResponse(context));
     }
 
@@ -580,9 +578,9 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values, and use the `fields_to_clear`
+     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
      * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field, and you must provide the complete
+     * change the `order_id` or `location_id` field and you must provide the complete
      * `custom_fields` list to update a custom field. Published invoices have additional
      * restrictions.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
@@ -598,7 +596,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildUpdateInvoiceRequest(invoiceId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateInvoiceResponse(context);
@@ -606,9 +604,9 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values, and use the `fields_to_clear`
+     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
      * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field, and you must provide the complete
+     * change the `order_id` or `location_id` field and you must provide the complete
      * `custom_fields` list to update a custom field. Published invoices have additional
      * restrictions.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
@@ -622,7 +620,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildUpdateInvoiceRequest(invoiceId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateInvoiceResponse(context));
     }
 
@@ -694,7 +692,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice](#type-invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call
@@ -707,7 +705,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildCancelInvoiceRequest(invoiceId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCancelInvoiceResponse(context);
@@ -717,7 +715,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice](#type-invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call
@@ -728,7 +726,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildCancelInvoiceRequest(invoiceId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCancelInvoiceResponse(context));
     }
 
@@ -803,8 +801,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
      * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount).
-     * @param  invoiceId  Required parameter: The id of the invoice to publish.
+     * of the invoice amount.
+     * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the PublishInvoiceResponse response from the API call
@@ -817,7 +815,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         HttpRequest request = buildPublishInvoiceRequest(invoiceId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handlePublishInvoiceResponse(context);
@@ -830,8 +828,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
      * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount).
-     * @param  invoiceId  Required parameter: The id of the invoice to publish.
+     * of the invoice amount.
+     * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the PublishInvoiceResponse response from the API call
@@ -842,7 +840,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
         return makeHttpCallAsync(() -> buildPublishInvoiceRequest(invoiceId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handlePublishInvoiceResponse(context));
     }
 

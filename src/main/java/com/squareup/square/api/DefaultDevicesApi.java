@@ -55,7 +55,9 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
      * Lists all DeviceCodes associated with the merchant.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @param  locationId  Optional parameter: If specified, only returns DeviceCodes of the
      *         specified location. Returns DeviceCodes of all locations if empty.
      * @param  productType  Optional parameter: If specified, only returns DeviceCodes targeting the
@@ -74,7 +76,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         HttpRequest request = buildListDeviceCodesRequest(cursor, locationId, productType, status);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListDeviceCodesResponse(context);
@@ -84,7 +86,9 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
      * Lists all DeviceCodes associated with the merchant.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @param  locationId  Optional parameter: If specified, only returns DeviceCodes of the
      *         specified location. Returns DeviceCodes of all locations if empty.
      * @param  productType  Optional parameter: If specified, only returns DeviceCodes targeting the
@@ -102,7 +106,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                 status),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListDeviceCodesResponse(context));
     }
 
@@ -186,7 +190,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         HttpRequest request = buildCreateDeviceCodeRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateDeviceCodeResponse(context);
@@ -204,7 +208,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         return makeHttpCallAsync(() -> buildCreateDeviceCodeRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateDeviceCodeResponse(context));
     }
 
@@ -277,7 +281,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         HttpRequest request = buildGetDeviceCodeRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleGetDeviceCodeResponse(context);
@@ -293,7 +297,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         return makeHttpCallAsync(() -> buildGetDeviceCodeRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleGetDeviceCodeResponse(context));
     }
 

@@ -42,8 +42,8 @@ public class CatalogSubscriptionPlan {
 
     /**
      * Getter for Phases.
-     * A list of SubscriptionPhase containing the [SubscriptionPhase](#type-SubscriptionPhase) for
-     * this plan.
+     * A list of SubscriptionPhase containing the [SubscriptionPhase]($m/SubscriptionPhase) for this
+     * plan.
      * @return Returns the List of SubscriptionPhase
      */
     @JsonGetter("phases")

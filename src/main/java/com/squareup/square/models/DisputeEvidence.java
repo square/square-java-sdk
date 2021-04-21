@@ -16,6 +16,10 @@ public class DisputeEvidence {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final DisputeEvidenceFile evidenceFile;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String evidenceText;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uploadedAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
@@ -24,6 +28,8 @@ public class DisputeEvidence {
      * Initialization constructor.
      * @param  evidenceId  String value for evidenceId.
      * @param  disputeId  String value for disputeId.
+     * @param  evidenceFile  DisputeEvidenceFile value for evidenceFile.
+     * @param  evidenceText  String value for evidenceText.
      * @param  uploadedAt  String value for uploadedAt.
      * @param  evidenceType  String value for evidenceType.
      */
@@ -31,10 +37,14 @@ public class DisputeEvidence {
     public DisputeEvidence(
             @JsonProperty("evidence_id") String evidenceId,
             @JsonProperty("dispute_id") String disputeId,
+            @JsonProperty("evidence_file") DisputeEvidenceFile evidenceFile,
+            @JsonProperty("evidence_text") String evidenceText,
             @JsonProperty("uploaded_at") String uploadedAt,
             @JsonProperty("evidence_type") String evidenceType) {
         this.evidenceId = evidenceId;
         this.disputeId = disputeId;
+        this.evidenceFile = evidenceFile;
+        this.evidenceText = evidenceText;
         this.uploadedAt = uploadedAt;
         this.evidenceType = evidenceType;
     }
@@ -60,6 +70,26 @@ public class DisputeEvidence {
     }
 
     /**
+     * Getter for EvidenceFile.
+     * A file to be uploaded as dispute evidence.
+     * @return Returns the DisputeEvidenceFile
+     */
+    @JsonGetter("evidence_file")
+    public DisputeEvidenceFile getEvidenceFile() {
+        return evidenceFile;
+    }
+
+    /**
+     * Getter for EvidenceText.
+     * Raw text
+     * @return Returns the String
+     */
+    @JsonGetter("evidence_text")
+    public String getEvidenceText() {
+        return evidenceText;
+    }
+
+    /**
      * Getter for UploadedAt.
      * The time when the next action is due, in RFC 3339 format.
      * @return Returns the String
@@ -81,7 +111,8 @@ public class DisputeEvidence {
 
     @Override
     public int hashCode() {
-        return Objects.hash(evidenceId, disputeId, uploadedAt, evidenceType);
+        return Objects.hash(evidenceId, disputeId, evidenceFile, evidenceText, uploadedAt,
+                evidenceType);
     }
 
     @Override
@@ -95,6 +126,8 @@ public class DisputeEvidence {
         DisputeEvidence other = (DisputeEvidence) obj;
         return Objects.equals(evidenceId, other.evidenceId)
             && Objects.equals(disputeId, other.disputeId)
+            && Objects.equals(evidenceFile, other.evidenceFile)
+            && Objects.equals(evidenceText, other.evidenceText)
             && Objects.equals(uploadedAt, other.uploadedAt)
             && Objects.equals(evidenceType, other.evidenceType);
     }
@@ -106,6 +139,7 @@ public class DisputeEvidence {
     @Override
     public String toString() {
         return "DisputeEvidence [" + "evidenceId=" + evidenceId + ", disputeId=" + disputeId
+                + ", evidenceFile=" + evidenceFile + ", evidenceText=" + evidenceText
                 + ", uploadedAt=" + uploadedAt + ", evidenceType=" + evidenceType + "]";
     }
 
@@ -118,6 +152,8 @@ public class DisputeEvidence {
         Builder builder = new Builder()
                 .evidenceId(getEvidenceId())
                 .disputeId(getDisputeId())
+                .evidenceFile(getEvidenceFile())
+                .evidenceText(getEvidenceText())
                 .uploadedAt(getUploadedAt())
                 .evidenceType(getEvidenceType());
         return builder;
@@ -129,6 +165,8 @@ public class DisputeEvidence {
     public static class Builder {
         private String evidenceId;
         private String disputeId;
+        private DisputeEvidenceFile evidenceFile;
+        private String evidenceText;
         private String uploadedAt;
         private String evidenceType;
 
@@ -151,6 +189,26 @@ public class DisputeEvidence {
          */
         public Builder disputeId(String disputeId) {
             this.disputeId = disputeId;
+            return this;
+        }
+
+        /**
+         * Setter for evidenceFile.
+         * @param  evidenceFile  DisputeEvidenceFile value for evidenceFile.
+         * @return Builder
+         */
+        public Builder evidenceFile(DisputeEvidenceFile evidenceFile) {
+            this.evidenceFile = evidenceFile;
+            return this;
+        }
+
+        /**
+         * Setter for evidenceText.
+         * @param  evidenceText  String value for evidenceText.
+         * @return Builder
+         */
+        public Builder evidenceText(String evidenceText) {
+            this.evidenceText = evidenceText;
             return this;
         }
 
@@ -179,7 +237,8 @@ public class DisputeEvidence {
          * @return {@link DisputeEvidence}
          */
         public DisputeEvidence build() {
-            return new DisputeEvidence(evidenceId, disputeId, uploadedAt, evidenceType);
+            return new DisputeEvidence(evidenceId, disputeId, evidenceFile, evidenceText,
+                    uploadedAt, evidenceType);
         }
     }
 }

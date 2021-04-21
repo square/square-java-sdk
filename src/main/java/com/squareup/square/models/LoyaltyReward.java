@@ -84,7 +84,7 @@ public class LoyaltyReward {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The Square-assigned ID of the [loyalty account](#type-LoyaltyAccount) to which the reward
+     * The Square-assigned ID of the [loyalty account]($m/LoyaltyAccount) to which the reward
      * belongs.
      * @return Returns the String
      */
@@ -95,8 +95,8 @@ public class LoyaltyReward {
 
     /**
      * Getter for RewardTierId.
-     * The Square-assigned ID of the [reward tier](#type-LoyaltyProgramRewardTier) used to create
-     * the reward.
+     * The Square-assigned ID of the [reward tier]($m/LoyaltyProgramRewardTier) used to create the
+     * reward.
      * @return Returns the String
      */
     @JsonGetter("reward_tier_id")
@@ -116,7 +116,7 @@ public class LoyaltyReward {
 
     /**
      * Getter for OrderId.
-     * The Square-assigned ID of the [order](#type-Order) to which the reward is attached.
+     * The Square-assigned ID of the [order]($m/Order) to which the reward is attached.
      * @return Returns the String
      */
     @JsonGetter("order_id")

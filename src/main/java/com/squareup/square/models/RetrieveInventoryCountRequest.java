@@ -31,8 +31,8 @@ public class RetrieveInventoryCountRequest {
 
     /**
      * Getter for LocationIds.
-     * The [Location](#type-location) IDs to look up as a comma-separated list. An empty list
-     * queries all locations.
+     * The [Location]($m/Location) IDs to look up as a comma-separated list. An empty list queries
+     * all locations.
      * @return Returns the String
      */
     @JsonGetter("location_ids")

@@ -26,7 +26,9 @@ public class CustomerPreferences {
 
     /**
      * Getter for EmailUnsubscribed.
-     * The customer has unsubscribed from receiving marketing campaign emails.
+     * Indicates whether the customer has unsubscribed from marketing campaign emails. A value of
+     * `true` means that the customer chose to opt out of email marketing from the current Square
+     * seller or from all Square sellers. This value is read-only from the Customers API.
      * @return Returns the Boolean
      */
     @JsonGetter("email_unsubscribed")

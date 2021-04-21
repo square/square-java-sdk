@@ -48,7 +48,7 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for OrderEntries.
-     * List of [OrderEntries](#type-orderentry) that fit the query conditions. Populated only if
+     * List of [OrderEntries]($m/OrderEntry) that fit the query conditions. Populated only if
      * `return_entries` was set to `true` in the request.
      * @return Returns the List of OrderEntry
      */
@@ -59,7 +59,7 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Orders.
-     * List of [Order](#type-order) objects that match query conditions. Populated only if
+     * List of [Order]($m/Order) objects that match query conditions. Populated only if
      * `return_entries` in the request is set to `false`.
      * @return Returns the List of Order
      */
@@ -82,7 +82,7 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Errors.
-     * [Errors](#type-error) encountered during the search.
+     * [Errors]($m/Error) encountered during the search.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

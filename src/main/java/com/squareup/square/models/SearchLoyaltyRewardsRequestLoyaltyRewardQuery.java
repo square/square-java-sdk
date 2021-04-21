@@ -30,7 +30,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The ID of the [loyalty account](#type-LoyaltyAccount) to which the loyalty reward belongs.
+     * The ID of the [loyalty account]($m/LoyaltyAccount) to which the loyalty reward belongs.
      * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")

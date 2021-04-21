@@ -37,9 +37,8 @@ public class SearchCustomersRequest {
     /**
      * Getter for Cursor.
      * Include the pagination cursor in subsequent calls to this endpoint to retrieve the next set
-     * of results associated with the original query. See the [Pagination
-     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     * information.
+     * of results associated with the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -49,9 +48,9 @@ public class SearchCustomersRequest {
 
     /**
      * Getter for Limit.
-     * A limit on the number of results to be returned in a single page. The limit is advisory - the
-     * implementation may return more or fewer results. If the supplied limit is negative, zero, or
-     * is higher than the maximum limit of 100, it will be ignored.
+     * A limit on the number of results to be returned in a single page. The limit is advisory. The
+     * implementation might return more or fewer results. If the supplied limit is negative, zero,
+     * or higher than the maximum limit of 100, it is ignored.
      * @return Returns the Long
      */
     @JsonGetter("limit")

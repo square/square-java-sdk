@@ -207,7 +207,7 @@ public class Order {
 
     /**
      * Getter for CustomerId.
-     * The [Customer](#type-customer) ID of the customer associated with the order.
+     * The [Customer]($m/Customer) ID of the customer associated with the order.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -385,7 +385,7 @@ public class Order {
 
     /**
      * Getter for ClosedAt.
-     * Timestamp for when the order reached a terminal [state](#property-state). In RFC 3339 format,
+     * Timestamp for when the order reached a terminal [state]($m/OrderState). In RFC 3339 format,
      * e.g., "2016-09-04T23:59:33.123Z".
      * @return Returns the String
      */
@@ -496,8 +496,7 @@ public class Order {
      * Getter for PricingOptions.
      * Pricing options for an order. The options affect how the order's price is calculated. They
      * can be used, for example, to apply automatic price adjustments that are based on
-     * pre-configured [pricing
-     * rules](https://developer.squareup.com/docs/reference/square/objects/CatalogPricingRule).
+     * pre-configured [pricing rules]($m/CatalogPricingRule).
      * @return Returns the OrderPricingOptions
      */
     @JsonGetter("pricing_options")

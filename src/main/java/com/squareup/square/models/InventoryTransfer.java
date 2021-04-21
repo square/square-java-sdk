@@ -112,8 +112,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for FromLocationId.
-     * The Square ID of the [Location](#type-location) where the related quantity of items were
-     * tracked before the transfer.
+     * The Square ID of the [Location]($m/Location) where the related quantity of items were tracked
+     * before the transfer.
      * @return Returns the String
      */
     @JsonGetter("from_location_id")
@@ -123,8 +123,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for ToLocationId.
-     * The Square ID of the [Location](#type-location) where the related quantity of items were
-     * tracked after the transfer.
+     * The Square ID of the [Location]($m/Location) where the related quantity of items were tracked
+     * after the transfer.
      * @return Returns the String
      */
     @JsonGetter("to_location_id")
@@ -199,7 +199,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for EmployeeId.
-     * The Square ID of the [Employee](#type-employee) responsible for the inventory transfer.
+     * The Square ID of the [Employee]($m/Employee) responsible for the inventory transfer.
      * @return Returns the String
      */
     @JsonGetter("employee_id")

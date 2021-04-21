@@ -17,6 +17,7 @@ import com.squareup.square.models.ListLoyaltyProgramsResponse;
 import com.squareup.square.models.RedeemLoyaltyRewardRequest;
 import com.squareup.square.models.RedeemLoyaltyRewardResponse;
 import com.squareup.square.models.RetrieveLoyaltyAccountResponse;
+import com.squareup.square.models.RetrieveLoyaltyProgramResponse;
 import com.squareup.square.models.RetrieveLoyaltyRewardResponse;
 import com.squareup.square.models.SearchLoyaltyAccountsRequest;
 import com.squareup.square.models.SearchLoyaltyAccountsResponse;
@@ -33,7 +34,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface LoyaltyApi {
     /**
-     * Creates a loyalty account.
+     * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
+     * either the `mapping` field (preferred) or the `mappings` field.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -44,7 +46,8 @@ public interface LoyaltyApi {
             final CreateLoyaltyAccountRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a loyalty account.
+     * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
+     * either the `mapping` field (preferred) or the `mappings` field.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -80,8 +83,8 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         to retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
+     *         retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -91,8 +94,8 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         to retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
+     *         retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      */
     CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
@@ -103,12 +106,12 @@ public interface LoyaltyApi {
      * only provide the `order_id`. The endpoint reads the order to compute points to add to the
      * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
      * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
-     * points. For more information, see [Loyalty Program
+     * can call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points.
+     * For more information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
      * in a request to this endpoint.
-     * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
-     *         which to add the points.
+     * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
+     *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -124,12 +127,12 @@ public interface LoyaltyApi {
      * only provide the `order_id`. The endpoint reads the order to compute points to add to the
      * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
      * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can call [CalculateLoyaltyPoints](#endpoint-Loyalty-CalculateLoyaltyPoints) to compute the
-     * points. For more information, see [Loyalty Program
+     * can call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points.
+     * For more information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). You then provide the points
      * in a request to this endpoint.
-     * @param  accountId  Required parameter: The [loyalty account](#type-LoyaltyAccount) ID to
-     *         which to add the points.
+     * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
+     *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -141,10 +144,10 @@ public interface LoyaltyApi {
     /**
      * Adds points to or subtracts points from a buyer's account. Use this endpoint only when you
      * need to manually adjust points. Otherwise, in your application flow, you call
-     * [AccumulateLoyaltyPoints](#endpoint-Loyalty-AccumulateLoyaltyPoints) to add points when a
-     * buyer pays for the purchase.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         in which to adjust the points.
+     * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
+     * for the purchase.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) in
+     *         which to adjust the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -158,10 +161,10 @@ public interface LoyaltyApi {
     /**
      * Adds points to or subtracts points from a buyer's account. Use this endpoint only when you
      * need to manually adjust points. Otherwise, in your application flow, you call
-     * [AccumulateLoyaltyPoints](#endpoint-Loyalty-AccumulateLoyaltyPoints) to add points when a
-     * buyer pays for the purchase.
-     * @param  accountId  Required parameter: The ID of the [loyalty account](#type-LoyaltyAccount)
-     *         in which to adjust the points.
+     * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
+     * for the purchase.
+     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) in
+     *         which to adjust the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -174,7 +177,8 @@ public interface LoyaltyApi {
      * Searches for loyalty events. A Square loyalty program maintains a ledger of events that occur
      * during the lifetime of a buyer's loyalty account. Each change in the point balance (for
      * example, points earned, points redeemed, and points expired) is recorded in the ledger. Using
-     * this endpoint, you can search the ledger for events.
+     * this endpoint, you can search the ledger for events. Search results are sorted by
+     * `created_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyEventsResponse response from the API call
@@ -188,7 +192,8 @@ public interface LoyaltyApi {
      * Searches for loyalty events. A Square loyalty program maintains a ledger of events that occur
      * during the lifetime of a buyer's loyalty account. Each change in the point balance (for
      * example, points earned, points redeemed, and points expired) is recorded in the ledger. Using
-     * this endpoint, you can search the ledger for events.
+     * this endpoint, you can search the ledger for events. Search results are sorted by
+     * `created_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyEventsResponse response from the API call
@@ -213,12 +218,42 @@ public interface LoyaltyApi {
     CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync();
 
     /**
+     * Retrieves the loyalty program in a seller's account, specified by the program ID or the
+     * keyword `main`. Loyalty programs define how buyers can earn points and redeem points for
+     * rewards. Square sellers can have only one loyalty program, which is created and managed from
+     * the Seller Dashboard. For more information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
+     * @param  programId  Required parameter: The ID of the loyalty program or the keyword `main`.
+     *         Either value can be used to retrieve the single loyalty program that belongs to the
+     *         seller.
+     * @return    Returns the RetrieveLoyaltyProgramResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveLoyaltyProgramResponse retrieveLoyaltyProgram(
+            final String programId) throws ApiException, IOException;
+
+    /**
+     * Retrieves the loyalty program in a seller's account, specified by the program ID or the
+     * keyword `main`. Loyalty programs define how buyers can earn points and redeem points for
+     * rewards. Square sellers can have only one loyalty program, which is created and managed from
+     * the Seller Dashboard. For more information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
+     * @param  programId  Required parameter: The ID of the loyalty program or the keyword `main`.
+     *         Either value can be used to retrieve the single loyalty program that belongs to the
+     *         seller.
+     * @return    Returns the RetrieveLoyaltyProgramResponse response from the API call
+     */
+    CompletableFuture<RetrieveLoyaltyProgramResponse> retrieveLoyaltyProgramAsync(
+            final String programId);
+
+    /**
      * Calculates the points a purchase earns. - If you are using the Orders API to manage orders,
      * you provide `order_id` in the request. The endpoint calculates the points by reading the
      * order. - If you are not using the Orders API to manage orders, you provide the purchase
      * amount in the request for the endpoint to calculate the points. An application might call
      * this endpoint to show the points that a buyer can earn with the specific purchase.
-     * @param  programId  Required parameter: The [loyalty program](#type-LoyaltyProgram) ID, which
+     * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -236,7 +271,7 @@ public interface LoyaltyApi {
      * order. - If you are not using the Orders API to manage orders, you provide the purchase
      * amount in the request for the endpoint to calculate the points. An application might call
      * this endpoint to show the points that a buyer can earn with the specific purchase.
-     * @param  programId  Required parameter: The [loyalty program](#type-LoyaltyProgram) ID, which
+     * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -277,7 +312,8 @@ public interface LoyaltyApi {
     /**
      * Searches for loyalty rewards in a loyalty account. In the current implementation, the
      * endpoint supports search by the reward `status`. If you know a reward ID, use the
-     * [RetrieveLoyaltyReward](#endpoint-Loyalty-RetrieveLoyaltyReward) endpoint.
+     * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
+     * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyRewardsResponse response from the API call
@@ -290,7 +326,8 @@ public interface LoyaltyApi {
     /**
      * Searches for loyalty rewards in a loyalty account. In the current implementation, the
      * endpoint supports search by the reward `status`. If you know a reward ID, use the
-     * [RetrieveLoyaltyReward](#endpoint-Loyalty-RetrieveLoyaltyReward) endpoint.
+     * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
+     * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchLoyaltyRewardsResponse response from the API call
@@ -301,10 +338,10 @@ public interface LoyaltyApi {
     /**
      * Deletes a loyalty reward by doing the following: - Returns the loyalty points back to the
      * loyalty account. - If an order ID was specified when the reward was created (see
-     * [CreateLoyaltyReward](#endpoint-Loyalty-CreateLoyaltyReward)), it updates the order by
-     * removing the reward and related discounts. You cannot delete a reward that has reached the
-     * terminal state (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
+     * reward and related discounts. You cannot delete a reward that has reached the terminal state
+     * (REDEEMED).
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -316,10 +353,10 @@ public interface LoyaltyApi {
     /**
      * Deletes a loyalty reward by doing the following: - Returns the loyalty points back to the
      * loyalty account. - If an order ID was specified when the reward was created (see
-     * [CreateLoyaltyReward](#endpoint-Loyalty-CreateLoyaltyReward)), it updates the order by
-     * removing the reward and related discounts. You cannot delete a reward that has reached the
-     * terminal state (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
+     * reward and related discounts. You cannot delete a reward that has reached the terminal state
+     * (REDEEMED).
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      */
@@ -328,7 +365,7 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -339,7 +376,7 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      */
@@ -352,7 +389,7 @@ public interface LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -370,7 +407,7 @@ public interface LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward](#type-LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

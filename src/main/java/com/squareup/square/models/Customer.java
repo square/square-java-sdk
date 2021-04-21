@@ -43,13 +43,13 @@ public class Customer {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerPreferences preferences;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final List<CustomerGroupInfo> groups;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String creationSource;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> groupIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> segmentIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long version;
 
     /**
      * Initialization constructor.
@@ -68,10 +68,10 @@ public class Customer {
      * @param  referenceId  String value for referenceId.
      * @param  note  String value for note.
      * @param  preferences  CustomerPreferences value for preferences.
-     * @param  groups  List of CustomerGroupInfo value for groups.
      * @param  creationSource  String value for creationSource.
      * @param  groupIds  List of String value for groupIds.
      * @param  segmentIds  List of String value for segmentIds.
+     * @param  version  Long value for version.
      */
     @JsonCreator
     public Customer(
@@ -90,10 +90,10 @@ public class Customer {
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("note") String note,
             @JsonProperty("preferences") CustomerPreferences preferences,
-            @JsonProperty("groups") List<CustomerGroupInfo> groups,
             @JsonProperty("creation_source") String creationSource,
             @JsonProperty("group_ids") List<String> groupIds,
-            @JsonProperty("segment_ids") List<String> segmentIds) {
+            @JsonProperty("segment_ids") List<String> segmentIds,
+            @JsonProperty("version") Long version) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -109,10 +109,10 @@ public class Customer {
         this.referenceId = referenceId;
         this.note = note;
         this.preferences = preferences;
-        this.groups = groups;
         this.creationSource = creationSource;
         this.groupIds = groupIds;
         this.segmentIds = segmentIds;
+        this.version = version;
     }
 
     /**
@@ -147,7 +147,7 @@ public class Customer {
 
     /**
      * Getter for Cards.
-     * Payment details of cards stored on file for the customer profile.
+     * Payment details of the credit, debit, and gift cards stored on file for the customer profile.
      * @return Returns the List of Card
      */
     @JsonGetter("cards")
@@ -227,10 +227,10 @@ public class Customer {
 
     /**
      * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional,
-     * timezone and times are not allowed. For example: `0000-09-01T00:00:00-00:00` indicates a
-     * birthday on September 1st. `1998-09-01T00:00:00-00:00` indications a birthday on September
-     * 1st __1998__.
+     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional.
+     * The timezone and time are not allowed. For example, `0000-09-21T00:00:00-00:00` represents a
+     * birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September
+     * 21, 1998.
      * @return Returns the String
      */
     @JsonGetter("birthday")
@@ -240,7 +240,7 @@ public class Customer {
 
     /**
      * Getter for ReferenceId.
-     * An optional, second ID used to associate the customer profile with an entity in another
+     * An optional second ID used to associate the customer profile with an entity in another
      * system.
      * @return Returns the String
      */
@@ -267,19 +267,6 @@ public class Customer {
     @JsonGetter("preferences")
     public CustomerPreferences getPreferences() {
         return preferences;
-    }
-
-    /**
-     * Getter for Groups.
-     * The customer groups and segments the customer belongs to. This deprecated field has been
-     * replaced with the dedicated `group_ids` for customer groups and the dedicated `segment_ids`
-     * field for customer segments. You can retrieve information about a given customer group and
-     * segment respectively using the Customer Groups API and Customer Segments API.
-     * @return Returns the List of CustomerGroupInfo
-     */
-    @JsonGetter("groups")
-    public List<CustomerGroupInfo> getGroups() {
-        return groups;
     }
 
     /**
@@ -312,11 +299,23 @@ public class Customer {
         return segmentIds;
     }
 
+    /**
+     * Getter for Version.
+     * The Square-assigned version number of the customer profile. The version number is incremented
+     * each time an update is committed to the customer profile, except for changes to customer
+     * segment membership and cards on file.
+     * @return Returns the Long
+     */
+    @JsonGetter("version")
+    public Long getVersion() {
+        return version;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
                 companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
-                preferences, groups, creationSource, groupIds, segmentIds);
+                preferences, creationSource, groupIds, segmentIds, version);
     }
 
     @Override
@@ -343,10 +342,10 @@ public class Customer {
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(note, other.note)
             && Objects.equals(preferences, other.preferences)
-            && Objects.equals(groups, other.groups)
             && Objects.equals(creationSource, other.creationSource)
             && Objects.equals(groupIds, other.groupIds)
-            && Objects.equals(segmentIds, other.segmentIds);
+            && Objects.equals(segmentIds, other.segmentIds)
+            && Objects.equals(version, other.version);
     }
 
     /**
@@ -360,8 +359,9 @@ public class Customer {
                 + ", nickname=" + nickname + ", companyName=" + companyName + ", emailAddress="
                 + emailAddress + ", address=" + address + ", phoneNumber=" + phoneNumber
                 + ", birthday=" + birthday + ", referenceId=" + referenceId + ", note=" + note
-                + ", preferences=" + preferences + ", groups=" + groups + ", creationSource="
-                + creationSource + ", groupIds=" + groupIds + ", segmentIds=" + segmentIds + "]";
+                + ", preferences=" + preferences + ", creationSource=" + creationSource
+                + ", groupIds=" + groupIds + ", segmentIds=" + segmentIds + ", version=" + version
+                + "]";
     }
 
     /**
@@ -386,10 +386,10 @@ public class Customer {
                 .referenceId(getReferenceId())
                 .note(getNote())
                 .preferences(getPreferences())
-                .groups(getGroups())
                 .creationSource(getCreationSource())
                 .groupIds(getGroupIds())
-                .segmentIds(getSegmentIds());
+                .segmentIds(getSegmentIds())
+                .version(getVersion());
         return builder;
     }
 
@@ -412,10 +412,10 @@ public class Customer {
         private String referenceId;
         private String note;
         private CustomerPreferences preferences;
-        private List<CustomerGroupInfo> groups;
         private String creationSource;
         private List<String> groupIds;
         private List<String> segmentIds;
+        private Long version;
 
 
 
@@ -570,16 +570,6 @@ public class Customer {
         }
 
         /**
-         * Setter for groups.
-         * @param  groups  List of CustomerGroupInfo value for groups.
-         * @return Builder
-         */
-        public Builder groups(List<CustomerGroupInfo> groups) {
-            this.groups = groups;
-            return this;
-        }
-
-        /**
          * Setter for creationSource.
          * @param  creationSource  String value for creationSource.
          * @return Builder
@@ -610,13 +600,23 @@ public class Customer {
         }
 
         /**
+         * Setter for version.
+         * @param  version  Long value for version.
+         * @return Builder
+         */
+        public Builder version(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
         public Customer build() {
             return new Customer(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
                     companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
-                    preferences, groups, creationSource, groupIds, segmentIds);
+                    preferences, creationSource, groupIds, segmentIds, version);
         }
     }
 }

@@ -30,8 +30,8 @@ public class SegmentFilter {
 
     /**
      * Getter for ServiceVariationId.
-     * The ID of the [CatalogItemVariation](#type-CatalogItemVariation) representing the service
-     * booked in this segment.
+     * The ID of the [CatalogItemVariation]($m/CatalogItemVariation) representing the service booked
+     * in this segment.
      * @return Returns the String
      */
     @JsonGetter("service_variation_id")

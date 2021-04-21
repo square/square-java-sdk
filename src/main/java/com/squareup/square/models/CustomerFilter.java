@@ -56,7 +56,7 @@ public class CustomerFilter {
 
     /**
      * Getter for CreationSource.
-     * Creation source filter. If one or more creation sources are set, customer profiles are
+     * The creation source filter. If one or more creation sources are set, customer profiles are
      * included in, or excluded from, the result if they match at least one of the filter criteria.
      * @return Returns the CustomerCreationSourceFilter
      */
@@ -94,8 +94,8 @@ public class CustomerFilter {
     /**
      * Getter for EmailAddress.
      * A filter to select customers based on exact or fuzzy matching of customer attributes against
-     * a specified query. Depending on customer attributes, the filter can be case sensitive. This
-     * filter can be either exact or fuzzy. It cannot be both.
+     * a specified query. Depending on the customer attributes, the filter can be case-sensitive.
+     * This filter can be exact or fuzzy, but it cannot be both.
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("email_address")
@@ -106,8 +106,8 @@ public class CustomerFilter {
     /**
      * Getter for PhoneNumber.
      * A filter to select customers based on exact or fuzzy matching of customer attributes against
-     * a specified query. Depending on customer attributes, the filter can be case sensitive. This
-     * filter can be either exact or fuzzy. It cannot be both.
+     * a specified query. Depending on the customer attributes, the filter can be case-sensitive.
+     * This filter can be exact or fuzzy, but it cannot be both.
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("phone_number")
@@ -118,8 +118,8 @@ public class CustomerFilter {
     /**
      * Getter for ReferenceId.
      * A filter to select customers based on exact or fuzzy matching of customer attributes against
-     * a specified query. Depending on customer attributes, the filter can be case sensitive. This
-     * filter can be either exact or fuzzy. It cannot be both.
+     * a specified query. Depending on the customer attributes, the filter can be case-sensitive.
+     * This filter can be exact or fuzzy, but it cannot be both.
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("reference_id")

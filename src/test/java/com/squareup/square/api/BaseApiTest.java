@@ -74,7 +74,8 @@ public class BaseApiTest {
             builder.squareVersion(squareVersion);
         }
         if (timeout != null) {
-            builder.timeout(Long.parseLong(timeout));
+            builder.httpClientConfig(configBuilder -> configBuilder.timeout(
+                    Long.parseLong(timeout)));
         }
         return builder.build();
     }

@@ -18,8 +18,8 @@ import java.util.concurrent.CompletableFuture;
 public interface LocationsApi {
     /**
      * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`](#type-location) objects returned
-     * by this endpoint correspond to that `location_id` parameter.
+     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
+     * this endpoint correspond to that `location_id` parameter.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -28,8 +28,8 @@ public interface LocationsApi {
 
     /**
      * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`](#type-location) objects returned
-     * by this endpoint correspond to that `location_id` parameter.
+     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
+     * this endpoint correspond to that `location_id` parameter.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     CompletableFuture<ListLocationsResponse> listLocationsAsync();

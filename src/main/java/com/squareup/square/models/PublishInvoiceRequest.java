@@ -30,8 +30,8 @@ public class PublishInvoiceRequest {
 
     /**
      * Getter for Version.
-     * The version of the [Invoice](#type-invoice) to publish. This must match the current version
-     * of the invoice, otherwise the request is rejected.
+     * The version of the [invoice]($m/Invoice) to publish. This must match the current version of
+     * the invoice; otherwise, the request is rejected.
      * @return Returns the int
      */
     @JsonGetter("version")

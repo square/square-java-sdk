@@ -60,7 +60,7 @@ public class PayOrderRequest {
 
     /**
      * Getter for PaymentIds.
-     * The IDs of the [payments](#type-payment) to collect. The payment total must match the order
+     * The IDs of the [payments]($m/Payment) to collect. The payment total must match the order
      * total.
      * @return Returns the List of String
      */
