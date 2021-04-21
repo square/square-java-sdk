@@ -72,7 +72,7 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogModifier](#type-catalogmodifier).
+     * The catalog object id referencing [CatalogModifier]($m/CatalogModifier).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

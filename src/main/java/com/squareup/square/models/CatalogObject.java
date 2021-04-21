@@ -224,12 +224,12 @@ public class CatalogObject {
     /**
      * Getter for CustomAttributeValues.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a
-     * key-value pair is a [CatalogCustomAttributeValue](#type-CatalogCustomAttributeValue) object.
-     * The key is the `key` attribute value defined in the associated
-     * [CatalogCustomAttributeDefinition](#type-CatalogCustomAttributeDefinition) object defined by
-     * the application making the request. If the `CatalogCustomAttributeDefinition` object is
-     * defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value
-     * is prefixed by the defining application ID. For example, if the
+     * key-value pair is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The
+     * key is the `key` attribute value defined in the associated
+     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) object defined by the
+     * application making the request. If the `CatalogCustomAttributeDefinition` object is defined
+     * by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is
+     * prefixed by the defining application ID. For example, if the
      * `CatalogCustomAttributeDefinition` has a `key` attribute of `"cocoa_brand"` and the defining
      * application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"` if the
      * application making the request is different from the application defining the custom
@@ -273,7 +273,7 @@ public class CatalogObject {
     /**
      * Getter for PresentAtLocationIds.
      * A list of locations where the object is present, even if `present_at_all_locations` is
-     * `false`.
+     * `false`. This can include locations that are deactivated.
      * @return Returns the List of String
      */
     @JsonGetter("present_at_location_ids")
@@ -284,7 +284,7 @@ public class CatalogObject {
     /**
      * Getter for AbsentAtLocationIds.
      * A list of locations where the object is not present, even if `present_at_all_locations` is
-     * `true`.
+     * `true`. This can include locations that are deactivated.
      * @return Returns the List of String
      */
     @JsonGetter("absent_at_location_ids")
@@ -304,8 +304,8 @@ public class CatalogObject {
 
     /**
      * Getter for ItemData.
-     * A [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referred to as an
-     * item, in the catalog.
+     * A [CatalogObject]($m/CatalogObject) instance of the `ITEM` type, also referred to as an item,
+     * in the catalog.
      * @return Returns the CatalogItem
      */
     @JsonGetter("item_data")

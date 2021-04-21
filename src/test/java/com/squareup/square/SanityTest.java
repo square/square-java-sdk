@@ -179,7 +179,7 @@ public class SanityTest {
         assertEquals(updatedCustomer.getFamilyName(), TEST_UPDATE_FAMILY_NAME);
 
         // Delete Customer
-        DeleteCustomerResponse deleteCustomerRes = api.deleteCustomer(createdCustomerId);
+        DeleteCustomerResponse deleteCustomerRes = api.deleteCustomer(createdCustomerId, null);
         assertEquals(deleteCustomerRes.getErrors(), null);
     }
 }

@@ -11,7 +11,7 @@ Describes a slot available for booking, encapsulating appointment segments, the 
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `StartAt` | `String` | Optional | The RFC-3339 timestamp specifying the beginning time of the slot available for booking. | String getStartAt() |
+| `StartAt` | `String` | Optional | The RFC 3339 timestamp specifying the beginning time of the slot available for booking. | String getStartAt() |
 | `LocationId` | `String` | Optional | The ID of the location available for booking. | String getLocationId() |
 | `AppointmentSegments` | [`List<AppointmentSegment>`](/doc/models/appointment-segment.md) | Optional | The list of appointment segments available for booking | List<AppointmentSegment> getAppointmentSegments() |
 

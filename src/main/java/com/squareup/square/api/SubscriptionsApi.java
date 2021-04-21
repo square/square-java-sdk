@@ -6,6 +6,7 @@ import com.squareup.square.models.CancelSubscriptionResponse;
 import com.squareup.square.models.CreateSubscriptionRequest;
 import com.squareup.square.models.CreateSubscriptionResponse;
 import com.squareup.square.models.ListSubscriptionEventsResponse;
+import com.squareup.square.models.ResumeSubscriptionResponse;
 import com.squareup.square.models.RetrieveSubscriptionResponse;
 import com.squareup.square.models.SearchSubscriptionsRequest;
 import com.squareup.square.models.SearchSubscriptionsResponse;
@@ -184,5 +185,23 @@ public interface SubscriptionsApi {
             final String subscriptionId,
             final String cursor,
             final Integer limit);
+
+    /**
+     * Resumes a deactivated subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @return    Returns the ResumeSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    ResumeSubscriptionResponse resumeSubscription(
+            final String subscriptionId) throws ApiException, IOException;
+
+    /**
+     * Resumes a deactivated subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @return    Returns the ResumeSubscriptionResponse response from the API call
+     */
+    CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
+            final String subscriptionId);
 
 }

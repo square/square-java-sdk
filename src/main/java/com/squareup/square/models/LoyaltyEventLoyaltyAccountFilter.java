@@ -24,7 +24,7 @@ public class LoyaltyEventLoyaltyAccountFilter {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The ID of the [loyalty account](#type-LoyaltyAccount) associated with loyalty events.
+     * The ID of the [loyalty account]($m/LoyaltyAccount) associated with loyalty events.
      * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")

@@ -117,7 +117,7 @@ public class Subscription {
 
     /**
      * Getter for PlanId.
-     * The ID of the associated [subscription plan](#type-catalogsubscriptionplan).
+     * The ID of the associated [subscription plan]($m/CatalogSubscriptionPlan).
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -127,7 +127,7 @@ public class Subscription {
 
     /**
      * Getter for CustomerId.
-     * The ID of the associated [customer](#type-customer) profile.
+     * The ID of the associated [customer]($m/Customer) profile.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -182,8 +182,8 @@ public class Subscription {
 
     /**
      * Getter for InvoiceIds.
-     * The IDs of the [invoices](#type-invoice) created for the subscription, listed in order when
-     * the invoices were created (oldest invoices appear first).
+     * The IDs of the [invoices]($m/Invoice) created for the subscription, listed in order when the
+     * invoices were created (oldest invoices appear first).
      * @return Returns the List of String
      */
     @JsonGetter("invoice_ids")
@@ -229,8 +229,7 @@ public class Subscription {
 
     /**
      * Getter for CardId.
-     * The ID of the [customer](#type-customer) [card](#type-card) that is charged for the
-     * subscription.
+     * The ID of the [customer]($m/Customer) [card]($m/Card) that is charged for the subscription.
      * @return Returns the String
      */
     @JsonGetter("card_id")

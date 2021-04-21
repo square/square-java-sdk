@@ -24,7 +24,7 @@ Represents a tender (i.e., a method of payment) used in a Square transaction.
 | `CardDetails` | [`TenderCardDetails`](/doc/models/tender-card-details.md) | Optional | Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD` | TenderCardDetails getCardDetails() |
 | `CashDetails` | [`TenderCashDetails`](/doc/models/tender-cash-details.md) | Optional | Represents the details of a tender with `type` `CASH`. | TenderCashDetails getCashDetails() |
 | `AdditionalRecipients` | [`List<AdditionalRecipient>`](/doc/models/additional-recipient.md) | Optional | Additional recipients (other than the merchant) receiving a portion of this tender.<br>For example, fees assessed on the purchase by a third party integration. | List<AdditionalRecipient> getAdditionalRecipients() |
-| `PaymentId` | `String` | Optional | The ID of the [Payment](#type-payment) that corresponds to this tender.<br>This value is only present for payments created with the v2 Payments API.<br>**Constraints**: *Maximum Length*: `192` | String getPaymentId() |
+| `PaymentId` | `String` | Optional | The ID of the [Payment](/doc/models/payment.md) that corresponds to this tender.<br>This value is only present for payments created with the v2 Payments API.<br>**Constraints**: *Maximum Length*: `192` | String getPaymentId() |
 
 ## Example (as JSON)
 

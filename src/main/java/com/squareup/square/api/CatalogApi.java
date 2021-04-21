@@ -34,10 +34,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface CatalogApi {
     /**
-     * Deletes a set of [CatalogItem](#type-catalogitem)s based on the provided list of target IDs
-     * and returns a set of successfully deleted IDs in the response. Deletion is a cascading event
-     * such that all children of the targeted object are also deleted. For example, deleting a
-     * CatalogItem will also delete all of its [CatalogItemVariation](#type-catalogitemvariation)
+     * Deletes a set of [CatalogItem]($m/CatalogItem)s based on the provided list of target IDs and
+     * returns a set of successfully deleted IDs in the response. Deletion is a cascading event such
+     * that all children of the targeted object are also deleted. For example, deleting a
+     * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
      * be deleted. The response will only include IDs that were actually deleted.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -50,10 +50,10 @@ public interface CatalogApi {
             final BatchDeleteCatalogObjectsRequest body) throws ApiException, IOException;
 
     /**
-     * Deletes a set of [CatalogItem](#type-catalogitem)s based on the provided list of target IDs
-     * and returns a set of successfully deleted IDs in the response. Deletion is a cascading event
-     * such that all children of the targeted object are also deleted. For example, deleting a
-     * CatalogItem will also delete all of its [CatalogItemVariation](#type-catalogitemvariation)
+     * Deletes a set of [CatalogItem]($m/CatalogItem)s based on the provided list of target IDs and
+     * returns a set of successfully deleted IDs in the response. Deletion is a cascading event such
+     * that all children of the targeted object are also deleted. For example, deleting a
+     * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
      * be deleted. The response will only include IDs that were actually deleted.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -64,11 +64,11 @@ public interface CatalogApi {
             final BatchDeleteCatalogObjectsRequest body);
 
     /**
-     * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem)
+     * Returns a set of objects based on the provided ID. Each [CatalogItem]($m/CatalogItem)
      * returned in the set includes all of its child information including: all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * [CatalogItemVariation]($m/CatalogItemVariation) objects, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveCatalogObjectsResponse response from the API call
@@ -79,11 +79,11 @@ public interface CatalogApi {
             final BatchRetrieveCatalogObjectsRequest body) throws ApiException, IOException;
 
     /**
-     * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem)
+     * Returns a set of objects based on the provided ID. Each [CatalogItem]($m/CatalogItem)
      * returned in the set includes all of its child information including: all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * [CatalogItemVariation]($m/CatalogItemVariation) objects, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveCatalogObjectsResponse response from the API call
@@ -124,11 +124,11 @@ public interface CatalogApi {
             final BatchUpsertCatalogObjectsRequest body);
 
     /**
-     * Uploads an image file to be represented by a [CatalogImage](#type-catalogimage) object linked
-     * to an existing [CatalogObject](#type-catalogobject) instance. A call to this endpoint can
-     * upload an image, link an image to a catalog object, or do both. This `CreateCatalogImage`
-     * endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+     * Uploads an image file to be represented by a [CatalogImage]($m/CatalogImage) object linked to
+     * an existing [CatalogObject]($m/CatalogObject) instance. A call to this endpoint can upload an
+     * image, link an image to a catalog object, or do both. This `CreateCatalogImage` endpoint
+     * accepts HTTP multipart/form-data requests with a JSON part and an image file part in JPEG,
+     * PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * @param  request  Optional parameter: Example:
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateCatalogImageResponse response from the API call
@@ -140,11 +140,11 @@ public interface CatalogApi {
             final FileWrapper imageFile) throws ApiException, IOException;
 
     /**
-     * Uploads an image file to be represented by a [CatalogImage](#type-catalogimage) object linked
-     * to an existing [CatalogObject](#type-catalogobject) instance. A call to this endpoint can
-     * upload an image, link an image to a catalog object, or do both. This `CreateCatalogImage`
-     * endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
-     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+     * Uploads an image file to be represented by a [CatalogImage]($m/CatalogImage) object linked to
+     * an existing [CatalogObject]($m/CatalogObject) instance. A call to this endpoint can upload an
+     * image, link an image to a catalog object, or do both. This `CreateCatalogImage` endpoint
+     * accepts HTTP multipart/form-data requests with a JSON part and an image file part in JPEG,
+     * PJPEG, PNG, or GIF format. The maximum file size is 15MB.
      * @param  request  Optional parameter: Example:
      * @param  imageFile  Optional parameter: Example:
      * @return    Returns the CreateCatalogImageResponse response from the API call
@@ -170,14 +170,14 @@ public interface CatalogApi {
     CompletableFuture<CatalogInfoResponse> catalogInfoAsync();
 
     /**
-     * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of
-     * desired types (for example, all [CatalogItem](#type-catalogitem) and
-     * [CatalogTax](#type-catalogtax) objects) in the catalog. The `types` parameter is specified as
-     * a comma-separated list of valid [CatalogObject](#type-catalogobject) types: `ITEM`,
-     * `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`.
-     * __Important:__ ListCatalog does not return deleted catalog items. To retrieve deleted catalog
-     * items, use [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) and set the
-     * `include_deleted_objects` attribute value to `true`.
+     * Returns a list of [CatalogObject]($m/CatalogObject)s that includes all objects of a set of
+     * desired types (for example, all [CatalogItem]($m/CatalogItem) and [CatalogTax]($m/CatalogTax)
+     * objects) in the catalog. The `types` parameter is specified as a comma-separated list of
+     * valid [CatalogObject]($m/CatalogObject) types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`,
+     * `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`. __Important:__ ListCatalog does not
+     * return deleted catalog items. To retrieve deleted catalog items, use
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
+     * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
      *         Leave unset for an initial request. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
@@ -189,7 +189,7 @@ public interface CatalogApi {
      * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
      *         included in the response. This allows you to retrieve historical versions of objects.
      *         The specified version value is matched against the
-     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
+     *         [CatalogObject]($m/CatalogObject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -200,14 +200,14 @@ public interface CatalogApi {
             final Long catalogVersion) throws ApiException, IOException;
 
     /**
-     * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of
-     * desired types (for example, all [CatalogItem](#type-catalogitem) and
-     * [CatalogTax](#type-catalogtax) objects) in the catalog. The `types` parameter is specified as
-     * a comma-separated list of valid [CatalogObject](#type-catalogobject) types: `ITEM`,
-     * `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`.
-     * __Important:__ ListCatalog does not return deleted catalog items. To retrieve deleted catalog
-     * items, use [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) and set the
-     * `include_deleted_objects` attribute value to `true`.
+     * Returns a list of [CatalogObject]($m/CatalogObject)s that includes all objects of a set of
+     * desired types (for example, all [CatalogItem]($m/CatalogItem) and [CatalogTax]($m/CatalogTax)
+     * objects) in the catalog. The `types` parameter is specified as a comma-separated list of
+     * valid [CatalogObject]($m/CatalogObject) types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`,
+     * `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`. __Important:__ ListCatalog does not
+     * return deleted catalog items. To retrieve deleted catalog items, use
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
+     * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
      *         Leave unset for an initial request. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
@@ -219,7 +219,7 @@ public interface CatalogApi {
      * @param  catalogVersion  Optional parameter: The specific version of the catalog objects to be
      *         included in the response. This allows you to retrieve historical versions of objects.
      *         The specified version value is matched against the
-     *         [CatalogObject](#type-catalogobject)s' `version` attribute.
+     *         [CatalogObject]($m/CatalogObject)s' `version` attribute.
      * @return    Returns the ListCatalogResponse response from the API call
      */
     CompletableFuture<ListCatalogResponse> listCatalogAsync(
@@ -228,7 +228,7 @@ public interface CatalogApi {
             final Long catalogVersion);
 
     /**
-     * Creates or updates the target [CatalogObject](#type-catalogobject).
+     * Creates or updates the target [CatalogObject]($m/CatalogObject).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -239,7 +239,7 @@ public interface CatalogApi {
             final UpsertCatalogObjectRequest body) throws ApiException, IOException;
 
     /**
-     * Creates or updates the target [CatalogObject](#type-catalogobject).
+     * Creates or updates the target [CatalogObject]($m/CatalogObject).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -248,11 +248,11 @@ public interface CatalogApi {
             final UpsertCatalogObjectRequest body);
 
     /**
-     * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns
-     * the set of successfully deleted IDs in the response. Deletion is a cascading event such that
-     * all children of the targeted object are also deleted. For example, deleting a
-     * [CatalogItem](#type-catalogitem) will also delete all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) children.
+     * Deletes a single [CatalogObject]($m/CatalogObject) based on the provided ID and returns the
+     * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
+     * children of the targeted object are also deleted. For example, deleting a
+     * [CatalogItem]($m/CatalogItem) will also delete all of its
+     * [CatalogItemVariation]($m/CatalogItemVariation) children.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item
@@ -265,11 +265,11 @@ public interface CatalogApi {
             final String objectId) throws ApiException, IOException;
 
     /**
-     * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns
-     * the set of successfully deleted IDs in the response. Deletion is a cascading event such that
-     * all children of the targeted object are also deleted. For example, deleting a
-     * [CatalogItem](#type-catalogitem) will also delete all of its
-     * [CatalogItemVariation](#type-catalogitemvariation) children.
+     * Deletes a single [CatalogObject]($m/CatalogObject) based on the provided ID and returns the
+     * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
+     * children of the targeted object are also deleted. For example, deleting a
+     * [CatalogItem]($m/CatalogItem) will also delete all of its
+     * [CatalogItemVariation]($m/CatalogItemVariation) children.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item
@@ -280,12 +280,12 @@ public interface CatalogApi {
             final String objectId);
 
     /**
-     * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject)
-     * based on the provided ID. The returned object includes all of the relevant
-     * [CatalogItem](#type-catalogitem) information including:
-     * [CatalogItemVariation](#type-catalogitemvariation) children, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * Returns a single [CatalogItem]($m/CatalogItem) as a [CatalogObject]($m/CatalogObject) based
+     * on the provided ID. The returned object includes all of the relevant
+     * [CatalogItem]($m/CatalogItem) information including:
+     * [CatalogItemVariation]($m/CatalogItemVariation) children, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  objectId  Required parameter: The object ID of any type of catalog objects to be
      *         retrieved.
      * @param  includeRelatedObjects  Optional parameter: If `true`, the response will include
@@ -299,7 +299,7 @@ public interface CatalogApi {
      * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
      *         catalog. This allows you to retrieve historical versions of objects. The value to
      *         retrieve a specific version of an object can be found in the version field of
-     *         [CatalogObject](#type-catalogobject)s.
+     *         [CatalogObject]($m/CatalogObject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -310,12 +310,12 @@ public interface CatalogApi {
             final Long catalogVersion) throws ApiException, IOException;
 
     /**
-     * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject)
-     * based on the provided ID. The returned object includes all of the relevant
-     * [CatalogItem](#type-catalogitem) information including:
-     * [CatalogItemVariation](#type-catalogitemvariation) children, references to its
-     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any
-     * [CatalogTax](#type-catalogtax) objects that apply to it.
+     * Returns a single [CatalogItem]($m/CatalogItem) as a [CatalogObject]($m/CatalogObject) based
+     * on the provided ID. The returned object includes all of the relevant
+     * [CatalogItem]($m/CatalogItem) information including:
+     * [CatalogItemVariation]($m/CatalogItemVariation) children, references to its
+     * [CatalogModifierList]($m/CatalogModifierList) objects, and the ids of any
+     * [CatalogTax]($m/CatalogTax) objects that apply to it.
      * @param  objectId  Required parameter: The object ID of any type of catalog objects to be
      *         retrieved.
      * @param  includeRelatedObjects  Optional parameter: If `true`, the response will include
@@ -329,7 +329,7 @@ public interface CatalogApi {
      * @param  catalogVersion  Optional parameter: Requests objects as of a specific version of the
      *         catalog. This allows you to retrieve historical versions of objects. The value to
      *         retrieve a specific version of an object can be found in the version field of
-     *         [CatalogObject](#type-catalogobject)s.
+     *         [CatalogObject]($m/CatalogObject)s.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
@@ -338,10 +338,10 @@ public interface CatalogApi {
             final Long catalogVersion);
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
+     * Searches for [CatalogObject]($m/CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
      * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
-     * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
+     * from the [SearchCatalogItems]($e/Catalog/SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
@@ -359,10 +359,10 @@ public interface CatalogApi {
             final SearchCatalogObjectsRequest body) throws ApiException, IOException;
 
     /**
-     * Searches for [CatalogObject](#type-CatalogObject) of any type by matching supported search
+     * Searches for [CatalogObject]($m/CatalogObject) of any type by matching supported search
      * attribute values, excluding custom attribute values on items or item variations, against one
      * or more of the specified query expressions. This (`SearchCatalogObjects`) endpoint differs
-     * from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint in the following
+     * from the [SearchCatalogItems]($e/Catalog/SearchCatalogItems) endpoint in the following
      * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
@@ -381,8 +381,8 @@ public interface CatalogApi {
      * Searches for catalog items or item variations by matching supported search attribute values,
      * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
-     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
-     * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) endpoint in the following aspects: -
+     * `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
      * custom attribute values, where `SearchCatalogObjects` does not. - `SearchCatalogItems` does
@@ -402,8 +402,8 @@ public interface CatalogApi {
      * Searches for catalog items or item variations by matching supported search attribute values,
      * including custom attribute values, against one or more of the specified query expressions.
      * This (`SearchCatalogItems`) endpoint differs from the
-     * [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects) endpoint in the following
-     * aspects: - `SearchCatalogItems` can only search for items or item variations, whereas
+     * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) endpoint in the following aspects: -
+     * `SearchCatalogItems` can only search for items or item variations, whereas
      * `SearchCatalogObjects` can search for any type of catalog objects. - `SearchCatalogItems`
      * supports the custom attribute query filters to return items or item variations that contain
      * custom attribute values, where `SearchCatalogObjects` does not. - `SearchCatalogItems` does
@@ -418,9 +418,8 @@ public interface CatalogApi {
             final SearchCatalogItemsRequest body);
 
     /**
-     * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the
-     * targeted [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire
-     * item.
+     * Updates the [CatalogModifierList]($m/CatalogModifierList) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemModifierListsResponse response from the API call
@@ -431,9 +430,8 @@ public interface CatalogApi {
             final UpdateItemModifierListsRequest body) throws ApiException, IOException;
 
     /**
-     * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the
-     * targeted [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire
-     * item.
+     * Updates the [CatalogModifierList]($m/CatalogModifierList) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemModifierListsResponse response from the API call
@@ -442,8 +440,8 @@ public interface CatalogApi {
             final UpdateItemModifierListsRequest body);
 
     /**
-     * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted
-     * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
+     * Updates the [CatalogTax]($m/CatalogTax) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemTaxesResponse response from the API call
@@ -454,8 +452,8 @@ public interface CatalogApi {
             final UpdateItemTaxesRequest body) throws ApiException, IOException;
 
     /**
-     * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted
-     * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
+     * Updates the [CatalogTax]($m/CatalogTax) objects that apply to the targeted
+     * [CatalogItem]($m/CatalogItem) without having to perform an upsert on the entire item.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateItemTaxesResponse response from the API call

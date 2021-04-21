@@ -14,7 +14,7 @@
 | `RewardTiers` | [`List<LoyaltyProgramRewardTier>`](/doc/models/loyalty-program-reward-tier.md) | Required | The list of rewards for buyers, sorted by ascending points. | List<LoyaltyProgramRewardTier> getRewardTiers() |
 | `ExpirationPolicy` | [`LoyaltyProgramExpirationPolicy`](/doc/models/loyalty-program-expiration-policy.md) | Optional | Describes when the loyalty program expires. | LoyaltyProgramExpirationPolicy getExpirationPolicy() |
 | `Terminology` | [`LoyaltyProgramTerminology`](/doc/models/loyalty-program-terminology.md) | Required | - | LoyaltyProgramTerminology getTerminology() |
-| `LocationIds` | `List<String>` | Required | The [locations](#type-Location) at which the program is active. | List<String> getLocationIds() |
+| `LocationIds` | `List<String>` | Required | The [locations](/doc/models/location.md) at which the program is active. | List<String> getLocationIds() |
 | `CreatedAt` | `String` | Required | The timestamp when the program was created, in RFC 3339 format.<br>**Constraints**: *Minimum Length*: `1` | String getCreatedAt() |
 | `UpdatedAt` | `String` | Required | The timestamp when the reward was last updated, in RFC 3339 format.<br>**Constraints**: *Minimum Length*: `1` | String getUpdatedAt() |
 | `AccrualRules` | [`List<LoyaltyProgramAccrualRule>`](/doc/models/loyalty-program-accrual-rule.md) | Required | Defines how buyers can earn loyalty points. | List<LoyaltyProgramAccrualRule> getAccrualRules() |

@@ -87,7 +87,7 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for Uid.
-     * The Square-generated ID of the payment request in an [invoice](#type-invoice).
+     * The Square-generated ID of the payment request in an [invoice]($m/Invoice).
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -153,10 +153,10 @@ public class InvoicePaymentRequest {
     /**
      * Getter for PercentageRequested.
      * Specifies the amount for the payment request in percentage: - When the payment `request_type`
-     * is `DEPOSIT`, it is the percentage of the order total amount. - When the payment
-     * `request_type` is `INSTALLMENT`, it is the percentage of the order total less the deposit, if
-     * requested. The sum of the `percentage_requested` in all installment payment requests must be
-     * equal to 100. You cannot specify this when the payment `request_type` is `BALANCE` or when
+     * is `DEPOSIT`, it is the percentage of the order's total amount. - When the payment
+     * `request_type` is `INSTALLMENT`, it is the percentage of the order's total less the deposit,
+     * if requested. The sum of the `percentage_requested` in all installment payment requests must
+     * be equal to 100. You cannot specify this when the payment `request_type` is `BALANCE` or when
      * the payment request specifies the `fixed_amount_requested_money` field.
      * @return Returns the String
      */
@@ -180,7 +180,7 @@ public class InvoicePaymentRequest {
     /**
      * Getter for AutomaticPaymentSource.
      * Indicates the automatic payment method for an [invoice payment
-     * request](#type-InvoicePaymentRequest).
+     * request]($m/InvoicePaymentRequest).
      * @return Returns the String
      */
     @JsonGetter("automatic_payment_source")
@@ -192,8 +192,8 @@ public class InvoicePaymentRequest {
      * Getter for CardId.
      * The ID of the card on file to charge for the payment request. To get the customer’s card on
      * file, use the `customer_id` of the invoice recipient to call
-     * [RetrieveCustomer](#endpoint-Customers-RetrieveCustomer) in the Customers API. Then, get the
-     * ID of the target card from the `cards` field in the response.
+     * [RetrieveCustomer]($e/Customers/RetrieveCustomer) in the Customers API. Then, get the ID of
+     * the target card from the `cards` field in the response.
      * @return Returns the String
      */
     @JsonGetter("card_id")

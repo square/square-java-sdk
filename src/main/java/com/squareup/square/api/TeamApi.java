@@ -56,7 +56,7 @@ public interface TeamApi {
      * as is possible. If one of the creates in the request cannot be successfully processed, the
      * request will NOT be marked as failed, but the body of the response will contain explicit
      * error information for this particular create. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#bulkcreateteammembers).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#bulk-create-team-members).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BulkCreateTeamMembersResponse response from the API call
@@ -72,7 +72,7 @@ public interface TeamApi {
      * as is possible. If one of the creates in the request cannot be successfully processed, the
      * request will NOT be marked as failed, but the body of the response will contain explicit
      * error information for this particular create. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#bulkcreateteammembers).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#bulk-create-team-members).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BulkCreateTeamMembersResponse response from the API call
@@ -86,7 +86,7 @@ public interface TeamApi {
      * as is possible. If one of the updates in the request cannot be successfully processed, the
      * request will NOT be marked as failed, but the body of the response will contain explicit
      * error information for this particular update. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#bulkupdateteammembers).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#bulk-update-team-members).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BulkUpdateTeamMembersResponse response from the API call
@@ -102,7 +102,7 @@ public interface TeamApi {
      * as is possible. If one of the updates in the request cannot be successfully processed, the
      * request will NOT be marked as failed, but the body of the response will contain explicit
      * error information for this particular update. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#bulkupdateteammembers).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#bulk-update-team-members).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BulkUpdateTeamMembersResponse response from the API call
@@ -134,7 +134,8 @@ public interface TeamApi {
 
     /**
      * Retrieve a `TeamMember` object for the given `TeamMember.id`. Learn about [Troubleshooting
-     * the Teams API](https://developer.squareup.com/docs/team/troubleshooting#retrieveteammember).
+     * the Teams
+     * API](https://developer.squareup.com/docs/team/troubleshooting#retrieve-a-team-member).
      * @param  teamMemberId  Required parameter: The ID of the team member to retrieve.
      * @return    Returns the RetrieveTeamMemberResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -145,7 +146,8 @@ public interface TeamApi {
 
     /**
      * Retrieve a `TeamMember` object for the given `TeamMember.id`. Learn about [Troubleshooting
-     * the Teams API](https://developer.squareup.com/docs/team/troubleshooting#retrieveteammember).
+     * the Teams
+     * API](https://developer.squareup.com/docs/team/troubleshooting#retrieve-a-team-member).
      * @param  teamMemberId  Required parameter: The ID of the team member to retrieve.
      * @return    Returns the RetrieveTeamMemberResponse response from the API call
      */
@@ -155,7 +157,7 @@ public interface TeamApi {
     /**
      * Updates a single `TeamMember` object. The `TeamMember` will be returned on successful
      * updates. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#updateteammember).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#update-a-team-member).
      * @param  teamMemberId  Required parameter: The ID of the team member to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -170,7 +172,7 @@ public interface TeamApi {
     /**
      * Updates a single `TeamMember` object. The `TeamMember` will be returned on successful
      * updates. Learn about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#updateteammember).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#update-a-team-member).
      * @param  teamMemberId  Required parameter: The ID of the team member to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -209,7 +211,7 @@ public interface TeamApi {
      * specified `team_member_id` does not exist. Otherwise, it fully replaces the `WageSetting`
      * object for the team member. The `WageSetting` will be returned upon successful update. Learn
      * about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#updatewagesetting).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#create-or-update-a-wage-setting).
      * @param  teamMemberId  Required parameter: The ID of the team member to update the
      *         `WageSetting` object for.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -227,7 +229,7 @@ public interface TeamApi {
      * specified `team_member_id` does not exist. Otherwise, it fully replaces the `WageSetting`
      * object for the team member. The `WageSetting` will be returned upon successful update. Learn
      * about [Troubleshooting the Teams
-     * API](https://developer.squareup.com/docs/team/troubleshooting#updatewagesetting).
+     * API](https://developer.squareup.com/docs/team/troubleshooting#create-or-update-a-wage-setting).
      * @param  teamMemberId  Required parameter: The ID of the team member to update the
      *         `WageSetting` object for.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

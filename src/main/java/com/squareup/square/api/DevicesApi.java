@@ -18,7 +18,9 @@ public interface DevicesApi {
      * Lists all DeviceCodes associated with the merchant.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @param  locationId  Optional parameter: If specified, only returns DeviceCodes of the
      *         specified location. Returns DeviceCodes of all locations if empty.
      * @param  productType  Optional parameter: If specified, only returns DeviceCodes targeting the
@@ -39,7 +41,9 @@ public interface DevicesApi {
      * Lists all DeviceCodes associated with the merchant.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @param  locationId  Optional parameter: If specified, only returns DeviceCodes of the
      *         specified location. Returns DeviceCodes of all locations if empty.
      * @param  productType  Optional parameter: If specified, only returns DeviceCodes targeting the

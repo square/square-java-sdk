@@ -88,7 +88,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
                 beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListEmployeesResponse(context);
@@ -130,7 +130,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
                 endUpdatedAt, beginCreatedAt, endCreatedAt, status, externalId, limit, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListEmployeesResponse(context));
     }
 
@@ -228,7 +228,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildCreateEmployeeRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateEmployeeResponse(context);
@@ -249,7 +249,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildCreateEmployeeRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateEmployeeResponse(context));
     }
 
@@ -322,7 +322,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildRetrieveEmployeeRequest(employeeId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveEmployeeResponse(context);
@@ -338,7 +338,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildRetrieveEmployeeRequest(employeeId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveEmployeeResponse(context));
     }
 
@@ -418,7 +418,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildUpdateEmployeeRequest(employeeId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateEmployeeResponse(context);
@@ -437,7 +437,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildUpdateEmployeeRequest(employeeId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateEmployeeResponse(context));
     }
 
@@ -524,7 +524,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildListEmployeeRolesRequest(order, limit, batchToken);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListEmployeeRolesResponse(context);
@@ -547,7 +547,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildListEmployeeRolesRequest(order, limit, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListEmployeeRolesResponse(context));
     }
 
@@ -622,8 +622,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
      * permissions granted to an employee with that role. For example, an employee with a "Shift
      * Manager" role might be able to issue refunds in Square Point of Sale, whereas an employee
      * with a "Clerk" role might not. Roles are assigned with the
-     * [V1UpdateEmployee](#endpoint-v1updateemployee) endpoint. An employee can have only one role
-     * at a time. If an employee has no role, they have none of the permissions associated with
+     * [V1UpdateEmployee]($e/V1Employees/UpdateEmployeeRole) endpoint. An employee can have only one
+     * role at a time. If an employee has no role, they have none of the permissions associated with
      * roles. All employees can accept payments with Square Point of Sale.
      * @param  body  Required parameter: An EmployeeRole object with a name and permissions, and an
      *         optional owner flag.
@@ -636,7 +636,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildCreateEmployeeRoleRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateEmployeeRoleResponse(context);
@@ -648,8 +648,8 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
      * permissions granted to an employee with that role. For example, an employee with a "Shift
      * Manager" role might be able to issue refunds in Square Point of Sale, whereas an employee
      * with a "Clerk" role might not. Roles are assigned with the
-     * [V1UpdateEmployee](#endpoint-v1updateemployee) endpoint. An employee can have only one role
-     * at a time. If an employee has no role, they have none of the permissions associated with
+     * [V1UpdateEmployee]($e/V1Employees/UpdateEmployeeRole) endpoint. An employee can have only one
+     * role at a time. If an employee has no role, they have none of the permissions associated with
      * roles. All employees can accept payments with Square Point of Sale.
      * @param  body  Required parameter: An EmployeeRole object with a name and permissions, and an
      *         optional owner flag.
@@ -660,7 +660,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildCreateEmployeeRoleRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateEmployeeRoleResponse(context));
     }
 
@@ -733,7 +733,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildRetrieveEmployeeRoleRequest(roleId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveEmployeeRoleResponse(context);
@@ -749,7 +749,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildRetrieveEmployeeRoleRequest(roleId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveEmployeeRoleResponse(context));
     }
 
@@ -829,7 +829,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         HttpRequest request = buildUpdateEmployeeRoleRequest(roleId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateEmployeeRoleResponse(context);
@@ -848,7 +848,7 @@ public final class DefaultV1EmployeesApi extends BaseApi implements V1EmployeesA
         return makeHttpCallAsync(() -> buildUpdateEmployeeRoleRequest(roleId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateEmployeeRoleResponse(context));
     }
 

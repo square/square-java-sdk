@@ -109,7 +109,7 @@ public class LoyaltyProgram {
 
     /**
      * Getter for LocationIds.
-     * The [locations](#type-Location) at which the program is active.
+     * The [locations]($m/Location) at which the program is active.
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")

@@ -43,8 +43,9 @@ public class ListDeviceCodesRequest {
     /**
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
-     * the next set of results for your original query. See [Paginating results](#paginatingresults)
-     * for more information.
+     * the next set of results for your original query. See [Paginating
+     * results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
      * @return Returns the String
      */
     @JsonGetter("cursor")

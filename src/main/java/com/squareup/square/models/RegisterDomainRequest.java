@@ -24,7 +24,7 @@ public class RegisterDomainRequest {
 
     /**
      * Getter for DomainName.
-     * A domain name as described in RFC-1034 that will be registered with ApplePay
+     * A domain name as described in RFC-1034 that will be registered with ApplePay.
      * @return Returns the String
      */
     @JsonGetter("domain_name")

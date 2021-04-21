@@ -54,7 +54,7 @@ public class ListInvoicesResponse {
     /**
      * Getter for Cursor.
      * When a response is truncated, it includes a cursor that you can use in a subsequent request
-     * to fetch the next set of invoices. If empty, this is the final response. For more
+     * to retrieve the next set of invoices. If empty, this is the final response. For more
      * information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String

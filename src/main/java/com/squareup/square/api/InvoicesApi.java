@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 public interface InvoicesApi {
     /**
      * Returns a list of invoices for a given location. The response is paginated. If truncated, the
-     * response includes a `cursor` that you use in a subsequent request to fetch the next set of
+     * response includes a `cursor` that you use in a subsequent request to retrieve the next set of
      * invoices.
      * @param  locationId  Required parameter: The ID of the location for which to list invoices.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
@@ -45,7 +45,7 @@ public interface InvoicesApi {
 
     /**
      * Returns a list of invoices for a given location. The response is paginated. If truncated, the
-     * response includes a `cursor` that you use in a subsequent request to fetch the next set of
+     * response includes a `cursor` that you use in a subsequent request to retrieve the next set of
      * invoices.
      * @param  locationId  Required parameter: The ID of the location for which to list invoices.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
@@ -62,7 +62,7 @@ public interface InvoicesApi {
             final Integer limit);
 
     /**
-     * Creates a draft [invoice](#type-invoice) for an order created using the Orders API. A draft
+     * Creates a draft [invoice]($m/Invoice) for an order created using the Orders API. A draft
      * invoice remains in your account and no action is taken. You must publish the invoice before
      * Square can process it (send it to the customer's email address or charge the customer’s card
      * on file).
@@ -76,7 +76,7 @@ public interface InvoicesApi {
             final CreateInvoiceRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a draft [invoice](#type-invoice) for an order created using the Orders API. A draft
+     * Creates a draft [invoice]($m/Invoice) for an order created using the Orders API. A draft
      * invoice remains in your account and no action is taken. You must publish the invoice before
      * Square can process it (send it to the customer's email address or charge the customer’s card
      * on file).
@@ -91,8 +91,8 @@ public interface InvoicesApi {
      * Searches for invoices from a location specified in the filter. You can optionally specify
      * customers in the filter for whom to retrieve invoices. In the current implementation, you can
      * only specify one location and optionally one customer. The response is paginated. If
-     * truncated, the response includes a `cursor` that you use in a subsequent request to fetch the
-     * next set of invoices.
+     * truncated, the response includes a `cursor` that you use in a subsequent request to retrieve
+     * the next set of invoices.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchInvoicesResponse response from the API call
@@ -106,8 +106,8 @@ public interface InvoicesApi {
      * Searches for invoices from a location specified in the filter. You can optionally specify
      * customers in the filter for whom to retrieve invoices. In the current implementation, you can
      * only specify one location and optionally one customer. The response is paginated. If
-     * truncated, the response includes a `cursor` that you use in a subsequent request to fetch the
-     * next set of invoices.
+     * truncated, the response includes a `cursor` that you use in a subsequent request to retrieve
+     * the next set of invoices.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchInvoicesResponse response from the API call
@@ -116,14 +116,13 @@ public interface InvoicesApi {
             final SearchInvoicesRequest body);
 
     /**
-     * Deletes the specified invoice. When an invoice is deleted, the associated Order status
+     * Deletes the specified invoice. When an invoice is deleted, the associated order status
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice](#type-invoice) to delete.
-     *         If you do not know the version, you can call
-     *         [GetInvoice](#endpoint-Invoices-GetInvoice) or
-     *         [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
+     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
+     *         [ListInvoices]($e/Invoices/ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -133,14 +132,13 @@ public interface InvoicesApi {
             final Integer version) throws ApiException, IOException;
 
     /**
-     * Deletes the specified invoice. When an invoice is deleted, the associated Order status
+     * Deletes the specified invoice. When an invoice is deleted, the associated order status
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice](#type-invoice) to delete.
-     *         If you do not know the version, you can call
-     *         [GetInvoice](#endpoint-Invoices-GetInvoice) or
-     *         [ListInvoices](#endpoint-Invoices-ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
+     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
+     *         [ListInvoices]($e/Invoices/ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      */
     CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
@@ -149,7 +147,7 @@ public interface InvoicesApi {
 
     /**
      * Retrieves an invoice by invoice ID.
-     * @param  invoiceId  Required parameter: The id of the invoice to retrieve.
+     * @param  invoiceId  Required parameter: The ID of the invoice to retrieve.
      * @return    Returns the GetInvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -159,7 +157,7 @@ public interface InvoicesApi {
 
     /**
      * Retrieves an invoice by invoice ID.
-     * @param  invoiceId  Required parameter: The id of the invoice to retrieve.
+     * @param  invoiceId  Required parameter: The ID of the invoice to retrieve.
      * @return    Returns the GetInvoiceResponse response from the API call
      */
     CompletableFuture<GetInvoiceResponse> getInvoiceAsync(
@@ -167,9 +165,9 @@ public interface InvoicesApi {
 
     /**
      * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values, and use the `fields_to_clear`
+     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
      * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field, and you must provide the complete
+     * change the `order_id` or `location_id` field and you must provide the complete
      * `custom_fields` list to update a custom field. Published invoices have additional
      * restrictions.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
@@ -185,9 +183,9 @@ public interface InvoicesApi {
 
     /**
      * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values, and use the `fields_to_clear`
+     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
      * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field, and you must provide the complete
+     * change the `order_id` or `location_id` field and you must provide the complete
      * `custom_fields` list to update a custom field. Published invoices have additional
      * restrictions.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
@@ -203,7 +201,7 @@ public interface InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice](#type-invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call
@@ -218,7 +216,7 @@ public interface InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice](#type-invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call
@@ -234,8 +232,8 @@ public interface InvoicesApi {
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
      * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount).
-     * @param  invoiceId  Required parameter: The id of the invoice to publish.
+     * of the invoice amount.
+     * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the PublishInvoiceResponse response from the API call
@@ -253,8 +251,8 @@ public interface InvoicesApi {
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
      * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount).
-     * @param  invoiceId  Required parameter: The id of the invoice to publish.
+     * of the invoice amount.
+     * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the PublishInvoiceResponse response from the API call

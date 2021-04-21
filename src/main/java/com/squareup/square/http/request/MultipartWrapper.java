@@ -10,17 +10,17 @@ import com.squareup.square.http.Headers;
 public class MultipartWrapper {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private byte[] byteArray;
+    private String serializedObj;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Headers headers;
 
     /**
      * Initialization constructor.
-     * @param byteArray Array of bytes
+     * @param serializedObj Serialized string of object to be wrapped.
      * @param headers Headers for wrapping
      */
-    public MultipartWrapper(byte[] byteArray, Headers headers) {
-        this.byteArray = byteArray;
+    public MultipartWrapper(String serializedObj, Headers headers) {
+        this.serializedObj = serializedObj;
         this.headers = headers;
     }
 
@@ -29,7 +29,7 @@ public class MultipartWrapper {
      * @return Array of bytes.
      */
     public byte[] getByteArray() {
-        return byteArray;
+        return serializedObj.getBytes();
     }
 
     /**

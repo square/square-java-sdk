@@ -94,7 +94,8 @@ public class ChargeRequest {
      * A value you specify that uniquely identifies this transaction among transactions you've
      * created. If you're unsure whether a particular transaction succeeded, you can reattempt it
      * with the same idempotency key without worrying about double-charging the buyer. See
-     * [Idempotency keys](#idempotencykeys) for more information.
+     * [Idempotency keys](https://developer.squareup.com/docs/working-with-apis/idempotency) for
+     * more information.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -145,9 +146,9 @@ public class ChargeRequest {
     /**
      * Getter for DelayCapture.
      * If `true`, the request will only perform an Auth on the provided card. You can then later
-     * perform either a Capture (with the [CaptureTransaction](#endpoint-capturetransaction)
-     * endpoint) or a Void (with the [VoidTransaction](#endpoint-voidtransaction) endpoint). Default
-     * value: `false`
+     * perform either a Capture (with the [CaptureTransaction]($e/Transactions/CaptureTransaction)
+     * endpoint) or a Void (with the [VoidTransaction]($e/Transactions/VoidTransaction) endpoint).
+     * Default value: `false`
      * @return Returns the Boolean
      */
     @JsonGetter("delay_capture")

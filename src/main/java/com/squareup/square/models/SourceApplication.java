@@ -46,7 +46,7 @@ public class SourceApplication {
 
     /**
      * Getter for ApplicationId.
-     * Read-only Square ID assigned to the application. Only used for [Product](#type-product) type
+     * Read-only Square ID assigned to the application. Only used for [Product]($m/Product) type
      * `EXTERNAL_API`.
      * @return Returns the String
      */

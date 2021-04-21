@@ -40,7 +40,7 @@ public class CustomerGroup {
 
     /**
      * Getter for Id.
-     * Unique Square-generated ID for the customer group.
+     * A unique Square-generated ID for the customer group.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -50,7 +50,7 @@ public class CustomerGroup {
 
     /**
      * Getter for Name.
-     * Name of the customer group.
+     * The name of the customer group.
      * @return Returns the String
      */
     @JsonGetter("name")

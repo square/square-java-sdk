@@ -48,9 +48,9 @@ public class RetrieveCustomerGroupResponse {
 
     /**
      * Getter for Group.
-     * Represents a group of customer profiles. Customer groups can be created, modified, and have
-     * their membership defined either via the Customers API or within Customer Directory in the
-     * Square Dashboard or Point of Sale.
+     * Represents a group of customer profiles. Customer groups can be created, be modified, and
+     * have their membership defined using the Customers API or within the Customer Directory in the
+     * Square Seller Dashboard or Point of Sale.
      * @return Returns the CustomerGroup
      */
     @JsonGetter("group")

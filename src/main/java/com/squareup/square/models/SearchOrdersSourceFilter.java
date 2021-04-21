@@ -27,8 +27,8 @@ public class SearchOrdersSourceFilter {
 
     /**
      * Getter for SourceNames.
-     * Filters by [Source](#type-ordersource) `name`. Will return any orders with with a
-     * `source.name` that matches any of the listed source names. Max: 10 source names.
+     * Filters by [Source]($m/OrderSource) `name`. Will return any orders with with a `source.name`
+     * that matches any of the listed source names. Max: 10 source names.
      * @return Returns the List of String
      */
     @JsonGetter("source_names")

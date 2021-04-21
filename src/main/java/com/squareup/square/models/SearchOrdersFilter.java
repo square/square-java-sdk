@@ -61,11 +61,10 @@ public class SearchOrdersFilter {
      * timestamp to filter for. You can filter for only one time range at a time. For each time
      * range, the start time and end time are inclusive. If the end time is absent, it defaults to
      * the time of the first request for the cursor. __Important:__ If you use the DateTimeFilter in
-     * a SearchOrders query, you must also set the `sort_field` in
-     * [OrdersSort](#type-searchorderordersort) to the same field you filter for. For example, if
-     * you set the `CLOSED_AT` field in DateTimeFilter, you must also set the `sort_field` in
-     * SearchOrdersSort to `CLOSED_AT`. Otherwise, SearchOrders will throw an error. [Learn more
-     * about filtering orders by time
+     * a SearchOrders query, you must also set the `sort_field` in [OrdersSort]($m/SearchOrdersSort)
+     * to the same field you filter for. For example, if you set the `CLOSED_AT` field in
+     * DateTimeFilter, you must also set the `sort_field` in SearchOrdersSort to `CLOSED_AT`.
+     * Otherwise, SearchOrders will throw an error. [Learn more about filtering orders by time
      * range](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range).
      * @return Returns the SearchOrdersDateTimeFilter
      */
@@ -76,7 +75,7 @@ public class SearchOrdersFilter {
 
     /**
      * Getter for FulfillmentFilter.
-     * Filter based on [Order Fulfillment](#type-orderfulfillment) information.
+     * Filter based on [Order Fulfillment]($m/OrderFulfillment) information.
      * @return Returns the SearchOrdersFulfillmentFilter
      */
     @JsonGetter("fulfillment_filter")
@@ -97,7 +96,7 @@ public class SearchOrdersFilter {
     /**
      * Getter for CustomerFilter.
      * Filter based on Order `customer_id` and any Tender `customer_id` associated with the Order.
-     * Does not filter based on the [FulfillmentRecipient](#type-orderfulfillmentrecipient)
+     * Does not filter based on the [FulfillmentRecipient]($m/OrderFulfillmentRecipient)
      * `customer_id`.
      * @return Returns the SearchOrdersCustomerFilter
      */

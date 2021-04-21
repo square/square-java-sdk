@@ -70,7 +70,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
         HttpRequest request = buildListEmployeesRequest(locationId, status, limit, cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListEmployeesResponse(context);
@@ -96,7 +96,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
         return makeHttpCallAsync(() -> buildListEmployeesRequest(locationId, status, limit, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListEmployeesResponse(context));
     }
 
@@ -181,7 +181,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
         HttpRequest request = buildRetrieveEmployeeRequest(id);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveEmployeeResponse(context);
@@ -200,7 +200,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
         return makeHttpCallAsync(() -> buildRetrieveEmployeeRequest(id),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveEmployeeResponse(context));
     }
 

@@ -125,7 +125,7 @@ public interface DisputesApi {
     /**
      * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
      * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence](https://developer.squareup.com/docs/reference/square/disputes-api/submit-evidence).
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
      * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
      *         from.
      * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
@@ -140,7 +140,7 @@ public interface DisputesApi {
     /**
      * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
      * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence](https://developer.squareup.com/docs/reference/square/disputes-api/submit-evidence).
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
      * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
      *         from.
      * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
@@ -235,10 +235,9 @@ public interface DisputesApi {
     /**
      * Submits evidence to the cardholder's bank. Before submitting evidence, Square compiles all
      * available evidence. This includes evidence uploaded using the
-     * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
-     * and
-     * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints and evidence automatically provided by Square, when available.
+     * [CreateDisputeEvidenceFile]($e/Disputes/CreateDisputeEvidenceFile) and
+     * [CreateDisputeEvidenceText]($e/Disputes/CreateDisputeEvidenceText) endpoints and evidence
+     * automatically provided by Square, when available.
      * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
      *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call
@@ -251,10 +250,9 @@ public interface DisputesApi {
     /**
      * Submits evidence to the cardholder's bank. Before submitting evidence, Square compiles all
      * available evidence. This includes evidence uploaded using the
-     * [CreateDisputeEvidenceFile](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-file)
-     * and
-     * [CreateDisputeEvidenceText](https://developer.squareup.com/docs/reference/square/disputes-api/create-dispute-evidence-text)
-     * endpoints and evidence automatically provided by Square, when available.
+     * [CreateDisputeEvidenceFile]($e/Disputes/CreateDisputeEvidenceFile) and
+     * [CreateDisputeEvidenceText]($e/Disputes/CreateDisputeEvidenceText) endpoints and evidence
+     * automatically provided by Square, when available.
      * @param  disputeId  Required parameter: The ID of the dispute that you want to submit evidence
      *         for.
      * @return    Returns the SubmitEvidenceResponse response from the API call

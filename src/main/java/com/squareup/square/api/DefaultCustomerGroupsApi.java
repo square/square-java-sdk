@@ -57,10 +57,9 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
     /**
      * Retrieves the list of customer groups of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -70,7 +69,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         HttpRequest request = buildListCustomerGroupsRequest(cursor);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListCustomerGroupsResponse(context);
@@ -79,10 +78,9 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
     /**
      * Retrieves the list of customer groups of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      */
     public CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
@@ -90,7 +88,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         return makeHttpCallAsync(() -> buildListCustomerGroupsRequest(cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListCustomerGroupsResponse(context));
     }
 
@@ -168,7 +166,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         HttpRequest request = buildCreateCustomerGroupRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateCustomerGroupResponse(context);
@@ -186,7 +184,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         return makeHttpCallAsync(() -> buildCreateCustomerGroupRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateCustomerGroupResponse(context));
     }
 
@@ -259,7 +257,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         HttpRequest request = buildDeleteCustomerGroupRequest(groupId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleDeleteCustomerGroupResponse(context);
@@ -275,7 +273,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         return makeHttpCallAsync(() -> buildDeleteCustomerGroupRequest(groupId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleDeleteCustomerGroupResponse(context));
     }
 
@@ -352,7 +350,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         HttpRequest request = buildRetrieveCustomerGroupRequest(groupId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveCustomerGroupResponse(context);
@@ -368,7 +366,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         return makeHttpCallAsync(() -> buildRetrieveCustomerGroupRequest(groupId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveCustomerGroupResponse(context));
     }
 
@@ -448,7 +446,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         HttpRequest request = buildUpdateCustomerGroupRequest(groupId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateCustomerGroupResponse(context);
@@ -467,7 +465,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         return makeHttpCallAsync(() -> buildUpdateCustomerGroupRequest(groupId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateCustomerGroupResponse(context));
     }
 

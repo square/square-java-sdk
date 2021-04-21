@@ -39,7 +39,7 @@ public class RedeemLoyaltyRewardRequest {
 
     /**
      * Getter for LocationId.
-     * The ID of the [location](#type-Location) where the reward is redeemed.
+     * The ID of the [location]($m/Location) where the reward is redeemed.
      * @return Returns the String
      */
     @JsonGetter("location_id")

@@ -55,8 +55,8 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
 
     /**
      * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`](#type-location) objects returned
-     * by this endpoint correspond to that `location_id` parameter.
+     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
+     * this endpoint correspond to that `location_id` parameter.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -65,7 +65,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         HttpRequest request = buildListLocationsRequest();
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleListLocationsResponse(context);
@@ -73,15 +73,15 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
 
     /**
      * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`](#type-location) objects returned
-     * by this endpoint correspond to that `location_id` parameter.
+     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
+     * this endpoint correspond to that `location_id` parameter.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     public CompletableFuture<ListLocationsResponse> listLocationsAsync() {
         return makeHttpCallAsync(() -> buildListLocationsRequest(),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleListLocationsResponse(context));
     }
 
@@ -152,7 +152,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         HttpRequest request = buildCreateLocationRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateLocationResponse(context);
@@ -169,7 +169,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         return makeHttpCallAsync(() -> buildCreateLocationRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateLocationResponse(context));
     }
 
@@ -244,7 +244,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         HttpRequest request = buildRetrieveLocationRequest(locationId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveLocationResponse(context);
@@ -262,7 +262,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         return makeHttpCallAsync(() -> buildRetrieveLocationRequest(locationId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveLocationResponse(context));
     }
 
@@ -342,7 +342,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         HttpRequest request = buildUpdateLocationRequest(locationId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateLocationResponse(context);
@@ -361,7 +361,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         return makeHttpCallAsync(() -> buildUpdateLocationRequest(locationId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateLocationResponse(context));
     }
 

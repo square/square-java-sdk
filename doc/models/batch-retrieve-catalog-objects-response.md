@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s returned. | List<CatalogObject> getObjects() |
-| `RelatedObjects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](#type-catalogobject)s referenced by the object in the `objects` field. | List<CatalogObject> getRelatedObjects() |
+| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](/doc/models/catalog-object.md)s returned. | List<CatalogObject> getObjects() |
+| `RelatedObjects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of [CatalogObject](/doc/models/catalog-object.md)s referenced by the object in the `objects` field. | List<CatalogObject> getRelatedObjects() |
 
 ## Example (as JSON)
 

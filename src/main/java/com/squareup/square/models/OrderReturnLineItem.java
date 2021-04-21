@@ -168,7 +168,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for CatalogObjectId.
-     * The [CatalogItemVariation](#type-catalogitemvariation) id applied to this returned line item.
+     * The [CatalogItemVariation]($m/CatalogItemVariation) id applied to this returned line item.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -188,7 +188,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for ReturnModifiers.
-     * The [CatalogModifier](#type-catalogmodifier)s applied to this line item.
+     * The [CatalogModifier]($m/CatalogModifier)s applied to this line item.
      * @return Returns the List of OrderReturnLineItemModifier
      */
     @JsonGetter("return_modifiers")

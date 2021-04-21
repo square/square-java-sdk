@@ -30,7 +30,7 @@ public class InvoiceSort {
 
     /**
      * Getter for Field.
-     * Field to use for sorting.
+     * The field to use for sorting.
      * @return Returns the String
      */
     @JsonGetter("field")

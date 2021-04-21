@@ -157,7 +157,7 @@ public class SearchCatalogItemsRequest {
      * Getter for CustomAttributeFilters.
      * The customer-attribute filter to return items or item variations matching the specified
      * custom attribute expressions. A maximum number of 10 custom attribute expressions are
-     * supported in a single call to the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems)
+     * supported in a single call to the [SearchCatalogItems]($e/Catalog/SearchCatalogItems)
      * endpoint.
      * @return Returns the List of CustomAttributeFilter
      */

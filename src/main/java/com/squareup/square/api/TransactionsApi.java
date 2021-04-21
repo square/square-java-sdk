@@ -23,22 +23,27 @@ public interface TransactionsApi {
      * Lists refunds for one of a business's locations. In addition to full or partial tender
      * refunds processed through Square APIs, refunds may result from itemized returns or exchanges
      * through Square's Point of Sale applications. Refunds with a `status` of `PENDING` are not
-     * currently included in this endpoint's response. Max results per [page](#paginatingresults):
-     * 50.
+     * currently included in this endpoint's response. Max results per
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListRefundsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -54,22 +59,27 @@ public interface TransactionsApi {
      * Lists refunds for one of a business's locations. In addition to full or partial tender
      * refunds processed through Square APIs, refunds may result from itemized returns or exchanges
      * through Square's Point of Sale applications. Refunds with a `status` of `PENDING` are not
-     * currently included in this endpoint's response. Max results per [page](#paginatingresults):
-     * 50.
+     * currently included in this endpoint's response. Max results per
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListRefundsResponse response from the API call
      */
     @Deprecated
@@ -83,21 +93,26 @@ public interface TransactionsApi {
     /**
      * Lists transactions for a particular location. Transactions include payment information from
      * sales and exchanges and refund information from returns and exchanges. Max results per
-     * [page](#paginatingresults): 50.
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list transactions for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListTransactionsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -112,21 +127,26 @@ public interface TransactionsApi {
     /**
      * Lists transactions for a particular location. Transactions include payment information from
      * sales and exchanges and refund information from returns and exchanges. Max results per
-     * [page](#paginatingresults): 50.
+     * [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to list transactions for.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
-     *         RFC 3339 format. See [Date ranges](#dateranges) for details on date
-     *         inclusivity/exclusivity. Default value: The current time minus one year.
+     *         RFC 3339 format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time minus one
+     *         year.
      * @param  endTime  Optional parameter: The end of the requested reporting period, in RFC 3339
-     *         format. See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
-     *         Default value: The current time.
+     *         format. See [Date
+     *         ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for
+     *         details on date inclusivity/exclusivity. Default value: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed in the response
      *         (`ASC` for oldest first, `DESC` for newest first). Default value: `DESC`
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See [Paginating results](#paginatingresults) for more information.
+     *         See [Paginating
+     *         results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     *         information.
      * @return    Returns the ListTransactionsResponse response from the API call
      */
     @Deprecated
@@ -147,8 +167,8 @@ public interface TransactionsApi {
      * following parameters in your request: - `buyer_email_address` - At least one of
      * `billing_address` or `shipping_address` When this response is returned, the amount of
      * Square's processing fee might not yet be calculated. To obtain the processing fee, wait about
-     * ten seconds and call [RetrieveTransaction](#endpoint-retrievetransaction). See the
-     * `processing_fee_money` field of each [Tender included](#type-tender) in the transaction.
+     * ten seconds and call [RetrieveTransaction]($e/Transactions/RetrieveTransaction). See the
+     * `processing_fee_money` field of each [Tender included]($m/Tender) in the transaction.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to associate the created
@@ -173,8 +193,8 @@ public interface TransactionsApi {
      * following parameters in your request: - `buyer_email_address` - At least one of
      * `billing_address` or `shipping_address` When this response is returned, the amount of
      * Square's processing fee might not yet be calculated. To obtain the processing fee, wait about
-     * ten seconds and call [RetrieveTransaction](#endpoint-retrievetransaction). See the
-     * `processing_fee_money` field of each [Tender included](#type-tender) in the transaction.
+     * ten seconds and call [RetrieveTransaction]($e/Transactions/RetrieveTransaction). See the
+     * `processing_fee_money` field of each [Tender included]($m/Tender) in the transaction.
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the location to associate the created
@@ -216,8 +236,8 @@ public interface TransactionsApi {
             final String transactionId);
 
     /**
-     * Captures a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -233,8 +253,8 @@ public interface TransactionsApi {
             final String transactionId) throws ApiException, IOException;
 
     /**
-     * Captures a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -294,8 +314,8 @@ public interface TransactionsApi {
             final CreateRefundRequest body);
 
     /**
-     * Cancels a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -311,8 +331,8 @@ public interface TransactionsApi {
             final String transactionId) throws ApiException, IOException;
 
     /**
-     * Cancels a transaction that was created with the [Charge](#endpoint-charge) endpoint with a
-     * `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
+     * with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated

@@ -87,7 +87,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogDiscount](#type-catalogdiscount).
+     * The catalog object id referencing [CatalogDiscount]($m/CatalogDiscount).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

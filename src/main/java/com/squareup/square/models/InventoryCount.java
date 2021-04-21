@@ -82,7 +82,7 @@ public class InventoryCount {
 
     /**
      * Getter for LocationId.
-     * The Square ID of the [Location](#type-location) where the related quantity of items are being
+     * The Square ID of the [Location]($m/Location) where the related quantity of items are being
      * tracked.
      * @return Returns the String
      */

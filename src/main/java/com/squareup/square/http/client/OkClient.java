@@ -27,9 +27,9 @@ import java.util.concurrent.TimeUnit;
 public class OkClient implements HttpClient {
     private static final Object syncObject = new Object();
     private static volatile okhttp3.OkHttpClient defaultOkHttpClient;
-    
+
     /**
-     * Private instance of the okhttp3.OkHttpClient
+     * Private instance of the okhttp3.OkHttpClient.
      */
     private okhttp3.OkHttpClient client;
 
@@ -37,12 +37,20 @@ public class OkClient implements HttpClient {
      * Default constructor.
      * @param  httpClientConfig  The specified http client configuration.
      */
-    public OkClient(HttpClientConfiguration httpClientConfig) {
+    public OkClient(ReadonlyHttpClientConfiguration httpClientConfig) {
         okhttp3.OkHttpClient.Builder clientBuilder = getDefaultOkHttpClient().newBuilder();
-        clientBuilder.callTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
-                .readTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
+        clientBuilder.readTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
                 .writeTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
                 .connectTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);
+        // If retries are allowed then RetryInterceptor must be registered
+        if (httpClientConfig.getNumberOfRetries() > 0) {
+            clientBuilder.callTimeout(httpClientConfig.getMaxBackOff(), TimeUnit.SECONDS)
+                    .addInterceptor(new RetryInterceptor(httpClientConfig));
+        } else {
+            clientBuilder.callTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);
+        }
+
+        clientBuilder.addInterceptor(new HttpRedirectInterceptor(true));
         this.client = clientBuilder.build();
     }
 
@@ -54,8 +62,7 @@ public class OkClient implements HttpClient {
             synchronized (syncObject) {
                 if (defaultOkHttpClient == null) {
                     defaultOkHttpClient = new okhttp3.OkHttpClient.Builder()
-                            .addInterceptor(new HttpRedirectInterceptor(true))
-                            .retryOnConnectionFailure(true)
+                            .retryOnConnectionFailure(false)
                             .callTimeout(60, TimeUnit.SECONDS)
                             .build();
                 }
@@ -75,22 +82,29 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get string response back.
-     * @param   httpRequest     The given HttpRequest to execute
-     * @return   CompletableFuture of HttpResponse after execution
+     * Execute a given HttpRequest to get string/binary response back.
+     * @param   httpRequest        The given HttpRequest to execute.
+     * @param   hasBinaryResponse  Whether the response is binary or string.
+     * @return  CompletableFuture of HttpResponse after execution.
      */
-    public CompletableFuture<HttpResponse> executeAsStringAsync(final HttpRequest httpRequest) {
+    public CompletableFuture<HttpResponse> executeAsync(final HttpRequest httpRequest,
+            boolean hasBinaryResponse) {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
+        
+        RetryInterceptor retryInterceptor = getRetryInterceptor();
+        if (retryInterceptor != null) {
+            retryInterceptor.addRequestEntry(okHttpRequest);
+        }
+
         final CompletableFuture<HttpResponse> callBack = new CompletableFuture<>();
         client.newCall(okHttpRequest).enqueue(new okhttp3.Callback() {
 
             public void onFailure(okhttp3.Call call, IOException e) {
-                publishResponse(null, httpRequest, callBack, e, false);
+                publishResponse(null, httpRequest, callBack, e, hasBinaryResponse);
             }
 
             public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) {
-                publishResponse(okHttpResponse, httpRequest, callBack, null, false);
-                okHttpResponse.close();
+                publishResponse(okHttpResponse, httpRequest, callBack, null, hasBinaryResponse);
             }
         });
 
@@ -98,60 +112,51 @@ public class OkClient implements HttpClient {
     }
 
     /**
-     * Execute a given HttpRequest to get binary response back.
-     * @param   httpRequest     The given HttpRequest to execute.
-     * @return   CompletableFuture of HttpResponse after execution
+     * Execute a given HttpRequest to get string/binary response back.
+     * @param   httpRequest        The given HttpRequest to execute.
+     * @param   hasBinaryResponse  Whether the response is binary or string.
+     * @return  The converted http response.
+     * @throws  IOException exception to be thrown while converting response.
      */
-    public CompletableFuture<HttpResponse> executeAsBinaryAsync(final HttpRequest httpRequest) {
+    public HttpResponse execute(HttpRequest httpRequest, boolean hasBinaryResponse)
+            throws IOException {
         okhttp3.Request okHttpRequest = convertRequest(httpRequest);
-        final CompletableFuture<HttpResponse> callBack = new CompletableFuture<>();
-        client.newCall(okHttpRequest).enqueue(new okhttp3.Callback() {
+        
+        RetryInterceptor retryInterceptor = getRetryInterceptor();
+        if (retryInterceptor != null) {
+            retryInterceptor.addRequestEntry(okHttpRequest);
+        }
 
-            public void onFailure(okhttp3.Call call, IOException e) {
-                publishResponse(null, httpRequest, callBack, e, true);
-            }
-
-            public void onResponse(okhttp3.Call call, okhttp3.Response okHttpResponse) {
-                publishResponse(okHttpResponse, httpRequest, callBack, null, true);
-            }
-        });
-
-        return callBack;
+        okhttp3.Response okHttpResponse = null;
+        okHttpResponse = client.newCall(okHttpRequest).execute();
+        return convertResponse(httpRequest, okHttpResponse, hasBinaryResponse);
     }
 
     /**
-     * Execute a given HttpRequest to get string response back.
-     * @param   httpRequest     The given HttpRequest to execute.
+     * Returns RetryInterceptor instance registered with client.
+     * @return The RetryInterceptor instance.
      */
-    public HttpResponse executeAsString(HttpRequest httpRequest) throws IOException {
-        okhttp3.Request okHttpRequest = convertRequest(httpRequest);
-        okhttp3.Response okHttpResponse = client.newCall(okHttpRequest).execute();
-        return convertResponse(okHttpResponse, false);
-    }
-
-    /**
-     * Execute a given HttpRequest to get binary response back.
-     * @param   httpRequest     The given HttpRequest to execute.
-     */
-    public HttpResponse executeAsBinary(HttpRequest httpRequest) throws IOException {
-        okhttp3.Request okHttpRequest = convertRequest(httpRequest);
-        okhttp3.Response okHttpResponse = client.newCall(okHttpRequest).execute();
-        return convertResponse(okHttpResponse, true);
+    private RetryInterceptor getRetryInterceptor() {
+        return (RetryInterceptor) this.client.interceptors().stream()
+                .filter(interceptor -> interceptor instanceof RetryInterceptor).findFirst()
+                .orElse(null);
     }
 
     /**
      * Publishes success or failure result as HttpResponse from a HttpRequest.
-     * @param   okHttpResponse  The okhttp response to publish.
-     * @param   httpRequest     The internal http request.
-     * @param   completionBlock The success and failure code block reference to invoke the delegate.
-     * @param   error           The reported errors for getting the http response.
+     * @param okHttpResponse The okhttp response to publish.
+     * @param httpRequest The internal http request.
+     * @param completionBlock The success and failure code block reference to invoke the delegate.
+     * @param error The reported errors for getting the http response.
+     * @param hasBinaryResponse Whether the response is binary or string.
+     * @return The converted http response.
      */
-    private static HttpResponse publishResponse(okhttp3.Response okHttpResponse, 
+    private HttpResponse publishResponse(okhttp3.Response okHttpResponse, 
             HttpRequest httpRequest, CompletableFuture<HttpResponse> completionBlock,
-            Throwable error, boolean binaryResponse) {
+            Throwable error, boolean hasBinaryResponse) {
         HttpResponse httpResponse = null;
         try {
-            httpResponse = OkClient.convertResponse(okHttpResponse, binaryResponse);
+            httpResponse = convertResponse(httpRequest, okHttpResponse, hasBinaryResponse);
 
             // if there are no errors, pass on to the callback function
             if (error == null && httpResponse != null) {
@@ -167,33 +172,34 @@ public class OkClient implements HttpClient {
 
     /**
      * Converts a given OkHttp response into our internal http response model.
-     * @param   response    The given OkHttp response.
+     * @param   response           The given OkHttp response.
+     * @param   hasBinaryResponse  Whether the response is binary or string.
      * @return  The converted http response.
      * @throws  IOException exception to be thrown while converting response.
      */
-    private static HttpResponse convertResponse(okhttp3.Response response,
-            boolean binaryResponse) throws IOException {
+    protected static HttpResponse convertResponse(HttpRequest request, okhttp3.Response response,
+            boolean hasBinaryResponse) throws IOException {
         HttpResponse httpResponse = null;
 
-        if (null == response) {
-            return null;
-        }
+        if (response != null) {
 
-        okhttp3.ResponseBody responseBody = response.body();
+            okhttp3.ResponseBody responseBody = response.body();
 
-        Headers headers = new Headers(response.headers().toMultimap());
+            Headers headers = new Headers(response.headers().toMultimap());
 
-        if (binaryResponse) {
-            InputStream responseStream = responseBody.byteStream();
-            httpResponse = new HttpResponse(response.code(), headers, responseStream);
-        } else {
-            String responseString = responseBody.string();
-            InputStream responseStream = new ByteArrayInputStream(responseString.getBytes());
-            httpResponse = new HttpStringResponse(response.code(), headers, responseStream,
-                    responseString);
+            if (hasBinaryResponse) {
+                InputStream responseStream = responseBody.byteStream();
+                httpResponse = new HttpResponse(response.code(), headers, responseStream);
+            } else {
+                String responseString = responseBody.string();
+                InputStream responseStream = new ByteArrayInputStream(
+                        responseString.getBytes());
+                httpResponse = new HttpStringResponse(response.code(), headers, responseStream,
+                        responseString);
 
-            responseBody.close();
-            response.close();
+                responseBody.close();
+                response.close();
+            }
         }
 
         return httpResponse;
@@ -201,10 +207,10 @@ public class OkClient implements HttpClient {
 
     /**
      * Converts a given internal http request into an okhttp request model.
-     * @param   httpRequest     The given http request in internal format
-     * @return              The converted okhttp request
+     * @param   httpRequest     The given http request in internal format.
+     * @return  The converted okhttp request
      */
-    private static okhttp3.Request convertRequest(HttpRequest httpRequest) {
+    private okhttp3.Request convertRequest(HttpRequest httpRequest) {
         okhttp3.RequestBody requestBody;
 
         if (httpRequest instanceof HttpBodyRequest) {
@@ -212,7 +218,7 @@ public class OkClient implements HttpClient {
             // set request media type
             String contentType;
             Object body = ((HttpBodyRequest) httpRequest).getBody();
-            
+
             // set request body
             if (body instanceof FileWrapper) {
                 FileWrapper file = (FileWrapper) body;
@@ -285,7 +291,7 @@ public class OkClient implements HttpClient {
         // set query parameters
         ApiHelper.appendUrlWithQueryParameters(urlBuilder, httpRequest.getQueryParameters());
 
-        //validate and preprocess url
+        // validate and preprocess url
         String url = ApiHelper.cleanUrl(urlBuilder);
 
         // build the request

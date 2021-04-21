@@ -25,7 +25,7 @@ public class LoyaltyEventLocationFilter {
 
     /**
      * Getter for LocationIds.
-     * The [location](#type-Location) IDs for loyalty events to query. If multiple values are
+     * The [location]($m/Location) IDs for loyalty events to query. If multiple values are
      * specified, the endpoint uses a logical OR to combine them.
      * @return Returns the List of String
      */

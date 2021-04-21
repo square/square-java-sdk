@@ -31,6 +31,8 @@ public class UpdateCustomerRequest {
     private final String note;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long version;
 
     /**
      * Initialization constructor.
@@ -44,6 +46,7 @@ public class UpdateCustomerRequest {
      * @param  referenceId  String value for referenceId.
      * @param  note  String value for note.
      * @param  birthday  String value for birthday.
+     * @param  version  Long value for version.
      */
     @JsonCreator
     public UpdateCustomerRequest(
@@ -56,7 +59,8 @@ public class UpdateCustomerRequest {
             @JsonProperty("phone_number") String phoneNumber,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("note") String note,
-            @JsonProperty("birthday") String birthday) {
+            @JsonProperty("birthday") String birthday,
+            @JsonProperty("version") Long version) {
         this.givenName = givenName;
         this.familyName = familyName;
         this.companyName = companyName;
@@ -67,11 +71,12 @@ public class UpdateCustomerRequest {
         this.referenceId = referenceId;
         this.note = note;
         this.birthday = birthday;
+        this.version = version;
     }
 
     /**
      * Getter for GivenName.
-     * The given (i.e., first) name associated with the customer profile.
+     * The given name (that is, the first name) associated with the customer profile.
      * @return Returns the String
      */
     @JsonGetter("given_name")
@@ -81,7 +86,7 @@ public class UpdateCustomerRequest {
 
     /**
      * Getter for FamilyName.
-     * The family (i.e., last) name associated with the customer profile.
+     * The family name (that is, the last name) associated with the customer profile.
      * @return Returns the String
      */
     @JsonGetter("family_name")
@@ -141,7 +146,7 @@ public class UpdateCustomerRequest {
 
     /**
      * Getter for ReferenceId.
-     * An optional, second ID used to associate the customer profile with an entity in another
+     * An optional second ID used to associate the customer profile with an entity in another
      * system.
      * @return Returns the String
      */
@@ -162,10 +167,10 @@ public class UpdateCustomerRequest {
 
     /**
      * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional,
-     * timezone and times are not allowed. For example: `0000-09-01T00:00:00-00:00` indicates a
-     * birthday on September 1st. `1998-09-01T00:00:00-00:00` indications a birthday on September
-     * 1st __1998__.
+     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional.
+     * The timezone and time are not allowed. For example, `0000-09-21T00:00:00-00:00` represents a
+     * birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September
+     * 21, 1998. You can also specify this value in `YYYY-MM-DD` format.
      * @return Returns the String
      */
     @JsonGetter("birthday")
@@ -173,10 +178,24 @@ public class UpdateCustomerRequest {
         return birthday;
     }
 
+    /**
+     * Getter for Version.
+     * The current version of the customer profile. As a best practice, you should include this
+     * field to enable [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * control. For more information, see [Update a customer
+     * profile](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile).
+     * @return Returns the Long
+     */
+    @JsonGetter("version")
+    public Long getVersion() {
+        return version;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(givenName, familyName, companyName, nickname, emailAddress, address,
-                phoneNumber, referenceId, note, birthday);
+                phoneNumber, referenceId, note, birthday, version);
     }
 
     @Override
@@ -197,7 +216,8 @@ public class UpdateCustomerRequest {
             && Objects.equals(phoneNumber, other.phoneNumber)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(note, other.note)
-            && Objects.equals(birthday, other.birthday);
+            && Objects.equals(birthday, other.birthday)
+            && Objects.equals(version, other.version);
     }
 
     /**
@@ -210,7 +230,7 @@ public class UpdateCustomerRequest {
                 + ", companyName=" + companyName + ", nickname=" + nickname + ", emailAddress="
                 + emailAddress + ", address=" + address + ", phoneNumber=" + phoneNumber
                 + ", referenceId=" + referenceId + ", note=" + note + ", birthday=" + birthday
-                + "]";
+                + ", version=" + version + "]";
     }
 
     /**
@@ -229,7 +249,8 @@ public class UpdateCustomerRequest {
                 .phoneNumber(getPhoneNumber())
                 .referenceId(getReferenceId())
                 .note(getNote())
-                .birthday(getBirthday());
+                .birthday(getBirthday())
+                .version(getVersion());
         return builder;
     }
 
@@ -247,6 +268,7 @@ public class UpdateCustomerRequest {
         private String referenceId;
         private String note;
         private String birthday;
+        private Long version;
 
 
 
@@ -351,12 +373,22 @@ public class UpdateCustomerRequest {
         }
 
         /**
+         * Setter for version.
+         * @param  version  Long value for version.
+         * @return Builder
+         */
+        public Builder version(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateCustomerRequest} object using the set fields.
          * @return {@link UpdateCustomerRequest}
          */
         public UpdateCustomerRequest build() {
             return new UpdateCustomerRequest(givenName, familyName, companyName, nickname,
-                    emailAddress, address, phoneNumber, referenceId, note, birthday);
+                    emailAddress, address, phoneNumber, referenceId, note, birthday, version);
         }
     }
 }

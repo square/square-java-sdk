@@ -61,10 +61,10 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Creates a new [Order](#type-order) which can include information on products for purchase and
+     * Creates a new [Order]($m/Order) which can include information on products for purchase and
      * settings to apply to the purchase. To pay for a created order, please refer to the [Pay for
      * Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide. You can modify
-     * open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
+     * open orders using the [UpdateOrder]($e/Orders/UpdateOrder) endpoint.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
@@ -76,17 +76,17 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildCreateOrderRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCreateOrderResponse(context);
     }
 
     /**
-     * Creates a new [Order](#type-order) which can include information on products for purchase and
+     * Creates a new [Order]($m/Order) which can include information on products for purchase and
      * settings to apply to the purchase. To pay for a created order, please refer to the [Pay for
      * Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide. You can modify
-     * open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
+     * open orders using the [UpdateOrder]($e/Orders/UpdateOrder) endpoint.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
@@ -96,7 +96,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildCreateOrderRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCreateOrderResponse(context));
     }
 
@@ -158,8 +158,8 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Retrieves a set of [Order](#type-order)s by their IDs. If a given Order ID does not exist,
-     * the ID is ignored instead of generating an error.
+     * Retrieves a set of [Order]($m/Order)s by their IDs. If a given Order ID does not exist, the
+     * ID is ignored instead of generating an error.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
@@ -171,15 +171,15 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildBatchRetrieveOrdersRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleBatchRetrieveOrdersResponse(context);
     }
 
     /**
-     * Retrieves a set of [Order](#type-order)s by their IDs. If a given Order ID does not exist,
-     * the ID is ignored instead of generating an error.
+     * Retrieves a set of [Order]($m/Order)s by their IDs. If a given Order ID does not exist, the
+     * ID is ignored instead of generating an error.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
@@ -189,7 +189,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildBatchRetrieveOrdersRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleBatchRetrieveOrdersResponse(context));
     }
 
@@ -251,7 +251,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Calculates an [Order](#type-order).
+     * Enables applications to preview order pricing without creating an order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateOrderResponse response from the API call
@@ -263,14 +263,14 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildCalculateOrderRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleCalculateOrderResponse(context);
     }
 
     /**
-     * Calculates an [Order](#type-order).
+     * Enables applications to preview order pricing without creating an order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateOrderResponse response from the API call
@@ -280,7 +280,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildCalculateOrderRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleCalculateOrderResponse(context));
     }
 
@@ -345,13 +345,13 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges
      * regardless of how or when they entered the Square Ecosystem (e.g. Point of Sale, Invoices,
      * Connect APIs, etc). SearchOrders requests need to specify which locations to search and
-     * define a [`SearchOrdersQuery`](#type-searchordersquery) object which controls how to sort or
+     * define a [`SearchOrdersQuery`]($m/SearchOrdersQuery) object which controls how to sort or
      * filter the results. Your SearchOrdersQuery can: Set filter criteria. Set sort order.
      * Determine whether to return results as complete Order objects, or as
-     * [OrderEntry](#type-orderentry) objects. Note that details for orders processed with Square
-     * Point of Sale while in offline mode may not be transmitted to Square for up to 72 hours.
-     * Offline orders have a `created_at` value that reflects the time the order was created, not
-     * the time it was subsequently transmitted to Square.
+     * [OrderEntry]($m/OrderEntry) objects. Note that details for orders processed with Square Point
+     * of Sale while in offline mode may not be transmitted to Square for up to 72 hours. Offline
+     * orders have a `created_at` value that reflects the time the order was created, not the time
+     * it was subsequently transmitted to Square.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchOrdersResponse response from the API call
@@ -363,7 +363,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildSearchOrdersRequest(body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleSearchOrdersResponse(context);
@@ -373,13 +373,13 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges
      * regardless of how or when they entered the Square Ecosystem (e.g. Point of Sale, Invoices,
      * Connect APIs, etc). SearchOrders requests need to specify which locations to search and
-     * define a [`SearchOrdersQuery`](#type-searchordersquery) object which controls how to sort or
+     * define a [`SearchOrdersQuery`]($m/SearchOrdersQuery) object which controls how to sort or
      * filter the results. Your SearchOrdersQuery can: Set filter criteria. Set sort order.
      * Determine whether to return results as complete Order objects, or as
-     * [OrderEntry](#type-orderentry) objects. Note that details for orders processed with Square
-     * Point of Sale while in offline mode may not be transmitted to Square for up to 72 hours.
-     * Offline orders have a `created_at` value that reflects the time the order was created, not
-     * the time it was subsequently transmitted to Square.
+     * [OrderEntry]($m/OrderEntry) objects. Note that details for orders processed with Square Point
+     * of Sale while in offline mode may not be transmitted to Square for up to 72 hours. Offline
+     * orders have a `created_at` value that reflects the time the order was created, not the time
+     * it was subsequently transmitted to Square.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchOrdersResponse response from the API call
@@ -389,7 +389,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildSearchOrdersRequest(body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleSearchOrdersResponse(context));
     }
 
@@ -451,7 +451,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Retrieves an [Order](#type-order) by ID.
+     * Retrieves an [Order]($m/Order) by ID.
      * @param  orderId  Required parameter: The ID of the order to retrieve.
      * @return    Returns the RetrieveOrderResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -462,14 +462,14 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildRetrieveOrderRequest(orderId);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleRetrieveOrderResponse(context);
     }
 
     /**
-     * Retrieves an [Order](#type-order) by ID.
+     * Retrieves an [Order]($m/Order) by ID.
      * @param  orderId  Required parameter: The ID of the order to retrieve.
      * @return    Returns the RetrieveOrderResponse response from the API call
      */
@@ -478,7 +478,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildRetrieveOrderRequest(orderId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleRetrieveOrderResponse(context));
     }
 
@@ -544,7 +544,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting fields. Orders with a
+     * Updates an open [Order]($m/Order) by adding, replacing, or deleting fields. Orders with a
      * `COMPLETED` or `CANCELED` state cannot be updated. An UpdateOrder request requires the
      * following: - The `order_id` in the endpoint path, identifying the order to update. - The
      * latest `version` of the order to update. - The [sparse
@@ -567,14 +567,14 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildUpdateOrderRequest(orderId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handleUpdateOrderResponse(context);
     }
 
     /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting fields. Orders with a
+     * Updates an open [Order]($m/Order) by adding, replacing, or deleting fields. Orders with a
      * `COMPLETED` or `CANCELED` state cannot be updated. An UpdateOrder request requires the
      * following: - The `order_id` in the endpoint path, identifying the order to update. - The
      * latest `version` of the order to update. - The [sparse
@@ -595,7 +595,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildUpdateOrderRequest(orderId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handleUpdateOrderResponse(context));
     }
 
@@ -664,13 +664,13 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
     }
 
     /**
-     * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or
-     * settle an order with a total of `0`. The total of the `payment_ids` listed in the request
-     * must be equal to the order total. Orders with a total amount of `0` can be marked as paid by
-     * specifying an empty array of `payment_ids` in the request. To be used with PayOrder, a
-     * payment must: - Reference the order by specifying the `order_id` when [creating the
-     * payment](#endpoint-payments-createpayment). Any approved payments that reference the same
-     * `order_id` not specified in the `payment_ids` will be canceled. - Be approved with [delayed
+     * Pay for an [order]($m/Order) using one or more approved [payments]($m/Payment), or settle an
+     * order with a total of `0`. The total of the `payment_ids` listed in the request must be equal
+     * to the order total. Orders with a total amount of `0` can be marked as paid by specifying an
+     * empty array of `payment_ids` in the request. To be used with PayOrder, a payment must: -
+     * Reference the order by specifying the `order_id` when [creating the
+     * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
+     * not specified in the `payment_ids` will be canceled. - Be approved with [delayed
      * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.
@@ -686,20 +686,20 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         HttpRequest request = buildPayOrderRequest(orderId, body);
         authManagers.get("global").apply(request);
 
-        HttpResponse response = getClientInstance().executeAsString(request);
+        HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
         return handlePayOrderResponse(context);
     }
 
     /**
-     * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or
-     * settle an order with a total of `0`. The total of the `payment_ids` listed in the request
-     * must be equal to the order total. Orders with a total amount of `0` can be marked as paid by
-     * specifying an empty array of `payment_ids` in the request. To be used with PayOrder, a
-     * payment must: - Reference the order by specifying the `order_id` when [creating the
-     * payment](#endpoint-payments-createpayment). Any approved payments that reference the same
-     * `order_id` not specified in the `payment_ids` will be canceled. - Be approved with [delayed
+     * Pay for an [order]($m/Order) using one or more approved [payments]($m/Payment), or settle an
+     * order with a total of `0`. The total of the `payment_ids` listed in the request must be equal
+     * to the order total. Orders with a total amount of `0` can be marked as paid by specifying an
+     * empty array of `payment_ids` in the request. To be used with PayOrder, a payment must: -
+     * Reference the order by specifying the `order_id` when [creating the
+     * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
+     * not specified in the `payment_ids` will be canceled. - Be approved with [delayed
      * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.
@@ -713,7 +713,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         return makeHttpCallAsync(() -> buildPayOrderRequest(orderId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
-                        .executeAsStringAsync(request)),
+                        .executeAsync(request, false)),
             context -> handlePayOrderResponse(context));
     }
 

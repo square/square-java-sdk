@@ -63,10 +63,10 @@ public class ListCustomersResponse {
 
     /**
      * Getter for Cursor.
-     * A pagination cursor to retrieve the next set of results for the original query. Only present
-     * if the request succeeded and additional results are available. See the [Pagination
-     * guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     * information.
+     * A pagination cursor to retrieve the next set of results for the original query. A cursor is
+     * only present if the request succeeded and additional results are available. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 | `DeviceCodes` | [`List<DeviceCode>`](/doc/models/device-code.md) | Optional | The queried DeviceCode. | List<DeviceCode> getDeviceCodes() |
-| `Cursor` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. This value is present only if the request<br>succeeded and additional results are available.<br><br>See [Paginating results](#paginatingresults) for more information. | String getCursor() |
+| `Cursor` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. This value is present only if the request<br>succeeded and additional results are available.<br><br>See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. | String getCursor() |
 
 ## Example (as JSON)
 

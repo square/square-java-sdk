@@ -238,7 +238,7 @@ public class Tender {
 
     /**
      * Getter for PaymentId.
-     * The ID of the [Payment](#type-payment) that corresponds to this tender. This value is only
+     * The ID of the [Payment]($m/Payment) that corresponds to this tender. This value is only
      * present for payments created with the v2 Payments API.
      * @return Returns the String
      */

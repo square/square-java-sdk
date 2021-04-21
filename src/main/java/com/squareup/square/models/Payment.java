@@ -445,7 +445,7 @@ public class Payment {
 
     /**
      * Getter for CustomerId.
-     * The [Customer](#type-customer) ID of the customer associated with the payment.
+     * The [Customer]($m/Customer) ID of the customer associated with the payment.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

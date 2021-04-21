@@ -24,10 +24,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface OrdersApi {
     /**
-     * Creates a new [Order](#type-order) which can include information on products for purchase and
+     * Creates a new [Order]($m/Order) which can include information on products for purchase and
      * settings to apply to the purchase. To pay for a created order, please refer to the [Pay for
      * Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide. You can modify
-     * open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
+     * open orders using the [UpdateOrder]($e/Orders/UpdateOrder) endpoint.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
@@ -38,10 +38,10 @@ public interface OrdersApi {
             final CreateOrderRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a new [Order](#type-order) which can include information on products for purchase and
+     * Creates a new [Order]($m/Order) which can include information on products for purchase and
      * settings to apply to the purchase. To pay for a created order, please refer to the [Pay for
      * Orders](https://developer.squareup.com/docs/orders-api/pay-for-orders) guide. You can modify
-     * open orders using the [UpdateOrder](#endpoint-orders-updateorder) endpoint.
+     * open orders using the [UpdateOrder]($e/Orders/UpdateOrder) endpoint.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateOrderResponse response from the API call
@@ -50,8 +50,8 @@ public interface OrdersApi {
             final CreateOrderRequest body);
 
     /**
-     * Retrieves a set of [Order](#type-order)s by their IDs. If a given Order ID does not exist,
-     * the ID is ignored instead of generating an error.
+     * Retrieves a set of [Order]($m/Order)s by their IDs. If a given Order ID does not exist, the
+     * ID is ignored instead of generating an error.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
@@ -62,8 +62,8 @@ public interface OrdersApi {
             final BatchRetrieveOrdersRequest body) throws ApiException, IOException;
 
     /**
-     * Retrieves a set of [Order](#type-order)s by their IDs. If a given Order ID does not exist,
-     * the ID is ignored instead of generating an error.
+     * Retrieves a set of [Order]($m/Order)s by their IDs. If a given Order ID does not exist, the
+     * ID is ignored instead of generating an error.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchRetrieveOrdersResponse response from the API call
@@ -72,7 +72,7 @@ public interface OrdersApi {
             final BatchRetrieveOrdersRequest body);
 
     /**
-     * Calculates an [Order](#type-order).
+     * Enables applications to preview order pricing without creating an order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateOrderResponse response from the API call
@@ -83,7 +83,7 @@ public interface OrdersApi {
             final CalculateOrderRequest body) throws ApiException, IOException;
 
     /**
-     * Calculates an [Order](#type-order).
+     * Enables applications to preview order pricing without creating an order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateOrderResponse response from the API call
@@ -95,13 +95,13 @@ public interface OrdersApi {
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges
      * regardless of how or when they entered the Square Ecosystem (e.g. Point of Sale, Invoices,
      * Connect APIs, etc). SearchOrders requests need to specify which locations to search and
-     * define a [`SearchOrdersQuery`](#type-searchordersquery) object which controls how to sort or
+     * define a [`SearchOrdersQuery`]($m/SearchOrdersQuery) object which controls how to sort or
      * filter the results. Your SearchOrdersQuery can: Set filter criteria. Set sort order.
      * Determine whether to return results as complete Order objects, or as
-     * [OrderEntry](#type-orderentry) objects. Note that details for orders processed with Square
-     * Point of Sale while in offline mode may not be transmitted to Square for up to 72 hours.
-     * Offline orders have a `created_at` value that reflects the time the order was created, not
-     * the time it was subsequently transmitted to Square.
+     * [OrderEntry]($m/OrderEntry) objects. Note that details for orders processed with Square Point
+     * of Sale while in offline mode may not be transmitted to Square for up to 72 hours. Offline
+     * orders have a `created_at` value that reflects the time the order was created, not the time
+     * it was subsequently transmitted to Square.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchOrdersResponse response from the API call
@@ -115,13 +115,13 @@ public interface OrdersApi {
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges
      * regardless of how or when they entered the Square Ecosystem (e.g. Point of Sale, Invoices,
      * Connect APIs, etc). SearchOrders requests need to specify which locations to search and
-     * define a [`SearchOrdersQuery`](#type-searchordersquery) object which controls how to sort or
+     * define a [`SearchOrdersQuery`]($m/SearchOrdersQuery) object which controls how to sort or
      * filter the results. Your SearchOrdersQuery can: Set filter criteria. Set sort order.
      * Determine whether to return results as complete Order objects, or as
-     * [OrderEntry](#type-orderentry) objects. Note that details for orders processed with Square
-     * Point of Sale while in offline mode may not be transmitted to Square for up to 72 hours.
-     * Offline orders have a `created_at` value that reflects the time the order was created, not
-     * the time it was subsequently transmitted to Square.
+     * [OrderEntry]($m/OrderEntry) objects. Note that details for orders processed with Square Point
+     * of Sale while in offline mode may not be transmitted to Square for up to 72 hours. Offline
+     * orders have a `created_at` value that reflects the time the order was created, not the time
+     * it was subsequently transmitted to Square.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchOrdersResponse response from the API call
@@ -130,7 +130,7 @@ public interface OrdersApi {
             final SearchOrdersRequest body);
 
     /**
-     * Retrieves an [Order](#type-order) by ID.
+     * Retrieves an [Order]($m/Order) by ID.
      * @param  orderId  Required parameter: The ID of the order to retrieve.
      * @return    Returns the RetrieveOrderResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -140,7 +140,7 @@ public interface OrdersApi {
             final String orderId) throws ApiException, IOException;
 
     /**
-     * Retrieves an [Order](#type-order) by ID.
+     * Retrieves an [Order]($m/Order) by ID.
      * @param  orderId  Required parameter: The ID of the order to retrieve.
      * @return    Returns the RetrieveOrderResponse response from the API call
      */
@@ -148,7 +148,7 @@ public interface OrdersApi {
             final String orderId);
 
     /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting fields. Orders with a
+     * Updates an open [Order]($m/Order) by adding, replacing, or deleting fields. Orders with a
      * `COMPLETED` or `CANCELED` state cannot be updated. An UpdateOrder request requires the
      * following: - The `order_id` in the endpoint path, identifying the order to update. - The
      * latest `version` of the order to update. - The [sparse
@@ -170,7 +170,7 @@ public interface OrdersApi {
             final UpdateOrderRequest body) throws ApiException, IOException;
 
     /**
-     * Updates an open [Order](#type-order) by adding, replacing, or deleting fields. Orders with a
+     * Updates an open [Order]($m/Order) by adding, replacing, or deleting fields. Orders with a
      * `COMPLETED` or `CANCELED` state cannot be updated. An UpdateOrder request requires the
      * following: - The `order_id` in the endpoint path, identifying the order to update. - The
      * latest `version` of the order to update. - The [sparse
@@ -190,13 +190,13 @@ public interface OrdersApi {
             final UpdateOrderRequest body);
 
     /**
-     * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or
-     * settle an order with a total of `0`. The total of the `payment_ids` listed in the request
-     * must be equal to the order total. Orders with a total amount of `0` can be marked as paid by
-     * specifying an empty array of `payment_ids` in the request. To be used with PayOrder, a
-     * payment must: - Reference the order by specifying the `order_id` when [creating the
-     * payment](#endpoint-payments-createpayment). Any approved payments that reference the same
-     * `order_id` not specified in the `payment_ids` will be canceled. - Be approved with [delayed
+     * Pay for an [order]($m/Order) using one or more approved [payments]($m/Payment), or settle an
+     * order with a total of `0`. The total of the `payment_ids` listed in the request must be equal
+     * to the order total. Orders with a total amount of `0` can be marked as paid by specifying an
+     * empty array of `payment_ids` in the request. To be used with PayOrder, a payment must: -
+     * Reference the order by specifying the `order_id` when [creating the
+     * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
+     * not specified in the `payment_ids` will be canceled. - Be approved with [delayed
      * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.
@@ -211,13 +211,13 @@ public interface OrdersApi {
             final PayOrderRequest body) throws ApiException, IOException;
 
     /**
-     * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or
-     * settle an order with a total of `0`. The total of the `payment_ids` listed in the request
-     * must be equal to the order total. Orders with a total amount of `0` can be marked as paid by
-     * specifying an empty array of `payment_ids` in the request. To be used with PayOrder, a
-     * payment must: - Reference the order by specifying the `order_id` when [creating the
-     * payment](#endpoint-payments-createpayment). Any approved payments that reference the same
-     * `order_id` not specified in the `payment_ids` will be canceled. - Be approved with [delayed
+     * Pay for an [order]($m/Order) using one or more approved [payments]($m/Payment), or settle an
+     * order with a total of `0`. The total of the `payment_ids` listed in the request must be equal
+     * to the order total. Orders with a total amount of `0` can be marked as paid by specifying an
+     * empty array of `payment_ids` in the request. To be used with PayOrder, a payment must: -
+     * Reference the order by specifying the `order_id` when [creating the
+     * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
+     * not specified in the `payment_ids` will be canceled. - Be approved with [delayed
      * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
      * Using a delayed capture payment with PayOrder will complete the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.

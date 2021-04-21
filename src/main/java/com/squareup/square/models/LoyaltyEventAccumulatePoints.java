@@ -36,7 +36,7 @@ public class LoyaltyEventAccumulatePoints {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The ID of the [loyalty program](#type-LoyaltyProgram).
+     * The ID of the [loyalty program]($m/LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -56,7 +56,7 @@ public class LoyaltyEventAccumulatePoints {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order](#type-Order) for which the buyer accumulated the points. This field is
+     * The ID of the [order]($m/Order) for which the buyer accumulated the points. This field is
      * returned only if the Orders API is used to process orders.
      * @return Returns the String
      */

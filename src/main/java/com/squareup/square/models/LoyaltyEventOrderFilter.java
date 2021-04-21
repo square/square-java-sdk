@@ -24,7 +24,7 @@ public class LoyaltyEventOrderFilter {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order](#type-Order) associated with the event.
+     * The ID of the [order]($m/Order) associated with the event.
      * @return Returns the String
      */
     @JsonGetter("order_id")

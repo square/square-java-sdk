@@ -20,10 +20,9 @@ public interface CustomerGroupsApi {
     /**
      * Retrieves the list of customer groups of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -34,10 +33,9 @@ public interface CustomerGroupsApi {
     /**
      * Retrieves the list of customer groups of a business.
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for your original query.
-     *         See the [Pagination
-     *         guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more
-     *         information.
+     *         endpoint. Provide this cursor to retrieve the next set of results for your original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      */
     CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(

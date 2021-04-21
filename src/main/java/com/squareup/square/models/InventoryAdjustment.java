@@ -147,7 +147,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for LocationId.
-     * The Square ID of the [Location](#type-location) where the related quantity of items are being
+     * The Square ID of the [Location]($m/Location) where the related quantity of items are being
      * tracked.
      * @return Returns the String
      */
@@ -237,7 +237,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for EmployeeId.
-     * The Square ID of the [Employee](#type-employee) responsible for the inventory adjustment.
+     * The Square ID of the [Employee]($m/Employee) responsible for the inventory adjustment.
      * @return Returns the String
      */
     @JsonGetter("employee_id")

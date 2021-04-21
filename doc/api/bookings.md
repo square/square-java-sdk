@@ -265,7 +265,7 @@ CompletableFuture<RetrieveBookingResponse> retrieveBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](#type-booking) object representing the to-be-retrieved booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-retrieved booking. |
 
 ## Response Type
 
@@ -299,7 +299,7 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](#type-booking) object representing the to-be-updated booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-updated booking. |
 | `body` | [`UpdateBookingRequest`](/doc/models/update-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -345,7 +345,7 @@ CompletableFuture<CancelBookingResponse> cancelBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](#type-booking) object representing the to-be-cancelled booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-cancelled booking. |
 | `body` | [`CancelBookingRequest`](/doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type

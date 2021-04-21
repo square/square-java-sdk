@@ -16,6 +16,7 @@ SubscriptionsApi subscriptionsApi = client.getSubscriptionsApi();
 * [Update Subscription](/doc/api/subscriptions.md#update-subscription)
 * [Cancel Subscription](/doc/api/subscriptions.md#cancel-subscription)
 * [List Subscription Events](/doc/api/subscriptions.md#list-subscription-events)
+* [Resume Subscription](/doc/api/subscriptions.md#resume-subscription)
 
 
 # Create Subscription
@@ -286,6 +287,39 @@ String cursor = "cursor6";
 Integer limit = 172;
 
 subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, cursor, limit).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Resume Subscription
+
+Resumes a deactivated subscription.
+
+```java
+CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
+    final String subscriptionId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription to resume. |
+
+## Response Type
+
+[`ResumeSubscriptionResponse`](/doc/models/resume-subscription-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+
+subscriptionsApi.resumeSubscriptionAsync(subscriptionId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

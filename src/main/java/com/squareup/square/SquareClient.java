@@ -68,6 +68,7 @@ import com.squareup.square.http.client.ReadonlyHttpClientConfiguration;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Gateway class for the library.
@@ -130,11 +131,6 @@ public final class SquareClient implements SquareClientInterface {
     private final HttpClient httpClient;
 
     /**
-     * The timeout to use for making HTTP requests.
-     */
-    private final long timeout;
-
-    /**
      * Http Client Configuration instance.
      */
     private final ReadonlyHttpClientConfiguration httpClientConfig;
@@ -160,14 +156,13 @@ public final class SquareClient implements SquareClientInterface {
     private final HttpCallback httpCallback;
 
     private SquareClient(Environment environment, String customUrl, String squareVersion,
-            HttpClient httpClient, long timeout, ReadonlyHttpClientConfiguration httpClientConfig,
+            HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
             Headers additionalHeaders, String accessToken, Map<String, AuthManager> authManagers,
             HttpCallback httpCallback) {
         this.environment = environment;
         this.customUrl = customUrl;
         this.squareVersion = squareVersion;
         this.httpClient = httpClient;
-        this.timeout = timeout;
         this.httpClientConfig = httpClientConfig;
         this.additionalHeaders = additionalHeaders;
         this.httpCallback = httpCallback;
@@ -511,14 +506,6 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
-     * The timeout to use for making HTTP requests.
-     * @return timeout
-     */
-    public long getTimeout() {
-        return timeout;
-    }
-
-    /**
      * Http Client Configuration instance.
      * @return httpClientConfig
      */
@@ -555,7 +542,19 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "9.1.0.20210317";
+        return "10.0.0.20210421";
+    }
+
+    /**
+     * The timeout to use for making HTTP requests.
+     * @deprecated This method will be removed in a future version. Use
+     *             {@link #getHttpClientConfig()} instead.
+     *
+     * @return timeout
+     */
+    @Deprecated
+    public long timeout() {
+        return httpClientConfig.getTimeout();
     }
 
     /**
@@ -628,12 +627,12 @@ public final class SquareClient implements SquareClientInterface {
         builder.customUrl = getCustomUrl();
         builder.squareVersion = getSquareVersion();
         builder.httpClient = getHttpClient();
-        builder.timeout = getTimeout();
         builder.additionalHeaders = getAdditionalHeaders();
         builder.accessToken = getAccessTokenCredentials().getAccessToken();
         builder.authManagers = authManagers;
         builder.httpCallback = httpCallback;
-        builder.setHttpClientConfig(httpClientConfig);
+        builder.httpClientConfig(configBldr -> configBldr =
+                ((HttpClientConfiguration) httpClientConfig).newBuilder());
         return builder;
     }
 
@@ -641,16 +640,18 @@ public final class SquareClient implements SquareClientInterface {
      * Class to build instances of {@link SquareClient}.
      */
     public static class Builder {
+
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-03-17";
+        private String squareVersion = "2021-04-21";
         private HttpClient httpClient;
-        private long timeout = 60;
         private Headers additionalHeaders = new Headers();
         private String accessToken = "TODO: Replace";
         private Map<String, AuthManager> authManagers = null;
         private HttpCallback httpCallback = null;
-        private HttpClientConfiguration httpClientConfig;
+        private HttpClientConfiguration.Builder httpClientConfigBuilder =
+                new HttpClientConfiguration.Builder();
+
 
         /**
          * Credentials setter for AccessToken.
@@ -699,18 +700,6 @@ public final class SquareClient implements SquareClientInterface {
         }
 
         /**
-         * The timeout to use for making HTTP requests.
-         * @param timeout must be greater then 0.
-         * @return Builder
-         */
-        public Builder timeout(long timeout) {
-            if (timeout > 0) {
-                this.timeout = timeout;
-            }
-            return this;
-        }
-
-        /**
          * Additional headers to add to each API request.
          * @param additionalHeaders The additionalHeaders for client.
          * @return Builder
@@ -724,6 +713,19 @@ public final class SquareClient implements SquareClientInterface {
         }
 
         /**
+         * The timeout to use for making HTTP requests.
+         * @deprecated This method will be removed in a future version. Use
+         *             {@link #httpClientConfig()} instead.
+         * @param timeout must be greater then 0.
+         * @return Builder
+         */
+        @Deprecated
+        public Builder timeout(long timeout) {
+            this.httpClientConfigBuilder.timeout(timeout);
+            return this;
+        }
+
+        /**
          * HttpCallback.
          * @param httpCallback Callback to be called before and after the HTTP call.
          * @return Builder
@@ -733,9 +735,16 @@ public final class SquareClient implements SquareClientInterface {
             return this;
         }
 
-
-        private void setHttpClientConfig(ReadonlyHttpClientConfiguration httpClientConfig) {
-            this.timeout = httpClientConfig.getTimeout();
+        /**
+         * Setter for the Builder of httpClientConfiguration, takes in an operation to be performed
+         * on the builder instance of HTTP client configuration.
+         * 
+         * @param action Consumer for the builder of httpClientConfiguration.
+         * @return Builder
+         */
+        public Builder httpClientConfig(Consumer<HttpClientConfiguration.Builder> action) {
+            action.accept(httpClientConfigBuilder);
+            return this;
         }
 
         /**
@@ -743,11 +752,10 @@ public final class SquareClient implements SquareClientInterface {
          * @return SquareClient
          */
         public SquareClient build() {
-            httpClientConfig = new HttpClientConfiguration();
-            httpClientConfig.setTimeout(timeout);
+            HttpClientConfiguration httpClientConfig = httpClientConfigBuilder.build();
             httpClient = new OkClient(httpClientConfig);
 
-            return new SquareClient(environment, customUrl, squareVersion, httpClient, timeout,
+            return new SquareClient(environment, customUrl, squareVersion, httpClient,
                     httpClientConfig, additionalHeaders, accessToken, authManagers, httpCallback);
         }
     }

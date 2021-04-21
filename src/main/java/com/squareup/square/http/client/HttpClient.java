@@ -17,35 +17,23 @@ import java.util.concurrent.CompletableFuture;
 public interface HttpClient {
 
     /**
-     * Execute a given HttpRequest to get string response back.
-     * @param   request     The given HttpRequest to execute.
-     * @return  CompletableFuture of HttpResponse after execution
+     * Execute a given HttpRequest to get string/binary response back.
+     * @param   request            The given HttpRequest to execute.
+     * @param   hasBinaryResponse  Whether the response is binary or string.
+     * @return  CompletableFuture of HttpResponse after execution.
      */
-    public CompletableFuture<HttpResponse> executeAsStringAsync(final HttpRequest request);
+    public CompletableFuture<HttpResponse> executeAsync(final HttpRequest request,
+            boolean hasBinaryResponse);
 
     /**
-     * Execute a given HttpRequest to get binary response back.
-     * @param   request     The given HttpRequest to execute.
-     * @return   CompletableFuture of HttpResponse after execution
+     * Execute a given HttpRequest to get string/binary response back.
+     * @param   request            The given HttpRequest to execute.
+     * @param   hasBinaryResponse  Whether the response is binary or string.
+     * @return  The converted http response.
+     * @throws  IOException exception to be thrown while converting response.
      */
-    public CompletableFuture<HttpResponse> executeAsBinaryAsync(final HttpRequest request);
-
-    /**
-     * Execute a given HttpRequest to get binary response back.
-     * @param   request     The given HttpRequest to execute.
-     * @return   HttpResponse after execution
-     * @throws   IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public HttpResponse executeAsBinary(final HttpRequest request) throws IOException;
-
-    /**
-     * Execute a given HttpRequest to get string response back.
-     * @param   request     The given HttpRequest to execute.
-     * @return   HttpResponse after execution
-     * @throws   IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public HttpResponse executeAsString(final HttpRequest request) throws IOException;
-
+    public HttpResponse execute(final HttpRequest request, boolean hasBinaryResponse)
+            throws IOException;
 
     /**
      * Create a simple HTTP GET request.

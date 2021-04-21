@@ -11,7 +11,7 @@ The booking profile of a seller's team member, including the team member's ID, d
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `TeamMemberId` | `String` | Optional | The ID of the [TeamMember](#type-TeamMember) object for the team member associated with the booking profile. | String getTeamMemberId() |
+| `TeamMemberId` | `String` | Optional | The ID of the [TeamMember](/doc/models/team-member.md) object for the team member associated with the booking profile. | String getTeamMemberId() |
 | `Description` | `String` | Optional | The description of the team member. | String getDescription() |
 | `DisplayName` | `String` | Optional | The display name of the team member. | String getDisplayName() |
 | `IsBookable` | `Boolean` | Optional | Indicates whether the team member can be booked through the Bookings API or the seller's online booking channel or site (`true) or not (`false`). | Boolean getIsBookable() |

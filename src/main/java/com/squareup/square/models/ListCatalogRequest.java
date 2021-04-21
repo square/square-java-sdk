@@ -63,7 +63,7 @@ public class ListCatalogRequest {
      * Getter for CatalogVersion.
      * The specific version of the catalog objects to be included in the response. This allows you
      * to retrieve historical versions of objects. The specified version value is matched against
-     * the [CatalogObject](#type-catalogobject)s' `version` attribute.
+     * the [CatalogObject]($m/CatalogObject)s' `version` attribute.
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")

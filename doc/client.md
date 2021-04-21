@@ -5,11 +5,10 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-03-17"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-04-21"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `timeout` | `long` | The timeout to use for making HTTP requests.<br>*Default*: `60L` |
-| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
+| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. See available [builder methods here](#httpclientconfiguration.builder-class). |
 | `additionalHeaders` | `Headers` | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
 | `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
 
@@ -17,7 +16,9 @@ The API client can be initialized as follows:
 
 ```java
 SquareClient client = new SquareClient.Builder()
-    .squareVersion("2021-03-17")
+    .httpClientConfig(configBuilder -> configBuilder
+            .timeout(0))
+    .squareVersion("2021-04-21")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -41,7 +42,9 @@ public class Program {
 
     public static void main(String[] args) {
         SquareClient client = new SquareClient.Builder()
-            .squareVersion("2021-03-17")
+            .httpClientConfig(configBuilder -> configBuilder
+                    .timeout(0))
+            .squareVersion("2021-04-21")
             .accessToken("AccessToken")
             .build();
         
@@ -104,7 +107,6 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getCustomUrl()` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com` | `String` |
 | `getSquareVersion()` | Square Connect API versions. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
-| `getTimeout()` | The timeout to use for making HTTP requests. | `long` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | `ReadonlyHttpClientConfiguration` |
 | `getAdditionalHeaders()` | Additional headers to add to each API request. | `Headers` |
 | `getAccessTokenCredentials()` | The credentials to use with AccessToken. | `AccessTokenCredentials` |
