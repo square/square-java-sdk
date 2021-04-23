@@ -89,7 +89,7 @@ public class SanityTest {
     public void setup() throws Exception {
         client = new SquareClient.Builder()
             .environment(Environment.SANDBOX)
-            .accessToken(System.getenv().get("SQUARE_ACCESS_TOKEN"))
+            .accessToken(System.getenv().get("SQUARE_SANDBOX_TOKEN"))
             .build();
     }
 
