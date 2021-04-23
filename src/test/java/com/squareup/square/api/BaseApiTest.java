@@ -59,7 +59,7 @@ public class BaseApiTest {
         final String customUrl = System.getenv("SQUARE_CUSTOM_URL");
         final String squareVersion = System.getenv("SQUARE_SQUARE_VERSION");
         final String timeout = System.getenv("SQUARE_TIMEOUT");
-        final String accessToken = System.getenv("SQUARE_ACCESS_TOKEN");
+        final String accessToken = System.getenv("SQUARE_SANDBOX_TOKEN");
 
         if (accessToken != null) {
             builder.accessToken(accessToken);
