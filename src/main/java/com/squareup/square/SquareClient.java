@@ -740,7 +740,7 @@ public final class SquareClient implements SquareClientInterface {
         /**
          * The timeout to use for making HTTP requests.
          * @deprecated This method will be removed in a future version. Use
-         *             {@link #httpClientConfig()} instead.
+         *             httpClientConfig() instead.
          * @param timeout must be greater then 0.
          * @return Builder
          */
