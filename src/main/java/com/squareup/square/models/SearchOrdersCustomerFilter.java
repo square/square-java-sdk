@@ -27,7 +27,7 @@ public class SearchOrdersCustomerFilter {
 
     /**
      * Getter for CustomerIds.
-     * List of customer IDs to filter by. Max: 10 customer IDs.
+     * A list of customer IDs to filter by. Max: 10 customer IDs.
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")

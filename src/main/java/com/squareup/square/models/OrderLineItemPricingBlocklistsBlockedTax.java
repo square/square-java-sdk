@@ -36,7 +36,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
 
     /**
      * Getter for Uid.
-     * Unique ID of the `BlockedTax` within the order.
+     * A unique ID of the `BlockedTax` within the order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -46,8 +46,8 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
 
     /**
      * Getter for TaxUid.
-     * The `uid` of the tax that should be blocked. Use this field to block ad-hoc taxes. For
-     * catalog taxes use the `tax_catalog_object_id` field.
+     * The `uid` of the tax that should be blocked. Use this field to block ad hoc taxes. For
+     * catalog, taxes use the `tax_catalog_object_id` field.
      * @return Returns the String
      */
     @JsonGetter("tax_uid")
@@ -58,7 +58,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
     /**
      * Getter for TaxCatalogObjectId.
      * The `catalog_object_id` of the tax that should be blocked. Use this field to block catalog
-     * taxes. For ad-hoc taxes use the `tax_uid` field.
+     * taxes. For ad hoc taxes, use the `tax_uid` field.
      * @return Returns the String
      */
     @JsonGetter("tax_catalog_object_id")

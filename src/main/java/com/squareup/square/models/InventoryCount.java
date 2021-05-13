@@ -51,7 +51,7 @@ public class InventoryCount {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square generated ID of the `CatalogObject` being tracked.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -61,8 +61,8 @@ public class InventoryCount {
 
     /**
      * Getter for CatalogObjectType.
-     * The `CatalogObjectType` of the `CatalogObject` being tracked. Tracking is only supported for
-     * the `ITEM_VARIATION` type.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked.
+     * Tracking is only supported for the `ITEM_VARIATION` type.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
@@ -82,8 +82,8 @@ public class InventoryCount {
 
     /**
      * Getter for LocationId.
-     * The Square ID of the [Location]($m/Location) where the related quantity of items are being
-     * tracked.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
+     * being tracked.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -104,8 +104,8 @@ public class InventoryCount {
 
     /**
      * Getter for CalculatedAt.
-     * A read-only timestamp in RFC 3339 format that indicates when Square received the most recent
-     * physical count or adjustment that had an affect on the estimated count.
+     * An RFC 3339-formatted timestamp that indicates when the most recent physical count or
+     * adjustment affecting the estimated count is received.
      * @return Returns the String
      */
     @JsonGetter("calculated_at")

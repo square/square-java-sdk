@@ -112,7 +112,7 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for Recipient.
-     * Contains information on the recipient of a fulfillment.
+     * Contains information about the recipient of a fulfillment.
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
@@ -123,10 +123,10 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for ExpiresAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment will expire if it is not accepted. Must be in RFC 3339
-     * format e.g., "2016-09-04T23:59:33.123Z". Expiration time can only be set up to 7 days in the
-     * future. If `expires_at` is not set, this pickup fulfillment will be automatically accepted
-     * when placed.
+     * indicating when this fulfillment expires if it is not accepted. The timestamp must be in RFC
+     * 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only be set up
+     * to 7 days in the future. If `expires_at` is not set, this pickup fulfillment is automatically
+     * accepted when placed.
      * @return Returns the String
      */
     @JsonGetter("expires_at")
@@ -136,9 +136,10 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for AutoCompleteDuration.
-     * The duration of time after which an open and accepted pickup fulfillment will automatically
-     * move to the `COMPLETED` state. Must be in RFC3339 duration format e.g., "P1W3D". If not set,
-     * this pickup fulfillment will remain accepted until it is canceled or completed.
+     * The duration of time after which an open and accepted pickup fulfillment is automatically
+     * moved to the `COMPLETED` state. The duration must be in RFC 3339 format (for example,
+     * "P1W3D"). If not set, this pickup fulfillment remains accepted until it is canceled or
+     * completed.
      * @return Returns the String
      */
     @JsonGetter("auto_complete_duration")
@@ -159,7 +160,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for PickupAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) that
-     * represents the start of the pickup window. Must be in RFC3339 timestamp format, e.g.,
+     * represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
      * "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`, this is
      * automatically set to the current time plus the expected duration to prepare the fulfillment.
      * @return Returns the String
@@ -172,7 +173,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for PickupWindowDuration.
      * The window of time in which the order should be picked up after the `pickup_at` timestamp.
-     * Must be in RFC3339 duration format, e.g., "P1W3D". Can be used as an informational guideline
+     * Must be in RFC 3339 duration format, e.g., "P1W3D". Can be used as an informational guideline
      * for merchants.
      * @return Returns the String
      */
@@ -183,8 +184,8 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for PrepTimeDuration.
-     * The duration of time it takes to prepare this fulfillment. Must be in RFC3339 duration
-     * format, e.g., "P1W3D".
+     * The duration of time it takes to prepare this fulfillment. The duration must be in RFC 3339
+     * format (for example, "P1W3D").
      * @return Returns the String
      */
     @JsonGetter("prep_time_duration")
@@ -195,7 +196,7 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for Note.
      * A note meant to provide additional instructions about the pickup fulfillment displayed in the
-     * Square Point of Sale and set by the API.
+     * Square Point of Sale application and set by the API.
      * @return Returns the String
      */
     @JsonGetter("note")
@@ -206,8 +207,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for PlacedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment was placed. Must be in RFC3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment was placed. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("placed_at")
@@ -218,8 +219,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for AcceptedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment was accepted. In RFC3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment was accepted. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("accepted_at")
@@ -230,8 +231,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for RejectedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment was rejected. In RFC3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment was rejected. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("rejected_at")
@@ -242,8 +243,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for ReadyAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment is marked as ready for pickup. In RFC3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment is marked as ready for pickup. The timestamp must be in RFC
+     * 3339 format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("ready_at")
@@ -254,8 +255,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for ExpiredAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment expired. In RFC3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment expired. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("expired_at")
@@ -266,8 +267,8 @@ public class OrderFulfillmentPickupDetails {
     /**
      * Getter for PickedUpAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment was picked up by the recipient. In RFC3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * indicating when the fulfillment was picked up by the recipient. The timestamp must be in RFC
+     * 3339 format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("picked_up_at")
@@ -277,9 +278,9 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for CanceledAt.
-     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) in
-     * RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z", indicating when the fulfillment
-     * was canceled.
+     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
+     * indicating when the fulfillment was canceled. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("canceled_at")
@@ -289,7 +290,7 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for CancelReason.
-     * A description of why the pickup was canceled. Max length: 100 characters.
+     * A description of why the pickup was canceled. The maximum length: 100 characters.
      * @return Returns the String
      */
     @JsonGetter("cancel_reason")
@@ -299,7 +300,8 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for IsCurbsidePickup.
-     * If true, indicates this pickup order is for curbside pickup, not in-store pickup.
+     * If set to `true`, indicates that this pickup order is for curbside pickup, not in-store
+     * pickup.
      * @return Returns the Boolean
      */
     @JsonGetter("is_curbside_pickup")

@@ -63,7 +63,7 @@ public class OrderReturn {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the return only within this order.
+     * A unique ID that identifies the return only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -73,7 +73,7 @@ public class OrderReturn {
 
     /**
      * Getter for SourceOrderId.
-     * Order which contains the original sale of these returned line items. This will be unset for
+     * An order that contains the original sale of these return line items. This is unset for
      * unlinked returns.
      * @return Returns the String
      */
@@ -84,7 +84,7 @@ public class OrderReturn {
 
     /**
      * Getter for ReturnLineItems.
-     * Collection of line items which are being returned.
+     * A collection of line items that are being returned.
      * @return Returns the List of OrderReturnLineItem
      */
     @JsonGetter("return_line_items")
@@ -94,7 +94,7 @@ public class OrderReturn {
 
     /**
      * Getter for ReturnServiceCharges.
-     * Collection of service charges which are being returned.
+     * A collection of service charges that are being returned.
      * @return Returns the List of OrderReturnServiceCharge
      */
     @JsonGetter("return_service_charges")
@@ -104,7 +104,7 @@ public class OrderReturn {
 
     /**
      * Getter for ReturnTaxes.
-     * Collection of references to taxes being returned for an order, including the total applied
+     * A collection of references to taxes being returned for an order, including the total applied
      * tax amount to be returned. The taxes must reference a top-level tax ID from the source order.
      * @return Returns the List of OrderReturnTax
      */
@@ -115,7 +115,7 @@ public class OrderReturn {
 
     /**
      * Getter for ReturnDiscounts.
-     * Collection of references to discounts being returned for an order, including the total
+     * A collection of references to discounts being returned for an order, including the total
      * applied discount amount to be returned. The discounts must reference a top-level discount ID
      * from the source order.
      * @return Returns the List of OrderReturnDiscount
@@ -127,8 +127,9 @@ public class OrderReturn {
 
     /**
      * Getter for RoundingAdjustment.
-     * A rounding adjustment of the money being returned. Commonly used to apply Cash Rounding when
-     * the minimum unit of account is smaller than the lowest physical denomination of currency.
+     * A rounding adjustment of the money being returned. Commonly used to apply cash rounding when
+     * the minimum unit of the account is smaller than the lowest physical denomination of the
+     * currency.
      * @return Returns the OrderRoundingAdjustment
      */
     @JsonGetter("rounding_adjustment")

@@ -30,7 +30,7 @@ public class SearchOrdersSort {
 
     /**
      * Getter for SortField.
-     * Specifies which timestamp to use to sort SearchOrder results.
+     * Specifies which timestamp to use to sort `SearchOrder` results.
      * @return Returns the String
      */
     @JsonGetter("sort_field")

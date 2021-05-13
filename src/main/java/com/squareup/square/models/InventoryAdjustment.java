@@ -147,8 +147,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for LocationId.
-     * The Square ID of the [Location]($m/Location) where the related quantity of items are being
-     * tracked.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
+     * being tracked.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -158,7 +158,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square generated ID of the `CatalogObject` being tracked.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -168,8 +168,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CatalogObjectType.
-     * The `CatalogObjectType` of the `CatalogObject` being tracked. Tracking is only supported for
-     * the `ITEM_VARIATION` type.
+     * The [type](entity:CatalogObjectType] of the [CatalogObject]($m/CatalogObject) being tracked.
+     * Tracking is only supported for the `ITEM_VARIATION` type.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
@@ -205,9 +205,9 @@ public class InventoryAdjustment {
 
     /**
      * Getter for OccurredAt.
-     * A client-generated timestamp in RFC 3339 format that indicates when the adjustment took
-     * place. For write actions, the `occurred_at` timestamp cannot be older than 24 hours or in the
-     * future relative to the time of the request.
+     * A client-generated RFC 3339-formatted timestamp that indicates when the inventory adjustment
+     * took place. For inventory adjustment updates, the `occurred_at` timestamp cannot be older
+     * than 24 hours or in the future relative to the time of the request.
      * @return Returns the String
      */
     @JsonGetter("occurred_at")
@@ -217,7 +217,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CreatedAt.
-     * A read-only timestamp in RFC 3339 format that indicates when Square received the adjustment.
+     * An RFC 3339-formatted timestamp that indicates when the inventory adjustment is received.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -237,7 +237,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for EmployeeId.
-     * The Square ID of the [Employee]($m/Employee) responsible for the inventory adjustment.
+     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * adjustment.
      * @return Returns the String
      */
     @JsonGetter("employee_id")
@@ -247,7 +248,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for TransactionId.
-     * The read-only Square ID of the [Transaction][#type-transaction] that caused the adjustment.
+     * The Square-generated ID of the [Transaction][#type-transaction] that caused the adjustment.
      * Only relevant for payment-related state transitions.
      * @return Returns the String
      */
@@ -258,7 +259,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for RefundId.
-     * The read-only Square ID of the [Refund][#type-refund] that caused the adjustment. Only
+     * The Square-generated ID of the [Refund][#type-refund] that caused the adjustment. Only
      * relevant for refund-related state transitions.
      * @return Returns the String
      */
@@ -269,7 +270,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for PurchaseOrderId.
-     * The read-only Square ID of the purchase order that caused the adjustment. Only relevant for
+     * The Square-generated ID of the purchase order that caused the adjustment. Only relevant for
      * state transitions from the Square for Retail app.
      * @return Returns the String
      */
@@ -280,8 +281,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for GoodsReceiptId.
-     * The read-only Square ID of the Square goods receipt that caused the adjustment. Only relevant
-     * for state transitions from the Square for Retail app.
+     * The Square-generated ID of the goods receipt that caused the adjustment. Only relevant for
+     * state transitions from the Square for Retail app.
      * @return Returns the String
      */
     @JsonGetter("goods_receipt_id")

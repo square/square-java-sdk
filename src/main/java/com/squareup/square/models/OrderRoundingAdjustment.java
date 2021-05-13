@@ -36,7 +36,7 @@ public class OrderRoundingAdjustment {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the rounding adjustment only within this order.
+     * A unique ID that identifies the rounding adjustment only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -46,7 +46,7 @@ public class OrderRoundingAdjustment {
 
     /**
      * Getter for Name.
-     * The name of the rounding adjustment from the original sale Order.
+     * The name of the rounding adjustment from the original sale order.
      * @return Returns the String
      */
     @JsonGetter("name")

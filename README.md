@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>10.0.0.20210421</version>
+    <version>11.0.0.20210513</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:10.0.0.20210421"
+implementation "com.squareup:square:11.0.0.20210513"
 ```
 
 ## API documentation
@@ -93,9 +93,13 @@ implementation "com.squareup:square:10.0.0.20210421"
 ### Financials
 * [Bank Accounts]
 
+### Online
+* [Sites]
+* [Snippets]
+
 ### Authorization APIs
 * [Mobile Authorization]
-* [O Auth]
+* [OAuth]
 
 ### Deprecated APIs
 * [V1 Employees]
@@ -337,9 +341,11 @@ You can also use the Square API to create applications or services that work wit
 [Refunds]: doc/api/refunds.md
 [Subscriptions]: doc/api/subscriptions.md
 [Mobile Authorization]: doc/api/mobile-authorization.md
-[O Auth]: doc/api/o-auth.md
+[OAuth]: doc/api/o-auth.md
 [V1 Employees]: doc/api/v1-employees.md
 [V1 Transactions]: doc/api/v1-transactions.md
 [V1 Items]: doc/api/v1-items.md
 [Team]: doc/api/team.md
 [Transactions]: doc/api/transactions.md
+[Sites]: doc/api/sites.md
+[Snippets]: doc/api/snippets.md

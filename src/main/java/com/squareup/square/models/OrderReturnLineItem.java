@@ -106,7 +106,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for Uid.
-     * Unique identifier for this return line item entry.
+     * A unique ID for this return line-item entry.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -116,7 +116,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for SourceLineItemUid.
-     * `uid` of the LineItem in the original sale Order.
+     * The `uid` of the line item in the original sale order.
      * @return Returns the String
      */
     @JsonGetter("source_line_item_uid")
@@ -136,8 +136,8 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for Quantity.
-     * The quantity returned, formatted as a decimal number. For example: `"3"`. Line items with a
-     * `quantity_unit` can have non-integer quantities. For example: `"1.70000"`.
+     * The quantity returned, formatted as a decimal number. For example, `"3"`. Line items with a
+     * `quantity_unit` can have non-integer quantities. For example, `"1.70000"`.
      * @return Returns the String
      */
     @JsonGetter("quantity")
@@ -147,7 +147,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for QuantityUnit.
-     * Contains the measurement unit for a quantity and a precision which specifies the number of
+     * Contains the measurement unit for a quantity and a precision that specifies the number of
      * digits after the decimal point for decimal quantities.
      * @return Returns the OrderQuantityUnit
      */
@@ -158,7 +158,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for Note.
-     * The note of the returned line item.
+     * The note of the return line item.
      * @return Returns the String
      */
     @JsonGetter("note")
@@ -168,7 +168,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for CatalogObjectId.
-     * The [CatalogItemVariation]($m/CatalogItemVariation) id applied to this returned line item.
+     * The [CatalogItemVariation]($m/CatalogItemVariation) ID applied to this return line item.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -178,7 +178,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for VariationName.
-     * The name of the variation applied to this returned line item.
+     * The name of the variation applied to this return line item.
      * @return Returns the String
      */
     @JsonGetter("variation_name")
@@ -198,10 +198,9 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for AppliedTaxes.
-     * The list of references to `OrderReturnTax` entities applied to the returned line item. Each
+     * The list of references to `OrderReturnTax` entities applied to the return line item. Each
      * `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level
-     * `OrderReturnTax` applied to the returned line item. On reads, the amount applied is
-     * populated.
+     * `OrderReturnTax` applied to the return line item. On reads, the applied amount is populated.
      * @return Returns the List of OrderLineItemAppliedTax
      */
     @JsonGetter("applied_taxes")
@@ -211,10 +210,10 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for AppliedDiscounts.
-     * The list of references to `OrderReturnDiscount` entities applied to the returned line item.
+     * The list of references to `OrderReturnDiscount` entities applied to the return line item.
      * Each `OrderLineItemAppliedDiscount` has a `discount_uid` that references the `uid` of a
-     * top-level `OrderReturnDiscount` applied to the returned line item. On reads, the amount
-     * applied is populated.
+     * top-level `OrderReturnDiscount` applied to the return line item. On reads, the applied amount
+     * is populated.
      * @return Returns the List of OrderLineItemAppliedDiscount
      */
     @JsonGetter("applied_discounts")

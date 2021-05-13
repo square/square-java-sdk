@@ -32,8 +32,8 @@ public class SearchOrdersFulfillmentFilter {
 
     /**
      * Getter for FulfillmentTypes.
-     * List of [fulfillment types]($m/OrderFulfillmentType) to filter for. Will return orders if any
-     * of its fulfillments match any of the fulfillment types listed in this field. See
+     * A list of [fulfillment types]($m/OrderFulfillmentType) to filter for. The list returns orders
+     * if any of its fulfillments match any of the fulfillment types listed in this field. See
      * [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values
      * @return Returns the List of String
      */
@@ -44,9 +44,9 @@ public class SearchOrdersFulfillmentFilter {
 
     /**
      * Getter for FulfillmentStates.
-     * List of [fulfillment states]($m/OrderFulfillmentState) to filter for. Will return orders if
-     * any of its fulfillments match any of the fulfillment states listed in this field. See
-     * [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values
+     * A list of [fulfillment states]($m/OrderFulfillmentState) to filter for. The list returns
+     * orders if any of its fulfillments match any of the fulfillment states listed in this field.
+     * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values
      * @return Returns the List of String
      */
     @JsonGetter("fulfillment_states")

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,8 +13,6 @@ import java.util.Objects;
 public class LoyaltyAccount {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final List<LoyaltyAccountMapping> mappings;
     private final String programId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer balance;
@@ -36,7 +33,6 @@ public class LoyaltyAccount {
      * Initialization constructor.
      * @param  programId  String value for programId.
      * @param  id  String value for id.
-     * @param  mappings  List of LoyaltyAccountMapping value for mappings.
      * @param  balance  Integer value for balance.
      * @param  lifetimePoints  Integer value for lifetimePoints.
      * @param  customerId  String value for customerId.
@@ -49,7 +45,6 @@ public class LoyaltyAccount {
     public LoyaltyAccount(
             @JsonProperty("program_id") String programId,
             @JsonProperty("id") String id,
-            @JsonProperty("mappings") List<LoyaltyAccountMapping> mappings,
             @JsonProperty("balance") Integer balance,
             @JsonProperty("lifetime_points") Integer lifetimePoints,
             @JsonProperty("customer_id") String customerId,
@@ -58,7 +53,6 @@ public class LoyaltyAccount {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("mapping") LoyaltyAccountMapping mapping) {
         this.id = id;
-        this.mappings = mappings;
         this.programId = programId;
         this.balance = balance;
         this.lifetimePoints = lifetimePoints;
@@ -77,20 +71,6 @@ public class LoyaltyAccount {
     @JsonGetter("id")
     public String getId() {
         return id;
-    }
-
-    /**
-     * Getter for Mappings.
-     * The list of mappings that the account is associated with. Currently, a buyer can only be
-     * mapped to a loyalty account using a phone number. Therefore, the list can only have one
-     * mapping. One of the following is required when creating a loyalty account: - (Preferred) The
-     * `mapping` field, with the buyer's phone number specified in the `phone_number` field. - This
-     * `mappings` field.
-     * @return Returns the List of LoyaltyAccountMapping
-     */
-    @JsonGetter("mappings")
-    public List<LoyaltyAccountMapping> getMappings() {
-        return mappings;
     }
 
     /**
@@ -180,8 +160,8 @@ public class LoyaltyAccount {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mappings, programId, balance, lifetimePoints, customerId,
-                enrolledAt, createdAt, updatedAt, mapping);
+        return Objects.hash(id, programId, balance, lifetimePoints, customerId, enrolledAt,
+                createdAt, updatedAt, mapping);
     }
 
     @Override
@@ -194,7 +174,6 @@ public class LoyaltyAccount {
         }
         LoyaltyAccount other = (LoyaltyAccount) obj;
         return Objects.equals(id, other.id)
-            && Objects.equals(mappings, other.mappings)
             && Objects.equals(programId, other.programId)
             && Objects.equals(balance, other.balance)
             && Objects.equals(lifetimePoints, other.lifetimePoints)
@@ -211,10 +190,10 @@ public class LoyaltyAccount {
      */
     @Override
     public String toString() {
-        return "LoyaltyAccount [" + "programId=" + programId + ", id=" + id + ", mappings="
-                + mappings + ", balance=" + balance + ", lifetimePoints=" + lifetimePoints
-                + ", customerId=" + customerId + ", enrolledAt=" + enrolledAt + ", createdAt="
-                + createdAt + ", updatedAt=" + updatedAt + ", mapping=" + mapping + "]";
+        return "LoyaltyAccount [" + "programId=" + programId + ", id=" + id + ", balance=" + balance
+                + ", lifetimePoints=" + lifetimePoints + ", customerId=" + customerId
+                + ", enrolledAt=" + enrolledAt + ", createdAt=" + createdAt + ", updatedAt="
+                + updatedAt + ", mapping=" + mapping + "]";
     }
 
     /**
@@ -225,7 +204,6 @@ public class LoyaltyAccount {
     public Builder toBuilder() {
         Builder builder = new Builder(programId)
                 .id(getId())
-                .mappings(getMappings())
                 .balance(getBalance())
                 .lifetimePoints(getLifetimePoints())
                 .customerId(getCustomerId())
@@ -242,7 +220,6 @@ public class LoyaltyAccount {
     public static class Builder {
         private String programId;
         private String id;
-        private List<LoyaltyAccountMapping> mappings;
         private Integer balance;
         private Integer lifetimePoints;
         private String customerId;
@@ -276,16 +253,6 @@ public class LoyaltyAccount {
          */
         public Builder id(String id) {
             this.id = id;
-            return this;
-        }
-
-        /**
-         * Setter for mappings.
-         * @param  mappings  List of LoyaltyAccountMapping value for mappings.
-         * @return Builder
-         */
-        public Builder mappings(List<LoyaltyAccountMapping> mappings) {
-            this.mappings = mappings;
             return this;
         }
 
@@ -364,7 +331,7 @@ public class LoyaltyAccount {
          * @return {@link LoyaltyAccount}
          */
         public LoyaltyAccount build() {
-            return new LoyaltyAccount(programId, id, mappings, balance, lifetimePoints, customerId,
+            return new LoyaltyAccount(programId, id, balance, lifetimePoints, customerId,
                     enrolledAt, createdAt, updatedAt, mapping);
         }
     }

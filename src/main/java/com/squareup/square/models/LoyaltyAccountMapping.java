@@ -14,10 +14,6 @@ public class LoyaltyAccountMapping {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String value;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
@@ -25,21 +21,15 @@ public class LoyaltyAccountMapping {
     /**
      * Initialization constructor.
      * @param  id  String value for id.
-     * @param  type  String value for type.
-     * @param  value  String value for value.
      * @param  createdAt  String value for createdAt.
      * @param  phoneNumber  String value for phoneNumber.
      */
     @JsonCreator
     public LoyaltyAccountMapping(
             @JsonProperty("id") String id,
-            @JsonProperty("type") String type,
-            @JsonProperty("value") String value,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("phone_number") String phoneNumber) {
         this.id = id;
-        this.type = type;
-        this.value = value;
         this.createdAt = createdAt;
         this.phoneNumber = phoneNumber;
     }
@@ -55,28 +45,6 @@ public class LoyaltyAccountMapping {
     }
 
     /**
-     * Getter for Type.
-     * The type of mapping.
-     * @return Returns the String
-     */
-    @JsonGetter("type")
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Getter for Value.
-     * The mapping value, which is used with `type` to represent a phone number mapping. The value
-     * can be a phone number in E.164 format. For example, "+14155551111". When specifying a
-     * mapping, the `phone_number` field is preferred to using `type` and `value`.
-     * @return Returns the String
-     */
-    @JsonGetter("value")
-    public String getValue() {
-        return value;
-    }
-
-    /**
      * Getter for CreatedAt.
      * The timestamp when the mapping was created, in RFC 3339 format.
      * @return Returns the String
@@ -88,8 +56,7 @@ public class LoyaltyAccountMapping {
 
     /**
      * Getter for PhoneNumber.
-     * The phone number of the buyer, in E.164 format. For example, "+14155551111". When specifying
-     * a mapping, this `phone_number` field is preferred to using `type` and `value`.
+     * The phone number of the buyer, in E.164 format. For example, "+14155551111".
      * @return Returns the String
      */
     @JsonGetter("phone_number")
@@ -99,7 +66,7 @@ public class LoyaltyAccountMapping {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, value, createdAt, phoneNumber);
+        return Objects.hash(id, createdAt, phoneNumber);
     }
 
     @Override
@@ -112,8 +79,6 @@ public class LoyaltyAccountMapping {
         }
         LoyaltyAccountMapping other = (LoyaltyAccountMapping) obj;
         return Objects.equals(id, other.id)
-            && Objects.equals(type, other.type)
-            && Objects.equals(value, other.value)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(phoneNumber, other.phoneNumber);
     }
@@ -124,8 +89,8 @@ public class LoyaltyAccountMapping {
      */
     @Override
     public String toString() {
-        return "LoyaltyAccountMapping [" + "id=" + id + ", type=" + type + ", value=" + value
-                + ", createdAt=" + createdAt + ", phoneNumber=" + phoneNumber + "]";
+        return "LoyaltyAccountMapping [" + "id=" + id + ", createdAt=" + createdAt
+                + ", phoneNumber=" + phoneNumber + "]";
     }
 
     /**
@@ -136,8 +101,6 @@ public class LoyaltyAccountMapping {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .type(getType())
-                .value(getValue())
                 .createdAt(getCreatedAt())
                 .phoneNumber(getPhoneNumber());
         return builder;
@@ -148,8 +111,6 @@ public class LoyaltyAccountMapping {
      */
     public static class Builder {
         private String id;
-        private String type;
-        private String value;
         private String createdAt;
         private String phoneNumber;
 
@@ -162,26 +123,6 @@ public class LoyaltyAccountMapping {
          */
         public Builder id(String id) {
             this.id = id;
-            return this;
-        }
-
-        /**
-         * Setter for type.
-         * @param  type  String value for type.
-         * @return Builder
-         */
-        public Builder type(String type) {
-            this.type = type;
-            return this;
-        }
-
-        /**
-         * Setter for value.
-         * @param  value  String value for value.
-         * @return Builder
-         */
-        public Builder value(String value) {
-            this.value = value;
             return this;
         }
 
@@ -210,7 +151,7 @@ public class LoyaltyAccountMapping {
          * @return {@link LoyaltyAccountMapping}
          */
         public LoyaltyAccountMapping build() {
-            return new LoyaltyAccountMapping(id, type, value, createdAt, phoneNumber);
+            return new LoyaltyAccountMapping(id, createdAt, phoneNumber);
         }
     }
 }

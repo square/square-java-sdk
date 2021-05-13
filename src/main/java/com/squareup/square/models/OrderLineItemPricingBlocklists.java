@@ -35,7 +35,7 @@ public class OrderLineItemPricingBlocklists {
     /**
      * Getter for BlockedDiscounts.
      * A list of discounts blocked from applying to the line item. Discounts can be blocked by the
-     * `discount_uid` (for ad-hoc discounts) or the `discount_catalog_object_id` (for catalog
+     * `discount_uid` (for ad hoc discounts) or the `discount_catalog_object_id` (for catalog
      * discounts).
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedDiscount
      */
@@ -47,7 +47,7 @@ public class OrderLineItemPricingBlocklists {
     /**
      * Getter for BlockedTaxes.
      * A list of taxes blocked from applying to the line item. Taxes can be blocked by the `tax_uid`
-     * (for ad-hoc taxes) or the `tax_catalog_object_id` (for catalog taxes).
+     * (for ad hoc taxes) or the `tax_catalog_object_id` (for catalog taxes).
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedTax
      */
     @JsonGetter("blocked_taxes")

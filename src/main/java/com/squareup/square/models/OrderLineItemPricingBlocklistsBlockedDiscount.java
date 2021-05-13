@@ -36,7 +36,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
 
     /**
      * Getter for Uid.
-     * Unique ID of the `BlockedDiscount` within the order.
+     * A unique ID of the `BlockedDiscount` within the order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -46,8 +46,8 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
 
     /**
      * Getter for DiscountUid.
-     * The `uid` of the discount that should be blocked. Use this field to block ad-hoc discounts.
-     * For catalog discounts use the `discount_catalog_object_id` field.
+     * The `uid` of the discount that should be blocked. Use this field to block ad hoc discounts.
+     * For catalog discounts, use the `discount_catalog_object_id` field.
      * @return Returns the String
      */
     @JsonGetter("discount_uid")
@@ -58,7 +58,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
     /**
      * Getter for DiscountCatalogObjectId.
      * The `catalog_object_id` of the discount that should be blocked. Use this field to block
-     * catalog discounts. For ad-hoc discounts use the `discount_uid` field.
+     * catalog discounts. For ad hoc discounts, use the `discount_uid` field.
      * @return Returns the String
      */
     @JsonGetter("discount_catalog_object_id")

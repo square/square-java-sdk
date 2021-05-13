@@ -61,10 +61,10 @@ public class OrderUpdated {
 
     /**
      * Getter for Version.
-     * Version number which is incremented each time an update is committed to the order. Orders
-     * that were not created through the API will not include a version and thus cannot be updated.
-     * [Read more about working with
-     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
+     * The version number, which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API do not include a version number and therefore
+     * cannot be updated. [Read more about working with
+     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -74,7 +74,7 @@ public class OrderUpdated {
 
     /**
      * Getter for LocationId.
-     * The ID of the merchant location this order is associated with.
+     * The ID of the seller location that this order is associated with.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -94,7 +94,7 @@ public class OrderUpdated {
 
     /**
      * Getter for CreatedAt.
-     * Timestamp for when the order was created in RFC 3339 format.
+     * The timestamp for when the order was created, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -104,7 +104,7 @@ public class OrderUpdated {
 
     /**
      * Getter for UpdatedAt.
-     * Timestamp for when the order was last updated in RFC 3339 format.
+     * The timestamp for when the order was last updated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")

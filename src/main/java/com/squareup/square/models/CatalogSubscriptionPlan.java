@@ -3,7 +3,6 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
@@ -12,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CatalogSubscriptionPlan type.
  */
 public class CatalogSubscriptionPlan {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SubscriptionPhase> phases;
 
     /**
@@ -84,9 +81,7 @@ public class CatalogSubscriptionPlan {
      * @return a new {@link CatalogSubscriptionPlan.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
-                .phases(getPhases());
+        Builder builder = new Builder(name, phases);
         return builder;
     }
 
@@ -97,7 +92,15 @@ public class CatalogSubscriptionPlan {
         private String name;
         private List<SubscriptionPhase> phases;
 
-
+        /**
+         * Initialization constructor.
+         * @param  name  String value for name.
+         * @param  phases  List of SubscriptionPhase value for phases.
+         */
+        public Builder(String name, List<SubscriptionPhase> phases) {
+            this.name = name;
+            this.phases = phases;
+        }
 
         /**
          * Setter for name.

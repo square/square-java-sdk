@@ -35,7 +35,7 @@ public class OrderLineItemAppliedTax {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the applied tax only within this order.
+     * A unique ID that identifies the applied tax only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -45,9 +45,9 @@ public class OrderLineItemAppliedTax {
 
     /**
      * Getter for TaxUid.
-     * The `uid` of the tax for which this applied tax represents. Must reference a tax present in
-     * the `order.taxes` field. This field is immutable. To change which taxes apply to a line item,
-     * delete and add new `OrderLineItemAppliedTax`s.
+     * The `uid` of the tax for which this applied tax represents. It must reference a tax present
+     * in the `order.taxes` field. This field is immutable. To change which taxes apply to a line
+     * item, delete and add a new `OrderLineItemAppliedTax`.
      * @return Returns the String
      */
     @JsonGetter("tax_uid")

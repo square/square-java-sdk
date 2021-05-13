@@ -61,7 +61,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the return tax only within this order.
+     * A unique ID that identifies the returned tax only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -71,7 +71,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for SourceTaxUid.
-     * `uid` of the Tax from the Order which contains the original charge of this tax.
+     * The tax `uid` from the order that contains the original tax charge.
      * @return Returns the String
      */
     @JsonGetter("source_tax_uid")
@@ -81,7 +81,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogTax]($m/CatalogTax).
+     * The catalog object ID referencing [CatalogTax]($m/CatalogTax).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -137,7 +137,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for Scope.
-     * Indicates whether this is a line item or order level tax.
+     * Indicates whether this is a line-item or order-level tax.
      * @return Returns the String
      */
     @JsonGetter("scope")

@@ -1,0 +1,28 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    env:
+      SQUARE_ENVIRONMENT: sandbox
+      SQUARE_ACCESS_TOKEN: ${{ secrets.SQUARE_SANDBOX_TOKEN }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: "8"
+          distribution: "adopt"
+      - name: Build with Maven
+        run: mvn test -B

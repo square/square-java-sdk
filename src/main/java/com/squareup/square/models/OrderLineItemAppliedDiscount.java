@@ -35,7 +35,7 @@ public class OrderLineItemAppliedDiscount {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the applied discount only within this order.
+     * A unique ID that identifies the applied discount only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -45,9 +45,9 @@ public class OrderLineItemAppliedDiscount {
 
     /**
      * Getter for DiscountUid.
-     * The `uid` of the discount the applied discount represents. Must reference a discount present
-     * in the `order.discounts` field. This field is immutable. To change which discounts apply to a
-     * line item, you must delete the discount and re-add it as a new
+     * The `uid` of the discount that the applied discount represents. It must reference a discount
+     * present in the `order.discounts` field. This field is immutable. To change which discounts
+     * apply to a line item, you must delete the discount and re-add it as a new
      * `OrderLineItemAppliedDiscount`.
      * @return Returns the String
      */

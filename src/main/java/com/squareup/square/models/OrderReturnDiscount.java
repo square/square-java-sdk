@@ -66,7 +66,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the return discount only within this order.
+     * A unique ID that identifies the returned discount only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -76,8 +76,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for SourceDiscountUid.
-     * `uid` of the Discount from the Order which contains the original application of this
-     * discount.
+     * The discount `uid` from the order that contains the original application of this discount.
      * @return Returns the String
      */
     @JsonGetter("source_discount_uid")
@@ -87,7 +86,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogDiscount]($m/CatalogDiscount).
+     * The catalog object ID referencing [CatalogDiscount]($m/CatalogDiscount).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -117,8 +116,9 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for Percentage.
-     * The percentage of the tax, as a string representation of a decimal number. A value of `7.25`
-     * corresponds to a percentage of 7.25%. `percentage` is not set for amount-based discounts.
+     * The percentage of the tax, as a string representation of a decimal number. A value of
+     * `"7.25"` corresponds to a percentage of 7.25%. `percentage` is not set for amount-based
+     * discounts.
      * @return Returns the String
      */
     @JsonGetter("percentage")
@@ -158,7 +158,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for Scope.
-     * Indicates whether this is a line item or order level discount.
+     * Indicates whether this is a line-item or order-level discount.
      * @return Returns the String
      */
     @JsonGetter("scope")

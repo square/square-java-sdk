@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for BatchChangeInventoryRequest type.
  */
 public class BatchChangeInventoryRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InventoryChange> changes;
@@ -105,8 +104,7 @@ public class BatchChangeInventoryRequest {
      * @return a new {@link BatchChangeInventoryRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .idempotencyKey(getIdempotencyKey())
+        Builder builder = new Builder(idempotencyKey)
                 .changes(getChanges())
                 .ignoreUnchangedCounts(getIgnoreUnchangedCounts());
         return builder;
@@ -120,7 +118,13 @@ public class BatchChangeInventoryRequest {
         private List<InventoryChange> changes;
         private Boolean ignoreUnchangedCounts;
 
-
+        /**
+         * Initialization constructor.
+         * @param  idempotencyKey  String value for idempotencyKey.
+         */
+        public Builder(String idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
+        }
 
         /**
          * Setter for idempotencyKey.

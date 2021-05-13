@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture;
 public interface LoyaltyApi {
     /**
      * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
-     * either the `mapping` field (preferred) or the `mappings` field.
+     * a `mapping` with the `phone_number` of the buyer.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -47,7 +47,7 @@ public interface LoyaltyApi {
 
     /**
      * Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and
-     * either the `mapping` field (preferred) or the `mappings` field.
+     * a `mapping` with the `phone_number` of the buyer.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyAccountResponse response from the API call
@@ -202,19 +202,34 @@ public interface LoyaltyApi {
             final SearchLoyaltyEventsRequest body);
 
     /**
-     * Returns a list of loyalty programs in the seller's account. Currently, a seller can only have
-     * one loyalty program.
+     * Returns a list of loyalty programs in the seller's account. Loyalty programs define how
+     * buyers can earn points and redeem points for rewards. Square sellers can have only one
+     * loyalty program, which is created and managed from the Seller Dashboard. For more
+     * information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview). Replaced with
+     * [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) when used with the keyword
+     * `main`.
+     * @deprecated
+     * 
      * @return    Returns the ListLoyaltyProgramsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    ListLoyaltyProgramsResponse listLoyaltyPrograms() throws ApiException, IOException;
+    @Deprecated    ListLoyaltyProgramsResponse listLoyaltyPrograms() throws ApiException, IOException;
 
     /**
-     * Returns a list of loyalty programs in the seller's account. Currently, a seller can only have
-     * one loyalty program.
+     * Returns a list of loyalty programs in the seller's account. Loyalty programs define how
+     * buyers can earn points and redeem points for rewards. Square sellers can have only one
+     * loyalty program, which is created and managed from the Seller Dashboard. For more
+     * information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview). Replaced with
+     * [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) when used with the keyword
+     * `main`.
+     * @deprecated
+     * 
      * @return    Returns the ListLoyaltyProgramsResponse response from the API call
      */
+    @Deprecated
     CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync();
 
     /**

@@ -28,7 +28,7 @@ LoyaltyApi loyaltyApi = client.getLoyaltyApi();
 
 # Create Loyalty Account
 
-Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and either the `mapping` field (preferred) or the `mappings` field.
+Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and a `mapping` with the `phone_number` of the buyer.
 
 ```java
 CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
@@ -48,31 +48,18 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 ## Example Usage
 
 ```java
-List<LoyaltyAccountMapping> bodyLoyaltyAccountMappings = new LinkedList<>();
-
-LoyaltyAccountMapping bodyLoyaltyAccountMappings0 = new LoyaltyAccountMapping.Builder()
-    .id("id0")
-    .type("PHONE")
-    .value("value2")
-    .createdAt("created_at8")
-    .phoneNumber("phone_number8")
-    .build();
-bodyLoyaltyAccountMappings.add(bodyLoyaltyAccountMappings0);
-
 LoyaltyAccountMapping bodyLoyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
     .id("id6")
-    .type("PHONE")
-    .value("value8")
     .createdAt("created_at4")
     .phoneNumber("+14155551234")
     .build();
 LoyaltyAccount bodyLoyaltyAccount = new LoyaltyAccount.Builder(
         "d619f755-2d17-41f3-990d-c04ecedd64dd")
     .id("id2")
-    .mappings(bodyLoyaltyAccountMappings)
     .balance(14)
     .lifetimePoints(38)
     .customerId("customer_id0")
+    .enrolledAt("enrolled_at2")
     .mapping(bodyLoyaltyAccountMapping)
     .build();
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
@@ -119,8 +106,6 @@ List<LoyaltyAccountMapping> bodyQueryMappings = new LinkedList<>();
 
 LoyaltyAccountMapping bodyQueryMappings0 = new LoyaltyAccountMapping.Builder()
     .id("id4")
-    .type("PHONE")
-    .value("value6")
     .createdAt("created_at8")
     .phoneNumber("+14155551234")
     .build();
@@ -366,8 +351,12 @@ loyaltyApi.searchLoyaltyEventsAsync(body).thenAccept(result -> {
 
 # List Loyalty Programs
 
+**This endpoint is deprecated. **
+
 Returns a list of loyalty programs in the seller's account.
-Currently, a seller can only have one loyalty program.
+Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
+
+Replaced with [RetrieveLoyaltyProgram](/doc/api/loyalty.md#retrieve-loyalty-program) when used with the keyword `main`.
 
 ```java
 CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync()

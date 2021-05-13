@@ -96,7 +96,7 @@ public class OrderFulfillmentShipmentDetails {
 
     /**
      * Getter for Recipient.
-     * Contains information on the recipient of a fulfillment.
+     * Contains information about the recipient of a fulfillment.
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
@@ -106,7 +106,7 @@ public class OrderFulfillmentShipmentDetails {
 
     /**
      * Getter for Carrier.
-     * The shipping carrier being used to ship this fulfillment e.g. UPS, FedEx, USPS, etc.
+     * The shipping carrier being used to ship this fulfillment (such as UPS, FedEx, or USPS).
      * @return Returns the String
      */
     @JsonGetter("carrier")
@@ -126,8 +126,8 @@ public class OrderFulfillmentShipmentDetails {
 
     /**
      * Getter for ShippingType.
-     * A description of the type of shipping product purchased from the carrier. e.g. First Class,
-     * Priority, Express
+     * A description of the type of shipping product purchased from the carrier (such as First
+     * Class, Priority, or Express).
      * @return Returns the String
      */
     @JsonGetter("shipping_type")
@@ -158,8 +158,8 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for PlacedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the shipment was requested. Must be in RFC 3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when the shipment was requested. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("placed_at")
@@ -170,9 +170,9 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for InProgressAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment wasmoved to the `RESERVED` state. Indicates that preparation
-     * of this shipment has begun. Must be in RFC 3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when this fulfillment was moved to the `RESERVED` state, which indicates that
+     * preparation of this shipment has begun. The timestamp must be in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("in_progress_at")
@@ -183,9 +183,9 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for PackagedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment was moved to the `PREPARED` state. Indicates that the
-     * fulfillment is packaged. Must be in RFC 3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating when this fulfillment was moved to the `PREPARED` state, which indicates that the
+     * fulfillment is packaged. The timestamp must be in RFC 3339 format (for example,
+     * "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("packaged_at")
@@ -196,8 +196,8 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for ExpectedShippedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the shipment is expected to be delivered to the shipping carrier. Must be in
-     * RFC 3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
+     * indicating when the shipment is expected to be delivered to the shipping carrier. The
+     * timestamp must be in RFC 3339 format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("expected_shipped_at")
@@ -208,9 +208,9 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for ShippedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment was moved to the `COMPLETED`state. Indicates that the
-     * fulfillment has been given to the shipping carrier. Must be in RFC 3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * indicating when this fulfillment was moved to the `COMPLETED` state, which indicates that the
+     * fulfillment has been given to the shipping carrier. The timestamp must be in RFC 3339 format
+     * (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("shipped_at")
@@ -221,8 +221,8 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for CanceledAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating the shipment was canceled. Must be in RFC 3339 timestamp format, e.g.,
-     * "2016-09-04T23:59:33.123Z".
+     * indicating the shipment was canceled. The timestamp must be in RFC 3339 format (for example,
+     * "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("canceled_at")
@@ -243,8 +243,8 @@ public class OrderFulfillmentShipmentDetails {
     /**
      * Getter for FailedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the shipment failed to be completed. Must be in RFC 3339 timestamp format,
-     * e.g., "2016-09-04T23:59:33.123Z".
+     * indicating when the shipment failed to be completed. The timestamp must be in RFC 3339 format
+     * (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("failed_at")
