@@ -56,6 +56,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides summary information for a merchant's online store orders.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
      * @param  order  Optional parameter: The order in which payments are listed in the response.
@@ -67,6 +69,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public List<V1Order> listOrders(
             final String locationId,
             final String order,
@@ -83,6 +86,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides summary information for a merchant's online store orders.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list online store orders
      *         for.
      * @param  order  Optional parameter: The order in which payments are listed in the response.
@@ -92,6 +97,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         results for your original query to the endpoint.
      * @return    Returns the List of V1Order response from the API call
      */
+    @Deprecated
     public CompletableFuture<List<V1Order>> listOrdersAsync(
             final String locationId,
             final String order,
@@ -179,6 +185,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Provides comprehensive information for a single online store order, including the order's
      * history.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the order's associated location.
      * @param  orderId  Required parameter: The order's Square-issued ID. You obtain this value from
      *         Order objects returned by the List Orders endpoint
@@ -186,6 +194,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public V1Order retrieveOrder(
             final String locationId,
             final String orderId) throws ApiException, IOException {
@@ -201,11 +210,14 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Provides comprehensive information for a single online store order, including the order's
      * history.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the order's associated location.
      * @param  orderId  Required parameter: The order's Square-issued ID. You obtain this value from
      *         Order objects returned by the List Orders endpoint
      * @return    Returns the V1Order response from the API call
      */
+    @Deprecated
     public CompletableFuture<V1Order> retrieveOrderAsync(
             final String locationId,
             final String orderId) {
@@ -283,6 +295,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Updates the details of an online store order. Every update you perform on an order
      * corresponds to one of three actions:.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the order's associated location.
      * @param  orderId  Required parameter: The order's Square-issued ID. You obtain this value from
      *         Order objects returned by the List Orders endpoint
@@ -292,6 +306,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public V1Order updateOrder(
             final String locationId,
             final String orderId,
@@ -308,6 +323,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Updates the details of an online store order. Every update you perform on an order
      * corresponds to one of three actions:.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the order's associated location.
      * @param  orderId  Required parameter: The order's Square-issued ID. You obtain this value from
      *         Order objects returned by the List Orders endpoint
@@ -315,6 +332,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         See the corresponding object definition for field details.
      * @return    Returns the V1Order response from the API call
      */
+    @Deprecated
     public CompletableFuture<V1Order> updateOrderAsync(
             final String locationId,
             final String orderId,
@@ -402,6 +420,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * it was subsequently transmitted to Square. Consequently, the ListPayments endpoint might list
      * an offline payment chronologically between online payments that were seen in a previous
      * request.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list payments for. If you
      *         specify me, this endpoint returns payments aggregated from all of the business's
      *         locations.
@@ -423,6 +443,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public List<V1Payment> listPayments(
             final String locationId,
             final String order,
@@ -450,6 +471,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * it was subsequently transmitted to Square. Consequently, the ListPayments endpoint might list
      * an offline payment chronologically between online payments that were seen in a previous
      * request.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list payments for. If you
      *         specify me, this endpoint returns payments aggregated from all of the business's
      *         locations.
@@ -469,6 +492,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         but the itemizations will be empty until the payment is completed.
      * @return    Returns the List of V1Payment response from the API call
      */
+    @Deprecated
     public CompletableFuture<List<V1Payment>> listPaymentsAsync(
             final String locationId,
             final String order,
@@ -566,6 +590,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides comprehensive information for a single payment.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the payment's associated location.
      * @param  paymentId  Required parameter: The Square-issued payment ID. payment_id comes from
      *         Payment objects returned by the List Payments endpoint, Settlement objects returned
@@ -575,6 +601,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public V1Payment retrievePayment(
             final String locationId,
             final String paymentId) throws ApiException, IOException {
@@ -589,6 +616,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Provides comprehensive information for a single payment.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the payment's associated location.
      * @param  paymentId  Required parameter: The Square-issued payment ID. payment_id comes from
      *         Payment objects returned by the List Payments endpoint, Settlement objects returned
@@ -596,6 +625,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         endpoint.
      * @return    Returns the V1Payment response from the API call
      */
+    @Deprecated
     public CompletableFuture<V1Payment> retrievePaymentAsync(
             final String locationId,
             final String paymentId) {
@@ -673,6 +703,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
@@ -692,6 +724,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public List<V1Refund> listRefunds(
             final String locationId,
             final String order,
@@ -712,6 +745,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     /**
      * Provides the details for all refunds initiated by a merchant or any of the merchant's mobile
      * staff during a date range. Date ranges cannot exceed one year in length.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list refunds for.
      * @param  order  Optional parameter: The order in which payments are listed in the response.
      * @param  beginTime  Optional parameter: The beginning of the requested reporting period, in
@@ -729,6 +764,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         results for your original query to the endpoint.
      * @return    Returns the List of V1Refund response from the API call
      */
+    @Deprecated
     public CompletableFuture<List<V1Refund>> listRefundsAsync(
             final String locationId,
             final String order,
@@ -828,6 +864,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * payment refunds all tenders associated with the payment. Issuing a refund for a card payment
      * is not reversible. For development purposes, you can create fake cash payments in Square
      * Point of Sale and refund them.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the original payment's associated location.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -835,6 +873,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public V1Refund createRefund(
             final String locationId,
             final V1CreateRefundRequest body) throws ApiException, IOException {
@@ -855,11 +894,14 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * payment refunds all tenders associated with the payment. Issuing a refund for a card payment
      * is not reversible. For development purposes, you can create fake cash payments in Square
      * Point of Sale and refund them.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the original payment's associated location.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the V1Refund response from the API call
      */
+    @Deprecated
     public CompletableFuture<V1Refund> createRefundAsync(
             final String locationId,
             final V1CreateRefundRequest body) {
@@ -938,6 +980,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Provides summary information for all deposits and withdrawals initiated by Square to a linked
      * bank account during a date range. Date ranges cannot exceed one year in length. *Note**: the
      * ListSettlements endpoint does not provide entry information.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list settlements for. If
      *         you specify me, this endpoint returns settlements aggregated from all of the
      *         business's locations.
@@ -958,6 +1002,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public List<V1Settlement> listSettlements(
             final String locationId,
             final String order,
@@ -980,6 +1025,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Provides summary information for all deposits and withdrawals initiated by Square to a linked
      * bank account during a date range. Date ranges cannot exceed one year in length. *Note**: the
      * ListSettlements endpoint does not provide entry information.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the location to list settlements for. If
      *         you specify me, this endpoint returns settlements aggregated from all of the
      *         business's locations.
@@ -998,6 +1045,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      *         results for your original query to the endpoint.
      * @return    Returns the List of V1Settlement response from the API call
      */
+    @Deprecated
     public CompletableFuture<List<V1Settlement>> listSettlementsAsync(
             final String locationId,
             final String order,
@@ -1103,6 +1151,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Square does not know when an initiated settlement **completes**, only whether it has failed.
      * A completed settlement is typically reflected in a bank account within 3 business days, but
      * in exceptional cases it may take longer.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the settlements's associated location.
      * @param  settlementId  Required parameter: The settlement's Square-issued ID. You obtain this
      *         value from Settlement objects returned by the List Settlements endpoint.
@@ -1110,6 +1160,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
+    @Deprecated
     public V1Settlement retrieveSettlement(
             final String locationId,
             final String settlementId) throws ApiException, IOException {
@@ -1133,11 +1184,14 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * Square does not know when an initiated settlement **completes**, only whether it has failed.
      * A completed settlement is typically reflected in a bank account within 3 business days, but
      * in exceptional cases it may take longer.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the settlements's associated location.
      * @param  settlementId  Required parameter: The settlement's Square-issued ID. You obtain this
      *         value from Settlement objects returned by the List Settlements endpoint.
      * @return    Returns the V1Settlement response from the API call
      */
+    @Deprecated
     public CompletableFuture<V1Settlement> retrieveSettlementAsync(
             final String locationId,
             final String settlementId) {

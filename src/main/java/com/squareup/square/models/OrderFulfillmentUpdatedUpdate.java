@@ -36,7 +36,7 @@ public class OrderFulfillmentUpdatedUpdate {
 
     /**
      * Getter for FulfillmentUid.
-     * Unique ID that identifies the fulfillment only within this order.
+     * A unique ID that identifies the fulfillment only within this order.
      * @return Returns the String
      */
     @JsonGetter("fulfillment_uid")

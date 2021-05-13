@@ -13,8 +13,8 @@ automatic application to a line item. For more information, see
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `BlockedDiscounts` | [`List<OrderLineItemPricingBlocklistsBlockedDiscount>`](/doc/models/order-line-item-pricing-blocklists-blocked-discount.md) | Optional | A list of discounts blocked from applying to the line item.<br>Discounts can be blocked by the `discount_uid` (for ad-hoc discounts) or<br>the `discount_catalog_object_id` (for catalog discounts). | List<OrderLineItemPricingBlocklistsBlockedDiscount> getBlockedDiscounts() |
-| `BlockedTaxes` | [`List<OrderLineItemPricingBlocklistsBlockedTax>`](/doc/models/order-line-item-pricing-blocklists-blocked-tax.md) | Optional | A list of taxes blocked from applying to the line item.<br>Taxes can be blocked by the `tax_uid` (for ad-hoc taxes) or<br>the `tax_catalog_object_id` (for catalog taxes). | List<OrderLineItemPricingBlocklistsBlockedTax> getBlockedTaxes() |
+| `BlockedDiscounts` | [`List<OrderLineItemPricingBlocklistsBlockedDiscount>`](/doc/models/order-line-item-pricing-blocklists-blocked-discount.md) | Optional | A list of discounts blocked from applying to the line item.<br>Discounts can be blocked by the `discount_uid` (for ad hoc discounts) or<br>the `discount_catalog_object_id` (for catalog discounts). | List<OrderLineItemPricingBlocklistsBlockedDiscount> getBlockedDiscounts() |
+| `BlockedTaxes` | [`List<OrderLineItemPricingBlocklistsBlockedTax>`](/doc/models/order-line-item-pricing-blocklists-blocked-tax.md) | Optional | A list of taxes blocked from applying to the line item.<br>Taxes can be blocked by the `tax_uid` (for ad hoc taxes) or<br>the `tax_catalog_object_id` (for catalog taxes). | List<OrderLineItemPricingBlocklistsBlockedTax> getBlockedTaxes() |
 
 ## Example (as JSON)
 

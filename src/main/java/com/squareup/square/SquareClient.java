@@ -33,6 +33,8 @@ import com.squareup.square.api.DefaultOAuthApi;
 import com.squareup.square.api.DefaultOrdersApi;
 import com.squareup.square.api.DefaultPaymentsApi;
 import com.squareup.square.api.DefaultRefundsApi;
+import com.squareup.square.api.DefaultSitesApi;
+import com.squareup.square.api.DefaultSnippetsApi;
 import com.squareup.square.api.DefaultSubscriptionsApi;
 import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
@@ -53,6 +55,8 @@ import com.squareup.square.api.OAuthApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.RefundsApi;
+import com.squareup.square.api.SitesApi;
+import com.squareup.square.api.SnippetsApi;
 import com.squareup.square.api.SubscriptionsApi;
 import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
@@ -106,6 +110,8 @@ public final class SquareClient implements SquareClientInterface {
     private OrdersApi orders;
     private PaymentsApi payments;
     private RefundsApi refunds;
+    private SitesApi sites;
+    private SnippetsApi snippets;
     private SubscriptionsApi subscriptions;
     private TeamApi team;
     private TerminalApi terminal;
@@ -226,6 +232,9 @@ public final class SquareClient implements SquareClientInterface {
         payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers,
+                this.httpCallback);
+        sites = new DefaultSitesApi(this, this.httpClient, this.authManagers, this.httpCallback);
+        snippets = new DefaultSnippetsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         subscriptions = new DefaultSubscriptionsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
@@ -450,6 +459,22 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of SitesApi.
+     * @return sites
+     */
+    public SitesApi getSitesApi() {
+        return sites;
+    }
+
+    /**
+     * Get the instance of SnippetsApi.
+     * @return snippets
+     */
+    public SnippetsApi getSnippetsApi() {
+        return snippets;
+    }
+
+    /**
      * Get the instance of SubscriptionsApi.
      * @return subscriptions
      */
@@ -542,7 +567,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "10.0.0.20210421";
+        return "11.0.0.20210513";
     }
 
     /**
@@ -643,7 +668,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-04-21";
+        private String squareVersion = "2021-05-13";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String accessToken = "TODO: Replace";
@@ -715,7 +740,7 @@ public final class SquareClient implements SquareClientInterface {
         /**
          * The timeout to use for making HTTP requests.
          * @deprecated This method will be removed in a future version. Use
-         *             {@link #httpClientConfig(Consumer)} instead.
+         *             {@link #httpClientConfig()} instead.
          * @param timeout must be greater then 0.
          * @return Builder
          */

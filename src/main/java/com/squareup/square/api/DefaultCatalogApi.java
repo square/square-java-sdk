@@ -587,7 +587,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
      * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
-     *         Leave unset for an initial request. See
+     *         Leave unset for an initial request. The page size is currently set to be 100. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
      *         information.
      * @param  types  Optional parameter: An optional case-insensitive, comma-separated list of
@@ -625,7 +625,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * [SearchCatalogObjects]($e/Catalog/SearchCatalogObjects) and set the `include_deleted_objects`
      * attribute value to `true`.
      * @param  cursor  Optional parameter: The pagination cursor returned in the previous response.
-     *         Leave unset for an initial request. See
+     *         Leave unset for an initial request. The page size is currently set to be 100. See
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
      *         information.
      * @param  types  Optional parameter: An optional case-insensitive, comma-separated list of

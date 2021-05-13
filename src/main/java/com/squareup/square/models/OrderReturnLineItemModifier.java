@@ -51,7 +51,7 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the return modifier only within this order.
+     * A unique ID that identifies the return modifier only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -61,8 +61,8 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Getter for SourceModifierUid.
-     * `uid` of the Modifier from the LineItem from the Order which contains the original sale of
-     * this line item modifier.
+     * The modifier `uid` from the order's line item that contains the original sale of this line
+     * item modifier.
      * @return Returns the String
      */
     @JsonGetter("source_modifier_uid")
@@ -72,7 +72,7 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

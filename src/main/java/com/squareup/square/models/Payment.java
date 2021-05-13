@@ -47,6 +47,8 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashPaymentDetails cashDetails;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final BankAccountPaymentDetails bankAccountDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ExternalPaymentDetails externalDetails;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
@@ -100,6 +102,7 @@ public class Payment {
      * @param  sourceType  String value for sourceType.
      * @param  cardDetails  CardPaymentDetails value for cardDetails.
      * @param  cashDetails  CashPaymentDetails value for cashDetails.
+     * @param  bankAccountDetails  BankAccountPaymentDetails value for bankAccountDetails.
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
      * @param  locationId  String value for locationId.
      * @param  orderId  String value for orderId.
@@ -137,6 +140,7 @@ public class Payment {
             @JsonProperty("source_type") String sourceType,
             @JsonProperty("card_details") CardPaymentDetails cardDetails,
             @JsonProperty("cash_details") CashPaymentDetails cashDetails,
+            @JsonProperty("bank_account_details") BankAccountPaymentDetails bankAccountDetails,
             @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("order_id") String orderId,
@@ -171,6 +175,7 @@ public class Payment {
         this.sourceType = sourceType;
         this.cardDetails = cardDetails;
         this.cashDetails = cashDetails;
+        this.bankAccountDetails = bankAccountDetails;
         this.externalDetails = externalDetails;
         this.locationId = locationId;
         this.orderId = orderId;
@@ -322,7 +327,7 @@ public class Payment {
 
     /**
      * Getter for Status.
-     * Indicates whether the payment is APPROVED, COMPLETED, CANCELED, or FAILED.
+     * Indicates whether the payment is APPROVED, PENDING, COMPLETED, CANCELED, or FAILED.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -371,7 +376,8 @@ public class Payment {
 
     /**
      * Getter for SourceType.
-     * The source type for this payment. Current values include `CARD`, `CASH`, or `EXTERNAL`.
+     * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `CASH`, or
+     * `EXTERNAL`.
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -399,6 +405,16 @@ public class Payment {
     @JsonGetter("cash_details")
     public CashPaymentDetails getCashDetails() {
         return cashDetails;
+    }
+
+    /**
+     * Getter for BankAccountDetails.
+     * Additional details about BANK_ACCOUNT type payments.
+     * @return Returns the BankAccountPaymentDetails
+     */
+    @JsonGetter("bank_account_details")
+    public BankAccountPaymentDetails getBankAccountDetails() {
+        return bankAccountDetails;
     }
 
     /**
@@ -587,9 +603,9 @@ public class Payment {
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                 appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
-                delayAction, delayedUntil, sourceType, cardDetails, cashDetails, externalDetails,
-                locationId, orderId, referenceId, customerId, employeeId, refundIds, riskEvaluation,
-                buyerEmailAddress, billingAddress, shippingAddress, note,
+                delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
+                externalDetails, locationId, orderId, referenceId, customerId, employeeId,
+                refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress, note,
                 statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
                 versionToken);
     }
@@ -620,6 +636,7 @@ public class Payment {
             && Objects.equals(sourceType, other.sourceType)
             && Objects.equals(cardDetails, other.cardDetails)
             && Objects.equals(cashDetails, other.cashDetails)
+            && Objects.equals(bankAccountDetails, other.bankAccountDetails)
             && Objects.equals(externalDetails, other.externalDetails)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(orderId, other.orderId)
@@ -653,15 +670,15 @@ public class Payment {
                 + ", status=" + status + ", delayDuration=" + delayDuration + ", delayAction="
                 + delayAction + ", delayedUntil=" + delayedUntil + ", sourceType=" + sourceType
                 + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
-                + ", externalDetails=" + externalDetails + ", locationId=" + locationId
-                + ", orderId=" + orderId + ", referenceId=" + referenceId + ", customerId="
-                + customerId + ", employeeId=" + employeeId + ", refundIds=" + refundIds
-                + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress=" + buyerEmailAddress
-                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
-                + ", note=" + note + ", statementDescriptionIdentifier="
-                + statementDescriptionIdentifier + ", capabilities=" + capabilities
-                + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
-                + ", versionToken=" + versionToken + "]";
+                + ", bankAccountDetails=" + bankAccountDetails + ", externalDetails="
+                + externalDetails + ", locationId=" + locationId + ", orderId=" + orderId
+                + ", referenceId=" + referenceId + ", customerId=" + customerId + ", employeeId="
+                + employeeId + ", refundIds=" + refundIds + ", riskEvaluation=" + riskEvaluation
+                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
+                + ", shippingAddress=" + shippingAddress + ", note=" + note
+                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
+                + ", capabilities=" + capabilities + ", receiptNumber=" + receiptNumber
+                + ", receiptUrl=" + receiptUrl + ", versionToken=" + versionToken + "]";
     }
 
     /**
@@ -688,6 +705,7 @@ public class Payment {
                 .sourceType(getSourceType())
                 .cardDetails(getCardDetails())
                 .cashDetails(getCashDetails())
+                .bankAccountDetails(getBankAccountDetails())
                 .externalDetails(getExternalDetails())
                 .locationId(getLocationId())
                 .orderId(getOrderId())
@@ -729,6 +747,7 @@ public class Payment {
         private String sourceType;
         private CardPaymentDetails cardDetails;
         private CashPaymentDetails cashDetails;
+        private BankAccountPaymentDetails bankAccountDetails;
         private ExternalPaymentDetails externalDetails;
         private String locationId;
         private String orderId;
@@ -920,6 +939,16 @@ public class Payment {
         }
 
         /**
+         * Setter for bankAccountDetails.
+         * @param  bankAccountDetails  BankAccountPaymentDetails value for bankAccountDetails.
+         * @return Builder
+         */
+        public Builder bankAccountDetails(BankAccountPaymentDetails bankAccountDetails) {
+            this.bankAccountDetails = bankAccountDetails;
+            return this;
+        }
+
+        /**
          * Setter for externalDetails.
          * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
          * @return Builder
@@ -1097,10 +1126,10 @@ public class Payment {
             return new Payment(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                     appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
-                    externalDetails, locationId, orderId, referenceId, customerId, employeeId,
-                    refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress,
-                    note, statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                    versionToken);
+                    bankAccountDetails, externalDetails, locationId, orderId, referenceId,
+                    customerId, employeeId, refundIds, riskEvaluation, buyerEmailAddress,
+                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
+                    capabilities, receiptNumber, receiptUrl, versionToken);
         }
     }
 }

@@ -130,8 +130,8 @@ InventoryChange bodyChanges0 = new InventoryChange.Builder()
     .build();
 bodyChanges.add(bodyChanges0);
 
-BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder()
-    .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
+BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
+        "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
     .changes(bodyChanges)
     .ignoreUnchangedCounts(true)
     .build();

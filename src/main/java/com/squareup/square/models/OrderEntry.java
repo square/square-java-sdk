@@ -36,7 +36,7 @@ public class OrderEntry {
 
     /**
      * Getter for OrderId.
-     * The id of the Order
+     * The ID of the order.
      * @return Returns the String
      */
     @JsonGetter("order_id")
@@ -46,10 +46,10 @@ public class OrderEntry {
 
     /**
      * Getter for Version.
-     * Version number which is incremented each time an update is committed to the order. Orders
-     * that were not created through the API will not include a version and thus cannot be updated.
-     * [Read more about working with
-     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
+     * The version number, which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API do not include a version number and therefore
+     * cannot be updated. [Read more about working with
+     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -59,7 +59,7 @@ public class OrderEntry {
 
     /**
      * Getter for LocationId.
-     * The location id the Order belongs to.
+     * The location ID the order belongs to.
      * @return Returns the String
      */
     @JsonGetter("location_id")

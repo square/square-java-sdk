@@ -12,8 +12,8 @@ Describes a subscription plan. For more information, see
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Name` | `String` | Optional | The name of the plan. | String getName() |
-| `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Optional | A list of SubscriptionPhase containing the [SubscriptionPhase](/doc/models/subscription-phase.md) for this plan. | List<SubscriptionPhase> getPhases() |
+| `Name` | `String` | Required | The name of the plan. | String getName() |
+| `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Required | A list of SubscriptionPhase containing the [SubscriptionPhase](/doc/models/subscription-phase.md) for this plan. | List<SubscriptionPhase> getPhases() |
 
 ## Example (as JSON)
 

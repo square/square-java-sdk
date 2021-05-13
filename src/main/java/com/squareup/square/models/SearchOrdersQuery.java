@@ -31,8 +31,7 @@ public class SearchOrdersQuery {
 
     /**
      * Getter for Filter.
-     * Filtering criteria to use for a SearchOrders request. Multiple filters will be ANDed
-     * together.
+     * Filtering criteria to use for a `SearchOrders` request. Multiple filters are ANDed together.
      * @return Returns the SearchOrdersFilter
      */
     @JsonGetter("filter")
@@ -42,7 +41,8 @@ public class SearchOrdersQuery {
 
     /**
      * Getter for Sort.
-     * Sorting criteria for a SearchOrders request. Results can only be sorted by a timestamp field.
+     * Sorting criteria for a `SearchOrders` request. Results can only be sorted by a timestamp
+     * field.
      * @return Returns the SearchOrdersSort
      */
     @JsonGetter("sort")

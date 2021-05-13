@@ -23,6 +23,8 @@ V1TransactionsApi v1TransactionsApi = client.getV1TransactionsApi();
 
 # List Orders
 
+**This endpoint is deprecated. **
+
 Provides summary information for a merchant's online store orders.
 
 ```java
@@ -65,6 +67,8 @@ v1TransactionsApi.listOrdersAsync(locationId, order, limit, batchToken).thenAcce
 
 # Retrieve Order
 
+**This endpoint is deprecated. **
+
 Provides comprehensive information for a single online store order, including the order's history.
 
 ```java
@@ -100,6 +104,8 @@ v1TransactionsApi.retrieveOrderAsync(locationId, orderId).thenAccept(result -> {
 
 
 # Update Order
+
+**This endpoint is deprecated. **
 
 Updates the details of an online store order. Every update you perform on an order corresponds to one of three actions:
 
@@ -145,6 +151,8 @@ v1TransactionsApi.updateOrderAsync(locationId, orderId, body).thenAccept(result 
 
 
 # List Payments
+
+**This endpoint is deprecated. **
 
 Provides summary information for all payments taken for a given
 Square account during a date range. Date ranges cannot exceed 1 year in
@@ -207,6 +215,8 @@ v1TransactionsApi.listPaymentsAsync(locationId, order, beginTime, endTime, limit
 
 # Retrieve Payment
 
+**This endpoint is deprecated. **
+
 Provides comprehensive information for a single payment.
 
 ```java
@@ -242,6 +252,8 @@ v1TransactionsApi.retrievePaymentAsync(locationId, paymentId).thenAccept(result 
 
 
 # List Refunds
+
+**This endpoint is deprecated. **
 
 Provides the details for all refunds initiated by a merchant or any of the merchant's mobile staff during a date range. Date ranges cannot exceed one year in length.
 
@@ -290,6 +302,8 @@ v1TransactionsApi.listRefundsAsync(locationId, order, beginTime, endTime, limit,
 
 
 # Create Refund
+
+**This endpoint is deprecated. **
 
 Issues a refund for a previously processed payment. You must issue
 a refund within 60 days of the associated payment.
@@ -348,6 +362,8 @@ v1TransactionsApi.createRefundAsync(locationId, body).thenAccept(result -> {
 
 # List Settlements
 
+**This endpoint is deprecated. **
+
 Provides summary information for all deposits and withdrawals
 initiated by Square to a linked bank account during a date range. Date
 ranges cannot exceed one year in length.
@@ -403,6 +419,8 @@ v1TransactionsApi.listSettlementsAsync(locationId, order, beginTime, endTime, li
 
 
 # Retrieve Settlement
+
+**This endpoint is deprecated. **
 
 Provides comprehensive information for a single settlement.
 

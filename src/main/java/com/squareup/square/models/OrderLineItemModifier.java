@@ -46,7 +46,7 @@ public class OrderLineItemModifier {
 
     /**
      * Getter for Uid.
-     * Unique ID that identifies the modifier only within this order.
+     * A unique ID that identifies the modifier only within this order.
      * @return Returns the String
      */
     @JsonGetter("uid")
@@ -56,7 +56,7 @@ public class OrderLineItemModifier {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object id referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")

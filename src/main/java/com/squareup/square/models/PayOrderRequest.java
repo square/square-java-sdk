@@ -36,11 +36,11 @@ public class PayOrderRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A value you specify that uniquely identifies this request among requests you've sent. If
-     * you're unsure whether a particular payment request was completed successfully, you can
-     * reattempt it with the same idempotency key without worrying about duplicate payments. See
-     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) for more
-     * information.
+     * A value you specify that uniquely identifies this request among requests you have sent. If
+     * you are unsure whether a particular payment request was completed successfully, you can
+     * reattempt it with the same idempotency key without worrying about duplicate payments. For
+     * more information, see
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

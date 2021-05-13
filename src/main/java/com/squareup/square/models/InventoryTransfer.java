@@ -112,8 +112,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for FromLocationId.
-     * The Square ID of the [Location]($m/Location) where the related quantity of items were tracked
-     * before the transfer.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
+     * was tracked before the transfer.
      * @return Returns the String
      */
     @JsonGetter("from_location_id")
@@ -123,8 +123,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for ToLocationId.
-     * The Square ID of the [Location]($m/Location) where the related quantity of items were tracked
-     * after the transfer.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
+     * was tracked after the transfer.
      * @return Returns the String
      */
     @JsonGetter("to_location_id")
@@ -134,7 +134,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square generated ID of the `CatalogObject` being tracked.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
@@ -144,8 +144,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for CatalogObjectType.
-     * The `CatalogObjectType` of the `CatalogObject` being tracked.Tracking is only supported for
-     * the `ITEM_VARIATION` type.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being
+     * tracked.Tracking is only supported for the `ITEM_VARIATION` type.
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
@@ -166,7 +166,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for OccurredAt.
-     * A client-generated timestamp in RFC 3339 format that indicates when the transfer took place.
+     * A client-generated RFC 3339-formatted timestamp that indicates when the transfer took place.
      * For write actions, the `occurred_at` timestamp cannot be older than 24 hours or in the future
      * relative to the time of the request.
      * @return Returns the String
@@ -178,8 +178,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for CreatedAt.
-     * A read-only timestamp in RFC 3339 format that indicates when Square received the transfer
-     * request.
+     * An RFC 3339-formatted timestamp that indicates when Square received the transfer request.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -199,7 +198,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for EmployeeId.
-     * The Square ID of the [Employee]($m/Employee) responsible for the inventory transfer.
+     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * transfer.
      * @return Returns the String
      */
     @JsonGetter("employee_id")

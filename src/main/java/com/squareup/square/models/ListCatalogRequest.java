@@ -37,7 +37,8 @@ public class ListCatalogRequest {
     /**
      * Getter for Cursor.
      * The pagination cursor returned in the previous response. Leave unset for an initial request.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * The page size is currently set to be 100. See
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
      * information.
      * @return Returns the String
      */
