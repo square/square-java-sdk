@@ -21,7 +21,7 @@ TransactionsApi transactionsApi = client.getTransactionsApi();
 
 # List Refunds
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Lists refunds for one of a business's locations.
 
@@ -77,7 +77,7 @@ transactionsApi.listRefundsAsync(locationId, beginTime, endTime, sortOrder, curs
 
 # List Transactions
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Lists transactions for a particular location.
 
@@ -129,14 +129,14 @@ transactionsApi.listTransactionsAsync(locationId, beginTime, endTime, sortOrder,
 
 # Charge
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Charges a card represented by a card nonce or a customer's card on file.
 
 Your request to this endpoint must include _either_:
 
-- A value for the `card_nonce` parameter (to charge a card nonce generated
-  with the `SqPaymentForm`)
+- A value for the `card_nonce` parameter (to charge a card payment token generated
+  with the Web Payments SDK)
 - Values for the `customer_card_id` and `customer_id` parameters (to charge
   a customer's card on file)
 
@@ -234,7 +234,7 @@ transactionsApi.chargeAsync(locationId, body).thenAccept(result -> {
 
 # Retrieve Transaction
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Retrieves details for a single transaction.
 
@@ -272,7 +272,7 @@ transactionsApi.retrieveTransactionAsync(locationId, transactionId).thenAccept(r
 
 # Capture Transaction
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Captures a transaction that was created with the [Charge](/doc/api/transactions.md#charge)
 endpoint with a `delay_capture` value of `true`.
@@ -314,7 +314,7 @@ transactionsApi.captureTransactionAsync(locationId, transactionId).thenAccept(re
 
 # Create Refund
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Initiates a refund for a previously charged tender.
 
@@ -372,7 +372,7 @@ transactionsApi.createRefundAsync(locationId, transactionId, body).thenAccept(re
 
 # Void Transaction
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 Cancels a transaction that was created with the [Charge](/doc/api/transactions.md#charge)
 endpoint with a `delay_capture` value of `true`.

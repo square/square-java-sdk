@@ -28,7 +28,8 @@ public interface Configuration {
     String getSquareVersion();
 
     /**
-     * Http Client Configuration instance. See available [builder methods here](#httpclientconfiguration.builder-class).
+     * Http Client Configuration instance. 
+     * See available [builder methods here](#httpclientconfiguration.builder-class).
      * @return a copy of httpClientConfig
      */
     ReadonlyHttpClientConfiguration getHttpClientConfig();

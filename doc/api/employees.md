@@ -16,7 +16,7 @@ EmployeesApi employeesApi = client.getEmployeesApi();
 
 # List Employees
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 ListEmployees
 
@@ -60,7 +60,7 @@ employeesApi.listEmployeesAsync(locationId, status, limit, cursor).thenAccept(re
 
 # Retrieve Employee
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 RetrieveEmployee
 

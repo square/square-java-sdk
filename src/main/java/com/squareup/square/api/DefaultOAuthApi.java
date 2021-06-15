@@ -54,20 +54,21 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     }
 
     /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see [Renew
-     * OAuth Token](https://developer.squareup.com/docs/oauth-api/cookbook/renew-oauth-tokens).
-     * Renews an OAuth access token before it expires. OAuth access tokens besides your
-     * application's personal access token expire after __30 days__. You can also renew expired
-     * tokens within __15 days__ of their expiration. You cannot renew an access token that has been
-     * expired for more than 15 days. Instead, the associated user must re-complete the OAuth flow
-     * from the beginning. __Important:__ The `Authorization` header for this endpoint must have the
-     * following format: ``` Authorization: Client APPLICATION_SECRET ``` Replace
-     * `APPLICATION_SECRET` with the application secret on the Credentials page in the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
+     * [Migrate from Renew to Refresh OAuth
+     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
+     * OAuth access token before it expires. OAuth access tokens besides your application's personal
+     * access token expire after __30 days__. You can also renew expired tokens within __15 days__
+     * of their expiration. You cannot renew an access token that has been expired for more than 15
+     * days. Instead, the associated user must re-complete the OAuth flow from the beginning.
+     * __Important:__ The `Authorization` header for this endpoint must have the following format:
+     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
+     * application secret on the Credentials page in the [developer
+     * dashboard](https://developer.squareup.com/apps).
      * @deprecated
      * 
-     * @param  clientId  Required parameter: Your application ID, available from the [application
-     *         dashboard](https://connect.squareup.com/apps).
+     * @param  clientId  Required parameter: Your application ID, available from the [developer
+     *         dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -88,20 +89,21 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     }
 
     /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see [Renew
-     * OAuth Token](https://developer.squareup.com/docs/oauth-api/cookbook/renew-oauth-tokens).
-     * Renews an OAuth access token before it expires. OAuth access tokens besides your
-     * application's personal access token expire after __30 days__. You can also renew expired
-     * tokens within __15 days__ of their expiration. You cannot renew an access token that has been
-     * expired for more than 15 days. Instead, the associated user must re-complete the OAuth flow
-     * from the beginning. __Important:__ The `Authorization` header for this endpoint must have the
-     * following format: ``` Authorization: Client APPLICATION_SECRET ``` Replace
-     * `APPLICATION_SECRET` with the application secret on the Credentials page in the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
+     * [Migrate from Renew to Refresh OAuth
+     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
+     * OAuth access token before it expires. OAuth access tokens besides your application's personal
+     * access token expire after __30 days__. You can also renew expired tokens within __15 days__
+     * of their expiration. You cannot renew an access token that has been expired for more than 15
+     * days. Instead, the associated user must re-complete the OAuth flow from the beginning.
+     * __Important:__ The `Authorization` header for this endpoint must have the following format:
+     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
+     * application secret on the Credentials page in the [developer
+     * dashboard](https://developer.squareup.com/apps).
      * @deprecated
      * 
-     * @param  clientId  Required parameter: Your application ID, available from the [application
-     *         dashboard](https://connect.squareup.com/apps).
+     * @param  clientId  Required parameter: Your application ID, available from the [developer
+     *         dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -190,8 +192,8 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * token you specify. When an OAuth access token is revoked, all of the active subscriptions
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * Credentials page in the [Developer Dashboard](https://developer.squareup.com/apps).
+     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the OAuth
+     * page in the [developer dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -215,8 +217,8 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * token you specify. When an OAuth access token is revoked, all of the active subscriptions
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * Credentials page in the [Developer Dashboard](https://developer.squareup.com/apps).
+     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the OAuth
+     * page in the [developer dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET

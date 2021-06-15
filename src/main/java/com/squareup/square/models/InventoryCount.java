@@ -23,6 +23,8 @@ public class InventoryCount {
     private final String quantity;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean isEstimated;
 
     /**
      * Initialization constructor.
@@ -32,6 +34,7 @@ public class InventoryCount {
      * @param  locationId  String value for locationId.
      * @param  quantity  String value for quantity.
      * @param  calculatedAt  String value for calculatedAt.
+     * @param  isEstimated  Boolean value for isEstimated.
      */
     @JsonCreator
     public InventoryCount(
@@ -40,13 +43,15 @@ public class InventoryCount {
             @JsonProperty("state") String state,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("quantity") String quantity,
-            @JsonProperty("calculated_at") String calculatedAt) {
+            @JsonProperty("calculated_at") String calculatedAt,
+            @JsonProperty("is_estimated") Boolean isEstimated) {
         this.catalogObjectId = catalogObjectId;
         this.catalogObjectType = catalogObjectType;
         this.state = state;
         this.locationId = locationId;
         this.quantity = quantity;
         this.calculatedAt = calculatedAt;
+        this.isEstimated = isEstimated;
     }
 
     /**
@@ -113,10 +118,25 @@ public class InventoryCount {
         return calculatedAt;
     }
 
+    /**
+     * Getter for IsEstimated.
+     * Whether the inventory count is for composed variation (TRUE) or not (FALSE). If true, the
+     * inventory count will not be present in the response of any of these endpoints:
+     * [BatchChangeInventory]($e/Inventory/BatchChangeInventory),
+     * [BatchRetrieveInventoryChanges]($e/Inventory/BatchRetrieveInventoryChanges),
+     * [BatchRetrieveInventoryCounts]($e/Inventory/BatchRetrieveInventoryCounts), and
+     * [RetrieveInventoryChanges]($e/Inventory/RetrieveInventoryChanges).
+     * @return Returns the Boolean
+     */
+    @JsonGetter("is_estimated")
+    public Boolean getIsEstimated() {
+        return isEstimated;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(catalogObjectId, catalogObjectType, state, locationId, quantity,
-                calculatedAt);
+                calculatedAt, isEstimated);
     }
 
     @Override
@@ -133,7 +153,8 @@ public class InventoryCount {
             && Objects.equals(state, other.state)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(quantity, other.quantity)
-            && Objects.equals(calculatedAt, other.calculatedAt);
+            && Objects.equals(calculatedAt, other.calculatedAt)
+            && Objects.equals(isEstimated, other.isEstimated);
     }
 
     /**
@@ -144,7 +165,8 @@ public class InventoryCount {
     public String toString() {
         return "InventoryCount [" + "catalogObjectId=" + catalogObjectId + ", catalogObjectType="
                 + catalogObjectType + ", state=" + state + ", locationId=" + locationId
-                + ", quantity=" + quantity + ", calculatedAt=" + calculatedAt + "]";
+                + ", quantity=" + quantity + ", calculatedAt=" + calculatedAt + ", isEstimated="
+                + isEstimated + "]";
     }
 
     /**
@@ -159,7 +181,8 @@ public class InventoryCount {
                 .state(getState())
                 .locationId(getLocationId())
                 .quantity(getQuantity())
-                .calculatedAt(getCalculatedAt());
+                .calculatedAt(getCalculatedAt())
+                .isEstimated(getIsEstimated());
         return builder;
     }
 
@@ -173,6 +196,7 @@ public class InventoryCount {
         private String locationId;
         private String quantity;
         private String calculatedAt;
+        private Boolean isEstimated;
 
 
 
@@ -237,12 +261,22 @@ public class InventoryCount {
         }
 
         /**
+         * Setter for isEstimated.
+         * @param  isEstimated  Boolean value for isEstimated.
+         * @return Builder
+         */
+        public Builder isEstimated(Boolean isEstimated) {
+            this.isEstimated = isEstimated;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InventoryCount} object using the set fields.
          * @return {@link InventoryCount}
          */
         public InventoryCount build() {
             return new InventoryCount(catalogObjectId, catalogObjectType, state, locationId,
-                    quantity, calculatedAt);
+                    quantity, calculatedAt, isEstimated);
         }
     }
 }

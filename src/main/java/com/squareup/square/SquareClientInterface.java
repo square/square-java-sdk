@@ -4,6 +4,7 @@ package com.squareup.square;
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
 import com.squareup.square.api.BookingsApi;
+import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
@@ -13,6 +14,8 @@ import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
+import com.squareup.square.api.GiftCardActivitiesApi;
+import com.squareup.square.api.GiftCardsApi;
 import com.squareup.square.api.InventoryApi;
 import com.squareup.square.api.InvoicesApi;
 import com.squareup.square.api.LaborApi;
@@ -83,6 +86,12 @@ public interface SquareClientInterface extends Configuration {
     BookingsApi getBookingsApi();
 
     /**
+     * Provides access to Cards controller.
+     * @return Returns the CardsApi instance
+     */
+    CardsApi getCardsApi();
+
+    /**
      * Provides access to CashDrawers controller.
      * @return Returns the CashDrawersApi instance
      */
@@ -129,6 +138,18 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the EmployeesApi instance
      */
     EmployeesApi getEmployeesApi();
+
+    /**
+     * Provides access to GiftCards controller.
+     * @return Returns the GiftCardsApi instance
+     */
+    GiftCardsApi getGiftCardsApi();
+
+    /**
+     * Provides access to GiftCardActivities controller.
+     * @return Returns the GiftCardActivitiesApi instance
+     */
+    GiftCardActivitiesApi getGiftCardActivitiesApi();
 
     /**
      * Provides access to Inventory controller.

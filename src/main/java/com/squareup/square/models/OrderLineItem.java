@@ -27,6 +27,8 @@ public class OrderLineItem {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String itemType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemModifier> modifiers;
@@ -58,6 +60,7 @@ public class OrderLineItem {
      * @param  note  String value for note.
      * @param  catalogObjectId  String value for catalogObjectId.
      * @param  variationName  String value for variationName.
+     * @param  itemType  String value for itemType.
      * @param  metadata  Map of String, value for metadata.
      * @param  modifiers  List of OrderLineItemModifier value for modifiers.
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
@@ -79,6 +82,7 @@ public class OrderLineItem {
             @JsonProperty("note") String note,
             @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("variation_name") String variationName,
+            @JsonProperty("item_type") String itemType,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("modifiers") List<OrderLineItemModifier> modifiers,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
@@ -97,6 +101,7 @@ public class OrderLineItem {
         this.note = note;
         this.catalogObjectId = catalogObjectId;
         this.variationName = variationName;
+        this.itemType = itemType;
         this.metadata = metadata;
         this.modifiers = modifiers;
         this.appliedTaxes = appliedTaxes;
@@ -182,6 +187,16 @@ public class OrderLineItem {
     @JsonGetter("variation_name")
     public String getVariationName() {
         return variationName;
+    }
+
+    /**
+     * Getter for ItemType.
+     * Represents the line item type.
+     * @return Returns the String
+     */
+    @JsonGetter("item_type")
+    public String getItemType() {
+        return itemType;
     }
 
     /**
@@ -351,7 +366,7 @@ public class OrderLineItem {
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
-                metadata, modifiers, appliedTaxes, appliedDiscounts, basePriceMoney,
+                itemType, metadata, modifiers, appliedTaxes, appliedDiscounts, basePriceMoney,
                 variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney,
                 totalMoney, pricingBlocklists);
     }
@@ -372,6 +387,7 @@ public class OrderLineItem {
             && Objects.equals(note, other.note)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
             && Objects.equals(variationName, other.variationName)
+            && Objects.equals(itemType, other.itemType)
             && Objects.equals(metadata, other.metadata)
             && Objects.equals(modifiers, other.modifiers)
             && Objects.equals(appliedTaxes, other.appliedTaxes)
@@ -393,13 +409,13 @@ public class OrderLineItem {
     public String toString() {
         return "OrderLineItem [" + "quantity=" + quantity + ", uid=" + uid + ", name=" + name
                 + ", quantityUnit=" + quantityUnit + ", note=" + note + ", catalogObjectId="
-                + catalogObjectId + ", variationName=" + variationName + ", metadata=" + metadata
-                + ", modifiers=" + modifiers + ", appliedTaxes=" + appliedTaxes
-                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
-                + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossSalesMoney="
-                + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
-                + totalDiscountMoney + ", totalMoney=" + totalMoney + ", pricingBlocklists="
-                + pricingBlocklists + "]";
+                + catalogObjectId + ", variationName=" + variationName + ", itemType=" + itemType
+                + ", metadata=" + metadata + ", modifiers=" + modifiers + ", appliedTaxes="
+                + appliedTaxes + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney="
+                + basePriceMoney + ", variationTotalPriceMoney=" + variationTotalPriceMoney
+                + ", grossSalesMoney=" + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney
+                + ", totalDiscountMoney=" + totalDiscountMoney + ", totalMoney=" + totalMoney
+                + ", pricingBlocklists=" + pricingBlocklists + "]";
     }
 
     /**
@@ -415,6 +431,7 @@ public class OrderLineItem {
                 .note(getNote())
                 .catalogObjectId(getCatalogObjectId())
                 .variationName(getVariationName())
+                .itemType(getItemType())
                 .metadata(getMetadata())
                 .modifiers(getModifiers())
                 .appliedTaxes(getAppliedTaxes())
@@ -440,6 +457,7 @@ public class OrderLineItem {
         private String note;
         private String catalogObjectId;
         private String variationName;
+        private String itemType;
         private Map<String, String> metadata;
         private List<OrderLineItemModifier> modifiers;
         private List<OrderLineItemAppliedTax> appliedTaxes;
@@ -527,6 +545,16 @@ public class OrderLineItem {
          */
         public Builder variationName(String variationName) {
             this.variationName = variationName;
+            return this;
+        }
+
+        /**
+         * Setter for itemType.
+         * @param  itemType  String value for itemType.
+         * @return Builder
+         */
+        public Builder itemType(String itemType) {
+            this.itemType = itemType;
             return this;
         }
 
@@ -647,7 +675,7 @@ public class OrderLineItem {
          */
         public OrderLineItem build() {
             return new OrderLineItem(quantity, uid, name, quantityUnit, note, catalogObjectId,
-                    variationName, metadata, modifiers, appliedTaxes, appliedDiscounts,
+                    variationName, itemType, metadata, modifiers, appliedTaxes, appliedDiscounts,
                     basePriceMoney, variationTotalPriceMoney, grossSalesMoney, totalTaxMoney,
                     totalDiscountMoney, totalMoney, pricingBlocklists);
         }

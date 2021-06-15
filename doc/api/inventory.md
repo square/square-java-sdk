@@ -96,13 +96,13 @@ InventoryAdjustment bodyChanges0Adjustment = new InventoryAdjustment.Builder()
     .id("id6")
     .referenceId("reference_id4")
     .fromState("SOLD")
-    .toState("IN_TRANSIT_TO")
+    .toState("SOLD_ONLINE")
     .locationId("location_id0")
     .build();
 InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
     .id("id0")
     .referenceId("reference_id8")
-    .state("SOLD")
+    .state("UNLINKED_RETURN")
     .fromLocationId("from_location_id2")
     .toLocationId("to_location_id2")
     .build();
@@ -237,7 +237,7 @@ bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
 List<String> bodyLocationIds = new LinkedList<>();
 bodyLocationIds.add("59TNP9SA8VGDA");
 List<String> bodyStates = new LinkedList<>();
-bodyStates.add("IN_TRANSIT_TO");
+bodyStates.add("SUPPORTED_BY_NEWER_VERSION");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)

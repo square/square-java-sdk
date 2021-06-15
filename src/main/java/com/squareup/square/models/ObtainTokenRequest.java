@@ -64,8 +64,8 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square-issued ID of your application, available from the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * The Square-issued ID of your application, available from the [developer
+     * dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
     @JsonGetter("client_id")
@@ -75,8 +75,8 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientSecret.
-     * The Square-issued application secret for your application, available from the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * The Square-issued application secret for your application, available from the [developer
+     * dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
     @JsonGetter("client_secret")
@@ -98,7 +98,7 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for RedirectUri.
-     * The redirect URL assigned in the [application dashboard](https://connect.squareup.com/apps).
+     * The redirect URL assigned in the [developer dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
     @JsonGetter("redirect_uri")
@@ -145,11 +145,10 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for Scopes.
-     * __OPTIONAL__ A JSON list of strings representing the permissions the application is
-     * requesting. For example: "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`"
-     * The access token returned in the response is granted the permissions that comprise the
-     * intersection between the requested list of permissions, and those that belong to the provided
-     * refresh token.
+     * A JSON list of strings representing the permissions the application is requesting. For
+     * example: "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`" The access token
+     * returned in the response is granted the permissions that comprise the intersection between
+     * the requested list of permissions, and those that belong to the provided refresh token.
      * @return Returns the List of String
      */
     @JsonGetter("scopes")
@@ -159,8 +158,8 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ShortLived.
-     * __OPTIONAL__ A boolean indicating a request for a short-lived access token. The short-lived
-     * access token returned in the response will expire in 24 hours.
+     * A boolean indicating a request for a short-lived access token. The short-lived access token
+     * returned in the response will expire in 24 hours.
      * @return Returns the Boolean
      */
     @JsonGetter("short_lived")

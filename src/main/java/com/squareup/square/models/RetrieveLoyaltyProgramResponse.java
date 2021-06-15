@@ -48,6 +48,10 @@ public class RetrieveLoyaltyProgramResponse {
 
     /**
      * Getter for Program.
+     * Represents a Square loyalty program. Loyalty programs define how buyers can earn points and
+     * redeem points for rewards. Square sellers can have only one loyalty program, which is created
+     * and managed from the Seller Dashboard. For more information, see [Loyalty Program
+     * Overview](https://developer.squareup.com/docs/loyalty/overview).
      * @return Returns the LoyaltyProgram
      */
     @JsonGetter("program")

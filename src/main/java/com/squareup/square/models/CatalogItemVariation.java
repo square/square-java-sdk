@@ -45,7 +45,11 @@ public class CatalogItemVariation {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String measurementUnitId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean stockable;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> teamMemberIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CatalogStockConversion stockableConversion;
 
     /**
      * Initialization constructor.
@@ -67,7 +71,9 @@ public class CatalogItemVariation {
      * @param  itemOptionValues  List of CatalogItemOptionValueForItemVariation value for
      *         itemOptionValues.
      * @param  measurementUnitId  String value for measurementUnitId.
+     * @param  stockable  Boolean value for stockable.
      * @param  teamMemberIds  List of String value for teamMemberIds.
+     * @param  stockableConversion  CatalogStockConversion value for stockableConversion.
      */
     @JsonCreator
     public CatalogItemVariation(
@@ -87,7 +93,9 @@ public class CatalogItemVariation {
             @JsonProperty("available_for_booking") Boolean availableForBooking,
             @JsonProperty("item_option_values") List<CatalogItemOptionValueForItemVariation> itemOptionValues,
             @JsonProperty("measurement_unit_id") String measurementUnitId,
-            @JsonProperty("team_member_ids") List<String> teamMemberIds) {
+            @JsonProperty("stockable") Boolean stockable,
+            @JsonProperty("team_member_ids") List<String> teamMemberIds,
+            @JsonProperty("stockable_conversion") CatalogStockConversion stockableConversion) {
         this.itemId = itemId;
         this.name = name;
         this.sku = sku;
@@ -104,7 +112,9 @@ public class CatalogItemVariation {
         this.availableForBooking = availableForBooking;
         this.itemOptionValues = itemOptionValues;
         this.measurementUnitId = measurementUnitId;
+        this.stockable = stockable;
         this.teamMemberIds = teamMemberIds;
+        this.stockableConversion = stockableConversion;
     }
 
     /**
@@ -295,6 +305,17 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Getter for Stockable.
+     * Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
+     * For backward compatibility missing values will be interpreted as TRUE.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("stockable")
+    public Boolean getStockable() {
+        return stockable;
+    }
+
+    /**
      * Getter for TeamMemberIds.
      * Tokens of employees that can perform the service represented by this variation. Only valid
      * for variations of type `APPOINTMENTS_SERVICE`.
@@ -305,12 +326,24 @@ public class CatalogItemVariation {
         return teamMemberIds;
     }
 
+    /**
+     * Getter for StockableConversion.
+     * Represents the rule of conversion between a stockable
+     * [CatalogItemVariation]($m/CatalogItemVariation) and a non-stockable sell-by or receive-by
+     * `CatalogItemVariation` that share the same underlying stock.
+     * @return Returns the CatalogStockConversion
+     */
+    @JsonGetter("stockable_conversion")
+    public CatalogStockConversion getStockableConversion() {
+        return stockableConversion;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
                 locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold,
                 userData, serviceDuration, availableForBooking, itemOptionValues, measurementUnitId,
-                teamMemberIds);
+                stockable, teamMemberIds, stockableConversion);
     }
 
     @Override
@@ -338,7 +371,9 @@ public class CatalogItemVariation {
             && Objects.equals(availableForBooking, other.availableForBooking)
             && Objects.equals(itemOptionValues, other.itemOptionValues)
             && Objects.equals(measurementUnitId, other.measurementUnitId)
-            && Objects.equals(teamMemberIds, other.teamMemberIds);
+            && Objects.equals(stockable, other.stockable)
+            && Objects.equals(teamMemberIds, other.teamMemberIds)
+            && Objects.equals(stockableConversion, other.stockableConversion);
     }
 
     /**
@@ -354,8 +389,9 @@ public class CatalogItemVariation {
                 + inventoryAlertType + ", inventoryAlertThreshold=" + inventoryAlertThreshold
                 + ", userData=" + userData + ", serviceDuration=" + serviceDuration
                 + ", availableForBooking=" + availableForBooking + ", itemOptionValues="
-                + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", teamMemberIds="
-                + teamMemberIds + "]";
+                + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", stockable="
+                + stockable + ", teamMemberIds=" + teamMemberIds + ", stockableConversion="
+                + stockableConversion + "]";
     }
 
     /**
@@ -381,7 +417,9 @@ public class CatalogItemVariation {
                 .availableForBooking(getAvailableForBooking())
                 .itemOptionValues(getItemOptionValues())
                 .measurementUnitId(getMeasurementUnitId())
-                .teamMemberIds(getTeamMemberIds());
+                .stockable(getStockable())
+                .teamMemberIds(getTeamMemberIds())
+                .stockableConversion(getStockableConversion());
         return builder;
     }
 
@@ -405,7 +443,9 @@ public class CatalogItemVariation {
         private Boolean availableForBooking;
         private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
         private String measurementUnitId;
+        private Boolean stockable;
         private List<String> teamMemberIds;
+        private CatalogStockConversion stockableConversion;
 
 
 
@@ -573,12 +613,32 @@ public class CatalogItemVariation {
         }
 
         /**
+         * Setter for stockable.
+         * @param  stockable  Boolean value for stockable.
+         * @return Builder
+         */
+        public Builder stockable(Boolean stockable) {
+            this.stockable = stockable;
+            return this;
+        }
+
+        /**
          * Setter for teamMemberIds.
          * @param  teamMemberIds  List of String value for teamMemberIds.
          * @return Builder
          */
         public Builder teamMemberIds(List<String> teamMemberIds) {
             this.teamMemberIds = teamMemberIds;
+            return this;
+        }
+
+        /**
+         * Setter for stockableConversion.
+         * @param  stockableConversion  CatalogStockConversion value for stockableConversion.
+         * @return Builder
+         */
+        public Builder stockableConversion(CatalogStockConversion stockableConversion) {
+            this.stockableConversion = stockableConversion;
             return this;
         }
 
@@ -590,7 +650,8 @@ public class CatalogItemVariation {
             return new CatalogItemVariation(itemId, name, sku, upc, ordinal, pricingType,
                     priceMoney, locationOverrides, trackInventory, inventoryAlertType,
                     inventoryAlertThreshold, userData, serviceDuration, availableForBooking,
-                    itemOptionValues, measurementUnitId, teamMemberIds);
+                    itemOptionValues, measurementUnitId, stockable, teamMemberIds,
+                    stockableConversion);
         }
     }
 }

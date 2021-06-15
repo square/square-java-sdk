@@ -25,8 +25,8 @@ public class BulkCreateTeamMembersRequest {
 
     /**
      * Getter for TeamMembers.
-     * The data which will be used to create the `TeamMember` objects. Each key is the
-     * `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     * The data used to create the `TeamMember` objects. Each key is the `idempotency_key` that maps
+     * to the `CreateTeamMemberRequest`.
      * @return Returns the Map of String, CreateTeamMemberRequest
      */
     @JsonGetter("team_members")

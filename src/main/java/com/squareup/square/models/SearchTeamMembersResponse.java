@@ -53,9 +53,8 @@ public class SearchTeamMembersResponse {
 
     /**
      * Getter for Cursor.
-     * The opaque cursor for fetching the next page. Read about
-     * [pagination](https://developer.squareup.com/docs/working-with-apis/pagination) with Square
-     * APIs for more information.
+     * The opaque cursor for fetching the next page. For more information, see
+     * [pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

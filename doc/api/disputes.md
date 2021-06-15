@@ -14,10 +14,10 @@ DisputesApi disputesApi = client.getDisputesApi();
 * [Retrieve Dispute](/doc/api/disputes.md#retrieve-dispute)
 * [Accept Dispute](/doc/api/disputes.md#accept-dispute)
 * [List Dispute Evidence](/doc/api/disputes.md#list-dispute-evidence)
-* [Remove Dispute Evidence](/doc/api/disputes.md#remove-dispute-evidence)
-* [Retrieve Dispute Evidence](/doc/api/disputes.md#retrieve-dispute-evidence)
 * [Create Dispute Evidence File](/doc/api/disputes.md#create-dispute-evidence-file)
 * [Create Dispute Evidence Text](/doc/api/disputes.md#create-dispute-evidence-text)
+* [Delete Dispute Evidence](/doc/api/disputes.md#delete-dispute-evidence)
+* [Retrieve Dispute Evidence](/doc/api/disputes.md#retrieve-dispute-evidence)
 * [Submit Evidence](/doc/api/disputes.md#submit-evidence)
 
 
@@ -136,7 +136,8 @@ Returns a list of evidence associated with a dispute.
 
 ```java
 CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
-    final String disputeId)
+    final String disputeId,
+    final String cursor)
 ```
 
 ## Parameters
@@ -144,6 +145,7 @@ CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `disputeId` | `String` | Template, Required | The ID of the dispute. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
 
 ## Response Type
 
@@ -153,86 +155,9 @@ CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
 
 ```java
 String disputeId = "dispute_id2";
+String cursor = "cursor6";
 
-disputesApi.listDisputeEvidenceAsync(disputeId).thenAccept(result -> {
-    // TODO success callback handler
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    return null;
-});
-```
-
-
-# Remove Dispute Evidence
-
-Removes specified evidence from a dispute.
-
-Square does not send the bank any evidence that is removed. Also, you cannot remove evidence after
-submitting it to the bank using [SubmitEvidence](/doc/api/disputes.md#submit-evidence).
-
-```java
-CompletableFuture<RemoveDisputeEvidenceResponse> removeDisputeEvidenceAsync(
-    final String disputeId,
-    final String evidenceId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `disputeId` | `String` | Template, Required | The ID of the dispute you want to remove evidence from. |
-| `evidenceId` | `String` | Template, Required | The ID of the evidence you want to remove. |
-
-## Response Type
-
-[`RemoveDisputeEvidenceResponse`](/doc/models/remove-dispute-evidence-response.md)
-
-## Example Usage
-
-```java
-String disputeId = "dispute_id2";
-String evidenceId = "evidence_id2";
-
-disputesApi.removeDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
-    // TODO success callback handler
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    return null;
-});
-```
-
-
-# Retrieve Dispute Evidence
-
-Returns the specific evidence metadata associated with a specific dispute.
-
-You must maintain a copy of the evidence you upload if you want to reference it later. You cannot
-download the evidence after you upload it.
-
-```java
-CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
-    final String disputeId,
-    final String evidenceId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `disputeId` | `String` | Template, Required | The ID of the dispute that you want to retrieve evidence from. |
-| `evidenceId` | `String` | Template, Required | The ID of the evidence to retrieve. |
-
-## Response Type
-
-[`RetrieveDisputeEvidenceResponse`](/doc/models/retrieve-dispute-evidence-response.md)
-
-## Example Usage
-
-```java
-String disputeId = "dispute_id2";
-String evidenceId = "evidence_id2";
-
-disputesApi.retrieveDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
+disputesApi.listDisputeEvidenceAsync(disputeId, cursor).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -317,6 +242,84 @@ CreateDisputeEvidenceTextRequest body = new CreateDisputeEvidenceTextRequest.Bui
     .build();
 
 disputesApi.createDisputeEvidenceTextAsync(disputeId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Delete Dispute Evidence
+
+Removes specified evidence from a dispute.
+
+Square does not send the bank any evidence that is removed. Also, you cannot remove evidence after
+submitting it to the bank using [SubmitEvidence](/doc/api/disputes.md#submit-evidence).
+
+```java
+CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
+    final String disputeId,
+    final String evidenceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `disputeId` | `String` | Template, Required | The ID of the dispute you want to remove evidence from. |
+| `evidenceId` | `String` | Template, Required | The ID of the evidence you want to remove. |
+
+## Response Type
+
+[`DeleteDisputeEvidenceResponse`](/doc/models/delete-dispute-evidence-response.md)
+
+## Example Usage
+
+```java
+String disputeId = "dispute_id2";
+String evidenceId = "evidence_id2";
+
+disputesApi.deleteDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Retrieve Dispute Evidence
+
+Returns the evidence metadata specified by the evidence ID in the request URL path
+
+You must maintain a copy of the evidence you upload if you want to reference it later. You cannot
+download the evidence after you upload it.
+
+```java
+CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
+    final String disputeId,
+    final String evidenceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `disputeId` | `String` | Template, Required | The ID of the dispute that you want to retrieve evidence from. |
+| `evidenceId` | `String` | Template, Required | The ID of the evidence to retrieve. |
+
+## Response Type
+
+[`RetrieveDisputeEvidenceResponse`](/doc/models/retrieve-dispute-evidence-response.md)
+
+## Example Usage
+
+```java
+String disputeId = "dispute_id2";
+String evidenceId = "evidence_id2";
+
+disputesApi.retrieveDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

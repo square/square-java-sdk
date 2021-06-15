@@ -28,7 +28,9 @@ may have a maximum of 250 item variations.
 | `AvailableForBooking` | `Boolean` | Optional | If the `CatalogItem` that owns this item variation is of type<br>`APPOINTMENTS_SERVICE`, a bool representing whether this service is available for booking. | Boolean getAvailableForBooking() |
 | `ItemOptionValues` | [`List<CatalogItemOptionValueForItemVariation>`](/doc/models/catalog-item-option-value-for-item-variation.md) | Optional | List of item option values associated with this item variation. Listed<br>in the same order as the item options of the parent item. | List<CatalogItemOptionValueForItemVariation> getItemOptionValues() |
 | `MeasurementUnitId` | `String` | Optional | ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity<br>sold of this item variation. If left unset, the item will be sold in<br>whole quantities. | String getMeasurementUnitId() |
+| `Stockable` | `Boolean` | Optional | Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).<br>For backward compatibility missing values will be interpreted as TRUE. | Boolean getStockable() |
 | `TeamMemberIds` | `List<String>` | Optional | Tokens of employees that can perform the service represented by this variation. Only valid for<br>variations of type `APPOINTMENTS_SERVICE`. | List<String> getTeamMemberIds() |
+| `StockableConversion` | [`CatalogStockConversion`](/doc/models/catalog-stock-conversion.md) | Optional | Represents the rule of conversion between a stockable [CatalogItemVariation](/doc/models/catalog-item-variation.md)<br>and a non-stockable sell-by or receive-by `CatalogItemVariation` that<br>share the same underlying stock. | CatalogStockConversion getStockableConversion() |
 
 ## Example (as JSON)
 

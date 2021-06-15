@@ -17,10 +17,10 @@ OAuthApi oAuthApi = client.getOAuthApi();
 
 # Renew Token
 
-**This endpoint is deprecated. **
+**This endpoint is deprecated.**
 
 `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-[Renew OAuth Token](https://developer.squareup.com/docs/oauth-api/cookbook/renew-oauth-tokens).
+[Migrate from Renew to Refresh OAuth Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens).
 
 Renews an OAuth access token before it expires.
 
@@ -37,7 +37,7 @@ Authorization: Client APPLICATION_SECRET
 ```
 
 Replace `APPLICATION_SECRET` with the application secret on the Credentials
-page in the [application dashboard](https://connect.squareup.com/apps).
+page in the [developer dashboard](https://developer.squareup.com/apps).
 
 :information_source: **Note** This endpoint does not require authentication.
 
@@ -52,7 +52,7 @@ CompletableFuture<RenewTokenResponse> renewTokenAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `clientId` | `String` | Template, Required | Your application ID, available from the [application dashboard](https://connect.squareup.com/apps). |
+| `clientId` | `String` | Template, Required | Your application ID, available from the [developer dashboard](https://developer.squareup.com/apps). |
 | `body` | [`RenewTokenRequest`](/doc/models/renew-token-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 | `authorization` | `String` | Header, Required | Client APPLICATION_SECRET |
 
@@ -94,8 +94,8 @@ following format:
 Authorization: Client APPLICATION_SECRET
 ```
 
-Replace `APPLICATION_SECRET` with the application secret on the Credentials
-page in the [Developer Dashboard](https://developer.squareup.com/apps).
+Replace `APPLICATION_SECRET` with the application secret on the OAuth
+page in the [developer dashboard](https://developer.squareup.com/apps).
 
 :information_source: **Note** This endpoint does not require authentication.
 

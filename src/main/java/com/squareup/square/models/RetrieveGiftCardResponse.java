@@ -10,21 +10,26 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RemoveDisputeEvidenceResponse type.
+ * This is a model class for RetrieveGiftCardResponse type.
  */
-public class RemoveDisputeEvidenceResponse {
+public class RetrieveGiftCardResponse {
     private HttpContext httpContext;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final GiftCard giftCard;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
+     * @param  giftCard  GiftCard value for giftCard.
      */
     @JsonCreator
-    public RemoveDisputeEvidenceResponse(
-            @JsonProperty("errors") List<Error> errors) {
+    public RetrieveGiftCardResponse(
+            @JsonProperty("errors") List<Error> errors,
+            @JsonProperty("gift_card") GiftCard giftCard) {
         this.errors = errors;
+        this.giftCard = giftCard;
     }
 
     public HttpContext getContext() {
@@ -33,7 +38,7 @@ public class RemoveDisputeEvidenceResponse {
 
     /**
      * Getter for Errors.
-     * Information about errors encountered during the request.
+     * Any errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -41,9 +46,19 @@ public class RemoveDisputeEvidenceResponse {
         return errors;
     }
 
+    /**
+     * Getter for GiftCard.
+     * Represents a Square gift card.
+     * @return Returns the GiftCard
+     */
+    @JsonGetter("gift_card")
+    public GiftCard getGiftCard() {
+        return giftCard;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors);
+        return Objects.hash(errors, giftCard);
     }
 
     @Override
@@ -51,39 +66,42 @@ public class RemoveDisputeEvidenceResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RemoveDisputeEvidenceResponse)) {
+        if (!(obj instanceof RetrieveGiftCardResponse)) {
             return false;
         }
-        RemoveDisputeEvidenceResponse other = (RemoveDisputeEvidenceResponse) obj;
-        return Objects.equals(errors, other.errors);
+        RetrieveGiftCardResponse other = (RetrieveGiftCardResponse) obj;
+        return Objects.equals(errors, other.errors)
+            && Objects.equals(giftCard, other.giftCard);
     }
 
     /**
-     * Converts this RemoveDisputeEvidenceResponse into string format.
+     * Converts this RetrieveGiftCardResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RemoveDisputeEvidenceResponse [" + "errors=" + errors + "]";
+        return "RetrieveGiftCardResponse [" + "errors=" + errors + ", giftCard=" + giftCard + "]";
     }
 
     /**
-     * Builds a new {@link RemoveDisputeEvidenceResponse.Builder} object.
+     * Builds a new {@link RetrieveGiftCardResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RemoveDisputeEvidenceResponse.Builder} object
+     * @return a new {@link RetrieveGiftCardResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .errors(getErrors());
+                .errors(getErrors())
+                .giftCard(getGiftCard());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RemoveDisputeEvidenceResponse}.
+     * Class to build instances of {@link RetrieveGiftCardResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
+        private GiftCard giftCard;
 
 
 
@@ -108,12 +126,22 @@ public class RemoveDisputeEvidenceResponse {
         }
 
         /**
-         * Builds a new {@link RemoveDisputeEvidenceResponse} object using the set fields.
-         * @return {@link RemoveDisputeEvidenceResponse}
+         * Setter for giftCard.
+         * @param  giftCard  GiftCard value for giftCard.
+         * @return Builder
          */
-        public RemoveDisputeEvidenceResponse build() {
-            RemoveDisputeEvidenceResponse model =
-                    new RemoveDisputeEvidenceResponse(errors);
+        public Builder giftCard(GiftCard giftCard) {
+            this.giftCard = giftCard;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link RetrieveGiftCardResponse} object using the set fields.
+         * @return {@link RetrieveGiftCardResponse}
+         */
+        public RetrieveGiftCardResponse build() {
+            RetrieveGiftCardResponse model =
+                    new RetrieveGiftCardResponse(errors, giftCard);
             model.httpContext = httpContext;
             return model;
         }

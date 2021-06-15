@@ -28,7 +28,7 @@ public class SearchTeamMembersQuery {
      * Getter for Filter.
      * Represents a filter used in a search for `TeamMember` objects. `AND` logic is applied between
      * the individual fields, and `OR` logic is applied within list-based fields. For example,
-     * setting this filter value, ``` filter = (locations_ids = ["A", "B"], status = ACTIVE) ```
+     * setting this filter value: ``` filter = (locations_ids = ["A", "B"], status = ACTIVE) ```
      * returns only active team members assigned to either location "A" or "B".
      * @return Returns the SearchTeamMembersFilter
      */
