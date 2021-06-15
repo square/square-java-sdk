@@ -116,7 +116,7 @@ public class TeamMember {
 
     /**
      * Getter for GivenName.
-     * The given (i.e., first) name associated with the team member.
+     * The given name (that is, the first name) associated with the team member.
      * @return Returns the String
      */
     @JsonGetter("given_name")
@@ -126,7 +126,7 @@ public class TeamMember {
 
     /**
      * Getter for FamilyName.
-     * The family (i.e., last) name associated with the team member.
+     * The family name (that is, the last name) associated with the team member.
      * @return Returns the String
      */
     @JsonGetter("family_name")
@@ -146,8 +146,8 @@ public class TeamMember {
 
     /**
      * Getter for PhoneNumber.
-     * The team member's phone number in E.164 format. Examples: +14155552671 - the country code is
-     * 1 for US +551155256325 - the country code is 55 for BR
+     * The team member's phone number, in E.164 format. For example: +14155552671 - the country code
+     * is 1 for US +551155256325 - the country code is 55 for BR
      * @return Returns the String
      */
     @JsonGetter("phone_number")
@@ -157,8 +157,8 @@ public class TeamMember {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp in RFC 3339 format describing when the team member was created. Ex:
-     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp, in RFC 3339 format, describing when the team member was created. For example,
+     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -168,8 +168,8 @@ public class TeamMember {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp in RFC 3339 format describing when the team member was last updated. Ex:
-     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp, in RFC 3339 format, describing when the team member was last updated. For
+     * example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
      * @return Returns the String
      */
     @JsonGetter("updated_at")

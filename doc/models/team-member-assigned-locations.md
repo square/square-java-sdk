@@ -11,7 +11,7 @@ An object that represents a team member's assignment to locations.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `AssignmentType` | [`String`](/doc/models/team-member-assigned-locations-assignment-type.md) | Optional | Enumerates the possible assignment types the team member can have | String getAssignmentType() |
+| `AssignmentType` | [`String`](/doc/models/team-member-assigned-locations-assignment-type.md) | Optional | Enumerates the possible assignment types that the team member can have. | String getAssignmentType() |
 | `LocationIds` | `List<String>` | Optional | The locations that the team member is assigned to. | List<String> getLocationIds() |
 
 ## Example (as JSON)

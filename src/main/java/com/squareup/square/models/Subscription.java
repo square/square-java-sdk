@@ -25,6 +25,8 @@ public class Subscription {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledDate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String chargedThroughDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxPercentage;
@@ -39,8 +41,6 @@ public class Subscription {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String paidUntilDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
 
     /**
@@ -51,6 +51,7 @@ public class Subscription {
      * @param  customerId  String value for customerId.
      * @param  startDate  String value for startDate.
      * @param  canceledDate  String value for canceledDate.
+     * @param  chargedThroughDate  String value for chargedThroughDate.
      * @param  status  String value for status.
      * @param  taxPercentage  String value for taxPercentage.
      * @param  invoiceIds  List of String value for invoiceIds.
@@ -58,7 +59,6 @@ public class Subscription {
      * @param  version  Long value for version.
      * @param  createdAt  String value for createdAt.
      * @param  cardId  String value for cardId.
-     * @param  paidUntilDate  String value for paidUntilDate.
      * @param  timezone  String value for timezone.
      */
     @JsonCreator
@@ -69,6 +69,7 @@ public class Subscription {
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("start_date") String startDate,
             @JsonProperty("canceled_date") String canceledDate,
+            @JsonProperty("charged_through_date") String chargedThroughDate,
             @JsonProperty("status") String status,
             @JsonProperty("tax_percentage") String taxPercentage,
             @JsonProperty("invoice_ids") List<String> invoiceIds,
@@ -76,7 +77,6 @@ public class Subscription {
             @JsonProperty("version") Long version,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("card_id") String cardId,
-            @JsonProperty("paid_until_date") String paidUntilDate,
             @JsonProperty("timezone") String timezone) {
         this.id = id;
         this.locationId = locationId;
@@ -84,6 +84,7 @@ public class Subscription {
         this.customerId = customerId;
         this.startDate = startDate;
         this.canceledDate = canceledDate;
+        this.chargedThroughDate = chargedThroughDate;
         this.status = status;
         this.taxPercentage = taxPercentage;
         this.invoiceIds = invoiceIds;
@@ -91,7 +92,6 @@ public class Subscription {
         this.version = version;
         this.createdAt = createdAt;
         this.cardId = cardId;
-        this.paidUntilDate = paidUntilDate;
         this.timezone = timezone;
     }
 
@@ -156,6 +156,20 @@ public class Subscription {
     @JsonGetter("canceled_date")
     public String getCanceledDate() {
         return canceledDate;
+    }
+
+    /**
+     * Getter for ChargedThroughDate.
+     * The date up to which the customer is invoiced for the subscription, in YYYY-MM-DD format (for
+     * example, 2013-01-15). After the invoice is sent for a given billing period, this date will be
+     * the last day of the billing period. For example, suppose for the month of May a customer gets
+     * an invoice (or charged the card) on May 1. For the monthly billing scenario, this date is
+     * then set to May 31.
+     * @return Returns the String
+     */
+    @JsonGetter("charged_through_date")
+    public String getChargedThroughDate() {
+        return chargedThroughDate;
     }
 
     /**
@@ -238,20 +252,6 @@ public class Subscription {
     }
 
     /**
-     * Getter for PaidUntilDate.
-     * The date up to which the customer is invoiced for the subscription, in YYYY-MM-DD format (for
-     * example, 2013-01-15). After the invoice is paid for a given billing period, this date will be
-     * the last day of the billing period. For example, suppose for the month of May a customer gets
-     * an invoice (or charged the card) on May 1. For the monthly billing scenario, this date is
-     * then set to May 31.
-     * @return Returns the String
-     */
-    @JsonGetter("paid_until_date")
-    public String getPaidUntilDate() {
-        return paidUntilDate;
-    }
-
-    /**
      * Getter for Timezone.
      * Timezone that will be used in date calculations for the subscription. Defaults to the
      * timezone of the location based on `location_id`. Format: the IANA Timezone Database
@@ -265,9 +265,9 @@ public class Subscription {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate, status,
-                taxPercentage, invoiceIds, priceOverrideMoney, version, createdAt, cardId,
-                paidUntilDate, timezone);
+        return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate,
+                chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney, version,
+                createdAt, cardId, timezone);
     }
 
     @Override
@@ -285,6 +285,7 @@ public class Subscription {
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(startDate, other.startDate)
             && Objects.equals(canceledDate, other.canceledDate)
+            && Objects.equals(chargedThroughDate, other.chargedThroughDate)
             && Objects.equals(status, other.status)
             && Objects.equals(taxPercentage, other.taxPercentage)
             && Objects.equals(invoiceIds, other.invoiceIds)
@@ -292,7 +293,6 @@ public class Subscription {
             && Objects.equals(version, other.version)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(cardId, other.cardId)
-            && Objects.equals(paidUntilDate, other.paidUntilDate)
             && Objects.equals(timezone, other.timezone);
     }
 
@@ -304,10 +304,11 @@ public class Subscription {
     public String toString() {
         return "Subscription [" + "id=" + id + ", locationId=" + locationId + ", planId=" + planId
                 + ", customerId=" + customerId + ", startDate=" + startDate + ", canceledDate="
-                + canceledDate + ", status=" + status + ", taxPercentage=" + taxPercentage
-                + ", invoiceIds=" + invoiceIds + ", priceOverrideMoney=" + priceOverrideMoney
-                + ", version=" + version + ", createdAt=" + createdAt + ", cardId=" + cardId
-                + ", paidUntilDate=" + paidUntilDate + ", timezone=" + timezone + "]";
+                + canceledDate + ", chargedThroughDate=" + chargedThroughDate + ", status=" + status
+                + ", taxPercentage=" + taxPercentage + ", invoiceIds=" + invoiceIds
+                + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
+                + ", createdAt=" + createdAt + ", cardId=" + cardId + ", timezone=" + timezone
+                + "]";
     }
 
     /**
@@ -323,6 +324,7 @@ public class Subscription {
                 .customerId(getCustomerId())
                 .startDate(getStartDate())
                 .canceledDate(getCanceledDate())
+                .chargedThroughDate(getChargedThroughDate())
                 .status(getStatus())
                 .taxPercentage(getTaxPercentage())
                 .invoiceIds(getInvoiceIds())
@@ -330,7 +332,6 @@ public class Subscription {
                 .version(getVersion())
                 .createdAt(getCreatedAt())
                 .cardId(getCardId())
-                .paidUntilDate(getPaidUntilDate())
                 .timezone(getTimezone());
         return builder;
     }
@@ -345,6 +346,7 @@ public class Subscription {
         private String customerId;
         private String startDate;
         private String canceledDate;
+        private String chargedThroughDate;
         private String status;
         private String taxPercentage;
         private List<String> invoiceIds;
@@ -352,7 +354,6 @@ public class Subscription {
         private Long version;
         private String createdAt;
         private String cardId;
-        private String paidUntilDate;
         private String timezone;
 
 
@@ -414,6 +415,16 @@ public class Subscription {
          */
         public Builder canceledDate(String canceledDate) {
             this.canceledDate = canceledDate;
+            return this;
+        }
+
+        /**
+         * Setter for chargedThroughDate.
+         * @param  chargedThroughDate  String value for chargedThroughDate.
+         * @return Builder
+         */
+        public Builder chargedThroughDate(String chargedThroughDate) {
+            this.chargedThroughDate = chargedThroughDate;
             return this;
         }
 
@@ -488,16 +499,6 @@ public class Subscription {
         }
 
         /**
-         * Setter for paidUntilDate.
-         * @param  paidUntilDate  String value for paidUntilDate.
-         * @return Builder
-         */
-        public Builder paidUntilDate(String paidUntilDate) {
-            this.paidUntilDate = paidUntilDate;
-            return this;
-        }
-
-        /**
          * Setter for timezone.
          * @param  timezone  String value for timezone.
          * @return Builder
@@ -513,8 +514,8 @@ public class Subscription {
          */
         public Subscription build() {
             return new Subscription(id, locationId, planId, customerId, startDate, canceledDate,
-                    status, taxPercentage, invoiceIds, priceOverrideMoney, version, createdAt,
-                    cardId, paidUntilDate, timezone);
+                    chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney,
+                    version, createdAt, cardId, timezone);
         }
     }
 }

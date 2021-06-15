@@ -100,6 +100,7 @@ public class LoyaltyProgram {
 
     /**
      * Getter for Terminology.
+     * Represents the naming used for loyalty points.
      * @return Returns the LoyaltyProgramTerminology
      */
     @JsonGetter("terminology")

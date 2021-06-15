@@ -18,18 +18,23 @@ public class BatchChangeInventoryResponse {
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InventoryCount> counts;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<InventoryChange> changes;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  counts  List of InventoryCount value for counts.
+     * @param  changes  List of InventoryChange value for changes.
      */
     @JsonCreator
     public BatchChangeInventoryResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("counts") List<InventoryCount> counts) {
+            @JsonProperty("counts") List<InventoryCount> counts,
+            @JsonProperty("changes") List<InventoryChange> changes) {
         this.errors = errors;
         this.counts = counts;
+        this.changes = changes;
     }
 
     public HttpContext getContext() {
@@ -56,9 +61,19 @@ public class BatchChangeInventoryResponse {
         return counts;
     }
 
+    /**
+     * Getter for Changes.
+     * Changes created for the request.
+     * @return Returns the List of InventoryChange
+     */
+    @JsonGetter("changes")
+    public List<InventoryChange> getChanges() {
+        return changes;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, counts);
+        return Objects.hash(errors, counts, changes);
     }
 
     @Override
@@ -71,7 +86,8 @@ public class BatchChangeInventoryResponse {
         }
         BatchChangeInventoryResponse other = (BatchChangeInventoryResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(counts, other.counts);
+            && Objects.equals(counts, other.counts)
+            && Objects.equals(changes, other.changes);
     }
 
     /**
@@ -80,7 +96,8 @@ public class BatchChangeInventoryResponse {
      */
     @Override
     public String toString() {
-        return "BatchChangeInventoryResponse [" + "errors=" + errors + ", counts=" + counts + "]";
+        return "BatchChangeInventoryResponse [" + "errors=" + errors + ", counts=" + counts
+                + ", changes=" + changes + "]";
     }
 
     /**
@@ -91,7 +108,8 @@ public class BatchChangeInventoryResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .counts(getCounts());
+                .counts(getCounts())
+                .changes(getChanges());
         return builder;
     }
 
@@ -102,6 +120,7 @@ public class BatchChangeInventoryResponse {
         private HttpContext httpContext;
         private List<Error> errors;
         private List<InventoryCount> counts;
+        private List<InventoryChange> changes;
 
 
 
@@ -136,12 +155,22 @@ public class BatchChangeInventoryResponse {
         }
 
         /**
+         * Setter for changes.
+         * @param  changes  List of InventoryChange value for changes.
+         * @return Builder
+         */
+        public Builder changes(List<InventoryChange> changes) {
+            this.changes = changes;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchChangeInventoryResponse} object using the set fields.
          * @return {@link BatchChangeInventoryResponse}
          */
         public BatchChangeInventoryResponse build() {
             BatchChangeInventoryResponse model =
-                    new BatchChangeInventoryResponse(errors, counts);
+                    new BatchChangeInventoryResponse(errors, counts, changes);
             model.httpContext = httpContext;
             return model;
         }

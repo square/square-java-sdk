@@ -57,7 +57,6 @@ public class OptionalNullable<T> {
      * Serialize an {@link OptionalNullable} as its encapsulated object.
      */
     public static class Serializer extends JsonSerializer<OptionalNullable<Object>> {
-        @SuppressWarnings("unused")
         @Override
         public void serialize(OptionalNullable<Object> object, JsonGenerator jgen,
                 SerializerProvider provider) throws IOException {

@@ -4,6 +4,7 @@ package com.squareup.square;
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
 import com.squareup.square.api.BookingsApi;
+import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
@@ -13,6 +14,7 @@ import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.DefaultApplePayApi;
 import com.squareup.square.api.DefaultBankAccountsApi;
 import com.squareup.square.api.DefaultBookingsApi;
+import com.squareup.square.api.DefaultCardsApi;
 import com.squareup.square.api.DefaultCashDrawersApi;
 import com.squareup.square.api.DefaultCatalogApi;
 import com.squareup.square.api.DefaultCheckoutApi;
@@ -22,6 +24,8 @@ import com.squareup.square.api.DefaultCustomersApi;
 import com.squareup.square.api.DefaultDevicesApi;
 import com.squareup.square.api.DefaultDisputesApi;
 import com.squareup.square.api.DefaultEmployeesApi;
+import com.squareup.square.api.DefaultGiftCardActivitiesApi;
+import com.squareup.square.api.DefaultGiftCardsApi;
 import com.squareup.square.api.DefaultInventoryApi;
 import com.squareup.square.api.DefaultInvoicesApi;
 import com.squareup.square.api.DefaultLaborApi;
@@ -44,6 +48,8 @@ import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
+import com.squareup.square.api.GiftCardActivitiesApi;
+import com.squareup.square.api.GiftCardsApi;
 import com.squareup.square.api.InventoryApi;
 import com.squareup.square.api.InvoicesApi;
 import com.squareup.square.api.LaborApi;
@@ -91,6 +97,7 @@ public final class SquareClient implements SquareClientInterface {
     private ApplePayApi applePay;
     private BankAccountsApi bankAccounts;
     private BookingsApi bookings;
+    private CardsApi cards;
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
     private CustomersApi customers;
@@ -99,6 +106,8 @@ public final class SquareClient implements SquareClientInterface {
     private DevicesApi devices;
     private DisputesApi disputes;
     private EmployeesApi employees;
+    private GiftCardsApi giftCards;
+    private GiftCardActivitiesApi giftCardActivities;
     private InventoryApi inventory;
     private InvoicesApi invoices;
     private LaborApi labor;
@@ -197,6 +206,7 @@ public final class SquareClient implements SquareClientInterface {
                 this.httpCallback);
         bookings = new DefaultBookingsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
+        cards = new DefaultCardsApi(this, this.httpClient, this.authManagers, this.httpCallback);
         cashDrawers = new DefaultCashDrawersApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         catalog = new DefaultCatalogApi(this, this.httpClient, this.authManagers,
@@ -213,6 +223,10 @@ public final class SquareClient implements SquareClientInterface {
                 this.httpCallback);
         employees = new DefaultEmployeesApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
+        giftCards = new DefaultGiftCardsApi(this, this.httpClient, this.authManagers,
+                this.httpCallback);
+        giftCardActivities = new DefaultGiftCardActivitiesApi(this, this.httpClient,
+                this.authManagers, this.httpCallback);
         inventory = new DefaultInventoryApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         invoices = new DefaultInvoicesApi(this, this.httpClient, this.authManagers,
@@ -307,6 +321,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of CardsApi.
+     * @return cards
+     */
+    public CardsApi getCardsApi() {
+        return cards;
+    }
+
+    /**
      * Get the instance of CashDrawersApi.
      * @return cashDrawers
      */
@@ -368,6 +390,22 @@ public final class SquareClient implements SquareClientInterface {
      */
     public EmployeesApi getEmployeesApi() {
         return employees;
+    }
+
+    /**
+     * Get the instance of GiftCardsApi.
+     * @return giftCards
+     */
+    public GiftCardsApi getGiftCardsApi() {
+        return giftCards;
+    }
+
+    /**
+     * Get the instance of GiftCardActivitiesApi.
+     * @return giftCardActivities
+     */
+    public GiftCardActivitiesApi getGiftCardActivitiesApi() {
+        return giftCardActivities;
     }
 
     /**
@@ -567,7 +605,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "11.0.0.20210513";
+        return "12.0.0.20210616";
     }
 
     /**
@@ -668,7 +706,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-05-13";
+        private String squareVersion = "2021-06-16";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String accessToken = "TODO: Replace";
@@ -740,7 +778,7 @@ public final class SquareClient implements SquareClientInterface {
         /**
          * The timeout to use for making HTTP requests.
          * @deprecated This method will be removed in a future version. Use
-         *             httpClientConfig() instead.
+         *             {@link #httpClientConfig()} instead.
          * @param timeout must be greater then 0.
          * @return Builder
          */

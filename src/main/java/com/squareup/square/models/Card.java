@@ -28,11 +28,19 @@ public class Card {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String customerId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String referenceId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean enabled;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prepaidType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bin;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long version;
 
     /**
      * Initialization constructor.
@@ -44,9 +52,13 @@ public class Card {
      * @param  cardholderName  String value for cardholderName.
      * @param  billingAddress  Address value for billingAddress.
      * @param  fingerprint  String value for fingerprint.
+     * @param  customerId  String value for customerId.
+     * @param  referenceId  String value for referenceId.
+     * @param  enabled  Boolean value for enabled.
      * @param  cardType  String value for cardType.
      * @param  prepaidType  String value for prepaidType.
      * @param  bin  String value for bin.
+     * @param  version  Long value for version.
      */
     @JsonCreator
     public Card(
@@ -58,9 +70,13 @@ public class Card {
             @JsonProperty("cardholder_name") String cardholderName,
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("fingerprint") String fingerprint,
+            @JsonProperty("customer_id") String customerId,
+            @JsonProperty("reference_id") String referenceId,
+            @JsonProperty("enabled") Boolean enabled,
             @JsonProperty("card_type") String cardType,
             @JsonProperty("prepaid_type") String prepaidType,
-            @JsonProperty("bin") String bin) {
+            @JsonProperty("bin") String bin,
+            @JsonProperty("version") Long version) {
         this.id = id;
         this.cardBrand = cardBrand;
         this.last4 = last4;
@@ -69,9 +85,13 @@ public class Card {
         this.cardholderName = cardholderName;
         this.billingAddress = billingAddress;
         this.fingerprint = fingerprint;
+        this.customerId = customerId;
+        this.referenceId = referenceId;
+        this.enabled = enabled;
         this.cardType = cardType;
         this.prepaidType = prepaidType;
         this.bin = bin;
+        this.version = version;
     }
 
     /**
@@ -156,6 +176,37 @@ public class Card {
     }
 
     /**
+     * Getter for CustomerId.
+     * The ID of a customer created using the Customers API to be associated with the card.
+     * @return Returns the String
+     */
+    @JsonGetter("customer_id")
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Getter for ReferenceId.
+     * An optional user-defined reference ID that associates this card with another entity in an
+     * external system. For example, a customer ID from an external customer management system.
+     * @return Returns the String
+     */
+    @JsonGetter("reference_id")
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    /**
+     * Getter for Enabled.
+     * Indicates whether or not a card can be used for payments.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("enabled")
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    /**
      * Getter for CardType.
      * Indicates a card's type, such as `CREDIT` or `DEBIT`.
      * @return Returns the String
@@ -186,10 +237,23 @@ public class Card {
         return bin;
     }
 
+    /**
+     * Getter for Version.
+     * Current version number of the card. Increments with each card update. Requests to update an
+     * existing Card object will be rejected unless the version in the request matches the current
+     * version for the Card.
+     * @return Returns the Long
+     */
+    @JsonGetter("version")
+    public Long getVersion() {
+        return version;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
-                fingerprint, cardType, prepaidType, bin);
+                fingerprint, customerId, referenceId, enabled, cardType, prepaidType, bin,
+                version);
     }
 
     @Override
@@ -209,9 +273,13 @@ public class Card {
             && Objects.equals(cardholderName, other.cardholderName)
             && Objects.equals(billingAddress, other.billingAddress)
             && Objects.equals(fingerprint, other.fingerprint)
+            && Objects.equals(customerId, other.customerId)
+            && Objects.equals(referenceId, other.referenceId)
+            && Objects.equals(enabled, other.enabled)
             && Objects.equals(cardType, other.cardType)
             && Objects.equals(prepaidType, other.prepaidType)
-            && Objects.equals(bin, other.bin);
+            && Objects.equals(bin, other.bin)
+            && Objects.equals(version, other.version);
     }
 
     /**
@@ -223,8 +291,9 @@ public class Card {
         return "Card [" + "id=" + id + ", cardBrand=" + cardBrand + ", last4=" + last4
                 + ", expMonth=" + expMonth + ", expYear=" + expYear + ", cardholderName="
                 + cardholderName + ", billingAddress=" + billingAddress + ", fingerprint="
-                + fingerprint + ", cardType=" + cardType + ", prepaidType=" + prepaidType + ", bin="
-                + bin + "]";
+                + fingerprint + ", customerId=" + customerId + ", referenceId=" + referenceId
+                + ", enabled=" + enabled + ", cardType=" + cardType + ", prepaidType=" + prepaidType
+                + ", bin=" + bin + ", version=" + version + "]";
     }
 
     /**
@@ -242,9 +311,13 @@ public class Card {
                 .cardholderName(getCardholderName())
                 .billingAddress(getBillingAddress())
                 .fingerprint(getFingerprint())
+                .customerId(getCustomerId())
+                .referenceId(getReferenceId())
+                .enabled(getEnabled())
                 .cardType(getCardType())
                 .prepaidType(getPrepaidType())
-                .bin(getBin());
+                .bin(getBin())
+                .version(getVersion());
         return builder;
     }
 
@@ -260,9 +333,13 @@ public class Card {
         private String cardholderName;
         private Address billingAddress;
         private String fingerprint;
+        private String customerId;
+        private String referenceId;
+        private Boolean enabled;
         private String cardType;
         private String prepaidType;
         private String bin;
+        private Long version;
 
 
 
@@ -347,6 +424,36 @@ public class Card {
         }
 
         /**
+         * Setter for customerId.
+         * @param  customerId  String value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        /**
+         * Setter for referenceId.
+         * @param  referenceId  String value for referenceId.
+         * @return Builder
+         */
+        public Builder referenceId(String referenceId) {
+            this.referenceId = referenceId;
+            return this;
+        }
+
+        /**
+         * Setter for enabled.
+         * @param  enabled  Boolean value for enabled.
+         * @return Builder
+         */
+        public Builder enabled(Boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        /**
          * Setter for cardType.
          * @param  cardType  String value for cardType.
          * @return Builder
@@ -377,12 +484,23 @@ public class Card {
         }
 
         /**
+         * Setter for version.
+         * @param  version  Long value for version.
+         * @return Builder
+         */
+        public Builder version(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Card} object using the set fields.
          * @return {@link Card}
          */
         public Card build() {
             return new Card(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
-                    fingerprint, cardType, prepaidType, bin);
+                    fingerprint, customerId, referenceId, enabled, cardType, prepaidType, bin,
+                    version);
         }
     }
 }

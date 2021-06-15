@@ -7,9 +7,9 @@ import com.squareup.square.models.CreateDisputeEvidenceFileRequest;
 import com.squareup.square.models.CreateDisputeEvidenceFileResponse;
 import com.squareup.square.models.CreateDisputeEvidenceTextRequest;
 import com.squareup.square.models.CreateDisputeEvidenceTextResponse;
+import com.squareup.square.models.DeleteDisputeEvidenceResponse;
 import com.squareup.square.models.ListDisputeEvidenceResponse;
 import com.squareup.square.models.ListDisputesResponse;
-import com.squareup.square.models.RemoveDisputeEvidenceResponse;
 import com.squareup.square.models.RetrieveDisputeEvidenceResponse;
 import com.squareup.square.models.RetrieveDisputeResponse;
 import com.squareup.square.models.SubmitEvidenceResponse;
@@ -107,76 +107,30 @@ public interface DisputesApi {
     /**
      * Returns a list of evidence associated with a dispute.
      * @param  disputeId  Required parameter: The ID of the dispute.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return    Returns the ListDisputeEvidenceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     ListDisputeEvidenceResponse listDisputeEvidence(
-            final String disputeId) throws ApiException, IOException;
+            final String disputeId,
+            final String cursor) throws ApiException, IOException;
 
     /**
      * Returns a list of evidence associated with a dispute.
      * @param  disputeId  Required parameter: The ID of the dispute.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return    Returns the ListDisputeEvidenceResponse response from the API call
      */
     CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
-            final String disputeId);
-
-    /**
-     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
-     * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
-     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
-     *         from.
-     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
-     * @return    Returns the RemoveDisputeEvidenceResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    RemoveDisputeEvidenceResponse removeDisputeEvidence(
             final String disputeId,
-            final String evidenceId) throws ApiException, IOException;
-
-    /**
-     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
-     * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
-     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
-     *         from.
-     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
-     * @return    Returns the RemoveDisputeEvidenceResponse response from the API call
-     */
-    CompletableFuture<RemoveDisputeEvidenceResponse> removeDisputeEvidenceAsync(
-            final String disputeId,
-            final String evidenceId);
-
-    /**
-     * Returns the specific evidence metadata associated with a specific dispute. You must maintain
-     * a copy of the evidence you upload if you want to reference it later. You cannot download the
-     * evidence after you upload it.
-     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
-     *         evidence from.
-     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
-     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    RetrieveDisputeEvidenceResponse retrieveDisputeEvidence(
-            final String disputeId,
-            final String evidenceId) throws ApiException, IOException;
-
-    /**
-     * Returns the specific evidence metadata associated with a specific dispute. You must maintain
-     * a copy of the evidence you upload if you want to reference it later. You cannot download the
-     * evidence after you upload it.
-     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
-     *         evidence from.
-     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
-     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
-     */
-    CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
-            final String disputeId,
-            final String evidenceId);
+            final String cursor);
 
     /**
      * Uploads a file to use as evidence in a dispute challenge. The endpoint accepts HTTP
@@ -231,6 +185,62 @@ public interface DisputesApi {
     CompletableFuture<CreateDisputeEvidenceTextResponse> createDisputeEvidenceTextAsync(
             final String disputeId,
             final CreateDisputeEvidenceTextRequest body);
+
+    /**
+     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
+     * removed. Also, you cannot remove evidence after submitting it to the bank using
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
+     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
+     *         from.
+     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
+     * @return    Returns the DeleteDisputeEvidenceResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    DeleteDisputeEvidenceResponse deleteDisputeEvidence(
+            final String disputeId,
+            final String evidenceId) throws ApiException, IOException;
+
+    /**
+     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
+     * removed. Also, you cannot remove evidence after submitting it to the bank using
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
+     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
+     *         from.
+     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
+     * @return    Returns the DeleteDisputeEvidenceResponse response from the API call
+     */
+    CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
+            final String disputeId,
+            final String evidenceId);
+
+    /**
+     * Returns the evidence metadata specified by the evidence ID in the request URL path You must
+     * maintain a copy of the evidence you upload if you want to reference it later. You cannot
+     * download the evidence after you upload it.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
+     *         evidence from.
+     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
+     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveDisputeEvidenceResponse retrieveDisputeEvidence(
+            final String disputeId,
+            final String evidenceId) throws ApiException, IOException;
+
+    /**
+     * Returns the evidence metadata specified by the evidence ID in the request URL path You must
+     * maintain a copy of the evidence you upload if you want to reference it later. You cannot
+     * download the evidence after you upload it.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
+     *         evidence from.
+     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
+     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
+     */
+    CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
+            final String disputeId,
+            final String evidenceId);
 
     /**
      * Submits evidence to the cardholder's bank. Before submitting evidence, Square compiles all

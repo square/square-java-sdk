@@ -25,8 +25,8 @@ public class BulkUpdateTeamMembersRequest {
 
     /**
      * Getter for TeamMembers.
-     * The data which will be used to update the `TeamMember` objects. Each key is the
-     * `team_member_id` that maps to the `UpdateTeamMemberRequest`.
+     * The data used to update the `TeamMember` objects. Each key is the `team_member_id` that maps
+     * to the `UpdateTeamMemberRequest`.
      * @return Returns the Map of String, UpdateTeamMemberRequest
      */
     @JsonGetter("team_members")

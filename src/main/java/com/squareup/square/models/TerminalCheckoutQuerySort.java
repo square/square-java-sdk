@@ -26,8 +26,7 @@ public class TerminalCheckoutQuerySort {
 
     /**
      * Getter for SortOrder.
-     * The order in which results are listed. - `ASC` - Oldest to newest. - `DESC` - Newest to
-     * oldest (default).
+     * The order (e.g., chronological or alphabetical) in which results from a request are returned.
      * @return Returns the String
      */
     @JsonGetter("sort_order")

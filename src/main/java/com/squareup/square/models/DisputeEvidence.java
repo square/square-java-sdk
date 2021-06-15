@@ -14,6 +14,8 @@ public class DisputeEvidence {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputeEvidenceFile evidenceFile;
@@ -27,6 +29,7 @@ public class DisputeEvidence {
     /**
      * Initialization constructor.
      * @param  evidenceId  String value for evidenceId.
+     * @param  id  String value for id.
      * @param  disputeId  String value for disputeId.
      * @param  evidenceFile  DisputeEvidenceFile value for evidenceFile.
      * @param  evidenceText  String value for evidenceText.
@@ -36,12 +39,14 @@ public class DisputeEvidence {
     @JsonCreator
     public DisputeEvidence(
             @JsonProperty("evidence_id") String evidenceId,
+            @JsonProperty("id") String id,
             @JsonProperty("dispute_id") String disputeId,
             @JsonProperty("evidence_file") DisputeEvidenceFile evidenceFile,
             @JsonProperty("evidence_text") String evidenceText,
             @JsonProperty("uploaded_at") String uploadedAt,
             @JsonProperty("evidence_type") String evidenceType) {
         this.evidenceId = evidenceId;
+        this.id = id;
         this.disputeId = disputeId;
         this.evidenceFile = evidenceFile;
         this.evidenceText = evidenceText;
@@ -57,6 +62,16 @@ public class DisputeEvidence {
     @JsonGetter("evidence_id")
     public String getEvidenceId() {
         return evidenceId;
+    }
+
+    /**
+     * Getter for Id.
+     * The Square-generated ID of the evidence.
+     * @return Returns the String
+     */
+    @JsonGetter("id")
+    public String getId() {
+        return id;
     }
 
     /**
@@ -111,7 +126,7 @@ public class DisputeEvidence {
 
     @Override
     public int hashCode() {
-        return Objects.hash(evidenceId, disputeId, evidenceFile, evidenceText, uploadedAt,
+        return Objects.hash(evidenceId, id, disputeId, evidenceFile, evidenceText, uploadedAt,
                 evidenceType);
     }
 
@@ -125,6 +140,7 @@ public class DisputeEvidence {
         }
         DisputeEvidence other = (DisputeEvidence) obj;
         return Objects.equals(evidenceId, other.evidenceId)
+            && Objects.equals(id, other.id)
             && Objects.equals(disputeId, other.disputeId)
             && Objects.equals(evidenceFile, other.evidenceFile)
             && Objects.equals(evidenceText, other.evidenceText)
@@ -138,8 +154,8 @@ public class DisputeEvidence {
      */
     @Override
     public String toString() {
-        return "DisputeEvidence [" + "evidenceId=" + evidenceId + ", disputeId=" + disputeId
-                + ", evidenceFile=" + evidenceFile + ", evidenceText=" + evidenceText
+        return "DisputeEvidence [" + "evidenceId=" + evidenceId + ", id=" + id + ", disputeId="
+                + disputeId + ", evidenceFile=" + evidenceFile + ", evidenceText=" + evidenceText
                 + ", uploadedAt=" + uploadedAt + ", evidenceType=" + evidenceType + "]";
     }
 
@@ -151,6 +167,7 @@ public class DisputeEvidence {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .evidenceId(getEvidenceId())
+                .id(getId())
                 .disputeId(getDisputeId())
                 .evidenceFile(getEvidenceFile())
                 .evidenceText(getEvidenceText())
@@ -164,6 +181,7 @@ public class DisputeEvidence {
      */
     public static class Builder {
         private String evidenceId;
+        private String id;
         private String disputeId;
         private DisputeEvidenceFile evidenceFile;
         private String evidenceText;
@@ -179,6 +197,16 @@ public class DisputeEvidence {
          */
         public Builder evidenceId(String evidenceId) {
             this.evidenceId = evidenceId;
+            return this;
+        }
+
+        /**
+         * Setter for id.
+         * @param  id  String value for id.
+         * @return Builder
+         */
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
 
@@ -237,7 +265,7 @@ public class DisputeEvidence {
          * @return {@link DisputeEvidence}
          */
         public DisputeEvidence build() {
-            return new DisputeEvidence(evidenceId, disputeId, evidenceFile, evidenceText,
+            return new DisputeEvidence(evidenceId, id, disputeId, evidenceFile, evidenceText,
                     uploadedAt, evidenceType);
         }
     }

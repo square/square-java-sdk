@@ -11,6 +11,7 @@
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 | `Counts` | [`List<InventoryCount>`](/doc/models/inventory-count.md) | Optional | The current counts for all objects referenced in the request. | List<InventoryCount> getCounts() |
+| `Changes` | [`List<InventoryChange>`](/doc/models/inventory-change.md) | Optional | Changes created for the request. | List<InventoryChange> getChanges() |
 
 ## Example (as JSON)
 

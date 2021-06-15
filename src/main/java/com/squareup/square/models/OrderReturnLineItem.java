@@ -28,6 +28,8 @@ public class OrderReturnLineItem {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String itemType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnLineItemModifier> returnModifiers;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedTax> appliedTaxes;
@@ -56,6 +58,7 @@ public class OrderReturnLineItem {
      * @param  note  String value for note.
      * @param  catalogObjectId  String value for catalogObjectId.
      * @param  variationName  String value for variationName.
+     * @param  itemType  String value for itemType.
      * @param  returnModifiers  List of OrderReturnLineItemModifier value for returnModifiers.
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
      * @param  appliedDiscounts  List of OrderLineItemAppliedDiscount value for appliedDiscounts.
@@ -76,6 +79,7 @@ public class OrderReturnLineItem {
             @JsonProperty("note") String note,
             @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("variation_name") String variationName,
+            @JsonProperty("item_type") String itemType,
             @JsonProperty("return_modifiers") List<OrderReturnLineItemModifier> returnModifiers,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("applied_discounts") List<OrderLineItemAppliedDiscount> appliedDiscounts,
@@ -93,6 +97,7 @@ public class OrderReturnLineItem {
         this.note = note;
         this.catalogObjectId = catalogObjectId;
         this.variationName = variationName;
+        this.itemType = itemType;
         this.returnModifiers = returnModifiers;
         this.appliedTaxes = appliedTaxes;
         this.appliedDiscounts = appliedDiscounts;
@@ -184,6 +189,16 @@ public class OrderReturnLineItem {
     @JsonGetter("variation_name")
     public String getVariationName() {
         return variationName;
+    }
+
+    /**
+     * Getter for ItemType.
+     * Represents the line item type.
+     * @return Returns the String
+     */
+    @JsonGetter("item_type")
+    public String getItemType() {
+        return itemType;
     }
 
     /**
@@ -314,9 +329,9 @@ public class OrderReturnLineItem {
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceLineItemUid, name, quantity, quantityUnit, note,
-                catalogObjectId, variationName, returnModifiers, appliedTaxes, appliedDiscounts,
-                basePriceMoney, variationTotalPriceMoney, grossReturnMoney, totalTaxMoney,
-                totalDiscountMoney, totalMoney);
+                catalogObjectId, variationName, itemType, returnModifiers, appliedTaxes,
+                appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossReturnMoney,
+                totalTaxMoney, totalDiscountMoney, totalMoney);
     }
 
     @Override
@@ -336,6 +351,7 @@ public class OrderReturnLineItem {
             && Objects.equals(note, other.note)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
             && Objects.equals(variationName, other.variationName)
+            && Objects.equals(itemType, other.itemType)
             && Objects.equals(returnModifiers, other.returnModifiers)
             && Objects.equals(appliedTaxes, other.appliedTaxes)
             && Objects.equals(appliedDiscounts, other.appliedDiscounts)
@@ -356,12 +372,12 @@ public class OrderReturnLineItem {
         return "OrderReturnLineItem [" + "quantity=" + quantity + ", uid=" + uid
                 + ", sourceLineItemUid=" + sourceLineItemUid + ", name=" + name + ", quantityUnit="
                 + quantityUnit + ", note=" + note + ", catalogObjectId=" + catalogObjectId
-                + ", variationName=" + variationName + ", returnModifiers=" + returnModifiers
-                + ", appliedTaxes=" + appliedTaxes + ", appliedDiscounts=" + appliedDiscounts
-                + ", basePriceMoney=" + basePriceMoney + ", variationTotalPriceMoney="
-                + variationTotalPriceMoney + ", grossReturnMoney=" + grossReturnMoney
-                + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney
-                + ", totalMoney=" + totalMoney + "]";
+                + ", variationName=" + variationName + ", itemType=" + itemType
+                + ", returnModifiers=" + returnModifiers + ", appliedTaxes=" + appliedTaxes
+                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
+                + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossReturnMoney="
+                + grossReturnMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
+                + totalDiscountMoney + ", totalMoney=" + totalMoney + "]";
     }
 
     /**
@@ -378,6 +394,7 @@ public class OrderReturnLineItem {
                 .note(getNote())
                 .catalogObjectId(getCatalogObjectId())
                 .variationName(getVariationName())
+                .itemType(getItemType())
                 .returnModifiers(getReturnModifiers())
                 .appliedTaxes(getAppliedTaxes())
                 .appliedDiscounts(getAppliedDiscounts())
@@ -402,6 +419,7 @@ public class OrderReturnLineItem {
         private String note;
         private String catalogObjectId;
         private String variationName;
+        private String itemType;
         private List<OrderReturnLineItemModifier> returnModifiers;
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private List<OrderLineItemAppliedDiscount> appliedDiscounts;
@@ -497,6 +515,16 @@ public class OrderReturnLineItem {
          */
         public Builder variationName(String variationName) {
             this.variationName = variationName;
+            return this;
+        }
+
+        /**
+         * Setter for itemType.
+         * @param  itemType  String value for itemType.
+         * @return Builder
+         */
+        public Builder itemType(String itemType) {
+            this.itemType = itemType;
             return this;
         }
 
@@ -597,7 +625,7 @@ public class OrderReturnLineItem {
          */
         public OrderReturnLineItem build() {
             return new OrderReturnLineItem(quantity, uid, sourceLineItemUid, name, quantityUnit,
-                    note, catalogObjectId, variationName, returnModifiers, appliedTaxes,
+                    note, catalogObjectId, variationName, itemType, returnModifiers, appliedTaxes,
                     appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossReturnMoney,
                     totalTaxMoney, totalDiscountMoney, totalMoney);
         }

@@ -67,9 +67,9 @@ public interface CustomersApi {
             final String sortOrder);
 
     /**
-     * Creates a new customer for a business, which can have associated cards on file. You must
-     * provide at least one of the following values in your request to this endpoint: - `given_name`
-     * - `family_name` - `company_name` - `email_address` - `phone_number`.
+     * Creates a new customer for a business. You must provide at least one of the following values
+     * in your request to this endpoint: - `given_name` - `family_name` - `company_name` -
+     * `email_address` - `phone_number`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerResponse response from the API call
@@ -80,9 +80,9 @@ public interface CustomersApi {
             final CreateCustomerRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a new customer for a business, which can have associated cards on file. You must
-     * provide at least one of the following values in your request to this endpoint: - `given_name`
-     * - `family_name` - `company_name` - `email_address` - `phone_number`.
+     * Creates a new customer for a business. You must provide at least one of the following values
+     * in your request to this endpoint: - `given_name` - `family_name` - `company_name` -
+     * `email_address` - `phone_number`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerResponse response from the API call
@@ -123,8 +123,9 @@ public interface CustomersApi {
             final SearchCustomersRequest body);
 
     /**
-     * Deletes a customer profile from a business, including any linked cards on file. As a best
-     * practice, you should include the `version` field in the request to enable [optimistic
+     * Deletes a customer profile from a business. This operation also unlinks any associated cards
+     * on file. As a best practice, you should include the `version` field in the request to enable
+     * [optimistic
      * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
      * control. The value must be set to the current version of the customer profile. To delete a
      * customer profile that was created by merging existing profiles, you must use the ID of the
@@ -144,8 +145,9 @@ public interface CustomersApi {
             final Long version) throws ApiException, IOException;
 
     /**
-     * Deletes a customer profile from a business, including any linked cards on file. As a best
-     * practice, you should include the `version` field in the request to enable [optimistic
+     * Deletes a customer profile from a business. This operation also unlinks any associated cards
+     * on file. As a best practice, you should include the `version` field in the request to enable
+     * [optimistic
      * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
      * control. The value must be set to the current version of the customer profile. To delete a
      * customer profile that was created by merging existing profiles, you must use the ID of the
@@ -187,10 +189,8 @@ public interface CustomersApi {
      * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
      * control. The value must be set to the current version of the customer profile. To update a
      * customer profile that was created by merging existing profiles, you must use the ID of the
-     * newly created profile. You cannot use this endpoint to change cards on file. To change a card
-     * on file, call [DeleteCustomerCard]($e/Customers/DeleteCustomerCard) to delete the existing
-     * card and then call [CreateCustomerCard]($e/Customers/CreateCustomerCard) to create a new
-     * card.
+     * newly created profile. You cannot use this endpoint to change cards on file. To make changes,
+     * use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -209,10 +209,8 @@ public interface CustomersApi {
      * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
      * control. The value must be set to the current version of the customer profile. To update a
      * customer profile that was created by merging existing profiles, you must use the ID of the
-     * newly created profile. You cannot use this endpoint to change cards on file. To change a card
-     * on file, call [DeleteCustomerCard]($e/Customers/DeleteCustomerCard) to delete the existing
-     * card and then call [CreateCustomerCard]($e/Customers/CreateCustomerCard) to create a new
-     * card.
+     * newly created profile. You cannot use this endpoint to change cards on file. To make changes,
+     * use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -226,6 +224,8 @@ public interface CustomersApi {
      * Adds a card on file to an existing customer. As with charges, calls to `CreateCustomerCard`
      * are idempotent. Multiple calls with the same card nonce return the same card record that was
      * created with the provided nonce during the _first_ call.
+     * @deprecated
+     * 
      * @param  customerId  Required parameter: The Square ID of the customer profile the card is
      *         linked to.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -234,7 +234,7 @@ public interface CustomersApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    CreateCustomerCardResponse createCustomerCard(
+    @Deprecated    CreateCustomerCardResponse createCustomerCard(
             final String customerId,
             final CreateCustomerCardRequest body) throws ApiException, IOException;
 
@@ -242,18 +242,23 @@ public interface CustomersApi {
      * Adds a card on file to an existing customer. As with charges, calls to `CreateCustomerCard`
      * are idempotent. Multiple calls with the same card nonce return the same card record that was
      * created with the provided nonce during the _first_ call.
+     * @deprecated
+     * 
      * @param  customerId  Required parameter: The Square ID of the customer profile the card is
      *         linked to.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCustomerCardResponse response from the API call
      */
+    @Deprecated
     CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
             final String customerId,
             final CreateCustomerCardRequest body);
 
     /**
      * Removes a card on file from a customer.
+     * @deprecated
+     * 
      * @param  customerId  Required parameter: The ID of the customer that the card on file belongs
      *         to.
      * @param  cardId  Required parameter: The ID of the card on file to delete.
@@ -261,17 +266,20 @@ public interface CustomersApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    DeleteCustomerCardResponse deleteCustomerCard(
+    @Deprecated    DeleteCustomerCardResponse deleteCustomerCard(
             final String customerId,
             final String cardId) throws ApiException, IOException;
 
     /**
      * Removes a card on file from a customer.
+     * @deprecated
+     * 
      * @param  customerId  Required parameter: The ID of the customer that the card on file belongs
      *         to.
      * @param  cardId  Required parameter: The ID of the card on file to delete.
      * @return    Returns the DeleteCustomerCardResponse response from the API call
      */
+    @Deprecated
     CompletableFuture<DeleteCustomerCardResponse> deleteCustomerCardAsync(
             final String customerId,
             final String cardId);

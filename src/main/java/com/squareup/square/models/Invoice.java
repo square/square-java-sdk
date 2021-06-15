@@ -144,8 +144,8 @@ public class Invoice {
 
     /**
      * Getter for LocationId.
-     * The ID of the location that this invoice is associated with. This field is required when
-     * creating an invoice.
+     * The ID of the location that this invoice is associated with. If specified in a
+     * `CreateInvoice` request, the value must match the `location_id` of the associated order.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -156,8 +156,7 @@ public class Invoice {
     /**
      * Getter for OrderId.
      * The ID of the [order]($m/Order) for which the invoice is created. This order must be in the
-     * `OPEN` state and must belong to the `location_id` specified for this invoice. This field is
-     * required when creating an invoice.
+     * `OPEN` state. This field is required when creating an invoice.
      * @return Returns the String
      */
     @JsonGetter("order_id")

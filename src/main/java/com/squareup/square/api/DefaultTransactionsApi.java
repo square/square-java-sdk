@@ -377,7 +377,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     /**
      * Charges a card represented by a card nonce or a customer's card on file. Your request to this
      * endpoint must include _either_: - A value for the `card_nonce` parameter (to charge a card
-     * nonce generated with the `SqPaymentForm`) - Values for the `customer_card_id` and
+     * payment token generated with the Web Payments SDK) - Values for the `customer_card_id` and
      * `customer_id` parameters (to charge a customer's card on file) In order for an eCommerce
      * payment to potentially qualify for [Square chargeback
      * protection](https://squareup.com/help/article/5394), you _must_ provide values for the
@@ -412,7 +412,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
     /**
      * Charges a card represented by a card nonce or a customer's card on file. Your request to this
      * endpoint must include _either_: - A value for the `card_nonce` parameter (to charge a card
-     * nonce generated with the `SqPaymentForm`) - Values for the `customer_card_id` and
+     * payment token generated with the Web Payments SDK) - Values for the `customer_card_id` and
      * `customer_id` parameters (to charge a customer's card on file) In order for an eCommerce
      * payment to potentially qualify for [Square chargeback
      * protection](https://squareup.com/help/article/5394), you _must_ provide values for the

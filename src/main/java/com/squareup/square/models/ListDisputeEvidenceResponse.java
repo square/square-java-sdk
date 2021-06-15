@@ -18,18 +18,23 @@ public class ListDisputeEvidenceResponse {
     private final List<DisputeEvidence> evidence;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String cursor;
 
     /**
      * Initialization constructor.
      * @param  evidence  List of DisputeEvidence value for evidence.
      * @param  errors  List of Error value for errors.
+     * @param  cursor  String value for cursor.
      */
     @JsonCreator
     public ListDisputeEvidenceResponse(
             @JsonProperty("evidence") List<DisputeEvidence> evidence,
-            @JsonProperty("errors") List<Error> errors) {
+            @JsonProperty("errors") List<Error> errors,
+            @JsonProperty("cursor") String cursor) {
         this.evidence = evidence;
         this.errors = errors;
+        this.cursor = cursor;
     }
 
     public HttpContext getContext() {
@@ -56,9 +61,21 @@ public class ListDisputeEvidenceResponse {
         return errors;
     }
 
+    /**
+     * Getter for Cursor.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final
+     * response. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * @return Returns the String
+     */
+    @JsonGetter("cursor")
+    public String getCursor() {
+        return cursor;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(evidence, errors);
+        return Objects.hash(evidence, errors, cursor);
     }
 
     @Override
@@ -71,7 +88,8 @@ public class ListDisputeEvidenceResponse {
         }
         ListDisputeEvidenceResponse other = (ListDisputeEvidenceResponse) obj;
         return Objects.equals(evidence, other.evidence)
-            && Objects.equals(errors, other.errors);
+            && Objects.equals(errors, other.errors)
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -81,7 +99,7 @@ public class ListDisputeEvidenceResponse {
     @Override
     public String toString() {
         return "ListDisputeEvidenceResponse [" + "evidence=" + evidence + ", errors=" + errors
-                + "]";
+                + ", cursor=" + cursor + "]";
     }
 
     /**
@@ -92,7 +110,8 @@ public class ListDisputeEvidenceResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .evidence(getEvidence())
-                .errors(getErrors());
+                .errors(getErrors())
+                .cursor(getCursor());
         return builder;
     }
 
@@ -103,6 +122,7 @@ public class ListDisputeEvidenceResponse {
         private HttpContext httpContext;
         private List<DisputeEvidence> evidence;
         private List<Error> errors;
+        private String cursor;
 
 
 
@@ -137,12 +157,22 @@ public class ListDisputeEvidenceResponse {
         }
 
         /**
+         * Setter for cursor.
+         * @param  cursor  String value for cursor.
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListDisputeEvidenceResponse} object using the set fields.
          * @return {@link ListDisputeEvidenceResponse}
          */
         public ListDisputeEvidenceResponse build() {
             ListDisputeEvidenceResponse model =
-                    new ListDisputeEvidenceResponse(evidence, errors);
+                    new ListDisputeEvidenceResponse(evidence, errors, cursor);
             model.httpContext = httpContext;
             return model;
         }

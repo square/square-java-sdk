@@ -62,9 +62,9 @@ public class WageSetting {
 
     /**
      * Getter for JobAssignments.
-     * <b>Required</b> The ordered list of jobs that the team member is assigned to. The first job
-     * assignment is considered the team member's "Primary Job". <br> <b>Min Length 1 Max Length
-     * 12</b>
+     * Required. The ordered list of jobs that the team member is assigned to. The first job
+     * assignment is considered the team member's primary job. The minimum length is 1 and the
+     * maximum length is 12.
      * @return Returns the List of JobAssignment
      */
     @JsonGetter("job_assignments")
@@ -74,7 +74,7 @@ public class WageSetting {
 
     /**
      * Getter for IsOvertimeExempt.
-     * Whether the team member is exempt from the overtime rules of the seller country.
+     * Whether the team member is exempt from the overtime rules of the seller's country.
      * @return Returns the Boolean
      */
     @JsonGetter("is_overtime_exempt")
@@ -84,11 +84,10 @@ public class WageSetting {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version provided does not match
-     * server version at time of request. If not provided, Square executes a blind write,
-     * potentially overwriting data from another write. Read about [optimistic
-     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency) in
-     * Square APIs for more information.
+     * Used for resolving concurrency issues. The request fails if the version provided does not
+     * match the server version at the time of the request. If not provided, Square executes a blind
+     * write, potentially overwriting data from another write. For more information, see [optimistic
+     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency).
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -98,8 +97,8 @@ public class WageSetting {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp in RFC 3339 format describing when the wage setting object was created. Ex:
-     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp, in RFC 3339 format, describing when the wage setting object was created. For
+     * example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -109,8 +108,8 @@ public class WageSetting {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp in RFC 3339 format describing when the wage setting object was last updated.
-     * Ex: "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z"
+     * The timestamp, in RFC 3339 format, describing when the wage setting object was last updated.
+     * For example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
      * @return Returns the String
      */
     @JsonGetter("updated_at")

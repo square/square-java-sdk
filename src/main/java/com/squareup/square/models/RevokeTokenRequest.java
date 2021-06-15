@@ -41,8 +41,8 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square issued ID for your application, available from the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * The Square issued ID for your application, available from the [developer
+     * dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
     @JsonGetter("client_id")

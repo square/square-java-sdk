@@ -32,7 +32,7 @@ public class TeamMemberAssignedLocations {
 
     /**
      * Getter for AssignmentType.
-     * Enumerates the possible assignment types the team member can have
+     * Enumerates the possible assignment types that the team member can have.
      * @return Returns the String
      */
     @JsonGetter("assignment_type")

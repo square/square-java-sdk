@@ -20,9 +20,9 @@ import com.squareup.square.models.CreateDisputeEvidenceFileRequest;
 import com.squareup.square.models.CreateDisputeEvidenceFileResponse;
 import com.squareup.square.models.CreateDisputeEvidenceTextRequest;
 import com.squareup.square.models.CreateDisputeEvidenceTextResponse;
+import com.squareup.square.models.DeleteDisputeEvidenceResponse;
 import com.squareup.square.models.ListDisputeEvidenceResponse;
 import com.squareup.square.models.ListDisputesResponse;
-import com.squareup.square.models.RemoveDisputeEvidenceResponse;
 import com.squareup.square.models.RetrieveDisputeEvidenceResponse;
 import com.squareup.square.models.RetrieveDisputeResponse;
 import com.squareup.square.models.SubmitEvidenceResponse;
@@ -374,13 +374,18 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Returns a list of evidence associated with a dispute.
      * @param  disputeId  Required parameter: The ID of the dispute.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return    Returns the ListDisputeEvidenceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListDisputeEvidenceResponse listDisputeEvidence(
-            final String disputeId) throws ApiException, IOException {
-        HttpRequest request = buildListDisputeEvidenceRequest(disputeId);
+            final String disputeId,
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListDisputeEvidenceRequest(disputeId, cursor);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -392,11 +397,16 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     /**
      * Returns a list of evidence associated with a dispute.
      * @param  disputeId  Required parameter: The ID of the dispute.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return    Returns the ListDisputeEvidenceResponse response from the API call
      */
     public CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
-            final String disputeId) {
-        return makeHttpCallAsync(() -> buildListDisputeEvidenceRequest(disputeId),
+            final String disputeId,
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListDisputeEvidenceRequest(disputeId, cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -407,7 +417,8 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      * Builds the HttpRequest object for listDisputeEvidence.
      */
     private HttpRequest buildListDisputeEvidenceRequest(
-            final String disputeId) {
+            final String disputeId,
+            final String cursor) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -421,6 +432,10 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                 new SimpleEntry<Object, Boolean>(disputeId, true));
         ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
+        //load all query parameters
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("cursor", cursor);
+
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
@@ -429,7 +444,8 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -459,218 +475,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         ListDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
                 ListDisputeEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
-    /**
-     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
-     * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
-     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
-     *         from.
-     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
-     * @return    Returns the RemoveDisputeEvidenceResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public RemoveDisputeEvidenceResponse removeDisputeEvidence(
-            final String disputeId,
-            final String evidenceId) throws ApiException, IOException {
-        HttpRequest request = buildRemoveDisputeEvidenceRequest(disputeId, evidenceId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRemoveDisputeEvidenceResponse(context);
-    }
-
-    /**
-     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
-     * removed. Also, you cannot remove evidence after submitting it to the bank using
-     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
-     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
-     *         from.
-     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
-     * @return    Returns the RemoveDisputeEvidenceResponse response from the API call
-     */
-    public CompletableFuture<RemoveDisputeEvidenceResponse> removeDisputeEvidenceAsync(
-            final String disputeId,
-            final String evidenceId) {
-        return makeHttpCallAsync(() -> buildRemoveDisputeEvidenceRequest(disputeId, evidenceId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRemoveDisputeEvidenceResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for removeDisputeEvidence.
-     */
-    private HttpRequest buildRemoveDisputeEvidenceRequest(
-            final String disputeId,
-            final String evidenceId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        templateParameters.put("evidence_id",
-                new SimpleEntry<Object, Boolean>(evidenceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for removeDisputeEvidence.
-     * @return An object of type RemoveDisputeEvidenceResponse
-     */
-    private RemoveDisputeEvidenceResponse handleRemoveDisputeEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RemoveDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                RemoveDisputeEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
-    /**
-     * Returns the specific evidence metadata associated with a specific dispute. You must maintain
-     * a copy of the evidence you upload if you want to reference it later. You cannot download the
-     * evidence after you upload it.
-     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
-     *         evidence from.
-     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
-     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public RetrieveDisputeEvidenceResponse retrieveDisputeEvidence(
-            final String disputeId,
-            final String evidenceId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveDisputeEvidenceResponse(context);
-    }
-
-    /**
-     * Returns the specific evidence metadata associated with a specific dispute. You must maintain
-     * a copy of the evidence you upload if you want to reference it later. You cannot download the
-     * evidence after you upload it.
-     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
-     *         evidence from.
-     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
-     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
-     */
-    public CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
-            final String disputeId,
-            final String evidenceId) {
-        return makeHttpCallAsync(() -> buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveDisputeEvidenceResponse(context));
-    }
-
-    /**
-     * Builds the HttpRequest object for retrieveDisputeEvidence.
-     */
-    private HttpRequest buildRetrieveDisputeEvidenceRequest(
-            final String disputeId,
-            final String evidenceId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        templateParameters.put("evidence_id",
-                new SimpleEntry<Object, Boolean>(evidenceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveDisputeEvidence.
-     * @return An object of type RetrieveDisputeEvidenceResponse
-     */
-    private RetrieveDisputeEvidenceResponse handleRetrieveDisputeEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveDisputeEvidenceResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;
@@ -734,7 +538,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //prepare query string for API call
         final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence_file");
+                + "/v2/disputes/{dispute_id}/evidence-files");
 
         //process template parameters
         Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
@@ -852,7 +656,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //prepare query string for API call
         final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence_text");
+                + "/v2/disputes/{dispute_id}/evidence-text");
 
         //process template parameters
         Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
@@ -900,6 +704,218 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         CreateDisputeEvidenceTextResponse result = ApiHelper.deserialize(responseBody,
                 CreateDisputeEvidenceTextResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
+     * removed. Also, you cannot remove evidence after submitting it to the bank using
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
+     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
+     *         from.
+     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
+     * @return    Returns the DeleteDisputeEvidenceResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DeleteDisputeEvidenceResponse deleteDisputeEvidence(
+            final String disputeId,
+            final String evidenceId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteDisputeEvidenceRequest(disputeId, evidenceId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleDeleteDisputeEvidenceResponse(context);
+    }
+
+    /**
+     * Removes specified evidence from a dispute. Square does not send the bank any evidence that is
+     * removed. Also, you cannot remove evidence after submitting it to the bank using
+     * [SubmitEvidence]($e/Disputes/SubmitEvidence).
+     * @param  disputeId  Required parameter: The ID of the dispute you want to remove evidence
+     *         from.
+     * @param  evidenceId  Required parameter: The ID of the evidence you want to remove.
+     * @return    Returns the DeleteDisputeEvidenceResponse response from the API call
+     */
+    public CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
+            final String disputeId,
+            final String evidenceId) {
+        return makeHttpCallAsync(() -> buildDeleteDisputeEvidenceRequest(disputeId, evidenceId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleDeleteDisputeEvidenceResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for deleteDisputeEvidence.
+     */
+    private HttpRequest buildDeleteDisputeEvidenceRequest(
+            final String disputeId,
+            final String evidenceId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("dispute_id",
+                new SimpleEntry<Object, Boolean>(disputeId, true));
+        templateParameters.put("evidence_id",
+                new SimpleEntry<Object, Boolean>(evidenceId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for deleteDisputeEvidence.
+     * @return An object of type DeleteDisputeEvidenceResponse
+     */
+    private DeleteDisputeEvidenceResponse handleDeleteDisputeEvidenceResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        DeleteDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
+                DeleteDisputeEvidenceResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Returns the evidence metadata specified by the evidence ID in the request URL path You must
+     * maintain a copy of the evidence you upload if you want to reference it later. You cannot
+     * download the evidence after you upload it.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
+     *         evidence from.
+     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
+     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public RetrieveDisputeEvidenceResponse retrieveDisputeEvidence(
+            final String disputeId,
+            final String evidenceId) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleRetrieveDisputeEvidenceResponse(context);
+    }
+
+    /**
+     * Returns the evidence metadata specified by the evidence ID in the request URL path You must
+     * maintain a copy of the evidence you upload if you want to reference it later. You cannot
+     * download the evidence after you upload it.
+     * @param  disputeId  Required parameter: The ID of the dispute that you want to retrieve
+     *         evidence from.
+     * @param  evidenceId  Required parameter: The ID of the evidence to retrieve.
+     * @return    Returns the RetrieveDisputeEvidenceResponse response from the API call
+     */
+    public CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
+            final String disputeId,
+            final String evidenceId) {
+        return makeHttpCallAsync(() -> buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleRetrieveDisputeEvidenceResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for retrieveDisputeEvidence.
+     */
+    private HttpRequest buildRetrieveDisputeEvidenceRequest(
+            final String disputeId,
+            final String evidenceId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("dispute_id",
+                new SimpleEntry<Object, Boolean>(disputeId, true));
+        templateParameters.put("evidence_id",
+                new SimpleEntry<Object, Boolean>(evidenceId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for retrieveDisputeEvidence.
+     * @return An object of type RetrieveDisputeEvidenceResponse
+     */
+    private RetrieveDisputeEvidenceResponse handleRetrieveDisputeEvidenceResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        RetrieveDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
+                RetrieveDisputeEvidenceResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

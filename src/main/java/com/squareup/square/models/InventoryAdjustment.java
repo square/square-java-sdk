@@ -45,6 +45,8 @@ public class InventoryAdjustment {
     private final String purchaseOrderId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String goodsReceiptId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final InventoryAdjustmentGroup adjustmentGroup;
 
     /**
      * Initialization constructor.
@@ -65,6 +67,7 @@ public class InventoryAdjustment {
      * @param  refundId  String value for refundId.
      * @param  purchaseOrderId  String value for purchaseOrderId.
      * @param  goodsReceiptId  String value for goodsReceiptId.
+     * @param  adjustmentGroup  InventoryAdjustmentGroup value for adjustmentGroup.
      */
     @JsonCreator
     public InventoryAdjustment(
@@ -84,7 +87,8 @@ public class InventoryAdjustment {
             @JsonProperty("transaction_id") String transactionId,
             @JsonProperty("refund_id") String refundId,
             @JsonProperty("purchase_order_id") String purchaseOrderId,
-            @JsonProperty("goods_receipt_id") String goodsReceiptId) {
+            @JsonProperty("goods_receipt_id") String goodsReceiptId,
+            @JsonProperty("adjustment_group") InventoryAdjustmentGroup adjustmentGroup) {
         this.id = id;
         this.referenceId = referenceId;
         this.fromState = fromState;
@@ -102,6 +106,7 @@ public class InventoryAdjustment {
         this.refundId = refundId;
         this.purchaseOrderId = purchaseOrderId;
         this.goodsReceiptId = goodsReceiptId;
+        this.adjustmentGroup = adjustmentGroup;
     }
 
     /**
@@ -168,7 +173,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CatalogObjectType.
-     * The [type](entity:CatalogObjectType] of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked.
      * Tracking is only supported for the `ITEM_VARIATION` type.
      * @return Returns the String
      */
@@ -290,11 +295,21 @@ public class InventoryAdjustment {
         return goodsReceiptId;
     }
 
+    /**
+     * Getter for AdjustmentGroup.
+     * @return Returns the InventoryAdjustmentGroup
+     */
+    @JsonGetter("adjustment_group")
+    public InventoryAdjustmentGroup getAdjustmentGroup() {
+        return adjustmentGroup;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, fromState, toState, locationId, catalogObjectId,
                 catalogObjectType, quantity, totalPriceMoney, occurredAt, createdAt, source,
-                employeeId, transactionId, refundId, purchaseOrderId, goodsReceiptId);
+                employeeId, transactionId, refundId, purchaseOrderId, goodsReceiptId,
+                adjustmentGroup);
     }
 
     @Override
@@ -322,7 +337,8 @@ public class InventoryAdjustment {
             && Objects.equals(transactionId, other.transactionId)
             && Objects.equals(refundId, other.refundId)
             && Objects.equals(purchaseOrderId, other.purchaseOrderId)
-            && Objects.equals(goodsReceiptId, other.goodsReceiptId);
+            && Objects.equals(goodsReceiptId, other.goodsReceiptId)
+            && Objects.equals(adjustmentGroup, other.adjustmentGroup);
     }
 
     /**
@@ -338,7 +354,8 @@ public class InventoryAdjustment {
                 + totalPriceMoney + ", occurredAt=" + occurredAt + ", createdAt=" + createdAt
                 + ", source=" + source + ", employeeId=" + employeeId + ", transactionId="
                 + transactionId + ", refundId=" + refundId + ", purchaseOrderId=" + purchaseOrderId
-                + ", goodsReceiptId=" + goodsReceiptId + "]";
+                + ", goodsReceiptId=" + goodsReceiptId + ", adjustmentGroup=" + adjustmentGroup
+                + "]";
     }
 
     /**
@@ -364,7 +381,8 @@ public class InventoryAdjustment {
                 .transactionId(getTransactionId())
                 .refundId(getRefundId())
                 .purchaseOrderId(getPurchaseOrderId())
-                .goodsReceiptId(getGoodsReceiptId());
+                .goodsReceiptId(getGoodsReceiptId())
+                .adjustmentGroup(getAdjustmentGroup());
         return builder;
     }
 
@@ -389,6 +407,7 @@ public class InventoryAdjustment {
         private String refundId;
         private String purchaseOrderId;
         private String goodsReceiptId;
+        private InventoryAdjustmentGroup adjustmentGroup;
 
 
 
@@ -563,6 +582,16 @@ public class InventoryAdjustment {
         }
 
         /**
+         * Setter for adjustmentGroup.
+         * @param  adjustmentGroup  InventoryAdjustmentGroup value for adjustmentGroup.
+         * @return Builder
+         */
+        public Builder adjustmentGroup(InventoryAdjustmentGroup adjustmentGroup) {
+            this.adjustmentGroup = adjustmentGroup;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InventoryAdjustment} object using the set fields.
          * @return {@link InventoryAdjustment}
          */
@@ -570,7 +599,7 @@ public class InventoryAdjustment {
             return new InventoryAdjustment(id, referenceId, fromState, toState, locationId,
                     catalogObjectId, catalogObjectType, quantity, totalPriceMoney, occurredAt,
                     createdAt, source, employeeId, transactionId, refundId, purchaseOrderId,
-                    goodsReceiptId);
+                    goodsReceiptId, adjustmentGroup);
         }
     }
 }

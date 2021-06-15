@@ -32,8 +32,8 @@ public class SearchTeamMembersFilter {
 
     /**
      * Getter for LocationIds.
-     * When present, filter by team members assigned to the specified locations. When empty, include
-     * team members assigned to any location.
+     * When present, filters by team members assigned to the specified locations. When empty,
+     * includes team members assigned to any location.
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")

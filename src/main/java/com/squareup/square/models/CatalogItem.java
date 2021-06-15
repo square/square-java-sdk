@@ -207,7 +207,8 @@ public class CatalogItem {
 
     /**
      * Getter for Variations.
-     * A list of CatalogObjects containing the `CatalogItemVariation`s for this item.
+     * A list of [CatalogItemVariation]($m/CatalogItemVariation) objects for this item. An item must
+     * have at least one variation.
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("variations")

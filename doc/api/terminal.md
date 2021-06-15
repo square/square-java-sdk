@@ -118,7 +118,7 @@ TerminalCheckoutQueryFilter bodyQueryFilter = new TerminalCheckoutQueryFilter.Bu
     .status("COMPLETED")
     .build();
 TerminalCheckoutQuerySort bodyQuerySort = new TerminalCheckoutQuerySort.Builder()
-    .sortOrder("sort_order8")
+    .sortOrder("DESC")
     .build();
 TerminalCheckoutQuery bodyQuery = new TerminalCheckoutQuery.Builder()
     .filter(bodyQueryFilter)
