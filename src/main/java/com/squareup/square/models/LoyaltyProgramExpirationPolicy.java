@@ -24,7 +24,8 @@ public class LoyaltyProgramExpirationPolicy {
 
     /**
      * Getter for ExpirationDuration.
-     * The duration of time before points expire, in RFC 3339 format.
+     * The number of months before points expire, in RFC 3339 duration format. For example, a value
+     * of `P12M` represents a duration of 12 months.
      * @return Returns the String
      */
     @JsonGetter("expiration_duration")

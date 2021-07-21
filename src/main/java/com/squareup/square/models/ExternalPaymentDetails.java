@@ -46,7 +46,8 @@ public class ExternalPaymentDetails {
      * payment applications. - EXTERNAL - A third-party application gathered this payment outside of
      * Square. - EMONEY - Paid using an E-money provider. - CARD - A credit or debit card that
      * Square does not support. - STORED_BALANCE - Use for house accounts, store credit, and so
-     * forth. - OTHER - A type not listed here.
+     * forth. - FOOD_VOUCHER - Restaurant voucher provided by employers to employees to pay for
+     * meals - OTHER - A type not listed here.
      * @return Returns the String
      */
     @JsonGetter("type")

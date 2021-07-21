@@ -25,6 +25,8 @@ public class OrderLineItem {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemType;
@@ -59,6 +61,7 @@ public class OrderLineItem {
      * @param  quantityUnit  OrderQuantityUnit value for quantityUnit.
      * @param  note  String value for note.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  variationName  String value for variationName.
      * @param  itemType  String value for itemType.
      * @param  metadata  Map of String, value for metadata.
@@ -81,6 +84,7 @@ public class OrderLineItem {
             @JsonProperty("quantity_unit") OrderQuantityUnit quantityUnit,
             @JsonProperty("note") String note,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("variation_name") String variationName,
             @JsonProperty("item_type") String itemType,
             @JsonProperty("metadata") Map<String, String> metadata,
@@ -100,6 +104,7 @@ public class OrderLineItem {
         this.quantityUnit = quantityUnit;
         this.note = note;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.variationName = variationName;
         this.itemType = itemType;
         this.metadata = metadata;
@@ -177,6 +182,16 @@ public class OrderLineItem {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this line item references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -365,10 +380,10 @@ public class OrderLineItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId, variationName,
-                itemType, metadata, modifiers, appliedTaxes, appliedDiscounts, basePriceMoney,
-                variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney,
-                totalMoney, pricingBlocklists);
+        return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId,
+                catalogVersion, variationName, itemType, metadata, modifiers, appliedTaxes,
+                appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossSalesMoney,
+                totalTaxMoney, totalDiscountMoney, totalMoney, pricingBlocklists);
     }
 
     @Override
@@ -386,6 +401,7 @@ public class OrderLineItem {
             && Objects.equals(quantityUnit, other.quantityUnit)
             && Objects.equals(note, other.note)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(variationName, other.variationName)
             && Objects.equals(itemType, other.itemType)
             && Objects.equals(metadata, other.metadata)
@@ -409,13 +425,14 @@ public class OrderLineItem {
     public String toString() {
         return "OrderLineItem [" + "quantity=" + quantity + ", uid=" + uid + ", name=" + name
                 + ", quantityUnit=" + quantityUnit + ", note=" + note + ", catalogObjectId="
-                + catalogObjectId + ", variationName=" + variationName + ", itemType=" + itemType
-                + ", metadata=" + metadata + ", modifiers=" + modifiers + ", appliedTaxes="
-                + appliedTaxes + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney="
-                + basePriceMoney + ", variationTotalPriceMoney=" + variationTotalPriceMoney
-                + ", grossSalesMoney=" + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney
-                + ", totalDiscountMoney=" + totalDiscountMoney + ", totalMoney=" + totalMoney
-                + ", pricingBlocklists=" + pricingBlocklists + "]";
+                + catalogObjectId + ", catalogVersion=" + catalogVersion + ", variationName="
+                + variationName + ", itemType=" + itemType + ", metadata=" + metadata
+                + ", modifiers=" + modifiers + ", appliedTaxes=" + appliedTaxes
+                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
+                + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossSalesMoney="
+                + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
+                + totalDiscountMoney + ", totalMoney=" + totalMoney + ", pricingBlocklists="
+                + pricingBlocklists + "]";
     }
 
     /**
@@ -430,6 +447,7 @@ public class OrderLineItem {
                 .quantityUnit(getQuantityUnit())
                 .note(getNote())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .variationName(getVariationName())
                 .itemType(getItemType())
                 .metadata(getMetadata())
@@ -456,6 +474,7 @@ public class OrderLineItem {
         private OrderQuantityUnit quantityUnit;
         private String note;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String variationName;
         private String itemType;
         private Map<String, String> metadata;
@@ -535,6 +554,16 @@ public class OrderLineItem {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -675,9 +704,9 @@ public class OrderLineItem {
          */
         public OrderLineItem build() {
             return new OrderLineItem(quantity, uid, name, quantityUnit, note, catalogObjectId,
-                    variationName, itemType, metadata, modifiers, appliedTaxes, appliedDiscounts,
-                    basePriceMoney, variationTotalPriceMoney, grossSalesMoney, totalTaxMoney,
-                    totalDiscountMoney, totalMoney, pricingBlocklists);
+                    catalogVersion, variationName, itemType, metadata, modifiers, appliedTaxes,
+                    appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossSalesMoney,
+                    totalTaxMoney, totalDiscountMoney, totalMoney, pricingBlocklists);
         }
     }
 }

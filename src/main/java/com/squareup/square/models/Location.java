@@ -64,6 +64,8 @@ public class Location {
     private final String mcc;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fullFormatLogoUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final TaxIds taxIds;
 
     /**
      * Initialization constructor.
@@ -93,6 +95,7 @@ public class Location {
      * @param  posBackgroundUrl  String value for posBackgroundUrl.
      * @param  mcc  String value for mcc.
      * @param  fullFormatLogoUrl  String value for fullFormatLogoUrl.
+     * @param  taxIds  TaxIds value for taxIds.
      */
     @JsonCreator
     public Location(
@@ -121,7 +124,8 @@ public class Location {
             @JsonProperty("logo_url") String logoUrl,
             @JsonProperty("pos_background_url") String posBackgroundUrl,
             @JsonProperty("mcc") String mcc,
-            @JsonProperty("full_format_logo_url") String fullFormatLogoUrl) {
+            @JsonProperty("full_format_logo_url") String fullFormatLogoUrl,
+            @JsonProperty("tax_ids") TaxIds taxIds) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -148,6 +152,7 @@ public class Location {
         this.posBackgroundUrl = posBackgroundUrl;
         this.mcc = mcc;
         this.fullFormatLogoUrl = fullFormatLogoUrl;
+        this.taxIds = taxIds;
     }
 
     /**
@@ -248,7 +253,8 @@ public class Location {
     /**
      * Getter for LanguageCode.
      * The language associated with the location, in [BCP 47
-     * format](https://tools.ietf.org/html/bcp47#appendix-A).
+     * format](https://tools.ietf.org/html/bcp47#appendix-A). For more information, see [Location
+     * language code](https://developer.squareup.com/docs/locations-api#location-language-code).
      * @return Returns the String
      */
     @JsonGetter("language_code")
@@ -426,13 +432,23 @@ public class Location {
         return fullFormatLogoUrl;
     }
 
+    /**
+     * Getter for TaxIds.
+     * The tax IDs that a Location is operating under.
+     * @return Returns the TaxIds
+     */
+    @JsonGetter("tax_ids")
+    public TaxIds getTaxIds() {
+        return taxIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, address, timezone, capabilities, status, createdAt,
                 merchantId, country, languageCode, currency, phoneNumber, businessName, type,
                 websiteUrl, businessHours, businessEmail, description, twitterUsername,
                 instagramUsername, facebookUrl, coordinates, logoUrl, posBackgroundUrl, mcc,
-                fullFormatLogoUrl);
+                fullFormatLogoUrl, taxIds);
     }
 
     @Override
@@ -469,7 +485,8 @@ public class Location {
             && Objects.equals(logoUrl, other.logoUrl)
             && Objects.equals(posBackgroundUrl, other.posBackgroundUrl)
             && Objects.equals(mcc, other.mcc)
-            && Objects.equals(fullFormatLogoUrl, other.fullFormatLogoUrl);
+            && Objects.equals(fullFormatLogoUrl, other.fullFormatLogoUrl)
+            && Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -488,7 +505,8 @@ public class Location {
                 + ", twitterUsername=" + twitterUsername + ", instagramUsername="
                 + instagramUsername + ", facebookUrl=" + facebookUrl + ", coordinates="
                 + coordinates + ", logoUrl=" + logoUrl + ", posBackgroundUrl=" + posBackgroundUrl
-                + ", mcc=" + mcc + ", fullFormatLogoUrl=" + fullFormatLogoUrl + "]";
+                + ", mcc=" + mcc + ", fullFormatLogoUrl=" + fullFormatLogoUrl + ", taxIds=" + taxIds
+                + "]";
     }
 
     /**
@@ -523,7 +541,8 @@ public class Location {
                 .logoUrl(getLogoUrl())
                 .posBackgroundUrl(getPosBackgroundUrl())
                 .mcc(getMcc())
-                .fullFormatLogoUrl(getFullFormatLogoUrl());
+                .fullFormatLogoUrl(getFullFormatLogoUrl())
+                .taxIds(getTaxIds());
         return builder;
     }
 
@@ -557,6 +576,7 @@ public class Location {
         private String posBackgroundUrl;
         private String mcc;
         private String fullFormatLogoUrl;
+        private TaxIds taxIds;
 
 
 
@@ -821,6 +841,16 @@ public class Location {
         }
 
         /**
+         * Setter for taxIds.
+         * @param  taxIds  TaxIds value for taxIds.
+         * @return Builder
+         */
+        public Builder taxIds(TaxIds taxIds) {
+            this.taxIds = taxIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Location} object using the set fields.
          * @return {@link Location}
          */
@@ -829,7 +859,7 @@ public class Location {
                     merchantId, country, languageCode, currency, phoneNumber, businessName, type,
                     websiteUrl, businessHours, businessEmail, description, twitterUsername,
                     instagramUsername, facebookUrl, coordinates, logoUrl, posBackgroundUrl, mcc,
-                    fullFormatLogoUrl);
+                    fullFormatLogoUrl, taxIds);
         }
     }
 }

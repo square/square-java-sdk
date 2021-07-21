@@ -108,9 +108,9 @@ public class RetryInterceptor implements Interceptor {
      * @return true if total wait time exceeds maximum back-off time.
      */
     private boolean hasWaitTimeLimitExceeded(RequestState requestState) {
-        return this.httpClientConfiguration.getMaxBackOff() > 0
+        return this.httpClientConfiguration.getMaximumRetryWaitTime() > 0
                 && toMilliseconds(this.httpClientConfiguration
-                        .getMaxBackOff()) < requestState.totalWaitTimeInMilliSeconds;
+                        .getMaximumRetryWaitTime()) < requestState.totalWaitTimeInMilliSeconds;
     }
 
 

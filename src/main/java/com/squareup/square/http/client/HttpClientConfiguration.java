@@ -44,7 +44,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
     /**
      * The maximum wait time for overall retrying requests.
      */
-    private final long maxBackOff;
+    private final long maximumRetryWaitTime;
 
     /**
      * Whether to retry on request timeout.
@@ -52,19 +52,34 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
     private final boolean shouldRetryOnTimeout;
 
     /**
+     * The OkHttpClient instance used to make the HTTP calls.
+     */
+    private final okhttp3.OkHttpClient httpClientInstance;
+
+    /**
+     * Allow the SDK to override HTTP client instance's settings used for features like retries,
+     * timeouts etc.
+     */
+    private final boolean overrideHttpClientConfigurations;
+
+    /**
      * Default Constructor.
      */
     private HttpClientConfiguration(long timeout, int numberOfRetries, int backOffFactor,
             long retryInterval, Set<Integer> httpStatusCodesToRetry,
-            Set<HttpMethod> httpMethodsToRetry, long maxBackOff, boolean shouldRetryOnTimeout) {
+            Set<HttpMethod> httpMethodsToRetry, long maximumRetryWaitTime,
+            boolean shouldRetryOnTimeout, okhttp3.OkHttpClient httpClientInstance,
+            boolean overrideHttpClientConfigurations) {
         this.timeout = timeout;
         this.numberOfRetries = numberOfRetries;
         this.backOffFactor = backOffFactor;
         this.retryInterval = retryInterval;
         this.httpStatusCodesToRetry = httpStatusCodesToRetry;
         this.httpMethodsToRetry = httpMethodsToRetry;
-        this.maxBackOff = maxBackOff;
+        this.maximumRetryWaitTime = maximumRetryWaitTime;
         this.shouldRetryOnTimeout = shouldRetryOnTimeout;
+        this.httpClientInstance = httpClientInstance;
+        this.overrideHttpClientConfigurations = overrideHttpClientConfigurations;
     }
 
     /**
@@ -117,10 +132,10 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
 
     /**
      * The maximum wait time for overall retrying requests.
-     * @return maxBackOff
+     * @return maximumRetryWaitTime
      */
-    public long getMaxBackOff() {
-        return maxBackOff;
+    public long getMaximumRetryWaitTime() {
+        return maximumRetryWaitTime;
     }
 
     /**
@@ -132,6 +147,23 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
     }
 
     /**
+     * The OkHttpClient instance used to make the HTTP calls.
+     * @return httpClientInstance
+     */
+    public okhttp3.OkHttpClient getHttpClientInstance() {
+        return httpClientInstance;
+    }
+
+    /**
+     * Allow the SDK to override HTTP client instance's settings used for features like retries,
+     * timeouts etc.
+     * @return overrideHttpClientConfigurations
+     */
+    public boolean shouldOverrideHttpClientConfigurations() {
+        return overrideHttpClientConfigurations;
+    }
+
+    /**
      * Converts this HttpClientConfiguration into string format.
      * @return String representation of this class
      */
@@ -140,8 +172,10 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         return "HttpClientConfiguration [" + "timeout=" + timeout + ", numberOfRetries="
                 + numberOfRetries + ", backOffFactor=" + backOffFactor + ", retryInterval="
                 + retryInterval + ", httpStatusCodesToRetry=" + httpStatusCodesToRetry
-                + ", httpMethodsToRetry=" + httpMethodsToRetry + ", maxBackOff=" + maxBackOff
-                + ", shouldRetryOnTimeout=" + shouldRetryOnTimeout + "]";
+                + ", httpMethodsToRetry=" + httpMethodsToRetry + ", maximumRetryWaitTime="
+                + maximumRetryWaitTime + ", shouldRetryOnTimeout=" + shouldRetryOnTimeout
+                + ", httpClientInstance=" + httpClientInstance
+                + ", overrideHttpClientConfigurations=" + overrideHttpClientConfigurations + "]";
     }
 
     /**
@@ -158,8 +192,9 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
                 .retryInterval(retryInterval)
                 .httpStatusCodesToRetry(httpStatusCodesToRetry)
                 .httpMethodsToRetry(httpMethodsToRetry)
-                .maxBackOff(maxBackOff)
-                .shouldRetryOnTimeout(shouldRetryOnTimeout);
+                .maximumRetryWaitTime(maximumRetryWaitTime)
+                .shouldRetryOnTimeout(shouldRetryOnTimeout)
+                .httpClientInstance(httpClientInstance, overrideHttpClientConfigurations);
     }
 
     /**
@@ -173,8 +208,10 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         private long retryInterval = 1;
         private Set<Integer> httpStatusCodesToRetry = new HashSet<>();
         private Set<HttpMethod> httpMethodsToRetry = new HashSet<>();
-        private long maxBackOff = 0;
+        private long maximumRetryWaitTime = 0;
         private boolean shouldRetryOnTimeout = true;
+        private okhttp3.OkHttpClient httpClientInstance;
+        private boolean overrideHttpClientConfigurations = true;
    
         /**
          * Default Constructor to initiate builder with default properties.
@@ -187,7 +224,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * The timeout in seconds to use for making HTTP requests..
+         * The timeout in seconds to use for making HTTP requests.
          * @param timeout The timeout to set.
          * @return Builder
          */
@@ -199,7 +236,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * The number of retries to make..
+         * The number of retries to make.
          * @param numberOfRetries The numberOfRetries to set.
          * @return Builder
          */
@@ -211,7 +248,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * To use in calculation of wait time for next request in case of failure..
+         * To use in calculation of wait time for next request in case of failure.
          * @param backOffFactor The backOffFactor to set.
          * @return Builder
          */
@@ -223,7 +260,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * To use in calculation of wait time for next request in case of failure..
+         * To use in calculation of wait time for next request in case of failure.
          * @param retryInterval The retryInterval to set.
          * @return Builder
          */
@@ -235,7 +272,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * Http status codes to retry against..
+         * Http status codes to retry against.
          * @param httpStatusCodesToRetry The httpStatusCodesToRetry to set.
          * @return Builder
          */
@@ -248,7 +285,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * Http methods to retry against..
+         * Http methods to retry against.
          * @param httpMethodsToRetry The httpMethodsToRetry to set.
          * @return Builder
          */
@@ -261,13 +298,13 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
-         * The maximum wait time for overall retrying requests..
-         * @param maxBackOff The maxBackOff to set.
+         * The maximum wait time for overall retrying requests.
+         * @param maximumRetryWaitTime The maximumRetryWaitTime to set.
          * @return Builder
          */
-        public Builder maxBackOff(long maxBackOff) {
-            if (maxBackOff > 0) { 
-                this.maxBackOff = maxBackOff;
+        public Builder maximumRetryWaitTime(long maximumRetryWaitTime) {
+            if (maximumRetryWaitTime > 0) { 
+                this.maximumRetryWaitTime = maximumRetryWaitTime;
             }
             return this;
         }
@@ -283,13 +320,36 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
         }
 
         /**
+         * The OkHttpClient instance used to make the HTTP calls.
+         * @param httpClientInstance The httpClientInstance to set
+         * @return Builder
+         */
+        public Builder httpClientInstance(okhttp3.OkHttpClient httpClientInstance) {
+            this.httpClientInstance = httpClientInstance;
+            return this;
+        }
+
+        /**
+         * The OkHttpClient instance used to make the HTTP calls.
+         * @param httpClientInstance The httpClientInstance to set
+         * @param overrideHttpClientConfigurations The overrideHttpClientConfigurations to set
+         * @return Builder
+         */
+        public Builder httpClientInstance(okhttp3.OkHttpClient httpClientInstance,
+                boolean overrideHttpClientConfigurations) {
+            this.httpClientInstance = httpClientInstance;
+            this.overrideHttpClientConfigurations = overrideHttpClientConfigurations;
+            return this;
+        }
+
+        /**
          * Builds a new HttpClientConfiguration object using the set fields. 
          * @return {@link HttpClientConfiguration}
          */
         public HttpClientConfiguration build() {
             return new HttpClientConfiguration(timeout, numberOfRetries, backOffFactor,
-                    retryInterval, httpStatusCodesToRetry, httpMethodsToRetry, maxBackOff,
-                    shouldRetryOnTimeout);
+                    retryInterval, httpStatusCodesToRetry, httpMethodsToRetry, maximumRetryWaitTime,
+                    shouldRetryOnTimeout, httpClientInstance, overrideHttpClientConfigurations);
         }
     }
 }

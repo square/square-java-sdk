@@ -15,18 +15,23 @@ public class OrderQuantityUnit {
     private final MeasurementUnit measurementUnit;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
 
     /**
      * Initialization constructor.
      * @param  measurementUnit  MeasurementUnit value for measurementUnit.
      * @param  precision  Integer value for precision.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public OrderQuantityUnit(
             @JsonProperty("measurement_unit") MeasurementUnit measurementUnit,
-            @JsonProperty("precision") Integer precision) {
+            @JsonProperty("precision") Integer precision,
+            @JsonProperty("catalog_version") Long catalogVersion) {
         this.measurementUnit = measurementUnit;
         this.precision = precision;
+        this.catalogVersion = catalogVersion;
     }
 
     /**
@@ -53,9 +58,20 @@ public class OrderQuantityUnit {
         return precision;
     }
 
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this measurement unit references. This field is set
+     * when this is a catalog-backed measurement unit.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(measurementUnit, precision);
+        return Objects.hash(measurementUnit, precision, catalogVersion);
     }
 
     @Override
@@ -68,7 +84,8 @@ public class OrderQuantityUnit {
         }
         OrderQuantityUnit other = (OrderQuantityUnit) obj;
         return Objects.equals(measurementUnit, other.measurementUnit)
-            && Objects.equals(precision, other.precision);
+            && Objects.equals(precision, other.precision)
+            && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
     /**
@@ -78,7 +95,7 @@ public class OrderQuantityUnit {
     @Override
     public String toString() {
         return "OrderQuantityUnit [" + "measurementUnit=" + measurementUnit + ", precision="
-                + precision + "]";
+                + precision + ", catalogVersion=" + catalogVersion + "]";
     }
 
     /**
@@ -89,7 +106,8 @@ public class OrderQuantityUnit {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .measurementUnit(getMeasurementUnit())
-                .precision(getPrecision());
+                .precision(getPrecision())
+                .catalogVersion(getCatalogVersion());
         return builder;
     }
 
@@ -99,6 +117,7 @@ public class OrderQuantityUnit {
     public static class Builder {
         private MeasurementUnit measurementUnit;
         private Integer precision;
+        private Long catalogVersion;
 
 
 
@@ -123,11 +142,21 @@ public class OrderQuantityUnit {
         }
 
         /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderQuantityUnit} object using the set fields.
          * @return {@link OrderQuantityUnit}
          */
         public OrderQuantityUnit build() {
-            return new OrderQuantityUnit(measurementUnit, precision);
+            return new OrderQuantityUnit(measurementUnit, precision, catalogVersion);
         }
     }
 }

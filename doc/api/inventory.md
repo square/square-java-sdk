@@ -10,13 +10,55 @@ InventoryApi inventoryApi = client.getInventoryApi();
 
 ## Methods
 
+* [Deprecated Retrieve Inventory Adjustment](/doc/api/inventory.md#deprecated-retrieve-inventory-adjustment)
 * [Retrieve Inventory Adjustment](/doc/api/inventory.md#retrieve-inventory-adjustment)
+* [Deprecated Batch Change Inventory](/doc/api/inventory.md#deprecated-batch-change-inventory)
+* [Deprecated Batch Retrieve Inventory Changes](/doc/api/inventory.md#deprecated-batch-retrieve-inventory-changes)
+* [Deprecated Batch Retrieve Inventory Counts](/doc/api/inventory.md#deprecated-batch-retrieve-inventory-counts)
 * [Batch Change Inventory](/doc/api/inventory.md#batch-change-inventory)
 * [Batch Retrieve Inventory Changes](/doc/api/inventory.md#batch-retrieve-inventory-changes)
 * [Batch Retrieve Inventory Counts](/doc/api/inventory.md#batch-retrieve-inventory-counts)
+* [Deprecated Retrieve Inventory Physical Count](/doc/api/inventory.md#deprecated-retrieve-inventory-physical-count)
 * [Retrieve Inventory Physical Count](/doc/api/inventory.md#retrieve-inventory-physical-count)
+* [Retrieve Inventory Transfer](/doc/api/inventory.md#retrieve-inventory-transfer)
 * [Retrieve Inventory Count](/doc/api/inventory.md#retrieve-inventory-count)
 * [Retrieve Inventory Changes](/doc/api/inventory.md#retrieve-inventory-changes)
+
+
+# Deprecated Retrieve Inventory Adjustment
+
+**This endpoint is deprecated.**
+
+Deprecated version of [RetrieveInventoryAdjustment](/doc/api/inventory.md#retrieve-inventory-adjustment) after the endpoint URL
+is updated to conform to the standard convention.
+
+```java
+CompletableFuture<RetrieveInventoryAdjustmentResponse> deprecatedRetrieveInventoryAdjustmentAsync(
+    final String adjustmentId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](/doc/models/inventory-adjustment.md) to retrieve. |
+
+## Response Type
+
+[`RetrieveInventoryAdjustmentResponse`](/doc/models/retrieve-inventory-adjustment-response.md)
+
+## Example Usage
+
+```java
+String adjustmentId = "adjustment_id0";
+
+inventoryApi.deprecatedRetrieveInventoryAdjustmentAsync(adjustmentId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
 
 
 # Retrieve Inventory Adjustment
@@ -45,6 +87,196 @@ CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustme
 String adjustmentId = "adjustment_id0";
 
 inventoryApi.retrieveInventoryAdjustmentAsync(adjustmentId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Deprecated Batch Change Inventory
+
+**This endpoint is deprecated.**
+
+Deprecated version of [BatchChangeInventory](/doc/api/inventory.md#batch-change-inventory) after the endpoint URL
+is updated to conform to the standard convention.
+
+```java
+CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAsync(
+    final BatchChangeInventoryRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BatchChangeInventoryRequest`](/doc/models/batch-change-inventory-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`BatchChangeInventoryResponse`](/doc/models/batch-change-inventory-response.md)
+
+## Example Usage
+
+```java
+List<InventoryChange> bodyChanges = new LinkedList<>();
+
+InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Builder()
+    .id("id0")
+    .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
+    .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
+    .catalogObjectType("catalog_object_type4")
+    .state("IN_STOCK")
+    .locationId("C6W5YS5QM06F5")
+    .quantity("53")
+    .employeeId("LRK57NSQ5X7PUD05")
+    .occurredAt("2016-11-16T22:25:24.878Z")
+    .build();
+InventoryAdjustment bodyChanges0Adjustment = new InventoryAdjustment.Builder()
+    .id("id6")
+    .referenceId("reference_id4")
+    .fromState("SOLD")
+    .toState("SOLD_ONLINE")
+    .locationId("location_id0")
+    .build();
+InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
+    .id("id0")
+    .referenceId("reference_id8")
+    .state("UNLINKED_RETURN")
+    .fromLocationId("from_location_id2")
+    .toLocationId("to_location_id2")
+    .build();
+MeasurementUnitCustom bodyChanges0MeasurementUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+        "name0",
+        "abbreviation2")
+    .build();
+MeasurementUnit bodyChanges0MeasurementUnitMeasurementUnit = new MeasurementUnit.Builder()
+    .customUnit(bodyChanges0MeasurementUnitMeasurementUnitCustomUnit)
+    .areaUnit("IMPERIAL_SQUARE_FOOT")
+    .lengthUnit("METRIC_METER")
+    .volumeUnit("METRIC_MILLILITER")
+    .weightUnit("IMPERIAL_WEIGHT_OUNCE")
+    .build();
+CatalogMeasurementUnit bodyChanges0MeasurementUnit = new CatalogMeasurementUnit.Builder()
+    .measurementUnit(bodyChanges0MeasurementUnitMeasurementUnit)
+    .precision(26)
+    .build();
+InventoryChange bodyChanges0 = new InventoryChange.Builder()
+    .type("PHYSICAL_COUNT")
+    .physicalCount(bodyChanges0PhysicalCount)
+    .adjustment(bodyChanges0Adjustment)
+    .transfer(bodyChanges0Transfer)
+    .measurementUnit(bodyChanges0MeasurementUnit)
+    .build();
+bodyChanges.add(bodyChanges0);
+
+BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
+        "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
+    .changes(bodyChanges)
+    .ignoreUnchangedCounts(true)
+    .build();
+
+inventoryApi.deprecatedBatchChangeInventoryAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Deprecated Batch Retrieve Inventory Changes
+
+**This endpoint is deprecated.**
+
+Deprecated version of [BatchRetrieveInventoryChanges](/doc/api/inventory.md#batch-retrieve-inventory-changes) after the endpoint URL
+is updated to conform to the standard convention.
+
+```java
+CompletableFuture<BatchRetrieveInventoryChangesResponse> deprecatedBatchRetrieveInventoryChangesAsync(
+    final BatchRetrieveInventoryChangesRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BatchRetrieveInventoryChangesRequest`](/doc/models/batch-retrieve-inventory-changes-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`BatchRetrieveInventoryChangesResponse`](/doc/models/batch-retrieve-inventory-changes-response.md)
+
+## Example Usage
+
+```java
+List<String> bodyCatalogObjectIds = new LinkedList<>();
+bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+List<String> bodyLocationIds = new LinkedList<>();
+bodyLocationIds.add("C6W5YS5QM06F5");
+List<String> bodyTypes = new LinkedList<>();
+bodyTypes.add("PHYSICAL_COUNT");
+List<String> bodyStates = new LinkedList<>();
+bodyStates.add("IN_STOCK");
+BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesRequest.Builder()
+    .catalogObjectIds(bodyCatalogObjectIds)
+    .locationIds(bodyLocationIds)
+    .types(bodyTypes)
+    .states(bodyStates)
+    .updatedAfter("2016-11-01T00:00:00.000Z")
+    .updatedBefore("2016-12-01T00:00:00.000Z")
+    .build();
+
+inventoryApi.deprecatedBatchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Deprecated Batch Retrieve Inventory Counts
+
+**This endpoint is deprecated.**
+
+Deprecated version of [BatchRetrieveInventoryCounts](/doc/api/inventory.md#batch-retrieve-inventory-counts) after the endpoint URL
+is updated to conform to the standard convention.
+
+```java
+CompletableFuture<BatchRetrieveInventoryCountsResponse> deprecatedBatchRetrieveInventoryCountsAsync(
+    final BatchRetrieveInventoryCountsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BatchRetrieveInventoryCountsRequest`](/doc/models/batch-retrieve-inventory-counts-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`BatchRetrieveInventoryCountsResponse`](/doc/models/batch-retrieve-inventory-counts-response.md)
+
+## Example Usage
+
+```java
+List<String> bodyCatalogObjectIds = new LinkedList<>();
+bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+List<String> bodyLocationIds = new LinkedList<>();
+bodyLocationIds.add("59TNP9SA8VGDA");
+List<String> bodyStates = new LinkedList<>();
+bodyStates.add("SUPPORTED_BY_NEWER_VERSION");
+BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
+    .catalogObjectIds(bodyCatalogObjectIds)
+    .locationIds(bodyLocationIds)
+    .updatedAfter("2016-11-16T00:00:00.000Z")
+    .cursor("cursor0")
+    .states(bodyStates)
+    .build();
+
+inventoryApi.deprecatedBatchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -255,6 +487,42 @@ inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
 ```
 
 
+# Deprecated Retrieve Inventory Physical Count
+
+**This endpoint is deprecated.**
+
+Deprecated version of [RetrieveInventoryPhysicalCount](/doc/api/inventory.md#retrieve-inventory-physical-count) after the endpoint URL
+is updated to conform to the standard convention.
+
+```java
+CompletableFuture<RetrieveInventoryPhysicalCountResponse> deprecatedRetrieveInventoryPhysicalCountAsync(
+    final String physicalCountId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](/doc/models/inventory-physical-count.md) to retrieve. |
+
+## Response Type
+
+[`RetrieveInventoryPhysicalCountResponse`](/doc/models/retrieve-inventory-physical-count-response.md)
+
+## Example Usage
+
+```java
+String physicalCountId = "physical_count_id2";
+
+inventoryApi.deprecatedRetrieveInventoryPhysicalCountAsync(physicalCountId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
 # Retrieve Inventory Physical Count
 
 Returns the [InventoryPhysicalCount](/doc/models/inventory-physical-count.md)
@@ -281,6 +549,40 @@ CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysi
 String physicalCountId = "physical_count_id2";
 
 inventoryApi.retrieveInventoryPhysicalCountAsync(physicalCountId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Retrieve Inventory Transfer
+
+Returns the [InventoryTransfer](/doc/models/inventory-transfer.md) object
+with the provided `transfer_id`.
+
+```java
+CompletableFuture<RetrieveInventoryTransferResponse> retrieveInventoryTransferAsync(
+    final String transferId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `transferId` | `String` | Template, Required | ID of the [InventoryTransfer](/doc/models/inventory-transfer.md) to retrieve. |
+
+## Response Type
+
+[`RetrieveInventoryTransferResponse`](/doc/models/retrieve-inventory-transfer-response.md)
+
+## Example Usage
+
+```java
+String transferId = "transfer_id6";
+
+inventoryApi.retrieveInventoryTransferAsync(transferId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -333,9 +635,14 @@ inventoryApi.retrieveInventoryCountAsync(catalogObjectId, locationIds, cursor).t
 
 # Retrieve Inventory Changes
 
+**This endpoint is deprecated.**
+
 Returns a set of physical counts and inventory adjustments for the
 provided [CatalogObject](/doc/models/catalog-object.md) at the requested
 [Location](/doc/models/location.md)s.
+
+You can achieve the same result by calling [BatchRetrieveInventoryChanges](/doc/api/inventory.md#batch-retrieve-inventory-changes)
+and having the `catalog_object_ids` list contain a single element of the `CatalogObject` ID.
 
 Results are paginated and sorted in descending order according to their
 `occurred_at` timestamp (newest first).

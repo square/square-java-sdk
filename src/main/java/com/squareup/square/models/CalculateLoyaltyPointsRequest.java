@@ -33,7 +33,7 @@ public class CalculateLoyaltyPointsRequest {
      * Getter for OrderId.
      * The [order]($m/Order) ID for which to calculate the points. Specify this field if your
      * application uses the Orders API to process orders. Otherwise, specify the
-     * `transaction_amount`.
+     * `transaction_amount_money`.
      * @return Returns the String
      */
     @JsonGetter("order_id")

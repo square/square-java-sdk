@@ -10,26 +10,26 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RetrieveLoyaltyAccountResponse type.
+ * This is a model class for RetrieveInventoryTransferResponse type.
  */
-public class RetrieveLoyaltyAccountResponse {
+public class RetrieveInventoryTransferResponse {
     private HttpContext httpContext;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final LoyaltyAccount loyaltyAccount;
+    private final InventoryTransfer transfer;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
-     * @param  loyaltyAccount  LoyaltyAccount value for loyaltyAccount.
+     * @param  transfer  InventoryTransfer value for transfer.
      */
     @JsonCreator
-    public RetrieveLoyaltyAccountResponse(
+    public RetrieveInventoryTransferResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("loyalty_account") LoyaltyAccount loyaltyAccount) {
+            @JsonProperty("transfer") InventoryTransfer transfer) {
         this.errors = errors;
-        this.loyaltyAccount = loyaltyAccount;
+        this.transfer = transfer;
     }
 
     public HttpContext getContext() {
@@ -47,19 +47,19 @@ public class RetrieveLoyaltyAccountResponse {
     }
 
     /**
-     * Getter for LoyaltyAccount.
-     * Describes a loyalty account. For more information, see [Manage Loyalty Accounts Using the
-     * Loyalty API](https://developer.squareup.com/docs/loyalty-api/overview).
-     * @return Returns the LoyaltyAccount
+     * Getter for Transfer.
+     * Represents the transfer of a quantity of product inventory at a particular time from one
+     * location to another.
+     * @return Returns the InventoryTransfer
      */
-    @JsonGetter("loyalty_account")
-    public LoyaltyAccount getLoyaltyAccount() {
-        return loyaltyAccount;
+    @JsonGetter("transfer")
+    public InventoryTransfer getTransfer() {
+        return transfer;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(errors, loyaltyAccount);
+        return Objects.hash(errors, transfer);
     }
 
     @Override
@@ -67,43 +67,43 @@ public class RetrieveLoyaltyAccountResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RetrieveLoyaltyAccountResponse)) {
+        if (!(obj instanceof RetrieveInventoryTransferResponse)) {
             return false;
         }
-        RetrieveLoyaltyAccountResponse other = (RetrieveLoyaltyAccountResponse) obj;
+        RetrieveInventoryTransferResponse other = (RetrieveInventoryTransferResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(loyaltyAccount, other.loyaltyAccount);
+            && Objects.equals(transfer, other.transfer);
     }
 
     /**
-     * Converts this RetrieveLoyaltyAccountResponse into string format.
+     * Converts this RetrieveInventoryTransferResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RetrieveLoyaltyAccountResponse [" + "errors=" + errors + ", loyaltyAccount="
-                + loyaltyAccount + "]";
+        return "RetrieveInventoryTransferResponse [" + "errors=" + errors + ", transfer=" + transfer
+                + "]";
     }
 
     /**
-     * Builds a new {@link RetrieveLoyaltyAccountResponse.Builder} object.
+     * Builds a new {@link RetrieveInventoryTransferResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RetrieveLoyaltyAccountResponse.Builder} object
+     * @return a new {@link RetrieveInventoryTransferResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .loyaltyAccount(getLoyaltyAccount());
+                .transfer(getTransfer());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveLoyaltyAccountResponse}.
+     * Class to build instances of {@link RetrieveInventoryTransferResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
-        private LoyaltyAccount loyaltyAccount;
+        private InventoryTransfer transfer;
 
 
 
@@ -128,22 +128,22 @@ public class RetrieveLoyaltyAccountResponse {
         }
 
         /**
-         * Setter for loyaltyAccount.
-         * @param  loyaltyAccount  LoyaltyAccount value for loyaltyAccount.
+         * Setter for transfer.
+         * @param  transfer  InventoryTransfer value for transfer.
          * @return Builder
          */
-        public Builder loyaltyAccount(LoyaltyAccount loyaltyAccount) {
-            this.loyaltyAccount = loyaltyAccount;
+        public Builder transfer(InventoryTransfer transfer) {
+            this.transfer = transfer;
             return this;
         }
 
         /**
-         * Builds a new {@link RetrieveLoyaltyAccountResponse} object using the set fields.
-         * @return {@link RetrieveLoyaltyAccountResponse}
+         * Builds a new {@link RetrieveInventoryTransferResponse} object using the set fields.
+         * @return {@link RetrieveInventoryTransferResponse}
          */
-        public RetrieveLoyaltyAccountResponse build() {
-            RetrieveLoyaltyAccountResponse model =
-                    new RetrieveLoyaltyAccountResponse(errors, loyaltyAccount);
+        public RetrieveInventoryTransferResponse build() {
+            RetrieveInventoryTransferResponse model =
+                    new RetrieveInventoryTransferResponse(errors, transfer);
             model.httpContext = httpContext;
             return model;
         }

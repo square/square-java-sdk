@@ -155,8 +155,10 @@ public class Invoice {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order]($m/Order) for which the invoice is created. This order must be in the
-     * `OPEN` state. This field is required when creating an invoice.
+     * The ID of the [order]($m/Order) for which the invoice is created. This field is required when
+     * creating an invoice, and the order must be in the `OPEN` state. To view the line items and
+     * other information for the associated order, call the [RetrieveOrder]($e/Orders/RetrieveOrder)
+     * endpoint using the order ID.
      * @return Returns the String
      */
     @JsonGetter("order_id")

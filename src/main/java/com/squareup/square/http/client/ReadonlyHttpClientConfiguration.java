@@ -47,14 +47,27 @@ public interface ReadonlyHttpClientConfiguration {
 
     /**
      * The maximum wait time for overall retrying requests.
-     * @return a copy of maxBackOff
+     * @return a copy of maximumRetryWaitTime
      */
-    long getMaxBackOff();
+    long getMaximumRetryWaitTime();
 
     /**
      * Whether to retry on request timeout.
      * @return a copy of shouldRetryOnTimeout
      */
     boolean shouldRetryOnTimeout();
+
+    /**
+     * The OkHttpClient instance used to make the HTTP calls.
+     * @return a copy of httpClientInstance
+     */
+    okhttp3.OkHttpClient getHttpClientInstance();
+
+    /**
+     * Allow the SDK to override HTTP client instance's settings used for features like retries,
+     * timeouts etc.
+     * @return a copy of overrideHttpClientConfigurations
+     */
+    boolean shouldOverrideHttpClientConfigurations();
 
 }

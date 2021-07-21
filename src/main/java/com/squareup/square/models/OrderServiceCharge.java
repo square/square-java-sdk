@@ -20,6 +20,8 @@ public class OrderServiceCharge {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
@@ -37,12 +39,15 @@ public class OrderServiceCharge {
     private final List<OrderLineItemAppliedTax> appliedTaxes;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String type;
 
     /**
      * Initialization constructor.
      * @param  uid  String value for uid.
      * @param  name  String value for name.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  percentage  String value for percentage.
      * @param  amountMoney  Money value for amountMoney.
      * @param  appliedMoney  Money value for appliedMoney.
@@ -52,12 +57,14 @@ public class OrderServiceCharge {
      * @param  taxable  Boolean value for taxable.
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
      * @param  metadata  Map of String, value for metadata.
+     * @param  type  String value for type.
      */
     @JsonCreator
     public OrderServiceCharge(
             @JsonProperty("uid") String uid,
             @JsonProperty("name") String name,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("percentage") String percentage,
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("applied_money") Money appliedMoney,
@@ -66,10 +73,12 @@ public class OrderServiceCharge {
             @JsonProperty("calculation_phase") String calculationPhase,
             @JsonProperty("taxable") Boolean taxable,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
-            @JsonProperty("metadata") Map<String, String> metadata) {
+            @JsonProperty("metadata") Map<String, String> metadata,
+            @JsonProperty("type") String type) {
         this.uid = uid;
         this.name = name;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.percentage = percentage;
         this.amountMoney = amountMoney;
         this.appliedMoney = appliedMoney;
@@ -79,6 +88,7 @@ public class OrderServiceCharge {
         this.taxable = taxable;
         this.appliedTaxes = appliedTaxes;
         this.metadata = metadata;
+        this.type = type;
     }
 
     /**
@@ -109,6 +119,16 @@ public class OrderServiceCharge {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this service charge references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -245,10 +265,20 @@ public class OrderServiceCharge {
         return metadata;
     }
 
+    /**
+     * Getter for Type.
+     * @return Returns the String
+     */
+    @JsonGetter("type")
+    public String getType() {
+        return type;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(uid, name, catalogObjectId, percentage, amountMoney, appliedMoney,
-                totalMoney, totalTaxMoney, calculationPhase, taxable, appliedTaxes, metadata);
+        return Objects.hash(uid, name, catalogObjectId, catalogVersion, percentage, amountMoney,
+                appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable, appliedTaxes,
+                metadata, type);
     }
 
     @Override
@@ -263,6 +293,7 @@ public class OrderServiceCharge {
         return Objects.equals(uid, other.uid)
             && Objects.equals(name, other.name)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(percentage, other.percentage)
             && Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(appliedMoney, other.appliedMoney)
@@ -271,7 +302,8 @@ public class OrderServiceCharge {
             && Objects.equals(calculationPhase, other.calculationPhase)
             && Objects.equals(taxable, other.taxable)
             && Objects.equals(appliedTaxes, other.appliedTaxes)
-            && Objects.equals(metadata, other.metadata);
+            && Objects.equals(metadata, other.metadata)
+            && Objects.equals(type, other.type);
     }
 
     /**
@@ -281,11 +313,12 @@ public class OrderServiceCharge {
     @Override
     public String toString() {
         return "OrderServiceCharge [" + "uid=" + uid + ", name=" + name + ", catalogObjectId="
-                + catalogObjectId + ", percentage=" + percentage + ", amountMoney=" + amountMoney
-                + ", appliedMoney=" + appliedMoney + ", totalMoney=" + totalMoney
-                + ", totalTaxMoney=" + totalTaxMoney + ", calculationPhase=" + calculationPhase
-                + ", taxable=" + taxable + ", appliedTaxes=" + appliedTaxes + ", metadata="
-                + metadata + "]";
+                + catalogObjectId + ", catalogVersion=" + catalogVersion + ", percentage="
+                + percentage + ", amountMoney=" + amountMoney + ", appliedMoney=" + appliedMoney
+                + ", totalMoney=" + totalMoney + ", totalTaxMoney=" + totalTaxMoney
+                + ", calculationPhase=" + calculationPhase + ", taxable=" + taxable
+                + ", appliedTaxes=" + appliedTaxes + ", metadata=" + metadata + ", type=" + type
+                + "]";
     }
 
     /**
@@ -298,6 +331,7 @@ public class OrderServiceCharge {
                 .uid(getUid())
                 .name(getName())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .percentage(getPercentage())
                 .amountMoney(getAmountMoney())
                 .appliedMoney(getAppliedMoney())
@@ -306,7 +340,8 @@ public class OrderServiceCharge {
                 .calculationPhase(getCalculationPhase())
                 .taxable(getTaxable())
                 .appliedTaxes(getAppliedTaxes())
-                .metadata(getMetadata());
+                .metadata(getMetadata())
+                .type(getType());
         return builder;
     }
 
@@ -317,6 +352,7 @@ public class OrderServiceCharge {
         private String uid;
         private String name;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String percentage;
         private Money amountMoney;
         private Money appliedMoney;
@@ -326,6 +362,7 @@ public class OrderServiceCharge {
         private Boolean taxable;
         private List<OrderLineItemAppliedTax> appliedTaxes;
         private Map<String, String> metadata;
+        private String type;
 
 
 
@@ -356,6 +393,16 @@ public class OrderServiceCharge {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -450,13 +497,23 @@ public class OrderServiceCharge {
         }
 
         /**
+         * Setter for type.
+         * @param  type  String value for type.
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderServiceCharge} object using the set fields.
          * @return {@link OrderServiceCharge}
          */
         public OrderServiceCharge build() {
-            return new OrderServiceCharge(uid, name, catalogObjectId, percentage, amountMoney,
-                    appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
-                    appliedTaxes, metadata);
+            return new OrderServiceCharge(uid, name, catalogObjectId, catalogVersion, percentage,
+                    amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
+                    appliedTaxes, metadata, type);
         }
     }
 }
