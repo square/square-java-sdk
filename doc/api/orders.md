@@ -66,6 +66,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogVersion(133L)
     .build();
 Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
     .amount(1599L)
@@ -96,6 +97,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogVersion(134L)
     .build();
 List<OrderLineItemModifier> bodyOrderLineItems1Modifiers = new LinkedList<>();
 
@@ -103,16 +105,12 @@ Money bodyOrderLineItems1Modifiers0BasePriceMoney = new Money.Builder()
     .amount(53L)
     .currency("TTD")
     .build();
-Money bodyOrderLineItems1Modifiers0TotalPriceMoney = new Money.Builder()
-    .amount(51L)
-    .currency("EUR")
-    .build();
 OrderLineItemModifier bodyOrderLineItems1Modifiers0 = new OrderLineItemModifier.Builder()
     .uid("uid1")
     .catalogObjectId("CHQX7Y4KY6N5KINJKZCFURPZ")
+    .catalogVersion(69L)
     .name("name1")
     .basePriceMoney(bodyOrderLineItems1Modifiers0BasePriceMoney)
-    .totalPriceMoney(bodyOrderLineItems1Modifiers0TotalPriceMoney)
     .build();
 bodyOrderLineItems1Modifiers.add(bodyOrderLineItems1Modifiers0);
 
@@ -146,6 +144,7 @@ List<OrderLineItemTax> bodyOrderTaxes = new LinkedList<>();
 OrderLineItemTax bodyOrderTaxes0 = new OrderLineItemTax.Builder()
     .uid("state-sales-tax")
     .catalogObjectId("catalog_object_id1")
+    .catalogVersion(189L)
     .name("State Sales Tax")
     .type("UNKNOWN_TAX")
     .percentage("9")
@@ -158,6 +157,7 @@ List<OrderLineItemDiscount> bodyOrderDiscounts = new LinkedList<>();
 OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
     .uid("labor-day-sale")
     .catalogObjectId("catalog_object_id5")
+    .catalogVersion(89L)
     .name("Labor Day Sale")
     .type("FIXED_PERCENTAGE")
     .percentage("5")
@@ -168,9 +168,9 @@ bodyOrderDiscounts.add(bodyOrderDiscounts0);
 OrderLineItemDiscount bodyOrderDiscounts1 = new OrderLineItemDiscount.Builder()
     .uid("membership-discount")
     .catalogObjectId("DB7L55ZH2BGWI4H23ULIWOQ7")
+    .catalogVersion(90L)
     .name("name2")
     .type("FIXED_AMOUNT")
-    .percentage("percentage0")
     .scope("ORDER")
     .build();
 bodyOrderDiscounts.add(bodyOrderDiscounts1);
@@ -182,9 +182,9 @@ Money bodyOrderDiscounts2AmountMoney = new Money.Builder()
 OrderLineItemDiscount bodyOrderDiscounts2 = new OrderLineItemDiscount.Builder()
     .uid("one-dollar-off")
     .catalogObjectId("catalog_object_id7")
+    .catalogVersion(91L)
     .name("Sale - $1.00 off")
     .type("VARIABLE_PERCENTAGE")
-    .percentage("percentage1")
     .amountMoney(bodyOrderDiscounts2AmountMoney)
     .scope("LINE_ITEM")
     .build();
@@ -296,6 +296,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogVersion(133L)
     .build();
 Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
     .amount(500L)
@@ -326,6 +327,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogVersion(134L)
     .build();
 Money bodyOrderLineItems1BasePriceMoney = new Money.Builder()
     .amount(300L)
@@ -347,6 +349,7 @@ List<OrderLineItemDiscount> bodyOrderDiscounts = new LinkedList<>();
 OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
     .uid("uid1")
     .catalogObjectId("catalog_object_id5")
+    .catalogVersion(89L)
     .name("50% Off")
     .type("FIXED_PERCENTAGE")
     .percentage("50")
@@ -603,6 +606,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogVersion(133L)
     .build();
 OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
         "quantity7")
@@ -628,6 +632,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogVersion(134L)
     .build();
 OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(
         "quantity6")

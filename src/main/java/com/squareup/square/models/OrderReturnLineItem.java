@@ -26,6 +26,8 @@ public class OrderReturnLineItem {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemType;
@@ -57,6 +59,7 @@ public class OrderReturnLineItem {
      * @param  quantityUnit  OrderQuantityUnit value for quantityUnit.
      * @param  note  String value for note.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  variationName  String value for variationName.
      * @param  itemType  String value for itemType.
      * @param  returnModifiers  List of OrderReturnLineItemModifier value for returnModifiers.
@@ -78,6 +81,7 @@ public class OrderReturnLineItem {
             @JsonProperty("quantity_unit") OrderQuantityUnit quantityUnit,
             @JsonProperty("note") String note,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("variation_name") String variationName,
             @JsonProperty("item_type") String itemType,
             @JsonProperty("return_modifiers") List<OrderReturnLineItemModifier> returnModifiers,
@@ -96,6 +100,7 @@ public class OrderReturnLineItem {
         this.quantityUnit = quantityUnit;
         this.note = note;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.variationName = variationName;
         this.itemType = itemType;
         this.returnModifiers = returnModifiers;
@@ -179,6 +184,16 @@ public class OrderReturnLineItem {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this line item references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -329,9 +344,9 @@ public class OrderReturnLineItem {
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceLineItemUid, name, quantity, quantityUnit, note,
-                catalogObjectId, variationName, itemType, returnModifiers, appliedTaxes,
-                appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossReturnMoney,
-                totalTaxMoney, totalDiscountMoney, totalMoney);
+                catalogObjectId, catalogVersion, variationName, itemType, returnModifiers,
+                appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney,
+                grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
     }
 
     @Override
@@ -350,6 +365,7 @@ public class OrderReturnLineItem {
             && Objects.equals(quantityUnit, other.quantityUnit)
             && Objects.equals(note, other.note)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(variationName, other.variationName)
             && Objects.equals(itemType, other.itemType)
             && Objects.equals(returnModifiers, other.returnModifiers)
@@ -372,12 +388,13 @@ public class OrderReturnLineItem {
         return "OrderReturnLineItem [" + "quantity=" + quantity + ", uid=" + uid
                 + ", sourceLineItemUid=" + sourceLineItemUid + ", name=" + name + ", quantityUnit="
                 + quantityUnit + ", note=" + note + ", catalogObjectId=" + catalogObjectId
-                + ", variationName=" + variationName + ", itemType=" + itemType
-                + ", returnModifiers=" + returnModifiers + ", appliedTaxes=" + appliedTaxes
-                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
-                + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossReturnMoney="
-                + grossReturnMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
-                + totalDiscountMoney + ", totalMoney=" + totalMoney + "]";
+                + ", catalogVersion=" + catalogVersion + ", variationName=" + variationName
+                + ", itemType=" + itemType + ", returnModifiers=" + returnModifiers
+                + ", appliedTaxes=" + appliedTaxes + ", appliedDiscounts=" + appliedDiscounts
+                + ", basePriceMoney=" + basePriceMoney + ", variationTotalPriceMoney="
+                + variationTotalPriceMoney + ", grossReturnMoney=" + grossReturnMoney
+                + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney
+                + ", totalMoney=" + totalMoney + "]";
     }
 
     /**
@@ -393,6 +410,7 @@ public class OrderReturnLineItem {
                 .quantityUnit(getQuantityUnit())
                 .note(getNote())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .variationName(getVariationName())
                 .itemType(getItemType())
                 .returnModifiers(getReturnModifiers())
@@ -418,6 +436,7 @@ public class OrderReturnLineItem {
         private OrderQuantityUnit quantityUnit;
         private String note;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String variationName;
         private String itemType;
         private List<OrderReturnLineItemModifier> returnModifiers;
@@ -505,6 +524,16 @@ public class OrderReturnLineItem {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -625,9 +654,9 @@ public class OrderReturnLineItem {
          */
         public OrderReturnLineItem build() {
             return new OrderReturnLineItem(quantity, uid, sourceLineItemUid, name, quantityUnit,
-                    note, catalogObjectId, variationName, itemType, returnModifiers, appliedTaxes,
-                    appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossReturnMoney,
-                    totalTaxMoney, totalDiscountMoney, totalMoney);
+                    note, catalogObjectId, catalogVersion, variationName, itemType, returnModifiers,
+                    appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney,
+                    grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
         }
     }
 }

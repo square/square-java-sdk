@@ -50,6 +50,7 @@ MeasurementUnit bodyOrderOrderLineItems0QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(191)
+    .catalogVersion(131L)
     .build();
 List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
 
@@ -103,6 +104,7 @@ MeasurementUnit bodyOrderOrderLineItems1QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(192)
+    .catalogVersion(130L)
     .build();
 Money bodyOrderOrderLineItems1BasePriceMoney = new Money.Builder()
     .amount(2500L)
@@ -128,6 +130,7 @@ MeasurementUnit bodyOrderOrderLineItems2QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems2QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems2QuantityUnitMeasurementUnit)
     .precision(193)
+    .catalogVersion(129L)
     .build();
 Money bodyOrderOrderLineItems2BasePriceMoney = new Money.Builder()
     .amount(3500L)
@@ -149,6 +152,7 @@ List<OrderLineItemTax> bodyOrderOrderTaxes = new LinkedList<>();
 OrderLineItemTax bodyOrderOrderTaxes0 = new OrderLineItemTax.Builder()
     .uid("38ze1696-z1e3-5628-af6d-f1e04d947fg3")
     .catalogObjectId("catalog_object_id7")
+    .catalogVersion(47L)
     .name("name9")
     .type("INCLUSIVE")
     .percentage("7.75")
@@ -165,9 +169,9 @@ Money bodyOrderOrderDiscounts0AmountMoney = new Money.Builder()
 OrderLineItemDiscount bodyOrderOrderDiscounts0 = new OrderLineItemDiscount.Builder()
     .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
     .catalogObjectId("catalog_object_id1")
+    .catalogVersion(73L)
     .name("name7")
     .type("FIXED_AMOUNT")
-    .percentage("percentage5")
     .amountMoney(bodyOrderOrderDiscounts0AmountMoney)
     .scope("LINE_ITEM")
     .build();

@@ -18,7 +18,7 @@ import java.util.concurrent.CompletionException;
  * Base class for all Apis.
  */
 public abstract class BaseApi {
-    protected static final String userAgent = "Square-Java-SDK/12.0.0.20210616";
+    protected static final String userAgent = "Square-Java-SDK/13.0.0.20210721";
 
     /**
      * Protected variables to hold an instance of Configuration.

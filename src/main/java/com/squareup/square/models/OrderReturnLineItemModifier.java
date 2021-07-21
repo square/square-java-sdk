@@ -18,6 +18,8 @@ public class OrderReturnLineItemModifier {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
@@ -29,6 +31,7 @@ public class OrderReturnLineItemModifier {
      * @param  uid  String value for uid.
      * @param  sourceModifierUid  String value for sourceModifierUid.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  name  String value for name.
      * @param  basePriceMoney  Money value for basePriceMoney.
      * @param  totalPriceMoney  Money value for totalPriceMoney.
@@ -38,12 +41,14 @@ public class OrderReturnLineItemModifier {
             @JsonProperty("uid") String uid,
             @JsonProperty("source_modifier_uid") String sourceModifierUid,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
             @JsonProperty("base_price_money") Money basePriceMoney,
             @JsonProperty("total_price_money") Money totalPriceMoney) {
         this.uid = uid;
         this.sourceModifierUid = sourceModifierUid;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.name = name;
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
@@ -78,6 +83,16 @@ public class OrderReturnLineItemModifier {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this line item modifier references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -122,8 +137,8 @@ public class OrderReturnLineItemModifier {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, sourceModifierUid, catalogObjectId, name, basePriceMoney,
-                totalPriceMoney);
+        return Objects.hash(uid, sourceModifierUid, catalogObjectId, catalogVersion, name,
+                basePriceMoney, totalPriceMoney);
     }
 
     @Override
@@ -138,6 +153,7 @@ public class OrderReturnLineItemModifier {
         return Objects.equals(uid, other.uid)
             && Objects.equals(sourceModifierUid, other.sourceModifierUid)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
             && Objects.equals(basePriceMoney, other.basePriceMoney)
             && Objects.equals(totalPriceMoney, other.totalPriceMoney);
@@ -150,9 +166,9 @@ public class OrderReturnLineItemModifier {
     @Override
     public String toString() {
         return "OrderReturnLineItemModifier [" + "uid=" + uid + ", sourceModifierUid="
-                + sourceModifierUid + ", catalogObjectId=" + catalogObjectId + ", name=" + name
-                + ", basePriceMoney=" + basePriceMoney + ", totalPriceMoney=" + totalPriceMoney
-                + "]";
+                + sourceModifierUid + ", catalogObjectId=" + catalogObjectId + ", catalogVersion="
+                + catalogVersion + ", name=" + name + ", basePriceMoney=" + basePriceMoney
+                + ", totalPriceMoney=" + totalPriceMoney + "]";
     }
 
     /**
@@ -165,6 +181,7 @@ public class OrderReturnLineItemModifier {
                 .uid(getUid())
                 .sourceModifierUid(getSourceModifierUid())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .name(getName())
                 .basePriceMoney(getBasePriceMoney())
                 .totalPriceMoney(getTotalPriceMoney());
@@ -178,6 +195,7 @@ public class OrderReturnLineItemModifier {
         private String uid;
         private String sourceModifierUid;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String name;
         private Money basePriceMoney;
         private Money totalPriceMoney;
@@ -211,6 +229,16 @@ public class OrderReturnLineItemModifier {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -249,8 +277,8 @@ public class OrderReturnLineItemModifier {
          * @return {@link OrderReturnLineItemModifier}
          */
         public OrderReturnLineItemModifier build() {
-            return new OrderReturnLineItemModifier(uid, sourceModifierUid, catalogObjectId, name,
-                    basePriceMoney, totalPriceMoney);
+            return new OrderReturnLineItemModifier(uid, sourceModifierUid, catalogObjectId,
+                    catalogVersion, name, basePriceMoney, totalPriceMoney);
         }
     }
 }

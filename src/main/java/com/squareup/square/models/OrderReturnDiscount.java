@@ -18,6 +18,8 @@ public class OrderReturnDiscount {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
@@ -35,6 +37,7 @@ public class OrderReturnDiscount {
      * @param  uid  String value for uid.
      * @param  sourceDiscountUid  String value for sourceDiscountUid.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  name  String value for name.
      * @param  type  String value for type.
      * @param  percentage  String value for percentage.
@@ -47,6 +50,7 @@ public class OrderReturnDiscount {
             @JsonProperty("uid") String uid,
             @JsonProperty("source_discount_uid") String sourceDiscountUid,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
             @JsonProperty("type") String type,
             @JsonProperty("percentage") String percentage,
@@ -56,6 +60,7 @@ public class OrderReturnDiscount {
         this.uid = uid;
         this.sourceDiscountUid = sourceDiscountUid;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.name = name;
         this.type = type;
         this.percentage = percentage;
@@ -92,6 +97,16 @@ public class OrderReturnDiscount {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this discount references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -168,8 +183,8 @@ public class OrderReturnDiscount {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, sourceDiscountUid, catalogObjectId, name, type, percentage,
-                amountMoney, appliedMoney, scope);
+        return Objects.hash(uid, sourceDiscountUid, catalogObjectId, catalogVersion, name, type,
+                percentage, amountMoney, appliedMoney, scope);
     }
 
     @Override
@@ -184,6 +199,7 @@ public class OrderReturnDiscount {
         return Objects.equals(uid, other.uid)
             && Objects.equals(sourceDiscountUid, other.sourceDiscountUid)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
             && Objects.equals(type, other.type)
             && Objects.equals(percentage, other.percentage)
@@ -199,9 +215,10 @@ public class OrderReturnDiscount {
     @Override
     public String toString() {
         return "OrderReturnDiscount [" + "uid=" + uid + ", sourceDiscountUid=" + sourceDiscountUid
-                + ", catalogObjectId=" + catalogObjectId + ", name=" + name + ", type=" + type
-                + ", percentage=" + percentage + ", amountMoney=" + amountMoney + ", appliedMoney="
-                + appliedMoney + ", scope=" + scope + "]";
+                + ", catalogObjectId=" + catalogObjectId + ", catalogVersion=" + catalogVersion
+                + ", name=" + name + ", type=" + type + ", percentage=" + percentage
+                + ", amountMoney=" + amountMoney + ", appliedMoney=" + appliedMoney + ", scope="
+                + scope + "]";
     }
 
     /**
@@ -214,6 +231,7 @@ public class OrderReturnDiscount {
                 .uid(getUid())
                 .sourceDiscountUid(getSourceDiscountUid())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .name(getName())
                 .type(getType())
                 .percentage(getPercentage())
@@ -230,6 +248,7 @@ public class OrderReturnDiscount {
         private String uid;
         private String sourceDiscountUid;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String name;
         private String type;
         private String percentage;
@@ -266,6 +285,16 @@ public class OrderReturnDiscount {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -334,8 +363,8 @@ public class OrderReturnDiscount {
          * @return {@link OrderReturnDiscount}
          */
         public OrderReturnDiscount build() {
-            return new OrderReturnDiscount(uid, sourceDiscountUid, catalogObjectId, name, type,
-                    percentage, amountMoney, appliedMoney, scope);
+            return new OrderReturnDiscount(uid, sourceDiscountUid, catalogObjectId, catalogVersion,
+                    name, type, percentage, amountMoney, appliedMoney, scope);
         }
     }
 }

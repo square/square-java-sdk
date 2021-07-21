@@ -16,6 +16,8 @@ public class OrderLineItemModifier {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
@@ -26,6 +28,7 @@ public class OrderLineItemModifier {
      * Initialization constructor.
      * @param  uid  String value for uid.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  name  String value for name.
      * @param  basePriceMoney  Money value for basePriceMoney.
      * @param  totalPriceMoney  Money value for totalPriceMoney.
@@ -34,11 +37,13 @@ public class OrderLineItemModifier {
     public OrderLineItemModifier(
             @JsonProperty("uid") String uid,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
             @JsonProperty("base_price_money") Money basePriceMoney,
             @JsonProperty("total_price_money") Money totalPriceMoney) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.name = name;
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
@@ -62,6 +67,16 @@ public class OrderLineItemModifier {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this modifier references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -106,7 +121,8 @@ public class OrderLineItemModifier {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, catalogObjectId, name, basePriceMoney, totalPriceMoney);
+        return Objects.hash(uid, catalogObjectId, catalogVersion, name, basePriceMoney,
+                totalPriceMoney);
     }
 
     @Override
@@ -120,6 +136,7 @@ public class OrderLineItemModifier {
         OrderLineItemModifier other = (OrderLineItemModifier) obj;
         return Objects.equals(uid, other.uid)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
             && Objects.equals(basePriceMoney, other.basePriceMoney)
             && Objects.equals(totalPriceMoney, other.totalPriceMoney);
@@ -132,8 +149,8 @@ public class OrderLineItemModifier {
     @Override
     public String toString() {
         return "OrderLineItemModifier [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
-                + ", name=" + name + ", basePriceMoney=" + basePriceMoney + ", totalPriceMoney="
-                + totalPriceMoney + "]";
+                + ", catalogVersion=" + catalogVersion + ", name=" + name + ", basePriceMoney="
+                + basePriceMoney + ", totalPriceMoney=" + totalPriceMoney + "]";
     }
 
     /**
@@ -145,6 +162,7 @@ public class OrderLineItemModifier {
         Builder builder = new Builder()
                 .uid(getUid())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .name(getName())
                 .basePriceMoney(getBasePriceMoney())
                 .totalPriceMoney(getTotalPriceMoney());
@@ -157,6 +175,7 @@ public class OrderLineItemModifier {
     public static class Builder {
         private String uid;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String name;
         private Money basePriceMoney;
         private Money totalPriceMoney;
@@ -180,6 +199,16 @@ public class OrderLineItemModifier {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -218,8 +247,8 @@ public class OrderLineItemModifier {
          * @return {@link OrderLineItemModifier}
          */
         public OrderLineItemModifier build() {
-            return new OrderLineItemModifier(uid, catalogObjectId, name, basePriceMoney,
-                    totalPriceMoney);
+            return new OrderLineItemModifier(uid, catalogObjectId, catalogVersion, name,
+                    basePriceMoney, totalPriceMoney);
         }
     }
 }

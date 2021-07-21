@@ -51,6 +51,8 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ExternalPaymentDetails externalDetails;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final DigitalWalletDetails walletDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
@@ -104,6 +106,7 @@ public class Payment {
      * @param  cashDetails  CashPaymentDetails value for cashDetails.
      * @param  bankAccountDetails  BankAccountPaymentDetails value for bankAccountDetails.
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
+     * @param  walletDetails  DigitalWalletDetails value for walletDetails.
      * @param  locationId  String value for locationId.
      * @param  orderId  String value for orderId.
      * @param  referenceId  String value for referenceId.
@@ -142,6 +145,7 @@ public class Payment {
             @JsonProperty("cash_details") CashPaymentDetails cashDetails,
             @JsonProperty("bank_account_details") BankAccountPaymentDetails bankAccountDetails,
             @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
+            @JsonProperty("wallet_details") DigitalWalletDetails walletDetails,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("reference_id") String referenceId,
@@ -177,6 +181,7 @@ public class Payment {
         this.cashDetails = cashDetails;
         this.bankAccountDetails = bankAccountDetails;
         this.externalDetails = externalDetails;
+        this.walletDetails = walletDetails;
         this.locationId = locationId;
         this.orderId = orderId;
         this.referenceId = referenceId;
@@ -376,8 +381,8 @@ public class Payment {
 
     /**
      * Getter for SourceType.
-     * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `CASH`, or
-     * `EXTERNAL`.
+     * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`,
+     * `CASH`, or `EXTERNAL`.
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -427,6 +432,16 @@ public class Payment {
     @JsonGetter("external_details")
     public ExternalPaymentDetails getExternalDetails() {
         return externalDetails;
+    }
+
+    /**
+     * Getter for WalletDetails.
+     * Additional details about `WALLET` type payments. Contains only non-confidential information.
+     * @return Returns the DigitalWalletDetails
+     */
+    @JsonGetter("wallet_details")
+    public DigitalWalletDetails getWalletDetails() {
+        return walletDetails;
     }
 
     /**
@@ -604,10 +619,10 @@ public class Payment {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                 appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                 delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
-                externalDetails, locationId, orderId, referenceId, customerId, employeeId,
-                refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress, note,
-                statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                versionToken);
+                externalDetails, walletDetails, locationId, orderId, referenceId, customerId,
+                employeeId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
+                shippingAddress, note, statementDescriptionIdentifier, capabilities, receiptNumber,
+                receiptUrl, versionToken);
     }
 
     @Override
@@ -638,6 +653,7 @@ public class Payment {
             && Objects.equals(cashDetails, other.cashDetails)
             && Objects.equals(bankAccountDetails, other.bankAccountDetails)
             && Objects.equals(externalDetails, other.externalDetails)
+            && Objects.equals(walletDetails, other.walletDetails)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(referenceId, other.referenceId)
@@ -671,14 +687,15 @@ public class Payment {
                 + delayAction + ", delayedUntil=" + delayedUntil + ", sourceType=" + sourceType
                 + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
                 + ", bankAccountDetails=" + bankAccountDetails + ", externalDetails="
-                + externalDetails + ", locationId=" + locationId + ", orderId=" + orderId
-                + ", referenceId=" + referenceId + ", customerId=" + customerId + ", employeeId="
-                + employeeId + ", refundIds=" + refundIds + ", riskEvaluation=" + riskEvaluation
-                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
-                + ", shippingAddress=" + shippingAddress + ", note=" + note
-                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
-                + ", capabilities=" + capabilities + ", receiptNumber=" + receiptNumber
-                + ", receiptUrl=" + receiptUrl + ", versionToken=" + versionToken + "]";
+                + externalDetails + ", walletDetails=" + walletDetails + ", locationId="
+                + locationId + ", orderId=" + orderId + ", referenceId=" + referenceId
+                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", refundIds="
+                + refundIds + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress="
+                + buyerEmailAddress + ", billingAddress=" + billingAddress + ", shippingAddress="
+                + shippingAddress + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + ", capabilities=" + capabilities
+                + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
+                + ", versionToken=" + versionToken + "]";
     }
 
     /**
@@ -707,6 +724,7 @@ public class Payment {
                 .cashDetails(getCashDetails())
                 .bankAccountDetails(getBankAccountDetails())
                 .externalDetails(getExternalDetails())
+                .walletDetails(getWalletDetails())
                 .locationId(getLocationId())
                 .orderId(getOrderId())
                 .referenceId(getReferenceId())
@@ -749,6 +767,7 @@ public class Payment {
         private CashPaymentDetails cashDetails;
         private BankAccountPaymentDetails bankAccountDetails;
         private ExternalPaymentDetails externalDetails;
+        private DigitalWalletDetails walletDetails;
         private String locationId;
         private String orderId;
         private String referenceId;
@@ -959,6 +978,16 @@ public class Payment {
         }
 
         /**
+         * Setter for walletDetails.
+         * @param  walletDetails  DigitalWalletDetails value for walletDetails.
+         * @return Builder
+         */
+        public Builder walletDetails(DigitalWalletDetails walletDetails) {
+            this.walletDetails = walletDetails;
+            return this;
+        }
+
+        /**
          * Setter for locationId.
          * @param  locationId  String value for locationId.
          * @return Builder
@@ -1126,10 +1155,11 @@ public class Payment {
             return new Payment(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                     appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
-                    bankAccountDetails, externalDetails, locationId, orderId, referenceId,
-                    customerId, employeeId, refundIds, riskEvaluation, buyerEmailAddress,
-                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
-                    capabilities, receiptNumber, receiptUrl, versionToken);
+                    bankAccountDetails, externalDetails, walletDetails, locationId, orderId,
+                    referenceId, customerId, employeeId, refundIds, riskEvaluation,
+                    buyerEmailAddress, billingAddress, shippingAddress, note,
+                    statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
+                    versionToken);
         }
     }
 }

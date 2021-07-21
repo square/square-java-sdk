@@ -38,13 +38,30 @@ public class OkClient implements HttpClient {
      * @param  httpClientConfig  The specified http client configuration.
      */
     public OkClient(ReadonlyHttpClientConfiguration httpClientConfig) {
-        okhttp3.OkHttpClient.Builder clientBuilder = getDefaultOkHttpClient().newBuilder();
+        okhttp3.OkHttpClient httpClientInstance = httpClientConfig.getHttpClientInstance();
+        if (httpClientInstance != null) {
+            if (httpClientConfig.shouldOverrideHttpClientConfigurations()) {
+                applyHttpClientConfigurations(httpClientInstance, httpClientConfig);
+            } else {
+                this.client = httpClientInstance;
+            }
+        } else {
+            applyHttpClientConfigurations(getDefaultOkHttpClient(), httpClientConfig);
+        }
+    }
+
+    /**
+     * Applies the httpClientConfigurations on okhttp3.OkHttpClient.
+     */
+    private void applyHttpClientConfigurations(okhttp3.OkHttpClient client,
+            ReadonlyHttpClientConfiguration httpClientConfig) {
+        okhttp3.OkHttpClient.Builder clientBuilder = client.newBuilder();
         clientBuilder.readTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
                 .writeTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS)
                 .connectTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);
         // If retries are allowed then RetryInterceptor must be registered
         if (httpClientConfig.getNumberOfRetries() > 0) {
-            clientBuilder.callTimeout(httpClientConfig.getMaxBackOff(), TimeUnit.SECONDS)
+            clientBuilder.callTimeout(httpClientConfig.getMaximumRetryWaitTime(), TimeUnit.SECONDS)
                     .addInterceptor(new RetryInterceptor(httpClientConfig));
         } else {
             clientBuilder.callTimeout(httpClientConfig.getTimeout(), TimeUnit.SECONDS);

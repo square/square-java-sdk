@@ -48,8 +48,8 @@ public class CreateLoyaltyAccountResponse {
 
     /**
      * Getter for LoyaltyAccount.
-     * Describes a loyalty account. For more information, see [Loyalty
-     * Overview](https://developer.squareup.com/docs/loyalty/overview).
+     * Describes a loyalty account. For more information, see [Manage Loyalty Accounts Using the
+     * Loyalty API](https://developer.squareup.com/docs/loyalty-api/overview).
      * @return Returns the LoyaltyAccount
      */
     @JsonGetter("loyalty_account")

@@ -12,6 +12,7 @@ import com.squareup.square.models.RetrieveInventoryAdjustmentResponse;
 import com.squareup.square.models.RetrieveInventoryChangesResponse;
 import com.squareup.square.models.RetrieveInventoryCountResponse;
 import com.squareup.square.models.RetrieveInventoryPhysicalCountResponse;
+import com.squareup.square.models.RetrieveInventoryTransferResponse;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
@@ -20,6 +21,33 @@ import java.util.concurrent.CompletableFuture;
  * This can be overridden for the mock calls.
  */
 public interface InventoryApi {
+    /**
+     * Deprecated version of [RetrieveInventoryAdjustment]($e/Inventory/RetrieveInventoryAdjustment)
+     * after the endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  adjustmentId  Required parameter: ID of the
+     *         [InventoryAdjustment]($m/InventoryAdjustment) to retrieve.
+     * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    @Deprecated    RetrieveInventoryAdjustmentResponse deprecatedRetrieveInventoryAdjustment(
+            final String adjustmentId) throws ApiException, IOException;
+
+    /**
+     * Deprecated version of [RetrieveInventoryAdjustment]($e/Inventory/RetrieveInventoryAdjustment)
+     * after the endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  adjustmentId  Required parameter: ID of the
+     *         [InventoryAdjustment]($m/InventoryAdjustment) to retrieve.
+     * @return    Returns the RetrieveInventoryAdjustmentResponse response from the API call
+     */
+    @Deprecated
+    CompletableFuture<RetrieveInventoryAdjustmentResponse> deprecatedRetrieveInventoryAdjustmentAsync(
+            final String adjustmentId);
+
     /**
      * Returns the [InventoryAdjustment]($m/InventoryAdjustment) object with the provided
      * `adjustment_id`.
@@ -41,6 +69,91 @@ public interface InventoryApi {
      */
     CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustmentAsync(
             final String adjustmentId);
+
+    /**
+     * Deprecated version of [BatchChangeInventory]($e/Inventory/BatchChangeInventory) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchChangeInventoryResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    @Deprecated    BatchChangeInventoryResponse deprecatedBatchChangeInventory(
+            final BatchChangeInventoryRequest body) throws ApiException, IOException;
+
+    /**
+     * Deprecated version of [BatchChangeInventory]($e/Inventory/BatchChangeInventory) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchChangeInventoryResponse response from the API call
+     */
+    @Deprecated
+    CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAsync(
+            final BatchChangeInventoryRequest body);
+
+    /**
+     * Deprecated version of
+     * [BatchRetrieveInventoryChanges]($e/Inventory/BatchRetrieveInventoryChanges) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryChangesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    @Deprecated    BatchRetrieveInventoryChangesResponse deprecatedBatchRetrieveInventoryChanges(
+            final BatchRetrieveInventoryChangesRequest body) throws ApiException, IOException;
+
+    /**
+     * Deprecated version of
+     * [BatchRetrieveInventoryChanges]($e/Inventory/BatchRetrieveInventoryChanges) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryChangesResponse response from the API call
+     */
+    @Deprecated
+    CompletableFuture<BatchRetrieveInventoryChangesResponse> deprecatedBatchRetrieveInventoryChangesAsync(
+            final BatchRetrieveInventoryChangesRequest body);
+
+    /**
+     * Deprecated version of
+     * [BatchRetrieveInventoryCounts]($e/Inventory/BatchRetrieveInventoryCounts) after the endpoint
+     * URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    @Deprecated    BatchRetrieveInventoryCountsResponse deprecatedBatchRetrieveInventoryCounts(
+            final BatchRetrieveInventoryCountsRequest body) throws ApiException, IOException;
+
+    /**
+     * Deprecated version of
+     * [BatchRetrieveInventoryCounts]($e/Inventory/BatchRetrieveInventoryCounts) after the endpoint
+     * URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BatchRetrieveInventoryCountsResponse response from the API call
+     */
+    @Deprecated
+    CompletableFuture<BatchRetrieveInventoryCountsResponse> deprecatedBatchRetrieveInventoryCountsAsync(
+            final BatchRetrieveInventoryCountsRequest body);
 
     /**
      * Applies adjustments and counts to the provided item quantities. On success: returns the
@@ -123,6 +236,35 @@ public interface InventoryApi {
             final BatchRetrieveInventoryCountsRequest body);
 
     /**
+     * Deprecated version of
+     * [RetrieveInventoryPhysicalCount]($e/Inventory/RetrieveInventoryPhysicalCount) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  physicalCountId  Required parameter: ID of the
+     *         [InventoryPhysicalCount]($m/InventoryPhysicalCount) to retrieve.
+     * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    @Deprecated    RetrieveInventoryPhysicalCountResponse deprecatedRetrieveInventoryPhysicalCount(
+            final String physicalCountId) throws ApiException, IOException;
+
+    /**
+     * Deprecated version of
+     * [RetrieveInventoryPhysicalCount]($e/Inventory/RetrieveInventoryPhysicalCount) after the
+     * endpoint URL is updated to conform to the standard convention.
+     * @deprecated
+     * 
+     * @param  physicalCountId  Required parameter: ID of the
+     *         [InventoryPhysicalCount]($m/InventoryPhysicalCount) to retrieve.
+     * @return    Returns the RetrieveInventoryPhysicalCountResponse response from the API call
+     */
+    @Deprecated
+    CompletableFuture<RetrieveInventoryPhysicalCountResponse> deprecatedRetrieveInventoryPhysicalCountAsync(
+            final String physicalCountId);
+
+    /**
      * Returns the [InventoryPhysicalCount]($m/InventoryPhysicalCount) object with the provided
      * `physical_count_id`.
      * @param  physicalCountId  Required parameter: ID of the
@@ -143,6 +285,26 @@ public interface InventoryApi {
      */
     CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysicalCountAsync(
             final String physicalCountId);
+
+    /**
+     * Returns the [InventoryTransfer]($m/InventoryTransfer) object with the provided `transfer_id`.
+     * @param  transferId  Required parameter: ID of the [InventoryTransfer]($m/InventoryTransfer)
+     *         to retrieve.
+     * @return    Returns the RetrieveInventoryTransferResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveInventoryTransferResponse retrieveInventoryTransfer(
+            final String transferId) throws ApiException, IOException;
+
+    /**
+     * Returns the [InventoryTransfer]($m/InventoryTransfer) object with the provided `transfer_id`.
+     * @param  transferId  Required parameter: ID of the [InventoryTransfer]($m/InventoryTransfer)
+     *         to retrieve.
+     * @return    Returns the RetrieveInventoryTransferResponse response from the API call
+     */
+    CompletableFuture<RetrieveInventoryTransferResponse> retrieveInventoryTransferAsync(
+            final String transferId);
 
     /**
      * Retrieves the current calculated stock count for a given [CatalogObject]($m/CatalogObject) at
@@ -188,11 +350,16 @@ public interface InventoryApi {
 
     /**
      * Returns a set of physical counts and inventory adjustments for the provided
-     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. Results are
+     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. You can achieve
+     * the same result by calling
+     * [BatchRetrieveInventoryChanges]($e/Inventory/BatchRetrieveInventoryChanges) and having the
+     * `catalog_object_ids` list contain a single element of the `CatalogObject` ID. Results are
      * paginated and sorted in descending order according to their `occurred_at` timestamp (newest
      * first). There are no limits on how far back the caller can page. This endpoint can be used to
      * display recent changes for a specific item. For more sophisticated queries, use a batch
      * endpoint.
+     * @deprecated
+     * 
      * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
      *         retrieve.
      * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
@@ -206,18 +373,23 @@ public interface InventoryApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    RetrieveInventoryChangesResponse retrieveInventoryChanges(
+    @Deprecated    RetrieveInventoryChangesResponse retrieveInventoryChanges(
             final String catalogObjectId,
             final String locationIds,
             final String cursor) throws ApiException, IOException;
 
     /**
      * Returns a set of physical counts and inventory adjustments for the provided
-     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. Results are
+     * [CatalogObject]($m/CatalogObject) at the requested [Location]($m/Location)s. You can achieve
+     * the same result by calling
+     * [BatchRetrieveInventoryChanges]($e/Inventory/BatchRetrieveInventoryChanges) and having the
+     * `catalog_object_ids` list contain a single element of the `CatalogObject` ID. Results are
      * paginated and sorted in descending order according to their `occurred_at` timestamp (newest
      * first). There are no limits on how far back the caller can page. This endpoint can be used to
      * display recent changes for a specific item. For more sophisticated queries, use a batch
      * endpoint.
+     * @deprecated
+     * 
      * @param  catalogObjectId  Required parameter: ID of the [CatalogObject]($m/CatalogObject) to
      *         retrieve.
      * @param  locationIds  Optional parameter: The [Location]($m/Location) IDs to look up as a
@@ -229,6 +401,7 @@ public interface InventoryApi {
      *         for more information.
      * @return    Returns the RetrieveInventoryChangesResponse response from the API call
      */
+    @Deprecated
     CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsync(
             final String catalogObjectId,
             final String locationIds,

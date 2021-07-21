@@ -18,6 +18,8 @@ public class OrderReturnTax {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Long catalogVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
@@ -33,6 +35,7 @@ public class OrderReturnTax {
      * @param  uid  String value for uid.
      * @param  sourceTaxUid  String value for sourceTaxUid.
      * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      * @param  name  String value for name.
      * @param  type  String value for type.
      * @param  percentage  String value for percentage.
@@ -44,6 +47,7 @@ public class OrderReturnTax {
             @JsonProperty("uid") String uid,
             @JsonProperty("source_tax_uid") String sourceTaxUid,
             @JsonProperty("catalog_object_id") String catalogObjectId,
+            @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
             @JsonProperty("type") String type,
             @JsonProperty("percentage") String percentage,
@@ -52,6 +56,7 @@ public class OrderReturnTax {
         this.uid = uid;
         this.sourceTaxUid = sourceTaxUid;
         this.catalogObjectId = catalogObjectId;
+        this.catalogVersion = catalogVersion;
         this.name = name;
         this.type = type;
         this.percentage = percentage;
@@ -87,6 +92,16 @@ public class OrderReturnTax {
     @JsonGetter("catalog_object_id")
     public String getCatalogObjectId() {
         return catalogObjectId;
+    }
+
+    /**
+     * Getter for CatalogVersion.
+     * The version of the catalog object that this tax references.
+     * @return Returns the Long
+     */
+    @JsonGetter("catalog_version")
+    public Long getCatalogVersion() {
+        return catalogVersion;
     }
 
     /**
@@ -147,8 +162,8 @@ public class OrderReturnTax {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, sourceTaxUid, catalogObjectId, name, type, percentage,
-                appliedMoney, scope);
+        return Objects.hash(uid, sourceTaxUid, catalogObjectId, catalogVersion, name, type,
+                percentage, appliedMoney, scope);
     }
 
     @Override
@@ -163,6 +178,7 @@ public class OrderReturnTax {
         return Objects.equals(uid, other.uid)
             && Objects.equals(sourceTaxUid, other.sourceTaxUid)
             && Objects.equals(catalogObjectId, other.catalogObjectId)
+            && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
             && Objects.equals(type, other.type)
             && Objects.equals(percentage, other.percentage)
@@ -177,9 +193,9 @@ public class OrderReturnTax {
     @Override
     public String toString() {
         return "OrderReturnTax [" + "uid=" + uid + ", sourceTaxUid=" + sourceTaxUid
-                + ", catalogObjectId=" + catalogObjectId + ", name=" + name + ", type=" + type
-                + ", percentage=" + percentage + ", appliedMoney=" + appliedMoney + ", scope="
-                + scope + "]";
+                + ", catalogObjectId=" + catalogObjectId + ", catalogVersion=" + catalogVersion
+                + ", name=" + name + ", type=" + type + ", percentage=" + percentage
+                + ", appliedMoney=" + appliedMoney + ", scope=" + scope + "]";
     }
 
     /**
@@ -192,6 +208,7 @@ public class OrderReturnTax {
                 .uid(getUid())
                 .sourceTaxUid(getSourceTaxUid())
                 .catalogObjectId(getCatalogObjectId())
+                .catalogVersion(getCatalogVersion())
                 .name(getName())
                 .type(getType())
                 .percentage(getPercentage())
@@ -207,6 +224,7 @@ public class OrderReturnTax {
         private String uid;
         private String sourceTaxUid;
         private String catalogObjectId;
+        private Long catalogVersion;
         private String name;
         private String type;
         private String percentage;
@@ -242,6 +260,16 @@ public class OrderReturnTax {
          */
         public Builder catalogObjectId(String catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
+         * Setter for catalogVersion.
+         * @param  catalogVersion  Long value for catalogVersion.
+         * @return Builder
+         */
+        public Builder catalogVersion(Long catalogVersion) {
+            this.catalogVersion = catalogVersion;
             return this;
         }
 
@@ -300,8 +328,8 @@ public class OrderReturnTax {
          * @return {@link OrderReturnTax}
          */
         public OrderReturnTax build() {
-            return new OrderReturnTax(uid, sourceTaxUid, catalogObjectId, name, type, percentage,
-                    appliedMoney, scope);
+            return new OrderReturnTax(uid, sourceTaxUid, catalogObjectId, catalogVersion, name,
+                    type, percentage, appliedMoney, scope);
         }
     }
 }
