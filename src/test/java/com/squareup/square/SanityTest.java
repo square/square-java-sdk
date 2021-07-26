@@ -85,7 +85,7 @@ public class SanityTest {
     private SquareClient client;
 
 
-    @Before
+    /*@Before
     public void setup() throws Exception {
         client = new SquareClient.Builder()
             .environment(Environment.SANDBOX)
@@ -181,5 +181,5 @@ public class SanityTest {
         // Delete Customer
         DeleteCustomerResponse deleteCustomerRes = api.deleteCustomer(createdCustomerId, null);
         assertEquals(deleteCustomerRes.getErrors(), null);
-    }
+    }*/
 }

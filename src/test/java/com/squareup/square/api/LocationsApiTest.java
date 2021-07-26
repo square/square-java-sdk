@@ -45,7 +45,7 @@ public class LocationsApiTest extends BaseApiTest {
      * this endpoint correspond to that `location_id` parameter.
      * @throws Throwable exception if occurs.
      */
-    @Test
+    /*@Test
     public void testListLocations() throws Exception {
 
         // Set callback and perform API call
@@ -62,6 +62,6 @@ public class LocationsApiTest extends BaseApiTest {
         assertEquals("Status is not 200", 
                 200, httpResponse.getResponse().getStatusCode());
 
-    }
+    }*/
 
 }

@@ -49,7 +49,14 @@ public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
      * Adds authentication to the given HttpRequest.
      */
     public HttpRequest apply(HttpRequest httpRequest) {
-        httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
+        if(accessToken == null || accessToken.isEmpty())
+        {
+            httpRequest.getHeaders().add("SDK-Authorization-Omitted", "true");
+        }
+        else {
+            httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
+        }
+
         return httpRequest;
     }
 
