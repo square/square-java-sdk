@@ -53,6 +53,9 @@ implementation "com.squareup:square:13.0.0.20210721"
 * [Disputes]
 * [Checkout]
 * [Apple Pay]
+* [Cards]
+
+### Terminal
 * [Terminal]
 
 ### Orders
@@ -76,6 +79,10 @@ implementation "com.squareup:square:13.0.0.20210721"
 ### Loyalty
 * [Loyalty]
 
+### Gift Cards
+* [Gift Cards]
+* [Gift Card Activities]
+
 ### Bookings
 * [Bookings]
 
@@ -83,12 +90,11 @@ implementation "com.squareup:square:13.0.0.20210721"
 * [Merchants]
 * [Locations]
 * [Devices]
+* [Cash Drawers]
 
 ### Team
 * [Team]
-* [Employees]
 * [Labor]
-* [Cash Drawers]
 
 ### Financials
 * [Bank Accounts]
@@ -102,6 +108,7 @@ implementation "com.squareup:square:13.0.0.20210721"
 * [OAuth]
 
 ### Deprecated APIs
+* [Employees]
 * [V1 Employees]
 * [V1 Transactions]
 * [V1 Items]
@@ -349,3 +356,6 @@ You can also use the Square API to create applications or services that work wit
 [Transactions]: doc/api/transactions.md
 [Sites]: doc/api/sites.md
 [Snippets]: doc/api/snippets.md
+[Cards]: doc/api/cards.md
+[Gift Cards]: doc/api/gift-cards.md
+[Gift Card Activities]: doc/api/gift-card-activities.md
