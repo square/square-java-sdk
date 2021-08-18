@@ -23,7 +23,8 @@ Retrieves the list of customer groups of a business.
 
 ```java
 CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
-    final String cursor)
+    final String cursor,
+    final Integer limit)
 ```
 
 ## Parameters
@@ -31,6 +32,7 @@ CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for your original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.<br>The limit is ignored if it is less than 1 or greater than 50. The default value is 50.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
 
 ## Response Type
 
@@ -40,8 +42,9 @@ CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
 
 ```java
 String cursor = "cursor6";
+Integer limit = 172;
 
-customerGroupsApi.listCustomerGroupsAsync(cursor).thenAccept(result -> {
+customerGroupsApi.listCustomerGroupsAsync(cursor, limit).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

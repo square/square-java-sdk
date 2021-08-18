@@ -30,7 +30,7 @@ public class CreateShiftRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * Unique string value to insure the idempotency of the operation.
+     * A unique string value to ensure the idempotency of the operation.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -41,7 +41,7 @@ public class CreateShiftRequest {
     /**
      * Getter for Shift.
      * A record of the hourly rate, start, and end times for a single work shift for an employee.
-     * May include a record of the start and end times for breaks taken during the shift.
+     * This might include a record of the start and end times for breaks taken during the shift.
      * @return Returns the Shift
      */
     @JsonGetter("shift")

@@ -43,7 +43,7 @@ public class ListWorkweekConfigsResponse {
 
     /**
      * Getter for WorkweekConfigs.
-     * A page of Employee Wage results.
+     * A page of `EmployeeWage` results.
      * @return Returns the List of WorkweekConfig
      */
     @JsonGetter("workweek_configs")
@@ -53,7 +53,8 @@ public class ListWorkweekConfigsResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next page of Employee Wage results.
+     * The value supplied in the subsequent request to fetch the next page of `EmployeeWage`
+     * results.
      * @return Returns the String
      */
     @JsonGetter("cursor")

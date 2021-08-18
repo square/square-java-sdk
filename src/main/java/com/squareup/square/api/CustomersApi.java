@@ -33,16 +33,22 @@ public interface CustomersApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
-     *         `DEFAULT`.
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 100. The default value is 100. For
+     *         more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. The default
+     *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
-     *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
+     *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     ListCustomersResponse listCustomers(
             final String cursor,
+            final Integer limit,
             final String sortField,
             final String sortOrder) throws ApiException, IOException;
 
@@ -55,14 +61,20 @@ public interface CustomersApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
-     *         `DEFAULT`.
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 100. The default value is 100. For
+     *         more information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. The default
+     *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
-     *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
+     *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      */
     CompletableFuture<ListCustomersResponse> listCustomersAsync(
             final String cursor,
+            final Integer limit,
             final String sortField,
             final String sortOrder);
 

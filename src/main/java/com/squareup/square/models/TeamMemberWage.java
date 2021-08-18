@@ -41,7 +41,7 @@ public class TeamMemberWage {
 
     /**
      * Getter for Id.
-     * UUID for this object.
+     * The UUID for this object.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -51,7 +51,7 @@ public class TeamMemberWage {
 
     /**
      * Getter for TeamMemberId.
-     * The `Team Member` that this wage is assigned to.
+     * The `TeamMember` that this wage is assigned to.
      * @return Returns the String
      */
     @JsonGetter("team_member_id")

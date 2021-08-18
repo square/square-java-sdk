@@ -36,7 +36,7 @@ public class SearchShiftsRequest {
 
     /**
      * Getter for Query.
-     * The parameters of a `Shift` search query. Includes filter and sort options.
+     * The parameters of a `Shift` search query, which includes filter and sort options.
      * @return Returns the ShiftQuery
      */
     @JsonGetter("query")
@@ -46,7 +46,7 @@ public class SearchShiftsRequest {
 
     /**
      * Getter for Limit.
-     * number of resources in a page (200 by default).
+     * The number of resources in a page (200 by default).
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -56,7 +56,7 @@ public class SearchShiftsRequest {
 
     /**
      * Getter for Cursor.
-     * opaque cursor for fetching the next page.
+     * An opaque cursor for fetching the next page.
      * @return Returns the String
      */
     @JsonGetter("cursor")

@@ -29,7 +29,7 @@ public interface Configuration {
 
     /**
      * Http Client Configuration instance. 
-     * See available [builder methods here](#httpclientconfigurationbuilder-class).
+     * See available [builder methods here](__HttpClientConfiguration.Builder).
      * @return a copy of httpClientConfig
      */
     ReadonlyHttpClientConfiguration getHttpClientConfig();

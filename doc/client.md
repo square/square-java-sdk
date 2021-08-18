@@ -5,10 +5,10 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-07-21"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-08-18"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance.<br>* See available [builder methods here](#httpclientconfigurationbuilder-class). |
+| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance.<br>* See available [builder methods here](/doc/http-client-configuration-builder.md). |
 | `additionalHeaders` | `Headers` | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
 | `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
 
@@ -18,7 +18,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2021-07-21")
+    .squareVersion("2021-08-18")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -44,7 +44,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2021-07-21")
+            .squareVersion("2021-08-18")
             .accessToken("AccessToken")
             .build();
         
