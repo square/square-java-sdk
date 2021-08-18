@@ -54,13 +54,19 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
      *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
      *         results. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
+     *         information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCustomerSegmentsResponse listCustomerSegments(
-            final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCustomerSegmentsRequest(cursor);
+            final String cursor,
+            final Integer limit) throws ApiException, IOException {
+        HttpRequest request = buildListCustomerSegmentsRequest(cursor, limit);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -75,11 +81,17 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
      *         `ListCustomerSegments`. This cursor is used to retrieve the next set of query
      *         results. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
+     *         information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerSegmentsResponse response from the API call
      */
     public CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
-            final String cursor) {
-        return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor),
+            final String cursor,
+            final Integer limit) {
+        return makeHttpCallAsync(() -> buildListCustomerSegmentsRequest(cursor, limit),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -90,7 +102,8 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
      * Builds the HttpRequest object for listCustomerSegments.
      */
     private HttpRequest buildListCustomerSegmentsRequest(
-            final String cursor) {
+            final String cursor,
+            final Integer limit) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -101,6 +114,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
+        queryParameters.put("limit", limit);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();

@@ -605,7 +605,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "13.0.0.20210721";
+        return "14.0.0.20210818";
     }
 
     /**
@@ -706,7 +706,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-07-21";
+        private String squareVersion = "2021-08-18";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String accessToken = "TODO: Replace";

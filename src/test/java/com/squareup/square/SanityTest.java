@@ -151,7 +151,7 @@ public class SanityTest {
     @Test
     public void testV2CustomerCycle() throws ApiException, IOException {
         CustomersApi api = client.getCustomersApi();
-        ListCustomersResponse listCustomersRes = api.listCustomers(null, null, null);
+        ListCustomersResponse listCustomersRes = api.listCustomers(null, null, null, null);
 
         // Create Customer
         CreateCustomerResponse createCustomerRes = api.createCustomer(TEST_CREATE_CUSTOMER_REQUEST);

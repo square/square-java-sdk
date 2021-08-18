@@ -52,7 +52,7 @@ public class GiftCardActivityUnlinkedActivityRefund {
      * Getter for ReferenceId.
      * A client-specified ID to associate an entity, in another system, with this gift card
      * activity. This can be used to track the order or payment related information when the Square
-     * Orders API is not being used.
+     * Payments API is not being used.
      * @return Returns the String
      */
     @JsonGetter("reference_id")
@@ -62,9 +62,8 @@ public class GiftCardActivityUnlinkedActivityRefund {
 
     /**
      * Getter for PaymentId.
-     * When the Square Payments API is used, Refund is not called on the Gift Cards API. However,
-     * when Square reads a Refund activity from the Gift Cards API, the developer needs to know the
-     * ID of the payment (made using this gift card) that is being refunded.
+     * When using the Square Payments API, the ID of the payment that was refunded to this gift
+     * card.
      * @return Returns the String
      */
     @JsonGetter("payment_id")

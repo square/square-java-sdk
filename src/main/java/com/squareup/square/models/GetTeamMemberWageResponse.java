@@ -38,8 +38,8 @@ public class GetTeamMemberWageResponse {
 
     /**
      * Getter for TeamMemberWage.
-     * The hourly wage rate that a team member will earn on a `Shift` for doing the job specified by
-     * the `title` property of this object.
+     * The hourly wage rate that a team member earns on a `Shift` for doing the job specified by the
+     * `title` property of this object.
      * @return Returns the TeamMemberWage
      */
     @JsonGetter("team_member_wage")

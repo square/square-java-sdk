@@ -86,7 +86,7 @@ public class Shift {
 
     /**
      * Getter for Id.
-     * UUID for this object
+     * The UUID for this object.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -97,7 +97,7 @@ public class Shift {
     /**
      * Getter for EmployeeId.
      * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use
-     * `team_member_id` instead
+     * `team_member_id` instead.
      * @return Returns the String
      */
     @JsonGetter("employee_id")
@@ -107,8 +107,8 @@ public class Shift {
 
     /**
      * Getter for LocationId.
-     * The ID of the location this shift occurred at. Should be based on where the employee clocked
-     * in.
+     * The ID of the location this shift occurred at. The location should be based on where the
+     * employee clocked in.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -118,8 +118,8 @@ public class Shift {
 
     /**
      * Getter for Timezone.
-     * Read-only convenience value that is calculated from the location based on `location_id`.
-     * Format: the IANA Timezone Database identifier for the location timezone.
+     * The read-only convenience value that is calculated from the location based on the
+     * `location_id`. Format: the IANA timezone database identifier for the location timezone.
      * @return Returns the String
      */
     @JsonGetter("timezone")
@@ -129,7 +129,7 @@ public class Shift {
 
     /**
      * Getter for StartAt.
-     * RFC 3339; shifted to location timezone + offset. Precision up to the minute is respected;
+     * RFC 3339; shifted to the location timezone + offset. Precision up to the minute is respected;
      * seconds are truncated.
      * @return Returns the String
      */
@@ -140,8 +140,8 @@ public class Shift {
 
     /**
      * Getter for EndAt.
-     * RFC 3339; shifted to timezone + offset. Precision up to the minute is respected; seconds are
-     * truncated.
+     * RFC 3339; shifted to the timezone + offset. Precision up to the minute is respected; seconds
+     * are truncated.
      * @return Returns the String
      */
     @JsonGetter("end_at")
@@ -161,7 +161,7 @@ public class Shift {
 
     /**
      * Getter for Breaks.
-     * A list of any paid or unpaid breaks that were taken during this shift.
+     * A list of all the paid or unpaid breaks that were taken during this shift.
      * @return Returns the List of Break
      */
     @JsonGetter("breaks")
@@ -171,7 +171,7 @@ public class Shift {
 
     /**
      * Getter for Status.
-     * Enumerates the possible status of a `Shift`
+     * Enumerates the possible status of a `Shift`.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -181,9 +181,9 @@ public class Shift {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version provided does not match
-     * server version at time of request. If not provided, Square executes a blind write;
-     * potentially overwriting data from another write.
+     * Used for resolving concurrency issues. The request fails if the version provided does not
+     * match the server version at the time of the request. If not provided, Square executes a blind
+     * write; potentially overwriting data from another write.
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -214,7 +214,7 @@ public class Shift {
     /**
      * Getter for TeamMemberId.
      * The ID of the team member this shift belongs to. Replaced `employee_id` at version
-     * "2020-08-26"
+     * "2020-08-26".
      * @return Returns the String
      */
     @JsonGetter("team_member_id")

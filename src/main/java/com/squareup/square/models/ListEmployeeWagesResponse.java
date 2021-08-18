@@ -43,7 +43,7 @@ public class ListEmployeeWagesResponse {
 
     /**
      * Getter for EmployeeWages.
-     * A page of Employee Wage results.
+     * A page of `EmployeeWage` results.
      * @return Returns the List of EmployeeWage
      */
     @JsonGetter("employee_wages")
@@ -53,7 +53,7 @@ public class ListEmployeeWagesResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next next page of Employee Wage
+     * The value supplied in the subsequent request to fetch the next page of `EmployeeWage`
      * results.
      * @return Returns the String
      */

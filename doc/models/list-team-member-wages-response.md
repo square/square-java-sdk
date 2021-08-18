@@ -1,8 +1,8 @@
 
 # List Team Member Wages Response
 
-The response to a request for a set of `TeamMemberWage` objects. Contains
-a set of `TeamMemberWage`.
+The response to a request for a set of `TeamMemberWage` objects. The response contains
+a set of `TeamMemberWage` objects.
 
 ## Structure
 
@@ -12,8 +12,8 @@ a set of `TeamMemberWage`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `TeamMemberWages` | [`List<TeamMemberWage>`](/doc/models/team-member-wage.md) | Optional | A page of Team Member Wage results. | List<TeamMemberWage> getTeamMemberWages() |
-| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Team Member Wage results. | String getCursor() |
+| `TeamMemberWages` | [`List<TeamMemberWage>`](/doc/models/team-member-wage.md) | Optional | A page of `TeamMemberWage` results. | List<TeamMemberWage> getTeamMemberWages() |
+| `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page<br>of `TeamMemberWage` results. | String getCursor() |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)

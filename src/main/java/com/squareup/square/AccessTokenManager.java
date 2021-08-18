@@ -52,7 +52,7 @@ public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
         httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
         return httpRequest;
     }
-
+    
     /**
      * Asynchronously adds authentication to the given HttpRequest.
      */
