@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>13.0.0.20210721</version>
+    <version>15.0.0.20210915</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:13.0.0.20210721"
+implementation "com.squareup:square:15.0.0.20210915"
 ```
 
 ## API documentation
