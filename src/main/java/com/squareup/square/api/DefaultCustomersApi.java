@@ -70,25 +70,19 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
-     *         This limit is advisory. The response might contain more or fewer results. The limit
-     *         is ignored if it is less than 1 or greater than 100. The default value is 100. For
-     *         more information, see
-     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  sortField  Optional parameter: Indicates how customers should be sorted. The default
-     *         value is `DEFAULT`.
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
+     *         `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
-     *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCustomersResponse listCustomers(
             final String cursor,
-            final Integer limit,
             final String sortField,
             final String sortOrder) throws ApiException, IOException {
-        HttpRequest request = buildListCustomersRequest(cursor, limit, sortField, sortOrder);
+        HttpRequest request = buildListCustomersRequest(cursor, sortField, sortOrder);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -106,24 +100,17 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
-     *         This limit is advisory. The response might contain more or fewer results. The limit
-     *         is ignored if it is less than 1 or greater than 100. The default value is 100. For
-     *         more information, see
-     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  sortField  Optional parameter: Indicates how customers should be sorted. The default
-     *         value is `DEFAULT`.
+     * @param  sortField  Optional parameter: Indicates how customers should be sorted. Default:
+     *         `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
-     *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     *         ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * @return    Returns the ListCustomersResponse response from the API call
      */
     public CompletableFuture<ListCustomersResponse> listCustomersAsync(
             final String cursor,
-            final Integer limit,
             final String sortField,
             final String sortOrder) {
-        return makeHttpCallAsync(() -> buildListCustomersRequest(cursor, limit, sortField,
-                sortOrder),
+        return makeHttpCallAsync(() -> buildListCustomersRequest(cursor, sortField, sortOrder),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -135,7 +122,6 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
      */
     private HttpRequest buildListCustomersRequest(
             final String cursor,
-            final Integer limit,
             final String sortField,
             final String sortOrder) {
         //the base uri for api requests
@@ -148,7 +134,6 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
         //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
         queryParameters.put("sort_field", sortField);
         queryParameters.put("sort_order", sortOrder);
 

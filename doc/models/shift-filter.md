@@ -13,12 +13,12 @@ used by Square's servers to apply each filter property specified.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `LocationIds` | `List<String>` | Required | Fetch shifts for the specified location. | List<String> getLocationIds() |
-| `EmployeeIds` | `List<String>` | Optional | Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use `team_member_ids` instead. | List<String> getEmployeeIds() |
+| `EmployeeIds` | `List<String>` | Optional | Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use `team_member_ids` instead | List<String> getEmployeeIds() |
 | `Status` | [`String`](/doc/models/shift-filter-status.md) | Optional | Specifies the `status` of `Shift` records to be returned. | String getStatus() |
 | `Start` | [`TimeRange`](/doc/models/time-range.md) | Optional | Represents a generic time range. The start and end values are<br>represented in RFC 3339 format. Time ranges are customized to be<br>inclusive or exclusive based on the needs of a particular endpoint.<br>Refer to the relevant endpoint-specific documentation to determine<br>how time ranges are handled. | TimeRange getStart() |
 | `End` | [`TimeRange`](/doc/models/time-range.md) | Optional | Represents a generic time range. The start and end values are<br>represented in RFC 3339 format. Time ranges are customized to be<br>inclusive or exclusive based on the needs of a particular endpoint.<br>Refer to the relevant endpoint-specific documentation to determine<br>how time ranges are handled. | TimeRange getEnd() |
 | `Workday` | [`ShiftWorkday`](/doc/models/shift-workday.md) | Optional | A `Shift` search query filter parameter that sets a range of days that<br>a `Shift` must start or end in before passing the filter condition. | ShiftWorkday getWorkday() |
-| `TeamMemberIds` | `List<String>` | Required | Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26". | List<String> getTeamMemberIds() |
+| `TeamMemberIds` | `List<String>` | Required | Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26" | List<String> getTeamMemberIds() |
 
 ## Example (as JSON)
 

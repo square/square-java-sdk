@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -32,6 +33,7 @@ public class UpdateShiftResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }
@@ -39,7 +41,7 @@ public class UpdateShiftResponse {
     /**
      * Getter for Shift.
      * A record of the hourly rate, start, and end times for a single work shift for an employee.
-     * This might include a record of the start and end times for breaks taken during the shift.
+     * May include a record of the start and end times for breaks taken during the shift.
      * @return Returns the Shift
      */
     @JsonGetter("shift")

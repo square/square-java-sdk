@@ -31,8 +31,8 @@ public class CustomerQuery {
 
     /**
      * Getter for Filter.
-     * Represents a set of `CustomerQuery` filters used to limit the set of customers returned by
-     * the [SearchCustomers]($e/Customers/SearchCustomers) endpoint.
+     * Represents a set of `CustomerQuery` filters used to limit the set of `Customers` returned by
+     * `SearchCustomers`.
      * @return Returns the CustomerFilter
      */
     @JsonGetter("filter")

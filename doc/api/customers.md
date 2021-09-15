@@ -33,7 +33,6 @@ profiles can take closer to one minute or longer, especially during network inci
 ```java
 CompletableFuture<ListCustomersResponse> listCustomersAsync(
     final String cursor,
-    final Integer limit,
     final String sortField,
     final String sortOrder)
 ```
@@ -43,9 +42,8 @@ CompletableFuture<ListCustomersResponse> listCustomersAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for your original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
-| `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.<br>The limit is ignored if it is less than 1 or greater than 100. The default value is 100.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
-| `sortField` | [`String`](/doc/models/customer-sort-field.md) | Query, Optional | Indicates how customers should be sorted.<br><br>The default value is `DEFAULT`. |
-| `sortOrder` | [`String`](/doc/models/sort-order.md) | Query, Optional | Indicates whether customers should be sorted in ascending (`ASC`) or<br>descending (`DESC`) order.<br><br>The default value is `ASC`. |
+| `sortField` | [`String`](/doc/models/customer-sort-field.md) | Query, Optional | Indicates how customers should be sorted.<br><br>Default: `DEFAULT`. |
+| `sortOrder` | [`String`](/doc/models/sort-order.md) | Query, Optional | Indicates whether customers should be sorted in ascending (`ASC`) or<br>descending (`DESC`) order.<br><br>Default: `ASC`. |
 
 ## Response Type
 
@@ -55,11 +53,10 @@ CompletableFuture<ListCustomersResponse> listCustomersAsync(
 
 ```java
 String cursor = "cursor6";
-Integer limit = 172;
 String sortField = "DEFAULT";
 String sortOrder = "DESC";
 
-customersApi.listCustomersAsync(cursor, limit, sortField, sortOrder).thenAccept(result -> {
+customersApi.listCustomersAsync(cursor, sortField, sortOrder).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

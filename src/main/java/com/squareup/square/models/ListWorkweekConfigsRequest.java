@@ -31,7 +31,7 @@ public class ListWorkweekConfigsRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of `WorkweekConfigs` results to return per page.
+     * Maximum number of Workweek Configs to return per page.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -41,7 +41,7 @@ public class ListWorkweekConfigsRequest {
 
     /**
      * Getter for Cursor.
-     * A pointer to the next page of `WorkweekConfig` results to fetch.
+     * Pointer to the next page of Workweek Config results to fetch.
      * @return Returns the String
      */
     @JsonGetter("cursor")

@@ -36,7 +36,7 @@ public class ListTeamMemberWagesRequest {
 
     /**
      * Getter for TeamMemberId.
-     * Filter the returned wages to only those that are associated with the specified team member.
+     * Filter wages returned to only those that are associated with the specified team member.
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
@@ -46,8 +46,8 @@ public class ListTeamMemberWagesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of `TeamMemberWage` results to return per page. The number can range
-     * between 1 and 200. The default is 200.
+     * Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The
+     * default is the maximum at 200.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -57,7 +57,7 @@ public class ListTeamMemberWagesRequest {
 
     /**
      * Getter for Cursor.
-     * A pointer to the next page of `EmployeeWage` results to fetch.
+     * Pointer to the next page of Employee Wage results to fetch.
      * @return Returns the String
      */
     @JsonGetter("cursor")

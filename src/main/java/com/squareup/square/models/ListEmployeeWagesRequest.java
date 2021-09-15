@@ -36,7 +36,7 @@ public class ListEmployeeWagesRequest {
 
     /**
      * Getter for EmployeeId.
-     * Filter the returned wages to only those that are associated with the specified employee.
+     * Filter wages returned to only those that are associated with the specified employee.
      * @return Returns the String
      */
     @JsonGetter("employee_id")
@@ -46,8 +46,8 @@ public class ListEmployeeWagesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of `EmployeeWage` results to return per page. The number can range between
-     * 1 and 200. The default is 200.
+     * Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default
+     * is the maximum at 200.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -57,7 +57,7 @@ public class ListEmployeeWagesRequest {
 
     /**
      * Getter for Cursor.
-     * A pointer to the next page of `EmployeeWage` results to fetch.
+     * Pointer to the next page of Employee Wage results to fetch.
      * @return Returns the String
      */
     @JsonGetter("cursor")

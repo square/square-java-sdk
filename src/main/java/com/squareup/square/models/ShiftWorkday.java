@@ -58,8 +58,8 @@ public class ShiftWorkday {
     /**
      * Getter for DefaultTimezone.
      * Location-specific timezones convert workdays to datetime filters. Every location included in
-     * the query must have a timezone or this field must be provided as a fallback. Format: the IANA
-     * timezone database identifier for the relevant timezone.
+     * the query must have a timezone, or this field must be provided as a fallback. Format: the
+     * IANA timezone database identifier for the relevant timezone.
      * @return Returns the String
      */
     @JsonGetter("default_timezone")

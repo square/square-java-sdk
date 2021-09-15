@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -37,13 +38,14 @@ public class ListEmployeeWagesResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for EmployeeWages.
-     * A page of `EmployeeWage` results.
+     * A page of Employee Wage results.
      * @return Returns the List of EmployeeWage
      */
     @JsonGetter("employee_wages")
@@ -53,7 +55,7 @@ public class ListEmployeeWagesResponse {
 
     /**
      * Getter for Cursor.
-     * The value supplied in the subsequent request to fetch the next page of `EmployeeWage`
+     * Value supplied in the subsequent request to fetch the next next page of Employee Wage
      * results.
      * @return Returns the String
      */

@@ -30,7 +30,7 @@ public class CreateBreakTypeRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * A unique string value to ensure the idempotency of the operation.
+     * Unique string value to insure idempotency of the operation
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

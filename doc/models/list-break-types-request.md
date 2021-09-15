@@ -1,7 +1,7 @@
 
 # List Break Types Request
 
-A request for a filtered set of `BreakType` objects.
+A request for a filtered set of `BreakType` objects
 
 ## Structure
 
@@ -11,9 +11,9 @@ A request for a filtered set of `BreakType` objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `LocationId` | `String` | Optional | Filter the returned `BreakType` results to only those that are associated with the<br>specified location. | String getLocationId() |
-| `Limit` | `Integer` | Optional | The maximum number of `BreakType` results to return per page. The number can range between 1<br>and 200. The default is 200.<br>**Constraints**: `>= 1`, `<= 200` | Integer getLimit() |
-| `Cursor` | `String` | Optional | A pointer to the next page of `BreakType` results to fetch. | String getCursor() |
+| `LocationId` | `String` | Optional | Filter Break Types returned to only those that are associated with the<br>specified location. | String getLocationId() |
+| `Limit` | `Integer` | Optional | Maximum number of Break Types to return per page. Can range between 1<br>and 200. The default is the maximum at 200.<br>**Constraints**: `>= 1`, `<= 200` | Integer getLimit() |
+| `Cursor` | `String` | Optional | Pointer to the next page of Break Type results to fetch. | String getCursor() |
 
 ## Example (as JSON)
 
