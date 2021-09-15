@@ -31,8 +31,8 @@ public class ShiftWage {
 
     /**
      * Getter for Title.
-     * The name of the job performed during this shift. Square labor-reporting UIs might group
-     * shifts together by title.
+     * The name of the job performed during this shift. Square labor-reporting UIs may group shifts
+     * together by title.
      * @return Returns the String
      */
     @JsonGetter("title")

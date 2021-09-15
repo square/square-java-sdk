@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -37,13 +38,14 @@ public class SearchShiftsResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for Shifts.
-     * Shifts.
+     * Shifts
      * @return Returns the List of Shift
      */
     @JsonGetter("shifts")
@@ -53,7 +55,7 @@ public class SearchShiftsResponse {
 
     /**
      * Getter for Cursor.
-     * An opaque cursor for fetching the next page.
+     * Opaque cursor for fetching the next page.
      * @return Returns the String
      */
     @JsonGetter("cursor")

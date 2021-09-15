@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -33,6 +34,7 @@ public class RetrieveTeamMemberBookingProfileResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }

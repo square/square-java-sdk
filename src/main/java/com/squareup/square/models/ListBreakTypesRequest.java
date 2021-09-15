@@ -36,8 +36,7 @@ public class ListBreakTypesRequest {
 
     /**
      * Getter for LocationId.
-     * Filter the returned `BreakType` results to only those that are associated with the specified
-     * location.
+     * Filter Break Types returned to only those that are associated with the specified location.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -47,8 +46,8 @@ public class ListBreakTypesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of `BreakType` results to return per page. The number can range between 1
-     * and 200. The default is 200.
+     * Maximum number of Break Types to return per page. Can range between 1 and 200. The default is
+     * the maximum at 200.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -58,7 +57,7 @@ public class ListBreakTypesRequest {
 
     /**
      * Getter for Cursor.
-     * A pointer to the next page of `BreakType` results to fetch.
+     * Pointer to the next page of Break Type results to fetch.
      * @return Returns the String
      */
     @JsonGetter("cursor")

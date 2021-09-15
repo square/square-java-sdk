@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -32,14 +33,15 @@ public class UpdateWorkweekConfigResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for WorkweekConfig.
-     * Sets the day of the week and hour of the day that a business starts a workweek. This is used
-     * to calculate overtime pay.
+     * Sets the Day of the week and hour of the day that a business starts a work week. Used for the
+     * calculation of overtime pay.
      * @return Returns the WorkweekConfig
      */
     @JsonGetter("workweek_config")

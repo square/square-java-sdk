@@ -14,8 +14,6 @@ public class ListCustomersRequest {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortField;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
@@ -23,18 +21,15 @@ public class ListCustomersRequest {
     /**
      * Initialization constructor.
      * @param  cursor  String value for cursor.
-     * @param  limit  Integer value for limit.
      * @param  sortField  String value for sortField.
      * @param  sortOrder  String value for sortOrder.
      */
     @JsonCreator
     public ListCustomersRequest(
             @JsonProperty("cursor") String cursor,
-            @JsonProperty("limit") Integer limit,
             @JsonProperty("sort_field") String sortField,
             @JsonProperty("sort_order") String sortOrder) {
         this.cursor = cursor;
-        this.limit = limit;
         this.sortField = sortField;
         this.sortOrder = sortOrder;
     }
@@ -49,19 +44,6 @@ public class ListCustomersRequest {
     @JsonGetter("cursor")
     public String getCursor() {
         return cursor;
-    }
-
-    /**
-     * Getter for Limit.
-     * The maximum number of results to return in a single page. This limit is advisory. The
-     * response might contain more or fewer results. The limit is ignored if it is less than 1 or
-     * greater than 100. The default value is 100. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @return Returns the Integer
-     */
-    @JsonGetter("limit")
-    public Integer getLimit() {
-        return limit;
     }
 
     /**
@@ -86,7 +68,7 @@ public class ListCustomersRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, limit, sortField, sortOrder);
+        return Objects.hash(cursor, sortField, sortOrder);
     }
 
     @Override
@@ -99,7 +81,6 @@ public class ListCustomersRequest {
         }
         ListCustomersRequest other = (ListCustomersRequest) obj;
         return Objects.equals(cursor, other.cursor)
-            && Objects.equals(limit, other.limit)
             && Objects.equals(sortField, other.sortField)
             && Objects.equals(sortOrder, other.sortOrder);
     }
@@ -110,8 +91,8 @@ public class ListCustomersRequest {
      */
     @Override
     public String toString() {
-        return "ListCustomersRequest [" + "cursor=" + cursor + ", limit=" + limit + ", sortField="
-                + sortField + ", sortOrder=" + sortOrder + "]";
+        return "ListCustomersRequest [" + "cursor=" + cursor + ", sortField=" + sortField
+                + ", sortOrder=" + sortOrder + "]";
     }
 
     /**
@@ -122,7 +103,6 @@ public class ListCustomersRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .cursor(getCursor())
-                .limit(getLimit())
                 .sortField(getSortField())
                 .sortOrder(getSortOrder());
         return builder;
@@ -133,7 +113,6 @@ public class ListCustomersRequest {
      */
     public static class Builder {
         private String cursor;
-        private Integer limit;
         private String sortField;
         private String sortOrder;
 
@@ -146,16 +125,6 @@ public class ListCustomersRequest {
          */
         public Builder cursor(String cursor) {
             this.cursor = cursor;
-            return this;
-        }
-
-        /**
-         * Setter for limit.
-         * @param  limit  Integer value for limit.
-         * @return Builder
-         */
-        public Builder limit(Integer limit) {
-            this.limit = limit;
             return this;
         }
 
@@ -184,7 +153,7 @@ public class ListCustomersRequest {
          * @return {@link ListCustomersRequest}
          */
         public ListCustomersRequest build() {
-            return new ListCustomersRequest(cursor, limit, sortField, sortOrder);
+            return new ListCustomersRequest(cursor, sortField, sortOrder);
         }
     }
 }

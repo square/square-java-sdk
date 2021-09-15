@@ -1,7 +1,7 @@
 
 # Team Member Wage
 
-The hourly wage rate that a team member earns on a `Shift` for doing the job
+The hourly wage rate that a team member will earn on a `Shift` for doing the job
 specified by the `title` property of this object.
 
 ## Structure
@@ -12,8 +12,8 @@ specified by the `title` property of this object.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | The UUID for this object. | String getId() |
-| `TeamMemberId` | `String` | Optional | The `TeamMember` that this wage is assigned to. | String getTeamMemberId() |
+| `Id` | `String` | Optional | UUID for this object. | String getId() |
+| `TeamMemberId` | `String` | Optional | The `Team Member` that this wage is assigned to. | String getTeamMemberId() |
 | `Title` | `String` | Optional | The job title that this wage relates to. | String getTitle() |
 | `HourlyRate` | [`Money`](/doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getHourlyRate() |
 

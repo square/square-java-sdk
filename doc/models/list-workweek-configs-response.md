@@ -1,8 +1,8 @@
 
 # List Workweek Configs Response
 
-The response to a request for a set of `WorkweekConfig` objects. The response contains
-the requested `WorkweekConfig` objects and might contain a set of `Error` objects if
+The response to a request for a set of `WorkweekConfig` objects. Contains
+the requested `WorkweekConfig` objects. May contain a set of `Error` objects if
 the request resulted in errors.
 
 ## Structure
@@ -13,8 +13,8 @@ the request resulted in errors.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `WorkweekConfigs` | [`List<WorkweekConfig>`](/doc/models/workweek-config.md) | Optional | A page of `EmployeeWage` results. | List<WorkweekConfig> getWorkweekConfigs() |
-| `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page of<br>`EmployeeWage` results. | String getCursor() |
+| `WorkweekConfigs` | [`List<WorkweekConfig>`](/doc/models/workweek-config.md) | Optional | A page of Employee Wage results. | List<WorkweekConfig> getWorkweekConfigs() |
+| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next page of<br>Employee Wage results. | String getCursor() |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)

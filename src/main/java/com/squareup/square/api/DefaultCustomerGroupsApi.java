@@ -60,19 +60,13 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
-     *         This limit is advisory. The response might contain more or fewer results. The limit
-     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
-     *         information, see
-     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCustomerGroupsResponse listCustomerGroups(
-            final String cursor,
-            final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListCustomerGroupsRequest(cursor, limit);
+            final String cursor) throws ApiException, IOException {
+        HttpRequest request = buildListCustomerGroupsRequest(cursor);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -87,17 +81,11 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
-     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
-     *         This limit is advisory. The response might contain more or fewer results. The limit
-     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
-     *         information, see
-     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      */
     public CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
-            final String cursor,
-            final Integer limit) {
-        return makeHttpCallAsync(() -> buildListCustomerGroupsRequest(cursor, limit),
+            final String cursor) {
+        return makeHttpCallAsync(() -> buildListCustomerGroupsRequest(cursor),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -108,8 +96,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
      * Builds the HttpRequest object for listCustomerGroups.
      */
     private HttpRequest buildListCustomerGroupsRequest(
-            final String cursor,
-            final Integer limit) {
+            final String cursor) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -120,7 +107,6 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
         //load all query parameters
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();

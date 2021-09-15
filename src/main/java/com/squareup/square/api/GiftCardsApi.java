@@ -81,8 +81,8 @@ public interface GiftCardsApi {
             final String customerId);
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. You must activate
-     * the gift card before it can be used for payment. For more information, see [Selling gift
+     * Creates a digital gift card. You must activate the gift card before it can be used. For more
+     * information, see [Selling gift
      * cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-square-gift-cards).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -94,8 +94,8 @@ public interface GiftCardsApi {
             final CreateGiftCardRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. You must activate
-     * the gift card before it can be used for payment. For more information, see [Selling gift
+     * Creates a digital gift card. You must activate the gift card before it can be used. For more
+     * information, see [Selling gift
      * cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-square-gift-cards).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

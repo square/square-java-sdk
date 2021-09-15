@@ -3,6 +3,7 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
@@ -32,14 +33,15 @@ public class GetTeamMemberWageResponse {
         this.errors = errors;
     }
 
+    @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
     }
 
     /**
      * Getter for TeamMemberWage.
-     * The hourly wage rate that a team member earns on a `Shift` for doing the job specified by the
-     * `title` property of this object.
+     * The hourly wage rate that a team member will earn on a `Shift` for doing the job specified by
+     * the `title` property of this object.
      * @return Returns the TeamMemberWage
      */
     @JsonGetter("team_member_wage")
