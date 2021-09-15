@@ -605,7 +605,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "13.0.0.20210721";
+        return "15.0.0.20210915";
     }
 
     /**
