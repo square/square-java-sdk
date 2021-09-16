@@ -12,8 +12,8 @@ objects that have date properties.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `StartDate` | `String` | Optional | String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601<br>extended format for calendar dates.<br>The beginning of a date range (inclusive) | String getStartDate() |
-| `EndDate` | `String` | Optional | String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601<br>extended format for calendar dates.<br>The end of a date range (inclusive) | String getEndDate() |
+| `StartDate` | `String` | Optional | A string in `YYYY-MM-DD` format, such as `2017-10-31`, per the ISO 8601<br>extended format for calendar dates.<br>The beginning of a date range (inclusive). | String getStartDate() |
+| `EndDate` | `String` | Optional | A string in `YYYY-MM-DD` format, such as `2017-10-31`, per the ISO 8601<br>extended format for calendar dates.<br>The end of a date range (inclusive). | String getEndDate() |
 
 ## Example (as JSON)
 

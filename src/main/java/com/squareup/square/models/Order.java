@@ -67,6 +67,8 @@ public class Order {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalServiceChargeMoney;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String ticketName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderPricingOptions pricingOptions;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReward> rewards;
@@ -100,6 +102,7 @@ public class Order {
      * @param  totalDiscountMoney  Money value for totalDiscountMoney.
      * @param  totalTipMoney  Money value for totalTipMoney.
      * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
+     * @param  ticketName  String value for ticketName.
      * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
      * @param  rewards  List of OrderReward value for rewards.
      */
@@ -132,6 +135,7 @@ public class Order {
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
             @JsonProperty("total_tip_money") Money totalTipMoney,
             @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney,
+            @JsonProperty("ticket_name") String ticketName,
             @JsonProperty("pricing_options") OrderPricingOptions pricingOptions,
             @JsonProperty("rewards") List<OrderReward> rewards) {
         this.id = id;
@@ -161,6 +165,7 @@ public class Order {
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalTipMoney = totalTipMoney;
         this.totalServiceChargeMoney = totalServiceChargeMoney;
+        this.ticketName = ticketName;
         this.pricingOptions = pricingOptions;
         this.rewards = rewards;
     }
@@ -499,6 +504,19 @@ public class Order {
     }
 
     /**
+     * Getter for TicketName.
+     * A short-term identifier for the order (such as a customer first name, table number, or
+     * auto-generated order number that resets daily). For orders created in Square Point of Sale,
+     * the `ticket_name` is printed on in-person tickets and stubs. It converts to the
+     * `kitchen_printing.name` field in the bill cart feature details.
+     * @return Returns the String
+     */
+    @JsonGetter("ticket_name")
+    public String getTicketName() {
+        return ticketName;
+    }
+
+    /**
      * Getter for PricingOptions.
      * Pricing options for an order. The options affect how the order's price is calculated. They
      * can be used, for example, to apply automatic price adjustments that are based on
@@ -526,7 +544,7 @@ public class Order {
                 discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
                 roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt,
                 state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
-                totalServiceChargeMoney, pricingOptions, rewards);
+                totalServiceChargeMoney, ticketName, pricingOptions, rewards);
     }
 
     @Override
@@ -565,6 +583,7 @@ public class Order {
             && Objects.equals(totalDiscountMoney, other.totalDiscountMoney)
             && Objects.equals(totalTipMoney, other.totalTipMoney)
             && Objects.equals(totalServiceChargeMoney, other.totalServiceChargeMoney)
+            && Objects.equals(ticketName, other.ticketName)
             && Objects.equals(pricingOptions, other.pricingOptions)
             && Objects.equals(rewards, other.rewards);
     }
@@ -586,7 +605,8 @@ public class Order {
                 + ", version=" + version + ", totalMoney=" + totalMoney + ", totalTaxMoney="
                 + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney + ", totalTipMoney="
                 + totalTipMoney + ", totalServiceChargeMoney=" + totalServiceChargeMoney
-                + ", pricingOptions=" + pricingOptions + ", rewards=" + rewards + "]";
+                + ", ticketName=" + ticketName + ", pricingOptions=" + pricingOptions + ", rewards="
+                + rewards + "]";
     }
 
     /**
@@ -622,6 +642,7 @@ public class Order {
                 .totalDiscountMoney(getTotalDiscountMoney())
                 .totalTipMoney(getTotalTipMoney())
                 .totalServiceChargeMoney(getTotalServiceChargeMoney())
+                .ticketName(getTicketName())
                 .pricingOptions(getPricingOptions())
                 .rewards(getRewards());
         return builder;
@@ -658,6 +679,7 @@ public class Order {
         private Money totalDiscountMoney;
         private Money totalTipMoney;
         private Money totalServiceChargeMoney;
+        private String ticketName;
         private OrderPricingOptions pricingOptions;
         private List<OrderReward> rewards;
 
@@ -940,6 +962,16 @@ public class Order {
         }
 
         /**
+         * Setter for ticketName.
+         * @param  ticketName  String value for ticketName.
+         * @return Builder
+         */
+        public Builder ticketName(String ticketName) {
+            this.ticketName = ticketName;
+            return this;
+        }
+
+        /**
          * Setter for pricingOptions.
          * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
          * @return Builder
@@ -968,7 +1000,7 @@ public class Order {
                     discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
                     roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt,
                     state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
-                    totalServiceChargeMoney, pricingOptions, rewards);
+                    totalServiceChargeMoney, ticketName, pricingOptions, rewards);
         }
     }
 }

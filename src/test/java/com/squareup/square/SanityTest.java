@@ -126,8 +126,7 @@ public class SanityTest {
             .build();
 
         String idempotencyKey= UUID.randomUUID().toString();
-        CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(idempotencyKey)
-            .image(image)
+        CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(idempotencyKey, image)
             .build();
 
         String imgPath = Paths.get(System.getProperty("user.dir").toString(), "src/test/resources/square.png").toString();
@@ -151,7 +150,7 @@ public class SanityTest {
     @Test
     public void testV2CustomerCycle() throws ApiException, IOException {
         CustomersApi api = client.getCustomersApi();
-        ListCustomersResponse listCustomersRes = api.listCustomers(null, null, null);
+        ListCustomersResponse listCustomersRes = api.listCustomers(null, null, null, null);
 
         // Create Customer
         CreateCustomerResponse createCustomerRes = api.createCustomer(TEST_CREATE_CUSTOMER_REQUEST);

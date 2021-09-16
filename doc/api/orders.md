@@ -13,6 +13,7 @@ OrdersApi ordersApi = client.getOrdersApi();
 * [Create Order](/doc/api/orders.md#create-order)
 * [Batch Retrieve Orders](/doc/api/orders.md#batch-retrieve-orders)
 * [Calculate Order](/doc/api/orders.md#calculate-order)
+* [Clone Order](/doc/api/orders.md#clone-order)
 * [Search Orders](/doc/api/orders.md#search-orders)
 * [Retrieve Order](/doc/api/orders.md#retrieve-order)
 * [Update Order](/doc/api/orders.md#update-order)
@@ -66,6 +67,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
     .build();
 Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
@@ -97,6 +99,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
     .build();
 List<OrderLineItemModifier> bodyOrderLineItems1Modifiers = new LinkedList<>();
@@ -296,6 +299,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
     .build();
 Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
@@ -327,6 +331,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
     .build();
 Money bodyOrderLineItems1BasePriceMoney = new Money.Builder()
@@ -392,6 +397,44 @@ CalculateOrderRequest body = new CalculateOrderRequest.Builder(
     .build();
 
 ordersApi.calculateOrderAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Clone Order
+
+Creates a new order, in the `DRAFT` state, by duplicating an existing order. The newly created order has
+only the core fields (such as line items, taxes, and discounts) copied from the original order.
+
+```java
+CompletableFuture<CloneOrderResponse> cloneOrderAsync(
+    final CloneOrderRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CloneOrderRequest`](/doc/models/clone-order-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`CloneOrderResponse`](/doc/models/clone-order-response.md)
+
+## Example Usage
+
+```java
+CloneOrderRequest body = new CloneOrderRequest.Builder(
+        "ZAISEM52YcpmcWAzERDOyiWS123")
+    .version(3)
+    .idempotencyKey("UNIQUE_STRING")
+    .build();
+
+ordersApi.cloneOrderAsync(body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -606,6 +649,7 @@ MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(189)
+    .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
     .build();
 OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
@@ -632,6 +676,7 @@ MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new Measurement
 OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(188)
+    .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
     .build();
 OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(

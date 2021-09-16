@@ -14,20 +14,19 @@ public class CreateCatalogImageRequest {
     private final String idempotencyKey;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject image;
 
     /**
      * Initialization constructor.
      * @param  idempotencyKey  String value for idempotencyKey.
-     * @param  objectId  String value for objectId.
      * @param  image  CatalogObject value for image.
+     * @param  objectId  String value for objectId.
      */
     @JsonCreator
     public CreateCatalogImageRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
-            @JsonProperty("object_id") String objectId,
-            @JsonProperty("image") CatalogObject image) {
+            @JsonProperty("image") CatalogObject image,
+            @JsonProperty("object_id") String objectId) {
         this.idempotencyKey = idempotencyKey;
         this.objectId = objectId;
         this.image = image;
@@ -59,31 +58,15 @@ public class CreateCatalogImageRequest {
 
     /**
      * Getter for Image.
-     * The wrapper object for the Catalog entries of a given object type. The type of a particular
-     * `CatalogObject` is determined by the value of the `type` attribute and only the corresponding
-     * data attribute can be set on the `CatalogObject` instance. For example, the following list
-     * shows some instances of `CatalogObject` of a given `type` and their corresponding data
-     * attribute that can be set: - For a `CatalogObject` of the `ITEM` type, set the `item_data`
-     * attribute to yield the `CatalogItem` object. - For a `CatalogObject` of the `ITEM_VARIATION`
-     * type, set the `item_variation_data` attribute to yield the `CatalogItemVariation` object. -
-     * For a `CatalogObject` of the `MODIFIER` type, set the `modifier_data` attribute to yield the
-     * `CatalogModifier` object. - For a `CatalogObject` of the `MODIFIER_LIST` type, set the
-     * `modifier_list_data` attribute to yield the `CatalogModifierList` object. - For a
-     * `CatalogObject` of the `CATEGORY` type, set the `category_data` attribute to yield the
-     * `CatalogCategory` object. - For a `CatalogObject` of the `DISCOUNT` type, set the
-     * `discount_data` attribute to yield the `CatalogDiscount` object. - For a `CatalogObject` of
-     * the `TAX` type, set the `tax_data` attribute to yield the `CatalogTax` object. - For a
-     * `CatalogObject` of the `IMAGE` type, set the `image_data` attribute to yield the
-     * `CatalogImageData` object. - For a `CatalogObject` of the `QUICK_AMOUNTS_SETTINGS` type, set
-     * the `quick_amounts_settings_data` attribute to yield the `CatalogQuickAmountsSettings`
-     * object. - For a `CatalogObject` of the `PRICING_RULE` type, set the `pricing_rule_data`
-     * attribute to yield the `CatalogPricingRule` object. - For a `CatalogObject` of the
-     * `TIME_PERIOD` type, set the `time_period_data` attribute to yield the `CatalogTimePeriod`
-     * object. - For a `CatalogObject` of the `PRODUCT_SET` type, set the `product_set_data`
-     * attribute to yield the `CatalogProductSet` object. - For a `CatalogObject` of the
-     * `SUBSCRIPTION_PLAN` type, set the `subscription_plan_data` attribute to yield the
-     * `CatalogSubscriptionPlan` object. For a more detailed discussion of the Catalog data model,
-     * please see the [Design a
+     * The wrapper object for the catalog entries of a given object type. Depending on the `type`
+     * attribute value, a `CatalogObject` instance assumes a type-specific data to yield the
+     * corresponding type of catalog object. For example, if `type=ITEM`, the `CatalogObject`
+     * instance must have the ITEM-specific data set on the `item_data` attribute. The resulting
+     * `CatalogObject` instance is also a `CatalogItem` instance. In general, if
+     * `type=<OBJECT_TYPE>`, the `CatalogObject` instance must have the `<OBJECT_TYPE>`-specific
+     * data set on the `<object_type>_data` attribute. The resulting `CatalogObject` instance is
+     * also a `Catalog<ObjectType>` instance. For a more detailed discussion of the Catalog data
+     * model, please see the [Design a
      * Catalog](https://developer.squareup.com/docs/catalog-api/design-a-catalog) guide.
      * @return Returns the CatalogObject
      */
@@ -117,8 +100,8 @@ public class CreateCatalogImageRequest {
      */
     @Override
     public String toString() {
-        return "CreateCatalogImageRequest [" + "idempotencyKey=" + idempotencyKey + ", objectId="
-                + objectId + ", image=" + image + "]";
+        return "CreateCatalogImageRequest [" + "idempotencyKey=" + idempotencyKey + ", image="
+                + image + ", objectId=" + objectId + "]";
     }
 
     /**
@@ -127,9 +110,8 @@ public class CreateCatalogImageRequest {
      * @return a new {@link CreateCatalogImageRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey)
-                .objectId(getObjectId())
-                .image(getImage());
+        Builder builder = new Builder(idempotencyKey, image)
+                .objectId(getObjectId());
         return builder;
     }
 
@@ -138,15 +120,17 @@ public class CreateCatalogImageRequest {
      */
     public static class Builder {
         private String idempotencyKey;
-        private String objectId;
         private CatalogObject image;
+        private String objectId;
 
         /**
          * Initialization constructor.
          * @param  idempotencyKey  String value for idempotencyKey.
+         * @param  image  CatalogObject value for image.
          */
-        public Builder(String idempotencyKey) {
+        public Builder(String idempotencyKey, CatalogObject image) {
             this.idempotencyKey = idempotencyKey;
+            this.image = image;
         }
 
         /**
@@ -156,16 +140,6 @@ public class CreateCatalogImageRequest {
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
-            return this;
-        }
-
-        /**
-         * Setter for objectId.
-         * @param  objectId  String value for objectId.
-         * @return Builder
-         */
-        public Builder objectId(String objectId) {
-            this.objectId = objectId;
             return this;
         }
 
@@ -180,11 +154,21 @@ public class CreateCatalogImageRequest {
         }
 
         /**
+         * Setter for objectId.
+         * @param  objectId  String value for objectId.
+         * @return Builder
+         */
+        public Builder objectId(String objectId) {
+            this.objectId = objectId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateCatalogImageRequest} object using the set fields.
          * @return {@link CreateCatalogImageRequest}
          */
         public CreateCatalogImageRequest build() {
-            return new CreateCatalogImageRequest(idempotencyKey, objectId, image);
+            return new CreateCatalogImageRequest(idempotencyKey, image, objectId);
         }
     }
 }

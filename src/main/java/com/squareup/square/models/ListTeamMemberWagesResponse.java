@@ -45,7 +45,7 @@ public class ListTeamMemberWagesResponse {
 
     /**
      * Getter for TeamMemberWages.
-     * A page of Team Member Wage results.
+     * A page of `TeamMemberWage` results.
      * @return Returns the List of TeamMemberWage
      */
     @JsonGetter("team_member_wages")
@@ -55,7 +55,7 @@ public class ListTeamMemberWagesResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next next page of Team Member Wage
+     * The value supplied in the subsequent request to fetch the next page of `TeamMemberWage`
      * results.
      * @return Returns the String
      */

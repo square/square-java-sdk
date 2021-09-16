@@ -110,9 +110,7 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for RequestType.
-     * Indicates the type of the payment request. An invoice supports the following payment request
-     * combinations: - 1 balance - 1 deposit with 1 balance - 2 - 12 installments - 1 deposit with 2
-     * - 12 installments For more information, see [Payment
+     * Indicates the type of the payment request. For more information, see [Payment
      * requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests).
      * @return Returns the String
      */

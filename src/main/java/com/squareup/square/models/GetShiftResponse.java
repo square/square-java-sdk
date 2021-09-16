@@ -41,7 +41,7 @@ public class GetShiftResponse {
     /**
      * Getter for Shift.
      * A record of the hourly rate, start, and end times for a single work shift for an employee.
-     * May include a record of the start and end times for breaks taken during the shift.
+     * This might include a record of the start and end times for breaks taken during the shift.
      * @return Returns the Shift
      */
     @JsonGetter("shift")

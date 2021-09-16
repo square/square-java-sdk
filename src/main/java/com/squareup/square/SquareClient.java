@@ -43,7 +43,6 @@ import com.squareup.square.api.DefaultSubscriptionsApi;
 import com.squareup.square.api.DefaultTeamApi;
 import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
-import com.squareup.square.api.DefaultV1EmployeesApi;
 import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
@@ -67,7 +66,6 @@ import com.squareup.square.api.SubscriptionsApi;
 import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
-import com.squareup.square.api.V1EmployeesApi;
 import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
@@ -92,7 +90,6 @@ public final class SquareClient implements SquareClientInterface {
      */
     private MobileAuthorizationApi mobileAuthorization;
     private OAuthApi oAuth;
-    private V1EmployeesApi v1Employees;
     private V1TransactionsApi v1Transactions;
     private ApplePayApi applePay;
     private BankAccountsApi bankAccounts;
@@ -196,8 +193,6 @@ public final class SquareClient implements SquareClientInterface {
         mobileAuthorization = new DefaultMobileAuthorizationApi(this, this.httpClient,
                 this.authManagers, this.httpCallback);
         oAuth = new DefaultOAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Employees = new DefaultV1EmployeesApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
         v1Transactions = new DefaultV1TransactionsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         applePay = new DefaultApplePayApi(this, this.httpClient, this.authManagers,
@@ -278,14 +273,6 @@ public final class SquareClient implements SquareClientInterface {
      */
     public OAuthApi getOAuthApi() {
         return oAuth;
-    }
-
-    /**
-     * Get the instance of V1EmployeesApi.
-     * @return v1Employees
-     */
-    public V1EmployeesApi getV1EmployeesApi() {
-        return v1Employees;
     }
 
     /**
@@ -605,7 +592,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "15.0.0.20210915";
+        return "15.1.0.20210915";
     }
 
     /**
@@ -706,7 +693,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-07-21";
+        private String squareVersion = "2021-09-15";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String accessToken = "";

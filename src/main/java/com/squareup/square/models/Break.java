@@ -51,7 +51,7 @@ public class Break {
 
     /**
      * Getter for Id.
-     * UUID for this object
+     * The UUID for this object.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -61,8 +61,8 @@ public class Break {
 
     /**
      * Getter for StartAt.
-     * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected;
-     * seconds are truncated.
+     * RFC 3339; follows the same timezone information as `Shift`. Precision up to the minute is
+     * respected; seconds are truncated.
      * @return Returns the String
      */
     @JsonGetter("start_at")
@@ -72,8 +72,8 @@ public class Break {
 
     /**
      * Getter for EndAt.
-     * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected;
-     * seconds are truncated.
+     * RFC 3339; follows the same timezone information as `Shift`. Precision up to the minute is
+     * respected; seconds are truncated.
      * @return Returns the String
      */
     @JsonGetter("end_at")
@@ -83,7 +83,7 @@ public class Break {
 
     /**
      * Getter for BreakTypeId.
-     * The `BreakType` this `Break` was templated on.
+     * The `BreakType` that this `Break` was templated on.
      * @return Returns the String
      */
     @JsonGetter("break_type_id")

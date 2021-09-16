@@ -17,6 +17,8 @@ import com.squareup.square.models.BatchRetrieveOrdersRequest;
 import com.squareup.square.models.BatchRetrieveOrdersResponse;
 import com.squareup.square.models.CalculateOrderRequest;
 import com.squareup.square.models.CalculateOrderResponse;
+import com.squareup.square.models.CloneOrderRequest;
+import com.squareup.square.models.CloneOrderResponse;
 import com.squareup.square.models.CreateOrderRequest;
 import com.squareup.square.models.CreateOrderResponse;
 import com.squareup.square.models.PayOrderRequest;
@@ -336,6 +338,101 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
         String responseBody = ((HttpStringResponse) response).getBody();
         CalculateOrderResponse result = ApiHelper.deserialize(responseBody,
                 CalculateOrderResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Creates a new order, in the `DRAFT` state, by duplicating an existing order. The newly
+     * created order has only the core fields (such as line items, taxes, and discounts) copied from
+     * the original order.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CloneOrderResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public CloneOrderResponse cloneOrder(
+            final CloneOrderRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCloneOrderRequest(body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleCloneOrderResponse(context);
+    }
+
+    /**
+     * Creates a new order, in the `DRAFT` state, by duplicating an existing order. The newly
+     * created order has only the core fields (such as line items, taxes, and discounts) copied from
+     * the original order.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CloneOrderResponse response from the API call
+     */
+    public CompletableFuture<CloneOrderResponse> cloneOrderAsync(
+            final CloneOrderRequest body) {
+        return makeHttpCallAsync(() -> buildCloneOrderRequest(body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleCloneOrderResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for cloneOrder.
+     */
+    private HttpRequest buildCloneOrderRequest(
+            final CloneOrderRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/orders/clone");
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for cloneOrder.
+     * @return An object of type CloneOrderResponse
+     */
+    private CloneOrderResponse handleCloneOrderResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        CloneOrderResponse result = ApiHelper.deserialize(responseBody,
+                CloneOrderResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

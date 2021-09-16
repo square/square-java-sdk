@@ -16,21 +16,26 @@ public class OrderQuantityUnit {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String catalogObjectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
      * Initialization constructor.
      * @param  measurementUnit  MeasurementUnit value for measurementUnit.
      * @param  precision  Integer value for precision.
+     * @param  catalogObjectId  String value for catalogObjectId.
      * @param  catalogVersion  Long value for catalogVersion.
      */
     @JsonCreator
     public OrderQuantityUnit(
             @JsonProperty("measurement_unit") MeasurementUnit measurementUnit,
             @JsonProperty("precision") Integer precision,
+            @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("catalog_version") Long catalogVersion) {
         this.measurementUnit = measurementUnit;
         this.precision = precision;
+        this.catalogObjectId = catalogObjectId;
         this.catalogVersion = catalogVersion;
     }
 
@@ -59,6 +64,17 @@ public class OrderQuantityUnit {
     }
 
     /**
+     * Getter for CatalogObjectId.
+     * The catalog object ID referencing the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit).
+     * This field is set when this is a catalog-backed measurement unit.
+     * @return Returns the String
+     */
+    @JsonGetter("catalog_object_id")
+    public String getCatalogObjectId() {
+        return catalogObjectId;
+    }
+
+    /**
      * Getter for CatalogVersion.
      * The version of the catalog object that this measurement unit references. This field is set
      * when this is a catalog-backed measurement unit.
@@ -71,7 +87,7 @@ public class OrderQuantityUnit {
 
     @Override
     public int hashCode() {
-        return Objects.hash(measurementUnit, precision, catalogVersion);
+        return Objects.hash(measurementUnit, precision, catalogObjectId, catalogVersion);
     }
 
     @Override
@@ -85,6 +101,7 @@ public class OrderQuantityUnit {
         OrderQuantityUnit other = (OrderQuantityUnit) obj;
         return Objects.equals(measurementUnit, other.measurementUnit)
             && Objects.equals(precision, other.precision)
+            && Objects.equals(catalogObjectId, other.catalogObjectId)
             && Objects.equals(catalogVersion, other.catalogVersion);
     }
 
@@ -95,7 +112,8 @@ public class OrderQuantityUnit {
     @Override
     public String toString() {
         return "OrderQuantityUnit [" + "measurementUnit=" + measurementUnit + ", precision="
-                + precision + ", catalogVersion=" + catalogVersion + "]";
+                + precision + ", catalogObjectId=" + catalogObjectId + ", catalogVersion="
+                + catalogVersion + "]";
     }
 
     /**
@@ -107,6 +125,7 @@ public class OrderQuantityUnit {
         Builder builder = new Builder()
                 .measurementUnit(getMeasurementUnit())
                 .precision(getPrecision())
+                .catalogObjectId(getCatalogObjectId())
                 .catalogVersion(getCatalogVersion());
         return builder;
     }
@@ -117,6 +136,7 @@ public class OrderQuantityUnit {
     public static class Builder {
         private MeasurementUnit measurementUnit;
         private Integer precision;
+        private String catalogObjectId;
         private Long catalogVersion;
 
 
@@ -142,6 +162,16 @@ public class OrderQuantityUnit {
         }
 
         /**
+         * Setter for catalogObjectId.
+         * @param  catalogObjectId  String value for catalogObjectId.
+         * @return Builder
+         */
+        public Builder catalogObjectId(String catalogObjectId) {
+            this.catalogObjectId = catalogObjectId;
+            return this;
+        }
+
+        /**
          * Setter for catalogVersion.
          * @param  catalogVersion  Long value for catalogVersion.
          * @return Builder
@@ -156,7 +186,8 @@ public class OrderQuantityUnit {
          * @return {@link OrderQuantityUnit}
          */
         public OrderQuantityUnit build() {
-            return new OrderQuantityUnit(measurementUnit, precision, catalogVersion);
+            return new OrderQuantityUnit(measurementUnit, precision, catalogObjectId,
+                    catalogVersion);
         }
     }
 }

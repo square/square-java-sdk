@@ -45,7 +45,7 @@ public class SearchShiftsResponse {
 
     /**
      * Getter for Shifts.
-     * Shifts
+     * Shifts.
      * @return Returns the List of Shift
      */
     @JsonGetter("shifts")
@@ -55,7 +55,7 @@ public class SearchShiftsResponse {
 
     /**
      * Getter for Cursor.
-     * Opaque cursor for fetching the next page.
+     * An opaque cursor for fetching the next page.
      * @return Returns the String
      */
     @JsonGetter("cursor")

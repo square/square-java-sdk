@@ -13,15 +13,20 @@ import java.util.Objects;
 public class ListCustomerSegmentsRequest {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Integer limit;
 
     /**
      * Initialization constructor.
      * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public ListCustomerSegmentsRequest(
-            @JsonProperty("cursor") String cursor) {
+            @JsonProperty("cursor") String cursor,
+            @JsonProperty("limit") Integer limit) {
         this.cursor = cursor;
+        this.limit = limit;
     }
 
     /**
@@ -36,9 +41,22 @@ public class ListCustomerSegmentsRequest {
         return cursor;
     }
 
+    /**
+     * Getter for Limit.
+     * The maximum number of results to return in a single page. This limit is advisory. The
+     * response might contain more or fewer results. The limit is ignored if it is less than 1 or
+     * greater than 50. The default value is 50. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @return Returns the Integer
+     */
+    @JsonGetter("limit")
+    public Integer getLimit() {
+        return limit;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(cursor);
+        return Objects.hash(cursor, limit);
     }
 
     @Override
@@ -50,7 +68,8 @@ public class ListCustomerSegmentsRequest {
             return false;
         }
         ListCustomerSegmentsRequest other = (ListCustomerSegmentsRequest) obj;
-        return Objects.equals(cursor, other.cursor);
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit);
     }
 
     /**
@@ -59,7 +78,7 @@ public class ListCustomerSegmentsRequest {
      */
     @Override
     public String toString() {
-        return "ListCustomerSegmentsRequest [" + "cursor=" + cursor + "]";
+        return "ListCustomerSegmentsRequest [" + "cursor=" + cursor + ", limit=" + limit + "]";
     }
 
     /**
@@ -69,7 +88,8 @@ public class ListCustomerSegmentsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .cursor(getCursor());
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -78,6 +98,7 @@ public class ListCustomerSegmentsRequest {
      */
     public static class Builder {
         private String cursor;
+        private Integer limit;
 
 
 
@@ -92,11 +113,21 @@ public class ListCustomerSegmentsRequest {
         }
 
         /**
+         * Setter for limit.
+         * @param  limit  Integer value for limit.
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCustomerSegmentsRequest} object using the set fields.
          * @return {@link ListCustomerSegmentsRequest}
          */
         public ListCustomerSegmentsRequest build() {
-            return new ListCustomerSegmentsRequest(cursor);
+            return new ListCustomerSegmentsRequest(cursor, limit);
         }
     }
 }

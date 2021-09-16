@@ -64,8 +64,8 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square-issued ID of your application, available from the [developer
-     * dashboard](https://developer.squareup.com/apps).
+     * The Square-issued ID of your application, available from the OAuth page for your application
+     * on the Developer Dashboard.
      * @return Returns the String
      */
     @JsonGetter("client_id")
@@ -75,8 +75,8 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientSecret.
-     * The Square-issued application secret for your application, available from the [developer
-     * dashboard](https://developer.squareup.com/apps).
+     * The Square-issued application secret for your application, available from the OAuth page for
+     * your application on the Developer Dashboard.
      * @return Returns the String
      */
     @JsonGetter("client_secret")
@@ -98,7 +98,7 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for RedirectUri.
-     * The redirect URL assigned in the [developer dashboard](https://developer.squareup.com/apps).
+     * The redirect URL assigned in the OAuth page for your application on the Developer Dashboard.
      * @return Returns the String
      */
     @JsonGetter("redirect_uri")
@@ -159,7 +159,7 @@ public class ObtainTokenRequest {
     /**
      * Getter for ShortLived.
      * A boolean indicating a request for a short-lived access token. The short-lived access token
-     * returned in the response will expire in 24 hours.
+     * returned in the response expires in 24 hours.
      * @return Returns the Boolean
      */
     @JsonGetter("short_lived")
