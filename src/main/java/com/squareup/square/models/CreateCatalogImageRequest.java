@@ -63,9 +63,9 @@ public class CreateCatalogImageRequest {
      * corresponding type of catalog object. For example, if `type=ITEM`, the `CatalogObject`
      * instance must have the ITEM-specific data set on the `item_data` attribute. The resulting
      * `CatalogObject` instance is also a `CatalogItem` instance. In general, if
-     * `type=<OBJECT_TYPE>`, the `CatalogObject` instance must have the `<OBJECT_TYPE>`-specific
-     * data set on the `<object_type>_data` attribute. The resulting `CatalogObject` instance is
-     * also a `Catalog<ObjectType>` instance. For a more detailed discussion of the Catalog data
+     * `type=&lt;OBJECT_TYPE&gt;`, the `CatalogObject` instance must have the `&lt;OBJECT_TYPE&gt;`-specific
+     * data set on the `&lt;object_type&gt;_data` attribute. The resulting `CatalogObject` instance is
+     * also a `Catalog&lt;ObjectType&gt;` instance. For a more detailed discussion of the Catalog data
      * model, please see the [Design a
      * Catalog](https://developer.squareup.com/docs/catalog-api/design-a-catalog) guide.
      * @return Returns the CatalogObject
