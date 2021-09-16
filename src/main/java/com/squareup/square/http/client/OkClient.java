@@ -189,6 +189,7 @@ public class OkClient implements HttpClient {
 
     /**
      * Converts a given OkHttp response into our internal http response model.
+     * @param   request            The request passed in.
      * @param   response           The given OkHttp response.
      * @param   hasBinaryResponse  Whether the response is binary or string.
      * @return  The converted http response.
