@@ -57,7 +57,7 @@ public class BreakType {
 
     /**
      * Getter for Id.
-     * UUID for this object.
+     * The UUID for this object.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -77,7 +77,7 @@ public class BreakType {
 
     /**
      * Getter for BreakName.
-     * A human-readable name for this type of break. Will be displayed to employees in Square
+     * A human-readable name for this type of break. The name is displayed to employees in Square
      * products.
      * @return Returns the String
      */
@@ -89,7 +89,7 @@ public class BreakType {
     /**
      * Getter for ExpectedDuration.
      * Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of this break. Precision
-     * below minutes is truncated.
+     * less than minutes is truncated.
      * @return Returns the String
      */
     @JsonGetter("expected_duration")
@@ -109,9 +109,9 @@ public class BreakType {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues; request will fail if version provided does not match
-     * server version at time of request. If a value is not provided, Square's servers execute a
-     * "blind" write; potentially overwriting another writer's data.
+     * Used for resolving concurrency issues. The request fails if the version provided does not
+     * match the server version at the time of the request. If a value is not provided, Square's
+     * servers execute a "blind" write; potentially overwriting another writer's data.
      * @return Returns the Integer
      */
     @JsonGetter("version")

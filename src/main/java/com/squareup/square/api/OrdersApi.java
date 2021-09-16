@@ -6,6 +6,8 @@ import com.squareup.square.models.BatchRetrieveOrdersRequest;
 import com.squareup.square.models.BatchRetrieveOrdersResponse;
 import com.squareup.square.models.CalculateOrderRequest;
 import com.squareup.square.models.CalculateOrderResponse;
+import com.squareup.square.models.CloneOrderRequest;
+import com.squareup.square.models.CloneOrderResponse;
 import com.squareup.square.models.CreateOrderRequest;
 import com.squareup.square.models.CreateOrderResponse;
 import com.squareup.square.models.PayOrderRequest;
@@ -90,6 +92,30 @@ public interface OrdersApi {
      */
     CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
             final CalculateOrderRequest body);
+
+    /**
+     * Creates a new order, in the `DRAFT` state, by duplicating an existing order. The newly
+     * created order has only the core fields (such as line items, taxes, and discounts) copied from
+     * the original order.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CloneOrderResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CloneOrderResponse cloneOrder(
+            final CloneOrderRequest body) throws ApiException, IOException;
+
+    /**
+     * Creates a new order, in the `DRAFT` state, by duplicating an existing order. The newly
+     * created order has only the core fields (such as line items, taxes, and discounts) copied from
+     * the original order.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CloneOrderResponse response from the API call
+     */
+    CompletableFuture<CloneOrderResponse> cloneOrderAsync(
+            final CloneOrderRequest body);
 
     /**
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges

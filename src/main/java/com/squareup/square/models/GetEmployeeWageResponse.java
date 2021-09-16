@@ -40,8 +40,8 @@ public class GetEmployeeWageResponse {
 
     /**
      * Getter for EmployeeWage.
-     * The hourly wage rate that an employee will earn on a `Shift` for doing the job specified by
-     * the `title` property of this object. Deprecated at version 2020-08-26. Use `TeamMemberWage`
+     * The hourly wage rate that an employee earns on a `Shift` for doing the job specified by the
+     * `title` property of this object. Deprecated at version 2020-08-26. Use `TeamMemberWage`
      * instead.
      * @return Returns the EmployeeWage
      */

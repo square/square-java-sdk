@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>15.0.0.20210915</version>
+    <version>15.1.0.20210915</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:15.0.0.20210915"
+implementation "com.squareup:square:15.1.0.20210915"
 ```
 
 ## API documentation
@@ -53,6 +53,9 @@ implementation "com.squareup:square:15.0.0.20210915"
 * [Disputes]
 * [Checkout]
 * [Apple Pay]
+* [Cards]
+
+### Terminal
 * [Terminal]
 
 ### Orders
@@ -76,6 +79,10 @@ implementation "com.squareup:square:15.0.0.20210915"
 ### Loyalty
 * [Loyalty]
 
+### Gift Cards
+* [Gift Cards]
+* [Gift Card Activities]
+
 ### Bookings
 * [Bookings]
 
@@ -83,12 +90,11 @@ implementation "com.squareup:square:15.0.0.20210915"
 * [Merchants]
 * [Locations]
 * [Devices]
+* [Cash Drawers]
 
 ### Team
 * [Team]
-* [Employees]
 * [Labor]
-* [Cash Drawers]
 
 ### Financials
 * [Bank Accounts]
@@ -102,6 +108,7 @@ implementation "com.squareup:square:15.0.0.20210915"
 * [OAuth]
 
 ### Deprecated APIs
+* [Employees]
 * [V1 Employees]
 * [V1 Transactions]
 * [V1 Items]
@@ -349,3 +356,6 @@ You can also use the Square API to create applications or services that work wit
 [Transactions]: doc/api/transactions.md
 [Sites]: doc/api/sites.md
 [Snippets]: doc/api/snippets.md
+[Cards]: doc/api/cards.md
+[Gift Cards]: doc/api/gift-cards.md
+[Gift Card Activities]: doc/api/gift-card-activities.md

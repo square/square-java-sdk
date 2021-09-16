@@ -41,7 +41,7 @@ public class EmployeeWage {
 
     /**
      * Getter for Id.
-     * UUID for this object.
+     * The UUID for this object.
      * @return Returns the String
      */
     @JsonGetter("id")

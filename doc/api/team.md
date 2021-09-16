@@ -194,6 +194,7 @@ bodyQueryFilterLocationIds.add("0G5P3VGACMMQZ");
 SearchTeamMembersFilter bodyQueryFilter = new SearchTeamMembersFilter.Builder()
     .locationIds(bodyQueryFilterLocationIds)
     .status("ACTIVE")
+    .isOwner(false)
     .build();
 SearchTeamMembersQuery bodyQuery = new SearchTeamMembersQuery.Builder()
     .filter(bodyQueryFilter)

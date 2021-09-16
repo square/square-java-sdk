@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +29,8 @@ public class LoyaltyAccount {
     private final String updatedAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyAccountMapping mapping;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines;
 
     /**
      * Initialization constructor.
@@ -40,6 +43,8 @@ public class LoyaltyAccount {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  mapping  LoyaltyAccountMapping value for mapping.
+     * @param  expiringPointDeadlines  List of LoyaltyAccountExpiringPointDeadline value for
+     *         expiringPointDeadlines.
      */
     @JsonCreator
     public LoyaltyAccount(
@@ -51,7 +56,8 @@ public class LoyaltyAccount {
             @JsonProperty("enrolled_at") String enrolledAt,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
-            @JsonProperty("mapping") LoyaltyAccountMapping mapping) {
+            @JsonProperty("mapping") LoyaltyAccountMapping mapping,
+            @JsonProperty("expiring_point_deadlines") List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines) {
         this.id = id;
         this.programId = programId;
         this.balance = balance;
@@ -61,6 +67,7 @@ public class LoyaltyAccount {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.mapping = mapping;
+        this.expiringPointDeadlines = expiringPointDeadlines;
     }
 
     /**
@@ -86,7 +93,8 @@ public class LoyaltyAccount {
 
     /**
      * Getter for Balance.
-     * The available point balance in the loyalty account. Your application should be able to handle
+     * The available point balance in the loyalty account. If points are scheduled to expire, they
+     * are listed in the `expiring_point_deadlines` field. Your application should be able to handle
      * loyalty accounts that have a negative point balance (`balance` is less than 0). This might
      * occur if a seller makes a manual adjustment or as a result of a refund or exchange.
      * @return Returns the Integer
@@ -158,10 +166,22 @@ public class LoyaltyAccount {
         return mapping;
     }
 
+    /**
+     * Getter for ExpiringPointDeadlines.
+     * The schedule for when points expire in the loyalty account balance. This field is present
+     * only if the account has points that are scheduled to expire. The total number of points in
+     * this field equals the number of points in the `balance` field.
+     * @return Returns the List of LoyaltyAccountExpiringPointDeadline
+     */
+    @JsonGetter("expiring_point_deadlines")
+    public List<LoyaltyAccountExpiringPointDeadline> getExpiringPointDeadlines() {
+        return expiringPointDeadlines;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, programId, balance, lifetimePoints, customerId, enrolledAt,
-                createdAt, updatedAt, mapping);
+                createdAt, updatedAt, mapping, expiringPointDeadlines);
     }
 
     @Override
@@ -181,7 +201,8 @@ public class LoyaltyAccount {
             && Objects.equals(enrolledAt, other.enrolledAt)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
-            && Objects.equals(mapping, other.mapping);
+            && Objects.equals(mapping, other.mapping)
+            && Objects.equals(expiringPointDeadlines, other.expiringPointDeadlines);
     }
 
     /**
@@ -193,7 +214,8 @@ public class LoyaltyAccount {
         return "LoyaltyAccount [" + "programId=" + programId + ", id=" + id + ", balance=" + balance
                 + ", lifetimePoints=" + lifetimePoints + ", customerId=" + customerId
                 + ", enrolledAt=" + enrolledAt + ", createdAt=" + createdAt + ", updatedAt="
-                + updatedAt + ", mapping=" + mapping + "]";
+                + updatedAt + ", mapping=" + mapping + ", expiringPointDeadlines="
+                + expiringPointDeadlines + "]";
     }
 
     /**
@@ -210,7 +232,8 @@ public class LoyaltyAccount {
                 .enrolledAt(getEnrolledAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .mapping(getMapping());
+                .mapping(getMapping())
+                .expiringPointDeadlines(getExpiringPointDeadlines());
         return builder;
     }
 
@@ -227,6 +250,7 @@ public class LoyaltyAccount {
         private String createdAt;
         private String updatedAt;
         private LoyaltyAccountMapping mapping;
+        private List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines;
 
         /**
          * Initialization constructor.
@@ -327,12 +351,24 @@ public class LoyaltyAccount {
         }
 
         /**
+         * Setter for expiringPointDeadlines.
+         * @param  expiringPointDeadlines  List of LoyaltyAccountExpiringPointDeadline value for
+         *         expiringPointDeadlines.
+         * @return Builder
+         */
+        public Builder expiringPointDeadlines(
+                List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines) {
+            this.expiringPointDeadlines = expiringPointDeadlines;
+            return this;
+        }
+
+        /**
          * Builds a new {@link LoyaltyAccount} object using the set fields.
          * @return {@link LoyaltyAccount}
          */
         public LoyaltyAccount build() {
             return new LoyaltyAccount(programId, id, balance, lifetimePoints, customerId,
-                    enrolledAt, createdAt, updatedAt, mapping);
+                    enrolledAt, createdAt, updatedAt, mapping, expiringPointDeadlines);
         }
     }
 }

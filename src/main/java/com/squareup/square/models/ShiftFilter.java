@@ -66,7 +66,7 @@ public class ShiftFilter {
     /**
      * Getter for EmployeeIds.
      * Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use
-     * `team_member_ids` instead
+     * `team_member_ids` instead.
      * @return Returns the List of String
      */
     @JsonGetter("employee_ids")
@@ -123,7 +123,7 @@ public class ShiftFilter {
 
     /**
      * Getter for TeamMemberIds.
-     * Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26"
+     * Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26".
      * @return Returns the List of String
      */
     @JsonGetter("team_member_ids")

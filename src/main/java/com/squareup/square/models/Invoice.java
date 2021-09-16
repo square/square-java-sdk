@@ -52,6 +52,8 @@ public class Invoice {
     private final List<InvoiceCustomField> customFields;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String saleOrServiceDate;
 
     /**
      * Initialization constructor.
@@ -76,6 +78,7 @@ public class Invoice {
      *         acceptedPaymentMethods.
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  subscriptionId  String value for subscriptionId.
+     * @param  saleOrServiceDate  String value for saleOrServiceDate.
      */
     @JsonCreator
     public Invoice(
@@ -98,7 +101,8 @@ public class Invoice {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("accepted_payment_methods") InvoiceAcceptedPaymentMethods acceptedPaymentMethods,
             @JsonProperty("custom_fields") List<InvoiceCustomField> customFields,
-            @JsonProperty("subscription_id") String subscriptionId) {
+            @JsonProperty("subscription_id") String subscriptionId,
+            @JsonProperty("sale_or_service_date") String saleOrServiceDate) {
         this.id = id;
         this.version = version;
         this.locationId = locationId;
@@ -119,6 +123,7 @@ public class Invoice {
         this.acceptedPaymentMethods = acceptedPaymentMethods;
         this.customFields = customFields;
         this.subscriptionId = subscriptionId;
+        this.saleOrServiceDate = saleOrServiceDate;
     }
 
     /**
@@ -179,10 +184,14 @@ public class Invoice {
     /**
      * Getter for PaymentRequests.
      * The payment schedule for the invoice, represented by one or more payment requests that define
-     * payment settings, such as amount due and due date. You can specify a maximum of 13 payment
-     * requests, with up to 12 `INSTALLMENT` request types. For more information, see [Payment
-     * requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests). This
-     * field is required when creating an invoice. It must contain at least one payment request.
+     * payment settings, such as amount due and due date. An invoice supports the following payment
+     * request combinations: - One balance - One deposit with one balance - 2–12 installments - One
+     * deposit with 2–12 installments This field is required when creating an invoice. It must
+     * contain at least one payment request. All payment requests for the invoice must equal the
+     * total order amount. For more information, see [Payment
+     * requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests). Adding
+     * `INSTALLMENT` payment requests to an invoice requires an [Invoices Plus
+     * subscription](https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-subscription).
      * @return Returns the List of InvoicePaymentRequest
      */
     @JsonGetter("payment_requests")
@@ -332,8 +341,10 @@ public class Invoice {
      * Additional seller-defined fields to render on the invoice. These fields are visible to
      * sellers and buyers on the Square-hosted invoice page and in emailed or PDF copies of
      * invoices. For more information, see [Custom
-     * fields](https://developer.squareup.com/docs/invoices-api/overview#custom-fields). Max: 2
-     * custom fields
+     * fields](https://developer.squareup.com/docs/invoices-api/overview#custom-fields). Adding
+     * custom fields to an invoice requires an [Invoices Plus
+     * subscription](https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-subscription).
+     * Max: 2 custom fields
      * @return Returns the List of InvoiceCustomField
      */
     @JsonGetter("custom_fields")
@@ -352,12 +363,23 @@ public class Invoice {
         return subscriptionId;
     }
 
+    /**
+     * Getter for SaleOrServiceDate.
+     * The date of the sale or the date that the service is rendered, in `YYYY-MM-DD` format. This
+     * field can be used to specify a past or future date which is displayed on the invoice.
+     * @return Returns the String
+     */
+    @JsonGetter("sale_or_service_date")
+    public String getSaleOrServiceDate() {
+        return saleOrServiceDate;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                 deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                 nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
-                acceptedPaymentMethods, customFields, subscriptionId);
+                acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate);
     }
 
     @Override
@@ -388,7 +410,8 @@ public class Invoice {
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods)
             && Objects.equals(customFields, other.customFields)
-            && Objects.equals(subscriptionId, other.subscriptionId);
+            && Objects.equals(subscriptionId, other.subscriptionId)
+            && Objects.equals(saleOrServiceDate, other.saleOrServiceDate);
     }
 
     /**
@@ -405,7 +428,8 @@ public class Invoice {
                 + ", nextPaymentAmountMoney=" + nextPaymentAmountMoney + ", status=" + status
                 + ", timezone=" + timezone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", acceptedPaymentMethods=" + acceptedPaymentMethods + ", customFields="
-                + customFields + ", subscriptionId=" + subscriptionId + "]";
+                + customFields + ", subscriptionId=" + subscriptionId + ", saleOrServiceDate="
+                + saleOrServiceDate + "]";
     }
 
     /**
@@ -434,7 +458,8 @@ public class Invoice {
                 .updatedAt(getUpdatedAt())
                 .acceptedPaymentMethods(getAcceptedPaymentMethods())
                 .customFields(getCustomFields())
-                .subscriptionId(getSubscriptionId());
+                .subscriptionId(getSubscriptionId())
+                .saleOrServiceDate(getSaleOrServiceDate());
         return builder;
     }
 
@@ -462,6 +487,7 @@ public class Invoice {
         private InvoiceAcceptedPaymentMethods acceptedPaymentMethods;
         private List<InvoiceCustomField> customFields;
         private String subscriptionId;
+        private String saleOrServiceDate;
 
 
 
@@ -668,6 +694,16 @@ public class Invoice {
         }
 
         /**
+         * Setter for saleOrServiceDate.
+         * @param  saleOrServiceDate  String value for saleOrServiceDate.
+         * @return Builder
+         */
+        public Builder saleOrServiceDate(String saleOrServiceDate) {
+            this.saleOrServiceDate = saleOrServiceDate;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -675,7 +711,7 @@ public class Invoice {
             return new Invoice(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                     deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                     nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
-                    acceptedPaymentMethods, customFields, subscriptionId);
+                    acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate);
         }
     }
 }

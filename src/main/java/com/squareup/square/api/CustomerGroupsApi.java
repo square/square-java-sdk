@@ -23,12 +23,18 @@ public interface CustomerGroupsApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
+     *         information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     ListCustomerGroupsResponse listCustomerGroups(
-            final String cursor) throws ApiException, IOException;
+            final String cursor,
+            final Integer limit) throws ApiException, IOException;
 
     /**
      * Retrieves the list of customer groups of a business.
@@ -36,10 +42,16 @@ public interface CustomerGroupsApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for your original
      *         query. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @param  limit  Optional parameter: The maximum number of results to return in a single page.
+     *         This limit is advisory. The response might contain more or fewer results. The limit
+     *         is ignored if it is less than 1 or greater than 50. The default value is 50. For more
+     *         information, see
+     *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return    Returns the ListCustomerGroupsResponse response from the API call
      */
     CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
-            final String cursor);
+            final String cursor,
+            final Integer limit);
 
     /**
      * Creates a new customer group for a business. The request must include the `name` value of the

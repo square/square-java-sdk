@@ -38,6 +38,8 @@ public class TerminalCheckout {
     private final String locationId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String customerId;
 
     /**
      * Initialization constructor.
@@ -55,6 +57,7 @@ public class TerminalCheckout {
      * @param  appId  String value for appId.
      * @param  locationId  String value for locationId.
      * @param  paymentType  String value for paymentType.
+     * @param  customerId  String value for customerId.
      */
     @JsonCreator
     public TerminalCheckout(
@@ -71,7 +74,8 @@ public class TerminalCheckout {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("app_id") String appId,
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("payment_type") String paymentType) {
+            @JsonProperty("payment_type") String paymentType,
+            @JsonProperty("customer_id") String customerId) {
         this.id = id;
         this.amountMoney = amountMoney;
         this.referenceId = referenceId;
@@ -86,6 +90,7 @@ public class TerminalCheckout {
         this.appId = appId;
         this.locationId = locationId;
         this.paymentType = paymentType;
+        this.customerId = customerId;
     }
 
     /**
@@ -236,11 +241,21 @@ public class TerminalCheckout {
         return paymentType;
     }
 
+    /**
+     * Getter for CustomerId.
+     * An optional ID of the customer associated with the checkout.
+     * @return Returns the String
+     */
+    @JsonGetter("customer_id")
+    public String getCustomerId() {
+        return customerId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, amountMoney, referenceId, note, deviceOptions, deadlineDuration,
                 status, cancelReason, paymentIds, createdAt, updatedAt, appId, locationId,
-                paymentType);
+                paymentType, customerId);
     }
 
     @Override
@@ -265,7 +280,8 @@ public class TerminalCheckout {
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(appId, other.appId)
             && Objects.equals(locationId, other.locationId)
-            && Objects.equals(paymentType, other.paymentType);
+            && Objects.equals(paymentType, other.paymentType)
+            && Objects.equals(customerId, other.customerId);
     }
 
     /**
@@ -279,7 +295,7 @@ public class TerminalCheckout {
                 + ", deadlineDuration=" + deadlineDuration + ", status=" + status
                 + ", cancelReason=" + cancelReason + ", paymentIds=" + paymentIds + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId + ", locationId="
-                + locationId + ", paymentType=" + paymentType + "]";
+                + locationId + ", paymentType=" + paymentType + ", customerId=" + customerId + "]";
     }
 
     /**
@@ -300,7 +316,8 @@ public class TerminalCheckout {
                 .updatedAt(getUpdatedAt())
                 .appId(getAppId())
                 .locationId(getLocationId())
-                .paymentType(getPaymentType());
+                .paymentType(getPaymentType())
+                .customerId(getCustomerId());
         return builder;
     }
 
@@ -322,6 +339,7 @@ public class TerminalCheckout {
         private String appId;
         private String locationId;
         private String paymentType;
+        private String customerId;
 
         /**
          * Initialization constructor.
@@ -474,13 +492,23 @@ public class TerminalCheckout {
         }
 
         /**
+         * Setter for customerId.
+         * @param  customerId  String value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalCheckout} object using the set fields.
          * @return {@link TerminalCheckout}
          */
         public TerminalCheckout build() {
             return new TerminalCheckout(amountMoney, deviceOptions, id, referenceId, note,
                     deadlineDuration, status, cancelReason, paymentIds, createdAt, updatedAt, appId,
-                    locationId, paymentType);
+                    locationId, paymentType, customerId);
         }
     }
 }

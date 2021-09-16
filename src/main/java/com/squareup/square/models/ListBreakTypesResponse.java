@@ -55,7 +55,7 @@ public class ListBreakTypesResponse {
 
     /**
      * Getter for Cursor.
-     * Value supplied in the subsequent request to fetch the next next page of Break Type results.
+     * The value supplied in the subsequent request to fetch the next page of `BreakType` results.
      * @return Returns the String
      */
     @JsonGetter("cursor")

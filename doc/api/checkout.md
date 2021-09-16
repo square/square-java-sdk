@@ -50,6 +50,7 @@ MeasurementUnit bodyOrderOrderLineItems0QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems0QuantityUnitMeasurementUnit)
     .precision(191)
+    .catalogObjectId("catalog_object_id7")
     .catalogVersion(131L)
     .build();
 List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
@@ -104,6 +105,7 @@ MeasurementUnit bodyOrderOrderLineItems1QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems1QuantityUnitMeasurementUnit)
     .precision(192)
+    .catalogObjectId("catalog_object_id6")
     .catalogVersion(130L)
     .build();
 Money bodyOrderOrderLineItems1BasePriceMoney = new Money.Builder()
@@ -130,6 +132,7 @@ MeasurementUnit bodyOrderOrderLineItems2QuantityUnitMeasurementUnit = new Measur
 OrderQuantityUnit bodyOrderOrderLineItems2QuantityUnit = new OrderQuantityUnit.Builder()
     .measurementUnit(bodyOrderOrderLineItems2QuantityUnitMeasurementUnit)
     .precision(193)
+    .catalogObjectId("catalog_object_id5")
     .catalogVersion(129L)
     .build();
 Money bodyOrderOrderLineItems2BasePriceMoney = new Money.Builder()

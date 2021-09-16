@@ -165,6 +165,7 @@ Invoice bodyInvoice = new Invoice.Builder()
     .scheduledAt("2030-01-13T10:00:00Z")
     .acceptedPaymentMethods(bodyInvoiceAcceptedPaymentMethods)
     .customFields(bodyInvoiceCustomFields)
+    .saleOrServiceDate("2030-01-24")
     .build();
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
         bodyInvoice)

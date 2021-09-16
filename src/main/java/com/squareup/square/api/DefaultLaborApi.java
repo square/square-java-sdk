@@ -71,11 +71,12 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `BreakType` instances for a business.
-     * @param  locationId  Optional parameter: Filter Break Types returned to only those that are
-     *         associated with the specified location.
-     * @param  limit  Optional parameter: Maximum number of Break Types to return per page. Can
-     *         range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Break Type results to fetch.
+     * @param  locationId  Optional parameter: Filter the returned `BreakType` results to only those
+     *         that are associated with the specified location.
+     * @param  limit  Optional parameter: The maximum number of `BreakType` results to return per
+     *         page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `BreakType` results to
+     *         fetch.
      * @return    Returns the ListBreakTypesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -95,11 +96,12 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `BreakType` instances for a business.
-     * @param  locationId  Optional parameter: Filter Break Types returned to only those that are
-     *         associated with the specified location.
-     * @param  limit  Optional parameter: Maximum number of Break Types to return per page. Can
-     *         range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Break Type results to fetch.
+     * @param  locationId  Optional parameter: Filter the returned `BreakType` results to only those
+     *         that are associated with the specified location.
+     * @param  limit  Optional parameter: The maximum number of `BreakType` results to return per
+     *         page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `BreakType` results to
+     *         fetch.
      * @return    Returns the ListBreakTypesResponse response from the API call
      */
     public CompletableFuture<ListBreakTypesResponse> listBreakTypesAsync(
@@ -180,9 +182,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     /**
      * Creates a new `BreakType`. A `BreakType` is a template for creating `Break` objects. You must
      * provide the following values in your request to this endpoint: - `location_id` - `break_name`
-     * - `expected_duration` - `is_paid` You can only have 3 `BreakType` instances per location. If
-     * you attempt to add a 4th `BreakType` for a location, an `INVALID_REQUEST_ERROR` "Exceeded
-     * limit of 3 breaks per location." is returned.
+     * - `expected_duration` - `is_paid` You can only have three `BreakType` instances per location.
+     * If you attempt to add a fourth `BreakType` for a location, an `INVALID_REQUEST_ERROR`
+     * "Exceeded limit of 3 breaks per location." is returned.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBreakTypeResponse response from the API call
@@ -203,9 +205,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     /**
      * Creates a new `BreakType`. A `BreakType` is a template for creating `Break` objects. You must
      * provide the following values in your request to this endpoint: - `location_id` - `break_name`
-     * - `expected_duration` - `is_paid` You can only have 3 `BreakType` instances per location. If
-     * you attempt to add a 4th `BreakType` for a location, an `INVALID_REQUEST_ERROR` "Exceeded
-     * limit of 3 breaks per location." is returned.
+     * - `expected_duration` - `is_paid` You can only have three `BreakType` instances per location.
+     * If you attempt to add a fourth `BreakType` for a location, an `INVALID_REQUEST_ERROR`
+     * "Exceeded limit of 3 breaks per location." is returned.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBreakTypeResponse response from the API call
@@ -279,7 +281,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     /**
      * Deletes an existing `BreakType`. A `BreakType` can be deleted even if it is referenced from a
      * `Shift`.
-     * @param  id  Required parameter: UUID for the `BreakType` being deleted.
+     * @param  id  Required parameter: The UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -298,7 +300,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     /**
      * Deletes an existing `BreakType`. A `BreakType` can be deleted even if it is referenced from a
      * `Shift`.
-     * @param  id  Required parameter: UUID for the `BreakType` being deleted.
+     * @param  id  Required parameter: The UUID for the `BreakType` being deleted.
      * @return    Returns the DeleteBreakTypeResponse response from the API call
      */
     public CompletableFuture<DeleteBreakTypeResponse> deleteBreakTypeAsync(
@@ -372,8 +374,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `BreakType` specified by id.
-     * @param  id  Required parameter: UUID for the `BreakType` being retrieved.
+     * Returns a single `BreakType` specified by `id`.
+     * @param  id  Required parameter: The UUID for the `BreakType` being retrieved.
      * @return    Returns the GetBreakTypeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -390,8 +392,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `BreakType` specified by id.
-     * @param  id  Required parameter: UUID for the `BreakType` being retrieved.
+     * Returns a single `BreakType` specified by `id`.
+     * @param  id  Required parameter: The UUID for the `BreakType` being retrieved.
      * @return    Returns the GetBreakTypeResponse response from the API call
      */
     public CompletableFuture<GetBreakTypeResponse> getBreakTypeAsync(
@@ -466,7 +468,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Updates an existing `BreakType`.
-     * @param  id  Required parameter: UUID for the `BreakType` being updated.
+     * @param  id  Required parameter: The UUID for the `BreakType` being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateBreakTypeResponse response from the API call
@@ -487,7 +489,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Updates an existing `BreakType`.
-     * @param  id  Required parameter: UUID for the `BreakType` being updated.
+     * @param  id  Required parameter: The UUID for the `BreakType` being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateBreakTypeResponse response from the API call
@@ -570,11 +572,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      * Returns a paginated list of `EmployeeWage` instances for a business.
      * @deprecated
      * 
-     * @param  employeeId  Optional parameter: Filter wages returned to only those that are
+     * @param  employeeId  Optional parameter: Filter the returned wages to only those that are
      *         associated with the specified employee.
-     * @param  limit  Optional parameter: Maximum number of Employee Wages to return per page. Can
-     *         range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Employee Wage results to
+     * @param  limit  Optional parameter: The maximum number of `EmployeeWage` results to return per
+     *         page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `EmployeeWage` results to
      *         fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -598,11 +600,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      * Returns a paginated list of `EmployeeWage` instances for a business.
      * @deprecated
      * 
-     * @param  employeeId  Optional parameter: Filter wages returned to only those that are
+     * @param  employeeId  Optional parameter: Filter the returned wages to only those that are
      *         associated with the specified employee.
-     * @param  limit  Optional parameter: Maximum number of Employee Wages to return per page. Can
-     *         range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Employee Wage results to
+     * @param  limit  Optional parameter: The maximum number of `EmployeeWage` results to return per
+     *         page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `EmployeeWage` results to
      *         fetch.
      * @return    Returns the ListEmployeeWagesResponse response from the API call
      */
@@ -683,10 +685,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `EmployeeWage` specified by id.
+     * Returns a single `EmployeeWage` specified by `id`.
      * @deprecated
      * 
-     * @param  id  Required parameter: UUID for the `EmployeeWage` being retrieved.
+     * @param  id  Required parameter: The UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -704,10 +706,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `EmployeeWage` specified by id.
+     * Returns a single `EmployeeWage` specified by `id`.
      * @deprecated
      * 
-     * @param  id  Required parameter: UUID for the `EmployeeWage` being retrieved.
+     * @param  id  Required parameter: The UUID for the `EmployeeWage` being retrieved.
      * @return    Returns the GetEmployeeWageResponse response from the API call
      */
     @Deprecated
@@ -782,14 +784,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. A `Shift` represents a complete work day for a single employee. You
+     * Creates a new `Shift`. A `Shift` represents a complete workday for a single employee. You
      * must provide the following values in your request to this endpoint: - `location_id` -
      * `employee_id` - `start_at` An attempt to create a new `Shift` can result in a `BAD_REQUEST`
      * error when: - The `status` of the new `Shift` is `OPEN` and the employee has another shift
-     * with an `OPEN` status. - The `start_at` date is in the future - the `start_at` or `end_at`
-     * overlaps another shift for the same employee - If `Break`s are set in the request, a break
-     * `start_at` must not be before the `Shift.start_at`. A break `end_at` must not be after the
-     * `Shift.end_at`.
+     * with an `OPEN` status. - The `start_at` date is in the future. - The `start_at` or `end_at`
+     * date overlaps another shift for the same employee. - The `Break` instances are set in the
+     * request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is after the
+     * `Shift.end_at`, or both.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateShiftResponse response from the API call
@@ -808,14 +810,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. A `Shift` represents a complete work day for a single employee. You
+     * Creates a new `Shift`. A `Shift` represents a complete workday for a single employee. You
      * must provide the following values in your request to this endpoint: - `location_id` -
      * `employee_id` - `start_at` An attempt to create a new `Shift` can result in a `BAD_REQUEST`
      * error when: - The `status` of the new `Shift` is `OPEN` and the employee has another shift
-     * with an `OPEN` status. - The `start_at` date is in the future - the `start_at` or `end_at`
-     * overlaps another shift for the same employee - If `Break`s are set in the request, a break
-     * `start_at` must not be before the `Shift.start_at`. A break `end_at` must not be after the
-     * `Shift.end_at`.
+     * with an `OPEN` status. - The `start_at` date is in the future. - The `start_at` or `end_at`
+     * date overlaps another shift for the same employee. - The `Break` instances are set in the
+     * request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is after the
+     * `Shift.end_at`, or both.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateShiftResponse response from the API call
@@ -888,9 +890,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `Shift` records for a business. The list to be returned can be
-     * filtered by: - Location IDs **and** - employee IDs **and** - shift status (`OPEN`, `CLOSED`)
-     * **and** - shift start **and** - shift end **and** - work day details The list can be sorted
-     * by: - `start_at` - `end_at` - `created_at` - `updated_at`.
+     * filtered by: - Location IDs. - Employee IDs. - Shift status (`OPEN` and `CLOSED`). - Shift
+     * start. - Shift end. - Workday details. The list can be sorted by: - `start_at`. - `end_at`. -
+     * `created_at`. - `updated_at`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchShiftsResponse response from the API call
@@ -910,9 +912,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `Shift` records for a business. The list to be returned can be
-     * filtered by: - Location IDs **and** - employee IDs **and** - shift status (`OPEN`, `CLOSED`)
-     * **and** - shift start **and** - shift end **and** - work day details The list can be sorted
-     * by: - `start_at` - `end_at` - `created_at` - `updated_at`.
+     * filtered by: - Location IDs. - Employee IDs. - Shift status (`OPEN` and `CLOSED`). - Shift
+     * start. - Shift end. - Workday details. The list can be sorted by: - `start_at`. - `end_at`. -
+     * `created_at`. - `updated_at`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchShiftsResponse response from the API call
@@ -985,7 +987,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Deletes a `Shift`.
-     * @param  id  Required parameter: UUID for the `Shift` being deleted.
+     * @param  id  Required parameter: The UUID for the `Shift` being deleted.
      * @return    Returns the DeleteShiftResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -1003,7 +1005,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Deletes a `Shift`.
-     * @param  id  Required parameter: UUID for the `Shift` being deleted.
+     * @param  id  Required parameter: The UUID for the `Shift` being deleted.
      * @return    Returns the DeleteShiftResponse response from the API call
      */
     public CompletableFuture<DeleteShiftResponse> deleteShiftAsync(
@@ -1077,8 +1079,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `Shift` specified by id.
-     * @param  id  Required parameter: UUID for the `Shift` being retrieved.
+     * Returns a single `Shift` specified by `id`.
+     * @param  id  Required parameter: The UUID for the `Shift` being retrieved.
      * @return    Returns the GetShiftResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -1095,8 +1097,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `Shift` specified by id.
-     * @param  id  Required parameter: UUID for the `Shift` being retrieved.
+     * Returns a single `Shift` specified by `id`.
+     * @param  id  Required parameter: The UUID for the `Shift` being retrieved.
      * @return    Returns the GetShiftResponse response from the API call
      */
     public CompletableFuture<GetShiftResponse> getShiftAsync(
@@ -1170,11 +1172,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Breaks` in the
-     * `Shift` have the `end_at` property set to a valid RFC-3339 datetime string. When closing a
-     * `Shift`, all `Break` instances in the shift must be complete with `end_at` set on each
-     * `Break`.
-     * @param  id  Required parameter: ID of the object being updated.
+     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Break`
+     * instances in the `Shift` have the `end_at` property set to a valid RFC-3339 datetime string.
+     * When closing a `Shift`, all `Break` instances in the `Shift` must be complete with `end_at`
+     * set on each `Break`.
+     * @param  id  Required parameter: The ID of the object being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateShiftResponse response from the API call
@@ -1194,11 +1196,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Breaks` in the
-     * `Shift` have the `end_at` property set to a valid RFC-3339 datetime string. When closing a
-     * `Shift`, all `Break` instances in the shift must be complete with `end_at` set on each
-     * `Break`.
-     * @param  id  Required parameter: ID of the object being updated.
+     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Break`
+     * instances in the `Shift` have the `end_at` property set to a valid RFC-3339 datetime string.
+     * When closing a `Shift`, all `Break` instances in the `Shift` must be complete with `end_at`
+     * set on each `Break`.
+     * @param  id  Required parameter: The ID of the object being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateShiftResponse response from the API call
@@ -1279,11 +1281,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `TeamMemberWage` instances for a business.
-     * @param  teamMemberId  Optional parameter: Filter wages returned to only those that are
+     * @param  teamMemberId  Optional parameter: Filter the returned wages to only those that are
      *         associated with the specified team member.
-     * @param  limit  Optional parameter: Maximum number of Team Member Wages to return per page.
-     *         Can range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Employee Wage results to
+     * @param  limit  Optional parameter: The maximum number of `TeamMemberWage` results to return
+     *         per page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `EmployeeWage` results to
      *         fetch.
      * @return    Returns the ListTeamMemberWagesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -1304,11 +1306,11 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `TeamMemberWage` instances for a business.
-     * @param  teamMemberId  Optional parameter: Filter wages returned to only those that are
+     * @param  teamMemberId  Optional parameter: Filter the returned wages to only those that are
      *         associated with the specified team member.
-     * @param  limit  Optional parameter: Maximum number of Team Member Wages to return per page.
-     *         Can range between 1 and 200. The default is the maximum at 200.
-     * @param  cursor  Optional parameter: Pointer to the next page of Employee Wage results to
+     * @param  limit  Optional parameter: The maximum number of `TeamMemberWage` results to return
+     *         per page. The number can range between 1 and 200. The default is 200.
+     * @param  cursor  Optional parameter: A pointer to the next page of `EmployeeWage` results to
      *         fetch.
      * @return    Returns the ListTeamMemberWagesResponse response from the API call
      */
@@ -1388,8 +1390,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `TeamMemberWage` specified by id.
-     * @param  id  Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * Returns a single `TeamMemberWage` specified by `id `.
+     * @param  id  Required parameter: The UUID for the `TeamMemberWage` being retrieved.
      * @return    Returns the GetTeamMemberWageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -1406,8 +1408,8 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `TeamMemberWage` specified by id.
-     * @param  id  Required parameter: UUID for the `TeamMemberWage` being retrieved.
+     * Returns a single `TeamMemberWage` specified by `id `.
+     * @param  id  Required parameter: The UUID for the `TeamMemberWage` being retrieved.
      * @return    Returns the GetTeamMemberWageResponse response from the API call
      */
     public CompletableFuture<GetTeamMemberWageResponse> getTeamMemberWageAsync(
@@ -1482,8 +1484,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a list of `WorkweekConfig` instances for a business.
-     * @param  limit  Optional parameter: Maximum number of Workweek Configs to return per page.
-     * @param  cursor  Optional parameter: Pointer to the next page of Workweek Config results to
+     * @param  limit  Optional parameter: The maximum number of `WorkweekConfigs` results to return
+     *         per page.
+     * @param  cursor  Optional parameter: A pointer to the next page of `WorkweekConfig` results to
      *         fetch.
      * @return    Returns the ListWorkweekConfigsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -1503,8 +1506,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a list of `WorkweekConfig` instances for a business.
-     * @param  limit  Optional parameter: Maximum number of Workweek Configs to return per page.
-     * @param  cursor  Optional parameter: Pointer to the next page of Workweek Config results to
+     * @param  limit  Optional parameter: The maximum number of `WorkweekConfigs` results to return
+     *         per page.
+     * @param  cursor  Optional parameter: A pointer to the next page of `WorkweekConfig` results to
      *         fetch.
      * @return    Returns the ListWorkweekConfigsResponse response from the API call
      */
@@ -1582,7 +1586,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Updates a `WorkweekConfig`.
-     * @param  id  Required parameter: UUID for the `WorkweekConfig` object being updated.
+     * @param  id  Required parameter: The UUID for the `WorkweekConfig` object being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWorkweekConfigResponse response from the API call
@@ -1603,7 +1607,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Updates a `WorkweekConfig`.
-     * @param  id  Required parameter: UUID for the `WorkweekConfig` object being updated.
+     * @param  id  Required parameter: The UUID for the `WorkweekConfig` object being updated.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWorkweekConfigResponse response from the API call

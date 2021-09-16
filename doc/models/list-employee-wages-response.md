@@ -1,8 +1,8 @@
 
 # List Employee Wages Response
 
-The response to a request for a set of `EmployeeWage` objects. Contains
-a set of `EmployeeWage`.
+The response to a request for a set of `EmployeeWage` objects. The response contains
+a set of `EmployeeWage` objects.
 
 ## Structure
 
@@ -12,8 +12,8 @@ a set of `EmployeeWage`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `EmployeeWages` | [`List<EmployeeWage>`](/doc/models/employee-wage.md) | Optional | A page of Employee Wage results. | List<EmployeeWage> getEmployeeWages() |
-| `Cursor` | `String` | Optional | Value supplied in the subsequent request to fetch the next next page<br>of Employee Wage results. | String getCursor() |
+| `EmployeeWages` | [`List<EmployeeWage>`](/doc/models/employee-wage.md) | Optional | A page of `EmployeeWage` results. | List<EmployeeWage> getEmployeeWages() |
+| `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page<br>of `EmployeeWage` results. | String getCursor() |
 | `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)

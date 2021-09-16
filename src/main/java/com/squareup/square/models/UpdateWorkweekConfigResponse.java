@@ -40,8 +40,8 @@ public class UpdateWorkweekConfigResponse {
 
     /**
      * Getter for WorkweekConfig.
-     * Sets the Day of the week and hour of the day that a business starts a work week. Used for the
-     * calculation of overtime pay.
+     * Sets the day of the week and hour of the day that a business starts a workweek. This is used
+     * to calculate overtime pay.
      * @return Returns the WorkweekConfig
      */
     @JsonGetter("workweek_config")

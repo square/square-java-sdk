@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-07-21"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-09-15"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance.<br>* See available [builder methods here](/doc/http-client-configuration-builder.md). |
@@ -18,7 +18,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2021-07-21")
+    .squareVersion("2021-09-15")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -44,7 +44,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2021-07-21")
+            .squareVersion("2021-09-15")
             .accessToken("AccessToken")
             .build();
         
@@ -70,7 +70,6 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 |  --- | --- | --- |
 | `getMobileAuthorizationApi()` | Provides access to MobileAuthorization controller. | `MobileAuthorizationApi` |
 | `getOAuthApi()` | Provides access to OAuth controller. | `OAuthApi` |
-| `getV1EmployeesApi()` | Provides access to V1Employees controller. | `V1EmployeesApi` |
 | `getV1TransactionsApi()` | Provides access to V1Transactions controller. | `V1TransactionsApi` |
 | `getApplePayApi()` | Provides access to ApplePay controller. | `ApplePayApi` |
 | `getBankAccountsApi()` | Provides access to BankAccounts controller. | `BankAccountsApi` |
