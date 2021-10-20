@@ -16,6 +16,7 @@ import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.CancelPaymentByIdempotencyKeyRequest;
 import com.squareup.square.models.CancelPaymentByIdempotencyKeyResponse;
 import com.squareup.square.models.CancelPaymentResponse;
+import com.squareup.square.models.CompletePaymentRequest;
 import com.squareup.square.models.CompletePaymentResponse;
 import com.squareup.square.models.CreatePaymentRequest;
 import com.squareup.square.models.CreatePaymentResponse;
@@ -723,13 +724,16 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Completes (captures) a payment. By default, payments are set to complete immediately after
      * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CompletePaymentResponse completePayment(
-            final String paymentId) throws ApiException, IOException {
-        HttpRequest request = buildCompletePaymentRequest(paymentId);
+            final String paymentId,
+            final CompletePaymentRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCompletePaymentRequest(paymentId, body);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -742,11 +746,14 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Completes (captures) a payment. By default, payments are set to complete immediately after
      * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     public CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId) {
-        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId),
+            final String paymentId,
+            final CompletePaymentRequest body) {
+        return makeHttpCallAsync(() -> buildCompletePaymentRequest(paymentId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -757,7 +764,8 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      * Builds the HttpRequest object for completePayment.
      */
     private HttpRequest buildCompletePaymentRequest(
-            final String paymentId) {
+            final String paymentId,
+            final CompletePaymentRequest body) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -776,10 +784,12 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
+        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {

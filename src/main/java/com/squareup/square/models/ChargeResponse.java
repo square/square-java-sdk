@@ -3,10 +3,8 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.squareup.square.http.client.HttpContext;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +12,6 @@ import java.util.Objects;
  * This is a model class for ChargeResponse type.
  */
 public class ChargeResponse {
-    private HttpContext httpContext;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -31,11 +28,6 @@ public class ChargeResponse {
             @JsonProperty("transaction") Transaction transaction) {
         this.errors = errors;
         this.transaction = transaction;
-    }
-
-    @JsonIgnore
-    public HttpContext getContext() {
-        return httpContext;
     }
 
     /**
@@ -103,21 +95,10 @@ public class ChargeResponse {
      * Class to build instances of {@link ChargeResponse}.
      */
     public static class Builder {
-        private HttpContext httpContext;
         private List<Error> errors;
         private Transaction transaction;
 
 
-
-        /**
-         * Setter for httpContext.
-         * @param  httpContext  HttpContext value for httpContext.
-         * @return Builder
-         */
-        public Builder httpContext(HttpContext httpContext) {
-            this.httpContext = httpContext;
-            return this;
-        }
 
         /**
          * Setter for errors.
@@ -144,10 +125,7 @@ public class ChargeResponse {
          * @return {@link ChargeResponse}
          */
         public ChargeResponse build() {
-            ChargeResponse model =
-                    new ChargeResponse(errors, transaction);
-            model.httpContext = httpContext;
-            return model;
+            return new ChargeResponse(errors, transaction);
         }
     }
 }

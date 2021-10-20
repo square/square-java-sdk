@@ -50,17 +50,21 @@ Money bodyPriceOverrideMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
+SubscriptionSource bodySource = new SubscriptionSource.Builder()
+    .name("My App")
+    .build();
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "S8GWD5R9QB376",
         "6JHXF3B2CW3YKHDV4XEM674H",
         "CHFGVKYY8RSV93M5KCYTG4PN0G")
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
-    .startDate("2020-08-01")
+    .startDate("2021-10-20")
     .canceledDate("canceled_date0")
     .taxPercentage("5")
     .priceOverrideMoney(bodyPriceOverrideMoney)
     .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
     .timezone("America/Los_Angeles")
+    .source(bodySource)
     .build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
@@ -113,9 +117,12 @@ List<String> bodyQueryFilterCustomerIds = new LinkedList<>();
 bodyQueryFilterCustomerIds.add("CHFGVKYY8RSV93M5KCYTG4PN0G");
 List<String> bodyQueryFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationIds.add("S8GWD5R9QB376");
+List<String> bodyQueryFilterSourceNames = new LinkedList<>();
+bodyQueryFilterSourceNames.add("My App");
 SearchSubscriptionsFilter bodyQueryFilter = new SearchSubscriptionsFilter.Builder()
     .customerIds(bodyQueryFilterCustomerIds)
     .locationIds(bodyQueryFilterLocationIds)
+    .sourceNames(bodyQueryFilterSourceNames)
     .build();
 SearchSubscriptionsQuery bodyQuery = new SearchSubscriptionsQuery.Builder()
     .filter(bodyQueryFilter)

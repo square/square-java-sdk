@@ -33,7 +33,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>15.1.0.20210915</version>
+    <version>16.0.0.20211020</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Install the client dynamically by adding a dependency to the POM for your projec
 Install the client by adding the following dependency to the build file for your project:
 
 ```
-implementation "com.squareup:square:15.1.0.20210915"
+implementation "com.squareup:square:16.0.0.20211020"
 ```
 
 ## API documentation
@@ -113,6 +113,16 @@ implementation "com.squareup:square:15.1.0.20210915"
 * [V1 Transactions]
 * [V1 Items]
 * [Transactions]
+
+#### Usage Notes for V1 Transactions
+
+The Square API supersedes the legacy Connect V1 APIs. Square strongly discourages using Connect V1 for most use cases.  However, you must still use Connect V1 for listing settlements and listing payments. For more information, see [When to Use Connect V1](https://developer.squareup.com/docs/build-basics/using-connect-v1.html).
+
+In the Square Java SDK, the  [`V1TransactionsApi`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md) class provides [`ListSettlements`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md#list-settlements) and [`ListPayments`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md#list-payments) for accessing these Connect V1 endpoints.  However, Square has identified an issue that prevents these methods from returning results.  There is no workaround for this issue.  
+
+If you need to use [List settlements](https://developer.squareup.com/reference/square/settlements-api/v1-list-settlements) or [List payments](https://developer.squareup.com/reference/square/settlements-api/v1-list-payments), you should send HTTP ```GET``` requests directly to these Connect V1 endpoints.  The response body consists of a JSON list of objects, which you can process as needed.
+
+You'll also need to provide logic to handle paginated results.  For more information, see [Pagination in Connect V1](https://developer.squareup.com/docs/working-with-apis/pagination#pagination-in-connect-v1).
 
 ## Usage
 

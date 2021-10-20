@@ -35,7 +35,8 @@ Represents a payment processed by the Square API.
 | `OrderId` | `String` | Optional | The ID of the order associated with the payment.<br>**Constraints**: *Maximum Length*: `192` | String getOrderId() |
 | `ReferenceId` | `String` | Optional | An optional ID that associates the payment with an entity in<br>another system.<br>**Constraints**: *Maximum Length*: `40` | String getReferenceId() |
 | `CustomerId` | `String` | Optional | The [Customer](/doc/models/customer.md) ID of the customer associated with the payment.<br>**Constraints**: *Maximum Length*: `191` | String getCustomerId() |
-| `EmployeeId` | `String` | Optional | An optional ID of the employee associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | String getEmployeeId() |
+| `EmployeeId` | `String` | Optional | __Deprecated__: Use `Payment.team_member_id` instead.<br><br>An optional ID of the employee associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | String getEmployeeId() |
+| `TeamMemberId` | `String` | Optional | An optional ID of the [TeamMember](/doc/models/team-member.md) associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | String getTeamMemberId() |
 | `RefundIds` | `List<String>` | Optional | A list of `refund_id`s identifying refunds for the payment. | List<String> getRefundIds() |
 | `RiskEvaluation` | [`RiskEvaluation`](/doc/models/risk-evaluation.md) | Optional | Represents fraud risk information for the associated payment.<br><br>When you take a payment through Square's Payments API (using the `CreatePayment`<br>endpoint), Square evaluates it and assigns a risk level to the payment. Sellers<br>can use this information to determine the course of action (for example,<br>provide the goods/services or refund the payment). | RiskEvaluation getRiskEvaluation() |
 | `BuyerEmailAddress` | `String` | Optional | The buyer's email address.<br>**Constraints**: *Maximum Length*: `255` | String getBuyerEmailAddress() |
@@ -46,6 +47,8 @@ Represents a payment processed by the Square API.
 | `Capabilities` | `List<String>` | Optional | Actions that can be performed on this payment:<br><br>- `EDIT_AMOUNT_UP` - The payment amount can be edited up.<br>- `EDIT_AMOUNT_DOWN` - The payment amount can be edited down.<br>- `EDIT_TIP_AMOUNT_UP` - The tip amount can be edited up.<br>- `EDIT_TIP_AMOUNT_DOWN` - The tip amount can be edited down. | List<String> getCapabilities() |
 | `ReceiptNumber` | `String` | Optional | The payment's receipt number.<br>The field is missing if a payment is canceled.<br>**Constraints**: *Maximum Length*: `4` | String getReceiptNumber() |
 | `ReceiptUrl` | `String` | Optional | The URL for the payment's receipt.<br>The field is only populated for COMPLETED payments.<br>**Constraints**: *Maximum Length*: `255` | String getReceiptUrl() |
+| `DeviceDetails` | [`DeviceDetails`](/doc/models/device-details.md) | Optional | Details about the device that took the payment. | DeviceDetails getDeviceDetails() |
+| `ApplicationDetails` | [`ApplicationDetails`](/doc/models/application-details.md) | Optional | Details about the application that took the payment. | ApplicationDetails getApplicationDetails() |
 | `VersionToken` | `String` | Optional | Used for optimistic concurrency. This opaque token identifies a specific version of the<br>`Payment` object. | String getVersionToken() |
 
 ## Example (as JSON)

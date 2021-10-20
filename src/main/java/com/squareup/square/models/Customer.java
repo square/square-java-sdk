@@ -50,6 +50,8 @@ public class Customer {
     private final List<String> segmentIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CustomerTaxIds taxIds;
 
     /**
      * Initialization constructor.
@@ -72,6 +74,7 @@ public class Customer {
      * @param  groupIds  List of String value for groupIds.
      * @param  segmentIds  List of String value for segmentIds.
      * @param  version  Long value for version.
+     * @param  taxIds  CustomerTaxIds value for taxIds.
      */
     @JsonCreator
     public Customer(
@@ -93,7 +96,8 @@ public class Customer {
             @JsonProperty("creation_source") String creationSource,
             @JsonProperty("group_ids") List<String> groupIds,
             @JsonProperty("segment_ids") List<String> segmentIds,
-            @JsonProperty("version") Long version) {
+            @JsonProperty("version") Long version,
+            @JsonProperty("tax_ids") CustomerTaxIds taxIds) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -113,6 +117,7 @@ public class Customer {
         this.groupIds = groupIds;
         this.segmentIds = segmentIds;
         this.version = version;
+        this.taxIds = taxIds;
     }
 
     /**
@@ -337,11 +342,24 @@ public class Customer {
         return version;
     }
 
+    /**
+     * Getter for TaxIds.
+     * Represents the tax ID associated with a customer profile. The corresponding `tax_ids` field
+     * is available only for customers of sellers in France, Ireland, or the United Kingdom. For
+     * more information, see [Customer tax
+     * IDs](https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids).
+     * @return Returns the CustomerTaxIds
+     */
+    @JsonGetter("tax_ids")
+    public CustomerTaxIds getTaxIds() {
+        return taxIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
                 companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
-                preferences, creationSource, groupIds, segmentIds, version);
+                preferences, creationSource, groupIds, segmentIds, version, taxIds);
     }
 
     @Override
@@ -371,7 +389,8 @@ public class Customer {
             && Objects.equals(creationSource, other.creationSource)
             && Objects.equals(groupIds, other.groupIds)
             && Objects.equals(segmentIds, other.segmentIds)
-            && Objects.equals(version, other.version);
+            && Objects.equals(version, other.version)
+            && Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -387,7 +406,7 @@ public class Customer {
                 + ", birthday=" + birthday + ", referenceId=" + referenceId + ", note=" + note
                 + ", preferences=" + preferences + ", creationSource=" + creationSource
                 + ", groupIds=" + groupIds + ", segmentIds=" + segmentIds + ", version=" + version
-                + "]";
+                + ", taxIds=" + taxIds + "]";
     }
 
     /**
@@ -415,7 +434,8 @@ public class Customer {
                 .creationSource(getCreationSource())
                 .groupIds(getGroupIds())
                 .segmentIds(getSegmentIds())
-                .version(getVersion());
+                .version(getVersion())
+                .taxIds(getTaxIds());
         return builder;
     }
 
@@ -442,6 +462,7 @@ public class Customer {
         private List<String> groupIds;
         private List<String> segmentIds;
         private Long version;
+        private CustomerTaxIds taxIds;
 
 
 
@@ -636,13 +657,23 @@ public class Customer {
         }
 
         /**
+         * Setter for taxIds.
+         * @param  taxIds  CustomerTaxIds value for taxIds.
+         * @return Builder
+         */
+        public Builder taxIds(CustomerTaxIds taxIds) {
+            this.taxIds = taxIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
         public Customer build() {
             return new Customer(id, createdAt, updatedAt, cards, givenName, familyName, nickname,
                     companyName, emailAddress, address, phoneNumber, birthday, referenceId, note,
-                    preferences, creationSource, groupIds, segmentIds, version);
+                    preferences, creationSource, groupIds, segmentIds, version, taxIds);
         }
     }
 }

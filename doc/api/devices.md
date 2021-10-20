@@ -81,7 +81,7 @@ CompletableFuture<CreateDeviceCodeResponse> createDeviceCodeAsync(
 
 ```java
 DeviceCode bodyDeviceCode = new DeviceCode.Builder(
-        "TERMINAL_API")
+        null)
     .id("id0")
     .name("Counter 1")
     .code("code8")

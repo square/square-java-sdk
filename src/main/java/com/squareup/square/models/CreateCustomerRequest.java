@@ -33,6 +33,8 @@ public class CreateCustomerRequest {
     private final String note;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CustomerTaxIds taxIds;
 
     /**
      * Initialization constructor.
@@ -47,6 +49,7 @@ public class CreateCustomerRequest {
      * @param  referenceId  String value for referenceId.
      * @param  note  String value for note.
      * @param  birthday  String value for birthday.
+     * @param  taxIds  CustomerTaxIds value for taxIds.
      */
     @JsonCreator
     public CreateCustomerRequest(
@@ -60,7 +63,8 @@ public class CreateCustomerRequest {
             @JsonProperty("phone_number") String phoneNumber,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("note") String note,
-            @JsonProperty("birthday") String birthday) {
+            @JsonProperty("birthday") String birthday,
+            @JsonProperty("tax_ids") CustomerTaxIds taxIds) {
         this.idempotencyKey = idempotencyKey;
         this.givenName = givenName;
         this.familyName = familyName;
@@ -72,6 +76,7 @@ public class CreateCustomerRequest {
         this.referenceId = referenceId;
         this.note = note;
         this.birthday = birthday;
+        this.taxIds = taxIds;
     }
 
     /**
@@ -210,10 +215,23 @@ public class CreateCustomerRequest {
         return birthday;
     }
 
+    /**
+     * Getter for TaxIds.
+     * Represents the tax ID associated with a customer profile. The corresponding `tax_ids` field
+     * is available only for customers of sellers in France, Ireland, or the United Kingdom. For
+     * more information, see [Customer tax
+     * IDs](https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids).
+     * @return Returns the CustomerTaxIds
+     */
+    @JsonGetter("tax_ids")
+    public CustomerTaxIds getTaxIds() {
+        return taxIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, givenName, familyName, companyName, nickname,
-                emailAddress, address, phoneNumber, referenceId, note, birthday);
+                emailAddress, address, phoneNumber, referenceId, note, birthday, taxIds);
     }
 
     @Override
@@ -235,7 +253,8 @@ public class CreateCustomerRequest {
             && Objects.equals(phoneNumber, other.phoneNumber)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(note, other.note)
-            && Objects.equals(birthday, other.birthday);
+            && Objects.equals(birthday, other.birthday)
+            && Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -248,7 +267,7 @@ public class CreateCustomerRequest {
                 + givenName + ", familyName=" + familyName + ", companyName=" + companyName
                 + ", nickname=" + nickname + ", emailAddress=" + emailAddress + ", address="
                 + address + ", phoneNumber=" + phoneNumber + ", referenceId=" + referenceId
-                + ", note=" + note + ", birthday=" + birthday + "]";
+                + ", note=" + note + ", birthday=" + birthday + ", taxIds=" + taxIds + "]";
     }
 
     /**
@@ -268,7 +287,8 @@ public class CreateCustomerRequest {
                 .phoneNumber(getPhoneNumber())
                 .referenceId(getReferenceId())
                 .note(getNote())
-                .birthday(getBirthday());
+                .birthday(getBirthday())
+                .taxIds(getTaxIds());
         return builder;
     }
 
@@ -287,6 +307,7 @@ public class CreateCustomerRequest {
         private String referenceId;
         private String note;
         private String birthday;
+        private CustomerTaxIds taxIds;
 
 
 
@@ -401,12 +422,23 @@ public class CreateCustomerRequest {
         }
 
         /**
+         * Setter for taxIds.
+         * @param  taxIds  CustomerTaxIds value for taxIds.
+         * @return Builder
+         */
+        public Builder taxIds(CustomerTaxIds taxIds) {
+            this.taxIds = taxIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateCustomerRequest} object using the set fields.
          * @return {@link CreateCustomerRequest}
          */
         public CreateCustomerRequest build() {
             return new CreateCustomerRequest(idempotencyKey, givenName, familyName, companyName,
-                    nickname, emailAddress, address, phoneNumber, referenceId, note, birthday);
+                    nickname, emailAddress, address, phoneNumber, referenceId, note, birthday,
+                    taxIds);
         }
     }
 }

@@ -16,18 +16,23 @@ public class SearchSubscriptionsFilter {
     private final List<String> customerIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> sourceNames;
 
     /**
      * Initialization constructor.
      * @param  customerIds  List of String value for customerIds.
      * @param  locationIds  List of String value for locationIds.
+     * @param  sourceNames  List of String value for sourceNames.
      */
     @JsonCreator
     public SearchSubscriptionsFilter(
             @JsonProperty("customer_ids") List<String> customerIds,
-            @JsonProperty("location_ids") List<String> locationIds) {
+            @JsonProperty("location_ids") List<String> locationIds,
+            @JsonProperty("source_names") List<String> sourceNames) {
         this.customerIds = customerIds;
         this.locationIds = locationIds;
+        this.sourceNames = sourceNames;
     }
 
     /**
@@ -50,9 +55,19 @@ public class SearchSubscriptionsFilter {
         return locationIds;
     }
 
+    /**
+     * Getter for SourceNames.
+     * A filter to select subscriptions based on the source application.
+     * @return Returns the List of String
+     */
+    @JsonGetter("source_names")
+    public List<String> getSourceNames() {
+        return sourceNames;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(customerIds, locationIds);
+        return Objects.hash(customerIds, locationIds, sourceNames);
     }
 
     @Override
@@ -65,7 +80,8 @@ public class SearchSubscriptionsFilter {
         }
         SearchSubscriptionsFilter other = (SearchSubscriptionsFilter) obj;
         return Objects.equals(customerIds, other.customerIds)
-            && Objects.equals(locationIds, other.locationIds);
+            && Objects.equals(locationIds, other.locationIds)
+            && Objects.equals(sourceNames, other.sourceNames);
     }
 
     /**
@@ -75,7 +91,7 @@ public class SearchSubscriptionsFilter {
     @Override
     public String toString() {
         return "SearchSubscriptionsFilter [" + "customerIds=" + customerIds + ", locationIds="
-                + locationIds + "]";
+                + locationIds + ", sourceNames=" + sourceNames + "]";
     }
 
     /**
@@ -86,7 +102,8 @@ public class SearchSubscriptionsFilter {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .customerIds(getCustomerIds())
-                .locationIds(getLocationIds());
+                .locationIds(getLocationIds())
+                .sourceNames(getSourceNames());
         return builder;
     }
 
@@ -96,6 +113,7 @@ public class SearchSubscriptionsFilter {
     public static class Builder {
         private List<String> customerIds;
         private List<String> locationIds;
+        private List<String> sourceNames;
 
 
 
@@ -120,11 +138,21 @@ public class SearchSubscriptionsFilter {
         }
 
         /**
+         * Setter for sourceNames.
+         * @param  sourceNames  List of String value for sourceNames.
+         * @return Builder
+         */
+        public Builder sourceNames(List<String> sourceNames) {
+            this.sourceNames = sourceNames;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchSubscriptionsFilter} object using the set fields.
          * @return {@link SearchSubscriptionsFilter}
          */
         public SearchSubscriptionsFilter build() {
-            return new SearchSubscriptionsFilter(customerIds, locationIds);
+            return new SearchSubscriptionsFilter(customerIds, locationIds, sourceNames);
         }
     }
 }

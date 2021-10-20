@@ -96,7 +96,7 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The date when access_token expires, in [ISO
+     * The date when the access_token expires, in [ISO
      * 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      * @return Returns the String
      */
@@ -139,7 +139,7 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for IdToken.
-     * Then OpenID token belonging to this person. Only present if the OPENID scope is included in
+     * The OpenID token belonging to this person. Only present if the OPENID scope is included in
      * the authorization request.
      * @return Returns the String
      */

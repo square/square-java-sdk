@@ -11,7 +11,7 @@ Request object for the [CreateLocation](/doc/api/locations.md#create-location) e
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Location` | [`Location`](/doc/models/location.md) | Optional | - | Location getLocation() |
+| `Location` | [`Location`](/doc/models/location.md) | Optional | Represents one of a business's locations. | Location getLocation() |
 
 ## Example (as JSON)
 
