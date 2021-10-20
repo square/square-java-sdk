@@ -26,6 +26,7 @@ public class UpdateLocationRequest {
 
     /**
      * Getter for Location.
+     * Represents one of a business's locations.
      * @return Returns the Location
      */
     @JsonGetter("location")

@@ -63,6 +63,8 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> refundIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final RiskEvaluation riskEvaluation;
@@ -82,6 +84,10 @@ public class Payment {
     private final String receiptNumber;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final DeviceDetails deviceDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final ApplicationDetails applicationDetails;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String versionToken;
 
@@ -112,6 +118,7 @@ public class Payment {
      * @param  referenceId  String value for referenceId.
      * @param  customerId  String value for customerId.
      * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
      * @param  refundIds  List of String value for refundIds.
      * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
      * @param  buyerEmailAddress  String value for buyerEmailAddress.
@@ -122,6 +129,8 @@ public class Payment {
      * @param  capabilities  List of String value for capabilities.
      * @param  receiptNumber  String value for receiptNumber.
      * @param  receiptUrl  String value for receiptUrl.
+     * @param  deviceDetails  DeviceDetails value for deviceDetails.
+     * @param  applicationDetails  ApplicationDetails value for applicationDetails.
      * @param  versionToken  String value for versionToken.
      */
     @JsonCreator
@@ -151,6 +160,7 @@ public class Payment {
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("employee_id") String employeeId,
+            @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("refund_ids") List<String> refundIds,
             @JsonProperty("risk_evaluation") RiskEvaluation riskEvaluation,
             @JsonProperty("buyer_email_address") String buyerEmailAddress,
@@ -161,6 +171,8 @@ public class Payment {
             @JsonProperty("capabilities") List<String> capabilities,
             @JsonProperty("receipt_number") String receiptNumber,
             @JsonProperty("receipt_url") String receiptUrl,
+            @JsonProperty("device_details") DeviceDetails deviceDetails,
+            @JsonProperty("application_details") ApplicationDetails applicationDetails,
             @JsonProperty("version_token") String versionToken) {
         this.id = id;
         this.createdAt = createdAt;
@@ -187,6 +199,7 @@ public class Payment {
         this.referenceId = referenceId;
         this.customerId = customerId;
         this.employeeId = employeeId;
+        this.teamMemberId = teamMemberId;
         this.refundIds = refundIds;
         this.riskEvaluation = riskEvaluation;
         this.buyerEmailAddress = buyerEmailAddress;
@@ -197,6 +210,8 @@ public class Payment {
         this.capabilities = capabilities;
         this.receiptNumber = receiptNumber;
         this.receiptUrl = receiptUrl;
+        this.deviceDetails = deviceDetails;
+        this.applicationDetails = applicationDetails;
         this.versionToken = versionToken;
     }
 
@@ -486,12 +501,23 @@ public class Payment {
 
     /**
      * Getter for EmployeeId.
-     * An optional ID of the employee associated with taking the payment.
+     * __Deprecated__: Use `Payment.team_member_id` instead. An optional ID of the employee
+     * associated with taking the payment.
      * @return Returns the String
      */
     @JsonGetter("employee_id")
     public String getEmployeeId() {
         return employeeId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * An optional ID of the [TeamMember]($m/TeamMember) associated with taking the payment.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    public String getTeamMemberId() {
+        return teamMemberId;
     }
 
     /**
@@ -646,6 +672,26 @@ public class Payment {
     }
 
     /**
+     * Getter for DeviceDetails.
+     * Details about the device that took the payment.
+     * @return Returns the DeviceDetails
+     */
+    @JsonGetter("device_details")
+    public DeviceDetails getDeviceDetails() {
+        return deviceDetails;
+    }
+
+    /**
+     * Getter for ApplicationDetails.
+     * Details about the application that took the payment.
+     * @return Returns the ApplicationDetails
+     */
+    @JsonGetter("application_details")
+    public ApplicationDetails getApplicationDetails() {
+        return applicationDetails;
+    }
+
+    /**
      * Getter for VersionToken.
      * Used for optimistic concurrency. This opaque token identifies a specific version of the
      * `Payment` object.
@@ -662,9 +708,9 @@ public class Payment {
                 appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                 delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
                 externalDetails, walletDetails, locationId, orderId, referenceId, customerId,
-                employeeId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
-                shippingAddress, note, statementDescriptionIdentifier, capabilities, receiptNumber,
-                receiptUrl, versionToken);
+                employeeId, teamMemberId, refundIds, riskEvaluation, buyerEmailAddress,
+                billingAddress, shippingAddress, note, statementDescriptionIdentifier, capabilities,
+                receiptNumber, receiptUrl, deviceDetails, applicationDetails, versionToken);
     }
 
     @Override
@@ -701,6 +747,7 @@ public class Payment {
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(refundIds, other.refundIds)
             && Objects.equals(riskEvaluation, other.riskEvaluation)
             && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
@@ -712,6 +759,8 @@ public class Payment {
             && Objects.equals(capabilities, other.capabilities)
             && Objects.equals(receiptNumber, other.receiptNumber)
             && Objects.equals(receiptUrl, other.receiptUrl)
+            && Objects.equals(deviceDetails, other.deviceDetails)
+            && Objects.equals(applicationDetails, other.applicationDetails)
             && Objects.equals(versionToken, other.versionToken);
     }
 
@@ -731,13 +780,15 @@ public class Payment {
                 + ", bankAccountDetails=" + bankAccountDetails + ", externalDetails="
                 + externalDetails + ", walletDetails=" + walletDetails + ", locationId="
                 + locationId + ", orderId=" + orderId + ", referenceId=" + referenceId
-                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", refundIds="
-                + refundIds + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress="
-                + buyerEmailAddress + ", billingAddress=" + billingAddress + ", shippingAddress="
-                + shippingAddress + ", note=" + note + ", statementDescriptionIdentifier="
-                + statementDescriptionIdentifier + ", capabilities=" + capabilities
-                + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
-                + ", versionToken=" + versionToken + "]";
+                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", teamMemberId="
+                + teamMemberId + ", refundIds=" + refundIds + ", riskEvaluation=" + riskEvaluation
+                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
+                + ", shippingAddress=" + shippingAddress + ", note=" + note
+                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
+                + ", capabilities=" + capabilities + ", receiptNumber=" + receiptNumber
+                + ", receiptUrl=" + receiptUrl + ", deviceDetails=" + deviceDetails
+                + ", applicationDetails=" + applicationDetails + ", versionToken=" + versionToken
+                + "]";
     }
 
     /**
@@ -772,6 +823,7 @@ public class Payment {
                 .referenceId(getReferenceId())
                 .customerId(getCustomerId())
                 .employeeId(getEmployeeId())
+                .teamMemberId(getTeamMemberId())
                 .refundIds(getRefundIds())
                 .riskEvaluation(getRiskEvaluation())
                 .buyerEmailAddress(getBuyerEmailAddress())
@@ -782,6 +834,8 @@ public class Payment {
                 .capabilities(getCapabilities())
                 .receiptNumber(getReceiptNumber())
                 .receiptUrl(getReceiptUrl())
+                .deviceDetails(getDeviceDetails())
+                .applicationDetails(getApplicationDetails())
                 .versionToken(getVersionToken());
         return builder;
     }
@@ -815,6 +869,7 @@ public class Payment {
         private String referenceId;
         private String customerId;
         private String employeeId;
+        private String teamMemberId;
         private List<String> refundIds;
         private RiskEvaluation riskEvaluation;
         private String buyerEmailAddress;
@@ -825,6 +880,8 @@ public class Payment {
         private List<String> capabilities;
         private String receiptNumber;
         private String receiptUrl;
+        private DeviceDetails deviceDetails;
+        private ApplicationDetails applicationDetails;
         private String versionToken;
 
 
@@ -1080,6 +1137,16 @@ public class Payment {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Setter for refundIds.
          * @param  refundIds  List of String value for refundIds.
          * @return Builder
@@ -1180,6 +1247,26 @@ public class Payment {
         }
 
         /**
+         * Setter for deviceDetails.
+         * @param  deviceDetails  DeviceDetails value for deviceDetails.
+         * @return Builder
+         */
+        public Builder deviceDetails(DeviceDetails deviceDetails) {
+            this.deviceDetails = deviceDetails;
+            return this;
+        }
+
+        /**
+         * Setter for applicationDetails.
+         * @param  applicationDetails  ApplicationDetails value for applicationDetails.
+         * @return Builder
+         */
+        public Builder applicationDetails(ApplicationDetails applicationDetails) {
+            this.applicationDetails = applicationDetails;
+            return this;
+        }
+
+        /**
          * Setter for versionToken.
          * @param  versionToken  String value for versionToken.
          * @return Builder
@@ -1198,10 +1285,10 @@ public class Payment {
                     appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
                     bankAccountDetails, externalDetails, walletDetails, locationId, orderId,
-                    referenceId, customerId, employeeId, refundIds, riskEvaluation,
+                    referenceId, customerId, employeeId, teamMemberId, refundIds, riskEvaluation,
                     buyerEmailAddress, billingAddress, shippingAddress, note,
                     statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                    versionToken);
+                    deviceDetails, applicationDetails, versionToken);
         }
     }
 }

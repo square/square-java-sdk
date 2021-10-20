@@ -33,6 +33,8 @@ public class UpdateCustomerRequest {
     private final String birthday;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final CustomerTaxIds taxIds;
 
     /**
      * Initialization constructor.
@@ -47,6 +49,7 @@ public class UpdateCustomerRequest {
      * @param  note  String value for note.
      * @param  birthday  String value for birthday.
      * @param  version  Long value for version.
+     * @param  taxIds  CustomerTaxIds value for taxIds.
      */
     @JsonCreator
     public UpdateCustomerRequest(
@@ -60,7 +63,8 @@ public class UpdateCustomerRequest {
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("note") String note,
             @JsonProperty("birthday") String birthday,
-            @JsonProperty("version") Long version) {
+            @JsonProperty("version") Long version,
+            @JsonProperty("tax_ids") CustomerTaxIds taxIds) {
         this.givenName = givenName;
         this.familyName = familyName;
         this.companyName = companyName;
@@ -72,6 +76,7 @@ public class UpdateCustomerRequest {
         this.note = note;
         this.birthday = birthday;
         this.version = version;
+        this.taxIds = taxIds;
     }
 
     /**
@@ -213,10 +218,23 @@ public class UpdateCustomerRequest {
         return version;
     }
 
+    /**
+     * Getter for TaxIds.
+     * Represents the tax ID associated with a customer profile. The corresponding `tax_ids` field
+     * is available only for customers of sellers in France, Ireland, or the United Kingdom. For
+     * more information, see [Customer tax
+     * IDs](https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids).
+     * @return Returns the CustomerTaxIds
+     */
+    @JsonGetter("tax_ids")
+    public CustomerTaxIds getTaxIds() {
+        return taxIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(givenName, familyName, companyName, nickname, emailAddress, address,
-                phoneNumber, referenceId, note, birthday, version);
+                phoneNumber, referenceId, note, birthday, version, taxIds);
     }
 
     @Override
@@ -238,7 +256,8 @@ public class UpdateCustomerRequest {
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(note, other.note)
             && Objects.equals(birthday, other.birthday)
-            && Objects.equals(version, other.version);
+            && Objects.equals(version, other.version)
+            && Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -251,7 +270,7 @@ public class UpdateCustomerRequest {
                 + ", companyName=" + companyName + ", nickname=" + nickname + ", emailAddress="
                 + emailAddress + ", address=" + address + ", phoneNumber=" + phoneNumber
                 + ", referenceId=" + referenceId + ", note=" + note + ", birthday=" + birthday
-                + ", version=" + version + "]";
+                + ", version=" + version + ", taxIds=" + taxIds + "]";
     }
 
     /**
@@ -271,7 +290,8 @@ public class UpdateCustomerRequest {
                 .referenceId(getReferenceId())
                 .note(getNote())
                 .birthday(getBirthday())
-                .version(getVersion());
+                .version(getVersion())
+                .taxIds(getTaxIds());
         return builder;
     }
 
@@ -290,6 +310,7 @@ public class UpdateCustomerRequest {
         private String note;
         private String birthday;
         private Long version;
+        private CustomerTaxIds taxIds;
 
 
 
@@ -404,12 +425,23 @@ public class UpdateCustomerRequest {
         }
 
         /**
+         * Setter for taxIds.
+         * @param  taxIds  CustomerTaxIds value for taxIds.
+         * @return Builder
+         */
+        public Builder taxIds(CustomerTaxIds taxIds) {
+            this.taxIds = taxIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateCustomerRequest} object using the set fields.
          * @return {@link UpdateCustomerRequest}
          */
         public UpdateCustomerRequest build() {
             return new UpdateCustomerRequest(givenName, familyName, companyName, nickname,
-                    emailAddress, address, phoneNumber, referenceId, note, birthday, version);
+                    emailAddress, address, phoneNumber, referenceId, note, birthday, version,
+                    taxIds);
         }
     }
 }

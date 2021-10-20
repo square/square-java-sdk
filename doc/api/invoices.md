@@ -218,7 +218,7 @@ InvoiceFilter bodyQueryFilter = new InvoiceFilter.Builder(
     .customerIds(bodyQueryFilterCustomerIds)
     .build();
 InvoiceSort bodyQuerySort = new InvoiceSort.Builder(
-        "INVOICE_SORT_DATE")
+        null)
     .order("DESC")
     .build();
 InvoiceQuery bodyQuery = new InvoiceQuery.Builder(

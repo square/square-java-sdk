@@ -13,7 +13,7 @@
 | `Name` | `String` | Optional | An optional user-defined name for the device code.<br>**Constraints**: *Maximum Length*: `128` | String getName() |
 | `Code` | `String` | Optional | The unique code that can be used to login. | String getCode() |
 | `DeviceId` | `String` | Optional | The unique id of the device that used this code. Populated when the device is paired up. | String getDeviceId() |
-| `ProductType` | `String` | Required | **Default**: `"TERMINAL_API"`<br>*Default: `"TERMINAL_API"`* | String getProductType() |
+| `ProductType` | `String` | Required, Constant | **Default**: `"TERMINAL_API"`<br>*Default: `"TERMINAL_API"`* | String getProductType() |
 | `LocationId` | `String` | Optional | The location assigned to this code.<br>**Constraints**: *Maximum Length*: `50` | String getLocationId() |
 | `Status` | [`String`](/doc/models/device-code-status.md) | Optional | DeviceCode.Status enum. | String getStatus() |
 | `PairBy` | `String` | Optional | When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format. | String getPairBy() |

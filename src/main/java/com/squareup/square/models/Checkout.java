@@ -162,7 +162,7 @@ public class Checkout {
      * `transactionId`, and `referenceId` appended as URL parameters. For example, if the provided
      * redirect_url is `http://www.example.com/order-complete`, a successful transaction redirects
      * the customer to:
-     * <pre><code>http://www.example.com/order-complete?checkoutId=xxxxxx&amp;orderId=xxxxxx&amp;referenceId=xxxxxx&amp;transactionId=xxxxxx</code></pre>
+     * &lt;pre&gt;&lt;code&gt;http://www.example.com/order-complete?checkoutId=xxxxxx&amp;orderId=xxxxxx&amp;referenceId=xxxxxx&amp;transactionId=xxxxxx&lt;/code&gt;&lt;/pre&gt;
      * If you do not provide a redirect URL, Square Checkout will display an order confirmation page
      * on your behalf; however Square strongly recommends that you provide a redirect URL so you can
      * verify the transaction results and finalize the order through your existing/normal

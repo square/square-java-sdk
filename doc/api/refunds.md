@@ -100,19 +100,21 @@ CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
 
 ```java
 Money bodyAmountMoney = new Money.Builder()
-    .amount(100L)
+    .amount(1000L)
     .currency("USD")
     .build();
 Money bodyAppFeeMoney = new Money.Builder()
-    .amount(114L)
-    .currency("GEL")
+    .amount(10L)
+    .currency("USD")
     .build();
 RefundPaymentRequest body = new RefundPaymentRequest.Builder(
-        "a7e36d40-d24b-11e8-b568-0800200c9a66",
+        "9b7f2dcf-49da-4411-b23e-a2d6af21333a",
         bodyAmountMoney,
-        "UNOE3kv2BZwqHlJ830RCt5YCuaB")
+        "R2B3Z8WMVt3EAmzYWLZvz7Y69EbZY")
     .appFeeMoney(bodyAppFeeMoney)
-    .reason("reason8")
+    .reason("Example")
+    .paymentVersionToken("payment_version_token6")
+    .teamMemberId("team_member_id4")
     .build();
 
 refundsApi.refundPaymentAsync(body).thenAccept(result -> {

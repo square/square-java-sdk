@@ -18,6 +18,10 @@ public class RefundPaymentRequest {
     private final String paymentId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String paymentVersionToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
 
     /**
      * Initialization constructor.
@@ -26,6 +30,8 @@ public class RefundPaymentRequest {
      * @param  paymentId  String value for paymentId.
      * @param  appFeeMoney  Money value for appFeeMoney.
      * @param  reason  String value for reason.
+     * @param  paymentVersionToken  String value for paymentVersionToken.
+     * @param  teamMemberId  String value for teamMemberId.
      */
     @JsonCreator
     public RefundPaymentRequest(
@@ -33,12 +39,16 @@ public class RefundPaymentRequest {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("app_fee_money") Money appFeeMoney,
-            @JsonProperty("reason") String reason) {
+            @JsonProperty("reason") String reason,
+            @JsonProperty("payment_version_token") String paymentVersionToken,
+            @JsonProperty("team_member_id") String teamMemberId) {
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
         this.appFeeMoney = appFeeMoney;
         this.paymentId = paymentId;
         this.reason = reason;
+        this.paymentVersionToken = paymentVersionToken;
+        this.teamMemberId = teamMemberId;
     }
 
     /**
@@ -103,9 +113,33 @@ public class RefundPaymentRequest {
         return reason;
     }
 
+    /**
+     * Getter for PaymentVersionToken.
+     * Used for optimistic concurrency. This opaque token identifies the current `Payment` version
+     * that the caller expects. If the server has a different version of the Payment, the update
+     * fails and a response with a VERSION_MISMATCH error is returned. If the versions match, or the
+     * field is not provided, the refund proceeds as normal.
+     * @return Returns the String
+     */
+    @JsonGetter("payment_version_token")
+    public String getPaymentVersionToken() {
+        return paymentVersionToken;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * An optional [TeamMember]($m/TeamMember) ID to associate with this refund.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    public String getTeamMemberId() {
+        return teamMemberId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(idempotencyKey, amountMoney, appFeeMoney, paymentId, reason);
+        return Objects.hash(idempotencyKey, amountMoney, appFeeMoney, paymentId, reason,
+                paymentVersionToken, teamMemberId);
     }
 
     @Override
@@ -121,7 +155,9 @@ public class RefundPaymentRequest {
             && Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(appFeeMoney, other.appFeeMoney)
             && Objects.equals(paymentId, other.paymentId)
-            && Objects.equals(reason, other.reason);
+            && Objects.equals(reason, other.reason)
+            && Objects.equals(paymentVersionToken, other.paymentVersionToken)
+            && Objects.equals(teamMemberId, other.teamMemberId);
     }
 
     /**
@@ -132,7 +168,8 @@ public class RefundPaymentRequest {
     public String toString() {
         return "RefundPaymentRequest [" + "idempotencyKey=" + idempotencyKey + ", amountMoney="
                 + amountMoney + ", paymentId=" + paymentId + ", appFeeMoney=" + appFeeMoney
-                + ", reason=" + reason + "]";
+                + ", reason=" + reason + ", paymentVersionToken=" + paymentVersionToken
+                + ", teamMemberId=" + teamMemberId + "]";
     }
 
     /**
@@ -143,7 +180,9 @@ public class RefundPaymentRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey, amountMoney, paymentId)
                 .appFeeMoney(getAppFeeMoney())
-                .reason(getReason());
+                .reason(getReason())
+                .paymentVersionToken(getPaymentVersionToken())
+                .teamMemberId(getTeamMemberId());
         return builder;
     }
 
@@ -156,6 +195,8 @@ public class RefundPaymentRequest {
         private String paymentId;
         private Money appFeeMoney;
         private String reason;
+        private String paymentVersionToken;
+        private String teamMemberId;
 
         /**
          * Initialization constructor.
@@ -220,12 +261,32 @@ public class RefundPaymentRequest {
         }
 
         /**
+         * Setter for paymentVersionToken.
+         * @param  paymentVersionToken  String value for paymentVersionToken.
+         * @return Builder
+         */
+        public Builder paymentVersionToken(String paymentVersionToken) {
+            this.paymentVersionToken = paymentVersionToken;
+            return this;
+        }
+
+        /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RefundPaymentRequest} object using the set fields.
          * @return {@link RefundPaymentRequest}
          */
         public RefundPaymentRequest build() {
             return new RefundPaymentRequest(idempotencyKey, amountMoney, paymentId, appFeeMoney,
-                    reason);
+                    reason, paymentVersionToken, teamMemberId);
         }
     }
 }

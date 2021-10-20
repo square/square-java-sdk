@@ -29,6 +29,8 @@ public class CreatePaymentRequest {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
@@ -61,6 +63,7 @@ public class CreatePaymentRequest {
      * @param  orderId  String value for orderId.
      * @param  customerId  String value for customerId.
      * @param  locationId  String value for locationId.
+     * @param  teamMemberId  String value for teamMemberId.
      * @param  referenceId  String value for referenceId.
      * @param  verificationToken  String value for verificationToken.
      * @param  acceptPartialAuthorization  Boolean value for acceptPartialAuthorization.
@@ -84,6 +87,7 @@ public class CreatePaymentRequest {
             @JsonProperty("order_id") String orderId,
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("location_id") String locationId,
+            @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("verification_token") String verificationToken,
             @JsonProperty("accept_partial_authorization") Boolean acceptPartialAuthorization,
@@ -104,6 +108,7 @@ public class CreatePaymentRequest {
         this.orderId = orderId;
         this.customerId = customerId;
         this.locationId = locationId;
+        this.teamMemberId = teamMemberId;
         this.referenceId = referenceId;
         this.verificationToken = verificationToken;
         this.acceptPartialAuthorization = acceptPartialAuthorization;
@@ -250,6 +255,16 @@ public class CreatePaymentRequest {
     @JsonGetter("location_id")
     public String getLocationId() {
         return locationId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * An optional [TeamMember]($m/TeamMember) ID to associate with this payment.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    public String getTeamMemberId() {
+        return teamMemberId;
     }
 
     /**
@@ -420,9 +435,9 @@ public class CreatePaymentRequest {
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
-                delayDuration, autocomplete, orderId, customerId, locationId, referenceId,
-                verificationToken, acceptPartialAuthorization, buyerEmailAddress, billingAddress,
-                shippingAddress, note, statementDescriptionIdentifier, cashDetails,
+                delayDuration, autocomplete, orderId, customerId, locationId, teamMemberId,
+                referenceId, verificationToken, acceptPartialAuthorization, buyerEmailAddress,
+                billingAddress, shippingAddress, note, statementDescriptionIdentifier, cashDetails,
                 externalDetails);
     }
 
@@ -445,6 +460,7 @@ public class CreatePaymentRequest {
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(locationId, other.locationId)
+            && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(verificationToken, other.verificationToken)
             && Objects.equals(acceptPartialAuthorization, other.acceptPartialAuthorization)
@@ -468,13 +484,13 @@ public class CreatePaymentRequest {
                 + idempotencyKey + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney
                 + ", appFeeMoney=" + appFeeMoney + ", delayDuration=" + delayDuration
                 + ", autocomplete=" + autocomplete + ", orderId=" + orderId + ", customerId="
-                + customerId + ", locationId=" + locationId + ", referenceId=" + referenceId
-                + ", verificationToken=" + verificationToken + ", acceptPartialAuthorization="
-                + acceptPartialAuthorization + ", buyerEmailAddress=" + buyerEmailAddress
-                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
-                + ", note=" + note + ", statementDescriptionIdentifier="
-                + statementDescriptionIdentifier + ", cashDetails=" + cashDetails
-                + ", externalDetails=" + externalDetails + "]";
+                + customerId + ", locationId=" + locationId + ", teamMemberId=" + teamMemberId
+                + ", referenceId=" + referenceId + ", verificationToken=" + verificationToken
+                + ", acceptPartialAuthorization=" + acceptPartialAuthorization
+                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
+                + ", shippingAddress=" + shippingAddress + ", note=" + note
+                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
+                + ", cashDetails=" + cashDetails + ", externalDetails=" + externalDetails + "]";
     }
 
     /**
@@ -491,6 +507,7 @@ public class CreatePaymentRequest {
                 .orderId(getOrderId())
                 .customerId(getCustomerId())
                 .locationId(getLocationId())
+                .teamMemberId(getTeamMemberId())
                 .referenceId(getReferenceId())
                 .verificationToken(getVerificationToken())
                 .acceptPartialAuthorization(getAcceptPartialAuthorization())
@@ -518,6 +535,7 @@ public class CreatePaymentRequest {
         private String orderId;
         private String customerId;
         private String locationId;
+        private String teamMemberId;
         private String referenceId;
         private String verificationToken;
         private Boolean acceptPartialAuthorization;
@@ -642,6 +660,16 @@ public class CreatePaymentRequest {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Setter for referenceId.
          * @param  referenceId  String value for referenceId.
          * @return Builder
@@ -748,9 +776,9 @@ public class CreatePaymentRequest {
         public CreatePaymentRequest build() {
             return new CreatePaymentRequest(sourceId, idempotencyKey, amountMoney, tipMoney,
                     appFeeMoney, delayDuration, autocomplete, orderId, customerId, locationId,
-                    referenceId, verificationToken, acceptPartialAuthorization, buyerEmailAddress,
-                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
-                    cashDetails, externalDetails);
+                    teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
+                    buyerEmailAddress, billingAddress, shippingAddress, note,
+                    statementDescriptionIdentifier, cashDetails, externalDetails);
         }
     }
 }

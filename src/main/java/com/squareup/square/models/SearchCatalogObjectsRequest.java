@@ -69,7 +69,11 @@ public class SearchCatalogObjectsRequest {
 
     /**
      * Getter for ObjectTypes.
-     * The desired set of object types to appear in the search results.
+     * The desired set of object types to appear in the search results. If not specified, the
+     * following catalog object types will be used as default: ITEM, CATEGORY, TAX, DISCOUNT,
+     * MODIFIER_LIST, DINING_OPTION, TAX_EXEMPTION, SERVICE_CHARGE, PRICING_RULE, PRODUCT_SET,
+     * TIME_PERIOD, MEASUREMENT_UNIT, SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION,
+     * QUICK_AMOUNT_SETTINGS.
      * @return Returns the List of String
      */
     @JsonGetter("object_types")

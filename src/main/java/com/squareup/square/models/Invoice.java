@@ -173,7 +173,12 @@ public class Invoice {
 
     /**
      * Getter for PrimaryRecipient.
-     * Provides customer data that Square uses to deliver an invoice.
+     * Represents a snapshot of customer data. This object stores customer data that is displayed on
+     * the invoice and that Square uses to deliver the invoice. When you provide a customer ID for a
+     * draft invoice, Square retrieves the associated customer profile and populates the remaining
+     * `InvoiceRecipient` fields. You cannot update these fields after the invoice is published.
+     * Square updates the customer ID in response to a merge operation, but does not update other
+     * fields.
      * @return Returns the InvoiceRecipient
      */
     @JsonGetter("primary_recipient")

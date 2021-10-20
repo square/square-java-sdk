@@ -28,6 +28,8 @@ public class CreateSubscriptionRequest {
     private final String cardId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final SubscriptionSource source;
 
     /**
      * Initialization constructor.
@@ -41,6 +43,7 @@ public class CreateSubscriptionRequest {
      * @param  priceOverrideMoney  Money value for priceOverrideMoney.
      * @param  cardId  String value for cardId.
      * @param  timezone  String value for timezone.
+     * @param  source  SubscriptionSource value for source.
      */
     @JsonCreator
     public CreateSubscriptionRequest(
@@ -53,7 +56,8 @@ public class CreateSubscriptionRequest {
             @JsonProperty("tax_percentage") String taxPercentage,
             @JsonProperty("price_override_money") Money priceOverrideMoney,
             @JsonProperty("card_id") String cardId,
-            @JsonProperty("timezone") String timezone) {
+            @JsonProperty("timezone") String timezone,
+            @JsonProperty("source") SubscriptionSource source) {
         this.idempotencyKey = idempotencyKey;
         this.locationId = locationId;
         this.planId = planId;
@@ -64,6 +68,7 @@ public class CreateSubscriptionRequest {
         this.priceOverrideMoney = priceOverrideMoney;
         this.cardId = cardId;
         this.timezone = timezone;
+        this.source = source;
     }
 
     /**
@@ -189,10 +194,20 @@ public class CreateSubscriptionRequest {
         return timezone;
     }
 
+    /**
+     * Getter for Source.
+     * The origination details of the subscription.
+     * @return Returns the SubscriptionSource
+     */
+    @JsonGetter("source")
+    public SubscriptionSource getSource() {
+        return source;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, locationId, planId, customerId, startDate, canceledDate,
-                taxPercentage, priceOverrideMoney, cardId, timezone);
+                taxPercentage, priceOverrideMoney, cardId, timezone, source);
     }
 
     @Override
@@ -213,7 +228,8 @@ public class CreateSubscriptionRequest {
             && Objects.equals(taxPercentage, other.taxPercentage)
             && Objects.equals(priceOverrideMoney, other.priceOverrideMoney)
             && Objects.equals(cardId, other.cardId)
-            && Objects.equals(timezone, other.timezone);
+            && Objects.equals(timezone, other.timezone)
+            && Objects.equals(source, other.source);
     }
 
     /**
@@ -226,7 +242,7 @@ public class CreateSubscriptionRequest {
                 + ", customerId=" + customerId + ", idempotencyKey=" + idempotencyKey
                 + ", startDate=" + startDate + ", canceledDate=" + canceledDate + ", taxPercentage="
                 + taxPercentage + ", priceOverrideMoney=" + priceOverrideMoney + ", cardId="
-                + cardId + ", timezone=" + timezone + "]";
+                + cardId + ", timezone=" + timezone + ", source=" + source + "]";
     }
 
     /**
@@ -242,7 +258,8 @@ public class CreateSubscriptionRequest {
                 .taxPercentage(getTaxPercentage())
                 .priceOverrideMoney(getPriceOverrideMoney())
                 .cardId(getCardId())
-                .timezone(getTimezone());
+                .timezone(getTimezone())
+                .source(getSource());
         return builder;
     }
 
@@ -260,6 +277,7 @@ public class CreateSubscriptionRequest {
         private Money priceOverrideMoney;
         private String cardId;
         private String timezone;
+        private SubscriptionSource source;
 
         /**
          * Initialization constructor.
@@ -374,12 +392,23 @@ public class CreateSubscriptionRequest {
         }
 
         /**
+         * Setter for source.
+         * @param  source  SubscriptionSource value for source.
+         * @return Builder
+         */
+        public Builder source(SubscriptionSource source) {
+            this.source = source;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateSubscriptionRequest} object using the set fields.
          * @return {@link CreateSubscriptionRequest}
          */
         public CreateSubscriptionRequest build() {
             return new CreateSubscriptionRequest(locationId, planId, customerId, idempotencyKey,
-                    startDate, canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone);
+                    startDate, canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone,
+                    source);
         }
     }
 }

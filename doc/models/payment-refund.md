@@ -23,6 +23,7 @@ the original payment and the amount of money refunded.
 | `Reason` | `String` | Optional | The reason for the refund.<br>**Constraints**: *Maximum Length*: `192` | String getReason() |
 | `CreatedAt` | `String` | Optional | The timestamp of when the refund was created, in RFC 3339 format.<br>**Constraints**: *Maximum Length*: `32` | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | The timestamp of when the refund was last updated, in RFC 3339 format.<br>**Constraints**: *Maximum Length*: `32` | String getUpdatedAt() |
+| `TeamMemberId` | `String` | Optional | An optional ID of the team member associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | String getTeamMemberId() |
 
 ## Example (as JSON)
 

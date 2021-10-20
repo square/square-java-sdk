@@ -111,7 +111,7 @@ CompletableFuture<CreatePaymentResponse> createPaymentAsync(
 
 ```java
 Money bodyAmountMoney = new Money.Builder()
-    .amount(200L)
+    .amount(1000L)
     .currency("USD")
     .build();
 Money bodyTipMoney = new Money.Builder()
@@ -123,16 +123,16 @@ Money bodyAppFeeMoney = new Money.Builder()
     .currency("USD")
     .build();
 CreatePaymentRequest body = new CreatePaymentRequest.Builder(
-        "ccof:uIbfJXhXETSP197M3GB",
-        "4935a656-a929-4792-b97c-8848be85c27c",
+        "ccof:GaJGNaZa8x4OgDJn4GB",
+        "7b0f3ec5-086a-4871-8f13-3c81b3875218",
         bodyAmountMoney)
     .tipMoney(bodyTipMoney)
     .appFeeMoney(bodyAppFeeMoney)
     .delayDuration("delay_duration6")
     .autocomplete(true)
     .orderId("order_id0")
-    .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
-    .locationId("XK3DBG77NJBFX")
+    .customerId("W92WH6P11H4Z77CTET0RNTGFW8")
+    .locationId("L88917AVBK2S5")
     .referenceId("123456")
     .note("Brief description")
     .build();
@@ -255,7 +255,7 @@ Money bodyPaymentAmountMoney = new Money.Builder()
     .currency("USD")
     .build();
 Money bodyPaymentTipMoney = new Money.Builder()
-    .amount(300L)
+    .amount(100L)
     .currency("USD")
     .build();
 Payment bodyPayment = new Payment.Builder()
@@ -264,10 +264,10 @@ Payment bodyPayment = new Payment.Builder()
     .updatedAt("updated_at8")
     .amountMoney(bodyPaymentAmountMoney)
     .tipMoney(bodyPaymentTipMoney)
-    .versionToken("Z3okDzm2VRv5m5nE3WGx381ItTNhvjkB4VapByyz54h6o")
+    .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
     .build();
 UpdatePaymentRequest body = new UpdatePaymentRequest.Builder(
-        "3d3c3b22-9572-4fc6-1111-e4d2f41b4122")
+        "956f8b13-e4ec-45d6-85e8-d1d95ef0c5de")
     .payment(bodyPayment)
     .build();
 
@@ -323,7 +323,8 @@ You can use this endpoint to complete a payment with the APPROVED `status`.
 
 ```java
 CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-    final String paymentId)
+    final String paymentId,
+    final CompletePaymentRequest body)
 ```
 
 ## Parameters
@@ -331,6 +332,7 @@ CompletableFuture<CompletePaymentResponse> completePaymentAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `paymentId` | `String` | Template, Required | The unique ID identifying the payment to be completed. |
+| `body` | [`CompletePaymentRequest`](/doc/models/complete-payment-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
@@ -340,8 +342,11 @@ CompletableFuture<CompletePaymentResponse> completePaymentAsync(
 
 ```java
 String paymentId = "payment_id0";
+CompletePaymentRequest body = new CompletePaymentRequest.Builder()
+    .versionToken("version_token2")
+    .build();
 
-paymentsApi.completePaymentAsync(paymentId).thenAccept(result -> {
+paymentsApi.completePaymentAsync(paymentId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

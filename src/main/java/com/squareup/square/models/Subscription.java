@@ -42,6 +42,8 @@ public class Subscription {
     private final String cardId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final SubscriptionSource source;
 
     /**
      * Initialization constructor.
@@ -60,6 +62,7 @@ public class Subscription {
      * @param  createdAt  String value for createdAt.
      * @param  cardId  String value for cardId.
      * @param  timezone  String value for timezone.
+     * @param  source  SubscriptionSource value for source.
      */
     @JsonCreator
     public Subscription(
@@ -77,7 +80,8 @@ public class Subscription {
             @JsonProperty("version") Long version,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("card_id") String cardId,
-            @JsonProperty("timezone") String timezone) {
+            @JsonProperty("timezone") String timezone,
+            @JsonProperty("source") SubscriptionSource source) {
         this.id = id;
         this.locationId = locationId;
         this.planId = planId;
@@ -93,6 +97,7 @@ public class Subscription {
         this.createdAt = createdAt;
         this.cardId = cardId;
         this.timezone = timezone;
+        this.source = source;
     }
 
     /**
@@ -263,11 +268,21 @@ public class Subscription {
         return timezone;
     }
 
+    /**
+     * Getter for Source.
+     * The origination details of the subscription.
+     * @return Returns the SubscriptionSource
+     */
+    @JsonGetter("source")
+    public SubscriptionSource getSource() {
+        return source;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate,
                 chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney, version,
-                createdAt, cardId, timezone);
+                createdAt, cardId, timezone, source);
     }
 
     @Override
@@ -293,7 +308,8 @@ public class Subscription {
             && Objects.equals(version, other.version)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(cardId, other.cardId)
-            && Objects.equals(timezone, other.timezone);
+            && Objects.equals(timezone, other.timezone)
+            && Objects.equals(source, other.source);
     }
 
     /**
@@ -308,7 +324,7 @@ public class Subscription {
                 + ", taxPercentage=" + taxPercentage + ", invoiceIds=" + invoiceIds
                 + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
                 + ", createdAt=" + createdAt + ", cardId=" + cardId + ", timezone=" + timezone
-                + "]";
+                + ", source=" + source + "]";
     }
 
     /**
@@ -332,7 +348,8 @@ public class Subscription {
                 .version(getVersion())
                 .createdAt(getCreatedAt())
                 .cardId(getCardId())
-                .timezone(getTimezone());
+                .timezone(getTimezone())
+                .source(getSource());
         return builder;
     }
 
@@ -355,6 +372,7 @@ public class Subscription {
         private String createdAt;
         private String cardId;
         private String timezone;
+        private SubscriptionSource source;
 
 
 
@@ -509,13 +527,23 @@ public class Subscription {
         }
 
         /**
+         * Setter for source.
+         * @param  source  SubscriptionSource value for source.
+         * @return Builder
+         */
+        public Builder source(SubscriptionSource source) {
+            this.source = source;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Subscription} object using the set fields.
          * @return {@link Subscription}
          */
         public Subscription build() {
             return new Subscription(id, locationId, planId, customerId, startDate, canceledDate,
                     chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney,
-                    version, createdAt, cardId, timezone);
+                    version, createdAt, cardId, timezone, source);
         }
     }
 }

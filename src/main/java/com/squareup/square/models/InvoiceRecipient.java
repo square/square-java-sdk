@@ -25,6 +25,8 @@ public class InvoiceRecipient {
     private final String phoneNumber;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final InvoiceRecipientTaxIds taxIds;
 
     /**
      * Initialization constructor.
@@ -35,6 +37,7 @@ public class InvoiceRecipient {
      * @param  address  Address value for address.
      * @param  phoneNumber  String value for phoneNumber.
      * @param  companyName  String value for companyName.
+     * @param  taxIds  InvoiceRecipientTaxIds value for taxIds.
      */
     @JsonCreator
     public InvoiceRecipient(
@@ -44,7 +47,8 @@ public class InvoiceRecipient {
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("address") Address address,
             @JsonProperty("phone_number") String phoneNumber,
-            @JsonProperty("company_name") String companyName) {
+            @JsonProperty("company_name") String companyName,
+            @JsonProperty("tax_ids") InvoiceRecipientTaxIds taxIds) {
         this.customerId = customerId;
         this.givenName = givenName;
         this.familyName = familyName;
@@ -52,6 +56,7 @@ public class InvoiceRecipient {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
+        this.taxIds = taxIds;
     }
 
     /**
@@ -146,10 +151,23 @@ public class InvoiceRecipient {
         return companyName;
     }
 
+    /**
+     * Getter for TaxIds.
+     * Represents the tax IDs for an invoice recipient. The country of the seller account determines
+     * whether the corresponding `tax_ids` field is available for the customer. For more
+     * information, see [Invoice recipient tax
+     * IDs](https://developer.squareup.com/docs/invoices-api/overview#recipient-tax-ids).
+     * @return Returns the InvoiceRecipientTaxIds
+     */
+    @JsonGetter("tax_ids")
+    public InvoiceRecipientTaxIds getTaxIds() {
+        return taxIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(customerId, givenName, familyName, emailAddress, address, phoneNumber,
-                companyName);
+                companyName, taxIds);
     }
 
     @Override
@@ -167,7 +185,8 @@ public class InvoiceRecipient {
             && Objects.equals(emailAddress, other.emailAddress)
             && Objects.equals(address, other.address)
             && Objects.equals(phoneNumber, other.phoneNumber)
-            && Objects.equals(companyName, other.companyName);
+            && Objects.equals(companyName, other.companyName)
+            && Objects.equals(taxIds, other.taxIds);
     }
 
     /**
@@ -178,7 +197,8 @@ public class InvoiceRecipient {
     public String toString() {
         return "InvoiceRecipient [" + "customerId=" + customerId + ", givenName=" + givenName
                 + ", familyName=" + familyName + ", emailAddress=" + emailAddress + ", address="
-                + address + ", phoneNumber=" + phoneNumber + ", companyName=" + companyName + "]";
+                + address + ", phoneNumber=" + phoneNumber + ", companyName=" + companyName
+                + ", taxIds=" + taxIds + "]";
     }
 
     /**
@@ -194,7 +214,8 @@ public class InvoiceRecipient {
                 .emailAddress(getEmailAddress())
                 .address(getAddress())
                 .phoneNumber(getPhoneNumber())
-                .companyName(getCompanyName());
+                .companyName(getCompanyName())
+                .taxIds(getTaxIds());
         return builder;
     }
 
@@ -209,6 +230,7 @@ public class InvoiceRecipient {
         private Address address;
         private String phoneNumber;
         private String companyName;
+        private InvoiceRecipientTaxIds taxIds;
 
 
 
@@ -283,12 +305,22 @@ public class InvoiceRecipient {
         }
 
         /**
+         * Setter for taxIds.
+         * @param  taxIds  InvoiceRecipientTaxIds value for taxIds.
+         * @return Builder
+         */
+        public Builder taxIds(InvoiceRecipientTaxIds taxIds) {
+            this.taxIds = taxIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceRecipient} object using the set fields.
          * @return {@link InvoiceRecipient}
          */
         public InvoiceRecipient build() {
             return new InvoiceRecipient(customerId, givenName, familyName, emailAddress, address,
-                    phoneNumber, companyName);
+                    phoneNumber, companyName, taxIds);
         }
     }
 }

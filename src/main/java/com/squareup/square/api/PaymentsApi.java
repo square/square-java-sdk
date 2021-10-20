@@ -5,6 +5,7 @@ import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.CancelPaymentByIdempotencyKeyRequest;
 import com.squareup.square.models.CancelPaymentByIdempotencyKeyResponse;
 import com.squareup.square.models.CancelPaymentResponse;
+import com.squareup.square.models.CompletePaymentRequest;
 import com.squareup.square.models.CompletePaymentResponse;
 import com.squareup.square.models.CreatePaymentRequest;
 import com.squareup.square.models.CreatePaymentResponse;
@@ -224,20 +225,26 @@ public interface PaymentsApi {
      * Completes (captures) a payment. By default, payments are set to complete immediately after
      * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     CompletePaymentResponse completePayment(
-            final String paymentId) throws ApiException, IOException;
+            final String paymentId,
+            final CompletePaymentRequest body) throws ApiException, IOException;
 
     /**
      * Completes (captures) a payment. By default, payments are set to complete immediately after
      * they are created. You can use this endpoint to complete a payment with the APPROVED `status`.
      * @param  paymentId  Required parameter: The unique ID identifying the payment to be completed.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the CompletePaymentResponse response from the API call
      */
     CompletableFuture<CompletePaymentResponse> completePaymentAsync(
-            final String paymentId);
+            final String paymentId,
+            final CompletePaymentRequest body);
 
 }

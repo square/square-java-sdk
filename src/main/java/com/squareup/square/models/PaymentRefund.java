@@ -32,6 +32,8 @@ public class PaymentRefund {
     private final String createdAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
 
     /**
      * Initialization constructor.
@@ -46,6 +48,7 @@ public class PaymentRefund {
      * @param  reason  String value for reason.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
+     * @param  teamMemberId  String value for teamMemberId.
      */
     @JsonCreator
     public PaymentRefund(
@@ -59,7 +62,8 @@ public class PaymentRefund {
             @JsonProperty("order_id") String orderId,
             @JsonProperty("reason") String reason,
             @JsonProperty("created_at") String createdAt,
-            @JsonProperty("updated_at") String updatedAt) {
+            @JsonProperty("updated_at") String updatedAt,
+            @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
@@ -71,6 +75,7 @@ public class PaymentRefund {
         this.reason = reason;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.teamMemberId = teamMemberId;
     }
 
     /**
@@ -194,10 +199,20 @@ public class PaymentRefund {
         return updatedAt;
     }
 
+    /**
+     * Getter for TeamMemberId.
+     * An optional ID of the team member associated with taking the payment.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    public String getTeamMemberId() {
+        return teamMemberId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, status, locationId, amountMoney, appFeeMoney, processingFee,
-                paymentId, orderId, reason, createdAt, updatedAt);
+                paymentId, orderId, reason, createdAt, updatedAt, teamMemberId);
     }
 
     @Override
@@ -219,7 +234,8 @@ public class PaymentRefund {
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(reason, other.reason)
             && Objects.equals(createdAt, other.createdAt)
-            && Objects.equals(updatedAt, other.updatedAt);
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(teamMemberId, other.teamMemberId);
     }
 
     /**
@@ -232,7 +248,7 @@ public class PaymentRefund {
                 + status + ", locationId=" + locationId + ", appFeeMoney=" + appFeeMoney
                 + ", processingFee=" + processingFee + ", paymentId=" + paymentId + ", orderId="
                 + orderId + ", reason=" + reason + ", createdAt=" + createdAt + ", updatedAt="
-                + updatedAt + "]";
+                + updatedAt + ", teamMemberId=" + teamMemberId + "]";
     }
 
     /**
@@ -250,7 +266,8 @@ public class PaymentRefund {
                 .orderId(getOrderId())
                 .reason(getReason())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt());
+                .updatedAt(getUpdatedAt())
+                .teamMemberId(getTeamMemberId());
         return builder;
     }
 
@@ -269,6 +286,7 @@ public class PaymentRefund {
         private String reason;
         private String createdAt;
         private String updatedAt;
+        private String teamMemberId;
 
         /**
          * Initialization constructor.
@@ -391,12 +409,22 @@ public class PaymentRefund {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PaymentRefund} object using the set fields.
          * @return {@link PaymentRefund}
          */
         public PaymentRefund build() {
             return new PaymentRefund(id, amountMoney, status, locationId, appFeeMoney,
-                    processingFee, paymentId, orderId, reason, createdAt, updatedAt);
+                    processingFee, paymentId, orderId, reason, createdAt, updatedAt, teamMemberId);
         }
     }
 }
