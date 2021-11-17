@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `BookableOnly` | `Boolean` | Optional | Indicates whether to include only bookable team members in the returned result (`true`) or not (`false`). | Boolean getBookableOnly() |
-| `Limit` | `Integer` | Optional | The maximum number of results to return. | Integer getLimit() |
+| `Limit` | `Integer` | Optional | The maximum number of results to return.<br>**Constraints**: `>= 1`, `<= 100` | Integer getLimit() |
 | `Cursor` | `String` | Optional | The cursor for paginating through the results. | String getCursor() |
 | `LocationId` | `String` | Optional | Indicates whether to include only team members enabled at the given location in the returned result. | String getLocationId() |
 

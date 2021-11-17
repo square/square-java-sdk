@@ -24,6 +24,7 @@ public class UnlinkCustomerFromGiftCardRequest {
 
     /**
      * Getter for CustomerId.
+     * The ID of the customer to unlink from the gift card.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

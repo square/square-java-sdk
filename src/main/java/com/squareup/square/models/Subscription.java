@@ -44,6 +44,8 @@ public class Subscription {
     private final String timezone;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SubscriptionSource source;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<SubscriptionAction> actions;
 
     /**
      * Initialization constructor.
@@ -63,6 +65,7 @@ public class Subscription {
      * @param  cardId  String value for cardId.
      * @param  timezone  String value for timezone.
      * @param  source  SubscriptionSource value for source.
+     * @param  actions  List of SubscriptionAction value for actions.
      */
     @JsonCreator
     public Subscription(
@@ -81,7 +84,8 @@ public class Subscription {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("card_id") String cardId,
             @JsonProperty("timezone") String timezone,
-            @JsonProperty("source") SubscriptionSource source) {
+            @JsonProperty("source") SubscriptionSource source,
+            @JsonProperty("actions") List<SubscriptionAction> actions) {
         this.id = id;
         this.locationId = locationId;
         this.planId = planId;
@@ -98,6 +102,7 @@ public class Subscription {
         this.cardId = cardId;
         this.timezone = timezone;
         this.source = source;
+        this.actions = actions;
     }
 
     /**
@@ -122,7 +127,7 @@ public class Subscription {
 
     /**
      * Getter for PlanId.
-     * The ID of the associated [subscription plan]($m/CatalogSubscriptionPlan).
+     * The ID of the subscribed-to [subscription plan]($m/CatalogSubscriptionPlan).
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -132,7 +137,7 @@ public class Subscription {
 
     /**
      * Getter for CustomerId.
-     * The ID of the associated [customer]($m/Customer) profile.
+     * The ID of the subscribing [customer]($m/Customer) profile.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -142,7 +147,7 @@ public class Subscription {
 
     /**
      * Getter for StartDate.
-     * The start date of the subscription, in YYYY-MM-DD format (for example, 2013-01-15).
+     * The `YYYY-MM-DD`-formatted date (for example, 2013-01-15) to start the subscription.
      * @return Returns the String
      */
     @JsonGetter("start_date")
@@ -152,10 +157,10 @@ public class Subscription {
 
     /**
      * Getter for CanceledDate.
-     * The subscription cancellation date, in YYYY-MM-DD format (for example, 2013-01-15). On this
-     * date, the subscription status changes to `CANCELED` and the subscription billing stops. If
-     * you don't set this field, the subscription plan dictates if and when subscription ends. You
-     * cannot update this field, you can only clear it.
+     * The `YYYY-MM-DD`-formatted date (for example, 2013-01-15) to cancel the subscription, when
+     * the subscription status changes to `CANCELED` and the subscription billing stops. If this
+     * field is not set, the subscription ends according its subscription plan. This field cannot be
+     * updated, other than being cleared.
      * @return Returns the String
      */
     @JsonGetter("canceled_date")
@@ -165,11 +170,11 @@ public class Subscription {
 
     /**
      * Getter for ChargedThroughDate.
-     * The date up to which the customer is invoiced for the subscription, in YYYY-MM-DD format (for
-     * example, 2013-01-15). After the invoice is sent for a given billing period, this date will be
-     * the last day of the billing period. For example, suppose for the month of May a customer gets
-     * an invoice (or charged the card) on May 1. For the monthly billing scenario, this date is
-     * then set to May 31.
+     * The `YYYY-MM-DD`-formatted date up to when the subscriber is invoiced for the subscription.
+     * After the invoice is sent for a given billing period, this date will be the last day of the
+     * billing period. For example, suppose for the month of May a subscriber gets an invoice (or
+     * charged the card) on May 1. For the monthly billing scenario, this date is then set to May
+     * 31.
      * @return Returns the String
      */
     @JsonGetter("charged_through_date")
@@ -179,7 +184,7 @@ public class Subscription {
 
     /**
      * Getter for Status.
-     * Possible subscription status values.
+     * Supported subscription statuses.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -248,7 +253,8 @@ public class Subscription {
 
     /**
      * Getter for CardId.
-     * The ID of the [customer]($m/Customer) [card]($m/Card) that is charged for the subscription.
+     * The ID of the [subscriber's]($m/Customer) [card]($m/Card) used to charge for the
+     * subscription.
      * @return Returns the String
      */
     @JsonGetter("card_id")
@@ -278,11 +284,24 @@ public class Subscription {
         return source;
     }
 
+    /**
+     * Getter for Actions.
+     * The list of scheduled actions on this subscription. It is set only in the response from the
+     * [RetrieveSubscription]($e/Subscriptions/RetrieveSubscription) or
+     * [SearchSubscriptions]($e/Subscriptions/SearchSubscriptions) endpoint with the query parameter
+     * of `include=actions`.
+     * @return Returns the List of SubscriptionAction
+     */
+    @JsonGetter("actions")
+    public List<SubscriptionAction> getActions() {
+        return actions;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate,
                 chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney, version,
-                createdAt, cardId, timezone, source);
+                createdAt, cardId, timezone, source, actions);
     }
 
     @Override
@@ -309,7 +328,8 @@ public class Subscription {
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(cardId, other.cardId)
             && Objects.equals(timezone, other.timezone)
-            && Objects.equals(source, other.source);
+            && Objects.equals(source, other.source)
+            && Objects.equals(actions, other.actions);
     }
 
     /**
@@ -324,7 +344,7 @@ public class Subscription {
                 + ", taxPercentage=" + taxPercentage + ", invoiceIds=" + invoiceIds
                 + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
                 + ", createdAt=" + createdAt + ", cardId=" + cardId + ", timezone=" + timezone
-                + ", source=" + source + "]";
+                + ", source=" + source + ", actions=" + actions + "]";
     }
 
     /**
@@ -349,7 +369,8 @@ public class Subscription {
                 .createdAt(getCreatedAt())
                 .cardId(getCardId())
                 .timezone(getTimezone())
-                .source(getSource());
+                .source(getSource())
+                .actions(getActions());
         return builder;
     }
 
@@ -373,6 +394,7 @@ public class Subscription {
         private String cardId;
         private String timezone;
         private SubscriptionSource source;
+        private List<SubscriptionAction> actions;
 
 
 
@@ -537,13 +559,23 @@ public class Subscription {
         }
 
         /**
+         * Setter for actions.
+         * @param  actions  List of SubscriptionAction value for actions.
+         * @return Builder
+         */
+        public Builder actions(List<SubscriptionAction> actions) {
+            this.actions = actions;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Subscription} object using the set fields.
          * @return {@link Subscription}
          */
         public Subscription build() {
             return new Subscription(id, locationId, planId, customerId, startDate, canceledDate,
                     chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney,
-                    version, createdAt, cardId, timezone, source);
+                    version, createdAt, cardId, timezone, source, actions);
         }
     }
 }

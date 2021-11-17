@@ -14,14 +14,17 @@ SubscriptionsApi subscriptionsApi = client.getSubscriptionsApi();
 * [Search Subscriptions](/doc/api/subscriptions.md#search-subscriptions)
 * [Retrieve Subscription](/doc/api/subscriptions.md#retrieve-subscription)
 * [Update Subscription](/doc/api/subscriptions.md#update-subscription)
+* [Delete Subscription Action](/doc/api/subscriptions.md#delete-subscription-action)
 * [Cancel Subscription](/doc/api/subscriptions.md#cancel-subscription)
 * [List Subscription Events](/doc/api/subscriptions.md#list-subscription-events)
+* [Pause Subscription](/doc/api/subscriptions.md#pause-subscription)
 * [Resume Subscription](/doc/api/subscriptions.md#resume-subscription)
+* [Swap Plan](/doc/api/subscriptions.md#swap-plan)
 
 
 # Create Subscription
 
-Creates a subscription for a customer to a subscription plan.
+Creates a subscription to a subscription plan by a customer.
 
 If you provide a card on file in the request, Square charges the card for
 the subscription. Otherwise, Square bills an invoice to the customer's email
@@ -79,6 +82,7 @@ subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
 # Search Subscriptions
 
 Searches for subscriptions.
+
 Results are ordered chronologically by subscription creation date. If
 the request specifies more than one location ID,
 the endpoint orders the result
@@ -127,10 +131,15 @@ SearchSubscriptionsFilter bodyQueryFilter = new SearchSubscriptionsFilter.Builde
 SearchSubscriptionsQuery bodyQuery = new SearchSubscriptionsQuery.Builder()
     .filter(bodyQueryFilter)
     .build();
+List<String> bodyInclude = new LinkedList<>();
+bodyInclude.add("include4");
+bodyInclude.add("include5");
+bodyInclude.add("include6");
 SearchSubscriptionsRequest body = new SearchSubscriptionsRequest.Builder()
     .cursor("cursor0")
     .limit(164)
     .query(bodyQuery)
+    .include(bodyInclude)
     .build();
 
 subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {
@@ -148,7 +157,8 @@ Retrieves a subscription.
 
 ```java
 CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
-    final String subscriptionId)
+    final String subscriptionId,
+    final String include)
 ```
 
 ## Parameters
@@ -156,6 +166,7 @@ CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to retrieve. |
+| `include` | `String` | Query, Optional | A query parameter to specify related information to be included in the response.<br><br>The supported query parameter values are:<br><br>- `actions`: to include scheduled actions on the targeted subscription. |
 
 ## Response Type
 
@@ -165,8 +176,9 @@ CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
+String include = "include2";
 
-subscriptionsApi.retrieveSubscriptionAsync(subscriptionId).thenAccept(result -> {
+subscriptionsApi.retrieveSubscriptionAsync(subscriptionId, include).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -190,7 +202,7 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The ID for the subscription to update. |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription to update. |
 | `body` | [`UpdateSubscriptionRequest`](/doc/models/update-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -228,10 +240,47 @@ subscriptionsApi.updateSubscriptionAsync(subscriptionId, body).thenAccept(result
 ```
 
 
+# Delete Subscription Action
+
+Deletes a scheduled action for a subscription.
+
+```java
+CompletableFuture<DeleteSubscriptionActionResponse> deleteSubscriptionActionAsync(
+    final String subscriptionId,
+    final String actionId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription the targeted action is to act upon. |
+| `actionId` | `String` | Template, Required | The ID of the targeted action to be deleted. |
+
+## Response Type
+
+[`DeleteSubscriptionActionResponse`](/doc/models/delete-subscription-action-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+String actionId = "action_id6";
+
+subscriptionsApi.deleteSubscriptionActionAsync(subscriptionId, actionId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
 # Cancel Subscription
 
-Sets the `canceled_date` field to the end of the active billing period.
-After this date, the status changes from ACTIVE to CANCELED.
+Schedules a `CANCEL` action to cancel an active subscription
+by setting the `canceled_date` field to the end of the active billing period
+and changing the subscription status from ACTIVE to CANCELED after this date.
 
 ```java
 CompletableFuture<CancelSubscriptionResponse> cancelSubscriptionAsync(
@@ -279,8 +328,8 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to retrieve the events for. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
-| `limit` | `Integer` | Query, Optional | The upper limit on the number of subscription events to return<br>in the response.<br><br>Default: `200` |
+| `cursor` | `String` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `limit` | `Integer` | Query, Optional | The upper limit on the number of subscription events to return<br>in a paged response. |
 
 ## Response Type
 
@@ -302,13 +351,56 @@ subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, cursor, limit).then
 ```
 
 
+# Pause Subscription
+
+Schedules a `PAUSE` action to pause an active subscription.
+
+```java
+CompletableFuture<PauseSubscriptionResponse> pauseSubscriptionAsync(
+    final String subscriptionId,
+    final PauseSubscriptionRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription to pause. |
+| `body` | [`PauseSubscriptionRequest`](/doc/models/pause-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`PauseSubscriptionResponse`](/doc/models/pause-subscription-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+PauseSubscriptionRequest body = new PauseSubscriptionRequest.Builder()
+    .pauseEffectiveDate("pause_effective_date6")
+    .pauseCycleDuration(94L)
+    .resumeEffectiveDate("resume_effective_date4")
+    .resumeChangeTiming("IMMEDIATE")
+    .pauseReason("pause_reason2")
+    .build();
+
+subscriptionsApi.pauseSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
 # Resume Subscription
 
-Resumes a deactivated subscription.
+Schedules a `RESUME` action to resume a paused or a deactivated subscription.
 
 ```java
 CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
-    final String subscriptionId)
+    final String subscriptionId,
+    final ResumeSubscriptionRequest body)
 ```
 
 ## Parameters
@@ -316,6 +408,7 @@ CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to resume. |
+| `body` | [`ResumeSubscriptionRequest`](/doc/models/resume-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
@@ -325,8 +418,50 @@ CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
+ResumeSubscriptionRequest body = new ResumeSubscriptionRequest.Builder()
+    .resumeEffectiveDate("resume_effective_date4")
+    .resumeChangeTiming("IMMEDIATE")
+    .build();
 
-subscriptionsApi.resumeSubscriptionAsync(subscriptionId).thenAccept(result -> {
+subscriptionsApi.resumeSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Swap Plan
+
+Schedules a `SWAP_PLAN` action to swap a subscription plan in an existing subscription.
+
+```java
+CompletableFuture<SwapPlanResponse> swapPlanAsync(
+    final String subscriptionId,
+    final SwapPlanRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription to swap the subscription plan for. |
+| `body` | [`SwapPlanRequest`](/doc/models/swap-plan-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`SwapPlanResponse`](/doc/models/swap-plan-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+SwapPlanRequest body = new SwapPlanRequest.Builder(
+        "new_plan_id2")
+    .build();
+
+subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

@@ -30,6 +30,8 @@ public class Card {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String merchantId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
@@ -53,6 +55,7 @@ public class Card {
      * @param  billingAddress  Address value for billingAddress.
      * @param  fingerprint  String value for fingerprint.
      * @param  customerId  String value for customerId.
+     * @param  merchantId  String value for merchantId.
      * @param  referenceId  String value for referenceId.
      * @param  enabled  Boolean value for enabled.
      * @param  cardType  String value for cardType.
@@ -71,6 +74,7 @@ public class Card {
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("fingerprint") String fingerprint,
             @JsonProperty("customer_id") String customerId,
+            @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("enabled") Boolean enabled,
             @JsonProperty("card_type") String cardType,
@@ -86,6 +90,7 @@ public class Card {
         this.billingAddress = billingAddress;
         this.fingerprint = fingerprint;
         this.customerId = customerId;
+        this.merchantId = merchantId;
         this.referenceId = referenceId;
         this.enabled = enabled;
         this.cardType = cardType;
@@ -207,6 +212,16 @@ public class Card {
     }
 
     /**
+     * Getter for MerchantId.
+     * The ID of the merchant associated with the card.
+     * @return Returns the String
+     */
+    @JsonGetter("merchant_id")
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * An optional user-defined reference ID that associates this card with another entity in an
      * external system. For example, a customer ID from an external customer management system.
@@ -273,8 +288,8 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
-                fingerprint, customerId, referenceId, enabled, cardType, prepaidType, bin,
-                version);
+                fingerprint, customerId, merchantId, referenceId, enabled, cardType, prepaidType,
+                bin, version);
     }
 
     @Override
@@ -295,6 +310,7 @@ public class Card {
             && Objects.equals(billingAddress, other.billingAddress)
             && Objects.equals(fingerprint, other.fingerprint)
             && Objects.equals(customerId, other.customerId)
+            && Objects.equals(merchantId, other.merchantId)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(enabled, other.enabled)
             && Objects.equals(cardType, other.cardType)
@@ -312,9 +328,9 @@ public class Card {
         return "Card [" + "id=" + id + ", cardBrand=" + cardBrand + ", last4=" + last4
                 + ", expMonth=" + expMonth + ", expYear=" + expYear + ", cardholderName="
                 + cardholderName + ", billingAddress=" + billingAddress + ", fingerprint="
-                + fingerprint + ", customerId=" + customerId + ", referenceId=" + referenceId
-                + ", enabled=" + enabled + ", cardType=" + cardType + ", prepaidType=" + prepaidType
-                + ", bin=" + bin + ", version=" + version + "]";
+                + fingerprint + ", customerId=" + customerId + ", merchantId=" + merchantId
+                + ", referenceId=" + referenceId + ", enabled=" + enabled + ", cardType=" + cardType
+                + ", prepaidType=" + prepaidType + ", bin=" + bin + ", version=" + version + "]";
     }
 
     /**
@@ -333,6 +349,7 @@ public class Card {
                 .billingAddress(getBillingAddress())
                 .fingerprint(getFingerprint())
                 .customerId(getCustomerId())
+                .merchantId(getMerchantId())
                 .referenceId(getReferenceId())
                 .enabled(getEnabled())
                 .cardType(getCardType())
@@ -355,6 +372,7 @@ public class Card {
         private Address billingAddress;
         private String fingerprint;
         private String customerId;
+        private String merchantId;
         private String referenceId;
         private Boolean enabled;
         private String cardType;
@@ -455,6 +473,16 @@ public class Card {
         }
 
         /**
+         * Setter for merchantId.
+         * @param  merchantId  String value for merchantId.
+         * @return Builder
+         */
+        public Builder merchantId(String merchantId) {
+            this.merchantId = merchantId;
+            return this;
+        }
+
+        /**
          * Setter for referenceId.
          * @param  referenceId  String value for referenceId.
          * @return Builder
@@ -520,8 +548,8 @@ public class Card {
          */
         public Card build() {
             return new Card(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
-                    fingerprint, customerId, referenceId, enabled, cardType, prepaidType, bin,
-                    version);
+                    fingerprint, customerId, merchantId, referenceId, enabled, cardType,
+                    prepaidType, bin, version);
         }
     }
 }

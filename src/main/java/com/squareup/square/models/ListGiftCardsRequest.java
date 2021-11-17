@@ -46,8 +46,8 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for Type.
-     * If a type is provided, gift cards of this type are returned (see
-     * [GiftCardType]($m/GiftCardType)). If no type is provided, it returns gift cards of all types.
+     * If a [type]($m/GiftCardType) is provided, the endpoint returns gift cards of the specified
+     * type. Otherwise, the endpoint returns gift cards of all types.
      * @return Returns the String
      */
     @JsonGetter("type")
@@ -57,8 +57,8 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for State.
-     * If the state is provided, it returns the gift cards in the specified state (see
-     * [GiftCardStatus]($m/GiftCardStatus)). Otherwise, it returns the gift cards of all states.
+     * If a [state]($m/GiftCardStatus) is provided, the endpoint returns the gift cards in the
+     * specified state. Otherwise, the endpoint returns the gift cards of all states.
      * @return Returns the String
      */
     @JsonGetter("state")
@@ -68,8 +68,9 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for Limit.
-     * If a value is provided, it returns only that number of results per page. The maximum number
-     * of results allowed per page is 50. The default value is 30.
+     * If a limit is provided, the endpoint returns only the specified number of results per page.
+     * The maximum value is 50. The default value is 30. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -80,8 +81,8 @@ public class ListGiftCardsRequest {
     /**
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
-     * retrieve the next set of results for the original query. If a cursor is not provided, it
-     * returns the first page of the results. For more information, see
+     * retrieve the next set of results for the original query. If a cursor is not provided, the
+     * endpoint returns the first page of the results. For more information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
@@ -92,7 +93,8 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for CustomerId.
-     * If a value is provided, returns only the gift cards linked to the specified customer
+     * If a customer ID is provided, the endpoint returns only the gift cards linked to the
+     * specified customer.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

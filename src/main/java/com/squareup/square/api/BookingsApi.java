@@ -6,6 +6,7 @@ import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
+import com.squareup.square.models.ListBookingsResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.RetrieveBookingResponse;
 import com.squareup.square.models.RetrieveBusinessBookingProfileResponse;
@@ -22,6 +23,58 @@ import java.util.concurrent.CompletableFuture;
  * This can be overridden for the mock calls.
  */
 public interface BookingsApi {
+    /**
+     * Retrieve a collection of bookings.
+     * @param  limit  Optional parameter: The maximum number of results per page to return in a
+     *         paged response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
+     *         this is not set, bookings of all members are retrieved.
+     * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
+     *         is not set, all locations' bookings are retrieved.
+     * @param  startAtMin  Optional parameter: The RFC 3339 timestamp specifying the earliest of the
+     *         start time. If this is not set, the current time is used.
+     * @param  startAtMax  Optional parameter: The RFC 3339 timestamp specifying the latest of the
+     *         start time. If this is not set, the time of 31 days after `start_at_min` is used.
+     * @return    Returns the ListBookingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    ListBookingsResponse listBookings(
+            final Integer limit,
+            final String cursor,
+            final String teamMemberId,
+            final String locationId,
+            final String startAtMin,
+            final String startAtMax) throws ApiException, IOException;
+
+    /**
+     * Retrieve a collection of bookings.
+     * @param  limit  Optional parameter: The maximum number of results per page to return in a
+     *         paged response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
+     *         this is not set, bookings of all members are retrieved.
+     * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
+     *         is not set, all locations' bookings are retrieved.
+     * @param  startAtMin  Optional parameter: The RFC 3339 timestamp specifying the earliest of the
+     *         start time. If this is not set, the current time is used.
+     * @param  startAtMax  Optional parameter: The RFC 3339 timestamp specifying the latest of the
+     *         start time. If this is not set, the time of 31 days after `start_at_min` is used.
+     * @return    Returns the ListBookingsResponse response from the API call
+     */
+    CompletableFuture<ListBookingsResponse> listBookingsAsync(
+            final Integer limit,
+            final String cursor,
+            final String teamMemberId,
+            final String locationId,
+            final String startAtMin,
+            final String startAtMax);
+
     /**
      * Creates a booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

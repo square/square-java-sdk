@@ -548,6 +548,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "multipart/form-data");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
@@ -563,12 +564,8 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //load all fields for the outgoing API request
         Map<String, Object> formParameters = new HashMap<>();
-        if (request != null) {
-            formParameters.put("request", requestWrapper);
-        }
-        if (imageFile != null) {
-            formParameters.put("image_file", imageFileWrapper);
-        }
+        formParameters.put("request", requestWrapper);
+        formParameters.put("image_file", imageFileWrapper);
 
         //prepare and invoke the API call request to fetch the response
         HttpRequest internalRequest = getClientInstance().post(queryBuilder, headers, null,
@@ -666,10 +663,10 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

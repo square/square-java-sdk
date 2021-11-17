@@ -19,18 +19,23 @@ public class CancelSubscriptionResponse {
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Subscription subscription;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<SubscriptionAction> actions;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  subscription  Subscription value for subscription.
+     * @param  actions  List of SubscriptionAction value for actions.
      */
     @JsonCreator
     public CancelSubscriptionResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("subscription") Subscription subscription) {
+            @JsonProperty("subscription") Subscription subscription,
+            @JsonProperty("actions") List<SubscriptionAction> actions) {
         this.errors = errors;
         this.subscription = subscription;
+        this.actions = actions;
     }
 
     @JsonIgnore
@@ -40,7 +45,7 @@ public class CancelSubscriptionResponse {
 
     /**
      * Getter for Errors.
-     * Information about errors encountered during the request.
+     * Errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -50,7 +55,7 @@ public class CancelSubscriptionResponse {
 
     /**
      * Getter for Subscription.
-     * Represents a customer subscription to a subscription plan. For an overview of the
+     * Represents a subscription to a subscription plan by a subscriber. For an overview of the
      * `Subscription` type, see [Subscription
      * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription
@@ -60,9 +65,19 @@ public class CancelSubscriptionResponse {
         return subscription;
     }
 
+    /**
+     * Getter for Actions.
+     * A list of a single `CANCEL` action scheduled for the subscription.
+     * @return Returns the List of SubscriptionAction
+     */
+    @JsonGetter("actions")
+    public List<SubscriptionAction> getActions() {
+        return actions;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, subscription);
+        return Objects.hash(errors, subscription, actions);
     }
 
     @Override
@@ -75,7 +90,8 @@ public class CancelSubscriptionResponse {
         }
         CancelSubscriptionResponse other = (CancelSubscriptionResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(subscription, other.subscription);
+            && Objects.equals(subscription, other.subscription)
+            && Objects.equals(actions, other.actions);
     }
 
     /**
@@ -85,7 +101,7 @@ public class CancelSubscriptionResponse {
     @Override
     public String toString() {
         return "CancelSubscriptionResponse [" + "errors=" + errors + ", subscription="
-                + subscription + "]";
+                + subscription + ", actions=" + actions + "]";
     }
 
     /**
@@ -96,7 +112,8 @@ public class CancelSubscriptionResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .subscription(getSubscription());
+                .subscription(getSubscription())
+                .actions(getActions());
         return builder;
     }
 
@@ -107,6 +124,7 @@ public class CancelSubscriptionResponse {
         private HttpContext httpContext;
         private List<Error> errors;
         private Subscription subscription;
+        private List<SubscriptionAction> actions;
 
 
 
@@ -141,12 +159,22 @@ public class CancelSubscriptionResponse {
         }
 
         /**
+         * Setter for actions.
+         * @param  actions  List of SubscriptionAction value for actions.
+         * @return Builder
+         */
+        public Builder actions(List<SubscriptionAction> actions) {
+            this.actions = actions;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CancelSubscriptionResponse} object using the set fields.
          * @return {@link CancelSubscriptionResponse}
          */
         public CancelSubscriptionResponse build() {
             CancelSubscriptionResponse model =
-                    new CancelSubscriptionResponse(errors, subscription);
+                    new CancelSubscriptionResponse(errors, subscription, actions);
             model.httpContext = httpContext;
             return model;
         }

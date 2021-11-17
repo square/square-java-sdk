@@ -10,6 +10,7 @@ BookingsApi bookingsApi = client.getBookingsApi();
 
 ## Methods
 
+* [List Bookings](/doc/api/bookings.md#list-bookings)
 * [Create Booking](/doc/api/bookings.md#create-booking)
 * [Search Availability](/doc/api/bookings.md#search-availability)
 * [Retrieve Business Booking Profile](/doc/api/bookings.md#retrieve-business-booking-profile)
@@ -18,6 +19,54 @@ BookingsApi bookingsApi = client.getBookingsApi();
 * [Retrieve Booking](/doc/api/bookings.md#retrieve-booking)
 * [Update Booking](/doc/api/bookings.md#update-booking)
 * [Cancel Booking](/doc/api/bookings.md#cancel-booking)
+
+
+# List Bookings
+
+Retrieve a collection of bookings.
+
+```java
+CompletableFuture<ListBookingsResponse> listBookingsAsync(
+    final Integer limit,
+    final String cursor,
+    final String teamMemberId,
+    final String locationId,
+    final String startAtMin,
+    final String startAtMax)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `limit` | `Integer` | Query, Optional | The maximum number of results per page to return in a paged response. |
+| `cursor` | `String` | Query, Optional | The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results. |
+| `teamMemberId` | `String` | Query, Optional | The team member for whom to retrieve bookings. If this is not set, bookings of all members are retrieved. |
+| `locationId` | `String` | Query, Optional | The location for which to retrieve bookings. If this is not set, all locations' bookings are retrieved. |
+| `startAtMin` | `String` | Query, Optional | The RFC 3339 timestamp specifying the earliest of the start time. If this is not set, the current time is used. |
+| `startAtMax` | `String` | Query, Optional | The RFC 3339 timestamp specifying the latest of the start time. If this is not set, the time of 31 days after `start_at_min` is used. |
+
+## Response Type
+
+[`ListBookingsResponse`](/doc/models/list-bookings-response.md)
+
+## Example Usage
+
+```java
+Integer limit = 172;
+String cursor = "cursor6";
+String teamMemberId = "team_member_id0";
+String locationId = "location_id4";
+String startAtMin = "start_at_min8";
+String startAtMax = "start_at_max8";
+
+bookingsApi.listBookingsAsync(limit, cursor, teamMemberId, locationId, startAtMin, startAtMax).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
 
 
 # Create Booking

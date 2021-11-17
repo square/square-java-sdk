@@ -40,7 +40,7 @@ public class RetrieveSubscriptionResponse {
 
     /**
      * Getter for Errors.
-     * Information about errors encountered during the request.
+     * Errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -50,7 +50,7 @@ public class RetrieveSubscriptionResponse {
 
     /**
      * Getter for Subscription.
-     * Represents a customer subscription to a subscription plan. For an overview of the
+     * Represents a subscription to a subscription plan by a subscriber. For an overview of the
      * `Subscription` type, see [Subscription
      * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription

@@ -46,7 +46,7 @@ public class SearchLoyaltyRewardsRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of results to return in the response.
+     * The maximum number of results to return in the response. The default value is 30.
      * @return Returns the Integer
      */
     @JsonGetter("limit")

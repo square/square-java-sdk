@@ -11,7 +11,7 @@ Present only when `GiftCardActivityType` is UNBLOCK.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Reason` | `String` | Required, Constant | **Default**: `"CHARGEBACK_UNBLOCK"`<br>*Default: `"CHARGEBACK_UNBLOCK"`* | String getReason() |
+| `Reason` | `String` | Required, Constant | **Default**: `"CHARGEBACK_UNBLOCK"` | String getReason() |
 
 ## Example (as JSON)
 
