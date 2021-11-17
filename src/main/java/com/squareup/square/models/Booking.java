@@ -148,7 +148,8 @@ public class Booking {
 
     /**
      * Getter for CustomerId.
-     * The ID of the [Customer]($m/Customer) object representing the customer attending this booking
+     * The ID of the [Customer]($m/Customer) object representing the customer receiving the booked
+     * service.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

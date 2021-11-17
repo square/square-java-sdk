@@ -45,7 +45,7 @@ public class SearchSubscriptionsResponse {
 
     /**
      * Getter for Errors.
-     * Information about errors encountered during the request.
+     * Errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -55,7 +55,7 @@ public class SearchSubscriptionsResponse {
 
     /**
      * Getter for Subscriptions.
-     * The search result.
+     * The subscriptions matching the specified query expressions.
      * @return Returns the List of Subscription
      */
     @JsonGetter("subscriptions")
@@ -65,8 +65,9 @@ public class SearchSubscriptionsResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can use in a subsequent request
-     * to fetch the next set of subscriptions. If empty, this is the final response. For more
+     * When the total number of resulting subscription exceeds the limit of a paged response, the
+     * response includes a cursor for you to use in a subsequent request to fetch the next set of
+     * results. If the cursor is unset, the response contains the last page of the results. For more
      * information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String

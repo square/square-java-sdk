@@ -235,10 +235,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -525,10 +525,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -845,10 +845,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -942,10 +942,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1236,10 +1236,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -1643,10 +1643,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

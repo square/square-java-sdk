@@ -24,7 +24,7 @@ public class LinkCustomerToGiftCardRequest {
 
     /**
      * Getter for CustomerId.
-     * The ID of the customer to be linked.
+     * The ID of the customer to link to the gift card.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

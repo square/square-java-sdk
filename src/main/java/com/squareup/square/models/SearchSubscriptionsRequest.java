@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,27 +18,34 @@ public class SearchSubscriptionsRequest {
     private final Integer limit;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchSubscriptionsQuery query;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> include;
 
     /**
      * Initialization constructor.
      * @param  cursor  String value for cursor.
      * @param  limit  Integer value for limit.
      * @param  query  SearchSubscriptionsQuery value for query.
+     * @param  include  List of String value for include.
      */
     @JsonCreator
     public SearchSubscriptionsRequest(
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit,
-            @JsonProperty("query") SearchSubscriptionsQuery query) {
+            @JsonProperty("query") SearchSubscriptionsQuery query,
+            @JsonProperty("include") List<String> include) {
         this.cursor = cursor;
         this.limit = limit;
         this.query = query;
+        this.include = include;
     }
 
     /**
      * Getter for Cursor.
-     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
-     * the next set of results for the original query. For more information, see
+     * When the total number of resulting subscriptions exceeds the limit of a paged response,
+     * specify the cursor returned from a preceding response here to fetch the next set of results.
+     * If the cursor is unset, the response contains the last page of the results. For more
+     * information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
@@ -48,7 +56,7 @@ public class SearchSubscriptionsRequest {
 
     /**
      * Getter for Limit.
-     * The upper limit on the number of subscriptions to return in the response. Default: `200`
+     * The upper limit on the number of subscriptions to return in a paged response.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -58,7 +66,8 @@ public class SearchSubscriptionsRequest {
 
     /**
      * Getter for Query.
-     * Represents a query (including filtering criteria) used to search for subscriptions.
+     * Represents a query, consisting of specified query expressions, used to search for
+     * subscriptions.
      * @return Returns the SearchSubscriptionsQuery
      */
     @JsonGetter("query")
@@ -66,9 +75,21 @@ public class SearchSubscriptionsRequest {
         return query;
     }
 
+    /**
+     * Getter for Include.
+     * A query parameter to specify related information to be included in the response. The
+     * supported query parameter values are: - `actions`: to include scheduled actions on the
+     * targeted subscriptions.
+     * @return Returns the List of String
+     */
+    @JsonGetter("include")
+    public List<String> getInclude() {
+        return include;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, limit, query);
+        return Objects.hash(cursor, limit, query, include);
     }
 
     @Override
@@ -82,7 +103,8 @@ public class SearchSubscriptionsRequest {
         SearchSubscriptionsRequest other = (SearchSubscriptionsRequest) obj;
         return Objects.equals(cursor, other.cursor)
             && Objects.equals(limit, other.limit)
-            && Objects.equals(query, other.query);
+            && Objects.equals(query, other.query)
+            && Objects.equals(include, other.include);
     }
 
     /**
@@ -92,7 +114,7 @@ public class SearchSubscriptionsRequest {
     @Override
     public String toString() {
         return "SearchSubscriptionsRequest [" + "cursor=" + cursor + ", limit=" + limit + ", query="
-                + query + "]";
+                + query + ", include=" + include + "]";
     }
 
     /**
@@ -104,7 +126,8 @@ public class SearchSubscriptionsRequest {
         Builder builder = new Builder()
                 .cursor(getCursor())
                 .limit(getLimit())
-                .query(getQuery());
+                .query(getQuery())
+                .include(getInclude());
         return builder;
     }
 
@@ -115,6 +138,7 @@ public class SearchSubscriptionsRequest {
         private String cursor;
         private Integer limit;
         private SearchSubscriptionsQuery query;
+        private List<String> include;
 
 
 
@@ -149,11 +173,21 @@ public class SearchSubscriptionsRequest {
         }
 
         /**
+         * Setter for include.
+         * @param  include  List of String value for include.
+         * @return Builder
+         */
+        public Builder include(List<String> include) {
+            this.include = include;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchSubscriptionsRequest} object using the set fields.
          * @return {@link SearchSubscriptionsRequest}
          */
         public SearchSubscriptionsRequest build() {
-            return new SearchSubscriptionsRequest(cursor, limit, query);
+            return new SearchSubscriptionsRequest(cursor, limit, query, include);
         }
     }
 }

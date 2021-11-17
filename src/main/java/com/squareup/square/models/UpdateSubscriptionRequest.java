@@ -26,7 +26,7 @@ public class UpdateSubscriptionRequest {
 
     /**
      * Getter for Subscription.
-     * Represents a customer subscription to a subscription plan. For an overview of the
+     * Represents a subscription to a subscription plan by a subscriber. For an overview of the
      * `Subscription` type, see [Subscription
      * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
      * @return Returns the Subscription

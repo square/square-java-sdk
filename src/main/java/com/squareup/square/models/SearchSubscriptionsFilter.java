@@ -37,7 +37,7 @@ public class SearchSubscriptionsFilter {
 
     /**
      * Getter for CustomerIds.
-     * A filter to select subscriptions based on the customer.
+     * A filter to select subscriptions based on the subscribing customer IDs.
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
@@ -47,7 +47,7 @@ public class SearchSubscriptionsFilter {
 
     /**
      * Getter for LocationIds.
-     * A filter to select subscriptions based the location.
+     * A filter to select subscriptions based on the location.
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")

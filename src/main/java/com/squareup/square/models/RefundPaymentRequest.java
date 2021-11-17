@@ -15,6 +15,7 @@ public class RefundPaymentRequest {
     private final Money amountMoney;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
@@ -27,8 +28,8 @@ public class RefundPaymentRequest {
      * Initialization constructor.
      * @param  idempotencyKey  String value for idempotencyKey.
      * @param  amountMoney  Money value for amountMoney.
-     * @param  paymentId  String value for paymentId.
      * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  paymentId  String value for paymentId.
      * @param  reason  String value for reason.
      * @param  paymentVersionToken  String value for paymentVersionToken.
      * @param  teamMemberId  String value for teamMemberId.
@@ -37,8 +38,8 @@ public class RefundPaymentRequest {
     public RefundPaymentRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("amount_money") Money amountMoney,
-            @JsonProperty("payment_id") String paymentId,
             @JsonProperty("app_fee_money") Money appFeeMoney,
+            @JsonProperty("payment_id") String paymentId,
             @JsonProperty("reason") String reason,
             @JsonProperty("payment_version_token") String paymentVersionToken,
             @JsonProperty("team_member_id") String teamMemberId) {
@@ -95,7 +96,7 @@ public class RefundPaymentRequest {
 
     /**
      * Getter for PaymentId.
-     * The unique ID of the payment being refunded.
+     * The unique ID of the payment being refunded. Must be provided and non-empty.
      * @return Returns the String
      */
     @JsonGetter("payment_id")
@@ -167,7 +168,7 @@ public class RefundPaymentRequest {
     @Override
     public String toString() {
         return "RefundPaymentRequest [" + "idempotencyKey=" + idempotencyKey + ", amountMoney="
-                + amountMoney + ", paymentId=" + paymentId + ", appFeeMoney=" + appFeeMoney
+                + amountMoney + ", appFeeMoney=" + appFeeMoney + ", paymentId=" + paymentId
                 + ", reason=" + reason + ", paymentVersionToken=" + paymentVersionToken
                 + ", teamMemberId=" + teamMemberId + "]";
     }
@@ -178,8 +179,9 @@ public class RefundPaymentRequest {
      * @return a new {@link RefundPaymentRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey, amountMoney, paymentId)
+        Builder builder = new Builder(idempotencyKey, amountMoney)
                 .appFeeMoney(getAppFeeMoney())
+                .paymentId(getPaymentId())
                 .reason(getReason())
                 .paymentVersionToken(getPaymentVersionToken())
                 .teamMemberId(getTeamMemberId());
@@ -192,8 +194,8 @@ public class RefundPaymentRequest {
     public static class Builder {
         private String idempotencyKey;
         private Money amountMoney;
-        private String paymentId;
         private Money appFeeMoney;
+        private String paymentId;
         private String reason;
         private String paymentVersionToken;
         private String teamMemberId;
@@ -202,12 +204,10 @@ public class RefundPaymentRequest {
          * Initialization constructor.
          * @param  idempotencyKey  String value for idempotencyKey.
          * @param  amountMoney  Money value for amountMoney.
-         * @param  paymentId  String value for paymentId.
          */
-        public Builder(String idempotencyKey, Money amountMoney, String paymentId) {
+        public Builder(String idempotencyKey, Money amountMoney) {
             this.idempotencyKey = idempotencyKey;
             this.amountMoney = amountMoney;
-            this.paymentId = paymentId;
         }
 
         /**
@@ -231,22 +231,22 @@ public class RefundPaymentRequest {
         }
 
         /**
-         * Setter for paymentId.
-         * @param  paymentId  String value for paymentId.
-         * @return Builder
-         */
-        public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
-            return this;
-        }
-
-        /**
          * Setter for appFeeMoney.
          * @param  appFeeMoney  Money value for appFeeMoney.
          * @return Builder
          */
         public Builder appFeeMoney(Money appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
+            return this;
+        }
+
+        /**
+         * Setter for paymentId.
+         * @param  paymentId  String value for paymentId.
+         * @return Builder
+         */
+        public Builder paymentId(String paymentId) {
+            this.paymentId = paymentId;
             return this;
         }
 
@@ -285,7 +285,7 @@ public class RefundPaymentRequest {
          * @return {@link RefundPaymentRequest}
          */
         public RefundPaymentRequest build() {
-            return new RefundPaymentRequest(idempotencyKey, amountMoney, paymentId, appFeeMoney,
+            return new RefundPaymentRequest(idempotencyKey, amountMoney, appFeeMoney, paymentId,
                     reason, paymentVersionToken, teamMemberId);
         }
     }

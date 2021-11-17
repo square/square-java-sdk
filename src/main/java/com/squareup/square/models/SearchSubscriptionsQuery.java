@@ -26,8 +26,8 @@ public class SearchSubscriptionsQuery {
 
     /**
      * Getter for Filter.
-     * Represents a set of SearchSubscriptionsQuery filters used to limit the set of Subscriptions
-     * returned by SearchSubscriptions.
+     * Represents a set of query expressions (filters) to narrow the scope of targeted subscriptions
+     * returned by the [SearchSubscriptions]($e/Subscriptions/SearchSubscriptions) endpoint.
      * @return Returns the SearchSubscriptionsFilter
      */
     @JsonGetter("filter")

@@ -48,7 +48,7 @@ CompletableFuture<ListDisputesResponse> listDisputesAsync(
 
 ```java
 String cursor = "cursor6";
-String states = "EVIDENCE_REQUIRED";
+String states = "INQUIRY_EVIDENCE_REQUIRED";
 String locationId = "location_id4";
 
 disputesApi.listDisputesAsync(cursor, states, locationId).thenAccept(result -> {

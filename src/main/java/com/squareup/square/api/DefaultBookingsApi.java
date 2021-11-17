@@ -17,6 +17,7 @@ import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
+import com.squareup.square.models.ListBookingsResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.RetrieveBookingResponse;
 import com.squareup.square.models.RetrieveBusinessBookingProfileResponse;
@@ -57,6 +58,144 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     public DefaultBookingsApi(Configuration config, HttpClient httpClient,
             Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
+    }
+
+    /**
+     * Retrieve a collection of bookings.
+     * @param  limit  Optional parameter: The maximum number of results per page to return in a
+     *         paged response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
+     *         this is not set, bookings of all members are retrieved.
+     * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
+     *         is not set, all locations' bookings are retrieved.
+     * @param  startAtMin  Optional parameter: The RFC 3339 timestamp specifying the earliest of the
+     *         start time. If this is not set, the current time is used.
+     * @param  startAtMax  Optional parameter: The RFC 3339 timestamp specifying the latest of the
+     *         start time. If this is not set, the time of 31 days after `start_at_min` is used.
+     * @return    Returns the ListBookingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ListBookingsResponse listBookings(
+            final Integer limit,
+            final String cursor,
+            final String teamMemberId,
+            final String locationId,
+            final String startAtMin,
+            final String startAtMax) throws ApiException, IOException {
+        HttpRequest request = buildListBookingsRequest(limit, cursor, teamMemberId, locationId,
+                startAtMin, startAtMax);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleListBookingsResponse(context);
+    }
+
+    /**
+     * Retrieve a collection of bookings.
+     * @param  limit  Optional parameter: The maximum number of results per page to return in a
+     *         paged response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
+     *         this is not set, bookings of all members are retrieved.
+     * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
+     *         is not set, all locations' bookings are retrieved.
+     * @param  startAtMin  Optional parameter: The RFC 3339 timestamp specifying the earliest of the
+     *         start time. If this is not set, the current time is used.
+     * @param  startAtMax  Optional parameter: The RFC 3339 timestamp specifying the latest of the
+     *         start time. If this is not set, the time of 31 days after `start_at_min` is used.
+     * @return    Returns the ListBookingsResponse response from the API call
+     */
+    public CompletableFuture<ListBookingsResponse> listBookingsAsync(
+            final Integer limit,
+            final String cursor,
+            final String teamMemberId,
+            final String locationId,
+            final String startAtMin,
+            final String startAtMax) {
+        return makeHttpCallAsync(() -> buildListBookingsRequest(limit, cursor, teamMemberId,
+                locationId, startAtMin, startAtMax),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleListBookingsResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for listBookings.
+     */
+    private HttpRequest buildListBookingsRequest(
+            final Integer limit,
+            final String cursor,
+            final String teamMemberId,
+            final String locationId,
+            final String startAtMin,
+            final String startAtMax) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/bookings");
+
+        //load all query parameters
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("limit", limit);
+        queryParameters.put("cursor", cursor);
+        queryParameters.put("team_member_id", teamMemberId);
+        queryParameters.put("location_id", locationId);
+        queryParameters.put("start_at_min", startAtMin);
+        queryParameters.put("start_at_max", startAtMax);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for listBookings.
+     * @return An object of type ListBookingsResponse
+     */
+    private ListBookingsResponse handleListBookingsResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        ListBookingsResponse result = ApiHelper.deserialize(responseBody,
+                ListBookingsResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**
@@ -107,10 +246,10 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -198,10 +337,10 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -689,10 +828,10 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -793,10 +932,10 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response

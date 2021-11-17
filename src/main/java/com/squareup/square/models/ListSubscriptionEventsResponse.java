@@ -45,7 +45,7 @@ public class ListSubscriptionEventsResponse {
 
     /**
      * Getter for Errors.
-     * Information about errors encountered during the request.
+     * Errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -55,7 +55,7 @@ public class ListSubscriptionEventsResponse {
 
     /**
      * Getter for SubscriptionEvents.
-     * The `SubscriptionEvents` retrieved.
+     * The retrieved subscription events.
      * @return Returns the List of SubscriptionEvent
      */
     @JsonGetter("subscription_events")
@@ -65,9 +65,11 @@ public class ListSubscriptionEventsResponse {
 
     /**
      * Getter for Cursor.
-     * When a response is truncated, it includes a cursor that you can use in a subsequent request
-     * to fetch the next set of events. If empty, this is the final response. For more information,
-     * see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * When the total number of resulting subscription events exceeds the limit of a paged response,
+     * the response includes a cursor for you to use in a subsequent request to fetch the next set
+     * of events. If the cursor is unset, the response contains the last page of the results. For
+     * more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

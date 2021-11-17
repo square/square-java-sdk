@@ -397,7 +397,7 @@ public class Payment {
     /**
      * Getter for SourceType.
      * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`,
-     * `CASH`, or `EXTERNAL`.
+     * `BUY_NOW_PAY_LATER`, `CASH`, or `EXTERNAL`.
      * @return Returns the String
      */
     @JsonGetter("source_type")

@@ -135,6 +135,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for Type.
+     * Indicates the gift card activity type.
      * @return Returns the String
      */
     @JsonGetter("type")

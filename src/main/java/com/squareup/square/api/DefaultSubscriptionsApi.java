@@ -16,11 +16,17 @@ import com.squareup.square.http.response.HttpStringResponse;
 import com.squareup.square.models.CancelSubscriptionResponse;
 import com.squareup.square.models.CreateSubscriptionRequest;
 import com.squareup.square.models.CreateSubscriptionResponse;
+import com.squareup.square.models.DeleteSubscriptionActionResponse;
 import com.squareup.square.models.ListSubscriptionEventsResponse;
+import com.squareup.square.models.PauseSubscriptionRequest;
+import com.squareup.square.models.PauseSubscriptionResponse;
+import com.squareup.square.models.ResumeSubscriptionRequest;
 import com.squareup.square.models.ResumeSubscriptionResponse;
 import com.squareup.square.models.RetrieveSubscriptionResponse;
 import com.squareup.square.models.SearchSubscriptionsRequest;
 import com.squareup.square.models.SearchSubscriptionsResponse;
+import com.squareup.square.models.SwapPlanRequest;
+import com.squareup.square.models.SwapPlanResponse;
 import com.squareup.square.models.UpdateSubscriptionRequest;
 import com.squareup.square.models.UpdateSubscriptionResponse;
 import java.io.IOException;
@@ -58,10 +64,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Creates a subscription for a customer to a subscription plan. If you provide a card on file
-     * in the request, Square charges the card for the subscription. Otherwise, Square bills an
-     * invoice to the customer's email address. The subscription starts immediately, unless the
-     * request includes the optional `start_date`. Each individual subscription is associated with a
+     * Creates a subscription to a subscription plan by a customer. If you provide a card on file in
+     * the request, Square charges the card for the subscription. Otherwise, Square bills an invoice
+     * to the customer's email address. The subscription starts immediately, unless the request
+     * includes the optional `start_date`. Each individual subscription is associated with a
      * particular location.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -81,10 +87,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Creates a subscription for a customer to a subscription plan. If you provide a card on file
-     * in the request, Square charges the card for the subscription. Otherwise, Square bills an
-     * invoice to the customer's email address. The subscription starts immediately, unless the
-     * request includes the optional `start_date`. Each individual subscription is associated with a
+     * Creates a subscription to a subscription plan by a customer. If you provide a card on file in
+     * the request, Square charges the card for the subscription. Otherwise, Square bills an invoice
+     * to the customer's email address. The subscription starts immediately, unless the request
+     * includes the optional `start_date`. Each individual subscription is associated with a
      * particular location.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -113,10 +119,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -220,10 +226,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -266,13 +272,17 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     /**
      * Retrieves a subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve.
+     * @param  include  Optional parameter: A query parameter to specify related information to be
+     *         included in the response. The supported query parameter values are: - `actions`: to
+     *         include scheduled actions on the targeted subscription.
      * @return    Returns the RetrieveSubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RetrieveSubscriptionResponse retrieveSubscription(
-            final String subscriptionId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveSubscriptionRequest(subscriptionId);
+            final String subscriptionId,
+            final String include) throws ApiException, IOException {
+        HttpRequest request = buildRetrieveSubscriptionRequest(subscriptionId, include);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -284,11 +294,15 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     /**
      * Retrieves a subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve.
+     * @param  include  Optional parameter: A query parameter to specify related information to be
+     *         included in the response. The supported query parameter values are: - `actions`: to
+     *         include scheduled actions on the targeted subscription.
      * @return    Returns the RetrieveSubscriptionResponse response from the API call
      */
     public CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
-            final String subscriptionId) {
-        return makeHttpCallAsync(() -> buildRetrieveSubscriptionRequest(subscriptionId),
+            final String subscriptionId,
+            final String include) {
+        return makeHttpCallAsync(() -> buildRetrieveSubscriptionRequest(subscriptionId, include),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -299,7 +313,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * Builds the HttpRequest object for retrieveSubscription.
      */
     private HttpRequest buildRetrieveSubscriptionRequest(
-            final String subscriptionId) {
+            final String subscriptionId,
+            final String include) {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -313,6 +328,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                 new SimpleEntry<Object, Boolean>(subscriptionId, true));
         ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
 
+        //load all query parameters
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put("include", include);
+
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
@@ -321,7 +340,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
+                null);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -358,7 +378,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Updates a subscription. You can set, modify, and clear the `subscription` field values.
-     * @param  subscriptionId  Required parameter: The ID for the subscription to update.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateSubscriptionResponse response from the API call
@@ -379,7 +399,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
     /**
      * Updates a subscription. You can set, modify, and clear the `subscription` field values.
-     * @param  subscriptionId  Required parameter: The ID for the subscription to update.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateSubscriptionResponse response from the API call
@@ -415,10 +435,10 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
-        headers.add("content-type", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
@@ -459,8 +479,112 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Sets the `canceled_date` field to the end of the active billing period. After this date, the
-     * status changes from ACTIVE to CANCELED.
+     * Deletes a scheduled action for a subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription the targeted action is
+     *         to act upon.
+     * @param  actionId  Required parameter: The ID of the targeted action to be deleted.
+     * @return    Returns the DeleteSubscriptionActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DeleteSubscriptionActionResponse deleteSubscriptionAction(
+            final String subscriptionId,
+            final String actionId) throws ApiException, IOException {
+        HttpRequest request = buildDeleteSubscriptionActionRequest(subscriptionId, actionId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleDeleteSubscriptionActionResponse(context);
+    }
+
+    /**
+     * Deletes a scheduled action for a subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription the targeted action is
+     *         to act upon.
+     * @param  actionId  Required parameter: The ID of the targeted action to be deleted.
+     * @return    Returns the DeleteSubscriptionActionResponse response from the API call
+     */
+    public CompletableFuture<DeleteSubscriptionActionResponse> deleteSubscriptionActionAsync(
+            final String subscriptionId,
+            final String actionId) {
+        return makeHttpCallAsync(() -> buildDeleteSubscriptionActionRequest(subscriptionId,
+                actionId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleDeleteSubscriptionActionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for deleteSubscriptionAction.
+     */
+    private HttpRequest buildDeleteSubscriptionActionRequest(
+            final String subscriptionId,
+            final String actionId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/actions/{action_id}");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        templateParameters.put("action_id",
+                new SimpleEntry<Object, Boolean>(actionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for deleteSubscriptionAction.
+     * @return An object of type DeleteSubscriptionActionResponse
+     */
+    private DeleteSubscriptionActionResponse handleDeleteSubscriptionActionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        DeleteSubscriptionActionResponse result = ApiHelper.deserialize(responseBody,
+                DeleteSubscriptionActionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Schedules a `CANCEL` action to cancel an active subscription by setting the `canceled_date`
+     * field to the end of the active billing period and changing the subscription status from
+     * ACTIVE to CANCELED after this date.
      * @param  subscriptionId  Required parameter: The ID of the subscription to cancel.
      * @return    Returns the CancelSubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -478,8 +602,9 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Sets the `canceled_date` field to the end of the active billing period. After this date, the
-     * status changes from ACTIVE to CANCELED.
+     * Schedules a `CANCEL` action to cancel an active subscription by setting the `canceled_date`
+     * field to the end of the active billing period and changing the subscription status from
+     * ACTIVE to CANCELED after this date.
      * @param  subscriptionId  Required parameter: The ID of the subscription to cancel.
      * @return    Returns the CancelSubscriptionResponse response from the API call
      */
@@ -559,12 +684,13 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * returned.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
      *         for.
-     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for the original query.
-     *         For more information, see
+     * @param  cursor  Optional parameter: When the total number of resulting subscription events
+     *         exceeds the limit of a paged response, specify the cursor returned from a preceding
+     *         response here to fetch the next set of results. If the cursor is unset, the response
+     *         contains the last page of the results. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  limit  Optional parameter: The upper limit on the number of subscription events to
-     *         return in the response. Default: `200`
+     *         return in a paged response.
      * @return    Returns the ListSubscriptionEventsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -588,12 +714,13 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * returned.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
      *         for.
-     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
-     *         endpoint. Provide this to retrieve the next set of results for the original query.
-     *         For more information, see
+     * @param  cursor  Optional parameter: When the total number of resulting subscription events
+     *         exceeds the limit of a paged response, specify the cursor returned from a preceding
+     *         response here to fetch the next set of results. If the cursor is unset, the response
+     *         contains the last page of the results. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  limit  Optional parameter: The upper limit on the number of subscription events to
-     *         return in the response. Default: `200`
+     *         return in a paged response.
      * @return    Returns the ListSubscriptionEventsResponse response from the API call
      */
     public CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
@@ -678,15 +805,120 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Resumes a deactivated subscription.
+     * Schedules a `PAUSE` action to pause an active subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to pause.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the PauseSubscriptionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public PauseSubscriptionResponse pauseSubscription(
+            final String subscriptionId,
+            final PauseSubscriptionRequest body) throws ApiException, IOException {
+        HttpRequest request = buildPauseSubscriptionRequest(subscriptionId, body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handlePauseSubscriptionResponse(context);
+    }
+
+    /**
+     * Schedules a `PAUSE` action to pause an active subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to pause.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the PauseSubscriptionResponse response from the API call
+     */
+    public CompletableFuture<PauseSubscriptionResponse> pauseSubscriptionAsync(
+            final String subscriptionId,
+            final PauseSubscriptionRequest body) {
+        return makeHttpCallAsync(() -> buildPauseSubscriptionRequest(subscriptionId, body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handlePauseSubscriptionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for pauseSubscription.
+     */
+    private HttpRequest buildPauseSubscriptionRequest(
+            final String subscriptionId,
+            final PauseSubscriptionRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/pause");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for pauseSubscription.
+     * @return An object of type PauseSubscriptionResponse
+     */
+    private PauseSubscriptionResponse handlePauseSubscriptionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        PauseSubscriptionResponse result = ApiHelper.deserialize(responseBody,
+                PauseSubscriptionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Schedules a `RESUME` action to resume a paused or a deactivated subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the ResumeSubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ResumeSubscriptionResponse resumeSubscription(
-            final String subscriptionId) throws ApiException, IOException {
-        HttpRequest request = buildResumeSubscriptionRequest(subscriptionId);
+            final String subscriptionId,
+            final ResumeSubscriptionRequest body) throws ApiException, IOException {
+        HttpRequest request = buildResumeSubscriptionRequest(subscriptionId, body);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
@@ -696,13 +928,16 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
     }
 
     /**
-     * Resumes a deactivated subscription.
+     * Schedules a `RESUME` action to resume a paused or a deactivated subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to resume.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
      * @return    Returns the ResumeSubscriptionResponse response from the API call
      */
     public CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
-            final String subscriptionId) {
-        return makeHttpCallAsync(() -> buildResumeSubscriptionRequest(subscriptionId),
+            final String subscriptionId,
+            final ResumeSubscriptionRequest body) {
+        return makeHttpCallAsync(() -> buildResumeSubscriptionRequest(subscriptionId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
@@ -713,7 +948,8 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
      * Builds the HttpRequest object for resumeSubscription.
      */
     private HttpRequest buildResumeSubscriptionRequest(
-            final String subscriptionId) {
+            final String subscriptionId,
+            final ResumeSubscriptionRequest body) throws JsonProcessingException {
         //the base uri for api requests
         String baseUri = config.getBaseUri();
 
@@ -729,13 +965,15 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
         //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
 
         // Invoke the callback before request if its not null
         if (getHttpCallback() != null) {
@@ -765,6 +1003,110 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
         String responseBody = ((HttpStringResponse) response).getBody();
         ResumeSubscriptionResponse result = ApiHelper.deserialize(responseBody,
                 ResumeSubscriptionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Schedules a `SWAP_PLAN` action to swap a subscription plan in an existing subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to swap the
+     *         subscription plan for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SwapPlanResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public SwapPlanResponse swapPlan(
+            final String subscriptionId,
+            final SwapPlanRequest body) throws ApiException, IOException {
+        HttpRequest request = buildSwapPlanRequest(subscriptionId, body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleSwapPlanResponse(context);
+    }
+
+    /**
+     * Schedules a `SWAP_PLAN` action to swap a subscription plan in an existing subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to swap the
+     *         subscription plan for.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SwapPlanResponse response from the API call
+     */
+    public CompletableFuture<SwapPlanResponse> swapPlanAsync(
+            final String subscriptionId,
+            final SwapPlanRequest body) {
+        return makeHttpCallAsync(() -> buildSwapPlanRequest(subscriptionId, body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleSwapPlanResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for swapPlan.
+     */
+    private HttpRequest buildSwapPlanRequest(
+            final String subscriptionId,
+            final SwapPlanRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/subscriptions/{subscription_id}/swap-plan");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("subscription_id",
+                new SimpleEntry<Object, Boolean>(subscriptionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for swapPlan.
+     * @return An object of type SwapPlanResponse
+     */
+    private SwapPlanResponse handleSwapPlanResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        SwapPlanResponse result = ApiHelper.deserialize(responseBody,
+                SwapPlanResponse.class);
 
         result = result.toBuilder().httpContext(context).build();
         return result;

@@ -41,7 +41,7 @@ public class SubscriptionEventInfo {
 
     /**
      * Getter for Code.
-     * The possible subscription event info codes.
+     * Supported info codes of a subscription event.
      * @return Returns the String
      */
     @JsonGetter("code")

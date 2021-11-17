@@ -71,6 +71,7 @@ public class GiftCard {
 
     /**
      * Getter for Type.
+     * Indicates the gift card type.
      * @return Returns the String
      */
     @JsonGetter("type")
