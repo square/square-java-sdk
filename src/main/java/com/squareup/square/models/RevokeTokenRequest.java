@@ -41,8 +41,8 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square-issued ID for your application, available from the OAuth page for your application
-     * on the Developer Dashboard.
+     * The Square-issued ID for your application, which is available in the OAuth page in the
+     * [Developer Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
     @JsonGetter("client_id")
@@ -53,7 +53,7 @@ public class RevokeTokenRequest {
     /**
      * Getter for AccessToken.
      * The access token of the merchant whose token you want to revoke. Do not provide a value for
-     * merchant_id if you provide this parameter.
+     * `merchant_id` if you provide this parameter.
      * @return Returns the String
      */
     @JsonGetter("access_token")
@@ -64,7 +64,7 @@ public class RevokeTokenRequest {
     /**
      * Getter for MerchantId.
      * The ID of the merchant whose token you want to revoke. Do not provide a value for
-     * access_token if you provide this parameter.
+     * `access_token` if you provide this parameter.
      * @return Returns the String
      */
     @JsonGetter("merchant_id")

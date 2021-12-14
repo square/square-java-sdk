@@ -32,11 +32,15 @@ public class RetrieveCatalogObjectRequest {
     /**
      * Getter for IncludeRelatedObjects.
      * If `true`, the response will include additional objects that are related to the requested
-     * object, as follows: If the `object` field of the response contains a `CatalogItem`, its
-     * associated `CatalogCategory`, `CatalogTax`, `CatalogImage` and `CatalogModifierList` objects
-     * will be returned in the `related_objects` field of the response. If the `object` field of the
-     * response contains a `CatalogItemVariation`, its parent `CatalogItem` will be returned in the
-     * `related_objects` field of the response. Default value: `false`
+     * objects. Related objects are defined as any objects referenced by ID by the results in the
+     * `objects` field of the response. These objects are put in the `related_objects` field.
+     * Setting this to `true` is helpful when the objects are needed for immediate display to a
+     * user. This process only goes one level deep. Objects referenced by the related objects will
+     * not be included. For example, if the `objects` field of the response contains a CatalogItem,
+     * its associated CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+     * CatalogModifierLists will be returned in the `related_objects` field of the response. If the
+     * `objects` field of the response contains a CatalogItemVariation, its parent CatalogItem will
+     * be returned in the `related_objects` field of the response. Default value: `false`
      * @return Returns the Boolean
      */
     @JsonGetter("include_related_objects")
@@ -48,7 +52,8 @@ public class RetrieveCatalogObjectRequest {
      * Getter for CatalogVersion.
      * Requests objects as of a specific version of the catalog. This allows you to retrieve
      * historical versions of objects. The value to retrieve a specific version of an object can be
-     * found in the version field of [CatalogObject]($m/CatalogObject)s.
+     * found in the version field of [CatalogObject]($m/CatalogObject)s. If not included, results
+     * will be from the current version of the catalog.
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")

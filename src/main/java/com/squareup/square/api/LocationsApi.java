@@ -17,9 +17,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface LocationsApi {
     /**
-     * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
-     * this endpoint correspond to that `location_id` parameter.
+     * Provides details about all of the seller's locations, including those with an inactive
+     * status.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -27,15 +26,19 @@ public interface LocationsApi {
     ListLocationsResponse listLocations() throws ApiException, IOException;
 
     /**
-     * Provides information of all locations of a business. Many Square API endpoints require a
-     * `location_id` parameter. The `id` field of the [`Location`]($m/Location) objects returned by
-     * this endpoint correspond to that `location_id` parameter.
+     * Provides details about all of the seller's locations, including those with an inactive
+     * status.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     CompletableFuture<ListLocationsResponse> listLocationsAsync();
 
     /**
-     * Creates a location.
+     * Creates a [location](https://developer.squareup.com/docs/locations-api). Creating new
+     * locations allows for separate configuration of receipt layouts, item prices, and sales
+     * reports. Developers can use locations to separate sales activity via applications that
+     * integrate with Square from sales activity elsewhere in a seller's account. Locations created
+     * programmatically with the Locations API will last forever and are visible to the seller for
+     * their own management, so ensure that each location has a sensible and unique name.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLocationResponse response from the API call
@@ -46,7 +49,12 @@ public interface LocationsApi {
             final CreateLocationRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a location.
+     * Creates a [location](https://developer.squareup.com/docs/locations-api). Creating new
+     * locations allows for separate configuration of receipt layouts, item prices, and sales
+     * reports. Developers can use locations to separate sales activity via applications that
+     * integrate with Square from sales activity elsewhere in a seller's account. Locations created
+     * programmatically with the Locations API will last forever and are visible to the seller for
+     * their own management, so ensure that each location has a sensible and unique name.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLocationResponse response from the API call
@@ -55,10 +63,11 @@ public interface LocationsApi {
             final CreateLocationRequest body);
 
     /**
-     * Retrieves details of a location. You can specify "main" as the location ID to retrieve
-     * details of the main location.
-     * @param  locationId  Required parameter: The ID of the location to retrieve. If you specify
-     *         the string "main", then the endpoint returns the main location.
+     * Retrieves details of a single location. Specify "main" as the location ID to retrieve details
+     * of the [main
+     * location](https://developer.squareup.com/docs/locations-api#about-the-main-location).
+     * @param  locationId  Required parameter: The ID of the location to retrieve. Specify the
+     *         string "main" to return the main location.
      * @return    Returns the RetrieveLocationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -67,10 +76,11 @@ public interface LocationsApi {
             final String locationId) throws ApiException, IOException;
 
     /**
-     * Retrieves details of a location. You can specify "main" as the location ID to retrieve
-     * details of the main location.
-     * @param  locationId  Required parameter: The ID of the location to retrieve. If you specify
-     *         the string "main", then the endpoint returns the main location.
+     * Retrieves details of a single location. Specify "main" as the location ID to retrieve details
+     * of the [main
+     * location](https://developer.squareup.com/docs/locations-api#about-the-main-location).
+     * @param  locationId  Required parameter: The ID of the location to retrieve. Specify the
+     *         string "main" to return the main location.
      * @return    Returns the RetrieveLocationResponse response from the API call
      */
     CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(

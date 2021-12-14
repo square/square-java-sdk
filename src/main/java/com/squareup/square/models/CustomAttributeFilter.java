@@ -53,7 +53,8 @@ public class CustomAttributeFilter {
     /**
      * Getter for CustomAttributeDefinitionId.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `custom_attribute_definition_id` property value against the the specified id.
+     * `custom_attribute_definition_id` property value against the the specified id. Exactly one of
+     * `custom_attribute_definition_id` or `key` must be specified.
      * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
@@ -64,7 +65,8 @@ public class CustomAttributeFilter {
     /**
      * Getter for Key.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `key` property value against the specified key.
+     * `key` property value against the specified key. Exactly one of
+     * `custom_attribute_definition_id` or `key` must be specified.
      * @return Returns the String
      */
     @JsonGetter("key")
@@ -75,7 +77,8 @@ public class CustomAttributeFilter {
     /**
      * Getter for StringFilter.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `string_value` property value against the specified text.
+     * `string_value` property value against the specified text. Exactly one of `string_filter`,
+     * `number_filter`, `selection_uids_filter`, or `bool_filter` must be specified.
      * @return Returns the String
      */
     @JsonGetter("string_filter")
@@ -96,7 +99,9 @@ public class CustomAttributeFilter {
     /**
      * Getter for SelectionUidsFilter.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `selection_uid_values` values against the specified selection uids.
+     * `selection_uid_values` values against the specified selection uids. Exactly one of
+     * `string_filter`, `number_filter`, `selection_uids_filter`, or `bool_filter` must be
+     * specified.
      * @return Returns the List of String
      */
     @JsonGetter("selection_uids_filter")
@@ -107,7 +112,9 @@ public class CustomAttributeFilter {
     /**
      * Getter for BoolFilter.
      * A query expression to filter items or item variations by matching their custom attributes'
-     * `boolean_value` property values against the specified Boolean expression.
+     * `boolean_value` property values against the specified Boolean expression. Exactly one of
+     * `string_filter`, `number_filter`, `selection_uids_filter`, or `bool_filter` must be
+     * specified.
      * @return Returns the Boolean
      */
     @JsonGetter("bool_filter")

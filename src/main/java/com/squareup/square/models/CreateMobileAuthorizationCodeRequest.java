@@ -26,7 +26,7 @@ public class CreateMobileAuthorizationCodeRequest {
 
     /**
      * Getter for LocationId.
-     * The Square location ID the authorization code should be tied to.
+     * The Square location ID that the authorization code should be tied to.
      * @return Returns the String
      */
     @JsonGetter("location_id")

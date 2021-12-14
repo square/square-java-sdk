@@ -83,7 +83,7 @@ public class RenewTokenResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The date when access_token expires, in [ISO
+     * The date when the `access_token` expires, in [ISO
      * 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      * @return Returns the String
      */
@@ -104,8 +104,8 @@ public class RenewTokenResponse {
 
     /**
      * Getter for SubscriptionId.
-     * __LEGACY FIELD__. The ID of the merchant subscription associated with the authorization. Only
-     * present if the merchant signed up for a subscription during authorization..
+     * __LEGACY FIELD__. The ID of the merchant subscription associated with the authorization. The
+     * ID is only present if the merchant signed up for a subscription during authorization.
      * @return Returns the String
      */
     @JsonGetter("subscription_id")
@@ -115,8 +115,8 @@ public class RenewTokenResponse {
 
     /**
      * Getter for PlanId.
-     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. Only present if
-     * the merchant signed up for a subscription during authorization.
+     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. The ID is only
+     * present if the merchant signed up for a subscription plan during authorization.
      * @return Returns the String
      */
     @JsonGetter("plan_id")

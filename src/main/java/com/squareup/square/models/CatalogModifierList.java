@@ -20,6 +20,8 @@ public class CatalogModifierList {
     private final String selectionType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> modifiers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> imageIds;
 
     /**
      * Initialization constructor.
@@ -27,17 +29,20 @@ public class CatalogModifierList {
      * @param  ordinal  Integer value for ordinal.
      * @param  selectionType  String value for selectionType.
      * @param  modifiers  List of CatalogObject value for modifiers.
+     * @param  imageIds  List of String value for imageIds.
      */
     @JsonCreator
     public CatalogModifierList(
             @JsonProperty("name") String name,
             @JsonProperty("ordinal") Integer ordinal,
             @JsonProperty("selection_type") String selectionType,
-            @JsonProperty("modifiers") List<CatalogObject> modifiers) {
+            @JsonProperty("modifiers") List<CatalogObject> modifiers,
+            @JsonProperty("image_ids") List<String> imageIds) {
         this.name = name;
         this.ordinal = ordinal;
         this.selectionType = selectionType;
         this.modifiers = modifiers;
+        this.imageIds = imageIds;
     }
 
     /**
@@ -83,9 +88,20 @@ public class CatalogModifierList {
         return modifiers;
     }
 
+    /**
+     * Getter for ImageIds.
+     * The IDs of images associated with this `CatalogModifierList` instance. Currently these images
+     * are not displayed by Square, but are free to be displayed in 3rd party applications.
+     * @return Returns the List of String
+     */
+    @JsonGetter("image_ids")
+    public List<String> getImageIds() {
+        return imageIds;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, ordinal, selectionType, modifiers);
+        return Objects.hash(name, ordinal, selectionType, modifiers, imageIds);
     }
 
     @Override
@@ -100,7 +116,8 @@ public class CatalogModifierList {
         return Objects.equals(name, other.name)
             && Objects.equals(ordinal, other.ordinal)
             && Objects.equals(selectionType, other.selectionType)
-            && Objects.equals(modifiers, other.modifiers);
+            && Objects.equals(modifiers, other.modifiers)
+            && Objects.equals(imageIds, other.imageIds);
     }
 
     /**
@@ -110,7 +127,8 @@ public class CatalogModifierList {
     @Override
     public String toString() {
         return "CatalogModifierList [" + "name=" + name + ", ordinal=" + ordinal
-                + ", selectionType=" + selectionType + ", modifiers=" + modifiers + "]";
+                + ", selectionType=" + selectionType + ", modifiers=" + modifiers + ", imageIds="
+                + imageIds + "]";
     }
 
     /**
@@ -123,7 +141,8 @@ public class CatalogModifierList {
                 .name(getName())
                 .ordinal(getOrdinal())
                 .selectionType(getSelectionType())
-                .modifiers(getModifiers());
+                .modifiers(getModifiers())
+                .imageIds(getImageIds());
         return builder;
     }
 
@@ -135,6 +154,7 @@ public class CatalogModifierList {
         private Integer ordinal;
         private String selectionType;
         private List<CatalogObject> modifiers;
+        private List<String> imageIds;
 
 
 
@@ -179,11 +199,21 @@ public class CatalogModifierList {
         }
 
         /**
+         * Setter for imageIds.
+         * @param  imageIds  List of String value for imageIds.
+         * @return Builder
+         */
+        public Builder imageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogModifierList} object using the set fields.
          * @return {@link CatalogModifierList}
          */
         public CatalogModifierList build() {
-            return new CatalogModifierList(name, ordinal, selectionType, modifiers);
+            return new CatalogModifierList(name, ordinal, selectionType, modifiers, imageIds);
         }
     }
 }

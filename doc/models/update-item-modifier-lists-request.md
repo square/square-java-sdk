@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `ItemIds` | `List<String>` | Required | The IDs of the catalog items associated with the CatalogModifierList objects being updated. | List<String> getItemIds() |
-| `ModifierListsToEnable` | `List<String>` | Optional | The IDs of the CatalogModifierList objects to enable for the CatalogItem. | List<String> getModifierListsToEnable() |
-| `ModifierListsToDisable` | `List<String>` | Optional | The IDs of the CatalogModifierList objects to disable for the CatalogItem. | List<String> getModifierListsToDisable() |
+| `ModifierListsToEnable` | `List<String>` | Optional | The IDs of the CatalogModifierList objects to enable for the CatalogItem.<br>At least one of `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified. | List<String> getModifierListsToEnable() |
+| `ModifierListsToDisable` | `List<String>` | Optional | The IDs of the CatalogModifierList objects to disable for the CatalogItem.<br>At least one of `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified. | List<String> getModifierListsToDisable() |
 
 ## Example (as JSON)
 

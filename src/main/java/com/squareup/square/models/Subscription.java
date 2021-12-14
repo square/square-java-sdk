@@ -286,10 +286,10 @@ public class Subscription {
 
     /**
      * Getter for Actions.
-     * The list of scheduled actions on this subscription. It is set only in the response from the
-     * [RetrieveSubscription]($e/Subscriptions/RetrieveSubscription) or
-     * [SearchSubscriptions]($e/Subscriptions/SearchSubscriptions) endpoint with the query parameter
-     * of `include=actions`.
+     * The list of scheduled actions on this subscription. It is set only in the response from
+     * [RetrieveSubscription]($e/Subscriptions/RetrieveSubscription) with the query parameter of
+     * `include=actions` or from [SearchSubscriptions]($e/Subscriptions/SearchSubscriptions) with
+     * the input parameter of `include:["actions"]`.
      * @return Returns the List of SubscriptionAction
      */
     @JsonGetter("actions")

@@ -31,7 +31,8 @@ public class Range {
 
     /**
      * Getter for Min.
-     * The lower bound of the number range.
+     * The lower bound of the number range. At least one of `min` or `max` must be specified. If
+     * unspecified, the results will have no minimum value.
      * @return Returns the String
      */
     @JsonGetter("min")
@@ -41,7 +42,8 @@ public class Range {
 
     /**
      * Getter for Max.
-     * The upper bound of the number range.
+     * The upper bound of the number range. At least one of `min` or `max` must be specified. If
+     * unspecified, the results will have no maximum value.
      * @return Returns the String
      */
     @JsonGetter("max")

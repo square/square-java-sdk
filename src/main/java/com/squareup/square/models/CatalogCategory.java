@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,15 +14,20 @@ import java.util.Objects;
 public class CatalogCategory {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> imageIds;
 
     /**
      * Initialization constructor.
      * @param  name  String value for name.
+     * @param  imageIds  List of String value for imageIds.
      */
     @JsonCreator
     public CatalogCategory(
-            @JsonProperty("name") String name) {
+            @JsonProperty("name") String name,
+            @JsonProperty("image_ids") List<String> imageIds) {
         this.name = name;
+        this.imageIds = imageIds;
     }
 
     /**
@@ -35,9 +41,20 @@ public class CatalogCategory {
         return name;
     }
 
+    /**
+     * Getter for ImageIds.
+     * The IDs of images associated with this `CatalogCategory` instance. Currently these images are
+     * not displayed by Square, but are free to be displayed in 3rd party applications.
+     * @return Returns the List of String
+     */
+    @JsonGetter("image_ids")
+    public List<String> getImageIds() {
+        return imageIds;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, imageIds);
     }
 
     @Override
@@ -49,7 +66,8 @@ public class CatalogCategory {
             return false;
         }
         CatalogCategory other = (CatalogCategory) obj;
-        return Objects.equals(name, other.name);
+        return Objects.equals(name, other.name)
+            && Objects.equals(imageIds, other.imageIds);
     }
 
     /**
@@ -58,7 +76,7 @@ public class CatalogCategory {
      */
     @Override
     public String toString() {
-        return "CatalogCategory [" + "name=" + name + "]";
+        return "CatalogCategory [" + "name=" + name + ", imageIds=" + imageIds + "]";
     }
 
     /**
@@ -68,7 +86,8 @@ public class CatalogCategory {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName());
+                .name(getName())
+                .imageIds(getImageIds());
         return builder;
     }
 
@@ -77,6 +96,7 @@ public class CatalogCategory {
      */
     public static class Builder {
         private String name;
+        private List<String> imageIds;
 
 
 
@@ -91,11 +111,21 @@ public class CatalogCategory {
         }
 
         /**
+         * Setter for imageIds.
+         * @param  imageIds  List of String value for imageIds.
+         * @return Builder
+         */
+        public Builder imageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogCategory} object using the set fields.
          * @return {@link CatalogCategory}
          */
         public CatalogCategory build() {
-            return new CatalogCategory(name);
+            return new CatalogCategory(name, imageIds);
         }
     }
 }

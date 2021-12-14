@@ -41,6 +41,8 @@ public class CatalogItem {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionForItem> itemOptions;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> imageIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortName;
 
     /**
@@ -59,6 +61,7 @@ public class CatalogItem {
      * @param  productType  String value for productType.
      * @param  skipModifierScreen  Boolean value for skipModifierScreen.
      * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
+     * @param  imageIds  List of String value for imageIds.
      * @param  sortName  String value for sortName.
      */
     @JsonCreator
@@ -77,6 +80,7 @@ public class CatalogItem {
             @JsonProperty("product_type") String productType,
             @JsonProperty("skip_modifier_screen") Boolean skipModifierScreen,
             @JsonProperty("item_options") List<CatalogItemOptionForItem> itemOptions,
+            @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("sort_name") String sortName) {
         this.name = name;
         this.description = description;
@@ -92,6 +96,7 @@ public class CatalogItem {
         this.productType = productType;
         this.skipModifierScreen = skipModifierScreen;
         this.itemOptions = itemOptions;
+        this.imageIds = imageIds;
         this.sortName = sortName;
     }
 
@@ -254,6 +259,18 @@ public class CatalogItem {
     }
 
     /**
+     * Getter for ImageIds.
+     * The IDs of images associated with this `CatalogItem` instance. These images will be shown to
+     * customers in Square Online Store. The first image will show up as the icon for this item in
+     * POS.
+     * @return Returns the List of String
+     */
+    @JsonGetter("image_ids")
+    public List<String> getImageIds() {
+        return imageIds;
+    }
+
+    /**
      * Getter for SortName.
      * A name to sort the item by. If this name is unspecified, namely, the `sort_name` field is
      * absent, the regular `name` field is used for sorting. It is currently supported for sellers
@@ -269,7 +286,7 @@ public class CatalogItem {
     public int hashCode() {
         return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
-                variations, productType, skipModifierScreen, itemOptions, sortName);
+                variations, productType, skipModifierScreen, itemOptions, imageIds, sortName);
     }
 
     @Override
@@ -295,6 +312,7 @@ public class CatalogItem {
             && Objects.equals(productType, other.productType)
             && Objects.equals(skipModifierScreen, other.skipModifierScreen)
             && Objects.equals(itemOptions, other.itemOptions)
+            && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(sortName, other.sortName);
     }
 
@@ -311,7 +329,7 @@ public class CatalogItem {
                 + categoryId + ", taxIds=" + taxIds + ", modifierListInfo=" + modifierListInfo
                 + ", variations=" + variations + ", productType=" + productType
                 + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
-                + ", sortName=" + sortName + "]";
+                + ", imageIds=" + imageIds + ", sortName=" + sortName + "]";
     }
 
     /**
@@ -335,6 +353,7 @@ public class CatalogItem {
                 .productType(getProductType())
                 .skipModifierScreen(getSkipModifierScreen())
                 .itemOptions(getItemOptions())
+                .imageIds(getImageIds())
                 .sortName(getSortName());
         return builder;
     }
@@ -357,6 +376,7 @@ public class CatalogItem {
         private String productType;
         private Boolean skipModifierScreen;
         private List<CatalogItemOptionForItem> itemOptions;
+        private List<String> imageIds;
         private String sortName;
 
 
@@ -502,6 +522,16 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for imageIds.
+         * @param  imageIds  List of String value for imageIds.
+         * @return Builder
+         */
+        public Builder imageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+            return this;
+        }
+
+        /**
          * Setter for sortName.
          * @param  sortName  String value for sortName.
          * @return Builder
@@ -519,7 +549,7 @@ public class CatalogItem {
             return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
                     availableForPickup, availableElectronically, categoryId, taxIds,
                     modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
-                    sortName);
+                    imageIds, sortName);
         }
     }
 }

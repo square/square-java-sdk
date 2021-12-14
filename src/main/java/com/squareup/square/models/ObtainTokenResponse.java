@@ -75,8 +75,8 @@ public class ObtainTokenResponse {
     /**
      * Getter for AccessToken.
      * A valid OAuth access token. OAuth access tokens are 64 bytes long. Provide the access token
-     * in a header with every request to Connect API endpoints. See [OAuth API:
-     * Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough) for more information.
+     * in a header with every request to Connect API endpoints. For more information, see [OAuth
+     * API: Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough).
      * @return Returns the String
      */
     @JsonGetter("access_token")
@@ -96,7 +96,7 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The date when the access_token expires, in [ISO
+     * The date when the `access_token` expires, in [ISO
      * 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      * @return Returns the String
      */
@@ -117,8 +117,8 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for SubscriptionId.
-     * __LEGACY FIELD__. The ID of a subscription plan the merchant signed up for. Only present if
-     * the merchant signed up for a subscription during authorization.
+     * __LEGACY FIELD__. The ID of a subscription plan the merchant signed up for. The ID is only
+     * present if the merchant signed up for a subscription plan during authorization.
      * @return Returns the String
      */
     @JsonGetter("subscription_id")
@@ -128,8 +128,8 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for PlanId.
-     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. Only present if
-     * the merchant signed up for a subscription during authorization.
+     * __LEGACY FIELD__. The ID of the subscription plan the merchant signed up for. The ID is only
+     * present if the merchant signed up for a subscription plan during authorization.
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -139,8 +139,8 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for IdToken.
-     * The OpenID token belonging to this person. Only present if the OPENID scope is included in
-     * the authorization request.
+     * The OpenID token belonging to this person. This token is only present if the OPENID scope is
+     * included in the authorization request.
      * @return Returns the String
      */
     @JsonGetter("id_token")
@@ -162,8 +162,8 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for ShortLived.
-     * A boolean indicating the access token is a short-lived access token. The short-lived access
-     * token returned in the response will expire in 24 hours.
+     * A Boolean indicating that the access token is a short-lived access token. The short-lived
+     * access token returned in the response expires in 24 hours.
      * @return Returns the Boolean
      */
     @JsonGetter("short_lived")

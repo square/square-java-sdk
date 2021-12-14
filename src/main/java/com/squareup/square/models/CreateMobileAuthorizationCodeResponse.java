@@ -44,7 +44,8 @@ public class CreateMobileAuthorizationCodeResponse {
 
     /**
      * Getter for AuthorizationCode.
-     * Generated authorization code that connects a mobile application instance to a Square account.
+     * The generated authorization code that connects a mobile application instance to a Square
+     * account.
      * @return Returns the String
      */
     @JsonGetter("authorization_code")
@@ -54,8 +55,8 @@ public class CreateMobileAuthorizationCodeResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The timestamp when `authorization_code` expires in [RFC
-     * 3339](https://tools.ietf.org/html/rfc3339) format, e.g., "2016-09-04T23:59:33.123Z".
+     * The timestamp when `authorization_code` expires, in [RFC
+     * 3339](https://tools.ietf.org/html/rfc3339) format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("expires_at")
