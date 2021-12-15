@@ -77,9 +77,8 @@ public class SearchSubscriptionsRequest {
 
     /**
      * Getter for Include.
-     * A query parameter to specify related information to be included in the response. The
-     * supported query parameter values are: - `actions`: to include scheduled actions on the
-     * targeted subscriptions.
+     * An option to include related information in the response. The supported values are: -
+     * `actions`: to include scheduled actions on the targeted subscriptions.
      * @return Returns the List of String
      */
     @JsonGetter("include")

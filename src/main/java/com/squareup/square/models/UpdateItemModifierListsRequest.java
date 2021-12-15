@@ -46,7 +46,8 @@ public class UpdateItemModifierListsRequest {
 
     /**
      * Getter for ModifierListsToEnable.
-     * The IDs of the CatalogModifierList objects to enable for the CatalogItem.
+     * The IDs of the CatalogModifierList objects to enable for the CatalogItem. At least one of
+     * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
      * @return Returns the List of String
      */
     @JsonGetter("modifier_lists_to_enable")
@@ -56,7 +57,8 @@ public class UpdateItemModifierListsRequest {
 
     /**
      * Getter for ModifierListsToDisable.
-     * The IDs of the CatalogModifierList objects to disable for the CatalogItem.
+     * The IDs of the CatalogModifierList objects to disable for the CatalogItem. At least one of
+     * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
      * @return Returns the List of String
      */
     @JsonGetter("modifier_lists_to_disable")

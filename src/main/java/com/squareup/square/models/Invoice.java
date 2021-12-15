@@ -54,6 +54,8 @@ public class Invoice {
     private final String subscriptionId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String saleOrServiceDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String paymentConditions;
 
     /**
      * Initialization constructor.
@@ -79,6 +81,7 @@ public class Invoice {
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  subscriptionId  String value for subscriptionId.
      * @param  saleOrServiceDate  String value for saleOrServiceDate.
+     * @param  paymentConditions  String value for paymentConditions.
      */
     @JsonCreator
     public Invoice(
@@ -102,7 +105,8 @@ public class Invoice {
             @JsonProperty("accepted_payment_methods") InvoiceAcceptedPaymentMethods acceptedPaymentMethods,
             @JsonProperty("custom_fields") List<InvoiceCustomField> customFields,
             @JsonProperty("subscription_id") String subscriptionId,
-            @JsonProperty("sale_or_service_date") String saleOrServiceDate) {
+            @JsonProperty("sale_or_service_date") String saleOrServiceDate,
+            @JsonProperty("payment_conditions") String paymentConditions) {
         this.id = id;
         this.version = version;
         this.locationId = locationId;
@@ -124,6 +128,7 @@ public class Invoice {
         this.customFields = customFields;
         this.subscriptionId = subscriptionId;
         this.saleOrServiceDate = saleOrServiceDate;
+        this.paymentConditions = paymentConditions;
     }
 
     /**
@@ -216,9 +221,10 @@ public class Invoice {
 
     /**
      * Getter for InvoiceNumber.
-     * A user-friendly invoice number. The value is unique within a location. If not provided when
-     * creating an invoice, Square assigns a value. It increments from 1 and padded with zeros
-     * making it 7 characters long (for example, 0000001 and 0000002).
+     * A user-friendly invoice number that is displayed on the invoice. The value is unique within a
+     * location. If not provided when creating an invoice, Square assigns a value. It increments
+     * from 1 and is padded with zeros making it 7 characters long (for example, 0000001 and
+     * 0000002).
      * @return Returns the String
      */
     @JsonGetter("invoice_number")
@@ -228,7 +234,7 @@ public class Invoice {
 
     /**
      * Getter for Title.
-     * The title of the invoice.
+     * The title of the invoice, which is displayed on the invoice.
      * @return Returns the String
      */
     @JsonGetter("title")
@@ -238,7 +244,7 @@ public class Invoice {
 
     /**
      * Getter for Description.
-     * The description of the invoice. This is visible to the customer receiving the invoice.
+     * The description of the invoice, which is displayed on the invoice.
      * @return Returns the String
      */
     @JsonGetter("description")
@@ -343,11 +349,9 @@ public class Invoice {
 
     /**
      * Getter for CustomFields.
-     * Additional seller-defined fields to render on the invoice. These fields are visible to
-     * sellers and buyers on the Square-hosted invoice page and in emailed or PDF copies of
-     * invoices. For more information, see [Custom
-     * fields](https://developer.squareup.com/docs/invoices-api/overview#custom-fields). Adding
-     * custom fields to an invoice requires an [Invoices Plus
+     * Additional seller-defined fields that are displayed on the invoice. For more information, see
+     * [Custom fields](https://developer.squareup.com/docs/invoices-api/overview#custom-fields).
+     * Adding custom fields to an invoice requires an [Invoices Plus
      * subscription](https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-subscription).
      * Max: 2 custom fields
      * @return Returns the List of InvoiceCustomField
@@ -379,12 +383,28 @@ public class Invoice {
         return saleOrServiceDate;
     }
 
+    /**
+     * Getter for PaymentConditions.
+     * **France only.** The payment terms and conditions that are displayed on the invoice. For more
+     * information, see [Payment
+     * conditions](https://developer.squareup.com/docs/invoices-api/overview#payment-conditions).
+     * For countries other than France, Square returns an `INVALID_REQUEST_ERROR` with a
+     * `BAD_REQUEST` code and "Payment conditions are not supported for this location's country"
+     * detail if this field is included in `CreateInvoice` or `UpdateInvoice` requests.
+     * @return Returns the String
+     */
+    @JsonGetter("payment_conditions")
+    public String getPaymentConditions() {
+        return paymentConditions;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                 deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                 nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
-                acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate);
+                acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
+                paymentConditions);
     }
 
     @Override
@@ -416,7 +436,8 @@ public class Invoice {
             && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods)
             && Objects.equals(customFields, other.customFields)
             && Objects.equals(subscriptionId, other.subscriptionId)
-            && Objects.equals(saleOrServiceDate, other.saleOrServiceDate);
+            && Objects.equals(saleOrServiceDate, other.saleOrServiceDate)
+            && Objects.equals(paymentConditions, other.paymentConditions);
     }
 
     /**
@@ -434,7 +455,7 @@ public class Invoice {
                 + ", timezone=" + timezone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", acceptedPaymentMethods=" + acceptedPaymentMethods + ", customFields="
                 + customFields + ", subscriptionId=" + subscriptionId + ", saleOrServiceDate="
-                + saleOrServiceDate + "]";
+                + saleOrServiceDate + ", paymentConditions=" + paymentConditions + "]";
     }
 
     /**
@@ -464,7 +485,8 @@ public class Invoice {
                 .acceptedPaymentMethods(getAcceptedPaymentMethods())
                 .customFields(getCustomFields())
                 .subscriptionId(getSubscriptionId())
-                .saleOrServiceDate(getSaleOrServiceDate());
+                .saleOrServiceDate(getSaleOrServiceDate())
+                .paymentConditions(getPaymentConditions());
         return builder;
     }
 
@@ -493,6 +515,7 @@ public class Invoice {
         private List<InvoiceCustomField> customFields;
         private String subscriptionId;
         private String saleOrServiceDate;
+        private String paymentConditions;
 
 
 
@@ -709,6 +732,16 @@ public class Invoice {
         }
 
         /**
+         * Setter for paymentConditions.
+         * @param  paymentConditions  String value for paymentConditions.
+         * @return Builder
+         */
+        public Builder paymentConditions(String paymentConditions) {
+            this.paymentConditions = paymentConditions;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -716,7 +749,8 @@ public class Invoice {
             return new Invoice(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                     deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                     nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
-                    acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate);
+                    acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
+                    paymentConditions);
         }
     }
 }

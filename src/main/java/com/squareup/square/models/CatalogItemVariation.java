@@ -47,6 +47,8 @@ public class CatalogItemVariation {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean stockable;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> imageIds;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> teamMemberIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogStockConversion stockableConversion;
@@ -72,6 +74,7 @@ public class CatalogItemVariation {
      *         itemOptionValues.
      * @param  measurementUnitId  String value for measurementUnitId.
      * @param  stockable  Boolean value for stockable.
+     * @param  imageIds  List of String value for imageIds.
      * @param  teamMemberIds  List of String value for teamMemberIds.
      * @param  stockableConversion  CatalogStockConversion value for stockableConversion.
      */
@@ -94,6 +97,7 @@ public class CatalogItemVariation {
             @JsonProperty("item_option_values") List<CatalogItemOptionValueForItemVariation> itemOptionValues,
             @JsonProperty("measurement_unit_id") String measurementUnitId,
             @JsonProperty("stockable") Boolean stockable,
+            @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("team_member_ids") List<String> teamMemberIds,
             @JsonProperty("stockable_conversion") CatalogStockConversion stockableConversion) {
         this.itemId = itemId;
@@ -113,6 +117,7 @@ public class CatalogItemVariation {
         this.itemOptionValues = itemOptionValues;
         this.measurementUnitId = measurementUnitId;
         this.stockable = stockable;
+        this.imageIds = imageIds;
         this.teamMemberIds = teamMemberIds;
         this.stockableConversion = stockableConversion;
     }
@@ -316,6 +321,17 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Getter for ImageIds.
+     * The IDs of images associated with this `CatalogItemVariation` instance. These images will be
+     * shown to customers in Square Online Store.
+     * @return Returns the List of String
+     */
+    @JsonGetter("image_ids")
+    public List<String> getImageIds() {
+        return imageIds;
+    }
+
+    /**
      * Getter for TeamMemberIds.
      * Tokens of employees that can perform the service represented by this variation. Only valid
      * for variations of type `APPOINTMENTS_SERVICE`.
@@ -343,7 +359,7 @@ public class CatalogItemVariation {
         return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
                 locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold,
                 userData, serviceDuration, availableForBooking, itemOptionValues, measurementUnitId,
-                stockable, teamMemberIds, stockableConversion);
+                stockable, imageIds, teamMemberIds, stockableConversion);
     }
 
     @Override
@@ -372,6 +388,7 @@ public class CatalogItemVariation {
             && Objects.equals(itemOptionValues, other.itemOptionValues)
             && Objects.equals(measurementUnitId, other.measurementUnitId)
             && Objects.equals(stockable, other.stockable)
+            && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(teamMemberIds, other.teamMemberIds)
             && Objects.equals(stockableConversion, other.stockableConversion);
     }
@@ -390,8 +407,8 @@ public class CatalogItemVariation {
                 + ", userData=" + userData + ", serviceDuration=" + serviceDuration
                 + ", availableForBooking=" + availableForBooking + ", itemOptionValues="
                 + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", stockable="
-                + stockable + ", teamMemberIds=" + teamMemberIds + ", stockableConversion="
-                + stockableConversion + "]";
+                + stockable + ", imageIds=" + imageIds + ", teamMemberIds=" + teamMemberIds
+                + ", stockableConversion=" + stockableConversion + "]";
     }
 
     /**
@@ -418,6 +435,7 @@ public class CatalogItemVariation {
                 .itemOptionValues(getItemOptionValues())
                 .measurementUnitId(getMeasurementUnitId())
                 .stockable(getStockable())
+                .imageIds(getImageIds())
                 .teamMemberIds(getTeamMemberIds())
                 .stockableConversion(getStockableConversion());
         return builder;
@@ -444,6 +462,7 @@ public class CatalogItemVariation {
         private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
         private String measurementUnitId;
         private Boolean stockable;
+        private List<String> imageIds;
         private List<String> teamMemberIds;
         private CatalogStockConversion stockableConversion;
 
@@ -623,6 +642,16 @@ public class CatalogItemVariation {
         }
 
         /**
+         * Setter for imageIds.
+         * @param  imageIds  List of String value for imageIds.
+         * @return Builder
+         */
+        public Builder imageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+            return this;
+        }
+
+        /**
          * Setter for teamMemberIds.
          * @param  teamMemberIds  List of String value for teamMemberIds.
          * @return Builder
@@ -650,7 +679,7 @@ public class CatalogItemVariation {
             return new CatalogItemVariation(itemId, name, sku, upc, ordinal, pricingType,
                     priceMoney, locationOverrides, trackInventory, inventoryAlertType,
                     inventoryAlertThreshold, userData, serviceDuration, availableForBooking,
-                    itemOptionValues, measurementUnitId, stockable, teamMemberIds,
+                    itemOptionValues, measurementUnitId, stockable, imageIds, teamMemberIds,
                     stockableConversion);
         }
     }

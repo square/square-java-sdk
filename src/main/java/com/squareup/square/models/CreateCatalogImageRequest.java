@@ -15,21 +15,26 @@ public class CreateCatalogImageRequest {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
     private final CatalogObject image;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean isPrimary;
 
     /**
      * Initialization constructor.
      * @param  idempotencyKey  String value for idempotencyKey.
      * @param  image  CatalogObject value for image.
      * @param  objectId  String value for objectId.
+     * @param  isPrimary  Boolean value for isPrimary.
      */
     @JsonCreator
     public CreateCatalogImageRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("image") CatalogObject image,
-            @JsonProperty("object_id") String objectId) {
+            @JsonProperty("object_id") String objectId,
+            @JsonProperty("is_primary") Boolean isPrimary) {
         this.idempotencyKey = idempotencyKey;
         this.objectId = objectId;
         this.image = image;
+        this.isPrimary = isPrimary;
     }
 
     /**
@@ -46,9 +51,9 @@ public class CreateCatalogImageRequest {
 
     /**
      * Getter for ObjectId.
-     * Unique ID of the `CatalogObject` to attach to this `CatalogImage`. Leave this field empty to
-     * create unattached images, for example if you are building an integration where these images
-     * can be attached to catalog items at a later time.
+     * Unique ID of the `CatalogObject` to attach this `CatalogImage` object to. Leave this field
+     * empty to create unattached images, for example if you are building an integration where an
+     * image can be attached to catalog items at a later time.
      * @return Returns the String
      */
     @JsonGetter("object_id")
@@ -75,9 +80,24 @@ public class CreateCatalogImageRequest {
         return image;
     }
 
+    /**
+     * Getter for IsPrimary.
+     * If this is set to `true`, the image created will be the primary, or first image of the object
+     * referenced by `object_id`. If the `CatalogObject` already has a primary `CatalogImage`,
+     * setting this field to `true` will replace the primary image. If this is set to `false` and
+     * you use the Square API version 2021-12-15 or later, the image id will be appended to the list
+     * of `image_ids` on the object. With Square API version 2021-12-15 or later, the default value
+     * is `false`. Otherwise, the effective default value is `true`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("is_primary")
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(idempotencyKey, objectId, image);
+        return Objects.hash(idempotencyKey, objectId, image, isPrimary);
     }
 
     @Override
@@ -91,7 +111,8 @@ public class CreateCatalogImageRequest {
         CreateCatalogImageRequest other = (CreateCatalogImageRequest) obj;
         return Objects.equals(idempotencyKey, other.idempotencyKey)
             && Objects.equals(objectId, other.objectId)
-            && Objects.equals(image, other.image);
+            && Objects.equals(image, other.image)
+            && Objects.equals(isPrimary, other.isPrimary);
     }
 
     /**
@@ -101,7 +122,7 @@ public class CreateCatalogImageRequest {
     @Override
     public String toString() {
         return "CreateCatalogImageRequest [" + "idempotencyKey=" + idempotencyKey + ", image="
-                + image + ", objectId=" + objectId + "]";
+                + image + ", objectId=" + objectId + ", isPrimary=" + isPrimary + "]";
     }
 
     /**
@@ -111,7 +132,8 @@ public class CreateCatalogImageRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey, image)
-                .objectId(getObjectId());
+                .objectId(getObjectId())
+                .isPrimary(getIsPrimary());
         return builder;
     }
 
@@ -122,6 +144,7 @@ public class CreateCatalogImageRequest {
         private String idempotencyKey;
         private CatalogObject image;
         private String objectId;
+        private Boolean isPrimary;
 
         /**
          * Initialization constructor.
@@ -164,11 +187,21 @@ public class CreateCatalogImageRequest {
         }
 
         /**
+         * Setter for isPrimary.
+         * @param  isPrimary  Boolean value for isPrimary.
+         * @return Builder
+         */
+        public Builder isPrimary(Boolean isPrimary) {
+            this.isPrimary = isPrimary;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateCatalogImageRequest} object using the set fields.
          * @return {@link CreateCatalogImageRequest}
          */
         public CreateCatalogImageRequest build() {
-            return new CreateCatalogImageRequest(idempotencyKey, image, objectId);
+            return new CreateCatalogImageRequest(idempotencyKey, image, objectId, isPrimary);
         }
     }
 }

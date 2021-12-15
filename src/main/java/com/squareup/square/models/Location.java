@@ -157,7 +157,8 @@ public class Location {
 
     /**
      * Getter for Id.
-     * The Square-issued ID of the location.
+     * A short, generated string of letters and numbers that uniquely identifies this location
+     * instance.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -210,7 +211,7 @@ public class Location {
     /**
      * Getter for Timezone.
      * The [IANA Timezone](https://www.iana.org/time-zones) identifier for the timezone of the
-     * location.
+     * location. For example, `"America/Los_Angeles"`.
      * @return Returns the String
      */
     @JsonGetter("timezone")
@@ -232,7 +233,7 @@ public class Location {
 
     /**
      * Getter for Status.
-     * The status of the location, whether a location is active or inactive.
+     * A location's status.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -307,8 +308,7 @@ public class Location {
 
     /**
      * Getter for BusinessName.
-     * The business name of the location This is the name visible to the customers of the location.
-     * For example, this name appears on customer receipts.
+     * The business name of the location, visible to the location's customers.
      * @return Returns the String
      */
     @JsonGetter("business_name")
@@ -318,7 +318,7 @@ public class Location {
 
     /**
      * Getter for Type.
-     * A location's physical or mobile type.
+     * A location's type.
      * @return Returns the String
      */
     @JsonGetter("type")
@@ -338,7 +338,7 @@ public class Location {
 
     /**
      * Getter for BusinessHours.
-     * Represents the hours of operation for a business location.
+     * The hours of operation for a location.
      * @return Returns the BusinessHours
      */
     @JsonGetter("business_hours")
@@ -348,8 +348,8 @@ public class Location {
 
     /**
      * Getter for BusinessEmail.
-     * The email of the location. This email is visible to the customers of the location. For
-     * example, the email appears on customer receipts. For example, `help@squareup.com`.
+     * The email address of the location, visible to the location's customers. This can be unique to
+     * the location, and is not always the email address for the business owner or admin.
      * @return Returns the String
      */
     @JsonGetter("business_email")
@@ -359,7 +359,7 @@ public class Location {
 
     /**
      * Getter for Description.
-     * The description of the location.
+     * The description of the location. For example, `Main Street location`.
      * @return Returns the String
      */
     @JsonGetter("description")
@@ -410,10 +410,10 @@ public class Location {
 
     /**
      * Getter for LogoUrl.
-     * The URL of the logo image for the location. The Seller must choose this logo in the Seller
-     * dashboard (Receipts section) for the logo to appear on transactions (such as receipts,
-     * invoices) that Square generates on behalf of the Seller. This image should have an aspect
-     * ratio close to 1:1 and is recommended to be at least 200x200 pixels.
+     * The URL of the logo image for the location. When configured in the Seller dashboard (Receipts
+     * section), the logo appears on transactions (such as receipts and invoices) that Square
+     * generates on behalf of the Seller. This image should have a roughly square (1:1) aspect ratio
+     * and is recommended to be at least 200x200 pixels.
      * @return Returns the String
      */
     @JsonGetter("logo_url")
@@ -433,8 +433,9 @@ public class Location {
 
     /**
      * Getter for Mcc.
-     * The merchant category code (MCC) of the location, as standardized by ISO 18245. The MCC
-     * describes the kind of goods or services sold at the location.
+     * A four-digit number that describes the kind of goods or services sold at the location. The
+     * merchant category code (MCC) of the location is standardized by ISO 18245. For example,
+     * `5045`.
      * @return Returns the String
      */
     @JsonGetter("mcc")
@@ -444,10 +445,10 @@ public class Location {
 
     /**
      * Getter for FullFormatLogoUrl.
-     * The URL of a full-format logo image for the location. The Seller must choose this logo in the
-     * Seller dashboard (Receipts section) for the logo to appear on transactions (such as receipts,
-     * invoices) that Square generates on behalf of the Seller. This image can have an aspect ratio
-     * of 2:1 or greater and is recommended to be at least 1280x648 pixels.
+     * The URL of a full-format logo image for the location. When configured in the Seller dashboard
+     * (Receipts section), the logo appears on transactions (such as receipts and invoices) that
+     * Square generates on behalf of the Seller. This image can be wider than it is tall, and is
+     * recommended to be at least 1280x648 pixels.
      * @return Returns the String
      */
     @JsonGetter("full_format_logo_url")

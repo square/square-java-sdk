@@ -50,7 +50,8 @@ public class UpdateLocationResponse {
 
     /**
      * Getter for Location.
-     * Represents one of a business's locations.
+     * Represents one of a business's
+     * [locations](https://developer.squareup.com/docs/locations-api).
      * @return Returns the Location
      */
     @JsonGetter("location")

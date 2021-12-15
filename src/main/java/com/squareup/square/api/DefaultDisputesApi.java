@@ -548,7 +548,6 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
         //load all headers for the outgoing API request
         Headers headers = new Headers();
-        headers.add("Content-Type", "multipart/form-data");
         headers.add("Square-Version", config.getSquareVersion());
         headers.add("user-agent", BaseApi.userAgent);
         headers.add("accept", "application/json");

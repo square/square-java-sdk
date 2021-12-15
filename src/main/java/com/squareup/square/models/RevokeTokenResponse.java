@@ -34,7 +34,7 @@ public class RevokeTokenResponse {
 
     /**
      * Getter for Success.
-     * If the request is successful, this is true.
+     * If the request is successful, this is `true`.
      * @return Returns the Boolean
      */
     @JsonGetter("success")

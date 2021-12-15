@@ -251,8 +251,8 @@ public class OkClient implements HttpClient {
                     httpRequest.getHeaders().add("content-type", contentType);
                 }
 
-                requestBody = okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType),
-                        ((FileWrapper) body).getFile());
+                requestBody = okhttp3.RequestBody.create(file.getFile(),
+                        okhttp3.MediaType.parse(contentType));
             } else {
                 // set request body
                 if (!httpRequest.getHeaders().has("content-type")) {
@@ -261,8 +261,8 @@ public class OkClient implements HttpClient {
 
                 contentType = httpRequest.getHeaders().value("content-type");
                 // set request body
-                requestBody = okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType),
-                        ((String) body).getBytes());
+                requestBody = okhttp3.RequestBody.create(((String) body).getBytes(),
+                        okhttp3.MediaType.parse(contentType));
             }
         } else {
 
@@ -294,7 +294,7 @@ public class OkClient implements HttpClient {
             } else if (httpRequest.getHttpMethod().equals(HttpMethod.GET)) {
                 requestBody = null;
             } else {
-                requestBody = okhttp3.RequestBody.create(null, new byte[0]);
+                requestBody = okhttp3.RequestBody.create(new byte[0], null);
             }
         }
 
@@ -338,8 +338,8 @@ public class OkClient implements HttpClient {
                             okhttp3.MediaType.parse(wrapperObj.getHeaders().value("content-type"));
                 }
 
-                okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType,
-                        wrapperObj.getFileWrapper().getFile());
+                okhttp3.RequestBody body = okhttp3.RequestBody.create(wrapperObj.getFileWrapper().getFile(),
+                        mediaType);
                 Headers fileWrapperHeaders = new Headers(wrapperObj.getHeaders());
                 fileWrapperHeaders.remove("content-type");
                 okhttp3.Headers.Builder fileWrapperHeadersBuilder =
@@ -352,9 +352,8 @@ public class OkClient implements HttpClient {
                 multipartBuilder.addPart(fileWrapperHeadersBuilder.build(), body);
             } else if (param.getValue() instanceof MultipartWrapper) {
                 MultipartWrapper wrapperObject = (MultipartWrapper) param.getValue();
-                okhttp3.RequestBody body = okhttp3.RequestBody.create(
-                    okhttp3.MediaType.parse(wrapperObject.getHeaders().value("content-type")),
-                    wrapperObject.getByteArray());
+                okhttp3.RequestBody body = okhttp3.RequestBody.create(wrapperObject.getByteArray(),
+                    okhttp3.MediaType.parse(wrapperObject.getHeaders().value("content-type")));
                 Headers wrapperHeaders = new Headers(wrapperObject.getHeaders());
                 wrapperHeaders.remove("content-type");
                 okhttp3.Headers.Builder wrapperHeadersBuilder =

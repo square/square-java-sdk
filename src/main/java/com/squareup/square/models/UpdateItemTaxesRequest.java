@@ -36,7 +36,8 @@ public class UpdateItemTaxesRequest {
 
     /**
      * Getter for ItemIds.
-     * IDs for the CatalogItems associated with the CatalogTax objects being updated.
+     * IDs for the CatalogItems associated with the CatalogTax objects being updated. No more than
+     * 1,000 IDs may be provided.
      * @return Returns the List of String
      */
     @JsonGetter("item_ids")
@@ -46,7 +47,8 @@ public class UpdateItemTaxesRequest {
 
     /**
      * Getter for TaxesToEnable.
-     * IDs of the CatalogTax objects to enable.
+     * IDs of the CatalogTax objects to enable. At least one of `taxes_to_enable` or
+     * `taxes_to_disable` must be specified.
      * @return Returns the List of String
      */
     @JsonGetter("taxes_to_enable")
@@ -56,7 +58,8 @@ public class UpdateItemTaxesRequest {
 
     /**
      * Getter for TaxesToDisable.
-     * IDs of the CatalogTax objects to disable.
+     * IDs of the CatalogTax objects to disable. At least one of `taxes_to_enable` or
+     * `taxes_to_disable` must be specified.
      * @return Returns the List of String
      */
     @JsonGetter("taxes_to_disable")

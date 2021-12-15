@@ -14,6 +14,7 @@ CatalogApi catalogApi = client.getCatalogApi();
 * [Batch Retrieve Catalog Objects](/doc/api/catalog.md#batch-retrieve-catalog-objects)
 * [Batch Upsert Catalog Objects](/doc/api/catalog.md#batch-upsert-catalog-objects)
 * [Create Catalog Image](/doc/api/catalog.md#create-catalog-image)
+* [Update Catalog Image](/doc/api/catalog.md#update-catalog-image)
 * [Catalog Info](/doc/api/catalog.md#catalog-info)
 * [List Catalog](/doc/api/catalog.md#list-catalog)
 * [Upsert Catalog Object](/doc/api/catalog.md#upsert-catalog-object)
@@ -151,8 +152,26 @@ List<CatalogObjectBatch> bodyBatches = new LinkedList<>();
 
 List<CatalogObject> bodyBatches0Objects = new LinkedList<>();
 
-CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects0CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name1")
+    .stringValue("string_value5")
+    .customAttributeDefinitionId("custom_attribute_definition_id1")
+    .type("SELECTION")
+    .numberValue("number_value1")
     .build();
+bodyBatches0Objects0CustomAttributeValues.put("key0",bodyBatches0Objects0CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name0")
+    .stringValue("string_value4")
+    .customAttributeDefinitionId("custom_attribute_definition_id2")
+    .type("STRING")
+    .numberValue("number_value0")
+    .build();
+bodyBatches0Objects0CustomAttributeValues.put("key1",bodyBatches0Objects0CustomAttributeValues1);
+
 List<CatalogV1Id> bodyBatches0Objects0CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects0CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -165,8 +184,26 @@ List<String> bodyBatches0Objects0ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects0ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects0ItemDataVariations = new LinkedList<>();
 
-CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects0ItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name0")
+    .stringValue("string_value4")
+    .customAttributeDefinitionId("custom_attribute_definition_id2")
+    .type("STRING")
+    .numberValue("number_value0")
     .build();
+bodyBatches0Objects0ItemDataVariations0CustomAttributeValues.put("key0",bodyBatches0Objects0ItemDataVariations0CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name1")
+    .stringValue("string_value5")
+    .customAttributeDefinitionId("custom_attribute_definition_id1")
+    .type("SELECTION")
+    .numberValue("number_value1")
+    .build();
+bodyBatches0Objects0ItemDataVariations0CustomAttributeValues.put("key1",bodyBatches0Objects0ItemDataVariations0CustomAttributeValues1);
+
 List<CatalogV1Id> bodyBatches0Objects0ItemDataVariations0CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -219,8 +256,17 @@ CatalogObject bodyBatches0Objects0 = new CatalogObject.Builder(
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects0);
 
-CatalogCustomAttributeValue bodyBatches0Objects1CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name2")
+    .stringValue("string_value6")
+    .customAttributeDefinitionId("custom_attribute_definition_id0")
+    .type("NUMBER")
+    .numberValue("number_value2")
     .build();
+bodyBatches0Objects1CustomAttributeValues.put("key0",bodyBatches0Objects1CustomAttributeValues0);
+
 List<CatalogV1Id> bodyBatches0Objects1CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects1CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -239,8 +285,17 @@ List<String> bodyBatches0Objects1ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects1ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects1ItemDataVariations = new LinkedList<>();
 
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1ItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name9")
+    .stringValue("string_value3")
+    .customAttributeDefinitionId("custom_attribute_definition_id3")
+    .type("BOOLEAN")
+    .numberValue("number_value9")
     .build();
+bodyBatches0Objects1ItemDataVariations0CustomAttributeValues.put("key0",bodyBatches0Objects1ItemDataVariations0CustomAttributeValues0);
+
 List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations0CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -276,8 +331,35 @@ CatalogObject bodyBatches0Objects1ItemDataVariations0 = new CatalogObject.Builde
     .build();
 bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariations0);
 
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1ItemDataVariations1CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name8")
+    .stringValue("string_value2")
+    .customAttributeDefinitionId("custom_attribute_definition_id4")
+    .type("NUMBER")
+    .numberValue("number_value8")
     .build();
+bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key0",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name9")
+    .stringValue("string_value3")
+    .customAttributeDefinitionId("custom_attribute_definition_id3")
+    .type("BOOLEAN")
+    .numberValue("number_value9")
+    .build();
+bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key1",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues1);
+
+CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
+    .name("name0")
+    .stringValue("string_value4")
+    .customAttributeDefinitionId("custom_attribute_definition_id2")
+    .type("STRING")
+    .numberValue("number_value0")
+    .build();
+bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key2",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues2);
+
 List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations1CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -342,8 +424,35 @@ CatalogObject bodyBatches0Objects1 = new CatalogObject.Builder(
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects1);
 
-CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects2CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name3")
+    .stringValue("string_value7")
+    .customAttributeDefinitionId("custom_attribute_definition_id9")
+    .type("BOOLEAN")
+    .numberValue("number_value3")
     .build();
+bodyBatches0Objects2CustomAttributeValues.put("key0",bodyBatches0Objects2CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name2")
+    .stringValue("string_value6")
+    .customAttributeDefinitionId("custom_attribute_definition_id0")
+    .type("NUMBER")
+    .numberValue("number_value2")
+    .build();
+bodyBatches0Objects2CustomAttributeValues.put("key1",bodyBatches0Objects2CustomAttributeValues1);
+
+CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
+    .name("name1")
+    .stringValue("string_value5")
+    .customAttributeDefinitionId("custom_attribute_definition_id1")
+    .type("SELECTION")
+    .numberValue("number_value1")
+    .build();
+bodyBatches0Objects2CustomAttributeValues.put("key2",bodyBatches0Objects2CustomAttributeValues2);
+
 List<CatalogV1Id> bodyBatches0Objects2CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects2CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -364,8 +473,12 @@ CatalogV1Id bodyBatches0Objects2CatalogV1Ids2 = new CatalogV1Id.Builder()
     .build();
 bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids2);
 
+List<String> bodyBatches0Objects2CategoryDataImageIds = new LinkedList<>();
+bodyBatches0Objects2CategoryDataImageIds.add("image_ids1");
+bodyBatches0Objects2CategoryDataImageIds.add("image_ids2");
 CatalogCategory bodyBatches0Objects2CategoryData = new CatalogCategory.Builder()
     .name("Beverages")
+    .imageIds(bodyBatches0Objects2CategoryDataImageIds)
     .build();
 CatalogObject bodyBatches0Objects2 = new CatalogObject.Builder(
         "CATEGORY",
@@ -380,8 +493,26 @@ CatalogObject bodyBatches0Objects2 = new CatalogObject.Builder(
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects2);
 
-CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyBatches0Objects3CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name4")
+    .stringValue("string_value8")
+    .customAttributeDefinitionId("custom_attribute_definition_id8")
+    .type("STRING")
+    .numberValue("number_value4")
     .build();
+bodyBatches0Objects3CustomAttributeValues.put("key0",bodyBatches0Objects3CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name3")
+    .stringValue("string_value7")
+    .customAttributeDefinitionId("custom_attribute_definition_id9")
+    .type("BOOLEAN")
+    .numberValue("number_value3")
+    .build();
+bodyBatches0Objects3CustomAttributeValues.put("key1",bodyBatches0Objects3CustomAttributeValues1);
+
 List<CatalogV1Id> bodyBatches0Objects3CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyBatches0Objects3CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -432,9 +563,9 @@ catalogApi.batchUpsertCatalogObjectsAsync(body).thenAccept(result -> {
 
 # Create Catalog Image
 
-Uploads an image file to be represented by a [CatalogImage](/doc/models/catalog-image.md) object linked to an existing
-[CatalogObject](/doc/models/catalog-object.md) instance. A call to this endpoint can upload an image, link an image to
-a catalog object, or do both.
+Uploads an image file to be represented by a [CatalogImage](/doc/models/catalog-image.md) object that can be linked to an existing
+[CatalogObject](/doc/models/catalog-object.md) instance. The resulting `CatalogImage` is unattached to any `CatalogObject` if the `object_id`
+is not specified.
 
 This `CreateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
 JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
@@ -459,8 +590,16 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 ## Example Usage
 
 ```java
-CatalogCustomAttributeValue requestImageCustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> requestImageCustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue requestImageCustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
     .build();
+requestImageCustomAttributeValues.put("",requestImageCustomAttributeValues0);
+
+CatalogCustomAttributeValue requestImageCustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .build();
+requestImageCustomAttributeValues.put("",requestImageCustomAttributeValues1);
+
 List<CatalogV1Id> requestImageCatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id requestImageCatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -473,6 +612,7 @@ CatalogImage requestImageImageData = new CatalogImage.Builder()
     .name("name0")
     .url("url4")
     .caption("A picture of a cup of coffee")
+    .photoStudioOrderId("photo_studio_order_id2")
     .build();
 CatalogObject requestImage = new CatalogObject.Builder(
         "IMAGE",
@@ -488,10 +628,55 @@ CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
         "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
         requestImage)
     .objectId("ND6EA5AAJEO5WL3JNNIAQA32")
+    .isPrimary(false)
     .build();
 FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
 
 catalogApi.createCatalogImageAsync(request, imageFile).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Update Catalog Image
+
+Uploads a new image file to replace the existing one in the specified [CatalogImage](/doc/models/catalog-image.md) object.
+
+This `UpdateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+
+```java
+CompletableFuture<UpdateCatalogImageResponse> updateCatalogImageAsync(
+    final String imageId,
+    final UpdateCatalogImageRequest request,
+    final FileWrapper imageFile)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `imageId` | `String` | Template, Required | The ID of the `CatalogImage` object to update the encapsulated image file. |
+| `request` | [`UpdateCatalogImageRequest`](/doc/models/update-catalog-image-request.md) | Form, Optional | - |
+| `imageFile` | `FileWrapper` | Form, Optional | - |
+
+## Response Type
+
+[`UpdateCatalogImageResponse`](/doc/models/update-catalog-image-response.md)
+
+## Example Usage
+
+```java
+String imageId = "image_id4";
+UpdateCatalogImageRequest request = new UpdateCatalogImageRequest.Builder(
+        "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86")
+    .build();
+FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
+
+catalogApi.updateCatalogImageAsync(imageId, request, imageFile).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -527,11 +712,10 @@ catalogApi.catalogInfoAsync().thenAccept(result -> {
 
 # List Catalog
 
-Returns a list of [CatalogObject](/doc/models/catalog-object.md)s that includes
-all objects of a set of desired types (for example, all [CatalogItem](/doc/models/catalog-item.md)
-and [CatalogTax](/doc/models/catalog-tax.md) objects) in the catalog. The `types` parameter
-is specified as a comma-separated list of valid [CatalogObject](/doc/models/catalog-object.md) types:
-`ITEM`, `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`.
+Returns a list of all [CatalogObject](/doc/models/catalog-object.md)s of the specified types in the catalog.
+
+The `types` parameter is specified as a comma-separated list of the [CatalogObjectType](/doc/models/catalog-object-type.md) values,
+for example, "`ITEM`, `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`, `IMAGE`".
 
 __Important:__ ListCatalog does not return deleted catalog items. To retrieve
 deleted catalog items, use [SearchCatalogObjects](/doc/api/catalog.md#search-catalog-objects)
@@ -549,8 +733,8 @@ CompletableFuture<ListCatalogResponse> listCatalogAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `cursor` | `String` | Query, Optional | The pagination cursor returned in the previous response. Leave unset for an initial request.<br>The page size is currently set to be 100.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
-| `types` | `String` | Query, Optional | An optional case-insensitive, comma-separated list of object types to retrieve.<br><br>The valid values are defined in the [CatalogObjectType](/doc/models/catalog-object-type.md) enum, including<br>`ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,<br>`MODIFIER`, `MODIFIER_LIST`, or `IMAGE`.<br><br>If this is unspecified, the operation returns objects of all the types at the version of the Square API used to make the request. |
-| `catalogVersion` | `Long` | Query, Optional | The specific version of the catalog objects to be included in the response.<br>This allows you to retrieve historical<br>versions of objects. The specified version value is matched against<br>the [CatalogObject](/doc/models/catalog-object.md)s' `version` attribute. |
+| `types` | `String` | Query, Optional | An optional case-insensitive, comma-separated list of object types to retrieve.<br><br>The valid values are defined in the [CatalogObjectType](/doc/models/catalog-object-type.md) enum, for example,<br>`ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,<br>`MODIFIER`, `MODIFIER_LIST`, `IMAGE`, etc.<br><br>If this is unspecified, the operation returns objects of all the top level types at the version<br>of the Square API used to make the request. Object types that are nested onto other object types<br>are not included in the defaults.<br><br>At the current API version the default object types are:<br>ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST, DINING_OPTION, TAX_EXEMPTION,<br>SERVICE_CHARGE, PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,<br>SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS. |
+| `catalogVersion` | `Long` | Query, Optional | The specific version of the catalog objects to be included in the response.<br>This allows you to retrieve historical<br>versions of objects. The specified version value is matched against<br>the [CatalogObject](/doc/models/catalog-object.md)s' `version` attribute.  If not included, results will<br>be from the current version of the catalog. |
 
 ## Response Type
 
@@ -594,8 +778,20 @@ CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
 ## Example Usage
 
 ```java
-CatalogCustomAttributeValue bodyObjectCustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyObjectCustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyObjectCustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
     .build();
+bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyObjectCustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .build();
+bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues1);
+
+CatalogCustomAttributeValue bodyObjectCustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
+    .build();
+bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues2);
+
 List<CatalogV1Id> bodyObjectCatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyObjectCatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -618,8 +814,26 @@ bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids2);
 
 List<CatalogObject> bodyObjectItemDataVariations = new LinkedList<>();
 
-CatalogCustomAttributeValue bodyObjectItemDataVariations0CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyObjectItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyObjectItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name4")
+    .stringValue("string_value8")
+    .customAttributeDefinitionId("custom_attribute_definition_id8")
+    .type("NUMBER")
+    .numberValue("number_value4")
     .build();
+bodyObjectItemDataVariations0CustomAttributeValues.put("key0",bodyObjectItemDataVariations0CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyObjectItemDataVariations0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name5")
+    .stringValue("string_value9")
+    .customAttributeDefinitionId("custom_attribute_definition_id7")
+    .type("BOOLEAN")
+    .numberValue("number_value5")
+    .build();
+bodyObjectItemDataVariations0CustomAttributeValues.put("key1",bodyObjectItemDataVariations0CustomAttributeValues1);
+
 List<CatalogV1Id> bodyObjectItemDataVariations0CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyObjectItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -648,8 +862,35 @@ CatalogObject bodyObjectItemDataVariations0 = new CatalogObject.Builder(
     .build();
 bodyObjectItemDataVariations.add(bodyObjectItemDataVariations0);
 
-CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues = new CatalogCustomAttributeValue.Builder()
+Map<String, CatalogCustomAttributeValue> bodyObjectItemDataVariations1CustomAttributeValues = new LinkedHashMap<>();
+
+CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
+    .name("name5")
+    .stringValue("string_value9")
+    .customAttributeDefinitionId("custom_attribute_definition_id7")
+    .type("BOOLEAN")
+    .numberValue("number_value5")
     .build();
+bodyObjectItemDataVariations1CustomAttributeValues.put("key0",bodyObjectItemDataVariations1CustomAttributeValues0);
+
+CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
+    .name("name6")
+    .stringValue("string_value0")
+    .customAttributeDefinitionId("custom_attribute_definition_id6")
+    .type("STRING")
+    .numberValue("number_value6")
+    .build();
+bodyObjectItemDataVariations1CustomAttributeValues.put("key1",bodyObjectItemDataVariations1CustomAttributeValues1);
+
+CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
+    .name("name7")
+    .stringValue("string_value1")
+    .customAttributeDefinitionId("custom_attribute_definition_id5")
+    .type("SELECTION")
+    .numberValue("number_value7")
+    .build();
+bodyObjectItemDataVariations1CustomAttributeValues.put("key2",bodyObjectItemDataVariations1CustomAttributeValues2);
+
 List<CatalogV1Id> bodyObjectItemDataVariations1CatalogV1Ids = new LinkedList<>();
 
 CatalogV1Id bodyObjectItemDataVariations1CatalogV1Ids0 = new CatalogV1Id.Builder()
@@ -787,8 +1028,8 @@ CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `objectId` | `String` | Template, Required | The object ID of any type of catalog objects to be retrieved. |
-| `includeRelatedObjects` | `Boolean` | Query, Optional | If `true`, the response will include additional objects that are related to the<br>requested object, as follows:<br><br>If the `object` field of the response contains a `CatalogItem`, its associated<br>`CatalogCategory`, `CatalogTax`, `CatalogImage` and `CatalogModifierList` objects will<br>be returned in the `related_objects` field of the response. If the `object` field of<br>the response contains a `CatalogItemVariation`, its parent `CatalogItem` will be returned<br>in the `related_objects` field of the response.<br><br>Default value: `false`<br>**Default**: `false` |
-| `catalogVersion` | `Long` | Query, Optional | Requests objects as of a specific version of the catalog. This allows you to retrieve historical<br>versions of objects. The value to retrieve a specific version of an object can be found<br>in the version field of [CatalogObject](/doc/models/catalog-object.md)s. |
+| `includeRelatedObjects` | `Boolean` | Query, Optional | If `true`, the response will include additional objects that are related to the<br>requested objects. Related objects are defined as any objects referenced by ID by the results in the `objects` field<br>of the response. These objects are put in the `related_objects` field. Setting this to `true` is<br>helpful when the objects are needed for immediate display to a user.<br>This process only goes one level deep. Objects referenced by the related objects will not be included. For example,<br><br>if the `objects` field of the response contains a CatalogItem, its associated<br>CatalogCategory objects, CatalogTax objects, CatalogImage objects and<br>CatalogModifierLists will be returned in the `related_objects` field of the<br>response. If the `objects` field of the response contains a CatalogItemVariation,<br>its parent CatalogItem will be returned in the `related_objects` field of<br>the response.<br><br>Default value: `false`<br>**Default**: `false` |
+| `catalogVersion` | `Long` | Query, Optional | Requests objects as of a specific version of the catalog. This allows you to retrieve historical<br>versions of objects. The value to retrieve a specific version of an object can be found<br>in the version field of [CatalogObject](/doc/models/catalog-object.md)s. If not included, results will<br>be from the current version of the catalog. |
 
 ## Response Type
 

@@ -17,21 +17,26 @@ public class CatalogImage {
     private final String url;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String caption;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String photoStudioOrderId;
 
     /**
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  url  String value for url.
      * @param  caption  String value for caption.
+     * @param  photoStudioOrderId  String value for photoStudioOrderId.
      */
     @JsonCreator
     public CatalogImage(
             @JsonProperty("name") String name,
             @JsonProperty("url") String url,
-            @JsonProperty("caption") String caption) {
+            @JsonProperty("caption") String caption,
+            @JsonProperty("photo_studio_order_id") String photoStudioOrderId) {
         this.name = name;
         this.url = url;
         this.caption = caption;
+        this.photoStudioOrderId = photoStudioOrderId;
     }
 
     /**
@@ -71,9 +76,20 @@ public class CatalogImage {
         return caption;
     }
 
+    /**
+     * Getter for PhotoStudioOrderId.
+     * The immutable order ID for this image object created by the Photo Studio service in Square
+     * Online Store.
+     * @return Returns the String
+     */
+    @JsonGetter("photo_studio_order_id")
+    public String getPhotoStudioOrderId() {
+        return photoStudioOrderId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, url, caption);
+        return Objects.hash(name, url, caption, photoStudioOrderId);
     }
 
     @Override
@@ -87,7 +103,8 @@ public class CatalogImage {
         CatalogImage other = (CatalogImage) obj;
         return Objects.equals(name, other.name)
             && Objects.equals(url, other.url)
-            && Objects.equals(caption, other.caption);
+            && Objects.equals(caption, other.caption)
+            && Objects.equals(photoStudioOrderId, other.photoStudioOrderId);
     }
 
     /**
@@ -96,7 +113,8 @@ public class CatalogImage {
      */
     @Override
     public String toString() {
-        return "CatalogImage [" + "name=" + name + ", url=" + url + ", caption=" + caption + "]";
+        return "CatalogImage [" + "name=" + name + ", url=" + url + ", caption=" + caption
+                + ", photoStudioOrderId=" + photoStudioOrderId + "]";
     }
 
     /**
@@ -108,7 +126,8 @@ public class CatalogImage {
         Builder builder = new Builder()
                 .name(getName())
                 .url(getUrl())
-                .caption(getCaption());
+                .caption(getCaption())
+                .photoStudioOrderId(getPhotoStudioOrderId());
         return builder;
     }
 
@@ -119,6 +138,7 @@ public class CatalogImage {
         private String name;
         private String url;
         private String caption;
+        private String photoStudioOrderId;
 
 
 
@@ -153,11 +173,21 @@ public class CatalogImage {
         }
 
         /**
+         * Setter for photoStudioOrderId.
+         * @param  photoStudioOrderId  String value for photoStudioOrderId.
+         * @return Builder
+         */
+        public Builder photoStudioOrderId(String photoStudioOrderId) {
+            this.photoStudioOrderId = photoStudioOrderId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogImage} object using the set fields.
          * @return {@link CatalogImage}
          */
         public CatalogImage build() {
-            return new CatalogImage(name, url, caption);
+            return new CatalogImage(name, url, caption, photoStudioOrderId);
         }
     }
 }

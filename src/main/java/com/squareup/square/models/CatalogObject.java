@@ -32,8 +32,6 @@ public class CatalogObject {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> absentAtLocationIds;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String imageId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItem itemData;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCategory categoryData;
@@ -80,7 +78,6 @@ public class CatalogObject {
      * @param  presentAtAllLocations  Boolean value for presentAtAllLocations.
      * @param  presentAtLocationIds  List of String value for presentAtLocationIds.
      * @param  absentAtLocationIds  List of String value for absentAtLocationIds.
-     * @param  imageId  String value for imageId.
      * @param  itemData  CatalogItem value for itemData.
      * @param  categoryData  CatalogCategory value for categoryData.
      * @param  itemVariationData  CatalogItemVariation value for itemVariationData.
@@ -113,7 +110,6 @@ public class CatalogObject {
             @JsonProperty("present_at_all_locations") Boolean presentAtAllLocations,
             @JsonProperty("present_at_location_ids") List<String> presentAtLocationIds,
             @JsonProperty("absent_at_location_ids") List<String> absentAtLocationIds,
-            @JsonProperty("image_id") String imageId,
             @JsonProperty("item_data") CatalogItem itemData,
             @JsonProperty("category_data") CatalogCategory categoryData,
             @JsonProperty("item_variation_data") CatalogItemVariation itemVariationData,
@@ -141,7 +137,6 @@ public class CatalogObject {
         this.presentAtAllLocations = presentAtAllLocations;
         this.presentAtLocationIds = presentAtLocationIds;
         this.absentAtLocationIds = absentAtLocationIds;
-        this.imageId = imageId;
         this.itemData = itemData;
         this.categoryData = categoryData;
         this.itemVariationData = itemVariationData;
@@ -290,16 +285,6 @@ public class CatalogObject {
     @JsonGetter("absent_at_location_ids")
     public List<String> getAbsentAtLocationIds() {
         return absentAtLocationIds;
-    }
-
-    /**
-     * Getter for ImageId.
-     * Identifies the `CatalogImage` attached to this `CatalogObject`.
-     * @return Returns the String
-     */
-    @JsonGetter("image_id")
-    public String getImageId() {
-        return imageId;
     }
 
     /**
@@ -498,10 +483,10 @@ public class CatalogObject {
     public int hashCode() {
         return Objects.hash(type, id, updatedAt, version, isDeleted, customAttributeValues,
                 catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds,
-                imageId, itemData, categoryData, itemVariationData, taxData, discountData,
-                modifierListData, modifierData, timePeriodData, productSetData, pricingRuleData,
-                imageData, measurementUnitData, subscriptionPlanData, itemOptionData,
-                itemOptionValueData, customAttributeDefinitionData, quickAmountsSettingsData);
+                itemData, categoryData, itemVariationData, taxData, discountData, modifierListData,
+                modifierData, timePeriodData, productSetData, pricingRuleData, imageData,
+                measurementUnitData, subscriptionPlanData, itemOptionData, itemOptionValueData,
+                customAttributeDefinitionData, quickAmountsSettingsData);
     }
 
     @Override
@@ -523,7 +508,6 @@ public class CatalogObject {
             && Objects.equals(presentAtAllLocations, other.presentAtAllLocations)
             && Objects.equals(presentAtLocationIds, other.presentAtLocationIds)
             && Objects.equals(absentAtLocationIds, other.absentAtLocationIds)
-            && Objects.equals(imageId, other.imageId)
             && Objects.equals(itemData, other.itemData)
             && Objects.equals(categoryData, other.categoryData)
             && Objects.equals(itemVariationData, other.itemVariationData)
@@ -554,8 +538,8 @@ public class CatalogObject {
                 + customAttributeValues + ", catalogV1Ids=" + catalogV1Ids
                 + ", presentAtAllLocations=" + presentAtAllLocations + ", presentAtLocationIds="
                 + presentAtLocationIds + ", absentAtLocationIds=" + absentAtLocationIds
-                + ", imageId=" + imageId + ", itemData=" + itemData + ", categoryData="
-                + categoryData + ", itemVariationData=" + itemVariationData + ", taxData=" + taxData
+                + ", itemData=" + itemData + ", categoryData=" + categoryData
+                + ", itemVariationData=" + itemVariationData + ", taxData=" + taxData
                 + ", discountData=" + discountData + ", modifierListData=" + modifierListData
                 + ", modifierData=" + modifierData + ", timePeriodData=" + timePeriodData
                 + ", productSetData=" + productSetData + ", pricingRuleData=" + pricingRuleData
@@ -581,7 +565,6 @@ public class CatalogObject {
                 .presentAtAllLocations(getPresentAtAllLocations())
                 .presentAtLocationIds(getPresentAtLocationIds())
                 .absentAtLocationIds(getAbsentAtLocationIds())
-                .imageId(getImageId())
                 .itemData(getItemData())
                 .categoryData(getCategoryData())
                 .itemVariationData(getItemVariationData())
@@ -616,7 +599,6 @@ public class CatalogObject {
         private Boolean presentAtAllLocations;
         private List<String> presentAtLocationIds;
         private List<String> absentAtLocationIds;
-        private String imageId;
         private CatalogItem itemData;
         private CatalogCategory categoryData;
         private CatalogItemVariation itemVariationData;
@@ -743,16 +725,6 @@ public class CatalogObject {
          */
         public Builder absentAtLocationIds(List<String> absentAtLocationIds) {
             this.absentAtLocationIds = absentAtLocationIds;
-            return this;
-        }
-
-        /**
-         * Setter for imageId.
-         * @param  imageId  String value for imageId.
-         * @return Builder
-         */
-        public Builder imageId(String imageId) {
-            this.imageId = imageId;
             return this;
         }
 
@@ -937,7 +909,7 @@ public class CatalogObject {
         public CatalogObject build() {
             return new CatalogObject(type, id, updatedAt, version, isDeleted, customAttributeValues,
                     catalogV1Ids, presentAtAllLocations, presentAtLocationIds, absentAtLocationIds,
-                    imageId, itemData, categoryData, itemVariationData, taxData, discountData,
+                    itemData, categoryData, itemVariationData, taxData, discountData,
                     modifierListData, modifierData, timePeriodData, productSetData, pricingRuleData,
                     imageData, measurementUnitData, subscriptionPlanData, itemOptionData,
                     itemOptionValueData, customAttributeDefinitionData, quickAmountsSettingsData);

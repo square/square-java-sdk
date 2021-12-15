@@ -18,11 +18,8 @@ LocationsApi locationsApi = client.getLocationsApi();
 
 # List Locations
 
-Provides information of all locations of a business.
-
-Many Square API endpoints require a `location_id` parameter.
-The `id` field of the [`Location`](/doc/models/location.md) objects returned by this
-endpoint correspond to that `location_id` parameter.
+Provides details about all of the seller's locations,
+including those with an inactive status.
 
 ```java
 CompletableFuture<ListLocationsResponse> listLocationsAsync()
@@ -46,7 +43,13 @@ locationsApi.listLocationsAsync().thenAccept(result -> {
 
 # Create Location
 
-Creates a location.
+Creates a [location](https://developer.squareup.com/docs/locations-api).
+Creating new locations allows for separate configuration of receipt layouts, item prices,
+and sales reports. Developers can use locations to separate sales activity via applications
+that integrate with Square from sales activity elsewhere in a seller's account.
+Locations created programmatically with the Locations API will last forever and
+are visible to the seller for their own management, so ensure that
+each location has a sensible and unique name.
 
 ```java
 CompletableFuture<CreateLocationResponse> createLocationAsync(
@@ -103,9 +106,8 @@ locationsApi.createLocationAsync(body).thenAccept(result -> {
 
 # Retrieve Location
 
-Retrieves details of a location. You can specify "main"
-as the location ID to retrieve details of the
-main location.
+Retrieves details of a single location. Specify "main"
+as the location ID to retrieve details of the [main location](https://developer.squareup.com/docs/locations-api#about-the-main-location).
 
 ```java
 CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
@@ -116,7 +118,7 @@ CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the location to retrieve. If you specify the string "main",<br>then the endpoint returns the main location. |
+| `locationId` | `String` | Template, Required | The ID of the location to retrieve. Specify the string<br>"main" to return the main location. |
 
 ## Response Type
 

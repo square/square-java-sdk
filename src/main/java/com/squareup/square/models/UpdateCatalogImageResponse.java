@@ -11,26 +11,26 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RetrieveLocationResponse type.
+ * This is a model class for UpdateCatalogImageResponse type.
  */
-public class RetrieveLocationResponse {
+public class UpdateCatalogImageResponse {
     private HttpContext httpContext;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Location location;
+    private final CatalogObject image;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
-     * @param  location  Location value for location.
+     * @param  image  CatalogObject value for image.
      */
     @JsonCreator
-    public RetrieveLocationResponse(
+    public UpdateCatalogImageResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("location") Location location) {
+            @JsonProperty("image") CatalogObject image) {
         this.errors = errors;
-        this.location = location;
+        this.image = image;
     }
 
     @JsonIgnore
@@ -40,7 +40,7 @@ public class RetrieveLocationResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Any errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -49,19 +49,27 @@ public class RetrieveLocationResponse {
     }
 
     /**
-     * Getter for Location.
-     * Represents one of a business's
-     * [locations](https://developer.squareup.com/docs/locations-api).
-     * @return Returns the Location
+     * Getter for Image.
+     * The wrapper object for the catalog entries of a given object type. Depending on the `type`
+     * attribute value, a `CatalogObject` instance assumes a type-specific data to yield the
+     * corresponding type of catalog object. For example, if `type=ITEM`, the `CatalogObject`
+     * instance must have the ITEM-specific data set on the `item_data` attribute. The resulting
+     * `CatalogObject` instance is also a `CatalogItem` instance. In general, if
+     * `type=&lt;OBJECT_TYPE&gt;`, the `CatalogObject` instance must have the `&lt;OBJECT_TYPE&gt;`-specific
+     * data set on the `&lt;object_type&gt;_data` attribute. The resulting `CatalogObject` instance is
+     * also a `Catalog&lt;ObjectType&gt;` instance. For a more detailed discussion of the Catalog data
+     * model, please see the [Design a
+     * Catalog](https://developer.squareup.com/docs/catalog-api/design-a-catalog) guide.
+     * @return Returns the CatalogObject
      */
-    @JsonGetter("location")
-    public Location getLocation() {
-        return location;
+    @JsonGetter("image")
+    public CatalogObject getImage() {
+        return image;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(errors, location);
+        return Objects.hash(errors, image);
     }
 
     @Override
@@ -69,42 +77,42 @@ public class RetrieveLocationResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RetrieveLocationResponse)) {
+        if (!(obj instanceof UpdateCatalogImageResponse)) {
             return false;
         }
-        RetrieveLocationResponse other = (RetrieveLocationResponse) obj;
+        UpdateCatalogImageResponse other = (UpdateCatalogImageResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(location, other.location);
+            && Objects.equals(image, other.image);
     }
 
     /**
-     * Converts this RetrieveLocationResponse into string format.
+     * Converts this UpdateCatalogImageResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RetrieveLocationResponse [" + "errors=" + errors + ", location=" + location + "]";
+        return "UpdateCatalogImageResponse [" + "errors=" + errors + ", image=" + image + "]";
     }
 
     /**
-     * Builds a new {@link RetrieveLocationResponse.Builder} object.
+     * Builds a new {@link UpdateCatalogImageResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RetrieveLocationResponse.Builder} object
+     * @return a new {@link UpdateCatalogImageResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .location(getLocation());
+                .image(getImage());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveLocationResponse}.
+     * Class to build instances of {@link UpdateCatalogImageResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
         private List<Error> errors;
-        private Location location;
+        private CatalogObject image;
 
 
 
@@ -129,22 +137,22 @@ public class RetrieveLocationResponse {
         }
 
         /**
-         * Setter for location.
-         * @param  location  Location value for location.
+         * Setter for image.
+         * @param  image  CatalogObject value for image.
          * @return Builder
          */
-        public Builder location(Location location) {
-            this.location = location;
+        public Builder image(CatalogObject image) {
+            this.image = image;
             return this;
         }
 
         /**
-         * Builds a new {@link RetrieveLocationResponse} object using the set fields.
-         * @return {@link RetrieveLocationResponse}
+         * Builds a new {@link UpdateCatalogImageResponse} object using the set fields.
+         * @return {@link UpdateCatalogImageResponse}
          */
-        public RetrieveLocationResponse build() {
-            RetrieveLocationResponse model =
-                    new RetrieveLocationResponse(errors, location);
+        public UpdateCatalogImageResponse build() {
+            UpdateCatalogImageResponse model =
+                    new UpdateCatalogImageResponse(errors, image);
             model.httpContext = httpContext;
             return model;
         }

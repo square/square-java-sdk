@@ -107,8 +107,16 @@ CompletableFuture<BulkCreateTeamMembersResponse> bulkCreateTeamMembersAsync(
 ## Example Usage
 
 ```java
-CreateTeamMemberRequest bodyTeamMembers = new CreateTeamMemberRequest.Builder()
+Map<String, CreateTeamMemberRequest> bodyTeamMembers = new LinkedHashMap<>();
+
+CreateTeamMemberRequest bodyTeamMembers0 = new CreateTeamMemberRequest.Builder()
     .build();
+bodyTeamMembers.put("",bodyTeamMembers0);
+
+CreateTeamMemberRequest bodyTeamMembers1 = new CreateTeamMemberRequest.Builder()
+    .build();
+bodyTeamMembers.put("",bodyTeamMembers1);
+
 BulkCreateTeamMembersRequest body = new BulkCreateTeamMembersRequest.Builder(
         bodyTeamMembers)
     .build();
@@ -148,8 +156,16 @@ CompletableFuture<BulkUpdateTeamMembersResponse> bulkUpdateTeamMembersAsync(
 ## Example Usage
 
 ```java
-UpdateTeamMemberRequest bodyTeamMembers = new UpdateTeamMemberRequest.Builder()
+Map<String, UpdateTeamMemberRequest> bodyTeamMembers = new LinkedHashMap<>();
+
+UpdateTeamMemberRequest bodyTeamMembers0 = new UpdateTeamMemberRequest.Builder()
     .build();
+bodyTeamMembers.put("",bodyTeamMembers0);
+
+UpdateTeamMemberRequest bodyTeamMembers1 = new UpdateTeamMemberRequest.Builder()
+    .build();
+bodyTeamMembers.put("",bodyTeamMembers1);
+
 BulkUpdateTeamMembersRequest body = new BulkUpdateTeamMembersRequest.Builder(
         bodyTeamMembers)
     .build();
