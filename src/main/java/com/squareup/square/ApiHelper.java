@@ -260,7 +260,7 @@ public class ApiHelper {
                         "%s%s%s", '/');
             } else {
                 if (shouldEncode) {
-                    replaceValue = tryUrlEncode(element.toString());
+                    replaceValue = tryUrlEncode(element.toString(), false);
                 } else {
                     replaceValue = element.toString();
                 }
@@ -411,7 +411,7 @@ public class ApiHelper {
                 
             hasParam = true;
             // Load element value as string
-            paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString()));
+            paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString(), false));
             objBuilder.append(paramKeyValPair);
 
         }
@@ -444,7 +444,7 @@ public class ApiHelper {
                 elemValue = element.toString();
             }
             if (encode) {
-                elemValue = tryUrlEncode(elemValue);
+                elemValue = tryUrlEncode(elemValue, false);
             }
             builder.append(String.format(fmt, elemName, elemValue, separator));
         }
@@ -460,11 +460,16 @@ public class ApiHelper {
     /**
      * Tries URL encode using UTF-8.
      * @param value The value to URL encode.
-     * @return
+     * @param spaceAsPercentEncoded The flag get space character as percent encoded.
+     * @return Encoded url.
      */
-    private static String tryUrlEncode(String value) {
+    public static String tryUrlEncode(String value, boolean spaceAsPercentEncoded) {
         try {
-            return URLEncoder.encode(value, "UTF-8");
+            String encodedUrl = URLEncoder.encode(value, "UTF-8");
+            if (spaceAsPercentEncoded) {
+                return encodedUrl.replace("+", "%20");
+            }
+            return encodedUrl;
         } catch (UnsupportedEncodingException ex) {
             return value;
         }
@@ -514,7 +519,8 @@ public class ApiHelper {
         }
 
         // Wrapper types are autoboxed, so reference checking is not needed
-        if (!isWrapperType(obj.getClass())) {
+        Class<?> clazz = obj.getClass();
+        if (!isWrapperType(clazz)) {
             // Avoid infinite recursion
             if (processed.contains(objName.hashCode())) {
                 return;
@@ -541,7 +547,6 @@ public class ApiHelper {
         } else {
             // Process objects
             // Invoke getter methods
-            Class<?> clazz = obj.getClass();
             while (clazz != null) {
                 for (Method method : clazz.getDeclaredMethods()) {
 

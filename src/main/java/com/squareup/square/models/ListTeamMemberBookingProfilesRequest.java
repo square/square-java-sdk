@@ -52,7 +52,7 @@ public class ListTeamMemberBookingProfilesRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of results to return.
+     * The maximum number of results to return in a paged response.
      * @return Returns the Integer
      */
     @JsonGetter("limit")
@@ -62,7 +62,8 @@ public class ListTeamMemberBookingProfilesRequest {
 
     /**
      * Getter for Cursor.
-     * The cursor for paginating through the results.
+     * The pagination cursor from the preceding response to return the next page of the results. Do
+     * not set this when retrieving the first page of the results.
      * @return Returns the String
      */
     @JsonGetter("cursor")

@@ -339,7 +339,7 @@ CompletableFuture<V1Refund> createRefundAsync(
 
 ```java
 String locationId = "location_id4";
-V1Money bodyRefundedMoney = new V1Money.Builder()
+V1Money v1Money = new V1Money.Builder()
     .amount(222)
     .currencyCode("CLF")
     .build();

@@ -56,7 +56,8 @@ public class ListTeamMemberBookingProfilesResponse {
 
     /**
      * Getter for Cursor.
-     * The cursor for paginating through the results.
+     * The pagination cursor to be used in the subsequent request to get the next page of the
+     * results. Stop retrieving the next page of the results when the cursor is not set.
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -66,7 +67,7 @@ public class ListTeamMemberBookingProfilesResponse {
 
     /**
      * Getter for Errors.
-     * Any errors that occurred during the request.
+     * Errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

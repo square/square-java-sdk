@@ -80,7 +80,7 @@ CompletableFuture<CreateDeviceCodeResponse> createDeviceCodeAsync(
 ## Example Usage
 
 ```java
-DeviceCode bodyDeviceCode = new DeviceCode.Builder(
+DeviceCode deviceCode = new DeviceCode.Builder(
         null)
     .id("id0")
     .name("Counter 1")

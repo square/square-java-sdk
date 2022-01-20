@@ -24,6 +24,8 @@ public class Merchant {
     private final String status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String mainLocationId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String createdAt;
 
     /**
      * Initialization constructor.
@@ -34,6 +36,7 @@ public class Merchant {
      * @param  currency  String value for currency.
      * @param  status  String value for status.
      * @param  mainLocationId  String value for mainLocationId.
+     * @param  createdAt  String value for createdAt.
      */
     @JsonCreator
     public Merchant(
@@ -43,7 +46,8 @@ public class Merchant {
             @JsonProperty("language_code") String languageCode,
             @JsonProperty("currency") String currency,
             @JsonProperty("status") String status,
-            @JsonProperty("main_location_id") String mainLocationId) {
+            @JsonProperty("main_location_id") String mainLocationId,
+            @JsonProperty("created_at") String createdAt) {
         this.id = id;
         this.businessName = businessName;
         this.country = country;
@@ -51,6 +55,7 @@ public class Merchant {
         this.currency = currency;
         this.status = status;
         this.mainLocationId = mainLocationId;
+        this.createdAt = createdAt;
     }
 
     /**
@@ -124,10 +129,21 @@ public class Merchant {
         return mainLocationId;
     }
 
+    /**
+     * Getter for CreatedAt.
+     * The time when the merchant was created, in RFC 3339 format. For more information, see
+     * [Working with Dates](https://developer.squareup.com/docs/build-basics/working-with-dates).
+     * @return Returns the String
+     */
+    @JsonGetter("created_at")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, businessName, country, languageCode, currency, status,
-                mainLocationId);
+                mainLocationId, createdAt);
     }
 
     @Override
@@ -145,7 +161,8 @@ public class Merchant {
             && Objects.equals(languageCode, other.languageCode)
             && Objects.equals(currency, other.currency)
             && Objects.equals(status, other.status)
-            && Objects.equals(mainLocationId, other.mainLocationId);
+            && Objects.equals(mainLocationId, other.mainLocationId)
+            && Objects.equals(createdAt, other.createdAt);
     }
 
     /**
@@ -156,7 +173,7 @@ public class Merchant {
     public String toString() {
         return "Merchant [" + "country=" + country + ", id=" + id + ", businessName=" + businessName
                 + ", languageCode=" + languageCode + ", currency=" + currency + ", status=" + status
-                + ", mainLocationId=" + mainLocationId + "]";
+                + ", mainLocationId=" + mainLocationId + ", createdAt=" + createdAt + "]";
     }
 
     /**
@@ -171,7 +188,8 @@ public class Merchant {
                 .languageCode(getLanguageCode())
                 .currency(getCurrency())
                 .status(getStatus())
-                .mainLocationId(getMainLocationId());
+                .mainLocationId(getMainLocationId())
+                .createdAt(getCreatedAt());
         return builder;
     }
 
@@ -186,6 +204,7 @@ public class Merchant {
         private String currency;
         private String status;
         private String mainLocationId;
+        private String createdAt;
 
         /**
          * Initialization constructor.
@@ -266,12 +285,22 @@ public class Merchant {
         }
 
         /**
+         * Setter for createdAt.
+         * @param  createdAt  String value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Merchant} object using the set fields.
          * @return {@link Merchant}
          */
         public Merchant build() {
             return new Merchant(country, id, businessName, languageCode, currency, status,
-                    mainLocationId);
+                    mainLocationId, createdAt);
         }
     }
 }

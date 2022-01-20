@@ -99,7 +99,7 @@ CompletableFuture<CreateCustomerResponse> createCustomerAsync(
 ## Example Usage
 
 ```java
-Address bodyAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
     .addressLine3("address_line_38")
@@ -163,23 +163,23 @@ CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
 ```java
 List<String> bodyQueryFilterCreationSourceValues = new LinkedList<>();
 bodyQueryFilterCreationSourceValues.add("THIRD_PARTY");
-CustomerCreationSourceFilter bodyQueryFilterCreationSource = new CustomerCreationSourceFilter.Builder()
-    .values(bodyQueryFilterCreationSourceValues)
+CustomerCreationSourceFilter customerCreationSourceFilter = new CustomerCreationSourceFilter.Builder()
+    .values(customerCreationSourceFilterValues)
     .rule("INCLUDE")
     .build();
-TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("2018-01-01T00:00:00-00:00")
     .endAt("2018-02-01T00:00:00-00:00")
     .build();
-TimeRange bodyQueryFilterUpdatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at4")
     .endAt("end_at8")
     .build();
-CustomerTextFilter bodyQueryFilterEmailAddress = new CustomerTextFilter.Builder()
+CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
     .exact("exact0")
     .fuzzy("example.com")
     .build();
-CustomerTextFilter bodyQueryFilterPhoneNumber = new CustomerTextFilter.Builder()
+CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
     .exact("exact0")
     .fuzzy("fuzzy6")
     .build();
@@ -192,26 +192,26 @@ bodyQueryFilterGroupIdsAny.add("any2");
 List<String> bodyQueryFilterGroupIdsNone = new LinkedList<>();
 bodyQueryFilterGroupIdsNone.add("none5");
 bodyQueryFilterGroupIdsNone.add("none6");
-FilterValue bodyQueryFilterGroupIds = new FilterValue.Builder()
-    .all(bodyQueryFilterGroupIdsAll)
-    .any(bodyQueryFilterGroupIdsAny)
-    .none(bodyQueryFilterGroupIdsNone)
+FilterValue filterValue = new FilterValue.Builder()
+    .all(filterValueAll)
+    .any(filterValueAny)
+    .none(filterValueNone)
     .build();
-CustomerFilter bodyQueryFilter = new CustomerFilter.Builder()
-    .creationSource(bodyQueryFilterCreationSource)
-    .createdAt(bodyQueryFilterCreatedAt)
-    .updatedAt(bodyQueryFilterUpdatedAt)
-    .emailAddress(bodyQueryFilterEmailAddress)
-    .phoneNumber(bodyQueryFilterPhoneNumber)
-    .groupIds(bodyQueryFilterGroupIds)
+CustomerFilter customerFilter = new CustomerFilter.Builder()
+    .creationSource(customerFilterCreationSource)
+    .createdAt(customerFilterCreatedAt)
+    .updatedAt(customerFilterUpdatedAt)
+    .emailAddress(customerFilterEmailAddress)
+    .phoneNumber(customerFilterPhoneNumber)
+    .groupIds(customerFilterGroupIds)
     .build();
-CustomerSort bodyQuerySort = new CustomerSort.Builder()
+CustomerSort customerSort = new CustomerSort.Builder()
     .field("CREATED_AT")
     .order("ASC")
     .build();
-CustomerQuery bodyQuery = new CustomerQuery.Builder()
-    .filter(bodyQueryFilter)
-    .sort(bodyQuerySort)
+CustomerQuery customerQuery = new CustomerQuery.Builder()
+    .filter(customerQueryFilter)
+    .sort(customerQuerySort)
     .build();
 SearchCustomersRequest body = new SearchCustomersRequest.Builder()
     .cursor("cursor0")
@@ -383,7 +383,7 @@ CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
 
 ```java
 String customerId = "customer_id8";
-Address bodyBillingAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
     .addressLine3("address_line_38")

@@ -212,7 +212,7 @@ CatalogV1Id bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0 = new CatalogV1
     .build();
 bodyBatches0Objects0ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0);
 
-CatalogItemVariation bodyBatches0Objects0ItemDataVariations0ItemVariationData = new CatalogItemVariation.Builder()
+CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Tea")
     .name("Mug")
     .sku("sku9")
@@ -233,15 +233,15 @@ CatalogObject bodyBatches0Objects0ItemDataVariations0 = new CatalogObject.Builde
     .build();
 bodyBatches0Objects0ItemDataVariations.add(bodyBatches0Objects0ItemDataVariations0);
 
-CatalogItem bodyBatches0Objects0ItemData = new CatalogItem.Builder()
+CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Tea")
     .description("Hot Leaf Juice")
     .abbreviation("abbreviation0")
     .labelColor("label_color0")
     .availableOnline(false)
     .categoryId("#Beverages")
-    .taxIds(bodyBatches0Objects0ItemDataTaxIds)
-    .variations(bodyBatches0Objects0ItemDataVariations)
+    .taxIds(catalogItemTaxIds)
+    .variations(catalogItemVariations)
     .build();
 CatalogObject bodyBatches0Objects0 = new CatalogObject.Builder(
         "ITEM",
@@ -310,7 +310,7 @@ CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1 = new CatalogV1
     .build();
 bodyBatches0Objects1ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1);
 
-CatalogItemVariation bodyBatches0Objects1ItemDataVariations0ItemVariationData = new CatalogItemVariation.Builder()
+CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Regular")
     .sku("sku8")
@@ -380,7 +380,7 @@ CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2 = new CatalogV1
     .build();
 bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2);
 
-CatalogItemVariation bodyBatches0Objects1ItemDataVariations1ItemVariationData = new CatalogItemVariation.Builder()
+CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Large")
     .sku("sku7")
@@ -401,15 +401,15 @@ CatalogObject bodyBatches0Objects1ItemDataVariations1 = new CatalogObject.Builde
     .build();
 bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariations1);
 
-CatalogItem bodyBatches0Objects1ItemData = new CatalogItem.Builder()
+CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Coffee")
     .description("Hot Bean Juice")
     .abbreviation("abbreviation9")
     .labelColor("label_color9")
     .availableOnline(true)
     .categoryId("#Beverages")
-    .taxIds(bodyBatches0Objects1ItemDataTaxIds)
-    .variations(bodyBatches0Objects1ItemDataVariations)
+    .taxIds(catalogItemTaxIds)
+    .variations(catalogItemVariations)
     .build();
 CatalogObject bodyBatches0Objects1 = new CatalogObject.Builder(
         "ITEM",
@@ -476,9 +476,9 @@ bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids2);
 List<String> bodyBatches0Objects2CategoryDataImageIds = new LinkedList<>();
 bodyBatches0Objects2CategoryDataImageIds.add("image_ids1");
 bodyBatches0Objects2CategoryDataImageIds.add("image_ids2");
-CatalogCategory bodyBatches0Objects2CategoryData = new CatalogCategory.Builder()
+CatalogCategory catalogCategory = new CatalogCategory.Builder()
     .name("Beverages")
-    .imageIds(bodyBatches0Objects2CategoryDataImageIds)
+    .imageIds(catalogCategoryImageIds)
     .build();
 CatalogObject bodyBatches0Objects2 = new CatalogObject.Builder(
         "CATEGORY",
@@ -521,7 +521,7 @@ CatalogV1Id bodyBatches0Objects3CatalogV1Ids0 = new CatalogV1Id.Builder()
     .build();
 bodyBatches0Objects3CatalogV1Ids.add(bodyBatches0Objects3CatalogV1Ids0);
 
-CatalogTax bodyBatches0Objects3TaxData = new CatalogTax.Builder()
+CatalogTax catalogTax = new CatalogTax.Builder()
     .name("Sales Tax")
     .calculationPhase("TAX_SUBTOTAL_PHASE")
     .inclusionType("ADDITIVE")
@@ -608,21 +608,21 @@ CatalogV1Id requestImageCatalogV1Ids0 = new CatalogV1Id.Builder()
     .build();
 requestImageCatalogV1Ids.add(requestImageCatalogV1Ids0);
 
-CatalogImage requestImageImageData = new CatalogImage.Builder()
+CatalogImage catalogImage = new CatalogImage.Builder()
     .name("name0")
     .url("url4")
     .caption("A picture of a cup of coffee")
     .photoStudioOrderId("photo_studio_order_id2")
     .build();
-CatalogObject requestImage = new CatalogObject.Builder(
+CatalogObject catalogObject = new CatalogObject.Builder(
         "IMAGE",
         "#TEMP_ID")
     .updatedAt("updated_at4")
     .version(68L)
     .isDeleted(false)
-    .customAttributeValues(requestImageCustomAttributeValues)
-    .catalogV1Ids(requestImageCatalogV1Ids)
-    .imageData(requestImageImageData)
+    .customAttributeValues(catalogObjectCustomAttributeValues)
+    .catalogV1Ids(catalogObjectCatalogV1Ids)
+    .imageData(catalogObjectImageData)
     .build();
 CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
         "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
@@ -842,7 +842,7 @@ CatalogV1Id bodyObjectItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder
     .build();
 bodyObjectItemDataVariations0CatalogV1Ids.add(bodyObjectItemDataVariations0CatalogV1Ids0);
 
-CatalogItemVariation bodyObjectItemDataVariations0ItemVariationData = new CatalogItemVariation.Builder()
+CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Cocoa")
     .name("Small")
     .sku("sku3")
@@ -911,18 +911,18 @@ CatalogV1Id bodyObjectItemDataVariations1CatalogV1Ids2 = new CatalogV1Id.Builder
     .build();
 bodyObjectItemDataVariations1CatalogV1Ids.add(bodyObjectItemDataVariations1CatalogV1Ids2);
 
-Money bodyObjectItemDataVariations1ItemVariationDataPriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(400L)
     .currency("USD")
     .build();
-CatalogItemVariation bodyObjectItemDataVariations1ItemVariationData = new CatalogItemVariation.Builder()
+CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Cocoa")
     .name("Large")
     .sku("sku4")
     .upc("upc2")
     .ordinal(118)
     .pricingType("FIXED_PRICING")
-    .priceMoney(bodyObjectItemDataVariations1ItemVariationDataPriceMoney)
+    .priceMoney(catalogItemVariationPriceMoney)
     .build();
 CatalogObject bodyObjectItemDataVariations1 = new CatalogObject.Builder(
         "ITEM_VARIATION",
@@ -936,23 +936,23 @@ CatalogObject bodyObjectItemDataVariations1 = new CatalogObject.Builder(
     .build();
 bodyObjectItemDataVariations.add(bodyObjectItemDataVariations1);
 
-CatalogItem bodyObjectItemData = new CatalogItem.Builder()
+CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Cocoa")
     .description("Hot Chocolate")
     .abbreviation("Ch")
     .labelColor("label_color4")
     .availableOnline(false)
-    .variations(bodyObjectItemDataVariations)
+    .variations(catalogItemVariations)
     .build();
-CatalogObject bodyObject = new CatalogObject.Builder(
+CatalogObject catalogObject = new CatalogObject.Builder(
         "ITEM",
         "#Cocoa")
     .updatedAt("updated_at8")
     .version(252L)
     .isDeleted(false)
-    .customAttributeValues(bodyObjectCustomAttributeValues)
-    .catalogV1Ids(bodyObjectCatalogV1Ids)
-    .itemData(bodyObjectItemData)
+    .customAttributeValues(catalogObjectCustomAttributeValues)
+    .catalogV1Ids(catalogObjectCatalogV1Ids)
+    .itemData(catalogObjectItemData)
     .build();
 UpsertCatalogObjectRequest body = new UpsertCatalogObjectRequest.Builder(
         "af3d1afc-7212-4300-b463-0bfc5314a5ae",
@@ -1084,36 +1084,36 @@ CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
 ```java
 List<String> bodyObjectTypes = new LinkedList<>();
 bodyObjectTypes.add("ITEM");
-CatalogQuerySortedAttribute bodyQuerySortedAttributeQuery = new CatalogQuerySortedAttribute.Builder(
+CatalogQuerySortedAttribute catalogQuerySortedAttribute = new CatalogQuerySortedAttribute.Builder(
         "attribute_name6")
     .initialAttributeValue("initial_attribute_value4")
     .sortOrder("DESC")
     .build();
-CatalogQueryExact bodyQueryExactQuery = new CatalogQueryExact.Builder(
+CatalogQueryExact catalogQueryExact = new CatalogQueryExact.Builder(
         "attribute_name2",
         "attribute_value2")
     .build();
 List<String> bodyQuerySetQueryAttributeValues = new LinkedList<>();
 bodyQuerySetQueryAttributeValues.add("attribute_values0");
-CatalogQuerySet bodyQuerySetQuery = new CatalogQuerySet.Builder(
+CatalogQuerySet catalogQuerySet = new CatalogQuerySet.Builder(
         "attribute_name8",
-        bodyQuerySetQueryAttributeValues)
+        catalogQuerySetAttributeValues)
     .build();
-CatalogQueryPrefix bodyQueryPrefixQuery = new CatalogQueryPrefix.Builder(
+CatalogQueryPrefix catalogQueryPrefix = new CatalogQueryPrefix.Builder(
         "name",
         "tea")
     .build();
-CatalogQueryRange bodyQueryRangeQuery = new CatalogQueryRange.Builder(
+CatalogQueryRange catalogQueryRange = new CatalogQueryRange.Builder(
         "attribute_name6")
     .attributeMinValue(14L)
     .attributeMaxValue(180L)
     .build();
-CatalogQuery bodyQuery = new CatalogQuery.Builder()
-    .sortedAttributeQuery(bodyQuerySortedAttributeQuery)
-    .exactQuery(bodyQueryExactQuery)
-    .setQuery(bodyQuerySetQuery)
-    .prefixQuery(bodyQueryPrefixQuery)
-    .rangeQuery(bodyQueryRangeQuery)
+CatalogQuery catalogQuery = new CatalogQuery.Builder()
+    .sortedAttributeQuery(catalogQuerySortedAttributeQuery)
+    .exactQuery(catalogQueryExactQuery)
+    .setQuery(catalogQuerySetQuery)
+    .prefixQuery(catalogQueryPrefixQuery)
+    .rangeQuery(catalogQueryRangeQuery)
     .build();
 SearchCatalogObjectsRequest body = new SearchCatalogObjectsRequest.Builder()
     .cursor("cursor0")
@@ -1176,7 +1176,7 @@ List<String> bodyProductTypes = new LinkedList<>();
 bodyProductTypes.add("REGULAR");
 List<CustomAttributeFilter> bodyCustomAttributeFilters = new LinkedList<>();
 
-Range bodyCustomAttributeFilters0NumberFilter = new Range.Builder()
+Range range = new Range.Builder()
     .min("min0")
     .max("max2")
     .build();
@@ -1193,7 +1193,7 @@ CustomAttributeFilter bodyCustomAttributeFilters0 = new CustomAttributeFilter.Bu
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters0);
 
-Range bodyCustomAttributeFilters1NumberFilter = new Range.Builder()
+Range range = new Range.Builder()
     .min("min1")
     .max("max1")
     .build();
@@ -1208,7 +1208,7 @@ CustomAttributeFilter bodyCustomAttributeFilters1 = new CustomAttributeFilter.Bu
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters1);
 
-Range bodyCustomAttributeFilters2NumberFilter = new Range.Builder()
+Range range = new Range.Builder()
     .min("2017")
     .max("2018")
     .build();
@@ -1225,7 +1225,7 @@ CustomAttributeFilter bodyCustomAttributeFilters2 = new CustomAttributeFilter.Bu
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters2);
 
-Range bodyCustomAttributeFilters3NumberFilter = new Range.Builder()
+Range range = new Range.Builder()
     .min("min3")
     .max("max9")
     .build();

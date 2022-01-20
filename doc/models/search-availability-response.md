@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Availabilities` | [`List<Availability>`](/doc/models/availability.md) | Optional | List of slots available for booking. | List<Availability> getAvailabilities() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Availabilities` | [`List<Availability>`](/doc/models/availability.md) | Optional | List of appointment slots available for booking. | List<Availability> getAvailabilities() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

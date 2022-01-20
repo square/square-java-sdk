@@ -40,7 +40,7 @@ public class SearchAvailabilityResponse {
 
     /**
      * Getter for Availabilities.
-     * List of slots available for booking.
+     * List of appointment slots available for booking.
      * @return Returns the List of Availability
      */
     @JsonGetter("availabilities")
@@ -50,7 +50,7 @@ public class SearchAvailabilityResponse {
 
     /**
      * Getter for Errors.
-     * Any errors that occurred during the request.
+     * Errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

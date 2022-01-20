@@ -50,8 +50,6 @@ public class GetBankAccountByV1IdResponse {
 
     /**
      * Getter for BankAccount.
-     * Represents a bank account. For more information about linking a bank account to a Square
-     * account, see [Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api).
      * @return Returns the BankAccount
      */
     @JsonGetter("bank_account")

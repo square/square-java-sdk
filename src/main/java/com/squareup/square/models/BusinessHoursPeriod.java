@@ -47,7 +47,8 @@ public class BusinessHoursPeriod {
     /**
      * Getter for StartLocalTime.
      * The start time of a business hours period, specified in local time using partial-time RFC
-     * 3339 format.
+     * 3339 format. For example, `8:30:00` for a period starting at 8:30 in the morning. Note that
+     * the seconds value will always be :00, but it is appended for conformance to the RFC.
      * @return Returns the String
      */
     @JsonGetter("start_local_time")
@@ -58,7 +59,8 @@ public class BusinessHoursPeriod {
     /**
      * Getter for EndLocalTime.
      * The end time of a business hours period, specified in local time using partial-time RFC 3339
-     * format.
+     * format. For example, `21:00:00` for a period ending at 9:00 in the evening. Note that the
+     * seconds value will always be :00, but it is appended for conformance to the RFC.
      * @return Returns the String
      */
     @JsonGetter("end_local_time")

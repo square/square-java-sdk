@@ -24,7 +24,7 @@ public class SearchAvailabilityQuery {
 
     /**
      * Getter for Filter.
-     * A query filter to search for availabilities by.
+     * A query filter to search for buyer-accessible availabilities by.
      * @return Returns the SearchAvailabilityFilter
      */
     @JsonGetter("filter")

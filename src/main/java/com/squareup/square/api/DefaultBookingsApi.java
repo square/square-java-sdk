@@ -61,7 +61,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Retrieve a collection of bookings.
+     * Retrieve a collection of bookings. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level permissions,
+     * set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  limit  Optional parameter: The maximum number of results per page to return in a
      *         paged response.
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
@@ -97,7 +99,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Retrieve a collection of bookings.
+     * Retrieve a collection of bookings. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level permissions,
+     * set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  limit  Optional parameter: The maximum number of results per page to return in a
      *         paged response.
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
@@ -157,7 +161,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -199,7 +203,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Creates a booking.
+     * Creates a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call
@@ -218,7 +224,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Creates a booking.
+     * Creates a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call
@@ -248,7 +256,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -290,7 +298,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Searches for availabilities for booking.
+     * Searches for availabilities for booking. To call this endpoint with buyer-level permissions,
+     * set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchAvailabilityResponse response from the API call
@@ -309,7 +319,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Searches for availabilities for booking.
+     * Searches for availabilities for booking. To call this endpoint with buyer-level permissions,
+     * set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchAvailabilityResponse response from the API call
@@ -339,7 +351,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -422,7 +434,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -466,8 +478,11 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
      * Lists booking profiles for team members.
      * @param  bookableOnly  Optional parameter: Indicates whether to include only bookable team
      *         members in the returned result (`true`) or not (`false`).
-     * @param  limit  Optional parameter: The maximum number of results to return.
-     * @param  cursor  Optional parameter: The cursor for paginating through the results.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
      * @param  locationId  Optional parameter: Indicates whether to include only team members
      *         enabled at the given location in the returned result.
      * @return    Returns the ListTeamMemberBookingProfilesResponse response from the API call
@@ -493,8 +508,11 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
      * Lists booking profiles for team members.
      * @param  bookableOnly  Optional parameter: Indicates whether to include only bookable team
      *         members in the returned result (`true`) or not (`false`).
-     * @param  limit  Optional parameter: The maximum number of results to return.
-     * @param  cursor  Optional parameter: The cursor for paginating through the results.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
      * @param  locationId  Optional parameter: Indicates whether to include only team members
      *         enabled at the given location in the returned result.
      * @return    Returns the ListTeamMemberBookingProfilesResponse response from the API call
@@ -538,7 +556,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -632,7 +650,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -673,7 +691,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Retrieves a booking.
+     * Retrieves a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level permissions,
+     * set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
@@ -692,7 +712,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Retrieves a booking.
+     * Retrieves a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with seller-level permissions,
+     * set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-retrieved booking.
      * @return    Returns the RetrieveBookingResponse response from the API call
@@ -727,7 +749,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -768,7 +790,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Updates a booking.
+     * Updates a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -790,7 +814,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Updates a booking.
+     * Updates a booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -830,7 +856,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -872,7 +898,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Cancels an existing booking.
+     * Cancels an existing booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -894,7 +922,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Cancels an existing booking.
+     * Cancels an existing booking. To call this endpoint with buyer-level permissions, set
+     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -934,7 +964,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 

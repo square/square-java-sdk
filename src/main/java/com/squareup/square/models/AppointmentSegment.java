@@ -3,7 +3,9 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,6 +16,12 @@ public class AppointmentSegment {
     private final String serviceVariationId;
     private final String teamMemberId;
     private final long serviceVariationVersion;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Integer intermissionMinutes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean anyTeamMember;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final List<String> resourceIds;
 
     /**
      * Initialization constructor.
@@ -21,17 +29,26 @@ public class AppointmentSegment {
      * @param  serviceVariationId  String value for serviceVariationId.
      * @param  teamMemberId  String value for teamMemberId.
      * @param  serviceVariationVersion  long value for serviceVariationVersion.
+     * @param  intermissionMinutes  Integer value for intermissionMinutes.
+     * @param  anyTeamMember  Boolean value for anyTeamMember.
+     * @param  resourceIds  List of String value for resourceIds.
      */
     @JsonCreator
     public AppointmentSegment(
             @JsonProperty("duration_minutes") int durationMinutes,
             @JsonProperty("service_variation_id") String serviceVariationId,
             @JsonProperty("team_member_id") String teamMemberId,
-            @JsonProperty("service_variation_version") long serviceVariationVersion) {
+            @JsonProperty("service_variation_version") long serviceVariationVersion,
+            @JsonProperty("intermission_minutes") Integer intermissionMinutes,
+            @JsonProperty("any_team_member") Boolean anyTeamMember,
+            @JsonProperty("resource_ids") List<String> resourceIds) {
         this.durationMinutes = durationMinutes;
         this.serviceVariationId = serviceVariationId;
         this.teamMemberId = teamMemberId;
         this.serviceVariationVersion = serviceVariationVersion;
+        this.intermissionMinutes = intermissionMinutes;
+        this.anyTeamMember = anyTeamMember;
+        this.resourceIds = resourceIds;
     }
 
     /**
@@ -76,10 +93,41 @@ public class AppointmentSegment {
         return serviceVariationVersion;
     }
 
+    /**
+     * Getter for IntermissionMinutes.
+     * Time between the end of this segment and the beginning of the subsequent segment.
+     * @return Returns the Integer
+     */
+    @JsonGetter("intermission_minutes")
+    public Integer getIntermissionMinutes() {
+        return intermissionMinutes;
+    }
+
+    /**
+     * Getter for AnyTeamMember.
+     * Whether the customer accepts any team member, instead of a specific one, to serve this
+     * segment.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("any_team_member")
+    public Boolean getAnyTeamMember() {
+        return anyTeamMember;
+    }
+
+    /**
+     * Getter for ResourceIds.
+     * The IDs of the seller-accessible resources used for this appointment segment.
+     * @return Returns the List of String
+     */
+    @JsonGetter("resource_ids")
+    public List<String> getResourceIds() {
+        return resourceIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(durationMinutes, serviceVariationId, teamMemberId,
-                serviceVariationVersion);
+                serviceVariationVersion, intermissionMinutes, anyTeamMember, resourceIds);
     }
 
     @Override
@@ -94,7 +142,10 @@ public class AppointmentSegment {
         return Objects.equals(durationMinutes, other.durationMinutes)
             && Objects.equals(serviceVariationId, other.serviceVariationId)
             && Objects.equals(teamMemberId, other.teamMemberId)
-            && Objects.equals(serviceVariationVersion, other.serviceVariationVersion);
+            && Objects.equals(serviceVariationVersion, other.serviceVariationVersion)
+            && Objects.equals(intermissionMinutes, other.intermissionMinutes)
+            && Objects.equals(anyTeamMember, other.anyTeamMember)
+            && Objects.equals(resourceIds, other.resourceIds);
     }
 
     /**
@@ -105,7 +156,9 @@ public class AppointmentSegment {
     public String toString() {
         return "AppointmentSegment [" + "durationMinutes=" + durationMinutes
                 + ", serviceVariationId=" + serviceVariationId + ", teamMemberId=" + teamMemberId
-                + ", serviceVariationVersion=" + serviceVariationVersion + "]";
+                + ", serviceVariationVersion=" + serviceVariationVersion + ", intermissionMinutes="
+                + intermissionMinutes + ", anyTeamMember=" + anyTeamMember + ", resourceIds="
+                + resourceIds + "]";
     }
 
     /**
@@ -115,7 +168,10 @@ public class AppointmentSegment {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(durationMinutes, serviceVariationId, teamMemberId,
-                serviceVariationVersion);
+                serviceVariationVersion)
+                .intermissionMinutes(getIntermissionMinutes())
+                .anyTeamMember(getAnyTeamMember())
+                .resourceIds(getResourceIds());
         return builder;
     }
 
@@ -127,6 +183,9 @@ public class AppointmentSegment {
         private String serviceVariationId;
         private String teamMemberId;
         private long serviceVariationVersion;
+        private Integer intermissionMinutes;
+        private Boolean anyTeamMember;
+        private List<String> resourceIds;
 
         /**
          * Initialization constructor.
@@ -184,12 +243,42 @@ public class AppointmentSegment {
         }
 
         /**
+         * Setter for intermissionMinutes.
+         * @param  intermissionMinutes  Integer value for intermissionMinutes.
+         * @return Builder
+         */
+        public Builder intermissionMinutes(Integer intermissionMinutes) {
+            this.intermissionMinutes = intermissionMinutes;
+            return this;
+        }
+
+        /**
+         * Setter for anyTeamMember.
+         * @param  anyTeamMember  Boolean value for anyTeamMember.
+         * @return Builder
+         */
+        public Builder anyTeamMember(Boolean anyTeamMember) {
+            this.anyTeamMember = anyTeamMember;
+            return this;
+        }
+
+        /**
+         * Setter for resourceIds.
+         * @param  resourceIds  List of String value for resourceIds.
+         * @return Builder
+         */
+        public Builder resourceIds(List<String> resourceIds) {
+            this.resourceIds = resourceIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link AppointmentSegment} object using the set fields.
          * @return {@link AppointmentSegment}
          */
         public AppointmentSegment build() {
             return new AppointmentSegment(durationMinutes, serviceVariationId, teamMemberId,
-                    serviceVariationVersion);
+                    serviceVariationVersion, intermissionMinutes, anyTeamMember, resourceIds);
         }
     }
 }

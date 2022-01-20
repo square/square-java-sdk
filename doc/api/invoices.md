@@ -87,23 +87,23 @@ CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
 ## Example Usage
 
 ```java
-Address bodyInvoicePrimaryRecipientAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("address_line_10")
     .addressLine2("address_line_20")
     .addressLine3("address_line_36")
     .locality("locality0")
     .sublocality("sublocality0")
     .build();
-InvoiceRecipient bodyInvoicePrimaryRecipient = new InvoiceRecipient.Builder()
+InvoiceRecipient invoiceRecipient = new InvoiceRecipient.Builder()
     .customerId("JDKYHBWT1D4F8MFH63DBMEN8Y4")
     .givenName("given_name6")
     .familyName("family_name8")
     .emailAddress("email_address2")
-    .address(bodyInvoicePrimaryRecipientAddress)
+    .address(invoiceRecipientAddress)
     .build();
 List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
 
-Money bodyInvoicePaymentRequests0FixedAmountRequestedMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(52L)
     .currency("USS")
     .build();
@@ -130,7 +130,7 @@ InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Bu
     .build();
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
 
-InvoiceAcceptedPaymentMethods bodyInvoiceAcceptedPaymentMethods = new InvoiceAcceptedPaymentMethods.Builder()
+InvoiceAcceptedPaymentMethods invoiceAcceptedPaymentMethods = new InvoiceAcceptedPaymentMethods.Builder()
     .card(true)
     .squareGiftCard(false)
     .bankAccount(false)
@@ -151,20 +151,20 @@ InvoiceCustomField bodyInvoiceCustomFields1 = new InvoiceCustomField.Builder()
     .build();
 bodyInvoiceCustomFields.add(bodyInvoiceCustomFields1);
 
-Invoice bodyInvoice = new Invoice.Builder()
+Invoice invoice = new Invoice.Builder()
     .id("id0")
     .version(38)
     .locationId("ES0RJRZYEC39A")
     .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
-    .primaryRecipient(bodyInvoicePrimaryRecipient)
-    .paymentRequests(bodyInvoicePaymentRequests)
+    .primaryRecipient(invoicePrimaryRecipient)
+    .paymentRequests(invoicePaymentRequests)
     .deliveryMethod("EMAIL")
     .invoiceNumber("inv-100")
     .title("Event Planning Services")
     .description("We appreciate your business!")
     .scheduledAt("2030-01-13T10:00:00Z")
-    .acceptedPaymentMethods(bodyInvoiceAcceptedPaymentMethods)
-    .customFields(bodyInvoiceCustomFields)
+    .acceptedPaymentMethods(invoiceAcceptedPaymentMethods)
+    .customFields(invoiceCustomFields)
     .saleOrServiceDate("2030-01-24")
     .build();
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
@@ -213,17 +213,17 @@ List<String> bodyQueryFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationIds.add("ES0RJRZYEC39A");
 List<String> bodyQueryFilterCustomerIds = new LinkedList<>();
 bodyQueryFilterCustomerIds.add("JDKYHBWT1D4F8MFH63DBMEN8Y4");
-InvoiceFilter bodyQueryFilter = new InvoiceFilter.Builder(
-        bodyQueryFilterLocationIds)
-    .customerIds(bodyQueryFilterCustomerIds)
+InvoiceFilter invoiceFilter = new InvoiceFilter.Builder(
+        invoiceFilterLocationIds)
+    .customerIds(invoiceFilterCustomerIds)
     .build();
-InvoiceSort bodyQuerySort = new InvoiceSort.Builder(
+InvoiceSort invoiceSort = new InvoiceSort.Builder(
         null)
     .order("DESC")
     .build();
-InvoiceQuery bodyQuery = new InvoiceQuery.Builder(
-        bodyQueryFilter)
-    .sort(bodyQuerySort)
+InvoiceQuery invoiceQuery = new InvoiceQuery.Builder(
+        invoiceQueryFilter)
+    .sort(invoiceQuerySort)
     .build();
 SearchInvoicesRequest body = new SearchInvoicesRequest.Builder(
         bodyQuery)
@@ -339,23 +339,23 @@ CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
 
 ```java
 String invoiceId = "invoice_id0";
-Address bodyInvoicePrimaryRecipientAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("address_line_10")
     .addressLine2("address_line_20")
     .addressLine3("address_line_36")
     .locality("locality0")
     .sublocality("sublocality0")
     .build();
-InvoiceRecipient bodyInvoicePrimaryRecipient = new InvoiceRecipient.Builder()
+InvoiceRecipient invoiceRecipient = new InvoiceRecipient.Builder()
     .customerId("customer_id2")
     .givenName("given_name6")
     .familyName("family_name8")
     .emailAddress("email_address2")
-    .address(bodyInvoicePrimaryRecipientAddress)
+    .address(invoiceRecipientAddress)
     .build();
 List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
 
-Money bodyInvoicePaymentRequests0FixedAmountRequestedMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(52L)
     .currency("USS")
     .build();
@@ -369,13 +369,13 @@ InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Bu
     .build();
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
 
-Invoice bodyInvoice = new Invoice.Builder()
+Invoice invoice = new Invoice.Builder()
     .id("id0")
     .version(38)
     .locationId("location_id4")
     .orderId("order_id6")
-    .primaryRecipient(bodyInvoicePrimaryRecipient)
-    .paymentRequests(bodyInvoicePaymentRequests)
+    .primaryRecipient(invoicePrimaryRecipient)
+    .paymentRequests(invoicePaymentRequests)
     .build();
 List<String> bodyFieldsToClear = new LinkedList<>();
 bodyFieldsToClear.add("payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders");

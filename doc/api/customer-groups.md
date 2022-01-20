@@ -77,7 +77,7 @@ CompletableFuture<CreateCustomerGroupResponse> createCustomerGroupAsync(
 ## Example Usage
 
 ```java
-CustomerGroup bodyGroup = new CustomerGroup.Builder(
+CustomerGroup customerGroup = new CustomerGroup.Builder(
         "Loyal Customers")
     .id("id4")
     .createdAt("created_at2")
@@ -188,7 +188,7 @@ CompletableFuture<UpdateCustomerGroupResponse> updateCustomerGroupAsync(
 
 ```java
 String groupId = "group_id0";
-CustomerGroup bodyGroup = new CustomerGroup.Builder(
+CustomerGroup customerGroup = new CustomerGroup.Builder(
         "Loyal Customers")
     .id("id4")
     .createdAt("created_at2")

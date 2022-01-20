@@ -95,11 +95,11 @@ CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
 ## Example Usage
 
 ```java
-Money bodyGiftCardActivityGiftCardBalanceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(88L)
     .currency("ANG")
     .build();
-Money bodyGiftCardActivityActivateActivityDetailsAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(10L)
     .currency("MXV")
     .build();
@@ -107,22 +107,22 @@ List<String> bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentId
 bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids4");
 bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids5");
 bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids6");
-GiftCardActivityActivate bodyGiftCardActivityActivateActivityDetails = new GiftCardActivityActivate.Builder()
-    .amountMoney(bodyGiftCardActivityActivateActivityDetailsAmountMoney)
+GiftCardActivityActivate giftCardActivityActivate = new GiftCardActivityActivate.Builder()
+    .amountMoney(giftCardActivityActivateAmountMoney)
     .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
     .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
     .referenceId("reference_id4")
-    .buyerPaymentInstrumentIds(bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds)
+    .buyerPaymentInstrumentIds(giftCardActivityActivateBuyerPaymentInstrumentIds)
     .build();
-GiftCardActivity bodyGiftCardActivity = new GiftCardActivity.Builder(
+GiftCardActivity giftCardActivity = new GiftCardActivity.Builder(
         "ACTIVATE",
         "81FN9BNFZTKS4")
     .id("id2")
     .createdAt("created_at0")
     .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
     .giftCardGan("gift_card_gan8")
-    .giftCardBalanceMoney(bodyGiftCardActivityGiftCardBalanceMoney)
-    .activateActivityDetails(bodyGiftCardActivityActivateActivityDetails)
+    .giftCardBalanceMoney(giftCardActivityGiftCardBalanceMoney)
+    .activateActivityDetails(giftCardActivityActivateActivityDetails)
     .build();
 CreateGiftCardActivityRequest body = new CreateGiftCardActivityRequest.Builder(
         "U16kfr-kA70er-q4Rsym-7U7NnY",

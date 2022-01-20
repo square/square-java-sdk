@@ -17,8 +17,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface LocationsApi {
     /**
-     * Provides details about all of the seller's locations, including those with an inactive
-     * status.
+     * Provides details about all of the seller's
+     * [locations](https://developer.squareup.com/docs/locations-api), including those with an
+     * inactive status.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -26,8 +27,9 @@ public interface LocationsApi {
     ListLocationsResponse listLocations() throws ApiException, IOException;
 
     /**
-     * Provides details about all of the seller's locations, including those with an inactive
-     * status.
+     * Provides details about all of the seller's
+     * [locations](https://developer.squareup.com/docs/locations-api), including those with an
+     * inactive status.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     CompletableFuture<ListLocationsResponse> listLocationsAsync();
@@ -87,7 +89,7 @@ public interface LocationsApi {
             final String locationId);
 
     /**
-     * Updates a location.
+     * Updates a [location](https://developer.squareup.com/docs/locations-api).
      * @param  locationId  Required parameter: The ID of the location to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -100,7 +102,7 @@ public interface LocationsApi {
             final UpdateLocationRequest body) throws ApiException, IOException;
 
     /**
-     * Updates a location.
+     * Updates a [location](https://developer.squareup.com/docs/locations-api).
      * @param  locationId  Required parameter: The ID of the location to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

@@ -34,6 +34,16 @@ public class Booking {
     private final String sellerNote;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AppointmentSegment> appointmentSegments;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Integer transitionTimeMinutes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean allDay;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String locationType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final BookingCreatorDetails creatorDetails;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String source;
 
     /**
      * Initialization constructor.
@@ -48,6 +58,11 @@ public class Booking {
      * @param  customerNote  String value for customerNote.
      * @param  sellerNote  String value for sellerNote.
      * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
+     * @param  transitionTimeMinutes  Integer value for transitionTimeMinutes.
+     * @param  allDay  Boolean value for allDay.
+     * @param  locationType  String value for locationType.
+     * @param  creatorDetails  BookingCreatorDetails value for creatorDetails.
+     * @param  source  String value for source.
      */
     @JsonCreator
     public Booking(
@@ -61,7 +76,12 @@ public class Booking {
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("customer_note") String customerNote,
             @JsonProperty("seller_note") String sellerNote,
-            @JsonProperty("appointment_segments") List<AppointmentSegment> appointmentSegments) {
+            @JsonProperty("appointment_segments") List<AppointmentSegment> appointmentSegments,
+            @JsonProperty("transition_time_minutes") Integer transitionTimeMinutes,
+            @JsonProperty("all_day") Boolean allDay,
+            @JsonProperty("location_type") String locationType,
+            @JsonProperty("creator_details") BookingCreatorDetails creatorDetails,
+            @JsonProperty("source") String source) {
         this.id = id;
         this.version = version;
         this.status = status;
@@ -73,6 +93,11 @@ public class Booking {
         this.customerNote = customerNote;
         this.sellerNote = sellerNote;
         this.appointmentSegments = appointmentSegments;
+        this.transitionTimeMinutes = transitionTimeMinutes;
+        this.allDay = allDay;
+        this.locationType = locationType;
+        this.creatorDetails = creatorDetails;
+        this.source = source;
     }
 
     /**
@@ -107,7 +132,7 @@ public class Booking {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp specifying the creation time of this booking, in RFC 3339 format.
+     * The RFC 3339 timestamp specifying the creation time of this booking.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -117,7 +142,7 @@ public class Booking {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp specifying the most recent update time of this booking, in RFC 3339 format.
+     * The RFC 3339 timestamp specifying the most recent update time of this booking.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -127,7 +152,7 @@ public class Booking {
 
     /**
      * Getter for StartAt.
-     * The timestamp specifying the starting time of this booking, in RFC 3339 format.
+     * The RFC 3339 timestamp specifying the starting time of this booking.
      * @return Returns the String
      */
     @JsonGetter("start_at")
@@ -191,10 +216,62 @@ public class Booking {
         return appointmentSegments;
     }
 
+    /**
+     * Getter for TransitionTimeMinutes.
+     * Additional time at the end of a booking. Applications should not make this field visible to
+     * customers of a seller.
+     * @return Returns the Integer
+     */
+    @JsonGetter("transition_time_minutes")
+    public Integer getTransitionTimeMinutes() {
+        return transitionTimeMinutes;
+    }
+
+    /**
+     * Getter for AllDay.
+     * Whether the booking is of a full business day.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("all_day")
+    public Boolean getAllDay() {
+        return allDay;
+    }
+
+    /**
+     * Getter for LocationType.
+     * Supported types of location where service is provided.
+     * @return Returns the String
+     */
+    @JsonGetter("location_type")
+    public String getLocationType() {
+        return locationType;
+    }
+
+    /**
+     * Getter for CreatorDetails.
+     * Information about a booking creator.
+     * @return Returns the BookingCreatorDetails
+     */
+    @JsonGetter("creator_details")
+    public BookingCreatorDetails getCreatorDetails() {
+        return creatorDetails;
+    }
+
+    /**
+     * Getter for Source.
+     * Supported sources a booking was created from.
+     * @return Returns the String
+     */
+    @JsonGetter("source")
+    public String getSource() {
+        return source;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, status, createdAt, updatedAt, startAt, locationId,
-                customerId, customerNote, sellerNote, appointmentSegments);
+                customerId, customerNote, sellerNote, appointmentSegments, transitionTimeMinutes,
+                allDay, locationType, creatorDetails, source);
     }
 
     @Override
@@ -216,7 +293,12 @@ public class Booking {
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(customerNote, other.customerNote)
             && Objects.equals(sellerNote, other.sellerNote)
-            && Objects.equals(appointmentSegments, other.appointmentSegments);
+            && Objects.equals(appointmentSegments, other.appointmentSegments)
+            && Objects.equals(transitionTimeMinutes, other.transitionTimeMinutes)
+            && Objects.equals(allDay, other.allDay)
+            && Objects.equals(locationType, other.locationType)
+            && Objects.equals(creatorDetails, other.creatorDetails)
+            && Objects.equals(source, other.source);
     }
 
     /**
@@ -229,7 +311,9 @@ public class Booking {
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startAt=" + startAt
                 + ", locationId=" + locationId + ", customerId=" + customerId + ", customerNote="
                 + customerNote + ", sellerNote=" + sellerNote + ", appointmentSegments="
-                + appointmentSegments + "]";
+                + appointmentSegments + ", transitionTimeMinutes=" + transitionTimeMinutes
+                + ", allDay=" + allDay + ", locationType=" + locationType + ", creatorDetails="
+                + creatorDetails + ", source=" + source + "]";
     }
 
     /**
@@ -249,7 +333,12 @@ public class Booking {
                 .customerId(getCustomerId())
                 .customerNote(getCustomerNote())
                 .sellerNote(getSellerNote())
-                .appointmentSegments(getAppointmentSegments());
+                .appointmentSegments(getAppointmentSegments())
+                .transitionTimeMinutes(getTransitionTimeMinutes())
+                .allDay(getAllDay())
+                .locationType(getLocationType())
+                .creatorDetails(getCreatorDetails())
+                .source(getSource());
         return builder;
     }
 
@@ -268,6 +357,11 @@ public class Booking {
         private String customerNote;
         private String sellerNote;
         private List<AppointmentSegment> appointmentSegments;
+        private Integer transitionTimeMinutes;
+        private Boolean allDay;
+        private String locationType;
+        private BookingCreatorDetails creatorDetails;
+        private String source;
 
 
 
@@ -382,12 +476,63 @@ public class Booking {
         }
 
         /**
+         * Setter for transitionTimeMinutes.
+         * @param  transitionTimeMinutes  Integer value for transitionTimeMinutes.
+         * @return Builder
+         */
+        public Builder transitionTimeMinutes(Integer transitionTimeMinutes) {
+            this.transitionTimeMinutes = transitionTimeMinutes;
+            return this;
+        }
+
+        /**
+         * Setter for allDay.
+         * @param  allDay  Boolean value for allDay.
+         * @return Builder
+         */
+        public Builder allDay(Boolean allDay) {
+            this.allDay = allDay;
+            return this;
+        }
+
+        /**
+         * Setter for locationType.
+         * @param  locationType  String value for locationType.
+         * @return Builder
+         */
+        public Builder locationType(String locationType) {
+            this.locationType = locationType;
+            return this;
+        }
+
+        /**
+         * Setter for creatorDetails.
+         * @param  creatorDetails  BookingCreatorDetails value for creatorDetails.
+         * @return Builder
+         */
+        public Builder creatorDetails(BookingCreatorDetails creatorDetails) {
+            this.creatorDetails = creatorDetails;
+            return this;
+        }
+
+        /**
+         * Setter for source.
+         * @param  source  String value for source.
+         * @return Builder
+         */
+        public Builder source(String source) {
+            this.source = source;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Booking} object using the set fields.
          * @return {@link Booking}
          */
         public Booking build() {
             return new Booking(id, version, status, createdAt, updatedAt, startAt, locationId,
-                    customerId, customerNote, sellerNote, appointmentSegments);
+                    customerId, customerNote, sellerNote, appointmentSegments,
+                    transitionTimeMinutes, allDay, locationType, creatorDetails, source);
         }
     }
 }
