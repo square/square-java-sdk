@@ -119,7 +119,7 @@ CompletableFuture<UpsertSnippetResponse> upsertSnippetAsync(
 
 ```java
 String siteId = "site_id6";
-Snippet bodySnippet = new Snippet.Builder(
+Snippet snippet = new Snippet.Builder(
         "<script>var js = 1;</script>")
     .id("id4")
     .siteId("site_id0")

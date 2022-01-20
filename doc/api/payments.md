@@ -110,15 +110,15 @@ CompletableFuture<CreatePaymentResponse> createPaymentAsync(
 ## Example Usage
 
 ```java
-Money bodyAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1000L)
     .currency("USD")
     .build();
-Money bodyTipMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(198L)
     .currency("CHF")
     .build();
-Money bodyAppFeeMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(10L)
     .currency("USD")
     .build();
@@ -250,20 +250,20 @@ CompletableFuture<UpdatePaymentResponse> updatePaymentAsync(
 
 ```java
 String paymentId = "payment_id0";
-Money bodyPaymentAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1000L)
     .currency("USD")
     .build();
-Money bodyPaymentTipMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
-Payment bodyPayment = new Payment.Builder()
+Payment payment = new Payment.Builder()
     .id("id2")
     .createdAt("created_at0")
     .updatedAt("updated_at8")
-    .amountMoney(bodyPaymentAmountMoney)
-    .tipMoney(bodyPaymentTipMoney)
+    .amountMoney(paymentAmountMoney)
+    .tipMoney(paymentTipMoney)
     .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
     .build();
 UpdatePaymentRequest body = new UpdatePaymentRequest.Builder(

@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>18.0.0.20211215</version>
+  <version>18.1.0.20220120</version>
   <packaging>jar</packaging>
 
   <name>Square</name>
@@ -144,7 +144,6 @@
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                         <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
                     </configuration>
                 </plugin>
                 <!-- To generate javadoc -->
@@ -222,6 +221,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.11</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

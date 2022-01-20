@@ -49,11 +49,11 @@ CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
 ## Example Usage
 
 ```java
-Money bodyPriceOverrideMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
-SubscriptionSource bodySource = new SubscriptionSource.Builder()
+SubscriptionSource subscriptionSource = new SubscriptionSource.Builder()
     .name("My App")
     .build();
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
@@ -123,13 +123,13 @@ List<String> bodyQueryFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationIds.add("S8GWD5R9QB376");
 List<String> bodyQueryFilterSourceNames = new LinkedList<>();
 bodyQueryFilterSourceNames.add("My App");
-SearchSubscriptionsFilter bodyQueryFilter = new SearchSubscriptionsFilter.Builder()
-    .customerIds(bodyQueryFilterCustomerIds)
-    .locationIds(bodyQueryFilterLocationIds)
-    .sourceNames(bodyQueryFilterSourceNames)
+SearchSubscriptionsFilter searchSubscriptionsFilter = new SearchSubscriptionsFilter.Builder()
+    .customerIds(searchSubscriptionsFilterCustomerIds)
+    .locationIds(searchSubscriptionsFilterLocationIds)
+    .sourceNames(searchSubscriptionsFilterSourceNames)
     .build();
-SearchSubscriptionsQuery bodyQuery = new SearchSubscriptionsQuery.Builder()
-    .filter(bodyQueryFilter)
+SearchSubscriptionsQuery searchSubscriptionsQuery = new SearchSubscriptionsQuery.Builder()
+    .filter(searchSubscriptionsQueryFilter)
     .build();
 List<String> bodyInclude = new LinkedList<>();
 bodyInclude.add("include4");
@@ -213,18 +213,18 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-Money bodySubscriptionPriceOverrideMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(2000L)
     .currency("USD")
     .build();
-Subscription bodySubscription = new Subscription.Builder()
+Subscription subscription = new Subscription.Builder()
     .id("id8")
     .locationId("location_id2")
     .planId("plan_id0")
     .customerId("customer_id6")
     .startDate("start_date2")
     .taxPercentage("null")
-    .priceOverrideMoney(bodySubscriptionPriceOverrideMoney)
+    .priceOverrideMoney(subscriptionPriceOverrideMoney)
     .version(1594155459464L)
     .build();
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder()

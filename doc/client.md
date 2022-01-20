@@ -5,11 +5,12 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2021-12-15"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-01-20"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance.<br>* See available [builder methods here](/doc/http-client-configuration-builder.md). |
+| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
 | `additionalHeaders` | `Headers` | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
+| `userAgentDetail` | `String` | Additional detail which can be appended with User-Agent header.<br>*Default*: `"null"` |
 | `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
 
 The API client can be initialized as follows:
@@ -18,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2021-12-15")
+    .squareVersion("2022-01-20")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -44,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2021-12-15")
+            .squareVersion("2022-01-20")
             .accessToken("AccessToken")
             .build();
         
@@ -113,7 +114,8 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | `ReadonlyHttpClientConfiguration` |
 | `getAdditionalHeaders()` | Additional headers to add to each API request. | `Headers` |
-| `getAccessTokenCredentials()` | The credentials to use with AccessToken. | `AccessTokenCredentials` |
+| `getUserAgentDetail()` | Additional detail which can be appended with User-Agent header. | `String` |
+| `getBearerAuthCredentials()` | The credentials to use with BearerAuth. | `BearerAuthCredentials` |
 | `getAccessToken()` | OAuth 2.0 Access Token. | `String` |
 | `getSdkVersion()` | Current SDK Version. | `String` |
 | `getBaseUri(Server server)` | Get base URI by current environment | `String` |

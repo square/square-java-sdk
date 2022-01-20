@@ -1,6 +1,7 @@
 
 package com.squareup.square.api;
 
+import com.squareup.square.ApiHelper;
 import com.squareup.square.AuthManager;
 import com.squareup.square.Configuration;
 import com.squareup.square.exceptions.ApiException;
@@ -18,7 +19,10 @@ import java.util.concurrent.CompletionException;
  * Base class for all Apis.
  */
 public abstract class BaseApi {
-    protected static final String userAgent = "Square-Java-SDK/18.0.0.20211215";
+
+    protected String internalUserAgent;
+
+    private static String userAgent = "Square-Java-SDK/18.1.0.20220120 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Protected variables to hold an instance of Configuration.
@@ -45,6 +49,7 @@ public abstract class BaseApi {
         this.httpClient = httpClient;
         this.authManagers = authManagers;
         this.httpCallback = httpCallback;
+        this.updateUserAgent();
     }
     
     /**
@@ -149,5 +154,24 @@ public abstract class BaseApi {
                 throw new CompletionException(e);
             }
         });
+    }
+
+    /**
+     * Updates the user agent header value.
+     */
+    private void updateUserAgent() {
+        String engineVersion = System.getProperty("java.runtime.version");
+        String osName = System.getProperty("os.name") + "-" + System.getProperty("os.version");
+        userAgent = userAgent.replace("{engine}", "JRE");
+        userAgent = 
+                userAgent.replace("{engine-version}", engineVersion != null ? engineVersion : "");
+        userAgent = 
+                userAgent.replace("{os-info}", osName != null ? osName : "");
+        internalUserAgent = userAgent.replace("{api-version}",
+                config.getSquareVersion() != null ? config.getSquareVersion() : "");
+        internalUserAgent = internalUserAgent.replace("{detail}",
+                config.getUserAgentDetail() != null
+                        ? ApiHelper.tryUrlEncode(config.getUserAgentDetail(), true)
+                        : "");
     }
 }

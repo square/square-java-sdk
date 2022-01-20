@@ -18,7 +18,7 @@ LocationsApi locationsApi = client.getLocationsApi();
 
 # List Locations
 
-Provides details about all of the seller's locations,
+Provides details about all of the seller's [locations](https://developer.squareup.com/docs/locations-api),
 including those with an inactive status.
 
 ```java
@@ -69,7 +69,7 @@ CompletableFuture<CreateLocationResponse> createLocationAsync(
 ## Example Usage
 
 ```java
-Address bodyLocationAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("1234 Peachtree St. NE")
     .addressLine2("address_line_26")
     .addressLine3("address_line_32")
@@ -82,12 +82,12 @@ List<String> bodyLocationCapabilities = new LinkedList<>();
 bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
 bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
-Location bodyLocation = new Location.Builder()
+Location location = new Location.Builder()
     .id("id0")
     .name("New location name")
-    .address(bodyLocationAddress)
+    .address(locationAddress)
     .timezone("timezone0")
-    .capabilities(bodyLocationCapabilities)
+    .capabilities(locationCapabilities)
     .description("My new location.")
     .facebookUrl("null")
     .build();
@@ -140,7 +140,7 @@ locationsApi.retrieveLocationAsync(locationId).thenAccept(result -> {
 
 # Update Location
 
-Updates a location.
+Updates a [location](https://developer.squareup.com/docs/locations-api).
 
 ```java
 CompletableFuture<UpdateLocationResponse> updateLocationAsync(
@@ -163,7 +163,7 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 
 ```java
 String locationId = "location_id4";
-Address bodyLocationAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("1234 Peachtree St. NE")
     .addressLine2("address_line_26")
     .addressLine3("address_line_32")
@@ -185,16 +185,16 @@ BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.
     .build();
 bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods0);
 
-BusinessHours bodyLocationBusinessHours = new BusinessHours.Builder()
-    .periods(bodyLocationBusinessHoursPeriods)
+BusinessHours businessHours = new BusinessHours.Builder()
+    .periods(businessHoursPeriods)
     .build();
-Location bodyLocation = new Location.Builder()
+Location location = new Location.Builder()
     .id("id0")
     .name("Updated nickname")
-    .address(bodyLocationAddress)
+    .address(locationAddress)
     .timezone("timezone0")
-    .capabilities(bodyLocationCapabilities)
-    .businessHours(bodyLocationBusinessHours)
+    .capabilities(locationCapabilities)
+    .businessHours(locationBusinessHours)
     .description("Updated description")
     .twitterUsername("twitter")
     .instagramUsername("instagram")

@@ -119,7 +119,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -213,7 +213,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 

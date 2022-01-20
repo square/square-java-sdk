@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `BusinessBookingProfile` | [`BusinessBookingProfile`](/doc/models/business-booking-profile.md) | Optional | - | BusinessBookingProfile getBusinessBookingProfile() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

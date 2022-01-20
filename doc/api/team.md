@@ -51,11 +51,11 @@ CompletableFuture<CreateTeamMemberResponse> createTeamMemberAsync(
 List<String> bodyTeamMemberAssignedLocationsLocationIds = new LinkedList<>();
 bodyTeamMemberAssignedLocationsLocationIds.add("YSGH2WBKG94QZ");
 bodyTeamMemberAssignedLocationsLocationIds.add("GA2Y9HSJ8KRYT");
-TeamMemberAssignedLocations bodyTeamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
+TeamMemberAssignedLocations teamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
     .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(bodyTeamMemberAssignedLocationsLocationIds)
+    .locationIds(teamMemberAssignedLocationsLocationIds)
     .build();
-TeamMember bodyTeamMember = new TeamMember.Builder()
+TeamMember teamMember = new TeamMember.Builder()
     .id("id2")
     .referenceId("reference_id_1")
     .isOwner(false)
@@ -64,7 +64,7 @@ TeamMember bodyTeamMember = new TeamMember.Builder()
     .familyName("Doe")
     .emailAddress("joe_doe@gmail.com")
     .phoneNumber("+14159283333")
-    .assignedLocations(bodyTeamMemberAssignedLocations)
+    .assignedLocations(teamMemberAssignedLocations)
     .build();
 CreateTeamMemberRequest body = new CreateTeamMemberRequest.Builder()
     .idempotencyKey("idempotency-key-0")
@@ -207,13 +207,13 @@ CompletableFuture<SearchTeamMembersResponse> searchTeamMembersAsync(
 ```java
 List<String> bodyQueryFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationIds.add("0G5P3VGACMMQZ");
-SearchTeamMembersFilter bodyQueryFilter = new SearchTeamMembersFilter.Builder()
-    .locationIds(bodyQueryFilterLocationIds)
+SearchTeamMembersFilter searchTeamMembersFilter = new SearchTeamMembersFilter.Builder()
+    .locationIds(searchTeamMembersFilterLocationIds)
     .status("ACTIVE")
     .isOwner(false)
     .build();
-SearchTeamMembersQuery bodyQuery = new SearchTeamMembersQuery.Builder()
-    .filter(bodyQueryFilter)
+SearchTeamMembersQuery searchTeamMembersQuery = new SearchTeamMembersQuery.Builder()
+    .filter(searchTeamMembersQueryFilter)
     .build();
 SearchTeamMembersRequest body = new SearchTeamMembersRequest.Builder()
     .query(bodyQuery)
@@ -293,11 +293,11 @@ String teamMemberId = "team_member_id0";
 List<String> bodyTeamMemberAssignedLocationsLocationIds = new LinkedList<>();
 bodyTeamMemberAssignedLocationsLocationIds.add("YSGH2WBKG94QZ");
 bodyTeamMemberAssignedLocationsLocationIds.add("GA2Y9HSJ8KRYT");
-TeamMemberAssignedLocations bodyTeamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
+TeamMemberAssignedLocations teamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
     .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(bodyTeamMemberAssignedLocationsLocationIds)
+    .locationIds(teamMemberAssignedLocationsLocationIds)
     .build();
-TeamMember bodyTeamMember = new TeamMember.Builder()
+TeamMember teamMember = new TeamMember.Builder()
     .id("id2")
     .referenceId("reference_id_1")
     .isOwner(false)
@@ -306,7 +306,7 @@ TeamMember bodyTeamMember = new TeamMember.Builder()
     .familyName("Doe")
     .emailAddress("joe_doe@gmail.com")
     .phoneNumber("+14159283333")
-    .assignedLocations(bodyTeamMemberAssignedLocations)
+    .assignedLocations(teamMemberAssignedLocations)
     .build();
 UpdateTeamMemberRequest body = new UpdateTeamMemberRequest.Builder()
     .teamMember(bodyTeamMember)
@@ -387,11 +387,11 @@ CompletableFuture<UpdateWageSettingResponse> updateWageSettingAsync(
 String teamMemberId = "team_member_id0";
 List<JobAssignment> bodyWageSettingJobAssignments = new LinkedList<>();
 
-Money bodyWageSettingJobAssignments0HourlyRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(117L)
     .currency("ERN")
     .build();
-Money bodyWageSettingJobAssignments0AnnualRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(3000000L)
     .currency("USD")
     .build();
@@ -404,11 +404,11 @@ JobAssignment bodyWageSettingJobAssignments0 = new JobAssignment.Builder(
     .build();
 bodyWageSettingJobAssignments.add(bodyWageSettingJobAssignments0);
 
-Money bodyWageSettingJobAssignments1HourlyRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1200L)
     .currency("USD")
     .build();
-Money bodyWageSettingJobAssignments1AnnualRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(58L)
     .currency("DZD")
     .build();
@@ -421,9 +421,9 @@ JobAssignment bodyWageSettingJobAssignments1 = new JobAssignment.Builder(
     .build();
 bodyWageSettingJobAssignments.add(bodyWageSettingJobAssignments1);
 
-WageSetting bodyWageSetting = new WageSetting.Builder()
+WageSetting wageSetting = new WageSetting.Builder()
     .teamMemberId("team_member_id2")
-    .jobAssignments(bodyWageSettingJobAssignments)
+    .jobAssignments(wageSettingJobAssignments)
     .isOvertimeExempt(true)
     .version(122)
     .createdAt("created_at0")

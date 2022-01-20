@@ -54,8 +54,9 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     }
 
     /**
-     * Provides details about all of the seller's locations, including those with an inactive
-     * status.
+     * Provides details about all of the seller's
+     * [locations](https://developer.squareup.com/docs/locations-api), including those with an
+     * inactive status.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -71,8 +72,9 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     }
 
     /**
-     * Provides details about all of the seller's locations, including those with an inactive
-     * status.
+     * Provides details about all of the seller's
+     * [locations](https://developer.squareup.com/docs/locations-api), including those with an
+     * inactive status.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     public CompletableFuture<ListLocationsResponse> listLocationsAsync() {
@@ -97,7 +99,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -197,7 +199,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -297,7 +299,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -338,7 +340,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     }
 
     /**
-     * Updates a location.
+     * Updates a [location](https://developer.squareup.com/docs/locations-api).
      * @param  locationId  Required parameter: The ID of the location to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -359,7 +361,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     }
 
     /**
-     * Updates a location.
+     * Updates a [location](https://developer.squareup.com/docs/locations-api).
      * @param  locationId  Required parameter: The ID of the location to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -398,7 +400,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 

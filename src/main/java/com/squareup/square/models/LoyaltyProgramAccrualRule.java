@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,42 +15,38 @@ public class LoyaltyProgramAccrualRule {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Money visitMinimumAmountMoney;
+    private final LoyaltyProgramAccrualRuleVisitData visitData;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Money spendAmountMoney;
+    private final LoyaltyProgramAccrualRuleSpendData spendData;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String catalogObjectId;
+    private final LoyaltyProgramAccrualRuleItemVariationData itemVariationData;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final List<String> excludedCategoryIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final List<String> excludedItemVariationIds;
+    private final LoyaltyProgramAccrualRuleCategoryData categoryData;
 
     /**
      * Initialization constructor.
      * @param  accrualType  String value for accrualType.
      * @param  points  Integer value for points.
-     * @param  visitMinimumAmountMoney  Money value for visitMinimumAmountMoney.
-     * @param  spendAmountMoney  Money value for spendAmountMoney.
-     * @param  catalogObjectId  String value for catalogObjectId.
-     * @param  excludedCategoryIds  List of String value for excludedCategoryIds.
-     * @param  excludedItemVariationIds  List of String value for excludedItemVariationIds.
+     * @param  visitData  LoyaltyProgramAccrualRuleVisitData value for visitData.
+     * @param  spendData  LoyaltyProgramAccrualRuleSpendData value for spendData.
+     * @param  itemVariationData  LoyaltyProgramAccrualRuleItemVariationData value for
+     *         itemVariationData.
+     * @param  categoryData  LoyaltyProgramAccrualRuleCategoryData value for categoryData.
      */
     @JsonCreator
     public LoyaltyProgramAccrualRule(
             @JsonProperty("accrual_type") String accrualType,
             @JsonProperty("points") Integer points,
-            @JsonProperty("visit_minimum_amount_money") Money visitMinimumAmountMoney,
-            @JsonProperty("spend_amount_money") Money spendAmountMoney,
-            @JsonProperty("catalog_object_id") String catalogObjectId,
-            @JsonProperty("excluded_category_ids") List<String> excludedCategoryIds,
-            @JsonProperty("excluded_item_variation_ids") List<String> excludedItemVariationIds) {
+            @JsonProperty("visit_data") LoyaltyProgramAccrualRuleVisitData visitData,
+            @JsonProperty("spend_data") LoyaltyProgramAccrualRuleSpendData spendData,
+            @JsonProperty("item_variation_data") LoyaltyProgramAccrualRuleItemVariationData itemVariationData,
+            @JsonProperty("category_data") LoyaltyProgramAccrualRuleCategoryData categoryData) {
         this.accrualType = accrualType;
         this.points = points;
-        this.visitMinimumAmountMoney = visitMinimumAmountMoney;
-        this.spendAmountMoney = spendAmountMoney;
-        this.catalogObjectId = catalogObjectId;
-        this.excludedCategoryIds = excludedCategoryIds;
-        this.excludedItemVariationIds = excludedItemVariationIds;
+        this.visitData = visitData;
+        this.spendData = spendData;
+        this.itemVariationData = itemVariationData;
+        this.categoryData = categoryData;
     }
 
     /**
@@ -75,78 +70,49 @@ public class LoyaltyProgramAccrualRule {
     }
 
     /**
-     * Getter for VisitMinimumAmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
-     * explicitly define whether they are signed or unsigned are considered unsigned and can only
-     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
-     * money transfer. See [Working with Monetary
-     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
-     * more information.
-     * @return Returns the Money
+     * Getter for VisitData.
+     * Represents additional data for rules with the `VISIT` accrual type.
+     * @return Returns the LoyaltyProgramAccrualRuleVisitData
      */
-    @JsonGetter("visit_minimum_amount_money")
-    public Money getVisitMinimumAmountMoney() {
-        return visitMinimumAmountMoney;
+    @JsonGetter("visit_data")
+    public LoyaltyProgramAccrualRuleVisitData getVisitData() {
+        return visitData;
     }
 
     /**
-     * Getter for SpendAmountMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
-     * explicitly define whether they are signed or unsigned are considered unsigned and can only
-     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
-     * money transfer. See [Working with Monetary
-     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
-     * more information.
-     * @return Returns the Money
+     * Getter for SpendData.
+     * Represents additional data for rules with the `SPEND` accrual type.
+     * @return Returns the LoyaltyProgramAccrualRuleSpendData
      */
-    @JsonGetter("spend_amount_money")
-    public Money getSpendAmountMoney() {
-        return spendAmountMoney;
+    @JsonGetter("spend_data")
+    public LoyaltyProgramAccrualRuleSpendData getSpendData() {
+        return spendData;
     }
 
     /**
-     * Getter for CatalogObjectId.
-     * When the accrual rule is item-based or category-based, this field specifies the ID of the
-     * [catalog object]($m/CatalogObject) that buyers can purchase to earn points. If `accrual_type`
-     * is `ITEM_VARIATION`, the object is an item variation. If `accrual_type` is `CATEGORY`, the
-     * object is a category.
-     * @return Returns the String
+     * Getter for ItemVariationData.
+     * Represents additional data for rules with the `ITEM_VARIATION` accrual type.
+     * @return Returns the LoyaltyProgramAccrualRuleItemVariationData
      */
-    @JsonGetter("catalog_object_id")
-    public String getCatalogObjectId() {
-        return catalogObjectId;
+    @JsonGetter("item_variation_data")
+    public LoyaltyProgramAccrualRuleItemVariationData getItemVariationData() {
+        return itemVariationData;
     }
 
     /**
-     * Getter for ExcludedCategoryIds.
-     * When the accrual rule is spend-based (`accrual_type` is `SPEND`), this field lists the IDs of
-     * any `CATEGORY` catalog objects that are excluded from points accrual. You can use the
-     * [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to retrieve
-     * information about the excluded categories.
-     * @return Returns the List of String
+     * Getter for CategoryData.
+     * Represents additional data for rules with the `CATEGORY` accrual type.
+     * @return Returns the LoyaltyProgramAccrualRuleCategoryData
      */
-    @JsonGetter("excluded_category_ids")
-    public List<String> getExcludedCategoryIds() {
-        return excludedCategoryIds;
-    }
-
-    /**
-     * Getter for ExcludedItemVariationIds.
-     * When the accrual rule is spend-based (`accrual_type` is `SPEND`), this field lists the IDs of
-     * any `ITEM_VARIATION` catalog objects that are excluded from points accrual. You can use the
-     * [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to retrieve
-     * information about the excluded item variations.
-     * @return Returns the List of String
-     */
-    @JsonGetter("excluded_item_variation_ids")
-    public List<String> getExcludedItemVariationIds() {
-        return excludedItemVariationIds;
+    @JsonGetter("category_data")
+    public LoyaltyProgramAccrualRuleCategoryData getCategoryData() {
+        return categoryData;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accrualType, points, visitMinimumAmountMoney, spendAmountMoney,
-                catalogObjectId, excludedCategoryIds, excludedItemVariationIds);
+        return Objects.hash(accrualType, points, visitData, spendData, itemVariationData,
+                categoryData);
     }
 
     @Override
@@ -160,11 +126,10 @@ public class LoyaltyProgramAccrualRule {
         LoyaltyProgramAccrualRule other = (LoyaltyProgramAccrualRule) obj;
         return Objects.equals(accrualType, other.accrualType)
             && Objects.equals(points, other.points)
-            && Objects.equals(visitMinimumAmountMoney, other.visitMinimumAmountMoney)
-            && Objects.equals(spendAmountMoney, other.spendAmountMoney)
-            && Objects.equals(catalogObjectId, other.catalogObjectId)
-            && Objects.equals(excludedCategoryIds, other.excludedCategoryIds)
-            && Objects.equals(excludedItemVariationIds, other.excludedItemVariationIds);
+            && Objects.equals(visitData, other.visitData)
+            && Objects.equals(spendData, other.spendData)
+            && Objects.equals(itemVariationData, other.itemVariationData)
+            && Objects.equals(categoryData, other.categoryData);
     }
 
     /**
@@ -174,10 +139,8 @@ public class LoyaltyProgramAccrualRule {
     @Override
     public String toString() {
         return "LoyaltyProgramAccrualRule [" + "accrualType=" + accrualType + ", points=" + points
-                + ", visitMinimumAmountMoney=" + visitMinimumAmountMoney + ", spendAmountMoney="
-                + spendAmountMoney + ", catalogObjectId=" + catalogObjectId
-                + ", excludedCategoryIds=" + excludedCategoryIds + ", excludedItemVariationIds="
-                + excludedItemVariationIds + "]";
+                + ", visitData=" + visitData + ", spendData=" + spendData + ", itemVariationData="
+                + itemVariationData + ", categoryData=" + categoryData + "]";
     }
 
     /**
@@ -188,11 +151,10 @@ public class LoyaltyProgramAccrualRule {
     public Builder toBuilder() {
         Builder builder = new Builder(accrualType)
                 .points(getPoints())
-                .visitMinimumAmountMoney(getVisitMinimumAmountMoney())
-                .spendAmountMoney(getSpendAmountMoney())
-                .catalogObjectId(getCatalogObjectId())
-                .excludedCategoryIds(getExcludedCategoryIds())
-                .excludedItemVariationIds(getExcludedItemVariationIds());
+                .visitData(getVisitData())
+                .spendData(getSpendData())
+                .itemVariationData(getItemVariationData())
+                .categoryData(getCategoryData());
         return builder;
     }
 
@@ -202,11 +164,10 @@ public class LoyaltyProgramAccrualRule {
     public static class Builder {
         private String accrualType;
         private Integer points;
-        private Money visitMinimumAmountMoney;
-        private Money spendAmountMoney;
-        private String catalogObjectId;
-        private List<String> excludedCategoryIds;
-        private List<String> excludedItemVariationIds;
+        private LoyaltyProgramAccrualRuleVisitData visitData;
+        private LoyaltyProgramAccrualRuleSpendData spendData;
+        private LoyaltyProgramAccrualRuleItemVariationData itemVariationData;
+        private LoyaltyProgramAccrualRuleCategoryData categoryData;
 
         /**
          * Initialization constructor.
@@ -237,52 +198,44 @@ public class LoyaltyProgramAccrualRule {
         }
 
         /**
-         * Setter for visitMinimumAmountMoney.
-         * @param  visitMinimumAmountMoney  Money value for visitMinimumAmountMoney.
+         * Setter for visitData.
+         * @param  visitData  LoyaltyProgramAccrualRuleVisitData value for visitData.
          * @return Builder
          */
-        public Builder visitMinimumAmountMoney(Money visitMinimumAmountMoney) {
-            this.visitMinimumAmountMoney = visitMinimumAmountMoney;
+        public Builder visitData(LoyaltyProgramAccrualRuleVisitData visitData) {
+            this.visitData = visitData;
             return this;
         }
 
         /**
-         * Setter for spendAmountMoney.
-         * @param  spendAmountMoney  Money value for spendAmountMoney.
+         * Setter for spendData.
+         * @param  spendData  LoyaltyProgramAccrualRuleSpendData value for spendData.
          * @return Builder
          */
-        public Builder spendAmountMoney(Money spendAmountMoney) {
-            this.spendAmountMoney = spendAmountMoney;
+        public Builder spendData(LoyaltyProgramAccrualRuleSpendData spendData) {
+            this.spendData = spendData;
             return this;
         }
 
         /**
-         * Setter for catalogObjectId.
-         * @param  catalogObjectId  String value for catalogObjectId.
+         * Setter for itemVariationData.
+         * @param  itemVariationData  LoyaltyProgramAccrualRuleItemVariationData value for
+         *         itemVariationData.
          * @return Builder
          */
-        public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+        public Builder itemVariationData(
+                LoyaltyProgramAccrualRuleItemVariationData itemVariationData) {
+            this.itemVariationData = itemVariationData;
             return this;
         }
 
         /**
-         * Setter for excludedCategoryIds.
-         * @param  excludedCategoryIds  List of String value for excludedCategoryIds.
+         * Setter for categoryData.
+         * @param  categoryData  LoyaltyProgramAccrualRuleCategoryData value for categoryData.
          * @return Builder
          */
-        public Builder excludedCategoryIds(List<String> excludedCategoryIds) {
-            this.excludedCategoryIds = excludedCategoryIds;
-            return this;
-        }
-
-        /**
-         * Setter for excludedItemVariationIds.
-         * @param  excludedItemVariationIds  List of String value for excludedItemVariationIds.
-         * @return Builder
-         */
-        public Builder excludedItemVariationIds(List<String> excludedItemVariationIds) {
-            this.excludedItemVariationIds = excludedItemVariationIds;
+        public Builder categoryData(LoyaltyProgramAccrualRuleCategoryData categoryData) {
+            this.categoryData = categoryData;
             return this;
         }
 
@@ -291,9 +244,8 @@ public class LoyaltyProgramAccrualRule {
          * @return {@link LoyaltyProgramAccrualRule}
          */
         public LoyaltyProgramAccrualRule build() {
-            return new LoyaltyProgramAccrualRule(accrualType, points, visitMinimumAmountMoney,
-                    spendAmountMoney, catalogObjectId, excludedCategoryIds,
-                    excludedItemVariationIds);
+            return new LoyaltyProgramAccrualRule(accrualType, points, visitData, spendData,
+                    itemVariationData, categoryData);
         }
     }
 }

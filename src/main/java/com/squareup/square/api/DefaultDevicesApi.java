@@ -135,7 +135,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -228,7 +228,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 
@@ -322,7 +322,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
         //load all headers for the outgoing API request
         Headers headers = new Headers();
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 

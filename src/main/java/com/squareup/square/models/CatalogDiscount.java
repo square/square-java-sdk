@@ -25,6 +25,8 @@ public class CatalogDiscount {
     private final String labelColor;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifyTaxBasis;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Money maximumAmountMoney;
 
     /**
      * Initialization constructor.
@@ -35,6 +37,7 @@ public class CatalogDiscount {
      * @param  pinRequired  Boolean value for pinRequired.
      * @param  labelColor  String value for labelColor.
      * @param  modifyTaxBasis  String value for modifyTaxBasis.
+     * @param  maximumAmountMoney  Money value for maximumAmountMoney.
      */
     @JsonCreator
     public CatalogDiscount(
@@ -44,7 +47,8 @@ public class CatalogDiscount {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("pin_required") Boolean pinRequired,
             @JsonProperty("label_color") String labelColor,
-            @JsonProperty("modify_tax_basis") String modifyTaxBasis) {
+            @JsonProperty("modify_tax_basis") String modifyTaxBasis,
+            @JsonProperty("maximum_amount_money") Money maximumAmountMoney) {
         this.name = name;
         this.discountType = discountType;
         this.percentage = percentage;
@@ -52,6 +56,7 @@ public class CatalogDiscount {
         this.pinRequired = pinRequired;
         this.labelColor = labelColor;
         this.modifyTaxBasis = modifyTaxBasis;
+        this.maximumAmountMoney = maximumAmountMoney;
     }
 
     /**
@@ -134,10 +139,25 @@ public class CatalogDiscount {
         return modifyTaxBasis;
     }
 
+    /**
+     * Getter for MaximumAmountMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("maximum_amount_money")
+    public Money getMaximumAmountMoney() {
+        return maximumAmountMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, discountType, percentage, amountMoney, pinRequired, labelColor,
-                modifyTaxBasis);
+                modifyTaxBasis, maximumAmountMoney);
     }
 
     @Override
@@ -155,7 +175,8 @@ public class CatalogDiscount {
             && Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(pinRequired, other.pinRequired)
             && Objects.equals(labelColor, other.labelColor)
-            && Objects.equals(modifyTaxBasis, other.modifyTaxBasis);
+            && Objects.equals(modifyTaxBasis, other.modifyTaxBasis)
+            && Objects.equals(maximumAmountMoney, other.maximumAmountMoney);
     }
 
     /**
@@ -167,7 +188,7 @@ public class CatalogDiscount {
         return "CatalogDiscount [" + "name=" + name + ", discountType=" + discountType
                 + ", percentage=" + percentage + ", amountMoney=" + amountMoney + ", pinRequired="
                 + pinRequired + ", labelColor=" + labelColor + ", modifyTaxBasis=" + modifyTaxBasis
-                + "]";
+                + ", maximumAmountMoney=" + maximumAmountMoney + "]";
     }
 
     /**
@@ -183,7 +204,8 @@ public class CatalogDiscount {
                 .amountMoney(getAmountMoney())
                 .pinRequired(getPinRequired())
                 .labelColor(getLabelColor())
-                .modifyTaxBasis(getModifyTaxBasis());
+                .modifyTaxBasis(getModifyTaxBasis())
+                .maximumAmountMoney(getMaximumAmountMoney());
         return builder;
     }
 
@@ -198,6 +220,7 @@ public class CatalogDiscount {
         private Boolean pinRequired;
         private String labelColor;
         private String modifyTaxBasis;
+        private Money maximumAmountMoney;
 
 
 
@@ -272,12 +295,22 @@ public class CatalogDiscount {
         }
 
         /**
+         * Setter for maximumAmountMoney.
+         * @param  maximumAmountMoney  Money value for maximumAmountMoney.
+         * @return Builder
+         */
+        public Builder maximumAmountMoney(Money maximumAmountMoney) {
+            this.maximumAmountMoney = maximumAmountMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogDiscount} object using the set fields.
          * @return {@link CatalogDiscount}
          */
         public CatalogDiscount build() {
             return new CatalogDiscount(name, discountType, percentage, amountMoney, pinRequired,
-                    labelColor, modifyTaxBasis);
+                    labelColor, modifyTaxBasis, maximumAmountMoney);
         }
     }
 }

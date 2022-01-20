@@ -48,29 +48,29 @@ CompletableFuture<CreateOrderResponse> createOrderAsync(
 ## Example Usage
 
 ```java
-OrderSource bodyOrderSource = new OrderSource.Builder()
+OrderSource orderSource = new OrderSource.Builder()
     .name("name6")
     .build();
 List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
 
-MeasurementUnitCustom bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name9",
         "abbreviation1")
     .build();
-MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_SQUARE_INCH")
     .lengthUnit("METRIC_KILOMETER")
     .volumeUnit("GENERIC_QUART")
     .weightUnit("METRIC_MILLIGRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(189)
     .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
     .build();
-Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1599L)
     .currency("USD")
     .build();
@@ -85,26 +85,26 @@ OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
     .build();
 bodyOrderLineItems.add(bodyOrderLineItems0);
 
-MeasurementUnitCustom bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name8",
         "abbreviation0")
     .build();
-MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_ACRE")
     .lengthUnit("IMPERIAL_INCH")
     .volumeUnit("GENERIC_PINT")
     .weightUnit("METRIC_GRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(188)
     .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
     .build();
 List<OrderLineItemModifier> bodyOrderLineItems1Modifiers = new LinkedList<>();
 
-Money bodyOrderLineItems1Modifiers0BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(53L)
     .currency("TTD")
     .build();
@@ -119,7 +119,7 @@ bodyOrderLineItems1Modifiers.add(bodyOrderLineItems1Modifiers0);
 
 List<OrderLineItemAppliedDiscount> bodyOrderLineItems1AppliedDiscounts = new LinkedList<>();
 
-Money bodyOrderLineItems1AppliedDiscounts0AppliedMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(164L)
     .currency("CUC")
     .build();
@@ -178,7 +178,7 @@ OrderLineItemDiscount bodyOrderDiscounts1 = new OrderLineItemDiscount.Builder()
     .build();
 bodyOrderDiscounts.add(bodyOrderDiscounts1);
 
-Money bodyOrderDiscounts2AmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
@@ -193,15 +193,15 @@ OrderLineItemDiscount bodyOrderDiscounts2 = new OrderLineItemDiscount.Builder()
     .build();
 bodyOrderDiscounts.add(bodyOrderDiscounts2);
 
-Order bodyOrder = new Order.Builder(
+Order order = new Order.Builder(
         "057P5VYJ4A5X1")
     .id("id0")
     .referenceId("my-order-001")
-    .source(bodyOrderSource)
+    .source(orderSource)
     .customerId("customer_id8")
-    .lineItems(bodyOrderLineItems)
-    .taxes(bodyOrderTaxes)
-    .discounts(bodyOrderDiscounts)
+    .lineItems(orderLineItems)
+    .taxes(orderTaxes)
+    .discounts(orderDiscounts)
     .build();
 CreateOrderRequest body = new CreateOrderRequest.Builder()
     .order(bodyOrder)
@@ -280,29 +280,29 @@ CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
 ## Example Usage
 
 ```java
-OrderSource bodyOrderSource = new OrderSource.Builder()
+OrderSource orderSource = new OrderSource.Builder()
     .name("name6")
     .build();
 List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
 
-MeasurementUnitCustom bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name9",
         "abbreviation1")
     .build();
-MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_SQUARE_INCH")
     .lengthUnit("METRIC_KILOMETER")
     .volumeUnit("GENERIC_QUART")
     .weightUnit("METRIC_MILLIGRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(189)
     .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
     .build();
-Money bodyOrderLineItems0BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(500L)
     .currency("USD")
     .build();
@@ -317,24 +317,24 @@ OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
     .build();
 bodyOrderLineItems.add(bodyOrderLineItems0);
 
-MeasurementUnitCustom bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name8",
         "abbreviation0")
     .build();
-MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_ACRE")
     .lengthUnit("IMPERIAL_INCH")
     .volumeUnit("GENERIC_PINT")
     .weightUnit("METRIC_GRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(188)
     .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
     .build();
-Money bodyOrderLineItems1BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(300L)
     .currency("USD")
     .build();
@@ -362,14 +362,14 @@ OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
     .build();
 bodyOrderDiscounts.add(bodyOrderDiscounts0);
 
-Order bodyOrder = new Order.Builder(
+Order order = new Order.Builder(
         "D7AVYMEAPJ3A3")
     .id("id0")
     .referenceId("reference_id8")
-    .source(bodyOrderSource)
+    .source(orderSource)
     .customerId("customer_id8")
-    .lineItems(bodyOrderLineItems)
-    .discounts(bodyOrderDiscounts)
+    .lineItems(orderLineItems)
+    .discounts(orderDiscounts)
     .build();
 List<OrderReward> bodyProposedRewards = new LinkedList<>();
 
@@ -486,60 +486,60 @@ bodyLocationIds.add("057P5VYJ4A5X1");
 bodyLocationIds.add("18YC4JDH91E1H");
 List<String> bodyQueryFilterStateFilterStates = new LinkedList<>();
 bodyQueryFilterStateFilterStates.add("COMPLETED");
-SearchOrdersStateFilter bodyQueryFilterStateFilter = new SearchOrdersStateFilter.Builder(
-        bodyQueryFilterStateFilterStates)
+SearchOrdersStateFilter searchOrdersStateFilter = new SearchOrdersStateFilter.Builder(
+        searchOrdersStateFilterStates)
     .build();
-TimeRange bodyQueryFilterDateTimeFilterCreatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at8")
     .endAt("end_at4")
     .build();
-TimeRange bodyQueryFilterDateTimeFilterUpdatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at6")
     .endAt("end_at6")
     .build();
-TimeRange bodyQueryFilterDateTimeFilterClosedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("2018-03-03T20:00:00+00:00")
     .endAt("2019-03-04T21:54:45+00:00")
     .build();
-SearchOrdersDateTimeFilter bodyQueryFilterDateTimeFilter = new SearchOrdersDateTimeFilter.Builder()
-    .createdAt(bodyQueryFilterDateTimeFilterCreatedAt)
-    .updatedAt(bodyQueryFilterDateTimeFilterUpdatedAt)
-    .closedAt(bodyQueryFilterDateTimeFilterClosedAt)
+SearchOrdersDateTimeFilter searchOrdersDateTimeFilter = new SearchOrdersDateTimeFilter.Builder()
+    .createdAt(searchOrdersDateTimeFilterCreatedAt)
+    .updatedAt(searchOrdersDateTimeFilterUpdatedAt)
+    .closedAt(searchOrdersDateTimeFilterClosedAt)
     .build();
 List<String> bodyQueryFilterFulfillmentFilterFulfillmentTypes = new LinkedList<>();
 bodyQueryFilterFulfillmentFilterFulfillmentTypes.add("SHIPMENT");
 List<String> bodyQueryFilterFulfillmentFilterFulfillmentStates = new LinkedList<>();
 bodyQueryFilterFulfillmentFilterFulfillmentStates.add("CANCELED");
 bodyQueryFilterFulfillmentFilterFulfillmentStates.add("FAILED");
-SearchOrdersFulfillmentFilter bodyQueryFilterFulfillmentFilter = new SearchOrdersFulfillmentFilter.Builder()
-    .fulfillmentTypes(bodyQueryFilterFulfillmentFilterFulfillmentTypes)
-    .fulfillmentStates(bodyQueryFilterFulfillmentFilterFulfillmentStates)
+SearchOrdersFulfillmentFilter searchOrdersFulfillmentFilter = new SearchOrdersFulfillmentFilter.Builder()
+    .fulfillmentTypes(searchOrdersFulfillmentFilterFulfillmentTypes)
+    .fulfillmentStates(searchOrdersFulfillmentFilterFulfillmentStates)
     .build();
 List<String> bodyQueryFilterSourceFilterSourceNames = new LinkedList<>();
 bodyQueryFilterSourceFilterSourceNames.add("source_names8");
-SearchOrdersSourceFilter bodyQueryFilterSourceFilter = new SearchOrdersSourceFilter.Builder()
-    .sourceNames(bodyQueryFilterSourceFilterSourceNames)
+SearchOrdersSourceFilter searchOrdersSourceFilter = new SearchOrdersSourceFilter.Builder()
+    .sourceNames(searchOrdersSourceFilterSourceNames)
     .build();
 List<String> bodyQueryFilterCustomerFilterCustomerIds = new LinkedList<>();
 bodyQueryFilterCustomerFilterCustomerIds.add("customer_ids5");
 bodyQueryFilterCustomerFilterCustomerIds.add("customer_ids6");
-SearchOrdersCustomerFilter bodyQueryFilterCustomerFilter = new SearchOrdersCustomerFilter.Builder()
-    .customerIds(bodyQueryFilterCustomerFilterCustomerIds)
+SearchOrdersCustomerFilter searchOrdersCustomerFilter = new SearchOrdersCustomerFilter.Builder()
+    .customerIds(searchOrdersCustomerFilterCustomerIds)
     .build();
-SearchOrdersFilter bodyQueryFilter = new SearchOrdersFilter.Builder()
-    .stateFilter(bodyQueryFilterStateFilter)
-    .dateTimeFilter(bodyQueryFilterDateTimeFilter)
-    .fulfillmentFilter(bodyQueryFilterFulfillmentFilter)
-    .sourceFilter(bodyQueryFilterSourceFilter)
-    .customerFilter(bodyQueryFilterCustomerFilter)
+SearchOrdersFilter searchOrdersFilter = new SearchOrdersFilter.Builder()
+    .stateFilter(searchOrdersFilterStateFilter)
+    .dateTimeFilter(searchOrdersFilterDateTimeFilter)
+    .fulfillmentFilter(searchOrdersFilterFulfillmentFilter)
+    .sourceFilter(searchOrdersFilterSourceFilter)
+    .customerFilter(searchOrdersFilterCustomerFilter)
     .build();
-SearchOrdersSort bodyQuerySort = new SearchOrdersSort.Builder(
+SearchOrdersSort searchOrdersSort = new SearchOrdersSort.Builder(
         "CLOSED_AT")
     .sortOrder("DESC")
     .build();
-SearchOrdersQuery bodyQuery = new SearchOrdersQuery.Builder()
-    .filter(bodyQueryFilter)
-    .sort(bodyQuerySort)
+SearchOrdersQuery searchOrdersQuery = new SearchOrdersQuery.Builder()
+    .filter(searchOrdersQueryFilter)
+    .sort(searchOrdersQuerySort)
     .build();
 SearchOrdersRequest body = new SearchOrdersRequest.Builder()
     .locationIds(bodyLocationIds)
@@ -630,24 +630,24 @@ CompletableFuture<UpdateOrderResponse> updateOrderAsync(
 
 ```java
 String orderId = "order_id6";
-OrderSource bodyOrderSource = new OrderSource.Builder()
+OrderSource orderSource = new OrderSource.Builder()
     .name("name6")
     .build();
 List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
 
-MeasurementUnitCustom bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name9",
         "abbreviation1")
     .build();
-MeasurementUnit bodyOrderLineItems0QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems0QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_SQUARE_INCH")
     .lengthUnit("METRIC_KILOMETER")
     .volumeUnit("GENERIC_QUART")
     .weightUnit("METRIC_MILLIGRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems0QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(189)
     .catalogObjectId("catalog_object_id1")
     .catalogVersion(133L)
@@ -662,19 +662,19 @@ OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
     .build();
 bodyOrderLineItems.add(bodyOrderLineItems0);
 
-MeasurementUnitCustom bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name8",
         "abbreviation0")
     .build();
-MeasurementUnit bodyOrderLineItems1QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyOrderLineItems1QuantityUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_ACRE")
     .lengthUnit("IMPERIAL_INCH")
     .volumeUnit("GENERIC_PINT")
     .weightUnit("METRIC_GRAM")
     .build();
-OrderQuantityUnit bodyOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderLineItems1QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(188)
     .catalogObjectId("catalog_object_id0")
     .catalogVersion(134L)
@@ -689,13 +689,13 @@ OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(
     .build();
 bodyOrderLineItems.add(bodyOrderLineItems1);
 
-Order bodyOrder = new Order.Builder(
+Order order = new Order.Builder(
         "location_id4")
     .id("id0")
     .referenceId("reference_id8")
-    .source(bodyOrderSource)
+    .source(orderSource)
     .customerId("customer_id8")
-    .lineItems(bodyOrderLineItems)
+    .lineItems(orderLineItems)
     .build();
 List<String> bodyFieldsToClear = new LinkedList<>();
 bodyFieldsToClear.add("fields_to_clear7");

@@ -40,8 +40,9 @@ public class LocationsApiTest extends BaseApiTest {
     }
 
     /**
-     * Provides details about all of the seller's locations, including those with an inactive
-     * status.
+     * Provides details about all of the seller's
+     * [locations](https://developer.squareup.com/docs/locations-api), including those with an
+     * inactive status.
      * @throws Throwable exception if occurs.
      */
     @Test

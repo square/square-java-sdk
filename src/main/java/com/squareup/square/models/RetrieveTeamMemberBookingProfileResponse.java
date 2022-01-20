@@ -52,7 +52,7 @@ public class RetrieveTeamMemberBookingProfileResponse {
 
     /**
      * Getter for Errors.
-     * Any errors that occurred during the request.
+     * Errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

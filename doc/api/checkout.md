@@ -36,26 +36,26 @@ CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
 
 ```java
 String locationId = "location_id4";
-OrderSource bodyOrderOrderSource = new OrderSource.Builder()
+OrderSource orderSource = new OrderSource.Builder()
     .name("name8")
     .build();
 List<OrderLineItem> bodyOrderOrderLineItems = new LinkedList<>();
 
-MeasurementUnit bodyOrderOrderLineItems0QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
     .areaUnit("IMPERIAL_SQUARE_YARD")
     .lengthUnit("METRIC_CENTIMETER")
     .volumeUnit("GENERIC_SHOT")
     .weightUnit("METRIC_MILLIGRAM")
     .build();
-OrderQuantityUnit bodyOrderOrderLineItems0QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderOrderLineItems0QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(191)
     .catalogObjectId("catalog_object_id7")
     .catalogVersion(131L)
     .build();
 List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
 
-Money bodyOrderOrderLineItems0AppliedTaxes0AppliedMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(53L)
     .currency("GBP")
     .build();
@@ -68,7 +68,7 @@ bodyOrderOrderLineItems0AppliedTaxes.add(bodyOrderOrderLineItems0AppliedTaxes0);
 
 List<OrderLineItemAppliedDiscount> bodyOrderOrderLineItems0AppliedDiscounts = new LinkedList<>();
 
-Money bodyOrderOrderLineItems0AppliedDiscounts0AppliedMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(161L)
     .currency("LSL")
     .build();
@@ -79,7 +79,7 @@ OrderLineItemAppliedDiscount bodyOrderOrderLineItems0AppliedDiscounts0 = new Ord
     .build();
 bodyOrderOrderLineItems0AppliedDiscounts.add(bodyOrderOrderLineItems0AppliedDiscounts0);
 
-Money bodyOrderOrderLineItems0BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1500L)
     .currency("USD")
     .build();
@@ -96,19 +96,19 @@ OrderLineItem bodyOrderOrderLineItems0 = new OrderLineItem.Builder(
     .build();
 bodyOrderOrderLineItems.add(bodyOrderOrderLineItems0);
 
-MeasurementUnit bodyOrderOrderLineItems1QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
     .areaUnit("IMPERIAL_SQUARE_MILE")
     .lengthUnit("METRIC_MILLIMETER")
     .volumeUnit("GENERIC_CUP")
     .weightUnit("IMPERIAL_STONE")
     .build();
-OrderQuantityUnit bodyOrderOrderLineItems1QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderOrderLineItems1QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(192)
     .catalogObjectId("catalog_object_id6")
     .catalogVersion(130L)
     .build();
-Money bodyOrderOrderLineItems1BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(2500L)
     .currency("USD")
     .build();
@@ -123,19 +123,19 @@ OrderLineItem bodyOrderOrderLineItems1 = new OrderLineItem.Builder(
     .build();
 bodyOrderOrderLineItems.add(bodyOrderOrderLineItems1);
 
-MeasurementUnit bodyOrderOrderLineItems2QuantityUnitMeasurementUnit = new MeasurementUnit.Builder()
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
     .areaUnit("METRIC_SQUARE_CENTIMETER")
     .lengthUnit("IMPERIAL_MILE")
     .volumeUnit("GENERIC_PINT")
     .weightUnit("IMPERIAL_POUND")
     .build();
-OrderQuantityUnit bodyOrderOrderLineItems2QuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(bodyOrderOrderLineItems2QuantityUnitMeasurementUnit)
+OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
+    .measurementUnit(orderQuantityUnitMeasurementUnit)
     .precision(193)
     .catalogObjectId("catalog_object_id5")
     .catalogVersion(129L)
     .build();
-Money bodyOrderOrderLineItems2BasePriceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(3500L)
     .currency("USD")
     .build();
@@ -165,7 +165,7 @@ bodyOrderOrderTaxes.add(bodyOrderOrderTaxes0);
 
 List<OrderLineItemDiscount> bodyOrderOrderDiscounts = new LinkedList<>();
 
-Money bodyOrderOrderDiscounts0AmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
@@ -180,21 +180,21 @@ OrderLineItemDiscount bodyOrderOrderDiscounts0 = new OrderLineItemDiscount.Build
     .build();
 bodyOrderOrderDiscounts.add(bodyOrderOrderDiscounts0);
 
-Order bodyOrderOrder = new Order.Builder(
+Order order = new Order.Builder(
         "location_id")
     .id("id6")
     .referenceId("reference_id")
-    .source(bodyOrderOrderSource)
+    .source(orderSource)
     .customerId("customer_id")
-    .lineItems(bodyOrderOrderLineItems)
-    .taxes(bodyOrderOrderTaxes)
-    .discounts(bodyOrderOrderDiscounts)
+    .lineItems(orderLineItems)
+    .taxes(orderTaxes)
+    .discounts(orderDiscounts)
     .build();
-CreateOrderRequest bodyOrder = new CreateOrderRequest.Builder()
-    .order(bodyOrderOrder)
+CreateOrderRequest createOrderRequest = new CreateOrderRequest.Builder()
+    .order(createOrderRequestOrder)
     .idempotencyKey("12ae1696-z1e3-4328-af6d-f1e04d947gd4")
     .build();
-Address bodyPrePopulateShippingAddress = new Address.Builder()
+Address address = new Address.Builder()
     .addressLine1("1455 Market St.")
     .addressLine2("Suite 600")
     .addressLine3("address_line_36")
@@ -203,12 +203,10 @@ Address bodyPrePopulateShippingAddress = new Address.Builder()
     .administrativeDistrictLevel1("CA")
     .postalCode("94103")
     .country("US")
-    .firstName("Jane")
-    .lastName("Doe")
     .build();
 List<ChargeRequestAdditionalRecipient> bodyAdditionalRecipients = new LinkedList<>();
 
-Money bodyAdditionalRecipients0AmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(60L)
     .currency("USD")
     .build();

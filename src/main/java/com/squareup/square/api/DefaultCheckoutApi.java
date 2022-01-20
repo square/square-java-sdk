@@ -116,7 +116,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
         Headers headers = new Headers();
         headers.add("Content-Type", "application/json");
         headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", BaseApi.userAgent);
+        headers.add("user-agent", internalUserAgent);
         headers.add("accept", "application/json");
         headers.addAll(config.getAdditionalHeaders());
 

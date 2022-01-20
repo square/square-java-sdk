@@ -122,7 +122,7 @@ CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAs
 ```java
 List<InventoryChange> bodyChanges = new LinkedList<>();
 
-InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Builder()
+InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
     .id("id0")
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
@@ -133,33 +133,33 @@ InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Bu
     .employeeId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryAdjustment bodyChanges0Adjustment = new InventoryAdjustment.Builder()
+InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()
     .id("id6")
     .referenceId("reference_id4")
     .fromState("SOLD")
     .toState("SOLD_ONLINE")
     .locationId("location_id0")
     .build();
-InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
+InventoryTransfer inventoryTransfer = new InventoryTransfer.Builder()
     .id("id0")
     .referenceId("reference_id8")
     .state("UNLINKED_RETURN")
     .fromLocationId("from_location_id2")
     .toLocationId("to_location_id2")
     .build();
-MeasurementUnitCustom bodyChanges0MeasurementUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name0",
         "abbreviation2")
     .build();
-MeasurementUnit bodyChanges0MeasurementUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyChanges0MeasurementUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_SQUARE_FOOT")
     .lengthUnit("METRIC_METER")
     .volumeUnit("METRIC_MILLILITER")
     .weightUnit("IMPERIAL_WEIGHT_OUNCE")
     .build();
-CatalogMeasurementUnit bodyChanges0MeasurementUnit = new CatalogMeasurementUnit.Builder()
-    .measurementUnit(bodyChanges0MeasurementUnitMeasurementUnit)
+CatalogMeasurementUnit catalogMeasurementUnit = new CatalogMeasurementUnit.Builder()
+    .measurementUnit(catalogMeasurementUnitMeasurementUnit)
     .precision(26)
     .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()
@@ -313,7 +313,7 @@ CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
 ```java
 List<InventoryChange> bodyChanges = new LinkedList<>();
 
-InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Builder()
+InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
     .id("id0")
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
@@ -324,33 +324,33 @@ InventoryPhysicalCount bodyChanges0PhysicalCount = new InventoryPhysicalCount.Bu
     .employeeId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryAdjustment bodyChanges0Adjustment = new InventoryAdjustment.Builder()
+InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()
     .id("id6")
     .referenceId("reference_id4")
     .fromState("SOLD")
     .toState("SOLD_ONLINE")
     .locationId("location_id0")
     .build();
-InventoryTransfer bodyChanges0Transfer = new InventoryTransfer.Builder()
+InventoryTransfer inventoryTransfer = new InventoryTransfer.Builder()
     .id("id0")
     .referenceId("reference_id8")
     .state("UNLINKED_RETURN")
     .fromLocationId("from_location_id2")
     .toLocationId("to_location_id2")
     .build();
-MeasurementUnitCustom bodyChanges0MeasurementUnitMeasurementUnitCustomUnit = new MeasurementUnitCustom.Builder(
+MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
         "name0",
         "abbreviation2")
     .build();
-MeasurementUnit bodyChanges0MeasurementUnitMeasurementUnit = new MeasurementUnit.Builder()
-    .customUnit(bodyChanges0MeasurementUnitMeasurementUnitCustomUnit)
+MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
+    .customUnit(measurementUnitCustomUnit)
     .areaUnit("IMPERIAL_SQUARE_FOOT")
     .lengthUnit("METRIC_METER")
     .volumeUnit("METRIC_MILLILITER")
     .weightUnit("IMPERIAL_WEIGHT_OUNCE")
     .build();
-CatalogMeasurementUnit bodyChanges0MeasurementUnit = new CatalogMeasurementUnit.Builder()
-    .measurementUnit(bodyChanges0MeasurementUnitMeasurementUnit)
+CatalogMeasurementUnit catalogMeasurementUnit = new CatalogMeasurementUnit.Builder()
+    .measurementUnit(catalogMeasurementUnitMeasurementUnit)
     .precision(26)
     .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()

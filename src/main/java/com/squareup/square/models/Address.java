@@ -22,25 +22,11 @@ public class Address {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sublocality;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String sublocality2;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String sublocality3;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String administrativeDistrictLevel1;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String administrativeDistrictLevel2;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String administrativeDistrictLevel3;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String postalCode;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String firstName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String lastName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String organization;
 
     /**
      * Initialization constructor.
@@ -49,16 +35,9 @@ public class Address {
      * @param  addressLine3  String value for addressLine3.
      * @param  locality  String value for locality.
      * @param  sublocality  String value for sublocality.
-     * @param  sublocality2  String value for sublocality2.
-     * @param  sublocality3  String value for sublocality3.
      * @param  administrativeDistrictLevel1  String value for administrativeDistrictLevel1.
-     * @param  administrativeDistrictLevel2  String value for administrativeDistrictLevel2.
-     * @param  administrativeDistrictLevel3  String value for administrativeDistrictLevel3.
      * @param  postalCode  String value for postalCode.
      * @param  country  String value for country.
-     * @param  firstName  String value for firstName.
-     * @param  lastName  String value for lastName.
-     * @param  organization  String value for organization.
      */
     @JsonCreator
     public Address(
@@ -67,31 +46,17 @@ public class Address {
             @JsonProperty("address_line_3") String addressLine3,
             @JsonProperty("locality") String locality,
             @JsonProperty("sublocality") String sublocality,
-            @JsonProperty("sublocality_2") String sublocality2,
-            @JsonProperty("sublocality_3") String sublocality3,
             @JsonProperty("administrative_district_level_1") String administrativeDistrictLevel1,
-            @JsonProperty("administrative_district_level_2") String administrativeDistrictLevel2,
-            @JsonProperty("administrative_district_level_3") String administrativeDistrictLevel3,
             @JsonProperty("postal_code") String postalCode,
-            @JsonProperty("country") String country,
-            @JsonProperty("first_name") String firstName,
-            @JsonProperty("last_name") String lastName,
-            @JsonProperty("organization") String organization) {
+            @JsonProperty("country") String country) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.addressLine3 = addressLine3;
         this.locality = locality;
         this.sublocality = sublocality;
-        this.sublocality2 = sublocality2;
-        this.sublocality3 = sublocality3;
         this.administrativeDistrictLevel1 = administrativeDistrictLevel1;
-        this.administrativeDistrictLevel2 = administrativeDistrictLevel2;
-        this.administrativeDistrictLevel3 = administrativeDistrictLevel3;
         this.postalCode = postalCode;
         this.country = country;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.organization = organization;
     }
 
     /**
@@ -129,7 +94,8 @@ public class Address {
 
     /**
      * Getter for Locality.
-     * The city or town of the address.
+     * The city or town of the address. For a full list of field meanings by country, see [Working
+     * with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
     @JsonGetter("locality")
@@ -148,28 +114,10 @@ public class Address {
     }
 
     /**
-     * Getter for Sublocality2.
-     * A civil region within the address's `sublocality`, if any.
-     * @return Returns the String
-     */
-    @JsonGetter("sublocality_2")
-    public String getSublocality2() {
-        return sublocality2;
-    }
-
-    /**
-     * Getter for Sublocality3.
-     * A civil region within the address's `sublocality_2`, if any.
-     * @return Returns the String
-     */
-    @JsonGetter("sublocality_3")
-    public String getSublocality3() {
-        return sublocality3;
-    }
-
-    /**
      * Getter for AdministrativeDistrictLevel1.
-     * A civil entity within the address's country. In the US, this is the state.
+     * A civil entity within the address's country. In the US, this is the state. For a full list of
+     * field meanings by country, see [Working with
+     * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
     @JsonGetter("administrative_district_level_1")
@@ -178,29 +126,9 @@ public class Address {
     }
 
     /**
-     * Getter for AdministrativeDistrictLevel2.
-     * A civil entity within the address's `administrative_district_level_1`. In the US, this is the
-     * county.
-     * @return Returns the String
-     */
-    @JsonGetter("administrative_district_level_2")
-    public String getAdministrativeDistrictLevel2() {
-        return administrativeDistrictLevel2;
-    }
-
-    /**
-     * Getter for AdministrativeDistrictLevel3.
-     * A civil entity within the address's `administrative_district_level_2`, if any.
-     * @return Returns the String
-     */
-    @JsonGetter("administrative_district_level_3")
-    public String getAdministrativeDistrictLevel3() {
-        return administrativeDistrictLevel3;
-    }
-
-    /**
      * Getter for PostalCode.
-     * The address's postal code.
+     * The address's postal code. For a full list of field meanings by country, see [Working with
+     * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
     @JsonGetter("postal_code")
@@ -219,42 +147,10 @@ public class Address {
         return country;
     }
 
-    /**
-     * Getter for FirstName.
-     * Optional first name when it's representing recipient.
-     * @return Returns the String
-     */
-    @JsonGetter("first_name")
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * Getter for LastName.
-     * Optional last name when it's representing recipient.
-     * @return Returns the String
-     */
-    @JsonGetter("last_name")
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * Getter for Organization.
-     * Optional organization name when it's representing recipient.
-     * @return Returns the String
-     */
-    @JsonGetter("organization")
-    public String getOrganization() {
-        return organization;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, addressLine3, locality, sublocality,
-                sublocality2, sublocality3, administrativeDistrictLevel1,
-                administrativeDistrictLevel2, administrativeDistrictLevel3, postalCode, country,
-                firstName, lastName, organization);
+                administrativeDistrictLevel1, postalCode, country);
     }
 
     @Override
@@ -271,16 +167,9 @@ public class Address {
             && Objects.equals(addressLine3, other.addressLine3)
             && Objects.equals(locality, other.locality)
             && Objects.equals(sublocality, other.sublocality)
-            && Objects.equals(sublocality2, other.sublocality2)
-            && Objects.equals(sublocality3, other.sublocality3)
             && Objects.equals(administrativeDistrictLevel1, other.administrativeDistrictLevel1)
-            && Objects.equals(administrativeDistrictLevel2, other.administrativeDistrictLevel2)
-            && Objects.equals(administrativeDistrictLevel3, other.administrativeDistrictLevel3)
             && Objects.equals(postalCode, other.postalCode)
-            && Objects.equals(country, other.country)
-            && Objects.equals(firstName, other.firstName)
-            && Objects.equals(lastName, other.lastName)
-            && Objects.equals(organization, other.organization);
+            && Objects.equals(country, other.country);
     }
 
     /**
@@ -291,12 +180,8 @@ public class Address {
     public String toString() {
         return "Address [" + "addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
                 + ", addressLine3=" + addressLine3 + ", locality=" + locality + ", sublocality="
-                + sublocality + ", sublocality2=" + sublocality2 + ", sublocality3=" + sublocality3
-                + ", administrativeDistrictLevel1=" + administrativeDistrictLevel1
-                + ", administrativeDistrictLevel2=" + administrativeDistrictLevel2
-                + ", administrativeDistrictLevel3=" + administrativeDistrictLevel3 + ", postalCode="
-                + postalCode + ", country=" + country + ", firstName=" + firstName + ", lastName="
-                + lastName + ", organization=" + organization + "]";
+                + sublocality + ", administrativeDistrictLevel1=" + administrativeDistrictLevel1
+                + ", postalCode=" + postalCode + ", country=" + country + "]";
     }
 
     /**
@@ -311,16 +196,9 @@ public class Address {
                 .addressLine3(getAddressLine3())
                 .locality(getLocality())
                 .sublocality(getSublocality())
-                .sublocality2(getSublocality2())
-                .sublocality3(getSublocality3())
                 .administrativeDistrictLevel1(getAdministrativeDistrictLevel1())
-                .administrativeDistrictLevel2(getAdministrativeDistrictLevel2())
-                .administrativeDistrictLevel3(getAdministrativeDistrictLevel3())
                 .postalCode(getPostalCode())
-                .country(getCountry())
-                .firstName(getFirstName())
-                .lastName(getLastName())
-                .organization(getOrganization());
+                .country(getCountry());
         return builder;
     }
 
@@ -333,16 +211,9 @@ public class Address {
         private String addressLine3;
         private String locality;
         private String sublocality;
-        private String sublocality2;
-        private String sublocality3;
         private String administrativeDistrictLevel1;
-        private String administrativeDistrictLevel2;
-        private String administrativeDistrictLevel3;
         private String postalCode;
         private String country;
-        private String firstName;
-        private String lastName;
-        private String organization;
 
 
 
@@ -397,52 +268,12 @@ public class Address {
         }
 
         /**
-         * Setter for sublocality2.
-         * @param  sublocality2  String value for sublocality2.
-         * @return Builder
-         */
-        public Builder sublocality2(String sublocality2) {
-            this.sublocality2 = sublocality2;
-            return this;
-        }
-
-        /**
-         * Setter for sublocality3.
-         * @param  sublocality3  String value for sublocality3.
-         * @return Builder
-         */
-        public Builder sublocality3(String sublocality3) {
-            this.sublocality3 = sublocality3;
-            return this;
-        }
-
-        /**
          * Setter for administrativeDistrictLevel1.
          * @param  administrativeDistrictLevel1  String value for administrativeDistrictLevel1.
          * @return Builder
          */
         public Builder administrativeDistrictLevel1(String administrativeDistrictLevel1) {
             this.administrativeDistrictLevel1 = administrativeDistrictLevel1;
-            return this;
-        }
-
-        /**
-         * Setter for administrativeDistrictLevel2.
-         * @param  administrativeDistrictLevel2  String value for administrativeDistrictLevel2.
-         * @return Builder
-         */
-        public Builder administrativeDistrictLevel2(String administrativeDistrictLevel2) {
-            this.administrativeDistrictLevel2 = administrativeDistrictLevel2;
-            return this;
-        }
-
-        /**
-         * Setter for administrativeDistrictLevel3.
-         * @param  administrativeDistrictLevel3  String value for administrativeDistrictLevel3.
-         * @return Builder
-         */
-        public Builder administrativeDistrictLevel3(String administrativeDistrictLevel3) {
-            this.administrativeDistrictLevel3 = administrativeDistrictLevel3;
             return this;
         }
 
@@ -467,44 +298,12 @@ public class Address {
         }
 
         /**
-         * Setter for firstName.
-         * @param  firstName  String value for firstName.
-         * @return Builder
-         */
-        public Builder firstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        /**
-         * Setter for lastName.
-         * @param  lastName  String value for lastName.
-         * @return Builder
-         */
-        public Builder lastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        /**
-         * Setter for organization.
-         * @param  organization  String value for organization.
-         * @return Builder
-         */
-        public Builder organization(String organization) {
-            this.organization = organization;
-            return this;
-        }
-
-        /**
          * Builds a new {@link Address} object using the set fields.
          * @return {@link Address}
          */
         public Address build() {
             return new Address(addressLine1, addressLine2, addressLine3, locality, sublocality,
-                    sublocality2, sublocality3, administrativeDistrictLevel1,
-                    administrativeDistrictLevel2, administrativeDistrictLevel3, postalCode, country,
-                    firstName, lastName, organization);
+                    administrativeDistrictLevel1, postalCode, country);
         }
     }
 }

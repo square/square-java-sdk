@@ -89,16 +89,16 @@ CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
 ## Example Usage
 
 ```java
-Money bodyGiftCardBalanceMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(2L)
     .currency("DOP")
     .build();
-GiftCard bodyGiftCard = new GiftCard.Builder(
+GiftCard giftCard = new GiftCard.Builder(
         "DIGITAL")
     .id("id4")
     .ganSource("SQUARE")
     .state("ACTIVE")
-    .balanceMoney(bodyGiftCardBalanceMoney)
+    .balanceMoney(giftCardBalanceMoney)
     .gan("gan0")
     .build();
 CreateGiftCardRequest body = new CreateGiftCardRequest.Builder(

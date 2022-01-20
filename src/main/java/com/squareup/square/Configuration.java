@@ -28,8 +28,7 @@ public interface Configuration {
     String getSquareVersion();
 
     /**
-     * Http Client Configuration instance. 
-     * See available [builder methods here](__HttpClientConfiguration.Builder).
+     * Http Client Configuration instance.
      * @return a copy of httpClientConfig
      */
     ReadonlyHttpClientConfiguration getHttpClientConfig();
@@ -39,6 +38,12 @@ public interface Configuration {
      * @return a copy of additionalHeaders
      */
     Headers getAdditionalHeaders();
+
+    /**
+     * Additional detail which can be appended with User-Agent header.
+     * @return a copy of userAgentDetail
+     */
+    String getUserAgentDetail();
 
     /**
      * The timeout to use for making HTTP requests. The timeout to use for making HTTP requests.

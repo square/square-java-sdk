@@ -43,7 +43,7 @@ CompletableFuture<CreateTerminalCheckoutResponse> createTerminalCheckoutAsync(
 ## Example Usage
 
 ```java
-Money bodyCheckoutAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(2610L)
     .currency("USD")
     .build();
@@ -51,21 +51,21 @@ List<Integer> bodyCheckoutDeviceOptionsTipSettingsTipPercentages = new LinkedLis
 bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(148);
 bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(149);
 bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(150);
-TipSettings bodyCheckoutDeviceOptionsTipSettings = new TipSettings.Builder()
+TipSettings tipSettings = new TipSettings.Builder()
     .allowTipping(false)
     .separateTipScreen(false)
     .customTipField(false)
-    .tipPercentages(bodyCheckoutDeviceOptionsTipSettingsTipPercentages)
+    .tipPercentages(tipSettingsTipPercentages)
     .smartTipping(false)
     .build();
-DeviceCheckoutOptions bodyCheckoutDeviceOptions = new DeviceCheckoutOptions.Builder(
+DeviceCheckoutOptions deviceCheckoutOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
     .skipReceiptScreen(false)
-    .tipSettings(bodyCheckoutDeviceOptionsTipSettings)
+    .tipSettings(deviceCheckoutOptionsTipSettings)
     .build();
-TerminalCheckout bodyCheckout = new TerminalCheckout.Builder(
-        bodyCheckoutAmountMoney,
-        bodyCheckoutDeviceOptions)
+TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
+        terminalCheckoutAmountMoney,
+        terminalCheckoutDeviceOptions)
     .id("id8")
     .referenceId("id11572")
     .note("A brief note")
@@ -108,21 +108,21 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 ## Example Usage
 
 ```java
-TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at2")
     .endAt("end_at0")
     .build();
-TerminalCheckoutQueryFilter bodyQueryFilter = new TerminalCheckoutQueryFilter.Builder()
+TerminalCheckoutQueryFilter terminalCheckoutQueryFilter = new TerminalCheckoutQueryFilter.Builder()
     .deviceId("device_id8")
-    .createdAt(bodyQueryFilterCreatedAt)
+    .createdAt(terminalCheckoutQueryFilterCreatedAt)
     .status("COMPLETED")
     .build();
-TerminalCheckoutQuerySort bodyQuerySort = new TerminalCheckoutQuerySort.Builder()
+TerminalCheckoutQuerySort terminalCheckoutQuerySort = new TerminalCheckoutQuerySort.Builder()
     .sortOrder("DESC")
     .build();
-TerminalCheckoutQuery bodyQuery = new TerminalCheckoutQuery.Builder()
-    .filter(bodyQueryFilter)
-    .sort(bodyQuerySort)
+TerminalCheckoutQuery terminalCheckoutQuery = new TerminalCheckoutQuery.Builder()
+    .filter(terminalCheckoutQueryFilter)
+    .sort(terminalCheckoutQuerySort)
     .build();
 SearchTerminalCheckoutsRequest body = new SearchTerminalCheckoutsRequest.Builder()
     .query(bodyQuery)
@@ -227,13 +227,13 @@ CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
 ## Example Usage
 
 ```java
-Money bodyRefundAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(111L)
     .currency("CAD")
     .build();
-TerminalRefund bodyRefund = new TerminalRefund.Builder(
+TerminalRefund terminalRefund = new TerminalRefund.Builder(
         "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
-        bodyRefundAmountMoney)
+        terminalRefundAmountMoney)
     .id("id4")
     .refundId("refund_id8")
     .orderId("order_id8")
@@ -276,21 +276,21 @@ CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
 ## Example Usage
 
 ```java
-TimeRange bodyQueryFilterCreatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at2")
     .endAt("end_at0")
     .build();
-TerminalRefundQueryFilter bodyQueryFilter = new TerminalRefundQueryFilter.Builder()
+TerminalRefundQueryFilter terminalRefundQueryFilter = new TerminalRefundQueryFilter.Builder()
     .deviceId("device_id8")
-    .createdAt(bodyQueryFilterCreatedAt)
+    .createdAt(terminalRefundQueryFilterCreatedAt)
     .status("COMPLETED")
     .build();
-TerminalRefundQuerySort bodyQuerySort = new TerminalRefundQuerySort.Builder()
+TerminalRefundQuerySort terminalRefundQuerySort = new TerminalRefundQuerySort.Builder()
     .sortOrder("sort_order8")
     .build();
-TerminalRefundQuery bodyQuery = new TerminalRefundQuery.Builder()
-    .filter(bodyQueryFilter)
-    .sort(bodyQuerySort)
+TerminalRefundQuery terminalRefundQuery = new TerminalRefundQuery.Builder()
+    .filter(terminalRefundQueryFilter)
+    .sort(terminalRefundQuerySort)
     .build();
 SearchTerminalRefundsRequest body = new SearchTerminalRefundsRequest.Builder()
     .query(bodyQuery)

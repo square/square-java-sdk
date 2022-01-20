@@ -102,7 +102,7 @@ CompletableFuture<CreateBreakTypeResponse> createBreakTypeAsync(
 ## Example Usage
 
 ```java
-BreakType bodyBreakType = new BreakType.Builder(
+BreakType breakType = new BreakType.Builder(
         "CGJN03P1D08GF",
         "Lunch Break",
         "PT30M",
@@ -219,7 +219,7 @@ CompletableFuture<UpdateBreakTypeResponse> updateBreakTypeAsync(
 
 ```java
 String id = "id0";
-BreakType bodyBreakType = new BreakType.Builder(
+BreakType breakType = new BreakType.Builder(
         "26M7H24AZ9N6R",
         "Lunch",
         "PT50M",
@@ -358,13 +358,13 @@ CompletableFuture<CreateShiftResponse> createShiftAsync(
 ## Example Usage
 
 ```java
-Money bodyShiftWageHourlyRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1100L)
     .currency("USD")
     .build();
-ShiftWage bodyShiftWage = new ShiftWage.Builder()
+ShiftWage shiftWage = new ShiftWage.Builder()
     .title("Barista")
-    .hourlyRate(bodyShiftWageHourlyRate)
+    .hourlyRate(shiftWageHourlyRate)
     .build();
 List<Break> bodyShiftBreaks = new LinkedList<>();
 
@@ -379,15 +379,15 @@ Break bodyShiftBreaks0 = new Break.Builder(
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
-Shift bodyShift = new Shift.Builder(
+Shift shift = new Shift.Builder(
         "2019-01-25T03:11:00-05:00")
     .id("id8")
     .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
     .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
-    .wage(bodyShiftWage)
-    .breaks(bodyShiftBreaks)
+    .wage(shiftWage)
+    .breaks(shiftBreaks)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
 CreateShiftRequest body = new CreateShiftRequest.Builder(
@@ -448,39 +448,39 @@ bodyQueryFilterTeamMemberIds.add("team_member_ids9");
 bodyQueryFilterTeamMemberIds.add("team_member_ids0");
 List<String> bodyQueryFilterEmployeeIds = new LinkedList<>();
 bodyQueryFilterEmployeeIds.add("employee_ids7");
-TimeRange bodyQueryFilterStart = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at8")
     .endAt("end_at4")
     .build();
-TimeRange bodyQueryFilterEnd = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at2")
     .endAt("end_at0")
     .build();
-DateRange bodyQueryFilterWorkdayDateRange = new DateRange.Builder()
+DateRange dateRange = new DateRange.Builder()
     .startDate("start_date8")
     .endDate("end_date4")
     .build();
-ShiftWorkday bodyQueryFilterWorkday = new ShiftWorkday.Builder()
-    .dateRange(bodyQueryFilterWorkdayDateRange)
+ShiftWorkday shiftWorkday = new ShiftWorkday.Builder()
+    .dateRange(shiftWorkdayDateRange)
     .matchShiftsBy("START_AT")
     .defaultTimezone("default_timezone8")
     .build();
-ShiftFilter bodyQueryFilter = new ShiftFilter.Builder(
-        bodyQueryFilterLocationIds,
-        bodyQueryFilterTeamMemberIds)
-    .employeeIds(bodyQueryFilterEmployeeIds)
+ShiftFilter shiftFilter = new ShiftFilter.Builder(
+        shiftFilterLocationIds,
+        shiftFilterTeamMemberIds)
+    .employeeIds(shiftFilterEmployeeIds)
     .status("OPEN")
-    .start(bodyQueryFilterStart)
-    .end(bodyQueryFilterEnd)
-    .workday(bodyQueryFilterWorkday)
+    .start(shiftFilterStart)
+    .end(shiftFilterEnd)
+    .workday(shiftFilterWorkday)
     .build();
-ShiftSort bodyQuerySort = new ShiftSort.Builder()
+ShiftSort shiftSort = new ShiftSort.Builder()
     .field("CREATED_AT")
     .order("DESC")
     .build();
-ShiftQuery bodyQuery = new ShiftQuery.Builder()
-    .filter(bodyQueryFilter)
-    .sort(bodyQuerySort)
+ShiftQuery shiftQuery = new ShiftQuery.Builder()
+    .filter(shiftQueryFilter)
+    .sort(shiftQuerySort)
     .build();
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
     .query(bodyQuery)
@@ -594,13 +594,13 @@ CompletableFuture<UpdateShiftResponse> updateShiftAsync(
 
 ```java
 String id = "id0";
-Money bodyShiftWageHourlyRate = new Money.Builder()
+Money money = new Money.Builder()
     .amount(1500L)
     .currency("USD")
     .build();
-ShiftWage bodyShiftWage = new ShiftWage.Builder()
+ShiftWage shiftWage = new ShiftWage.Builder()
     .title("Bartender")
-    .hourlyRate(bodyShiftWageHourlyRate)
+    .hourlyRate(shiftWageHourlyRate)
     .build();
 List<Break> bodyShiftBreaks = new LinkedList<>();
 
@@ -615,15 +615,15 @@ Break bodyShiftBreaks0 = new Break.Builder(
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
-Shift bodyShift = new Shift.Builder(
+Shift shift = new Shift.Builder(
         "2019-01-25T03:11:00-05:00")
     .id("id8")
     .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
     .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
-    .wage(bodyShiftWage)
-    .breaks(bodyShiftBreaks)
+    .wage(shiftWage)
+    .breaks(shiftBreaks)
     .version(1)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
@@ -773,7 +773,7 @@ CompletableFuture<UpdateWorkweekConfigResponse> updateWorkweekConfigAsync(
 
 ```java
 String id = "id0";
-WorkweekConfig bodyWorkweekConfig = new WorkweekConfig.Builder(
+WorkweekConfig workweekConfig = new WorkweekConfig.Builder(
         "MON",
         "10:00")
     .id("id4")

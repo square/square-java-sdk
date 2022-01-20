@@ -48,19 +48,19 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 ## Example Usage
 
 ```java
-LoyaltyAccountMapping bodyLoyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
+LoyaltyAccountMapping loyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
     .id("id6")
     .createdAt("created_at4")
     .phoneNumber("+14155551234")
     .build();
-LoyaltyAccount bodyLoyaltyAccount = new LoyaltyAccount.Builder(
+LoyaltyAccount loyaltyAccount = new LoyaltyAccount.Builder(
         "d619f755-2d17-41f3-990d-c04ecedd64dd")
     .id("id2")
     .balance(14)
     .lifetimePoints(38)
     .customerId("customer_id0")
     .enrolledAt("enrolled_at2")
-    .mapping(bodyLoyaltyAccountMapping)
+    .mapping(loyaltyAccountMapping)
     .build();
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
         bodyLoyaltyAccount,
@@ -114,9 +114,9 @@ bodyQueryMappings.add(bodyQueryMappings0);
 List<String> bodyQueryCustomerIds = new LinkedList<>();
 bodyQueryCustomerIds.add("customer_ids5");
 bodyQueryCustomerIds.add("customer_ids4");
-SearchLoyaltyAccountsRequestLoyaltyAccountQuery bodyQuery = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
-    .mappings(bodyQueryMappings)
-    .customerIds(bodyQueryCustomerIds)
+SearchLoyaltyAccountsRequestLoyaltyAccountQuery searchLoyaltyAccountsRequestLoyaltyAccountQuery = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
+    .mappings(searchLoyaltyAccountsRequestLoyaltyAccountQueryMappings)
+    .customerIds(searchLoyaltyAccountsRequestLoyaltyAccountQueryCustomerIds)
     .build();
 SearchLoyaltyAccountsRequest body = new SearchLoyaltyAccountsRequest.Builder()
     .query(bodyQuery)
@@ -178,9 +178,6 @@ Adds points to a loyalty account.
   [CalculateLoyaltyPoints](/doc/api/loyalty.md#calculate-loyalty-points) to compute the points  
   that you provide to this endpoint.
 
-__Note:__ The country of the seller's Square account determines whether tax is included in the purchase amount when accruing points for spend-based and visit-based programs.
-For more information, see [Availability of Square Loyalty](https://developer.squareup.com/docs/loyalty-api/overview#loyalty-market-availability).
-
 ```java
 CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
     final String accountId,
@@ -202,7 +199,7 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAccumulatePoints bodyAccumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
+LoyaltyEventAccumulatePoints loyaltyEventAccumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
     .loyaltyProgramId("loyalty_program_id8")
     .points(90)
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
@@ -251,7 +248,7 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAdjustPoints bodyAdjustPoints = new LoyaltyEventAdjustPoints.Builder(
+LoyaltyEventAdjustPoints loyaltyEventAdjustPoints = new LoyaltyEventAdjustPoints.Builder(
         10)
     .loyaltyProgramId("loyalty_program_id4")
     .reason("Complimentary points")
@@ -299,42 +296,42 @@ CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
 ## Example Usage
 
 ```java
-LoyaltyEventLoyaltyAccountFilter bodyQueryFilterLoyaltyAccountFilter = new LoyaltyEventLoyaltyAccountFilter.Builder(
+LoyaltyEventLoyaltyAccountFilter loyaltyEventLoyaltyAccountFilter = new LoyaltyEventLoyaltyAccountFilter.Builder(
         "loyalty_account_id6")
     .build();
 List<String> bodyQueryFilterTypeFilterTypes = new LinkedList<>();
 bodyQueryFilterTypeFilterTypes.add("DELETE_REWARD");
 bodyQueryFilterTypeFilterTypes.add("ADJUST_POINTS");
 bodyQueryFilterTypeFilterTypes.add("EXPIRE_POINTS");
-LoyaltyEventTypeFilter bodyQueryFilterTypeFilter = new LoyaltyEventTypeFilter.Builder(
-        bodyQueryFilterTypeFilterTypes)
+LoyaltyEventTypeFilter loyaltyEventTypeFilter = new LoyaltyEventTypeFilter.Builder(
+        loyaltyEventTypeFilterTypes)
     .build();
-TimeRange bodyQueryFilterDateTimeFilterCreatedAt = new TimeRange.Builder()
+TimeRange timeRange = new TimeRange.Builder()
     .startAt("start_at8")
     .endAt("end_at4")
     .build();
-LoyaltyEventDateTimeFilter bodyQueryFilterDateTimeFilter = new LoyaltyEventDateTimeFilter.Builder(
-        bodyQueryFilterDateTimeFilterCreatedAt)
+LoyaltyEventDateTimeFilter loyaltyEventDateTimeFilter = new LoyaltyEventDateTimeFilter.Builder(
+        loyaltyEventDateTimeFilterCreatedAt)
     .build();
 List<String> bodyQueryFilterLocationFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationFilterLocationIds.add("location_ids2");
 bodyQueryFilterLocationFilterLocationIds.add("location_ids3");
 bodyQueryFilterLocationFilterLocationIds.add("location_ids4");
-LoyaltyEventLocationFilter bodyQueryFilterLocationFilter = new LoyaltyEventLocationFilter.Builder(
-        bodyQueryFilterLocationFilterLocationIds)
+LoyaltyEventLocationFilter loyaltyEventLocationFilter = new LoyaltyEventLocationFilter.Builder(
+        loyaltyEventLocationFilterLocationIds)
     .build();
-LoyaltyEventOrderFilter bodyQueryFilterOrderFilter = new LoyaltyEventOrderFilter.Builder(
+LoyaltyEventOrderFilter loyaltyEventOrderFilter = new LoyaltyEventOrderFilter.Builder(
         "PyATxhYLfsMqpVkcKJITPydgEYfZY")
     .build();
-LoyaltyEventFilter bodyQueryFilter = new LoyaltyEventFilter.Builder()
-    .loyaltyAccountFilter(bodyQueryFilterLoyaltyAccountFilter)
-    .typeFilter(bodyQueryFilterTypeFilter)
-    .dateTimeFilter(bodyQueryFilterDateTimeFilter)
-    .locationFilter(bodyQueryFilterLocationFilter)
-    .orderFilter(bodyQueryFilterOrderFilter)
+LoyaltyEventFilter loyaltyEventFilter = new LoyaltyEventFilter.Builder()
+    .loyaltyAccountFilter(loyaltyEventFilterLoyaltyAccountFilter)
+    .typeFilter(loyaltyEventFilterTypeFilter)
+    .dateTimeFilter(loyaltyEventFilterDateTimeFilter)
+    .locationFilter(loyaltyEventFilterLocationFilter)
+    .orderFilter(loyaltyEventFilterOrderFilter)
     .build();
-LoyaltyEventQuery bodyQuery = new LoyaltyEventQuery.Builder()
-    .filter(bodyQueryFilter)
+LoyaltyEventQuery loyaltyEventQuery = new LoyaltyEventQuery.Builder()
+    .filter(loyaltyEventQueryFilter)
     .build();
 SearchLoyaltyEventsRequest body = new SearchLoyaltyEventsRequest.Builder()
     .query(bodyQuery)
@@ -419,7 +416,7 @@ loyaltyApi.retrieveLoyaltyProgramAsync(programId).thenAccept(result -> {
 
 Calculates the points a purchase earns.
 
-- If you are using the Orders API to manage orders, you provide `order_id` in the request. The
+- If you are using the Orders API to manage orders, you provide the `order_id` in the request. The
   endpoint calculates the points by reading the order.
 - If you are not using the Orders API to manage orders, you provide the purchase amount in
   the request for the endpoint to calculate the points.
@@ -427,8 +424,7 @@ Calculates the points a purchase earns.
 An application might call this endpoint to show the points that a buyer can earn with the
 specific purchase.
 
-__Note:__ The country of the seller's Square account determines whether tax is included in the purchase amount when accruing points for spend-based and visit-based programs.
-For more information, see [Availability of Square Loyalty](https://developer.squareup.com/docs/loyalty-api/overview#loyalty-market-availability).
+For spend-based and visit-based programs, the `tax_mode` setting of the accrual rule indicates how taxes should be treated for loyalty points accrual.
 
 ```java
 CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
@@ -451,7 +447,7 @@ CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
 
 ```java
 String programId = "program_id0";
-Money bodyTransactionAmountMoney = new Money.Builder()
+Money money = new Money.Builder()
     .amount(72L)
     .currency("UZS")
     .build();
@@ -498,7 +494,7 @@ CompletableFuture<CreateLoyaltyRewardResponse> createLoyaltyRewardAsync(
 ## Example Usage
 
 ```java
-LoyaltyReward bodyReward = new LoyaltyReward.Builder(
+LoyaltyReward loyaltyReward = new LoyaltyReward.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd",
         "e1b39225-9da5-43d1-a5db-782cdd8ad94f")
     .id("id4")
@@ -550,7 +546,7 @@ CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
 ## Example Usage
 
 ```java
-SearchLoyaltyRewardsRequestLoyaltyRewardQuery bodyQuery = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
+SearchLoyaltyRewardsRequestLoyaltyRewardQuery searchLoyaltyRewardsRequestLoyaltyRewardQuery = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
     .status("REDEEMED")
     .build();

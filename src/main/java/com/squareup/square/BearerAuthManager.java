@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Utility class for authorization and token management.
  */
-public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
+public class BearerAuthManager implements AuthManager, BearerAuthCredentials {
 
     private String accessToken;
 
@@ -15,7 +15,7 @@ public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
      * Constructor.
      * @param accessToken String value for accessToken.
      */
-    public AccessTokenManager(String accessToken) {
+    public BearerAuthManager(String accessToken) {
         this.accessToken = accessToken;
     }
 
@@ -37,12 +37,12 @@ public class AccessTokenManager implements AuthManager, AccessTokenCredentials {
     }
 
     /**
-     * Converts this AccessTokenManager into string format.
+     * Converts this BearerAuthManager into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "AccessTokenManager [" + "accessToken=" + accessToken + "]";
+        return "BearerAuthManager [" + "accessToken=" + accessToken + "]";
     }
 
     /**

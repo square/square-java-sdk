@@ -4,7 +4,7 @@ package com.squareup.square;
 /**
  * Interface to access authentication credentials.
  */
-public interface AccessTokenCredentials {
+public interface BearerAuthCredentials {
 
     /**
      * String value for accessToken.

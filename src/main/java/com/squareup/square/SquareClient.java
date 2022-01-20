@@ -153,9 +153,14 @@ public final class SquareClient implements SquareClientInterface {
     private final Headers additionalHeaders;
 
     /**
-     * AccessTokenManager.
+     * Additional detail which can be appended with User-Agent header.
      */
-    private AccessTokenManager accessTokenManager;
+    private final String userAgentDetail;
+
+    /**
+     * BearerAuthManager.
+     */
+    private BearerAuthManager bearerAuthManager;
 
     /**
      * Map of authentication Managers.
@@ -169,25 +174,26 @@ public final class SquareClient implements SquareClientInterface {
 
     private SquareClient(Environment environment, String customUrl, String squareVersion,
             HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
-            Headers additionalHeaders, String accessToken, Map<String, AuthManager> authManagers,
-            HttpCallback httpCallback) {
+            Headers additionalHeaders, String userAgentDetail, String accessToken,
+            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         this.environment = environment;
         this.customUrl = customUrl;
         this.squareVersion = squareVersion;
         this.httpClient = httpClient;
         this.httpClientConfig = httpClientConfig;
         this.additionalHeaders = additionalHeaders;
+        this.userAgentDetail = userAgentDetail;
         this.httpCallback = httpCallback;
 
         this.authManagers = (authManagers == null) ? new HashMap<>() : new HashMap<>(authManagers);
         if (this.authManagers.containsKey("global")) {
-            this.accessTokenManager = (AccessTokenManager) this.authManagers.get("global");
+            this.bearerAuthManager = (BearerAuthManager) this.authManagers.get("global");
         }
 
         if (!this.authManagers.containsKey("global")
-                || !getAccessTokenCredentials().equals(accessToken)) {
-            this.accessTokenManager = new AccessTokenManager(accessToken);
-            this.authManagers.put("global", accessTokenManager);
+                || !getBearerAuthCredentials().equals(accessToken)) {
+            this.bearerAuthManager = new BearerAuthManager(accessToken);
+            this.authManagers.put("global", bearerAuthManager);
         }
 
         mobileAuthorization = new DefaultMobileAuthorizationApi(this, this.httpClient,
@@ -572,11 +578,19 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
-     * The credentials to use with AccessToken.
-     * @return accessTokenCredentials
+     * Additional detail which can be appended with User-Agent header.
+     * @return userAgentDetail
      */
-    private AccessTokenCredentials getAccessTokenCredentials() {
-        return accessTokenManager;
+    public String getUserAgentDetail() {
+        return userAgentDetail;
+    }
+
+    /**
+     * The credentials to use with BearerAuth.
+     * @return bearerAuthCredentials
+     */
+    private BearerAuthCredentials getBearerAuthCredentials() {
+        return bearerAuthManager;
     }
 
     /**
@@ -584,7 +598,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return accessToken
      */
     public String getAccessToken() {
-        return getAccessTokenCredentials().getAccessToken();
+        return getBearerAuthCredentials().getAccessToken();
     }
 
     /**
@@ -592,7 +606,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "18.0.0.20211215";
+        return "18.1.0.20220120";
     }
 
     /**
@@ -662,8 +676,8 @@ public final class SquareClient implements SquareClientInterface {
     public String toString() {
         return "SquareClient [" + "environment=" + environment + ", customUrl=" + customUrl
                 + ", squareVersion=" + squareVersion + ", httpClientConfig=" + httpClientConfig
-                + ", additionalHeaders=" + additionalHeaders + ", authManagers=" + authManagers
-                + "]";
+                + ", additionalHeaders=" + additionalHeaders + ", userAgentDetail="
+                + userAgentDetail + ", authManagers=" + authManagers + "]";
     }
 
     /**
@@ -678,7 +692,8 @@ public final class SquareClient implements SquareClientInterface {
         builder.squareVersion = getSquareVersion();
         builder.httpClient = getHttpClient();
         builder.additionalHeaders = getAdditionalHeaders();
-        builder.accessToken = getAccessTokenCredentials().getAccessToken();
+        builder.userAgentDetail = getUserAgentDetail();
+        builder.accessToken = getBearerAuthCredentials().getAccessToken();
         builder.authManagers = authManagers;
         builder.httpCallback = httpCallback;
         builder.httpClientConfig(configBldr -> configBldr =
@@ -693,9 +708,10 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2021-12-15";
+        private String squareVersion = "2022-01-20";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
+        private String userAgentDetail = null;
         private String accessToken = "";
         private Map<String, AuthManager> authManagers = null;
         private HttpCallback httpCallback = null;
@@ -704,7 +720,7 @@ public final class SquareClient implements SquareClientInterface {
 
 
         /**
-         * Credentials setter for AccessToken.
+         * Credentials setter for BearerAuth.
          * @param accessToken String value for accessToken.
          * @return Builder
          */
@@ -763,6 +779,20 @@ public final class SquareClient implements SquareClientInterface {
         }
 
         /**
+         * Additional detail which can be appended with User-Agent header.
+         * @param userAgentDetail The userAgentDetail for client.
+         * @return Builder
+         */
+        public Builder userAgentDetail(String userAgentDetail) {
+            if (userAgentDetail != null && userAgentDetail.length() > 128) {
+                throw new IllegalArgumentException(
+                        "The length of user-agent detail should not exceed 128 characters.");
+            }
+            this.userAgentDetail = userAgentDetail;
+            return this;
+        }
+
+        /**
          * The timeout to use for making HTTP requests.
          * @deprecated This method will be removed in a future version. Use
          *             {@link #httpClientConfig(Consumer) httpClientConfig} instead.
@@ -806,7 +836,8 @@ public final class SquareClient implements SquareClientInterface {
             httpClient = new OkClient(httpClientConfig);
 
             return new SquareClient(environment, customUrl, squareVersion, httpClient,
-                    httpClientConfig, additionalHeaders, accessToken, authManagers, httpCallback);
+                    httpClientConfig, additionalHeaders, userAgentDetail, accessToken, authManagers,
+                    httpCallback);
         }
     }
 }
