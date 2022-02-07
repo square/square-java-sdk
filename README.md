@@ -24,7 +24,7 @@ For more information, see [Set Up Your Square SDK for a Java Project](https://de
 For more information, see [Square Java SDK Quickstart](https://developer.squareup.com/docs/sdks/java/quick-start).
 
 ## Usage
-For more information, see [Using the Square Java SDK](https://developer.com/docs/sdks/java/using-java-sdk).
+For more information, see [Using the Square Java SDK](https://developer.squareup.com/docs/sdks/java/using-java-sdk).
 
 ## Tests
 
