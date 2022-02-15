@@ -63,7 +63,7 @@ LoyaltyAccount loyaltyAccount = new LoyaltyAccount.Builder(
     .mapping(loyaltyAccountMapping)
     .build();
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
-        bodyLoyaltyAccount,
+        loyaltyAccount,
         "ec78c477-b1c3-4899-a209-a4e71337c996")
     .build();
 
@@ -205,7 +205,7 @@ LoyaltyEventAccumulatePoints loyaltyEventAccumulatePoints = new LoyaltyEventAccu
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
     .build();
 AccumulateLoyaltyPointsRequest body = new AccumulateLoyaltyPointsRequest.Builder(
-        bodyAccumulatePoints,
+        accumulatePoints,
         "58b90739-c3e8-4b11-85f7-e636d48d72cb",
         "P034NEENMD09F")
     .build();
@@ -255,7 +255,7 @@ LoyaltyEventAdjustPoints loyaltyEventAdjustPoints = new LoyaltyEventAdjustPoints
     .build();
 AdjustLoyaltyPointsRequest body = new AdjustLoyaltyPointsRequest.Builder(
         "bc29a517-3dc9-450e-aa76-fae39ee849d1",
-        bodyAdjustPoints)
+        adjustPoints)
     .build();
 
 loyaltyApi.adjustLoyaltyPointsAsync(accountId, body).thenAccept(result -> {
@@ -311,7 +311,7 @@ TimeRange timeRange = new TimeRange.Builder()
     .endAt("end_at4")
     .build();
 LoyaltyEventDateTimeFilter loyaltyEventDateTimeFilter = new LoyaltyEventDateTimeFilter.Builder(
-        loyaltyEventDateTimeFilterCreatedAt)
+        createdAt)
     .build();
 List<String> bodyQueryFilterLocationFilterLocationIds = new LinkedList<>();
 bodyQueryFilterLocationFilterLocationIds.add("location_ids2");
@@ -504,7 +504,7 @@ LoyaltyReward loyaltyReward = new LoyaltyReward.Builder(
     .createdAt("created_at2")
     .build();
 CreateLoyaltyRewardRequest body = new CreateLoyaltyRewardRequest.Builder(
-        bodyReward,
+        reward,
         "18c2e5ea-a620-4b1f-ad60-7b167285e451")
     .build();
 

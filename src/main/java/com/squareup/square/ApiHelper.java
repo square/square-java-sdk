@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.request.MultipartFileWrapper;
 import com.squareup.square.http.request.MultipartWrapper;
+import com.squareup.square.utilities.JsonObject;
+import com.squareup.square.utilities.JsonValue;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,6 +38,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * This is a Helper class with commonly used utilities for the SDK.
@@ -411,7 +415,8 @@ public class ApiHelper {
                 
             hasParam = true;
             // Load element value as string
-            paramKeyValPair = String.format("%s=%s&", accessor, tryUrlEncode(value.toString(), false));
+            paramKeyValPair = 
+                    String.format("%s=%s&", accessor, tryUrlEncode(value.toString(), false));
             objBuilder.append(paramKeyValPair);
 
         }
@@ -479,6 +484,7 @@ public class ApiHelper {
             List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed) {
 
         Collection<?> array = obj;
+        array = sortByWrapperType(array);
         // Append all elements of the array into a string
         int index = 0;
         for (Object element : array) {
@@ -597,6 +603,20 @@ public class ApiHelper {
     }
 
     /**
+     * Pushes all wrapper types to the last in given list.
+     * @param array The list on which the sorting is performed.
+     * @return The sorted list.
+     */
+    private static Collection<?> sortByWrapperType(Collection<?> array) {
+        return array.stream().sorted(Comparator.comparing(element -> {
+            if (isWrapperType(element)) {
+                return 1;
+            }
+            return -1;
+        })).collect(Collectors.toList());
+    }
+
+    /**
      * While processing objects to map, decides whether to perform recursion or load value.
      * @param key The key for creating key value pair.
      * @param value The value to process against the given key.
@@ -610,6 +630,15 @@ public class ApiHelper {
         }
         if (isWrapperType(value)) {
             objectList.add(new SimpleEntry<String, Object>(key, value));
+        } else if (value.getClass().equals(JsonObject.class)) {
+            objectToList(key, ((JsonObject) value).getStoredObject(), objectList, processed);
+        } else if (value.getClass().equals(JsonValue.class)) {
+            Object storedValue = ((JsonValue) value).getStoredObject();
+            if (isWrapperType(storedValue)) {
+                objectList.add(new SimpleEntry<String, Object>(key, storedValue));
+            } else {
+                objectToList(key, storedValue, objectList, processed);
+            }
         } else if (value instanceof UUID) {
             // UUIDs can be converted to string
             objectList.add(new SimpleEntry<String, Object>(key, value.toString()));

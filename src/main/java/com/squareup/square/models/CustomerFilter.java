@@ -11,19 +11,12 @@ import java.util.Objects;
  * This is a model class for CustomerFilter type.
  */
 public class CustomerFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerCreationSourceFilter creationSource;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTextFilter referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final FilterValue groupIds;
 
     /**
@@ -61,6 +54,7 @@ public class CustomerFilter {
      * @return Returns the CustomerCreationSourceFilter
      */
     @JsonGetter("creation_source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerCreationSourceFilter getCreationSource() {
         return creationSource;
     }
@@ -74,6 +68,7 @@ public class CustomerFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getCreatedAt() {
         return createdAt;
     }
@@ -87,6 +82,7 @@ public class CustomerFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getUpdatedAt() {
         return updatedAt;
     }
@@ -99,6 +95,7 @@ public class CustomerFilter {
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerTextFilter getEmailAddress() {
         return emailAddress;
     }
@@ -111,6 +108,7 @@ public class CustomerFilter {
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerTextFilter getPhoneNumber() {
         return phoneNumber;
     }
@@ -123,6 +121,7 @@ public class CustomerFilter {
      * @return Returns the CustomerTextFilter
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerTextFilter getReferenceId() {
         return referenceId;
     }
@@ -135,6 +134,7 @@ public class CustomerFilter {
      * @return Returns the FilterValue
      */
     @JsonGetter("group_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public FilterValue getGroupIds() {
         return groupIds;
     }

@@ -125,7 +125,7 @@ Money money = new Money.Builder()
 CreatePaymentRequest body = new CreatePaymentRequest.Builder(
         "ccof:GaJGNaZa8x4OgDJn4GB",
         "7b0f3ec5-086a-4871-8f13-3c81b3875218",
-        bodyAmountMoney)
+        amountMoney)
     .tipMoney(bodyTipMoney)
     .appFeeMoney(bodyAppFeeMoney)
     .delayDuration("delay_duration6")

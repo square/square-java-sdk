@@ -12,17 +12,11 @@ import java.util.Objects;
  * This is a model class for CustomAttributeFilter type.
  */
 public class CustomAttributeFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customAttributeDefinitionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String stringFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Range numberFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> selectionUidsFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean boolFilter;
 
     /**
@@ -58,6 +52,7 @@ public class CustomAttributeFilter {
      * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomAttributeDefinitionId() {
         return customAttributeDefinitionId;
     }
@@ -70,6 +65,7 @@ public class CustomAttributeFilter {
      * @return Returns the String
      */
     @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getKey() {
         return key;
     }
@@ -82,6 +78,7 @@ public class CustomAttributeFilter {
      * @return Returns the String
      */
     @JsonGetter("string_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStringFilter() {
         return stringFilter;
     }
@@ -92,6 +89,7 @@ public class CustomAttributeFilter {
      * @return Returns the Range
      */
     @JsonGetter("number_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Range getNumberFilter() {
         return numberFilter;
     }
@@ -105,6 +103,7 @@ public class CustomAttributeFilter {
      * @return Returns the List of String
      */
     @JsonGetter("selection_uids_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getSelectionUidsFilter() {
         return selectionUidsFilter;
     }
@@ -118,6 +117,7 @@ public class CustomAttributeFilter {
      * @return Returns the Boolean
      */
     @JsonGetter("bool_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getBoolFilter() {
         return boolFilter;
     }

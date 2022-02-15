@@ -12,37 +12,21 @@ import java.util.Objects;
  * This is a model class for CardPaymentDetails type.
  */
 public class CardPaymentDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Card card;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cvvStatus;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String avsStatus;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String authResultCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationIdentifier;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationCryptogram;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationMethod;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationResults;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescription;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DeviceDetails deviceDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CardPaymentTimeline cardPaymentTimeline;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean refundRequiresCardPresence;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -106,6 +90,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -117,6 +102,7 @@ public class CardPaymentDetails {
      * @return Returns the Card
      */
     @JsonGetter("card")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Card getCard() {
         return card;
     }
@@ -128,6 +114,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("entry_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEntryMethod() {
         return entryMethod;
     }
@@ -139,6 +126,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("cvv_status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCvvStatus() {
         return cvvStatus;
     }
@@ -150,6 +138,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("avs_status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAvsStatus() {
         return avsStatus;
     }
@@ -161,6 +150,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("auth_result_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthResultCode() {
         return authResultCode;
     }
@@ -171,6 +161,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("application_identifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplicationIdentifier() {
         return applicationIdentifier;
     }
@@ -181,6 +172,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("application_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplicationName() {
         return applicationName;
     }
@@ -191,6 +183,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("application_cryptogram")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplicationCryptogram() {
         return applicationCryptogram;
     }
@@ -202,6 +195,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("verification_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationMethod() {
         return verificationMethod;
     }
@@ -213,6 +207,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("verification_results")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationResults() {
         return verificationResults;
     }
@@ -225,6 +220,7 @@ public class CardPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("statement_description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatementDescription() {
         return statementDescription;
     }
@@ -235,6 +231,7 @@ public class CardPaymentDetails {
      * @return Returns the DeviceDetails
      */
     @JsonGetter("device_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DeviceDetails getDeviceDetails() {
         return deviceDetails;
     }
@@ -245,6 +242,7 @@ public class CardPaymentDetails {
      * @return Returns the CardPaymentTimeline
      */
     @JsonGetter("card_payment_timeline")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CardPaymentTimeline getCardPaymentTimeline() {
         return cardPaymentTimeline;
     }
@@ -256,6 +254,7 @@ public class CardPaymentDetails {
      * @return Returns the Boolean
      */
     @JsonGetter("refund_requires_card_presence")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getRefundRequiresCardPresence() {
         return refundRequiresCardPresence;
     }
@@ -266,6 +265,7 @@ public class CardPaymentDetails {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

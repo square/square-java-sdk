@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for SubscriptionEventInfo type.
  */
 public class SubscriptionEventInfo {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String detail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String code;
 
     /**
@@ -35,6 +33,7 @@ public class SubscriptionEventInfo {
      * @return Returns the String
      */
     @JsonGetter("detail")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDetail() {
         return detail;
     }
@@ -45,6 +44,7 @@ public class SubscriptionEventInfo {
      * @return Returns the String
      */
     @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCode() {
         return code;
     }

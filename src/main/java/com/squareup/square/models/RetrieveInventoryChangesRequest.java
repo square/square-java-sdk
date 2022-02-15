@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for RetrieveInventoryChangesRequest type.
  */
 public class RetrieveInventoryChangesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -36,6 +34,7 @@ public class RetrieveInventoryChangesRequest {
      * @return Returns the String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationIds() {
         return locationIds;
     }
@@ -49,6 +48,7 @@ public class RetrieveInventoryChangesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

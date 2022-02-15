@@ -12,31 +12,18 @@ import java.util.Objects;
  * This is a model class for CatalogPricingRule type.
  */
 public class CatalogPricingRule {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> timePeriodIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String matchProductsId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applyProductsId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String excludeProductsId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validFromDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validFromLocalTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validUntilDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String validUntilLocalTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String excludeStrategy;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money minimumOrderSubtotalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerGroupIdsAny;
 
     /**
@@ -91,6 +78,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -102,6 +90,7 @@ public class CatalogPricingRule {
      * @return Returns the List of String
      */
     @JsonGetter("time_period_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTimePeriodIds() {
         return timePeriodIds;
     }
@@ -112,6 +101,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("discount_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiscountId() {
         return discountId;
     }
@@ -123,6 +113,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("match_products_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMatchProductsId() {
         return matchProductsId;
     }
@@ -139,6 +130,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("apply_products_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplyProductsId() {
         return applyProductsId;
     }
@@ -152,6 +144,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("exclude_products_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExcludeProductsId() {
         return excludeProductsId;
     }
@@ -163,6 +156,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("valid_from_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValidFromDate() {
         return validFromDate;
     }
@@ -174,6 +168,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("valid_from_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValidFromLocalTime() {
         return validFromLocalTime;
     }
@@ -185,6 +180,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("valid_until_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValidUntilDate() {
         return validUntilDate;
     }
@@ -196,6 +192,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("valid_until_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValidUntilLocalTime() {
         return validUntilLocalTime;
     }
@@ -207,6 +204,7 @@ public class CatalogPricingRule {
      * @return Returns the String
      */
     @JsonGetter("exclude_strategy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExcludeStrategy() {
         return excludeStrategy;
     }
@@ -222,6 +220,7 @@ public class CatalogPricingRule {
      * @return Returns the Money
      */
     @JsonGetter("minimum_order_subtotal_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getMinimumOrderSubtotalMoney() {
         return minimumOrderSubtotalMoney;
     }
@@ -237,6 +236,7 @@ public class CatalogPricingRule {
      * @return Returns the List of String
      */
     @JsonGetter("customer_group_ids_any")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCustomerGroupIdsAny() {
         return customerGroupIdsAny;
     }

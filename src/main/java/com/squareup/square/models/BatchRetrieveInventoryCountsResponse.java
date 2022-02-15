@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class BatchRetrieveInventoryCountsResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InventoryCount> counts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -49,6 +46,7 @@ public class BatchRetrieveInventoryCountsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -59,6 +57,7 @@ public class BatchRetrieveInventoryCountsResponse {
      * @return Returns the List of InventoryCount
      */
     @JsonGetter("counts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<InventoryCount> getCounts() {
         return counts;
     }
@@ -72,6 +71,7 @@ public class BatchRetrieveInventoryCountsResponse {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

@@ -11,10 +11,8 @@ import java.util.Objects;
  * This is a model class for Break type.
  */
 public class Break {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String startAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
     private final String breakTypeId;
     private final String name;
@@ -55,6 +53,7 @@ public class Break {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -77,6 +76,7 @@ public class Break {
      * @return Returns the String
      */
     @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndAt() {
         return endAt;
     }

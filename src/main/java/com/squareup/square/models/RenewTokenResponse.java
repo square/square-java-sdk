@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,18 +15,13 @@ import java.util.Objects;
  */
 public class RenewTokenResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tokenType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
@@ -35,6 +31,7 @@ public class RenewTokenResponse {
      * @param  merchantId  String value for merchantId.
      * @param  subscriptionId  String value for subscriptionId.
      * @param  planId  String value for planId.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public RenewTokenResponse(
@@ -43,13 +40,15 @@ public class RenewTokenResponse {
             @JsonProperty("expires_at") String expiresAt,
             @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("subscription_id") String subscriptionId,
-            @JsonProperty("plan_id") String planId) {
+            @JsonProperty("plan_id") String planId,
+            @JsonProperty("errors") List<Error> errors) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresAt = expiresAt;
         this.merchantId = merchantId;
         this.subscriptionId = subscriptionId;
         this.planId = planId;
+        this.errors = errors;
     }
 
     @JsonIgnore
@@ -67,6 +66,7 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccessToken() {
         return accessToken;
     }
@@ -77,6 +77,7 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("token_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTokenType() {
         return tokenType;
     }
@@ -88,6 +89,7 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiresAt() {
         return expiresAt;
     }
@@ -98,6 +100,7 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -109,6 +112,7 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("subscription_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSubscriptionId() {
         return subscriptionId;
     }
@@ -120,14 +124,26 @@ public class RenewTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlanId() {
         return planId;
     }
 
+    /**
+     * Getter for Errors.
+     * An error object that provides details about how creation of the obtain token failed.
+     * @return Returns the List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<Error> getErrors() {
+        return errors;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId,
-                planId);
+        return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId,
+                errors);
     }
 
     @Override
@@ -144,7 +160,8 @@ public class RenewTokenResponse {
             && Objects.equals(expiresAt, other.expiresAt)
             && Objects.equals(merchantId, other.merchantId)
             && Objects.equals(subscriptionId, other.subscriptionId)
-            && Objects.equals(planId, other.planId);
+            && Objects.equals(planId, other.planId)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -155,7 +172,7 @@ public class RenewTokenResponse {
     public String toString() {
         return "RenewTokenResponse [" + "accessToken=" + accessToken + ", tokenType=" + tokenType
                 + ", expiresAt=" + expiresAt + ", merchantId=" + merchantId + ", subscriptionId="
-                + subscriptionId + ", planId=" + planId + "]";
+                + subscriptionId + ", planId=" + planId + ", errors=" + errors + "]";
     }
 
     /**
@@ -170,7 +187,8 @@ public class RenewTokenResponse {
                 .expiresAt(getExpiresAt())
                 .merchantId(getMerchantId())
                 .subscriptionId(getSubscriptionId())
-                .planId(getPlanId());
+                .planId(getPlanId())
+                .errors(getErrors());
         return builder;
     }
 
@@ -185,6 +203,7 @@ public class RenewTokenResponse {
         private String merchantId;
         private String subscriptionId;
         private String planId;
+        private List<Error> errors;
 
 
 
@@ -259,13 +278,23 @@ public class RenewTokenResponse {
         }
 
         /**
+         * Setter for errors.
+         * @param  errors  List of Error value for errors.
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RenewTokenResponse} object using the set fields.
          * @return {@link RenewTokenResponse}
          */
         public RenewTokenResponse build() {
             RenewTokenResponse model =
                     new RenewTokenResponse(accessToken, tokenType, expiresAt, merchantId,
-                            subscriptionId, planId);
+                            subscriptionId, planId, errors);
             model.httpContext = httpContext;
             return model;
         }

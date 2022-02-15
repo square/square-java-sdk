@@ -12,25 +12,15 @@ import java.util.Objects;
  * This is a model class for Employee type.
  */
 public class Employee {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String firstName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lastName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String email;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -76,6 +66,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -86,6 +77,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("first_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFirstName() {
         return firstName;
     }
@@ -96,6 +88,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("last_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLastName() {
         return lastName;
     }
@@ -106,6 +99,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmail() {
         return email;
     }
@@ -116,6 +110,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -126,6 +121,7 @@ public class Employee {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -136,6 +132,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -147,6 +144,7 @@ public class Employee {
      * @return Returns the Boolean
      */
     @JsonGetter("is_owner")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsOwner() {
         return isOwner;
     }
@@ -157,6 +155,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -167,6 +166,7 @@ public class Employee {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

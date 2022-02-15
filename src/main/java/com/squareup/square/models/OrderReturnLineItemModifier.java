@@ -11,19 +11,12 @@ import java.util.Objects;
  * This is a model class for OrderReturnLineItemModifier type.
  */
 public class OrderReturnLineItemModifier {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceModifierUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalPriceMoney;
 
     /**
@@ -60,6 +53,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -71,6 +65,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the String
      */
     @JsonGetter("source_modifier_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceModifierUid() {
         return sourceModifierUid;
     }
@@ -81,6 +76,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -91,6 +87,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }
@@ -101,6 +98,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -116,6 +114,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the Money
      */
     @JsonGetter("base_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getBasePriceMoney() {
         return basePriceMoney;
     }
@@ -131,6 +130,7 @@ public class OrderReturnLineItemModifier {
      * @return Returns the Money
      */
     @JsonGetter("total_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalPriceMoney() {
         return totalPriceMoney;
     }

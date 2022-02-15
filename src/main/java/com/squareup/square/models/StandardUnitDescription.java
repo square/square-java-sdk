@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for StandardUnitDescription type.
  */
 public class StandardUnitDescription {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnit unit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String abbreviation;
 
     /**
@@ -42,6 +39,7 @@ public class StandardUnitDescription {
      * @return Returns the MeasurementUnit
      */
     @JsonGetter("unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public MeasurementUnit getUnit() {
         return unit;
     }
@@ -52,6 +50,7 @@ public class StandardUnitDescription {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -62,6 +61,7 @@ public class StandardUnitDescription {
      * @return Returns the String
      */
     @JsonGetter("abbreviation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAbbreviation() {
         return abbreviation;
     }

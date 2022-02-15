@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CustomerSort type.
  */
 public class CustomerSort {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String field;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
 
     /**
@@ -35,6 +33,7 @@ public class CustomerSort {
      * @return Returns the String
      */
     @JsonGetter("field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getField() {
         return field;
     }
@@ -45,6 +44,7 @@ public class CustomerSort {
      * @return Returns the String
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrder() {
         return order;
     }

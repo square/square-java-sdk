@@ -15,7 +15,6 @@ public class LoyaltyProgram {
     private final String id;
     private final String status;
     private final List<LoyaltyProgramRewardTier> rewardTiers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramExpirationPolicy expirationPolicy;
     private final LoyaltyProgramTerminology terminology;
     private final List<String> locationIds;
@@ -94,6 +93,7 @@ public class LoyaltyProgram {
      * @return Returns the LoyaltyProgramExpirationPolicy
      */
     @JsonGetter("expiration_policy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgramExpirationPolicy getExpirationPolicy() {
         return expirationPolicy;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ListCustomerSegmentsRequest type.
  */
 public class ListCustomerSegmentsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -37,6 +35,7 @@ public class ListCustomerSegmentsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -50,6 +49,7 @@ public class ListCustomerSegmentsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

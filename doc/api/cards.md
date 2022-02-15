@@ -108,7 +108,7 @@ Card card = new Card.Builder()
 CreateCardRequest body = new CreateCardRequest.Builder(
         "4935a656-a929-4792-b97c-8848be85c27c",
         "cnon:uIbfJXhXETSP197M3GB",
-        bodyCard)
+        card)
     .verificationToken("verification_token0")
     .build();
 

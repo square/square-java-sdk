@@ -14,9 +14,7 @@ public class V1CreateRefundRequest {
     private final String paymentId;
     private final String type;
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestIdempotenceKey;
 
     /**
@@ -76,6 +74,7 @@ public class V1CreateRefundRequest {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedMoney() {
         return refundedMoney;
     }
@@ -87,6 +86,7 @@ public class V1CreateRefundRequest {
      * @return Returns the String
      */
     @JsonGetter("request_idempotence_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRequestIdempotenceKey() {
         return requestIdempotenceKey;
     }

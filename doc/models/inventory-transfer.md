@@ -24,6 +24,7 @@ particular time from one location to another.
 | `CreatedAt` | `String` | Optional | An RFC 3339-formatted timestamp that indicates when Square<br>received the transfer request.<br>**Constraints**: *Maximum Length*: `34` | String getCreatedAt() |
 | `Source` | [`SourceApplication`](/doc/models/source-application.md) | Optional | Provides information about the application used to generate a change. | SourceApplication getSource() |
 | `EmployeeId` | `String` | Optional | The Square-generated ID of the [Employee](/doc/models/employee.md) responsible for the<br>inventory transfer.<br>**Constraints**: *Maximum Length*: `100` | String getEmployeeId() |
+| `TeamMemberId` | `String` | Optional | The Square-generated ID of the [Team Member](/doc/models/team-member.md) responsible for the<br>inventory transfer.<br>**Constraints**: *Maximum Length*: `100` | String getTeamMemberId() |
 
 ## Example (as JSON)
 

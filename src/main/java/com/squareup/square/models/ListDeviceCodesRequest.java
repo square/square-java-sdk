@@ -12,13 +12,9 @@ import java.util.Objects;
  * This is a model class for ListDeviceCodesRequest type.
  */
 public class ListDeviceCodesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String productType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> status;
 
     /**
@@ -49,6 +45,7 @@ public class ListDeviceCodesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -60,6 +57,7 @@ public class ListDeviceCodesRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -69,6 +67,7 @@ public class ListDeviceCodesRequest {
      * @return Returns the String
      */
     @JsonGetter("product_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProductType() {
         return productType;
     }
@@ -81,6 +80,7 @@ public class ListDeviceCodesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getStatus() {
         return status;
     }

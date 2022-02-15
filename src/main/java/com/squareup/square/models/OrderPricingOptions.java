@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for OrderPricingOptions type.
  */
 public class OrderPricingOptions {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autoApplyDiscounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autoApplyTaxes;
 
     /**
@@ -36,6 +34,7 @@ public class OrderPricingOptions {
      * @return Returns the Boolean
      */
     @JsonGetter("auto_apply_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAutoApplyDiscounts() {
         return autoApplyDiscounts;
     }
@@ -47,6 +46,7 @@ public class OrderPricingOptions {
      * @return Returns the Boolean
      */
     @JsonGetter("auto_apply_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAutoApplyTaxes() {
         return autoApplyTaxes;
     }

@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for SearchOrdersCustomerFilter type.
  */
 public class SearchOrdersCustomerFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
@@ -31,6 +30,7 @@ public class SearchOrdersCustomerFilter {
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCustomerIds() {
         return customerIds;
     }

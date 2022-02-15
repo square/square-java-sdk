@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for MeasurementUnit type.
  */
 public class MeasurementUnit {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnitCustom customUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String areaUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lengthUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String volumeUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String weightUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String genericUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timeUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
 
     /**
@@ -65,6 +57,7 @@ public class MeasurementUnit {
      * @return Returns the MeasurementUnitCustom
      */
     @JsonGetter("custom_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public MeasurementUnitCustom getCustomUnit() {
         return customUnit;
     }
@@ -75,6 +68,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("area_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAreaUnit() {
         return areaUnit;
     }
@@ -85,6 +79,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("length_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLengthUnit() {
         return lengthUnit;
     }
@@ -95,6 +90,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("volume_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVolumeUnit() {
         return volumeUnit;
     }
@@ -105,6 +101,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("weight_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getWeightUnit() {
         return weightUnit;
     }
@@ -114,6 +111,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("generic_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGenericUnit() {
         return genericUnit;
     }
@@ -124,6 +122,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("time_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimeUnit() {
         return timeUnit;
     }
@@ -135,6 +134,7 @@ public class MeasurementUnit {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }

@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpdateWageSettingResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final WageSetting wageSetting;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -44,6 +42,7 @@ public class UpdateWageSettingResponse {
      * @return Returns the WageSetting
      */
     @JsonGetter("wage_setting")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public WageSetting getWageSetting() {
         return wageSetting;
     }
@@ -54,6 +53,7 @@ public class UpdateWageSettingResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

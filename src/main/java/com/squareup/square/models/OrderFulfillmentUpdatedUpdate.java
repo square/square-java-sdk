@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdatedUpdate type.
  */
 public class OrderFulfillmentUpdatedUpdate {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fulfillmentUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String oldState;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String newState;
 
     /**
@@ -40,6 +37,7 @@ public class OrderFulfillmentUpdatedUpdate {
      * @return Returns the String
      */
     @JsonGetter("fulfillment_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFulfillmentUid() {
         return fulfillmentUid;
     }
@@ -50,6 +48,7 @@ public class OrderFulfillmentUpdatedUpdate {
      * @return Returns the String
      */
     @JsonGetter("old_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOldState() {
         return oldState;
     }
@@ -60,6 +59,7 @@ public class OrderFulfillmentUpdatedUpdate {
      * @return Returns the String
      */
     @JsonGetter("new_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNewState() {
         return newState;
     }

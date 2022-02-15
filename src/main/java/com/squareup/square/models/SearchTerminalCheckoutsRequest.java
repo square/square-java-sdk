@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchTerminalCheckoutsRequest type.
  */
 public class SearchTerminalCheckoutsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -39,6 +36,7 @@ public class SearchTerminalCheckoutsRequest {
      * @return Returns the TerminalCheckoutQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalCheckoutQuery getQuery() {
         return query;
     }
@@ -52,6 +50,7 @@ public class SearchTerminalCheckoutsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -62,6 +61,7 @@ public class SearchTerminalCheckoutsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

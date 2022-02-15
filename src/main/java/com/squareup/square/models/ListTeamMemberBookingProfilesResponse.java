@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class ListTeamMemberBookingProfilesResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<TeamMemberBookingProfile> teamMemberBookingProfiles;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -50,6 +47,7 @@ public class ListTeamMemberBookingProfilesResponse {
      * @return Returns the List of TeamMemberBookingProfile
      */
     @JsonGetter("team_member_booking_profiles")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<TeamMemberBookingProfile> getTeamMemberBookingProfiles() {
         return teamMemberBookingProfiles;
     }
@@ -61,6 +59,7 @@ public class ListTeamMemberBookingProfilesResponse {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -71,6 +70,7 @@ public class ListTeamMemberBookingProfilesResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

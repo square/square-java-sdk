@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class PublishInvoiceRequest {
     private final int version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
@@ -48,6 +47,7 @@ public class PublishInvoiceRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

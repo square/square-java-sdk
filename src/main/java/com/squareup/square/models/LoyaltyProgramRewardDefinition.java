@@ -14,13 +14,9 @@ import java.util.Objects;
 public class LoyaltyProgramRewardDefinition {
     private final String scope;
     private final String discountType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentageDiscount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> catalogObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money fixedDiscountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money maxDiscountMoney;
 
     /**
@@ -83,6 +79,7 @@ public class LoyaltyProgramRewardDefinition {
      * @return Returns the String
      */
     @JsonGetter("percentage_discount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentageDiscount() {
         return percentageDiscount;
     }
@@ -96,6 +93,7 @@ public class LoyaltyProgramRewardDefinition {
      * @return Returns the List of String
      */
     @JsonGetter("catalog_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCatalogObjectIds() {
         return catalogObjectIds;
     }
@@ -111,6 +109,7 @@ public class LoyaltyProgramRewardDefinition {
      * @return Returns the Money
      */
     @JsonGetter("fixed_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getFixedDiscountMoney() {
         return fixedDiscountMoney;
     }
@@ -126,6 +125,7 @@ public class LoyaltyProgramRewardDefinition {
      * @return Returns the Money
      */
     @JsonGetter("max_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getMaxDiscountMoney() {
         return maxDiscountMoney;
     }

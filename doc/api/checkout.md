@@ -213,13 +213,13 @@ Money money = new Money.Builder()
 ChargeRequestAdditionalRecipient bodyAdditionalRecipients0 = new ChargeRequestAdditionalRecipient.Builder(
         "057P5VYJ4A5X1",
         "Application fees",
-        bodyAdditionalRecipients0AmountMoney)
+        amountMoney)
     .build();
 bodyAdditionalRecipients.add(bodyAdditionalRecipients0);
 
 CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
         "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
-        bodyOrder)
+        order)
     .askForShippingAddress(true)
     .merchantSupportEmail("merchant+support@website.com")
     .prePopulateBuyerEmail("example@email.com")

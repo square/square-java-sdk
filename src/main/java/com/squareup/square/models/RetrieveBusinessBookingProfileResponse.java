@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveBusinessBookingProfileResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessBookingProfile businessBookingProfile;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -43,6 +41,7 @@ public class RetrieveBusinessBookingProfileResponse {
      * @return Returns the BusinessBookingProfile
      */
     @JsonGetter("business_booking_profile")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BusinessBookingProfile getBusinessBookingProfile() {
         return businessBookingProfile;
     }
@@ -53,6 +52,7 @@ public class RetrieveBusinessBookingProfileResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for RevokeTokenRequest type.
  */
 public class RevokeTokenRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean revokeOnlyAccessToken;
 
     /**
@@ -46,6 +42,7 @@ public class RevokeTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("client_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClientId() {
         return clientId;
     }
@@ -57,6 +54,7 @@ public class RevokeTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccessToken() {
         return accessToken;
     }
@@ -68,6 +66,7 @@ public class RevokeTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -79,6 +78,7 @@ public class RevokeTokenRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("revoke_only_access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getRevokeOnlyAccessToken() {
         return revokeOnlyAccessToken;
     }

@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class LoyaltyEventCreateReward {
     private final String loyaltyProgramId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rewardId;
     private final int points;
 
@@ -49,6 +48,7 @@ public class LoyaltyEventCreateReward {
      * @return Returns the String
      */
     @JsonGetter("reward_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRewardId() {
         return rewardId;
     }

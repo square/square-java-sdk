@@ -12,37 +12,21 @@ import java.util.Objects;
  * This is a model class for Dispute type.
  */
 public class Dispute {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dueAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputedPayment disputedPayment;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> evidenceIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String brandDisputeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reportedDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reportedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
@@ -106,6 +90,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("dispute_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDisputeId() {
         return disputeId;
     }
@@ -116,6 +101,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -131,6 +117,7 @@ public class Dispute {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -141,6 +128,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -151,6 +139,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -161,6 +150,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("due_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDueAt() {
         return dueAt;
     }
@@ -171,6 +161,7 @@ public class Dispute {
      * @return Returns the DisputedPayment
      */
     @JsonGetter("disputed_payment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DisputedPayment getDisputedPayment() {
         return disputedPayment;
     }
@@ -181,6 +172,7 @@ public class Dispute {
      * @return Returns the List of String
      */
     @JsonGetter("evidence_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getEvidenceIds() {
         return evidenceIds;
     }
@@ -191,6 +183,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("card_brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardBrand() {
         return cardBrand;
     }
@@ -201,6 +194,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -211,6 +205,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -221,6 +216,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("brand_dispute_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBrandDisputeId() {
         return brandDisputeId;
     }
@@ -231,6 +227,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("reported_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReportedDate() {
         return reportedDate;
     }
@@ -241,6 +238,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("reported_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReportedAt() {
         return reportedAt;
     }
@@ -251,6 +249,7 @@ public class Dispute {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -261,6 +260,7 @@ public class Dispute {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

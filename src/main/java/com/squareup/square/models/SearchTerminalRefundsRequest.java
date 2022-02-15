@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchTerminalRefundsRequest type.
  */
 public class SearchTerminalRefundsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -39,6 +36,7 @@ public class SearchTerminalRefundsRequest {
      * @return Returns the TerminalRefundQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalRefundQuery getQuery() {
         return query;
     }
@@ -50,6 +48,7 @@ public class SearchTerminalRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -60,6 +59,7 @@ public class SearchTerminalRefundsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for RetrieveCatalogObjectRequest type.
  */
 public class RetrieveCatalogObjectRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveCatalogObjectRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_related_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludeRelatedObjects() {
         return includeRelatedObjects;
     }
@@ -57,6 +56,7 @@ public class RetrieveCatalogObjectRequest {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }

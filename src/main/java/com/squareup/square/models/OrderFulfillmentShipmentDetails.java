@@ -11,35 +11,20 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentShipmentDetails type.
  */
 public class OrderFulfillmentShipmentDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentRecipient recipient;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String carrier;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippingNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippingType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String trackingNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String trackingUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inProgressAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String packagedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expectedShippedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String failedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String failureReason;
 
     /**
@@ -100,6 +85,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentRecipient getRecipient() {
         return recipient;
     }
@@ -110,6 +96,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("carrier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCarrier() {
         return carrier;
     }
@@ -120,6 +107,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("shipping_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getShippingNote() {
         return shippingNote;
     }
@@ -131,6 +119,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("shipping_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getShippingType() {
         return shippingType;
     }
@@ -141,6 +130,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("tracking_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTrackingNumber() {
         return trackingNumber;
     }
@@ -151,6 +141,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("tracking_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTrackingUrl() {
         return trackingUrl;
     }
@@ -163,6 +154,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("placed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlacedAt() {
         return placedAt;
     }
@@ -176,6 +168,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("in_progress_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInProgressAt() {
         return inProgressAt;
     }
@@ -189,6 +182,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("packaged_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPackagedAt() {
         return packagedAt;
     }
@@ -201,6 +195,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("expected_shipped_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpectedShippedAt() {
         return expectedShippedAt;
     }
@@ -214,6 +209,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("shipped_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getShippedAt() {
         return shippedAt;
     }
@@ -226,6 +222,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("canceled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledAt() {
         return canceledAt;
     }
@@ -236,6 +233,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancelReason() {
         return cancelReason;
     }
@@ -248,6 +246,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("failed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFailedAt() {
         return failedAt;
     }
@@ -258,6 +257,7 @@ public class OrderFulfillmentShipmentDetails {
      * @return Returns the String
      */
     @JsonGetter("failure_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFailureReason() {
         return failureReason;
     }

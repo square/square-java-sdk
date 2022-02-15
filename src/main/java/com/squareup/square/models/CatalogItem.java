@@ -12,37 +12,21 @@ import java.util.Objects;
  * This is a model class for CatalogItem type.
  */
 public class CatalogItem {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String abbreviation;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String labelColor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableOnline;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableForPickup;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableElectronically;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String categoryId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemModifierListInfo> modifierListInfo;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> variations;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String productType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipModifierScreen;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionForItem> itemOptions;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> imageIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortName;
 
     /**
@@ -107,6 +91,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -118,6 +103,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -130,6 +116,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("abbreviation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAbbreviation() {
         return abbreviation;
     }
@@ -141,6 +128,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("label_color")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLabelColor() {
         return labelColor;
     }
@@ -151,6 +139,7 @@ public class CatalogItem {
      * @return Returns the Boolean
      */
     @JsonGetter("available_online")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAvailableOnline() {
         return availableOnline;
     }
@@ -161,6 +150,7 @@ public class CatalogItem {
      * @return Returns the Boolean
      */
     @JsonGetter("available_for_pickup")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAvailableForPickup() {
         return availableForPickup;
     }
@@ -172,6 +162,7 @@ public class CatalogItem {
      * @return Returns the Boolean
      */
     @JsonGetter("available_electronically")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAvailableElectronically() {
         return availableElectronically;
     }
@@ -182,6 +173,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("category_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCategoryId() {
         return categoryId;
     }
@@ -194,6 +186,7 @@ public class CatalogItem {
      * @return Returns the List of String
      */
     @JsonGetter("tax_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTaxIds() {
         return taxIds;
     }
@@ -206,6 +199,7 @@ public class CatalogItem {
      * @return Returns the List of CatalogItemModifierListInfo
      */
     @JsonGetter("modifier_list_info")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogItemModifierListInfo> getModifierListInfo() {
         return modifierListInfo;
     }
@@ -217,6 +211,7 @@ public class CatalogItem {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("variations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getVariations() {
         return variations;
     }
@@ -228,6 +223,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("product_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProductType() {
         return productType;
     }
@@ -243,6 +239,7 @@ public class CatalogItem {
      * @return Returns the Boolean
      */
     @JsonGetter("skip_modifier_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSkipModifierScreen() {
         return skipModifierScreen;
     }
@@ -254,6 +251,7 @@ public class CatalogItem {
      * @return Returns the List of CatalogItemOptionForItem
      */
     @JsonGetter("item_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogItemOptionForItem> getItemOptions() {
         return itemOptions;
     }
@@ -266,6 +264,7 @@ public class CatalogItem {
      * @return Returns the List of String
      */
     @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getImageIds() {
         return imageIds;
     }
@@ -278,6 +277,7 @@ public class CatalogItem {
      * @return Returns the String
      */
     @JsonGetter("sort_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortName() {
         return sortName;
     }

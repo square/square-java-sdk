@@ -11,37 +11,21 @@ import java.util.Objects;
  * This is a model class for Card type.
  */
 public class Card {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String last4;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long expMonth;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long expYear;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardholderName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prepaidType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bin;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
 
     /**
@@ -105,6 +89,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -115,6 +100,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("card_brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardBrand() {
         return cardBrand;
     }
@@ -125,6 +111,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("last_4")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLast4() {
         return last4;
     }
@@ -135,6 +122,7 @@ public class Card {
      * @return Returns the Long
      */
     @JsonGetter("exp_month")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getExpMonth() {
         return expMonth;
     }
@@ -145,6 +133,7 @@ public class Card {
      * @return Returns the Long
      */
     @JsonGetter("exp_year")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getExpYear() {
         return expYear;
     }
@@ -155,6 +144,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("cardholder_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardholderName() {
         return cardholderName;
     }
@@ -166,6 +156,7 @@ public class Card {
      * @return Returns the Address
      */
     @JsonGetter("billing_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -177,16 +168,19 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("fingerprint")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFingerprint() {
         return fingerprint;
     }
 
     /**
      * Getter for CustomerId.
-     * The ID of a customer created using the Customers API to be associated with the card.
+     * **Required** The ID of a customer created using the Customers API to be associated with the
+     * card.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -197,6 +191,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -208,6 +203,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -218,6 +214,7 @@ public class Card {
      * @return Returns the Boolean
      */
     @JsonGetter("enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEnabled() {
         return enabled;
     }
@@ -228,6 +225,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("card_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardType() {
         return cardType;
     }
@@ -238,6 +236,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("prepaid_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPrepaidType() {
         return prepaidType;
     }
@@ -249,6 +248,7 @@ public class Card {
      * @return Returns the String
      */
     @JsonGetter("bin")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBin() {
         return bin;
     }
@@ -261,6 +261,7 @@ public class Card {
      * @return Returns the Long
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getVersion() {
         return version;
     }

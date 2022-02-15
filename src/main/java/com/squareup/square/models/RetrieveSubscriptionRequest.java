@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for RetrieveSubscriptionRequest type.
  */
 public class RetrieveSubscriptionRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String include;
 
     /**
@@ -32,6 +31,7 @@ public class RetrieveSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("include")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInclude() {
         return include;
     }

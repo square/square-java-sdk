@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for V1Money type.
  */
 public class V1Money {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer amount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currencyCode;
 
     /**
@@ -36,6 +34,7 @@ public class V1Money {
      * @return Returns the Integer
      */
     @JsonGetter("amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getAmount() {
         return amount;
     }
@@ -47,6 +46,7 @@ public class V1Money {
      * @return Returns the String
      */
     @JsonGetter("currency_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCurrencyCode() {
         return currencyCode;
     }

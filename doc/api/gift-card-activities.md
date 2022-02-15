@@ -126,7 +126,7 @@ GiftCardActivity giftCardActivity = new GiftCardActivity.Builder(
     .build();
 CreateGiftCardActivityRequest body = new CreateGiftCardActivityRequest.Builder(
         "U16kfr-kA70er-q4Rsym-7U7NnY",
-        bodyGiftCardActivity)
+        giftCardActivity)
     .build();
 
 giftCardActivitiesApi.createGiftCardActivityAsync(body).thenAccept(result -> {

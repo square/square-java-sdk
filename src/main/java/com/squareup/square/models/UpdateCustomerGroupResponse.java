@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpdateCustomerGroupResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerGroup group;
 
     /**
@@ -44,6 +42,7 @@ public class UpdateCustomerGroupResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -56,6 +55,7 @@ public class UpdateCustomerGroupResponse {
      * @return Returns the CustomerGroup
      */
     @JsonGetter("group")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerGroup getGroup() {
         return group;
     }

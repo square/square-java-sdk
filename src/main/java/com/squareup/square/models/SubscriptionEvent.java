@@ -15,7 +15,6 @@ public class SubscriptionEvent {
     private final String subscriptionEventType;
     private final String effectiveDate;
     private final String planId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SubscriptionEventInfo info;
 
     /**
@@ -87,6 +86,7 @@ public class SubscriptionEvent {
      * @return Returns the SubscriptionEventInfo
      */
     @JsonGetter("info")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SubscriptionEventInfo getInfo() {
         return info;
     }

@@ -11,30 +11,19 @@ import java.util.Objects;
  * This is a model class for InventoryTransfer type.
  */
 public class InventoryTransfer {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fromLocationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String toLocationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String occurredAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
+    private final String teamMemberId;
 
     /**
      * Initialization constructor.
@@ -50,6 +39,7 @@ public class InventoryTransfer {
      * @param  createdAt  String value for createdAt.
      * @param  source  SourceApplication value for source.
      * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
      */
     @JsonCreator
     public InventoryTransfer(
@@ -64,7 +54,8 @@ public class InventoryTransfer {
             @JsonProperty("occurred_at") String occurredAt,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("source") SourceApplication source,
-            @JsonProperty("employee_id") String employeeId) {
+            @JsonProperty("employee_id") String employeeId,
+            @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
         this.referenceId = referenceId;
         this.state = state;
@@ -77,6 +68,7 @@ public class InventoryTransfer {
         this.createdAt = createdAt;
         this.source = source;
         this.employeeId = employeeId;
+        this.teamMemberId = teamMemberId;
     }
 
     /**
@@ -85,6 +77,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -96,6 +89,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -106,6 +100,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -117,6 +112,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("from_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFromLocationId() {
         return fromLocationId;
     }
@@ -128,6 +124,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("to_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getToLocationId() {
         return toLocationId;
     }
@@ -138,6 +135,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -149,6 +147,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectType() {
         return catalogObjectType;
     }
@@ -160,6 +159,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getQuantity() {
         return quantity;
     }
@@ -172,6 +172,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("occurred_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOccurredAt() {
         return occurredAt;
     }
@@ -182,6 +183,7 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -192,6 +194,7 @@ public class InventoryTransfer {
      * @return Returns the SourceApplication
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SourceApplication getSource() {
         return source;
     }
@@ -203,14 +206,28 @@ public class InventoryTransfer {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * transfer.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTeamMemberId() {
+        return teamMemberId;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, state, fromLocationId, toLocationId, catalogObjectId,
-                catalogObjectType, quantity, occurredAt, createdAt, source, employeeId);
+                catalogObjectType, quantity, occurredAt, createdAt, source, employeeId,
+                teamMemberId);
     }
 
     @Override
@@ -233,7 +250,8 @@ public class InventoryTransfer {
             && Objects.equals(occurredAt, other.occurredAt)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(source, other.source)
-            && Objects.equals(employeeId, other.employeeId);
+            && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(teamMemberId, other.teamMemberId);
     }
 
     /**
@@ -247,7 +265,7 @@ public class InventoryTransfer {
                 + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
                 + catalogObjectType + ", quantity=" + quantity + ", occurredAt=" + occurredAt
                 + ", createdAt=" + createdAt + ", source=" + source + ", employeeId=" + employeeId
-                + "]";
+                + ", teamMemberId=" + teamMemberId + "]";
     }
 
     /**
@@ -268,7 +286,8 @@ public class InventoryTransfer {
                 .occurredAt(getOccurredAt())
                 .createdAt(getCreatedAt())
                 .source(getSource())
-                .employeeId(getEmployeeId());
+                .employeeId(getEmployeeId())
+                .teamMemberId(getTeamMemberId());
         return builder;
     }
 
@@ -288,6 +307,7 @@ public class InventoryTransfer {
         private String createdAt;
         private SourceApplication source;
         private String employeeId;
+        private String teamMemberId;
 
 
 
@@ -412,13 +432,23 @@ public class InventoryTransfer {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InventoryTransfer} object using the set fields.
          * @return {@link InventoryTransfer}
          */
         public InventoryTransfer build() {
             return new InventoryTransfer(id, referenceId, state, fromLocationId, toLocationId,
                     catalogObjectId, catalogObjectType, quantity, occurredAt, createdAt, source,
-                    employeeId);
+                    employeeId, teamMemberId);
         }
     }
 }

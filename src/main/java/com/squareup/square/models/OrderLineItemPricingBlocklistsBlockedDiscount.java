@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklistsBlockedDiscount type.
  */
 public class OrderLineItemPricingBlocklistsBlockedDiscount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountCatalogObjectId;
 
     /**
@@ -40,6 +37,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -51,6 +49,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * @return Returns the String
      */
     @JsonGetter("discount_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiscountUid() {
         return discountUid;
     }
@@ -62,6 +61,7 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * @return Returns the String
      */
     @JsonGetter("discount_catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiscountCatalogObjectId() {
         return discountCatalogObjectId;
     }

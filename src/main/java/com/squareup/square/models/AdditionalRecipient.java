@@ -12,10 +12,8 @@ import java.util.Objects;
  */
 public class AdditionalRecipient {
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receivableId;
 
     /**
@@ -53,6 +51,7 @@ public class AdditionalRecipient {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -79,6 +78,7 @@ public class AdditionalRecipient {
      * @return Returns the String
      */
     @JsonGetter("receivable_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReceivableId() {
         return receivableId;
     }

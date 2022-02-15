@@ -12,41 +12,23 @@ import java.util.Objects;
  * This is a model class for CashDrawerShift type.
  */
 public class CashDrawerShift {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String openedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> employeeIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String openingEmployeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endingEmployeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closingEmployeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money openedCashMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaymentMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashRefundsMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaidInMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cashPaidOutMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money expectedCashMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money closedCashMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashDrawerDevice device;
 
     /**
@@ -116,6 +98,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -126,6 +109,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -136,6 +120,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("opened_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOpenedAt() {
         return openedAt;
     }
@@ -146,6 +131,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("ended_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndedAt() {
         return endedAt;
     }
@@ -156,6 +142,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClosedAt() {
         return closedAt;
     }
@@ -167,6 +154,7 @@ public class CashDrawerShift {
      * @return Returns the List of String
      */
     @JsonGetter("employee_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getEmployeeIds() {
         return employeeIds;
     }
@@ -177,6 +165,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("opening_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOpeningEmployeeId() {
         return openingEmployeeId;
     }
@@ -187,6 +176,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("ending_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndingEmployeeId() {
         return endingEmployeeId;
     }
@@ -198,6 +188,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("closing_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClosingEmployeeId() {
         return closingEmployeeId;
     }
@@ -208,6 +199,7 @@ public class CashDrawerShift {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -223,6 +215,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("opened_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getOpenedCashMoney() {
         return openedCashMoney;
     }
@@ -238,6 +231,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("cash_payment_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getCashPaymentMoney() {
         return cashPaymentMoney;
     }
@@ -253,6 +247,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("cash_refunds_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getCashRefundsMoney() {
         return cashRefundsMoney;
     }
@@ -268,6 +263,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("cash_paid_in_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getCashPaidInMoney() {
         return cashPaidInMoney;
     }
@@ -283,6 +279,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("cash_paid_out_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getCashPaidOutMoney() {
         return cashPaidOutMoney;
     }
@@ -298,6 +295,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("expected_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getExpectedCashMoney() {
         return expectedCashMoney;
     }
@@ -313,6 +311,7 @@ public class CashDrawerShift {
      * @return Returns the Money
      */
     @JsonGetter("closed_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getClosedCashMoney() {
         return closedCashMoney;
     }
@@ -322,6 +321,7 @@ public class CashDrawerShift {
      * @return Returns the CashDrawerDevice
      */
     @JsonGetter("device")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CashDrawerDevice getDevice() {
         return device;
     }

@@ -12,15 +12,10 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftsRequest {
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -64,6 +59,7 @@ public class ListCashDrawerShiftsRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }
@@ -74,6 +70,7 @@ public class ListCashDrawerShiftsRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -84,6 +81,7 @@ public class ListCashDrawerShiftsRequest {
      * @return Returns the String
      */
     @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndTime() {
         return endTime;
     }
@@ -94,6 +92,7 @@ public class ListCashDrawerShiftsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -104,6 +103,7 @@ public class ListCashDrawerShiftsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

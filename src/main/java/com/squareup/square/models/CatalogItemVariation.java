@@ -12,45 +12,25 @@ import java.util.Objects;
  * This is a model class for CatalogItemVariation type.
  */
 public class CatalogItemVariation {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sku;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String upc;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ItemVariationLocationOverrides> locationOverrides;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean trackInventory;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inventoryAlertType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long inventoryAlertThreshold;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String userData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long serviceDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean availableForBooking;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String measurementUnitId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean stockable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> imageIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> teamMemberIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogStockConversion stockableConversion;
 
     /**
@@ -128,6 +108,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemId() {
         return itemId;
     }
@@ -139,6 +120,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -150,6 +132,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("sku")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSku() {
         return sku;
     }
@@ -166,6 +149,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("upc")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpc() {
         return upc;
     }
@@ -179,6 +163,7 @@ public class CatalogItemVariation {
      * @return Returns the Integer
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getOrdinal() {
         return ordinal;
     }
@@ -190,6 +175,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("pricing_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPricingType() {
         return pricingType;
     }
@@ -205,6 +191,7 @@ public class CatalogItemVariation {
      * @return Returns the Money
      */
     @JsonGetter("price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getPriceMoney() {
         return priceMoney;
     }
@@ -215,6 +202,7 @@ public class CatalogItemVariation {
      * @return Returns the List of ItemVariationLocationOverrides
      */
     @JsonGetter("location_overrides")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<ItemVariationLocationOverrides> getLocationOverrides() {
         return locationOverrides;
     }
@@ -225,6 +213,7 @@ public class CatalogItemVariation {
      * @return Returns the Boolean
      */
     @JsonGetter("track_inventory")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getTrackInventory() {
         return trackInventory;
     }
@@ -236,6 +225,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("inventory_alert_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInventoryAlertType() {
         return inventoryAlertType;
     }
@@ -248,6 +238,7 @@ public class CatalogItemVariation {
      * @return Returns the Long
      */
     @JsonGetter("inventory_alert_threshold")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getInventoryAlertThreshold() {
         return inventoryAlertThreshold;
     }
@@ -259,6 +250,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("user_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUserData() {
         return userData;
     }
@@ -272,6 +264,7 @@ public class CatalogItemVariation {
      * @return Returns the Long
      */
     @JsonGetter("service_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getServiceDuration() {
         return serviceDuration;
     }
@@ -283,6 +276,7 @@ public class CatalogItemVariation {
      * @return Returns the Boolean
      */
     @JsonGetter("available_for_booking")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAvailableForBooking() {
         return availableForBooking;
     }
@@ -294,6 +288,7 @@ public class CatalogItemVariation {
      * @return Returns the List of CatalogItemOptionValueForItemVariation
      */
     @JsonGetter("item_option_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogItemOptionValueForItemVariation> getItemOptionValues() {
         return itemOptionValues;
     }
@@ -305,6 +300,7 @@ public class CatalogItemVariation {
      * @return Returns the String
      */
     @JsonGetter("measurement_unit_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMeasurementUnitId() {
         return measurementUnitId;
     }
@@ -316,6 +312,7 @@ public class CatalogItemVariation {
      * @return Returns the Boolean
      */
     @JsonGetter("stockable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getStockable() {
         return stockable;
     }
@@ -327,6 +324,7 @@ public class CatalogItemVariation {
      * @return Returns the List of String
      */
     @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getImageIds() {
         return imageIds;
     }
@@ -338,6 +336,7 @@ public class CatalogItemVariation {
      * @return Returns the List of String
      */
     @JsonGetter("team_member_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTeamMemberIds() {
         return teamMemberIds;
     }
@@ -350,6 +349,7 @@ public class CatalogItemVariation {
      * @return Returns the CatalogStockConversion
      */
     @JsonGetter("stockable_conversion")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogStockConversion getStockableConversion() {
         return stockableConversion;
     }

@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpsertSnippetResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Snippet snippet;
 
     /**
@@ -44,6 +42,7 @@ public class UpsertSnippetResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -55,6 +54,7 @@ public class UpsertSnippetResponse {
      * @return Returns the Snippet
      */
     @JsonGetter("snippet")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Snippet getSnippet() {
         return snippet;
     }

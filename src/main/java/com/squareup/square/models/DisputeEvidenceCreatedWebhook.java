@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for DisputeEvidenceCreatedWebhook type.
  */
 public class DisputeEvidenceCreatedWebhook {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String eventId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputeEvidenceCreatedWebhookData data;
 
     /**
@@ -55,6 +49,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -65,6 +60,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -75,6 +71,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -85,6 +82,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the String
      */
     @JsonGetter("event_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEventId() {
         return eventId;
     }
@@ -95,6 +93,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -104,6 +103,7 @@ public class DisputeEvidenceCreatedWebhook {
      * @return Returns the DisputeEvidenceCreatedWebhookData
      */
     @JsonGetter("data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DisputeEvidenceCreatedWebhookData getData() {
         return data;
     }

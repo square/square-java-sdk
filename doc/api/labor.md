@@ -113,7 +113,7 @@ BreakType breakType = new BreakType.Builder(
     .updatedAt("updated_at8")
     .build();
 CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
-        bodyBreakType)
+        breakType)
     .idempotencyKey("PAD3NG5KSN2GL")
     .build();
 
@@ -230,7 +230,7 @@ BreakType breakType = new BreakType.Builder(
     .updatedAt("updated_at8")
     .build();
 UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
-        bodyBreakType)
+        breakType)
     .build();
 
 laborApi.updateBreakTypeAsync(id, body).thenAccept(result -> {
@@ -391,7 +391,7 @@ Shift shift = new Shift.Builder(
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
 CreateShiftRequest body = new CreateShiftRequest.Builder(
-        bodyShift)
+        shift)
     .idempotencyKey("HIDSNG5KS478L")
     .build();
 
@@ -628,7 +628,7 @@ Shift shift = new Shift.Builder(
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
 UpdateShiftRequest body = new UpdateShiftRequest.Builder(
-        bodyShift)
+        shift)
     .build();
 
 laborApi.updateShiftAsync(id, body).thenAccept(result -> {
@@ -782,7 +782,7 @@ WorkweekConfig workweekConfig = new WorkweekConfig.Builder(
     .updatedAt("updated_at0")
     .build();
 UpdateWorkweekConfigRequest body = new UpdateWorkweekConfigRequest.Builder(
-        bodyWorkweekConfig)
+        workweekConfig)
     .build();
 
 laborApi.updateWorkweekConfigAsync(id, body).thenAccept(result -> {

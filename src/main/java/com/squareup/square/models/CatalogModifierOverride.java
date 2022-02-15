@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class CatalogModifierOverride {
     private final String modifierId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean onByDefault;
 
     /**
@@ -44,6 +43,7 @@ public class CatalogModifierOverride {
      * @return Returns the Boolean
      */
     @JsonGetter("on_by_default")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getOnByDefault() {
         return onByDefault;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for ListTeamMemberWagesRequest type.
  */
 public class ListTeamMemberWagesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -40,6 +37,7 @@ public class ListTeamMemberWagesRequest {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -51,6 +49,7 @@ public class ListTeamMemberWagesRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -61,6 +60,7 @@ public class ListTeamMemberWagesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for ListCardsRequest type.
  */
 public class ListCardsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeDisabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -53,6 +48,7 @@ public class ListCardsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -64,6 +60,7 @@ public class ListCardsRequest {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -74,6 +71,7 @@ public class ListCardsRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_disabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludeDisabled() {
         return includeDisabled;
     }
@@ -84,6 +82,7 @@ public class ListCardsRequest {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -94,6 +93,7 @@ public class ListCardsRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionNumberConfig type.
  */
 public class CatalogCustomAttributeDefinitionNumberConfig {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
 
     /**
@@ -33,6 +32,7 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
      * @return Returns the Integer
      */
     @JsonGetter("precision")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPrecision() {
         return precision;
     }

@@ -14,29 +14,17 @@ import java.util.Objects;
 public class ChargeRequest {
     private final String idempotencyKey;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardNonce;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerCardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean delayCapture;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
 
     /**
@@ -129,6 +117,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("card_nonce")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardNonce() {
         return cardNonce;
     }
@@ -141,6 +130,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("customer_card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerCardId() {
         return customerCardId;
     }
@@ -154,6 +144,7 @@ public class ChargeRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("delay_capture")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getDelayCapture() {
         return delayCapture;
     }
@@ -166,6 +157,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -176,6 +168,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -187,6 +180,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -198,6 +192,7 @@ public class ChargeRequest {
      * @return Returns the Address
      */
     @JsonGetter("billing_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -209,6 +204,7 @@ public class ChargeRequest {
      * @return Returns the Address
      */
     @JsonGetter("shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -220,6 +216,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerEmailAddress() {
         return buyerEmailAddress;
     }
@@ -232,6 +229,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -247,6 +245,7 @@ public class ChargeRequest {
      * @return Returns the List of ChargeRequestAdditionalRecipient
      */
     @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
         return additionalRecipients;
     }
@@ -258,6 +257,7 @@ public class ChargeRequest {
      * @return Returns the String
      */
     @JsonGetter("verification_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationToken() {
         return verificationToken;
     }

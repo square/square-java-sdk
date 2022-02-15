@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class InvoiceSort {
     private final String field;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
 
     /**
@@ -44,6 +43,7 @@ public class InvoiceSort {
      * @return Returns the String
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrder() {
         return order;
     }

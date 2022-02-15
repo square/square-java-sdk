@@ -12,42 +12,24 @@ import java.util.Objects;
  * This is a model class for OrderReturnLineItem type.
  */
 public class OrderReturnLineItem {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceLineItemUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
     private final String quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderQuantityUnit quantityUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String variationName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnLineItemModifier> returnModifiers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedTax> appliedTaxes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedDiscount> appliedDiscounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money basePriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money variationTotalPriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money grossReturnMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalDiscountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
 
     /**
@@ -120,6 +102,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -130,6 +113,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("source_line_item_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceLineItemUid() {
         return sourceLineItemUid;
     }
@@ -140,6 +124,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -162,6 +147,7 @@ public class OrderReturnLineItem {
      * @return Returns the OrderQuantityUnit
      */
     @JsonGetter("quantity_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderQuantityUnit getQuantityUnit() {
         return quantityUnit;
     }
@@ -172,6 +158,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -182,6 +169,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -192,6 +180,7 @@ public class OrderReturnLineItem {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }
@@ -202,6 +191,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("variation_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVariationName() {
         return variationName;
     }
@@ -212,6 +202,7 @@ public class OrderReturnLineItem {
      * @return Returns the String
      */
     @JsonGetter("item_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemType() {
         return itemType;
     }
@@ -222,6 +213,7 @@ public class OrderReturnLineItem {
      * @return Returns the List of OrderReturnLineItemModifier
      */
     @JsonGetter("return_modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturnLineItemModifier> getReturnModifiers() {
         return returnModifiers;
     }
@@ -234,6 +226,7 @@ public class OrderReturnLineItem {
      * @return Returns the List of OrderLineItemAppliedTax
      */
     @JsonGetter("applied_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
         return appliedTaxes;
     }
@@ -247,6 +240,7 @@ public class OrderReturnLineItem {
      * @return Returns the List of OrderLineItemAppliedDiscount
      */
     @JsonGetter("applied_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemAppliedDiscount> getAppliedDiscounts() {
         return appliedDiscounts;
     }
@@ -262,6 +256,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("base_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getBasePriceMoney() {
         return basePriceMoney;
     }
@@ -277,6 +272,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("variation_total_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getVariationTotalPriceMoney() {
         return variationTotalPriceMoney;
     }
@@ -292,6 +288,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("gross_return_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getGrossReturnMoney() {
         return grossReturnMoney;
     }
@@ -307,6 +304,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("total_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalTaxMoney() {
         return totalTaxMoney;
     }
@@ -322,6 +320,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("total_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalDiscountMoney() {
         return totalDiscountMoney;
     }
@@ -337,6 +336,7 @@ public class OrderReturnLineItem {
      * @return Returns the Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalMoney() {
         return totalMoney;
     }

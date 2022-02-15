@@ -104,7 +104,7 @@ GiftCard giftCard = new GiftCard.Builder(
 CreateGiftCardRequest body = new CreateGiftCardRequest.Builder(
         "NC9Tm69EjbjtConu",
         "81FN9BNFZTKS4",
-        bodyGiftCard)
+        giftCard)
     .build();
 
 giftCardsApi.createGiftCardAsync(body).thenAccept(result -> {

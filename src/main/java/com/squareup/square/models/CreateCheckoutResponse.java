@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateCheckoutResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Checkout checkout;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -45,6 +43,7 @@ public class CreateCheckoutResponse {
      * @return Returns the Checkout
      */
     @JsonGetter("checkout")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Checkout getCheckout() {
         return checkout;
     }
@@ -55,6 +54,7 @@ public class CreateCheckoutResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

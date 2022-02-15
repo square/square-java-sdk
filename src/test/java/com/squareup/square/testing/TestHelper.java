@@ -173,6 +173,78 @@ public class TestHelper {
     }
 
     /**
+     * Check if left array of array of objects is a subset of right array of array of objects.
+     * @param leftObject Left array as a JSON string
+     * @param rightObject Right array as a JSON string
+     * @param checkValues Check primitive values for equality?
+     * @param allowExtra Are extra elements allowed in right array?
+     * @param isOrdered Should elements in right be compared in order to left?
+     * @return True if it is a subset
+     * @throws IOException if deserialization got failed
+     */
+    public static boolean isArrayOfArrayOfJsonObjectsProperSubsetOf(String leftObject,
+            String rightObject, boolean checkValues, boolean allowExtra, boolean isOrdered)
+            throws IOException {
+        // Deserialize left and right objects from their respective strings
+        LinkedList<LinkedList<LinkedHashMap<String, Object>>> obj =
+                new LinkedList<LinkedList<LinkedHashMap<String, Object>>>();
+        @SuppressWarnings("unchecked")
+        LinkedList<LinkedList<LinkedHashMap<String, Object>>> left =
+                ApiHelper.deserialize(leftObject, obj.getClass());
+        @SuppressWarnings("unchecked")
+        LinkedList<LinkedList<LinkedHashMap<String, Object>>> right =
+                ApiHelper.deserialize(rightObject, obj.getClass());
+
+        return isArrayOfArrayOfJsonObjectsProperSubsetOf(left, right, checkValues, allowExtra,
+                isOrdered);
+    }
+
+    /**
+     * Check if left array of array of objects is a subset of right array of array of objects.
+     * @param left Left array as a JSON string
+     * @param right Right array as a JSON string
+     * @param checkValues Check primitive values for equality?
+     * @param allowExtra Are extra elements allowed in right array?
+     * @param isOrdered Should elements in right be compared in order to left?
+     * @return True if it is a subset
+     */
+    private static boolean isArrayOfArrayOfJsonObjectsProperSubsetOf(
+            List<LinkedList<LinkedHashMap<String, Object>>> left,
+            List<LinkedList<LinkedHashMap<String, Object>>> right, boolean checkValues,
+            boolean allowExtra, boolean isOrdered) {
+        if (!allowExtra && left.size() != right.size()) {
+            return false;
+        }
+
+        // Create list iterators
+        Iterator<LinkedList<LinkedHashMap<String, Object>>> leftIter = left.iterator();
+        Iterator<LinkedList<LinkedHashMap<String, Object>>> rightIter = right.iterator();
+
+        while (leftIter.hasNext()) {
+            List<LinkedHashMap<String, Object>> leftTree = leftIter.next();
+            boolean found = false;
+
+            if (!isOrdered) {
+                rightIter = right.iterator();
+            }
+
+            while (rightIter.hasNext()) {
+                if (isArrayOfJsonObjectsProperSubsetOf(leftTree, rightIter.next(), checkValues,
+                        allowExtra, isOrdered)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Check if left array of objects is a subset of right array.
      * @param leftObject Left array as a JSON string
      * @param rightObject Right array as a JSON string
@@ -195,75 +267,6 @@ public class TestHelper {
             obj.getClass());
         
         return isArrayOfJsonObjectsProperSubsetOf(left, right, checkValues, allowExtra, isOrdered);
-    }
-
-    /**
-     * Check if left array of array of objects is a subset of right array of array of objects.
-     * @param leftObject Left array as a JSON string
-     * @param rightObject Right array as a JSON string
-     * @param checkValues Check primitive values for equality?
-     * @param allowExtra Are extra elements allowed in right array?
-     * @param isOrdered Should elements in right be compared in order to left?
-     * @return True if it is a subset
-     * @throws IOException if deserialization got failed
-     */
-    public static boolean isArrayOfArrayOfJsonObjectsProperSubsetOf(String leftObject, String rightObject, 
-            boolean checkValues, boolean allowExtra, boolean isOrdered) throws IOException {
-        // Deserialize left and right objects from their respective strings
-        LinkedList<LinkedList<LinkedHashMap<String, Object>>> obj = new 
-                LinkedList<LinkedList<LinkedHashMap<String, Object>>>();
-        @SuppressWarnings("unchecked")
-        LinkedList<LinkedList<LinkedHashMap<String, Object>>> left = ApiHelper.deserialize(leftObject,
-            obj.getClass());
-        @SuppressWarnings("unchecked")
-        LinkedList<LinkedList<LinkedHashMap<String, Object>>> right = ApiHelper.deserialize(rightObject,
-            obj.getClass());
-        
-        return isArrayOfArrayOfJsonObjectsProperSubsetOf(left, right, checkValues, allowExtra, isOrdered);
-    }
-
-    /**
-     * Check if left array of array of objects is a subset of right array of array of objects.
-     * @param left Left array as a JSON string
-     * @param right Right array as a JSON string
-     * @param checkValues Check primitive values for equality?
-     * @param allowExtra Are extra elements allowed in right array?
-     * @param isOrdered Should elements in right be compared in order to left?
-     * @return True if it is a subset
-     */
-    private static boolean isArrayOfArrayOfJsonObjectsProperSubsetOf(List<LinkedList<LinkedHashMap<String, Object>>> left, 
-            List<LinkedList<LinkedHashMap<String, Object>>> right, 
-            boolean checkValues, boolean allowExtra, boolean isOrdered) {
-        if (!allowExtra && left.size() != right.size()) {
-            return false;
-        }
-        
-        // Create list iterators
-        Iterator<LinkedList<LinkedHashMap<String, Object>>> leftIter = left.iterator();
-        Iterator<LinkedList<LinkedHashMap<String, Object>>> rightIter = right.iterator();
-        
-        while (leftIter.hasNext()) {
-            List<LinkedHashMap<String, Object>> leftTree = leftIter.next();
-            boolean found = false;
-            
-            if (!isOrdered) {
-                rightIter = right.iterator();
-            }
-            
-            while (rightIter.hasNext()) {
-                if (isArrayOfJsonObjectsProperSubsetOf(leftTree, rightIter.next(), checkValues, allowExtra, 
-                    isOrdered)) {
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found) {
-                return false;
-            }
-        }
-        
-        return true;
     }
 
     /**

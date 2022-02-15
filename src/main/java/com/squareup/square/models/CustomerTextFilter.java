@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CustomerTextFilter type.
  */
 public class CustomerTextFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String exact;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fuzzy;
 
     /**
@@ -35,6 +33,7 @@ public class CustomerTextFilter {
      * @return Returns the String
      */
     @JsonGetter("exact")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExact() {
         return exact;
     }
@@ -48,6 +47,7 @@ public class CustomerTextFilter {
      * @return Returns the String
      */
     @JsonGetter("fuzzy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFuzzy() {
         return fuzzy;
     }

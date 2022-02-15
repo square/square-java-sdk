@@ -14,11 +14,8 @@ import java.util.Objects;
  */
 public class CreateMobileAuthorizationCodeResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String authorizationCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Error error;
 
     /**
@@ -49,6 +46,7 @@ public class CreateMobileAuthorizationCodeResponse {
      * @return Returns the String
      */
     @JsonGetter("authorization_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthorizationCode() {
         return authorizationCode;
     }
@@ -60,6 +58,7 @@ public class CreateMobileAuthorizationCodeResponse {
      * @return Returns the String
      */
     @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiresAt() {
         return expiresAt;
     }
@@ -72,6 +71,7 @@ public class CreateMobileAuthorizationCodeResponse {
      * @return Returns the Error
      */
     @JsonGetter("error")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Error getError() {
         return error;
     }

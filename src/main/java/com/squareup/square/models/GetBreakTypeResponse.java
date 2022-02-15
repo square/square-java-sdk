@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class GetBreakTypeResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BreakType breakType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -45,6 +43,7 @@ public class GetBreakTypeResponse {
      * @return Returns the BreakType
      */
     @JsonGetter("break_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BreakType getBreakType() {
         return breakType;
     }
@@ -55,6 +54,7 @@ public class GetBreakTypeResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

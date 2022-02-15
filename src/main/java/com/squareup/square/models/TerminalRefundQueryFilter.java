@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for TerminalRefundQueryFilter type.
  */
 public class TerminalRefundQueryFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
@@ -41,6 +38,7 @@ public class TerminalRefundQueryFilter {
      * @return Returns the String
      */
     @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceId() {
         return deviceId;
     }
@@ -54,6 +52,7 @@ public class TerminalRefundQueryFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getCreatedAt() {
         return createdAt;
     }
@@ -65,6 +64,7 @@ public class TerminalRefundQueryFilter {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }

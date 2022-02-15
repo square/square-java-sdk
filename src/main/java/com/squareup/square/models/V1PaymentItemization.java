@@ -12,33 +12,19 @@ import java.util.Objects;
  * This is a model class for V1PaymentItemization type.
  */
 public class V1PaymentItemization {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemizationType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1PaymentItemDetail itemDetail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String notes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemVariationName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money singleQuantityMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money grossSalesMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money discountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money netSalesMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> taxes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentDiscount> discounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentModifier> modifiers;
 
     /**
@@ -96,6 +82,7 @@ public class V1PaymentItemization {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -106,6 +93,7 @@ public class V1PaymentItemization {
      * @return Returns the Double
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Double getQuantity() {
         return quantity;
     }
@@ -115,6 +103,7 @@ public class V1PaymentItemization {
      * @return Returns the String
      */
     @JsonGetter("itemization_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemizationType() {
         return itemizationType;
     }
@@ -125,6 +114,7 @@ public class V1PaymentItemization {
      * @return Returns the V1PaymentItemDetail
      */
     @JsonGetter("item_detail")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1PaymentItemDetail getItemDetail() {
         return itemDetail;
     }
@@ -135,6 +125,7 @@ public class V1PaymentItemization {
      * @return Returns the String
      */
     @JsonGetter("notes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNotes() {
         return notes;
     }
@@ -145,6 +136,7 @@ public class V1PaymentItemization {
      * @return Returns the String
      */
     @JsonGetter("item_variation_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemVariationName() {
         return itemVariationName;
     }
@@ -154,6 +146,7 @@ public class V1PaymentItemization {
      * @return Returns the V1Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalMoney() {
         return totalMoney;
     }
@@ -163,6 +156,7 @@ public class V1PaymentItemization {
      * @return Returns the V1Money
      */
     @JsonGetter("single_quantity_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getSingleQuantityMoney() {
         return singleQuantityMoney;
     }
@@ -172,6 +166,7 @@ public class V1PaymentItemization {
      * @return Returns the V1Money
      */
     @JsonGetter("gross_sales_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getGrossSalesMoney() {
         return grossSalesMoney;
     }
@@ -181,6 +176,7 @@ public class V1PaymentItemization {
      * @return Returns the V1Money
      */
     @JsonGetter("discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getDiscountMoney() {
         return discountMoney;
     }
@@ -190,6 +186,7 @@ public class V1PaymentItemization {
      * @return Returns the V1Money
      */
     @JsonGetter("net_sales_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getNetSalesMoney() {
         return netSalesMoney;
     }
@@ -200,6 +197,7 @@ public class V1PaymentItemization {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getTaxes() {
         return taxes;
     }
@@ -210,6 +208,7 @@ public class V1PaymentItemization {
      * @return Returns the List of V1PaymentDiscount
      */
     @JsonGetter("discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentDiscount> getDiscounts() {
         return discounts;
     }
@@ -220,6 +219,7 @@ public class V1PaymentItemization {
      * @return Returns the List of V1PaymentModifier
      */
     @JsonGetter("modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentModifier> getModifiers() {
         return modifiers;
     }

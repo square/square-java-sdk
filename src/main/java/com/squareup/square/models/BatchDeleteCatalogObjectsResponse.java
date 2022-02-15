@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class BatchDeleteCatalogObjectsResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> deletedObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deletedAt;
 
     /**
@@ -49,6 +46,7 @@ public class BatchDeleteCatalogObjectsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -59,6 +57,7 @@ public class BatchDeleteCatalogObjectsResponse {
      * @return Returns the List of String
      */
     @JsonGetter("deleted_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getDeletedObjectIds() {
         return deletedObjectIds;
     }
@@ -70,6 +69,7 @@ public class BatchDeleteCatalogObjectsResponse {
      * @return Returns the String
      */
     @JsonGetter("deleted_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeletedAt() {
         return deletedAt;
     }

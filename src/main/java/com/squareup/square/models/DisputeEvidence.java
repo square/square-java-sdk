@@ -11,19 +11,12 @@ import java.util.Objects;
  * This is a model class for DisputeEvidence type.
  */
 public class DisputeEvidence {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String disputeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputeEvidenceFile evidenceFile;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceText;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uploadedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
 
     /**
@@ -60,6 +53,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("evidence_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvidenceId() {
         return evidenceId;
     }
@@ -70,6 +64,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -80,6 +75,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("dispute_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDisputeId() {
         return disputeId;
     }
@@ -90,6 +86,7 @@ public class DisputeEvidence {
      * @return Returns the DisputeEvidenceFile
      */
     @JsonGetter("evidence_file")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DisputeEvidenceFile getEvidenceFile() {
         return evidenceFile;
     }
@@ -100,6 +97,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("evidence_text")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvidenceText() {
         return evidenceText;
     }
@@ -110,6 +108,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("uploaded_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUploadedAt() {
         return uploadedAt;
     }
@@ -120,6 +119,7 @@ public class DisputeEvidence {
      * @return Returns the String
      */
     @JsonGetter("evidence_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvidenceType() {
         return evidenceType;
     }

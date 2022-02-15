@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 public class CalculateOrderRequest {
     private final Order order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReward> proposedRewards;
 
     /**
@@ -52,6 +51,7 @@ public class CalculateOrderRequest {
      * @return Returns the List of OrderReward
      */
     @JsonGetter("proposed_rewards")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReward> getProposedRewards() {
         return proposedRewards;
     }

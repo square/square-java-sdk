@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class ListSitesResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Site> sites;
 
     /**
@@ -44,6 +42,7 @@ public class ListSitesResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -54,6 +53,7 @@ public class ListSitesResponse {
      * @return Returns the List of Site
      */
     @JsonGetter("sites")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Site> getSites() {
         return sites;
     }

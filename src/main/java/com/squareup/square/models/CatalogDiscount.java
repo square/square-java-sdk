@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for CatalogDiscount type.
  */
 public class CatalogDiscount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean pinRequired;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String labelColor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifyTaxBasis;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money maximumAmountMoney;
 
     /**
@@ -66,6 +58,7 @@ public class CatalogDiscount {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -76,6 +69,7 @@ public class CatalogDiscount {
      * @return Returns the String
      */
     @JsonGetter("discount_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiscountType() {
         return discountType;
     }
@@ -89,6 +83,7 @@ public class CatalogDiscount {
      * @return Returns the String
      */
     @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentage() {
         return percentage;
     }
@@ -104,6 +99,7 @@ public class CatalogDiscount {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -115,6 +111,7 @@ public class CatalogDiscount {
      * @return Returns the Boolean
      */
     @JsonGetter("pin_required")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getPinRequired() {
         return pinRequired;
     }
@@ -126,6 +123,7 @@ public class CatalogDiscount {
      * @return Returns the String
      */
     @JsonGetter("label_color")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLabelColor() {
         return labelColor;
     }
@@ -135,6 +133,7 @@ public class CatalogDiscount {
      * @return Returns the String
      */
     @JsonGetter("modify_tax_basis")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getModifyTaxBasis() {
         return modifyTaxBasis;
     }
@@ -150,6 +149,7 @@ public class CatalogDiscount {
      * @return Returns the Money
      */
     @JsonGetter("maximum_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getMaximumAmountMoney() {
         return maximumAmountMoney;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for SearchTeamMembersQuery type.
  */
 public class SearchTeamMembersQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchTeamMembersFilter filter;
 
     /**
@@ -33,6 +32,7 @@ public class SearchTeamMembersQuery {
      * @return Returns the SearchTeamMembersFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchTeamMembersFilter getFilter() {
         return filter;
     }

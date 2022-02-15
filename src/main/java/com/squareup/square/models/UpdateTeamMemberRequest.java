@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for UpdateTeamMemberRequest type.
  */
 public class UpdateTeamMemberRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMember teamMember;
 
     /**
@@ -30,6 +29,7 @@ public class UpdateTeamMemberRequest {
      * @return Returns the TeamMember
      */
     @JsonGetter("team_member")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TeamMember getTeamMember() {
         return teamMember;
     }

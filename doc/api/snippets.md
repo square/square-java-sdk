@@ -127,7 +127,7 @@ Snippet snippet = new Snippet.Builder(
     .updatedAt("updated_at0")
     .build();
 UpsertSnippetRequest body = new UpsertSnippetRequest.Builder(
-        bodySnippet)
+        snippet)
     .build();
 
 snippetsApi.upsertSnippetAsync(siteId, body).thenAccept(result -> {

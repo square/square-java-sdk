@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateTerminalCheckoutResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckout checkout;
 
     /**
@@ -44,6 +42,7 @@ public class CreateTerminalCheckoutResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -53,6 +52,7 @@ public class CreateTerminalCheckoutResponse {
      * @return Returns the TerminalCheckout
      */
     @JsonGetter("checkout")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalCheckout getCheckout() {
         return checkout;
     }

@@ -12,83 +12,45 @@ import java.util.Objects;
  * This is a model class for Payment type.
  */
 public class Payment {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money approvedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ProcessingFee> processingFee;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money refundedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayAction;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayedUntil;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CardPaymentDetails cardDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashPaymentDetails cashDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BankAccountPaymentDetails bankAccountDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ExternalPaymentDetails externalDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DigitalWalletDetails walletDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final BuyNowPayLaterDetails buyNowPayLaterDetails;
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> refundIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final RiskEvaluation riskEvaluation;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescriptionIdentifier;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> capabilities;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DeviceDetails deviceDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ApplicationDetails applicationDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String versionToken;
 
     /**
@@ -113,6 +75,7 @@ public class Payment {
      * @param  bankAccountDetails  BankAccountPaymentDetails value for bankAccountDetails.
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
      * @param  walletDetails  DigitalWalletDetails value for walletDetails.
+     * @param  buyNowPayLaterDetails  BuyNowPayLaterDetails value for buyNowPayLaterDetails.
      * @param  locationId  String value for locationId.
      * @param  orderId  String value for orderId.
      * @param  referenceId  String value for referenceId.
@@ -155,6 +118,7 @@ public class Payment {
             @JsonProperty("bank_account_details") BankAccountPaymentDetails bankAccountDetails,
             @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
             @JsonProperty("wallet_details") DigitalWalletDetails walletDetails,
+            @JsonProperty("buy_now_pay_later_details") BuyNowPayLaterDetails buyNowPayLaterDetails,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("reference_id") String referenceId,
@@ -194,6 +158,7 @@ public class Payment {
         this.bankAccountDetails = bankAccountDetails;
         this.externalDetails = externalDetails;
         this.walletDetails = walletDetails;
+        this.buyNowPayLaterDetails = buyNowPayLaterDetails;
         this.locationId = locationId;
         this.orderId = orderId;
         this.referenceId = referenceId;
@@ -221,6 +186,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -231,6 +197,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -241,6 +208,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -256,6 +224,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -271,6 +240,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTipMoney() {
         return tipMoney;
     }
@@ -286,6 +256,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalMoney() {
         return totalMoney;
     }
@@ -301,6 +272,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppFeeMoney() {
         return appFeeMoney;
     }
@@ -316,6 +288,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("approved_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getApprovedMoney() {
         return approvedMoney;
     }
@@ -326,6 +299,7 @@ public class Payment {
      * @return Returns the List of ProcessingFee
      */
     @JsonGetter("processing_fee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<ProcessingFee> getProcessingFee() {
         return processingFee;
     }
@@ -341,6 +315,7 @@ public class Payment {
      * @return Returns the Money
      */
     @JsonGetter("refunded_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getRefundedMoney() {
         return refundedMoney;
     }
@@ -351,6 +326,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -366,6 +342,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("delay_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDelayDuration() {
         return delayDuration;
     }
@@ -377,6 +354,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("delay_action")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDelayAction() {
         return delayAction;
     }
@@ -390,6 +368,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("delayed_until")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDelayedUntil() {
         return delayedUntil;
     }
@@ -402,6 +381,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("source_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceType() {
         return sourceType;
     }
@@ -412,6 +392,7 @@ public class Payment {
      * @return Returns the CardPaymentDetails
      */
     @JsonGetter("card_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CardPaymentDetails getCardDetails() {
         return cardDetails;
     }
@@ -424,6 +405,7 @@ public class Payment {
      * @return Returns the CashPaymentDetails
      */
     @JsonGetter("cash_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CashPaymentDetails getCashDetails() {
         return cashDetails;
     }
@@ -434,6 +416,7 @@ public class Payment {
      * @return Returns the BankAccountPaymentDetails
      */
     @JsonGetter("bank_account_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BankAccountPaymentDetails getBankAccountDetails() {
         return bankAccountDetails;
     }
@@ -446,6 +429,7 @@ public class Payment {
      * @return Returns the ExternalPaymentDetails
      */
     @JsonGetter("external_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ExternalPaymentDetails getExternalDetails() {
         return externalDetails;
     }
@@ -456,8 +440,20 @@ public class Payment {
      * @return Returns the DigitalWalletDetails
      */
     @JsonGetter("wallet_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DigitalWalletDetails getWalletDetails() {
         return walletDetails;
+    }
+
+    /**
+     * Getter for BuyNowPayLaterDetails.
+     * Additional details about a Buy Now Pay Later payment type.
+     * @return Returns the BuyNowPayLaterDetails
+     */
+    @JsonGetter("buy_now_pay_later_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public BuyNowPayLaterDetails getBuyNowPayLaterDetails() {
+        return buyNowPayLaterDetails;
     }
 
     /**
@@ -466,6 +462,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -476,6 +473,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -486,6 +484,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -496,6 +495,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -507,6 +507,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
     }
@@ -517,6 +518,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -527,6 +529,7 @@ public class Payment {
      * @return Returns the List of String
      */
     @JsonGetter("refund_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getRefundIds() {
         return refundIds;
     }
@@ -540,6 +543,7 @@ public class Payment {
      * @return Returns the RiskEvaluation
      */
     @JsonGetter("risk_evaluation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public RiskEvaluation getRiskEvaluation() {
         return riskEvaluation;
     }
@@ -550,6 +554,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerEmailAddress() {
         return buyerEmailAddress;
     }
@@ -561,6 +566,7 @@ public class Payment {
      * @return Returns the Address
      */
     @JsonGetter("billing_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -572,6 +578,7 @@ public class Payment {
      * @return Returns the Address
      */
     @JsonGetter("shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -582,6 +589,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -595,6 +603,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("statement_description_identifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatementDescriptionIdentifier() {
         return statementDescriptionIdentifier;
     }
@@ -608,6 +617,7 @@ public class Payment {
      * @return Returns the List of String
      */
     @JsonGetter("capabilities")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCapabilities() {
         return capabilities;
     }
@@ -618,6 +628,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("receipt_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReceiptNumber() {
         return receiptNumber;
     }
@@ -628,6 +639,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("receipt_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReceiptUrl() {
         return receiptUrl;
     }
@@ -638,6 +650,7 @@ public class Payment {
      * @return Returns the DeviceDetails
      */
     @JsonGetter("device_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DeviceDetails getDeviceDetails() {
         return deviceDetails;
     }
@@ -648,6 +661,7 @@ public class Payment {
      * @return Returns the ApplicationDetails
      */
     @JsonGetter("application_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ApplicationDetails getApplicationDetails() {
         return applicationDetails;
     }
@@ -659,6 +673,7 @@ public class Payment {
      * @return Returns the String
      */
     @JsonGetter("version_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVersionToken() {
         return versionToken;
     }
@@ -668,10 +683,11 @@ public class Payment {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                 appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                 delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
-                externalDetails, walletDetails, locationId, orderId, referenceId, customerId,
-                employeeId, teamMemberId, refundIds, riskEvaluation, buyerEmailAddress,
-                billingAddress, shippingAddress, note, statementDescriptionIdentifier, capabilities,
-                receiptNumber, receiptUrl, deviceDetails, applicationDetails, versionToken);
+                externalDetails, walletDetails, buyNowPayLaterDetails, locationId, orderId,
+                referenceId, customerId, employeeId, teamMemberId, refundIds, riskEvaluation,
+                buyerEmailAddress, billingAddress, shippingAddress, note,
+                statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
+                deviceDetails, applicationDetails, versionToken);
     }
 
     @Override
@@ -703,6 +719,7 @@ public class Payment {
             && Objects.equals(bankAccountDetails, other.bankAccountDetails)
             && Objects.equals(externalDetails, other.externalDetails)
             && Objects.equals(walletDetails, other.walletDetails)
+            && Objects.equals(buyNowPayLaterDetails, other.buyNowPayLaterDetails)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(referenceId, other.referenceId)
@@ -739,17 +756,17 @@ public class Payment {
                 + delayAction + ", delayedUntil=" + delayedUntil + ", sourceType=" + sourceType
                 + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
                 + ", bankAccountDetails=" + bankAccountDetails + ", externalDetails="
-                + externalDetails + ", walletDetails=" + walletDetails + ", locationId="
-                + locationId + ", orderId=" + orderId + ", referenceId=" + referenceId
-                + ", customerId=" + customerId + ", employeeId=" + employeeId + ", teamMemberId="
-                + teamMemberId + ", refundIds=" + refundIds + ", riskEvaluation=" + riskEvaluation
-                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
-                + ", shippingAddress=" + shippingAddress + ", note=" + note
-                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
-                + ", capabilities=" + capabilities + ", receiptNumber=" + receiptNumber
-                + ", receiptUrl=" + receiptUrl + ", deviceDetails=" + deviceDetails
-                + ", applicationDetails=" + applicationDetails + ", versionToken=" + versionToken
-                + "]";
+                + externalDetails + ", walletDetails=" + walletDetails + ", buyNowPayLaterDetails="
+                + buyNowPayLaterDetails + ", locationId=" + locationId + ", orderId=" + orderId
+                + ", referenceId=" + referenceId + ", customerId=" + customerId + ", employeeId="
+                + employeeId + ", teamMemberId=" + teamMemberId + ", refundIds=" + refundIds
+                + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress=" + buyerEmailAddress
+                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
+                + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + ", capabilities=" + capabilities
+                + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
+                + ", deviceDetails=" + deviceDetails + ", applicationDetails=" + applicationDetails
+                + ", versionToken=" + versionToken + "]";
     }
 
     /**
@@ -779,6 +796,7 @@ public class Payment {
                 .bankAccountDetails(getBankAccountDetails())
                 .externalDetails(getExternalDetails())
                 .walletDetails(getWalletDetails())
+                .buyNowPayLaterDetails(getBuyNowPayLaterDetails())
                 .locationId(getLocationId())
                 .orderId(getOrderId())
                 .referenceId(getReferenceId())
@@ -825,6 +843,7 @@ public class Payment {
         private BankAccountPaymentDetails bankAccountDetails;
         private ExternalPaymentDetails externalDetails;
         private DigitalWalletDetails walletDetails;
+        private BuyNowPayLaterDetails buyNowPayLaterDetails;
         private String locationId;
         private String orderId;
         private String referenceId;
@@ -1048,6 +1067,16 @@ public class Payment {
         }
 
         /**
+         * Setter for buyNowPayLaterDetails.
+         * @param  buyNowPayLaterDetails  BuyNowPayLaterDetails value for buyNowPayLaterDetails.
+         * @return Builder
+         */
+        public Builder buyNowPayLaterDetails(BuyNowPayLaterDetails buyNowPayLaterDetails) {
+            this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+            return this;
+        }
+
+        /**
          * Setter for locationId.
          * @param  locationId  String value for locationId.
          * @return Builder
@@ -1245,10 +1274,10 @@ public class Payment {
             return new Payment(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                     appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
-                    bankAccountDetails, externalDetails, walletDetails, locationId, orderId,
-                    referenceId, customerId, employeeId, teamMemberId, refundIds, riskEvaluation,
-                    buyerEmailAddress, billingAddress, shippingAddress, note,
-                    statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
+                    bankAccountDetails, externalDetails, walletDetails, buyNowPayLaterDetails,
+                    locationId, orderId, referenceId, customerId, employeeId, teamMemberId,
+                    refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress,
+                    note, statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
                     deviceDetails, applicationDetails, versionToken);
         }
     }

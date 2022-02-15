@@ -12,25 +12,15 @@ import java.util.Objects;
  * This is a model class for Transaction type.
  */
 public class Transaction {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Tender> tenders;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Refund> refunds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String product;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
 
     /**
@@ -76,6 +66,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -86,6 +77,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -96,6 +88,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -106,6 +99,7 @@ public class Transaction {
      * @return Returns the List of Tender
      */
     @JsonGetter("tenders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Tender> getTenders() {
         return tenders;
     }
@@ -116,6 +110,7 @@ public class Transaction {
      * @return Returns the List of Refund
      */
     @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Refund> getRefunds() {
         return refunds;
     }
@@ -128,6 +123,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -138,6 +134,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("product")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProduct() {
         return product;
     }
@@ -153,6 +150,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("client_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClientId() {
         return clientId;
     }
@@ -164,6 +162,7 @@ public class Transaction {
      * @return Returns the Address
      */
     @JsonGetter("shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -174,6 +173,7 @@ public class Transaction {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }

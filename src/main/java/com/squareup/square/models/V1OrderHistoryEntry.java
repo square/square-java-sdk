@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for V1OrderHistoryEntry type.
  */
 public class V1OrderHistoryEntry {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String action;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
@@ -34,6 +32,7 @@ public class V1OrderHistoryEntry {
      * @return Returns the String
      */
     @JsonGetter("action")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAction() {
         return action;
     }
@@ -44,6 +43,7 @@ public class V1OrderHistoryEntry {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }

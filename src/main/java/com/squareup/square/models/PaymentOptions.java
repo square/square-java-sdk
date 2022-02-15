@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for PaymentOptions type.
  */
 public class PaymentOptions {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autocomplete;
 
     /**
@@ -31,6 +30,7 @@ public class PaymentOptions {
      * @return Returns the Boolean
      */
     @JsonGetter("autocomplete")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAutocomplete() {
         return autocomplete;
     }

@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class BatchRetrieveCatalogObjectsResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> objects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> relatedObjects;
 
     /**
@@ -49,6 +46,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -59,6 +57,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getObjects() {
         return objects;
     }
@@ -69,6 +68,7 @@ public class BatchRetrieveCatalogObjectsResponse {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("related_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getRelatedObjects() {
         return relatedObjects;
     }

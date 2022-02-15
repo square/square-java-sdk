@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for TeamMemberBookingProfile type.
  */
 public class TeamMemberBookingProfile {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isBookable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String profileImageUrl;
 
     /**
@@ -51,6 +46,7 @@ public class TeamMemberBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -61,6 +57,7 @@ public class TeamMemberBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -71,6 +68,7 @@ public class TeamMemberBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("display_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDisplayName() {
         return displayName;
     }
@@ -82,6 +80,7 @@ public class TeamMemberBookingProfile {
      * @return Returns the Boolean
      */
     @JsonGetter("is_bookable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsBookable() {
         return isBookable;
     }
@@ -92,6 +91,7 @@ public class TeamMemberBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("profile_image_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProfileImageUrl() {
         return profileImageUrl;
     }

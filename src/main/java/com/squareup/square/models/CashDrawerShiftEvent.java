@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for CashDrawerShiftEvent type.
  */
 public class CashDrawerShiftEvent {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String eventType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money eventMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
 
     /**
@@ -55,6 +49,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -65,6 +60,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
     }
@@ -76,6 +72,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the String
      */
     @JsonGetter("event_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEventType() {
         return eventType;
     }
@@ -91,6 +88,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the Money
      */
     @JsonGetter("event_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getEventMoney() {
         return eventMoney;
     }
@@ -101,6 +99,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -111,6 +110,7 @@ public class CashDrawerShiftEvent {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }

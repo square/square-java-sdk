@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for Availability type.
  */
 public class Availability {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AppointmentSegment> appointmentSegments;
 
     /**
@@ -41,6 +38,7 @@ public class Availability {
      * @return Returns the String
      */
     @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartAt() {
         return startAt;
     }
@@ -51,6 +49,7 @@ public class Availability {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -61,6 +60,7 @@ public class Availability {
      * @return Returns the List of AppointmentSegment
      */
     @JsonGetter("appointment_segments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<AppointmentSegment> getAppointmentSegments() {
         return appointmentSegments;
     }

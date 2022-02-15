@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for CreateRefundResponse type.
  */
 public class CreateRefundResponse {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Refund refund;
 
     /**
@@ -36,6 +34,7 @@ public class CreateRefundResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -46,6 +45,7 @@ public class CreateRefundResponse {
      * @return Returns the Refund
      */
     @JsonGetter("refund")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Refund getRefund() {
         return refund;
     }

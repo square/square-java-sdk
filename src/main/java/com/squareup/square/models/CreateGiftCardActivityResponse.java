@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateGiftCardActivityResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivity giftCardActivity;
 
     /**
@@ -44,6 +42,7 @@ public class CreateGiftCardActivityResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -54,6 +53,7 @@ public class CreateGiftCardActivityResponse {
      * @return Returns the GiftCardActivity
      */
     @JsonGetter("gift_card_activity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivity getGiftCardActivity() {
         return giftCardActivity;
     }

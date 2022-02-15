@@ -109,7 +109,7 @@ Money money = new Money.Builder()
     .build();
 RefundPaymentRequest body = new RefundPaymentRequest.Builder(
         "9b7f2dcf-49da-4411-b23e-a2d6af21333a",
-        bodyAmountMoney)
+        amountMoney)
     .appFeeMoney(bodyAppFeeMoney)
     .paymentId("R2B3Z8WMVt3EAmzYWLZvz7Y69EbZY")
     .reason("Example")

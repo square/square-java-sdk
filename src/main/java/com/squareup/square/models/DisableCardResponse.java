@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class DisableCardResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Card card;
 
     /**
@@ -44,6 +42,7 @@ public class DisableCardResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -55,6 +54,7 @@ public class DisableCardResponse {
      * @return Returns the Card
      */
     @JsonGetter("card")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Card getCard() {
         return card;
     }

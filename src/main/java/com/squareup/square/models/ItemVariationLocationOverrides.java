@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for ItemVariationLocationOverrides type.
  */
 public class ItemVariationLocationOverrides {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean trackInventory;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inventoryAlertType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long inventoryAlertThreshold;
 
     /**
@@ -55,6 +49,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -70,6 +65,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the Money
      */
     @JsonGetter("price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getPriceMoney() {
         return priceMoney;
     }
@@ -81,6 +77,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the String
      */
     @JsonGetter("pricing_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPricingType() {
         return pricingType;
     }
@@ -91,6 +88,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the Boolean
      */
     @JsonGetter("track_inventory")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getTrackInventory() {
         return trackInventory;
     }
@@ -102,6 +100,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the String
      */
     @JsonGetter("inventory_alert_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInventoryAlertType() {
         return inventoryAlertType;
     }
@@ -114,6 +113,7 @@ public class ItemVariationLocationOverrides {
      * @return Returns the Long
      */
     @JsonGetter("inventory_alert_threshold")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getInventoryAlertThreshold() {
         return inventoryAlertThreshold;
     }

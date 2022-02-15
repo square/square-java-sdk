@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class BatchRetrieveOrdersResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Order> orders;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -44,6 +42,7 @@ public class BatchRetrieveOrdersResponse {
      * @return Returns the List of Order
      */
     @JsonGetter("orders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Order> getOrders() {
         return orders;
     }
@@ -54,6 +53,7 @@ public class BatchRetrieveOrdersResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

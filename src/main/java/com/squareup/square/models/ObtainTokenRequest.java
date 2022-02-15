@@ -14,18 +14,12 @@ import java.util.Objects;
 public class ObtainTokenRequest {
     private final String clientId;
     private final String clientSecret;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String code;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUri;
     private final String grantType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refreshToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String migrationToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> scopes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean shortLived;
 
     /**
@@ -92,6 +86,7 @@ public class ObtainTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCode() {
         return code;
     }
@@ -103,6 +98,7 @@ public class ObtainTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("redirect_uri")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRedirectUri() {
         return redirectUri;
     }
@@ -126,6 +122,7 @@ public class ObtainTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("refresh_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefreshToken() {
         return refreshToken;
     }
@@ -140,6 +137,7 @@ public class ObtainTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("migration_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMigrationToken() {
         return migrationToken;
     }
@@ -153,6 +151,7 @@ public class ObtainTokenRequest {
      * @return Returns the List of String
      */
     @JsonGetter("scopes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getScopes() {
         return scopes;
     }
@@ -164,6 +163,7 @@ public class ObtainTokenRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("short_lived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getShortLived() {
         return shortLived;
     }

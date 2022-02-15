@@ -14,41 +14,23 @@ public class CreatePaymentRequest {
     private final String sourceId;
     private final String idempotencyKey;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String delayDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean autocomplete;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean acceptPartialAuthorization;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescriptionIdentifier;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashPaymentDetails cashDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ExternalPaymentDetails externalDetails;
 
     /**
@@ -175,6 +157,7 @@ public class CreatePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTipMoney() {
         return tipMoney;
     }
@@ -190,6 +173,7 @@ public class CreatePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppFeeMoney() {
         return appFeeMoney;
     }
@@ -207,6 +191,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("delay_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDelayDuration() {
         return delayDuration;
     }
@@ -221,6 +206,7 @@ public class CreatePaymentRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("autocomplete")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAutocomplete() {
         return autocomplete;
     }
@@ -231,6 +217,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -242,6 +229,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -253,6 +241,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -263,6 +252,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -275,6 +265,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -289,6 +280,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("verification_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationToken() {
         return verificationToken;
     }
@@ -306,6 +298,7 @@ public class CreatePaymentRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("accept_partial_authorization")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAcceptPartialAuthorization() {
         return acceptPartialAuthorization;
     }
@@ -316,6 +309,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("buyer_email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerEmailAddress() {
         return buyerEmailAddress;
     }
@@ -327,6 +321,7 @@ public class CreatePaymentRequest {
      * @return Returns the Address
      */
     @JsonGetter("billing_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -338,6 +333,7 @@ public class CreatePaymentRequest {
      * @return Returns the Address
      */
     @JsonGetter("shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -348,6 +344,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -363,6 +360,7 @@ public class CreatePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("statement_description_identifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatementDescriptionIdentifier() {
         return statementDescriptionIdentifier;
     }
@@ -375,6 +373,7 @@ public class CreatePaymentRequest {
      * @return Returns the CashPaymentDetails
      */
     @JsonGetter("cash_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CashPaymentDetails getCashDetails() {
         return cashDetails;
     }
@@ -387,6 +386,7 @@ public class CreatePaymentRequest {
      * @return Returns the ExternalPaymentDetails
      */
     @JsonGetter("external_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ExternalPaymentDetails getExternalDetails() {
         return externalDetails;
     }

@@ -11,10 +11,8 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventAdjustPoints type.
  */
 public class LoyaltyEventAdjustPoints {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String loyaltyProgramId;
     private final int points;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
 
     /**
@@ -39,6 +37,7 @@ public class LoyaltyEventAdjustPoints {
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLoyaltyProgramId() {
         return loyaltyProgramId;
     }
@@ -59,6 +58,7 @@ public class LoyaltyEventAdjustPoints {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }

@@ -12,10 +12,8 @@ import java.util.Objects;
  */
 public class CreateCatalogImageRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
     private final CatalogObject image;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isPrimary;
 
     /**
@@ -57,6 +55,7 @@ public class CreateCatalogImageRequest {
      * @return Returns the String
      */
     @JsonGetter("object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getObjectId() {
         return objectId;
     }
@@ -91,6 +90,7 @@ public class CreateCatalogImageRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("is_primary")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsPrimary() {
         return isPrimary;
     }

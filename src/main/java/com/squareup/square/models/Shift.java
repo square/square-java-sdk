@@ -12,30 +12,18 @@ import java.util.Objects;
  * This is a model class for Shift type.
  */
 public class Shift {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
     private final String startAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftWage wage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Break> breaks;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
 
     /**
@@ -90,6 +78,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -101,6 +90,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
     }
@@ -112,6 +102,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -123,6 +114,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimezone() {
         return timezone;
     }
@@ -145,6 +137,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndAt() {
         return endAt;
     }
@@ -155,6 +148,7 @@ public class Shift {
      * @return Returns the ShiftWage
      */
     @JsonGetter("wage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ShiftWage getWage() {
         return wage;
     }
@@ -165,6 +159,7 @@ public class Shift {
      * @return Returns the List of Break
      */
     @JsonGetter("breaks")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Break> getBreaks() {
         return breaks;
     }
@@ -175,6 +170,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -187,6 +183,7 @@ public class Shift {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -197,6 +194,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -207,6 +205,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -218,6 +217,7 @@ public class Shift {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }

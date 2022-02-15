@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class GiftCardActivityRedeem {
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
 
     /**
@@ -56,6 +54,7 @@ public class GiftCardActivityRedeem {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -68,6 +67,7 @@ public class GiftCardActivityRedeem {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }

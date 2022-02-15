@@ -16,11 +16,8 @@ public class AppointmentSegment {
     private final String serviceVariationId;
     private final String teamMemberId;
     private final long serviceVariationVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer intermissionMinutes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean anyTeamMember;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> resourceIds;
 
     /**
@@ -99,6 +96,7 @@ public class AppointmentSegment {
      * @return Returns the Integer
      */
     @JsonGetter("intermission_minutes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getIntermissionMinutes() {
         return intermissionMinutes;
     }
@@ -110,6 +108,7 @@ public class AppointmentSegment {
      * @return Returns the Boolean
      */
     @JsonGetter("any_team_member")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAnyTeamMember() {
         return anyTeamMember;
     }
@@ -120,6 +119,7 @@ public class AppointmentSegment {
      * @return Returns the List of String
      */
     @JsonGetter("resource_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getResourceIds() {
         return resourceIds;
     }

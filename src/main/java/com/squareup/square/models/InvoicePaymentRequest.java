@@ -12,31 +12,18 @@ import java.util.Objects;
  * This is a model class for InvoicePaymentRequest type.
  */
 public class InvoicePaymentRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestMethod;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String requestType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dueDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money fixedAmountRequestedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentageRequested;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean tippingEnabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String automaticPaymentSource;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoicePaymentReminder> reminders;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money computedAmountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalCompletedAmountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money roundingAdjustmentIncludedMoney;
 
     /**
@@ -91,6 +78,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -104,6 +92,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("request_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRequestMethod() {
         return requestMethod;
     }
@@ -115,6 +104,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("request_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRequestType() {
         return requestType;
     }
@@ -129,6 +119,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("due_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDueDate() {
         return dueDate;
     }
@@ -144,6 +135,7 @@ public class InvoicePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("fixed_amount_requested_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getFixedAmountRequestedMoney() {
         return fixedAmountRequestedMoney;
     }
@@ -159,6 +151,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("percentage_requested")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentageRequested() {
         return percentageRequested;
     }
@@ -171,6 +164,7 @@ public class InvoicePaymentRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("tipping_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getTippingEnabled() {
         return tippingEnabled;
     }
@@ -182,6 +176,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("automatic_payment_source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAutomaticPaymentSource() {
         return automaticPaymentSource;
     }
@@ -194,6 +189,7 @@ public class InvoicePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardId() {
         return cardId;
     }
@@ -204,6 +200,7 @@ public class InvoicePaymentRequest {
      * @return Returns the List of InvoicePaymentReminder
      */
     @JsonGetter("reminders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<InvoicePaymentReminder> getReminders() {
         return reminders;
     }
@@ -219,6 +216,7 @@ public class InvoicePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("computed_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getComputedAmountMoney() {
         return computedAmountMoney;
     }
@@ -234,6 +232,7 @@ public class InvoicePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("total_completed_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalCompletedAmountMoney() {
         return totalCompletedAmountMoney;
     }
@@ -249,6 +248,7 @@ public class InvoicePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("rounding_adjustment_included_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getRoundingAdjustmentIncludedMoney() {
         return roundingAdjustmentIncludedMoney;
     }

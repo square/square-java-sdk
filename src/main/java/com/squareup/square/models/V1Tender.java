@@ -11,37 +11,21 @@ import java.util.Objects;
  * This is a model class for V1Tender type.
  */
 public class V1Tender {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardBrand;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String panSuffix;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money tenderedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tenderedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String settledAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money changeBackMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isExchange;
 
     /**
@@ -105,6 +89,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -114,6 +99,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -124,6 +110,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -134,6 +121,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
     }
@@ -144,6 +132,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("receipt_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReceiptUrl() {
         return receiptUrl;
     }
@@ -154,6 +143,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("card_brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardBrand() {
         return cardBrand;
     }
@@ -164,6 +154,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("pan_suffix")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPanSuffix() {
         return panSuffix;
     }
@@ -173,6 +164,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("entry_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEntryMethod() {
         return entryMethod;
     }
@@ -184,6 +176,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("payment_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentNote() {
         return paymentNote;
     }
@@ -193,6 +186,7 @@ public class V1Tender {
      * @return Returns the V1Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalMoney() {
         return totalMoney;
     }
@@ -202,6 +196,7 @@ public class V1Tender {
      * @return Returns the V1Money
      */
     @JsonGetter("tendered_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTenderedMoney() {
         return tenderedMoney;
     }
@@ -212,6 +207,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("tendered_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTenderedAt() {
         return tenderedAt;
     }
@@ -222,6 +218,7 @@ public class V1Tender {
      * @return Returns the String
      */
     @JsonGetter("settled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSettledAt() {
         return settledAt;
     }
@@ -231,6 +228,7 @@ public class V1Tender {
      * @return Returns the V1Money
      */
     @JsonGetter("change_back_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getChangeBackMoney() {
         return changeBackMoney;
     }
@@ -240,6 +238,7 @@ public class V1Tender {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedMoney() {
         return refundedMoney;
     }
@@ -253,6 +252,7 @@ public class V1Tender {
      * @return Returns the Boolean
      */
     @JsonGetter("is_exchange")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsExchange() {
         return isExchange;
     }

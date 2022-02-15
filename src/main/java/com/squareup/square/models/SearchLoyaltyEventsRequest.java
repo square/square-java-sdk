@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyEventsRequest type.
  */
 public class SearchLoyaltyEventsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -40,6 +37,7 @@ public class SearchLoyaltyEventsRequest {
      * @return Returns the LoyaltyEventQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventQuery getQuery() {
         return query;
     }
@@ -51,6 +49,7 @@ public class SearchLoyaltyEventsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -63,6 +62,7 @@ public class SearchLoyaltyEventsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

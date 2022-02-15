@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdatedObject type.
  */
 public class OrderFulfillmentUpdatedObject {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentUpdated orderFulfillmentUpdated;
 
     /**
@@ -29,6 +28,7 @@ public class OrderFulfillmentUpdatedObject {
      * @return Returns the OrderFulfillmentUpdated
      */
     @JsonGetter("order_fulfillment_updated")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentUpdated getOrderFulfillmentUpdated() {
         return orderFulfillmentUpdated;
     }

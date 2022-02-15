@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for TipSettings type.
  */
 public class TipSettings {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allowTipping;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean separateTipScreen;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean customTipField;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Integer> tipPercentages;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean smartTipping;
 
     /**
@@ -51,6 +46,7 @@ public class TipSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("allow_tipping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAllowTipping() {
         return allowTipping;
     }
@@ -62,6 +58,7 @@ public class TipSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("separate_tip_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSeparateTipScreen() {
         return separateTipScreen;
     }
@@ -72,6 +69,7 @@ public class TipSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("custom_tip_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getCustomTipField() {
         return customTipField;
     }
@@ -83,6 +81,7 @@ public class TipSettings {
      * @return Returns the List of Integer
      */
     @JsonGetter("tip_percentages")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Integer> getTipPercentages() {
         return tipPercentages;
     }
@@ -99,6 +98,7 @@ public class TipSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("smart_tipping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSmartTipping() {
         return smartTipping;
     }

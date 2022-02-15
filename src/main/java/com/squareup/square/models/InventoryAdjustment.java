@@ -11,41 +11,24 @@ import java.util.Objects;
  * This is a model class for InventoryAdjustment type.
  */
 public class InventoryAdjustment {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fromState;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String toState;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalPriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String occurredAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
     private final String transactionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String purchaseOrderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String goodsReceiptId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryAdjustmentGroup adjustmentGroup;
 
     /**
@@ -63,6 +46,7 @@ public class InventoryAdjustment {
      * @param  createdAt  String value for createdAt.
      * @param  source  SourceApplication value for source.
      * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
      * @param  transactionId  String value for transactionId.
      * @param  refundId  String value for refundId.
      * @param  purchaseOrderId  String value for purchaseOrderId.
@@ -84,6 +68,7 @@ public class InventoryAdjustment {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("source") SourceApplication source,
             @JsonProperty("employee_id") String employeeId,
+            @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("transaction_id") String transactionId,
             @JsonProperty("refund_id") String refundId,
             @JsonProperty("purchase_order_id") String purchaseOrderId,
@@ -102,6 +87,7 @@ public class InventoryAdjustment {
         this.createdAt = createdAt;
         this.source = source;
         this.employeeId = employeeId;
+        this.teamMemberId = teamMemberId;
         this.transactionId = transactionId;
         this.refundId = refundId;
         this.purchaseOrderId = purchaseOrderId;
@@ -115,6 +101,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -126,6 +113,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -136,6 +124,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("from_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFromState() {
         return fromState;
     }
@@ -146,6 +135,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("to_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getToState() {
         return toState;
     }
@@ -157,6 +147,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -167,6 +158,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -178,6 +170,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectType() {
         return catalogObjectType;
     }
@@ -189,6 +182,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getQuantity() {
         return quantity;
     }
@@ -204,6 +198,7 @@ public class InventoryAdjustment {
      * @return Returns the Money
      */
     @JsonGetter("total_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalPriceMoney() {
         return totalPriceMoney;
     }
@@ -216,6 +211,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("occurred_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOccurredAt() {
         return occurredAt;
     }
@@ -226,6 +222,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -236,6 +233,7 @@ public class InventoryAdjustment {
      * @return Returns the SourceApplication
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SourceApplication getSource() {
         return source;
     }
@@ -247,8 +245,21 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * adjustment.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTeamMemberId() {
+        return teamMemberId;
     }
 
     /**
@@ -258,6 +269,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTransactionId() {
         return transactionId;
     }
@@ -269,6 +281,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("refund_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefundId() {
         return refundId;
     }
@@ -280,6 +293,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("purchase_order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPurchaseOrderId() {
         return purchaseOrderId;
     }
@@ -291,6 +305,7 @@ public class InventoryAdjustment {
      * @return Returns the String
      */
     @JsonGetter("goods_receipt_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGoodsReceiptId() {
         return goodsReceiptId;
     }
@@ -300,6 +315,7 @@ public class InventoryAdjustment {
      * @return Returns the InventoryAdjustmentGroup
      */
     @JsonGetter("adjustment_group")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryAdjustmentGroup getAdjustmentGroup() {
         return adjustmentGroup;
     }
@@ -308,7 +324,7 @@ public class InventoryAdjustment {
     public int hashCode() {
         return Objects.hash(id, referenceId, fromState, toState, locationId, catalogObjectId,
                 catalogObjectType, quantity, totalPriceMoney, occurredAt, createdAt, source,
-                employeeId, transactionId, refundId, purchaseOrderId, goodsReceiptId,
+                employeeId, teamMemberId, transactionId, refundId, purchaseOrderId, goodsReceiptId,
                 adjustmentGroup);
     }
 
@@ -334,6 +350,7 @@ public class InventoryAdjustment {
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(source, other.source)
             && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(transactionId, other.transactionId)
             && Objects.equals(refundId, other.refundId)
             && Objects.equals(purchaseOrderId, other.purchaseOrderId)
@@ -352,10 +369,10 @@ public class InventoryAdjustment {
                 + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
                 + catalogObjectType + ", quantity=" + quantity + ", totalPriceMoney="
                 + totalPriceMoney + ", occurredAt=" + occurredAt + ", createdAt=" + createdAt
-                + ", source=" + source + ", employeeId=" + employeeId + ", transactionId="
-                + transactionId + ", refundId=" + refundId + ", purchaseOrderId=" + purchaseOrderId
-                + ", goodsReceiptId=" + goodsReceiptId + ", adjustmentGroup=" + adjustmentGroup
-                + "]";
+                + ", source=" + source + ", employeeId=" + employeeId + ", teamMemberId="
+                + teamMemberId + ", transactionId=" + transactionId + ", refundId=" + refundId
+                + ", purchaseOrderId=" + purchaseOrderId + ", goodsReceiptId=" + goodsReceiptId
+                + ", adjustmentGroup=" + adjustmentGroup + "]";
     }
 
     /**
@@ -378,6 +395,7 @@ public class InventoryAdjustment {
                 .createdAt(getCreatedAt())
                 .source(getSource())
                 .employeeId(getEmployeeId())
+                .teamMemberId(getTeamMemberId())
                 .transactionId(getTransactionId())
                 .refundId(getRefundId())
                 .purchaseOrderId(getPurchaseOrderId())
@@ -403,6 +421,7 @@ public class InventoryAdjustment {
         private String createdAt;
         private SourceApplication source;
         private String employeeId;
+        private String teamMemberId;
         private String transactionId;
         private String refundId;
         private String purchaseOrderId;
@@ -542,6 +561,16 @@ public class InventoryAdjustment {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Setter for transactionId.
          * @param  transactionId  String value for transactionId.
          * @return Builder
@@ -598,8 +627,8 @@ public class InventoryAdjustment {
         public InventoryAdjustment build() {
             return new InventoryAdjustment(id, referenceId, fromState, toState, locationId,
                     catalogObjectId, catalogObjectType, quantity, totalPriceMoney, occurredAt,
-                    createdAt, source, employeeId, transactionId, refundId, purchaseOrderId,
-                    goodsReceiptId, adjustmentGroup);
+                    createdAt, source, employeeId, teamMemberId, transactionId, refundId,
+                    purchaseOrderId, goodsReceiptId, adjustmentGroup);
         }
     }
 }

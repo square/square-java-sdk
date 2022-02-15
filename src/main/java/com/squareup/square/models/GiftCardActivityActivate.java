@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for GiftCardActivityActivate type.
  */
 public class GiftCardActivityActivate {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String lineItemUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> buyerPaymentInstrumentIds;
 
     /**
@@ -56,6 +51,7 @@ public class GiftCardActivityActivate {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -67,6 +63,7 @@ public class GiftCardActivityActivate {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -78,6 +75,7 @@ public class GiftCardActivityActivate {
      * @return Returns the String
      */
     @JsonGetter("line_item_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLineItemUid() {
         return lineItemUid;
     }
@@ -89,6 +87,7 @@ public class GiftCardActivityActivate {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -102,6 +101,7 @@ public class GiftCardActivityActivate {
      * @return Returns the List of String
      */
     @JsonGetter("buyer_payment_instrument_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getBuyerPaymentInstrumentIds() {
         return buyerPaymentInstrumentIds;
     }

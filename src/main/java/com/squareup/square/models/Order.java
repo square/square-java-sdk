@@ -13,64 +13,35 @@ import java.util.Objects;
  * This is a model class for Order type.
  */
 public class Order {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderSource source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItem> lineItems;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemTax> taxes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemDiscount> discounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderServiceCharge> serviceCharges;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderFulfillment> fulfillments;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturn> returns;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts returnAmounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts netAmounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderRoundingAdjustment roundingAdjustment;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Tender> tenders;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Refund> refunds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalDiscountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalServiceChargeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String ticketName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderPricingOptions pricingOptions;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReward> rewards;
 
     /**
@@ -176,6 +147,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -196,6 +168,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -206,6 +179,7 @@ public class Order {
      * @return Returns the OrderSource
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderSource getSource() {
         return source;
     }
@@ -221,6 +195,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -231,6 +206,7 @@ public class Order {
      * @return Returns the List of OrderLineItem
      */
     @JsonGetter("line_items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItem> getLineItems() {
         return lineItems;
     }
@@ -247,6 +223,7 @@ public class Order {
      * @return Returns the List of OrderLineItemTax
      */
     @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemTax> getTaxes() {
         return taxes;
     }
@@ -263,6 +240,7 @@ public class Order {
      * @return Returns the List of OrderLineItemDiscount
      */
     @JsonGetter("discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemDiscount> getDiscounts() {
         return discounts;
     }
@@ -273,6 +251,7 @@ public class Order {
      * @return Returns the List of OrderServiceCharge
      */
     @JsonGetter("service_charges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderServiceCharge> getServiceCharges() {
         return serviceCharges;
     }
@@ -284,6 +263,7 @@ public class Order {
      * @return Returns the List of OrderFulfillment
      */
     @JsonGetter("fulfillments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderFulfillment> getFulfillments() {
         return fulfillments;
     }
@@ -296,6 +276,7 @@ public class Order {
      * @return Returns the List of OrderReturn
      */
     @JsonGetter("returns")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturn> getReturns() {
         return returns;
     }
@@ -306,6 +287,7 @@ public class Order {
      * @return Returns the OrderMoneyAmounts
      */
     @JsonGetter("return_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderMoneyAmounts getReturnAmounts() {
         return returnAmounts;
     }
@@ -316,6 +298,7 @@ public class Order {
      * @return Returns the OrderMoneyAmounts
      */
     @JsonGetter("net_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderMoneyAmounts getNetAmounts() {
         return netAmounts;
     }
@@ -328,6 +311,7 @@ public class Order {
      * @return Returns the OrderRoundingAdjustment
      */
     @JsonGetter("rounding_adjustment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderRoundingAdjustment getRoundingAdjustment() {
         return roundingAdjustment;
     }
@@ -338,6 +322,7 @@ public class Order {
      * @return Returns the List of Tender
      */
     @JsonGetter("tenders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Tender> getTenders() {
         return tenders;
     }
@@ -348,6 +333,7 @@ public class Order {
      * @return Returns the List of Refund
      */
     @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Refund> getRefunds() {
         return refunds;
     }
@@ -368,6 +354,7 @@ public class Order {
      * @return Returns the Map of String, String
      */
     @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, String> getMetadata() {
         return metadata;
     }
@@ -379,6 +366,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -390,6 +378,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -401,6 +390,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClosedAt() {
         return closedAt;
     }
@@ -411,6 +401,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -424,6 +415,7 @@ public class Order {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -439,6 +431,7 @@ public class Order {
      * @return Returns the Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalMoney() {
         return totalMoney;
     }
@@ -454,6 +447,7 @@ public class Order {
      * @return Returns the Money
      */
     @JsonGetter("total_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalTaxMoney() {
         return totalTaxMoney;
     }
@@ -469,6 +463,7 @@ public class Order {
      * @return Returns the Money
      */
     @JsonGetter("total_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalDiscountMoney() {
         return totalDiscountMoney;
     }
@@ -484,6 +479,7 @@ public class Order {
      * @return Returns the Money
      */
     @JsonGetter("total_tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalTipMoney() {
         return totalTipMoney;
     }
@@ -499,6 +495,7 @@ public class Order {
      * @return Returns the Money
      */
     @JsonGetter("total_service_charge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalServiceChargeMoney() {
         return totalServiceChargeMoney;
     }
@@ -512,6 +509,7 @@ public class Order {
      * @return Returns the String
      */
     @JsonGetter("ticket_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTicketName() {
         return ticketName;
     }
@@ -524,6 +522,7 @@ public class Order {
      * @return Returns the OrderPricingOptions
      */
     @JsonGetter("pricing_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderPricingOptions getPricingOptions() {
         return pricingOptions;
     }
@@ -534,6 +533,7 @@ public class Order {
      * @return Returns the List of OrderReward
      */
     @JsonGetter("rewards")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReward> getRewards() {
         return rewards;
     }

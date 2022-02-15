@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for QuantityRatio type.
  */
 public class QuantityRatio {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer quantityDenominator;
 
     /**
@@ -35,6 +33,7 @@ public class QuantityRatio {
      * @return Returns the Integer
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getQuantity() {
         return quantity;
     }
@@ -48,6 +47,7 @@ public class QuantityRatio {
      * @return Returns the Integer
      */
     @JsonGetter("quantity_denominator")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getQuantityDenominator() {
         return quantityDenominator;
     }

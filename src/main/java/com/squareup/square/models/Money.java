@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for Money type.
  */
 public class Money {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long amount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
 
     /**
@@ -38,6 +36,7 @@ public class Money {
      * @return Returns the Long
      */
     @JsonGetter("amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getAmount() {
         return amount;
     }
@@ -49,6 +48,7 @@ public class Money {
      * @return Returns the String
      */
     @JsonGetter("currency")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCurrency() {
         return currency;
     }

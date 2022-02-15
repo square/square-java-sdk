@@ -105,7 +105,7 @@ Booking booking = new Booking.Builder()
     .updatedAt("updated_at4")
     .build();
 CreateBookingRequest body = new CreateBookingRequest.Builder(
-        bodyBooking)
+        booking)
     .idempotencyKey("idempotency_key2")
     .build();
 
@@ -190,16 +190,16 @@ SegmentFilter bodyQueryFilterSegmentFilters1 = new SegmentFilter.Builder(
 bodyQueryFilterSegmentFilters.add(bodyQueryFilterSegmentFilters1);
 
 SearchAvailabilityFilter searchAvailabilityFilter = new SearchAvailabilityFilter.Builder(
-        searchAvailabilityFilterStartAtRange)
+        startAtRange)
     .locationId("location_id6")
     .segmentFilters(searchAvailabilityFilterSegmentFilters)
     .bookingId("booking_id6")
     .build();
 SearchAvailabilityQuery searchAvailabilityQuery = new SearchAvailabilityQuery.Builder(
-        searchAvailabilityQueryFilter)
+        filter)
     .build();
 SearchAvailabilityRequest body = new SearchAvailabilityRequest.Builder(
-        bodyQuery)
+        query)
     .build();
 
 bookingsApi.searchAvailabilityAsync(body).thenAccept(result -> {
@@ -382,7 +382,7 @@ Booking booking = new Booking.Builder()
     .updatedAt("updated_at4")
     .build();
 UpdateBookingRequest body = new UpdateBookingRequest.Builder(
-        bodyBooking)
+        booking)
     .idempotencyKey("idempotency_key2")
     .build();
 

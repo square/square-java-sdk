@@ -11,25 +11,15 @@ import java.util.Objects;
  * This is a model class for CatalogQuery type.
  */
 public class CatalogQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuerySortedAttribute sortedAttributeQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryExact exactQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuerySet setQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryPrefix prefixQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryRange rangeQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryText textQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForTax itemsForTaxQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForModifierList itemsForModifierListQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemsForItemOptions itemsForItemOptionsQuery;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQueryItemVariationsForItemOptionValues itemVariationsForItemOptionValuesQuery;
 
     /**
@@ -78,6 +68,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQuerySortedAttribute
      */
     @JsonGetter("sorted_attribute_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQuerySortedAttribute getSortedAttributeQuery() {
         return sortedAttributeQuery;
     }
@@ -89,6 +80,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryExact
      */
     @JsonGetter("exact_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryExact getExactQuery() {
         return exactQuery;
     }
@@ -100,6 +92,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQuerySet
      */
     @JsonGetter("set_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQuerySet getSetQuery() {
         return setQuery;
     }
@@ -111,6 +104,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryPrefix
      */
     @JsonGetter("prefix_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryPrefix getPrefixQuery() {
         return prefixQuery;
     }
@@ -122,6 +116,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryRange
      */
     @JsonGetter("range_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryRange getRangeQuery() {
         return rangeQuery;
     }
@@ -133,6 +128,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryText
      */
     @JsonGetter("text_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryText getTextQuery() {
         return textQuery;
     }
@@ -143,6 +139,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryItemsForTax
      */
     @JsonGetter("items_for_tax_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryItemsForTax getItemsForTaxQuery() {
         return itemsForTaxQuery;
     }
@@ -153,6 +150,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryItemsForModifierList
      */
     @JsonGetter("items_for_modifier_list_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryItemsForModifierList getItemsForModifierListQuery() {
         return itemsForModifierListQuery;
     }
@@ -163,6 +161,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryItemsForItemOptions
      */
     @JsonGetter("items_for_item_options_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryItemsForItemOptions getItemsForItemOptionsQuery() {
         return itemsForItemOptionsQuery;
     }
@@ -174,6 +173,7 @@ public class CatalogQuery {
      * @return Returns the CatalogQueryItemVariationsForItemOptionValues
      */
     @JsonGetter("item_variations_for_item_option_values_query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQueryItemVariationsForItemOptionValues getItemVariationsForItemOptionValuesQuery() {
         return itemVariationsForItemOptionValuesQuery;
     }

@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklists type.
  */
 public class OrderLineItemPricingBlocklists {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes;
 
     /**
@@ -40,6 +38,7 @@ public class OrderLineItemPricingBlocklists {
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedDiscount
      */
     @JsonGetter("blocked_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemPricingBlocklistsBlockedDiscount> getBlockedDiscounts() {
         return blockedDiscounts;
     }
@@ -51,6 +50,7 @@ public class OrderLineItemPricingBlocklists {
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedTax
      */
     @JsonGetter("blocked_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemPricingBlocklistsBlockedTax> getBlockedTaxes() {
         return blockedTaxes;
     }

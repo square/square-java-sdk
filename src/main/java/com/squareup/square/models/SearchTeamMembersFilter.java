@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for SearchTeamMembersFilter type.
  */
 public class SearchTeamMembersFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
 
     /**
@@ -42,6 +39,7 @@ public class SearchTeamMembersFilter {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -52,6 +50,7 @@ public class SearchTeamMembersFilter {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -62,6 +61,7 @@ public class SearchTeamMembersFilter {
      * @return Returns the Boolean
      */
     @JsonGetter("is_owner")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsOwner() {
         return isOwner;
     }

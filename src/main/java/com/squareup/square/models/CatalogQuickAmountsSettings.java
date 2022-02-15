@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class CatalogQuickAmountsSettings {
     private final String option;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean eligibleForAutoAmounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogQuickAmount> amounts;
 
     /**
@@ -51,6 +49,7 @@ public class CatalogQuickAmountsSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("eligible_for_auto_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEligibleForAutoAmounts() {
         return eligibleForAutoAmounts;
     }
@@ -61,6 +60,7 @@ public class CatalogQuickAmountsSettings {
      * @return Returns the List of CatalogQuickAmount
      */
     @JsonGetter("amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogQuickAmount> getAmounts() {
         return amounts;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CashDrawerDevice type.
  */
 public class CashDrawerDevice {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
 
     /**
@@ -35,6 +33,7 @@ public class CashDrawerDevice {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -45,6 +44,7 @@ public class CashDrawerDevice {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }

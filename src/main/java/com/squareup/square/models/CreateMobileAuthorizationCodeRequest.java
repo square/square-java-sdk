@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CreateMobileAuthorizationCodeRequest type.
  */
 public class CreateMobileAuthorizationCodeRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
@@ -30,6 +29,7 @@ public class CreateMobileAuthorizationCodeRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for ListTransactionsRequest type.
  */
 public class ListTransactionsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -47,6 +43,7 @@ public class ListTransactionsRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -59,6 +56,7 @@ public class ListTransactionsRequest {
      * @return Returns the String
      */
     @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndTime() {
         return endTime;
     }
@@ -69,6 +67,7 @@ public class ListTransactionsRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }
@@ -82,6 +81,7 @@ public class ListTransactionsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

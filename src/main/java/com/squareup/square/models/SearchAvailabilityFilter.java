@@ -13,11 +13,8 @@ import java.util.Objects;
  */
 public class SearchAvailabilityFilter {
     private final TimeRange startAtRange;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SegmentFilter> segmentFilters;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bookingId;
 
     /**
@@ -60,6 +57,7 @@ public class SearchAvailabilityFilter {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -73,6 +71,7 @@ public class SearchAvailabilityFilter {
      * @return Returns the List of SegmentFilter
      */
     @JsonGetter("segment_filters")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<SegmentFilter> getSegmentFilters() {
         return segmentFilters;
     }
@@ -86,6 +85,7 @@ public class SearchAvailabilityFilter {
      * @return Returns the String
      */
     @JsonGetter("booking_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBookingId() {
         return bookingId;
     }

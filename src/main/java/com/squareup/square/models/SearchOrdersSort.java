@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class SearchOrdersSort {
     private final String sortField;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -44,6 +43,7 @@ public class SearchOrdersSort {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

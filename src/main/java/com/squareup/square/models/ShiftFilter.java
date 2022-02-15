@@ -13,15 +13,10 @@ import java.util.Objects;
  */
 public class ShiftFilter {
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> employeeIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange start;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange end;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftWorkday workday;
     private final List<String> teamMemberIds;
 
@@ -70,6 +65,7 @@ public class ShiftFilter {
      * @return Returns the List of String
      */
     @JsonGetter("employee_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getEmployeeIds() {
         return employeeIds;
     }
@@ -80,6 +76,7 @@ public class ShiftFilter {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -93,6 +90,7 @@ public class ShiftFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("start")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getStart() {
         return start;
     }
@@ -106,6 +104,7 @@ public class ShiftFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("end")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getEnd() {
         return end;
     }
@@ -117,6 +116,7 @@ public class ShiftFilter {
      * @return Returns the ShiftWorkday
      */
     @JsonGetter("workday")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ShiftWorkday getWorkday() {
         return workday;
     }

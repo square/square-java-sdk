@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class CreateDisputeEvidenceFileRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String contentType;
 
     /**
@@ -50,6 +48,7 @@ public class CreateDisputeEvidenceFileRequest {
      * @return Returns the String
      */
     @JsonGetter("evidence_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvidenceType() {
         return evidenceType;
     }
@@ -61,6 +60,7 @@ public class CreateDisputeEvidenceFileRequest {
      * @return Returns the String
      */
     @JsonGetter("content_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getContentType() {
         return contentType;
     }

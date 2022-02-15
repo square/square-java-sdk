@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class GiftCardActivityUnlinkedActivityRefund {
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
 
     /**
@@ -56,6 +54,7 @@ public class GiftCardActivityUnlinkedActivityRefund {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -67,6 +66,7 @@ public class GiftCardActivityUnlinkedActivityRefund {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }

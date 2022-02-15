@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for ListMerchantsRequest type.
  */
 public class ListMerchantsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer cursor;
 
     /**
@@ -30,6 +29,7 @@ public class ListMerchantsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getCursor() {
         return cursor;
     }

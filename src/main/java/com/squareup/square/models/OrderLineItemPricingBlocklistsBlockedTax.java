@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklistsBlockedTax type.
  */
 public class OrderLineItemPricingBlocklistsBlockedTax {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxCatalogObjectId;
 
     /**
@@ -40,6 +37,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -51,6 +49,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * @return Returns the String
      */
     @JsonGetter("tax_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTaxUid() {
         return taxUid;
     }
@@ -62,6 +61,7 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * @return Returns the String
      */
     @JsonGetter("tax_catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTaxCatalogObjectId() {
         return taxCatalogObjectId;
     }

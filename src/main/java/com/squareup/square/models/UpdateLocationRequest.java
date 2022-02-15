@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for UpdateLocationRequest type.
  */
 public class UpdateLocationRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Location location;
 
     /**
@@ -31,6 +30,7 @@ public class UpdateLocationRequest {
      * @return Returns the Location
      */
     @JsonGetter("location")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Location getLocation() {
         return location;
     }

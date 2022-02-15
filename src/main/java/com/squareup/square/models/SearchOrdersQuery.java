@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for SearchOrdersQuery type.
  */
 public class SearchOrdersQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersSort sort;
 
     /**
@@ -35,6 +33,7 @@ public class SearchOrdersQuery {
      * @return Returns the SearchOrdersFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersFilter getFilter() {
         return filter;
     }
@@ -46,6 +45,7 @@ public class SearchOrdersQuery {
      * @return Returns the SearchOrdersSort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersSort getSort() {
         return sort;
     }

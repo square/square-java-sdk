@@ -12,17 +12,11 @@ import java.util.Objects;
  * This is a model class for WageSetting type.
  */
 public class WageSetting {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<JobAssignment> jobAssignments;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOvertimeExempt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -56,6 +50,7 @@ public class WageSetting {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -68,6 +63,7 @@ public class WageSetting {
      * @return Returns the List of JobAssignment
      */
     @JsonGetter("job_assignments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<JobAssignment> getJobAssignments() {
         return jobAssignments;
     }
@@ -78,6 +74,7 @@ public class WageSetting {
      * @return Returns the Boolean
      */
     @JsonGetter("is_overtime_exempt")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsOvertimeExempt() {
         return isOvertimeExempt;
     }
@@ -91,6 +88,7 @@ public class WageSetting {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -102,6 +100,7 @@ public class WageSetting {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -113,6 +112,7 @@ public class WageSetting {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

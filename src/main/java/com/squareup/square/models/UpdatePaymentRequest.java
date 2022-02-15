@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for UpdatePaymentRequest type.
  */
 public class UpdatePaymentRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Payment payment;
     private final String idempotencyKey;
 
@@ -34,6 +33,7 @@ public class UpdatePaymentRequest {
      * @return Returns the Payment
      */
     @JsonGetter("payment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Payment getPayment() {
         return payment;
     }

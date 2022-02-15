@@ -11,10 +11,8 @@ import java.util.Objects;
  * This is a model class for OrderLineItemAppliedTax type.
  */
 public class OrderLineItemAppliedTax {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String taxUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
 
     /**
@@ -39,6 +37,7 @@ public class OrderLineItemAppliedTax {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -66,6 +65,7 @@ public class OrderLineItemAppliedTax {
      * @return Returns the Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppliedMoney() {
         return appliedMoney;
     }

@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class LoyaltyEventRedeemReward {
     private final String loyaltyProgramId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rewardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
 
     /**
@@ -50,6 +48,7 @@ public class LoyaltyEventRedeemReward {
      * @return Returns the String
      */
     @JsonGetter("reward_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRewardId() {
         return rewardId;
     }
@@ -61,6 +60,7 @@ public class LoyaltyEventRedeemReward {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }

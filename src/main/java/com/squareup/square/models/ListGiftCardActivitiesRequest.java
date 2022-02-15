@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for ListGiftCardActivitiesRequest type.
  */
 public class ListGiftCardActivitiesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String giftCardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -66,6 +58,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("gift_card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGiftCardId() {
         return giftCardId;
     }
@@ -77,6 +70,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -88,6 +82,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -99,6 +94,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -110,6 +106,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndTime() {
         return endTime;
     }
@@ -122,6 +119,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -135,6 +133,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -146,6 +145,7 @@ public class ListGiftCardActivitiesRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

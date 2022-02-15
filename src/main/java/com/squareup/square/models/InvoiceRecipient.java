@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for InvoiceRecipient type.
  */
 public class InvoiceRecipient {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceRecipientTaxIds taxIds;
 
     /**
@@ -66,6 +58,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -76,6 +69,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGivenName() {
         return givenName;
     }
@@ -86,6 +80,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFamilyName() {
         return familyName;
     }
@@ -96,6 +91,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -107,6 +103,7 @@ public class InvoiceRecipient {
      * @return Returns the Address
      */
     @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getAddress() {
         return address;
     }
@@ -117,6 +114,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -127,6 +125,7 @@ public class InvoiceRecipient {
      * @return Returns the String
      */
     @JsonGetter("company_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCompanyName() {
         return companyName;
     }
@@ -140,6 +139,7 @@ public class InvoiceRecipient {
      * @return Returns the InvoiceRecipientTaxIds
      */
     @JsonGetter("tax_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceRecipientTaxIds getTaxIds() {
         return taxIds;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for TenderCardDetails type.
  */
 public class TenderCardDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Card card;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String entryMethod;
 
     /**
@@ -40,6 +37,7 @@ public class TenderCardDetails {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -51,6 +49,7 @@ public class TenderCardDetails {
      * @return Returns the Card
      */
     @JsonGetter("card")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Card getCard() {
         return card;
     }
@@ -61,6 +60,7 @@ public class TenderCardDetails {
      * @return Returns the String
      */
     @JsonGetter("entry_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEntryMethod() {
         return entryMethod;
     }

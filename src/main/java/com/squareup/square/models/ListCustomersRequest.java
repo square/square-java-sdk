@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for ListCustomersRequest type.
  */
 public class ListCustomersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortField;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -47,6 +43,7 @@ public class ListCustomersRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -60,6 +57,7 @@ public class ListCustomersRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -70,6 +68,7 @@ public class ListCustomersRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortField() {
         return sortField;
     }
@@ -80,6 +79,7 @@ public class ListCustomersRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

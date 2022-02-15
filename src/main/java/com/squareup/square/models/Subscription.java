@@ -12,39 +12,22 @@ import java.util.Objects;
  * This is a model class for Subscription type.
  */
 public class Subscription {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String chargedThroughDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxPercentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> invoiceIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceOverrideMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SubscriptionSource source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SubscriptionAction> actions;
 
     /**
@@ -111,6 +94,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -121,6 +105,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -131,6 +116,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlanId() {
         return planId;
     }
@@ -141,6 +127,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -151,6 +138,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("start_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartDate() {
         return startDate;
     }
@@ -164,6 +152,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("canceled_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledDate() {
         return canceledDate;
     }
@@ -178,6 +167,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("charged_through_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getChargedThroughDate() {
         return chargedThroughDate;
     }
@@ -188,6 +178,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -200,6 +191,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("tax_percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTaxPercentage() {
         return taxPercentage;
     }
@@ -211,6 +203,7 @@ public class Subscription {
      * @return Returns the List of String
      */
     @JsonGetter("invoice_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getInvoiceIds() {
         return invoiceIds;
     }
@@ -226,6 +219,7 @@ public class Subscription {
      * @return Returns the Money
      */
     @JsonGetter("price_override_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getPriceOverrideMoney() {
         return priceOverrideMoney;
     }
@@ -237,6 +231,7 @@ public class Subscription {
      * @return Returns the Long
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getVersion() {
         return version;
     }
@@ -247,6 +242,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -258,6 +254,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardId() {
         return cardId;
     }
@@ -270,6 +267,7 @@ public class Subscription {
      * @return Returns the String
      */
     @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimezone() {
         return timezone;
     }
@@ -280,6 +278,7 @@ public class Subscription {
      * @return Returns the SubscriptionSource
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SubscriptionSource getSource() {
         return source;
     }
@@ -293,6 +292,7 @@ public class Subscription {
      * @return Returns the List of SubscriptionAction
      */
     @JsonGetter("actions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<SubscriptionAction> getActions() {
         return actions;
     }

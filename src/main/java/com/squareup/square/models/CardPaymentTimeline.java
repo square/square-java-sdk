@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for CardPaymentTimeline type.
  */
 public class CardPaymentTimeline {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String authorizedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String capturedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String voidedAt;
 
     /**
@@ -40,6 +37,7 @@ public class CardPaymentTimeline {
      * @return Returns the String
      */
     @JsonGetter("authorized_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthorizedAt() {
         return authorizedAt;
     }
@@ -50,6 +48,7 @@ public class CardPaymentTimeline {
      * @return Returns the String
      */
     @JsonGetter("captured_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCapturedAt() {
         return capturedAt;
     }
@@ -60,6 +59,7 @@ public class CardPaymentTimeline {
      * @return Returns the String
      */
     @JsonGetter("voided_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVoidedAt() {
         return voidedAt;
     }

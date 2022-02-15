@@ -90,7 +90,7 @@ DeviceCode deviceCode = new DeviceCode.Builder(
     .build();
 CreateDeviceCodeRequest body = new CreateDeviceCodeRequest.Builder(
         "01bb00a6-0c86-4770-94ed-f5fca973cd56",
-        bodyDeviceCode)
+        deviceCode)
     .build();
 
 devicesApi.createDeviceCodeAsync(body).thenAccept(result -> {

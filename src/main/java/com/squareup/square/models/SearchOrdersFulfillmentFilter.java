@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for SearchOrdersFulfillmentFilter type.
  */
 public class SearchOrdersFulfillmentFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fulfillmentTypes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fulfillmentStates;
 
     /**
@@ -38,6 +36,7 @@ public class SearchOrdersFulfillmentFilter {
      * @return Returns the List of String
      */
     @JsonGetter("fulfillment_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getFulfillmentTypes() {
         return fulfillmentTypes;
     }
@@ -50,6 +49,7 @@ public class SearchOrdersFulfillmentFilter {
      * @return Returns the List of String
      */
     @JsonGetter("fulfillment_states")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getFulfillmentStates() {
         return fulfillmentStates;
     }

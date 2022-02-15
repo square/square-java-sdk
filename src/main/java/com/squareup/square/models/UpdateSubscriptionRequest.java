@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for UpdateSubscriptionRequest type.
  */
 public class UpdateSubscriptionRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Subscription subscription;
 
     /**
@@ -32,6 +31,7 @@ public class UpdateSubscriptionRequest {
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Subscription getSubscription() {
         return subscription;
     }

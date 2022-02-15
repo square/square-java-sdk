@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for SnippetResponse type.
  */
 public class SnippetResponse {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Snippet snippet;
 
     /**
@@ -36,6 +34,7 @@ public class SnippetResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -47,6 +46,7 @@ public class SnippetResponse {
      * @return Returns the Snippet
      */
     @JsonGetter("snippet")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Snippet getSnippet() {
         return snippet;
     }

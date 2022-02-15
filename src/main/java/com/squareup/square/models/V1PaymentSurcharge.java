@@ -12,21 +12,13 @@ import java.util.Objects;
  * This is a model class for V1PaymentSurcharge type.
  */
 public class V1PaymentSurcharge {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean taxable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> taxes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String surchargeId;
 
     /**
@@ -66,6 +58,7 @@ public class V1PaymentSurcharge {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -75,6 +68,7 @@ public class V1PaymentSurcharge {
      * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getAppliedMoney() {
         return appliedMoney;
     }
@@ -87,6 +81,7 @@ public class V1PaymentSurcharge {
      * @return Returns the String
      */
     @JsonGetter("rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRate() {
         return rate;
     }
@@ -96,6 +91,7 @@ public class V1PaymentSurcharge {
      * @return Returns the V1Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getAmountMoney() {
         return amountMoney;
     }
@@ -105,6 +101,7 @@ public class V1PaymentSurcharge {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -115,6 +112,7 @@ public class V1PaymentSurcharge {
      * @return Returns the Boolean
      */
     @JsonGetter("taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getTaxable() {
         return taxable;
     }
@@ -125,6 +123,7 @@ public class V1PaymentSurcharge {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getTaxes() {
         return taxes;
     }
@@ -135,6 +134,7 @@ public class V1PaymentSurcharge {
      * @return Returns the String
      */
     @JsonGetter("surcharge_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSurchargeId() {
         return surchargeId;
     }

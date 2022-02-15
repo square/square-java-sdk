@@ -12,59 +12,32 @@ import java.util.Objects;
  * This is a model class for Location type.
  */
 public class Location {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> capabilities;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String websiteUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessHours businessHours;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String twitterUsername;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String instagramUsername;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String facebookUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Coordinates coordinates;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String logoUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String posBackgroundUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String mcc;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fullFormatLogoUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TaxIds taxIds;
 
     /**
@@ -162,6 +135,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -173,6 +147,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -184,6 +159,7 @@ public class Location {
      * @return Returns the Address
      */
     @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getAddress() {
         return address;
     }
@@ -195,6 +171,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimezone() {
         return timezone;
     }
@@ -207,6 +184,7 @@ public class Location {
      * @return Returns the List of String
      */
     @JsonGetter("capabilities")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCapabilities() {
         return capabilities;
     }
@@ -217,6 +195,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -228,6 +207,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -238,6 +218,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -249,6 +230,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCountry() {
         return country;
     }
@@ -261,6 +243,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLanguageCode() {
         return languageCode;
     }
@@ -272,6 +255,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("currency")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCurrency() {
         return currency;
     }
@@ -282,6 +266,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -292,6 +277,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("business_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBusinessName() {
         return businessName;
     }
@@ -302,6 +288,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -312,6 +299,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("website_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getWebsiteUrl() {
         return websiteUrl;
     }
@@ -322,6 +310,7 @@ public class Location {
      * @return Returns the BusinessHours
      */
     @JsonGetter("business_hours")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BusinessHours getBusinessHours() {
         return businessHours;
     }
@@ -333,6 +322,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("business_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBusinessEmail() {
         return businessEmail;
     }
@@ -343,6 +333,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -353,6 +344,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("twitter_username")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTwitterUsername() {
         return twitterUsername;
     }
@@ -363,6 +355,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("instagram_username")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInstagramUsername() {
         return instagramUsername;
     }
@@ -374,6 +367,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("facebook_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFacebookUrl() {
         return facebookUrl;
     }
@@ -384,6 +378,7 @@ public class Location {
      * @return Returns the Coordinates
      */
     @JsonGetter("coordinates")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Coordinates getCoordinates() {
         return coordinates;
     }
@@ -397,6 +392,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("logo_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLogoUrl() {
         return logoUrl;
     }
@@ -407,6 +403,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("pos_background_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPosBackgroundUrl() {
         return posBackgroundUrl;
     }
@@ -421,6 +418,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("mcc")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMcc() {
         return mcc;
     }
@@ -434,6 +432,7 @@ public class Location {
      * @return Returns the String
      */
     @JsonGetter("full_format_logo_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFullFormatLogoUrl() {
         return fullFormatLogoUrl;
     }
@@ -444,6 +443,7 @@ public class Location {
      * @return Returns the TaxIds
      */
     @JsonGetter("tax_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TaxIds getTaxIds() {
         return taxIds;
     }

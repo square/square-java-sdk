@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CatalogItemOptionValueForItemVariation type.
  */
 public class CatalogItemOptionValueForItemVariation {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionValueId;
 
     /**
@@ -35,6 +33,7 @@ public class CatalogItemOptionValueForItemVariation {
      * @return Returns the String
      */
     @JsonGetter("item_option_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemOptionId() {
         return itemOptionId;
     }
@@ -45,6 +44,7 @@ public class CatalogItemOptionValueForItemVariation {
      * @return Returns the String
      */
     @JsonGetter("item_option_value_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemOptionValueId() {
         return itemOptionValueId;
     }

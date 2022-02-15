@@ -11,12 +11,9 @@ import java.util.Objects;
  * This is a model class for CustomerGroup type.
  */
 public class CustomerGroup {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -44,6 +41,7 @@ public class CustomerGroup {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -64,6 +62,7 @@ public class CustomerGroup {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -74,6 +73,7 @@ public class CustomerGroup {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class PauseSubscriptionResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Subscription subscription;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<SubscriptionAction> actions;
 
     /**
@@ -49,6 +46,7 @@ public class PauseSubscriptionResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -61,6 +59,7 @@ public class PauseSubscriptionResponse {
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Subscription getSubscription() {
         return subscription;
     }
@@ -71,6 +70,7 @@ public class PauseSubscriptionResponse {
      * @return Returns the List of SubscriptionAction
      */
     @JsonGetter("actions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<SubscriptionAction> getActions() {
         return actions;
     }

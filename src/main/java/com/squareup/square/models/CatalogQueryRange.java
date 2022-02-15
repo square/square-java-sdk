@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class CatalogQueryRange {
     private final String attributeName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long attributeMinValue;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long attributeMaxValue;
 
     /**
@@ -49,6 +47,7 @@ public class CatalogQueryRange {
      * @return Returns the Long
      */
     @JsonGetter("attribute_min_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getAttributeMinValue() {
         return attributeMinValue;
     }
@@ -59,6 +58,7 @@ public class CatalogQueryRange {
      * @return Returns the Long
      */
     @JsonGetter("attribute_max_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getAttributeMaxValue() {
         return attributeMaxValue;
     }

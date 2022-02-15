@@ -11,19 +11,12 @@ import java.util.Objects;
  * This is a model class for BusinessBookingProfile type.
  */
 public class BusinessBookingProfile {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean bookingEnabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerTimezoneChoice;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bookingPolicy;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allowUserCancel;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BusinessAppointmentSettings businessAppointmentSettings;
 
     /**
@@ -61,6 +54,7 @@ public class BusinessBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("seller_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSellerId() {
         return sellerId;
     }
@@ -71,6 +65,7 @@ public class BusinessBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -81,6 +76,7 @@ public class BusinessBookingProfile {
      * @return Returns the Boolean
      */
     @JsonGetter("booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getBookingEnabled() {
         return bookingEnabled;
     }
@@ -91,6 +87,7 @@ public class BusinessBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("customer_timezone_choice")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerTimezoneChoice() {
         return customerTimezoneChoice;
     }
@@ -101,6 +98,7 @@ public class BusinessBookingProfile {
      * @return Returns the String
      */
     @JsonGetter("booking_policy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBookingPolicy() {
         return bookingPolicy;
     }
@@ -112,6 +110,7 @@ public class BusinessBookingProfile {
      * @return Returns the Boolean
      */
     @JsonGetter("allow_user_cancel")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAllowUserCancel() {
         return allowUserCancel;
     }
@@ -122,6 +121,7 @@ public class BusinessBookingProfile {
      * @return Returns the BusinessAppointmentSettings
      */
     @JsonGetter("business_appointment_settings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BusinessAppointmentSettings getBusinessAppointmentSettings() {
         return businessAppointmentSettings;
     }

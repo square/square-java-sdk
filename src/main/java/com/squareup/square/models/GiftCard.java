@@ -12,20 +12,13 @@ import java.util.Objects;
  * This is a model class for GiftCard type.
  */
 public class GiftCard {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String ganSource;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money balanceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String gan;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
@@ -65,6 +58,7 @@ public class GiftCard {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -85,6 +79,7 @@ public class GiftCard {
      * @return Returns the String
      */
     @JsonGetter("gan_source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGanSource() {
         return ganSource;
     }
@@ -95,6 +90,7 @@ public class GiftCard {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -110,6 +106,7 @@ public class GiftCard {
      * @return Returns the Money
      */
     @JsonGetter("balance_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getBalanceMoney() {
         return balanceMoney;
     }
@@ -120,6 +117,7 @@ public class GiftCard {
      * @return Returns the String
      */
     @JsonGetter("gan")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGan() {
         return gan;
     }
@@ -133,6 +131,7 @@ public class GiftCard {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -143,6 +142,7 @@ public class GiftCard {
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCustomerIds() {
         return customerIds;
     }

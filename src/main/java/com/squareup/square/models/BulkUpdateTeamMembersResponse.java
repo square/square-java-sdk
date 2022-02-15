@@ -16,9 +16,7 @@ import java.util.Objects;
  */
 public class BulkUpdateTeamMembersResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, UpdateTeamMemberResponse> teamMembers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -46,6 +44,7 @@ public class BulkUpdateTeamMembersResponse {
      * @return Returns the Map of String, UpdateTeamMemberResponse
      */
     @JsonGetter("team_members")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, UpdateTeamMemberResponse> getTeamMembers() {
         return teamMembers;
     }
@@ -56,6 +55,7 @@ public class BulkUpdateTeamMembersResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class BatchChangeInventoryRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InventoryChange> changes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean ignoreUnchangedCounts;
 
     /**
@@ -54,6 +52,7 @@ public class BatchChangeInventoryRequest {
      * @return Returns the List of InventoryChange
      */
     @JsonGetter("changes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<InventoryChange> getChanges() {
         return changes;
     }
@@ -65,6 +64,7 @@ public class BatchChangeInventoryRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("ignore_unchanged_counts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIgnoreUnchangedCounts() {
         return ignoreUnchangedCounts;
     }

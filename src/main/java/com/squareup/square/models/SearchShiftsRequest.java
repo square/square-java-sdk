@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchShiftsRequest type.
  */
 public class SearchShiftsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -40,6 +37,7 @@ public class SearchShiftsRequest {
      * @return Returns the ShiftQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ShiftQuery getQuery() {
         return query;
     }
@@ -50,6 +48,7 @@ public class SearchShiftsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -60,6 +59,7 @@ public class SearchShiftsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

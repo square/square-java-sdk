@@ -12,13 +12,9 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsRequest type.
  */
 public class SearchSubscriptionsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchSubscriptionsQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> include;
 
     /**
@@ -50,6 +46,7 @@ public class SearchSubscriptionsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -60,6 +57,7 @@ public class SearchSubscriptionsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -71,6 +69,7 @@ public class SearchSubscriptionsRequest {
      * @return Returns the SearchSubscriptionsQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchSubscriptionsQuery getQuery() {
         return query;
     }
@@ -82,6 +81,7 @@ public class SearchSubscriptionsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("include")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getInclude() {
         return include;
     }

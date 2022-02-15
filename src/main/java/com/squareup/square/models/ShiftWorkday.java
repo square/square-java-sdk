@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for ShiftWorkday type.
  */
 public class ShiftWorkday {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DateRange dateRange;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String matchShiftsBy;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String defaultTimezone;
 
     /**
@@ -41,6 +38,7 @@ public class ShiftWorkday {
      * @return Returns the DateRange
      */
     @JsonGetter("date_range")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DateRange getDateRange() {
         return dateRange;
     }
@@ -51,6 +49,7 @@ public class ShiftWorkday {
      * @return Returns the String
      */
     @JsonGetter("match_shifts_by")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMatchShiftsBy() {
         return matchShiftsBy;
     }
@@ -63,6 +62,7 @@ public class ShiftWorkday {
      * @return Returns the String
      */
     @JsonGetter("default_timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDefaultTimezone() {
         return defaultTimezone;
     }

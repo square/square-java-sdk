@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CompletePaymentRequest type.
  */
 public class CompletePaymentRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String versionToken;
 
     /**
@@ -32,6 +31,7 @@ public class CompletePaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("version_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVersionToken() {
         return versionToken;
     }

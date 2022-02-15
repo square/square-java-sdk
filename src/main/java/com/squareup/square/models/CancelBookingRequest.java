@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CancelBookingRequest type.
  */
 public class CancelBookingRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer bookingVersion;
 
     /**
@@ -35,6 +33,7 @@ public class CancelBookingRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }
@@ -45,6 +44,7 @@ public class CancelBookingRequest {
      * @return Returns the Integer
      */
     @JsonGetter("booking_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBookingVersion() {
         return bookingVersion;
     }

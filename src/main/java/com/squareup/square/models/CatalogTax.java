@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for CatalogTax type.
  */
 public class CatalogTax {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculationPhase;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String inclusionType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean appliesToCustomAmounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
 
     /**
@@ -56,6 +50,7 @@ public class CatalogTax {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -66,6 +61,7 @@ public class CatalogTax {
      * @return Returns the String
      */
     @JsonGetter("calculation_phase")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCalculationPhase() {
         return calculationPhase;
     }
@@ -76,6 +72,7 @@ public class CatalogTax {
      * @return Returns the String
      */
     @JsonGetter("inclusion_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInclusionType() {
         return inclusionType;
     }
@@ -87,6 +84,7 @@ public class CatalogTax {
      * @return Returns the String
      */
     @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentage() {
         return percentage;
     }
@@ -98,6 +96,7 @@ public class CatalogTax {
      * @return Returns the Boolean
      */
     @JsonGetter("applies_to_custom_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAppliesToCustomAmounts() {
         return appliesToCustomAmounts;
     }
@@ -109,6 +108,7 @@ public class CatalogTax {
      * @return Returns the Boolean
      */
     @JsonGetter("enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEnabled() {
         return enabled;
     }

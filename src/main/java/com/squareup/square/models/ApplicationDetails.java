@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ApplicationDetails type.
  */
 public class ApplicationDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String squareProduct;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationId;
 
     /**
@@ -35,6 +33,7 @@ public class ApplicationDetails {
      * @return Returns the String
      */
     @JsonGetter("square_product")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSquareProduct() {
         return squareProduct;
     }
@@ -50,6 +49,7 @@ public class ApplicationDetails {
      * @return Returns the String
      */
     @JsonGetter("application_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplicationId() {
         return applicationId;
     }

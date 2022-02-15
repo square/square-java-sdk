@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveTeamMemberBookingProfileResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMemberBookingProfile teamMemberBookingProfile;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -46,6 +44,7 @@ public class RetrieveTeamMemberBookingProfileResponse {
      * @return Returns the TeamMemberBookingProfile
      */
     @JsonGetter("team_member_booking_profile")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TeamMemberBookingProfile getTeamMemberBookingProfile() {
         return teamMemberBookingProfile;
     }
@@ -56,6 +55,7 @@ public class RetrieveTeamMemberBookingProfileResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

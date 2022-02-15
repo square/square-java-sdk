@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpdateWorkweekConfigResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final WorkweekConfig workweekConfig;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -45,6 +43,7 @@ public class UpdateWorkweekConfigResponse {
      * @return Returns the WorkweekConfig
      */
     @JsonGetter("workweek_config")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public WorkweekConfig getWorkweekConfig() {
         return workweekConfig;
     }
@@ -55,6 +54,7 @@ public class UpdateWorkweekConfigResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

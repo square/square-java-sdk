@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for DateRange type.
  */
 public class DateRange {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endDate;
 
     /**
@@ -36,6 +34,7 @@ public class DateRange {
      * @return Returns the String
      */
     @JsonGetter("start_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartDate() {
         return startDate;
     }
@@ -47,6 +46,7 @@ public class DateRange {
      * @return Returns the String
      */
     @JsonGetter("end_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndDate() {
         return endDate;
     }

@@ -130,7 +130,7 @@ InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Build
     .state("IN_STOCK")
     .locationId("C6W5YS5QM06F5")
     .quantity("53")
-    .employeeId("LRK57NSQ5X7PUD05")
+    .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
 InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()
@@ -321,7 +321,7 @@ InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Build
     .state("IN_STOCK")
     .locationId("C6W5YS5QM06F5")
     .quantity("53")
-    .employeeId("LRK57NSQ5X7PUD05")
+    .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
 InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()

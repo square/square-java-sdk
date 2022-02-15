@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveCustomerSegmentResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerSegment segment;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveCustomerSegmentResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -56,6 +55,7 @@ public class RetrieveCustomerSegmentResponse {
      * @return Returns the CustomerSegment
      */
     @JsonGetter("segment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerSegment getSegment() {
         return segment;
     }

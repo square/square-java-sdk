@@ -12,19 +12,12 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveInventoryChangesRequest type.
  */
 public class BatchRetrieveInventoryChangesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> catalogObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> types;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> states;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAfter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedBefore;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -62,6 +55,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("catalog_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCatalogObjectIds() {
         return catalogObjectIds;
     }
@@ -73,6 +67,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -84,6 +79,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTypes() {
         return types;
     }
@@ -95,6 +91,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("states")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getStates() {
         return states;
     }
@@ -107,6 +104,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the String
      */
     @JsonGetter("updated_after")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAfter() {
         return updatedAfter;
     }
@@ -119,6 +117,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the String
      */
     @JsonGetter("updated_before")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedBefore() {
         return updatedBefore;
     }
@@ -132,6 +131,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

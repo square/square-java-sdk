@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for FilterValue type.
  */
 public class FilterValue {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> all;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> any;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> none;
 
     /**
@@ -41,6 +38,7 @@ public class FilterValue {
      * @return Returns the List of String
      */
     @JsonGetter("all")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getAll() {
         return all;
     }
@@ -51,6 +49,7 @@ public class FilterValue {
      * @return Returns the List of String
      */
     @JsonGetter("any")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getAny() {
         return any;
     }
@@ -61,6 +60,7 @@ public class FilterValue {
      * @return Returns the List of String
      */
     @JsonGetter("none")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getNone() {
         return none;
     }

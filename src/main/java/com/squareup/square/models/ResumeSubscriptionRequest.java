@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ResumeSubscriptionRequest type.
  */
 public class ResumeSubscriptionRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String resumeEffectiveDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String resumeChangeTiming;
 
     /**
@@ -35,6 +33,7 @@ public class ResumeSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("resume_effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getResumeEffectiveDate() {
         return resumeEffectiveDate;
     }
@@ -45,6 +44,7 @@ public class ResumeSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("resume_change_timing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getResumeChangeTiming() {
         return resumeChangeTiming;
     }

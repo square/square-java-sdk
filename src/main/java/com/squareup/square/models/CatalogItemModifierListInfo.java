@@ -13,13 +13,9 @@ import java.util.Objects;
  */
 public class CatalogItemModifierListInfo {
     private final String modifierListId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogModifierOverride> modifierOverrides;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer minSelectedModifiers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxSelectedModifiers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enabled;
 
     /**
@@ -61,6 +57,7 @@ public class CatalogItemModifierListInfo {
      * @return Returns the List of CatalogModifierOverride
      */
     @JsonGetter("modifier_overrides")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogModifierOverride> getModifierOverrides() {
         return modifierOverrides;
     }
@@ -72,6 +69,7 @@ public class CatalogItemModifierListInfo {
      * @return Returns the Integer
      */
     @JsonGetter("min_selected_modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMinSelectedModifiers() {
         return minSelectedModifiers;
     }
@@ -83,6 +81,7 @@ public class CatalogItemModifierListInfo {
      * @return Returns the Integer
      */
     @JsonGetter("max_selected_modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMaxSelectedModifiers() {
         return maxSelectedModifiers;
     }
@@ -93,6 +92,7 @@ public class CatalogItemModifierListInfo {
      * @return Returns the Boolean
      */
     @JsonGetter("enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEnabled() {
         return enabled;
     }

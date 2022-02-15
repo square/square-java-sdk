@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for ListPaymentRefundsRequest type.
  */
 public class ListPaymentRefundsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -66,6 +58,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -77,6 +70,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndTime() {
         return endTime;
     }
@@ -88,6 +82,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }
@@ -100,6 +95,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -111,6 +107,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -123,6 +120,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -137,6 +135,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the String
      */
     @JsonGetter("source_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceType() {
         return sourceType;
     }
@@ -149,6 +148,7 @@ public class ListPaymentRefundsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

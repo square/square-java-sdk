@@ -12,21 +12,13 @@ import java.util.Objects;
  * This is a model class for OrderReturn type.
  */
 public class OrderReturn {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceOrderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnLineItem> returnLineItems;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnServiceCharge> returnServiceCharges;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnTax> returnTaxes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderReturnDiscount> returnDiscounts;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderRoundingAdjustment roundingAdjustment;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderMoneyAmounts returnAmounts;
 
     /**
@@ -67,6 +59,7 @@ public class OrderReturn {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -78,6 +71,7 @@ public class OrderReturn {
      * @return Returns the String
      */
     @JsonGetter("source_order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceOrderId() {
         return sourceOrderId;
     }
@@ -88,6 +82,7 @@ public class OrderReturn {
      * @return Returns the List of OrderReturnLineItem
      */
     @JsonGetter("return_line_items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturnLineItem> getReturnLineItems() {
         return returnLineItems;
     }
@@ -98,6 +93,7 @@ public class OrderReturn {
      * @return Returns the List of OrderReturnServiceCharge
      */
     @JsonGetter("return_service_charges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturnServiceCharge> getReturnServiceCharges() {
         return returnServiceCharges;
     }
@@ -109,6 +105,7 @@ public class OrderReturn {
      * @return Returns the List of OrderReturnTax
      */
     @JsonGetter("return_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturnTax> getReturnTaxes() {
         return returnTaxes;
     }
@@ -121,6 +118,7 @@ public class OrderReturn {
      * @return Returns the List of OrderReturnDiscount
      */
     @JsonGetter("return_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderReturnDiscount> getReturnDiscounts() {
         return returnDiscounts;
     }
@@ -133,6 +131,7 @@ public class OrderReturn {
      * @return Returns the OrderRoundingAdjustment
      */
     @JsonGetter("rounding_adjustment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderRoundingAdjustment getRoundingAdjustment() {
         return roundingAdjustment;
     }
@@ -143,6 +142,7 @@ public class OrderReturn {
      * @return Returns the OrderMoneyAmounts
      */
     @JsonGetter("return_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderMoneyAmounts getReturnAmounts() {
         return returnAmounts;
     }

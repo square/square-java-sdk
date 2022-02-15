@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for CatalogCategory type.
  */
 public class CatalogCategory {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> imageIds;
 
     /**
@@ -37,6 +35,7 @@ public class CatalogCategory {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -48,6 +47,7 @@ public class CatalogCategory {
      * @return Returns the List of String
      */
     @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getImageIds() {
         return imageIds;
     }

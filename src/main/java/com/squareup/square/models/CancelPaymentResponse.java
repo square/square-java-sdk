@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CancelPaymentResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Payment payment;
 
     /**
@@ -44,6 +42,7 @@ public class CancelPaymentResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -54,6 +53,7 @@ public class CancelPaymentResponse {
      * @return Returns the Payment
      */
     @JsonGetter("payment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Payment getPayment() {
         return payment;
     }

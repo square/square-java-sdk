@@ -13,7 +13,6 @@ import java.util.Objects;
 public class CreateCardRequest {
     private final String idempotencyKey;
     private final String sourceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
     private final Card card;
 
@@ -69,6 +68,7 @@ public class CreateCardRequest {
      * @return Returns the String
      */
     @JsonGetter("verification_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationToken() {
         return verificationToken;
     }

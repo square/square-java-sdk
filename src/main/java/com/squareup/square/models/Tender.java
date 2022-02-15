@@ -12,32 +12,19 @@ import java.util.Objects;
  * This is a model class for Tender type.
  */
 public class Tender {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String transactionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money processingFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TenderCardDetails cardDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TenderCashDetails cashDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
 
     /**
@@ -95,6 +82,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -105,6 +93,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -115,6 +104,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTransactionId() {
         return transactionId;
     }
@@ -125,6 +115,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -135,6 +126,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -150,6 +142,7 @@ public class Tender {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -165,6 +158,7 @@ public class Tender {
      * @return Returns the Money
      */
     @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTipMoney() {
         return tipMoney;
     }
@@ -180,6 +174,7 @@ public class Tender {
      * @return Returns the Money
      */
     @JsonGetter("processing_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getProcessingFeeMoney() {
         return processingFeeMoney;
     }
@@ -191,6 +186,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -211,6 +207,7 @@ public class Tender {
      * @return Returns the TenderCardDetails
      */
     @JsonGetter("card_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TenderCardDetails getCardDetails() {
         return cardDetails;
     }
@@ -221,6 +218,7 @@ public class Tender {
      * @return Returns the TenderCashDetails
      */
     @JsonGetter("cash_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TenderCashDetails getCashDetails() {
         return cashDetails;
     }
@@ -232,6 +230,7 @@ public class Tender {
      * @return Returns the List of AdditionalRecipient
      */
     @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<AdditionalRecipient> getAdditionalRecipients() {
         return additionalRecipients;
     }
@@ -243,6 +242,7 @@ public class Tender {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }

@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for BatchDeleteCatalogObjectsRequest type.
  */
 public class BatchDeleteCatalogObjectsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> objectIds;
 
     /**
@@ -33,6 +32,7 @@ public class BatchDeleteCatalogObjectsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getObjectIds() {
         return objectIds;
     }

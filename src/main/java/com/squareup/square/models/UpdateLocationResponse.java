@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpdateLocationResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Location location;
 
     /**
@@ -44,6 +42,7 @@ public class UpdateLocationResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -55,6 +54,7 @@ public class UpdateLocationResponse {
      * @return Returns the Location
      */
     @JsonGetter("location")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Location getLocation() {
         return location;
     }

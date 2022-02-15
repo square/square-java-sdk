@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventQuery type.
  */
 public class LoyaltyEventQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventFilter filter;
 
     /**
@@ -31,6 +30,7 @@ public class LoyaltyEventQuery {
      * @return Returns the LoyaltyEventFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventFilter getFilter() {
         return filter;
     }

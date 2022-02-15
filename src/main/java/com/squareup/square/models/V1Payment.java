@@ -15,59 +15,32 @@ import java.util.Objects;
  */
 public class V1Payment {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String creatorId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Device device;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String receiptUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money inclusiveTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money additiveTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money taxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money tipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money discountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalCollectedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money processingFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money netTotalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money swedishRoundingMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money grossSalesMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money netSalesMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> inclusiveTax;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> additiveTax;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1Tender> tender;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1Refund> refunds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentItemization> itemizations;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money surchargeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentSurcharge> surcharges;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isPartial;
 
     /**
@@ -169,6 +142,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -179,6 +153,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -191,6 +166,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -201,6 +177,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("creator_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatorId() {
         return creatorId;
     }
@@ -210,6 +187,7 @@ public class V1Payment {
      * @return Returns the Device
      */
     @JsonGetter("device")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Device getDevice() {
         return device;
     }
@@ -221,6 +199,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("payment_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentUrl() {
         return paymentUrl;
     }
@@ -234,6 +213,7 @@ public class V1Payment {
      * @return Returns the String
      */
     @JsonGetter("receipt_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReceiptUrl() {
         return receiptUrl;
     }
@@ -243,6 +223,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("inclusive_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getInclusiveTaxMoney() {
         return inclusiveTaxMoney;
     }
@@ -252,6 +233,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("additive_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getAdditiveTaxMoney() {
         return additiveTaxMoney;
     }
@@ -261,6 +243,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTaxMoney() {
         return taxMoney;
     }
@@ -270,6 +253,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTipMoney() {
         return tipMoney;
     }
@@ -279,6 +263,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getDiscountMoney() {
         return discountMoney;
     }
@@ -288,6 +273,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("total_collected_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalCollectedMoney() {
         return totalCollectedMoney;
     }
@@ -297,6 +283,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("processing_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getProcessingFeeMoney() {
         return processingFeeMoney;
     }
@@ -306,6 +293,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("net_total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getNetTotalMoney() {
         return netTotalMoney;
     }
@@ -315,6 +303,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedMoney() {
         return refundedMoney;
     }
@@ -324,6 +313,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("swedish_rounding_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getSwedishRoundingMoney() {
         return swedishRoundingMoney;
     }
@@ -333,6 +323,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("gross_sales_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getGrossSalesMoney() {
         return grossSalesMoney;
     }
@@ -342,6 +333,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("net_sales_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getNetSalesMoney() {
         return netSalesMoney;
     }
@@ -352,6 +344,7 @@ public class V1Payment {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("inclusive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getInclusiveTax() {
         return inclusiveTax;
     }
@@ -362,6 +355,7 @@ public class V1Payment {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("additive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getAdditiveTax() {
         return additiveTax;
     }
@@ -372,6 +366,7 @@ public class V1Payment {
      * @return Returns the List of V1Tender
      */
     @JsonGetter("tender")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1Tender> getTender() {
         return tender;
     }
@@ -384,6 +379,7 @@ public class V1Payment {
      * @return Returns the List of V1Refund
      */
     @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1Refund> getRefunds() {
         return refunds;
     }
@@ -394,6 +390,7 @@ public class V1Payment {
      * @return Returns the List of V1PaymentItemization
      */
     @JsonGetter("itemizations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentItemization> getItemizations() {
         return itemizations;
     }
@@ -403,6 +400,7 @@ public class V1Payment {
      * @return Returns the V1Money
      */
     @JsonGetter("surcharge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getSurchargeMoney() {
         return surchargeMoney;
     }
@@ -413,6 +411,7 @@ public class V1Payment {
      * @return Returns the List of V1PaymentSurcharge
      */
     @JsonGetter("surcharges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentSurcharge> getSurcharges() {
         return surcharges;
     }
@@ -425,6 +424,7 @@ public class V1Payment {
      * @return Returns the Boolean
      */
     @JsonGetter("is_partial")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsPartial() {
         return isPartial;
     }

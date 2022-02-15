@@ -15,17 +15,11 @@ import java.util.Objects;
  */
 public class V1Settlement {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String initiatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bankAccountId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1SettlementEntry> entries;
 
     /**
@@ -64,6 +58,7 @@ public class V1Settlement {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -73,6 +68,7 @@ public class V1Settlement {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -82,6 +78,7 @@ public class V1Settlement {
      * @return Returns the V1Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalMoney() {
         return totalMoney;
     }
@@ -92,6 +89,7 @@ public class V1Settlement {
      * @return Returns the String
      */
     @JsonGetter("initiated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInitiatedAt() {
         return initiatedAt;
     }
@@ -102,6 +100,7 @@ public class V1Settlement {
      * @return Returns the String
      */
     @JsonGetter("bank_account_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBankAccountId() {
         return bankAccountId;
     }
@@ -112,6 +111,7 @@ public class V1Settlement {
      * @return Returns the List of V1SettlementEntry
      */
     @JsonGetter("entries")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1SettlementEntry> getEntries() {
         return entries;
     }

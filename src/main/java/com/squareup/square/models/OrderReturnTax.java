@@ -11,23 +11,14 @@ import java.util.Objects;
  * This is a model class for OrderReturnTax type.
  */
 public class OrderReturnTax {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceTaxUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scope;
 
     /**
@@ -70,6 +61,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -80,6 +72,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("source_tax_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceTaxUid() {
         return sourceTaxUid;
     }
@@ -90,6 +83,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -100,6 +94,7 @@ public class OrderReturnTax {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }
@@ -110,6 +105,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -120,6 +116,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -131,6 +128,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentage() {
         return percentage;
     }
@@ -146,6 +144,7 @@ public class OrderReturnTax {
      * @return Returns the Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppliedMoney() {
         return appliedMoney;
     }
@@ -156,6 +155,7 @@ public class OrderReturnTax {
      * @return Returns the String
      */
     @JsonGetter("scope")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getScope() {
         return scope;
     }

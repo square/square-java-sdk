@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ShiftQuery type.
  */
 public class ShiftQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ShiftSort sort;
 
     /**
@@ -36,6 +34,7 @@ public class ShiftQuery {
      * @return Returns the ShiftFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ShiftFilter getFilter() {
         return filter;
     }
@@ -46,6 +45,7 @@ public class ShiftQuery {
      * @return Returns the ShiftSort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ShiftSort getSort() {
         return sort;
     }

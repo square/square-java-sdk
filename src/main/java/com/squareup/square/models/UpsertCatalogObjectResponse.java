@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class UpsertCatalogObjectResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject catalogObject;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogIdMapping> idMappings;
 
     /**
@@ -49,6 +46,7 @@ public class UpsertCatalogObjectResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -68,6 +66,7 @@ public class UpsertCatalogObjectResponse {
      * @return Returns the CatalogObject
      */
     @JsonGetter("catalog_object")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogObject getCatalogObject() {
         return catalogObject;
     }
@@ -78,6 +77,7 @@ public class UpsertCatalogObjectResponse {
      * @return Returns the List of CatalogIdMapping
      */
     @JsonGetter("id_mappings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogIdMapping> getIdMappings() {
         return idMappings;
     }

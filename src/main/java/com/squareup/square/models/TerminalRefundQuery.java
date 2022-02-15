@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for TerminalRefundQuery type.
  */
 public class TerminalRefundQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQueryFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefundQuerySort sort;
 
     /**
@@ -34,6 +32,7 @@ public class TerminalRefundQuery {
      * @return Returns the TerminalRefundQueryFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalRefundQueryFilter getFilter() {
         return filter;
     }
@@ -43,6 +42,7 @@ public class TerminalRefundQuery {
      * @return Returns the TerminalRefundQuerySort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalRefundQuerySort getSort() {
         return sort;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SourceApplication type.
  */
 public class SourceApplication {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String product;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String applicationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
 
     /**
@@ -40,6 +37,7 @@ public class SourceApplication {
      * @return Returns the String
      */
     @JsonGetter("product")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProduct() {
         return product;
     }
@@ -51,6 +49,7 @@ public class SourceApplication {
      * @return Returns the String
      */
     @JsonGetter("application_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getApplicationId() {
         return applicationId;
     }
@@ -62,6 +61,7 @@ public class SourceApplication {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }

@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for V1SettlementEntry type.
  */
 public class V1SettlementEntry {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money feeMoney;
 
     /**
@@ -45,6 +41,7 @@ public class V1SettlementEntry {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -54,6 +51,7 @@ public class V1SettlementEntry {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -63,6 +61,7 @@ public class V1SettlementEntry {
      * @return Returns the V1Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getAmountMoney() {
         return amountMoney;
     }
@@ -72,6 +71,7 @@ public class V1SettlementEntry {
      * @return Returns the V1Money
      */
     @JsonGetter("fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getFeeMoney() {
         return feeMoney;
     }
