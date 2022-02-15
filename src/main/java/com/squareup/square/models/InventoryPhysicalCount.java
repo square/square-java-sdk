@@ -11,27 +11,17 @@ import java.util.Objects;
  * This is a model class for InventoryPhysicalCount type.
  */
 public class InventoryPhysicalCount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String employeeId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String teamMemberId;
     private final String occurredAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
@@ -45,6 +35,7 @@ public class InventoryPhysicalCount {
      * @param  quantity  String value for quantity.
      * @param  source  SourceApplication value for source.
      * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
      * @param  occurredAt  String value for occurredAt.
      * @param  createdAt  String value for createdAt.
      */
@@ -59,6 +50,7 @@ public class InventoryPhysicalCount {
             @JsonProperty("quantity") String quantity,
             @JsonProperty("source") SourceApplication source,
             @JsonProperty("employee_id") String employeeId,
+            @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("occurred_at") String occurredAt,
             @JsonProperty("created_at") String createdAt) {
         this.id = id;
@@ -70,6 +62,7 @@ public class InventoryPhysicalCount {
         this.quantity = quantity;
         this.source = source;
         this.employeeId = employeeId;
+        this.teamMemberId = teamMemberId;
         this.occurredAt = occurredAt;
         this.createdAt = createdAt;
     }
@@ -80,6 +73,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -91,6 +85,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -101,6 +96,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -112,6 +108,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectType() {
         return catalogObjectType;
     }
@@ -122,6 +119,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -133,6 +131,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -144,6 +143,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getQuantity() {
         return quantity;
     }
@@ -154,6 +154,7 @@ public class InventoryPhysicalCount {
      * @return Returns the SourceApplication
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SourceApplication getSource() {
         return source;
     }
@@ -164,8 +165,21 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmployeeId() {
         return employeeId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the physical
+     * count.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTeamMemberId() {
+        return teamMemberId;
     }
 
     /**
@@ -176,6 +190,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("occurred_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOccurredAt() {
         return occurredAt;
     }
@@ -186,6 +201,7 @@ public class InventoryPhysicalCount {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -193,7 +209,7 @@ public class InventoryPhysicalCount {
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, catalogObjectId, catalogObjectType, state, locationId,
-                quantity, source, employeeId, occurredAt, createdAt);
+                quantity, source, employeeId, teamMemberId, occurredAt, createdAt);
     }
 
     @Override
@@ -214,6 +230,7 @@ public class InventoryPhysicalCount {
             && Objects.equals(quantity, other.quantity)
             && Objects.equals(source, other.source)
             && Objects.equals(employeeId, other.employeeId)
+            && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(occurredAt, other.occurredAt)
             && Objects.equals(createdAt, other.createdAt);
     }
@@ -228,7 +245,8 @@ public class InventoryPhysicalCount {
                 + ", catalogObjectId=" + catalogObjectId + ", catalogObjectType="
                 + catalogObjectType + ", state=" + state + ", locationId=" + locationId
                 + ", quantity=" + quantity + ", source=" + source + ", employeeId=" + employeeId
-                + ", occurredAt=" + occurredAt + ", createdAt=" + createdAt + "]";
+                + ", teamMemberId=" + teamMemberId + ", occurredAt=" + occurredAt + ", createdAt="
+                + createdAt + "]";
     }
 
     /**
@@ -247,6 +265,7 @@ public class InventoryPhysicalCount {
                 .quantity(getQuantity())
                 .source(getSource())
                 .employeeId(getEmployeeId())
+                .teamMemberId(getTeamMemberId())
                 .occurredAt(getOccurredAt())
                 .createdAt(getCreatedAt());
         return builder;
@@ -265,6 +284,7 @@ public class InventoryPhysicalCount {
         private String quantity;
         private SourceApplication source;
         private String employeeId;
+        private String teamMemberId;
         private String occurredAt;
         private String createdAt;
 
@@ -361,6 +381,16 @@ public class InventoryPhysicalCount {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Setter for occurredAt.
          * @param  occurredAt  String value for occurredAt.
          * @return Builder
@@ -386,7 +416,8 @@ public class InventoryPhysicalCount {
          */
         public InventoryPhysicalCount build() {
             return new InventoryPhysicalCount(id, referenceId, catalogObjectId, catalogObjectType,
-                    state, locationId, quantity, source, employeeId, occurredAt, createdAt);
+                    state, locationId, quantity, source, employeeId, teamMemberId, occurredAt,
+                    createdAt);
         }
     }
 }

@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class GetShiftResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Shift shift;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -45,6 +43,7 @@ public class GetShiftResponse {
      * @return Returns the Shift
      */
     @JsonGetter("shift")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Shift getShift() {
         return shift;
     }
@@ -55,6 +54,7 @@ public class GetShiftResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

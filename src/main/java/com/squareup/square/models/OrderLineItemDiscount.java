@@ -13,29 +13,17 @@ import java.util.Objects;
  * This is a model class for OrderLineItemDiscount type.
  */
 public class OrderLineItemDiscount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, String> metadata;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scope;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> rewardIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pricingRuleId;
 
     /**
@@ -87,6 +75,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -97,6 +86,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -107,6 +97,7 @@ public class OrderLineItemDiscount {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }
@@ -117,6 +108,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -127,6 +119,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -139,6 +132,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentage() {
         return percentage;
     }
@@ -154,6 +148,7 @@ public class OrderLineItemDiscount {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -169,6 +164,7 @@ public class OrderLineItemDiscount {
      * @return Returns the Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppliedMoney() {
         return appliedMoney;
     }
@@ -189,6 +185,7 @@ public class OrderLineItemDiscount {
      * @return Returns the Map of String, String
      */
     @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, String> getMetadata() {
         return metadata;
     }
@@ -199,6 +196,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("scope")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getScope() {
         return scope;
     }
@@ -213,6 +211,7 @@ public class OrderLineItemDiscount {
      * @return Returns the List of String
      */
     @JsonGetter("reward_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getRewardIds() {
         return rewardIds;
     }
@@ -225,6 +224,7 @@ public class OrderLineItemDiscount {
      * @return Returns the String
      */
     @JsonGetter("pricing_rule_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPricingRuleId() {
         return pricingRuleId;
     }

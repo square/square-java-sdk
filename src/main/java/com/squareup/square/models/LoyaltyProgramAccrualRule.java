@@ -12,15 +12,10 @@ import java.util.Objects;
  */
 public class LoyaltyProgramAccrualRule {
     private final String accrualType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramAccrualRuleVisitData visitData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramAccrualRuleSpendData spendData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramAccrualRuleItemVariationData itemVariationData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgramAccrualRuleCategoryData categoryData;
 
     /**
@@ -65,6 +60,7 @@ public class LoyaltyProgramAccrualRule {
      * @return Returns the Integer
      */
     @JsonGetter("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPoints() {
         return points;
     }
@@ -75,6 +71,7 @@ public class LoyaltyProgramAccrualRule {
      * @return Returns the LoyaltyProgramAccrualRuleVisitData
      */
     @JsonGetter("visit_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgramAccrualRuleVisitData getVisitData() {
         return visitData;
     }
@@ -85,6 +82,7 @@ public class LoyaltyProgramAccrualRule {
      * @return Returns the LoyaltyProgramAccrualRuleSpendData
      */
     @JsonGetter("spend_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgramAccrualRuleSpendData getSpendData() {
         return spendData;
     }
@@ -95,6 +93,7 @@ public class LoyaltyProgramAccrualRule {
      * @return Returns the LoyaltyProgramAccrualRuleItemVariationData
      */
     @JsonGetter("item_variation_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgramAccrualRuleItemVariationData getItemVariationData() {
         return itemVariationData;
     }
@@ -105,6 +104,7 @@ public class LoyaltyProgramAccrualRule {
      * @return Returns the LoyaltyProgramAccrualRuleCategoryData
      */
     @JsonGetter("category_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgramAccrualRuleCategoryData getCategoryData() {
         return categoryData;
     }

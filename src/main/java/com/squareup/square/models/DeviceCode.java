@@ -11,26 +11,16 @@ import java.util.Objects;
  * This is a model class for DeviceCode type.
  */
 public class DeviceCode {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String code;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
     private final String productType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pairBy;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statusChangedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pairedAt;
 
     /**
@@ -79,6 +69,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -89,6 +80,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -99,6 +91,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCode() {
         return code;
     }
@@ -109,6 +102,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceId() {
         return deviceId;
     }
@@ -128,6 +122,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -138,6 +133,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -148,6 +144,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("pair_by")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPairBy() {
         return pairBy;
     }
@@ -158,6 +155,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -168,6 +166,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("status_changed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatusChangedAt() {
         return statusChangedAt;
     }
@@ -178,6 +177,7 @@ public class DeviceCode {
      * @return Returns the String
      */
     @JsonGetter("paired_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPairedAt() {
         return pairedAt;
     }

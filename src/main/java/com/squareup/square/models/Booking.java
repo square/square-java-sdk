@@ -12,37 +12,21 @@ import java.util.Objects;
  * This is a model class for Booking type.
  */
 public class Booking {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AppointmentSegment> appointmentSegments;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer transitionTimeMinutes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allDay;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BookingCreatorDetails creatorDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String source;
 
     /**
@@ -106,6 +90,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -116,6 +101,7 @@ public class Booking {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -126,6 +112,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -136,6 +123,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -146,6 +134,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -156,6 +145,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartAt() {
         return startAt;
     }
@@ -167,6 +157,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -178,6 +169,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -190,6 +182,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("customer_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerNote() {
         return customerNote;
     }
@@ -202,6 +195,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("seller_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSellerNote() {
         return sellerNote;
     }
@@ -212,6 +206,7 @@ public class Booking {
      * @return Returns the List of AppointmentSegment
      */
     @JsonGetter("appointment_segments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<AppointmentSegment> getAppointmentSegments() {
         return appointmentSegments;
     }
@@ -223,6 +218,7 @@ public class Booking {
      * @return Returns the Integer
      */
     @JsonGetter("transition_time_minutes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getTransitionTimeMinutes() {
         return transitionTimeMinutes;
     }
@@ -233,6 +229,7 @@ public class Booking {
      * @return Returns the Boolean
      */
     @JsonGetter("all_day")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAllDay() {
         return allDay;
     }
@@ -243,6 +240,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("location_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationType() {
         return locationType;
     }
@@ -253,6 +251,7 @@ public class Booking {
      * @return Returns the BookingCreatorDetails
      */
     @JsonGetter("creator_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BookingCreatorDetails getCreatorDetails() {
         return creatorDetails;
     }
@@ -263,6 +262,7 @@ public class Booking {
      * @return Returns the String
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSource() {
         return source;
     }

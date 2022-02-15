@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveInventoryCountsRequest type.
  */
 public class BatchRetrieveInventoryCountsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> catalogObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAfter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> states;
 
     /**
@@ -52,6 +47,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("catalog_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCatalogObjectIds() {
         return catalogObjectIds;
     }
@@ -63,6 +59,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -75,6 +72,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @return Returns the String
      */
     @JsonGetter("updated_after")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAfter() {
         return updatedAfter;
     }
@@ -88,6 +86,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -99,6 +98,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("states")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getStates() {
         return states;
     }

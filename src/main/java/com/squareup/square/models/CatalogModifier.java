@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for CatalogModifier type.
  */
 public class CatalogModifier {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String modifierListId;
 
     /**
@@ -46,6 +42,7 @@ public class CatalogModifier {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -61,6 +58,7 @@ public class CatalogModifier {
      * @return Returns the Money
      */
     @JsonGetter("price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getPriceMoney() {
         return priceMoney;
     }
@@ -71,6 +69,7 @@ public class CatalogModifier {
      * @return Returns the Integer
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getOrdinal() {
         return ordinal;
     }
@@ -81,6 +80,7 @@ public class CatalogModifier {
      * @return Returns the String
      */
     @JsonGetter("modifier_list_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getModifierListId() {
         return modifierListId;
     }

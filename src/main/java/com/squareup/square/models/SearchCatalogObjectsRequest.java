@@ -12,19 +12,12 @@ import java.util.Objects;
  * This is a model class for SearchCatalogObjectsRequest type.
  */
 public class SearchCatalogObjectsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> objectTypes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeDeletedObjects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -63,6 +56,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -79,6 +73,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("object_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getObjectTypes() {
         return objectTypes;
     }
@@ -90,6 +85,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_deleted_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludeDeletedObjects() {
         return includeDeletedObjects;
     }
@@ -108,6 +104,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_related_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludeRelatedObjects() {
         return includeRelatedObjects;
     }
@@ -121,6 +118,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -148,6 +146,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the CatalogQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQuery getQuery() {
         return query;
     }
@@ -160,6 +159,7 @@ public class SearchCatalogObjectsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

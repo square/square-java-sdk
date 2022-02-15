@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for LoyaltyProgramAccrualRuleVisitData type.
  */
 public class LoyaltyProgramAccrualRuleVisitData {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money minimumAmountMoney;
     private final String taxMode;
 
@@ -39,6 +38,7 @@ public class LoyaltyProgramAccrualRuleVisitData {
      * @return Returns the Money
      */
     @JsonGetter("minimum_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getMinimumAmountMoney() {
         return minimumAmountMoney;
     }

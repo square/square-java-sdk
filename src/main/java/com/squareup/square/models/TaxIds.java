@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for TaxIds type.
  */
 public class TaxIds {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String euVat;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String frSiret;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String frNaf;
 
     /**
@@ -42,6 +39,7 @@ public class TaxIds {
      * @return Returns the String
      */
     @JsonGetter("eu_vat")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEuVat() {
         return euVat;
     }
@@ -53,6 +51,7 @@ public class TaxIds {
      * @return Returns the String
      */
     @JsonGetter("fr_siret")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFrSiret() {
         return frSiret;
     }
@@ -65,6 +64,7 @@ public class TaxIds {
      * @return Returns the String
      */
     @JsonGetter("fr_naf")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFrNaf() {
         return frNaf;
     }

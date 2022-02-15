@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for DisputeEvidenceFile type.
  */
 public class DisputeEvidenceFile {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String filename;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String filetype;
 
     /**
@@ -35,6 +33,7 @@ public class DisputeEvidenceFile {
      * @return Returns the String
      */
     @JsonGetter("filename")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFilename() {
         return filename;
     }
@@ -46,6 +45,7 @@ public class DisputeEvidenceFile {
      * @return Returns the String
      */
     @JsonGetter("filetype")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFiletype() {
         return filetype;
     }

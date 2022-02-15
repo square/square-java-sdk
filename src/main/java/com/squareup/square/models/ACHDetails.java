@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for ACHDetails type.
  */
 public class ACHDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String routingNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accountNumberSuffix;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accountType;
 
     /**
@@ -40,6 +37,7 @@ public class ACHDetails {
      * @return Returns the String
      */
     @JsonGetter("routing_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRoutingNumber() {
         return routingNumber;
     }
@@ -50,6 +48,7 @@ public class ACHDetails {
      * @return Returns the String
      */
     @JsonGetter("account_number_suffix")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccountNumberSuffix() {
         return accountNumberSuffix;
     }
@@ -61,6 +60,7 @@ public class ACHDetails {
      * @return Returns the String
      */
     @JsonGetter("account_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccountType() {
         return accountType;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for DeleteInvoiceRequest type.
  */
 public class DeleteInvoiceRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
 
     /**
@@ -31,6 +30,7 @@ public class DeleteInvoiceRequest {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }

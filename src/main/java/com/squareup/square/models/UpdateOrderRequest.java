@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for UpdateOrderRequest type.
  */
 public class UpdateOrderRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fieldsToClear;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
@@ -44,6 +41,7 @@ public class UpdateOrderRequest {
      * @return Returns the Order
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Order getOrder() {
         return order;
     }
@@ -57,6 +55,7 @@ public class UpdateOrderRequest {
      * @return Returns the List of String
      */
     @JsonGetter("fields_to_clear")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getFieldsToClear() {
         return fieldsToClear;
     }
@@ -71,6 +70,7 @@ public class UpdateOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

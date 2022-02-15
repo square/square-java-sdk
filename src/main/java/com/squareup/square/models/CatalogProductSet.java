@@ -12,19 +12,12 @@ import java.util.Objects;
  * This is a model class for CatalogProductSet type.
  */
 public class CatalogProductSet {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productIdsAny;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productIdsAll;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityExact;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityMin;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long quantityMax;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean allProducts;
 
     /**
@@ -61,6 +54,7 @@ public class CatalogProductSet {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -75,6 +69,7 @@ public class CatalogProductSet {
      * @return Returns the List of String
      */
     @JsonGetter("product_ids_any")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getProductIdsAny() {
         return productIdsAny;
     }
@@ -87,6 +82,7 @@ public class CatalogProductSet {
      * @return Returns the List of String
      */
     @JsonGetter("product_ids_all")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getProductIdsAll() {
         return productIdsAll;
     }
@@ -99,6 +95,7 @@ public class CatalogProductSet {
      * @return Returns the Long
      */
     @JsonGetter("quantity_exact")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getQuantityExact() {
         return quantityExact;
     }
@@ -111,6 +108,7 @@ public class CatalogProductSet {
      * @return Returns the Long
      */
     @JsonGetter("quantity_min")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getQuantityMin() {
         return quantityMin;
     }
@@ -122,6 +120,7 @@ public class CatalogProductSet {
      * @return Returns the Long
      */
     @JsonGetter("quantity_max")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getQuantityMax() {
         return quantityMax;
     }
@@ -133,6 +132,7 @@ public class CatalogProductSet {
      * @return Returns the Boolean
      */
     @JsonGetter("all_products")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAllProducts() {
         return allProducts;
     }

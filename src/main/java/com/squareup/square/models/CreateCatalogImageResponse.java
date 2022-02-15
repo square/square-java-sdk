@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateCatalogImageResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObject image;
 
     /**
@@ -44,6 +42,7 @@ public class CreateCatalogImageResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -63,6 +62,7 @@ public class CreateCatalogImageResponse {
      * @return Returns the CatalogObject
      */
     @JsonGetter("image")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogObject getImage() {
         return image;
     }

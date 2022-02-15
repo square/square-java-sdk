@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentRecipient type.
  */
 public class OrderFulfillmentRecipient {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
 
     /**
@@ -55,6 +50,7 @@ public class OrderFulfillmentRecipient {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
@@ -66,6 +62,7 @@ public class OrderFulfillmentRecipient {
      * @return Returns the String
      */
     @JsonGetter("display_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDisplayName() {
         return displayName;
     }
@@ -77,6 +74,7 @@ public class OrderFulfillmentRecipient {
      * @return Returns the String
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -88,6 +86,7 @@ public class OrderFulfillmentRecipient {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -99,6 +98,7 @@ public class OrderFulfillmentRecipient {
      * @return Returns the Address
      */
     @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getAddress() {
         return address;
     }

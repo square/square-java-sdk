@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class AcceptDisputeResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Dispute dispute;
 
     /**
@@ -44,6 +42,7 @@ public class AcceptDisputeResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -54,6 +53,7 @@ public class AcceptDisputeResponse {
      * @return Returns the Dispute
      */
     @JsonGetter("dispute")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Dispute getDispute() {
         return dispute;
     }

@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for TeamMemberAssignedLocations type.
  */
 public class TeamMemberAssignedLocations {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String assignmentType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
 
     /**
@@ -36,6 +34,7 @@ public class TeamMemberAssignedLocations {
      * @return Returns the String
      */
     @JsonGetter("assignment_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAssignmentType() {
         return assignmentType;
     }
@@ -46,6 +45,7 @@ public class TeamMemberAssignedLocations {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }

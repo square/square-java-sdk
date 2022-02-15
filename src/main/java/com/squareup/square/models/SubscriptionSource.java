@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for SubscriptionSource type.
  */
 public class SubscriptionSource {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
 
     /**
@@ -31,6 +30,7 @@ public class SubscriptionSource {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }

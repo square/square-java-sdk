@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for SearchOrdersSourceFilter type.
  */
 public class SearchOrdersSourceFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> sourceNames;
 
     /**
@@ -32,6 +31,7 @@ public class SearchOrdersSourceFilter {
      * @return Returns the List of String
      */
     @JsonGetter("source_names")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getSourceNames() {
         return sourceNames;
     }

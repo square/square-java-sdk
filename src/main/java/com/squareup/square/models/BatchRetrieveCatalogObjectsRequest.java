@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class BatchRetrieveCatalogObjectsRequest {
     private final List<String> objectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includeRelatedObjects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
@@ -59,6 +57,7 @@ public class BatchRetrieveCatalogObjectsRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_related_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludeRelatedObjects() {
         return includeRelatedObjects;
     }
@@ -72,6 +71,7 @@ public class BatchRetrieveCatalogObjectsRequest {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }

@@ -11,19 +11,12 @@ import java.util.Objects;
  * This is a model class for InventoryCount type.
  */
 public class InventoryCount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String quantity;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isEstimated;
 
     /**
@@ -60,6 +53,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -71,6 +65,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectType() {
         return catalogObjectType;
     }
@@ -81,6 +76,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -92,6 +88,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -103,6 +100,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getQuantity() {
         return quantity;
     }
@@ -114,6 +112,7 @@ public class InventoryCount {
      * @return Returns the String
      */
     @JsonGetter("calculated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCalculatedAt() {
         return calculatedAt;
     }
@@ -129,6 +128,7 @@ public class InventoryCount {
      * @return Returns the Boolean
      */
     @JsonGetter("is_estimated")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsEstimated() {
         return isEstimated;
     }

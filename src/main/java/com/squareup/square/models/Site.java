@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for Site type.
  */
 public class Site {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String siteTitle;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String domain;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isPublished;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -55,6 +49,7 @@ public class Site {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -65,6 +60,7 @@ public class Site {
      * @return Returns the String
      */
     @JsonGetter("site_title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSiteTitle() {
         return siteTitle;
     }
@@ -75,6 +71,7 @@ public class Site {
      * @return Returns the String
      */
     @JsonGetter("domain")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDomain() {
         return domain;
     }
@@ -85,6 +82,7 @@ public class Site {
      * @return Returns the Boolean
      */
     @JsonGetter("is_published")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsPublished() {
         return isPublished;
     }
@@ -95,6 +93,7 @@ public class Site {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -105,6 +104,7 @@ public class Site {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

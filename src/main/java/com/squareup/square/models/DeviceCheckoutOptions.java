@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class DeviceCheckoutOptions {
     private final String deviceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipReceiptScreen;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TipSettings tipSettings;
 
     /**
@@ -51,6 +49,7 @@ public class DeviceCheckoutOptions {
      * @return Returns the Boolean
      */
     @JsonGetter("skip_receipt_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSkipReceiptScreen() {
         return skipReceiptScreen;
     }
@@ -60,6 +59,7 @@ public class DeviceCheckoutOptions {
      * @return Returns the TipSettings
      */
     @JsonGetter("tip_settings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TipSettings getTipSettings() {
         return tipSettings;
     }

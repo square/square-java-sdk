@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for ChargeResponse type.
  */
 public class ChargeResponse {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Transaction transaction;
 
     /**
@@ -36,6 +34,7 @@ public class ChargeResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -48,6 +47,7 @@ public class ChargeResponse {
      * @return Returns the Transaction
      */
     @JsonGetter("transaction")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Transaction getTransaction() {
         return transaction;
     }

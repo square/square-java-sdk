@@ -12,19 +12,12 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdated type.
  */
 public class OrderFulfillmentUpdated {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderFulfillmentUpdatedUpdate> fulfillmentUpdate;
 
     /**
@@ -61,6 +54,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -74,6 +68,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -84,6 +79,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -94,6 +90,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -104,6 +101,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -114,6 +112,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -124,6 +123,7 @@ public class OrderFulfillmentUpdated {
      * @return Returns the List of OrderFulfillmentUpdatedUpdate
      */
     @JsonGetter("fulfillment_update")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderFulfillmentUpdatedUpdate> getFulfillmentUpdate() {
         return fulfillmentUpdate;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for ListCatalogRequest type.
  */
 public class ListCatalogRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String types;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
@@ -43,6 +40,7 @@ public class ListCatalogRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -61,6 +59,7 @@ public class ListCatalogRequest {
      * @return Returns the String
      */
     @JsonGetter("types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTypes() {
         return types;
     }
@@ -74,6 +73,7 @@ public class ListCatalogRequest {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }

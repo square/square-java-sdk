@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for V1ListSettlementsResponse type.
  */
 public class V1ListSettlementsResponse {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1Settlement> items;
 
     /**
@@ -30,6 +29,7 @@ public class V1ListSettlementsResponse {
      * @return Returns the List of V1Settlement
      */
     @JsonGetter("items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1Settlement> getItems() {
         return items;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CalculateLoyaltyPointsRequest type.
  */
 public class CalculateLoyaltyPointsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money transactionAmountMoney;
 
     /**
@@ -37,6 +35,7 @@ public class CalculateLoyaltyPointsRequest {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -52,6 +51,7 @@ public class CalculateLoyaltyPointsRequest {
      * @return Returns the Money
      */
     @JsonGetter("transaction_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTransactionAmountMoney() {
         return transactionAmountMoney;
     }

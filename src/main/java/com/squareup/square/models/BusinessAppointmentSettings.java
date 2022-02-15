@@ -12,31 +12,18 @@ import java.util.Objects;
  * This is a model class for BusinessAppointmentSettings type.
  */
 public class BusinessAppointmentSettings {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationTypes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String alignmentTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer minBookingLeadTimeSeconds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxBookingLeadTimeSeconds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean anyTeamMemberBookingEnabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean multipleServiceBookingEnabled;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String maxAppointmentsPerDayLimitType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxAppointmentsPerDayLimit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer cancellationWindowSeconds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money cancellationFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancellationPolicy;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancellationPolicyText;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipBookingFlowStaffSelection;
 
     /**
@@ -93,6 +80,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the List of String
      */
     @JsonGetter("location_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationTypes() {
         return locationTypes;
     }
@@ -103,6 +91,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the String
      */
     @JsonGetter("alignment_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAlignmentTime() {
         return alignmentTime;
     }
@@ -114,6 +103,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Integer
      */
     @JsonGetter("min_booking_lead_time_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMinBookingLeadTimeSeconds() {
         return minBookingLeadTimeSeconds;
     }
@@ -125,6 +115,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Integer
      */
     @JsonGetter("max_booking_lead_time_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMaxBookingLeadTimeSeconds() {
         return maxBookingLeadTimeSeconds;
     }
@@ -136,6 +127,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("any_team_member_booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAnyTeamMemberBookingEnabled() {
         return anyTeamMemberBookingEnabled;
     }
@@ -146,6 +138,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("multiple_service_booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getMultipleServiceBookingEnabled() {
         return multipleServiceBookingEnabled;
     }
@@ -156,6 +149,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the String
      */
     @JsonGetter("max_appointments_per_day_limit_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaxAppointmentsPerDayLimitType() {
         return maxAppointmentsPerDayLimitType;
     }
@@ -166,6 +160,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Integer
      */
     @JsonGetter("max_appointments_per_day_limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMaxAppointmentsPerDayLimit() {
         return maxAppointmentsPerDayLimit;
     }
@@ -176,6 +171,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Integer
      */
     @JsonGetter("cancellation_window_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getCancellationWindowSeconds() {
         return cancellationWindowSeconds;
     }
@@ -191,6 +187,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Money
      */
     @JsonGetter("cancellation_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getCancellationFeeMoney() {
         return cancellationFeeMoney;
     }
@@ -201,6 +198,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the String
      */
     @JsonGetter("cancellation_policy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancellationPolicy() {
         return cancellationPolicy;
     }
@@ -211,6 +209,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the String
      */
     @JsonGetter("cancellation_policy_text")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancellationPolicyText() {
         return cancellationPolicyText;
     }
@@ -222,6 +221,7 @@ public class BusinessAppointmentSettings {
      * @return Returns the Boolean
      */
     @JsonGetter("skip_booking_flow_staff_selection")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSkipBookingFlowStaffSelection() {
         return skipBookingFlowStaffSelection;
     }

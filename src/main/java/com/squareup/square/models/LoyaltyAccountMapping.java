@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for LoyaltyAccountMapping type.
  */
 public class LoyaltyAccountMapping {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
 
     /**
@@ -40,6 +37,7 @@ public class LoyaltyAccountMapping {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -50,6 +48,7 @@ public class LoyaltyAccountMapping {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -60,6 +59,7 @@ public class LoyaltyAccountMapping {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }

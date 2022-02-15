@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for CatalogModifierList type.
  */
 public class CatalogModifierList {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String selectionType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> modifiers;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> imageIds;
 
     /**
@@ -52,6 +47,7 @@ public class CatalogModifierList {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -62,6 +58,7 @@ public class CatalogModifierList {
      * @return Returns the Integer
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getOrdinal() {
         return ordinal;
     }
@@ -72,6 +69,7 @@ public class CatalogModifierList {
      * @return Returns the String
      */
     @JsonGetter("selection_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSelectionType() {
         return selectionType;
     }
@@ -84,6 +82,7 @@ public class CatalogModifierList {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getModifiers() {
         return modifiers;
     }
@@ -95,6 +94,7 @@ public class CatalogModifierList {
      * @return Returns the List of String
      */
     @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getImageIds() {
         return imageIds;
     }

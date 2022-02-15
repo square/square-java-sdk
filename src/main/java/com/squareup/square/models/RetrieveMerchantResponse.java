@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveMerchantResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Merchant merchant;
 
     /**
@@ -44,16 +42,18 @@ public class RetrieveMerchantResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
 
     /**
      * Getter for Merchant.
-     * Represents a Square seller.
+     * Represents a business that sells with Square.
      * @return Returns the Merchant
      */
     @JsonGetter("merchant")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Merchant getMerchant() {
         return merchant;
     }

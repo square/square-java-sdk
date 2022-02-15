@@ -11,27 +11,16 @@ import java.util.Objects;
  * This is a model class for CatalogInfoResponseLimits type.
  */
 public class CatalogInfoResponseLimits {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchUpsertMaxObjectsPerBatch;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchUpsertMaxTotalObjects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchRetrieveMaxObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer searchMaxPageLimit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer batchDeleteMaxObjectIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxItemIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxTaxesToEnable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemTaxesMaxTaxesToDisable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxItemIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxModifierListsToEnable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer updateItemModifierListsMaxModifierListsToDisable;
 
     /**
@@ -86,6 +75,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("batch_upsert_max_objects_per_batch")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBatchUpsertMaxObjectsPerBatch() {
         return batchUpsertMaxObjectsPerBatch;
     }
@@ -97,6 +87,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("batch_upsert_max_total_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBatchUpsertMaxTotalObjects() {
         return batchUpsertMaxTotalObjects;
     }
@@ -107,6 +98,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("batch_retrieve_max_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBatchRetrieveMaxObjectIds() {
         return batchRetrieveMaxObjectIds;
     }
@@ -118,6 +110,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("search_max_page_limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getSearchMaxPageLimit() {
         return searchMaxPageLimit;
     }
@@ -129,6 +122,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("batch_delete_max_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBatchDeleteMaxObjectIds() {
         return batchDeleteMaxObjectIds;
     }
@@ -140,6 +134,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_taxes_max_item_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemTaxesMaxItemIds() {
         return updateItemTaxesMaxItemIds;
     }
@@ -151,6 +146,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_taxes_max_taxes_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemTaxesMaxTaxesToEnable() {
         return updateItemTaxesMaxTaxesToEnable;
     }
@@ -162,6 +158,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_taxes_max_taxes_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemTaxesMaxTaxesToDisable() {
         return updateItemTaxesMaxTaxesToDisable;
     }
@@ -173,6 +170,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_modifier_lists_max_item_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemModifierListsMaxItemIds() {
         return updateItemModifierListsMaxItemIds;
     }
@@ -184,6 +182,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_modifier_lists_max_modifier_lists_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemModifierListsMaxModifierListsToEnable() {
         return updateItemModifierListsMaxModifierListsToEnable;
     }
@@ -195,6 +194,7 @@ public class CatalogInfoResponseLimits {
      * @return Returns the Integer
      */
     @JsonGetter("update_item_modifier_lists_max_modifier_lists_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getUpdateItemModifierListsMaxModifierListsToDisable() {
         return updateItemModifierListsMaxModifierListsToDisable;
     }

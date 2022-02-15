@@ -12,23 +12,14 @@ import java.util.Objects;
  * This is a model class for SearchCatalogItemsRequest type.
  */
 public class SearchCatalogItemsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String textFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> categoryIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> stockLevels;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> enabledLocationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> productTypes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CustomAttributeFilter> customAttributeFilters;
 
     /**
@@ -74,6 +65,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the String
      */
     @JsonGetter("text_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTextFilter() {
         return textFilter;
     }
@@ -84,6 +76,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("category_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCategoryIds() {
         return categoryIds;
     }
@@ -96,6 +89,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("stock_levels")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getStockLevels() {
         return stockLevels;
     }
@@ -107,6 +101,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("enabled_location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getEnabledLocationIds() {
         return enabledLocationIds;
     }
@@ -118,6 +113,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -128,6 +124,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -138,6 +135,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }
@@ -149,6 +147,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("product_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getProductTypes() {
         return productTypes;
     }
@@ -162,6 +161,7 @@ public class SearchCatalogItemsRequest {
      * @return Returns the List of CustomAttributeFilter
      */
     @JsonGetter("custom_attribute_filters")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CustomAttributeFilter> getCustomAttributeFilters() {
         return customAttributeFilters;
     }

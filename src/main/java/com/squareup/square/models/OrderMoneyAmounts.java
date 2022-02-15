@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for OrderMoneyAmounts type.
  */
 public class OrderMoneyAmounts {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money taxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money discountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money tipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money serviceChargeMoney;
 
     /**
@@ -55,6 +50,7 @@ public class OrderMoneyAmounts {
      * @return Returns the Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalMoney() {
         return totalMoney;
     }
@@ -70,6 +66,7 @@ public class OrderMoneyAmounts {
      * @return Returns the Money
      */
     @JsonGetter("tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTaxMoney() {
         return taxMoney;
     }
@@ -85,6 +82,7 @@ public class OrderMoneyAmounts {
      * @return Returns the Money
      */
     @JsonGetter("discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getDiscountMoney() {
         return discountMoney;
     }
@@ -100,6 +98,7 @@ public class OrderMoneyAmounts {
      * @return Returns the Money
      */
     @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTipMoney() {
         return tipMoney;
     }
@@ -115,6 +114,7 @@ public class OrderMoneyAmounts {
      * @return Returns the Money
      */
     @JsonGetter("service_charge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getServiceChargeMoney() {
         return serviceChargeMoney;
     }

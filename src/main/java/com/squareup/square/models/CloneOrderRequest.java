@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class CloneOrderRequest {
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
 
     /**
@@ -51,6 +49,7 @@ public class CloneOrderRequest {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -65,6 +64,7 @@ public class CloneOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

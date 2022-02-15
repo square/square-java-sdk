@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveEmployeeResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Employee employee;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveEmployeeResponse {
      * @return Returns the Employee
      */
     @JsonGetter("employee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Employee getEmployee() {
         return employee;
     }
@@ -54,6 +53,7 @@ public class RetrieveEmployeeResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

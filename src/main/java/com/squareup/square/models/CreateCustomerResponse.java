@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateCustomerResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Customer customer;
 
     /**
@@ -44,6 +42,7 @@ public class CreateCustomerResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -54,6 +53,7 @@ public class CreateCustomerResponse {
      * @return Returns the Customer
      */
     @JsonGetter("customer")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Customer getCustomer() {
         return customer;
     }

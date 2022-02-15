@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for ListRefundsResponse type.
  */
 public class ListRefundsResponse {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Refund> refunds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -41,6 +38,7 @@ public class ListRefundsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -51,6 +49,7 @@ public class ListRefundsResponse {
      * @return Returns the List of Refund
      */
     @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Refund> getRefunds() {
         return refunds;
     }
@@ -64,6 +63,7 @@ public class ListRefundsResponse {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

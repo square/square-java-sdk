@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for RenewTokenRequest type.
  */
 public class RenewTokenRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
 
     /**
@@ -30,6 +29,7 @@ public class RenewTokenRequest {
      * @return Returns the String
      */
     @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccessToken() {
         return accessToken;
     }

@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for ListBookingsRequest type.
  */
 public class ListBookingsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAtMin;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAtMax;
 
     /**
@@ -55,6 +49,7 @@ public class ListBookingsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -66,6 +61,7 @@ public class ListBookingsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -77,6 +73,7 @@ public class ListBookingsRequest {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -88,6 +85,7 @@ public class ListBookingsRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -99,6 +97,7 @@ public class ListBookingsRequest {
      * @return Returns the String
      */
     @JsonGetter("start_at_min")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartAtMin() {
         return startAtMin;
     }
@@ -110,6 +109,7 @@ public class ListBookingsRequest {
      * @return Returns the String
      */
     @JsonGetter("start_at_max")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartAtMax() {
         return startAtMax;
     }

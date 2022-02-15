@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveLoyaltyAccountResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyAccount loyaltyAccount;
 
     /**
@@ -44,17 +42,20 @@ public class RetrieveLoyaltyAccountResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
 
     /**
      * Getter for LoyaltyAccount.
-     * Describes a loyalty account. For more information, see [Manage Loyalty Accounts Using the
-     * Loyalty API](https://developer.squareup.com/docs/loyalty-api/overview).
+     * Describes a loyalty account in a [loyalty program]($m/LoyaltyProgram). For more information,
+     * see [Manage Loyalty Accounts Using the Loyalty
+     * API](https://developer.squareup.com/docs/loyalty-api/overview).
      * @return Returns the LoyaltyAccount
      */
     @JsonGetter("loyalty_account")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyAccount getLoyaltyAccount() {
         return loyaltyAccount;
     }

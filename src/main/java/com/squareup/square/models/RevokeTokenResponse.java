@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,17 +15,20 @@ import java.util.Objects;
  */
 public class RevokeTokenResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean success;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
      * @param  success  Boolean value for success.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public RevokeTokenResponse(
-            @JsonProperty("success") Boolean success) {
+            @JsonProperty("success") Boolean success,
+            @JsonProperty("errors") List<Error> errors) {
         this.success = success;
+        this.errors = errors;
     }
 
     @JsonIgnore
@@ -38,13 +42,25 @@ public class RevokeTokenResponse {
      * @return Returns the Boolean
      */
     @JsonGetter("success")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSuccess() {
         return success;
     }
 
+    /**
+     * Getter for Errors.
+     * An error object that provides details about how creation of the obtain token failed.
+     * @return Returns the List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<Error> getErrors() {
+        return errors;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(success);
+        return Objects.hash(success, errors);
     }
 
     @Override
@@ -56,7 +72,8 @@ public class RevokeTokenResponse {
             return false;
         }
         RevokeTokenResponse other = (RevokeTokenResponse) obj;
-        return Objects.equals(success, other.success);
+        return Objects.equals(success, other.success)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -65,7 +82,7 @@ public class RevokeTokenResponse {
      */
     @Override
     public String toString() {
-        return "RevokeTokenResponse [" + "success=" + success + "]";
+        return "RevokeTokenResponse [" + "success=" + success + ", errors=" + errors + "]";
     }
 
     /**
@@ -75,7 +92,8 @@ public class RevokeTokenResponse {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .success(getSuccess());
+                .success(getSuccess())
+                .errors(getErrors());
         return builder;
     }
 
@@ -85,6 +103,7 @@ public class RevokeTokenResponse {
     public static class Builder {
         private HttpContext httpContext;
         private Boolean success;
+        private List<Error> errors;
 
 
 
@@ -109,12 +128,22 @@ public class RevokeTokenResponse {
         }
 
         /**
+         * Setter for errors.
+         * @param  errors  List of Error value for errors.
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RevokeTokenResponse} object using the set fields.
          * @return {@link RevokeTokenResponse}
          */
         public RevokeTokenResponse build() {
             RevokeTokenResponse model =
-                    new RevokeTokenResponse(success);
+                    new RevokeTokenResponse(success, errors);
             model.httpContext = httpContext;
             return model;
         }

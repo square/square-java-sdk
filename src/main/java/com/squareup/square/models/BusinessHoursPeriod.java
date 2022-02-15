@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for BusinessHoursPeriod type.
  */
 public class BusinessHoursPeriod {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String dayOfWeek;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startLocalTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endLocalTime;
 
     /**
@@ -40,6 +37,7 @@ public class BusinessHoursPeriod {
      * @return Returns the String
      */
     @JsonGetter("day_of_week")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDayOfWeek() {
         return dayOfWeek;
     }
@@ -52,6 +50,7 @@ public class BusinessHoursPeriod {
      * @return Returns the String
      */
     @JsonGetter("start_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartLocalTime() {
         return startLocalTime;
     }
@@ -64,6 +63,7 @@ public class BusinessHoursPeriod {
      * @return Returns the String
      */
     @JsonGetter("end_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndLocalTime() {
         return endLocalTime;
     }

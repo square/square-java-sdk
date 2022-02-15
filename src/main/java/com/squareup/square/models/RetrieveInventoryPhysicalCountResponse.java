@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveInventoryPhysicalCountResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryPhysicalCount count;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveInventoryPhysicalCountResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -57,6 +56,7 @@ public class RetrieveInventoryPhysicalCountResponse {
      * @return Returns the InventoryPhysicalCount
      */
     @JsonGetter("count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryPhysicalCount getCount() {
         return count;
     }

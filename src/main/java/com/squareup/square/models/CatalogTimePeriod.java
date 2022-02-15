@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CatalogTimePeriod type.
  */
 public class CatalogTimePeriod {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String event;
 
     /**
@@ -35,6 +34,7 @@ public class CatalogTimePeriod {
      * @return Returns the String
      */
     @JsonGetter("event")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvent() {
         return event;
     }

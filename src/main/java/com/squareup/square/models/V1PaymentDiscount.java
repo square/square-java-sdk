@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for V1PaymentDiscount type.
  */
 public class V1PaymentDiscount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money appliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String discountId;
 
     /**
@@ -40,6 +37,7 @@ public class V1PaymentDiscount {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -49,6 +47,7 @@ public class V1PaymentDiscount {
      * @return Returns the V1Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getAppliedMoney() {
         return appliedMoney;
     }
@@ -60,6 +59,7 @@ public class V1PaymentDiscount {
      * @return Returns the String
      */
     @JsonGetter("discount_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiscountId() {
         return discountId;
     }

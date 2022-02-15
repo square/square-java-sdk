@@ -11,21 +11,14 @@ import java.util.Objects;
  * This is a model class for LoyaltyReward type.
  */
 public class LoyaltyReward {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
     private final String loyaltyAccountId;
     private final String rewardTierId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redeemedAt;
 
     /**
@@ -68,6 +61,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -78,6 +72,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -110,6 +105,7 @@ public class LoyaltyReward {
      * @return Returns the Integer
      */
     @JsonGetter("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPoints() {
         return points;
     }
@@ -120,6 +116,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -130,6 +127,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -140,6 +138,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -150,6 +149,7 @@ public class LoyaltyReward {
      * @return Returns the String
      */
     @JsonGetter("redeemed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRedeemedAt() {
         return redeemedAt;
     }

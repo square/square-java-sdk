@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for StandardUnitDescriptionGroup type.
  */
 public class StandardUnitDescriptionGroup {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<StandardUnitDescription> standardUnitDescriptions;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
 
     /**
@@ -37,6 +35,7 @@ public class StandardUnitDescriptionGroup {
      * @return Returns the List of StandardUnitDescription
      */
     @JsonGetter("standard_unit_descriptions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<StandardUnitDescription> getStandardUnitDescriptions() {
         return standardUnitDescriptions;
     }
@@ -47,6 +46,7 @@ public class StandardUnitDescriptionGroup {
      * @return Returns the String
      */
     @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLanguageCode() {
         return languageCode;
     }

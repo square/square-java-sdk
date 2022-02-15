@@ -11,24 +11,16 @@ import java.util.Objects;
  * This is a model class for CreateSubscriptionRequest type.
  */
 public class CreateSubscriptionRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final String locationId;
     private final String planId;
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String taxPercentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money priceOverrideMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SubscriptionSource source;
 
     /**
@@ -80,6 +72,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }
@@ -124,6 +117,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("start_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartDate() {
         return startDate;
     }
@@ -141,6 +135,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("canceled_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledDate() {
         return canceledDate;
     }
@@ -153,6 +148,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("tax_percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTaxPercentage() {
         return taxPercentage;
     }
@@ -168,6 +164,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the Money
      */
     @JsonGetter("price_override_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getPriceOverrideMoney() {
         return priceOverrideMoney;
     }
@@ -181,6 +178,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardId() {
         return cardId;
     }
@@ -195,6 +193,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the String
      */
     @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimezone() {
         return timezone;
     }
@@ -205,6 +204,7 @@ public class CreateSubscriptionRequest {
      * @return Returns the SubscriptionSource
      */
     @JsonGetter("source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SubscriptionSource getSource() {
         return source;
     }

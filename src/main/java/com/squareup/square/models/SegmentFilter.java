@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class SegmentFilter {
     private final String serviceVariationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final FilterValue teamMemberIdFilter;
 
     /**
@@ -47,6 +46,7 @@ public class SegmentFilter {
      * @return Returns the FilterValue
      */
     @JsonGetter("team_member_id_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public FilterValue getTeamMemberIdFilter() {
         return teamMemberIdFilter;
     }

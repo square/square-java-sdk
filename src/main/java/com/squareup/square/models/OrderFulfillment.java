@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -12,17 +13,13 @@ import java.util.Objects;
  * This is a model class for OrderFulfillment type.
  */
 public class OrderFulfillment {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String lineItemApplication;
+    private final List<OrderFulfillmentFulfillmentEntry> entries;
     private final Map<String, String> metadata;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentPickupDetails pickupDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentShipmentDetails shipmentDetails;
 
     /**
@@ -30,6 +27,8 @@ public class OrderFulfillment {
      * @param  uid  String value for uid.
      * @param  type  String value for type.
      * @param  state  String value for state.
+     * @param  lineItemApplication  String value for lineItemApplication.
+     * @param  entries  List of OrderFulfillmentFulfillmentEntry value for entries.
      * @param  metadata  Map of String, value for metadata.
      * @param  pickupDetails  OrderFulfillmentPickupDetails value for pickupDetails.
      * @param  shipmentDetails  OrderFulfillmentShipmentDetails value for shipmentDetails.
@@ -39,12 +38,16 @@ public class OrderFulfillment {
             @JsonProperty("uid") String uid,
             @JsonProperty("type") String type,
             @JsonProperty("state") String state,
+            @JsonProperty("line_item_application") String lineItemApplication,
+            @JsonProperty("entries") List<OrderFulfillmentFulfillmentEntry> entries,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("pickup_details") OrderFulfillmentPickupDetails pickupDetails,
             @JsonProperty("shipment_details") OrderFulfillmentShipmentDetails shipmentDetails) {
         this.uid = uid;
         this.type = type;
         this.state = state;
+        this.lineItemApplication = lineItemApplication;
+        this.entries = entries;
         this.metadata = metadata;
         this.pickupDetails = pickupDetails;
         this.shipmentDetails = shipmentDetails;
@@ -56,6 +59,7 @@ public class OrderFulfillment {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -66,6 +70,7 @@ public class OrderFulfillment {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -76,8 +81,38 @@ public class OrderFulfillment {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
+    }
+
+    /**
+     * Getter for LineItemApplication.
+     * The `line_item_application` describes what order line items this fulfillment applies to. It
+     * can be `ALL` or `ENTRY_LIST` with a supplied list of fulfillment entries.
+     * @return Returns the String
+     */
+    @JsonGetter("line_item_application")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLineItemApplication() {
+        return lineItemApplication;
+    }
+
+    /**
+     * Getter for Entries.
+     * A list of entries pertaining to the fulfillment of an order. Each entry must reference a
+     * valid `uid` for an order line item in the `line_item_uid` field, as well as a `quantity` to
+     * fulfill. Multiple entries can reference the same line item `uid`, as long as the total
+     * quantity among all fulfillment entries referencing a single line item does not exceed the
+     * quantity of the order's line item itself. An order cannot be marked as `COMPLETED` before all
+     * fulfillments are `COMPLETED`, `CANCELED`, or `FAILED`. Fulfillments can be created and
+     * completed independently before order completion.
+     * @return Returns the List of OrderFulfillmentFulfillmentEntry
+     */
+    @JsonGetter("entries")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<OrderFulfillmentFulfillmentEntry> getEntries() {
+        return entries;
     }
 
     /**
@@ -96,6 +131,7 @@ public class OrderFulfillment {
      * @return Returns the Map of String, String
      */
     @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, String> getMetadata() {
         return metadata;
     }
@@ -106,6 +142,7 @@ public class OrderFulfillment {
      * @return Returns the OrderFulfillmentPickupDetails
      */
     @JsonGetter("pickup_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentPickupDetails getPickupDetails() {
         return pickupDetails;
     }
@@ -116,13 +153,15 @@ public class OrderFulfillment {
      * @return Returns the OrderFulfillmentShipmentDetails
      */
     @JsonGetter("shipment_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentShipmentDetails getShipmentDetails() {
         return shipmentDetails;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, type, state, metadata, pickupDetails, shipmentDetails);
+        return Objects.hash(uid, type, state, lineItemApplication, entries, metadata, pickupDetails,
+                shipmentDetails);
     }
 
     @Override
@@ -137,6 +176,8 @@ public class OrderFulfillment {
         return Objects.equals(uid, other.uid)
             && Objects.equals(type, other.type)
             && Objects.equals(state, other.state)
+            && Objects.equals(lineItemApplication, other.lineItemApplication)
+            && Objects.equals(entries, other.entries)
             && Objects.equals(metadata, other.metadata)
             && Objects.equals(pickupDetails, other.pickupDetails)
             && Objects.equals(shipmentDetails, other.shipmentDetails);
@@ -149,6 +190,7 @@ public class OrderFulfillment {
     @Override
     public String toString() {
         return "OrderFulfillment [" + "uid=" + uid + ", type=" + type + ", state=" + state
+                + ", lineItemApplication=" + lineItemApplication + ", entries=" + entries
                 + ", metadata=" + metadata + ", pickupDetails=" + pickupDetails
                 + ", shipmentDetails=" + shipmentDetails + "]";
     }
@@ -163,6 +205,8 @@ public class OrderFulfillment {
                 .uid(getUid())
                 .type(getType())
                 .state(getState())
+                .lineItemApplication(getLineItemApplication())
+                .entries(getEntries())
                 .metadata(getMetadata())
                 .pickupDetails(getPickupDetails())
                 .shipmentDetails(getShipmentDetails());
@@ -176,6 +220,8 @@ public class OrderFulfillment {
         private String uid;
         private String type;
         private String state;
+        private String lineItemApplication;
+        private List<OrderFulfillmentFulfillmentEntry> entries;
         private Map<String, String> metadata;
         private OrderFulfillmentPickupDetails pickupDetails;
         private OrderFulfillmentShipmentDetails shipmentDetails;
@@ -209,6 +255,26 @@ public class OrderFulfillment {
          */
         public Builder state(String state) {
             this.state = state;
+            return this;
+        }
+
+        /**
+         * Setter for lineItemApplication.
+         * @param  lineItemApplication  String value for lineItemApplication.
+         * @return Builder
+         */
+        public Builder lineItemApplication(String lineItemApplication) {
+            this.lineItemApplication = lineItemApplication;
+            return this;
+        }
+
+        /**
+         * Setter for entries.
+         * @param  entries  List of OrderFulfillmentFulfillmentEntry value for entries.
+         * @return Builder
+         */
+        public Builder entries(List<OrderFulfillmentFulfillmentEntry> entries) {
+            this.entries = entries;
             return this;
         }
 
@@ -247,7 +313,8 @@ public class OrderFulfillment {
          * @return {@link OrderFulfillment}
          */
         public OrderFulfillment build() {
-            return new OrderFulfillment(uid, type, state, metadata, pickupDetails, shipmentDetails);
+            return new OrderFulfillment(uid, type, state, lineItemApplication, entries, metadata,
+                    pickupDetails, shipmentDetails);
         }
     }
 }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchCustomersRequest type.
  */
 public class SearchCustomersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerQuery query;
 
     /**
@@ -42,6 +39,7 @@ public class SearchCustomersRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -55,6 +53,7 @@ public class SearchCustomersRequest {
      * @return Returns the Long
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getLimit() {
         return limit;
     }
@@ -66,6 +65,7 @@ public class SearchCustomersRequest {
      * @return Returns the CustomerQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerQuery getQuery() {
         return query;
     }

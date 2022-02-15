@@ -11,21 +11,13 @@ import java.util.Objects;
  * This is a model class for Address type.
  */
 public class Address {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine1;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine2;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String addressLine3;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locality;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sublocality;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String administrativeDistrictLevel1;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String postalCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
 
     /**
@@ -68,6 +60,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("address_line_1")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAddressLine1() {
         return addressLine1;
     }
@@ -78,6 +71,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("address_line_2")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAddressLine2() {
         return addressLine2;
     }
@@ -88,6 +82,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("address_line_3")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAddressLine3() {
         return addressLine3;
     }
@@ -99,6 +94,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("locality")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocality() {
         return locality;
     }
@@ -109,6 +105,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("sublocality")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSublocality() {
         return sublocality;
     }
@@ -121,6 +118,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("administrative_district_level_1")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAdministrativeDistrictLevel1() {
         return administrativeDistrictLevel1;
     }
@@ -132,6 +130,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("postal_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPostalCode() {
         return postalCode;
     }
@@ -143,6 +142,7 @@ public class Address {
      * @return Returns the String
      */
     @JsonGetter("country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCountry() {
         return country;
     }

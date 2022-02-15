@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for BusinessHours type.
  */
 public class BusinessHours {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<BusinessHoursPeriod> periods;
 
     /**
@@ -32,6 +31,7 @@ public class BusinessHours {
      * @return Returns the List of BusinessHoursPeriod
      */
     @JsonGetter("periods")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<BusinessHoursPeriod> getPeriods() {
         return periods;
     }

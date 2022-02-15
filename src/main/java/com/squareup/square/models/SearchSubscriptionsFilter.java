@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsFilter type.
  */
 public class SearchSubscriptionsFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> sourceNames;
 
     /**
@@ -41,6 +38,7 @@ public class SearchSubscriptionsFilter {
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCustomerIds() {
         return customerIds;
     }
@@ -51,6 +49,7 @@ public class SearchSubscriptionsFilter {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -61,6 +60,7 @@ public class SearchSubscriptionsFilter {
      * @return Returns the List of String
      */
     @JsonGetter("source_names")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getSourceNames() {
         return sourceNames;
     }

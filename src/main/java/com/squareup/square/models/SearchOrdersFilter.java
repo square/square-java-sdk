@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for SearchOrdersFilter type.
  */
 public class SearchOrdersFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersStateFilter stateFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersDateTimeFilter dateTimeFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersFulfillmentFilter fulfillmentFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersSourceFilter sourceFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersCustomerFilter customerFilter;
 
     /**
@@ -50,6 +45,7 @@ public class SearchOrdersFilter {
      * @return Returns the SearchOrdersStateFilter
      */
     @JsonGetter("state_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersStateFilter getStateFilter() {
         return stateFilter;
     }
@@ -69,6 +65,7 @@ public class SearchOrdersFilter {
      * @return Returns the SearchOrdersDateTimeFilter
      */
     @JsonGetter("date_time_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersDateTimeFilter getDateTimeFilter() {
         return dateTimeFilter;
     }
@@ -79,6 +76,7 @@ public class SearchOrdersFilter {
      * @return Returns the SearchOrdersFulfillmentFilter
      */
     @JsonGetter("fulfillment_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersFulfillmentFilter getFulfillmentFilter() {
         return fulfillmentFilter;
     }
@@ -89,6 +87,7 @@ public class SearchOrdersFilter {
      * @return Returns the SearchOrdersSourceFilter
      */
     @JsonGetter("source_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersSourceFilter getSourceFilter() {
         return sourceFilter;
     }
@@ -101,6 +100,7 @@ public class SearchOrdersFilter {
      * @return Returns the SearchOrdersCustomerFilter
      */
     @JsonGetter("customer_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersCustomerFilter getCustomerFilter() {
         return customerFilter;
     }

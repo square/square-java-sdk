@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for TerminalCheckoutQuery type.
  */
 public class TerminalCheckoutQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQueryFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalCheckoutQuerySort sort;
 
     /**
@@ -34,6 +32,7 @@ public class TerminalCheckoutQuery {
      * @return Returns the TerminalCheckoutQueryFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalCheckoutQueryFilter getFilter() {
         return filter;
     }
@@ -43,6 +42,7 @@ public class TerminalCheckoutQuery {
      * @return Returns the TerminalCheckoutQuerySort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalCheckoutQuerySort getSort() {
         return sort;
     }

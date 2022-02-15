@@ -12,21 +12,13 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeValue type.
  */
 public class CatalogCustomAttributeValue {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String stringValue;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customAttributeDefinitionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String numberValue;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean booleanValue;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> selectionUidValues;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
 
     /**
@@ -66,6 +58,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -76,6 +69,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("string_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStringValue() {
         return stringValue;
     }
@@ -88,6 +82,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomAttributeDefinitionId() {
         return customAttributeDefinitionId;
     }
@@ -98,6 +93,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -109,6 +105,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("number_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNumberValue() {
         return numberValue;
     }
@@ -119,6 +116,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the Boolean
      */
     @JsonGetter("boolean_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getBooleanValue() {
         return booleanValue;
     }
@@ -129,6 +127,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the List of String
      */
     @JsonGetter("selection_uid_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getSelectionUidValues() {
         return selectionUidValues;
     }
@@ -139,6 +138,7 @@ public class CatalogCustomAttributeValue {
      * @return Returns the String
      */
     @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getKey() {
         return key;
     }

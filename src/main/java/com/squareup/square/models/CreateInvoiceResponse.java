@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateInvoiceResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Invoice invoice;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -46,6 +44,7 @@ public class CreateInvoiceResponse {
      * @return Returns the Invoice
      */
     @JsonGetter("invoice")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Invoice getInvoice() {
         return invoice;
     }
@@ -56,6 +55,7 @@ public class CreateInvoiceResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

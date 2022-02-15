@@ -15,41 +15,23 @@ import java.util.Objects;
  */
 public class V1Refund {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedProcessingFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedAdditiveTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> refundedAdditiveTax;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedInclusiveTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentTax> refundedInclusiveTax;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedTipMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedDiscountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money refundedSurchargeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1PaymentSurcharge> refundedSurcharges;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String processedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isExchange;
 
     /**
@@ -123,6 +105,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -133,6 +116,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -142,6 +126,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedMoney() {
         return refundedMoney;
     }
@@ -151,6 +136,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_processing_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedProcessingFeeMoney() {
         return refundedProcessingFeeMoney;
     }
@@ -160,6 +146,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedTaxMoney() {
         return refundedTaxMoney;
     }
@@ -169,6 +156,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_additive_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedAdditiveTaxMoney() {
         return refundedAdditiveTaxMoney;
     }
@@ -179,6 +167,7 @@ public class V1Refund {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("refunded_additive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getRefundedAdditiveTax() {
         return refundedAdditiveTax;
     }
@@ -188,6 +177,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_inclusive_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedInclusiveTaxMoney() {
         return refundedInclusiveTaxMoney;
     }
@@ -198,6 +188,7 @@ public class V1Refund {
      * @return Returns the List of V1PaymentTax
      */
     @JsonGetter("refunded_inclusive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentTax> getRefundedInclusiveTax() {
         return refundedInclusiveTax;
     }
@@ -207,6 +198,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedTipMoney() {
         return refundedTipMoney;
     }
@@ -216,6 +208,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedDiscountMoney() {
         return refundedDiscountMoney;
     }
@@ -225,6 +218,7 @@ public class V1Refund {
      * @return Returns the V1Money
      */
     @JsonGetter("refunded_surcharge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getRefundedSurchargeMoney() {
         return refundedSurchargeMoney;
     }
@@ -235,6 +229,7 @@ public class V1Refund {
      * @return Returns the List of V1PaymentSurcharge
      */
     @JsonGetter("refunded_surcharges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1PaymentSurcharge> getRefundedSurcharges() {
         return refundedSurcharges;
     }
@@ -245,6 +240,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -255,6 +251,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("processed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProcessedAt() {
         return processedAt;
     }
@@ -268,6 +265,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -277,6 +275,7 @@ public class V1Refund {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -288,6 +287,7 @@ public class V1Refund {
      * @return Returns the Boolean
      */
     @JsonGetter("is_exchange")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsExchange() {
         return isExchange;
     }

@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class CashPaymentDetails {
     private final Money buyerSuppliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money changeBackMoney;
 
     /**
@@ -54,6 +53,7 @@ public class CashPaymentDetails {
      * @return Returns the Money
      */
     @JsonGetter("change_back_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getChangeBackMoney() {
         return changeBackMoney;
     }

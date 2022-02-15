@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfig type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfig {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer maxAllowedSelections;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
 
     /**
@@ -41,6 +39,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * @return Returns the Integer
      */
     @JsonGetter("max_allowed_selections")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getMaxAllowedSelections() {
         return maxAllowedSelections;
     }
@@ -52,6 +51,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * @return Returns the List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection
      */
     @JsonGetter("allowed_selections")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> getAllowedSelections() {
         return allowedSelections;
     }

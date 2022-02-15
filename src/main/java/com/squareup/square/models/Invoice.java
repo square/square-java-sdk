@@ -12,49 +12,27 @@ import java.util.Objects;
  * This is a model class for Invoice type.
  */
 public class Invoice {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceRecipient primaryRecipient;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoicePaymentRequest> paymentRequests;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deliveryMethod;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String invoiceNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scheduledAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String publicUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money nextPaymentAmountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String timezone;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceAcceptedPaymentMethods acceptedPaymentMethods;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<InvoiceCustomField> customFields;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String saleOrServiceDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentConditions;
 
     /**
@@ -137,6 +115,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -148,6 +127,7 @@ public class Invoice {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -159,6 +139,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -172,6 +153,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -187,6 +169,7 @@ public class Invoice {
      * @return Returns the InvoiceRecipient
      */
     @JsonGetter("primary_recipient")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceRecipient getPrimaryRecipient() {
         return primaryRecipient;
     }
@@ -205,6 +188,7 @@ public class Invoice {
      * @return Returns the List of InvoicePaymentRequest
      */
     @JsonGetter("payment_requests")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<InvoicePaymentRequest> getPaymentRequests() {
         return paymentRequests;
     }
@@ -215,6 +199,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("delivery_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeliveryMethod() {
         return deliveryMethod;
     }
@@ -228,6 +213,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("invoice_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -238,6 +224,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTitle() {
         return title;
     }
@@ -248,6 +235,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -261,6 +249,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("scheduled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getScheduledAt() {
         return scheduledAt;
     }
@@ -273,6 +262,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("public_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPublicUrl() {
         return publicUrl;
     }
@@ -288,6 +278,7 @@ public class Invoice {
      * @return Returns the Money
      */
     @JsonGetter("next_payment_amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getNextPaymentAmountMoney() {
         return nextPaymentAmountMoney;
     }
@@ -298,6 +289,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -312,6 +304,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTimezone() {
         return timezone;
     }
@@ -322,6 +315,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -332,6 +326,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -343,6 +338,7 @@ public class Invoice {
      * @return Returns the InvoiceAcceptedPaymentMethods
      */
     @JsonGetter("accepted_payment_methods")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceAcceptedPaymentMethods getAcceptedPaymentMethods() {
         return acceptedPaymentMethods;
     }
@@ -357,6 +353,7 @@ public class Invoice {
      * @return Returns the List of InvoiceCustomField
      */
     @JsonGetter("custom_fields")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<InvoiceCustomField> getCustomFields() {
         return customFields;
     }
@@ -368,6 +365,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("subscription_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSubscriptionId() {
         return subscriptionId;
     }
@@ -379,6 +377,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("sale_or_service_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSaleOrServiceDate() {
         return saleOrServiceDate;
     }
@@ -394,6 +393,7 @@ public class Invoice {
      * @return Returns the String
      */
     @JsonGetter("payment_conditions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentConditions() {
         return paymentConditions;
     }

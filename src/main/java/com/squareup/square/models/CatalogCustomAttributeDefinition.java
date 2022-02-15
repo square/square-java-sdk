@@ -14,24 +14,15 @@ import java.util.Objects;
 public class CatalogCustomAttributeDefinition {
     private final String type;
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SourceApplication sourceApplication;
     private final List<String> allowedObjectTypes;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sellerVisibility;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String appVisibility;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionStringConfig stringConfig;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer customAttributeUsageCount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String key;
 
     /**
@@ -107,6 +98,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -117,6 +109,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the SourceApplication
      */
     @JsonGetter("source_application")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SourceApplication getSourceApplication() {
         return sourceApplication;
     }
@@ -140,6 +133,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the String
      */
     @JsonGetter("seller_visibility")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSellerVisibility() {
         return sellerVisibility;
     }
@@ -151,6 +145,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the String
      */
     @JsonGetter("app_visibility")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppVisibility() {
         return appVisibility;
     }
@@ -161,6 +156,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the CatalogCustomAttributeDefinitionStringConfig
      */
     @JsonGetter("string_config")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogCustomAttributeDefinitionStringConfig getStringConfig() {
         return stringConfig;
     }
@@ -170,6 +166,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the CatalogCustomAttributeDefinitionNumberConfig
      */
     @JsonGetter("number_config")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogCustomAttributeDefinitionNumberConfig getNumberConfig() {
         return numberConfig;
     }
@@ -180,6 +177,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the CatalogCustomAttributeDefinitionSelectionConfig
      */
     @JsonGetter("selection_config")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogCustomAttributeDefinitionSelectionConfig getSelectionConfig() {
         return selectionConfig;
     }
@@ -193,6 +191,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the Integer
      */
     @JsonGetter("custom_attribute_usage_count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getCustomAttributeUsageCount() {
         return customAttributeUsageCount;
     }
@@ -206,6 +205,7 @@ public class CatalogCustomAttributeDefinition {
      * @return Returns the String
      */
     @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getKey() {
         return key;
     }

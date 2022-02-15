@@ -543,13 +543,13 @@ CatalogObject bodyBatches0Objects3 = new CatalogObject.Builder(
 bodyBatches0Objects.add(bodyBatches0Objects3);
 
 CatalogObjectBatch bodyBatches0 = new CatalogObjectBatch.Builder(
-        bodyBatches0Objects)
+        objects)
     .build();
 bodyBatches.add(bodyBatches0);
 
 BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Builder(
         "789ff020-f723-43a9-b4b5-43b5dc1fa3dc",
-        bodyBatches)
+        batches)
     .build();
 
 catalogApi.batchUpsertCatalogObjectsAsync(body).thenAccept(result -> {
@@ -626,7 +626,7 @@ CatalogObject catalogObject = new CatalogObject.Builder(
     .build();
 CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
         "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
-        requestImage)
+        image)
     .objectId("ND6EA5AAJEO5WL3JNNIAQA32")
     .isPrimary(false)
     .build();
@@ -956,7 +956,7 @@ CatalogObject catalogObject = new CatalogObject.Builder(
     .build();
 UpsertCatalogObjectRequest body = new UpsertCatalogObjectRequest.Builder(
         "af3d1afc-7212-4300-b463-0bfc5314a5ae",
-        bodyObject)
+        object)
     .build();
 
 catalogApi.upsertCatalogObjectAsync(body).thenAccept(result -> {

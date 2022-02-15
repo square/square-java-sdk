@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CreateCustomerGroupRequest type.
  */
 public class CreateCustomerGroupRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final CustomerGroup group;
 
@@ -35,6 +34,7 @@ public class CreateCustomerGroupRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

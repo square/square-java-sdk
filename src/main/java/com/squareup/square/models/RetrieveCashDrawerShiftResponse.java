@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveCashDrawerShiftResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CashDrawerShift cashDrawerShift;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -46,6 +44,7 @@ public class RetrieveCashDrawerShiftResponse {
      * @return Returns the CashDrawerShift
      */
     @JsonGetter("cash_drawer_shift")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CashDrawerShift getCashDrawerShift() {
         return cashDrawerShift;
     }
@@ -56,6 +55,7 @@ public class RetrieveCashDrawerShiftResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

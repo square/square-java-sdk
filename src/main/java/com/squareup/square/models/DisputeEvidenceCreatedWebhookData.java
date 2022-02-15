@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for DisputeEvidenceCreatedWebhookData type.
  */
 public class DisputeEvidenceCreatedWebhookData {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DisputeEvidenceCreatedWebhookObject object;
 
     /**
@@ -40,6 +37,7 @@ public class DisputeEvidenceCreatedWebhookData {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -50,6 +48,7 @@ public class DisputeEvidenceCreatedWebhookData {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -59,6 +58,7 @@ public class DisputeEvidenceCreatedWebhookData {
      * @return Returns the DisputeEvidenceCreatedWebhookObject
      */
     @JsonGetter("object")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public DisputeEvidenceCreatedWebhookObject getObject() {
         return object;
     }

@@ -15,55 +15,30 @@ import java.util.Objects;
 public class CatalogObject {
     private final String type;
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isDeleted;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Map<String, CatalogCustomAttributeValue> customAttributeValues;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogV1Id> catalogV1Ids;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean presentAtAllLocations;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> presentAtLocationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> absentAtLocationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItem itemData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCategory categoryData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemVariation itemVariationData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogTax taxData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogDiscount discountData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogModifierList modifierListData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogModifier modifierData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogTimePeriod timePeriodData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogProductSet productSetData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogPricingRule pricingRuleData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogImage imageData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogMeasurementUnit measurementUnitData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogSubscriptionPlan subscriptionPlanData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemOption itemOptionData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogItemOptionValue itemOptionValueData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogQuickAmountsSettings quickAmountsSettingsData;
 
     /**
@@ -190,6 +165,7 @@ public class CatalogObject {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -201,6 +177,7 @@ public class CatalogObject {
      * @return Returns the Long
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getVersion() {
         return version;
     }
@@ -212,6 +189,7 @@ public class CatalogObject {
      * @return Returns the Boolean
      */
     @JsonGetter("is_deleted")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsDeleted() {
         return isDeleted;
     }
@@ -236,6 +214,7 @@ public class CatalogObject {
      * @return Returns the Map of String, CatalogCustomAttributeValue
      */
     @JsonGetter("custom_attribute_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, CatalogCustomAttributeValue> getCustomAttributeValues() {
         return customAttributeValues;
     }
@@ -248,6 +227,7 @@ public class CatalogObject {
      * @return Returns the List of CatalogV1Id
      */
     @JsonGetter("catalog_v1_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogV1Id> getCatalogV1Ids() {
         return catalogV1Ids;
     }
@@ -261,6 +241,7 @@ public class CatalogObject {
      * @return Returns the Boolean
      */
     @JsonGetter("present_at_all_locations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getPresentAtAllLocations() {
         return presentAtAllLocations;
     }
@@ -272,6 +253,7 @@ public class CatalogObject {
      * @return Returns the List of String
      */
     @JsonGetter("present_at_location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getPresentAtLocationIds() {
         return presentAtLocationIds;
     }
@@ -283,6 +265,7 @@ public class CatalogObject {
      * @return Returns the List of String
      */
     @JsonGetter("absent_at_location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getAbsentAtLocationIds() {
         return absentAtLocationIds;
     }
@@ -294,6 +277,7 @@ public class CatalogObject {
      * @return Returns the CatalogItem
      */
     @JsonGetter("item_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogItem getItemData() {
         return itemData;
     }
@@ -304,6 +288,7 @@ public class CatalogObject {
      * @return Returns the CatalogCategory
      */
     @JsonGetter("category_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogCategory getCategoryData() {
         return categoryData;
     }
@@ -315,6 +300,7 @@ public class CatalogObject {
      * @return Returns the CatalogItemVariation
      */
     @JsonGetter("item_variation_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogItemVariation getItemVariationData() {
         return itemVariationData;
     }
@@ -325,6 +311,7 @@ public class CatalogObject {
      * @return Returns the CatalogTax
      */
     @JsonGetter("tax_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogTax getTaxData() {
         return taxData;
     }
@@ -335,6 +322,7 @@ public class CatalogObject {
      * @return Returns the CatalogDiscount
      */
     @JsonGetter("discount_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogDiscount getDiscountData() {
         return discountData;
     }
@@ -348,6 +336,7 @@ public class CatalogObject {
      * @return Returns the CatalogModifierList
      */
     @JsonGetter("modifier_list_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogModifierList getModifierListData() {
         return modifierListData;
     }
@@ -358,6 +347,7 @@ public class CatalogObject {
      * @return Returns the CatalogModifier
      */
     @JsonGetter("modifier_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogModifier getModifierData() {
         return modifierData;
     }
@@ -368,6 +358,7 @@ public class CatalogObject {
      * @return Returns the CatalogTimePeriod
      */
     @JsonGetter("time_period_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogTimePeriod getTimePeriodData() {
         return timePeriodData;
     }
@@ -381,6 +372,7 @@ public class CatalogObject {
      * @return Returns the CatalogProductSet
      */
     @JsonGetter("product_set_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogProductSet getProductSetData() {
         return productSetData;
     }
@@ -392,6 +384,7 @@ public class CatalogObject {
      * @return Returns the CatalogPricingRule
      */
     @JsonGetter("pricing_rule_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogPricingRule getPricingRuleData() {
         return pricingRuleData;
     }
@@ -407,6 +400,7 @@ public class CatalogObject {
      * @return Returns the CatalogImage
      */
     @JsonGetter("image_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogImage getImageData() {
         return imageData;
     }
@@ -418,6 +412,7 @@ public class CatalogObject {
      * @return Returns the CatalogMeasurementUnit
      */
     @JsonGetter("measurement_unit_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogMeasurementUnit getMeasurementUnitData() {
         return measurementUnitData;
     }
@@ -429,6 +424,7 @@ public class CatalogObject {
      * @return Returns the CatalogSubscriptionPlan
      */
     @JsonGetter("subscription_plan_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogSubscriptionPlan getSubscriptionPlanData() {
         return subscriptionPlanData;
     }
@@ -439,6 +435,7 @@ public class CatalogObject {
      * @return Returns the CatalogItemOption
      */
     @JsonGetter("item_option_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogItemOption getItemOptionData() {
         return itemOptionData;
     }
@@ -450,6 +447,7 @@ public class CatalogObject {
      * @return Returns the CatalogItemOptionValue
      */
     @JsonGetter("item_option_value_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogItemOptionValue getItemOptionValueData() {
         return itemOptionValueData;
     }
@@ -464,6 +462,7 @@ public class CatalogObject {
      * @return Returns the CatalogCustomAttributeDefinition
      */
     @JsonGetter("custom_attribute_definition_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogCustomAttributeDefinition getCustomAttributeDefinitionData() {
         return customAttributeDefinitionData;
     }
@@ -475,6 +474,7 @@ public class CatalogObject {
      * @return Returns the CatalogQuickAmountsSettings
      */
     @JsonGetter("quick_amounts_settings_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogQuickAmountsSettings getQuickAmountsSettingsData() {
         return quickAmountsSettingsData;
     }

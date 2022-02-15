@@ -12,13 +12,9 @@ import java.util.Objects;
  */
 public class V1UpdateOrderRequest {
     private final String action;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String shippedTrackingNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String completedNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundedNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledNote;
 
     /**
@@ -59,6 +55,7 @@ public class V1UpdateOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("shipped_tracking_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getShippedTrackingNumber() {
         return shippedTrackingNumber;
     }
@@ -70,6 +67,7 @@ public class V1UpdateOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("completed_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCompletedNote() {
         return completedNote;
     }
@@ -80,6 +78,7 @@ public class V1UpdateOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("refunded_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefundedNote() {
         return refundedNote;
     }
@@ -90,6 +89,7 @@ public class V1UpdateOrderRequest {
      * @return Returns the String
      */
     @JsonGetter("canceled_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledNote() {
         return canceledNote;
     }

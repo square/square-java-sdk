@@ -14,23 +14,15 @@ public class LoyaltyEvent {
     private final String id;
     private final String type;
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventAccumulatePoints accumulatePoints;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventCreateReward createReward;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventRedeemReward redeemReward;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventDeleteReward deleteReward;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventAdjustPoints adjustPoints;
     private final String loyaltyAccountId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final String source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventExpirePoints expirePoints;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventOther otherEvent;
 
     /**
@@ -115,6 +107,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventAccumulatePoints
      */
     @JsonGetter("accumulate_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventAccumulatePoints getAccumulatePoints() {
         return accumulatePoints;
     }
@@ -125,6 +118,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventCreateReward
      */
     @JsonGetter("create_reward")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventCreateReward getCreateReward() {
         return createReward;
     }
@@ -135,6 +129,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventRedeemReward
      */
     @JsonGetter("redeem_reward")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventRedeemReward getRedeemReward() {
         return redeemReward;
     }
@@ -145,6 +140,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventDeleteReward
      */
     @JsonGetter("delete_reward")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventDeleteReward getDeleteReward() {
         return deleteReward;
     }
@@ -155,6 +151,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventAdjustPoints
      */
     @JsonGetter("adjust_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventAdjustPoints getAdjustPoints() {
         return adjustPoints;
     }
@@ -175,6 +172,7 @@ public class LoyaltyEvent {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -195,6 +193,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventExpirePoints
      */
     @JsonGetter("expire_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventExpirePoints getExpirePoints() {
         return expirePoints;
     }
@@ -205,6 +204,7 @@ public class LoyaltyEvent {
      * @return Returns the LoyaltyEventOther
      */
     @JsonGetter("other_event")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventOther getOtherEvent() {
         return otherEvent;
     }

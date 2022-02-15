@@ -11,13 +11,10 @@ import java.util.Objects;
  * This is a model class for SubscriptionPhase type.
  */
 public class SubscriptionPhase {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String cadence;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer periods;
     private final Money recurringPriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long ordinal;
 
     /**
@@ -49,6 +46,7 @@ public class SubscriptionPhase {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -70,6 +68,7 @@ public class SubscriptionPhase {
      * @return Returns the Integer
      */
     @JsonGetter("periods")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPeriods() {
         return periods;
     }
@@ -96,6 +95,7 @@ public class SubscriptionPhase {
      * @return Returns the Long
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getOrdinal() {
         return ordinal;
     }

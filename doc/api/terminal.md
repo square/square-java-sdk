@@ -64,8 +64,8 @@ DeviceCheckoutOptions deviceCheckoutOptions = new DeviceCheckoutOptions.Builder(
     .tipSettings(deviceCheckoutOptionsTipSettings)
     .build();
 TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
-        terminalCheckoutAmountMoney,
-        terminalCheckoutDeviceOptions)
+        amountMoney,
+        deviceOptions)
     .id("id8")
     .referenceId("id11572")
     .note("A brief note")
@@ -74,7 +74,7 @@ TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
     .build();
 CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
         "28a0c3bc-7839-11ea-bc55-0242ac130003",
-        bodyCheckout)
+        checkout)
     .build();
 
 terminalApi.createTerminalCheckoutAsync(body).thenAccept(result -> {
@@ -233,7 +233,7 @@ Money money = new Money.Builder()
     .build();
 TerminalRefund terminalRefund = new TerminalRefund.Builder(
         "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
-        terminalRefundAmountMoney)
+        amountMoney)
     .id("id4")
     .refundId("refund_id8")
     .orderId("order_id8")

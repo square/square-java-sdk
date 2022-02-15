@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftEventsRequest {
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -49,6 +47,7 @@ public class ListCashDrawerShiftEventsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -59,6 +58,7 @@ public class ListCashDrawerShiftEventsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

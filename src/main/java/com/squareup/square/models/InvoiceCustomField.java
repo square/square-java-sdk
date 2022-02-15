@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for InvoiceCustomField type.
  */
 public class InvoiceCustomField {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String label;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String value;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placement;
 
     /**
@@ -40,6 +37,7 @@ public class InvoiceCustomField {
      * @return Returns the String
      */
     @JsonGetter("label")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLabel() {
         return label;
     }
@@ -50,6 +48,7 @@ public class InvoiceCustomField {
      * @return Returns the String
      */
     @JsonGetter("value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValue() {
         return value;
     }
@@ -61,6 +60,7 @@ public class InvoiceCustomField {
      * @return Returns the String
      */
     @JsonGetter("placement")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlacement() {
         return placement;
     }

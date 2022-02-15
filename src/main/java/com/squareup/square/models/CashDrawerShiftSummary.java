@@ -11,23 +11,14 @@ import java.util.Objects;
  * This is a model class for CashDrawerShiftSummary type.
  */
 public class CashDrawerShiftSummary {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String openedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String closedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money openedCashMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money expectedCashMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money closedCashMoney;
 
     /**
@@ -70,6 +61,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -80,6 +72,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -90,6 +83,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("opened_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOpenedAt() {
         return openedAt;
     }
@@ -100,6 +94,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("ended_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndedAt() {
         return endedAt;
     }
@@ -110,6 +105,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClosedAt() {
         return closedAt;
     }
@@ -120,6 +116,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -135,6 +132,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the Money
      */
     @JsonGetter("opened_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getOpenedCashMoney() {
         return openedCashMoney;
     }
@@ -150,6 +148,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the Money
      */
     @JsonGetter("expected_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getExpectedCashMoney() {
         return expectedCashMoney;
     }
@@ -165,6 +164,7 @@ public class CashDrawerShiftSummary {
      * @return Returns the Money
      */
     @JsonGetter("closed_cash_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getClosedCashMoney() {
         return closedCashMoney;
     }

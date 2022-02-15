@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class ListEmployeeWagesResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<EmployeeWage> employeeWages;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -49,6 +46,7 @@ public class ListEmployeeWagesResponse {
      * @return Returns the List of EmployeeWage
      */
     @JsonGetter("employee_wages")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<EmployeeWage> getEmployeeWages() {
         return employeeWages;
     }
@@ -60,6 +58,7 @@ public class ListEmployeeWagesResponse {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -70,6 +69,7 @@ public class ListEmployeeWagesResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

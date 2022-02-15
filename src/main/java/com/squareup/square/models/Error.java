@@ -13,9 +13,7 @@ import java.util.Objects;
 public class Error {
     private final String category;
     private final String code;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String detail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String field;
 
     /**
@@ -64,6 +62,7 @@ public class Error {
      * @return Returns the String
      */
     @JsonGetter("detail")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDetail() {
         return detail;
     }
@@ -74,6 +73,7 @@ public class Error {
      * @return Returns the String
      */
     @JsonGetter("field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getField() {
         return field;
     }

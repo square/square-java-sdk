@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventAccumulatePoints type.
  */
 public class LoyaltyEventAccumulatePoints {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String loyaltyProgramId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer points;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
 
     /**
@@ -40,6 +37,7 @@ public class LoyaltyEventAccumulatePoints {
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLoyaltyProgramId() {
         return loyaltyProgramId;
     }
@@ -50,6 +48,7 @@ public class LoyaltyEventAccumulatePoints {
      * @return Returns the Integer
      */
     @JsonGetter("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPoints() {
         return points;
     }
@@ -61,6 +60,7 @@ public class LoyaltyEventAccumulatePoints {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }

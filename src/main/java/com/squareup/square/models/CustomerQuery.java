@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CustomerQuery type.
  */
 public class CustomerQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerSort sort;
 
     /**
@@ -36,6 +34,7 @@ public class CustomerQuery {
      * @return Returns the CustomerFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerFilter getFilter() {
         return filter;
     }
@@ -46,6 +45,7 @@ public class CustomerQuery {
      * @return Returns the CustomerSort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerSort getSort() {
         return sort;
     }

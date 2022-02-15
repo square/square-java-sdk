@@ -16,7 +16,6 @@ public class LoyaltyProgramRewardTier {
     private final String name;
     private final LoyaltyProgramRewardDefinition definition;
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogObjectReference pricingRuleReference;
 
     /**
@@ -104,6 +103,7 @@ public class LoyaltyProgramRewardTier {
      * @return Returns the CatalogObjectReference
      */
     @JsonGetter("pricing_rule_reference")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogObjectReference getPricingRuleReference() {
         return pricingRuleReference;
     }

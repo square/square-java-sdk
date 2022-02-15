@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class ListInvoicesRequest {
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
 
     /**
@@ -51,6 +49,7 @@ public class ListInvoicesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -62,6 +61,7 @@ public class ListInvoicesRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }

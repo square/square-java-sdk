@@ -16,14 +16,11 @@ public class Refund {
     private final String locationId;
     private final String transactionId;
     private final String tenderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
     private final String reason;
     private final Money amountMoney;
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money processingFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
 
     /**
@@ -109,6 +106,7 @@ public class Refund {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -159,6 +157,7 @@ public class Refund {
      * @return Returns the Money
      */
     @JsonGetter("processing_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getProcessingFeeMoney() {
         return processingFeeMoney;
     }
@@ -170,6 +169,7 @@ public class Refund {
      * @return Returns the List of AdditionalRecipient
      */
     @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<AdditionalRecipient> getAdditionalRecipients() {
         return additionalRecipients;
     }

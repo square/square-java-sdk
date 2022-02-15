@@ -12,21 +12,13 @@ import java.util.Objects;
  * This is a model class for BankAccountPaymentDetails type.
  */
 public class BankAccountPaymentDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bankName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String transferType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accountOwnershipType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String country;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String statementDescription;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final ACHDetails achDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -66,6 +58,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("bank_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBankName() {
         return bankName;
     }
@@ -76,6 +69,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("transfer_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTransferType() {
         return transferType;
     }
@@ -87,6 +81,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("account_ownership_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccountOwnershipType() {
         return accountOwnershipType;
     }
@@ -98,6 +93,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("fingerprint")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFingerprint() {
         return fingerprint;
     }
@@ -108,6 +104,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCountry() {
         return country;
     }
@@ -118,6 +115,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("statement_description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatementDescription() {
         return statementDescription;
     }
@@ -128,6 +126,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the ACHDetails
      */
     @JsonGetter("ach_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ACHDetails getAchDetails() {
         return achDetails;
     }
@@ -138,6 +137,7 @@ public class BankAccountPaymentDetails {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

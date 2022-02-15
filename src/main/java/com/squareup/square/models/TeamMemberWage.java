@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for TeamMemberWage type.
  */
 public class TeamMemberWage {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
 
     /**
@@ -45,6 +41,7 @@ public class TeamMemberWage {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -55,6 +52,7 @@ public class TeamMemberWage {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -65,6 +63,7 @@ public class TeamMemberWage {
      * @return Returns the String
      */
     @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTitle() {
         return title;
     }
@@ -80,6 +79,7 @@ public class TeamMemberWage {
      * @return Returns the Money
      */
     @JsonGetter("hourly_rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getHourlyRate() {
         return hourlyRate;
     }

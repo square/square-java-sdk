@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class GetBankAccountByV1IdResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BankAccount bankAccount;
 
     /**
@@ -44,6 +42,7 @@ public class GetBankAccountByV1IdResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -53,6 +52,7 @@ public class GetBankAccountByV1IdResponse {
      * @return Returns the BankAccount
      */
     @JsonGetter("bank_account")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public BankAccount getBankAccount() {
         return bankAccount;
     }

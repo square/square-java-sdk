@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
     private final String name;
 
@@ -34,6 +33,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }

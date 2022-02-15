@@ -15,13 +15,9 @@ import java.util.Objects;
  */
 public class BatchUpsertCatalogObjectsResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> objects;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogIdMapping> idMappings;
 
     /**
@@ -54,6 +50,7 @@ public class BatchUpsertCatalogObjectsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -64,6 +61,7 @@ public class BatchUpsertCatalogObjectsResponse {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getObjects() {
         return objects;
     }
@@ -75,6 +73,7 @@ public class BatchUpsertCatalogObjectsResponse {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -85,6 +84,7 @@ public class BatchUpsertCatalogObjectsResponse {
      * @return Returns the List of CatalogIdMapping
      */
     @JsonGetter("id_mappings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogIdMapping> getIdMappings() {
         return idMappings;
     }

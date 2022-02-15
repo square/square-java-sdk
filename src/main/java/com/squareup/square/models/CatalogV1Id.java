@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CatalogV1Id type.
  */
 public class CatalogV1Id {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogV1Id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
@@ -36,6 +34,7 @@ public class CatalogV1Id {
      * @return Returns the String
      */
     @JsonGetter("catalog_v1_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogV1Id() {
         return catalogV1Id;
     }
@@ -46,6 +45,7 @@ public class CatalogV1Id {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

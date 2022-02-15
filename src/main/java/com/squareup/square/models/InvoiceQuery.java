@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class InvoiceQuery {
     private final InvoiceFilter filter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InvoiceSort sort;
 
     /**
@@ -44,6 +43,7 @@ public class InvoiceQuery {
      * @return Returns the InvoiceSort
      */
     @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceSort getSort() {
         return sort;
     }

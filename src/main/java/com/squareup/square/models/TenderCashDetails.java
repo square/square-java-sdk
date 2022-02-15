@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for TenderCashDetails type.
  */
 public class TenderCashDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money buyerTenderedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money changeBackMoney;
 
     /**
@@ -40,6 +38,7 @@ public class TenderCashDetails {
      * @return Returns the Money
      */
     @JsonGetter("buyer_tendered_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getBuyerTenderedMoney() {
         return buyerTenderedMoney;
     }
@@ -55,6 +54,7 @@ public class TenderCashDetails {
      * @return Returns the Money
      */
     @JsonGetter("change_back_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getChangeBackMoney() {
         return changeBackMoney;
     }

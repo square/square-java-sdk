@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class UpdateOrderResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -47,6 +45,7 @@ public class UpdateOrderResponse {
      * @return Returns the Order
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Order getOrder() {
         return order;
     }
@@ -57,6 +56,7 @@ public class UpdateOrderResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

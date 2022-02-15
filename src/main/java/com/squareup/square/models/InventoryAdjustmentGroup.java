@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for InventoryAdjustmentGroup type.
  */
 public class InventoryAdjustmentGroup {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rootAdjustmentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fromState;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String toState;
 
     /**
@@ -45,6 +41,7 @@ public class InventoryAdjustmentGroup {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -55,6 +52,7 @@ public class InventoryAdjustmentGroup {
      * @return Returns the String
      */
     @JsonGetter("root_adjustment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRootAdjustmentId() {
         return rootAdjustmentId;
     }
@@ -65,6 +63,7 @@ public class InventoryAdjustmentGroup {
      * @return Returns the String
      */
     @JsonGetter("from_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFromState() {
         return fromState;
     }
@@ -75,6 +74,7 @@ public class InventoryAdjustmentGroup {
      * @return Returns the String
      */
     @JsonGetter("to_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getToState() {
         return toState;
     }

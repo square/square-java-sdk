@@ -168,7 +168,7 @@ Invoice invoice = new Invoice.Builder()
     .saleOrServiceDate("2030-01-24")
     .build();
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
-        bodyInvoice)
+        invoice)
     .idempotencyKey("ce3748f9-5fc1-4762-aa12-aae5e843f1f4")
     .build();
 
@@ -222,11 +222,11 @@ InvoiceSort invoiceSort = new InvoiceSort.Builder(
     .order("DESC")
     .build();
 InvoiceQuery invoiceQuery = new InvoiceQuery.Builder(
-        invoiceQueryFilter)
+        filter)
     .sort(invoiceQuerySort)
     .build();
 SearchInvoicesRequest body = new SearchInvoicesRequest.Builder(
-        bodyQuery)
+        query)
     .limit(164)
     .cursor("cursor0")
     .build();
@@ -380,7 +380,7 @@ Invoice invoice = new Invoice.Builder()
 List<String> bodyFieldsToClear = new LinkedList<>();
 bodyFieldsToClear.add("payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders");
 UpdateInvoiceRequest body = new UpdateInvoiceRequest.Builder(
-        bodyInvoice)
+        invoice)
     .idempotencyKey("4ee82288-0910-499e-ab4c-5d0071dad1be")
     .fieldsToClear(bodyFieldsToClear)
     .build();

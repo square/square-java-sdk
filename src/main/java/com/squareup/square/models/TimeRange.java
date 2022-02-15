@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for TimeRange type.
  */
 public class TimeRange {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String startAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endAt;
 
     /**
@@ -35,6 +33,7 @@ public class TimeRange {
      * @return Returns the String
      */
     @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStartAt() {
         return startAt;
     }
@@ -45,6 +44,7 @@ public class TimeRange {
      * @return Returns the String
      */
     @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndAt() {
         return endAt;
     }

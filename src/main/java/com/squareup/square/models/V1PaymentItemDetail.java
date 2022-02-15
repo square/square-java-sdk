@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for V1PaymentItemDetail type.
  */
 public class V1PaymentItemDetail {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String categoryName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sku;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemVariationId;
 
     /**
@@ -45,6 +41,7 @@ public class V1PaymentItemDetail {
      * @return Returns the String
      */
     @JsonGetter("category_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCategoryName() {
         return categoryName;
     }
@@ -55,6 +52,7 @@ public class V1PaymentItemDetail {
      * @return Returns the String
      */
     @JsonGetter("sku")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSku() {
         return sku;
     }
@@ -65,6 +63,7 @@ public class V1PaymentItemDetail {
      * @return Returns the String
      */
     @JsonGetter("item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemId() {
         return itemId;
     }
@@ -75,6 +74,7 @@ public class V1PaymentItemDetail {
      * @return Returns the String
      */
     @JsonGetter("item_variation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemVariationId() {
         return itemVariationId;
     }

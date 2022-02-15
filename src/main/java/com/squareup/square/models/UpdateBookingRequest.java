@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for UpdateBookingRequest type.
  */
 public class UpdateBookingRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final Booking booking;
 
@@ -34,6 +33,7 @@ public class UpdateBookingRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

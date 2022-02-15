@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsQuery type.
  */
 public class SearchSubscriptionsQuery {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchSubscriptionsFilter filter;
 
     /**
@@ -31,6 +30,7 @@ public class SearchSubscriptionsQuery {
      * @return Returns the SearchSubscriptionsFilter
      */
     @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchSubscriptionsFilter getFilter() {
         return filter;
     }

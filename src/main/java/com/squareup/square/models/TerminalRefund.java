@@ -11,31 +11,19 @@ import java.util.Objects;
  * This is a model class for TerminalRefund type.
  */
 public class TerminalRefund {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundId;
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deadlineDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String appId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
@@ -93,6 +81,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -103,6 +92,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("refund_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefundId() {
         return refundId;
     }
@@ -123,6 +113,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -148,6 +139,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -159,6 +151,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceId() {
         return deviceId;
     }
@@ -171,6 +164,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("deadline_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeadlineDuration() {
         return deadlineDuration;
     }
@@ -182,6 +176,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -191,6 +186,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancelReason() {
         return cancelReason;
     }
@@ -201,6 +197,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -211,6 +208,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -221,6 +219,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("app_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppId() {
         return appId;
     }
@@ -231,6 +230,7 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

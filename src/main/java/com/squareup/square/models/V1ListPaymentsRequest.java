@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for V1ListPaymentsRequest type.
  */
 public class V1ListPaymentsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String beginTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String endTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String batchToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean includePartial;
 
     /**
@@ -55,6 +49,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the String
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrder() {
         return order;
     }
@@ -67,6 +62,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the String
      */
     @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBeginTime() {
         return beginTime;
     }
@@ -79,6 +75,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the String
      */
     @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEndTime() {
         return endTime;
     }
@@ -89,6 +86,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -100,6 +98,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the String
      */
     @JsonGetter("batch_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBatchToken() {
         return batchToken;
     }
@@ -112,6 +111,7 @@ public class V1ListPaymentsRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("include_partial")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIncludePartial() {
         return includePartial;
     }

@@ -11,17 +11,13 @@ import java.util.Objects;
  * This is a model class for BreakType type.
  */
 public class BreakType {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String locationId;
     private final String breakName;
     private final String expectedDuration;
     private final boolean isPaid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -61,6 +57,7 @@ public class BreakType {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -115,6 +112,7 @@ public class BreakType {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -125,6 +123,7 @@ public class BreakType {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -135,6 +134,7 @@ public class BreakType {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

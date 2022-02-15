@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for CatalogQueryItemsForItemOptions type.
  */
 public class CatalogQueryItemsForItemOptions {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> itemOptionIds;
 
     /**
@@ -32,6 +31,7 @@ public class CatalogQueryItemsForItemOptions {
      * @return Returns the List of String
      */
     @JsonGetter("item_option_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getItemOptionIds() {
         return itemOptionIds;
     }

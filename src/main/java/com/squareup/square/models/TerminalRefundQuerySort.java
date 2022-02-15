@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for TerminalRefundQuerySort type.
  */
 public class TerminalRefundQuerySort {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -31,6 +30,7 @@ public class TerminalRefundQuerySort {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

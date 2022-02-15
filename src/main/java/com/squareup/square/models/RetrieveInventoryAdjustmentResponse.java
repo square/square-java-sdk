@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveInventoryAdjustmentResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryAdjustment adjustment;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveInventoryAdjustmentResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -55,6 +54,7 @@ public class RetrieveInventoryAdjustmentResponse {
      * @return Returns the InventoryAdjustment
      */
     @JsonGetter("adjustment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryAdjustment getAdjustment() {
         return adjustment;
     }

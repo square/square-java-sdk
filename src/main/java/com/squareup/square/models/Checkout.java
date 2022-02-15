@@ -12,25 +12,15 @@ import java.util.Objects;
  * This is a model class for Checkout type.
  */
 public class Checkout {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String checkoutPageUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean askForShippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantSupportEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prePopulateBuyerEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address prePopulateShippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Order order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<AdditionalRecipient> additionalRecipients;
 
     /**
@@ -76,6 +66,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -86,6 +77,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("checkout_page_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCheckoutPageUrl() {
         return checkoutPageUrl;
     }
@@ -97,6 +89,7 @@ public class Checkout {
      * @return Returns the Boolean
      */
     @JsonGetter("ask_for_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAskForShippingAddress() {
         return askForShippingAddress;
     }
@@ -110,6 +103,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("merchant_support_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantSupportEmail() {
         return merchantSupportEmail;
     }
@@ -121,6 +115,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("pre_populate_buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPrePopulateBuyerEmail() {
         return prePopulateBuyerEmail;
     }
@@ -132,6 +127,7 @@ public class Checkout {
      * @return Returns the Address
      */
     @JsonGetter("pre_populate_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getPrePopulateShippingAddress() {
         return prePopulateShippingAddress;
     }
@@ -150,6 +146,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("redirect_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRedirectUrl() {
         return redirectUrl;
     }
@@ -163,6 +160,7 @@ public class Checkout {
      * @return Returns the Order
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Order getOrder() {
         return order;
     }
@@ -173,6 +171,7 @@ public class Checkout {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -184,6 +183,7 @@ public class Checkout {
      * @return Returns the List of AdditionalRecipient
      */
     @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<AdditionalRecipient> getAdditionalRecipients() {
         return additionalRecipients;
     }

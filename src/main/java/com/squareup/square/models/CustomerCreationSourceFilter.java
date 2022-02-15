@@ -12,9 +12,7 @@ import java.util.Objects;
  * This is a model class for CustomerCreationSourceFilter type.
  */
 public class CustomerCreationSourceFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> values;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rule;
 
     /**
@@ -37,6 +35,7 @@ public class CustomerCreationSourceFilter {
      * @return Returns the List of String
      */
     @JsonGetter("values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getValues() {
         return values;
     }
@@ -48,6 +47,7 @@ public class CustomerCreationSourceFilter {
      * @return Returns the String
      */
     @JsonGetter("rule")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRule() {
         return rule;
     }

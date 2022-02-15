@@ -12,11 +12,8 @@ import java.util.Objects;
  * This is a model class for ListDisputesRequest type.
  */
 public class ListDisputesRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> states;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
 
     /**
@@ -43,6 +40,7 @@ public class ListDisputesRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -55,6 +53,7 @@ public class ListDisputesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("states")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getStates() {
         return states;
     }
@@ -67,6 +66,7 @@ public class ListDisputesRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

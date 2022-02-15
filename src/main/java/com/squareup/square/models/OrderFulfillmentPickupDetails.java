@@ -11,41 +11,23 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentPickupDetails type.
  */
 public class OrderFulfillmentPickupDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentRecipient recipient;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String autoCompleteDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String scheduleType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickupAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickupWindowDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prepTimeDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String placedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String acceptedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String rejectedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String readyAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiredAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pickedUpAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isCurbsidePickup;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
     /**
@@ -116,6 +98,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentRecipient getRecipient() {
         return recipient;
     }
@@ -130,6 +113,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiresAt() {
         return expiresAt;
     }
@@ -143,6 +127,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("auto_complete_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAutoCompleteDuration() {
         return autoCompleteDuration;
     }
@@ -153,6 +138,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("schedule_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getScheduleType() {
         return scheduleType;
     }
@@ -166,6 +152,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("pickup_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPickupAt() {
         return pickupAt;
     }
@@ -178,6 +165,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("pickup_window_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPickupWindowDuration() {
         return pickupWindowDuration;
     }
@@ -189,6 +177,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("prep_time_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPrepTimeDuration() {
         return prepTimeDuration;
     }
@@ -200,6 +189,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -212,6 +202,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("placed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlacedAt() {
         return placedAt;
     }
@@ -224,6 +215,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("accepted_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAcceptedAt() {
         return acceptedAt;
     }
@@ -236,6 +228,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("rejected_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRejectedAt() {
         return rejectedAt;
     }
@@ -248,6 +241,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("ready_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReadyAt() {
         return readyAt;
     }
@@ -260,6 +254,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("expired_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiredAt() {
         return expiredAt;
     }
@@ -272,6 +267,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("picked_up_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPickedUpAt() {
         return pickedUpAt;
     }
@@ -284,6 +280,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("canceled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledAt() {
         return canceledAt;
     }
@@ -294,6 +291,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the String
      */
     @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancelReason() {
         return cancelReason;
     }
@@ -305,6 +303,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the Boolean
      */
     @JsonGetter("is_curbside_pickup")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsCurbsidePickup() {
         return isCurbsidePickup;
     }
@@ -315,6 +314,7 @@ public class OrderFulfillmentPickupDetails {
      * @return Returns the OrderFulfillmentPickupDetailsCurbsidePickupDetails
      */
     @JsonGetter("curbside_pickup_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderFulfillmentPickupDetailsCurbsidePickupDetails getCurbsidePickupDetails() {
         return curbsidePickupDetails;
     }

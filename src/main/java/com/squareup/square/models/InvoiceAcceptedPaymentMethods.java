@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for InvoiceAcceptedPaymentMethods type.
  */
 public class InvoiceAcceptedPaymentMethods {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean card;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean squareGiftCard;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean bankAccount;
 
     /**
@@ -41,6 +38,7 @@ public class InvoiceAcceptedPaymentMethods {
      * @return Returns the Boolean
      */
     @JsonGetter("card")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getCard() {
         return card;
     }
@@ -51,6 +49,7 @@ public class InvoiceAcceptedPaymentMethods {
      * @return Returns the Boolean
      */
     @JsonGetter("square_gift_card")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSquareGiftCard() {
         return squareGiftCard;
     }
@@ -62,6 +61,7 @@ public class InvoiceAcceptedPaymentMethods {
      * @return Returns the Boolean
      */
     @JsonGetter("bank_account")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getBankAccount() {
         return bankAccount;
     }

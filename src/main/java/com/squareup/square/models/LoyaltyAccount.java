@@ -12,24 +12,15 @@ import java.util.Objects;
  * This is a model class for LoyaltyAccount type.
  */
 public class LoyaltyAccount {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String programId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer balance;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer lifetimePoints;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String enrolledAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyAccountMapping mapping;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines;
 
     /**
@@ -76,6 +67,7 @@ public class LoyaltyAccount {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -100,6 +92,7 @@ public class LoyaltyAccount {
      * @return Returns the Integer
      */
     @JsonGetter("balance")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getBalance() {
         return balance;
     }
@@ -110,6 +103,7 @@ public class LoyaltyAccount {
      * @return Returns the Integer
      */
     @JsonGetter("lifetime_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLifetimePoints() {
         return lifetimePoints;
     }
@@ -120,16 +114,27 @@ public class LoyaltyAccount {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }
 
     /**
      * Getter for EnrolledAt.
-     * The timestamp when enrollment occurred, in RFC 3339 format.
+     * The timestamp when the buyer joined the loyalty program, in RFC 3339 format. This field is
+     * used to display the **Enrolled On** or **Member Since** date in first-party Square products.
+     * If this field is not set in a `CreateLoyaltyAccount` request, Square populates it after the
+     * buyer's first action on their account (when `AccumulateLoyaltyPoints` or
+     * `CreateLoyaltyReward` is called). In first-party flows, Square populates the field when the
+     * buyer agrees to the terms of service in Square Point of Sale. This field is typically
+     * specified in a `CreateLoyaltyAccount` request when creating a loyalty account for a buyer who
+     * already interacted with their account. For example, you would set this field when migrating
+     * accounts from an external system. The timestamp in the request can represent a current or
+     * previous date and time, but it cannot be set for the future.
      * @return Returns the String
      */
     @JsonGetter("enrolled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEnrolledAt() {
         return enrolledAt;
     }
@@ -140,6 +145,7 @@ public class LoyaltyAccount {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -150,6 +156,7 @@ public class LoyaltyAccount {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -162,6 +169,7 @@ public class LoyaltyAccount {
      * @return Returns the LoyaltyAccountMapping
      */
     @JsonGetter("mapping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyAccountMapping getMapping() {
         return mapping;
     }
@@ -174,6 +182,7 @@ public class LoyaltyAccount {
      * @return Returns the List of LoyaltyAccountExpiringPointDeadline
      */
     @JsonGetter("expiring_point_deadlines")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<LoyaltyAccountExpiringPointDeadline> getExpiringPointDeadlines() {
         return expiringPointDeadlines;
     }

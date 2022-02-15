@@ -12,11 +12,8 @@ import java.util.Objects;
  */
 public class CreateCustomerCardRequest {
     private final String cardNonce;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address billingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cardholderName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String verificationToken;
 
     /**
@@ -60,6 +57,7 @@ public class CreateCustomerCardRequest {
      * @return Returns the Address
      */
     @JsonGetter("billing_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -70,6 +68,7 @@ public class CreateCustomerCardRequest {
      * @return Returns the String
      */
     @JsonGetter("cardholder_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardholderName() {
         return cardholderName;
     }
@@ -83,6 +82,7 @@ public class CreateCustomerCardRequest {
      * @return Returns the String
      */
     @JsonGetter("verification_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getVerificationToken() {
         return verificationToken;
     }

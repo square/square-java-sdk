@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     private final String loyaltyAccountId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
@@ -44,6 +43,7 @@ public class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }

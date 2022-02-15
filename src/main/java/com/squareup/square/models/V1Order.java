@@ -15,55 +15,30 @@ import java.util.Objects;
  */
 public class V1Order {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String recipientName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String recipientPhoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String state;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address shippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money subtotalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalShippingMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalPriceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Money totalDiscountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String completedNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refundedNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String canceledNote;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final V1Tender tender;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<V1OrderHistoryEntry> orderHistory;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String promoCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String btcReceiveAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double btcPriceSatoshi;
 
     /**
@@ -159,6 +134,7 @@ public class V1Order {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -169,6 +145,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -179,6 +156,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerEmail() {
         return buyerEmail;
     }
@@ -189,6 +167,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("recipient_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRecipientName() {
         return recipientName;
     }
@@ -199,6 +178,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("recipient_phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRecipientPhoneNumber() {
         return recipientPhoneNumber;
     }
@@ -208,6 +188,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getState() {
         return state;
     }
@@ -219,6 +200,7 @@ public class V1Order {
      * @return Returns the Address
      */
     @JsonGetter("shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -228,6 +210,7 @@ public class V1Order {
      * @return Returns the V1Money
      */
     @JsonGetter("subtotal_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getSubtotalMoney() {
         return subtotalMoney;
     }
@@ -237,6 +220,7 @@ public class V1Order {
      * @return Returns the V1Money
      */
     @JsonGetter("total_shipping_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalShippingMoney() {
         return totalShippingMoney;
     }
@@ -246,6 +230,7 @@ public class V1Order {
      * @return Returns the V1Money
      */
     @JsonGetter("total_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalTaxMoney() {
         return totalTaxMoney;
     }
@@ -255,6 +240,7 @@ public class V1Order {
      * @return Returns the V1Money
      */
     @JsonGetter("total_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalPriceMoney() {
         return totalPriceMoney;
     }
@@ -264,6 +250,7 @@ public class V1Order {
      * @return Returns the V1Money
      */
     @JsonGetter("total_discount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Money getTotalDiscountMoney() {
         return totalDiscountMoney;
     }
@@ -274,6 +261,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -284,6 +272,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -294,6 +283,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiresAt() {
         return expiresAt;
     }
@@ -304,6 +294,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -314,6 +305,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("buyer_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerNote() {
         return buyerNote;
     }
@@ -324,6 +316,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("completed_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCompletedNote() {
         return completedNote;
     }
@@ -334,6 +327,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("refunded_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefundedNote() {
         return refundedNote;
     }
@@ -344,6 +338,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("canceled_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCanceledNote() {
         return canceledNote;
     }
@@ -366,6 +361,7 @@ public class V1Order {
      * @return Returns the V1Tender
      */
     @JsonGetter("tender")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public V1Tender getTender() {
         return tender;
     }
@@ -376,6 +372,7 @@ public class V1Order {
      * @return Returns the List of V1OrderHistoryEntry
      */
     @JsonGetter("order_history")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<V1OrderHistoryEntry> getOrderHistory() {
         return orderHistory;
     }
@@ -386,6 +383,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("promo_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPromoCode() {
         return promoCode;
     }
@@ -396,6 +394,7 @@ public class V1Order {
      * @return Returns the String
      */
     @JsonGetter("btc_receive_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBtcReceiveAddress() {
         return btcReceiveAddress;
     }
@@ -407,6 +406,7 @@ public class V1Order {
      * @return Returns the Double
      */
     @JsonGetter("btc_price_satoshi")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Double getBtcPriceSatoshi() {
         return btcPriceSatoshi;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CatalogMeasurementUnit type.
  */
 public class CatalogMeasurementUnit {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnit measurementUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
 
     /**
@@ -37,6 +35,7 @@ public class CatalogMeasurementUnit {
      * @return Returns the MeasurementUnit
      */
     @JsonGetter("measurement_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public MeasurementUnit getMeasurementUnit() {
         return measurementUnit;
     }
@@ -50,6 +49,7 @@ public class CatalogMeasurementUnit {
      * @return Returns the Integer
      */
     @JsonGetter("precision")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPrecision() {
         return precision;
     }

@@ -11,27 +11,16 @@ import java.util.Objects;
  * This is a model class for TeamMember type.
  */
 public class TeamMember {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean isOwner;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TeamMemberAssignedLocations assignedLocations;
 
     /**
@@ -80,6 +69,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -90,6 +80,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -100,6 +91,7 @@ public class TeamMember {
      * @return Returns the Boolean
      */
     @JsonGetter("is_owner")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsOwner() {
         return isOwner;
     }
@@ -110,6 +102,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -120,6 +113,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGivenName() {
         return givenName;
     }
@@ -130,6 +124,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFamilyName() {
         return familyName;
     }
@@ -140,6 +135,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -151,6 +147,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -162,6 +159,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -173,6 +171,7 @@ public class TeamMember {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -183,6 +182,7 @@ public class TeamMember {
      * @return Returns the TeamMemberAssignedLocations
      */
     @JsonGetter("assigned_locations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TeamMemberAssignedLocations getAssignedLocations() {
         return assignedLocations;
     }

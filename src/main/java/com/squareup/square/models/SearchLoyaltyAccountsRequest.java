@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyAccountsRequest type.
  */
 public class SearchLoyaltyAccountsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchLoyaltyAccountsRequestLoyaltyAccountQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -40,6 +37,7 @@ public class SearchLoyaltyAccountsRequest {
      * @return Returns the SearchLoyaltyAccountsRequestLoyaltyAccountQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchLoyaltyAccountsRequestLoyaltyAccountQuery getQuery() {
         return query;
     }
@@ -50,6 +48,7 @@ public class SearchLoyaltyAccountsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -62,6 +61,7 @@ public class SearchLoyaltyAccountsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

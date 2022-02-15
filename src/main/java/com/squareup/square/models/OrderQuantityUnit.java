@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for OrderQuantityUnit type.
  */
 public class OrderQuantityUnit {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final MeasurementUnit measurementUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer precision;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
 
     /**
@@ -47,6 +43,7 @@ public class OrderQuantityUnit {
      * @return Returns the MeasurementUnit
      */
     @JsonGetter("measurement_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public MeasurementUnit getMeasurementUnit() {
         return measurementUnit;
     }
@@ -59,6 +56,7 @@ public class OrderQuantityUnit {
      * @return Returns the Integer
      */
     @JsonGetter("precision")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPrecision() {
         return precision;
     }
@@ -70,6 +68,7 @@ public class OrderQuantityUnit {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -81,6 +80,7 @@ public class OrderQuantityUnit {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }

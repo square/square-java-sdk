@@ -15,11 +15,8 @@ import java.util.Objects;
  */
 public class CatalogInfoResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogInfoResponseLimits limits;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final StandardUnitDescriptionGroup standardUnitDescriptionGroup;
 
     /**
@@ -50,6 +47,7 @@ public class CatalogInfoResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -59,6 +57,7 @@ public class CatalogInfoResponse {
      * @return Returns the CatalogInfoResponseLimits
      */
     @JsonGetter("limits")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogInfoResponseLimits getLimits() {
         return limits;
     }
@@ -69,6 +68,7 @@ public class CatalogInfoResponse {
      * @return Returns the StandardUnitDescriptionGroup
      */
     @JsonGetter("standard_unit_description_group")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public StandardUnitDescriptionGroup getStandardUnitDescriptionGroup() {
         return standardUnitDescriptionGroup;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for ProcessingFee type.
  */
 public class ProcessingFee {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String effectiveAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
 
     /**
@@ -40,6 +37,7 @@ public class ProcessingFee {
      * @return Returns the String
      */
     @JsonGetter("effective_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEffectiveAt() {
         return effectiveAt;
     }
@@ -50,6 +48,7 @@ public class ProcessingFee {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -65,6 +64,7 @@ public class ProcessingFee {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }

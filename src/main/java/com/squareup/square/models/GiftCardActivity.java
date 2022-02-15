@@ -11,43 +11,25 @@ import java.util.Objects;
  * This is a model class for GiftCardActivity type.
  */
 public class GiftCardActivity {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String type;
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String giftCardId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String giftCardGan;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money giftCardBalanceMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityLoad loadActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityActivate activateActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityRedeem redeemActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityClearBalance clearBalanceActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityDeactivate deactivateActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityAdjustIncrement adjustIncrementActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityAdjustDecrement adjustDecrementActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityRefund refundActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityUnlinkedActivityRefund unlinkedActivityRefundActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityImport importActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityBlock blockActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityUnblock unblockActivityDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final GiftCardActivityImportReversal importReversalActivityDetails;
 
     /**
@@ -129,6 +111,7 @@ public class GiftCardActivity {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -159,6 +142,7 @@ public class GiftCardActivity {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -169,6 +153,7 @@ public class GiftCardActivity {
      * @return Returns the String
      */
     @JsonGetter("gift_card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGiftCardId() {
         return giftCardId;
     }
@@ -179,6 +164,7 @@ public class GiftCardActivity {
      * @return Returns the String
      */
     @JsonGetter("gift_card_gan")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGiftCardGan() {
         return giftCardGan;
     }
@@ -194,6 +180,7 @@ public class GiftCardActivity {
      * @return Returns the Money
      */
     @JsonGetter("gift_card_balance_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getGiftCardBalanceMoney() {
         return giftCardBalanceMoney;
     }
@@ -204,6 +191,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityLoad
      */
     @JsonGetter("load_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityLoad getLoadActivityDetails() {
         return loadActivityDetails;
     }
@@ -214,6 +202,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityActivate
      */
     @JsonGetter("activate_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityActivate getActivateActivityDetails() {
         return activateActivityDetails;
     }
@@ -224,6 +213,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityRedeem
      */
     @JsonGetter("redeem_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityRedeem getRedeemActivityDetails() {
         return redeemActivityDetails;
     }
@@ -234,6 +224,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityClearBalance
      */
     @JsonGetter("clear_balance_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityClearBalance getClearBalanceActivityDetails() {
         return clearBalanceActivityDetails;
     }
@@ -244,6 +235,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityDeactivate
      */
     @JsonGetter("deactivate_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityDeactivate getDeactivateActivityDetails() {
         return deactivateActivityDetails;
     }
@@ -254,6 +246,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityAdjustIncrement
      */
     @JsonGetter("adjust_increment_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityAdjustIncrement getAdjustIncrementActivityDetails() {
         return adjustIncrementActivityDetails;
     }
@@ -264,6 +257,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityAdjustDecrement
      */
     @JsonGetter("adjust_decrement_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityAdjustDecrement getAdjustDecrementActivityDetails() {
         return adjustDecrementActivityDetails;
     }
@@ -274,6 +268,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityRefund
      */
     @JsonGetter("refund_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityRefund getRefundActivityDetails() {
         return refundActivityDetails;
     }
@@ -284,6 +279,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityUnlinkedActivityRefund
      */
     @JsonGetter("unlinked_activity_refund_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityUnlinkedActivityRefund getUnlinkedActivityRefundActivityDetails() {
         return unlinkedActivityRefundActivityDetails;
     }
@@ -295,6 +291,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityImport
      */
     @JsonGetter("import_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityImport getImportActivityDetails() {
         return importActivityDetails;
     }
@@ -305,6 +302,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityBlock
      */
     @JsonGetter("block_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityBlock getBlockActivityDetails() {
         return blockActivityDetails;
     }
@@ -315,6 +313,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityUnblock
      */
     @JsonGetter("unblock_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityUnblock getUnblockActivityDetails() {
         return unblockActivityDetails;
     }
@@ -325,6 +324,7 @@ public class GiftCardActivity {
      * @return Returns the GiftCardActivityImportReversal
      */
     @JsonGetter("import_reversal_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public GiftCardActivityImportReversal getImportReversalActivityDetails() {
         return importReversalActivityDetails;
     }

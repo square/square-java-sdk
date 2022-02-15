@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class PayOrderRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer orderVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> paymentIds;
 
     /**
@@ -54,6 +52,7 @@ public class PayOrderRequest {
      * @return Returns the Integer
      */
     @JsonGetter("order_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getOrderVersion() {
         return orderVersion;
     }
@@ -65,6 +64,7 @@ public class PayOrderRequest {
      * @return Returns the List of String
      */
     @JsonGetter("payment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getPaymentIds() {
         return paymentIds;
     }

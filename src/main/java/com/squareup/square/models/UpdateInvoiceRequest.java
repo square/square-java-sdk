@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class UpdateInvoiceRequest {
     private final Invoice invoice;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> fieldsToClear;
 
     /**
@@ -55,6 +53,7 @@ public class UpdateInvoiceRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }
@@ -66,6 +65,7 @@ public class UpdateInvoiceRequest {
      * @return Returns the List of String
      */
     @JsonGetter("fields_to_clear")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getFieldsToClear() {
         return fieldsToClear;
     }

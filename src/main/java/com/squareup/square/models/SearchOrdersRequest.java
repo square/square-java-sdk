@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for SearchOrdersRequest type.
  */
 public class SearchOrdersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchOrdersQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean returnEntries;
 
     /**
@@ -52,6 +47,7 @@ public class SearchOrdersRequest {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -64,6 +60,7 @@ public class SearchOrdersRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -74,6 +71,7 @@ public class SearchOrdersRequest {
      * @return Returns the SearchOrdersQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchOrdersQuery getQuery() {
         return query;
     }
@@ -85,6 +83,7 @@ public class SearchOrdersRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -97,6 +96,7 @@ public class SearchOrdersRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("return_entries")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getReturnEntries() {
         return returnEntries;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for DeleteCustomerRequest type.
  */
 public class DeleteCustomerRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
 
     /**
@@ -34,6 +33,7 @@ public class DeleteCustomerRequest {
      * @return Returns the Long
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getVersion() {
         return version;
     }

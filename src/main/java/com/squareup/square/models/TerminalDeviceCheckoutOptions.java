@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for TerminalDeviceCheckoutOptions type.
  */
 public class TerminalDeviceCheckoutOptions {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean skipReceiptScreen;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TipSettings tipSettings;
 
     /**
@@ -35,6 +33,7 @@ public class TerminalDeviceCheckoutOptions {
      * @return Returns the Boolean
      */
     @JsonGetter("skip_receipt_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getSkipReceiptScreen() {
         return skipReceiptScreen;
     }
@@ -44,6 +43,7 @@ public class TerminalDeviceCheckoutOptions {
      * @return Returns the TipSettings
      */
     @JsonGetter("tip_settings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TipSettings getTipSettings() {
         return tipSettings;
     }

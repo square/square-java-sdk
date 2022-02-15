@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionStringConfig type.
  */
 public class CatalogCustomAttributeDefinitionStringConfig {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean enforceUniqueness;
 
     /**
@@ -33,6 +32,7 @@ public class CatalogCustomAttributeDefinitionStringConfig {
      * @return Returns the Boolean
      */
     @JsonGetter("enforce_uniqueness")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEnforceUniqueness() {
         return enforceUniqueness;
     }

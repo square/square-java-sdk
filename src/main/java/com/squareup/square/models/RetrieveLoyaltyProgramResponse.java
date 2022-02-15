@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class RetrieveLoyaltyProgramResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyProgram program;
 
     /**
@@ -44,6 +42,7 @@ public class RetrieveLoyaltyProgramResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -57,6 +56,7 @@ public class RetrieveLoyaltyProgramResponse {
      * @return Returns the LoyaltyProgram
      */
     @JsonGetter("program")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyProgram getProgram() {
         return program;
     }

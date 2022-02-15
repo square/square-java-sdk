@@ -14,19 +14,12 @@ import java.util.Objects;
 public class CreateCheckoutRequest {
     private final String idempotencyKey;
     private final CreateOrderRequest order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean askForShippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantSupportEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String prePopulateBuyerEmail;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address prePopulateShippingAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String redirectUrl;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ChargeRequestAdditionalRecipient> additionalRecipients;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
 
     /**
@@ -98,6 +91,7 @@ public class CreateCheckoutRequest {
      * @return Returns the Boolean
      */
     @JsonGetter("ask_for_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getAskForShippingAddress() {
         return askForShippingAddress;
     }
@@ -111,6 +105,7 @@ public class CreateCheckoutRequest {
      * @return Returns the String
      */
     @JsonGetter("merchant_support_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantSupportEmail() {
         return merchantSupportEmail;
     }
@@ -122,6 +117,7 @@ public class CreateCheckoutRequest {
      * @return Returns the String
      */
     @JsonGetter("pre_populate_buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPrePopulateBuyerEmail() {
         return prePopulateBuyerEmail;
     }
@@ -133,6 +129,7 @@ public class CreateCheckoutRequest {
      * @return Returns the Address
      */
     @JsonGetter("pre_populate_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getPrePopulateShippingAddress() {
         return prePopulateShippingAddress;
     }
@@ -150,6 +147,7 @@ public class CreateCheckoutRequest {
      * @return Returns the String
      */
     @JsonGetter("redirect_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRedirectUrl() {
         return redirectUrl;
     }
@@ -165,6 +163,7 @@ public class CreateCheckoutRequest {
      * @return Returns the List of ChargeRequestAdditionalRecipient
      */
     @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<ChargeRequestAdditionalRecipient> getAdditionalRecipients() {
         return additionalRecipients;
     }
@@ -176,6 +175,7 @@ public class CreateCheckoutRequest {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }

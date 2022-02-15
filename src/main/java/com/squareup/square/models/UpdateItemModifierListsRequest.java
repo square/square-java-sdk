@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class UpdateItemModifierListsRequest {
     private final List<String> itemIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> modifierListsToEnable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> modifierListsToDisable;
 
     /**
@@ -51,6 +49,7 @@ public class UpdateItemModifierListsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("modifier_lists_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getModifierListsToEnable() {
         return modifierListsToEnable;
     }
@@ -62,6 +61,7 @@ public class UpdateItemModifierListsRequest {
      * @return Returns the List of String
      */
     @JsonGetter("modifier_lists_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getModifierListsToDisable() {
         return modifierListsToDisable;
     }

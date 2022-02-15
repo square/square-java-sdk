@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class CreateLoyaltyRewardResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyReward reward;
 
     /**
@@ -44,6 +42,7 @@ public class CreateLoyaltyRewardResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -57,6 +56,7 @@ public class CreateLoyaltyRewardResponse {
      * @return Returns the LoyaltyReward
      */
     @JsonGetter("reward")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyReward getReward() {
         return reward;
     }

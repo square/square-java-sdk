@@ -13,7 +13,6 @@ import java.util.Objects;
 public class CreateRefundRequest {
     private final String idempotencyKey;
     private final String tenderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
     private final Money amountMoney;
 
@@ -68,6 +67,7 @@ public class CreateRefundRequest {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }

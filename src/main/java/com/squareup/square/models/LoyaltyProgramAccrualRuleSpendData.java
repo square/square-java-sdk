@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class LoyaltyProgramAccrualRuleSpendData {
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> excludedCategoryIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> excludedItemVariationIds;
     private final String taxMode;
 
@@ -61,6 +59,7 @@ public class LoyaltyProgramAccrualRuleSpendData {
      * @return Returns the List of String
      */
     @JsonGetter("excluded_category_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getExcludedCategoryIds() {
         return excludedCategoryIds;
     }
@@ -73,6 +72,7 @@ public class LoyaltyProgramAccrualRuleSpendData {
      * @return Returns the List of String
      */
     @JsonGetter("excluded_item_variation_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getExcludedItemVariationIds() {
         return excludedItemVariationIds;
     }

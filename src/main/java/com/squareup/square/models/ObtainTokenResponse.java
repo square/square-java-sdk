@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,24 +15,16 @@ import java.util.Objects;
  */
 public class ObtainTokenResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String accessToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String tokenType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String expiresAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String merchantId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String subscriptionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String planId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String refreshToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean shortLived;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
@@ -44,6 +37,7 @@ public class ObtainTokenResponse {
      * @param  idToken  String value for idToken.
      * @param  refreshToken  String value for refreshToken.
      * @param  shortLived  Boolean value for shortLived.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public ObtainTokenResponse(
@@ -55,7 +49,8 @@ public class ObtainTokenResponse {
             @JsonProperty("plan_id") String planId,
             @JsonProperty("id_token") String idToken,
             @JsonProperty("refresh_token") String refreshToken,
-            @JsonProperty("short_lived") Boolean shortLived) {
+            @JsonProperty("short_lived") Boolean shortLived,
+            @JsonProperty("errors") List<Error> errors) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresAt = expiresAt;
@@ -65,6 +60,7 @@ public class ObtainTokenResponse {
         this.idToken = idToken;
         this.refreshToken = refreshToken;
         this.shortLived = shortLived;
+        this.errors = errors;
     }
 
     @JsonIgnore
@@ -80,6 +76,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccessToken() {
         return accessToken;
     }
@@ -90,6 +87,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("token_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTokenType() {
         return tokenType;
     }
@@ -101,6 +99,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getExpiresAt() {
         return expiresAt;
     }
@@ -111,6 +110,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMerchantId() {
         return merchantId;
     }
@@ -122,6 +122,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("subscription_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSubscriptionId() {
         return subscriptionId;
     }
@@ -133,6 +134,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPlanId() {
         return planId;
     }
@@ -144,6 +146,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("id_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdToken() {
         return idToken;
     }
@@ -156,6 +159,7 @@ public class ObtainTokenResponse {
      * @return Returns the String
      */
     @JsonGetter("refresh_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefreshToken() {
         return refreshToken;
     }
@@ -167,14 +171,26 @@ public class ObtainTokenResponse {
      * @return Returns the Boolean
      */
     @JsonGetter("short_lived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getShortLived() {
         return shortLived;
+    }
+
+    /**
+     * Getter for Errors.
+     * An error object that provides details about how creation of the obtain token failed.
+     * @return Returns the List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<Error> getErrors() {
+        return errors;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId,
-                idToken, refreshToken, shortLived);
+                idToken, refreshToken, shortLived, errors);
     }
 
     @Override
@@ -194,7 +210,8 @@ public class ObtainTokenResponse {
             && Objects.equals(planId, other.planId)
             && Objects.equals(idToken, other.idToken)
             && Objects.equals(refreshToken, other.refreshToken)
-            && Objects.equals(shortLived, other.shortLived);
+            && Objects.equals(shortLived, other.shortLived)
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -206,7 +223,7 @@ public class ObtainTokenResponse {
         return "ObtainTokenResponse [" + "accessToken=" + accessToken + ", tokenType=" + tokenType
                 + ", expiresAt=" + expiresAt + ", merchantId=" + merchantId + ", subscriptionId="
                 + subscriptionId + ", planId=" + planId + ", idToken=" + idToken + ", refreshToken="
-                + refreshToken + ", shortLived=" + shortLived + "]";
+                + refreshToken + ", shortLived=" + shortLived + ", errors=" + errors + "]";
     }
 
     /**
@@ -224,7 +241,8 @@ public class ObtainTokenResponse {
                 .planId(getPlanId())
                 .idToken(getIdToken())
                 .refreshToken(getRefreshToken())
-                .shortLived(getShortLived());
+                .shortLived(getShortLived())
+                .errors(getErrors());
         return builder;
     }
 
@@ -242,6 +260,7 @@ public class ObtainTokenResponse {
         private String idToken;
         private String refreshToken;
         private Boolean shortLived;
+        private List<Error> errors;
 
 
 
@@ -346,13 +365,23 @@ public class ObtainTokenResponse {
         }
 
         /**
+         * Setter for errors.
+         * @param  errors  List of Error value for errors.
+         * @return Builder
+         */
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ObtainTokenResponse} object using the set fields.
          * @return {@link ObtainTokenResponse}
          */
         public ObtainTokenResponse build() {
             ObtainTokenResponse model =
                     new ObtainTokenResponse(accessToken, tokenType, expiresAt, merchantId,
-                            subscriptionId, planId, idToken, refreshToken, shortLived);
+                            subscriptionId, planId, idToken, refreshToken, shortLived, errors);
             model.httpContext = httpContext;
             return model;
         }

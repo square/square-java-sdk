@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 public class InvoiceFilter {
     private final List<String> locationIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> customerIds;
 
     /**
@@ -48,6 +47,7 @@ public class InvoiceFilter {
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getCustomerIds() {
         return customerIds;
     }

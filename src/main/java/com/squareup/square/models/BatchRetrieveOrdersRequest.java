@@ -12,7 +12,6 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveOrdersRequest type.
  */
 public class BatchRetrieveOrdersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final List<String> orderIds;
 
@@ -36,6 +35,7 @@ public class BatchRetrieveOrdersRequest {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }

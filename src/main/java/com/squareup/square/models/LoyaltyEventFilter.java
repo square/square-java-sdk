@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for LoyaltyEventFilter type.
  */
 public class LoyaltyEventFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventLoyaltyAccountFilter loyaltyAccountFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventTypeFilter typeFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventDateTimeFilter dateTimeFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventLocationFilter locationFilter;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final LoyaltyEventOrderFilter orderFilter;
 
     /**
@@ -51,6 +46,7 @@ public class LoyaltyEventFilter {
      * @return Returns the LoyaltyEventLoyaltyAccountFilter
      */
     @JsonGetter("loyalty_account_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventLoyaltyAccountFilter getLoyaltyAccountFilter() {
         return loyaltyAccountFilter;
     }
@@ -61,6 +57,7 @@ public class LoyaltyEventFilter {
      * @return Returns the LoyaltyEventTypeFilter
      */
     @JsonGetter("type_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventTypeFilter getTypeFilter() {
         return typeFilter;
     }
@@ -71,6 +68,7 @@ public class LoyaltyEventFilter {
      * @return Returns the LoyaltyEventDateTimeFilter
      */
     @JsonGetter("date_time_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventDateTimeFilter getDateTimeFilter() {
         return dateTimeFilter;
     }
@@ -81,6 +79,7 @@ public class LoyaltyEventFilter {
      * @return Returns the LoyaltyEventLocationFilter
      */
     @JsonGetter("location_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventLocationFilter getLocationFilter() {
         return locationFilter;
     }
@@ -91,6 +90,7 @@ public class LoyaltyEventFilter {
      * @return Returns the LoyaltyEventOrderFilter
      */
     @JsonGetter("order_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LoyaltyEventOrderFilter getOrderFilter() {
         return orderFilter;
     }

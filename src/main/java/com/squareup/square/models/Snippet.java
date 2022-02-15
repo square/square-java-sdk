@@ -11,14 +11,10 @@ import java.util.Objects;
  * This is a model class for Snippet type.
  */
 public class Snippet {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String siteId;
     private final String content;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -49,6 +45,7 @@ public class Snippet {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -59,6 +56,7 @@ public class Snippet {
      * @return Returns the String
      */
     @JsonGetter("site_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSiteId() {
         return siteId;
     }
@@ -79,6 +77,7 @@ public class Snippet {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -89,6 +88,7 @@ public class Snippet {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

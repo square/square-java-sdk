@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for Coordinates type.
  */
 public class Coordinates {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double latitude;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Double longitude;
 
     /**
@@ -35,6 +33,7 @@ public class Coordinates {
      * @return Returns the Double
      */
     @JsonGetter("latitude")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Double getLatitude() {
         return latitude;
     }
@@ -45,6 +44,7 @@ public class Coordinates {
      * @return Returns the Double
      */
     @JsonGetter("longitude")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Double getLongitude() {
         return longitude;
     }

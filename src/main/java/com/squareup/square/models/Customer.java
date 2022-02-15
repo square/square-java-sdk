@@ -12,45 +12,25 @@ import java.util.Objects;
  * This is a model class for Customer type.
  */
 public class Customer {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Card> cards;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nickname;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerPreferences preferences;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String creationSource;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> groupIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> segmentIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTaxIds taxIds;
 
     /**
@@ -122,10 +102,14 @@ public class Customer {
 
     /**
      * Getter for Id.
-     * A unique Square-assigned ID for the customer profile.
+     * A unique Square-assigned ID for the customer profile. If you need this ID for an API request,
+     * use the ID returned when you created the customer profile or call the
+     * [SearchCustomers]($e/Customers/SearchCustomers) or
+     * [ListCustomers]($e/Customers/ListCustomers) endpoint.
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -136,6 +120,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -146,6 +131,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -161,6 +147,7 @@ public class Customer {
      * @return Returns the List of Card
      */
     @JsonGetter("cards")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Card> getCards() {
         return cards;
     }
@@ -171,6 +158,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGivenName() {
         return givenName;
     }
@@ -181,6 +169,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFamilyName() {
         return familyName;
     }
@@ -191,6 +180,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("nickname")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNickname() {
         return nickname;
     }
@@ -201,6 +191,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("company_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCompanyName() {
         return companyName;
     }
@@ -211,6 +202,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -222,6 +214,7 @@ public class Customer {
      * @return Returns the Address
      */
     @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getAddress() {
         return address;
     }
@@ -232,6 +225,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -245,6 +239,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("birthday")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBirthday() {
         return birthday;
     }
@@ -256,6 +251,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -266,6 +262,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -276,6 +273,7 @@ public class Customer {
      * @return Returns the CustomerPreferences
      */
     @JsonGetter("preferences")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerPreferences getPreferences() {
         return preferences;
     }
@@ -286,6 +284,7 @@ public class Customer {
      * @return Returns the String
      */
     @JsonGetter("creation_source")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreationSource() {
         return creationSource;
     }
@@ -296,6 +295,7 @@ public class Customer {
      * @return Returns the List of String
      */
     @JsonGetter("group_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getGroupIds() {
         return groupIds;
     }
@@ -306,6 +306,7 @@ public class Customer {
      * @return Returns the List of String
      */
     @JsonGetter("segment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getSegmentIds() {
         return segmentIds;
     }
@@ -318,19 +319,21 @@ public class Customer {
      * @return Returns the Long
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getVersion() {
         return version;
     }
 
     /**
      * Getter for TaxIds.
-     * Represents the tax ID associated with a customer profile. The corresponding `tax_ids` field
-     * is available only for customers of sellers in France, Ireland, or the United Kingdom. For
-     * more information, see [Customer tax
+     * Represents the tax ID associated with a [customer profile]($m/Customer). The corresponding
+     * `tax_ids` field is available only for customers of sellers in EU countries or the United
+     * Kingdom. For more information, see [Customer tax
      * IDs](https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids).
      * @return Returns the CustomerTaxIds
      */
     @JsonGetter("tax_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerTaxIds getTaxIds() {
         return taxIds;
     }

@@ -392,7 +392,7 @@ OrderReward bodyProposedRewards2 = new OrderReward.Builder(
 bodyProposedRewards.add(bodyProposedRewards2);
 
 CalculateOrderRequest body = new CalculateOrderRequest.Builder(
-        bodyOrder)
+        order)
     .proposedRewards(bodyProposedRewards)
     .build();
 

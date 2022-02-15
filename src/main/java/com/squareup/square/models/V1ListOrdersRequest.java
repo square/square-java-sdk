@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for V1ListOrdersRequest type.
  */
 public class V1ListOrdersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String order;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String batchToken;
 
     /**
@@ -40,6 +37,7 @@ public class V1ListOrdersRequest {
      * @return Returns the String
      */
     @JsonGetter("order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrder() {
         return order;
     }
@@ -50,6 +48,7 @@ public class V1ListOrdersRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -61,6 +60,7 @@ public class V1ListOrdersRequest {
      * @return Returns the String
      */
     @JsonGetter("batch_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBatchToken() {
         return batchToken;
     }

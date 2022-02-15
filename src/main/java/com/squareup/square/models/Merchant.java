@@ -11,20 +11,13 @@ import java.util.Objects;
  * This is a model class for Merchant type.
  */
 public class Merchant {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String businessName;
     private final String country;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String languageCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String currency;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String mainLocationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
 
     /**
@@ -64,16 +57,18 @@ public class Merchant {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
 
     /**
      * Getter for BusinessName.
-     * The business name of the merchant.
+     * The name of the merchant's overall business.
      * @return Returns the String
      */
     @JsonGetter("business_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBusinessName() {
         return businessName;
     }
@@ -91,10 +86,14 @@ public class Merchant {
 
     /**
      * Getter for LanguageCode.
-     * The language code associated with the merchant account, in BCP 47 format.
+     * The code indicating the [language
+     * preferences](https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences)
+     * of the merchant, in [BCP 47 format](https://tools.ietf.org/html/bcp47#appendix-A). For
+     * example, `en-US` or `fr-CA`.
      * @return Returns the String
      */
     @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLanguageCode() {
         return languageCode;
     }
@@ -106,6 +105,7 @@ public class Merchant {
      * @return Returns the String
      */
     @JsonGetter("currency")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCurrency() {
         return currency;
     }
@@ -115,16 +115,20 @@ public class Merchant {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
 
     /**
      * Getter for MainLocationId.
-     * The ID of the main `Location` for this merchant.
+     * The ID of the [main
+     * `Location`](https://developer.squareup.com/docs/locations-api#about-the-main-location) for
+     * this merchant.
      * @return Returns the String
      */
     @JsonGetter("main_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMainLocationId() {
         return mainLocationId;
     }
@@ -136,6 +140,7 @@ public class Merchant {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentPickupDetailsCurbsidePickupDetails type.
  */
 public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String curbsideDetails;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String buyerArrivedAt;
 
     /**
@@ -35,6 +33,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
      * @return Returns the String
      */
     @JsonGetter("curbside_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCurbsideDetails() {
         return curbsideDetails;
     }
@@ -47,6 +46,7 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
      * @return Returns the String
      */
     @JsonGetter("buyer_arrived_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBuyerArrivedAt() {
         return buyerArrivedAt;
     }

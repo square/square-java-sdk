@@ -13,9 +13,7 @@ import java.util.Objects;
 public class CatalogQuickAmount {
     private final String type;
     private final Money amount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long score;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long ordinal;
 
     /**
@@ -69,6 +67,7 @@ public class CatalogQuickAmount {
      * @return Returns the Long
      */
     @JsonGetter("score")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getScore() {
         return score;
     }
@@ -79,6 +78,7 @@ public class CatalogQuickAmount {
      * @return Returns the Long
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getOrdinal() {
         return ordinal;
     }

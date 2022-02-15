@@ -13,11 +13,8 @@ import java.util.Objects;
 public class JobAssignment {
     private final String jobTitle;
     private final String payType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money annualRate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer weeklyHours;
 
     /**
@@ -73,6 +70,7 @@ public class JobAssignment {
      * @return Returns the Money
      */
     @JsonGetter("hourly_rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getHourlyRate() {
         return hourlyRate;
     }
@@ -88,6 +86,7 @@ public class JobAssignment {
      * @return Returns the Money
      */
     @JsonGetter("annual_rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAnnualRate() {
         return annualRate;
     }
@@ -98,6 +97,7 @@ public class JobAssignment {
      * @return Returns the Integer
      */
     @JsonGetter("weekly_hours")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getWeeklyHours() {
         return weeklyHours;
     }

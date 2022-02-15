@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for InvoiceRecipientTaxIds type.
  */
 public class InvoiceRecipientTaxIds {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String euVat;
 
     /**
@@ -30,6 +29,7 @@ public class InvoiceRecipientTaxIds {
      * @return Returns the String
      */
     @JsonGetter("eu_vat")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEuVat() {
         return euVat;
     }

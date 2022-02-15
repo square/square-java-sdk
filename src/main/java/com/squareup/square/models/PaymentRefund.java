@@ -13,26 +13,16 @@ import java.util.Objects;
  */
 public class PaymentRefund {
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ProcessingFee> processingFee;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String orderId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
 
     /**
@@ -95,6 +85,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -105,6 +96,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -135,6 +127,7 @@ public class PaymentRefund {
      * @return Returns the Money
      */
     @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppFeeMoney() {
         return appFeeMoney;
     }
@@ -145,6 +138,7 @@ public class PaymentRefund {
      * @return Returns the List of ProcessingFee
      */
     @JsonGetter("processing_fee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<ProcessingFee> getProcessingFee() {
         return processingFee;
     }
@@ -155,6 +149,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -165,6 +160,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOrderId() {
         return orderId;
     }
@@ -175,6 +171,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -185,6 +182,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -195,6 +193,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -205,6 +204,7 @@ public class PaymentRefund {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }

@@ -12,9 +12,7 @@ import java.util.Objects;
  */
 public class CatalogQuerySortedAttribute {
     private final String attributeName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String initialAttributeValue;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sortOrder;
 
     /**
@@ -52,6 +50,7 @@ public class CatalogQuerySortedAttribute {
      * @return Returns the String
      */
     @JsonGetter("initial_attribute_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getInitialAttributeValue() {
         return initialAttributeValue;
     }
@@ -62,6 +61,7 @@ public class CatalogQuerySortedAttribute {
      * @return Returns the String
      */
     @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSortOrder() {
         return sortOrder;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for DisputedPayment type.
  */
 public class DisputedPayment {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
 
     /**
@@ -30,6 +29,7 @@ public class DisputedPayment {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }

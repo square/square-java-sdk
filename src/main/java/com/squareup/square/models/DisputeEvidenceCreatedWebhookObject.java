@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for DisputeEvidenceCreatedWebhookObject type.
  */
 public class DisputeEvidenceCreatedWebhookObject {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Dispute object;
 
     /**
@@ -30,6 +29,7 @@ public class DisputeEvidenceCreatedWebhookObject {
      * @return Returns the Dispute
      */
     @JsonGetter("object")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Dispute getObject() {
         return object;
     }

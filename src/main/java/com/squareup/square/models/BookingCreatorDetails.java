@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for BookingCreatorDetails type.
  */
 public class BookingCreatorDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String creatorType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
 
     /**
@@ -40,6 +37,7 @@ public class BookingCreatorDetails {
      * @return Returns the String
      */
     @JsonGetter("creator_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatorType() {
         return creatorType;
     }
@@ -51,6 +49,7 @@ public class BookingCreatorDetails {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }
@@ -62,6 +61,7 @@ public class BookingCreatorDetails {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }

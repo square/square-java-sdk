@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for SubscriptionAction type.
  */
 public class SubscriptionAction {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String effectiveDate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String newPlanId;
 
     /**
@@ -45,6 +41,7 @@ public class SubscriptionAction {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -55,6 +52,7 @@ public class SubscriptionAction {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -65,6 +63,7 @@ public class SubscriptionAction {
      * @return Returns the String
      */
     @JsonGetter("effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEffectiveDate() {
         return effectiveDate;
     }
@@ -75,6 +74,7 @@ public class SubscriptionAction {
      * @return Returns the String
      */
     @JsonGetter("new_plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNewPlanId() {
         return newPlanId;
     }

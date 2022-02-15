@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchTeamMembersRequest type.
  */
 public class SearchTeamMembersRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final SearchTeamMembersQuery query;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -40,6 +37,7 @@ public class SearchTeamMembersRequest {
      * @return Returns the SearchTeamMembersQuery
      */
     @JsonGetter("query")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SearchTeamMembersQuery getQuery() {
         return query;
     }
@@ -50,6 +48,7 @@ public class SearchTeamMembersRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -61,6 +60,7 @@ public class SearchTeamMembersRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

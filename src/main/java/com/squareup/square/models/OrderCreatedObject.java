@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for OrderCreatedObject type.
  */
 public class OrderCreatedObject {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final OrderCreated orderCreated;
 
     /**
@@ -29,6 +28,7 @@ public class OrderCreatedObject {
      * @return Returns the OrderCreated
      */
     @JsonGetter("order_created")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OrderCreated getOrderCreated() {
         return orderCreated;
     }

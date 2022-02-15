@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for SearchOrdersDateTimeFilter type.
  */
 public class SearchOrdersDateTimeFilter {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TimeRange closedAt;
 
     /**
@@ -43,6 +40,7 @@ public class SearchOrdersDateTimeFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getCreatedAt() {
         return createdAt;
     }
@@ -56,6 +54,7 @@ public class SearchOrdersDateTimeFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getUpdatedAt() {
         return updatedAt;
     }
@@ -69,6 +68,7 @@ public class SearchOrdersDateTimeFilter {
      * @return Returns the TimeRange
      */
     @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TimeRange getClosedAt() {
         return closedAt;
     }

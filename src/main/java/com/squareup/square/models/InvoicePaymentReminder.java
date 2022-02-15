@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for InvoicePaymentReminder type.
  */
 public class InvoicePaymentReminder {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer relativeScheduledDays;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String message;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sentAt;
 
     /**
@@ -51,6 +46,7 @@ public class InvoicePaymentReminder {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -63,6 +59,7 @@ public class InvoicePaymentReminder {
      * @return Returns the Integer
      */
     @JsonGetter("relative_scheduled_days")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getRelativeScheduledDays() {
         return relativeScheduledDays;
     }
@@ -73,6 +70,7 @@ public class InvoicePaymentReminder {
      * @return Returns the String
      */
     @JsonGetter("message")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMessage() {
         return message;
     }
@@ -83,6 +81,7 @@ public class InvoicePaymentReminder {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -93,6 +92,7 @@ public class InvoicePaymentReminder {
      * @return Returns the String
      */
     @JsonGetter("sent_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSentAt() {
         return sentAt;
     }

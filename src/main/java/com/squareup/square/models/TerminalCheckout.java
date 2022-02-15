@@ -12,33 +12,20 @@ import java.util.Objects;
  * This is a model class for TerminalCheckout type.
  */
 public class TerminalCheckout {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
     private final DeviceCheckoutOptions deviceOptions;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deadlineDuration;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cancelReason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> paymentIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String appId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentType;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String customerId;
 
     /**
@@ -99,6 +86,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -126,6 +114,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -137,6 +126,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -158,6 +148,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("deadline_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeadlineDuration() {
         return deadlineDuration;
     }
@@ -169,6 +160,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -178,6 +170,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCancelReason() {
         return cancelReason;
     }
@@ -188,6 +181,7 @@ public class TerminalCheckout {
      * @return Returns the List of String
      */
     @JsonGetter("payment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getPaymentIds() {
         return paymentIds;
     }
@@ -198,6 +192,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -208,6 +203,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -218,6 +214,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("app_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppId() {
         return appId;
     }
@@ -228,6 +225,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -237,6 +235,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("payment_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentType() {
         return paymentType;
     }
@@ -247,6 +246,7 @@ public class TerminalCheckout {
      * @return Returns the String
      */
     @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCustomerId() {
         return customerId;
     }

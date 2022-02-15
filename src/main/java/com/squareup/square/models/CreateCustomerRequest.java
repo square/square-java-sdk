@@ -11,29 +11,17 @@ import java.util.Objects;
  * This is a model class for CreateCustomerRequest type.
  */
 public class CreateCustomerRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String givenName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String familyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String companyName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nickname;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String emailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Address address;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String phoneNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String note;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String birthday;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CustomerTaxIds taxIds;
 
     /**
@@ -86,6 +74,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }
@@ -96,6 +85,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getGivenName() {
         return givenName;
     }
@@ -106,6 +96,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFamilyName() {
         return familyName;
     }
@@ -116,6 +107,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("company_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCompanyName() {
         return companyName;
     }
@@ -126,6 +118,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("nickname")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNickname() {
         return nickname;
     }
@@ -136,6 +129,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -147,6 +141,7 @@ public class CreateCustomerRequest {
      * @return Returns the Address
      */
     @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Address getAddress() {
         return address;
     }
@@ -157,6 +152,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -168,6 +164,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -178,6 +175,7 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
     }
@@ -191,19 +189,21 @@ public class CreateCustomerRequest {
      * @return Returns the String
      */
     @JsonGetter("birthday")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBirthday() {
         return birthday;
     }
 
     /**
      * Getter for TaxIds.
-     * Represents the tax ID associated with a customer profile. The corresponding `tax_ids` field
-     * is available only for customers of sellers in France, Ireland, or the United Kingdom. For
-     * more information, see [Customer tax
+     * Represents the tax ID associated with a [customer profile]($m/Customer). The corresponding
+     * `tax_ids` field is available only for customers of sellers in EU countries or the United
+     * Kingdom. For more information, see [Customer tax
      * IDs](https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids).
      * @return Returns the CustomerTaxIds
      */
     @JsonGetter("tax_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CustomerTaxIds getTaxIds() {
         return taxIds;
     }

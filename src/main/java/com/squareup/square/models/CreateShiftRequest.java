@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CreateShiftRequest type.
  */
 public class CreateShiftRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String idempotencyKey;
     private final Shift shift;
 
@@ -34,6 +33,7 @@ public class CreateShiftRequest {
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getIdempotencyKey() {
         return idempotencyKey;
     }

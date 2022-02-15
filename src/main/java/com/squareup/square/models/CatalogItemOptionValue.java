@@ -11,15 +11,10 @@ import java.util.Objects;
  * This is a model class for CatalogItemOptionValue type.
  */
 public class CatalogItemOptionValue {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String itemOptionId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String color;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer ordinal;
 
     /**
@@ -50,6 +45,7 @@ public class CatalogItemOptionValue {
      * @return Returns the String
      */
     @JsonGetter("item_option_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getItemOptionId() {
         return itemOptionId;
     }
@@ -61,6 +57,7 @@ public class CatalogItemOptionValue {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -72,6 +69,7 @@ public class CatalogItemOptionValue {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -84,6 +82,7 @@ public class CatalogItemOptionValue {
      * @return Returns the String
      */
     @JsonGetter("color")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getColor() {
         return color;
     }
@@ -94,6 +93,7 @@ public class CatalogItemOptionValue {
      * @return Returns the Integer
      */
     @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getOrdinal() {
         return ordinal;
     }

@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for OrderRoundingAdjustment type.
  */
 public class OrderRoundingAdjustment {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
 
     /**
@@ -40,6 +37,7 @@ public class OrderRoundingAdjustment {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -50,6 +48,7 @@ public class OrderRoundingAdjustment {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -65,6 +64,7 @@ public class OrderRoundingAdjustment {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }

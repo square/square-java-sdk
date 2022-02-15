@@ -18,22 +18,15 @@ public class BankAccount {
     private final String accountType;
     private final String holderName;
     private final String primaryBankIdentificationNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String secondaryBankIdentificationNumber;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String debitMandateReferenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String referenceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String locationId;
     private final String status;
     private final boolean creditable;
     private final boolean debitable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String fingerprint;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String bankName;
 
     /**
@@ -176,6 +169,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("secondary_bank_identification_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSecondaryBankIdentificationNumber() {
         return secondaryBankIdentificationNumber;
     }
@@ -187,6 +181,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("debit_mandate_reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDebitMandateReferenceId() {
         return debitMandateReferenceId;
     }
@@ -198,6 +193,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReferenceId() {
         return referenceId;
     }
@@ -208,6 +204,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
     }
@@ -250,6 +247,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("fingerprint")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFingerprint() {
         return fingerprint;
     }
@@ -260,6 +258,7 @@ public class BankAccount {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -270,6 +269,7 @@ public class BankAccount {
      * @return Returns the String
      */
     @JsonGetter("bank_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBankName() {
         return bankName;
     }

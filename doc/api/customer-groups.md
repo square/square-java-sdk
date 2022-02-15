@@ -84,7 +84,7 @@ CustomerGroup customerGroup = new CustomerGroup.Builder(
     .updatedAt("updated_at0")
     .build();
 CreateCustomerGroupRequest body = new CreateCustomerGroupRequest.Builder(
-        bodyGroup)
+        group)
     .idempotencyKey("idempotency_key2")
     .build();
 
@@ -195,7 +195,7 @@ CustomerGroup customerGroup = new CustomerGroup.Builder(
     .updatedAt("updated_at0")
     .build();
 UpdateCustomerGroupRequest body = new UpdateCustomerGroupRequest.Builder(
-        bodyGroup)
+        group)
     .build();
 
 customerGroupsApi.updateCustomerGroupAsync(groupId, body).thenAccept(result -> {

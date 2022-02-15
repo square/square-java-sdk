@@ -11,15 +11,11 @@ import java.util.Objects;
  * This is a model class for WorkweekConfig type.
  */
 public class WorkweekConfig {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String id;
     private final String startOfWeek;
     private final String startOfDayLocalTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer version;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String updatedAt;
 
     /**
@@ -53,6 +49,7 @@ public class WorkweekConfig {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -86,6 +83,7 @@ public class WorkweekConfig {
      * @return Returns the Integer
      */
     @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getVersion() {
         return version;
     }
@@ -96,6 +94,7 @@ public class WorkweekConfig {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -106,6 +105,7 @@ public class WorkweekConfig {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }

@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class CreateTerminalRefundRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final TerminalRefund refund;
 
     /**
@@ -45,6 +44,7 @@ public class CreateTerminalRefundRequest {
      * @return Returns the TerminalRefund
      */
     @JsonGetter("refund")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public TerminalRefund getRefund() {
         return refund;
     }

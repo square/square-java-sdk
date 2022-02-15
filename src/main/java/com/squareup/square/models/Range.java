@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for Range type.
  */
 public class Range {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String min;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String max;
 
     /**
@@ -36,6 +34,7 @@ public class Range {
      * @return Returns the String
      */
     @JsonGetter("min")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMin() {
         return min;
     }
@@ -47,6 +46,7 @@ public class Range {
      * @return Returns the String
      */
     @JsonGetter("max")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMax() {
         return max;
     }

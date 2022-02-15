@@ -11,11 +11,8 @@ import java.util.Objects;
  * This is a model class for DeviceDetails type.
  */
 public class DeviceDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceInstallationId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String deviceName;
 
     /**
@@ -40,6 +37,7 @@ public class DeviceDetails {
      * @return Returns the String
      */
     @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceId() {
         return deviceId;
     }
@@ -50,6 +48,7 @@ public class DeviceDetails {
      * @return Returns the String
      */
     @JsonGetter("device_installation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceInstallationId() {
         return deviceInstallationId;
     }
@@ -60,6 +59,7 @@ public class DeviceDetails {
      * @return Returns the String
      */
     @JsonGetter("device_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceName() {
         return deviceName;
     }

@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for DigitalWalletDetails type.
  */
 public class DigitalWalletDetails {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String status;
 
     /**
@@ -31,6 +30,7 @@ public class DigitalWalletDetails {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }

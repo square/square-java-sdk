@@ -13,9 +13,7 @@ import java.util.Objects;
 public class ExternalPaymentDetails {
     private final String type;
     private final String source;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money sourceFeeMoney;
 
     /**
@@ -71,6 +69,7 @@ public class ExternalPaymentDetails {
      * @return Returns the String
      */
     @JsonGetter("source_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceId() {
         return sourceId;
     }
@@ -86,6 +85,7 @@ public class ExternalPaymentDetails {
      * @return Returns the Money
      */
     @JsonGetter("source_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getSourceFeeMoney() {
         return sourceFeeMoney;
     }

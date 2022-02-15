@@ -15,9 +15,7 @@ import java.util.Objects;
  */
 public class SearchAvailabilityResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Availability> availabilities;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
 
     /**
@@ -44,6 +42,7 @@ public class SearchAvailabilityResponse {
      * @return Returns the List of Availability
      */
     @JsonGetter("availabilities")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Availability> getAvailabilities() {
         return availabilities;
     }
@@ -54,6 +53,7 @@ public class SearchAvailabilityResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }

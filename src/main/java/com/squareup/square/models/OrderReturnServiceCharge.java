@@ -12,31 +12,18 @@ import java.util.Objects;
  * This is a model class for OrderReturnServiceCharge type.
  */
 public class OrderReturnServiceCharge {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String uid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String sourceServiceChargeUid;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String catalogObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Long catalogVersion;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String percentage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appliedMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money totalTaxMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String calculationPhase;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean taxable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<OrderLineItemAppliedTax> appliedTaxes;
 
     /**
@@ -91,6 +78,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -102,6 +90,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("source_service_charge_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getSourceServiceChargeUid() {
         return sourceServiceChargeUid;
     }
@@ -112,6 +101,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -122,6 +112,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCatalogObjectId() {
         return catalogObjectId;
     }
@@ -132,6 +123,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Long
      */
     @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getCatalogVersion() {
         return catalogVersion;
     }
@@ -144,6 +136,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPercentage() {
         return percentage;
     }
@@ -159,6 +152,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -174,6 +168,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Money
      */
     @JsonGetter("applied_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppliedMoney() {
         return appliedMoney;
     }
@@ -189,6 +184,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Money
      */
     @JsonGetter("total_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalMoney() {
         return totalMoney;
     }
@@ -204,6 +200,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Money
      */
     @JsonGetter("total_tax_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getTotalTaxMoney() {
         return totalTaxMoney;
     }
@@ -216,6 +213,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the String
      */
     @JsonGetter("calculation_phase")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCalculationPhase() {
         return calculationPhase;
     }
@@ -227,6 +225,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the Boolean
      */
     @JsonGetter("taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getTaxable() {
         return taxable;
     }
@@ -240,6 +239,7 @@ public class OrderReturnServiceCharge {
      * @return Returns the List of OrderLineItemAppliedTax
      */
     @JsonGetter("applied_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
         return appliedTaxes;
     }

@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for CatalogIdMapping type.
  */
 public class CatalogIdMapping {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String clientObjectId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String objectId;
 
     /**
@@ -35,6 +33,7 @@ public class CatalogIdMapping {
      * @return Returns the String
      */
     @JsonGetter("client_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClientObjectId() {
         return clientObjectId;
     }
@@ -45,6 +44,7 @@ public class CatalogIdMapping {
      * @return Returns the String
      */
     @JsonGetter("object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getObjectId() {
         return objectId;
     }

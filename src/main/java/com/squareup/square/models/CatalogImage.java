@@ -11,13 +11,9 @@ import java.util.Objects;
  * This is a model class for CatalogImage type.
  */
 public class CatalogImage {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String url;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String caption;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String photoStudioOrderId;
 
     /**
@@ -48,6 +44,7 @@ public class CatalogImage {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -60,6 +57,7 @@ public class CatalogImage {
      * @return Returns the String
      */
     @JsonGetter("url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUrl() {
         return url;
     }
@@ -72,6 +70,7 @@ public class CatalogImage {
      * @return Returns the String
      */
     @JsonGetter("caption")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCaption() {
         return caption;
     }
@@ -83,6 +82,7 @@ public class CatalogImage {
      * @return Returns the String
      */
     @JsonGetter("photo_studio_order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhotoStudioOrderId() {
         return photoStudioOrderId;
     }

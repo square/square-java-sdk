@@ -118,7 +118,7 @@ CreateTeamMemberRequest bodyTeamMembers1 = new CreateTeamMemberRequest.Builder()
 bodyTeamMembers.put("",bodyTeamMembers1);
 
 BulkCreateTeamMembersRequest body = new BulkCreateTeamMembersRequest.Builder(
-        bodyTeamMembers)
+        teamMembers)
     .build();
 
 teamApi.bulkCreateTeamMembersAsync(body).thenAccept(result -> {
@@ -167,7 +167,7 @@ UpdateTeamMemberRequest bodyTeamMembers1 = new UpdateTeamMemberRequest.Builder()
 bodyTeamMembers.put("",bodyTeamMembers1);
 
 BulkUpdateTeamMembersRequest body = new BulkUpdateTeamMembersRequest.Builder(
-        bodyTeamMembers)
+        teamMembers)
     .build();
 
 teamApi.bulkUpdateTeamMembersAsync(body).thenAccept(result -> {
@@ -429,7 +429,7 @@ WageSetting wageSetting = new WageSetting.Builder()
     .createdAt("created_at0")
     .build();
 UpdateWageSettingRequest body = new UpdateWageSettingRequest.Builder(
-        bodyWageSetting)
+        wageSetting)
     .build();
 
 teamApi.updateWageSettingAsync(teamMemberId, body).thenAccept(result -> {

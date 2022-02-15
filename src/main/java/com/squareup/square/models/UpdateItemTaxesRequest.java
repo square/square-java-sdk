@@ -13,9 +13,7 @@ import java.util.Objects;
  */
 public class UpdateItemTaxesRequest {
     private final List<String> itemIds;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxesToEnable;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> taxesToDisable;
 
     /**
@@ -52,6 +50,7 @@ public class UpdateItemTaxesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("taxes_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTaxesToEnable() {
         return taxesToEnable;
     }
@@ -63,6 +62,7 @@ public class UpdateItemTaxesRequest {
      * @return Returns the List of String
      */
     @JsonGetter("taxes_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTaxesToDisable() {
         return taxesToDisable;
     }

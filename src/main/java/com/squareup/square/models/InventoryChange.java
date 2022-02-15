@@ -11,17 +11,11 @@ import java.util.Objects;
  * This is a model class for InventoryChange type.
  */
 public class InventoryChange {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String type;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryPhysicalCount physicalCount;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryAdjustment adjustment;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final InventoryTransfer transfer;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final CatalogMeasurementUnit measurementUnit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String measurementUnitId;
 
     /**
@@ -55,6 +49,7 @@ public class InventoryChange {
      * @return Returns the String
      */
     @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -68,6 +63,7 @@ public class InventoryChange {
      * @return Returns the InventoryPhysicalCount
      */
     @JsonGetter("physical_count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryPhysicalCount getPhysicalCount() {
         return physicalCount;
     }
@@ -79,6 +75,7 @@ public class InventoryChange {
      * @return Returns the InventoryAdjustment
      */
     @JsonGetter("adjustment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryAdjustment getAdjustment() {
         return adjustment;
     }
@@ -90,6 +87,7 @@ public class InventoryChange {
      * @return Returns the InventoryTransfer
      */
     @JsonGetter("transfer")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InventoryTransfer getTransfer() {
         return transfer;
     }
@@ -101,6 +99,7 @@ public class InventoryChange {
      * @return Returns the CatalogMeasurementUnit
      */
     @JsonGetter("measurement_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CatalogMeasurementUnit getMeasurementUnit() {
         return measurementUnit;
     }
@@ -112,6 +111,7 @@ public class InventoryChange {
      * @return Returns the String
      */
     @JsonGetter("measurement_unit_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMeasurementUnitId() {
         return measurementUnitId;
     }

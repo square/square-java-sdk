@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 public class DeprecatedCreateDisputeEvidenceTextRequest {
     private final String idempotencyKey;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String evidenceType;
     private final String evidenceText;
 
@@ -49,6 +48,7 @@ public class DeprecatedCreateDisputeEvidenceTextRequest {
      * @return Returns the String
      */
     @JsonGetter("evidence_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEvidenceType() {
         return evidenceType;
     }

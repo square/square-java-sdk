@@ -13,15 +13,10 @@ import java.util.Objects;
 public class RefundPaymentRequest {
     private final String idempotencyKey;
     private final Money amountMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money appFeeMoney;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String reason;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String paymentVersionToken;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String teamMemberId;
 
     /**
@@ -90,6 +85,7 @@ public class RefundPaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAppFeeMoney() {
         return appFeeMoney;
     }
@@ -100,6 +96,7 @@ public class RefundPaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentId() {
         return paymentId;
     }
@@ -110,6 +107,7 @@ public class RefundPaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -123,6 +121,7 @@ public class RefundPaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("payment_version_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPaymentVersionToken() {
         return paymentVersionToken;
     }
@@ -133,6 +132,7 @@ public class RefundPaymentRequest {
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTeamMemberId() {
         return teamMemberId;
     }

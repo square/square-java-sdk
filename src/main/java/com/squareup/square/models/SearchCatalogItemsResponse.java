@@ -15,13 +15,9 @@ import java.util.Objects;
  */
 public class SearchCatalogItemsResponse {
     private HttpContext httpContext;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<Error> errors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> items;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<String> matchedVariationIds;
 
     /**
@@ -54,6 +50,7 @@ public class SearchCatalogItemsResponse {
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Error> getErrors() {
         return errors;
     }
@@ -64,6 +61,7 @@ public class SearchCatalogItemsResponse {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getItems() {
         return items;
     }
@@ -74,6 +72,7 @@ public class SearchCatalogItemsResponse {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }
@@ -84,6 +83,7 @@ public class SearchCatalogItemsResponse {
      * @return Returns the List of String
      */
     @JsonGetter("matched_variation_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getMatchedVariationIds() {
         return matchedVariationIds;
     }

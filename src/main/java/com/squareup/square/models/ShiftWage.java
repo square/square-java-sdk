@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ShiftWage type.
  */
 public class ShiftWage {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String title;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Money hourlyRate;
 
     /**
@@ -36,6 +34,7 @@ public class ShiftWage {
      * @return Returns the String
      */
     @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTitle() {
         return title;
     }
@@ -51,6 +50,7 @@ public class ShiftWage {
      * @return Returns the Money
      */
     @JsonGetter("hourly_rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getHourlyRate() {
         return hourlyRate;
     }

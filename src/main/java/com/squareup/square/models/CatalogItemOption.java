@@ -12,15 +12,10 @@ import java.util.Objects;
  * This is a model class for CatalogItemOption type.
  */
 public class CatalogItemOption {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String name;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String displayName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean showColors;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<CatalogObject> values;
 
     /**
@@ -52,6 +47,7 @@ public class CatalogItemOption {
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -63,6 +59,7 @@ public class CatalogItemOption {
      * @return Returns the String
      */
     @JsonGetter("display_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDisplayName() {
         return displayName;
     }
@@ -75,6 +72,7 @@ public class CatalogItemOption {
      * @return Returns the String
      */
     @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
         return description;
     }
@@ -85,6 +83,7 @@ public class CatalogItemOption {
      * @return Returns the Boolean
      */
     @JsonGetter("show_colors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getShowColors() {
         return showColors;
     }
@@ -95,6 +94,7 @@ public class CatalogItemOption {
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<CatalogObject> getValues() {
         return values;
     }

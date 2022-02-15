@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for RiskEvaluation type.
  */
 public class RiskEvaluation {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String createdAt;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String riskLevel;
 
     /**
@@ -35,6 +33,7 @@ public class RiskEvaluation {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -44,6 +43,7 @@ public class RiskEvaluation {
      * @return Returns the String
      */
     @JsonGetter("risk_level")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRiskLevel() {
         return riskLevel;
     }

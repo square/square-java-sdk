@@ -11,9 +11,7 @@ import java.util.Objects;
  * This is a model class for ListWorkweekConfigsRequest type.
  */
 public class ListWorkweekConfigsRequest {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer limit;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String cursor;
 
     /**
@@ -35,6 +33,7 @@ public class ListWorkweekConfigsRequest {
      * @return Returns the Integer
      */
     @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getLimit() {
         return limit;
     }
@@ -45,6 +44,7 @@ public class ListWorkweekConfigsRequest {
      * @return Returns the String
      */
     @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCursor() {
         return cursor;
     }

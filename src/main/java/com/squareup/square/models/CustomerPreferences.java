@@ -11,7 +11,6 @@ import java.util.Objects;
  * This is a model class for CustomerPreferences type.
  */
 public class CustomerPreferences {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Boolean emailUnsubscribed;
 
     /**
@@ -32,6 +31,7 @@ public class CustomerPreferences {
      * @return Returns the Boolean
      */
     @JsonGetter("email_unsubscribed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getEmailUnsubscribed() {
         return emailUnsubscribed;
     }
