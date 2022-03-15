@@ -67,7 +67,8 @@ public class SearchCustomersResponse {
      * A pagination cursor that can be used during subsequent calls to `SearchCustomers` to retrieve
      * the next set of results associated with the original query. Pagination cursors are only
      * present when a request succeeds and additional results are available. For more information,
-     * see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * see
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

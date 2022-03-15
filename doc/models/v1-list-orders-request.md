@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Order` | [`String`](/doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. | String getOrder() |
+| `Order` | [`String`](../../doc/models/sort-order.md) | Optional | The order (e.g., chronological or alphabetical) in which results from a request are returned. | String getOrder() |
 | `Limit` | `Integer` | Optional | The maximum number of payments to return in a single response. This value cannot exceed 200. | Integer getLimit() |
 | `BatchToken` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. | String getBatchToken() |
 

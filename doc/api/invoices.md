@@ -10,14 +10,14 @@ InvoicesApi invoicesApi = client.getInvoicesApi();
 
 ## Methods
 
-* [List Invoices](/doc/api/invoices.md#list-invoices)
-* [Create Invoice](/doc/api/invoices.md#create-invoice)
-* [Search Invoices](/doc/api/invoices.md#search-invoices)
-* [Delete Invoice](/doc/api/invoices.md#delete-invoice)
-* [Get Invoice](/doc/api/invoices.md#get-invoice)
-* [Update Invoice](/doc/api/invoices.md#update-invoice)
-* [Cancel Invoice](/doc/api/invoices.md#cancel-invoice)
-* [Publish Invoice](/doc/api/invoices.md#publish-invoice)
+* [List Invoices](../../doc/api/invoices.md#list-invoices)
+* [Create Invoice](../../doc/api/invoices.md#create-invoice)
+* [Search Invoices](../../doc/api/invoices.md#search-invoices)
+* [Delete Invoice](../../doc/api/invoices.md#delete-invoice)
+* [Get Invoice](../../doc/api/invoices.md#get-invoice)
+* [Update Invoice](../../doc/api/invoices.md#update-invoice)
+* [Cancel Invoice](../../doc/api/invoices.md#cancel-invoice)
+* [Publish Invoice](../../doc/api/invoices.md#publish-invoice)
 
 
 # List Invoices
@@ -38,12 +38,12 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Query, Required | The ID of the location for which to list invoices. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for your original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for your original query.<br><br>For more information, see [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `limit` | `Integer` | Query, Optional | The maximum number of invoices to return (200 is the maximum `limit`).<br>If not provided, the server uses a default limit of 100 invoices. |
 
 ## Response Type
 
-[`ListInvoicesResponse`](/doc/models/list-invoices-response.md)
+[`ListInvoicesResponse`](../../doc/models/list-invoices-response.md)
 
 ## Example Usage
 
@@ -63,7 +63,7 @@ invoicesApi.listInvoicesAsync(locationId, cursor, limit).thenAccept(result -> {
 
 # Create Invoice
 
-Creates a draft [invoice](/doc/models/invoice.md)
+Creates a draft [invoice](../../doc/models/invoice.md)
 for an order created using the Orders API.
 
 A draft invoice remains in your account and no action is taken.
@@ -78,11 +78,11 @@ CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateInvoiceRequest`](/doc/models/create-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateInvoiceRequest`](../../doc/models/create-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateInvoiceResponse`](/doc/models/create-invoice-response.md)
+[`CreateInvoiceResponse`](../../doc/models/create-invoice-response.md)
 
 ## Example Usage
 
@@ -200,11 +200,11 @@ CompletableFuture<SearchInvoicesResponse> searchInvoicesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`SearchInvoicesRequest`](/doc/models/search-invoices-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SearchInvoicesRequest`](../../doc/models/search-invoices-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SearchInvoicesResponse`](/doc/models/search-invoices-response.md)
+[`SearchInvoicesResponse`](../../doc/models/search-invoices-response.md)
 
 ## Example Usage
 
@@ -257,11 +257,11 @@ CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `invoiceId` | `String` | Template, Required | The ID of the invoice to delete. |
-| `version` | `Integer` | Query, Optional | The version of the [invoice](/doc/models/invoice.md) to delete.<br>If you do not know the version, you can call [GetInvoice](/doc/api/invoices.md#get-invoice) or<br>[ListInvoices](/doc/api/invoices.md#list-invoices). |
+| `version` | `Integer` | Query, Optional | The version of the [invoice](../../doc/models/invoice.md) to delete.<br>If you do not know the version, you can call [GetInvoice](../../doc/api/invoices.md#get-invoice) or<br>[ListInvoices](../../doc/api/invoices.md#list-invoices). |
 
 ## Response Type
 
-[`DeleteInvoiceResponse`](/doc/models/delete-invoice-response.md)
+[`DeleteInvoiceResponse`](../../doc/models/delete-invoice-response.md)
 
 ## Example Usage
 
@@ -295,7 +295,7 @@ CompletableFuture<GetInvoiceResponse> getInvoiceAsync(
 
 ## Response Type
 
-[`GetInvoiceResponse`](/doc/models/get-invoice-response.md)
+[`GetInvoiceResponse`](../../doc/models/get-invoice-response.md)
 
 ## Example Usage
 
@@ -329,11 +329,11 @@ CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `invoiceId` | `String` | Template, Required | The ID of the invoice to update. |
-| `body` | [`UpdateInvoiceRequest`](/doc/models/update-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`UpdateInvoiceRequest`](../../doc/models/update-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`UpdateInvoiceResponse`](/doc/models/update-invoice-response.md)
+[`UpdateInvoiceResponse`](../../doc/models/update-invoice-response.md)
 
 ## Example Usage
 
@@ -411,12 +411,12 @@ CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `invoiceId` | `String` | Template, Required | The ID of the [invoice](/doc/models/invoice.md) to cancel. |
-| `body` | [`CancelInvoiceRequest`](/doc/models/cancel-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `invoiceId` | `String` | Template, Required | The ID of the [invoice](../../doc/models/invoice.md) to cancel. |
+| `body` | [`CancelInvoiceRequest`](../../doc/models/cancel-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CancelInvoiceResponse`](/doc/models/cancel-invoice-response.md)
+[`CancelInvoiceResponse`](../../doc/models/cancel-invoice-response.md)
 
 ## Example Usage
 
@@ -460,11 +460,11 @@ CompletableFuture<PublishInvoiceResponse> publishInvoiceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `invoiceId` | `String` | Template, Required | The ID of the invoice to publish. |
-| `body` | [`PublishInvoiceRequest`](/doc/models/publish-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`PublishInvoiceRequest`](../../doc/models/publish-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`PublishInvoiceResponse`](/doc/models/publish-invoice-response.md)
+[`PublishInvoiceResponse`](../../doc/models/publish-invoice-response.md)
 
 ## Example Usage
 

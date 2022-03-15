@@ -325,8 +325,9 @@ public interface LoyaltyApi {
             final CreateLoyaltyRewardRequest body);
 
     /**
-     * Searches for loyalty rewards in a loyalty account. In the current implementation, the
-     * endpoint supports search by the reward `status`. If you know a reward ID, use the
+     * Searches for loyalty rewards. This endpoint accepts a request with no query filters and
+     * returns results for all loyalty accounts. If you include a `query` object,
+     * `loyalty_account_id` is required and `status` is optional. If you know a reward ID, use the
      * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
      * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -339,8 +340,9 @@ public interface LoyaltyApi {
             final SearchLoyaltyRewardsRequest body) throws ApiException, IOException;
 
     /**
-     * Searches for loyalty rewards in a loyalty account. In the current implementation, the
-     * endpoint supports search by the reward `status`. If you know a reward ID, use the
+     * Searches for loyalty rewards. This endpoint accepts a request with no query filters and
+     * returns results for all loyalty accounts. If you include a `query` object,
+     * `loyalty_account_id` is required and `status` is optional. If you know a reward ID, use the
      * [RetrieveLoyaltyReward]($e/Loyalty/RetrieveLoyaltyReward) endpoint. Search results are sorted
      * by `updated_at` in descending order.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

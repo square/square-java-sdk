@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Checkouts` | [`List<TerminalCheckout>`](/doc/models/terminal-checkout.md) | Optional | The requested search result of `TerminalCheckout` objects. | List<TerminalCheckout> getCheckouts() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Checkouts` | [`List<TerminalCheckout>`](../../doc/models/terminal-checkout.md) | Optional | The requested search result of `TerminalCheckout` objects. | List<TerminalCheckout> getCheckouts() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
 
 ## Example (as JSON)
 

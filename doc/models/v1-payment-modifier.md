@@ -12,7 +12,7 @@ V1PaymentModifier
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Name` | `String` | Optional | The modifier option's name. | String getName() |
-| `AppliedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
+| `AppliedMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
 | `ModifierOptionId` | `String` | Optional | The ID of the applied modifier option, if available. Modifier options applied in older versions of Square Register might not have an ID. | String getModifierOptionId() |
 
 ## Example (as JSON)

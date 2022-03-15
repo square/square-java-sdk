@@ -10,22 +10,22 @@ BookingsApi bookingsApi = client.getBookingsApi();
 
 ## Methods
 
-* [List Bookings](/doc/api/bookings.md#list-bookings)
-* [Create Booking](/doc/api/bookings.md#create-booking)
-* [Search Availability](/doc/api/bookings.md#search-availability)
-* [Retrieve Business Booking Profile](/doc/api/bookings.md#retrieve-business-booking-profile)
-* [List Team Member Booking Profiles](/doc/api/bookings.md#list-team-member-booking-profiles)
-* [Retrieve Team Member Booking Profile](/doc/api/bookings.md#retrieve-team-member-booking-profile)
-* [Retrieve Booking](/doc/api/bookings.md#retrieve-booking)
-* [Update Booking](/doc/api/bookings.md#update-booking)
-* [Cancel Booking](/doc/api/bookings.md#cancel-booking)
+* [List Bookings](../../doc/api/bookings.md#list-bookings)
+* [Create Booking](../../doc/api/bookings.md#create-booking)
+* [Search Availability](../../doc/api/bookings.md#search-availability)
+* [Retrieve Business Booking Profile](../../doc/api/bookings.md#retrieve-business-booking-profile)
+* [List Team Member Booking Profiles](../../doc/api/bookings.md#list-team-member-booking-profiles)
+* [Retrieve Team Member Booking Profile](../../doc/api/bookings.md#retrieve-team-member-booking-profile)
+* [Retrieve Booking](../../doc/api/bookings.md#retrieve-booking)
+* [Update Booking](../../doc/api/bookings.md#update-booking)
+* [Cancel Booking](../../doc/api/bookings.md#cancel-booking)
 
 
 # List Bookings
 
 Retrieve a collection of bookings.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
 
 ```java
@@ -51,7 +51,7 @@ CompletableFuture<ListBookingsResponse> listBookingsAsync(
 
 ## Response Type
 
-[`ListBookingsResponse`](/doc/models/list-bookings-response.md)
+[`ListBookingsResponse`](../../doc/models/list-bookings-response.md)
 
 ## Example Usage
 
@@ -76,7 +76,7 @@ bookingsApi.listBookingsAsync(limit, cursor, teamMemberId, locationId, startAtMi
 
 Creates a booking.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
 
 ```java
@@ -88,11 +88,11 @@ CompletableFuture<CreateBookingResponse> createBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateBookingRequest`](/doc/models/create-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateBookingRequest`](../../doc/models/create-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateBookingResponse`](/doc/models/create-booking-response.md)
+[`CreateBookingResponse`](../../doc/models/create-booking-response.md)
 
 ## Example Usage
 
@@ -122,7 +122,7 @@ bookingsApi.createBookingAsync(body).thenAccept(result -> {
 
 Searches for availabilities for booking.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
 
 ```java
@@ -134,11 +134,11 @@ CompletableFuture<SearchAvailabilityResponse> searchAvailabilityAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`SearchAvailabilityRequest`](/doc/models/search-availability-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SearchAvailabilityRequest`](../../doc/models/search-availability-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SearchAvailabilityResponse`](/doc/models/search-availability-response.md)
+[`SearchAvailabilityResponse`](../../doc/models/search-availability-response.md)
 
 ## Example Usage
 
@@ -221,7 +221,7 @@ CompletableFuture<RetrieveBusinessBookingProfileResponse> retrieveBusinessBookin
 
 ## Response Type
 
-[`RetrieveBusinessBookingProfileResponse`](/doc/models/retrieve-business-booking-profile-response.md)
+[`RetrieveBusinessBookingProfileResponse`](../../doc/models/retrieve-business-booking-profile-response.md)
 
 ## Example Usage
 
@@ -258,7 +258,7 @@ CompletableFuture<ListTeamMemberBookingProfilesResponse> listTeamMemberBookingPr
 
 ## Response Type
 
-[`ListTeamMemberBookingProfilesResponse`](/doc/models/list-team-member-booking-profiles-response.md)
+[`ListTeamMemberBookingProfilesResponse`](../../doc/models/list-team-member-booking-profiles-response.md)
 
 ## Example Usage
 
@@ -294,7 +294,7 @@ CompletableFuture<RetrieveTeamMemberBookingProfileResponse> retrieveTeamMemberBo
 
 ## Response Type
 
-[`RetrieveTeamMemberBookingProfileResponse`](/doc/models/retrieve-team-member-booking-profile-response.md)
+[`RetrieveTeamMemberBookingProfileResponse`](../../doc/models/retrieve-team-member-booking-profile-response.md)
 
 ## Example Usage
 
@@ -314,7 +314,7 @@ bookingsApi.retrieveTeamMemberBookingProfileAsync(teamMemberId).thenAccept(resul
 
 Retrieves a booking.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
 
 ```java
@@ -326,11 +326,11 @@ CompletableFuture<RetrieveBookingResponse> retrieveBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-retrieved booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-retrieved booking. |
 
 ## Response Type
 
-[`RetrieveBookingResponse`](/doc/models/retrieve-booking-response.md)
+[`RetrieveBookingResponse`](../../doc/models/retrieve-booking-response.md)
 
 ## Example Usage
 
@@ -350,7 +350,7 @@ bookingsApi.retrieveBookingAsync(bookingId).thenAccept(result -> {
 
 Updates a booking.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
 
 ```java
@@ -363,12 +363,12 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-updated booking. |
-| `body` | [`UpdateBookingRequest`](/doc/models/update-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-updated booking. |
+| `body` | [`UpdateBookingRequest`](../../doc/models/update-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`UpdateBookingResponse`](/doc/models/update-booking-response.md)
+[`UpdateBookingResponse`](../../doc/models/update-booking-response.md)
 
 ## Example Usage
 
@@ -399,7 +399,7 @@ bookingsApi.updateBookingAsync(bookingId, body).thenAccept(result -> {
 
 Cancels an existing booking.
 
-To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.  
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
 
 ```java
@@ -412,12 +412,12 @@ CompletableFuture<CancelBookingResponse> cancelBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](/doc/models/booking.md) object representing the to-be-cancelled booking. |
-| `body` | [`CancelBookingRequest`](/doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-cancelled booking. |
+| `body` | [`CancelBookingRequest`](../../doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CancelBookingResponse`](/doc/models/cancel-booking-response.md)
+[`CancelBookingResponse`](../../doc/models/cancel-booking-response.md)
 
 ## Example Usage
 

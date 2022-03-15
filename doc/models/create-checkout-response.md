@@ -12,8 +12,8 @@ a request to the `CreateCheckout` endpoint.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Checkout` | [`Checkout`](/doc/models/checkout.md) | Optional | Square Checkout lets merchants accept online payments for supported<br>payment types using a checkout workflow hosted on squareup.com. | Checkout getCheckout() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Checkout` | [`Checkout`](../../doc/models/checkout.md) | Optional | Square Checkout lets merchants accept online payments for supported<br>payment types using a checkout workflow hosted on squareup.com. | Checkout getCheckout() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

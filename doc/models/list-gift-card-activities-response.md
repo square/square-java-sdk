@@ -12,9 +12,9 @@ the response contains a set of `Error` objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `GiftCardActivities` | [`List<GiftCardActivity>`](/doc/models/gift-card-activity.md) | Optional | The requested gift card activities or an empty object if none are found. | List<GiftCardActivity> getGiftCardActivities() |
-| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can use in a<br>subsequent request to retrieve the next set of activities. If a cursor is not present, this is<br>the final response.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `GiftCardActivities` | [`List<GiftCardActivity>`](../../doc/models/gift-card-activity.md) | Optional | The requested gift card activities or an empty object if none are found. | List<GiftCardActivity> getGiftCardActivities() |
+| `Cursor` | `String` | Optional | When a response is truncated, it includes a cursor that you can use in a<br>subsequent request to retrieve the next set of activities. If a cursor is not present, this is<br>the final response.<br>For more information, see [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

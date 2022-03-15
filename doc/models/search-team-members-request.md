@@ -11,9 +11,9 @@ Represents a search request for a filtered list of `TeamMember` objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Query` | [`SearchTeamMembersQuery`](/doc/models/search-team-members-query.md) | Optional | Represents the parameters in a search for `TeamMember` objects. | SearchTeamMembersQuery getQuery() |
-| `Limit` | `Integer` | Optional | The maximum number of `TeamMember` objects in a page (100 by default).<br>**Constraints**: `>= 1`, `<= 100` | Integer getLimit() |
-| `Cursor` | `String` | Optional | The opaque cursor for fetching the next page. For more information, see<br>[pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
+| `Query` | [`SearchTeamMembersQuery`](../../doc/models/search-team-members-query.md) | Optional | Represents the parameters in a search for `TeamMember` objects. | SearchTeamMembersQuery getQuery() |
+| `Limit` | `Integer` | Optional | The maximum number of `TeamMember` objects in a page (100 by default).<br>**Constraints**: `>= 1`, `<= 200` | Integer getLimit() |
+| `Cursor` | `String` | Optional | The opaque cursor for fetching the next page. For more information, see<br>[pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

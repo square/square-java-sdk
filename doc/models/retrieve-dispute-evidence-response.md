@@ -11,8 +11,8 @@ Defines the fields in a `RetrieveDisputeEvidence` response.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Evidence` | [`DisputeEvidence`](/doc/models/dispute-evidence.md) | Optional | - | DisputeEvidence getEvidence() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Evidence` | [`DisputeEvidence`](../../doc/models/dispute-evidence.md) | Optional | - | DisputeEvidence getEvidence() |
 
 ## Example (as JSON)
 

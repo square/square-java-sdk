@@ -12,9 +12,9 @@ a set of `TeamMemberWage` objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `TeamMemberWages` | [`List<TeamMemberWage>`](/doc/models/team-member-wage.md) | Optional | A page of `TeamMemberWage` results. | List<TeamMemberWage> getTeamMemberWages() |
+| `TeamMemberWages` | [`List<TeamMemberWage>`](../../doc/models/team-member-wage.md) | Optional | A page of `TeamMemberWage` results. | List<TeamMemberWage> getTeamMemberWages() |
 | `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page<br>of `TeamMemberWage` results. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

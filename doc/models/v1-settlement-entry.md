@@ -12,9 +12,9 @@ V1SettlementEntry
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `PaymentId` | `String` | Optional | The settlement's unique identifier. | String getPaymentId() |
-| `Type` | [`String`](/doc/models/v1-settlement-entry-type.md) | Optional | - | String getType() |
-| `AmountMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAmountMoney() |
-| `FeeMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getFeeMoney() |
+| `Type` | [`String`](../../doc/models/v1-settlement-entry-type.md) | Optional | - | String getType() |
+| `AmountMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getAmountMoney() |
+| `FeeMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getFeeMoney() |
 
 ## Example (as JSON)
 

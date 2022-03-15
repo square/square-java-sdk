@@ -30,7 +30,7 @@ public class CreateCustomerGroupRequest {
     /**
      * Getter for IdempotencyKey.
      * The idempotency key for the request. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

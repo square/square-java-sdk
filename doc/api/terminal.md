@@ -10,14 +10,14 @@ TerminalApi terminalApi = client.getTerminalApi();
 
 ## Methods
 
-* [Create Terminal Checkout](/doc/api/terminal.md#create-terminal-checkout)
-* [Search Terminal Checkouts](/doc/api/terminal.md#search-terminal-checkouts)
-* [Get Terminal Checkout](/doc/api/terminal.md#get-terminal-checkout)
-* [Cancel Terminal Checkout](/doc/api/terminal.md#cancel-terminal-checkout)
-* [Create Terminal Refund](/doc/api/terminal.md#create-terminal-refund)
-* [Search Terminal Refunds](/doc/api/terminal.md#search-terminal-refunds)
-* [Get Terminal Refund](/doc/api/terminal.md#get-terminal-refund)
-* [Cancel Terminal Refund](/doc/api/terminal.md#cancel-terminal-refund)
+* [Create Terminal Checkout](../../doc/api/terminal.md#create-terminal-checkout)
+* [Search Terminal Checkouts](../../doc/api/terminal.md#search-terminal-checkouts)
+* [Get Terminal Checkout](../../doc/api/terminal.md#get-terminal-checkout)
+* [Cancel Terminal Checkout](../../doc/api/terminal.md#cancel-terminal-checkout)
+* [Create Terminal Refund](../../doc/api/terminal.md#create-terminal-refund)
+* [Search Terminal Refunds](../../doc/api/terminal.md#search-terminal-refunds)
+* [Get Terminal Refund](../../doc/api/terminal.md#get-terminal-refund)
+* [Cancel Terminal Refund](../../doc/api/terminal.md#cancel-terminal-refund)
 
 
 # Create Terminal Checkout
@@ -34,11 +34,11 @@ CompletableFuture<CreateTerminalCheckoutResponse> createTerminalCheckoutAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateTerminalCheckoutRequest`](/doc/models/create-terminal-checkout-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateTerminalCheckoutRequest`](../../doc/models/create-terminal-checkout-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateTerminalCheckoutResponse`](/doc/models/create-terminal-checkout-response.md)
+[`CreateTerminalCheckoutResponse`](../../doc/models/create-terminal-checkout-response.md)
 
 ## Example Usage
 
@@ -99,11 +99,11 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`SearchTerminalCheckoutsRequest`](/doc/models/search-terminal-checkouts-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SearchTerminalCheckoutsRequest`](../../doc/models/search-terminal-checkouts-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SearchTerminalCheckoutsResponse`](/doc/models/search-terminal-checkouts-response.md)
+[`SearchTerminalCheckoutsResponse`](../../doc/models/search-terminal-checkouts-response.md)
 
 ## Example Usage
 
@@ -156,7 +156,7 @@ CompletableFuture<GetTerminalCheckoutResponse> getTerminalCheckoutAsync(
 
 ## Response Type
 
-[`GetTerminalCheckoutResponse`](/doc/models/get-terminal-checkout-response.md)
+[`GetTerminalCheckoutResponse`](../../doc/models/get-terminal-checkout-response.md)
 
 ## Example Usage
 
@@ -189,7 +189,7 @@ CompletableFuture<CancelTerminalCheckoutResponse> cancelTerminalCheckoutAsync(
 
 ## Response Type
 
-[`CancelTerminalCheckoutResponse`](/doc/models/cancel-terminal-checkout-response.md)
+[`CancelTerminalCheckoutResponse`](../../doc/models/cancel-terminal-checkout-response.md)
 
 ## Example Usage
 
@@ -218,11 +218,11 @@ CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateTerminalRefundRequest`](/doc/models/create-terminal-refund-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateTerminalRefundRequest`](../../doc/models/create-terminal-refund-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateTerminalRefundResponse`](/doc/models/create-terminal-refund-response.md)
+[`CreateTerminalRefundResponse`](../../doc/models/create-terminal-refund-response.md)
 
 ## Example Usage
 
@@ -267,11 +267,11 @@ CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`SearchTerminalRefundsRequest`](/doc/models/search-terminal-refunds-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SearchTerminalRefundsRequest`](../../doc/models/search-terminal-refunds-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SearchTerminalRefundsResponse`](/doc/models/search-terminal-refunds-response.md)
+[`SearchTerminalRefundsResponse`](../../doc/models/search-terminal-refunds-response.md)
 
 ## Example Usage
 
@@ -324,7 +324,7 @@ CompletableFuture<GetTerminalRefundResponse> getTerminalRefundAsync(
 
 ## Response Type
 
-[`GetTerminalRefundResponse`](/doc/models/get-terminal-refund-response.md)
+[`GetTerminalRefundResponse`](../../doc/models/get-terminal-refund-response.md)
 
 ## Example Usage
 
@@ -357,7 +357,7 @@ CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(
 
 ## Response Type
 
-[`CancelTerminalRefundResponse`](/doc/models/cancel-terminal-refund-response.md)
+[`CancelTerminalRefundResponse`](../../doc/models/cancel-terminal-refund-response.md)
 
 ## Example Usage
 

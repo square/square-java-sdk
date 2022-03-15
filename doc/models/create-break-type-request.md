@@ -12,7 +12,7 @@ A request to create a new `BreakType`.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `IdempotencyKey` | `String` | Optional | A unique string value to ensure the idempotency of the operation.<br>**Constraints**: *Maximum Length*: `128` | String getIdempotencyKey() |
-| `BreakType` | [`BreakType`](/doc/models/break-type.md) | Required | A defined break template that sets an expectation for possible `Break`<br>instances on a `Shift`. | BreakType getBreakType() |
+| `BreakType` | [`BreakType`](../../doc/models/break-type.md) | Required | A defined break template that sets an expectation for possible `Break`<br>instances on a `Shift`. | BreakType getBreakType() |
 
 ## Example (as JSON)
 

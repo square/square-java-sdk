@@ -17,8 +17,8 @@ Additional details about BANK_ACCOUNT type payments.
 | `Fingerprint` | `String` | Optional | Uniquely identifies the bank account for this seller and can be used<br>to determine if payments are from the same bank account.<br>**Constraints**: *Maximum Length*: `255` | String getFingerprint() |
 | `Country` | `String` | Optional | The two-letter ISO code representing the country the bank account is located in.<br>**Constraints**: *Minimum Length*: `2`, *Maximum Length*: `2` | String getCountry() |
 | `StatementDescription` | `String` | Optional | The statement description as sent to the bank.<br>**Constraints**: *Maximum Length*: `1000` | String getStatementDescription() |
-| `AchDetails` | [`ACHDetails`](/doc/models/ach-details.md) | Optional | ACH-specific details about `BANK_ACCOUNT` type payments with the `transfer_type` of `ACH`. | ACHDetails getAchDetails() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `AchDetails` | [`ACHDetails`](../../doc/models/ach-details.md) | Optional | ACH-specific details about `BANK_ACCOUNT` type payments with the `transfer_type` of `ACH`. | ACHDetails getAchDetails() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

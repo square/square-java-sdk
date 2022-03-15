@@ -11,8 +11,8 @@ Represents a response from a retrieve request containing the specified `WageSett
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `WageSetting` | [`WageSetting`](/doc/models/wage-setting.md) | Optional | An object representing a team member's wage information. | WageSetting getWageSetting() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
+| `WageSetting` | [`WageSetting`](../../doc/models/wage-setting.md) | Optional | An object representing a team member's wage information. | WageSetting getWageSetting() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | The errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

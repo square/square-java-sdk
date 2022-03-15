@@ -11,7 +11,7 @@ Represents an update request for a `TeamMember` object.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `TeamMember` | [`TeamMember`](/doc/models/team-member.md) | Optional | A record representing an individual team member for a business. | TeamMember getTeamMember() |
+| `TeamMember` | [`TeamMember`](../../doc/models/team-member.md) | Optional | A record representing an individual team member for a business. | TeamMember getTeamMember() |
 
 ## Example (as JSON)
 

@@ -11,8 +11,8 @@ A response that includes the `LoyaltyEvent` published for redeeming the reward.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Event` | [`LoyaltyEvent`](/doc/models/loyalty-event.md) | Optional | Provides information about a loyalty event.<br>For more information, see [Loyalty events](https://developer.squareup.com/docs/loyalty-api/overview/#loyalty-events). | LoyaltyEvent getEvent() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Event` | [`LoyaltyEvent`](../../doc/models/loyalty-event.md) | Optional | Provides information about a loyalty event.<br>For more information, see [Search for Balance-Changing Loyalty Events](../../https://developer.squareup.com/docs/loyalty-api/loyalty-events). | LoyaltyEvent getEvent() |
 
 ## Example (as JSON)
 

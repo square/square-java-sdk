@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `TeamMemberBookingProfiles` | [`List<TeamMemberBookingProfile>`](/doc/models/team-member-booking-profile.md) | Optional | The list of team member booking profiles. | List<TeamMemberBookingProfile> getTeamMemberBookingProfiles() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in the subsequent request to get the next page of the results. Stop retrieving the next page of the results when the cursor is not set. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors that occurred during the request. | List<Error> getErrors() |
+| `TeamMemberBookingProfiles` | [`List<TeamMemberBookingProfile>`](../../doc/models/team-member-booking-profile.md) | Optional | The list of team member booking profiles. The results are returned in the ascending order of the time<br>when the team member booking profiles were last updated. Multiple booking profiles updated at the same time<br>are further sorted in the ascending order of their IDs. | List<TeamMemberBookingProfile> getTeamMemberBookingProfiles() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in the subsequent request to get the next page of the results. Stop retrieving the next page of the results when the cursor is not set.<br>**Constraints**: *Maximum Length*: `65536` | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

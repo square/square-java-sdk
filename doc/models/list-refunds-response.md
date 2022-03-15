@@ -2,7 +2,7 @@
 # List Refunds Response
 
 Defines the fields that are included in the response body of
-a request to the [ListRefunds]($e/Transactions/ListRefunds) endpoint.
+a request to the [ListRefunds](../../$e/Transactions/ListRefunds) endpoint.
 
 One of `errors` or `refunds` is present in a given response (never both).
 
@@ -14,9 +14,9 @@ One of `errors` or `refunds` is present in a given response (never both).
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Refunds` | [`List<Refund>`](/doc/models/refund.md) | Optional | An array of refunds that match your query. | List<Refund> getRefunds() |
-| `Cursor` | `String` | Optional | A pagination cursor for retrieving the next set of results,<br>if any remain. Provide this value as the `cursor` parameter in a subsequent<br>request to this endpoint.<br><br>See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information. | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Refunds` | [`List<Refund>`](../../doc/models/refund.md) | Optional | An array of refunds that match your query. | List<Refund> getRefunds() |
+| `Cursor` | `String` | Optional | A pagination cursor for retrieving the next set of results,<br>if any remain. Provide this value as the `cursor` parameter in a subsequent<br>request to this endpoint.<br><br>See [Paginating results](../../https://developer.squareup.com/docs/working-with-apis/pagination) for more information. | String getCursor() |
 
 ## Example (as JSON)
 

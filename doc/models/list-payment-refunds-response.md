@@ -1,7 +1,7 @@
 
 # List Payment Refunds Response
 
-Defines the response returned by [ListPaymentRefunds](/doc/api/refunds.md#list-payment-refunds).
+Defines the response returned by [ListPaymentRefunds](../../doc/api/refunds.md#list-payment-refunds).
 
 Either `errors` or `refunds` is present in a given response (never both).
 
@@ -13,9 +13,9 @@ Either `errors` or `refunds` is present in a given response (never both).
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Refunds` | [`List<PaymentRefund>`](/doc/models/payment-refund.md) | Optional | The list of requested refunds. | List<PaymentRefund> getRefunds() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Refunds` | [`List<PaymentRefund>`](../../doc/models/payment-refund.md) | Optional | The list of requested refunds. | List<PaymentRefund> getRefunds() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>For more information, see [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

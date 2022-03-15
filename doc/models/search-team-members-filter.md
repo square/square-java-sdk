@@ -20,7 +20,7 @@ returns only active team members assigned to either location "A" or "B".
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `LocationIds` | `List<String>` | Optional | When present, filters by team members assigned to the specified locations.<br>When empty, includes team members assigned to any location. | List<String> getLocationIds() |
-| `Status` | [`String`](/doc/models/team-member-status.md) | Optional | Enumerates the possible statuses the team member can have within a business. | String getStatus() |
+| `Status` | [`String`](../../doc/models/team-member-status.md) | Optional | Enumerates the possible statuses the team member can have within a business. | String getStatus() |
 | `IsOwner` | `Boolean` | Optional | When present and set to true, returns the team member who is the owner of the Square account. | Boolean getIsOwner() |
 
 ## Example (as JSON)

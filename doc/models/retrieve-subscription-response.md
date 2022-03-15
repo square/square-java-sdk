@@ -2,7 +2,7 @@
 # Retrieve Subscription Response
 
 Defines output parameters in a response from the
-[RetrieveSubscription](/doc/api/subscriptions.md#retrieve-subscription) endpoint.
+[RetrieveSubscription](../../doc/api/subscriptions.md#retrieve-subscription) endpoint.
 
 ## Structure
 
@@ -12,8 +12,8 @@ Defines output parameters in a response from the
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors encountered during the request. | List<Error> getErrors() |
-| `Subscription` | [`Subscription`](/doc/models/subscription.md) | Optional | Represents a subscription to a subscription plan by a subscriber.<br><br>For an overview of the `Subscription` type, see<br>[Subscription object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview). | Subscription getSubscription() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Errors encountered during the request. | List<Error> getErrors() |
+| `Subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | Represents a subscription to a subscription plan by a subscriber.<br><br>For an overview of the `Subscription` type, see<br>[Subscription object](../../https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview). | Subscription getSubscription() |
 
 ## Example (as JSON)
 

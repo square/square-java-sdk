@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Items` | [`List<V1Order>`](/doc/models/v1-order.md) | Optional | - | List<V1Order> getItems() |
+| `Items` | [`List<V1Order>`](../../doc/models/v1-order.md) | Optional | - | List<V1Order> getItems() |
 
 ## Example (as JSON)
 

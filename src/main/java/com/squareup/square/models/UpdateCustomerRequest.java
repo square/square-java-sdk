@@ -136,7 +136,8 @@ public class UpdateCustomerRequest {
 
     /**
      * Getter for PhoneNumber.
-     * The 11-digit phone number associated with the customer profile.
+     * The phone number associated with the customer profile. A phone number can contain 9–16
+     * digits, with an optional `+` prefix.
      * @return Returns the String
      */
     @JsonGetter("phone_number")
@@ -186,7 +187,7 @@ public class UpdateCustomerRequest {
      * Getter for Version.
      * The current version of the customer profile. As a best practice, you should include this
      * field to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency)
+     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
      * control. For more information, see [Update a customer
      * profile](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile).
      * @return Returns the Long

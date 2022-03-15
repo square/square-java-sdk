@@ -49,7 +49,7 @@ public class RevokeTokenResponse {
 
     /**
      * Getter for Errors.
-     * An error object that provides details about how creation of the obtain token failed.
+     * Any errors that occurred during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

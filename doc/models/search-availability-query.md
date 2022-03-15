@@ -11,7 +11,7 @@ The query used to search for buyer-accessible availabilities of bookings.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Filter` | [`SearchAvailabilityFilter`](/doc/models/search-availability-filter.md) | Required | A query filter to search for buyer-accessible availabilities by. | SearchAvailabilityFilter getFilter() |
+| `Filter` | [`SearchAvailabilityFilter`](../../doc/models/search-availability-filter.md) | Required | A query filter to search for buyer-accessible availabilities by. | SearchAvailabilityFilter getFilter() |
 
 ## Example (as JSON)
 

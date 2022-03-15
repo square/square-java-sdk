@@ -11,7 +11,7 @@ Represents an `UpsertSnippet` request.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Snippet` | [`Snippet`](/doc/models/snippet.md) | Required | Represents the snippet that is added to a Square Online site. The snippet code is injected into the `head` element of all pages on the site, except for checkout pages. | Snippet getSnippet() |
+| `Snippet` | [`Snippet`](../../doc/models/snippet.md) | Required | Represents the snippet that is added to a Square Online site. The snippet code is injected into the `head` element of all pages on the site, except for checkout pages. | Snippet getSnippet() |
 
 ## Example (as JSON)
 

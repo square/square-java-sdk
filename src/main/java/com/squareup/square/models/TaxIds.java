@@ -14,21 +14,25 @@ public class TaxIds {
     private final String euVat;
     private final String frSiret;
     private final String frNaf;
+    private final String esNif;
 
     /**
      * Initialization constructor.
      * @param  euVat  String value for euVat.
      * @param  frSiret  String value for frSiret.
      * @param  frNaf  String value for frNaf.
+     * @param  esNif  String value for esNif.
      */
     @JsonCreator
     public TaxIds(
             @JsonProperty("eu_vat") String euVat,
             @JsonProperty("fr_siret") String frSiret,
-            @JsonProperty("fr_naf") String frNaf) {
+            @JsonProperty("fr_naf") String frNaf,
+            @JsonProperty("es_nif") String esNif) {
         this.euVat = euVat;
         this.frSiret = frSiret;
         this.frNaf = frNaf;
+        this.esNif = esNif;
     }
 
     /**
@@ -69,9 +73,21 @@ public class TaxIds {
         return frNaf;
     }
 
+    /**
+     * Getter for EsNif.
+     * The NIF (Numero de Identificacion Fiscal) number is a 9 character tax identifier used in
+     * Spain. If it is present, it has been validated. For example, `73628495A`.
+     * @return Returns the String
+     */
+    @JsonGetter("es_nif")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEsNif() {
+        return esNif;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(euVat, frSiret, frNaf);
+        return Objects.hash(euVat, frSiret, frNaf, esNif);
     }
 
     @Override
@@ -85,7 +101,8 @@ public class TaxIds {
         TaxIds other = (TaxIds) obj;
         return Objects.equals(euVat, other.euVat)
             && Objects.equals(frSiret, other.frSiret)
-            && Objects.equals(frNaf, other.frNaf);
+            && Objects.equals(frNaf, other.frNaf)
+            && Objects.equals(esNif, other.esNif);
     }
 
     /**
@@ -94,7 +111,8 @@ public class TaxIds {
      */
     @Override
     public String toString() {
-        return "TaxIds [" + "euVat=" + euVat + ", frSiret=" + frSiret + ", frNaf=" + frNaf + "]";
+        return "TaxIds [" + "euVat=" + euVat + ", frSiret=" + frSiret + ", frNaf=" + frNaf
+                + ", esNif=" + esNif + "]";
     }
 
     /**
@@ -106,7 +124,8 @@ public class TaxIds {
         Builder builder = new Builder()
                 .euVat(getEuVat())
                 .frSiret(getFrSiret())
-                .frNaf(getFrNaf());
+                .frNaf(getFrNaf())
+                .esNif(getEsNif());
         return builder;
     }
 
@@ -117,6 +136,7 @@ public class TaxIds {
         private String euVat;
         private String frSiret;
         private String frNaf;
+        private String esNif;
 
 
 
@@ -151,11 +171,21 @@ public class TaxIds {
         }
 
         /**
+         * Setter for esNif.
+         * @param  esNif  String value for esNif.
+         * @return Builder
+         */
+        public Builder esNif(String esNif) {
+            this.esNif = esNif;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TaxIds} object using the set fields.
          * @return {@link TaxIds}
          */
         public TaxIds build() {
-            return new TaxIds(euVat, frSiret, frNaf);
+            return new TaxIds(euVat, frSiret, frNaf, esNif);
         }
     }
 }

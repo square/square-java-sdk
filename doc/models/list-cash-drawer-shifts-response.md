@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Items` | [`List<CashDrawerShiftSummary>`](/doc/models/cash-drawer-shift-summary.md) | Optional | A collection of CashDrawerShiftSummary objects for shifts that match<br>the query. | List<CashDrawerShiftSummary> getItems() |
+| `Items` | [`List<CashDrawerShiftSummary>`](../../doc/models/cash-drawer-shift-summary.md) | Optional | A collection of CashDrawerShiftSummary objects for shifts that match<br>the query. | List<CashDrawerShiftSummary> getItems() |
 | `Cursor` | `String` | Optional | Opaque cursor for fetching the next page of results. Cursor is not<br>present in the last page of results. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

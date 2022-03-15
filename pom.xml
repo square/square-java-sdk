@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>18.2.0.20220216</version>
+  <version>18.3.0.20220316</version>
   <packaging>jar</packaging>
 
   <name>Square</name>

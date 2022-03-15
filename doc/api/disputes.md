@@ -10,15 +10,15 @@ DisputesApi disputesApi = client.getDisputesApi();
 
 ## Methods
 
-* [List Disputes](/doc/api/disputes.md#list-disputes)
-* [Retrieve Dispute](/doc/api/disputes.md#retrieve-dispute)
-* [Accept Dispute](/doc/api/disputes.md#accept-dispute)
-* [List Dispute Evidence](/doc/api/disputes.md#list-dispute-evidence)
-* [Create Dispute Evidence File](/doc/api/disputes.md#create-dispute-evidence-file)
-* [Create Dispute Evidence Text](/doc/api/disputes.md#create-dispute-evidence-text)
-* [Delete Dispute Evidence](/doc/api/disputes.md#delete-dispute-evidence)
-* [Retrieve Dispute Evidence](/doc/api/disputes.md#retrieve-dispute-evidence)
-* [Submit Evidence](/doc/api/disputes.md#submit-evidence)
+* [List Disputes](../../doc/api/disputes.md#list-disputes)
+* [Retrieve Dispute](../../doc/api/disputes.md#retrieve-dispute)
+* [Accept Dispute](../../doc/api/disputes.md#accept-dispute)
+* [List Dispute Evidence](../../doc/api/disputes.md#list-dispute-evidence)
+* [Create Dispute Evidence File](../../doc/api/disputes.md#create-dispute-evidence-file)
+* [Create Dispute Evidence Text](../../doc/api/disputes.md#create-dispute-evidence-text)
+* [Delete Dispute Evidence](../../doc/api/disputes.md#delete-dispute-evidence)
+* [Retrieve Dispute Evidence](../../doc/api/disputes.md#retrieve-dispute-evidence)
+* [Submit Evidence](../../doc/api/disputes.md#submit-evidence)
 
 
 # List Disputes
@@ -36,13 +36,13 @@ CompletableFuture<ListDisputesResponse> listDisputesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
-| `states` | [`String`](/doc/models/dispute-state.md) | Query, Optional | The dispute states to filter the result.<br>If not specified, the endpoint returns all open disputes (the dispute status is not `INQUIRY_CLOSED`, `WON`,<br>or `LOST`). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination). |
+| `states` | [`String`](../../doc/models/dispute-state.md) | Query, Optional | The dispute states to filter the result.<br>If not specified, the endpoint returns all open disputes (the dispute status is not `INQUIRY_CLOSED`, `WON`,<br>or `LOST`). |
 | `locationId` | `String` | Query, Optional | The ID of the location for which to return a list of disputes. If not specified, the endpoint returns<br>all open disputes (the dispute status is not `INQUIRY_CLOSED`, `WON`, or `LOST`) associated with all locations. |
 
 ## Response Type
 
-[`ListDisputesResponse`](/doc/models/list-disputes-response.md)
+[`ListDisputesResponse`](../../doc/models/list-disputes-response.md)
 
 ## Example Usage
 
@@ -77,7 +77,7 @@ CompletableFuture<RetrieveDisputeResponse> retrieveDisputeAsync(
 
 ## Response Type
 
-[`RetrieveDisputeResponse`](/doc/models/retrieve-dispute-response.md)
+[`RetrieveDisputeResponse`](../../doc/models/retrieve-dispute-response.md)
 
 ## Example Usage
 
@@ -114,7 +114,7 @@ CompletableFuture<AcceptDisputeResponse> acceptDisputeAsync(
 
 ## Response Type
 
-[`AcceptDisputeResponse`](/doc/models/accept-dispute-response.md)
+[`AcceptDisputeResponse`](../../doc/models/accept-dispute-response.md)
 
 ## Example Usage
 
@@ -145,11 +145,11 @@ CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `disputeId` | `String` | Template, Required | The ID of the dispute. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination). |
 
 ## Response Type
 
-[`ListDisputeEvidenceResponse`](/doc/models/list-dispute-evidence-response.md)
+[`ListDisputeEvidenceResponse`](../../doc/models/list-dispute-evidence-response.md)
 
 ## Example Usage
 
@@ -183,12 +183,12 @@ CompletableFuture<CreateDisputeEvidenceFileResponse> createDisputeEvidenceFileAs
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `disputeId` | `String` | Template, Required | The ID of the dispute you want to upload evidence for. |
-| `request` | [`CreateDisputeEvidenceFileRequest`](/doc/models/create-dispute-evidence-file-request.md) | Form, Optional | Defines the parameters for a `CreateDisputeEvidenceFile` request. |
+| `request` | [`CreateDisputeEvidenceFileRequest`](../../doc/models/create-dispute-evidence-file-request.md) | Form, Optional | Defines the parameters for a `CreateDisputeEvidenceFile` request. |
 | `imageFile` | `FileWrapper` | Form, Optional | - |
 
 ## Response Type
 
-[`CreateDisputeEvidenceFileResponse`](/doc/models/create-dispute-evidence-file-response.md)
+[`CreateDisputeEvidenceFileResponse`](../../doc/models/create-dispute-evidence-file-response.md)
 
 ## Example Usage
 
@@ -225,11 +225,11 @@ CompletableFuture<CreateDisputeEvidenceTextResponse> createDisputeEvidenceTextAs
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `disputeId` | `String` | Template, Required | The ID of the dispute you want to upload evidence for. |
-| `body` | [`CreateDisputeEvidenceTextRequest`](/doc/models/create-dispute-evidence-text-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateDisputeEvidenceTextRequest`](../../doc/models/create-dispute-evidence-text-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateDisputeEvidenceTextResponse`](/doc/models/create-dispute-evidence-text-response.md)
+[`CreateDisputeEvidenceTextResponse`](../../doc/models/create-dispute-evidence-text-response.md)
 
 ## Example Usage
 
@@ -255,7 +255,7 @@ disputesApi.createDisputeEvidenceTextAsync(disputeId, body).thenAccept(result ->
 Removes specified evidence from a dispute.
 
 Square does not send the bank any evidence that is removed. Also, you cannot remove evidence after
-submitting it to the bank using [SubmitEvidence](/doc/api/disputes.md#submit-evidence).
+submitting it to the bank using [SubmitEvidence](../../doc/api/disputes.md#submit-evidence).
 
 ```java
 CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
@@ -272,7 +272,7 @@ CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
 
 ## Response Type
 
-[`DeleteDisputeEvidenceResponse`](/doc/models/delete-dispute-evidence-response.md)
+[`DeleteDisputeEvidenceResponse`](../../doc/models/delete-dispute-evidence-response.md)
 
 ## Example Usage
 
@@ -311,7 +311,7 @@ CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
 
 ## Response Type
 
-[`RetrieveDisputeEvidenceResponse`](/doc/models/retrieve-dispute-evidence-response.md)
+[`RetrieveDisputeEvidenceResponse`](../../doc/models/retrieve-dispute-evidence-response.md)
 
 ## Example Usage
 
@@ -333,8 +333,8 @@ disputesApi.retrieveDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(resul
 Submits evidence to the cardholder's bank.
 
 Before submitting evidence, Square compiles all available evidence. This includes evidence uploaded
-using the [CreateDisputeEvidenceFile](/doc/api/disputes.md#create-dispute-evidence-file) and
-[CreateDisputeEvidenceText](/doc/api/disputes.md#create-dispute-evidence-text) endpoints and
+using the [CreateDisputeEvidenceFile](../../doc/api/disputes.md#create-dispute-evidence-file) and
+[CreateDisputeEvidenceText](../../doc/api/disputes.md#create-dispute-evidence-text) endpoints and
 evidence automatically provided by Square, when available.
 
 ```java
@@ -350,7 +350,7 @@ CompletableFuture<SubmitEvidenceResponse> submitEvidenceAsync(
 
 ## Response Type
 
-[`SubmitEvidenceResponse`](/doc/models/submit-evidence-response.md)
+[`SubmitEvidenceResponse`](../../doc/models/submit-evidence-response.md)
 
 ## Example Usage
 

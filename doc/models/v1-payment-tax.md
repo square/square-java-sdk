@@ -11,11 +11,11 @@ V1PaymentTax
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 | `Name` | `String` | Optional | The merchant-defined name of the tax. | String getName() |
-| `AppliedMoney` | [`V1Money`](/doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
+| `AppliedMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getAppliedMoney() |
 | `Rate` | `String` | Optional | The rate of the tax, as a string representation of a decimal number. A value of 0.07 corresponds to a rate of 7%. | String getRate() |
-| `InclusionType` | [`String`](/doc/models/v1-payment-tax-inclusion-type.md) | Optional | - | String getInclusionType() |
+| `InclusionType` | [`String`](../../doc/models/v1-payment-tax-inclusion-type.md) | Optional | - | String getInclusionType() |
 | `FeeId` | `String` | Optional | The ID of the tax, if available. Taxes applied in older versions of Square Register might not have an ID. | String getFeeId() |
 
 ## Example (as JSON)

@@ -104,7 +104,7 @@ public class DisputeEvidence {
 
     /**
      * Getter for UploadedAt.
-     * The time when the next action is due, in RFC 3339 format.
+     * The time when the evidence was uploaded, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("uploaded_at")
