@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Checkout` | [`TerminalCheckout`](/doc/models/terminal-checkout.md) | Optional | - | TerminalCheckout getCheckout() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Checkout` | [`TerminalCheckout`](../../doc/models/terminal-checkout.md) | Optional | - | TerminalCheckout getCheckout() |
 
 ## Example (as JSON)
 

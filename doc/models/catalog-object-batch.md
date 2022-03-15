@@ -11,7 +11,7 @@ A batch of catalog objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Required | A list of CatalogObjects belonging to this batch. | List<CatalogObject> getObjects() |
+| `Objects` | [`List<CatalogObject>`](../../doc/models/catalog-object.md) | Required | A list of CatalogObjects belonging to this batch. | List<CatalogObject> getObjects() |
 
 ## Example (as JSON)
 

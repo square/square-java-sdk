@@ -10,15 +10,15 @@ LocationsApi locationsApi = client.getLocationsApi();
 
 ## Methods
 
-* [List Locations](/doc/api/locations.md#list-locations)
-* [Create Location](/doc/api/locations.md#create-location)
-* [Retrieve Location](/doc/api/locations.md#retrieve-location)
-* [Update Location](/doc/api/locations.md#update-location)
+* [List Locations](../../doc/api/locations.md#list-locations)
+* [Create Location](../../doc/api/locations.md#create-location)
+* [Retrieve Location](../../doc/api/locations.md#retrieve-location)
+* [Update Location](../../doc/api/locations.md#update-location)
 
 
 # List Locations
 
-Provides details about all of the seller's [locations](https://developer.squareup.com/docs/locations-api),
+Provides details about all of the seller's [locations](../../https://developer.squareup.com/docs/locations-api),
 including those with an inactive status.
 
 ```java
@@ -27,7 +27,7 @@ CompletableFuture<ListLocationsResponse> listLocationsAsync()
 
 ## Response Type
 
-[`ListLocationsResponse`](/doc/models/list-locations-response.md)
+[`ListLocationsResponse`](../../doc/models/list-locations-response.md)
 
 ## Example Usage
 
@@ -43,7 +43,7 @@ locationsApi.listLocationsAsync().thenAccept(result -> {
 
 # Create Location
 
-Creates a [location](https://developer.squareup.com/docs/locations-api).
+Creates a [location](../../https://developer.squareup.com/docs/locations-api).
 Creating new locations allows for separate configuration of receipt layouts, item prices,
 and sales reports. Developers can use locations to separate sales activity via applications
 that integrate with Square from sales activity elsewhere in a seller's account.
@@ -60,11 +60,11 @@ CompletableFuture<CreateLocationResponse> createLocationAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateLocationRequest`](/doc/models/create-location-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateLocationRequest`](../../doc/models/create-location-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateLocationResponse`](/doc/models/create-location-response.md)
+[`CreateLocationResponse`](../../doc/models/create-location-response.md)
 
 ## Example Usage
 
@@ -84,12 +84,11 @@ bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
 bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 Location location = new Location.Builder()
     .id("id0")
-    .name("New location name")
+    .name("Midtown")
     .address(locationAddress)
     .timezone("timezone0")
     .capabilities(locationCapabilities)
-    .description("My new location.")
-    .facebookUrl("null")
+    .description("Midtown Atlanta store")
     .build();
 CreateLocationRequest body = new CreateLocationRequest.Builder()
     .location(bodyLocation)
@@ -107,7 +106,7 @@ locationsApi.createLocationAsync(body).thenAccept(result -> {
 # Retrieve Location
 
 Retrieves details of a single location. Specify "main"
-as the location ID to retrieve details of the [main location](https://developer.squareup.com/docs/locations-api#about-the-main-location).
+as the location ID to retrieve details of the [main location](../../https://developer.squareup.com/docs/locations-api#about-the-main-location).
 
 ```java
 CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
@@ -122,7 +121,7 @@ CompletableFuture<RetrieveLocationResponse> retrieveLocationAsync(
 
 ## Response Type
 
-[`RetrieveLocationResponse`](/doc/models/retrieve-location-response.md)
+[`RetrieveLocationResponse`](../../doc/models/retrieve-location-response.md)
 
 ## Example Usage
 
@@ -140,7 +139,7 @@ locationsApi.retrieveLocationAsync(locationId).thenAccept(result -> {
 
 # Update Location
 
-Updates a [location](https://developer.squareup.com/docs/locations-api).
+Updates a [location](../../https://developer.squareup.com/docs/locations-api).
 
 ```java
 CompletableFuture<UpdateLocationResponse> updateLocationAsync(
@@ -153,24 +152,22 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to update. |
-| `body` | [`UpdateLocationRequest`](/doc/models/update-location-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`UpdateLocationRequest`](../../doc/models/update-location-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`UpdateLocationResponse`](/doc/models/update-location-response.md)
+[`UpdateLocationResponse`](../../doc/models/update-location-response.md)
 
 ## Example Usage
 
 ```java
 String locationId = "location_id4";
 Address address = new Address.Builder()
-    .addressLine1("1234 Peachtree St. NE")
+    .addressLine1("address_line_16")
     .addressLine2("address_line_26")
     .addressLine3("address_line_32")
-    .locality("Atlanta")
+    .locality("locality6")
     .sublocality("sublocality6")
-    .administrativeDistrictLevel1("GA")
-    .postalCode("30309")
     .build();
 List<String> bodyLocationCapabilities = new LinkedList<>();
 bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
@@ -179,26 +176,37 @@ bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 List<BusinessHoursPeriod> bodyLocationBusinessHoursPeriods = new LinkedList<>();
 
 BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.Builder()
-    .dayOfWeek("MON")
-    .startLocalTime("09:00")
-    .endLocalTime("17:00")
+    .dayOfWeek("FRI")
+    .startLocalTime("07:00")
+    .endLocalTime("18:00")
     .build();
 bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods0);
+
+BusinessHoursPeriod bodyLocationBusinessHoursPeriods1 = new BusinessHoursPeriod.Builder()
+    .dayOfWeek("SAT")
+    .startLocalTime("07:00")
+    .endLocalTime("18:00")
+    .build();
+bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods1);
+
+BusinessHoursPeriod bodyLocationBusinessHoursPeriods2 = new BusinessHoursPeriod.Builder()
+    .dayOfWeek("SUN")
+    .startLocalTime("09:00")
+    .endLocalTime("15:00")
+    .build();
+bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods2);
 
 BusinessHours businessHours = new BusinessHours.Builder()
     .periods(businessHoursPeriods)
     .build();
 Location location = new Location.Builder()
     .id("id0")
-    .name("Updated nickname")
+    .name("name0")
     .address(locationAddress)
     .timezone("timezone0")
     .capabilities(locationCapabilities)
     .businessHours(locationBusinessHours)
-    .description("Updated description")
-    .twitterUsername("twitter")
-    .instagramUsername("instagram")
-    .facebookUrl("null")
+    .description("Midtown Atlanta store - Open weekends")
     .build();
 UpdateLocationRequest body = new UpdateLocationRequest.Builder()
     .location(bodyLocation)

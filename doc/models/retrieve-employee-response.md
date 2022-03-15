@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Employee` | [`Employee`](/doc/models/employee.md) | Optional | An employee object that is used by the external API. | Employee getEmployee() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Employee` | [`Employee`](../../doc/models/employee.md) | Optional | An employee object that is used by the external API. | Employee getEmployee() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

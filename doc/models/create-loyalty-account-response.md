@@ -11,8 +11,8 @@ A response that includes loyalty account created.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `LoyaltyAccount` | [`LoyaltyAccount`](/doc/models/loyalty-account.md) | Optional | Describes a loyalty account in a [loyalty program](/doc/models/loyalty-program.md). For more information, see<br>[Manage Loyalty Accounts Using the Loyalty API](https://developer.squareup.com/docs/loyalty-api/overview). | LoyaltyAccount getLoyaltyAccount() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `LoyaltyAccount` | [`LoyaltyAccount`](../../doc/models/loyalty-account.md) | Optional | Describes a loyalty account in a [loyalty program](../../doc/models/loyalty-program.md). For more information, see<br>[Create and Retrieve Loyalty Accounts](../../https://developer.squareup.com/docs/loyalty-api/loyalty-accounts). | LoyaltyAccount getLoyaltyAccount() |
 
 ## Example (as JSON)
 

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `ClientId` | `String` | Optional | The Square-issued ID for your application, which is available in the OAuth page in the<br>[Developer Dashboard](https://developer.squareup.com/apps).<br>**Constraints**: *Maximum Length*: `191` | String getClientId() |
+| `ClientId` | `String` | Optional | The Square-issued ID for your application, which is available in the OAuth page in the<br>[Developer Dashboard](../../https://developer.squareup.com/apps).<br>**Constraints**: *Maximum Length*: `191` | String getClientId() |
 | `AccessToken` | `String` | Optional | The access token of the merchant whose token you want to revoke.<br>Do not provide a value for `merchant_id` if you provide this parameter.<br>**Constraints**: *Minimum Length*: `2`, *Maximum Length*: `1024` | String getAccessToken() |
 | `MerchantId` | `String` | Optional | The ID of the merchant whose token you want to revoke.<br>Do not provide a value for `access_token` if you provide this parameter. | String getMerchantId() |
 | `RevokeOnlyAccessToken` | `Boolean` | Optional | If `true`, terminate the given single access token, but do not<br>terminate the entire authorization.<br>Default: `false` | Boolean getRevokeOnlyAccessToken() |

@@ -11,9 +11,9 @@ A response that includes loyalty accounts that satisfy the search criteria.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `LoyaltyAccounts` | [`List<LoyaltyAccount>`](/doc/models/loyalty-account.md) | Optional | The loyalty accounts that met the search criteria,  <br>in order of creation date. | List<LoyaltyAccount> getLoyaltyAccounts() |
-| `Cursor` | `String` | Optional | The pagination cursor to use in a subsequent<br>request. If empty, this is the final response.<br>For more information,<br>see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `LoyaltyAccounts` | [`List<LoyaltyAccount>`](../../doc/models/loyalty-account.md) | Optional | The loyalty accounts that met the search criteria,  <br>in order of creation date. | List<LoyaltyAccount> getLoyaltyAccounts() |
+| `Cursor` | `String` | Optional | The pagination cursor to use in a subsequent<br>request. If empty, this is the final response.<br>For more information,<br>see [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

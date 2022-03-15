@@ -13,9 +13,9 @@ the request resulted in errors.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Shifts` | [`List<Shift>`](/doc/models/shift.md) | Optional | Shifts. | List<Shift> getShifts() |
+| `Shifts` | [`List<Shift>`](../../doc/models/shift.md) | Optional | Shifts. | List<Shift> getShifts() |
 | `Cursor` | `String` | Optional | An opaque cursor for fetching the next page. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

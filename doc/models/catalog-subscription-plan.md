@@ -2,7 +2,7 @@
 # Catalog Subscription Plan
 
 Describes a subscription plan. For more information, see
-[Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/subscriptions-api/setup-plan).
+[Set Up and Manage a Subscription Plan](../../https://developer.squareup.com/docs/subscriptions-api/setup-plan).
 
 ## Structure
 
@@ -13,7 +13,7 @@ Describes a subscription plan. For more information, see
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Name` | `String` | Required | The name of the plan. | String getName() |
-| `Phases` | [`List<SubscriptionPhase>`](/doc/models/subscription-phase.md) | Required | A list of SubscriptionPhase containing the [SubscriptionPhase](/doc/models/subscription-phase.md) for this plan. | List<SubscriptionPhase> getPhases() |
+| `Phases` | [`List<SubscriptionPhase>`](../../doc/models/subscription-phase.md) | Required | A list of SubscriptionPhase containing the [SubscriptionPhase](../../doc/models/subscription-phase.md) for this plan. | List<SubscriptionPhase> getPhases() |
 
 ## Example (as JSON)
 

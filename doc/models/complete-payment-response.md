@@ -1,7 +1,7 @@
 
 # Complete Payment Response
 
-Defines the response returned by[CompletePayment](/doc/api/payments.md#complete-payment).
+Defines the response returned by[CompletePayment](../../doc/api/payments.md#complete-payment).
 
 ## Structure
 
@@ -11,8 +11,8 @@ Defines the response returned by[CompletePayment](/doc/api/payments.md#complete-
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Payment` | [`Payment`](/doc/models/payment.md) | Optional | Represents a payment processed by the Square API. | Payment getPayment() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Payment` | [`Payment`](../../doc/models/payment.md) | Optional | Represents a payment processed by the Square API. | Payment getPayment() |
 
 ## Example (as JSON)
 

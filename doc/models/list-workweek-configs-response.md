@@ -13,9 +13,9 @@ the request resulted in errors.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `WorkweekConfigs` | [`List<WorkweekConfig>`](/doc/models/workweek-config.md) | Optional | A page of `EmployeeWage` results. | List<WorkweekConfig> getWorkweekConfigs() |
+| `WorkweekConfigs` | [`List<WorkweekConfig>`](../../doc/models/workweek-config.md) | Optional | A page of `EmployeeWage` results. | List<WorkweekConfig> getWorkweekConfigs() |
 | `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page of<br>`EmployeeWage` results. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

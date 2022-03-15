@@ -70,7 +70,7 @@ public class CreateCustomerRequest {
     /**
      * Getter for IdempotencyKey.
      * The idempotency key for the request.	For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")
@@ -148,7 +148,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for PhoneNumber.
-     * The 11-digit phone number associated with the customer profile.
+     * The phone number associated with the customer profile. A phone number can contain 9–16
+     * digits, with an optional `+` prefix.
      * @return Returns the String
      */
     @JsonGetter("phone_number")

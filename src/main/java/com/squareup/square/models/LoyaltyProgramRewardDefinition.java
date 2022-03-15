@@ -48,8 +48,8 @@ public class LoyaltyProgramRewardDefinition {
      * Getter for Scope.
      * Indicates the scope of the reward tier. DEPRECATED at version 2020-12-16. Discount details
      * are now defined using a catalog pricing rule and other catalog objects. For more information,
-     * see [Get discount details for the
-     * reward](https://developer.squareup.com/docs/loyalty-api/overview#get-discount-details).
+     * see [Getting discount details for a reward
+     * tier](https://developer.squareup.com/docs/loyalty-api/loyalty-rewards#get-discount-details).
      * @return Returns the String
      */
     @JsonGetter("scope")
@@ -61,8 +61,8 @@ public class LoyaltyProgramRewardDefinition {
      * Getter for DiscountType.
      * The type of discount the reward tier offers. DEPRECATED at version 2020-12-16. Discount
      * details are now defined using a catalog pricing rule and other catalog objects. For more
-     * information, see [Get discount details for the
-     * reward](https://developer.squareup.com/docs/loyalty-api/overview#get-discount-details).
+     * information, see [Getting discount details for a reward
+     * tier](https://developer.squareup.com/docs/loyalty-api/loyalty-rewards#get-discount-details).
      * @return Returns the String
      */
     @JsonGetter("discount_type")

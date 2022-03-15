@@ -2,7 +2,7 @@
 # List Customer Groups Response
 
 Defines the fields that are included in the response body of
-a request to the [ListCustomerGroups](/doc/api/customer-groups.md#list-customer-groups) endpoint.
+a request to the [ListCustomerGroups](../../doc/api/customer-groups.md#list-customer-groups) endpoint.
 
 Either `errors` or `groups` is present in a given response (never both).
 
@@ -14,9 +14,9 @@ Either `errors` or `groups` is present in a given response (never both).
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Groups` | [`List<CustomerGroup>`](/doc/models/customer-group.md) | Optional | A list of customer groups belonging to the current seller. | List<CustomerGroup> getGroups() |
-| `Cursor` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. This value is present only if the request<br>succeeded and additional results are available.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Groups` | [`List<CustomerGroup>`](../../doc/models/customer-group.md) | Optional | A list of customer groups belonging to the current seller. | List<CustomerGroup> getGroups() |
+| `Cursor` | `String` | Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. This value is present only if the request<br>succeeded and additional results are available.<br><br>For more information, see [Pagination](../../https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

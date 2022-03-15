@@ -1,9 +1,9 @@
 
 # Dispute Evidence Created Webhook
 
-Published when evidence is added to a [Dispute](/doc/models/dispute.md)
+Published when evidence is added to a [Dispute](../../doc/models/dispute.md)
 from the Disputes Dashboard in the Seller Dashboard, the Square Point of Sale app,
-or by calling either [CreateDisputeEvidenceFile](/doc/api/disputes.md#create-dispute-evidence-file) or [CreateDisputeEvidenceText](/doc/api/disputes.md#create-dispute-evidence-text).
+or by calling either [CreateDisputeEvidenceFile](../../doc/api/disputes.md#create-dispute-evidence-file) or [CreateDisputeEvidenceText](../../doc/api/disputes.md#create-dispute-evidence-text).
 
 ## Structure
 
@@ -18,7 +18,7 @@ or by calling either [CreateDisputeEvidenceFile](/doc/api/disputes.md#create-dis
 | `Type` | `String` | Optional | The type of event this represents. | String getType() |
 | `EventId` | `String` | Optional | A unique ID for the webhook event. | String getEventId() |
 | `CreatedAt` | `String` | Optional | Timestamp of when the webhook event was created, in RFC 3339 format. | String getCreatedAt() |
-| `Data` | [`DisputeEvidenceCreatedWebhookData`](/doc/models/dispute-evidence-created-webhook-data.md) | Optional | - | DisputeEvidenceCreatedWebhookData getData() |
+| `Data` | [`DisputeEvidenceCreatedWebhookData`](../../doc/models/dispute-evidence-created-webhook-data.md) | Optional | - | DisputeEvidenceCreatedWebhookData getData() |
 
 ## Example (as JSON)
 

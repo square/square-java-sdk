@@ -9,10 +9,10 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset, this is the final response.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
-| `Objects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | The CatalogObjects returned. | List<CatalogObject> getObjects() |
-| `RelatedObjects` | [`List<CatalogObject>`](/doc/models/catalog-object.md) | Optional | A list of CatalogObjects referenced by the objects in the `objects` field. | List<CatalogObject> getRelatedObjects() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset, this is the final response.<br>See [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
+| `Objects` | [`List<CatalogObject>`](../../doc/models/catalog-object.md) | Optional | The CatalogObjects returned. | List<CatalogObject> getObjects() |
+| `RelatedObjects` | [`List<CatalogObject>`](../../doc/models/catalog-object.md) | Optional | A list of CatalogObjects referenced by the objects in the `objects` field. | List<CatalogObject> getRelatedObjects() |
 | `LatestTime` | `String` | Optional | When the associated product catalog was last updated. Will<br>match the value for `end_time` or `cursor` if either field is included in the `SearchCatalog` request. | String getLatestTime() |
 
 ## Example (as JSON)

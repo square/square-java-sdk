@@ -273,7 +273,8 @@ public class Location {
 
     /**
      * Getter for BusinessName.
-     * The business name of the location.
+     * The name of the location's overall business. This name is present on receipts and other
+     * customer-facing branding.
      * @return Returns the String
      */
     @JsonGetter("business_name")

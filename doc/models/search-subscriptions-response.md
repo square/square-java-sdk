@@ -2,7 +2,7 @@
 # Search Subscriptions Response
 
 Defines output parameters in a response from the
-[SearchSubscriptions](/doc/api/subscriptions.md#search-subscriptions) endpoint.
+[SearchSubscriptions](../../doc/api/subscriptions.md#search-subscriptions) endpoint.
 
 ## Structure
 
@@ -12,9 +12,9 @@ Defines output parameters in a response from the
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Errors encountered during the request. | List<Error> getErrors() |
-| `Subscriptions` | [`List<Subscription>`](/doc/models/subscription.md) | Optional | The subscriptions matching the specified query expressions. | List<Subscription> getSubscriptions() |
-| `Cursor` | `String` | Optional | When the total number of resulting subscription exceeds the limit of a paged response,<br>the response includes a cursor for you to use in a subsequent request to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Errors encountered during the request. | List<Error> getErrors() |
+| `Subscriptions` | [`List<Subscription>`](../../doc/models/subscription.md) | Optional | The subscriptions matching the specified query expressions. | List<Subscription> getSubscriptions() |
+| `Cursor` | `String` | Optional | When the total number of resulting subscription exceeds the limit of a paged response,<br>the response includes a cursor for you to use in a subsequent request to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

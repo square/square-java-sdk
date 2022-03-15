@@ -12,7 +12,7 @@ A request to create a gift card activity.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `IdempotencyKey` | `String` | Required | A unique string that identifies the `CreateGiftCardActivity` request.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `128` | String getIdempotencyKey() |
-| `GiftCardActivity` | [`GiftCardActivity`](/doc/models/gift-card-activity.md) | Required | Represents an action performed on a gift card that affects its state or balance. | GiftCardActivity getGiftCardActivity() |
+| `GiftCardActivity` | [`GiftCardActivity`](../../doc/models/gift-card-activity.md) | Required | Represents an action performed on a gift card that affects its state or balance. | GiftCardActivity getGiftCardActivity() |
 
 ## Example (as JSON)
 

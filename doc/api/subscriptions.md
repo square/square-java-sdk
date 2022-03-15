@@ -10,16 +10,16 @@ SubscriptionsApi subscriptionsApi = client.getSubscriptionsApi();
 
 ## Methods
 
-* [Create Subscription](/doc/api/subscriptions.md#create-subscription)
-* [Search Subscriptions](/doc/api/subscriptions.md#search-subscriptions)
-* [Retrieve Subscription](/doc/api/subscriptions.md#retrieve-subscription)
-* [Update Subscription](/doc/api/subscriptions.md#update-subscription)
-* [Delete Subscription Action](/doc/api/subscriptions.md#delete-subscription-action)
-* [Cancel Subscription](/doc/api/subscriptions.md#cancel-subscription)
-* [List Subscription Events](/doc/api/subscriptions.md#list-subscription-events)
-* [Pause Subscription](/doc/api/subscriptions.md#pause-subscription)
-* [Resume Subscription](/doc/api/subscriptions.md#resume-subscription)
-* [Swap Plan](/doc/api/subscriptions.md#swap-plan)
+* [Create Subscription](../../doc/api/subscriptions.md#create-subscription)
+* [Search Subscriptions](../../doc/api/subscriptions.md#search-subscriptions)
+* [Retrieve Subscription](../../doc/api/subscriptions.md#retrieve-subscription)
+* [Update Subscription](../../doc/api/subscriptions.md#update-subscription)
+* [Delete Subscription Action](../../doc/api/subscriptions.md#delete-subscription-action)
+* [Cancel Subscription](../../doc/api/subscriptions.md#cancel-subscription)
+* [List Subscription Events](../../doc/api/subscriptions.md#list-subscription-events)
+* [Pause Subscription](../../doc/api/subscriptions.md#pause-subscription)
+* [Resume Subscription](../../doc/api/subscriptions.md#resume-subscription)
+* [Swap Plan](../../doc/api/subscriptions.md#swap-plan)
 
 
 # Create Subscription
@@ -40,11 +40,11 @@ CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateSubscriptionRequest`](/doc/models/create-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CreateSubscriptionResponse`](/doc/models/create-subscription-response.md)
+[`CreateSubscriptionResponse`](../../doc/models/create-subscription-response.md)
 
 ## Example Usage
 
@@ -97,7 +97,7 @@ first by location, within location by customer ID, and within
 customer by subscription creation date.
 
 For more information, see
-[Retrieve subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
+[Retrieve subscriptions](../../https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
 
 ```java
 CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
@@ -108,11 +108,11 @@ CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`SearchSubscriptionsRequest`](/doc/models/search-subscriptions-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SearchSubscriptionsRequest`](../../doc/models/search-subscriptions-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SearchSubscriptionsResponse`](/doc/models/search-subscriptions-response.md)
+[`SearchSubscriptionsResponse`](../../doc/models/search-subscriptions-response.md)
 
 ## Example Usage
 
@@ -170,7 +170,7 @@ CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
 
 ## Response Type
 
-[`RetrieveSubscriptionResponse`](/doc/models/retrieve-subscription-response.md)
+[`RetrieveSubscriptionResponse`](../../doc/models/retrieve-subscription-response.md)
 
 ## Example Usage
 
@@ -203,11 +203,11 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to update. |
-| `body` | [`UpdateSubscriptionRequest`](/doc/models/update-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`UpdateSubscriptionResponse`](/doc/models/update-subscription-response.md)
+[`UpdateSubscriptionResponse`](../../doc/models/update-subscription-response.md)
 
 ## Example Usage
 
@@ -259,7 +259,7 @@ CompletableFuture<DeleteSubscriptionActionResponse> deleteSubscriptionActionAsyn
 
 ## Response Type
 
-[`DeleteSubscriptionActionResponse`](/doc/models/delete-subscription-action-response.md)
+[`DeleteSubscriptionActionResponse`](../../doc/models/delete-subscription-action-response.md)
 
 ## Example Usage
 
@@ -295,7 +295,7 @@ CompletableFuture<CancelSubscriptionResponse> cancelSubscriptionAsync(
 
 ## Response Type
 
-[`CancelSubscriptionResponse`](/doc/models/cancel-subscription-response.md)
+[`CancelSubscriptionResponse`](../../doc/models/cancel-subscription-response.md)
 
 ## Example Usage
 
@@ -328,12 +328,12 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to retrieve the events for. |
-| `cursor` | `String` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `cursor` | `String` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `limit` | `Integer` | Query, Optional | The upper limit on the number of subscription events to return<br>in a paged response. |
 
 ## Response Type
 
-[`ListSubscriptionEventsResponse`](/doc/models/list-subscription-events-response.md)
+[`ListSubscriptionEventsResponse`](../../doc/models/list-subscription-events-response.md)
 
 ## Example Usage
 
@@ -366,11 +366,11 @@ CompletableFuture<PauseSubscriptionResponse> pauseSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to pause. |
-| `body` | [`PauseSubscriptionRequest`](/doc/models/pause-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`PauseSubscriptionRequest`](../../doc/models/pause-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`PauseSubscriptionResponse`](/doc/models/pause-subscription-response.md)
+[`PauseSubscriptionResponse`](../../doc/models/pause-subscription-response.md)
 
 ## Example Usage
 
@@ -408,11 +408,11 @@ CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to resume. |
-| `body` | [`ResumeSubscriptionRequest`](/doc/models/resume-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`ResumeSubscriptionRequest`](../../doc/models/resume-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`ResumeSubscriptionResponse`](/doc/models/resume-subscription-response.md)
+[`ResumeSubscriptionResponse`](../../doc/models/resume-subscription-response.md)
 
 ## Example Usage
 
@@ -447,11 +447,11 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to swap the subscription plan for. |
-| `body` | [`SwapPlanRequest`](/doc/models/swap-plan-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`SwapPlanRequest`](../../doc/models/swap-plan-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`SwapPlanResponse`](/doc/models/swap-plan-response.md)
+[`SwapPlanResponse`](../../doc/models/swap-plan-response.md)
 
 ## Example Usage
 

@@ -153,7 +153,7 @@ public class Booking {
     /**
      * Getter for LocationId.
      * The ID of the [Location]($m/Location) object representing the location where the booked
-     * service is provided.
+     * service is provided. Once set when the booking is created, its value cannot be changed.
      * @return Returns the String
      */
     @JsonGetter("location_id")

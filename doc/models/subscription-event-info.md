@@ -12,7 +12,7 @@ Provides information about the subscription event.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Detail` | `String` | Optional | A human-readable explanation for the event. | String getDetail() |
-| `Code` | [`String`](/doc/models/subscription-event-info-code.md) | Optional | Supported info codes of a subscription event. | String getCode() |
+| `Code` | [`String`](../../doc/models/subscription-event-info-code.md) | Optional | Supported info codes of a subscription event. | String getCode() |
 
 ## Example (as JSON)
 

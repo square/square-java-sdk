@@ -49,8 +49,9 @@ public class AdjustLoyaltyPointsResponse {
 
     /**
      * Getter for Event.
-     * Provides information about a loyalty event. For more information, see [Loyalty
-     * events](https://developer.squareup.com/docs/loyalty-api/overview/#loyalty-events).
+     * Provides information about a loyalty event. For more information, see [Search for
+     * Balance-Changing Loyalty
+     * Events](https://developer.squareup.com/docs/loyalty-api/loyalty-events).
      * @return Returns the LoyaltyEvent
      */
     @JsonGetter("event")

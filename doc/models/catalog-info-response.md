@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Limits` | [`CatalogInfoResponseLimits`](/doc/models/catalog-info-response-limits.md) | Optional | - | CatalogInfoResponseLimits getLimits() |
-| `StandardUnitDescriptionGroup` | [`StandardUnitDescriptionGroup`](/doc/models/standard-unit-description-group.md) | Optional | Group of standard measurement units. | StandardUnitDescriptionGroup getStandardUnitDescriptionGroup() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Limits` | [`CatalogInfoResponseLimits`](../../doc/models/catalog-info-response-limits.md) | Optional | - | CatalogInfoResponseLimits getLimits() |
+| `StandardUnitDescriptionGroup` | [`StandardUnitDescriptionGroup`](../../doc/models/standard-unit-description-group.md) | Optional | Group of standard measurement units. | StandardUnitDescriptionGroup getStandardUnitDescriptionGroup() |
 
 ## Example (as JSON)
 

@@ -34,6 +34,7 @@ import com.squareup.square.api.TeamApi;
 import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1TransactionsApi;
+import com.squareup.square.api.VendorsApi;
 
 /**
  * Gateway interface for the library.
@@ -239,6 +240,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the TerminalApi instance
      */
     TerminalApi getTerminalApi();
+
+    /**
+     * Provides access to Vendors controller.
+     * @return Returns the VendorsApi instance
+     */
+    VendorsApi getVendorsApi();
 
     /**
      * Current SDK Version.

@@ -2,7 +2,7 @@
 # Refund Payment Response
 
 Defines the response returned by
-[RefundPayment](/doc/api/refunds.md#refund-payment).
+[RefundPayment](../../doc/api/refunds.md#refund-payment).
 
 If there are errors processing the request, the `refund` field might not be
 present, or it might be present with a status of `FAILED`.
@@ -15,8 +15,8 @@ present, or it might be present with a status of `FAILED`.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Refund` | [`PaymentRefund`](/doc/models/payment-refund.md) | Optional | Represents a refund of a payment made using Square. Contains information about<br>the original payment and the amount of money refunded. | PaymentRefund getRefund() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
+| `Refund` | [`PaymentRefund`](../../doc/models/payment-refund.md) | Optional | Represents a refund of a payment made using Square. Contains information about<br>the original payment and the amount of money refunded. | PaymentRefund getRefund() |
 
 ## Example (as JSON)
 

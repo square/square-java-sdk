@@ -10,14 +10,14 @@ BankAccountsApi bankAccountsApi = client.getBankAccountsApi();
 
 ## Methods
 
-* [List Bank Accounts](/doc/api/bank-accounts.md#list-bank-accounts)
-* [Get Bank Account by V1 Id](/doc/api/bank-accounts.md#get-bank-account-by-v1-id)
-* [Get Bank Account](/doc/api/bank-accounts.md#get-bank-account)
+* [List Bank Accounts](../../doc/api/bank-accounts.md#list-bank-accounts)
+* [Get Bank Account by V1 Id](../../doc/api/bank-accounts.md#get-bank-account-by-v1-id)
+* [Get Bank Account](../../doc/api/bank-accounts.md#get-bank-account)
 
 
 # List Bank Accounts
 
-Returns a list of [BankAccount](/doc/models/bank-account.md) objects linked to a Square account.
+Returns a list of [BankAccount](../../doc/models/bank-account.md) objects linked to a Square account.
 
 ```java
 CompletableFuture<ListBankAccountsResponse> listBankAccountsAsync(
@@ -30,13 +30,13 @@ CompletableFuture<ListBankAccountsResponse> listBankAccountsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cursor` | `String` | Query, Optional | The pagination cursor returned by a previous call to this endpoint.<br>Use it in the next `ListBankAccounts` request to retrieve the next set<br>of results.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
+| `cursor` | `String` | Query, Optional | The pagination cursor returned by a previous call to this endpoint.<br>Use it in the next `ListBankAccounts` request to retrieve the next set<br>of results.<br><br>See the [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
 | `limit` | `Integer` | Query, Optional | Upper limit on the number of bank accounts to return in the response.<br>Currently, 1000 is the largest supported limit. You can specify a limit<br>of up to 1000 bank accounts. This is also the default limit. |
 | `locationId` | `String` | Query, Optional | Location ID. You can specify this optional filter<br>to retrieve only the linked bank accounts belonging to a specific location. |
 
 ## Response Type
 
-[`ListBankAccountsResponse`](/doc/models/list-bank-accounts-response.md)
+[`ListBankAccountsResponse`](../../doc/models/list-bank-accounts-response.md)
 
 ## Example Usage
 
@@ -56,7 +56,7 @@ bankAccountsApi.listBankAccountsAsync(cursor, limit, locationId).thenAccept(resu
 
 # Get Bank Account by V1 Id
 
-Returns details of a [BankAccount](/doc/models/bank-account.md) identified by V1 bank account ID.
+Returns details of a [BankAccount](../../doc/models/bank-account.md) identified by V1 bank account ID.
 
 ```java
 CompletableFuture<GetBankAccountByV1IdResponse> getBankAccountByV1IdAsync(
@@ -67,11 +67,11 @@ CompletableFuture<GetBankAccountByV1IdResponse> getBankAccountByV1IdAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `v1BankAccountId` | `String` | Template, Required | Connect V1 ID of the desired `BankAccount`. For more information, see<br>[Retrieve a bank account by using an ID issued by V1 Bank Accounts API](https://developer.squareup.com/docs/bank-accounts-api#retrieve-a-bank-account-by-using-an-id-issued-by-v1-bank-accounts-api). |
+| `v1BankAccountId` | `String` | Template, Required | Connect V1 ID of the desired `BankAccount`. For more information, see<br>[Retrieve a bank account by using an ID issued by V1 Bank Accounts API](../../https://developer.squareup.com/docs/bank-accounts-api#retrieve-a-bank-account-by-using-an-id-issued-by-v1-bank-accounts-api). |
 
 ## Response Type
 
-[`GetBankAccountByV1IdResponse`](/doc/models/get-bank-account-by-v1-id-response.md)
+[`GetBankAccountByV1IdResponse`](../../doc/models/get-bank-account-by-v1-id-response.md)
 
 ## Example Usage
 
@@ -89,7 +89,7 @@ bankAccountsApi.getBankAccountByV1IdAsync(v1BankAccountId).thenAccept(result -> 
 
 # Get Bank Account
 
-Returns details of a [BankAccount](/doc/models/bank-account.md)
+Returns details of a [BankAccount](../../doc/models/bank-account.md)
 linked to a Square account.
 
 ```java
@@ -105,7 +105,7 @@ CompletableFuture<GetBankAccountResponse> getBankAccountAsync(
 
 ## Response Type
 
-[`GetBankAccountResponse`](/doc/models/get-bank-account-response.md)
+[`GetBankAccountResponse`](../../doc/models/get-bank-account-response.md)
 
 ## Example Usage
 

@@ -13,9 +13,9 @@ the request resulted in errors.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `BreakTypes` | [`List<BreakType>`](/doc/models/break-type.md) | Optional | A page of `BreakType` results. | List<BreakType> getBreakTypes() |
+| `BreakTypes` | [`List<BreakType>`](../../doc/models/break-type.md) | Optional | A page of `BreakType` results. | List<BreakType> getBreakTypes() |
 | `Cursor` | `String` | Optional | The value supplied in the subsequent request to fetch the next page<br>of `BreakType` results. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

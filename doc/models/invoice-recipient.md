@@ -20,10 +20,10 @@ Square updates the customer ID in response to a merge operation, but does not up
 | `GivenName` | `String` | Optional | The recipient's given (that is, first) name. | String getGivenName() |
 | `FamilyName` | `String` | Optional | The recipient's family (that is, last) name. | String getFamilyName() |
 | `EmailAddress` | `String` | Optional | The recipient's email address. | String getEmailAddress() |
-| `Address` | [`Address`](/doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses). | Address getAddress() |
+| `Address` | [`Address`](../../doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](../../https://developer.squareup.com/docs/build-basics/working-with-addresses). | Address getAddress() |
 | `PhoneNumber` | `String` | Optional | The recipient's phone number. | String getPhoneNumber() |
 | `CompanyName` | `String` | Optional | The name of the recipient's company. | String getCompanyName() |
-| `TaxIds` | [`InvoiceRecipientTaxIds`](/doc/models/invoice-recipient-tax-ids.md) | Optional | Represents the tax IDs for an invoice recipient. The country of the seller account determines<br>whether the corresponding `tax_ids` field is available for the customer. For more information,<br>see [Invoice recipient tax IDs](https://developer.squareup.com/docs/invoices-api/overview#recipient-tax-ids). | InvoiceRecipientTaxIds getTaxIds() |
+| `TaxIds` | [`InvoiceRecipientTaxIds`](../../doc/models/invoice-recipient-tax-ids.md) | Optional | Represents the tax IDs for an invoice recipient. The country of the seller account determines<br>whether the corresponding `tax_ids` field is available for the customer. For more information,<br>see [Invoice recipient tax IDs](../../https://developer.squareup.com/docs/invoices-api/overview#recipient-tax-ids). | InvoiceRecipientTaxIds getTaxIds() |
 
 ## Example (as JSON)
 

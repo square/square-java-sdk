@@ -11,7 +11,7 @@ Describes a gift card activity of the CLEAR_BALANCE type.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Reason` | [`String`](/doc/models/gift-card-activity-clear-balance-reason.md) | Required | - | String getReason() |
+| `Reason` | [`String`](../../doc/models/gift-card-activity-clear-balance-reason.md) | Required | - | String getReason() |
 
 ## Example (as JSON)
 

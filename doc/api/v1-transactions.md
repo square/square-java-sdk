@@ -10,15 +10,15 @@ V1TransactionsApi v1TransactionsApi = client.getV1TransactionsApi();
 
 ## Methods
 
-* [List Orders](/doc/api/v1-transactions.md#list-orders)
-* [Retrieve Order](/doc/api/v1-transactions.md#retrieve-order)
-* [Update Order](/doc/api/v1-transactions.md#update-order)
-* [List Payments](/doc/api/v1-transactions.md#list-payments)
-* [Retrieve Payment](/doc/api/v1-transactions.md#retrieve-payment)
-* [List Refunds](/doc/api/v1-transactions.md#list-refunds)
-* [Create Refund](/doc/api/v1-transactions.md#create-refund)
-* [List Settlements](/doc/api/v1-transactions.md#list-settlements)
-* [Retrieve Settlement](/doc/api/v1-transactions.md#retrieve-settlement)
+* [List Orders](../../doc/api/v1-transactions.md#list-orders)
+* [Retrieve Order](../../doc/api/v1-transactions.md#retrieve-order)
+* [Update Order](../../doc/api/v1-transactions.md#update-order)
+* [List Payments](../../doc/api/v1-transactions.md#list-payments)
+* [Retrieve Payment](../../doc/api/v1-transactions.md#retrieve-payment)
+* [List Refunds](../../doc/api/v1-transactions.md#list-refunds)
+* [Create Refund](../../doc/api/v1-transactions.md#create-refund)
+* [List Settlements](../../doc/api/v1-transactions.md#list-settlements)
+* [Retrieve Settlement](../../doc/api/v1-transactions.md#retrieve-settlement)
 
 
 # List Orders
@@ -40,13 +40,13 @@ CompletableFuture<List<V1Order>> listOrdersAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list online store orders for. |
-| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
+| `order` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
 | `limit` | `Integer` | Query, Optional | The maximum number of payments to return in a single response. This value cannot exceed 200. |
 | `batchToken` | `String` | Query, Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. |
 
 ## Response Type
 
-[`List<V1Order>`](/doc/models/v1-order.md)
+[`List<V1Order>`](../../doc/models/v1-order.md)
 
 ## Example Usage
 
@@ -86,7 +86,7 @@ CompletableFuture<V1Order> retrieveOrderAsync(
 
 ## Response Type
 
-[`V1Order`](/doc/models/v1-order.md)
+[`V1Order`](../../doc/models/v1-order.md)
 
 ## Example Usage
 
@@ -122,11 +122,11 @@ CompletableFuture<V1Order> updateOrderAsync(
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the order's associated location. |
 | `orderId` | `String` | Template, Required | The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint |
-| `body` | [`V1UpdateOrderRequest`](/doc/models/v1-update-order-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`V1UpdateOrderRequest`](../../doc/models/v1-update-order-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`V1Order`](/doc/models/v1-order.md)
+[`V1Order`](../../doc/models/v1-order.md)
 
 ## Example Usage
 
@@ -182,7 +182,7 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list payments for. If you specify me, this endpoint returns payments aggregated from all of the business's locations. |
-| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
+| `order` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
 | `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time. |
 | `limit` | `Integer` | Query, Optional | The maximum number of payments to return in a single response. This value cannot exceed 200. |
@@ -191,7 +191,7 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
 
 ## Response Type
 
-[`List<V1Payment>`](/doc/models/v1-payment.md)
+[`List<V1Payment>`](../../doc/models/v1-payment.md)
 
 ## Example Usage
 
@@ -234,7 +234,7 @@ CompletableFuture<V1Payment> retrievePaymentAsync(
 
 ## Response Type
 
-[`V1Payment`](/doc/models/v1-payment.md)
+[`V1Payment`](../../doc/models/v1-payment.md)
 
 ## Example Usage
 
@@ -272,7 +272,7 @@ CompletableFuture<List<V1Refund>> listRefundsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list refunds for. |
-| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
+| `order` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which payments are listed in the response. |
 | `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time. |
 | `limit` | `Integer` | Query, Optional | The approximate number of refunds to return in a single response. Default: 100. Max: 200. Response may contain more results than the prescribed limit when refunds are made simultaneously to multiple tenders in a payment or when refunds are generated in an exchange to account for the value of returned goods. |
@@ -280,7 +280,7 @@ CompletableFuture<List<V1Refund>> listRefundsAsync(
 
 ## Response Type
 
-[`List<V1Refund>`](/doc/models/v1-refund.md)
+[`List<V1Refund>`](../../doc/models/v1-refund.md)
 
 ## Example Usage
 
@@ -329,11 +329,11 @@ CompletableFuture<V1Refund> createRefundAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the original payment's associated location. |
-| `body` | [`V1CreateRefundRequest`](/doc/models/v1-create-refund-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+| `body` | [`V1CreateRefundRequest`](../../doc/models/v1-create-refund-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`V1Refund`](/doc/models/v1-refund.md)
+[`V1Refund`](../../doc/models/v1-refund.md)
 
 ## Example Usage
 
@@ -387,16 +387,16 @@ CompletableFuture<List<V1Settlement>> listSettlementsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Template, Required | The ID of the location to list settlements for. If you specify me, this endpoint returns settlements aggregated from all of the business's locations. |
-| `order` | [`String`](/doc/models/sort-order.md) | Query, Optional | The order in which settlements are listed in the response. |
+| `order` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which settlements are listed in the response. |
 | `beginTime` | `String` | Query, Optional | The beginning of the requested reporting period, in ISO 8601 format. If this value is before January 1, 2013 (2013-01-01T00:00:00Z), this endpoint returns an error. Default value: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | The end of the requested reporting period, in ISO 8601 format. If this value is more than one year greater than begin_time, this endpoint returns an error. Default value: The current time. |
 | `limit` | `Integer` | Query, Optional | The maximum number of settlements to return in a single response. This value cannot exceed 200. |
-| `status` | [`String`](/doc/models/v1-list-settlements-request-status.md) | Query, Optional | Provide this parameter to retrieve only settlements with a particular status (SENT or FAILED). |
+| `status` | [`String`](../../doc/models/v1-list-settlements-request-status.md) | Query, Optional | Provide this parameter to retrieve only settlements with a particular status (SENT or FAILED). |
 | `batchToken` | `String` | Query, Optional | A pagination cursor to retrieve the next set of results for your<br>original query to the endpoint. |
 
 ## Response Type
 
-[`List<V1Settlement>`](/doc/models/v1-settlement.md)
+[`List<V1Settlement>`](../../doc/models/v1-settlement.md)
 
 ## Example Usage
 
@@ -431,7 +431,7 @@ entries are also generated for less common events, like refunds, manual
 adjustments, or chargeback holds.
 
 Square initiates its regular deposits as indicated in the
-[Deposit Options with Square](https://squareup.com/help/us/en/article/3807)
+[Deposit Options with Square](../../https://squareup.com/help/us/en/article/3807)
 help article. Details for a regular deposit are usually not available
 from Connect API endpoints before 10 p.m. PST the same day.
 
@@ -455,7 +455,7 @@ CompletableFuture<V1Settlement> retrieveSettlementAsync(
 
 ## Response Type
 
-[`V1Settlement`](/doc/models/v1-settlement.md)
+[`V1Settlement`](../../doc/models/v1-settlement.md)
 
 ## Example Usage
 

@@ -12,8 +12,8 @@ the response contains a set of `Error` objects.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `GiftCard` | [`GiftCard`](/doc/models/gift-card.md) | Optional | Represents a Square gift card. | GiftCard getGiftCard() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `GiftCard` | [`GiftCard`](../../doc/models/gift-card.md) | Optional | Represents a Square gift card. | GiftCard getGiftCard() |
 
 ## Example (as JSON)
 

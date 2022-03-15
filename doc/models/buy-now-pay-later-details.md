@@ -12,7 +12,7 @@ Additional details about a Buy Now Pay Later payment type.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Brand` | `String` | Optional | The brand used for the Buy Now Pay Later payment.<br>The brand can be `AFTERPAY` or `UNKNOWN`.<br>**Constraints**: *Maximum Length*: `50` | String getBrand() |
-| `AfterpayDetails` | [`AfterpayDetails`](/doc/models/afterpay-details.md) | Optional | Additional details about Afterpay payments. | AfterpayDetails getAfterpayDetails() |
+| `AfterpayDetails` | [`AfterpayDetails`](../../doc/models/afterpay-details.md) | Optional | Additional details about Afterpay payments. | AfterpayDetails getAfterpayDetails() |
 
 ## Example (as JSON)
 

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `OrderFulfillmentUpdated` | [`OrderFulfillmentUpdated`](/doc/models/order-fulfillment-updated.md) | Optional | - | OrderFulfillmentUpdated getOrderFulfillmentUpdated() |
+| `OrderFulfillmentUpdated` | [`OrderFulfillmentUpdated`](../../doc/models/order-fulfillment-updated.md) | Optional | - | OrderFulfillmentUpdated getOrderFulfillmentUpdated() |
 
 ## Example (as JSON)
 

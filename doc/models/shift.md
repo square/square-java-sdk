@@ -19,9 +19,9 @@ taken during the shift.
 | `Timezone` | `String` | Optional | The read-only convenience value that is calculated from the location based<br>on the `location_id`. Format: the IANA timezone database identifier for the<br>location timezone. | String getTimezone() |
 | `StartAt` | `String` | Required | RFC 3339; shifted to the location timezone + offset. Precision up to the<br>minute is respected; seconds are truncated.<br>**Constraints**: *Minimum Length*: `1` | String getStartAt() |
 | `EndAt` | `String` | Optional | RFC 3339; shifted to the timezone + offset. Precision up to the minute is<br>respected; seconds are truncated. | String getEndAt() |
-| `Wage` | [`ShiftWage`](/doc/models/shift-wage.md) | Optional | The hourly wage rate used to compensate an employee for this shift. | ShiftWage getWage() |
-| `Breaks` | [`List<Break>`](/doc/models/break.md) | Optional | A list of all the paid or unpaid breaks that were taken during this shift. | List<Break> getBreaks() |
-| `Status` | [`String`](/doc/models/shift-status.md) | Optional | Enumerates the possible status of a `Shift`. | String getStatus() |
+| `Wage` | [`ShiftWage`](../../doc/models/shift-wage.md) | Optional | The hourly wage rate used to compensate an employee for this shift. | ShiftWage getWage() |
+| `Breaks` | [`List<Break>`](../../doc/models/break.md) | Optional | A list of all the paid or unpaid breaks that were taken during this shift. | List<Break> getBreaks() |
+| `Status` | [`String`](../../doc/models/shift-status.md) | Optional | Enumerates the possible status of a `Shift`. | String getStatus() |
 | `Version` | `Integer` | Optional | Used for resolving concurrency issues. The request fails if the version<br>provided does not match the server version at the time of the request. If not provided,<br>Square executes a blind write; potentially overwriting data from another<br>write. | Integer getVersion() |
 | `CreatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | A read-only timestamp in RFC 3339 format; presented in UTC. | String getUpdatedAt() |

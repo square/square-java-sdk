@@ -12,7 +12,7 @@ Represents a request to create a `Shift`.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `IdempotencyKey` | `String` | Optional | A unique string value to ensure the idempotency of the operation.<br>**Constraints**: *Maximum Length*: `128` | String getIdempotencyKey() |
-| `Shift` | [`Shift`](/doc/models/shift.md) | Required | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. This might include a record of the start and end times for breaks<br>taken during the shift. | Shift getShift() |
+| `Shift` | [`Shift`](../../doc/models/shift.md) | Required | A record of the hourly rate, start, and end times for a single work shift<br>for an employee. This might include a record of the start and end times for breaks<br>taken during the shift. | Shift getShift() |
 
 ## Example (as JSON)
 

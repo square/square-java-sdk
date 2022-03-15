@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `DeviceCode` | [`DeviceCode`](/doc/models/device-code.md) | Optional | - | DeviceCode getDeviceCode() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `DeviceCode` | [`DeviceCode`](../../doc/models/device-code.md) | Optional | - | DeviceCode getDeviceCode() |
 
 ## Example (as JSON)
 

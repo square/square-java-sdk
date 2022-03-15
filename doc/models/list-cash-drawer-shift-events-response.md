@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Events` | [`List<CashDrawerShiftEvent>`](/doc/models/cash-drawer-shift-event.md) | Optional | All of the events (payments, refunds, etc.) for a cash drawer during<br>the shift. | List<CashDrawerShiftEvent> getEvents() |
+| `Events` | [`List<CashDrawerShiftEvent>`](../../doc/models/cash-drawer-shift-event.md) | Optional | All of the events (payments, refunds, etc.) for a cash drawer during<br>the shift. | List<CashDrawerShiftEvent> getEvents() |
 | `Cursor` | `String` | Optional | Opaque cursor for fetching the next page. Cursor is not present in<br>the last page of results. | String getCursor() |
-| `Errors` | [`List<Error>`](/doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
+| `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 

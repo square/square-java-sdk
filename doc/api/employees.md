@@ -10,8 +10,8 @@ EmployeesApi employeesApi = client.getEmployeesApi();
 
 ## Methods
 
-* [List Employees](/doc/api/employees.md#list-employees)
-* [Retrieve Employee](/doc/api/employees.md#retrieve-employee)
+* [List Employees](../../doc/api/employees.md#list-employees)
+* [Retrieve Employee](../../doc/api/employees.md#retrieve-employee)
 
 
 # List Employees
@@ -33,13 +33,13 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `locationId` | `String` | Query, Optional | - |
-| `status` | [`String`](/doc/models/employee-status.md) | Query, Optional | Specifies the EmployeeStatus to filter the employee by. |
+| `status` | [`String`](../../doc/models/employee-status.md) | Query, Optional | Specifies the EmployeeStatus to filter the employee by. |
 | `limit` | `Integer` | Query, Optional | The number of employees to be returned on each page. |
 | `cursor` | `String` | Query, Optional | The token required to retrieve the specified page of results. |
 
 ## Response Type
 
-[`ListEmployeesResponse`](/doc/models/list-employees-response.md)
+[`ListEmployeesResponse`](../../doc/models/list-employees-response.md)
 
 ## Example Usage
 
@@ -77,7 +77,7 @@ CompletableFuture<RetrieveEmployeeResponse> retrieveEmployeeAsync(
 
 ## Response Type
 
-[`RetrieveEmployeeResponse`](/doc/models/retrieve-employee-response.md)
+[`RetrieveEmployeeResponse`](../../doc/models/retrieve-employee-response.md)
 
 ## Example Usage
 

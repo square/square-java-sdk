@@ -11,7 +11,7 @@ Represents additional data for rules with the `ITEM_VARIATION` accrual type.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `ItemVariationId` | `String` | Required | The ID of the `ITEM_VARIATION` [catalog object](/doc/models/catalog-object.md) that buyers can purchase to earn<br>points.<br>**Constraints**: *Minimum Length*: `1` | String getItemVariationId() |
+| `ItemVariationId` | `String` | Required | The ID of the `ITEM_VARIATION` [catalog object](../../doc/models/catalog-object.md) that buyers can purchase to earn<br>points.<br>**Constraints**: *Minimum Length*: `1` | String getItemVariationId() |
 
 ## Example (as JSON)
 

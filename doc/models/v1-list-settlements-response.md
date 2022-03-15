@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Items` | [`List<V1Settlement>`](/doc/models/v1-settlement.md) | Optional | - | List<V1Settlement> getItems() |
+| `Items` | [`List<V1Settlement>`](../../doc/models/v1-settlement.md) | Optional | - | List<V1Settlement> getItems() |
 
 ## Example (as JSON)
 
