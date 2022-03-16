@@ -13,7 +13,7 @@ endpoint returns in a response.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
-| `Location` | [`Location`](../../doc/models/location.md) | Optional | Represents one of a business's [locations](../../https://developer.squareup.com/docs/locations-api). | Location getLocation() |
+| `Location` | [`Location`](../../doc/models/location.md) | Optional | Represents one of a business's [locations](https://developer.squareup.com/docs/locations-api). | Location getLocation() |
 
 ## Example (as JSON)
 
