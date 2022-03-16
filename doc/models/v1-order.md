@@ -17,7 +17,7 @@ V1Order
 | `RecipientName` | `String` | Optional | The name of the order's buyer. | String getRecipientName() |
 | `RecipientPhoneNumber` | `String` | Optional | The phone number to use for the order's delivery. | String getRecipientPhoneNumber() |
 | `State` | [`String`](../../doc/models/v1-order-state.md) | Optional | - | String getState() |
-| `ShippingAddress` | [`Address`](../../doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](../../https://developer.squareup.com/docs/build-basics/working-with-addresses). | Address getShippingAddress() |
+| `ShippingAddress` | [`Address`](../../doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses). | Address getShippingAddress() |
 | `SubtotalMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getSubtotalMoney() |
 | `TotalShippingMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getTotalShippingMoney() |
 | `TotalTaxMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getTotalTaxMoney() |

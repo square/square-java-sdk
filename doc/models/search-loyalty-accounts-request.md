@@ -13,7 +13,7 @@ A request to search for loyalty accounts.
 |  --- | --- | --- | --- | --- |
 | `Query` | [`SearchLoyaltyAccountsRequestLoyaltyAccountQuery`](../../doc/models/search-loyalty-accounts-request-loyalty-account-query.md) | Optional | The search criteria for the loyalty accounts. | SearchLoyaltyAccountsRequestLoyaltyAccountQuery getQuery() |
 | `Limit` | `Integer` | Optional | The maximum number of results to include in the response. The default value is 30.<br>**Constraints**: `>= 1`, `<= 30` | Integer getLimit() |
-| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to<br>this endpoint. Provide this to retrieve the next set of<br>results for the original query.<br><br>For more information,<br>see [Pagination](../../https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
+| `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to<br>this endpoint. Provide this to retrieve the next set of<br>results for the original query.<br><br>For more information,<br>see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
 
 ## Example (as JSON)
 

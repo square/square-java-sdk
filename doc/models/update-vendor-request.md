@@ -11,7 +11,7 @@ Represents an input to a call to [UpdateVendor.](../../doc/api/vendors.md#update
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `IdempotencyKey` | `String` | Optional | A client-supplied, universally unique identifier (UUID) for the<br>request.<br><br>See [Idempotency](../../https://developer.squareup.com/docs/basics/api101/idempotency) in the<br>[API Development 101](../../https://developer.squareup.com/docs/basics/api101/overview) section for more<br>information.<br>**Constraints**: *Maximum Length*: `128` | String getIdempotencyKey() |
+| `IdempotencyKey` | `String` | Optional | A client-supplied, universally unique identifier (UUID) for the<br>request.<br><br>See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the<br>[API Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more<br>information.<br>**Constraints**: *Maximum Length*: `128` | String getIdempotencyKey() |
 | `Vendor` | [`Vendor`](../../doc/models/vendor.md) | Required | Represents a supplier to a seller. | Vendor getVendor() |
 
 ## Example (as JSON)

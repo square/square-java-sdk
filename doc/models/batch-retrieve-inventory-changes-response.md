@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
 | `Changes` | [`List<InventoryChange>`](../../doc/models/inventory-change.md) | Optional | The current calculated inventory changes for the requested objects<br>and locations. | List<InventoryChange> getChanges() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset,<br>this is the final response.<br>See the [Pagination](../../https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. | String getCursor() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If unset,<br>this is the final response.<br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. | String getCursor() |
 
 ## Example (as JSON)
 
