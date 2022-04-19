@@ -51,7 +51,7 @@ public class TaxIds {
     /**
      * Getter for FrSiret.
      * The SIRET (Système d'Identification du Répertoire des Entreprises et de leurs Etablissements)
-     * number is a 14 digit code issued by the French INSEE. For example, `39922799000021`.
+     * number is a 14-digit code issued by the French INSEE. For example, `39922799000021`.
      * @return Returns the String
      */
     @JsonGetter("fr_siret")
@@ -75,7 +75,7 @@ public class TaxIds {
 
     /**
      * Getter for EsNif.
-     * The NIF (Numero de Identificacion Fiscal) number is a 9 character tax identifier used in
+     * The NIF (Numero de Identificacion Fiscal) number is a nine-character tax identifier used in
      * Spain. If it is present, it has been validated. For example, `73628495A`.
      * @return Returns the String
      */

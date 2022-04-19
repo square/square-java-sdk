@@ -61,6 +61,7 @@ TipSettings tipSettings = new TipSettings.Builder()
 DeviceCheckoutOptions deviceCheckoutOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
     .skipReceiptScreen(false)
+    .collectSignature(false)
     .tipSettings(deviceCheckoutOptionsTipSettings)
     .build();
 TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
@@ -88,7 +89,7 @@ terminalApi.createTerminalCheckoutAsync(body).thenAccept(result -> {
 
 # Search Terminal Checkouts
 
-Retrieves a filtered list of Terminal checkout requests created by the account making the request.
+Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
 
 ```java
 CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
@@ -141,7 +142,7 @@ terminalApi.searchTerminalCheckoutsAsync(body).thenAccept(result -> {
 
 # Get Terminal Checkout
 
-Retrieves a Terminal checkout request by `checkout_id`.
+Retrieves a Terminal checkout request by `checkout_id`. Terminal checkout requests are available for 30 days.
 
 ```java
 CompletableFuture<GetTerminalCheckoutResponse> getTerminalCheckoutAsync(
@@ -207,7 +208,7 @@ terminalApi.cancelTerminalCheckoutAsync(checkoutId).thenAccept(result -> {
 
 # Create Terminal Refund
 
-Creates a request to refund an Interac payment completed on a Square Terminal.
+Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for Interac payments on a Square Terminal are supported only for Interac debit cards in Canada. Other refunds for Terminal payments should use the Refunds API. For more information, see [Refunds API](../../doc/api/refunds.md).
 
 ```java
 CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
@@ -233,12 +234,14 @@ Money money = new Money.Builder()
     .build();
 TerminalRefund terminalRefund = new TerminalRefund.Builder(
         "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
-        amountMoney)
+        amountMoney,
+        "Returning items",
+        "f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
     .id("id4")
     .refundId("refund_id8")
     .orderId("order_id8")
-    .reason("Returning items")
-    .deviceId("f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
+    .deadlineDuration("deadline_duration6")
+    .status("status6")
     .build();
 CreateTerminalRefundRequest body = new CreateTerminalRefundRequest.Builder(
         "402a640b-b26f-401f-b406-46f839590c04")
@@ -256,7 +259,7 @@ terminalApi.createTerminalRefundAsync(body).thenAccept(result -> {
 
 # Search Terminal Refunds
 
-Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request.
+Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
 
 ```java
 CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
@@ -309,7 +312,7 @@ terminalApi.searchTerminalRefundsAsync(body).thenAccept(result -> {
 
 # Get Terminal Refund
 
-Retrieves an Interac Terminal refund object by ID.
+Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for 30 days.
 
 ```java
 CompletableFuture<GetTerminalRefundResponse> getTerminalRefundAsync(

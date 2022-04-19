@@ -38,7 +38,7 @@ public class RetrieveLocationResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")
@@ -49,8 +49,7 @@ public class RetrieveLocationResponse {
 
     /**
      * Getter for Location.
-     * Represents one of a business's
-     * [locations](https://developer.squareup.com/docs/locations-api).
+     * Represents one of a business' [locations](https://developer.squareup.com/docs/locations-api).
      * @return Returns the Location
      */
     @JsonGetter("location")

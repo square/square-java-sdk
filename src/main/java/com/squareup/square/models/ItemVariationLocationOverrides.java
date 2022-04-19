@@ -17,6 +17,8 @@ public class ItemVariationLocationOverrides {
     private final Boolean trackInventory;
     private final String inventoryAlertType;
     private final Long inventoryAlertThreshold;
+    private final Boolean soldOut;
+    private final String soldOutValidUntil;
 
     /**
      * Initialization constructor.
@@ -26,6 +28,8 @@ public class ItemVariationLocationOverrides {
      * @param  trackInventory  Boolean value for trackInventory.
      * @param  inventoryAlertType  String value for inventoryAlertType.
      * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
+     * @param  soldOut  Boolean value for soldOut.
+     * @param  soldOutValidUntil  String value for soldOutValidUntil.
      */
     @JsonCreator
     public ItemVariationLocationOverrides(
@@ -34,13 +38,17 @@ public class ItemVariationLocationOverrides {
             @JsonProperty("pricing_type") String pricingType,
             @JsonProperty("track_inventory") Boolean trackInventory,
             @JsonProperty("inventory_alert_type") String inventoryAlertType,
-            @JsonProperty("inventory_alert_threshold") Long inventoryAlertThreshold) {
+            @JsonProperty("inventory_alert_threshold") Long inventoryAlertThreshold,
+            @JsonProperty("sold_out") Boolean soldOut,
+            @JsonProperty("sold_out_valid_until") String soldOutValidUntil) {
         this.locationId = locationId;
         this.priceMoney = priceMoney;
         this.pricingType = pricingType;
         this.trackInventory = trackInventory;
         this.inventoryAlertType = inventoryAlertType;
         this.inventoryAlertThreshold = inventoryAlertThreshold;
+        this.soldOut = soldOut;
+        this.soldOutValidUntil = soldOutValidUntil;
     }
 
     /**
@@ -118,10 +126,41 @@ public class ItemVariationLocationOverrides {
         return inventoryAlertThreshold;
     }
 
+    /**
+     * Getter for SoldOut.
+     * Indicates whether the overridden item variation is sold out at the specified location. When
+     * inventory tracking is enabled on the item variation either globally or at the specified
+     * location, the item variation is automatically marked as sold out when its inventory count
+     * reaches zero. The seller can manually set the item variation as sold out even when the
+     * inventory count is greater than zero. Attempts by an application to set this attribute are
+     * ignored. Regardless how the sold-out status is set, applications should treat its inventory
+     * count as zero when this attribute value is `true`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("sold_out")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSoldOut() {
+        return soldOut;
+    }
+
+    /**
+     * Getter for SoldOutValidUntil.
+     * The seller-assigned timestamp, of the RFC 3339 format, to indicate when this sold-out
+     * variation becomes available again at the specified location. Attempts by an application to
+     * set this attribute are ignored. When the current time is later than this attribute value, the
+     * affected item variation is no longer sold out.
+     * @return Returns the String
+     */
+    @JsonGetter("sold_out_valid_until")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getSoldOutValidUntil() {
+        return soldOutValidUntil;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(locationId, priceMoney, pricingType, trackInventory, inventoryAlertType,
-                inventoryAlertThreshold);
+                inventoryAlertThreshold, soldOut, soldOutValidUntil);
     }
 
     @Override
@@ -138,7 +177,9 @@ public class ItemVariationLocationOverrides {
             && Objects.equals(pricingType, other.pricingType)
             && Objects.equals(trackInventory, other.trackInventory)
             && Objects.equals(inventoryAlertType, other.inventoryAlertType)
-            && Objects.equals(inventoryAlertThreshold, other.inventoryAlertThreshold);
+            && Objects.equals(inventoryAlertThreshold, other.inventoryAlertThreshold)
+            && Objects.equals(soldOut, other.soldOut)
+            && Objects.equals(soldOutValidUntil, other.soldOutValidUntil);
     }
 
     /**
@@ -150,7 +191,8 @@ public class ItemVariationLocationOverrides {
         return "ItemVariationLocationOverrides [" + "locationId=" + locationId + ", priceMoney="
                 + priceMoney + ", pricingType=" + pricingType + ", trackInventory=" + trackInventory
                 + ", inventoryAlertType=" + inventoryAlertType + ", inventoryAlertThreshold="
-                + inventoryAlertThreshold + "]";
+                + inventoryAlertThreshold + ", soldOut=" + soldOut + ", soldOutValidUntil="
+                + soldOutValidUntil + "]";
     }
 
     /**
@@ -165,7 +207,9 @@ public class ItemVariationLocationOverrides {
                 .pricingType(getPricingType())
                 .trackInventory(getTrackInventory())
                 .inventoryAlertType(getInventoryAlertType())
-                .inventoryAlertThreshold(getInventoryAlertThreshold());
+                .inventoryAlertThreshold(getInventoryAlertThreshold())
+                .soldOut(getSoldOut())
+                .soldOutValidUntil(getSoldOutValidUntil());
         return builder;
     }
 
@@ -179,6 +223,8 @@ public class ItemVariationLocationOverrides {
         private Boolean trackInventory;
         private String inventoryAlertType;
         private Long inventoryAlertThreshold;
+        private Boolean soldOut;
+        private String soldOutValidUntil;
 
 
 
@@ -243,12 +289,33 @@ public class ItemVariationLocationOverrides {
         }
 
         /**
+         * Setter for soldOut.
+         * @param  soldOut  Boolean value for soldOut.
+         * @return Builder
+         */
+        public Builder soldOut(Boolean soldOut) {
+            this.soldOut = soldOut;
+            return this;
+        }
+
+        /**
+         * Setter for soldOutValidUntil.
+         * @param  soldOutValidUntil  String value for soldOutValidUntil.
+         * @return Builder
+         */
+        public Builder soldOutValidUntil(String soldOutValidUntil) {
+            this.soldOutValidUntil = soldOutValidUntil;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ItemVariationLocationOverrides} object using the set fields.
          * @return {@link ItemVariationLocationOverrides}
          */
         public ItemVariationLocationOverrides build() {
             return new ItemVariationLocationOverrides(locationId, priceMoney, pricingType,
-                    trackInventory, inventoryAlertType, inventoryAlertThreshold);
+                    trackInventory, inventoryAlertType, inventoryAlertThreshold, soldOut,
+                    soldOutValidUntil);
         }
     }
 }

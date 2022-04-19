@@ -25,8 +25,7 @@ public class UpdateLocationRequest {
 
     /**
      * Getter for Location.
-     * Represents one of a business's
-     * [locations](https://developer.squareup.com/docs/locations-api).
+     * Represents one of a business' [locations](https://developer.squareup.com/docs/locations-api).
      * @return Returns the Location
      */
     @JsonGetter("location")

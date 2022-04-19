@@ -13,21 +13,25 @@ import java.util.Objects;
 public class DeviceCheckoutOptions {
     private final String deviceId;
     private final Boolean skipReceiptScreen;
+    private final Boolean collectSignature;
     private final TipSettings tipSettings;
 
     /**
      * Initialization constructor.
      * @param  deviceId  String value for deviceId.
      * @param  skipReceiptScreen  Boolean value for skipReceiptScreen.
+     * @param  collectSignature  Boolean value for collectSignature.
      * @param  tipSettings  TipSettings value for tipSettings.
      */
     @JsonCreator
     public DeviceCheckoutOptions(
             @JsonProperty("device_id") String deviceId,
             @JsonProperty("skip_receipt_screen") Boolean skipReceiptScreen,
+            @JsonProperty("collect_signature") Boolean collectSignature,
             @JsonProperty("tip_settings") TipSettings tipSettings) {
         this.deviceId = deviceId;
         this.skipReceiptScreen = skipReceiptScreen;
+        this.collectSignature = collectSignature;
         this.tipSettings = tipSettings;
     }
 
@@ -55,6 +59,17 @@ public class DeviceCheckoutOptions {
     }
 
     /**
+     * Getter for CollectSignature.
+     * Indicates that signature collection is desired during checkout. Defaults to false.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("collect_signature")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getCollectSignature() {
+        return collectSignature;
+    }
+
+    /**
      * Getter for TipSettings.
      * @return Returns the TipSettings
      */
@@ -66,7 +81,7 @@ public class DeviceCheckoutOptions {
 
     @Override
     public int hashCode() {
-        return Objects.hash(deviceId, skipReceiptScreen, tipSettings);
+        return Objects.hash(deviceId, skipReceiptScreen, collectSignature, tipSettings);
     }
 
     @Override
@@ -80,6 +95,7 @@ public class DeviceCheckoutOptions {
         DeviceCheckoutOptions other = (DeviceCheckoutOptions) obj;
         return Objects.equals(deviceId, other.deviceId)
             && Objects.equals(skipReceiptScreen, other.skipReceiptScreen)
+            && Objects.equals(collectSignature, other.collectSignature)
             && Objects.equals(tipSettings, other.tipSettings);
     }
 
@@ -90,7 +106,8 @@ public class DeviceCheckoutOptions {
     @Override
     public String toString() {
         return "DeviceCheckoutOptions [" + "deviceId=" + deviceId + ", skipReceiptScreen="
-                + skipReceiptScreen + ", tipSettings=" + tipSettings + "]";
+                + skipReceiptScreen + ", collectSignature=" + collectSignature + ", tipSettings="
+                + tipSettings + "]";
     }
 
     /**
@@ -101,6 +118,7 @@ public class DeviceCheckoutOptions {
     public Builder toBuilder() {
         Builder builder = new Builder(deviceId)
                 .skipReceiptScreen(getSkipReceiptScreen())
+                .collectSignature(getCollectSignature())
                 .tipSettings(getTipSettings());
         return builder;
     }
@@ -111,6 +129,7 @@ public class DeviceCheckoutOptions {
     public static class Builder {
         private String deviceId;
         private Boolean skipReceiptScreen;
+        private Boolean collectSignature;
         private TipSettings tipSettings;
 
         /**
@@ -142,6 +161,16 @@ public class DeviceCheckoutOptions {
         }
 
         /**
+         * Setter for collectSignature.
+         * @param  collectSignature  Boolean value for collectSignature.
+         * @return Builder
+         */
+        public Builder collectSignature(Boolean collectSignature) {
+            this.collectSignature = collectSignature;
+            return this;
+        }
+
+        /**
          * Setter for tipSettings.
          * @param  tipSettings  TipSettings value for tipSettings.
          * @return Builder
@@ -156,7 +185,8 @@ public class DeviceCheckoutOptions {
          * @return {@link DeviceCheckoutOptions}
          */
         public DeviceCheckoutOptions build() {
-            return new DeviceCheckoutOptions(deviceId, skipReceiptScreen, tipSettings);
+            return new DeviceCheckoutOptions(deviceId, skipReceiptScreen, collectSignature,
+                    tipSettings);
         }
     }
 }

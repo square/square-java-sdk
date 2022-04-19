@@ -25,7 +25,7 @@ public class BulkCreateVendorsRequest {
 
     /**
      * Getter for Vendors.
-     * Specifies a set of new [Vendor](entity:Vendor] objects as represented by a collection of
+     * Specifies a set of new [Vendor]($m/Vendor) objects as represented by a collection of
      * idempotency-key/`Vendor`-object pairs.
      * @return Returns the Map of String, Vendor
      */

@@ -199,7 +199,7 @@ public class Subscription {
     /**
      * Getter for InvoiceIds.
      * The IDs of the [invoices]($m/Invoice) created for the subscription, listed in order when the
-     * invoices were created (oldest invoices appear first).
+     * invoices were created (newest invoices appear first).
      * @return Returns the List of String
      */
     @JsonGetter("invoice_ids")

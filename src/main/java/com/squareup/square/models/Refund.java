@@ -27,11 +27,11 @@ public class Refund {
      * Initialization constructor.
      * @param  id  String value for id.
      * @param  locationId  String value for locationId.
-     * @param  transactionId  String value for transactionId.
      * @param  tenderId  String value for tenderId.
      * @param  reason  String value for reason.
      * @param  amountMoney  Money value for amountMoney.
      * @param  status  String value for status.
+     * @param  transactionId  String value for transactionId.
      * @param  createdAt  String value for createdAt.
      * @param  processingFeeMoney  Money value for processingFeeMoney.
      * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
@@ -40,11 +40,11 @@ public class Refund {
     public Refund(
             @JsonProperty("id") String id,
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("transaction_id") String transactionId,
             @JsonProperty("tender_id") String tenderId,
             @JsonProperty("reason") String reason,
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("status") String status,
+            @JsonProperty("transaction_id") String transactionId,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("processing_fee_money") Money processingFeeMoney,
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients) {
@@ -86,6 +86,7 @@ public class Refund {
      * @return Returns the String
      */
     @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTransactionId() {
         return transactionId;
     }
@@ -207,9 +208,9 @@ public class Refund {
      */
     @Override
     public String toString() {
-        return "Refund [" + "id=" + id + ", locationId=" + locationId + ", transactionId="
-                + transactionId + ", tenderId=" + tenderId + ", reason=" + reason + ", amountMoney="
-                + amountMoney + ", status=" + status + ", createdAt=" + createdAt
+        return "Refund [" + "id=" + id + ", locationId=" + locationId + ", tenderId=" + tenderId
+                + ", reason=" + reason + ", amountMoney=" + amountMoney + ", status=" + status
+                + ", transactionId=" + transactionId + ", createdAt=" + createdAt
                 + ", processingFeeMoney=" + processingFeeMoney + ", additionalRecipients="
                 + additionalRecipients + "]";
     }
@@ -220,8 +221,8 @@ public class Refund {
      * @return a new {@link Refund.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, locationId, transactionId, tenderId, reason, amountMoney,
-                status)
+        Builder builder = new Builder(id, locationId, tenderId, reason, amountMoney, status)
+                .transactionId(getTransactionId())
                 .createdAt(getCreatedAt())
                 .processingFeeMoney(getProcessingFeeMoney())
                 .additionalRecipients(getAdditionalRecipients());
@@ -234,11 +235,11 @@ public class Refund {
     public static class Builder {
         private String id;
         private String locationId;
-        private String transactionId;
         private String tenderId;
         private String reason;
         private Money amountMoney;
         private String status;
+        private String transactionId;
         private String createdAt;
         private Money processingFeeMoney;
         private List<AdditionalRecipient> additionalRecipients;
@@ -247,17 +248,15 @@ public class Refund {
          * Initialization constructor.
          * @param  id  String value for id.
          * @param  locationId  String value for locationId.
-         * @param  transactionId  String value for transactionId.
          * @param  tenderId  String value for tenderId.
          * @param  reason  String value for reason.
          * @param  amountMoney  Money value for amountMoney.
          * @param  status  String value for status.
          */
-        public Builder(String id, String locationId, String transactionId, String tenderId,
-                String reason, Money amountMoney, String status) {
+        public Builder(String id, String locationId, String tenderId, String reason,
+                Money amountMoney, String status) {
             this.id = id;
             this.locationId = locationId;
-            this.transactionId = transactionId;
             this.tenderId = tenderId;
             this.reason = reason;
             this.amountMoney = amountMoney;
@@ -281,16 +280,6 @@ public class Refund {
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
-            return this;
-        }
-
-        /**
-         * Setter for transactionId.
-         * @param  transactionId  String value for transactionId.
-         * @return Builder
-         */
-        public Builder transactionId(String transactionId) {
-            this.transactionId = transactionId;
             return this;
         }
 
@@ -335,6 +324,16 @@ public class Refund {
         }
 
         /**
+         * Setter for transactionId.
+         * @param  transactionId  String value for transactionId.
+         * @return Builder
+         */
+        public Builder transactionId(String transactionId) {
+            this.transactionId = transactionId;
+            return this;
+        }
+
+        /**
          * Setter for createdAt.
          * @param  createdAt  String value for createdAt.
          * @return Builder
@@ -369,7 +368,7 @@ public class Refund {
          * @return {@link Refund}
          */
         public Refund build() {
-            return new Refund(id, locationId, transactionId, tenderId, reason, amountMoney, status,
+            return new Refund(id, locationId, tenderId, reason, amountMoney, status, transactionId,
                     createdAt, processingFeeMoney, additionalRecipients);
         }
     }

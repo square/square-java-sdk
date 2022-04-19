@@ -122,7 +122,7 @@ public class TerminalCheckout {
     /**
      * Getter for Note.
      * An optional note to associate with the checkout, as well as with any payments used to
-     * complete the checkout.
+     * complete the checkout. Note: maximum 500 characters
      * @return Returns the String
      */
     @JsonGetter("note")

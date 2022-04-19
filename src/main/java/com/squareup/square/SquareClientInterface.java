@@ -26,6 +26,7 @@ import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
+import com.squareup.square.api.PayoutsApi;
 import com.squareup.square.api.RefundsApi;
 import com.squareup.square.api.SitesApi;
 import com.squareup.square.api.SnippetsApi;
@@ -204,6 +205,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the PaymentsApi instance
      */
     PaymentsApi getPaymentsApi();
+
+    /**
+     * Provides access to Payouts controller.
+     * @return Returns the PayoutsApi instance
+     */
+    PayoutsApi getPayoutsApi();
 
     /**
      * Provides access to Refunds controller.

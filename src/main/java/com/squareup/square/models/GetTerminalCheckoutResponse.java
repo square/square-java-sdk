@@ -49,6 +49,7 @@ public class GetTerminalCheckoutResponse {
 
     /**
      * Getter for Checkout.
+     * Represents a checkout processed by the Square Terminal.
      * @return Returns the TerminalCheckout
      */
     @JsonGetter("checkout")

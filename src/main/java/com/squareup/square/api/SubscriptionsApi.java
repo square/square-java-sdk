@@ -187,9 +187,7 @@ public interface SubscriptionsApi {
             final String subscriptionId);
 
     /**
-     * Lists all events for a specific subscription. In the current implementation, only
-     * `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are
-     * returned.
+     * Lists all events for a specific subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
      *         for.
      * @param  cursor  Optional parameter: When the total number of resulting subscription events
@@ -209,9 +207,7 @@ public interface SubscriptionsApi {
             final Integer limit) throws ApiException, IOException;
 
     /**
-     * Lists all events for a specific subscription. In the current implementation, only
-     * `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are
-     * returned.
+     * Lists all events for a specific subscription.
      * @param  subscriptionId  Required parameter: The ID of the subscription to retrieve the events
      *         for.
      * @param  cursor  Optional parameter: When the total number of resulting subscription events
