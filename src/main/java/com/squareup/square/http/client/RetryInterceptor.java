@@ -2,6 +2,7 @@
 package com.squareup.square.http.client;
 
 import com.squareup.square.http.request.HttpMethod;
+import com.squareup.square.http.request.configuration.RetryConfiguration;
 import java.io.IOException;
 import java.net.SocketException;
 import java.time.LocalDateTime;
@@ -51,55 +52,100 @@ public class RetryInterceptor implements Interceptor {
     @SuppressWarnings("resource")
     @Override
     public Response intercept(Chain chain) throws IOException {
+
         Request request = chain.request();
         RequestState requestState = getRequestState(request);
+        boolean isWhitelistedRequestMethod = this.httpClientConfiguration.getHttpMethodsToRetry()
+                .contains(HttpMethod.valueOf(request.method()));
+        boolean isRetryAllowedForRequest = requestState.retryConfiguration.getRetryOption()
+                .isRetryAllowed(isWhitelistedRequestMethod);
         Response response = null;
-        try {
-            response = chain.proceed(request);
-        } catch (IOException ioException) {
-            if (httpClientConfiguration.shouldRetryOnTimeout()
-                    && httpClientConfiguration.getNumberOfRetries() > 0) {
-                response = retryOnTimeout(chain, request, requestState, ioException);
-            }
-        }
-        while (requestState != null && needToRetry(request, response)) {
-            requestState.retryCount++;
-            // Performing wait time calculation.
-            calculateWaitTime(requestState, response);
+        IOException timeoutException = null;
+        boolean shouldRetry = false;
 
-            // Checking total wait time against allowed max back-off time
-            if (hasWaitTimeLimitExceeded(requestState)) {
-                break;
-            }
-            
-            
-            // Waiting before making next request
-            holdExecution(requestState);
-            // proceeding with execution of next request
+        do {
             try {
-                response.close();
-                response = chain.proceed(request);
-            } catch (SocketException socketException) {
-                response = chain.proceed(request);
+                response = getResponse(chain, request, response, true);
+                timeoutException = null;
             } catch (IOException ioException) {
-                if (httpClientConfiguration.shouldRetryOnTimeout()
-                        && httpClientConfiguration.getNumberOfRetries() > 0) {
-                    response = retryOnTimeout(chain, request, requestState, ioException);
+                timeoutException = ioException;
+                response = null;
+                if (!httpClientConfiguration.shouldRetryOnTimeout()) {
+                    break;
                 }
             }
-            
-        }
-        
+
+            shouldRetry = isRetryAllowedForRequest
+                    && needToRetry(requestState, response, timeoutException != null);
+
+            if (shouldRetry) {
+
+                // Performing wait time calculation.
+                calculateWaitTime(requestState, response);
+
+                // Checking total wait time against allowed max back-off time
+                if (hasWaitTimeLimitExceeded(requestState)) {
+                    break;
+                }
+
+                // Waiting before making next request
+                holdExecution(requestState.currentWaitInMilliSeconds);
+
+                // Incrementing retry attempt count
+                requestState.retryCount++;
+
+            }
+
+        } while (shouldRetry);
+
         this.requestEntries.remove(request);
+
+        if (timeoutException != null) {
+            throw timeoutException;
+        }
+
         return response;
     }
 
     /**
-     * Adds entry into Request entry map.
-     * @param okHttpRequest the OK HTTP Request.
+     * Get the response Recursively since we have to handle the SocketException gracefully.
+     * @param chain the interceptor chain.
+     * @param request the HTTP request.
+     * @param response the HTTP response.
+     * @param shouldCloseResponse whether to close the response or not.
+     * @return the HTTP response.
+     * @throws IOException exception to be thrown in case of timeout.
      */
-    public void addRequestEntry(Request okHttpRequest) {
-        this.requestEntries.put(okHttpRequest, new RequestState());
+    private Response getResponse(Chain chain, Request request, Response response,
+            boolean shouldCloseResponse) throws IOException {
+
+        try {
+            if (shouldCloseResponse && response != null) {
+                response.close();
+            }
+            return chain.proceed(request);
+        } catch (SocketException socketException) {
+            return getResponse(chain, request, response, false);
+        } catch (IOException exception) {
+            throw exception;
+        }
+
+    }
+
+    /**
+     * Checks if the retry request is to be made against provided response.
+     * @param requestState the current state of request entry.
+     * @param response the HTTP response.
+     * @return true if request is needed to be retried.
+     */
+    private boolean needToRetry(RequestState requestState, Response response,
+            boolean isTimeoutException) {
+        boolean isValidAttempt =
+                requestState.retryCount < this.httpClientConfiguration.getNumberOfRetries();
+        boolean isValidResponseToRetry =
+                response != null && (this.httpClientConfiguration.getHttpStatusCodesToRetry()
+                        .contains(response.code()) || hasRetryAfterHeader(response));
+        return isValidAttempt && (isTimeoutException || isValidResponseToRetry);
     }
 
     /**
@@ -113,23 +159,6 @@ public class RetryInterceptor implements Interceptor {
                         .getMaximumRetryWaitTime()) < requestState.totalWaitTimeInMilliSeconds;
     }
 
-
-    /**
-     * Checks if the retry request is to be made against provided response.
-     * @param request the HTTP request.
-     * @param response the HTTP response.
-     * @return true if request is needed to be retried.
-     */
-    private boolean needToRetry(Request request, Response response) {
-
-        return (getRequestState(request).retryCount < this.httpClientConfiguration
-                .getNumberOfRetries()
-                && this.httpClientConfiguration.getHttpMethodsToRetry()
-                        .contains(HttpMethod.valueOf(request.method()))
-                && response != null && (this.httpClientConfiguration.getHttpStatusCodesToRetry()
-                        .contains(response.code()) || hasRetryAfterHeader(response)));
-    }
-
     /**
      * Calculates the wait time for next request.
      * @param requestState the current state of request entry.
@@ -137,14 +166,12 @@ public class RetryInterceptor implements Interceptor {
      */
     private void calculateWaitTime(RequestState requestState, Response response) {
         long retryAfterHeaderValue = 0;
-        if (hasRetryAfterHeader(response)) {
+        if (response != null && hasRetryAfterHeader(response)) {
             retryAfterHeaderValue = getCalculatedHeaderValue(response.header("Retry-After"));
         }
         long calculatedBackOffInMilliSeconds = getCalculatedBackOffValue(requestState);
         requestState.currentWaitInMilliSeconds =
-                calculatedBackOffInMilliSeconds > retryAfterHeaderValue
-                        ? calculatedBackOffInMilliSeconds
-                        : retryAfterHeaderValue;
+                Math.max(retryAfterHeaderValue, calculatedBackOffInMilliSeconds);
         requestState.totalWaitTimeInMilliSeconds += requestState.currentWaitInMilliSeconds;
     }
 
@@ -155,10 +182,7 @@ public class RetryInterceptor implements Interceptor {
      */
     private boolean hasRetryAfterHeader(Response response) {
         String retryAfter = response.header("Retry-After");
-        if (retryAfter != null && !retryAfter.isEmpty()) {
-            return true;
-        }
-        return false;
+        return retryAfter != null && !retryAfter.isEmpty();
     }
 
     /**
@@ -187,16 +211,16 @@ public class RetryInterceptor implements Interceptor {
     private long getCalculatedBackOffValue(RequestState requestState) {
         return (long) (1000 * this.httpClientConfiguration.getRetryInterval()
                 * Math.pow(this.httpClientConfiguration.getBackOffFactor(),
-                        requestState.retryCount - 1) + Math.random() * 100);
+                        requestState.retryCount) + Math.random() * 100);
     }
 
     /**
      * Holds the execution for stored wait time in milliseconds of this thread.
-     * @param requestState the current state of request entry.
+     * @param milliSeconds the wait time in milli seconds.
      */
-    private void holdExecution(RequestState requestState) {
+    private void holdExecution(long milliSeconds) {
         try {
-            TimeUnit.MILLISECONDS.sleep(requestState.currentWaitInMilliSeconds);
+            TimeUnit.MILLISECONDS.sleep(milliSeconds);
         } catch (InterruptedException e) {
             // No handler needed
         }
@@ -212,6 +236,15 @@ public class RetryInterceptor implements Interceptor {
     }
     
     /**
+     * Adds entry into Request entry map.
+     * @param okHttpRequest the OK HTTP Request.
+     * @param retryConfiguration The overridden retry configuration for request.
+     */
+    public void addRequestEntry(Request okHttpRequest, RetryConfiguration retryConfiguration) {
+        this.requestEntries.put(okHttpRequest, new RequestState(retryConfiguration));
+    }
+
+    /**
      * getter for current request state entry from map.
      * @param okHttpRequest the OK HTTP Request.
      * @return RequestEntry the current request entry.
@@ -219,35 +252,6 @@ public class RetryInterceptor implements Interceptor {
     private RequestState getRequestState(Request okHttpRequest) {
         return this.requestEntries.get(okHttpRequest);
     }
-    
-    /**
-     * Retries on the request which caused the request timeout to occur based on HTTP Client
-     * Configurations.
-     * @param chain The interceptor chain.
-     * @param request The OkHttp request.
-     * @param exception The thrown exception.
-     * @return The OKHttp response.
-     * @throws IOException the same exception which was thrown while retrying.
-     */
-    private okhttp3.Response retryOnTimeout(Chain chain, Request request, RequestState requestState,
-            IOException exception) throws IOException {
-        
-        while (requestState.retryCount++ < httpClientConfiguration.getNumberOfRetries()
-                && !this.hasWaitTimeLimitExceeded(requestState)) {
-        
-            try {
-                return chain.proceed(request);
-            } catch (IOException ioException) {
-                exception = ioException;
-            } finally {
-                requestState.totalWaitTimeInMilliSeconds +=
-                        toMilliseconds(httpClientConfiguration.getTimeout());
-            }
-        }
-
-        throw exception;
-    }
-
 
     /**
      * Class to hold the request info until request completes.
@@ -268,5 +272,19 @@ public class RetryInterceptor implements Interceptor {
          * To keep track of overall wait time.
          */
         private long totalWaitTimeInMilliSeconds = 0;
+
+        /**
+         * To keep track of request retry configurations.
+         */
+        private RetryConfiguration retryConfiguration;
+
+        /**
+         * Default Constructor.
+         * @param retryForAllHttpMethods Whether to bypass the HTTP method checking for the given
+         *        request in retries.
+         */
+        private RequestState(RetryConfiguration retryConfiguration) {
+            this.retryConfiguration = retryConfiguration;
+        }
     }
 }

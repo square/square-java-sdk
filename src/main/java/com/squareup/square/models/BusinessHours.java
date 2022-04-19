@@ -26,7 +26,7 @@ public class BusinessHours {
 
     /**
      * Getter for Periods.
-     * The list of time periods during which the business is open. There may be at most 10 periods
+     * The list of time periods during which the business is open. There can be at most 10 periods
      * per day.
      * @return Returns the List of BusinessHoursPeriod
      */

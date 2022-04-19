@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,6 +16,7 @@ public class CatalogModifier {
     private final Money priceMoney;
     private final Integer ordinal;
     private final String modifierListId;
+    private final List<String> imageIds;
 
     /**
      * Initialization constructor.
@@ -22,17 +24,20 @@ public class CatalogModifier {
      * @param  priceMoney  Money value for priceMoney.
      * @param  ordinal  Integer value for ordinal.
      * @param  modifierListId  String value for modifierListId.
+     * @param  imageIds  List of String value for imageIds.
      */
     @JsonCreator
     public CatalogModifier(
             @JsonProperty("name") String name,
             @JsonProperty("price_money") Money priceMoney,
             @JsonProperty("ordinal") Integer ordinal,
-            @JsonProperty("modifier_list_id") String modifierListId) {
+            @JsonProperty("modifier_list_id") String modifierListId,
+            @JsonProperty("image_ids") List<String> imageIds) {
         this.name = name;
         this.priceMoney = priceMoney;
         this.ordinal = ordinal;
         this.modifierListId = modifierListId;
+        this.imageIds = imageIds;
     }
 
     /**
@@ -85,9 +90,21 @@ public class CatalogModifier {
         return modifierListId;
     }
 
+    /**
+     * Getter for ImageIds.
+     * The IDs of images associated with this `CatalogModifier` instance. Currently these images are
+     * not displayed by Square, but are free to be displayed in 3rd party applications.
+     * @return Returns the List of String
+     */
+    @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getImageIds() {
+        return imageIds;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, priceMoney, ordinal, modifierListId);
+        return Objects.hash(name, priceMoney, ordinal, modifierListId, imageIds);
     }
 
     @Override
@@ -102,7 +119,8 @@ public class CatalogModifier {
         return Objects.equals(name, other.name)
             && Objects.equals(priceMoney, other.priceMoney)
             && Objects.equals(ordinal, other.ordinal)
-            && Objects.equals(modifierListId, other.modifierListId);
+            && Objects.equals(modifierListId, other.modifierListId)
+            && Objects.equals(imageIds, other.imageIds);
     }
 
     /**
@@ -112,7 +130,7 @@ public class CatalogModifier {
     @Override
     public String toString() {
         return "CatalogModifier [" + "name=" + name + ", priceMoney=" + priceMoney + ", ordinal="
-                + ordinal + ", modifierListId=" + modifierListId + "]";
+                + ordinal + ", modifierListId=" + modifierListId + ", imageIds=" + imageIds + "]";
     }
 
     /**
@@ -125,7 +143,8 @@ public class CatalogModifier {
                 .name(getName())
                 .priceMoney(getPriceMoney())
                 .ordinal(getOrdinal())
-                .modifierListId(getModifierListId());
+                .modifierListId(getModifierListId())
+                .imageIds(getImageIds());
         return builder;
     }
 
@@ -137,6 +156,7 @@ public class CatalogModifier {
         private Money priceMoney;
         private Integer ordinal;
         private String modifierListId;
+        private List<String> imageIds;
 
 
 
@@ -181,11 +201,21 @@ public class CatalogModifier {
         }
 
         /**
+         * Setter for imageIds.
+         * @param  imageIds  List of String value for imageIds.
+         * @return Builder
+         */
+        public Builder imageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogModifier} object using the set fields.
          * @return {@link CatalogModifier}
          */
         public CatalogModifier build() {
-            return new CatalogModifier(name, priceMoney, ordinal, modifierListId);
+            return new CatalogModifier(name, priceMoney, ordinal, modifierListId, imageIds);
         }
     }
 }

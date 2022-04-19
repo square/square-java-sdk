@@ -266,8 +266,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for TransactionId.
-     * The Square-generated ID of the [Transaction][#type-transaction] that caused the adjustment.
-     * Only relevant for payment-related state transitions.
+     * The Square-generated ID of the [Transaction]($m/Transaction) that caused the adjustment. Only
+     * relevant for payment-related state transitions.
      * @return Returns the String
      */
     @JsonGetter("transaction_id")
@@ -278,8 +278,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for RefundId.
-     * The Square-generated ID of the [Refund][#type-refund] that caused the adjustment. Only
-     * relevant for refund-related state transitions.
+     * The Square-generated ID of the [Refund]($m/Refund) that caused the adjustment. Only relevant
+     * for refund-related state transitions.
      * @return Returns the String
      */
     @JsonGetter("refund_id")

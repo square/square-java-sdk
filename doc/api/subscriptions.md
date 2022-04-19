@@ -314,7 +314,6 @@ subscriptionsApi.cancelSubscriptionAsync(subscriptionId).thenAccept(result -> {
 # List Subscription Events
 
 Lists all events for a specific subscription.
-In the current implementation, only `START_SUBSCRIPTION` and `STOP_SUBSCRIPTION` (when the subscription was canceled) events are returned.
 
 ```java
 CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(

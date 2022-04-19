@@ -107,6 +107,7 @@ BatchRetrieveCatalogObjectsRequest body = new BatchRetrieveCatalogObjectsRequest
         bodyObjectIds)
     .includeRelatedObjects(true)
     .catalogVersion(118L)
+    .includeDeletedObjects(false)
     .build();
 
 catalogApi.batchRetrieveCatalogObjectsAsync(body).thenAccept(result -> {

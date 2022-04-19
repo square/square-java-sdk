@@ -78,7 +78,7 @@ public class Tender {
 
     /**
      * Getter for Id.
-     * The tender's unique ID.
+     * The tender's unique ID. It is the associated payment ID.
      * @return Returns the String
      */
     @JsonGetter("id")

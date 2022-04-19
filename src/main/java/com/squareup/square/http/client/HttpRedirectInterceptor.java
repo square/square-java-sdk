@@ -3,6 +3,7 @@ package com.squareup.square.http.client;
 
 import java.io.IOException;
 import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -30,10 +31,15 @@ public class HttpRedirectInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain it) throws IOException {
         Request request = it.request();
-        Response response = it.proceed(request);
+        Response response = null;
+        try {
+            response = it.proceed(request);
+        } catch (SocketTimeoutException ste) {
+            response = it.proceed(request);
+        }
 
         int followUpCount = 0;
-        while (response.code() == 307 || response.code() == 308) {
+        while (response != null && (response.code() == 307 || response.code() == 308)) {
             if (++followUpCount > MAX_FOLLOW_UPS) {
                 throw new ProtocolException("Too many follow-up requests: " + followUpCount);
             }

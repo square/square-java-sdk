@@ -11,7 +11,7 @@ Represents a tender (i.e., a method of payment) used in a Square transaction.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | The tender's unique ID.<br>**Constraints**: *Maximum Length*: `192` | String getId() |
+| `Id` | `String` | Optional | The tender's unique ID. It is the associated payment ID.<br>**Constraints**: *Maximum Length*: `192` | String getId() |
 | `LocationId` | `String` | Optional | The ID of the transaction's associated location.<br>**Constraints**: *Maximum Length*: `50` | String getLocationId() |
 | `TransactionId` | `String` | Optional | The ID of the tender's associated transaction.<br>**Constraints**: *Maximum Length*: `192` | String getTransactionId() |
 | `CreatedAt` | `String` | Optional | The timestamp for when the tender was created, in RFC 3339 format.<br>**Constraints**: *Maximum Length*: `32` | String getCreatedAt() |

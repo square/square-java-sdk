@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
-| `Refund` | [`TerminalRefund`](../../doc/models/terminal-refund.md) | Optional | - | TerminalRefund getRefund() |
+| `Refund` | [`TerminalRefund`](../../doc/models/terminal-refund.md) | Optional | Represents a payment refund processed by the Square Terminal. Only supports Interac (Canadian debit network) payment refunds. | TerminalRefund getRefund() |
 
 ## Example (as JSON)
 

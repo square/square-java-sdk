@@ -38,7 +38,7 @@ public class CreateLocationResponse {
 
     /**
      * Getter for Errors.
-     * Information on [errors](https://developer.squareup.com/docs/build-basics/handling-errors)
+     * Information about [errors](https://developer.squareup.com/docs/build-basics/handling-errors)
      * encountered during the request.
      * @return Returns the List of Error
      */
@@ -50,8 +50,7 @@ public class CreateLocationResponse {
 
     /**
      * Getter for Location.
-     * Represents one of a business's
-     * [locations](https://developer.squareup.com/docs/locations-api).
+     * Represents one of a business' [locations](https://developer.squareup.com/docs/locations-api).
      * @return Returns the Location
      */
     @JsonGetter("location")

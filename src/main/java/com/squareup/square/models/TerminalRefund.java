@@ -30,11 +30,11 @@ public class TerminalRefund {
      * Initialization constructor.
      * @param  paymentId  String value for paymentId.
      * @param  amountMoney  Money value for amountMoney.
+     * @param  reason  String value for reason.
+     * @param  deviceId  String value for deviceId.
      * @param  id  String value for id.
      * @param  refundId  String value for refundId.
      * @param  orderId  String value for orderId.
-     * @param  reason  String value for reason.
-     * @param  deviceId  String value for deviceId.
      * @param  deadlineDuration  String value for deadlineDuration.
      * @param  status  String value for status.
      * @param  cancelReason  String value for cancelReason.
@@ -47,11 +47,11 @@ public class TerminalRefund {
     public TerminalRefund(
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("amount_money") Money amountMoney,
+            @JsonProperty("reason") String reason,
+            @JsonProperty("device_id") String deviceId,
             @JsonProperty("id") String id,
             @JsonProperty("refund_id") String refundId,
             @JsonProperty("order_id") String orderId,
-            @JsonProperty("reason") String reason,
-            @JsonProperty("device_id") String deviceId,
             @JsonProperty("deadline_duration") String deadlineDuration,
             @JsonProperty("status") String status,
             @JsonProperty("cancel_reason") String cancelReason,
@@ -135,11 +135,10 @@ public class TerminalRefund {
 
     /**
      * Getter for Reason.
-     * A description of the reason for the refund. Note: maximum 192 characters
+     * A description of the reason for the refund.
      * @return Returns the String
      */
     @JsonGetter("reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getReason() {
         return reason;
     }
@@ -151,7 +150,6 @@ public class TerminalRefund {
      * @return Returns the String
      */
     @JsonGetter("device_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDeviceId() {
         return deviceId;
     }
@@ -171,8 +169,8 @@ public class TerminalRefund {
 
     /**
      * Getter for Status.
-     * The status of the `TerminalRefund`. Options: `PENDING`, `IN_PROGRESS`, `CANCELED`, or
-     * `COMPLETED`.
+     * The status of the `TerminalRefund`. Options: `PENDING`, `IN_PROGRESS`, `CANCEL_REQUESTED`,
+     * `CANCELED`, or `COMPLETED`.
      * @return Returns the String
      */
     @JsonGetter("status")
@@ -273,8 +271,8 @@ public class TerminalRefund {
     @Override
     public String toString() {
         return "TerminalRefund [" + "paymentId=" + paymentId + ", amountMoney=" + amountMoney
-                + ", id=" + id + ", refundId=" + refundId + ", orderId=" + orderId + ", reason="
-                + reason + ", deviceId=" + deviceId + ", deadlineDuration=" + deadlineDuration
+                + ", reason=" + reason + ", deviceId=" + deviceId + ", id=" + id + ", refundId="
+                + refundId + ", orderId=" + orderId + ", deadlineDuration=" + deadlineDuration
                 + ", status=" + status + ", cancelReason=" + cancelReason + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId + ", locationId="
                 + locationId + "]";
@@ -286,12 +284,10 @@ public class TerminalRefund {
      * @return a new {@link TerminalRefund.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(paymentId, amountMoney)
+        Builder builder = new Builder(paymentId, amountMoney, reason, deviceId)
                 .id(getId())
                 .refundId(getRefundId())
                 .orderId(getOrderId())
-                .reason(getReason())
-                .deviceId(getDeviceId())
                 .deadlineDuration(getDeadlineDuration())
                 .status(getStatus())
                 .cancelReason(getCancelReason())
@@ -308,11 +304,11 @@ public class TerminalRefund {
     public static class Builder {
         private String paymentId;
         private Money amountMoney;
+        private String reason;
+        private String deviceId;
         private String id;
         private String refundId;
         private String orderId;
-        private String reason;
-        private String deviceId;
         private String deadlineDuration;
         private String status;
         private String cancelReason;
@@ -325,10 +321,14 @@ public class TerminalRefund {
          * Initialization constructor.
          * @param  paymentId  String value for paymentId.
          * @param  amountMoney  Money value for amountMoney.
+         * @param  reason  String value for reason.
+         * @param  deviceId  String value for deviceId.
          */
-        public Builder(String paymentId, Money amountMoney) {
+        public Builder(String paymentId, Money amountMoney, String reason, String deviceId) {
             this.paymentId = paymentId;
             this.amountMoney = amountMoney;
+            this.reason = reason;
+            this.deviceId = deviceId;
         }
 
         /**
@@ -348,6 +348,26 @@ public class TerminalRefund {
          */
         public Builder amountMoney(Money amountMoney) {
             this.amountMoney = amountMoney;
+            return this;
+        }
+
+        /**
+         * Setter for reason.
+         * @param  reason  String value for reason.
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        /**
+         * Setter for deviceId.
+         * @param  deviceId  String value for deviceId.
+         * @return Builder
+         */
+        public Builder deviceId(String deviceId) {
+            this.deviceId = deviceId;
             return this;
         }
 
@@ -378,26 +398,6 @@ public class TerminalRefund {
          */
         public Builder orderId(String orderId) {
             this.orderId = orderId;
-            return this;
-        }
-
-        /**
-         * Setter for reason.
-         * @param  reason  String value for reason.
-         * @return Builder
-         */
-        public Builder reason(String reason) {
-            this.reason = reason;
-            return this;
-        }
-
-        /**
-         * Setter for deviceId.
-         * @param  deviceId  String value for deviceId.
-         * @return Builder
-         */
-        public Builder deviceId(String deviceId) {
-            this.deviceId = deviceId;
             return this;
         }
 
@@ -476,8 +476,8 @@ public class TerminalRefund {
          * @return {@link TerminalRefund}
          */
         public TerminalRefund build() {
-            return new TerminalRefund(paymentId, amountMoney, id, refundId, orderId, reason,
-                    deviceId, deadlineDuration, status, cancelReason, createdAt, updatedAt, appId,
+            return new TerminalRefund(paymentId, amountMoney, reason, deviceId, id, refundId,
+                    orderId, deadlineDuration, status, cancelReason, createdAt, updatedAt, appId,
                     locationId);
         }
     }

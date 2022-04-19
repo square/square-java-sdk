@@ -28,6 +28,7 @@ public class CatalogItemVariation {
     private final Boolean availableForBooking;
     private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
     private final String measurementUnitId;
+    private final Boolean sellable;
     private final Boolean stockable;
     private final List<String> imageIds;
     private final List<String> teamMemberIds;
@@ -53,6 +54,7 @@ public class CatalogItemVariation {
      * @param  itemOptionValues  List of CatalogItemOptionValueForItemVariation value for
      *         itemOptionValues.
      * @param  measurementUnitId  String value for measurementUnitId.
+     * @param  sellable  Boolean value for sellable.
      * @param  stockable  Boolean value for stockable.
      * @param  imageIds  List of String value for imageIds.
      * @param  teamMemberIds  List of String value for teamMemberIds.
@@ -76,6 +78,7 @@ public class CatalogItemVariation {
             @JsonProperty("available_for_booking") Boolean availableForBooking,
             @JsonProperty("item_option_values") List<CatalogItemOptionValueForItemVariation> itemOptionValues,
             @JsonProperty("measurement_unit_id") String measurementUnitId,
+            @JsonProperty("sellable") Boolean sellable,
             @JsonProperty("stockable") Boolean stockable,
             @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("team_member_ids") List<String> teamMemberIds,
@@ -96,6 +99,7 @@ public class CatalogItemVariation {
         this.availableForBooking = availableForBooking;
         this.itemOptionValues = itemOptionValues;
         this.measurementUnitId = measurementUnitId;
+        this.sellable = sellable;
         this.stockable = stockable;
         this.imageIds = imageIds;
         this.teamMemberIds = teamMemberIds;
@@ -306,9 +310,19 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Getter for Sellable.
+     * Whether this variation can be sold.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("sellable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSellable() {
+        return sellable;
+    }
+
+    /**
      * Getter for Stockable.
      * Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
-     * For backward compatibility missing values will be interpreted as TRUE.
      * @return Returns the Boolean
      */
     @JsonGetter("stockable")
@@ -359,7 +373,7 @@ public class CatalogItemVariation {
         return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
                 locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold,
                 userData, serviceDuration, availableForBooking, itemOptionValues, measurementUnitId,
-                stockable, imageIds, teamMemberIds, stockableConversion);
+                sellable, stockable, imageIds, teamMemberIds, stockableConversion);
     }
 
     @Override
@@ -387,6 +401,7 @@ public class CatalogItemVariation {
             && Objects.equals(availableForBooking, other.availableForBooking)
             && Objects.equals(itemOptionValues, other.itemOptionValues)
             && Objects.equals(measurementUnitId, other.measurementUnitId)
+            && Objects.equals(sellable, other.sellable)
             && Objects.equals(stockable, other.stockable)
             && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(teamMemberIds, other.teamMemberIds)
@@ -406,9 +421,10 @@ public class CatalogItemVariation {
                 + inventoryAlertType + ", inventoryAlertThreshold=" + inventoryAlertThreshold
                 + ", userData=" + userData + ", serviceDuration=" + serviceDuration
                 + ", availableForBooking=" + availableForBooking + ", itemOptionValues="
-                + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", stockable="
-                + stockable + ", imageIds=" + imageIds + ", teamMemberIds=" + teamMemberIds
-                + ", stockableConversion=" + stockableConversion + "]";
+                + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", sellable="
+                + sellable + ", stockable=" + stockable + ", imageIds=" + imageIds
+                + ", teamMemberIds=" + teamMemberIds + ", stockableConversion="
+                + stockableConversion + "]";
     }
 
     /**
@@ -434,6 +450,7 @@ public class CatalogItemVariation {
                 .availableForBooking(getAvailableForBooking())
                 .itemOptionValues(getItemOptionValues())
                 .measurementUnitId(getMeasurementUnitId())
+                .sellable(getSellable())
                 .stockable(getStockable())
                 .imageIds(getImageIds())
                 .teamMemberIds(getTeamMemberIds())
@@ -461,6 +478,7 @@ public class CatalogItemVariation {
         private Boolean availableForBooking;
         private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
         private String measurementUnitId;
+        private Boolean sellable;
         private Boolean stockable;
         private List<String> imageIds;
         private List<String> teamMemberIds;
@@ -632,6 +650,16 @@ public class CatalogItemVariation {
         }
 
         /**
+         * Setter for sellable.
+         * @param  sellable  Boolean value for sellable.
+         * @return Builder
+         */
+        public Builder sellable(Boolean sellable) {
+            this.sellable = sellable;
+            return this;
+        }
+
+        /**
          * Setter for stockable.
          * @param  stockable  Boolean value for stockable.
          * @return Builder
@@ -679,8 +707,8 @@ public class CatalogItemVariation {
             return new CatalogItemVariation(itemId, name, sku, upc, ordinal, pricingType,
                     priceMoney, locationOverrides, trackInventory, inventoryAlertType,
                     inventoryAlertThreshold, userData, serviceDuration, availableForBooking,
-                    itemOptionValues, measurementUnitId, stockable, imageIds, teamMemberIds,
-                    stockableConversion);
+                    itemOptionValues, measurementUnitId, sellable, stockable, imageIds,
+                    teamMemberIds, stockableConversion);
         }
     }
 }

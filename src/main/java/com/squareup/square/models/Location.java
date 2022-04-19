@@ -130,7 +130,7 @@ public class Location {
 
     /**
      * Getter for Id.
-     * A short, generated string of letters and numbers that uniquely identifies this location
+     * A short generated string of letters and numbers that uniquely identifies this location
      * instance.
      * @return Returns the String
      */
@@ -142,7 +142,7 @@ public class Location {
 
     /**
      * Getter for Name.
-     * The name of the location. This information appears in the dashboard as the nickname. A
+     * The name of the location. This information appears in the Seller Dashboard as the nickname. A
      * location name must be unique within a seller account.
      * @return Returns the String
      */
@@ -166,7 +166,7 @@ public class Location {
 
     /**
      * Getter for Timezone.
-     * The [IANA Timezone](https://www.iana.org/time-zones) identifier for the timezone of the
+     * The [IANA time zone](https://www.iana.org/time-zones) identifier for the time zone of the
      * location. For example, `America/Los_Angeles`.
      * @return Returns the String
      */
@@ -318,8 +318,8 @@ public class Location {
 
     /**
      * Getter for BusinessEmail.
-     * The email address of the location. This can be unique to the location, and is not always the
-     * email address for the business owner or admin.
+     * The email address of the location. This can be unique to the location and is not always the
+     * email address for the business owner or administrator.
      * @return Returns the String
      */
     @JsonGetter("business_email")
@@ -386,10 +386,10 @@ public class Location {
 
     /**
      * Getter for LogoUrl.
-     * The URL of the logo image for the location. When configured in the Seller dashboard (Receipts
+     * The URL of the logo image for the location. When configured in the Seller Dashboard (Receipts
      * section), the logo appears on transactions (such as receipts and invoices) that Square
-     * generates on behalf of the Seller. This image should have a roughly square (1:1) aspect ratio
-     * and is recommended to be at least 200x200 pixels.
+     * generates on behalf of the seller. This image should have a roughly square (1:1) aspect ratio
+     * and should be at least 200x200 pixels.
      * @return Returns the String
      */
     @JsonGetter("logo_url")
@@ -426,10 +426,10 @@ public class Location {
 
     /**
      * Getter for FullFormatLogoUrl.
-     * The URL of a full-format logo image for the location. When configured in the Seller dashboard
+     * The URL of a full-format logo image for the location. When configured in the Seller Dashboard
      * (Receipts section), the logo appears on transactions (such as receipts and invoices) that
-     * Square generates on behalf of the Seller. This image can be wider than it is tall, and is
-     * recommended to be at least 1280x648 pixels.
+     * Square generates on behalf of the seller. This image can be wider than it is tall and should
+     * be at least 1280x648 pixels.
      * @return Returns the String
      */
     @JsonGetter("full_format_logo_url")

@@ -16,6 +16,7 @@ public class OrderLineItemModifier {
     private final String catalogObjectId;
     private final Long catalogVersion;
     private final String name;
+    private final String quantity;
     private final Money basePriceMoney;
     private final Money totalPriceMoney;
     private final Map<String, String> metadata;
@@ -26,6 +27,7 @@ public class OrderLineItemModifier {
      * @param  catalogObjectId  String value for catalogObjectId.
      * @param  catalogVersion  Long value for catalogVersion.
      * @param  name  String value for name.
+     * @param  quantity  String value for quantity.
      * @param  basePriceMoney  Money value for basePriceMoney.
      * @param  totalPriceMoney  Money value for totalPriceMoney.
      * @param  metadata  Map of String, value for metadata.
@@ -36,6 +38,7 @@ public class OrderLineItemModifier {
             @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
+            @JsonProperty("quantity") String quantity,
             @JsonProperty("base_price_money") Money basePriceMoney,
             @JsonProperty("total_price_money") Money totalPriceMoney,
             @JsonProperty("metadata") Map<String, String> metadata) {
@@ -43,6 +46,7 @@ public class OrderLineItemModifier {
         this.catalogObjectId = catalogObjectId;
         this.catalogVersion = catalogVersion;
         this.name = name;
+        this.quantity = quantity;
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
         this.metadata = metadata;
@@ -90,6 +94,23 @@ public class OrderLineItemModifier {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
+    }
+
+    /**
+     * Getter for Quantity.
+     * The quantity of the line item modifier. The modifier quantity can be 0 or more. For example,
+     * suppose a restaurant offers a cheeseburger on the menu. When a buyer orders this item, the
+     * restaurant records the purchase by creating an `Order` object with a line item for a burger.
+     * The line item includes a line item modifier: the name is cheese and the quantity is 1. The
+     * buyer has the option to order extra cheese (or no cheese). If the buyer chooses the extra
+     * cheese option, the modifier quantity increases to 2. If the buyer does not want any cheese,
+     * the modifier quantity is set to 0.
+     * @return Returns the String
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getQuantity() {
+        return quantity;
     }
 
     /**
@@ -147,7 +168,7 @@ public class OrderLineItemModifier {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, catalogObjectId, catalogVersion, name, basePriceMoney,
+        return Objects.hash(uid, catalogObjectId, catalogVersion, name, quantity, basePriceMoney,
                 totalPriceMoney, metadata);
     }
 
@@ -164,6 +185,7 @@ public class OrderLineItemModifier {
             && Objects.equals(catalogObjectId, other.catalogObjectId)
             && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
+            && Objects.equals(quantity, other.quantity)
             && Objects.equals(basePriceMoney, other.basePriceMoney)
             && Objects.equals(totalPriceMoney, other.totalPriceMoney)
             && Objects.equals(metadata, other.metadata);
@@ -176,9 +198,9 @@ public class OrderLineItemModifier {
     @Override
     public String toString() {
         return "OrderLineItemModifier [" + "uid=" + uid + ", catalogObjectId=" + catalogObjectId
-                + ", catalogVersion=" + catalogVersion + ", name=" + name + ", basePriceMoney="
-                + basePriceMoney + ", totalPriceMoney=" + totalPriceMoney + ", metadata=" + metadata
-                + "]";
+                + ", catalogVersion=" + catalogVersion + ", name=" + name + ", quantity=" + quantity
+                + ", basePriceMoney=" + basePriceMoney + ", totalPriceMoney=" + totalPriceMoney
+                + ", metadata=" + metadata + "]";
     }
 
     /**
@@ -192,6 +214,7 @@ public class OrderLineItemModifier {
                 .catalogObjectId(getCatalogObjectId())
                 .catalogVersion(getCatalogVersion())
                 .name(getName())
+                .quantity(getQuantity())
                 .basePriceMoney(getBasePriceMoney())
                 .totalPriceMoney(getTotalPriceMoney())
                 .metadata(getMetadata());
@@ -206,6 +229,7 @@ public class OrderLineItemModifier {
         private String catalogObjectId;
         private Long catalogVersion;
         private String name;
+        private String quantity;
         private Money basePriceMoney;
         private Money totalPriceMoney;
         private Map<String, String> metadata;
@@ -253,6 +277,16 @@ public class OrderLineItemModifier {
         }
 
         /**
+         * Setter for quantity.
+         * @param  quantity  String value for quantity.
+         * @return Builder
+         */
+        public Builder quantity(String quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        /**
          * Setter for basePriceMoney.
          * @param  basePriceMoney  Money value for basePriceMoney.
          * @return Builder
@@ -287,7 +321,7 @@ public class OrderLineItemModifier {
          * @return {@link OrderLineItemModifier}
          */
         public OrderLineItemModifier build() {
-            return new OrderLineItemModifier(uid, catalogObjectId, catalogVersion, name,
+            return new OrderLineItemModifier(uid, catalogObjectId, catalogVersion, name, quantity,
                     basePriceMoney, totalPriceMoney, metadata);
         }
     }

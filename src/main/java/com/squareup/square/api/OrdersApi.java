@@ -223,7 +223,7 @@ public interface OrdersApi {
      * Reference the order by specifying the `order_id` when [creating the
      * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
      * not specified in the `payment_ids` is canceled. - Be approved with [delayed
-     * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
+     * capture](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture).
      * Using a delayed capture payment with `PayOrder` completes the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -244,7 +244,7 @@ public interface OrdersApi {
      * Reference the order by specifying the `order_id` when [creating the
      * payment]($e/Payments/CreatePayment). Any approved payments that reference the same `order_id`
      * not specified in the `payment_ids` is canceled. - Be approved with [delayed
-     * capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-capture).
+     * capture](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture).
      * Using a delayed capture payment with `PayOrder` completes the approved payment.
      * @param  orderId  Required parameter: The ID of the order being paid.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

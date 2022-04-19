@@ -15,21 +15,25 @@ public class BatchRetrieveCatalogObjectsRequest {
     private final List<String> objectIds;
     private final Boolean includeRelatedObjects;
     private final Long catalogVersion;
+    private final Boolean includeDeletedObjects;
 
     /**
      * Initialization constructor.
      * @param  objectIds  List of String value for objectIds.
      * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
      * @param  catalogVersion  Long value for catalogVersion.
+     * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsRequest(
             @JsonProperty("object_ids") List<String> objectIds,
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
-            @JsonProperty("catalog_version") Long catalogVersion) {
+            @JsonProperty("catalog_version") Long catalogVersion,
+            @JsonProperty("include_deleted_objects") Boolean includeDeletedObjects) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = includeRelatedObjects;
         this.catalogVersion = catalogVersion;
+        this.includeDeletedObjects = includeDeletedObjects;
     }
 
     /**
@@ -76,9 +80,22 @@ public class BatchRetrieveCatalogObjectsRequest {
         return catalogVersion;
     }
 
+    /**
+     * Getter for IncludeDeletedObjects.
+     * Indicates whether to include (`true`) or not (`false`) in the response deleted objects,
+     * namely, those with the `is_deleted` attribute set to `true`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("include_deleted_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getIncludeDeletedObjects() {
+        return includeDeletedObjects;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(objectIds, includeRelatedObjects, catalogVersion);
+        return Objects.hash(objectIds, includeRelatedObjects, catalogVersion,
+                includeDeletedObjects);
     }
 
     @Override
@@ -92,7 +109,8 @@ public class BatchRetrieveCatalogObjectsRequest {
         BatchRetrieveCatalogObjectsRequest other = (BatchRetrieveCatalogObjectsRequest) obj;
         return Objects.equals(objectIds, other.objectIds)
             && Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
-            && Objects.equals(catalogVersion, other.catalogVersion);
+            && Objects.equals(catalogVersion, other.catalogVersion)
+            && Objects.equals(includeDeletedObjects, other.includeDeletedObjects);
     }
 
     /**
@@ -103,7 +121,7 @@ public class BatchRetrieveCatalogObjectsRequest {
     public String toString() {
         return "BatchRetrieveCatalogObjectsRequest [" + "objectIds=" + objectIds
                 + ", includeRelatedObjects=" + includeRelatedObjects + ", catalogVersion="
-                + catalogVersion + "]";
+                + catalogVersion + ", includeDeletedObjects=" + includeDeletedObjects + "]";
     }
 
     /**
@@ -114,7 +132,8 @@ public class BatchRetrieveCatalogObjectsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(objectIds)
                 .includeRelatedObjects(getIncludeRelatedObjects())
-                .catalogVersion(getCatalogVersion());
+                .catalogVersion(getCatalogVersion())
+                .includeDeletedObjects(getIncludeDeletedObjects());
         return builder;
     }
 
@@ -125,6 +144,7 @@ public class BatchRetrieveCatalogObjectsRequest {
         private List<String> objectIds;
         private Boolean includeRelatedObjects;
         private Long catalogVersion;
+        private Boolean includeDeletedObjects;
 
         /**
          * Initialization constructor.
@@ -165,12 +185,22 @@ public class BatchRetrieveCatalogObjectsRequest {
         }
 
         /**
+         * Setter for includeDeletedObjects.
+         * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
+         * @return Builder
+         */
+        public Builder includeDeletedObjects(Boolean includeDeletedObjects) {
+            this.includeDeletedObjects = includeDeletedObjects;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchRetrieveCatalogObjectsRequest} object using the set fields.
          * @return {@link BatchRetrieveCatalogObjectsRequest}
          */
         public BatchRetrieveCatalogObjectsRequest build() {
             return new BatchRetrieveCatalogObjectsRequest(objectIds, includeRelatedObjects,
-                    catalogVersion);
+                    catalogVersion, includeDeletedObjects);
         }
     }
 }

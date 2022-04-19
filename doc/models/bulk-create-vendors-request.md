@@ -1,7 +1,7 @@
 
 # Bulk Create Vendors Request
 
-Represents an input to a call to [BulkCreateVendors.](../../doc/api/vendors.md#bulk-create-vendors)
+Represents an input to a call to [BulkCreateVendors](../../doc/api/vendors.md#bulk-create-vendors).
 
 ## Structure
 
@@ -11,7 +11,7 @@ Represents an input to a call to [BulkCreateVendors.](../../doc/api/vendors.md#b
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Vendors` | [`Map<String, Vendor>`](../../doc/models/vendor.md) | Required | Specifies a set of new [Vendor](entity:Vendor] objects as represented by a collection of idempotency-key/`Vendor`-object pairs. | Map<String, Vendor> getVendors() |
+| `Vendors` | [`Map<String, Vendor>`](../../doc/models/vendor.md) | Required | Specifies a set of new [Vendor](../../doc/models/vendor.md) objects as represented by a collection of idempotency-key/`Vendor`-object pairs. | Map<String, Vendor> getVendors() |
 
 ## Example (as JSON)
 

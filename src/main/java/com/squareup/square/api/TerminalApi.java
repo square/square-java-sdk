@@ -45,8 +45,9 @@ public interface TerminalApi {
             final CreateTerminalCheckoutRequest body);
 
     /**
-     * Retrieves a filtered list of Terminal checkout requests created by the account making the
-     * request.
+     * Returns a filtered list of Terminal checkout requests created by the application making the
+     * request. Only Terminal checkout requests created for the merchant scoped to the OAuth token
+     * are returned. Terminal checkout requests are available for 30 days.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTerminalCheckoutsResponse response from the API call
@@ -57,8 +58,9 @@ public interface TerminalApi {
             final SearchTerminalCheckoutsRequest body) throws ApiException, IOException;
 
     /**
-     * Retrieves a filtered list of Terminal checkout requests created by the account making the
-     * request.
+     * Returns a filtered list of Terminal checkout requests created by the application making the
+     * request. Only Terminal checkout requests created for the merchant scoped to the OAuth token
+     * are returned. Terminal checkout requests are available for 30 days.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTerminalCheckoutsResponse response from the API call
@@ -67,7 +69,8 @@ public interface TerminalApi {
             final SearchTerminalCheckoutsRequest body);
 
     /**
-     * Retrieves a Terminal checkout request by `checkout_id`.
+     * Retrieves a Terminal checkout request by `checkout_id`. Terminal checkout requests are
+     * available for 30 days.
      * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -77,7 +80,8 @@ public interface TerminalApi {
             final String checkoutId) throws ApiException, IOException;
 
     /**
-     * Retrieves a Terminal checkout request by `checkout_id`.
+     * Retrieves a Terminal checkout request by `checkout_id`. Terminal checkout requests are
+     * available for 30 days.
      * @param  checkoutId  Required parameter: The unique ID for the desired `TerminalCheckout`.
      * @return    Returns the GetTerminalCheckoutResponse response from the API call
      */
@@ -103,7 +107,10 @@ public interface TerminalApi {
             final String checkoutId);
 
     /**
-     * Creates a request to refund an Interac payment completed on a Square Terminal.
+     * Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for
+     * Interac payments on a Square Terminal are supported only for Interac debit cards in Canada.
+     * Other refunds for Terminal payments should use the Refunds API. For more information, see
+     * [Refunds API]($e/Refunds).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalRefundResponse response from the API call
@@ -114,7 +121,10 @@ public interface TerminalApi {
             final CreateTerminalRefundRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a request to refund an Interac payment completed on a Square Terminal.
+     * Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for
+     * Interac payments on a Square Terminal are supported only for Interac debit cards in Canada.
+     * Other refunds for Terminal payments should use the Refunds API. For more information, see
+     * [Refunds API]($e/Refunds).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalRefundResponse response from the API call
@@ -124,7 +134,7 @@ public interface TerminalApi {
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
-     * the request.
+     * the request. Terminal refund requests are available for 30 days.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTerminalRefundsResponse response from the API call
@@ -136,7 +146,7 @@ public interface TerminalApi {
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making
-     * the request.
+     * the request. Terminal refund requests are available for 30 days.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTerminalRefundsResponse response from the API call
@@ -145,7 +155,8 @@ public interface TerminalApi {
             final SearchTerminalRefundsRequest body);
 
     /**
-     * Retrieves an Interac Terminal refund object by ID.
+     * Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for
+     * 30 days.
      * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -155,7 +166,8 @@ public interface TerminalApi {
             final String terminalRefundId) throws ApiException, IOException;
 
     /**
-     * Retrieves an Interac Terminal refund object by ID.
+     * Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for
+     * 30 days.
      * @param  terminalRefundId  Required parameter: The unique ID for the desired `TerminalRefund`.
      * @return    Returns the GetTerminalRefundResponse response from the API call
      */

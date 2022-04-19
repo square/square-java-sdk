@@ -49,6 +49,8 @@ public class CancelTerminalRefundResponse {
 
     /**
      * Getter for Refund.
+     * Represents a payment refund processed by the Square Terminal. Only supports Interac (Canadian
+     * debit network) payment refunds.
      * @return Returns the TerminalRefund
      */
     @JsonGetter("refund")

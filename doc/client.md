@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-03-16"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-04-20"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2022-03-16")
+    .squareVersion("2022-04-20")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -45,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2022-03-16")
+            .squareVersion("2022-04-20")
             .accessToken("AccessToken")
             .build();
         
@@ -96,6 +96,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getMerchantsApi()` | Provides access to Merchants controller. | `MerchantsApi` |
 | `getOrdersApi()` | Provides access to Orders controller. | `OrdersApi` |
 | `getPaymentsApi()` | Provides access to Payments controller. | `PaymentsApi` |
+| `getPayoutsApi()` | Provides access to Payouts controller. | `PayoutsApi` |
 | `getRefundsApi()` | Provides access to Refunds controller. | `RefundsApi` |
 | `getSitesApi()` | Provides access to Sites controller. | `SitesApi` |
 | `getSnippetsApi()` | Provides access to Snippets controller. | `SnippetsApi` |
