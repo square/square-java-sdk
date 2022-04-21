@@ -57,6 +57,7 @@ mvn test
 * [Checkout]
 * [Apple Pay]
 * [Cards]
+* [Payouts]
 
 ### Terminal
 * [Terminal]
@@ -167,5 +168,6 @@ You'll also need to provide logic to handle paginated results.  For more informa
 [Sites]: doc/api/sites.md
 [Snippets]: doc/api/snippets.md
 [Cards]: doc/api/cards.md
+[Payouts]: doc/api/payouts.md
 [Gift Cards]: doc/api/gift-cards.md
 [Gift Card Activities]: doc/api/gift-card-activities.md
