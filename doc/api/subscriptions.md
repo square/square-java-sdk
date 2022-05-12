@@ -62,7 +62,6 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "CHFGVKYY8RSV93M5KCYTG4PN0G")
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
     .startDate("2021-10-20")
-    .canceledDate("canceled_date0")
     .taxPercentage("5")
     .priceOverrideMoney(bodyPriceOverrideMoney)
     .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
@@ -131,15 +130,8 @@ SearchSubscriptionsFilter searchSubscriptionsFilter = new SearchSubscriptionsFil
 SearchSubscriptionsQuery searchSubscriptionsQuery = new SearchSubscriptionsQuery.Builder()
     .filter(searchSubscriptionsQueryFilter)
     .build();
-List<String> bodyInclude = new LinkedList<>();
-bodyInclude.add("include4");
-bodyInclude.add("include5");
-bodyInclude.add("include6");
 SearchSubscriptionsRequest body = new SearchSubscriptionsRequest.Builder()
-    .cursor("cursor0")
-    .limit(164)
     .query(bodyQuery)
-    .include(bodyInclude)
     .build();
 
 subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {
@@ -176,9 +168,8 @@ CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-String include = "include2";
 
-subscriptionsApi.retrieveSubscriptionAsync(subscriptionId, include).thenAccept(result -> {
+subscriptionsApi.retrieveSubscriptionAsync(subscriptionId, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -218,11 +209,6 @@ Money money = new Money.Builder()
     .currency("USD")
     .build();
 Subscription subscription = new Subscription.Builder()
-    .id("id8")
-    .locationId("location_id2")
-    .planId("plan_id0")
-    .customerId("customer_id6")
-    .startDate("start_date2")
     .taxPercentage("null")
     .priceOverrideMoney(subscriptionPriceOverrideMoney)
     .version(1594155459464L)
@@ -338,10 +324,8 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-String cursor = "cursor6";
-Integer limit = 172;
 
-subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, cursor, limit).thenAccept(result -> {
+subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -376,11 +360,6 @@ CompletableFuture<PauseSubscriptionResponse> pauseSubscriptionAsync(
 ```java
 String subscriptionId = "subscription_id0";
 PauseSubscriptionRequest body = new PauseSubscriptionRequest.Builder()
-    .pauseEffectiveDate("pause_effective_date6")
-    .pauseCycleDuration(94L)
-    .resumeEffectiveDate("resume_effective_date4")
-    .resumeChangeTiming("IMMEDIATE")
-    .pauseReason("pause_reason2")
     .build();
 
 subscriptionsApi.pauseSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
@@ -418,8 +397,6 @@ CompletableFuture<ResumeSubscriptionResponse> resumeSubscriptionAsync(
 ```java
 String subscriptionId = "subscription_id0";
 ResumeSubscriptionRequest body = new ResumeSubscriptionRequest.Builder()
-    .resumeEffectiveDate("resume_effective_date4")
-    .resumeChangeTiming("IMMEDIATE")
     .build();
 
 subscriptionsApi.resumeSubscriptionAsync(subscriptionId, body).thenAccept(result -> {

@@ -47,13 +47,9 @@ CompletableFuture<ListCardsResponse> listCardsAsync(
 ## Example Usage
 
 ```java
-String cursor = "cursor6";
-String customerId = "customer_id8";
 Boolean includeDisabled = false;
-String referenceId = "reference_id2";
-String sortOrder = "DESC";
 
-cardsApi.listCardsAsync(cursor, customerId, includeDisabled, referenceId, sortOrder).thenAccept(result -> {
+cardsApi.listCardsAsync(null, null, includeDisabled, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -87,19 +83,12 @@ CompletableFuture<CreateCardResponse> createCardAsync(
 Address address = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
-    .addressLine3("address_line_34")
     .locality("New York")
-    .sublocality("sublocality8")
     .administrativeDistrictLevel1("NY")
     .postalCode("10003")
     .country("US")
     .build();
 Card card = new Card.Builder()
-    .id("id0")
-    .cardBrand("INTERAC")
-    .last4("last_42")
-    .expMonth(236L)
-    .expYear(60L)
     .cardholderName("Amelia Earhart")
     .billingAddress(cardBillingAddress)
     .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
@@ -109,7 +98,6 @@ CreateCardRequest body = new CreateCardRequest.Builder(
         "4935a656-a929-4792-b97c-8848be85c27c",
         "cnon:uIbfJXhXETSP197M3GB",
         card)
-    .verificationToken("verification_token0")
     .build();
 
 cardsApi.createCardAsync(body).thenAccept(result -> {

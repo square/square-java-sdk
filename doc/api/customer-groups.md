@@ -41,10 +41,7 @@ CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
 ## Example Usage
 
 ```java
-String cursor = "cursor6";
-Integer limit = 172;
-
-customerGroupsApi.listCustomerGroupsAsync(cursor, limit).thenAccept(result -> {
+customerGroupsApi.listCustomerGroupsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -79,13 +76,9 @@ CompletableFuture<CreateCustomerGroupResponse> createCustomerGroupAsync(
 ```java
 CustomerGroup customerGroup = new CustomerGroup.Builder(
         "Loyal Customers")
-    .id("id4")
-    .createdAt("created_at2")
-    .updatedAt("updated_at0")
     .build();
 CreateCustomerGroupRequest body = new CreateCustomerGroupRequest.Builder(
         group)
-    .idempotencyKey("idempotency_key2")
     .build();
 
 customerGroupsApi.createCustomerGroupAsync(body).thenAccept(result -> {
@@ -190,9 +183,6 @@ CompletableFuture<UpdateCustomerGroupResponse> updateCustomerGroupAsync(
 String groupId = "group_id0";
 CustomerGroup customerGroup = new CustomerGroup.Builder(
         "Loyal Customers")
-    .id("id4")
-    .createdAt("created_at2")
-    .updatedAt("updated_at0")
     .build();
 UpdateCustomerGroupRequest body = new UpdateCustomerGroupRequest.Builder(
         group)

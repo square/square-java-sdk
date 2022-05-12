@@ -22,7 +22,7 @@ particular time from one location to another.
 | `Quantity` | `String` | Optional | The number of items affected by the transfer as a decimal string.<br>Can support up to 5 digits after the decimal point.<br>**Constraints**: *Maximum Length*: `26` | String getQuantity() |
 | `OccurredAt` | `String` | Optional | A client-generated RFC 3339-formatted timestamp that indicates when<br>the transfer took place. For write actions, the `occurred_at` timestamp<br>cannot be older than 24 hours or in the future relative to the time of the<br>request.<br>**Constraints**: *Maximum Length*: `34` | String getOccurredAt() |
 | `CreatedAt` | `String` | Optional | An RFC 3339-formatted timestamp that indicates when Square<br>received the transfer request.<br>**Constraints**: *Maximum Length*: `34` | String getCreatedAt() |
-| `Source` | [`SourceApplication`](../../doc/models/source-application.md) | Optional | Provides information about the application used to generate a change. | SourceApplication getSource() |
+| `Source` | [`SourceApplication`](../../doc/models/source-application.md) | Optional | Represents information about the application used to generate a change. | SourceApplication getSource() |
 | `EmployeeId` | `String` | Optional | The Square-generated ID of the [Employee](../../doc/models/employee.md) responsible for the<br>inventory transfer.<br>**Constraints**: *Maximum Length*: `100` | String getEmployeeId() |
 | `TeamMemberId` | `String` | Optional | The Square-generated ID of the [Team Member](../../doc/models/team-member.md) responsible for the<br>inventory transfer.<br>**Constraints**: *Maximum Length*: `100` | String getTeamMemberId() |
 
@@ -30,11 +30,19 @@ particular time from one location to another.
 
 ```json
 {
-  "id": "id0",
-  "reference_id": "reference_id2",
-  "state": "SUPPORTED_BY_NEWER_VERSION",
-  "from_location_id": "from_location_id2",
-  "to_location_id": "to_location_id8"
+  "id": null,
+  "reference_id": null,
+  "state": null,
+  "from_location_id": null,
+  "to_location_id": null,
+  "catalog_object_id": null,
+  "catalog_object_type": null,
+  "quantity": null,
+  "occurred_at": null,
+  "created_at": null,
+  "source": null,
+  "employee_id": null,
+  "team_member_id": null
 }
 ```
 

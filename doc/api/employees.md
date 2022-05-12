@@ -44,12 +44,7 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
 ## Example Usage
 
 ```java
-String locationId = "location_id4";
-String status = "ACTIVE";
-Integer limit = 172;
-String cursor = "cursor6";
-
-employeesApi.listEmployeesAsync(locationId, status, limit, cursor).thenAccept(result -> {
+employeesApi.listEmployeesAsync(null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

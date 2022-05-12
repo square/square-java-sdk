@@ -2,14 +2,20 @@
 package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.models.CancelTerminalActionResponse;
 import com.squareup.square.models.CancelTerminalCheckoutResponse;
 import com.squareup.square.models.CancelTerminalRefundResponse;
+import com.squareup.square.models.CreateTerminalActionRequest;
+import com.squareup.square.models.CreateTerminalActionResponse;
 import com.squareup.square.models.CreateTerminalCheckoutRequest;
 import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
+import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
+import com.squareup.square.models.SearchTerminalActionsRequest;
+import com.squareup.square.models.SearchTerminalActionsResponse;
 import com.squareup.square.models.SearchTerminalCheckoutsRequest;
 import com.squareup.square.models.SearchTerminalCheckoutsResponse;
 import com.squareup.square.models.SearchTerminalRefundsRequest;
@@ -22,6 +28,88 @@ import java.util.concurrent.CompletableFuture;
  * This can be overridden for the mock calls.
  */
 public interface TerminalApi {
+    /**
+     * Creates a Terminal action request and sends it to the specified device to take a payment for
+     * the requested amount.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CreateTerminalActionResponse createTerminalAction(
+            final CreateTerminalActionRequest body) throws ApiException, IOException;
+
+    /**
+     * Creates a Terminal action request and sends it to the specified device to take a payment for
+     * the requested amount.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateTerminalActionResponse response from the API call
+     */
+    CompletableFuture<CreateTerminalActionResponse> createTerminalActionAsync(
+            final CreateTerminalActionRequest body);
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the
+     * request. Terminal action requests are available for 30 days.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SearchTerminalActionsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    SearchTerminalActionsResponse searchTerminalActions(
+            final SearchTerminalActionsRequest body) throws ApiException, IOException;
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the
+     * request. Terminal action requests are available for 30 days.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SearchTerminalActionsResponse response from the API call
+     */
+    CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
+            final SearchTerminalActionsRequest body);
+
+    /**
+     * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
+     * for 30 days.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the GetTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    GetTerminalActionResponse getTerminalAction(
+            final String actionId) throws ApiException, IOException;
+
+    /**
+     * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
+     * for 30 days.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the GetTerminalActionResponse response from the API call
+     */
+    CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
+            final String actionId);
+
+    /**
+     * Cancels a Terminal action request if the status of the request permits it.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the CancelTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CancelTerminalActionResponse cancelTerminalAction(
+            final String actionId) throws ApiException, IOException;
+
+    /**
+     * Cancels a Terminal action request if the status of the request permits it.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the CancelTerminalActionResponse response from the API call
+     */
+    CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
+            final String actionId);
+
     /**
      * Creates a Terminal checkout request and sends it to the specified device to take a payment
      * for the requested amount.

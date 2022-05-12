@@ -192,7 +192,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for Source.
-     * Provides information about the application used to generate a change.
+     * Represents information about the application used to generate a change.
      * @return Returns the SourceApplication
      */
     @JsonGetter("source")

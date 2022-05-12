@@ -121,10 +121,6 @@ CompletableFuture<UpsertSnippetResponse> upsertSnippetAsync(
 String siteId = "site_id6";
 Snippet snippet = new Snippet.Builder(
         "<script>var js = 1;</script>")
-    .id("id4")
-    .siteId("site_id0")
-    .createdAt("created_at8")
-    .updatedAt("updated_at0")
     .build();
 UpsertSnippetRequest body = new UpsertSnippetRequest.Builder(
         snippet)

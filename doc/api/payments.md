@@ -62,17 +62,7 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 ## Example Usage
 
 ```java
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-String sortOrder = "sort_order0";
-String cursor = "cursor6";
-String locationId = "location_id4";
-Long total = 10L;
-String last4 = "last_42";
-String cardBrand = "card_brand6";
-Integer limit = 172;
-
-paymentsApi.listPaymentsAsync(beginTime, endTime, sortOrder, cursor, locationId, total, last4, cardBrand, limit).thenAccept(result -> {
+paymentsApi.listPaymentsAsync(null, null, null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -115,10 +105,6 @@ Money money = new Money.Builder()
     .currency("USD")
     .build();
 Money money = new Money.Builder()
-    .amount(198L)
-    .currency("CHF")
-    .build();
-Money money = new Money.Builder()
     .amount(10L)
     .currency("USD")
     .build();
@@ -126,11 +112,8 @@ CreatePaymentRequest body = new CreatePaymentRequest.Builder(
         "ccof:GaJGNaZa8x4OgDJn4GB",
         "7b0f3ec5-086a-4871-8f13-3c81b3875218",
         amountMoney)
-    .tipMoney(bodyTipMoney)
     .appFeeMoney(bodyAppFeeMoney)
-    .delayDuration("delay_duration6")
     .autocomplete(true)
-    .orderId("order_id0")
     .customerId("W92WH6P11H4Z77CTET0RNTGFW8")
     .locationId("L88917AVBK2S5")
     .referenceId("123456")
@@ -259,9 +242,6 @@ Money money = new Money.Builder()
     .currency("USD")
     .build();
 Payment payment = new Payment.Builder()
-    .id("id2")
-    .createdAt("created_at0")
-    .updatedAt("updated_at8")
     .amountMoney(paymentAmountMoney)
     .tipMoney(paymentTipMoney)
     .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
@@ -343,7 +323,6 @@ CompletableFuture<CompletePaymentResponse> completePaymentAsync(
 ```java
 String paymentId = "payment_id0";
 CompletePaymentRequest body = new CompletePaymentRequest.Builder()
-    .versionToken("version_token2")
     .build();
 
 paymentsApi.completePaymentAsync(paymentId, body).thenAccept(result -> {

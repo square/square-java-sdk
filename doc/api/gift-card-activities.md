@@ -53,16 +53,7 @@ CompletableFuture<ListGiftCardActivitiesResponse> listGiftCardActivitiesAsync(
 ## Example Usage
 
 ```java
-String giftCardId = "gift_card_id8";
-String type = "type0";
-String locationId = "location_id4";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-Integer limit = 172;
-String cursor = "cursor6";
-String sortOrder = "sort_order0";
-
-giftCardActivitiesApi.listGiftCardActivitiesAsync(giftCardId, type, locationId, beginTime, endTime, limit, cursor, sortOrder).thenAccept(result -> {
+giftCardActivitiesApi.listGiftCardActivitiesAsync(null, null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -73,9 +64,9 @@ giftCardActivitiesApi.listGiftCardActivitiesAsync(giftCardId, type, locationId, 
 
 # Create Gift Card Activity
 
-Creates a gift card activity. For more information, see
-[GiftCardActivity](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#giftcardactivity) and
-[Using activated gift cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#using-activated-gift-cards).
+Creates a gift card activity to manage the balance or state of a [gift card](../../doc/models/gift-card.md).
+For example, you create an `ACTIVATE` activity to activate a gift card with an initial balance
+before the gift card can be used.
 
 ```java
 CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
@@ -95,33 +86,14 @@ CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
-    .amount(88L)
-    .currency("ANG")
-    .build();
-Money money = new Money.Builder()
-    .amount(10L)
-    .currency("MXV")
-    .build();
-List<String> bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds = new LinkedList<>();
-bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids4");
-bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids5");
-bodyGiftCardActivityActivateActivityDetailsBuyerPaymentInstrumentIds.add("buyer_payment_instrument_ids6");
 GiftCardActivityActivate giftCardActivityActivate = new GiftCardActivityActivate.Builder()
-    .amountMoney(giftCardActivityActivateAmountMoney)
     .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
     .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
-    .referenceId("reference_id4")
-    .buyerPaymentInstrumentIds(giftCardActivityActivateBuyerPaymentInstrumentIds)
     .build();
 GiftCardActivity giftCardActivity = new GiftCardActivity.Builder(
         "ACTIVATE",
         "81FN9BNFZTKS4")
-    .id("id2")
-    .createdAt("created_at0")
     .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
-    .giftCardGan("gift_card_gan8")
-    .giftCardBalanceMoney(giftCardActivityGiftCardBalanceMoney)
     .activateActivityDetails(giftCardActivityActivateActivityDetails)
     .build();
 CreateGiftCardActivityRequest body = new CreateGiftCardActivityRequest.Builder(

@@ -10,6 +10,10 @@ TerminalApi terminalApi = client.getTerminalApi();
 
 ## Methods
 
+* [Create Terminal Action](../../doc/api/terminal.md#create-terminal-action)
+* [Search Terminal Actions](../../doc/api/terminal.md#search-terminal-actions)
+* [Get Terminal Action](../../doc/api/terminal.md#get-terminal-action)
+* [Cancel Terminal Action](../../doc/api/terminal.md#cancel-terminal-action)
 * [Create Terminal Checkout](../../doc/api/terminal.md#create-terminal-checkout)
 * [Search Terminal Checkouts](../../doc/api/terminal.md#search-terminal-checkouts)
 * [Get Terminal Checkout](../../doc/api/terminal.md#get-terminal-checkout)
@@ -18,6 +22,168 @@ TerminalApi terminalApi = client.getTerminalApi();
 * [Search Terminal Refunds](../../doc/api/terminal.md#search-terminal-refunds)
 * [Get Terminal Refund](../../doc/api/terminal.md#get-terminal-refund)
 * [Cancel Terminal Refund](../../doc/api/terminal.md#cancel-terminal-refund)
+
+
+# Create Terminal Action
+
+Creates a Terminal action request and sends it to the specified device to take a payment
+for the requested amount.
+
+```java
+CompletableFuture<CreateTerminalActionResponse> createTerminalActionAsync(
+    final CreateTerminalActionRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CreateTerminalActionRequest`](../../doc/models/create-terminal-action-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`CreateTerminalActionResponse`](../../doc/models/create-terminal-action-response.md)
+
+## Example Usage
+
+```java
+SaveCardOptions saveCardOptions = new SaveCardOptions.Builder(
+        "{{CUSTOMER_ID}}")
+    .referenceId("user-id-1")
+    .build();
+TerminalAction terminalAction = new TerminalAction.Builder()
+    .deviceId("{{DEVICE_ID}}")
+    .deadlineDuration("PT5M")
+    .type("SAVE_CARD")
+    .saveCardOptions(terminalActionSaveCardOptions)
+    .build();
+CreateTerminalActionRequest body = new CreateTerminalActionRequest.Builder(
+        "thahn-70e75c10-47f7-4ab6-88cc-aaa4076d065e",
+        action)
+    .build();
+
+terminalApi.createTerminalActionAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Search Terminal Actions
+
+Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
+
+```java
+CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
+    final SearchTerminalActionsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`SearchTerminalActionsRequest`](../../doc/models/search-terminal-actions-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`SearchTerminalActionsResponse`](../../doc/models/search-terminal-actions-response.md)
+
+## Example Usage
+
+```java
+TimeRange timeRange = new TimeRange.Builder()
+    .startAt("2022-04-01T00:00:00.000Z")
+    .build();
+TerminalActionQueryFilter terminalActionQueryFilter = new TerminalActionQueryFilter.Builder()
+    .createdAt(terminalActionQueryFilterCreatedAt)
+    .build();
+TerminalActionQuerySort terminalActionQuerySort = new TerminalActionQuerySort.Builder()
+    .sortOrder("DESC")
+    .build();
+TerminalActionQuery terminalActionQuery = new TerminalActionQuery.Builder()
+    .filter(terminalActionQueryFilter)
+    .sort(terminalActionQuerySort)
+    .build();
+SearchTerminalActionsRequest body = new SearchTerminalActionsRequest.Builder()
+    .query(bodyQuery)
+    .limit(2)
+    .build();
+
+terminalApi.searchTerminalActionsAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Get Terminal Action
+
+Retrieves a Terminal action request by `action_id`. Terminal action requests are available for 30 days.
+
+```java
+CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
+    final String actionId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction` |
+
+## Response Type
+
+[`GetTerminalActionResponse`](../../doc/models/get-terminal-action-response.md)
+
+## Example Usage
+
+```java
+String actionId = "action_id6";
+
+terminalApi.getTerminalActionAsync(actionId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Cancel Terminal Action
+
+Cancels a Terminal action request if the status of the request permits it.
+
+```java
+CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
+    final String actionId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction` |
+
+## Response Type
+
+[`CancelTerminalActionResponse`](../../doc/models/cancel-terminal-action-response.md)
+
+## Example Usage
+
+```java
+String actionId = "action_id6";
+
+terminalApi.cancelTerminalActionAsync(actionId).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
 
 
 # Create Terminal Checkout
@@ -47,31 +213,14 @@ Money money = new Money.Builder()
     .amount(2610L)
     .currency("USD")
     .build();
-List<Integer> bodyCheckoutDeviceOptionsTipSettingsTipPercentages = new LinkedList<>();
-bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(148);
-bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(149);
-bodyCheckoutDeviceOptionsTipSettingsTipPercentages.add(150);
-TipSettings tipSettings = new TipSettings.Builder()
-    .allowTipping(false)
-    .separateTipScreen(false)
-    .customTipField(false)
-    .tipPercentages(tipSettingsTipPercentages)
-    .smartTipping(false)
-    .build();
 DeviceCheckoutOptions deviceCheckoutOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
-    .skipReceiptScreen(false)
-    .collectSignature(false)
-    .tipSettings(deviceCheckoutOptionsTipSettings)
     .build();
 TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
         amountMoney,
         deviceOptions)
-    .id("id8")
     .referenceId("id11572")
     .note("A brief note")
-    .deadlineDuration("deadline_duration0")
-    .status("status0")
     .build();
 CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
         "28a0c3bc-7839-11ea-bc55-0242ac130003",
@@ -109,25 +258,14 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 ## Example Usage
 
 ```java
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at2")
-    .endAt("end_at0")
-    .build();
 TerminalCheckoutQueryFilter terminalCheckoutQueryFilter = new TerminalCheckoutQueryFilter.Builder()
-    .deviceId("device_id8")
-    .createdAt(terminalCheckoutQueryFilterCreatedAt)
     .status("COMPLETED")
-    .build();
-TerminalCheckoutQuerySort terminalCheckoutQuerySort = new TerminalCheckoutQuerySort.Builder()
-    .sortOrder("DESC")
     .build();
 TerminalCheckoutQuery terminalCheckoutQuery = new TerminalCheckoutQuery.Builder()
     .filter(terminalCheckoutQueryFilter)
-    .sort(terminalCheckoutQuerySort)
     .build();
 SearchTerminalCheckoutsRequest body = new SearchTerminalCheckoutsRequest.Builder()
     .query(bodyQuery)
-    .cursor("cursor0")
     .limit(2)
     .build();
 
@@ -237,11 +375,6 @@ TerminalRefund terminalRefund = new TerminalRefund.Builder(
         amountMoney,
         "Returning items",
         "f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
-    .id("id4")
-    .refundId("refund_id8")
-    .orderId("order_id8")
-    .deadlineDuration("deadline_duration6")
-    .status("status6")
     .build();
 CreateTerminalRefundRequest body = new CreateTerminalRefundRequest.Builder(
         "402a640b-b26f-401f-b406-46f839590c04")
@@ -279,25 +412,14 @@ CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
 ## Example Usage
 
 ```java
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at2")
-    .endAt("end_at0")
-    .build();
 TerminalRefundQueryFilter terminalRefundQueryFilter = new TerminalRefundQueryFilter.Builder()
-    .deviceId("device_id8")
-    .createdAt(terminalRefundQueryFilterCreatedAt)
     .status("COMPLETED")
-    .build();
-TerminalRefundQuerySort terminalRefundQuerySort = new TerminalRefundQuerySort.Builder()
-    .sortOrder("sort_order8")
     .build();
 TerminalRefundQuery terminalRefundQuery = new TerminalRefundQuery.Builder()
     .filter(terminalRefundQueryFilter)
-    .sort(terminalRefundQuerySort)
     .build();
 SearchTerminalRefundsRequest body = new SearchTerminalRefundsRequest.Builder()
     .query(bodyQuery)
-    .cursor("cursor0")
     .limit(1)
     .build();
 

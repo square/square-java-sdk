@@ -52,11 +52,8 @@ CompletableFuture<List<V1Order>> listOrdersAsync(
 
 ```java
 String locationId = "location_id4";
-String order = "DESC";
-Integer limit = 172;
-String batchToken = "batch_token2";
 
-v1TransactionsApi.listOrdersAsync(locationId, order, limit, batchToken).thenAccept(result -> {
+v1TransactionsApi.listOrdersAsync(locationId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -135,10 +132,6 @@ String locationId = "location_id4";
 String orderId = "order_id6";
 V1UpdateOrderRequest body = new V1UpdateOrderRequest.Builder(
         "REFUND")
-    .shippedTrackingNumber("shipped_tracking_number6")
-    .completedNote("completed_note6")
-    .refundedNote("refunded_note0")
-    .canceledNote("canceled_note4")
     .build();
 
 v1TransactionsApi.updateOrderAsync(locationId, orderId, body).thenAccept(result -> {
@@ -197,14 +190,9 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
 
 ```java
 String locationId = "location_id4";
-String order = "DESC";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-Integer limit = 172;
-String batchToken = "batch_token2";
 Boolean includePartial = false;
 
-v1TransactionsApi.listPaymentsAsync(locationId, order, beginTime, endTime, limit, batchToken, includePartial).thenAccept(result -> {
+v1TransactionsApi.listPaymentsAsync(locationId, null, null, null, null, null, includePartial).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -286,13 +274,8 @@ CompletableFuture<List<V1Refund>> listRefundsAsync(
 
 ```java
 String locationId = "location_id4";
-String order = "DESC";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-Integer limit = 172;
-String batchToken = "batch_token2";
 
-v1TransactionsApi.listRefundsAsync(locationId, order, beginTime, endTime, limit, batchToken).thenAccept(result -> {
+v1TransactionsApi.listRefundsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -339,16 +322,10 @@ CompletableFuture<V1Refund> createRefundAsync(
 
 ```java
 String locationId = "location_id4";
-V1Money v1Money = new V1Money.Builder()
-    .amount(222)
-    .currencyCode("CLF")
-    .build();
 V1CreateRefundRequest body = new V1CreateRefundRequest.Builder(
         "payment_id6",
         "FULL",
         "reason8")
-    .refundedMoney(bodyRefundedMoney)
-    .requestIdempotenceKey("request_idempotence_key2")
     .build();
 
 v1TransactionsApi.createRefundAsync(locationId, body).thenAccept(result -> {
@@ -402,14 +379,8 @@ CompletableFuture<List<V1Settlement>> listSettlementsAsync(
 
 ```java
 String locationId = "location_id4";
-String order = "DESC";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-Integer limit = 172;
-String status = "SENT";
-String batchToken = "batch_token2";
 
-v1TransactionsApi.listSettlementsAsync(locationId, order, beginTime, endTime, limit, status, batchToken).thenAccept(result -> {
+v1TransactionsApi.listSettlementsAsync(locationId, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

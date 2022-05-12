@@ -205,7 +205,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Creates a booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call
@@ -226,7 +228,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Creates a booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call
@@ -792,7 +796,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Updates a booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -816,7 +822,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Updates a booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-updated booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -900,7 +908,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Cancels an existing booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -924,7 +934,9 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     /**
      * Cancels an existing booking. To call this endpoint with buyer-level permissions, set
      * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
+     * calls to this endpoint with seller-level permissions to succeed, the seller must have
+     * subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  bookingId  Required parameter: The ID of the [Booking]($m/Booking) object
      *         representing the to-be-cancelled booking.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

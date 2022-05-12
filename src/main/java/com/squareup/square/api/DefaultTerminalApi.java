@@ -13,14 +13,20 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.models.CancelTerminalActionResponse;
 import com.squareup.square.models.CancelTerminalCheckoutResponse;
 import com.squareup.square.models.CancelTerminalRefundResponse;
+import com.squareup.square.models.CreateTerminalActionRequest;
+import com.squareup.square.models.CreateTerminalActionResponse;
 import com.squareup.square.models.CreateTerminalCheckoutRequest;
 import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
+import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
+import com.squareup.square.models.SearchTerminalActionsRequest;
+import com.squareup.square.models.SearchTerminalActionsResponse;
 import com.squareup.square.models.SearchTerminalCheckoutsRequest;
 import com.squareup.square.models.SearchTerminalCheckoutsResponse;
 import com.squareup.square.models.SearchTerminalRefundsRequest;
@@ -57,6 +63,380 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     public DefaultTerminalApi(Configuration config, HttpClient httpClient,
             Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
         super(config, httpClient, authManagers, httpCallback);
+    }
+
+    /**
+     * Creates a Terminal action request and sends it to the specified device to take a payment for
+     * the requested amount.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public CreateTerminalActionResponse createTerminalAction(
+            final CreateTerminalActionRequest body) throws ApiException, IOException {
+        HttpRequest request = buildCreateTerminalActionRequest(body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleCreateTerminalActionResponse(context);
+    }
+
+    /**
+     * Creates a Terminal action request and sends it to the specified device to take a payment for
+     * the requested amount.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateTerminalActionResponse response from the API call
+     */
+    public CompletableFuture<CreateTerminalActionResponse> createTerminalActionAsync(
+            final CreateTerminalActionRequest body) {
+        return makeHttpCallAsync(() -> buildCreateTerminalActionRequest(body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleCreateTerminalActionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for createTerminalAction.
+     */
+    private HttpRequest buildCreateTerminalActionRequest(
+            final CreateTerminalActionRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/terminals/actions");
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", internalUserAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for createTerminalAction.
+     * @return An object of type CreateTerminalActionResponse
+     */
+    private CreateTerminalActionResponse handleCreateTerminalActionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        CreateTerminalActionResponse result = ApiHelper.deserialize(responseBody,
+                CreateTerminalActionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the
+     * request. Terminal action requests are available for 30 days.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SearchTerminalActionsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public SearchTerminalActionsResponse searchTerminalActions(
+            final SearchTerminalActionsRequest body) throws ApiException, IOException {
+        HttpRequest request = buildSearchTerminalActionsRequest(body);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleSearchTerminalActionsResponse(context);
+    }
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the
+     * request. Terminal action requests are available for 30 days.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the SearchTerminalActionsResponse response from the API call
+     */
+    public CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
+            final SearchTerminalActionsRequest body) {
+        return makeHttpCallAsync(() -> buildSearchTerminalActionsRequest(body),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleSearchTerminalActionsResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for searchTerminalActions.
+     */
+    private HttpRequest buildSearchTerminalActionsRequest(
+            final SearchTerminalActionsRequest body) throws JsonProcessingException {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/terminals/actions/search");
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Content-Type", "application/json");
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", internalUserAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        String bodyJson = ApiHelper.serialize(body);
+        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for searchTerminalActions.
+     * @return An object of type SearchTerminalActionsResponse
+     */
+    private SearchTerminalActionsResponse handleSearchTerminalActionsResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        SearchTerminalActionsResponse result = ApiHelper.deserialize(responseBody,
+                SearchTerminalActionsResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
+     * for 30 days.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the GetTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public GetTerminalActionResponse getTerminalAction(
+            final String actionId) throws ApiException, IOException {
+        HttpRequest request = buildGetTerminalActionRequest(actionId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleGetTerminalActionResponse(context);
+    }
+
+    /**
+     * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
+     * for 30 days.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the GetTerminalActionResponse response from the API call
+     */
+    public CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
+            final String actionId) {
+        return makeHttpCallAsync(() -> buildGetTerminalActionRequest(actionId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleGetTerminalActionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for getTerminalAction.
+     */
+    private HttpRequest buildGetTerminalActionRequest(
+            final String actionId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/terminals/actions/{action_id}");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("action_id",
+                new SimpleEntry<Object, Boolean>(actionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", internalUserAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for getTerminalAction.
+     * @return An object of type GetTerminalActionResponse
+     */
+    private GetTerminalActionResponse handleGetTerminalActionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        GetTerminalActionResponse result = ApiHelper.deserialize(responseBody,
+                GetTerminalActionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
+    }
+
+    /**
+     * Cancels a Terminal action request if the status of the request permits it.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the CancelTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public CancelTerminalActionResponse cancelTerminalAction(
+            final String actionId) throws ApiException, IOException {
+        HttpRequest request = buildCancelTerminalActionRequest(actionId);
+        authManagers.get("global").apply(request);
+
+        HttpResponse response = getClientInstance().execute(request, false);
+        HttpContext context = new HttpContext(request, response);
+
+        return handleCancelTerminalActionResponse(context);
+    }
+
+    /**
+     * Cancels a Terminal action request if the status of the request permits it.
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @return    Returns the CancelTerminalActionResponse response from the API call
+     */
+    public CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
+            final String actionId) {
+        return makeHttpCallAsync(() -> buildCancelTerminalActionRequest(actionId),
+            req -> authManagers.get("global").applyAsync(req)
+                .thenCompose(request -> getClientInstance()
+                        .executeAsync(request, false)),
+            context -> handleCancelTerminalActionResponse(context));
+    }
+
+    /**
+     * Builds the HttpRequest object for cancelTerminalAction.
+     */
+    private HttpRequest buildCancelTerminalActionRequest(
+            final String actionId) {
+        //the base uri for api requests
+        String baseUri = config.getBaseUri();
+
+        //prepare query string for API call
+        final StringBuilder queryBuilder = new StringBuilder(baseUri
+                + "/v2/terminals/actions/{action_id}/cancel");
+
+        //process template parameters
+        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
+        templateParameters.put("action_id",
+                new SimpleEntry<Object, Boolean>(actionId, true));
+        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
+
+        //load all headers for the outgoing API request
+        Headers headers = new Headers();
+        headers.add("Square-Version", config.getSquareVersion());
+        headers.add("user-agent", internalUserAgent);
+        headers.add("accept", "application/json");
+        headers.addAll(config.getAdditionalHeaders());
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onBeforeRequest(request);
+        }
+
+        return request;
+    }
+
+    /**
+     * Processes the response for cancelTerminalAction.
+     * @return An object of type CancelTerminalActionResponse
+     */
+    private CancelTerminalActionResponse handleCancelTerminalActionResponse(
+            HttpContext context) throws ApiException, IOException {
+        HttpResponse response = context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallback() != null) {
+            getHttpCallback().onAfterResponse(context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(response, context);
+
+        //extract result from the http response
+        String responseBody = ((HttpStringResponse) response).getBody();
+        CancelTerminalActionResponse result = ApiHelper.deserialize(responseBody,
+                CancelTerminalActionResponse.class);
+
+        result = result.toBuilder().httpContext(context).build();
+        return result;
     }
 
     /**

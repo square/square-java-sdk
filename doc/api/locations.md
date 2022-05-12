@@ -71,23 +71,13 @@ CompletableFuture<CreateLocationResponse> createLocationAsync(
 ```java
 Address address = new Address.Builder()
     .addressLine1("1234 Peachtree St. NE")
-    .addressLine2("address_line_26")
-    .addressLine3("address_line_32")
     .locality("Atlanta")
-    .sublocality("sublocality6")
     .administrativeDistrictLevel1("GA")
     .postalCode("30309")
     .build();
-List<String> bodyLocationCapabilities = new LinkedList<>();
-bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 Location location = new Location.Builder()
-    .id("id0")
     .name("Midtown")
     .address(locationAddress)
-    .timezone("timezone0")
-    .capabilities(locationCapabilities)
     .description("Midtown Atlanta store")
     .build();
 CreateLocationRequest body = new CreateLocationRequest.Builder()
@@ -162,17 +152,6 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 
 ```java
 String locationId = "location_id4";
-Address address = new Address.Builder()
-    .addressLine1("address_line_16")
-    .addressLine2("address_line_26")
-    .addressLine3("address_line_32")
-    .locality("locality6")
-    .sublocality("sublocality6")
-    .build();
-List<String> bodyLocationCapabilities = new LinkedList<>();
-bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
-bodyLocationCapabilities.add("CREDIT_CARD_PROCESSING");
-bodyLocationCapabilities.add("AUTOMATIC_TRANSFERS");
 List<BusinessHoursPeriod> bodyLocationBusinessHoursPeriods = new LinkedList<>();
 
 BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.Builder()
@@ -200,11 +179,6 @@ BusinessHours businessHours = new BusinessHours.Builder()
     .periods(businessHoursPeriods)
     .build();
 Location location = new Location.Builder()
-    .id("id0")
-    .name("name0")
-    .address(locationAddress)
-    .timezone("timezone0")
-    .capabilities(locationCapabilities)
     .businessHours(locationBusinessHours)
     .description("Midtown Atlanta store - Open weekends")
     .build();

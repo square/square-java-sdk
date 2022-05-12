@@ -49,13 +49,8 @@ CompletableFuture<ListCashDrawerShiftsResponse> listCashDrawerShiftsAsync(
 
 ```java
 String locationId = "location_id4";
-String sortOrder = "DESC";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-Integer limit = 172;
-String cursor = "cursor6";
 
-cashDrawersApi.listCashDrawerShiftsAsync(locationId, sortOrder, beginTime, endTime, limit, cursor).thenAccept(result -> {
+cashDrawersApi.listCashDrawerShiftsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -131,10 +126,8 @@ CompletableFuture<ListCashDrawerShiftEventsResponse> listCashDrawerShiftEventsAs
 ```java
 String locationId = "location_id4";
 String shiftId = "shift_id0";
-Integer limit = 172;
-String cursor = "cursor6";
 
-cashDrawersApi.listCashDrawerShiftEventsAsync(locationId, shiftId, limit, cursor).thenAccept(result -> {
+cashDrawersApi.listCashDrawerShiftEventsAsync(locationId, shiftId, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

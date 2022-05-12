@@ -56,14 +56,7 @@ CompletableFuture<ListBookingsResponse> listBookingsAsync(
 ## Example Usage
 
 ```java
-Integer limit = 172;
-String cursor = "cursor6";
-String teamMemberId = "team_member_id0";
-String locationId = "location_id4";
-String startAtMin = "start_at_min8";
-String startAtMax = "start_at_max8";
-
-bookingsApi.listBookingsAsync(limit, cursor, teamMemberId, locationId, startAtMin, startAtMax).thenAccept(result -> {
+bookingsApi.listBookingsAsync(null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -78,6 +71,9 @@ Creates a booking.
 
 To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
 
 ```java
 CompletableFuture<CreateBookingResponse> createBookingAsync(
@@ -98,15 +94,9 @@ CompletableFuture<CreateBookingResponse> createBookingAsync(
 
 ```java
 Booking booking = new Booking.Builder()
-    .id("id8")
-    .version(148)
-    .status("ACCEPTED")
-    .createdAt("created_at6")
-    .updatedAt("updated_at4")
     .build();
 CreateBookingRequest body = new CreateBookingRequest.Builder(
         booking)
-    .idempotencyKey("idempotency_key2")
     .build();
 
 bookingsApi.createBookingAsync(body).thenAccept(result -> {
@@ -144,56 +134,9 @@ CompletableFuture<SearchAvailabilityResponse> searchAvailabilityAsync(
 
 ```java
 TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at8")
-    .endAt("end_at4")
     .build();
-List<SegmentFilter> bodyQueryFilterSegmentFilters = new LinkedList<>();
-
-List<String> bodyQueryFilterSegmentFilters0TeamMemberIdFilterAll = new LinkedList<>();
-bodyQueryFilterSegmentFilters0TeamMemberIdFilterAll.add("all7");
-List<String> bodyQueryFilterSegmentFilters0TeamMemberIdFilterAny = new LinkedList<>();
-bodyQueryFilterSegmentFilters0TeamMemberIdFilterAny.add("any0");
-bodyQueryFilterSegmentFilters0TeamMemberIdFilterAny.add("any1");
-List<String> bodyQueryFilterSegmentFilters0TeamMemberIdFilterNone = new LinkedList<>();
-bodyQueryFilterSegmentFilters0TeamMemberIdFilterNone.add("none5");
-FilterValue filterValue = new FilterValue.Builder()
-    .all(filterValueAll)
-    .any(filterValueAny)
-    .none(filterValueNone)
-    .build();
-SegmentFilter bodyQueryFilterSegmentFilters0 = new SegmentFilter.Builder(
-        "service_variation_id8")
-    .teamMemberIdFilter(bodyQueryFilterSegmentFilters0TeamMemberIdFilter)
-    .build();
-bodyQueryFilterSegmentFilters.add(bodyQueryFilterSegmentFilters0);
-
-List<String> bodyQueryFilterSegmentFilters1TeamMemberIdFilterAll = new LinkedList<>();
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAll.add("all6");
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAll.add("all7");
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAll.add("all8");
-List<String> bodyQueryFilterSegmentFilters1TeamMemberIdFilterAny = new LinkedList<>();
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAny.add("any1");
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAny.add("any2");
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterAny.add("any3");
-List<String> bodyQueryFilterSegmentFilters1TeamMemberIdFilterNone = new LinkedList<>();
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterNone.add("none6");
-bodyQueryFilterSegmentFilters1TeamMemberIdFilterNone.add("none7");
-FilterValue filterValue = new FilterValue.Builder()
-    .all(filterValueAll)
-    .any(filterValueAny)
-    .none(filterValueNone)
-    .build();
-SegmentFilter bodyQueryFilterSegmentFilters1 = new SegmentFilter.Builder(
-        "service_variation_id7")
-    .teamMemberIdFilter(bodyQueryFilterSegmentFilters1TeamMemberIdFilter)
-    .build();
-bodyQueryFilterSegmentFilters.add(bodyQueryFilterSegmentFilters1);
-
 SearchAvailabilityFilter searchAvailabilityFilter = new SearchAvailabilityFilter.Builder(
         startAtRange)
-    .locationId("location_id6")
-    .segmentFilters(searchAvailabilityFilterSegmentFilters)
-    .bookingId("booking_id6")
     .build();
 SearchAvailabilityQuery searchAvailabilityQuery = new SearchAvailabilityQuery.Builder(
         filter)
@@ -264,11 +207,8 @@ CompletableFuture<ListTeamMemberBookingProfilesResponse> listTeamMemberBookingPr
 
 ```java
 Boolean bookableOnly = false;
-Integer limit = 172;
-String cursor = "cursor6";
-String locationId = "location_id4";
 
-bookingsApi.listTeamMemberBookingProfilesAsync(bookableOnly, limit, cursor, locationId).thenAccept(result -> {
+bookingsApi.listTeamMemberBookingProfilesAsync(bookableOnly, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -353,6 +293,9 @@ Updates a booking.
 To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
 
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+
 ```java
 CompletableFuture<UpdateBookingResponse> updateBookingAsync(
     final String bookingId,
@@ -375,15 +318,9 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 ```java
 String bookingId = "booking_id4";
 Booking booking = new Booking.Builder()
-    .id("id8")
-    .version(148)
-    .status("ACCEPTED")
-    .createdAt("created_at6")
-    .updatedAt("updated_at4")
     .build();
 UpdateBookingRequest body = new UpdateBookingRequest.Builder(
         booking)
-    .idempotencyKey("idempotency_key2")
     .build();
 
 bookingsApi.updateBookingAsync(bookingId, body).thenAccept(result -> {
@@ -401,6 +338,9 @@ Cancels an existing booking.
 
 To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
 
 ```java
 CompletableFuture<CancelBookingResponse> cancelBookingAsync(
@@ -424,8 +364,6 @@ CompletableFuture<CancelBookingResponse> cancelBookingAsync(
 ```java
 String bookingId = "booking_id4";
 CancelBookingRequest body = new CancelBookingRequest.Builder()
-    .idempotencyKey("idempotency_key2")
-    .bookingVersion(8)
     .build();
 
 bookingsApi.cancelBookingAsync(bookingId, body).thenAccept(result -> {

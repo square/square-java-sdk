@@ -49,17 +49,10 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 
 ```java
 LoyaltyAccountMapping loyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
-    .id("id6")
-    .createdAt("created_at4")
     .phoneNumber("+14155551234")
     .build();
 LoyaltyAccount loyaltyAccount = new LoyaltyAccount.Builder(
         "d619f755-2d17-41f3-990d-c04ecedd64dd")
-    .id("id2")
-    .balance(14)
-    .lifetimePoints(38)
-    .customerId("customer_id0")
-    .enrolledAt("enrolled_at2")
     .mapping(loyaltyAccountMapping)
     .build();
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
@@ -105,23 +98,16 @@ CompletableFuture<SearchLoyaltyAccountsResponse> searchLoyaltyAccountsAsync(
 List<LoyaltyAccountMapping> bodyQueryMappings = new LinkedList<>();
 
 LoyaltyAccountMapping bodyQueryMappings0 = new LoyaltyAccountMapping.Builder()
-    .id("id4")
-    .createdAt("created_at8")
     .phoneNumber("+14155551234")
     .build();
 bodyQueryMappings.add(bodyQueryMappings0);
 
-List<String> bodyQueryCustomerIds = new LinkedList<>();
-bodyQueryCustomerIds.add("customer_ids5");
-bodyQueryCustomerIds.add("customer_ids4");
 SearchLoyaltyAccountsRequestLoyaltyAccountQuery searchLoyaltyAccountsRequestLoyaltyAccountQuery = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
     .mappings(searchLoyaltyAccountsRequestLoyaltyAccountQueryMappings)
-    .customerIds(searchLoyaltyAccountsRequestLoyaltyAccountQueryCustomerIds)
     .build();
 SearchLoyaltyAccountsRequest body = new SearchLoyaltyAccountsRequest.Builder()
     .query(bodyQuery)
     .limit(10)
-    .cursor("cursor0")
     .build();
 
 loyaltyApi.searchLoyaltyAccountsAsync(body).thenAccept(result -> {
@@ -200,8 +186,6 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 ```java
 String accountId = "account_id2";
 LoyaltyEventAccumulatePoints loyaltyEventAccumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
-    .loyaltyProgramId("loyalty_program_id8")
-    .points(90)
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
     .build();
 AccumulateLoyaltyPointsRequest body = new AccumulateLoyaltyPointsRequest.Builder(
@@ -250,7 +234,6 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 String accountId = "account_id2";
 LoyaltyEventAdjustPoints loyaltyEventAdjustPoints = new LoyaltyEventAdjustPoints.Builder(
         10)
-    .loyaltyProgramId("loyalty_program_id4")
     .reason("Complimentary points")
     .build();
 AdjustLoyaltyPointsRequest body = new AdjustLoyaltyPointsRequest.Builder(
@@ -296,38 +279,10 @@ CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
 ## Example Usage
 
 ```java
-LoyaltyEventLoyaltyAccountFilter loyaltyEventLoyaltyAccountFilter = new LoyaltyEventLoyaltyAccountFilter.Builder(
-        "loyalty_account_id6")
-    .build();
-List<String> bodyQueryFilterTypeFilterTypes = new LinkedList<>();
-bodyQueryFilterTypeFilterTypes.add("DELETE_REWARD");
-bodyQueryFilterTypeFilterTypes.add("ADJUST_POINTS");
-bodyQueryFilterTypeFilterTypes.add("EXPIRE_POINTS");
-LoyaltyEventTypeFilter loyaltyEventTypeFilter = new LoyaltyEventTypeFilter.Builder(
-        loyaltyEventTypeFilterTypes)
-    .build();
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at8")
-    .endAt("end_at4")
-    .build();
-LoyaltyEventDateTimeFilter loyaltyEventDateTimeFilter = new LoyaltyEventDateTimeFilter.Builder(
-        createdAt)
-    .build();
-List<String> bodyQueryFilterLocationFilterLocationIds = new LinkedList<>();
-bodyQueryFilterLocationFilterLocationIds.add("location_ids2");
-bodyQueryFilterLocationFilterLocationIds.add("location_ids3");
-bodyQueryFilterLocationFilterLocationIds.add("location_ids4");
-LoyaltyEventLocationFilter loyaltyEventLocationFilter = new LoyaltyEventLocationFilter.Builder(
-        loyaltyEventLocationFilterLocationIds)
-    .build();
 LoyaltyEventOrderFilter loyaltyEventOrderFilter = new LoyaltyEventOrderFilter.Builder(
         "PyATxhYLfsMqpVkcKJITPydgEYfZY")
     .build();
 LoyaltyEventFilter loyaltyEventFilter = new LoyaltyEventFilter.Builder()
-    .loyaltyAccountFilter(loyaltyEventFilterLoyaltyAccountFilter)
-    .typeFilter(loyaltyEventFilterTypeFilter)
-    .dateTimeFilter(loyaltyEventFilterDateTimeFilter)
-    .locationFilter(loyaltyEventFilterLocationFilter)
     .orderFilter(loyaltyEventFilterOrderFilter)
     .build();
 LoyaltyEventQuery loyaltyEventQuery = new LoyaltyEventQuery.Builder()
@@ -336,7 +291,6 @@ LoyaltyEventQuery loyaltyEventQuery = new LoyaltyEventQuery.Builder()
 SearchLoyaltyEventsRequest body = new SearchLoyaltyEventsRequest.Builder()
     .query(bodyQuery)
     .limit(30)
-    .cursor("cursor0")
     .build();
 
 loyaltyApi.searchLoyaltyEventsAsync(body).thenAccept(result -> {
@@ -447,13 +401,8 @@ CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
 
 ```java
 String programId = "program_id0";
-Money money = new Money.Builder()
-    .amount(72L)
-    .currency("UZS")
-    .build();
 CalculateLoyaltyPointsRequest body = new CalculateLoyaltyPointsRequest.Builder()
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
-    .transactionAmountMoney(bodyTransactionAmountMoney)
     .build();
 
 loyaltyApi.calculateLoyaltyPointsAsync(programId, body).thenAccept(result -> {
@@ -497,11 +446,7 @@ CompletableFuture<CreateLoyaltyRewardResponse> createLoyaltyRewardAsync(
 LoyaltyReward loyaltyReward = new LoyaltyReward.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd",
         "e1b39225-9da5-43d1-a5db-782cdd8ad94f")
-    .id("id4")
-    .status("REDEEMED")
-    .points(230)
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
-    .createdAt("created_at2")
     .build();
 CreateLoyaltyRewardRequest body = new CreateLoyaltyRewardRequest.Builder(
         reward,
@@ -547,12 +492,10 @@ CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
 ```java
 SearchLoyaltyRewardsRequestLoyaltyRewardQuery searchLoyaltyRewardsRequestLoyaltyRewardQuery = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
-    .status("REDEEMED")
     .build();
 SearchLoyaltyRewardsRequest body = new SearchLoyaltyRewardsRequest.Builder()
     .query(bodyQuery)
     .limit(10)
-    .cursor("cursor0")
     .build();
 
 loyaltyApi.searchLoyaltyRewardsAsync(body).thenAccept(result -> {

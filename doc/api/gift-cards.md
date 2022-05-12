@@ -50,13 +50,7 @@ CompletableFuture<ListGiftCardsResponse> listGiftCardsAsync(
 ## Example Usage
 
 ```java
-String type = "type0";
-String state = "state4";
-Integer limit = 172;
-String cursor = "cursor6";
-String customerId = "customer_id8";
-
-giftCardsApi.listGiftCardsAsync(type, state, limit, cursor, customerId).thenAccept(result -> {
+giftCardsApi.listGiftCardsAsync(null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -67,9 +61,9 @@ giftCardsApi.listGiftCardsAsync(type, state, limit, cursor, customerId).thenAcce
 
 # Create Gift Card
 
-Creates a digital gift card or registers a physical (plastic) gift card. You must activate the gift card before
-it can be used for payment. For more information, see
-[Selling gift cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-square-gift-cards).
+Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
+is created, you must call [CreateGiftCardActivity](../../doc/api/gift-card-activities.md#create-gift-card-activity)
+to activate the card with an initial balance before it can be used for payment.
 
 ```java
 CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
@@ -89,17 +83,8 @@ CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
-    .amount(2L)
-    .currency("DOP")
-    .build();
 GiftCard giftCard = new GiftCard.Builder(
         "DIGITAL")
-    .id("id4")
-    .ganSource("SQUARE")
-    .state("ACTIVE")
-    .balanceMoney(giftCardBalanceMoney)
-    .gan("gan0")
     .build();
 CreateGiftCardRequest body = new CreateGiftCardRequest.Builder(
         "NC9Tm69EjbjtConu",
@@ -264,7 +249,7 @@ giftCardsApi.unlinkCustomerFromGiftCardAsync(giftCardId, body).thenAccept(result
 
 # Retrieve Gift Card
 
-Retrieves a gift card using its ID.
+Retrieves a gift card using the gift card ID.
 
 ```java
 CompletableFuture<RetrieveGiftCardResponse> retrieveGiftCardAsync(
